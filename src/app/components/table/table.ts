@@ -201,6 +201,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
 
+    @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -271,7 +273,7 @@ export class Table implements OnInit, AfterContentInit {
         
     virtualScrollCallback: Function;
 
-    preventSelectionKeysUpdate: boolean;
+    preventSelectionSetterPropagation: boolean;
 
     _selection: any;
 
@@ -407,21 +409,25 @@ export class Table implements OnInit, AfterContentInit {
     set selection(val: any) {
         this._selection = val;
 
-        if(this.dataKey && !this.preventSelectionKeysUpdate) {
-            this.selectionKeys = {};
-            if(this._selection) {
-                if(Array.isArray(this._selection)) {
-                    for(let data of this._selection) {
-                        this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
-                    }
-                }
-                else {
-                    this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
-                }
-            }
+        if(!this.preventSelectionSetterPropagation) {
+            this.updateSelectionKeys();
             this.tableService.onSelectionChange();
         }
-        this.preventSelectionKeysUpdate = false;
+        this.preventSelectionSetterPropagation = false;
+    }
+
+    updateSelectionKeys() {
+        if(this.dataKey && this._selection) {
+            this.selectionKeys = {};
+            if(Array.isArray(this._selection)) {
+                for(let data of this._selection) {
+                    this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                }
+            }
+            else {
+                this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+            }
+        }
     }
 
     updateTotalRecords() {
@@ -590,6 +596,7 @@ export class Table implements OnInit, AfterContentInit {
             let rowData = event.rowData;
             let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
             let selected = this.isSelected(rowData);
+            this.preventSelectionSetterPropagation = true;
 
             if (this.selectionMode === 'single') {
                 if (selected) {
@@ -628,8 +635,6 @@ export class Table implements OnInit, AfterContentInit {
                 }
             }
 
-            //prevent unncessary syncing keys at selection setter
-            this.preventSelectionKeysUpdate = true;
             this.tableService.onSelectionChange();
         }
     }
@@ -674,7 +679,9 @@ export class Table implements OnInit, AfterContentInit {
         return index;
     }
 
-    selectRowWithRadio(event: Event, rowData:any) {
+    toggleRowWithRadio(event: Event, rowData:any) {
+        this.preventSelectionSetterPropagation = true;
+
         if(this.selection != rowData) {
             this._selection = rowData;
             this.selectionChange.emit(this.selection);
@@ -690,9 +697,44 @@ export class Table implements OnInit, AfterContentInit {
             this.selectionChange.emit(this.selection);
             this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
         }
-        
-        this.preventSelectionKeysUpdate = true;
+
         this.tableService.onSelectionChange();
+    }
+
+    toggleRowWithCheckbox(event, rowData: any) {
+        this.selection = this.selection||[];
+        let selected = this.isSelected(rowData);
+        let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+        this.preventSelectionSetterPropagation = true;
+
+        if (selected) {
+            let selectionIndex = this.findIndexInSelection(rowData);
+            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+            this.selectionChange.emit(this.selection);
+            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'checkbox' });
+            if (dataKeyValue) {
+                delete this.selectionKeys[dataKeyValue];
+            }
+        }
+        else {
+            this._selection = this.selection ? [...this.selection, rowData] : [rowData];
+            this.selectionChange.emit(this.selection);
+            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'checkbox' });
+            if (dataKeyValue) {
+                this.selectionKeys[dataKeyValue] = 1;
+            }
+        }
+        
+        this.tableService.onSelectionChange();
+    }
+
+    toggleRowsWithCheckbox(event: Event, check: boolean) {
+        this._selection = check ? this.value.slice() : [];            
+        this.preventSelectionSetterPropagation = true;
+        this.updateSelectionKeys();
+        this.selectionChange.emit(this._selection);
+        this.tableService.onSelectionChange();
+        this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
     }
 
     equals(data1, data2) {
@@ -2032,14 +2074,13 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     template: `
-        <div class="ui-radiobutton ui-widget" (click)="onClick()">
+        <div class="ui-radiobutton ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
-                <input type="radio" [attr.name]="name"
-                    [checked]="selected" (change)="onChange($event)" (focus)="onFocus($event)" (blur)="onBlur($event)">
+                <input type="radio" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
             <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
-                'ui-state-active':selected, 'ui-state-disabled':disabled}">
-                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':selected}"></span>
+                'ui-state-active':checked, 'ui-state-disabled':disabled}">
+                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':checked}"></span>
             </div>
         </div>
     `
@@ -2052,22 +2093,23 @@ export class TableRadioButton  {
 
     @ViewChild('box') boxViewChild: ElementRef;
 
-    selected: boolean;
+    checked: boolean;
 
     subscription: Subscription;
 
     constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.selected = this.dt.isSelected(this.value);
+            this.checked = this.dt.isSelected(this.value);
         });
     }
 
     ngOnInit() {
-        this.selected = this.dt.isSelected(this.value);
+        this.checked = this.dt.isSelected(this.value);
     }
 
     onClick(event: Event) {
-        this.dt.selectRowWithRadio(event, this.value);
+        this.dt.toggleRowWithRadio(event, this.value);
+        this.domHandler.clearSelection();
     }
 
     onFocus() {
@@ -2086,10 +2128,126 @@ export class TableRadioButton  {
    
 }
 
+@Component({
+    selector: 'p-tableCheckbox',
+    template: `
+        <div class="ui-chkbox ui-widget" (click)="onClick($event)">
+            <div class="ui-helper-hidden-accessible">
+                <input type="checkbox" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)">
+            </div>
+            <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
+                'ui-state-active':checked, 'ui-state-disabled':disabled}">
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+            </div>
+        </div>
+    `
+})
+export class TableCheckbox  {
+
+    @Input() disabled: boolean;
+
+    @Input() value: any;
+
+    @ViewChild('box') boxViewChild: ElementRef;
+
+    checked: boolean;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
+        this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+            this.checked = this.dt.isSelected(this.value);
+        });
+    }
+
+    ngOnInit() {
+        this.checked = this.dt.isSelected(this.value);
+    }
+
+    onClick(event: Event) {
+        this.dt.toggleRowWithCheckbox(event, this.value);
+        this.domHandler.clearSelection();
+    }
+
+    onFocus() {
+        this.domHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    onBlur() {
+        this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+   
+}
+
+@Component({
+    selector: 'p-tableHeaderCheckbox',
+    template: `
+        <div class="ui-chkbox ui-widget" (click)="onClick($event, cb.checked)">
+            <div class="ui-helper-hidden-accessible">
+                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)">
+            </div>
+            <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
+                'ui-state-active':checked, 'ui-state-disabled':disabled}">
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+            </div>
+        </div>
+    `
+})
+export class TableHeaderCheckbox  {
+
+    @ViewChild('box') boxViewChild: ElementRef;
+
+    checked: boolean;
+
+    disabled: boolean;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
+        this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+            this.checked = this.updateCheckedState();
+        });
+    }
+
+    ngOnInit() {
+        this.checked = this.updateCheckedState();
+    }
+
+    onClick(event: Event, checked) {
+        this.dt.toggleRowsWithCheckbox(event, !checked);
+        this.domHandler.clearSelection();
+    }
+
+    onFocus() {
+        this.domHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    onBlur() {
+        this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+    updateCheckedState() {
+        return (this.dt.value && this.dt.value.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === this.dt.value.length);
+    }
+   
+}
+
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox]
 })
 export class TableModule { }

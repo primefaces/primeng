@@ -22,7 +22,9 @@ export class TableSelectionDemo implements OnInit {
 
     selectedCar4: Car;
 
-    selectedCars: Car[];
+    selectedCars1: Car[];
+
+    selectedCars2: Car[];
 
     constructor(private carService: CarService) { }
 
