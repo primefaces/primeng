@@ -129,7 +129,7 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
-    @Input() lazy: boolean;
+    @Input() lazy: boolean = false;
 
     @Input() compareSelectionBy: string = 'deepEquals';
 
