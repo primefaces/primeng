@@ -1202,7 +1202,8 @@ export class DataTableDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/colresize']">live example.</a></p>
 
             <h3>Column Reordering</h3>
-            <p>Columns can be reordered using drag drop by setting the reorderableColumns to true and adding pReorderableColumn directive to the columns that can be dragged.</p>
+            <p>Columns can be reordered using drag drop by setting the reorderableColumns to true and adding pReorderableColumn directive to the columns that can be dragged. Note that
+                columns should be dynamic for reordering to work.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" [reorderableColumns]="true"&gt;
