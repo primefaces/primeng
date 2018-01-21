@@ -735,6 +735,21 @@ this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
 </code>
 </pre>
 
+            <p>For custom sort ordering, a compare function can be provided via the compareFunction property on the column.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+cols = [
+    ...
+    &#123; field: 'color', header: 'Color', compareFunction: compareColors &#125;
+];
+
+function compareColors(color1, color2) &#123;
+    const order = [ 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet' ];
+    return order.indexOf(color1) - order.indexOf(color2);
+&#125;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/table/sort']">live example.</a></p>
 
             <h3>Filtering</h3>

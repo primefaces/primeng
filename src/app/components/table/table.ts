@@ -491,6 +491,7 @@ export class Table implements OnInit, AfterContentInit {
         }
         else if (this.value) {
             this.value.sort((data1, data2) => {
+                const column = this.columns ? this.columns.find(col => col.field === this.sortField) : null;
                 let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
                 let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
                 let result = null;
@@ -501,6 +502,8 @@ export class Table implements OnInit, AfterContentInit {
                     result = 1;
                 else if (value1 == null && value2 == null)
                     result = 0;
+                else if (column && column.compareFunction)
+                    result = column.compareFunction(value1, value2);
                 else if (typeof value1 === 'string' && typeof value2 === 'string')
                     result = value1.localeCompare(value2);
                 else
@@ -538,10 +541,17 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
+        const column = this.columns ? this.columns.find(col => col.field === multiSortMeta[index].field) : null;
         let value1 = this.objectUtils.resolveFieldData(data1, multiSortMeta[index].field);
         let value2 = this.objectUtils.resolveFieldData(data2, multiSortMeta[index].field);
         let result = null;
 
+        if (column && column.compareFunction) {
+            const compareResult = column.compareFunction(value1, value2);
+            if (compareResult !== 0) {
+                return multiSortMeta[index].order * compareResult;
+            }
+        }
         if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));

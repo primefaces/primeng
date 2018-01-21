@@ -23,7 +23,13 @@ export class TableSortDemo implements OnInit {
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+            { field: 'color', header: 'Color', compareFunction: compareColors }
         ];
     }
+
+}
+
+function compareColors(color1, color2) {
+    const colorOrder = [ 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'White', 'Gray', 'Black' ];
+    return colorOrder.indexOf(color1) - colorOrder.indexOf(color2);
 }
