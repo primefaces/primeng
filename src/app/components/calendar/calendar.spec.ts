@@ -1,7 +1,9 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Calendar } from './calendar';
+import { Calendar} from './calendar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {ButtonModule} from '../button/button';
+import {SharedModule} from '../common/shared';
 
 describe('Calendar', () => {
   
@@ -11,7 +13,9 @@ describe('Calendar', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        ButtonModule,
+        SharedModule
       ],
       declarations: [
         Calendar

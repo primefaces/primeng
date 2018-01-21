@@ -1,7 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ContextMenu } from './contextmenu';
+import { ContextMenu, ContextMenuSub } from './contextmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {RouterModule} from '@angular/router';
 
 describe('Accordion', () => {
   
@@ -11,10 +12,12 @@ describe('Accordion', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        RouterModule
       ],
       declarations: [
-        ContextMenu
+        ContextMenu,
+        ContextMenuSub
       ]
     });
     
