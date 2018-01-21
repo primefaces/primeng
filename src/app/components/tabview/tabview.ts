@@ -215,11 +215,13 @@ export class TabView implements AfterContentInit,BlockableUI {
         
         if(!tab.selected) {
             let selectedTab: TabPanel = this.findSelectedTab();
+            let previousIndex = this.findTabIndex(selectedTab);
+            let nextIndex = this.findTabIndex(tab);
             if(selectedTab) {
                 selectedTab.selected = false
             }
             tab.selected = true;
-            this.onChange.emit({originalEvent: event, index: this.findTabIndex(tab)});
+            this.onChange.emit({originalEvent: event, index: nextIndex , previousIndex });
         }
         
         if(event) {
