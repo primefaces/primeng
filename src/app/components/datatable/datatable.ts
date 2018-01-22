@@ -163,7 +163,8 @@ export class ColumnFooters {
                             <ng-container *ngTemplateOutlet="col.bodyTemplate; context: {$implicit: col, rowData: rowData, rowIndex: (rowIndex + dt.first)}"></ng-container>
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
-                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]"
+                            <input *ngIf="!col.editorTemplate" type="text" [ngModel]="dt.resolveFieldData(rowData, col.field)"
+                                (ngModelChange)="dt.setFieldData($event, rowData, col.field)"
                                 (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" (blur)="dt.onCellEditorBlur($event, col, rowData, rowIndex)"
                                 (input)="dt.onCellEditorInput($event, col, rowData, rowIndex)" (change)="dt.onCellEditorChange($event, col, rowData, rowIndex)"
                                 class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
@@ -1059,7 +1060,26 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     resolveFieldData(data: any, field: string): any {
         return this.objectUtils.resolveFieldData(data, field);
     }
-    
+
+    setFieldData(value: any, data: any, field: string) {
+        if(data && field) {
+            if(field.indexOf('.') == -1) {
+                data[field] = value;
+            }
+            else {
+                const fields: string[] = field.split('.');
+                let ref = data;
+                for (var i = 0, len = fields.length; i < len - 1; ++i) {
+                    if (ref == null) {
+                        return;
+                    }
+                    ref = ref[fields[i]];
+                }
+                ref[fields[len - 1]] = value;
+            }
+        }
+    }
+
     updateRowGroupMetadata() {
         this.rowGroupMetadata = {};
         if(this.dataToRender) {
