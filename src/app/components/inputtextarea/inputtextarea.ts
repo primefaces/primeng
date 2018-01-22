@@ -1,4 +1,5 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,Output,OnInit,DoCheck,EventEmitter} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,Output,OnInit,DoCheck,EventEmitter,Optional} from '@angular/core';
+import {NgModel} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -29,7 +30,7 @@ export class InputTextarea implements OnInit,DoCheck {
     
     filled: boolean;
         
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
     
     ngOnInit() {
         this.rowsDefault = this.rows;
@@ -47,7 +48,8 @@ export class InputTextarea implements OnInit,DoCheck {
     }
     
     updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) ||
+                        (this.ngModel && this.ngModel.model);
     }
     
     @HostListener('focus', ['$event']) 
