@@ -12,7 +12,8 @@ import {BlockableUI} from '../common/blockableui';
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
-            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
+            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+            [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
             <div class="ui-datalist-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
                 <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>
                 <ul class="ui-datalist-data">
@@ -22,7 +23,8 @@ import {BlockableUI} from '../common/blockableui';
                 </ul>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
-            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
+            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
+            [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
             <div class="ui-datalist-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -62,6 +64,8 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() scrollable: boolean;
     
     @Input() scrollHeight: string;
+
+    @Input() paginatorDropdownAppendTo: any;
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
         

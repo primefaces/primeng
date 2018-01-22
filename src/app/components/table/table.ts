@@ -50,7 +50,7 @@ export class TableService {
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table #table>
@@ -72,7 +72,7 @@ export class TableService {
                         
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
             <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
@@ -112,6 +112,8 @@ export class Table implements OnInit, AfterContentInit {
     @Input() alwaysShowPaginator: boolean = true;
 
     @Input() paginatorPosition: string = 'bottom';
+
+    @Input() paginatorDropdownAppendTo: any;
 
     @Input() defaultSortOrder: number = 1;
 
