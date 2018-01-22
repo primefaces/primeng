@@ -352,11 +352,11 @@ export class Table implements OnInit, AfterContentInit {
                     this.emptyMessageTemplate = item.template;
                 break;
 
-                case 'paginatorleft':
+                case 'paginatorLeft':
                     this.paginatorLeftTemplate = item.template;
                 break;
 
-                case 'paginatorright':
+                case 'paginatorRight':
                     this.paginatorRightTemplate = item.template;
                 break;
             }
