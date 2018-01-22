@@ -139,6 +139,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() filters: { [s: string]: FilterMetadata; } = {};
 
+    @Input() globalFilterFields: string[];
+
     @Input() expandedRowKeys: { [s: string]: number; } = {};
 
     @Input() rowExpandMode: string = 'multiple';
@@ -833,7 +835,6 @@ export class Table implements OnInit, AfterContentInit {
 
     filterGlobal(value, matchMode) {
         this.filter(value, 'global', matchMode);
-        this._filter();
     }
 
     isFilterBlank(filter: any): boolean {
@@ -847,6 +848,14 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     _filter() {
+        let globalFilterFieldsArray;
+        if (this.filters['global']) {
+            if (!this.columns && !this.globalFilterFields)
+                throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
+            else
+                globalFilterFieldsArray = this.globalFilterFields||this.columns;
+        }
+
         this.first = 0;
 
         if (this.lazy) {
@@ -862,15 +871,14 @@ export class Table implements OnInit, AfterContentInit {
             for (let i = 0; i < this.value.length; i++) {
                 let localMatch = true;
                 let globalMatch = false;
+                let localFiltered = false;
 
-                for (let j = 0; j < this.columns.length; j++) {
-                    let col = this.columns[j];
-                    let filterMeta = this.filters[col.filterField || col.field];
-
-                    //local
-                    if (filterMeta) {
+                for (let prop in this.filters) {
+                    if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
+                        localFiltered = true;
+                        let filterMeta = this.filters[prop];
+                        let filterField = prop;
                         let filterValue = filterMeta.value;
-                        let filterField = col.filterField || col.field;
                         let filterMatchMode = filterMeta.matchMode || 'startsWith';
                         let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
                         let filterConstraint = this.filterConstraints[filterMatchMode];
@@ -883,16 +891,25 @@ export class Table implements OnInit, AfterContentInit {
                             break;
                         }
                     }
+                }
 
-                    //global
-                    if (this.filters['global'] && !globalMatch) {
-                        globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], col.filterField || col.field), this.filters['global'].value);
+                if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
+                    for(let j = 0; j < globalFilterFieldsArray.length; j++) {
+                        let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
+                        globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
+                        
+                        if(globalMatch) {
+                            break;
+                        }
                     }
                 }
 
-                let matches = localMatch;
-                if (this.filters['global']) {
-                    matches = localMatch && globalMatch;
+                let matches: boolean;
+                if(this.filters['global']) {
+                    matches = localFiltered ? (localFiltered && localMatch && globalMatch) : globalMatch;
+                }
+                else {
+                    matches = localFiltered && localMatch;
                 }
 
                 if (matches) {
@@ -1359,12 +1376,12 @@ export class Table implements OnInit, AfterContentInit {
     selector: '[pTableBody]',
     template: `
         <ng-container *ngIf="!dt.expandedRowTemplate">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.paginator ? (dt.filteredValue||dt.value | slice:(dt.lazy ? 0 : dt.first):((dt.lazy ? 0 : dt.first) + dt.rows)) : dt.filteredValue||dt.value" [ngForTrackBy]="dt.rowTrackBy">
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.paginator ? ((dt.filteredValue||dt.value) | slice:(dt.lazy ? 0 : dt.first):((dt.lazy ? 0 : dt.first) + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
                 <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
             </ng-template>
         </ng-container>
         <ng-container *ngIf="dt.expandedRowTemplate">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.paginator ? (dt.filteredValue||dt.value | slice:(dt.lazy ? 0 : dt.first):((dt.lazy ? 0 : dt.first) + dt.rows)) : dt.filteredValue||dt.value" [ngForTrackBy]="dt.rowTrackBy">
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.paginator ? ((dt.filteredValue||dt.value) | slice:(dt.lazy ? 0 : dt.first):((dt.lazy ? 0 : dt.first) + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
                 <ng-container *ngIf="dt.isRowExpanded(rowData); else collapsedrow">
                     <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns, expanded: true}"></ng-container>
                     <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>

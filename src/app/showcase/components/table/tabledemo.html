@@ -744,7 +744,7 @@ this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
             <p>An optional global filter feature is available to search all fields with the same query, to enable this place an input component and call the filterGlobal function with value and match mode properties on your event of choice.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table #tt[columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
+&lt;p-table #tt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;i class="fa fa-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
         &lt;input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto"&gt;
@@ -843,6 +843,17 @@ export class TableFilterDemo implements OnInit &#123;
         &#125;, 250);
     &#125;
 &#125;
+</code>
+</pre>
+
+            <p>If you have static columns and need to use global filtering, globalFilterFields property must be defined to configure which fields should be used in global filtering. Another
+                use case of this property is to change the fields to utilize in global filtering with dynamic columns.  
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [value]="cars" [paginator]="true" [rows]="10" [globalFilterFields]="['vin','year']"&gt;
+    //content
+&lt;/p-table&gt;
 </code>
 </pre>
 
@@ -1866,6 +1877,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of FilterMetadata objects to provide external filters.</td>
+                        </tr>
+                        <tr>
+                        <td>globalFilterFields</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of fields as string to use in global filtering.</td>
                         </tr>
                         <tr>
                             <td>expandedRowKeys</td>
