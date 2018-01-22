@@ -185,8 +185,8 @@ export class DynamicColumnsDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Other alternative is binding the cols array to the columns property and then defining a template variable to access it within your templates. This is the suggested version because
-                in some cases such as column reordering, table needs to manage its columns.
+            <p>Other alternative is binding the cols array to the columns property and then defining a template variable to access it within your templates. 
+                There are 3 cases where this is required which are csv export, reorderable columns and global filtering without the globalFilterFields property.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -208,6 +208,9 @@ export class DynamicColumnsDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
+
+            <p>Tip: Use ngSwitch to customize the column content per dynamic column.</p>
+
             <h3>Templates</h3>
             <p>Table is a template driven component with named templates such as header and body that we've used so far. Templates grant a great level of customization and flexibility 
                 where you have total control over the presentation while table handles the features such as paging, sorting, filtering and more. This speeds up development without sacrifing 
