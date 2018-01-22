@@ -53,6 +53,7 @@ export class Fieldset implements BlockableUI {
     @Input() collapsed: boolean = false;
 
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
+    
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
