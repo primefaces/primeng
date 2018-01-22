@@ -1,5 +1,6 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,Output,OnInit,DoCheck,EventEmitter} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostBinding,HostListener,Input,Output,OnInit,DoCheck,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgModel} from '@angular/forms';
 
 @Directive({
     selector: '[pInputTextarea]',
@@ -14,7 +15,11 @@ import {CommonModule} from '@angular/common';
     }
 })
 export class InputTextarea implements OnInit,DoCheck {
-    
+
+    @Input()
+    @HostBinding('attr.value')
+    value: any;
+
     @Input() autoResize: boolean;
     
     @Input() rows: number;
@@ -29,7 +34,7 @@ export class InputTextarea implements OnInit,DoCheck {
     
     filled: boolean;
         
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, @Optional() private ngModel: NgModel) {}
     
     ngOnInit() {
         this.rowsDefault = this.rows;
@@ -47,7 +52,10 @@ export class InputTextarea implements OnInit,DoCheck {
     }
     
     updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        // this.value and this.ngModel.model checks are needed for usage with ChangeDetectionStrategy.OnPush
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length
+            || this.value && this.value.length
+            || this.ngModel && this.ngModel.model && this.ngModel.model;
     }
     
     @HostListener('focus', ['$event']) 
