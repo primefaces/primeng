@@ -57,6 +57,8 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     @Input() showCaption: boolean = true;
     
     @Output() onImageClicked = new EventEmitter();
+
+    @Output() onImageChange = new EventEmitter();
     
     _images: any[];
     
@@ -221,6 +223,8 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             }
             
             this.activeIndex = index;
+
+            this.onImageChange.emit({index: index});
         }
     }
     

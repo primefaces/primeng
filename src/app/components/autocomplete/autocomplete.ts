@@ -522,7 +522,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
             if(this.suggestions)  {
                 for(let suggestion of this.suggestions) {
                     let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
-                    if(itemValue && inputValue === itemValue) {
+                    if(itemValue && inputValue === itemValue.trim()) {
                         valid = true;
                         this.selectItem(suggestion, false);
                         break;
