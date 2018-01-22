@@ -70,6 +70,7 @@ export class Column implements AfterContentInit{
     @Input() frozen: boolean;
     @Input() resizable: boolean = true;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
+    @Output() filterFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     @ContentChild(TemplateRef) template: TemplateRef<any>;
     
