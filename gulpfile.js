@@ -47,7 +47,7 @@ gulp.task('themes', function() {
 });
 
 gulp.task('build-exports', function() {
-    return gulp.src(['exports/*.js'])
+    return gulp.src(['exports/*.js','exports/*.d.ts'])
         .pipe(gulp.dest('./'));
 });
 
