@@ -30,7 +30,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <div #panel [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']" [ngStyle]="panelStyle"
                 [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix" [ngClass]="{'ui-multiselect-header-no-toggleall': !showToggleAll}">
-                    <div class="ui-chkbox ui-widget" *ngIf="showToggleAll">
+                    <div class="ui-chkbox ui-widget" *ngIf="showToggleAll && !maxSelection">
                         <div class="ui-helper-hidden-accessible">
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
@@ -49,7 +49,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
                         <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'"
+                            [ngClass]="{'ui-state-highlight':isSelected(option.value), 'ui-state-disabled': shouldDisable(option.value) }">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
                                     <input #itemcb type="checkbox" readonly="readonly" [checked]="isSelected(option.value)" (focus)="focusedItemCheckbox=itemcb" (blur)="focusedItemCheckbox=null" [attr.aria-label]="option.label">
@@ -239,11 +240,15 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     onItemClick(event, value) {
         let selectionIndex = this.findSelectionIndex(value);
-        if(selectionIndex != -1)
-            this.value = this.value.filter((val,i) => i!=selectionIndex);
-        else
-            this.value = [...this.value||[],value];
-        
+        if (selectionIndex == -1) {
+            if (this.maxSelection && this.value.length === this.maxSelection) {
+                return;
+            }
+            this.value = [...this.value || [], value];
+        } else {
+            this.value = this.value.filter((val, i) => i != selectionIndex);
+        }
+
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value, itemValue: value});
         this.updateLabel();
@@ -293,8 +298,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             return this.value&&this.visibleOptions&&this.visibleOptions.length&&(this.value.length == this.visibleOptions.length);
         else
             return this.value&&this.options&&(this.value.length == this.options.length);
-    } 
-    
+    }
+
+    shouldDisable(value){
+      return this.maxSelection && !this.isSelected(value) && this.value && this.value.length === this.maxSelection;
+    }
+
     show() {
         this.overlayVisible = true;
         this.panel.style.zIndex = String(++DomHandler.zindex);
