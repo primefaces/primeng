@@ -492,8 +492,6 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     sortSingle() {
-        this.first = 0;
-
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -861,8 +859,6 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     _filter() {
-        this.first = 0;
-
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
