@@ -11,6 +11,7 @@ import {RouterModule} from '@angular/router';
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menuitem-active':listItem==activeItem}"
+                    [class]="child.styleClass" [ngStyle]="child.style"
                     (mouseenter)="onItemMouseEnter($event, listItem, child)" (mouseleave)="onItemMouseLeave($event)">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
