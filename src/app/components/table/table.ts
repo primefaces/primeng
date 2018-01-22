@@ -841,16 +841,7 @@ export class Table implements OnInit, AfterContentInit {
             else if (this.filters[field])
                 delete this.filters[field];
 
-            if(this.hasFilter()) {
-                this._filter();
-            }
-            else {
-                this.filteredValue = null;
-                if (this.paginator) {
-                    this.totalRecords = this.value ? this.value.length : 0;
-                }
-            }
-
+            this._filter();
             this.filterTimeout = null;
         }, this.filterDelay);
     }
@@ -870,14 +861,6 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     _filter() {
-        let globalFilterFieldsArray;
-        if (this.filters['global']) {
-            if (!this.columns && !this.globalFilterFields)
-                throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
-            else
-                globalFilterFieldsArray = this.globalFilterFields||this.columns;
-        }
-
         this.first = 0;
 
         if (this.lazy) {
@@ -888,63 +871,79 @@ export class Table implements OnInit, AfterContentInit {
                 return;
             }
 
-            this.filteredValue = [];
-
-            for (let i = 0; i < this.value.length; i++) {
-                let localMatch = true;
-                let globalMatch = false;
-                let localFiltered = false;
-
-                for (let prop in this.filters) {
-                    if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
-                        localFiltered = true;
-                        let filterMeta = this.filters[prop];
-                        let filterField = prop;
-                        let filterValue = filterMeta.value;
-                        let filterMatchMode = filterMeta.matchMode || 'startsWith';
-                        let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
-                        let filterConstraint = this.filterConstraints[filterMatchMode];
-
-                        if (!filterConstraint(dataFieldValue, filterValue)) {
-                            localMatch = false;
-                        }
-
-                        if (!localMatch) {
-                            break;
-                        }
-                    }
-                }
-
-                if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
-                    for(let j = 0; j < globalFilterFieldsArray.length; j++) {
-                        let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                        globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
-                        
-                        if(globalMatch) {
-                            break;
-                        }
-                    }
-                }
-
-                let matches: boolean;
-                if(this.filters['global']) {
-                    matches = localFiltered ? (localFiltered && localMatch && globalMatch) : globalMatch;
-                }
-                else {
-                    matches = localFiltered && localMatch;
-                }
-
-                if (matches) {
-                    this.filteredValue.push(this.value[i]);
-                }
-            }
-
-            if (this.filteredValue.length === this.value.length) {
+            if(!this.hasFilter()) {
                 this.filteredValue = null;
+                if (this.paginator) {
+                    this.totalRecords = this.value ? this.value.length : 0;
+                }
             }
+            else {
+                let globalFilterFieldsArray;
+                if (this.filters['global']) {
+                    if (!this.columns && !this.globalFilterFields)
+                        throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
+                    else
+                        globalFilterFieldsArray = this.globalFilterFields||this.columns;
+                }
+                
+                this.filteredValue = [];
 
-            if (this.paginator) {
-                this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+                for (let i = 0; i < this.value.length; i++) {
+                    let localMatch = true;
+                    let globalMatch = false;
+                    let localFiltered = false;
+    
+                    for (let prop in this.filters) {
+                        if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
+                            localFiltered = true;
+                            let filterMeta = this.filters[prop];
+                            let filterField = prop;
+                            let filterValue = filterMeta.value;
+                            let filterMatchMode = filterMeta.matchMode || 'startsWith';
+                            let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
+                            let filterConstraint = this.filterConstraints[filterMatchMode];
+    
+                            if (!filterConstraint(dataFieldValue, filterValue)) {
+                                localMatch = false;
+                            }
+    
+                            if (!localMatch) {
+                                break;
+                            }
+                        }
+                    }
+    
+                    if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
+                        for(let j = 0; j < globalFilterFieldsArray.length; j++) {
+                            let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
+                            globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
+                            
+                            if(globalMatch) {
+                                break;
+                            }
+                        }
+                    }
+    
+                    let matches: boolean;
+                    if(this.filters['global']) {
+                        matches = localFiltered ? (localFiltered && localMatch && globalMatch) : globalMatch;
+                    }
+                    else {
+                        matches = localFiltered && localMatch;
+                    }
+    
+                    if (matches) {
+                        this.filteredValue.push(this.value[i]);
+                    }
+                }
+    
+                if (this.filteredValue.length === this.value.length) {
+                    this.filteredValue = null;
+                }
+    
+                if (this.paginator) {
+                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+                }
             }
         }
 
