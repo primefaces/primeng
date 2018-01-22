@@ -12,18 +12,18 @@ See [PrimeNG homepage](http://www.primefaces.org/primeng) for live showcase and 
 
 PrimeNG is a collection of rich UI components for Angular. All widgets are open source and free to use under MIT License. PrimeNG is developed by PrimeTek Informatics, a vendor with years of expertise in developing open source UI solutions. For project news and updates, please follow us on [twitter](https://twitter.com/prime_ng) and visit our [blog](https://www.primefaces.org/blog).
 
- - **70+ Components** The most complete set of native widgets featuring 70+
+ - **70+ Components:** The most complete set of native widgets featuring 70+
    easy to use components for all your UI requirements.
 
-- **Open Source** Hosted at GitHub, all widgets are open source and free to use under MIT license. Feel the power of open source.
+- **Open Source:** Hosted at GitHub, all widgets are open source and free to use under MIT license. Feel the power of open source.
 
-- **Productivity** Allocate your valuable time on business logic rather than dealing with the complex user interface requirements.
+- **Productivity:** Allocate your valuable time on business logic rather than dealing with the complex user interface requirements.
 
-- **Themes** Don’t get tied up in just one look&feel. Choose from a variety of options including material and flat design.
+- **Themes:** Don’t get tied up in just one look&feel. Choose from a variety of options including material and flat design.
 
-- **Templates** Professionally designed highly customizable native Angular CLI application templates to get started in no time.
+- **Templates:** Professionally designed highly customizable native Angular CLI application templates to get started in no time.
 
-- **Mobile** Enhanced mobile user experience with touch optimized responsive design elements.
+- **Mobile:** Enhanced mobile user experience with touch optimized responsive design elements.
 
 ---
 
