@@ -514,6 +514,10 @@ export class Table implements OnInit, AfterContentInit {
 
                 return (this.sortOrder * result);
             });
+
+            if(this.hasFilter()) {
+                this._filter();
+            }
         }
 
         let sortMeta: SortMeta = {
@@ -534,6 +538,10 @@ export class Table implements OnInit, AfterContentInit {
                 this.value.sort((data1, data2) => {
                     return this.multisortField(data1, data2, this.multiSortMeta, 0);
                 });
+
+                if(this.hasFilter()) {
+                    this._filter();
+                }
             }
                 
             this.onSort.emit({
