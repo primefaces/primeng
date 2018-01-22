@@ -279,6 +279,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     @Input() frozen: boolean;
     
     @Input() width: string;
+
+    _scrollHeight: any;
     
     @Input() virtualScroll: boolean;
     
@@ -309,6 +311,18 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     public rowHeight: number;
     
     public scrollTimeout: any;
+
+    @Input() set scrollHeight(val){
+        this._scrollHeight = val;
+
+        if(this.scrollBody) {
+            this.setScrollHeight();
+        }
+    }
+
+    get scrollHeight(){
+        return this._scrollHeight;
+    }
     
     ngAfterViewInit() {
         this.initScrolling();
@@ -392,12 +406,12 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
     
     setScrollHeight() {
-        if(this.dt.scrollHeight) {
-            if(this.dt.scrollHeight.indexOf('%') !== -1) {
+        if(this.scrollHeight) {
+            if(this.scrollHeight.indexOf('%') !== -1) {
                 this.scrollBody.style.visibility = 'hidden';
                 this.scrollBody.style.height = '100px';     //temporary height to calculate static height
                 let containerHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.dt.scrollHeight) / 100;
+                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
                 
@@ -406,7 +420,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 this.scrollBody.style.visibility = 'visible';
             }
             else {
-                this.scrollBody.style.maxHeight = this.dt.scrollHeight;
+                this.scrollBody.style.maxHeight = this.scrollHeight;
             }
         }
     }
@@ -470,11 +484,12 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix">
                     <div *ngIf="hasFrozenColumns()" [pScrollableView]="frozenColumns" frozen="true"
                         [headerColumnGroup]="frozenHeaderColumnGroup" [footerColumnGroup]="frozenFooterColumnGroup"
-                        [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
+                        [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"
+                        [scrollHeight]="scrollHeight"></div>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
                         [headerColumnGroup]="scrollableHeaderColumnGroup" [footerColumnGroup]="scrollableFooterColumnGroup"
                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
-                        [ngClass]="{'ui-datatable-unfrozen-view': hasFrozenColumns()}"></div>
+                        [ngClass]="{'ui-datatable-unfrozen-view': hasFrozenColumns()}" [scrollHeight]="scrollHeight"></div>
                 </div>
             </ng-template>
             
