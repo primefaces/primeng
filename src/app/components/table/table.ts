@@ -141,6 +141,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() globalFilterFields: string[];
 
+    @Input() filterDelay: number = 300;
+
     @Input() expandedRowKeys: { [s: string]: number; } = {};
 
     @Input() rowExpandMode: string = 'multiple';
@@ -282,6 +284,8 @@ export class Table implements OnInit, AfterContentInit {
     anchorRowIndex: number;
     
     rangeRowIndex: number;
+
+    filterTimeout: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
@@ -817,20 +821,28 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     filter(value, field, matchMode) {
-        if (!this.isFilterBlank(value))
-            this.filters[field] = { value: value, matchMode: matchMode };
-        else if (this.filters[field])
-            delete this.filters[field];
+        if(this.filterTimeout) {
+            clearTimeout(this.filterTimeout);
+        }
 
-        if(this.hasFilter()) {
-            this._filter();
-        }
-        else {
-            this.filteredValue = null;
-            if (this.paginator) {
-                this.totalRecords = this.value ? this.value.length : 0;
+        this.filterTimeout = setTimeout(() => {
+            if (!this.isFilterBlank(value))
+                this.filters[field] = { value: value, matchMode: matchMode };
+            else if (this.filters[field])
+                delete this.filters[field];
+
+            if(this.hasFilter()) {
+                this._filter();
             }
-        }
+            else {
+                this.filteredValue = null;
+                if (this.paginator) {
+                    this.totalRecords = this.value ? this.value.length : 0;
+                }
+            }
+
+            this.filterTimeout = null;
+        }, this.filterDelay);
     }
 
     filterGlobal(value, matchMode) {
