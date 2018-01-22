@@ -80,6 +80,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() name: string;
     
     @Input() required: boolean;
+
+    @Input() characterPattern: string = '[A-Za-z]';
     
     @ViewChild('input') inputViewChild: ElementRef;
     
@@ -155,8 +157,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         this.firstNonMaskPos = null;
         this.defs = {
             '9': '[0-9]',
-            'a': '[A-Za-z]',
-            '*': '[A-Za-z0-9]'
+            'a': this.characterPattern,
+            '*': `${this.characterPattern}|[0-9]`
         };
         
         let maskTokens = this.mask.split('');
