@@ -1909,7 +1909,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             
             return false;
-        }
+        },
+
+        between(value: any, filter: any): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            if ((filter.start === undefined || filter.start === null || (typeof filter.start === 'string' && filter.start.trim() === '') || filter.start <= value) &&
+            	(filter.end === undefined || filter.end === null || (typeof filter.end === 'string' && filter.end.trim() === '') || filter.end >= value)) {
+                return true;
+            }
+
+             return false;
+         }
     }
 
     switchCellToEditMode(cell: any, column: Column, rowData: any) {
