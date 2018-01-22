@@ -464,7 +464,7 @@ export class Table implements OnInit, AfterContentInit {
         let originalEvent = event.originalEvent;
 
         if(this.sortMode === 'single') {
-            this.sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
+            this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this._sortField = event.field;
             this.sortSingle();
         }
