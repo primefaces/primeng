@@ -74,6 +74,10 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             transition('hidden => visible', animate('400ms ease-out'))
         ])
     ],
+    host: {
+        '[class.ui-inputwrapper-filled]': 'filled',
+        '[class.ui-inputwrapper-focus]': 'focus'
+    },
     providers: [DomHandler,ObjectUtils,DROPDOWN_VALUE_ACCESSOR]
 })
 export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
@@ -126,6 +130,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() optionLabel: string;
 
+    @Input() autoSelectFirst: boolean = true;
+
     @Input() emptyFilterMessage: string = 'No results found';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -167,6 +173,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     hover: boolean;
     
     focus: boolean;
+
+    filled: boolean;
     
     public panelVisible: boolean = false;
     
@@ -270,7 +278,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.itemClick = true;
         this.selectItem(event, option);
         this.focusViewChild.nativeElement.focus();
-        
+        this.filled = true;
         this.hide();
     }
     
@@ -323,6 +331,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.value = value;
         this.updateSelectedOption(value);
         this.updateEditableLabel();
+        this.updateFilledState();
         this.cd.markForCheck();
     }
     
@@ -336,7 +345,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     updateSelectedOption(val: any): void {
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
-        if(!this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
+        if(this.autoSelectFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             this.selectedOption = this.optionsToDisplay[0];
         }
         this.selectedOptionUpdated = true;
@@ -589,6 +598,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.documentClickListener();
             this.documentClickListener = null;
         }
+    }
+
+    updateFilledState() {
+        this.filled = (this.value != null);
     }
     
     ngOnDestroy() {
