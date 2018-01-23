@@ -1281,21 +1281,36 @@ export class Table implements OnInit, AfterContentInit {
                                     colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
                                 }
                             }
-                            
                         }
                     }
                 }
             }
-            else if (this.columnResizeMode === 'expand') {
-                this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
-                column.style.width = newColumnWidth + 'px';
-                let containerWidth = this.tableViewChild.nativeElement.style.width;
-
+            else if (this.columnResizeMode === 'expand') {                
                 if (this.scrollable) {
-                    this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
-                    let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
-                    let resizeColumnIndex = this.domHandler.index(column);
-                    colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+                    let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
+                    let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
+                    let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-footer-table');
+                    scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
+                    scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
+                    if(scrollableFooterTable) {
+                        scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
+                    }
+                    column.style.width = newColumnWidth + 'px';
+
+                    let scrollableColGroup = scrollableBodyTable.children[0].nodeName === 'COLGROUP' ? scrollableBodyTable.children[0] : null;
+                    if(scrollableColGroup) {
+                        let resizeColumnIndex = this.domHandler.index(column);
+                        scrollableColGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+                    }
+                    else {
+                        throw 'Expand mode in scrollable table requires a colgroup';
+                    }
+                }
+                else {
+                    this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
+                    column.style.width = newColumnWidth + 'px';
+                    let containerWidth = this.tableViewChild.nativeElement.style.width;
+                    this.containerViewChild.nativeElement.style.width = containerWidth + 'px';
                 }
             }
 
@@ -1454,7 +1469,7 @@ export class TableBody {
     template: `
         <div #scrollHeader class="ui-table-scrollable-header ui-widget-header">
             <div #scrollHeaderBox class="ui-table-scrollable-header-box">
-                <table>
+                <table class="ui-table-scrollable-header-table">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenHeaderTemplate||dt.headerTemplate : dt.headerTemplate; context {$implicit: columns}"></ng-container>
@@ -1476,7 +1491,7 @@ export class TableBody {
         </div>
         <div #scrollFooter *ngIf="dt.footerTemplate" class="ui-table-scrollable-footer ui-widget-header">
             <div #scrollFooterBox class="ui-table-scrollable-footer-box">
-                <table>
+                <table class="ui-table-scrollable-footer-table">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tfoot class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenFooterTemplate||dt.footerTemplate : dt.footerTemplate; context {$implicit: columns}"></ng-container>
