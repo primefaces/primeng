@@ -103,7 +103,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     }
     
     @Input() get sticky(): boolean {
-        return this.sticky;
+        return this._sticky;
     }
 
     set sticky(value: boolean) {
