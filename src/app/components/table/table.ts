@@ -1796,7 +1796,6 @@ export class SelectableRow implements OnInit, OnDestroy {
             rowData: this.data,
             rowIndex: this.index
         });
-        this.domHandler.clearSelection();
     }    
 
     ngOnDestroy() {
