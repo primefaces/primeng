@@ -177,6 +177,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() rowHover: boolean;
 
+    @Input() customSort: boolean;
+
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
@@ -208,6 +210,8 @@ export class Table implements OnInit, AfterContentInit {
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
 
     @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
+
+    @Output() sortFunction: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -498,25 +502,35 @@ export class Table implements OnInit, AfterContentInit {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else if (this.value) {
-            this.value.sort((data1, data2) => {
-                let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
-                let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
-                let result = null;
-
-                if (value1 == null && value2 != null)
-                    result = -1;
-                else if (value1 != null && value2 == null)
-                    result = 1;
-                else if (value1 == null && value2 == null)
-                    result = 0;
-                else if (typeof value1 === 'string' && typeof value2 === 'string')
-                    result = value1.localeCompare(value2);
-                else
-                    result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-
-                return (this.sortOrder * result);
-            });
-
+            if(this.customSort) {
+                this.sortFunction.emit({
+                    data: this.value,
+                    mode: this.sortMode,
+                    field: this.sortField,
+                    order: this.sortOrder
+                });
+            }
+            else {
+                this.value.sort((data1, data2) => {
+                    let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
+                    let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
+                    let result = null;
+    
+                    if (value1 == null && value2 != null)
+                        result = -1;
+                    else if (value1 != null && value2 == null)
+                        result = 1;
+                    else if (value1 == null && value2 == null)
+                        result = 0;
+                    else if (typeof value1 === 'string' && typeof value2 === 'string')
+                        result = value1.localeCompare(value2);
+                    else
+                        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+    
+                    return (this.sortOrder * result);
+                });
+            }
+            
             if(this.hasFilter()) {
                 this._filter();
             }
@@ -537,9 +551,18 @@ export class Table implements OnInit, AfterContentInit {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else if (this.value) {
-                this.value.sort((data1, data2) => {
-                    return this.multisortField(data1, data2, this.multiSortMeta, 0);
-                });
+                if(this.customSort) {
+                    this.sortFunction.emit({
+                        data: this.value,
+                        mode: this.sortMode,
+                        multiSortMeta: this.multiSortMeta
+                    });
+                }
+                else {
+                    this.value.sort((data1, data2) => {
+                        return this.multisortField(data1, data2, this.multiSortMeta, 0);
+                    });
+                }
 
                 if(this.hasFilter()) {
                     this._filter();

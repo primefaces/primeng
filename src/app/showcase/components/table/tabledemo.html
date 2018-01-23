@@ -738,6 +738,81 @@ this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
 </code>
 </pre>
 
+            <p>Instead of using the built-in sorting algorithm a custom sort can be attached by enabling customSort property and defining a sortFunction implementation. This function gets a SortEvent instance
+                that provides the data to sort, sortField, sortOrder and multiSortMeta.
+            </p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class CustomTableSortDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+
+        this.cols = [
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
+        ];
+    &#125;
+
+    customSort(event: SortEvent) &#123;
+        //event.data = Data to sort
+        //event.mode = 'single' or 'multiple' sort mode
+        //event.field = Sort field in single sort
+        //event.order = Sort order in single sort
+        //event.multiSortMeta = SortMeta array in multiple sort
+
+        event.data.sort((data1, data2) => &#123;
+            let value1 = data1[event.field];
+            let value2 = data2[event.field];
+            let result = null;
+
+            if (value1 == null && value2 != null)
+                result = -1;
+            else if (value1 != null && value2 == null)
+                result = 1;
+            else if (value1 == null && value2 == null)
+                result = 0;
+            else if (typeof value1 === 'string' && typeof value2 === 'string')
+                result = value1.localeCompare(value2);
+            else
+                result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+            return (event.order * result);
+        &#125;);
+    &#125;
+&#125;
+</code>
+</pre>   
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [columns]="cols" [value]="cars" (sortFunction)="customSort($event)" [customSort]="true"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
+                &#123;&#123;col.header&#125;&#125;
+                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+
+
             <p>See the <a [routerLink]="['/table/sort']">live example.</a></p>
 
             <h3>Filtering</h3>
@@ -1820,6 +1895,18 @@ export class DataTableDemo implements OnInit &#123;
                             <td>number</td>
                             <td>1</td>
                             <td>Sort order to use when an unsorted column gets sorted by user interaction.</td>
+                        </tr>
+                        <tr>
+                            <td>customSort</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to use the default sorting or a custom one using sortFunction.</td>
+                        </tr>
+                        <tr>
+                            <td>sortFunction</td>
+                            <td>function</td>
+                            <td>null</td>
+                            <td>A function to implement custom sorting, refer to sorting section for details.</td>
                         </tr>
                         <tr>
                             <td>selectionMode</td>
