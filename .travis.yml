@@ -1,7 +1,11 @@
 language: node_js
-sudo: false
+sudo: required
 node_js:
    - node
+
+before_script:
+   - "sudo chown root /opt/google/chrome/chrome-sandbox"
+   - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 
 before_install:
    - export CHROME_BIN=chromium-browser
