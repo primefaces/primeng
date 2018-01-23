@@ -211,6 +211,11 @@ export class DynamicColumnsDemo implements OnInit &#123;
 
             <p>Tip: Use ngSwitch to customize the column content per dynamic column.</p>
 
+            <h3>Table Layout</h3>
+            <p>For performance reasons, default table-layout is fixed meaning the cell widths do not depend on their content. If you require cells to scale based on their contents
+                set <i>autoLayout</i> property to true.
+            </p>
+
             <h3>Templates</h3>
             <p>Table is a template driven component with named templates such as header and body that we've used so far. Templates grant a great level of customization and flexibility 
                 where you have total control over the presentation while table handles the features such as paging, sorting, filtering and more. This speeds up development without sacrifing 
@@ -2081,6 +2086,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>autoLayout</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the cell widths scale according to their content or not.</td>
                         </tr>
                     </tbody>
                 </table>

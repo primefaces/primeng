@@ -40,7 +40,8 @@ export class TableService {
     selector: 'p-table',
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" 
-            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns, 'ui-table-hoverable-rows': (rowHover||selectionMode)}">
+            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns, 
+                'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
             <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-table-loading-content" *ngIf="loading">
                 <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
@@ -178,6 +179,8 @@ export class Table implements OnInit, AfterContentInit {
     @Input() rowHover: boolean;
 
     @Input() customSort: boolean;
+
+    @Input() autoLayout: boolean;
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
