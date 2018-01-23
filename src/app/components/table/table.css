@@ -5,6 +5,7 @@
 .ui-table table {
     border-collapse: collapse;
     width: 100%;
+    table-layout: fixed;
 }
 
 .ui-table .ui-table-thead > tr > th,
@@ -62,12 +63,6 @@
     position: absolute;
 }
 
-.ui-table-scrollable-header-table,
-.ui-table-scrollable-body-table,
-.ui-table-scrollable-footer-table {
-    table-layout: fixed;
-}
-
 /* Frozen Columns */
 .ui-table-frozen-view .ui-table-scrollable-body {
     overflow: hidden;
@@ -83,10 +78,6 @@
 }
 
 /* Resizable */
-.ui-table-resizable > .ui-table-wrapper > table {
-    table-layout: fixed;
-}
-
 .ui-table-resizable > .ui-table-wrapper {
     overflow-x: auto;
 }
