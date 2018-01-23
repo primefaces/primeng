@@ -130,7 +130,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() optionLabel: string;
 
-    @Input() autoSelectFirst: boolean = true;
+    @Input() autoDisplayFirst: boolean = true;
 
     @Input() emptyFilterMessage: string = 'No results found';
     
@@ -345,7 +345,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     updateSelectedOption(val: any): void {
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
-        if(this.autoSelectFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
+        if(this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             this.selectedOption = this.optionsToDisplay[0];
         }
         this.selectedOptionUpdated = true;
