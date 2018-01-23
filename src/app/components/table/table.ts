@@ -355,15 +355,15 @@ export class Table implements OnInit, AfterContentInit {
                     this.frozenColGroupTemplate = item.template;
                 break;
 
-                case 'emptyMessage':
+                case 'emptymessage':
                     this.emptyMessageTemplate = item.template;
                 break;
 
-                case 'paginatorLeft':
+                case 'paginatorleft':
                     this.paginatorLeftTemplate = item.template;
                 break;
 
-                case 'paginatorRight':
+                case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
                 break;
             }
