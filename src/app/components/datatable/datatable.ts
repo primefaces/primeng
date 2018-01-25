@@ -1157,10 +1157,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 else
                 {
                     this.updateDataToRender(this.filteredValue||this.value);
-                  
-                    if(this.virtualScrollCallback){
-                      virtualScrollCallback();
-                    }
+                    this.handleDataChange();
                 }
             }, this.virtualScrollDelay);
         });
