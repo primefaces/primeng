@@ -81,7 +81,7 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
 
     public dataToRender: any[];    
     
-    public _first: number;
+    public _first: number = 0;
     
     public page: number = 0;
     
@@ -127,7 +127,7 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     }
 
     @Input() get first():number{
-        return this._first | 0;
+        return this._first;
     }
 
     set first(value:number){
