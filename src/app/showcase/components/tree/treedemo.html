@@ -82,6 +82,13 @@
     <h3>Horizontal Tree</h3>
     <p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
+
+    <h3>Double Click Expand</h3>
+    <p-tree [value]="filesTree12" [expandOnDoubleClick]="true"></p-tree>
+
+    <h3>Double Click Expand for Multiple Selection with Checkbox</h3>
+    <p-tree [value]="filesTree13" [expandOnDoubleClick]="true" selectionMode="checkbox" [(selection)]="selectedFiles3"></p-tree>
+    <div>Selected Nodes: <span *ngFor="let file of selectedFiles3">{{file.label&#125;&#125;</span></div>
 </div>
 
 <div class="content-section documentation">
@@ -561,6 +568,15 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 &lt;p-tree [value]="files" layout="horizontal"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
+            <h3>Expand on Double Click</h3>
+            <p>When enabled, nodes will expand/collapse and fire a onNodeExpand/onNodeCollapse event when double clicked</p>
+            <p>When used in combination with checkbox selection mode, selection can only be toggled by clicking the actual checkboxes</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tree [value]="files" [expandOnDoubleClick]="true"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -646,6 +662,12 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
                             <td>string</td>
                             <td>fa-circle-o-notch</td>
                             <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>expandOnDoubleClick</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether nodes should be expanded when double clicked.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -846,6 +868,14 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
 &lt;p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
 &lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&lt;/div&gt;
+
+&lt;h3&gt;Double Click Expand&lt;/h3&gt;
+&lt;p-tree [value]="filesTree12" [expandOnDoubleClick]="true">&lt;/p-tree>
+
+&lt;h3&gt;Double Click Expand for Multiple Selection with Checkbox&lt;/h3&gt;
+&lt;p-tree [value]="filesTree13" [expandOnDoubleClick]="true" selectionMode="checkbox" [(selection)]="selectedFiles3"&gt;&lt;/p-tree&gt;
+&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles3"&gt;&#123;&#123;file.label&#125;&#125;&lt;/span&gt;&lt;/div&gt;
+
 </code>
 </pre>
 
@@ -869,6 +899,8 @@ export class TreeDemo implements OnInit &#123;
     filesTree9: TreeNode[];
     filesTree10: TreeNode[];
     filesTree11: TreeNode[];
+    filesTree12: TreeNode[];
+    filesTree13: TreeNode[];
 
     lazyFiles: TreeNode[];
 
@@ -881,6 +913,8 @@ export class TreeDemo implements OnInit &#123;
     selectedFiles: TreeNode[];
 
     selectedFiles2: TreeNode[];
+
+    selectedFiles3: TreeNode[];
 
     items: MenuItem[];
 
@@ -924,6 +958,8 @@ export class TreeDemo implements OnInit &#123;
                 children: files
             &#125;];
         &#125;);
+        this.nodeService.getFiles().then(files => this.filesTree12 = files);
+        this.nodeService.getFiles().then(files => this.filesTree13 = files);
 
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
 
