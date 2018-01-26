@@ -71,6 +71,7 @@ __export(require("./components/sidebar/sidebar"));
 __export(require("./components/spinner/spinner"));
 __export(require("./components/splitbutton/splitbutton"));
 __export(require("./components/steps/steps"));
+__export(require("./components/table/table"));
 __export(require("./components/tabview/tabview"));
 __export(require("./components/tabmenu/tabmenu"));
 __export(require("./components/terminal/terminal"));

@@ -65,6 +65,7 @@ export * from './components/sidebar/sidebar';
 export * from './components/spinner/spinner';
 export * from './components/splitbutton/splitbutton';
 export * from './components/steps/steps';
+export * from './components/table/table';
 export * from './components/tabview/tabview';
 export * from './components/tabmenu/tabmenu';
 export * from './components/terminal/terminal';
