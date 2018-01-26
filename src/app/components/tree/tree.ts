@@ -27,7 +27,7 @@ import {BlockableUI} from '../common/blockableui';
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                     ><span class="ui-treenode-label ui-corner-all" 
                         [ngClass]="{'ui-state-highlight':isSelected()}">
-                            <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                            <span *ngIf="!tree.getTemplateForNode(node)" class="ui-unselectable-text">{{node.label}}</span>
                             <span *ngIf="tree.getTemplateForNode(node)">
                                 <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                             </span>
@@ -63,7 +63,7 @@ import {BlockableUI} from '../common/blockableui';
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                                 ><span class="ui-treenode-label ui-corner-all">
-                                        <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                                        <span *ngIf="!tree.getTemplateForNode(node)" class="ui-unselectable-text">{{node.label}}</span>
                                         <span *ngIf="tree.getTemplateForNode(node)">
                                         <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                                         </span>
