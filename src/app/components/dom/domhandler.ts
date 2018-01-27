@@ -70,6 +70,17 @@ export class DomHandler {
         return -1;
     }
 
+    //fin index of element in the parent, only searching thru pReorderable children
+    public indexOfReorderable(element: any): number {
+        let children = element.parentNode.childNodes;
+        let num = 0;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] == element) return num;
+            if (children[i].attributes && children[i].attributes['preorderablecolumn'] && children[i].nodeType == 1) num++;
+        }
+        return -1;
+    }
+
     public relativePosition(element: any, target: any): void {
         let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         let targetHeight = target.offsetHeight;
@@ -78,7 +89,7 @@ export class DomHandler {
         let windowScrollTop = this.getWindowScrollTop();
         let viewport = this.getViewport();
         let top, left;
-        
+
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
             if(targetOffset.top + top < 0) {
@@ -88,8 +99,8 @@ export class DomHandler {
         else {
             top = targetHeight;
         }
-            
-            
+
+
         if ((targetOffset.left + elementDimensions.width) > viewport.width)
             left = targetWidth - elementDimensions.width;
         else
@@ -116,7 +127,7 @@ export class DomHandler {
             if(top < 0) {
                 top = 0 + windowScrollTop;
             }
-        } 
+        }
         else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
         }
@@ -213,7 +224,7 @@ export class DomHandler {
                 opacity = 0;
                 clearInterval(fading);
             }
-            
+
             element.style.opacity = opacity;
         }, interval);
     }
@@ -272,7 +283,7 @@ export class DomHandler {
         width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
-    
+
     public getInnerHeight(el) {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
@@ -320,10 +331,10 @@ export class DomHandler {
 
         return { width: w, height: h };
     }
-    
+
     public getOffset(el) {
         let rect = el.getBoundingClientRect();
-        
+
         return {
             top: rect.top + document.body.scrollTop,
             left: rect.left + document.body.scrollLeft
@@ -359,7 +370,7 @@ export class DomHandler {
         // other browser
         return false;
     }
-    
+
     appendChild(element: any, target: any) {
         if(this.isElement(target))
             target.appendChild(element);
@@ -368,7 +379,7 @@ export class DomHandler {
         else
             throw 'Cannot append ' + target + ' to ' + element;
     }
-    
+
     removeChild(element: any, target: any) {
         if(this.isElement(target))
             target.removeChild(element);
@@ -377,17 +388,17 @@ export class DomHandler {
         else
             throw 'Cannot remove ' + element + ' from ' + target;
     }
-    
+
     isElement(obj: any) {
         return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :
             obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
         );
     }
-    
+
     calculateScrollbarWidth(): number {
         if(this.calculatedScrollbarWidth !== null)
             return this.calculatedScrollbarWidth;
-        
+
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "ui-scrollbar-measure";
         document.body.appendChild(scrollDiv);
@@ -396,14 +407,14 @@ export class DomHandler {
         document.body.removeChild(scrollDiv);
 
         this.calculatedScrollbarWidth = scrollbarWidth;
-        
+
         return scrollbarWidth;
     }
-    
+
     invokeElementMethod(element: any, methodName: string, args?: any[]): void {
         (element as any)[methodName].apply(element, args);
     }
-    
+
     clearSelection(): void {
         if(window.getSelection) {
             if(window.getSelection().empty) {

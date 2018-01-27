@@ -23,4 +23,8 @@ export class TableRowExpansionDemo implements OnInit {
             { field: 'color', header: 'Color' }
         ];
     }
+
+  colReordered(event) {
+    console.info(JSON.stringify(event));
+  }
 }

@@ -1,72 +1,75 @@
 <table-submenu></table-submenu>
 
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">Row Expansion</span></span>
-        <span>Row expansion is used to display additional content about the row data.</span>
-    </div>
+  <div>
+    <span class="feature-title">Table - <span class="subitem">Row Expansion</span></span>
+    <span>Row expansion is used to display additional content about the row data.</span>
+  </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" dataKey="vin">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th style="width: 2.25em"></th>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
-            <tr>
-                <td>
-                    <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
-                    </a>
-                </td>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
-            <tr>
-                <td [attr.colspan]="columns.length + 1">
-                    <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-                        <div class="ui-g-12 ui-md-3" style="text-align:center">
-                            <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
-                        </div>
-                        <div class="ui-g-12 ui-md-9">
-                            <div class="ui-g">
-                                <div class="ui-g-12">
-                                    <b>Vin:</b> {{rowData.vin}}
-                                </div>
-                                <div class="ui-g-12">
-                                    <b>Vin:</b> {{rowData.color}}
-                                </div>
-                                <div class="ui-g-12">
-                                    <b>Brand:</b> {{rowData.brand}}
-                                </div>
-                                <div class="ui-g-12">
-                                    <b>Color:</b> {{rowData.color}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+  <p-table [columns]="cols" [value]="cars" dataKey="vin"
+           [reorderableColumns]="true" (onColReorder)="colReordered($event)">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 2.25em"></th>
+        <th *ngFor="let col of columns" pReorderableColumn>
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+      <tr>
+        <td>
+          <a href="#" [pRowToggler]="rowData">
+            <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+          </a>
+        </td>
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+      <tr>
+        <td [attr.colspan]="columns.length + 1">
+          <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+            <div class="ui-g-12 ui-md-3" style="text-align:center">
+              <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
+            </div>
+            <div class="ui-g-12 ui-md-9">
+              <div class="ui-g">
+                <div class="ui-g-12">
+                  <b>Vin:</b> {{rowData.vin}}
+                </div>
+                <div class="ui-g-12">
+                  <b>Vin:</b> {{rowData.color}}
+                </div>
+                <div class="ui-g-12">
+                  <b>Brand:</b> {{rowData.brand}}
+                </div>
+                <div class="ui-g-12">
+                  <b>Color:</b> {{rowData.color}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="tablerowexpansiondemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowexpansiondemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
+  <p-tabView effect="fade">
+    <p-tabPanel header="tablerowexpansiondemo.ts">
+      <a
+        href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowexpansiondemo.ts"
+        class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+      </a>
+      <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TableRowExpansionDemo implements OnInit &#123;
 
@@ -88,15 +91,17 @@ export class TableRowExpansionDemo implements OnInit &#123;
     &#125;
 &#125;
 </code>
-</pre>   
-        </p-tabPanel>
+</pre>
+    </p-tabPanel>
 
-        <p-tabPanel header="tablerowexpansiondemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowexpansiondemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
+    <p-tabPanel header="tablerowexpansiondemo.html">
+      <a
+        href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowexpansiondemo.html"
+        class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+      </a>
+      <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" dataKey="vin"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -149,6 +154,6 @@ export class TableRowExpansionDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
-        </p-tabPanel>
-    </p-tabView>
+    </p-tabPanel>
+  </p-tabView>
 </div>
