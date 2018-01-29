@@ -8,30 +8,35 @@
 <div class="content-section implementation">
     <h3 class="first">Single</h3>
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
-    <p>Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;</p>
+    <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Editable</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" [style]="&#123;'width':'150px'&#125;" editable="true" placeholder="Select a Brand"></p-dropdown>
-    <p>Selected Car: &#123;&#123;selectedCar1 || 'none'&#125;&#125;</p>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" [style]="{'width':'150px'}" editable="true" placeholder="Select a Brand"></p-dropdown>
+    <p>Selected Car: {{selectedCar1 || 'none'}}</p>
     
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="true">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="true">
         <ng-template let-item pTemplate="selectedItem">
-            <img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" />
-            <span style="vertical-align:middle">&#123;&#123;item.label&#125;&#125;</span>
+            <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
+            <span style="vertical-align:middle">{{item.label}}</span>
         </ng-template>
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-                <img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;position:absolute;top:1px;left:5px"/>
-                <div style="font-size:14px;float:right;margin-top:4px">&#123;&#123;car.label&#125;&#125;</div>
+                <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;position:absolute;top:1px;left:5px"/>
+                <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
             </div>
         </ng-template>
     </p-dropdown>
-    <p>Selected Car: &#123;&#123;selectedCar2||'none'&#125;&#125;</p>
+    <p>Selected Car: {{selectedCar2||'none'}}</p>
 
     <h3>Group</h3>
-    <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"></p-dropdown>
-    <p>Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;</p>
+    <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="{'width':'150px'}" placeholder="Select a Car" [group]="true">
+        <ng-template let-group pTemplate="group">
+            <img src="assets/showcase/images/demo/flag/{{group.value}}" style="width:20px;vertical-align:middle" />
+            <span style="vertical-align:middle">{{group.label}}</span>
+        </ng-template>
+    </p-dropdown>
+    <p>Selected Car: {{selectedCar3 || 'none'}}</p>
 </div>
 
 <div class="content-section documentation">
@@ -553,8 +558,12 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar2||'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Group&lt;/h3&gt;
-&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;&lt;/p&gt;
+&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"&gt;
+    &lt;ng-template let-group pTemplate="group"&gt;
+        &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;group.value&#125;&#125;" style="width:20px;vertical-align:middle" /&gt;
+        &lt;span style="vertical-align:middle"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -600,7 +609,7 @@ export class DropdownDemo &#123;
 
         this.groupedCars = [
             &#123;
-                label: 'Germany', 
+                label: 'Germany', value: 'germany.png', 
                 items: [
                     &#123;label: 'Audi', value: 'Audi'&#125;,
                     &#123;label: 'BMW', value: 'BMW'&#125;,
@@ -608,7 +617,7 @@ export class DropdownDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', 
+                label: 'USA', value: 'usa.png', 
                 items: [
                     &#123;label: 'Cadillac', value: 'Cadillac'&#125;,
                     &#123;label: 'Ford', value: 'Ford'&#125;,
@@ -616,7 +625,7 @@ export class DropdownDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', 
+                label: 'Japan', value: 'japan.png', 
                 items: [
                     &#123;label: 'Honda', value: 'Honda'&#125;,
                     &#123;label: 'Toyota', value: 'Toyota'&#125;

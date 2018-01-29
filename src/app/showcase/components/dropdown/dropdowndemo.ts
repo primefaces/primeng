@@ -50,7 +50,7 @@ export class DropdownDemo {
 
         this.groupedCars = [
             {
-                label: 'Germany', 
+                label: 'Germany', value: 'germany.png', 
                 items: [
                     {label: 'Audi', value: 'Audi'},
                     {label: 'BMW', value: 'BMW'},
@@ -58,7 +58,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'USA', 
+                label: 'USA', value: 'usa.png', 
                 items: [
                     {label: 'Cadillac', value: 'Cadillac'},
                     {label: 'Ford', value: 'Ford'},
@@ -66,7 +66,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'Japan', 
+                label: 'Japan', value: 'japan.png', 
                 items: [
                     {label: 'Honda', value: 'Honda'},
                     {label: 'Toyota', value: 'Toyota'}
