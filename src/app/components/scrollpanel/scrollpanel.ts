@@ -188,6 +188,10 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
         }
     }
 
+    refresh() {
+        this.moveBar();
+    }
+
 }
 
 @NgModule({

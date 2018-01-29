@@ -37,7 +37,7 @@
 }
 
 .ui-scrollpanel-hidden {
-    display: none;
+    display: hidden;
 }
 
 .ui-scrollpanel:hover .ui-scrollpanel-bar,
