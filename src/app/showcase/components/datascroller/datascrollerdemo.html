@@ -3,69 +3,8 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">DataScroller</span>
-        <span>DataScroller displays data with on demand loading using scroll.</span>
+        <span>DataScroller displays data with on demand loading using scroll. Scroll down to view the demo.</span>
     </div>
-</div>
-
-<div class="content-section implementation">
-    <p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4">
-        <p-header>
-            Scroll Down to to Load More
-        </p-header>
-        <ng-template let-car pTemplate="item">
-            <li style="border-bottom:1px solid #D5D5D5;">
-                <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="assets/showcase/images/demo/car/{{car.brand}}.png"></div>
-                        <div class="ui-grid-col-9">
-                            <div class="ui-grid ui-grid-responsive ui-fluid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Vin: </div>
-                                    <div class="ui-grid-col-10">{{car.vin}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Year: </div>
-                                    <div class="ui-grid-col-10">{{car.year}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Brand: </div>
-                                    <div class="ui-grid-col-10">{{car.brand}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Color: </div>
-                                    <div class="ui-grid-col-10">{{car.color}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ng-template>
-    </p-dataScroller>
-
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-12" style="text-align:center"><img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Vin: </div>
-                <div class="ui-grid-col-8">{{selectedCar.vin}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Year: </div>
-                <div class="ui-grid-col-8">{{selectedCar.year}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Brand: </div>
-                <div class="ui-grid-col-8">{{selectedCar.brand}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Color: </div>
-                <div class="ui-grid-col-8">{{selectedCar.color}}</div>
-            </div>
-        </div>
-    </p-dialog>
 </div>
 
 <div class="content-section documentation">
@@ -455,4 +394,65 @@ export class DataScrollerDemo implements OnInit &#123;
 
         </p-tabPanel>
     </p-tabView>
+</div>
+
+<div class="content-section implementation">
+    <p-dataScroller [value]="cars" [rows]="10">
+        <p-header>
+            Scroll Down to load more
+        </p-header>
+        <ng-template let-car pTemplate="item" let-i="index">
+            <li style="border-bottom:1px solid #D5D5D5;">
+                <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="assets/showcase/images/demo/car/{{car.brand}}.png"></div>
+                        <div class="ui-grid-col-9">
+                            <div class="ui-grid ui-grid-responsive ui-fluid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Vin ({{i}}): </div>
+                                    <div class="ui-grid-col-10">{{car.vin}}</div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Year: </div>
+                                    <div class="ui-grid-col-10">{{car.year}}</div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Brand: </div>
+                                    <div class="ui-grid-col-10">{{car.brand}}</div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Color: </div>
+                                    <div class="ui-grid-col-10">{{car.color}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ng-template>
+    </p-dataScroller>
+
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12" style="text-align:center"><img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Vin: </div>
+                <div class="ui-grid-col-8">{{selectedCar.vin}}</div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Year: </div>
+                <div class="ui-grid-col-8">{{selectedCar.year}}</div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Brand: </div>
+                <div class="ui-grid-col-8">{{selectedCar.brand}}</div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Color: </div>
+                <div class="ui-grid-col-8">{{selectedCar.color}}</div>
+            </div>
+        </div>
+    </p-dialog>
 </div>
