@@ -43,6 +43,8 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
     @Input() scrollHeight: any;
     
     @Input() loader: any;
+
+    @Input() totalRecords: number;
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
@@ -70,14 +72,12 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
     loaderClickListener: any;
 
-    page: number = 1;
+    page: number = 0;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler, public zone: NgZone) {}
 
     ngOnInit() {
-        if(this.lazy) {
-            this.load();
-        }
+        this.load();
     }
 
     ngAfterViewInit() {
@@ -108,41 +108,29 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
     load() {
         if(this.lazy) {
             this.onLazyLoad.emit({
-                first: this.first,
+                first: this.page * this.rows,
                 rows: this.rows
             });
-            
-            this.first = this.first + this.rows;
         }
-        else {
-            this.page = this.page + 1;
-        }
+        
+        this.page = this.page + 1;
     }
 
     shouldLoad() {
-        if(this.lazy) {
-
-        }
-        else {
+        if(this.lazy)
+            return (this.rows * this.page < this.totalRecords);
+        else
             return this.value && this.value.length && (this.rows * this.page < this.value.length);
-        }
     }
      
     reset() {
-        this.first = 0;
+        this.page = 0;
     }
 
     isEmpty() {
         return !this.value||(this.value.length == 0);
     }
-    
-    createLazyLoadMetadata(): any {
-        return {
-            first: this.first,
-            rows: this.rows
-        };
-    }
-    
+        
     bindScrollListener() {
         this.zone.runOutsideAngular(() => {
             if(this.inline) {
