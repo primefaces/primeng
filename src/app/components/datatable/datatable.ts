@@ -1155,7 +1155,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(this.lazy)
                     this.onLazyLoad.emit(this.createLazyLoadMetadata());
                 else
+                {
                     this.updateDataToRender(this.filteredValue||this.value);
+                    this.handleDataChange();
+                }
             }, this.virtualScrollDelay);
         });
     }
