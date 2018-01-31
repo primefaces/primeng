@@ -1623,8 +1623,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
             }
 
-            this.bodyScrollListener = this.onBodyScroll.bind(this);
-            this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+            if(!this.frozen) {
+                this.bodyScrollListener = this.onBodyScroll.bind(this);
+                this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+            }
         });
     }
 
@@ -1675,6 +1677,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                     page: page,
                     callback: () => {
                         this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
+
+                        if (this.frozenSiblingBody) {
+                            (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
+                        }
                     }
                 });
             }
