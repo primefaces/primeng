@@ -68,8 +68,8 @@ export class TableService {
             </div>
 
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}"></div>
-               <div [pScrollableView]="columns" [frozen]="false"></div>
+               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
             </div>
                         
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -1547,7 +1547,17 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     frozenSiblingBody: Element;
 
+    _scrollHeight: string;
+
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+
+    @Input() get scrollHeight(): string {
+        return this._scrollHeight;
+    }
+    set scrollHeight(val: string) {
+        this._scrollHeight = val;
+        this.setScrollHeight();
+    }
 
     ngAfterViewInit() {
         this.bindEvents();
@@ -1659,12 +1669,12 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     }
 
     setScrollHeight() {
-        if(this.dt.scrollHeight) {
-            if(this.dt.scrollHeight.indexOf('%') !== -1) {
+        if(this.scrollHeight && this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
+            if(this.scrollHeight.indexOf('%') !== -1) {
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
                 this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
                 let containerHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.dt.scrollHeight) / 100;
+                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
                 
@@ -1673,7 +1683,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
             }
             else {
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.dt.scrollHeight;
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
             }
         }
     }
