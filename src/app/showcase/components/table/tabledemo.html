@@ -821,7 +821,7 @@ export class CustomTableSortDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/sort']">live example.</a></p>
 
             <h3>Filtering</h3>
-            <p>Filtering is enabled by defining the filter and calling filter method on the local template variable of the table with value, field and match mode parameters. Available match modes are
+            <p>Filtering is enabled by defining the filter and calling filter method on the local template variable of the table with value, column field and match mode parameters. Available match modes are
             "startsWith", "contains", "endsWith", "equals" and "in". Following is an example that utilizes various PrimeNG form components as filters.</p>
 
             <p>An optional global filter feature is available to search all fields with the same query, to enable this place an input component and call the filterGlobal function with value and match mode properties on your event of choice.</p>
@@ -1349,7 +1349,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <h3>Data Export</h3>
             <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
-                columns should be dynamic for export functionality to work.
+                columns should be dynamic for export functionality to work and column objects must define field/header properties.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>

@@ -13,7 +13,7 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    &#123;&#123;col.header&#125;&#125;
+                    {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
             </tr>
@@ -21,7 +21,7 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
-                    &#123;&#123;rowData[col.field]&#125;&#125;
+                    {{rowData[col.field]&#125;&#125;
                 </td>
             </tr>
         </ng-template>
@@ -32,7 +32,7 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    &#123;&#123;col.header&#125;&#125;
+                    {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
             </tr>
@@ -51,7 +51,7 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    &#123;&#123;col.header&#125;&#125;
+                    {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
             </tr>
@@ -59,7 +59,7 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
-                    &#123;&#123;rowData[col.field]&#125;&#125;
+                    {{rowData[col.field]&#125;&#125;
                 </td>
             </tr>
         </ng-template>
