@@ -303,12 +303,15 @@ export class Table implements OnInit, AfterContentInit {
 
     filterTimeout: any;
 
+    initialized: boolean;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
+        this.initialized = true;
     }
  
     ngAfterContentInit() {
@@ -404,8 +407,12 @@ export class Table implements OnInit, AfterContentInit {
 
     set sortField(val: string) {
         this._sortField = val;
-        if (this.sortMode === 'single') {
-            this.sortSingle();
+
+        //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            if (this.sortMode === 'single') {
+                this.sortSingle();
+            }
         }
     }
 
@@ -414,8 +421,12 @@ export class Table implements OnInit, AfterContentInit {
     }
     set sortOrder(val: number) {
         this._sortOrder = val;
-        if (this.sortMode === 'single') {
-            this.sortSingle();
+
+         //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            if (this.sortMode === 'single') {
+                this.sortSingle();
+            }
         }
     }
 
@@ -1457,6 +1468,7 @@ export class Table implements OnInit, AfterContentInit {
 
     ngOnDestroy() {
         this.editingCell = null;
+        this.initialized = null;
     }
 }
 
