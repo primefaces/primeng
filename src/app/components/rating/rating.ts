@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -50,6 +50,8 @@ export class Rating implements ControlValueAccessor {
     @Output() onRate: EventEmitter<any> = new EventEmitter();
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
+
+    constructor(private cd: ChangeDetectorRef) {} 
     
     value: number;
     
@@ -91,6 +93,7 @@ export class Rating implements ControlValueAccessor {
     
     writeValue(value: any) : void {
         this.value = value;
+        this.cd.detectChanges();
     }
     
     registerOnChange(fn: Function): void {
