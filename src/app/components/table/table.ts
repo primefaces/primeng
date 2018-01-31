@@ -727,14 +727,17 @@ export class Table implements OnInit, AfterContentInit {
         
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.value[i];
-            this._selection = [...this.selection, rangeRowData];
-            this.selectionChange.emit(this.selection);
-            let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
-            if(dataKeyValue) {
-                this.selectionKeys[dataKeyValue] = 1;
+            if(!this.isSelected(rangeRowData)) {
+                this._selection = [...this.selection, rangeRowData];
+                let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+                if(dataKeyValue) {
+                    this.selectionKeys[dataKeyValue] = 1;
+                }
+                this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
             }
-            this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
         }
+
+        this.selectionChange.emit(this.selection);
     }
 
     clearSelectionRange(event: MouseEvent) {
