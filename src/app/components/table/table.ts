@@ -2079,14 +2079,22 @@ export class EditableColumn implements AfterViewInit {
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        if (this.dt.editingCell && this.dt.editingCell !== this.el.nativeElement) {
-            if (!this.isValid()) {
-                return;
-            }
+        if (this.dt.editingCell) {
+            if (this.dt.editingCell !== this.el.nativeElement) {
+                if (!this.isValid()) {
+                    return;
+                }
+    
+                this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                this.openCell();
+            } 
+        }
+        else {
+            this.openCell();
+        }
+    }
 
-            this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
-        } 
-        
+    openCell() {
         this.dt.editingCell = this.el.nativeElement;
         this.domHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.dt.onEditInit.emit({ field: this.field, data: this.data});
