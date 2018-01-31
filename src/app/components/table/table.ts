@@ -18,10 +18,12 @@ export class TableService {
     private sortSource = new Subject<SortMeta|SortMeta[]>();
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
+    private valueSource = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
+    valueSource$ = this.valueSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -33,6 +35,10 @@ export class TableService {
 
     onContextMenu(data: any) {
         this.contextMenuSource.next(data);
+    }
+
+    onValueChange(value: any) {
+        this.valueSource.next(value);
     }
 }
 
@@ -388,6 +394,8 @@ export class Table implements OnInit, AfterContentInit {
         if(this.virtualScroll && this.virtualScrollCallback) {
             this.virtualScrollCallback();
         }
+
+        this.tableService.onValueChange(val);
     }
 
     @Input() get sortField(): string {
@@ -1552,7 +1560,17 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     _scrollHeight: string;
 
-    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+    subscription: Subscription;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {
+        this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.alignScrollBar();
+                }, 50);
+            });
+        });
+     }
 
     @Input() get scrollHeight(): string {
         return this._scrollHeight;
@@ -1564,8 +1582,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     ngAfterViewInit() {
         this.bindEvents();
-
         this.setScrollHeight();
+        this.alignScrollBar();
 
         if(!this.frozen) {
             if (this.dt.frozenColumns || this.dt.frozenBodyTemplate) {
@@ -1595,20 +1613,12 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         this.zone.runOutsideAngular(() => {
             let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
 
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                if(!this.frozen) {
-                    this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-                }
-                
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {                
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
                 this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
             }
 
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                if (!this.frozen) {
-                    this.scrollFooterViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-                }
-                
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {                
                 this.footerScrollListener = this.onFooterScroll.bind(this);
                 this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
             }
@@ -1691,10 +1701,28 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         }
     }
 
+    hasVerticalOverflow() {
+        return this.domHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > this.domHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+    }
+
+    alignScrollBar() {
+        if(!this.frozen) {
+            let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
+            this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+            if(this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+            }
+        }
+    }
+
     ngOnDestroy() {
         this.unbindEvents();
 
         this.frozenSiblingBody = null;
+
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }
 
