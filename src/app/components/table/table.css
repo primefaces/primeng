@@ -97,6 +97,10 @@
     position: relative;
 }
 
+.ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer {
+    display: none;
+}
+
 .ui-table .ui-column-resizer {
     display: block;
     position: absolute !important;

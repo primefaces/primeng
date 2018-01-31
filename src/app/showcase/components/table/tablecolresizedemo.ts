@@ -7,20 +7,23 @@ import { CarService } from '../../service/carservice';
 })
 export class TableColResizeDemo implements OnInit {
 
-    cars: Car[];
+    cars1: Car[];
+
+    cars2: Car[];
 
     cols: any[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.carService.getCarsSmall().then(cars => this.cars1 = cars);
+        this.carService.getCarsMedium().then(cars => this.cars2 = cars);
 
         this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+            { field: 'vin', header: 'Vin', width: '25%' },
+            { field: 'year', header: 'Year', width: '15%' },
+            { field: 'brand', header: 'Brand', width: '35%' },
+            { field: 'color', header: 'Color', width: '25%' }
         ];
     }
 }

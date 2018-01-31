@@ -41,6 +41,7 @@ export class TableService {
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" 
             [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns, 
+                'ui-table-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
             <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-table-loading-content" *ngIf="loading">
@@ -1267,22 +1268,20 @@ export class Table implements OnInit, AfterContentInit {
                     let nextColumnMinWidth = nextColumn.style.minWidth || 15;
 
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
-                        column.style.width = newColumnWidth + 'px';
-                        if (nextColumn) {
-                            nextColumn.style.width = nextColumnWidth + 'px';
-                        }
-
                         if (this.scrollable) {
-                            let scrollableTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
-                            let colGroup = scrollableTable.children[0].nodeName === 'COLGROUP' ? scrollableTable.children[0] : null;
+                            let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
+                            let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
+                            let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-footer-table');
+                            let resizeColumnIndex = this.domHandler.index(column);
 
-                            if(colGroup) {
-                                let resizeColumnIndex = this.domHandler.index(column);
-                                colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
-    
-                                if (nextColumn) {
-                                    colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
-                                }
+                            this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                        }
+                        else {
+                            column.style.width = newColumnWidth + 'px';
+                            if (nextColumn) {
+                                nextColumn.style.width = nextColumnWidth + 'px';
                             }
                         }
                     }
@@ -1298,16 +1297,13 @@ export class Table implements OnInit, AfterContentInit {
                     if(scrollableFooterTable) {
                         scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     }
-                    column.style.width = newColumnWidth + 'px';
+                    let resizeColumnIndex = this.domHandler.index(column);
 
-                    let scrollableColGroup = scrollableBodyTable.children[0].nodeName === 'COLGROUP' ? scrollableBodyTable.children[0] : null;
-                    if(scrollableColGroup) {
-                        let resizeColumnIndex = this.domHandler.index(column);
-                        scrollableColGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
-                    }
-                    else {
-                        throw 'Expand mode in scrollable table requires a colgroup';
-                    }
+                    this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
+                    this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
+                    this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+
+                    this.containerViewChild.nativeElement.style.width = scrollableBodyTable.offsetWidth + 'px';
                 }
                 else {
                     this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
@@ -1325,6 +1321,25 @@ export class Table implements OnInit, AfterContentInit {
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
         this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+    }
+
+    resizeColGroup(table, resizeColumnIndex, newColumnWidth, nextColumnWidth) {
+        if(table) {
+            let colGroup = table.children[0].nodeName === 'COLGROUP' ? table.children[0] : null;
+
+            if(colGroup) {
+                let col = colGroup.children[resizeColumnIndex];
+                let nextCol = col.nextElementSibling;
+                col.style.width = newColumnWidth + 'px';
+    
+                if (nextCol && nextColumnWidth) {
+                    nextCol.style.width = nextColumnWidth + 'px';
+                }
+            }
+            else {
+                throw "Scrollable tables require a colgroup to support resizable columns";
+            }
+        }
     }
 
     onColumnDragStart(event, columnElement) {
