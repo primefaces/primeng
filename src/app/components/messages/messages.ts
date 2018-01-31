@@ -11,7 +11,8 @@ import {Subscription}   from 'rxjs/Subscription';
                     [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}">
+                    'ui-messages-success':(value[0].severity === 'success')}"
+                    [ngStyle]="style" [class]="styleClass">
             <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
                 <i class="fa fa-close"></i>
             </a>
@@ -30,6 +31,10 @@ export class Messages implements OnDestroy {
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
+
+    @Input() style: any;
+    
+    @Input() styleClass: string;
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
 

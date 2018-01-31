@@ -31,8 +31,6 @@ import {Subscription}   from 'rxjs/Subscription';
 })
 export class Growl implements AfterViewInit,DoCheck,OnDestroy {
 
-    @Input() sticky: boolean;
-
     @Input() life: number = 3000;
         
     @Input() style: any;
@@ -54,6 +52,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
     
     @ViewChild('container') containerViewChild: ElementRef;
+
+    _sticky: boolean;
     
     _value: Message[];
                         
@@ -102,6 +102,17 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         }
     }
     
+    @Input() get sticky(): boolean {
+        return this._sticky;
+    }
+
+    set sticky(value: boolean) {
+        if(value && this.timeout) {
+            clearTimeout(this.timeout);
+        }
+        this._sticky = value;
+    }
+
     ngDoCheck() {
         if(!this.immutable && this.containerViewChild && this.containerViewChild.nativeElement) {
             let changes = this.differ.diff(this.value);

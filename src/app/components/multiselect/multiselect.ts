@@ -66,6 +66,10 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
+    host: {
+        '[class.ui-inputwrapper-filled]': 'filled',
+        '[class.ui-inputwrapper-focus]': 'focus'
+    },
     providers: [DomHandler,ObjectUtils,MULTISELECT_VALUE_ACCESSOR]
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
@@ -139,6 +143,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     public valuesAsString: string;
         
     public focus: boolean;
+
+    filled: boolean;
     
     public documentClickListener: any;
     
@@ -222,7 +228,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     writeValue(value: any) : void {
         this.value = value;
         this.updateLabel();
+        this.updateFilledState();
         this.cd.markForCheck();
+    }
+
+    updateFilledState() {
+        this.filled = (this.valuesAsString != null && this.valuesAsString.length > 0);
     }
     
     registerOnChange(fn: Function): void {
@@ -247,6 +258,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value, itemValue: value});
         this.updateLabel();
+        this.updateFilledState();
     }   
     
     isSelected(value) {

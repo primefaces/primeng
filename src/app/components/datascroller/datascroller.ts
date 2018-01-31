@@ -1,19 +1,19 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,Renderer2,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,Renderer2,NgZone,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-dataScroller',
-    template: `
+    template:`
     <div [ngClass]="{'ui-datascroller ui-widget': true, 'ui-datascroller-inline': inline}" [ngStyle]="style" [class]="styleClass">
         <div class="ui-datascroller-header ui-widget-header ui-corner-top" *ngIf="header">
             <ng-content select="p-header"></ng-content>
         </div>
         <div #content class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
-                <li *ngFor="let item of dataToRender;trackBy: trackBy">
-                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+                <li *ngFor="let item of value | slice:first:(first + (page * rows)); trackBy: trackBy; let i = index">
+                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                 </li>
             </ul>
         </div>
@@ -24,14 +24,14 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
+export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
+
+    @Input() value: any[];
 
     @Input() rows: number;
 
     @Input() lazy: boolean;
     
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -43,44 +43,46 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     @Input() scrollHeight: any;
     
     @Input() loader: any;
+
+    @Input() totalRecords: number;
     
     @Input() trackBy: Function = (index: number, item: any) => item;
-    
-    @Input() immutable: boolean = true;
-    
-    @ViewChild('content') contentViewChild: ElementRef;
-        
+                
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
-    public _value: any[];
-    
-    public itemTemplate: TemplateRef<any>;
 
-    public dataToRender: any[] = [];
+    @ViewChild('content') contentViewChild: ElementRef;
 
-    public first: number = 0;
-    
-    scrollFunction: any;
-    
+    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
+        
+    itemTemplate: TemplateRef<any>;
+
+    dataToRender: any[] = [];
+
+    first: number = 0;
+        
     contentElement: HTMLDivElement;
 
-    differ: any;
+    inlineScrollListener: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler, public differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
+    windowScrollListener: any;
+
+    loaderClickListener: any;
+
+    page: number = 0;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler, public zone: NgZone) {}
+
+    ngOnInit() {
+        this.load();
     }
 
     ngAfterViewInit() {
-        if(this.lazy) {
-            this.load();
-        }
-        
         if(this.loader) {
-            this.scrollFunction = this.renderer.listen(this.loader, 'click', () => {
+            this.loaderClickListener = this.renderer.listen(this.loader, 'click', () => {
                 this.load();
             });
         }
@@ -102,112 +104,93 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
             }
         });
     }
-    
-    @Input() get value(): any[] {
-        return this._value;
-    }
-
-    set value(val:any[]) {
-        this._value = val;
-        
-        if(this.immutable) {
-            this.handleDataChange();
-        }
-    }
-    
-    handleDataChange() {
-        if(this.lazy)
-            this.dataToRender = this.value;
-        else
-            this.load();
-    }
-    
-    ngDoCheck() {
-        if(!this.immutable) {
-            let changes = this.differ.diff(this.value);
-            if(changes) {
-                this.handleDataChange();
-            }
-        }
-    }
-        
+                
     load() {
         if(this.lazy) {
             this.onLazyLoad.emit({
-                first: this.first,
+                first: this.page * this.rows,
                 rows: this.rows
-            });
-            
-            this.first = this.first + this.rows;
-        }
-        else {
-            if(this.value) {
-                for(let i = this.first; i < (this.first + this.rows); i++) {
-                    if(i >= this.value.length) {
-                        break;
-                    }
-
-                    this.dataToRender.push(this.value[i]);
-                }
-                
-                this.first = this.first + this.rows;
-            }
-        }
-    }
-     
-    reset() {
-        this.first = 0;
-        this.dataToRender = [];
-        this.load();
-    }
-
-    isEmpty() {
-        return !this.dataToRender||(this.dataToRender.length == 0);
-    }
-    
-    createLazyLoadMetadata(): any {
-        return {
-            first: this.first,
-            rows: this.rows
-        };
-    }
-    
-    bindScrollListener() {
-        if(this.inline) {
-            this.contentElement = this.contentViewChild.nativeElement;
-            
-            this.scrollFunction = this.renderer.listen(this.contentElement, 'scroll', () => {
-                let scrollTop = this.contentElement.scrollTop;
-                let scrollHeight = this.contentElement.scrollHeight;
-                let viewportHeight = this.contentElement.clientHeight;
-
-                if((scrollTop >= ((scrollHeight * this.buffer) - (viewportHeight)))) {
-                    this.load();
-                }
-            });
-        }
-        else {
-            this.scrollFunction = this.renderer.listen('window', 'scroll', () => {
-                let docBody = document.body;
-                let docElement = document.documentElement;
-                let scrollTop = (window.pageYOffset||document.documentElement.scrollTop);
-                let winHeight = docElement.clientHeight;
-                let docHeight = Math.max(docBody.scrollHeight, docBody.offsetHeight, winHeight, docElement.scrollHeight, docElement.offsetHeight);
-                            
-                if(scrollTop >= ((docHeight * this.buffer) - winHeight)) {
-                    this.load();
-                }
             });
         }
         
+        this.page = this.page + 1;
+    }
+
+    shouldLoad() {
+        if(this.lazy)
+            return (this.rows * this.page < this.totalRecords);
+        else
+            return this.value && this.value.length && (this.rows * this.page < this.value.length);
+    }
+     
+    reset() {
+        this.page = 0;
+    }
+
+    isEmpty() {
+        return !this.value||(this.value.length == 0);
+    }
+        
+    bindScrollListener() {
+        this.zone.runOutsideAngular(() => {
+            if(this.inline) {
+                this.inlineScrollListener = this.onInlineScroll.bind(this);
+                this.contentViewChild.nativeElement.addEventListener('scroll', this.inlineScrollListener);
+            }
+            else {
+                this.windowScrollListener = this.onWindowScroll.bind(this);
+                window.addEventListener('scroll', this.windowScrollListener);
+            }
+        });
+    }
+
+    unbindScrollListener() {
+        if(this.inlineScrollListener) {
+            this.contentViewChild.nativeElement.removeEventListener('scroll', this.inlineScrollListener);
+        }
+
+        if(this.windowScrollListener) {
+            window.removeEventListener('scroll', this.windowScrollListener);
+        }
+
+        if(this.loaderClickListener) {
+            this.loaderClickListener();
+            this.loaderClickListener = null;
+        }
+    }
+
+    onInlineScroll() {
+        let scrollTop = this.contentViewChild.nativeElement.scrollTop;
+        let scrollHeight = this.contentViewChild.nativeElement.scrollHeight;
+        let viewportHeight = this.contentViewChild.nativeElement.clientHeight;
+
+        if((scrollTop >= ((scrollHeight * this.buffer) - (viewportHeight)))) {
+            if(this.shouldLoad()) {
+                this.zone.run(() => {
+                    this.load();
+                });
+            }   
+        }
+    }
+
+    onWindowScroll() {
+        let docBody = document.body;
+        let docElement = document.documentElement;
+        let scrollTop = (window.pageYOffset||document.documentElement.scrollTop);
+        let winHeight = docElement.clientHeight;
+        let docHeight = Math.max(docBody.scrollHeight, docBody.offsetHeight, winHeight, docElement.scrollHeight, docElement.offsetHeight);
+
+        if(scrollTop >= ((docHeight * this.buffer) - winHeight)) {
+            if(this.shouldLoad()) {
+                this.zone.run(() => {
+                    this.load();
+                });
+            }  
+        }
     }
     
     ngOnDestroy() {
-        //unbind
-        if(this.scrollFunction) {
-            this.scrollFunction();
-            this.contentElement = null;
-        }
+        this.unbindScrollListener();
     }
 }
 

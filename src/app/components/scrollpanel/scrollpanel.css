@@ -8,7 +8,7 @@
 }
 
 .ui-scrollpanel-content {
-    height: 100%;
+    height: calc(100% + 18px);
     width: calc(100% + 18px);
     padding: 0 0 0 0;
     position: relative;
@@ -19,17 +19,25 @@
 .ui-scrollpanel-bar {
     position: relative;
     background: #c1c1c1;
-    width: 9px;
     border-radius: 3px;
-    top: 0;
     z-index: 2;
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.25s linear;
 }
 
+.ui-scrollpanel-bar-y {
+    width: 9px;
+    top: 0;
+}
+
+.ui-scrollpanel-bar-x {
+    height: 9px;
+    bottom: 0;
+}
+
 .ui-scrollpanel-hidden {
-    display: none;
+    display: hidden;
 }
 
 .ui-scrollpanel:hover .ui-scrollpanel-bar,

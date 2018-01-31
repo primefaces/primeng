@@ -18,6 +18,10 @@
     cursor: pointer;
 }
 
+.ui-table-auto-layout > .ui-table-wrapper > table {
+    table-layout: auto;
+}
+
 /* Sections */
 .ui-table-caption,
 .ui-table-summary {

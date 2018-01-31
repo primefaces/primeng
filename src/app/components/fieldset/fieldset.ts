@@ -11,11 +11,16 @@ let idx: number = 0;
     template: `
         <fieldset [attr.id]="id" [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
             <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text">
-                <a href="#" (click)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" [attr.tabindex]="toggleable ? null : -1">
+                <ng-container *ngIf="toggleable; else legendContent">
+                    <a href="#" (click)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" [attr.tabindex]="toggleable ? null : -1">
+                        <ng-container *ngTemplateOutlet="legendContent"></ng-container>
+                    </a>
+                </ng-container>
+                <ng-template #legendContent>
                     <span class="ui-fieldset-toggler fa fa-w" *ngIf="toggleable" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                     <span class="ui-fieldset-legend-text">{{legend}}</span>
                     <ng-content select="p-header"></ng-content>
-                </a>
+                </ng-template>
             </legend>
             <div [attr.id]="id + '-content'" class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? 'hidden' : 'visible'" 
                         [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}" [attr.aria-hidden]="collapsed"
@@ -47,6 +52,8 @@ export class Fieldset implements BlockableUI {
 
     @Input() collapsed: boolean = false;
 
+    @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
+    
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
@@ -80,10 +87,12 @@ export class Fieldset implements BlockableUI {
     
     expand(event) {
         this.collapsed = false;
+        this.collapsedChange.emit(this.collapsed);
     }
     
     collapse(event) {
         this.collapsed = true;
+        this.collapsedChange.emit(this.collapsed);
     }
     
     getBlockableElement(): HTMLElement {

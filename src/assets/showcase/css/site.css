@@ -312,6 +312,8 @@ body {
     color: #ffffff;
     font-weight: bold;
     font-size: 11px;
+    position: relative;
+    top: -1px;
 }
 
 #layout-sidebar .layout-menu > div a:hover {
@@ -897,6 +899,12 @@ a {
     height: 42px;
 }
 
+.home .testimonials {
+    border-top: 1px solid #4c5254;
+    padding-top: 20px;
+    margin-top: 30px;
+}
+
 .home .testimonials .ui-g > div {
     margin-left: -1px;
     margin-top: -1px;
@@ -907,29 +915,23 @@ a {
     background-color: #283134;
 }
 
-.home .testimonials {
-    border-top: 1px solid #4c5254;
-    padding-top: 20px;
-    margin-top: 30px;
+.home .testimonials p {
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: italic;
 }
 
-.home .testimonials hr {
-  width: 40px;
-  color: #4c5254;
+.home .testimonials h3 {
+    margin-bottom: 26px;
 }
 
 .home .testimonials img {
     padding-top: 10px;
 }
 
-.home .testimonials h3 {
-    margin-bottom: 10px;
-}
-
-.home .testimonials p {
-    font-size: 14px;
-    line-height: 1.5;
-    font-style: italic;
+.home .testimonials hr {
+  width: 40px;
+  color: #4c5254;
 }
 
 .home .testimonials i {
@@ -945,11 +947,11 @@ a {
 }
 
 .home .book .ui-g-12:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .home .book .ui-g-12:first-child {
-    text-align: center;
+    text-align: left;
 }
 
 .home .book img {
@@ -1021,6 +1023,39 @@ a {
 }
 
 .support p {
+    line-height: 1.5;
+}
+
+/* NGCONF */
+.home .ngconf,
+.ngconf-image {
+    background-color: rgba(79,41,64,.8);
+    padding: 30px;
+    color: #ffffff;
+}
+
+.ngconf-image .ui-md-6:last-child {
+    text-align: right;
+}
+
+.ngconf li {
+    line-height: 1.5;
+}
+
+.home .ngconf p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.home .ngconf .ui-md-6:last-child {
+    text-align: center;
+}
+
+.home .ngconf .home-button {
+    margin-top: 10px;
+}
+
+.ngconf p {
     line-height: 1.5;
 }
 

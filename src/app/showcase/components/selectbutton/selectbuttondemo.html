@@ -15,6 +15,10 @@
     <p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"></p-selectButton>
     <p>Selected Types: <span *ngFor="let type of selectedTypes">{{type}} </span></p>
 
+    <h3>Icon Only</h3>
+    <p-selectButton [options]="modes" [(ngModel)]="selectedModes" multiple="multiple"></p-selectButton>
+    <p>Selected Modes: <span *ngFor="let mode of selectedModes">{{mode}} </span></p>
+
     <hr />
 
     <button type="button" (click)="clear()" pButton icon="fa-close" label="Clear"></button>
@@ -121,6 +125,33 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Icons</h3>
+            <p>Button options can display icons using the icon property of the SelectItem API.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-selectButton [options]="selectedType" [(ngModel)]="types"&gt;&lt;/p-selectButton&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class SelectButtonDemo &#123;
+
+    types: SelectItem[];
+
+    selectedType: string;
+
+    constructor() &#123;
+        this.types = [];
+        this.types.push(&#123;title: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'&#125;);
+        this.types.push(&#123;title: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'&#125;);
+        this.types.push(&#123;title: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+
+
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -223,11 +254,15 @@ export class MyModel &#123;
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
 
-&lt;p&gt;Selected Type: {{selectedType}}&lt;/p&gt;
+&lt;p&gt;Selected Type: &#123;&#123;selectedType&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Types: &lt;span *ngFor="let type of selectedTypes"&gt;{{type}} &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Selected Types: &lt;span *ngFor="let type of selectedTypes"&gt;&#123;&#123;type&#125;&#125; &lt;/span&gt;&lt;/p&gt;
+
+&lt;h3&gt;Icon Only&lt;/h3&gt;
+&lt;p-selectButton [options]="modes" [(ngModel)]="selectedMode" multiple="multiple"&gt;&lt;/p-selectButton&gt;
+&lt;p&gt;Selected Modes: &lt;span *ngFor="let mode of selectedMode"&gt;&#123;&#123;mode&#125;&#125; &lt;/span&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -243,19 +278,32 @@ export class SelectButtonDemo &#123;
 
     selectedType: string;
 
-    selectedTypes: string[] = ['Apartment','Studio'];
+    selectedTypes: string[] = ['PayPal','MasterCard'];
+
+    selectedModes: string[];
+
+    modes: SelectItem[];
 
     constructor() &#123;
-        this.types = [];
-        this.types.push(&#123;label: 'Apartment', value: 'Apartment'&#125;);
-        this.types.push(&#123;label: 'House', value: 'House'&#125;);
-        this.types.push(&#123;label: 'Studio', value: 'Studio'&#125;);
+        this.types = [
+            &#123;label: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'&#125;,
+            &#123;label: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'&#125;,
+            &#123;label: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'&#125;
+        ];
+
+        this.modes = [
+            &#123;value: 'Bold', title: 'Bold', icon: 'fa fa-fw fa-bold'&#125;,
+            &#123;value: 'Italic', title: 'Italic', icon: 'fa fa-fw fa-italic'&#125;,
+            &#123;value: 'Underline', title: 'Underline', icon: 'fa fa-fw fa-underline'&#125;
+        ];
     &#125;
 
     clear() &#123;
         this.selectedType = null;
         this.selectedTypes = [];
+        this.selectedModes = [];
     &#125;
+
 &#125;
 </code>
 </pre>

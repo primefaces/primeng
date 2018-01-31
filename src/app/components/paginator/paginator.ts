@@ -34,7 +34,7 @@ import {SharedModule} from '../common/shared';
                 <span class="fa fa-step-forward"></span>
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
-                (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false"></p-dropdown>
+                (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false" [appendTo]="dropdownAppendTo"></p-dropdown>
             <div class="ui-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
@@ -56,6 +56,8 @@ export class Paginator implements OnInit {
     @Input() templateLeft: TemplateRef<any>;
     
     @Input() templateRight: TemplateRef<any>;
+
+    @Input() dropdownAppendTo: any;
 
     pageLinks: number[];
 

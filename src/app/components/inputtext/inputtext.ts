@@ -1,4 +1,5 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck,Optional} from '@angular/core';
+import {NgModel} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -15,7 +16,7 @@ export class InputText implements DoCheck {
 
     filled: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
         
     ngDoCheck() {
         this.updateFilledState();
@@ -28,7 +29,8 @@ export class InputText implements DoCheck {
     }
     
     updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) ||
+                        (this.ngModel && this.ngModel.model);
     }
 }
 

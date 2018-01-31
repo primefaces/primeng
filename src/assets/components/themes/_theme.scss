@@ -605,12 +605,23 @@
     .ui-table-thead > tr > th,
     .ui-table-tfoot > tr > td {
         background: $headerBgColor;
-        border:1px solid $headerBorderColor;
+        border: 1px solid $headerBorderColor;
         color: $headerTextColor;
     }
 
-    .ui-table-tbody > tr > td {
-        border:1px solid $contentBorderColor;
+    .ui-table-tbody > tr {
+        background: $contentBgColor;
+        color: $contentTextColor;
+
+        > td {
+            border: 1px solid $contentBorderColor;
+            background: inherit;
+        }
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+        }
     }
 
     .ui-sortable-column {
@@ -638,7 +649,7 @@
         background-color: lighten($stateHighlightBgColor, 20%);
         color: $stateHighlightTextColor;
     }
-    
+
 }
 
 @media ( max-width: 35em ) {

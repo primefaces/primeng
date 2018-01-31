@@ -3,69 +3,8 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">DataScroller</span>
-        <span>DataScroller displays data with on demand loading using scroll.</span>
+        <span>DataScroller displays data with on demand loading using scroll. Scroll down to view the demo.</span>
     </div>
-</div>
-
-<div class="content-section implementation">
-    <p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4">
-        <p-header>
-            Scroll Down to to Load More
-        </p-header>
-        <ng-template let-car pTemplate="item">
-            <li style="border-bottom:1px solid #D5D5D5;">
-                <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="assets/showcase/images/demo/car/{{car.brand}}.png"></div>
-                        <div class="ui-grid-col-9">
-                            <div class="ui-grid ui-grid-responsive ui-fluid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Vin: </div>
-                                    <div class="ui-grid-col-10">{{car.vin}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Year: </div>
-                                    <div class="ui-grid-col-10">{{car.year}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Brand: </div>
-                                    <div class="ui-grid-col-10">{{car.brand}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Color: </div>
-                                    <div class="ui-grid-col-10">{{car.color}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ng-template>
-    </p-dataScroller>
-
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-12" style="text-align:center"><img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Vin: </div>
-                <div class="ui-grid-col-8">{{selectedCar.vin}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Year: </div>
-                <div class="ui-grid-col-8">{{selectedCar.year}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Brand: </div>
-                <div class="ui-grid-col-8">{{selectedCar.brand}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Color: </div>
-                <div class="ui-grid-col-8">{{selectedCar.color}}</div>
-            </div>
-        </div>
-    </p-dialog>
 </div>
 
 <div class="content-section documentation">
@@ -143,17 +82,8 @@ export class DataScrollertDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <h3>Change Detection</h3>
-            <p>DataScroller either uses setter based checking or ngDoCheck to realize if the underlying data has changed to update the UI. This is configured using the immutable
-                property, when enabled (default) setter based detection is utilized so your data changes such as adding or removing a record
-                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change.
-                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
-                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
-                both methods can be used depending on your preference.
-            </p>
-
-            <h3>Facets</h3>
-            <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
+            <h3>Sections</h3>
+            <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
@@ -181,11 +111,11 @@ export class DataScrollertDemo implements OnInit &#123;
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
              onLazyLoad callback everytime paging happens. To implement lazy loading,
-            enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object
+            enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource along with the logical number of total records. onLazyLoad gets an event object
             that contains information about what to load.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataScroller [value]="cars" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
     &lt;/ng-template&gt;
@@ -228,6 +158,12 @@ loadData(event) &#123;
                             <td>Number of rows to fetch in a load event.</td>
                         </tr>
                         <tr>
+                            <td>lazy</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
                             <td>inline</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -264,16 +200,16 @@ loadData(event) &#123;
                             <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
                         </tr>
                         <tr>
-                            <td>immutable</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Defines how the data should be manipulated.</td>
-                        </tr>
-                        <tr>
                             <td>buffer</td>
                             <td>number</td>
                             <td>0.9</td>
                             <td>Number of buffer size.</td>
+                        </tr>
+                        <tr>
+                            <td>totalRecords</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of total records, defaults to length of value when not defined.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -366,62 +302,33 @@ loadData(event) &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="10"&gt;
     &lt;p-header&gt;
-        Scroll Down to to Load More
+        Scroll Down to Load More
     &lt;/p-header&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
-            &lt;div class="ui-grid-row"&gt;
-                &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png"&gt;&lt;/div&gt;
-                &lt;div class="ui-grid-col-9"&gt;
-                    &lt;div class="ui-grid ui-grid-responsive ui-fluid"&gt;
-                        &lt;div class="ui-grid-row"&gt;
-                            &lt;div class="ui-grid-col-2"&gt;Vin: &lt;/div&gt;
-                            &lt;div class="ui-grid-col-10"&gt;{{car.vin}}&lt;/div&gt;
-                        &lt;/div&gt;
-                        &lt;div class="ui-grid-row"&gt;
-                            &lt;div class="ui-grid-col-2"&gt;Year: &lt;/div&gt;
-                            &lt;div class="ui-grid-col-10"&gt;{{car.year}}&lt;/div&gt;
-                        &lt;/div&gt;
-                        &lt;div class="ui-grid-row"&gt;
-                            &lt;div class="ui-grid-col-2"&gt;Brand: &lt;/div&gt;
-                            &lt;div class="ui-grid-col-10"&gt;{{car.brand}}&lt;/div&gt;
-                        &lt;/div&gt;
-                        &lt;div class="ui-grid-row"&gt;
-                            &lt;div class="ui-grid-col-2"&gt;Color: &lt;/div&gt;
-                            &lt;div class="ui-grid-col-10"&gt;{{car.color}}&lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
+    &lt;ng-template let-car pTemplate="item" let-i="index"&gt;
+        &lt;div class="ui-g car-item"&gt;
+            &lt;div class="ui-g-12 ui-md-3"&gt;
+                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-g-12 ui-md-9"&gt;
+                &lt;div class="ui-g"&gt;
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.vin&#125;&#125;&lt;/div&gt;
+
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.year&#125;&#125;&lt;/div&gt;
+
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/div&gt;
+
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.color&#125;&#125;&lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataScroller&gt;
-
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
-    &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-12" style="text-align:center"&gt;&lt;img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Vin: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.vin}}&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Year: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.year}}&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Brand: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.brand}}&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Color: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.color}}&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/p-dialog&gt;
 </code>
 </pre>
 <pre>
@@ -430,29 +337,44 @@ export class DataScrollerDemo implements OnInit &#123;
 
     cars: Car[];
 
-    selectedCar: Car;
-
-    displayDialog: boolean;
-
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
     &#125;
-
-    selectCar(car: Car) &#123;
-        this.selectedCar = car;
-        this.displayDialog = true;
-    &#125;
-
-    onDialogHide() &#123;
-        this.selectedCar = null;
-    &#125;
 &#125;
 </code>
 </pre>
-
-
         </p-tabPanel>
     </p-tabView>
+</div>
+
+<div class="content-section implementation">
+    <p-dataScroller [value]="cars" [rows]="10">
+        <p-header>
+            Scroll Down to Load More
+        </p-header>
+        <ng-template let-car pTemplate="item" let-i="index">
+            <div class="ui-g car-item">
+                <div class="ui-g-12 ui-md-3">
+                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
+                </div>
+                <div class="ui-g-12 ui-md-9">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">Vin: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.vin}}</div>
+            
+                        <div class="ui-g-2 ui-sm-6">Year: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.year}}</div>
+            
+                        <div class="ui-g-2 ui-sm-6">Brand: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.brand}}</div>
+            
+                        <div class="ui-g-2 ui-sm-6">Color: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.color}}</div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataScroller>
 </div>
