@@ -400,6 +400,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(this.currentHour === undefined) {
             this.initTime(this.value||new Date());
         }
+        this.updateInputfield();
     }
     
     get locale() {

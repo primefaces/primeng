@@ -2,7 +2,7 @@
 
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">TurboTable - <span class="subitem">Beta</span></span>
+        <span class="feature-title">TurboTable</span>
         <span>Table is the successor of p-dataTable with a lightning fast performance (at least 10x faster) and excellent level of control over the presentation. p-table is called as TurboTable in order to differantiate if from the deprecated p-dataTable.
         </span>
     </div>
@@ -821,7 +821,7 @@ export class CustomTableSortDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/sort']">live example.</a></p>
 
             <h3>Filtering</h3>
-            <p>Filtering is enabled by defining the filter and calling filter method on the local template variable of the table with value, field and match mode parameters. Available match modes are
+            <p>Filtering is enabled by defining the filter and calling filter method on the local template variable of the table with value, column field and match mode parameters. Available match modes are
             "startsWith", "contains", "endsWith", "equals" and "in". Following is an example that utilizes various PrimeNG form components as filters.</p>
 
             <p>An optional global filter feature is available to search all fields with the same query, to enable this place an input component and call the filterGlobal function with value and match mode properties on your event of choice.</p>
@@ -1293,6 +1293,33 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p><b>Note:</b> Scrollable tables require a column group to support resizing.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true"&gt;
+    &lt;ng-template pTemplate="colgroup" let-columns&gt;
+        &lt;colgroup&gt;
+            &lt;col *ngFor="let col of columns"&gt;
+        &lt;/colgroup&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" pResizableColumn&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/table/colresize']">live example.</a></p>
 
             <h3>Column Reordering</h3>
@@ -1322,7 +1349,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <h3>Data Export</h3>
             <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
-                columns should be dynamic for export functionality to work.
+                columns should be dynamic for export functionality to work and column objects must define field/header properties.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1570,7 +1597,7 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>When column widths need to vary, use colgroup template to avoid misalignment issues and apply percentage values since table width is 100%.</p>
+            <p>When column widths need to vary or resizable columns is activated, use colgroup template to avoid misalignment issues and apply percentage values since table width is 100%.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -2137,12 +2164,6 @@ export class DataTableDemo implements OnInit &#123;
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>onRowClick</td>
-                            <td>event.originalEvent: Browser event <br>
-                                event.data: Selected data </td>
-                            <td>Callback to invoke when a row is clicked.</td>
-                        </tr>
                         <tr>
                             <td>onRowSelect</td>
                             <td>event.originalEvent: Browser event <br>

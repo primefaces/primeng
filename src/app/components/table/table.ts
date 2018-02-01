@@ -18,10 +18,12 @@ export class TableService {
     private sortSource = new Subject<SortMeta|SortMeta[]>();
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
+    private valueSource = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
+    valueSource$ = this.valueSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -34,6 +36,10 @@ export class TableService {
     onContextMenu(data: any) {
         this.contextMenuSource.next(data);
     }
+
+    onValueChange(value: any) {
+        this.valueSource.next(value);
+    }
 }
 
 @Component({
@@ -41,6 +47,7 @@ export class TableService {
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" 
             [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns, 
+                'ui-table-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
             <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-table-loading-content" *ngIf="loading">
@@ -67,8 +74,8 @@ export class TableService {
             </div>
 
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}"></div>
-               <div [pScrollableView]="columns" [frozen]="false"></div>
+               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
             </div>
                         
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -182,8 +189,6 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() autoLayout: boolean;
 
-    @Output() onRowClick: EventEmitter<any> = new EventEmitter();
-
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -296,12 +301,15 @@ export class Table implements OnInit, AfterContentInit {
 
     filterTimeout: any;
 
+    initialized: boolean;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
+        this.initialized = true;
     }
 
     ngAfterContentInit() {
@@ -387,6 +395,8 @@ export class Table implements OnInit, AfterContentInit {
         if(this.virtualScroll && this.virtualScrollCallback) {
             this.virtualScrollCallback();
         }
+
+        this.tableService.onValueChange(val);
     }
 
     @Input() get sortField(): string {
@@ -395,8 +405,12 @@ export class Table implements OnInit, AfterContentInit {
 
     set sortField(val: string) {
         this._sortField = val;
-        if (this.sortMode === 'single') {
-            this.sortSingle();
+
+        //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            if (this.sortMode === 'single') {
+                this.sortSingle();
+            }
         }
     }
 
@@ -405,8 +419,12 @@ export class Table implements OnInit, AfterContentInit {
     }
     set sortOrder(val: number) {
         this._sortOrder = val;
-        if (this.sortMode === 'single') {
-            this.sortSingle();
+
+         //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            if (this.sortMode === 'single') {
+                this.sortSingle();
+            }
         }
     }
 
@@ -636,8 +654,6 @@ export class Table implements OnInit, AfterContentInit {
             return;
         }
 
-        this.onRowClick.emit({ originalEvent: event.originalEvent, data: event.rowData });
-
         if(this.selectionMode) {
             this.preventSelectionSetterPropagation = true;
             if(this.isMultipleSelectionMode() && event.originalEvent.shiftKey && this.anchorRowIndex != null) {
@@ -726,14 +742,17 @@ export class Table implements OnInit, AfterContentInit {
 
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.value[i];
-            this._selection = [...this.selection, rangeRowData];
-            this.selectionChange.emit(this.selection);
-            let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
-            if(dataKeyValue) {
-                this.selectionKeys[dataKeyValue] = 1;
+            if(!this.isSelected(rangeRowData)) {
+                this._selection = [...this.selection, rangeRowData];
+                let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+                if(dataKeyValue) {
+                    this.selectionKeys[dataKeyValue] = 1;
+                }
+                this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
             }
-            this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
         }
+
+        this.selectionChange.emit(this.selection);
     }
 
     clearSelectionRange(event: MouseEvent) {
@@ -1267,22 +1286,20 @@ export class Table implements OnInit, AfterContentInit {
                     let nextColumnMinWidth = nextColumn.style.minWidth || 15;
 
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
-                        column.style.width = newColumnWidth + 'px';
-                        if (nextColumn) {
-                            nextColumn.style.width = nextColumnWidth + 'px';
-                        }
-
                         if (this.scrollable) {
-                            let scrollableTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
-                            let colGroup = scrollableTable.children[0].nodeName === 'COLGROUP' ? scrollableTable.children[0] : null;
+                            let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
+                            let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
+                            let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-footer-table');
+                            let resizeColumnIndex = this.domHandler.index(column);
 
-                            if(colGroup) {
-                                let resizeColumnIndex = this.domHandler.index(column);
-                                colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
-
-                                if (nextColumn) {
-                                    colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
-                                }
+                            this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                        }
+                        else {
+                            column.style.width = newColumnWidth + 'px';
+                            if (nextColumn) {
+                                nextColumn.style.width = nextColumnWidth + 'px';
                             }
                         }
                     }
@@ -1298,16 +1315,11 @@ export class Table implements OnInit, AfterContentInit {
                     if(scrollableFooterTable) {
                         scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     }
-                    column.style.width = newColumnWidth + 'px';
+                    let resizeColumnIndex = this.domHandler.index(column);
 
-                    let scrollableColGroup = scrollableBodyTable.children[0].nodeName === 'COLGROUP' ? scrollableBodyTable.children[0] : null;
-                    if(scrollableColGroup) {
-                        let resizeColumnIndex = this.domHandler.index(column);
-                        scrollableColGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
-                    }
-                    else {
-                        throw 'Expand mode in scrollable table requires a colgroup';
-                    }
+                    this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
+                    this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
+                    this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
                 }
                 else {
                     this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
@@ -1325,6 +1337,25 @@ export class Table implements OnInit, AfterContentInit {
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
         this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+    }
+
+    resizeColGroup(table, resizeColumnIndex, newColumnWidth, nextColumnWidth) {
+        if(table) {
+            let colGroup = table.children[0].nodeName === 'COLGROUP' ? table.children[0] : null;
+
+            if(colGroup) {
+                let col = colGroup.children[resizeColumnIndex];
+                let nextCol = col.nextElementSibling;
+                col.style.width = newColumnWidth + 'px';
+
+                if (nextCol && nextColumnWidth) {
+                    nextCol.style.width = nextColumnWidth + 'px';
+                }
+            }
+            else {
+                throw "Scrollable tables require a colgroup to support resizable columns";
+            }
+        }
     }
 
     onColumnDragStart(event, columnElement) {
@@ -1431,6 +1462,7 @@ export class Table implements OnInit, AfterContentInit {
 
     ngOnDestroy() {
         this.editingCell = null;
+        this.initialized = null;
     }
 }
 
@@ -1532,12 +1564,32 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     frozenSiblingBody: Element;
 
-    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+    _scrollHeight: string;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {
+        this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.alignScrollBar();
+                }, 50);
+            });
+        });
+     }
+
+    @Input() get scrollHeight(): string {
+        return this._scrollHeight;
+    }
+    set scrollHeight(val: string) {
+        this._scrollHeight = val;
+        this.setScrollHeight();
+    }
 
     ngAfterViewInit() {
         this.bindEvents();
-
         this.setScrollHeight();
+        this.alignScrollBar();
 
         if(!this.frozen) {
             if (this.dt.frozenColumns || this.dt.frozenBodyTemplate) {
@@ -1568,25 +1620,19 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
             let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
 
             if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                if(!this.frozen) {
-                    this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-                }
-
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
                 this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
             }
 
             if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                if (!this.frozen) {
-                    this.scrollFooterViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-                }
-
                 this.footerScrollListener = this.onFooterScroll.bind(this);
                 this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
             }
 
-            this.bodyScrollListener = this.onBodyScroll.bind(this);
-            this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+            if(!this.frozen) {
+                this.bodyScrollListener = this.onBodyScroll.bind(this);
+                this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+            }
         });
     }
 
@@ -1637,6 +1683,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                     page: page,
                     callback: () => {
                         this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
+
+                        if (this.frozenSiblingBody) {
+                            (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
+                        }
                     }
                 });
             }
@@ -1644,12 +1694,12 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     }
 
     setScrollHeight() {
-        if(this.dt.scrollHeight) {
-            if(this.dt.scrollHeight.indexOf('%') !== -1) {
+        if(this.scrollHeight && this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
+            if(this.scrollHeight.indexOf('%') !== -1) {
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
                 this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
                 let containerHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.dt.scrollHeight) / 100;
+                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
 
@@ -1658,7 +1708,21 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
             }
             else {
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.dt.scrollHeight;
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
+            }
+        }
+    }
+
+    hasVerticalOverflow() {
+        return this.domHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > this.domHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+    }
+
+    alignScrollBar() {
+        if(!this.frozen) {
+            let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
+            this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+            if(this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
             }
         }
     }
@@ -1667,6 +1731,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         this.unbindEvents();
 
         this.frozenSiblingBody = null;
+
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }
 
@@ -2054,14 +2122,22 @@ export class EditableColumn implements AfterViewInit {
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        if (this.dt.editingCell && this.dt.editingCell !== this.el.nativeElement) {
-            if (!this.isValid()) {
-                return;
+        if (this.dt.editingCell) {
+            if (this.dt.editingCell !== this.el.nativeElement) {
+                if (!this.isValid()) {
+                    return;
+                }
+
+                this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                this.openCell();
             }
-
-            this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         }
+        else {
+            this.openCell();
+        }
+    }
 
+    openCell() {
         this.dt.editingCell = this.el.nativeElement;
         this.domHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.dt.onEditInit.emit({ field: this.field, data: this.data});

@@ -18,6 +18,10 @@
     cursor: pointer;
 }
 
+.ui-table-auto-layout > .ui-table-wrapper {
+    overflow-x: auto;
+}
+
 .ui-table-auto-layout > .ui-table-wrapper > table {
     table-layout: auto;
 }
@@ -95,6 +99,10 @@
 .ui-resizable-column {
     background-clip: padding-box;
     position: relative;
+}
+
+.ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer {
+    display: none;
 }
 
 .ui-table .ui-column-resizer {

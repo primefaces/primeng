@@ -622,6 +622,11 @@
             background-color: $stateHighlightBgColor;
             color: $stateHighlightTextColor;
         }
+
+        &.ui-contextmenu-selected {
+            background-color: lighten($stateHighlightBgColor, 20%);
+            color: $stateHighlightTextColor;
+        }
     }
 
     .ui-sortable-column {
@@ -643,13 +648,6 @@
             color: $stateHoverTextColor;
         }
     }
-
-    /* ContextMenu */
-    .ui-contextmenu-selected {
-        background-color: lighten($stateHighlightBgColor, 20%);
-        color: $stateHighlightTextColor;
-    }
-
 }
 
 @media ( max-width: 35em ) {
