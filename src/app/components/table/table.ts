@@ -1320,8 +1320,6 @@ export class Table implements OnInit, AfterContentInit {
                     this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
                     this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
                     this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
-
-                    this.containerViewChild.nativeElement.style.width = scrollableBodyTable.offsetWidth + 'px';
                 }
                 else {
                     this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
