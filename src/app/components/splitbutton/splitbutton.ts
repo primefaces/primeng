@@ -17,6 +17,7 @@ import {RouterModule} from '@angular/router';
                     [ngStyle]="menuStyle" [class]="menuStyleClass" [@overlayState]="menuVisible ? 'visible' : 'hidden'">
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model">
+                      <ng-container  *ngIf="!item.hasOwnProperty('visible') || item.visible">
                         <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
@@ -27,6 +28,7 @@ import {RouterModule} from '@angular/router';
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
+                      </ng-container>
                     </li>
                 </ul>
             </div>
@@ -53,45 +55,45 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() icon: string;
 
     @Input() iconPos: string = 'left';
-        
+
     @Input() label: string;
-    
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() menuStyle: any;
-    
+
     @Input() menuStyleClass: string;
-    
+
     @Input() disabled: boolean;
 
     @Input() tabindex: number;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() dir: string;
 
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
-    
+
     @ViewChild('overlay') overlayViewChild: ElementRef;
-                
+
     public menuVisible: boolean = false;
-    
+
     public documentClickListener: any;
-    
+
     public dropdownClick: boolean;
-    
+
     public shown: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
-        
+
     ngAfterViewInit() {
         if(this.appendTo) {
             if(this.appendTo === 'body')
@@ -100,63 +102,63 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
                 this.domHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
         }
     }
-    
+
     ngAfterViewChecked() {
         if(this.shown) {
             this.onShow();
             this.shown = false;
         }
     }
-    
+
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
-    
+
     itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-        
-        if(item.command) {            
+
+        if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         this.menuVisible = false;
     }
-    
+
     show() {
         this.shown = true;
         this.menuVisible= !this.menuVisible;
-        this.alignPanel(); 
+        this.alignPanel();
         this.overlayViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
     }
-    
+
     onShow() {
         this.alignPanel();
         this.bindDocumentClickListener();
     }
-    
+
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
         this.dropdownClick = true;
         this.show();
     }
-    
+
     alignPanel() {
         if(this.appendTo)
             this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.containerViewChild.nativeElement);
         else
             this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.containerViewChild.nativeElement);
     }
-    
+
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
@@ -171,14 +173,14 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
             });
         }
     }
-    
+
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
-    }   
-         
+    }
+
     ngOnDestroy() {
         this.unbindDocumentClickListener();
     }
