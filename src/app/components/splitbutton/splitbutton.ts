@@ -17,7 +17,7 @@ import {RouterModule} from '@angular/router';
                     [ngStyle]="menuStyle" [class]="menuStyleClass" [@overlayState]="menuVisible ? 'visible' : 'hidden'">
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model">
-                      <ng-container  *ngIf="!item.hasOwnProperty('visible') || item.visible">
+                      <ng-container  *ngIf="(!item.hasOwnProperty('visible') && !item.hasOwnProperty('asyncVisible')) || item.visible || (item.asyncVisible | async)">
                         <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
