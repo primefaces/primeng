@@ -8,11 +8,11 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" dataKey="vin">
+    <p-table [columns]="cols" [value]="cars" dataKey="vin" [reorderableColumns]="true">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width: 2.25em"></th>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns" pReorderableColumn>
                     {{col.header}}
                 </th>
             </tr>
