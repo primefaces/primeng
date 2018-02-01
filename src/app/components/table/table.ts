@@ -189,8 +189,6 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() autoLayout: boolean;
 
-    @Output() onRowClick: EventEmitter<any> = new EventEmitter();
-
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -655,8 +653,6 @@ export class Table implements OnInit, AfterContentInit {
         if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
             return;
         }
-
-        this.onRowClick.emit({ originalEvent: event.originalEvent, data: event.rowData });
 
         if(this.selectionMode) {
             this.preventSelectionSetterPropagation = true;
