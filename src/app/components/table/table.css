@@ -12,6 +12,7 @@
 .ui-table .ui-table-tbody > tr > td,
 .ui-table .ui-table-tfoot > tr > td {
     padding: .25em .5em;
+    overflow: hidden;
 }
 
 .ui-table .ui-sortable-column {
@@ -65,7 +66,7 @@
 
 .ui-table-scrollable-body > table > .ui-table-tbody > tr:first-child > td {
     border-top: 0 none;
-} 
+}
 
 .ui-table-virtual-table {
     position: absolute;
