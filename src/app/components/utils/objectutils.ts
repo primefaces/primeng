@@ -161,4 +161,36 @@ export class ObjectUtils {
 
         return index;
     }
+
+    checkOverflow(el: any){
+      if(el.nativeElement.offsetWidth > el.nativeElement.parentElement.offsetWidth){
+        // Content of the cell overflows
+        if (!el.nativeElement.parentElement.classList.value.includes('ui-cell-ellipsis')){
+          el.nativeElement.parentElement.classList.add('ui-cell-ellipsis');
+          el.nativeElement.parentElement.classList.remove('ui-target-cell');
+
+          el.nativeElement.style.width = (el.nativeElement.parentElement.offsetWidth - 5) + 'px';
+        }
+      } else {
+        if (el.nativeElement.parentElement.classList.value.includes('ui-cell-ellipsis')){
+          el.nativeElement.parentElement.classList.remove('ui-cell-ellipsis');
+          el.nativeElement.parentElement.classList.add('ui-target-cell');
+        }
+      }
+    }
+
+    onResizeCheckOverflow(el:any, containerWidth: number){
+      if(el.children[0].offsetWidth > containerWidth){
+        // Content of the cell overflows
+        if (!el.classList.value.includes('ui-cell-ellipsis')){
+          el.classList.add('ui-cell-ellipsis');
+          el.classList.remove('ui-target-cell');
+        }
+      } else {
+        if (el.classList.value.includes('ui-cell-ellipsis')){
+          el.classList.remove('ui-cell-ellipsis');
+          el.classList.add('ui-target-cell');
+        }
+      }
+    }
 }
