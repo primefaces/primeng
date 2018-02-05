@@ -9,9 +9,9 @@ import {MessageService} from '../../../components/common/messageservice';
 export class MessagesDemo {
 
     msgs: Message[] = [];
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     showSuccess() {
         this.msgs = [];
         this.msgs.push({severity:'success', summary:'Success Message', detail:'Order submitted'});
@@ -38,10 +38,20 @@ export class MessagesDemo {
         this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
         this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
     }
-    
+
     showViaService() {
         this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
     }
+
+    showViaServiceWithKey(key: string){
+      this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService with key ' +key,key:key});
+    }
+
+  showMultipleViaServiceWithKey(key: string){
+    this.messageService.addAll([{severity:'success', summary:'Service Message 1', detail:'PrimeNG rocks with key ' +key,key:key},
+      {severity:'success', summary:'Service Message 1', detail:'PrimeUI rocks with key ' +key,key:key},
+      {severity:'success', summary:'Service Message 1', detail:'PrimeFaces rocks with key ' +key,key:key}]);
+  }
 
     clear() {
         this.msgs = [];
