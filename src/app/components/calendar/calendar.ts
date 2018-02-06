@@ -744,7 +744,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
                 date.setUTCMinutes(this.currentMinute);
                 date.setUTCSeconds(this.currentSecond);
-                date.setUTCMilliseconts(this.currentMillisecond);
+                date.setUTCMilliseconds(this.currentMillisecond);
             }
             else {
                 if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
