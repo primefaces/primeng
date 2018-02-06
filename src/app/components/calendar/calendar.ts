@@ -129,7 +129,7 @@ export interface LocaleSettings {
                         <a href="#">
                             <span class="fa fa-angle-up"></span>
                         </a>
-                        <span>:</span>
+                        <span>.</span>
                         <a href="#">
                             <span class="fa fa-angle-down"></span>
                         </a>
@@ -1573,7 +1573,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             output += (seconds < 10) ? '0' + seconds : seconds;
 
             if(this.showMilliseconds) {
-                output += ':';
+                output += '.';
                 output += milliseconds.toString().padStart(3, "0");
             }
         }
