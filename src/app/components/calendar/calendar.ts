@@ -125,6 +125,24 @@ export interface LocaleSettings {
                             <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
+                    <div class="ui-separator" *ngIf="showMilliseconds">
+                        <a href="#">
+                            <span class="fa fa-angle-up"></span>
+                        </a>
+                        <span>:</span>
+                        <a href="#">
+                            <span class="fa fa-angle-down"></span>
+                        </a>
+                    </div>
+                    <div class="ui-millisecond-picker" *ngIf="showMilliseconds">
+                        <a href="#" (click)="incrementMillisecond($event)">
+                            <span class="fa fa-angle-up"></span>
+                        </a>
+                        <span [ngStyle]="{'display': currentMillisecond < 100 ? 'inline': 'none'}">0</span><span>{{currentMillisecond}}</span>
+                        <a href="#" (click)="decrementMillisecond($event)">
+                            <span class="fa fa-angle-down"></span>
+                        </a>
+                    </div>
                     <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
                         <a href="#" (click)="toggleAMPM($event)">
                             <span class="fa fa-angle-up"></span>
@@ -168,105 +186,109 @@ export interface LocaleSettings {
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy,ControlValueAccessor {
-    
+
     @Input() defaultDate: Date;
-    
+
     @Input() style: string;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() inputStyle: string;
 
     @Input() inputId: string;
-    
+
     @Input() name: string;
-    
+
     @Input() inputStyleClass: string;
-    
+
     @Input() placeholder: string;
-    
+
     @Input() disabled: any;
-    
+
     @Input() dateFormat: string = 'mm/dd/yy';
-    
+
     @Input() inline: boolean = false;
-    
+
     @Input() showOtherMonths: boolean = true;
 
     @Input() selectOtherMonths: boolean;
-    
+
     @Input() showIcon: boolean;
-    
+
     @Input() icon: string = 'fa-calendar';
-    
+
     @Input() appendTo: any;
-    
+
     @Input() readonlyInput: boolean;
-    
+
     @Input() shortYearCutoff: any = '+10';
-    
+
     @Input() monthNavigator: boolean;
 
     @Input() yearNavigator: boolean;
 
     @Input() yearRange: string;
-    
+
     @Input() hourFormat: string = '24';
-    
+
     @Input() timeOnly: boolean;
-    
+
     @Input() stepHour: number = 1;
-    
+
     @Input() stepMinute: number = 1;
-    
+
     @Input() stepSecond: number = 1;
-    
+
+    @Input() stepMillisecond: number = 1;
+
     @Input() showSeconds: boolean = false;
+
+    @Input() showMilliseconds: boolean = false;
 
     @Input() required: boolean;
 
     @Input() showOnFocus: boolean = true;
-    
+
     @Input() dataType: string = 'date';
-    
+
     @Input() utc: boolean;
-    
+
     @Input() selectionMode: string = 'single';
-    
+
     @Input() maxDateCount: number;
-    
+
     @Input() showButtonBar: boolean;
-    
+
     @Input() todayButtonStyleClass: string = 'ui-button-secondary';
-    
+
     @Input() clearButtonStyleClass: string = 'ui-button-secondary';
-    
+
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() panelStyleClass: string;
-  
+
     @Input() keepInvalid: boolean = false;
-    
+
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onInput: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onClearClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onMonthChange: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -277,132 +299,134 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         today: 'Today',
         clear: 'Clear'
     };
-    
+
     @Input() tabindex: number;
-    
+
     @ViewChild('datepicker') overlayViewChild: ElementRef;
-    
+
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
-    
+
     value: any;
-    
+
     dates: any[];
-    
+
     weekDays: string[];
-    
+
     currentMonthText: string;
-    
+
     currentMonth: number;
-    
+
     currentYear: number;
-    
+
     currentHour: number;
-    
+
     currentMinute: number;
-    
+
     currentSecond: number;
-    
+
+    currentMillisecond: number;
+
     pm: boolean;
-    
+
     overlay: HTMLDivElement;
-    
+
     overlayVisible: boolean;
-    
+
     overlayShown: boolean;
-    
+
     datepickerClick: boolean;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     calendarElement: any;
-    
+
     documentClickListener: any;
-    
+
     ticksTo1970: number;
-    
+
     yearOptions: number[];
-    
+
     focus: boolean;
-    
+
     isKeydown: boolean;
-    
+
     filled: boolean;
 
     inputFieldValue: string = null;
-    
+
     _minDate: Date;
-    
+
     _maxDate: Date;
-    
+
     _showTime: boolean;
-    
+
     preventDocumentListener: boolean;
-    
+
     dateTemplate: TemplateRef<any>;
-    
+
     _disabledDates: Array<Date>;
-    
+
     _disabledDays: Array<number>;
 
     @Input() get minDate(): Date {
         return this._minDate;
     }
-    
+
     set minDate(date: Date) {
         this._minDate = date;
         if(this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
-    
+
     @Input() get maxDate(): Date {
         return this._maxDate;
     }
-    
+
     set maxDate(date: Date) {
         this._maxDate = date;
         if(this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
-    
+
     @Input() get disabledDates(): Date[] {
         return this._disabledDates;
     }
-    
+
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
         if(this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
-    
+
     @Input() get disabledDays(): number[] {
         return this._disabledDays;
     }
-    
+
     set disabledDays(disabledDays: number[]) {
         this._disabledDays = disabledDays;
         if(this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
-    
+
     @Input() get showTime(): boolean {
         return this._showTime;
     }
-    
+
     set showTime(showTime: boolean) {
         this._showTime = showTime;
-        
+
         if(this.currentHour === undefined) {
             this.initTime(this.value||new Date());
         }
         this.updateInputfield();
     }
-    
+
     get locale() {
        return this._locale;
     }
@@ -419,28 +443,28 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     ngOnInit() {
         let date = this.defaultDate||new Date();
         this.createWeekDays();
-        
+
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
         this.initTime(date);
 
         this.createMonth(this.currentMonth, this.currentYear);
-        
+
         this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
             Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
-            
+
         if(this.yearNavigator && this.yearRange) {
             this.yearOptions = [];
             let years = this.yearRange.split(':'),
             yearStart = parseInt(years[0]),
             yearEnd = parseInt(years[1]);
-            
+
             for(let i = yearStart; i <= yearEnd; i++) {
                 this.yearOptions.push(i);
             }
         }
     }
-    
+
     ngAfterViewInit() {
         if(!this.inline && this.appendTo) {
             if(this.appendTo === 'body')
@@ -449,28 +473,28 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 this.domHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
         }
     }
-    
+
     ngAfterViewChecked() {
         if(this.overlayShown) {
             this.alignOverlay();
             this.overlayShown = false;
         }
     }
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'date':
                     this.dateTemplate = item.template;
                 break;
-                
+
                 default:
                     this.dateTemplate = item.template;
                 break;
             }
         });
     }
-    
+
     createWeekDays() {
         this.weekDays = [];
         let dayIndex = this.locale.firstDayOfWeek;
@@ -479,7 +503,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
         }
     }
-    
+
     createMonth(month: number, year: number) {
         this.dates = [];
         this.currentMonth = month;
@@ -491,17 +515,17 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         let sundayIndex = this.getSundayIndex();
         let dayNo = 1;
         let today = new Date();
-        
+
         for(let i = 0; i < 6; i++) {
             let week = [];
-            
+
             if(i == 0) {
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
                     week.push({day: j, month: prev.month, year: prev.year, otherMonth: true,
                             today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year)});
                 }
-                
+
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
                     week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
@@ -521,31 +545,33 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                         week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
                             selectable: this.isSelectable(dayNo, month, year)});
                     }
-                    
+
                     dayNo++;
                 }
             }
-            
+
             this.dates.push(week);
         }
     }
-    
+
     initTime(date: Date) {
         this.pm = (!this.utc) ? (date.getHours() > 11) : (date.getUTCHours() > 11);
         if (this.showTime) {
             if (this.utc) {
                 this.currentMinute = date.getUTCMinutes();
                 this.currentSecond = date.getUTCSeconds();
+                this.currentMillisecond = date.getUTCMilliseconds();
 
                 if(this.hourFormat == '12')
                     this.currentHour = date.getUTCHours() == 0 ? 12 : date.getUTCHours() % 12;
                 else
                     this.currentHour = date.getUTCHours();
-            } 
+            }
             else {
                 this.currentMinute = date.getMinutes();
                 this.currentSecond = date.getSeconds();
-                
+                this.currentMillisecond = date.getMilliseconds();
+
                 if(this.hourFormat == '12')
                     this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
                 else
@@ -556,19 +582,20 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.currentMinute = 0;
             this.currentHour = 0;
             this.currentSecond = 0;
+            this.currentMillisecond = 0;
         }
     }
-    
+
     prevMonth(event) {
         if(this.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(this.currentMonth === 0) {
             this.currentMonth = 11;
             this.currentYear--;
-            
+
             if(this.yearNavigator && this.currentYear < this.yearOptions[0]) {
                 this.currentYear = this.yearOptions[this.yearOptions.length - 1];
             }
@@ -576,12 +603,12 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         else {
             this.currentMonth--;
         }
-        
+
         this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonth(this.currentMonth, this.currentYear);
         event.preventDefault();
     }
-    
+
     nextMonth(event) {
         if(this.disabled) {
             event.preventDefault();
@@ -591,7 +618,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(this.currentMonth === 11) {
             this.currentMonth = 0;
             this.currentYear++;
-            
+
             if(this.yearNavigator && this.currentYear > this.yearOptions[this.yearOptions.length - 1]) {
                 this.currentYear = this.yearOptions[0];
             }
@@ -599,18 +626,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         else {
             this.currentMonth++;
         }
-        
+
         this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonth(this.currentMonth, this.currentYear);
         event.preventDefault();
     }
-    
+
     onDateSelect(event, dateMeta) {
         if(this.disabled || !dateMeta.selectable) {
             event.preventDefault();
             return;
         }
-        
+
         if(this.isMultipleSelection() && this.isSelected(dateMeta)) {
             this.value = this.value.filter((date, i) => {
                 return !this.isDateEquals(date, dateMeta);
@@ -632,7 +659,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 }
             }
         }
-        
+
         if(!this.showTime && this.isSingleSelection()) {
             this.overlayVisible = false;
         }
@@ -640,14 +667,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.updateInputfield();
         event.preventDefault();
     }
-    
+
     shouldSelectDate(dateMeta) {
         if(this.isMultipleSelection())
             return !this.maxDateCount || !this.value || this.maxDateCount > this.value.length;
         else
             return true;
     }
-    
+
     updateInputfield() {
         let formattedValue = '';
 
@@ -668,7 +695,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 if(this.value && this.value.length) {
                     let startDate = this.value[0];
                     let endDate = this.value[1];
-                    
+
                     formattedValue = this.formatDateTime(startDate);
                     if(endDate) {
                         formattedValue += ' - ' + this.formatDateTime(endDate);
@@ -683,7 +710,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
         }
     }
-    
+
     formatDateTime(date) {
         let formattedValue = null;
         if(date) {
@@ -697,17 +724,17 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 }
             }
         }
-        
+
         return formattedValue;
     }
-    
+
     selectDate(dateMeta) {
         let date;
         if(this.utc)
             date = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
         else
             date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
-        
+
         if(this.showTime) {
             if(this.utc) {
                 if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
@@ -717,6 +744,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
                 date.setUTCMinutes(this.currentMinute);
                 date.setUTCSeconds(this.currentSecond);
+                date.setUTCMilliseconts(this.currentMillisecond);
             }
             else {
                 if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
@@ -726,17 +754,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
                 date.setMinutes(this.currentMinute);
                 date.setSeconds(this.currentSecond);
+                date.setMilliseconds(this.currentMillisecond);
             }
         }
-        
+
         if(this.minDate && this.minDate > date) {
             date = this.minDate;
         }
-        
+
         if(this.maxDate && this.maxDate < date) {
             date = this.maxDate;
         }
-        
+
         if(this.isSingleSelection()) {
             this.updateModel(date);
         }
@@ -747,7 +776,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             if(this.value && this.value.length) {
                 let startDate = this.value[0];
                 let endDate = this.value[1];
-                
+
                 if(!endDate && date.getTime() >= startDate.getTime()) {
                     endDate = date;
                 }
@@ -755,48 +784,48 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                     startDate = date;
                     endDate = null;
                 }
-                
+
                 this.updateModel([startDate, endDate]);
             }
             else {
                 this.updateModel([date, null]);
             }
         }
-        
+
         this.onSelect.emit(date);
     }
-    
+
     updateModel(value) {
         this.value = value;
-        
+
         if(this.dataType == 'date')
             this.onModelChange(this.value);
         else if(this.dataType == 'string')
             this.onModelChange(this.formatDateTime(this.value));
     }
-    
+
     getFirstDayOfMonthIndex(month: number, year: number) {
         let day = new Date();
         day.setDate(1);
         day.setMonth(month);
         day.setFullYear(year);
-        
+
         let dayIndex = day.getDay() + this.getSundayIndex();
         return dayIndex >= 7 ? dayIndex - 7 : dayIndex;
     }
-    
+
     getDaysCountInMonth(month: number, year: number) {
         return 32 - this.daylightSavingAdjust(new Date(year, month, 32)).getDate();
     }
-    
+
     getDaysCountInPrevMonth(month: number, year: number) {
         let prev = this.getPreviousMonthAndYear(month, year);
         return this.getDaysCountInMonth(prev.month, prev.year);
     }
-    
+
     getPreviousMonthAndYear(month: number, year: number) {
         let m, y;
-        
+
         if(month === 0) {
             m = 11;
             y = year - 1;
@@ -805,13 +834,13 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             m = month - 1;
             y = year;
         }
-        
+
         return {'month':m,'year':y};
     }
-    
+
     getNextMonthAndYear(month: number, year: number) {
         let m, y;
-        
+
         if(month === 11) {
             m = 0;
             y = year + 1;
@@ -820,14 +849,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             m = month + 1;
             y = year;
         }
-        
+
         return {'month':m,'year':y};
     }
-    
+
     getSundayIndex() {
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
     }
-    
+
     isSelected(dateMeta): boolean {
         if(this.value) {
             if(this.isSingleSelection()) {
@@ -841,7 +870,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                         break;
                     }
                 }
-                
+
                 return selected;
             }
             else if(this.isRangeSelection()) {
@@ -854,46 +883,46 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         else
             return false;
     }
-    
+
     isDateEquals(value, dateMeta) {
         if(value)
             return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else
             return false;
     }
-    
+
     isDateBetween(start, end, dateMeta) {
         let between : boolean = false;
         if(start && end) {
             let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
-        
+
         return between;
     }
-    
+
     isSingleSelection(): boolean {
         return this.selectionMode === 'single';
     }
-    
+
     isRangeSelection(): boolean {
         return this.selectionMode === 'range';
     }
-    
+
     isMultipleSelection(): boolean {
         return this.selectionMode === 'multiple';
     }
-    
+
     isToday(today, day, month, year): boolean {
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
-    
+
     isSelectable(day, month, year): boolean {
         let validMin = true;
         let validMax = true;
         let validDate = true;
         let validDay = true;
-        
+
         if(this.minDate) {
              if(this.minDate.getFullYear() > year) {
                  validMin = false;
@@ -909,7 +938,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                  }
              }
         }
-        
+
         if(this.maxDate) {
              if(this.maxDate.getFullYear() < year) {
                  validMax = false;
@@ -925,18 +954,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                  }
              }
         }
-        
+
         if(this.disabledDates) {
            validDate = !this.isDateDisabled(day,month,year);
         }
-       
+
         if(this.disabledDays) {
            validDay = !this.isDayDisabled(day,month,year)
         }
-        
+
         return validMin && validMax && validDate && validDay;
     }
-    
+
     isDateDisabled(day:number, month:number, year:number):boolean {
         if(this.disabledDates) {
             for(let disabledDate of this.disabledDates) {
@@ -945,10 +974,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 }
             }
         }
-        
+
         return false;
     }
-    
+
     isDayDisabled(day:number, month:number, year:number):boolean {
         if(this.disabledDays) {
             let weekday = new Date(year, month, day);
@@ -957,7 +986,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         return false;
     }
-    
+
     onInputFocus(event: Event) {
         this.focus = true;
         if(this.showOnFocus) {
@@ -965,14 +994,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         this.onFocus.emit(event);
     }
-    
+
     onInputClick(event: Event) {
       this.datepickerClick=true;
       if(this.autoZIndex) {
         this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
       }
     }
-    
+
     onInputBlur(event: Event) {
         this.focus = false;
         this.onBlur.emit(event);
@@ -981,7 +1010,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         this.onModelTouched();
     }
-    
+
     onButtonClick(event,inputfield) {
         if(!this.overlayViewChild.nativeElement.offsetParent || this.overlayViewChild.nativeElement.style.display === 'none') {
             inputfield.focus();
@@ -989,27 +1018,27 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         else
             this.overlayVisible = false;
-            
+
         this.datepickerClick = true;
     }
-    
+
     onInputKeydown(event) {
         this.isKeydown = true;
         if(event.keyCode === 9) {
             this.overlayVisible = false;
         }
     }
-    
+
     onMonthDropdownChange(m: string) {
         this.currentMonth = parseInt(m);
         this.createMonth(this.currentMonth, this.currentYear);
     }
-    
+
     onYearDropdownChange(y: string) {
         this.currentYear = parseInt(y);
         this.createMonth(this.currentMonth, this.currentYear);
     }
-    
+
     incrementHour(event) {
         const prevHour = this.currentHour;
         const newHour = this.currentHour + this.stepHour;
@@ -1025,16 +1054,16 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
                 this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
             }
-            
+
             this.updateTime();
         }
-    
+
         event.preventDefault();
     }
-    
+
     decrementHour(event) {
         const newHour = this.currentHour - this.stepHour;
-        
+
         if(this.validateHour(newHour)) {
             if(this.hourFormat == '24')
                 this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;
@@ -1045,13 +1074,13 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 }
                 this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
             }
-            
+
             this.updateTime();
         }
 
         event.preventDefault();
     }
-    
+
     validateHour(hour): boolean {
         let valid: boolean = true;
         let value = this.value;
@@ -1062,42 +1091,42 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             value = this.value[this.value.length - 1];
         }
         let valueDateString = value ? value.toDateString() : null;
-        
+
         if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if(this.minDate.getHours() > hour) {
                 valid = false;
             }
         }
-        
+
         if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
             if(this.maxDate.getHours() < hour) {
                 valid = false;
             }
         }
-        
+
         return valid;
     }
-    
+
     incrementMinute(event) {
         let newMinute = this.currentMinute + this.stepMinute;
         if(this.validateMinute(newMinute)) {
             this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
             this.updateTime();
         }
-        
+
         event.preventDefault();
     }
-    
+
     decrementMinute(event) {
         let newMinute = this.currentMinute - this.stepMinute;
         if(this.validateMinute(newMinute)) {
             this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
             this.updateTime();
         }
-        
+
         event.preventDefault();
     }
-    
+
     validateMinute(minute): boolean {
         let valid: boolean = true;
         let value = this.value;
@@ -1108,42 +1137,42 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             value = this.value[this.value.length - 1];
         }
         let valueDateString = value ? value.toDateString() : null;
-        
+
         if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if(this.minDate.getMinutes() > minute) {
                 valid = false;
             }
         }
-        
+
         if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
             if(this.maxDate.getMinutes() < minute) {
                 valid = false;
             }
         }
-        
+
         return valid;
     }
-    
+
     incrementSecond(event) {
         let newSecond = this.currentSecond + this.stepSecond;
         if(this.validateSecond(newSecond)) {
             this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
             this.updateTime();
         }
-    
+
         event.preventDefault();
     }
-    
+
     decrementSecond(event) {
         let newSecond = this.currentSecond - this.stepSecond;
         if(this.validateSecond(newSecond)) {
             this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
             this.updateTime();
         }
-        
+
         event.preventDefault();
     }
-    
+
     validateSecond(second): boolean {
         let valid: boolean = true;
         let value = this.value;
@@ -1154,22 +1183,61 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             value = this.value[this.value.length - 1];
         }
         let valueDateString = value ? value.toDateString() : null;
-        
+
         if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if(this.minDate.getSeconds() > second) {
                 valid = false;
             }
         }
-        
+
         if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
             if(this.maxDate.getSeconds() < second) {
                 valid = false;
             }
         }
-        
+
         return valid;
     }
-    
+
+    incrementMillisecond(event) {
+        let newMillisecond = this.currentMillisecond + this.stepMillisecond;
+        if(this.validateMillisecond(newMillisecond)) {
+            this.currentMillisecond = (newMillisecond > 999) ? newMillisecond - 1000 : newMillisecond;
+            this.updateTime();
+        }
+
+        event.preventDefault();
+    }
+
+    decrementMillisecond(event) {
+        let newMillisecond = this.currentMillisecond - this.stepMillisecond;
+        if(this.validateMillisecond(newMillisecond)) {
+            this.currentMillisecond = (newMillisecond < 0) ? 1000 + newMillisecond : newMillisecond;
+            this.updateTime();
+        }
+
+        event.preventDefault();
+    }
+
+    validateMillisecond(millisecond): boolean {
+        let valid: boolean = true;
+        let valueDateString = this.value ? this.value.toDateString() : null;
+
+        if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
+            if(this.minDate.getMilliseconds() > millisecond) {
+                valid = false;
+            }
+        }
+
+        if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
+            if(this.maxDate.getMilliseconds() < millisecond) {
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
     updateTime() {
         let value = this.value;
         if(this.isRangeSelection()) {
@@ -1190,7 +1258,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             else {
                 value.setUTCHours(this.currentHour);
             }
-        } 
+        }
         else {
             if (this.hourFormat == '12') {
                 if (this.currentHour === 12)
@@ -1202,9 +1270,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 value.setHours(this.currentHour);
             }
         }
-        
+
         value.setMinutes(this.currentMinute);
         value.setSeconds(this.currentSecond);
+        value.setMilliseconds(this.currentMillisecond);
         if(this.isRangeSelection()) {
             if(this.value[1]) {
                 value = [this.value[0], value];
@@ -1219,20 +1288,20 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.onSelect.emit(value);
         this.updateInputfield();
     }
-    
+
     toggleAMPM(event) {
         this.pm = !this.pm;
         this.updateTime();
         event.preventDefault();
     }
-    
+
     onUserInput(event) {
         // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
         if(!this.isKeydown) {
             return;
         }
         this.isKeydown = false;
-        
+
         let val = event.target.value;
         try {
             let value = this.parseValueFromString(val);
@@ -1243,18 +1312,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             //invalid date
             this.updateModel(null);
         }
-        
+
         this.filled = val != null && val.length;
         this.onInput.emit(event);
     }
-    
+
     parseValueFromString(text: string): Date {
         if(!text || text.trim().length === 0) {
             return null;
         }
-        
+
         let value: any;
-        
+
         if(this.isSingleSelection()) {
             value = this.parseDateTime(text);
         }
@@ -1272,14 +1341,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 value[i] = this.parseDateTime(tokens[i].trim());
             }
         }
-        
+
         return value;
     }
-    
+
     parseDateTime(text): Date {
         let date: Date;
         let parts: string[] = text.split(' ');
-        
+
         if(this.timeOnly) {
             date = new Date();
             this.populateTime(date, parts[0], parts[1]);
@@ -1293,26 +1362,27 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                  date = this.parseDate(text, this.dateFormat);
             }
         }
-        
+
         return date;
     }
-    
+
     populateTime(value, timeString, ampm) {
         if(this.hourFormat == '12' && !ampm) {
             throw 'Invalid Time';
         }
-        
+
         this.pm = (ampm === 'PM' || ampm === 'pm');
         let time = this.parseTime(timeString);
         if (!this.utc)
             value.setHours(time.hour);
         else
             value.setUTCHours(time.hour);
-    
+
         value.setMinutes(time.minute);
         value.setSeconds(time.second);
+        value.setMilliseconds(time.millisecond);
     }
-    
+
     updateUI() {
         let val = this.value||this.defaultDate||new Date();
 
@@ -1321,13 +1391,13 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
 
         this.createMonth(val.getMonth(), val.getFullYear());
-        
+
         if(this.showTime||this.timeOnly) {
             let hours = (this.utc) ? val.getUTCHours : val.getHours();
-            
+
             if(this.hourFormat == '12') {
                 this.pm = hours > 11;
-                
+
                 if(hours >= 12) {
                     this.currentHour = (hours == 12) ? 12 : hours - 12;
                 }
@@ -1338,26 +1408,27 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             else {
                 this.currentHour = (this.utc) ? val.getUTCHours() : val.getHours();
             }
-            
+
             this.currentMinute = val.getMinutes();
             this.currentSecond = val.getSeconds();
+            this.currentMillisecond = val.getMilliseconds();
         }
     }
-    
+
     onDatePickerClick(event) {
         this.datepickerClick = true;
     }
-    
+
     showOverlay() {
         this.overlayVisible = true;
         this.overlayShown = true;
         if(this.autoZIndex) {
             this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
-        
+
         this.bindDocumentClickListener();
     }
-    
+
     alignOverlay() {
         if(this.appendTo)
             this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
@@ -1374,7 +1445,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.updateInputfield();
         this.updateUI();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -1382,11 +1453,11 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+
     // Ported from jquery-ui datepicker formatDate
     formatDate(date, format) {
         if (!date) {
@@ -1477,61 +1548,70 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         return output;
     }
-    
+
     formatTime(date) {
         if(!date) {
             return '';
         }
-        
+
         let output = '';
         let hours = (this.utc) ? date.getUTCHours() : date.getHours();
         let minutes = date.getMinutes();
         let seconds = date.getSeconds();
-        
+        let milliseconds = date.getMilliseconds();
+
         if(this.hourFormat == '12' && hours > 11 && hours != 12) {
             hours-=12;
         }
-        
+
         output += (hours < 10) ? '0' + hours : hours;
         output += ':';
         output += (minutes < 10) ? '0' + minutes : minutes;
-        
+
         if(this.showSeconds) {
             output += ':';
             output += (seconds < 10) ? '0' + seconds : seconds;
+
+            if(this.showMilliseconds) {
+                output += ':';
+                output += milliseconds.toString().padStart(3, "0");
+            }
         }
-        
+
         if(this.hourFormat == '12') {
             output += date.getHours() > 11 ? ' PM' : ' AM';
         }
-        
+
         return output;
     }
-    
+
     parseTime(value) {
         let tokens: string[] = value.split(':');
         let validTokenLength = this.showSeconds ? 3 : 2;
-        
+
         if(tokens.length !== validTokenLength) {
             throw "Invalid time";
         }
-        
+
+        let secondTokens: string[] = tokens[2].split('.');
+
         let h = parseInt(tokens[0]);
         let m = parseInt(tokens[1]);
-        let s = this.showSeconds ? parseInt(tokens[2]) : null;
-        
-        if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
+        let s = this.showSeconds ? parseInt(secondTokens[0]) : null;
+        let ms = this.showMilliseconds ? parseInt(secondTokens[1]) : null;
+
+        if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59)) || (this.showMilliseconds && (isNaN(ms) || ms > 999))) {
             throw "Invalid time";
         }
         else {
             if(this.hourFormat == '12' && h !== 12 && this.pm) {
                 h+= 12;
             }
-            
-            return {hour: h, minute: m, second: s};
+
+            return {hour: h, minute: m, second: s, millisecond: ms};
         }
     }
-    
+
     // Ported from jquery-ui datepicker parseDate
     parseDate(value, format) {
         if(format == null || value == null) {
@@ -1576,14 +1656,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             let index = -1;
             let arr = lookAhead(match) ? longNames : shortNames;
             let names = [];
-            
+
             for(let i = 0; i < arr.length; i++) {
                 names.push([i,arr[i]]);
             }
             names.sort((a,b) => {
                 return -(a[ 1 ].length - b[ 1 ].length);
             });
-            
+
             for(let i = 0; i < names.length; i++) {
                 let name = names[i][1];
                 if(value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
@@ -1695,7 +1775,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         return date;
     }
-    
+
     daylightSavingAdjust(date) {
         if(!date) {
             return null;
@@ -1704,30 +1784,30 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(!this.utc) {
             date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
         }
-        
+
         return date;
     }
-    
+
     updateFilledState() {
         this.filled = this.inputFieldValue && this.inputFieldValue != '';
     }
-    
+
     onTodayButtonClick(event) {
         let date: Date = new Date();
         let dateMeta = {day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), today: true, selectable: true};
-        
+
         this.createMonth(dateMeta.month, dateMeta.year);
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
     }
-    
+
     onClearButtonClick(event) {
         this.updateModel(null);
         this.updateInputfield();
         this.overlayVisible = false;
         this.onClearClick.emit(event);
     }
-    
+
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
@@ -1735,23 +1815,23 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                     this.overlayVisible = false;
                     this.onClose.emit(event);
                 }
-                
+
                 this.datepickerClick = false;
                 this.cd.detectChanges();
             });
         }
     }
-    
+
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
     }
-    
+
     ngOnDestroy() {
         this.unbindDocumentClickListener();
-        
+
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlayViewChild.nativeElement);
         }
