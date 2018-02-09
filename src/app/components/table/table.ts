@@ -94,7 +94,7 @@ export class TableService {
     providers: [DomHandler, ObjectUtils, TableService]
 })
 export class Table implements OnInit, AfterContentInit {
-    
+
     @Input() columns: any[];
 
     @Input() frozenColumns: any[];
@@ -124,6 +124,8 @@ export class Table implements OnInit, AfterContentInit {
     @Input() paginatorDropdownAppendTo: any;
 
     @Input() defaultSortOrder: number = 1;
+
+    @Input() preventUnselectionOfRow: boolean = false;
 
     @Input() sortMode: string = 'single';
 
@@ -172,7 +174,7 @@ export class Table implements OnInit, AfterContentInit {
     @Input() responsive: boolean;
 
     @Input() contextMenu: any;
-    
+
     @Input() resizableColumns: boolean;
 
     @Input() columnResizeMode: string = 'fit';
@@ -267,7 +269,7 @@ export class Table implements OnInit, AfterContentInit {
 
     paginatorRightTemplate: TemplateRef<any>;
 
-    selectionKeys: any = {};  
+    selectionKeys: any = {};
 
     lastResizerHelperX: number;
 
@@ -288,7 +290,7 @@ export class Table implements OnInit, AfterContentInit {
     _sortOrder: number = 1;
 
     virtualScrollTimer: any;
-        
+
     virtualScrollCallback: Function;
 
     preventSelectionSetterPropagation: boolean;
@@ -296,7 +298,7 @@ export class Table implements OnInit, AfterContentInit {
     _selection: any;
 
     anchorRowIndex: number;
-    
+
     rangeRowIndex: number;
 
     filterTimeout: any;
@@ -311,7 +313,7 @@ export class Table implements OnInit, AfterContentInit {
         }
         this.initialized = true;
     }
- 
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
@@ -511,7 +513,7 @@ export class Table implements OnInit, AfterContentInit {
                 }
                 this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
-            
+
             this.sortMultiple();
         }
     }
@@ -536,7 +538,7 @@ export class Table implements OnInit, AfterContentInit {
                     let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
                     let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
                     let result = null;
-    
+
                     if (value1 == null && value2 != null)
                         result = -1;
                     else if (value1 != null && value2 == null)
@@ -547,11 +549,11 @@ export class Table implements OnInit, AfterContentInit {
                         result = value1.localeCompare(value2);
                     else
                         result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-    
+
                     return (this.sortOrder * result);
                 });
             }
-            
+
             if(this.hasFilter()) {
                 this._filter();
             }
@@ -589,7 +591,7 @@ export class Table implements OnInit, AfterContentInit {
                     this._filter();
                 }
             }
-                
+
             this.onSort.emit({
                 multisortmeta: this.multiSortMeta
             });
@@ -626,11 +628,11 @@ export class Table implements OnInit, AfterContentInit {
                 }
             }
         }
-       
+
         return null;
     }
 
-    isSorted(field: string) {            
+    isSorted(field: string) {
         if(this.sortMode === 'single') {
             return (this.sortField && this.sortField === field);
         }
@@ -661,7 +663,7 @@ export class Table implements OnInit, AfterContentInit {
                 if(this.rangeRowIndex != null) {
                     this.clearSelectionRange(event.originalEvent);
                 }
-                
+
                 this.rangeRowIndex = event.rowIndex;
                 this.selectRange(event.originalEvent, event.rowIndex);
             }
@@ -674,10 +676,12 @@ export class Table implements OnInit, AfterContentInit {
 
                 if (this.selectionMode === 'single') {
                     if (selected) {
-                        this._selection = null;
-                        this.selectionKeys = {};
-                        this.selectionChange.emit(this.selection);
-                        this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                        if (!this.preventUnselectionOfRow) {
+                          this._selection = null;
+                          this.selectionKeys = {};
+                          this.selectionChange.emit(this.selection);
+                          this.onRowUnselect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row'});
+                        }
                     }
                     else {
                         this._selection = rowData;
@@ -726,7 +730,7 @@ export class Table implements OnInit, AfterContentInit {
 
     selectRange(event: MouseEvent, rowIndex: number) {
         let rangeStart, rangeEnd;
-        
+
         if(this.anchorRowIndex > rowIndex) {
             rangeStart = rowIndex;
             rangeEnd = this.anchorRowIndex;
@@ -739,7 +743,7 @@ export class Table implements OnInit, AfterContentInit {
             rangeStart = rowIndex;
             rangeEnd = rowIndex;
         }
-        
+
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.value[i];
             if(!this.isSelected(rangeRowData)) {
@@ -770,7 +774,7 @@ export class Table implements OnInit, AfterContentInit {
             rangeStart = this.rangeRowIndex;
             rangeEnd = this.rangeRowIndex;
         }
-        
+
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.value[i];
             let selectionIndex = this.findIndexInSelection(rangeRowData);
@@ -820,7 +824,7 @@ export class Table implements OnInit, AfterContentInit {
             this._selection = rowData;
             this.selectionChange.emit(this.selection);
             this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
-            
+
             if(this.dataKey) {
                 this.selectionKeys = {};
                 this.selectionKeys[String(this.objectUtils.resolveFieldData(rowData, this.dataKey))] = 1;
@@ -858,12 +862,12 @@ export class Table implements OnInit, AfterContentInit {
                 this.selectionKeys[dataKeyValue] = 1;
             }
         }
-        
+
         this.tableService.onSelectionChange();
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
-        this._selection = check ? this.value.slice() : [];            
+        this._selection = check ? this.value.slice() : [];
         this.preventSelectionSetterPropagation = true;
         this.updateSelectionKeys();
         this.selectionChange.emit(this._selection);
@@ -930,14 +934,14 @@ export class Table implements OnInit, AfterContentInit {
                     else
                         globalFilterFieldsArray = this.globalFilterFields||this.columns;
                 }
-                
+
                 this.filteredValue = [];
 
                 for (let i = 0; i < this.value.length; i++) {
                     let localMatch = true;
                     let globalMatch = false;
                     let localFiltered = false;
-    
+
                     for (let prop in this.filters) {
                         if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
                             localFiltered = true;
@@ -947,28 +951,28 @@ export class Table implements OnInit, AfterContentInit {
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
                             let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
                             let filterConstraint = this.filterConstraints[filterMatchMode];
-    
+
                             if (!filterConstraint(dataFieldValue, filterValue)) {
                                 localMatch = false;
                             }
-    
+
                             if (!localMatch) {
                                 break;
                             }
                         }
                     }
-    
+
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
                             globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
-                            
+
                             if(globalMatch) {
                                 break;
                             }
                         }
                     }
-    
+
                     let matches: boolean;
                     if(this.filters['global']) {
                         matches = localFiltered ? (localFiltered && localMatch && globalMatch) : globalMatch;
@@ -976,16 +980,16 @@ export class Table implements OnInit, AfterContentInit {
                     else {
                         matches = localFiltered && localMatch;
                     }
-    
+
                     if (matches) {
                         this.filteredValue.push(this.value[i]);
                     }
                 }
-    
+
                 if (this.filteredValue.length === this.value.length) {
                     this.filteredValue = null;
                 }
-    
+
                 if (this.paginator) {
                     this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
                 }
@@ -1132,13 +1136,13 @@ export class Table implements OnInit, AfterContentInit {
         this._sortField = null;
         this._sortOrder = 1;
         this._multiSortMeta = null;
-        
+
         this.filteredValue = null;
         this.filters = {};
-        
+
         this.first = 0;
         this.updateTotalRecords();
-        
+
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -1210,7 +1214,7 @@ export class Table implements OnInit, AfterContentInit {
         }
     }
 
-    toggleRow(rowData: any, event?: Event) {        
+    toggleRow(rowData: any, event?: Event) {
         if(!this.dataKey) {
             throw new Error('dataKey must be defined to use row expansion');
         }
@@ -1305,7 +1309,7 @@ export class Table implements OnInit, AfterContentInit {
                     }
                 }
             }
-            else if (this.columnResizeMode === 'expand') {                
+            else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
                     let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
                     let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
@@ -1347,7 +1351,7 @@ export class Table implements OnInit, AfterContentInit {
                 let col = colGroup.children[resizeColumnIndex];
                 let nextCol = col.nextElementSibling;
                 col.style.width = newColumnWidth + 'px';
-    
+
                 if (nextCol && nextColumnWidth) {
                     nextCol.style.width = nextColumnWidth + 'px';
                 }
@@ -1443,12 +1447,12 @@ export class Table implements OnInit, AfterContentInit {
     handleVirtualScroll(event) {
         this.first = (event.page - 1) * this.rows;
         this.virtualScrollCallback = event.callback;
-        
+
         this.zone.run(() => {
             if(this.virtualScrollTimer) {
                 clearTimeout(this.virtualScrollTimer);
             }
-            
+
             this.virtualScrollTimer = setTimeout(() => {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }, this.virtualScrollDelay);
@@ -1619,12 +1623,12 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         this.zone.runOutsideAngular(() => {
             let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
 
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {                
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
                 this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
             }
 
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {                
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
                 this.footerScrollListener = this.onFooterScroll.bind(this);
                 this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
             }
@@ -1641,7 +1645,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
             this.scrollHeaderBoxViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
         }
 
-        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {            
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
             this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
         }
 
@@ -1702,7 +1706,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
-                
+
                 this.scrollBodyViewChild.nativeElement.style.height = 'auto';
                 this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
@@ -1751,10 +1755,10 @@ export class SortableColumn implements OnInit, OnDestroy {
     @Input("pSortableColumn") field: string;
 
     sorted: boolean;
-        
+
     subscription: Subscription;
 
-    constructor(public dt: Table, public domHandler: DomHandler) { 
+    constructor(public dt: Table, public domHandler: DomHandler) {
         this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
             this.updateSortState();
         });
@@ -1864,7 +1868,7 @@ export class SelectableRow implements OnInit, OnDestroy {
             rowData: this.data,
             rowIndex: this.index
         });
-    }    
+    }
 
     ngOnDestroy() {
         if (this.subscription) {
@@ -1995,7 +1999,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         if (this.resizerMouseDownListener) {
             this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
         }
-        
+
         this.unbindDocumentEvents();
     }
 }
@@ -2127,10 +2131,10 @@ export class EditableColumn implements AfterViewInit {
                 if (!this.isValid()) {
                     return;
                 }
-    
+
                 this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
                 this.openCell();
-            } 
+            }
         }
         else {
             this.openCell();
@@ -2298,7 +2302,7 @@ export class CellEditor implements AfterContentInit {
             }
         });
     }
-    
+
 }
 
 @Component({
@@ -2355,7 +2359,7 @@ export class TableRadioButton  {
             this.subscription.unsubscribe();
         }
     }
-   
+
 }
 
 @Component({
@@ -2412,7 +2416,7 @@ export class TableCheckbox  {
             this.subscription.unsubscribe();
         }
     }
-   
+
 }
 
 @Component({
@@ -2453,7 +2457,7 @@ export class TableHeaderCheckbox  {
         if(this.dt.value && this.dt.value.length > 0) {
             this.dt.toggleRowsWithCheckbox(event, !checked);
         }
-        
+
         this.domHandler.clearSelection();
     }
 
@@ -2474,7 +2478,7 @@ export class TableHeaderCheckbox  {
     updateCheckedState() {
         return (this.dt.value && this.dt.value.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === this.dt.value.length);
     }
-   
+
 }
 
 
