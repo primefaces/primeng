@@ -7,6 +7,7 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { SelectItemGroup } from '../common/selectitemgroup';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -630,23 +631,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
     
-    findOption(val: any, opts: any[], mayRecur=true): SelectItem {
-        if(this.group && mayRecur) {
-            let opt: SelectItem;
-            if(opts && opts.length) {
-                for(let optgroup of opts) {
-                    opt = this.findOption(val, optgroup.items, false);
-                    if(opt) {
-                        break;
-                    }
-                }
-            }
-            return opt;
-        }
-        else {
-            let index: number = this.findOptionIndex(val, opts);
-            return (index != -1) ? opts[index] : null;
-        }
+    findOption(val: any, opts: any[]): SelectItem {
+        const searchable = (this.group)
+        ? opts.reduce((a, opt: SelectItemGroup) => a.concat(opt.items), [])
+        : opts;
+        const index: number = this.findOptionIndex(val, searchable);
+        return (index !== -1) ? searchable[index] : null;
     }
     
     onFilter(event): void {
