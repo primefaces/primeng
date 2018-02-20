@@ -8,11 +8,11 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" dataKey="vin">
+    <p-table [columns]="cols" [value]="cars" dataKey="vin" [reorderableColumns]="true">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width: 2.25em"></th>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns" pReorderableColumn>
                     {{col.header}}
                 </th>
             </tr>
@@ -34,7 +34,7 @@
                 <td [attr.colspan]="columns.length + 1">
                     <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
                         <div class="ui-g-12 ui-md-3" style="text-align:center">
-                            <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
+                            <h3>Some image</h3>
                         </div>
                         <div class="ui-g-12 ui-md-9">
                             <div class="ui-g">
@@ -42,13 +42,13 @@
                                     <b>Vin:</b> {{rowData.vin}}
                                 </div>
                                 <div class="ui-g-12">
-                                    <b>Vin:</b> {{rowData.color}}
-                                </div>
-                                <div class="ui-g-12">
-                                    <b>Brand:</b> {{rowData.brand}}
-                                </div>
-                                <div class="ui-g-12">
                                     <b>Color:</b> {{rowData.color}}
+                                </div>
+                                <div class="ui-g-12">
+                                     <b>Brand:</b> {{rowData.brand}}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Year:</b> {{rowData.year}}
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@ export class TableRowExpansionDemo implements OnInit &#123;
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="tablerowexpansiondemo.html">
