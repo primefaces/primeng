@@ -7,12 +7,12 @@ import {RouterModule} from '@angular/router';
 @Component({
     selector: '[pMenuItemContent]',
     template: `
-        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
+        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.data-automationid]="item.automationId" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)">
             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="ui-menuitem-text">{{item.label}}</span>
         </a>
-        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" 
+        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId"  [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.id]="item.id"
              [attr.title]="item.title" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)">
             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
@@ -23,19 +23,19 @@ import {RouterModule} from '@angular/router';
 export class MenuItemContent {
 
     @Input("pMenuItemContent") item: MenuItem;
-                
+    
     constructor(@Inject(forwardRef(() => Menu)) public menu: Menu) {}
 }
 
 @Component({
     selector: 'p-menu',
     template: `
-        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all':true, 'ui-menu-dynamic ui-shadow':popup}" 
+        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all':true, 'ui-menu-dynamic ui-shadow':popup}"
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
             <ul>
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-menu-separator ui-widget-content" *ngIf="submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}"></li>
-                    <li class="ui-submenu-header ui-widget-header ui-corner-all" *ngIf="!submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}">{{submenu.label}}</li>
+                    <li class="ui-submenu-header ui-widget-header ui-corner-all" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}">{{submenu.label}}</li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
                         <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
                         <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
@@ -89,7 +89,7 @@ export class Menu implements AfterViewInit,OnDestroy {
                 else
                     this.domHandler.appendChild(this.container, this.appendTo);
             }
-                
+            
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
