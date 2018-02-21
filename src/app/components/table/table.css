@@ -65,7 +65,7 @@
 
 .ui-table-scrollable-body > table > .ui-table-tbody > tr:first-child > td {
     border-top: 0 none;
-} 
+}
 
 .ui-table-virtual-table {
     position: absolute;
@@ -190,4 +190,10 @@
     z-index: 2;
     margin-top: -1em;
     margin-left: -1em;
+}
+
+.ui-cell-ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
