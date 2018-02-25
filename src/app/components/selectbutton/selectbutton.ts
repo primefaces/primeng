@@ -38,6 +38,8 @@ export class SelectButton implements ControlValueAccessor {
     @Input() styleClass: string;
 
     @Input() disabled: boolean;
+
+    @Input() dataKey: string
     
     @Input() optionLabel: string;
     
@@ -128,7 +130,7 @@ export class SelectButton implements ControlValueAccessor {
         if(this.multiple)
             return this.findItemIndex(option) != -1;
         else
-            return option.value == this.value;
+            return this.objectUtils.equals(option.value, this.value, this.dataKey);
     }
     
     findItemIndex(option: SelectItem) {
