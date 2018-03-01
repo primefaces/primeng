@@ -31,6 +31,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':allChecked}"></span>
           </div>
         </div>
+        <div class="ui-listbox-toggle-all-label-container" *ngIf="toggleAllLabel">
+          <span>{{toggleAllLabel}}</span>
+        </div>
         <div class="ui-listbox-filter-container" *ngIf="filter">
           <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
           <span class="fa fa-search"></span>
@@ -81,6 +84,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
   
   @Input() filterMode: string = 'contains';
   
+  @Input() toggleAllLabel: string;
+
   @Input() metaKeySelection: boolean = true;
   
   @Input() dataKey: string;
