@@ -45,6 +45,13 @@
     cursor: pointer;
 }
 
+.ui-listbox-header .ui-listbox-toggle-all-label-container {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 100%;
+}
+
 .ui-listbox-header .ui-listbox-filter-container {
     display: inline-block;
     vertical-align: middle;
@@ -53,6 +60,10 @@
 }
 
 .ui-listbox-header.ui-listbox-header-w-checkbox .ui-listbox-filter-container {
+    width: calc(100% - 2em);
+}
+
+.ui-listbox-header.ui-listbox-header-w-checkbox .ui-listbox-toggle-all-label-container {
     width: calc(100% - 2em);
 }
 
