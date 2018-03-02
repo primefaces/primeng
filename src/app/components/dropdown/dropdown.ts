@@ -135,7 +135,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() inputId: string;
     
-    @Input() dataKey: string;
+    @Input() dataKey: string = 'value';
     
     @Input() filterBy: string = 'label';
     
@@ -598,9 +598,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let index: number = -1;
         if(opts) {
             for(let i = 0; i < opts.length; i++) {
-                if((val == null && opts[i].value == null) || this.objectUtils.equals(val, opts[i].value, this.dataKey)) {
-                    index = i;
-                    break;
+                if (this.group) {
+                    if ((val[this.dataKey] == null && opts[i][this.dataKey] == null) || this.objectUtils.equals(val, opts[i], this.dataKey)) {
+                        index = i;
+                        break;
+                    }
+                } else {
+                    if ((val == null && opts[i][this.dataKey] == null) || this.objectUtils.equals(val, opts[i][this.dataKey])) {
+                        index = i;
+                        break;
+                    }
                 }
             }
         }
@@ -635,9 +642,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             let opt: SelectItem;
             if(opts && opts.length) {
                 for(let optgroup of opts) {
-                    opt = this.findOption(val, optgroup.items);
-                    if(opt) {
-                        break;
+                    let index = this.findOptionIndex(val, optgroup.items);
+                    if (index > -1) {
+                        opt = optgroup.items[index];
+                        if (opt) {
+                            break;
+                        }
                     }
                 }
             }
