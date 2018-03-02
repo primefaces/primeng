@@ -9,8 +9,17 @@
     <p-dataView [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both">
         <p-header>
             <div class="ui-helper-clearfix">
-                List of Cars
-                <p-dataViewLayoutOptions [style]="{float:'right'}"></p-dataViewLayoutOptions>
+                <div class="ui-g">
+                    <div class="ui-md-4">
+                        <p-dataViewSortDropdown [options]="sortOptions" placeholder="Sort By"></p-dataViewSortDropdown>
+                    </div>
+                    <div class="ui-md-4" style="text-align:center">
+                        List of Cars
+                    </div>
+                    <div class="ui-md-4" style="text-align:right">
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </div>
             </div>
         </p-header>
         <ng-template let-car pTemplate="listItem">

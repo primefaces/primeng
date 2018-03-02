@@ -1,6 +1,7 @@
 import {Component,OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
+import {SelectItem} from '../../../components/common/api';
 
 @Component({
     templateUrl: './dataviewdemo.html',
@@ -25,10 +26,18 @@ export class DataViewDemo implements OnInit {
     
     displayDialog: boolean;
 
+    sortOptions: SelectItem[];
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsLarge().then(cars => this.cars = cars);
+
+        this.sortOptions = [
+            {label: 'Newest First', value: '!year'},
+            {label: 'Oldest First', value: 'year'},
+            {label: 'Brand', value: 'brand'}
+        ];
     }
     
     selectCar(event: Event, car: Car) {

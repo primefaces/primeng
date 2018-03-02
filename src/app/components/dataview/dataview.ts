@@ -1,9 +1,12 @@
 import {NgModule,Component,ElementRef,OnInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import { ObjectUtils } from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
-import {SelectButtonModule} from '../selectbutton/selectbutton';
+import {DropdownModule} from '../dropdown/dropdown';
 import {BlockableUI} from '../common/blockableui';
+import {SelectItem} from '../common/selectitem';
 
 @Component({
     selector: 'p-dataView',
@@ -30,7 +33,8 @@ import {BlockableUI} from '../common/blockableui';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `
+    `,
+    providers: [ObjectUtils]
 })
 export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
@@ -82,15 +86,45 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     first: number = 0;
     
-    page: number = 0;
-    
     filteredValue: any[];
+
+    _sortField: string;
+
+    _sortOrder: number = 1;
+
+    initialized: boolean;
     
-    constructor(public el: ElementRef) {}
-    
+    constructor(public el: ElementRef, public objectUtils: ObjectUtils) {}
+
     ngOnInit() {
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        this.initialized = true;
+    }
+
+    @Input() get sortField(): string {
+        return this._sortField;
+    }
+
+    set sortField(val: string) {
+        this._sortField = val;
+
+        //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            this.sort();
+        }
+    }
+
+    @Input() get sortOrder(): number {
+        return this._sortOrder;
+    }
+    set sortOrder(val: number) {
+        this._sortOrder = val;
+
+         //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            this.sort();
         }
     }
     
@@ -150,8 +184,38 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
         this.onPage.emit({
             first: this.first,
-            rows: this.rows
+            rows: this.rows,
+            sortField: this.sortField,
+            sortOrder: this.sortOrder
         });
+    }
+
+    sort() {
+        this.first = 0;
+
+        if(this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        else if (this.value) {
+            this.value.sort((data1, data2) => {
+                let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
+                let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
+                let result = null;
+
+                if (value1 == null && value2 != null)
+                    result = -1;
+                else if (value1 != null && value2 == null)
+                    result = 1;
+                else if (value1 == null && value2 == null)
+                    result = 0;
+                else if (typeof value1 === 'string' && typeof value2 === 'string')
+                    result = value1.localeCompare(value2);
+                else
+                    result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+                return (this.sortOrder * result);
+            });
+        }
     }
 
     isEmpty() {
@@ -201,9 +265,52 @@ export class DataViewLayoutOptions  {
     }
 }
 
+@Component({
+    selector: 'p-dataViewSortDropdown',
+    template: `
+        <p-dropdown [options]="options" [(ngModel)]="value" [style]="style" [styleClass]="styleClass"
+            (onChange)="onChange($event)" [lazy]="false" [appendTo]="appendTo" [placeholder]="placeholder"></p-dropdown>
+    `
+})
+export class DataViewSortDropdown {
+
+    @Input() style: any;
+
+    @Input() styleClass: string;
+
+    @Input() appendTo: any;
+
+    @Input() options: SelectItem[];
+
+    @Input() placeholder: string;
+
+    value: string;
+
+    constructor(public dv: DataView) {}
+
+    onChange(event) {
+        let value = event.value;
+        let field;
+        let order;
+
+        if (value.indexOf('!') === 0) {
+            order = -1;
+            field = value.substring(1, value.length);
+        }
+        else {
+            order = 1;
+            field = value;
+        }
+
+        this.dv._sortField = field;
+        this.dv._sortOrder = order;
+        this.dv.sort();
+    }
+}
+
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule,SelectButtonModule],
-    exports: [DataView,SharedModule,DataViewLayoutOptions],
-    declarations: [DataView,DataViewLayoutOptions]
+    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule],
+    exports: [DataView,SharedModule,DataViewLayoutOptions,FormsModule,DataViewSortDropdown],
+    declarations: [DataView,DataViewLayoutOptions,DataViewSortDropdown]
 })
 export class DataViewModule { }
