@@ -51,13 +51,16 @@ p-button {
     position: absolute; 
     top: 50%;
     margin-top: -.5em; 
+    height: 1em;
 }
 
 .ui-button-icon-only .fa {
     top: 50%;
     left: 50%;
     margin-top: -.5em;
-    margin-left: -.6em;
+    margin-left: -.5em;
+    width: 1em;
+    height: 1em;
 }
 
 .ui-button-icon-left {
@@ -82,9 +85,6 @@ button.ui-button::-moz-focus-inner {
 /** Fluid **/
 .ui-fluid .ui-button {
     width: 100%;
-    box-sizing: border-box;
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing: border-box;
 }
 
 .ui-fluid .ui-button-text-icon-left .ui-button-text,

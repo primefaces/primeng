@@ -1,4 +1,4 @@
-.ui-selectbutton{
+.ui-selectbutton {
     display: inline-block;
 }
             
@@ -6,6 +6,6 @@
     padding: 0;
 }
 
-.ui-selectbutton .ui-button.ui-state-focus{
+.ui-selectbutton .ui-button.ui-state-focus {
     outline: none;
 }
