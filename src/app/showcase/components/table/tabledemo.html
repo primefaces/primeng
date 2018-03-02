@@ -1350,6 +1350,36 @@ export class DataTableDemo implements OnInit &#123;
 </pre>
             <p>See the <a [routerLink]="['/table/colreorder']">live example.</a></p>
 
+            <h3>Rows Reordering</h3>
+            <p>Row reordering is enabled by adding pReorderableRow directive with a row index binding to the rows that can be reordered with drag and drop. The optional pReorderableRowDisabled property is available
+                to disable dragging for a particular row. In addition, drag handle should get pReorderableRowHandle directive to specify which element is used to initiate the dragging.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [columns]="cols" [value]="cars"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th style="width:2em"&gt;&lt;/th&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"&gt;
+        &lt;tr [pReorderableRow]="index"&gt;
+            &lt;td&gt;
+                &lt;i class="fa fa-bars" pReorderableRowHandle&gt;&lt;/i&gt;
+            &lt;/td&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+            <p>See the <a [routerLink]="['/table/colreorder']">live example.</a></p>
+
             <h3>Data Export</h3>
             <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
                 columns should be dynamic for export functionality to work and column objects must define field/header properties.
@@ -2240,6 +2270,12 @@ export class DataTableDemo implements OnInit &#123;
                                 event.dropIndex: Index of the dropped column <br>
                                 event.columns: Columns array after reorder. <br></td>
                             <td>Callback to invoke when a column is reordered.</td>
+                        </tr>
+                        <tr>
+                            <td>onRowReorder</td>
+                            <td>event.dragIndex: Index of the dragged row<br>
+                                event.dropIndex: Index of the drop location <br></td>
+                            <td>Callback to invoke when a row is reordered.</td>
                         </tr>
                         <tr>
                             <td>onEditInit</td>

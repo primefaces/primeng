@@ -211,6 +211,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Output() onColReorder: EventEmitter<any> = new EventEmitter();
 
+    @Output() onRowReorder: EventEmitter<any> = new EventEmitter();
+
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -1453,29 +1455,30 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     onRowDragOver(event, index, rowElement) {
-        this.droppedRowIndex = index;
-        let rowY = this.domHandler.getOffset(rowElement).top + this.domHandler.getWindowScrollTop();
-        let pageY = event.pageY;
-        let rowMidY = rowY + this.domHandler.getOuterHeight(rowElement) / 2;
-        let prevRowElement = rowElement.previousElementSibling;
-        
-        if (pageY < rowMidY) {
-            this.domHandler.removeClass(rowElement, 'ui-table-dragpoint-bottom');
-
-            this.droppedRowIndex = index;
-            if (prevRowElement)
-                this.domHandler.addClass(prevRowElement, 'ui-table-dragpoint-bottom');
-            else
-                this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
-        } 
-        else {
-            if (prevRowElement)
-                this.domHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
-            else
-                this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
-
-            this.droppedRowIndex = index + 1;
-            this.domHandler.addClass(rowElement, 'ui-table-dragpoint-bottom');
+        if (this.rowDragging && this.draggedRowIndex !== index) {
+            let rowY = this.domHandler.getOffset(rowElement).top + this.domHandler.getWindowScrollTop();
+            let pageY = event.pageY;
+            let rowMidY = rowY + this.domHandler.getOuterHeight(rowElement) / 2;
+            let prevRowElement = rowElement.previousElementSibling;
+            
+            if (pageY < rowMidY) {
+                this.domHandler.removeClass(rowElement, 'ui-table-dragpoint-bottom');
+    
+                this.droppedRowIndex = index;
+                if (prevRowElement)
+                    this.domHandler.addClass(prevRowElement, 'ui-table-dragpoint-bottom');
+                else
+                    this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+            } 
+            else {
+                if (prevRowElement)
+                    this.domHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
+                else
+                    this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+    
+                this.droppedRowIndex = index + 1;
+                this.domHandler.addClass(rowElement, 'ui-table-dragpoint-bottom');
+            }
         }
     }
 
@@ -1495,9 +1498,17 @@ export class Table implements OnInit, AfterContentInit {
         this.droppedRowIndex = null;
     }
 
-    onRowDrop(event, dropIndex, rowElement) {
-        this.objectUtils.reorderArray(this.value, this.draggedRowIndex, this.droppedRowIndex);
+    onRowDrop(event, rowElement) {
+        if (this.droppedRowIndex != null) {
+            let dropIndex = (this.draggedRowIndex > this.droppedRowIndex) ? this.droppedRowIndex : (this.droppedRowIndex === 0) ? 0 : this.droppedRowIndex - 1;
+            this.objectUtils.reorderArray(this.value, this.draggedRowIndex, dropIndex);
 
+            this.onRowReorder.emit({
+                dragIndex: this.draggedRowIndex,
+                dropIndex: this.droppedRowIndex
+            });
+        }
+        
         //cleanup
         this.onRowDragLeave(event, rowElement);
         this.onRowDragEnd(event);
@@ -2735,7 +2746,7 @@ export class ReorderableRow implements AfterViewInit {
     @HostListener('drop', ['$event'])
     onDrop(event) {
         if (this.isEnabled() && this.dt.rowDragging) {
-            this.dt.onRowDrop(event, this.index, this.el.nativeElement);
+            this.dt.onRowDrop(event, this.el.nativeElement);
         }
     }
 }
