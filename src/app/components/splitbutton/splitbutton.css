@@ -8,15 +8,16 @@
     width: 2em;
 }
 
+.ui-splitbutton .ui-button {
+    vertical-align: top;
+}
+
 .ui-splitbutton.ui-state-disabled button {
     cursor: default;
 }
 
 .ui-fluid .ui-splitbutton {
     width: 100%;
-    box-sizing: border-box;
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing: border-box;
 }
 
 .ui-fluid .ui-splitbutton .ui-button:first-child {
@@ -25,7 +26,4 @@
 
 .ui-fluid .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
     width: 2em;
-    box-sizing: border-box;
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing: border-box;
 }
