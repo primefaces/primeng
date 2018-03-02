@@ -29,7 +29,7 @@ import { TableCrudDemo } from './tablecruddemo';
 import { TableResponsiveDemo } from './tableresponsivedemo';
 import { TableContextMenuDemo } from './tablecontextmenudemo';
 import { TableColResizeDemo } from './tablecolresizedemo';
-import { TableColReorderDemo } from './tablecolreorderdemo';
+import { TableReorderDemo } from './tablereorderdemo';
 import { TableEditDemo } from './tableeditdemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
 import { TabViewModule } from '../../../components/tabview/tabview';
@@ -71,7 +71,7 @@ import { CodeHighlighterModule } from '../../../components/codehighlighter/codeh
 		TableResponsiveDemo,
 		TableContextMenuDemo,
 		TableColResizeDemo,
-		TableColReorderDemo,
+		TableReorderDemo,
 		TableEditDemo,
 		TableRowGroupDemo
 	]

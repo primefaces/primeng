@@ -657,7 +657,14 @@
     }
 }
 
+/* Row Reorder */
+.ui-table .ui-table-tbody > tr.ui-table-dragpoint-top > td {
+    box-shadow: inset 0 2px 0 0 $stateHighlightBgColor;
+}
 
+.ui-table .ui-table-tbody > tr.ui-table-dragpoint-bottom > td {
+    box-shadow: inset 0 -2px 0 0 $stateHighlightBgColor;
+}
 
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,

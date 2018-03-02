@@ -3,9 +3,9 @@ import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    templateUrl: './tablecolreorderdemo.html'
+    templateUrl: './tablereorderdemo.html'
 })
-export class TableColReorderDemo implements OnInit {
+export class TableReorderDemo implements OnInit {
 
     cars: Car[];
 

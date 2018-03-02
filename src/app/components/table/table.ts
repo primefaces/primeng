@@ -277,6 +277,12 @@ export class Table implements OnInit, AfterContentInit {
 
     draggedColumn: any;
 
+    draggedRowIndex: number;
+
+    droppedRowIndex: number;
+
+    rowDragging: boolean;
+
     dropPosition: number;
 
     editingCell: Element;
@@ -1440,6 +1446,63 @@ export class Table implements OnInit, AfterContentInit {
         }
     }
 
+    onRowDragStart(event, index) {
+        this.rowDragging = true;
+        this.draggedRowIndex = index;
+        event.dataTransfer.setData('text', 'b');    // For firefox
+    }
+
+    onRowDragOver(event, index, rowElement) {
+        this.droppedRowIndex = index;
+        let rowY = this.domHandler.getOffset(rowElement).top + this.domHandler.getWindowScrollTop();
+        let pageY = event.pageY;
+        let rowMidY = rowY + this.domHandler.getOuterHeight(rowElement) / 2;
+        let prevRowElement = rowElement.previousElementSibling;
+        
+        if (pageY < rowMidY) {
+            this.domHandler.removeClass(rowElement, 'ui-table-dragpoint-bottom');
+
+            this.droppedRowIndex = index;
+            if (prevRowElement)
+                this.domHandler.addClass(prevRowElement, 'ui-table-dragpoint-bottom');
+            else
+                this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+        } 
+        else {
+            if (prevRowElement)
+                this.domHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
+            else
+                this.domHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+
+            this.droppedRowIndex = index + 1;
+            this.domHandler.addClass(rowElement, 'ui-table-dragpoint-bottom');
+        }
+    }
+
+    onRowDragLeave(event, rowElement) {
+        let prevRowElement = rowElement.previousElementSibling;
+        if (prevRowElement) {
+            this.domHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
+        }
+
+        this.domHandler.removeClass(rowElement, 'ui-table-dragpoint-bottom');
+        this.domHandler.removeClass(rowElement, 'ui-table-dragpoint-top');
+    }
+
+    onRowDragEnd(event) {
+        this.rowDragging = false;
+        this.draggedRowIndex = null;
+        this.droppedRowIndex = null;
+    }
+
+    onRowDrop(event, dropIndex, rowElement) {
+        this.objectUtils.reorderArray(this.value, this.draggedRowIndex, this.droppedRowIndex);
+
+        //cleanup
+        this.onRowDragLeave(event, rowElement);
+        this.onRowDragEnd(event);
+    }
+
     handleVirtualScroll(event) {
         this.first = (event.page - 1) * this.rows;
         this.virtualScrollCallback = event.callback;
@@ -2550,10 +2613,136 @@ export class TableHeaderCheckbox  {
    
 }
 
+@Directive({
+    selector: '[pReorderableRowHandle]'
+})
+export class ReorderableRowHandle implements AfterViewInit {
+
+    @Input("pReorderableRowHandle") index: number;
+    
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+
+    ngAfterViewInit() {
+        this.domHandler.addClass(this.el.nativeElement, 'ui-table-reorderablerow-handle');
+    }
+}
+
+@Directive({
+    selector: '[pReorderableRow]'
+})
+export class ReorderableRow implements AfterViewInit {
+
+    @Input("pReorderableRow") index: number;
+
+    @Input() pReorderableRowDisabled: boolean;
+
+    mouseDownListener: any;
+
+    dragStartListener: any;
+
+    dragEndListener: any;
+
+    dragOverListener: any;
+
+    dragLeaveListener: any;
+
+    dropListener: any;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+
+    ngAfterViewInit() {
+        if (this.isEnabled()) {   
+            this.el.nativeElement.droppable = true;
+            this.bindEvents();
+        }
+    }
+
+    bindEvents() {
+        this.zone.runOutsideAngular(() => {
+            this.mouseDownListener = this.onMouseDown.bind(this);
+            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
+
+            this.dragStartListener = this.onDragStart.bind(this);
+            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
+
+            this.dragEndListener = this.onDragEnd.bind(this);
+            this.el.nativeElement.addEventListener('dragend', this.dragEndListener);
+
+            this.dragOverListener = this.onDragOver.bind(this);
+            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
+
+            this.dragLeaveListener = this.onDragLeave.bind(this);
+            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
+        });
+    }
+
+    unbindEvents() {
+        if (this.mouseDownListener) {
+            document.removeEventListener('mousedown', this.mouseDownListener);
+            this.mouseDownListener = null;
+        }
+
+        if (this.dragStartListener) {
+            document.removeEventListener('dragstart', this.dragStartListener);
+            this.dragStartListener = null;
+        }
+
+        if (this.dragEndListener) {
+            document.removeEventListener('dragend', this.dragEndListener);
+            this.dragEndListener = null;
+        }
+
+        if (this.dragOverListener) {
+            document.removeEventListener('dragover', this.dragOverListener);
+            this.dragOverListener = null;
+        }
+
+        if (this.dragLeaveListener) {
+            document.removeEventListener('dragleave', this.dragLeaveListener);
+            this.dragLeaveListener = null;
+        }
+    }
+
+    onMouseDown(event) {
+        if (this.domHandler.hasClass(event.target, 'ui-table-reorderablerow-handle'))
+            this.el.nativeElement.draggable = true;
+        else
+            this.el.nativeElement.draggable = false;
+    }
+
+    onDragStart(event) {
+        this.dt.onRowDragStart(event, this.index);
+    }
+
+    onDragEnd(event) {
+        this.dt.onRowDragEnd(event);
+        this.el.nativeElement.draggable = false;
+    }
+
+    onDragOver(event) {
+        this.dt.onRowDragOver(event, this.index, this.el.nativeElement);
+        event.preventDefault();
+    }
+
+    onDragLeave(event) {
+        this.dt.onRowDragLeave(event, this.el.nativeElement);
+    }
+
+    isEnabled() {
+        return this.pReorderableRowDisabled !== false;
+    }
+
+    @HostListener('drop', ['$event'])
+    onDrop(event) {
+        if (this.isEnabled() && this.dt.rowDragging) {
+            this.dt.onRowDrop(event, this.index, this.el.nativeElement);
+        }
+    }
+}
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow]
 })
 export class TableModule { }
