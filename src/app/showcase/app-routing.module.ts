@@ -28,6 +28,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'datalist', loadChildren: './components/datalist/datalistdemo.module#DataListDemoModule'},
             {path: 'datascroller', loadChildren: './components/datascroller/datascrollerdemo.module#DataScrollerDemoModule'},
             {path: 'datatable', loadChildren: './components/datatable/datatabledemo.module#DataTableDemoModule'},
+            {path: 'dataview', loadChildren: './components/dataview/dataviewdemo.module#DataViewDemoModule'},
             {path: 'defer', loadChildren: './components/defer/deferdemo.module#DeferDemoModule'},
             {path: 'dialog', loadChildren: './components/dialog/dialogdemo.module#DialogDemoModule'},
             {path: 'dragdrop', loadChildren: './components/dragdrop/dragdropdemo.module#DragDropDemoModule'},

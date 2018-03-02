@@ -1,0 +1,38 @@
+.ui-dataview .ui-paginator {
+	text-align: center;
+}
+
+.ui-dataview-column {
+	padding: .25em;
+}
+
+.ui-dataview-content-empty {
+    padding: .25em .625em;
+}
+
+.ui-dataview .ui-dataview-header,
+.ui-dataview .ui-dataview-footer {
+    text-align:center;
+	padding: .5em .75em;
+}
+
+.ui-dataview .ui-dataview-header {
+    border-bottom: 0 none;
+}
+
+.ui-dataview .ui-dataview-footer {
+    border-top: 0 none;
+}
+
+.ui-dataview .ui-dataview-top {
+    border-bottom: 0 none;
+}
+
+.ui-dataview .ui-dataview-bottom {
+    border-top: 0 none;
+}
+
+.ui-dataview.ui-dataview-list > .ui-dataview-content > div.ui-g > div {
+    width: 100%;
+}
+
