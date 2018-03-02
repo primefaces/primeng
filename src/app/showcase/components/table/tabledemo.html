@@ -1189,7 +1189,7 @@ export class DataTableDemo implements OnInit &#123;
             <h3>Expandable Rows</h3>
             <p>Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and
                 use the pRowToggler directive whose value is the row data instance on an element of your choice whose click event toggles the expansion. This
-            enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler.</p>
+            enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting pRowTogglerDisabled as false disabled toggle event for the element.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" dataKey="vin"&gt;

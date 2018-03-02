@@ -1954,12 +1954,20 @@ export class RowToggler {
 
     @Input('pRowToggler') data: any;
 
+    @Input() pRowTogglerDisabled: boolean;
+
     constructor(public dt: Table) { }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        this.dt.toggleRow(this.data, event);
-        event.preventDefault();
+        if (this.isEnabled()) {
+            this.dt.toggleRow(this.data, event);
+            event.preventDefault();
+        }
+    }
+
+    isEnabled() {
+        return this.pRowTogglerDisabled !== false;
     }
 }
 
