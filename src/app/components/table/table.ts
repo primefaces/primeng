@@ -1750,18 +1750,24 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     @Input("pSortableColumn") field: string;
 
+    @Input() pSortableColumnDisabled: boolean;
+
     sorted: boolean;
         
     subscription: Subscription;
 
-    constructor(public dt: Table, public domHandler: DomHandler) { 
-        this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
-            this.updateSortState();
-        });
+    constructor(public dt: Table, public domHandler: DomHandler) {
+        if (this.isEnabled()) {
+            this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
+                this.updateSortState();
+            });
+        }
     }
 
     ngOnInit() {
-        this.updateSortState();
+        if (this.isEnabled()) {
+            this.updateSortState();
+        }
     }
 
     updateSortState() {
@@ -1770,16 +1776,23 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        this.dt.sort({
-            originalEvent: event,
-            field: this.field
-        });
+        if (this.isEnabled()) {
+            this.updateSortState();
+            this.dt.sort({
+                originalEvent: event,
+                field: this.field
+            });
 
-        this.domHandler.clearSelection();
+            this.domHandler.clearSelection();
+        } 
+    }
+
+    isEnabled() {
+        return this.pSortableColumnDisabled !== false;
     }
 
     ngOnDestroy() {
-        if(this.subscription) {
+        if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
@@ -1843,28 +1856,40 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     @Input("pSelectableRowIndex") index: number;
 
+    @Input() pSelectableRowDisabled: boolean;
+
     selected: boolean;
 
     subscription: Subscription;
 
     constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
-        this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.selected = this.dt.isSelected(this.data);
-        });
+        if (this.isEnabled()) {
+            this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+                this.selected = this.dt.isSelected(this.data);
+            });
+        }
     }
 
     ngOnInit() {
-        this.selected = this.dt.isSelected(this.data);
+        if (this.isEnabled()) {
+            this.selected = this.dt.isSelected(this.data);
+        }
     }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        this.dt.handleRowClick({
-            originalEvent: event,
-            rowData: this.data,
-            rowIndex: this.index
-        });
-    }    
+        if (this.isEnabled()) {
+            this.dt.handleRowClick({
+                originalEvent: event,
+                rowData: this.data,
+                rowIndex: this.index
+            });
+        }
+    }   
+    
+    isEnabled() {
+        return this.pSelectableRowDisabled !== false;
+    }
 
     ngOnDestroy() {
         if (this.subscription) {
@@ -1884,24 +1909,34 @@ export class ContextMenuRow {
 
     @Input("pContextMenuRow") data: any;
 
+    @Input() pContextMenuRowDisabled: boolean;
+
     selected: boolean;
 
     subscription: Subscription;
 
     constructor(public dt: Table, public tableService: TableService) {
-        this.subscription = this.dt.tableService.contextMenuSource$.subscribe((data) => {
-            this.selected = this.dt.equals(this.data, data);
-        });
+        if (this.isEnabled()) {
+            this.subscription = this.dt.tableService.contextMenuSource$.subscribe((data) => {
+                this.selected = this.dt.equals(this.data, data);
+            });
+        }
     }
 
     @HostListener('contextmenu', ['$event'])
     onContextMenu(event: Event) {
-        this.dt.handleRowRightClick({
-            originalEvent: event,
-            rowData: this.data
-        });
+        if (this.isEnabled()) {
+            this.dt.handleRowRightClick({
+                originalEvent: event,
+                rowData: this.data
+            });
+    
+            event.preventDefault();
+        }
+    }
 
-        event.preventDefault();
+    isEnabled() {
+        return this.pContextMenuRowDisabled !== false;
     }
 
     ngOnDestroy() {
@@ -1933,6 +1968,8 @@ export class RowToggler {
 })
 export class ResizableColumn implements AfterViewInit, OnDestroy {
 
+    @Input() pResizableColumnDisabled: boolean;
+
     resizer: HTMLSpanElement;
 
     resizerMouseDownListener: any;
@@ -1944,15 +1981,17 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
 
     ngAfterViewInit() {
-        this.domHandler.addClass(this.el.nativeElement, 'ui-resizable-column');
-        this.resizer = document.createElement('span');
-        this.resizer.className = 'ui-column-resizer ui-clickable';
-        this.el.nativeElement.appendChild(this.resizer);
-
-        this.zone.runOutsideAngular(() => {
-            this.resizerMouseDownListener = this.onMouseDown.bind(this);
-            this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
-        });
+        if (this.isEnabled()) { 
+            this.domHandler.addClass(this.el.nativeElement, 'ui-resizable-column');
+            this.resizer = document.createElement('span');
+            this.resizer.className = 'ui-column-resizer ui-clickable';
+            this.el.nativeElement.appendChild(this.resizer);
+    
+            this.zone.runOutsideAngular(() => {
+                this.resizerMouseDownListener = this.onMouseDown.bind(this);
+                this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
+            });
+        }
     }
 
     bindDocumentEvents() {
@@ -1991,6 +2030,10 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         this.unbindDocumentEvents();
     }
 
+    isEnabled() {
+        return this.pResizableColumnDisabled !== false;
+    }
+
     ngOnDestroy() {
         if (this.resizerMouseDownListener) {
             this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
@@ -2005,6 +2048,8 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 })
 export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
+    @Input() pReorderableColumnDisabled: boolean;
+
     dragStartListener: any;
 
     dragOverListener: any;
@@ -2018,7 +2063,9 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
 
     ngAfterViewInit() {
-        this.bindEvents();
+        if (this.isEnabled()) {   
+            this.bindEvents();
+        }
     }
 
     bindEvents() {
@@ -2092,7 +2139,13 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     @HostListener('drop', ['$event'])
     onDrop(event) {
-        this.dt.onColumnDrop(event, this.el.nativeElement);
+        if (this.isEnabled()) {
+            this.dt.onColumnDrop(event, this.el.nativeElement);
+        }
+    }
+
+    isEnabled() {
+        return this.pReorderableColumnDisabled !== false;
     }
 
     ngOnDestroy() {
@@ -2110,10 +2163,14 @@ export class EditableColumn implements AfterViewInit {
 
     @Input("pEditableColumnField") field: any;
 
+    @Input() pEditableColumnDisabled: boolean;
+
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        this.domHandler.addClass(this.el.nativeElement, 'ui-editable-column');
+        if (this.isEnabled()) {
+            this.domHandler.addClass(this.el.nativeElement, 'ui-editable-column');
+        }
     }
 
     isValid() {
@@ -2122,18 +2179,20 @@ export class EditableColumn implements AfterViewInit {
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        if (this.dt.editingCell) {
-            if (this.dt.editingCell !== this.el.nativeElement) {
-                if (!this.isValid()) {
-                    return;
-                }
-    
-                this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+        if (this.isEnabled()) {
+            if (this.dt.editingCell) {
+                if (this.dt.editingCell !== this.el.nativeElement) {
+                    if (!this.isValid()) {
+                        return;
+                    }
+        
+                    this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                    this.openCell();
+                } 
+            }
+            else {
                 this.openCell();
-            } 
-        }
-        else {
-            this.openCell();
+            }
         }
     }
 
@@ -2153,34 +2212,36 @@ export class EditableColumn implements AfterViewInit {
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
-        //enter
-        if (event.keyCode == 13) {
-            if (this.isValid()) {
-                this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
-                this.dt.editingCell = null;
-                this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+        if (this.isEnabled()) {
+            //enter
+            if (event.keyCode == 13) {
+                if (this.isValid()) {
+                    this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                    this.dt.editingCell = null;
+                    this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+                }
+    
+                event.preventDefault();
             }
-
-            event.preventDefault();
-        }
-
-        //escape
-        else if (event.keyCode == 27) {
-            if (this.isValid()) {
-                this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
-                this.dt.editingCell = null;
-                this.dt.onEditCancel.emit({ field: this.field, data: this.data });
+    
+            //escape
+            else if (event.keyCode == 27) {
+                if (this.isValid()) {
+                    this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                    this.dt.editingCell = null;
+                    this.dt.onEditCancel.emit({ field: this.field, data: this.data });
+                }
+    
+                event.preventDefault();
             }
-
-            event.preventDefault();
-        }
-
-        //tab
-        else if (event.keyCode == 9) {
-            if (event.shiftKey)
-                this.moveToPreviousCell(event);
-            else
-                this.moveToNextCell(event);
+    
+            //tab
+            else if (event.keyCode == 9) {
+                if (event.shiftKey)
+                    this.moveToPreviousCell(event);
+                else
+                    this.moveToNextCell(event);
+            }
         }
     }
 
@@ -2260,6 +2321,10 @@ export class EditableColumn implements AfterViewInit {
         else {
             return null;
         }
+    }
+
+    isEnabled() {
+        return this.pEditableColumnDisabled !== false;
     }
 
 }
