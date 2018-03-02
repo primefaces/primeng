@@ -11,14 +11,6 @@ import {BlockableUI} from '../common/blockableui';
         <div [ngClass]="{'ui-dataview ui-widget': true, 'ui-dataview-list': (layout === 'list'), 'ui-dataview-grid': (layout === 'grid')}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-dataview-header ui-widget-header ui-corner-top">
                 <ng-content select="p-header"></ng-content>
-                <div class="ui-dataview-layout-options">
-                    <a href="#" (click)="changeLayout($event, 'list')">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <a href="#" (click)="changeLayout($event, 'grid')">
-                        <i class="fa fa-th-large"></i>
-                    </a>
-                </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
@@ -139,10 +131,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         this.updateTotalRecords();
     }
 
-    changeLayout(event: Event, layout: string) {
+    changeLayout(layout: string) {
         this.layout = layout;
         this.updateItemTemplate();
-        event.preventDefault();
     }
         
     updateTotalRecords() {
@@ -180,9 +171,39 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     }
 }
 
+@Component({
+    selector: 'p-dataViewLayoutOptions',
+    template: `
+        <div [ngClass]="'ui-dataview-layout-options ui-selectbutton ui-buttonset'" [ngStyle]="style" [class]="styleClass">
+            <a href="#" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'list')"
+                [ngClass]="{'ui-state-active': dv.layout === 'list'}">
+                <i class="fa fa-bars ui-button-icon-left"></i>
+                <span class="ui-button-text ui-clickable">ui-btn</span>
+            </a><a href="#" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'grid')"
+                [ngClass]="{'ui-state-active': dv.layout === 'grid'}">
+                <i class="fa fa-th-large ui-button-icon-left"></i>
+                <span class="ui-button-text ui-clickable">ui-btn</span>
+            </a>
+        </div>
+    `
+})
+export class DataViewLayoutOptions  {
+
+    @Input() style: any;
+
+    @Input() styleClass: string;
+
+    constructor(public dv: DataView) {}
+
+    changeLayout(event: Event, layout: string) {
+        this.dv.changeLayout(layout);
+        event.preventDefault();
+    }
+}
+
 @NgModule({
     imports: [CommonModule,SharedModule,PaginatorModule,SelectButtonModule],
-    exports: [DataView,SharedModule],
-    declarations: [DataView]
+    exports: [DataView,SharedModule,DataViewLayoutOptions],
+    declarations: [DataView,DataViewLayoutOptions]
 })
 export class DataViewModule { }

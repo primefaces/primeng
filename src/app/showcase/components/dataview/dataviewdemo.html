@@ -8,7 +8,10 @@
 <div class="content-section implementation">
     <p-dataView [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both">
         <p-header>
-            List of Cars
+            <div class="ui-helper-clearfix">
+                List of Cars
+                <p-dataViewLayoutOptions [style]="{float:'right'}"></p-dataViewLayoutOptions>
+            </div>
         </p-header>
         <ng-template let-car pTemplate="listItem">
             <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
