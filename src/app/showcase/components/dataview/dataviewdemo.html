@@ -6,17 +6,20 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dataView [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both">
+    <p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
+        [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
-                    <div class="ui-md-4">
-                        <p-dataViewSortDropdown [options]="sortOptions" placeholder="Sort By"></p-dataViewSortDropdown>
+                    <div class="ui-g-12 ui-md-4 sort-container">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)"></p-dropdown>
                     </div>
-                    <div class="ui-md-4" style="text-align:center">
-                        List of Cars
+                    <div class="ui-g-6 ui-md-4 filter-container">
+                        <div style="position:relative">
+                            <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+                        </div>
                     </div>
-                    <div class="ui-md-4" style="text-align:right">
+                    <div class="ui-g-6 ui-md-4" style="text-align:right">
                         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                     </div>
                 </div>

@@ -1,10 +1,8 @@
 import {NgModule,Component,ElementRef,OnInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import { ObjectUtils } from '../utils/objectutils';
+import {ObjectUtils} from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
-import {DropdownModule} from '../dropdown/dropdown';
 import {BlockableUI} from '../common/blockableui';
 import {SelectItem} from '../common/selectitem';
 
@@ -63,10 +61,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Input() paginatorPosition: string = 'bottom';
     
     @Input() alwaysShowPaginator: boolean = true;
-    
-    @Input() trackBy: Function = (index: number, item: any) => item;
-    
+
     @Input() paginatorDropdownAppendTo: any;
+
+    @Input() trackBy: Function = (index: number, item: any) => item;
+
+    @Input() filterBy: string;
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
     
@@ -233,6 +233,22 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
+
+    filter(value: string) {
+        if (this.value && this.value.length) {
+            let searchFields = this.filterBy.split(',');
+            this.filteredValue = this.objectUtils.filter(this.value, searchFields, value);
+    
+            if (this.filteredValue.length === this.value.length ) {
+                this.filteredValue = null;
+            }
+    
+            if (this.paginator) {
+                this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+            }
+        }
+        
+    }
 }
 
 @Component({
@@ -264,53 +280,9 @@ export class DataViewLayoutOptions  {
         event.preventDefault();
     }
 }
-
-@Component({
-    selector: 'p-dataViewSortDropdown',
-    template: `
-        <p-dropdown [options]="options" [(ngModel)]="value" [style]="style" [styleClass]="styleClass"
-            (onChange)="onChange($event)" [lazy]="false" [appendTo]="appendTo" [placeholder]="placeholder"></p-dropdown>
-    `
-})
-export class DataViewSortDropdown {
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() appendTo: any;
-
-    @Input() options: SelectItem[];
-
-    @Input() placeholder: string;
-
-    value: string;
-
-    constructor(public dv: DataView) {}
-
-    onChange(event) {
-        let value = event.value;
-        let field;
-        let order;
-
-        if (value.indexOf('!') === 0) {
-            order = -1;
-            field = value.substring(1, value.length);
-        }
-        else {
-            order = 1;
-            field = value;
-        }
-
-        this.dv._sortField = field;
-        this.dv._sortOrder = order;
-        this.dv.sort();
-    }
-}
-
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule],
-    exports: [DataView,SharedModule,DataViewLayoutOptions,FormsModule,DataViewSortDropdown],
-    declarations: [DataView,DataViewLayoutOptions,DataViewSortDropdown]
+    imports: [CommonModule,SharedModule,PaginatorModule],
+    exports: [DataView,SharedModule,DataViewLayoutOptions],
+    declarations: [DataView,DataViewLayoutOptions]
 })
 export class DataViewModule { }
