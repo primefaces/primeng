@@ -15,16 +15,18 @@ import {RouterModule} from '@angular/router';
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menuitem-active':listitem==activeItem}">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                        [ngClass]="{'ui-state-disabled':child.disabled}" 
+                        [ngClass]="{'ui-state-disabled':child.disabled}"
+                        [ngStyle]="child.style" [class]="child.styleClass"
                         (click)="itemClick($event, child, listitem)">
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" 
-                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'"
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all"
                         [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                        [ngClass]="{'ui-state-disabled':child.disabled}" 
+                        [ngClass]="{'ui-state-disabled':child.disabled}"
+                        [ngStyle]="child.style" [class]="child.styleClass"
                         (click)="itemClick($event, child, listitem)">
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -39,38 +41,38 @@ import {RouterModule} from '@angular/router';
 export class SlideMenuSub implements OnDestroy {
 
     @Input() item: MenuItem;
-    
+
     @Input() root: boolean;
-    
+
     @Input() backLabel: string = 'Back';
-    
+
     @Input() menuWidth: string;
-    
+
     @Input() effectDuration: any;
-        
+
     @Input() easing: string = 'ease-out';
-        
+
     constructor(@Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu) {}
-        
+
     activeItem: any;
-                            
+
     itemClick(event, item: MenuItem, listitem: any) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-                
-        if(item.command) {            
+
+        if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         if(item.items && !this.slideMenu.animating) {
             this.slideMenu.left -= this.slideMenu.menuWidth;
             this.activeItem = listitem;
@@ -78,7 +80,7 @@ export class SlideMenuSub implements OnDestroy {
             setTimeout(() => this.slideMenu.animating = false, this.effectDuration);
         }
     }
-        
+
     ngOnDestroy() {
         this.activeItem = null;
     }
@@ -87,7 +89,7 @@ export class SlideMenuSub implements OnDestroy {
 @Component({
     selector: 'p-slideMenu',
     template: `
-        <div #container [ngClass]="{'ui-slidemenu ui-widget ui-widget-content ui-corner-all':true, 'ui-slidemenu-dynamic ui-shadow':popup}" 
+        <div #container [ngClass]="{'ui-slidemenu ui-widget ui-widget-content ui-corner-all':true, 'ui-slidemenu-dynamic ui-shadow':popup}"
             [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
             <div class="ui-slidemenu-wrapper" [style.height.px]="viewportHeight">
                 <div #slideMenuContent class="ui-slidemenu-content">
@@ -110,43 +112,43 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() menuWidth: number = 190;
-    
+
     @Input() viewportHeight: number = 180;
-    
+
     @Input() effectDuration: any = 250;
-        
+
     @Input() easing: string = 'ease-out';
-    
+
     @Input() backLabel: string = 'Back';
-    
+
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     @ViewChild('backward') backwardViewChild: ElementRef;
-    
+
     @ViewChild('slideMenuContent') slideMenuContentViewChild: ElementRef;
-    
+
     public container: HTMLDivElement;
-    
+
     public backwardElement: HTMLDivElement;
-    
+
     public slideMenuContentElement: HTMLDivElement;
-    
+
     public documentClickListener: any;
-    
+
     public preventDocumentDefault: any;
-        
+
     public left: number = 0;
-    
+
     public animating: boolean = false;
-        
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
@@ -154,7 +156,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
         this.backwardElement = <HTMLDivElement> this.backwardViewChild.nativeElement;
         this.slideMenuContentElement = <HTMLDivElement> this.slideMenuContentViewChild.nativeElement;
         this.slideMenuContentElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement) + 'px';
-        
+
         if(this.popup) {
             if(this.appendTo) {
                 if(this.appendTo === 'body')
@@ -162,7 +164,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
                 else
                     this.domHandler.appendChild(this.container, this.appendTo);
             }
-            
+
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
@@ -171,14 +173,14 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
             });
         }
     }
-    
+
     toggle(event) {
         if(this.container.offsetParent)
             this.hide();
         else
             this.show(event);
     }
-    
+
     show(event) {
         this.preventDocumentDefault = true;
         this.moveOnTop();
@@ -186,7 +188,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
         this.domHandler.absolutePosition(this.container, event.target);
         this.domHandler.fadeIn(this.container, 250);
     }
-    
+
     hide() {
         this.container.style.display = 'none';
     }
@@ -196,21 +198,21 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     onClick(event) {
         this.preventDocumentDefault = true;
     }
-    
+
     goBack() {
         this.left += this.menuWidth;
     }
-        
+
     ngOnDestroy() {
         if(this.popup) {
             if(this.documentClickListener) {
                 this.documentClickListener();
             }
-            
+
             if(this.appendTo) {
                 this.el.nativeElement.appendChild(this.container);
             }
