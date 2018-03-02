@@ -11,8 +11,8 @@
         <p-header>
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
-                    <div class="ui-g-12 ui-md-4 sort-container">
-                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)"></p-dropdown>
+                    <div class="ui-g-12 ui-md-4">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
                     </div>
                     <div class="ui-g-6 ui-md-4 filter-container">
                         <div style="position:relative">

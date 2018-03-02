@@ -20,10 +20,6 @@ import {SelectItem} from '../../../components/common/api';
                 margin-top: 0;
             }
 
-            .ui-dropdown {
-                width: 100% !important;
-            }
-
             .filter-container {
                 text-align: left;
             }

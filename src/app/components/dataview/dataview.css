@@ -23,11 +23,11 @@
     border-top: 0 none;
 }
 
-.ui-dataview .ui-dataview-top {
+.ui-dataview .ui-paginator-top {
     border-bottom: 0 none;
 }
 
-.ui-dataview .ui-dataview-bottom {
+.ui-dataview .ui-paginator-bottom {
     border-top: 0 none;
 }
 
