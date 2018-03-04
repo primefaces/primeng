@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">DataView</span>
-        <span>DataGrid displays data in grid or list layout with pagination, sorting and filtering features.</span>
+        <span>DataView displays data in grid or list layout with pagination, sorting and filtering features.</span>
     </div>
 </div>
 
@@ -67,26 +67,21 @@
     </p-dataView>
         
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
-        <div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-12" style="text-align:center"><img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"></div>
+        <div class="ui-g" *ngIf="selectedCar">
+            <div class="ui-g-12" style="text-align:center">
+                <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
             </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Vin: </div>
-                <div class="ui-grid-col-8">{{selectedCar.vin}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Year: </div>
-                <div class="ui-grid-col-8">{{selectedCar.year}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Brand: </div>
-                <div class="ui-grid-col-8">{{selectedCar.brand}}</div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">Color: </div>
-                <div class="ui-grid-col-8">{{selectedCar.color}}</div>
-            </div>
+            <div class="ui-g-4">Vin: </div>
+            <div class="ui-g-8">{{selectedCar.vin}}</div>
+            
+            <div class="ui-g-4">Brand: </div>
+            <div class="ui-g-8">{{selectedCar.brand}}</div>
+            
+            <div class="ui-g-4">Year: </div>
+            <div class="ui-g-8">{{selectedCar.year}}</div>
+            
+            <div class="ui-g-4">Color: </div>
+            <div class="ui-g-8">{{selectedCar.color}}</div>
         </div>
     </p-dialog>
 </div>
@@ -97,14 +92,14 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;DataGridModule&#125; from 'primeng/datagrid';
+import &#123;DataViewModule&#125; from 'primeng/dataview';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataGrid requires a collection of items as its value and a ng-template to display each item. ng-template should contain a div element as a wrapper with <a [routerLink]="['/grid']">Grid CSS</a> style class of your choice to 
-                define the grid layout. 
-            </p><p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the datagrid. Cars are loaded by a CarService that connects to a server to fetch the cars with a Promise.</p>
+            <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. list and grid.</p>
+            
+            <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export interface Car &#123;
@@ -137,10 +132,9 @@ export class CarService &#123;
 </code>
 </pre>
         
-            <p>Here is a sample DataGrid that displays a list of cars where each row contains 3 cars.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class DataGridDemo implements OnInit &#123;
+export class DataViewDemo implements OnInit &#123;
 
     cars: Car[];
 
@@ -155,85 +149,129 @@ export class DataGridDemo implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataGrid [value]="cars"&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
-            Car content
+&lt;p-dataView [value]="cars"&gt;
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div&gt;
+            &#123;&#123;car.id&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-dataGrid&gt;
+&lt;/p-dataView&gt;
 </code>
 </pre>
 
-            <p>Index of the row is available at the ng-template.</p>
+            <h3>Layouts</h3>
+            <p>DataView has two layout modes; "list" and "grid" where a separate template is used to render an item in each mode. In list mode name of the template is "listItem" whereas
+                in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/grid']">Grid CSS</a> style class of your choice.</p>
+            <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataGrid [value]="cars"&gt;
-    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
-            Car content for {{i}}
+&lt;p-dataView [value]="cars"&gt;
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div&gt;
+            &#123;&#123;car.id&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-dataGrid&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
+            &#123;&#123;car.year&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataView&gt;
 </code>
 </pre>
 
-            <h3>Change Detection</h3>
-            <p>DataGrid either uses setter based checking or ngDoCheck to realize if the underlying data has changed to update the UI. This is configured using the immutable
-                property, when enabled (default) setter based detection is utilized so your data changes such as adding or removing a record 
-                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
-                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
-                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
-                both methods can be used depending on your preference.
-            </p>
-
-            <h3>Facets</h3>
-            <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
+            <h3>Sections</h3>
+            <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataGrid [value]="cars"&gt;
+&lt;p-dataView [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
-            Car content
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div&gt;
+            &#123;&#123;car.id&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-dataGrid&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
+            &#123;&#123;car.year&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataView&gt;
 </code>
 </pre>
-            
+
+            <h3>DataViewLayoutOptions</h3>
+            <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. p-dataViewLayoutOptions is a helper component 
+                to display a buttonset to choose the layout mode in DataView. Location of the p-dataViewLayoutOptions should be inside the DataView component. If you prefer a different UI element
+                you can create your own that updates the layout property of the DataView.
+            </p>
+
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataView [value]="cars"&gt;
+    &lt;p-header&gt;
+        &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
+    &lt;/p-header&gt;
+    &lt;p-footer&gt;
+        &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
+    &lt;/p-footer&gt;
+
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div&gt;
+            &#123;&#123;car.id&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
+            &#123;&#123;car.year&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataView&gt;
+</code>
+</pre>
+                        
             <h3>Paginator</h3>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
                 of page links to display.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9"&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
-            Car content
+&lt;p-dataView [value]="cars" [paginator="true" [rows]="10"&gt;
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div&gt;
+            &#123;&#123;car.id&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-dataGrid&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
+            &#123;&#123;car.year&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataView&gt;
 </code>
 </pre>
     
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
-             onLazyLoad callback everytime paging happens. To implement lazy loading,
-            enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object 
+             onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object 
             that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator 
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
-            Car content
+&lt;p-dataView [value]="cars" [paginator="true" [rows]="10"
+    [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div&gt;
+            &#123;&#123;car.id&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-dataGrid&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
+            &#123;&#123;car.year&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataView&gt;
 </code>
 </pre>
 
@@ -246,8 +284,93 @@ loadData(event) &#123;
 </code>
 </pre>
 
-            <h3>Responsive</h3>
-            <p>DataGrid is responsive by default, when the screen gets smaller than a certain value, items are displayed as stacked.</p>
+            <h3>Sorting</h3>
+            <p>sortField and sortOrder properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
+                Here is an example that uses a dropdown where simply updating the sortField-sortOrder bindings of the DataView initiates sorting.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;
+    &lt;p-header&gt;
+        &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" 
+            (onChange)="onSortChange($event)" [autoWidth]="false" [style]="&#123;'min-width':'15em'&#125;"&gt;&lt;/p-dropdown&gt;
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div&gt;
+            &#123;&#123;car.id&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
+            &#123;&#123;car.year&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataView&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataViewSortDemo implements OnInit &#123;
+
+    cars: Car[];
+        
+    sortOptions: SelectItem[];
+
+    sortKey: string;
+
+    sortField: string;
+
+    sortOrder: number;
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsLarge().then(cars => this.cars = cars);
+
+        this.sortOptions = [
+            &#123;label: 'Newest First', value: '!year'&#125;,
+            &#123;label: 'Oldest First', value: 'year'&#125;,
+            &#123;label: 'Brand', value: 'brand'&#125;
+        ];
+    &#125;
+
+    onSortChange(event) &#123;
+        let value = event.value;
+
+        if (value.indexOf('!') === 0) &#123;
+            this.sortOrder = -1;
+            this.sortField = value.substring(1, value.length);
+        &#125;
+        else &#123;
+            this.sortOrder = 1;
+            this.sortField = value;
+        &#125;
+    &#125;
+&#125;
+</code>
+</pre>
+            <h3>Filtering</h3>
+            <p>Filtering is implemented by defining the filterBy property and  calling the filter function of the component, for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
+                Here is an example that uses an input field. filterBy is a string and multiple fields can be defined with a comma separated list.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataView #dv [value]="cars" filterBy="brand"&gt;
+    &lt;p-header&gt;
+        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"&gt;
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &#123;&#123;car.id&#125;&#125;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &#123;&#123;car.year&#125;&#125;
+    &lt;/ng-template&gt;
+&lt;/p-dataView&gt;
+</code>
+</pre>
+            <h3>Custom UI Elements</h3>
+            <p>As mentioned above, layout options selector, sorting and filtering are baked-in and no strict UI is enforces to make it possible to come up with your own UI elements 
+                to enable these features.
+            </p>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -268,16 +391,22 @@ loadData(event) &#123;
                             <td>An array of objects to display.</td>
                         </tr>
                         <tr>
-                            <td>rows</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Number of rows to display per page.</td>
+                            <td>layout</td>
+                            <td>string</td>
+                            <td>list</td>
+                            <td>Layout of the items, valid values are "list" and "grid".</td>
                         </tr>
                         <tr>
                             <td>paginator</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>When specified as true, enables the pagination.</td>
+                        </tr>
+                        <tr>
+                            <td>rows</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of rows to display per page.</td>
                         </tr>
                         <tr>
                             <td>totalRecords</td>
@@ -298,16 +427,34 @@ loadData(event) &#123;
                             <td>Array of integer values to display inside rows per page dropdown of paginator</td>
                         </tr>
                         <tr>
+                            <td>paginatorPosition</td>
+                            <td>string</td>
+                            <td>bottom</td>
+                            <td>Position of the paginator, options are "top","bottom" or "both".</td>
+                        </tr>
+                        <tr>
                             <td>alwaysShowPaginator</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show it even there is only one page.</td>
                         </tr>
                         <tr>
+                            <td>paginatorDropdownAppendTo</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
                             <td>lazy</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -322,35 +469,17 @@ loadData(event) &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
-                            <td>paginatorPosition</td>
-                            <td>string</td>
-                            <td>bottom</td>
-                            <td>Position of the paginator, options are "top","bottom" or "both".</td>
-                        </tr>
-                        <tr>
-                            <td>emptyMessage</td>
-                            <td>string</td>
-                            <td>No records found.</td>
-                            <td>Text to display when there is no data.</td>
-                        </tr>
-                        <tr>
                             <td>trackBy</td>
                             <td>Function</td>
                             <td>null</td>
                             <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
                         </tr>
                         <tr>
-                            <td>immutable</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Defines how the data should be manipulated.</td>
-                        </tr>
-                        <tr>
-                            <td>paginatorDropdownAppendTo</td>
-                            <td>any</td>
+                            <td>filterBy</td>
+                            <td>string</td>
                             <td>null</td>
-                            <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
-                        </tr>
+                            <td>Comma separated list of fields in the object graph to search against.</td>
+                        </tr>                  
                     </tbody>
                 </table>
             </div>
@@ -378,6 +507,12 @@ loadData(event) &#123;
                                 event.rows: Number of rows on the page</td>
                             <td>Callback to invoke when pagination occurs.</td>
                         </tr>
+                        <tr>
+                            <td>onSort</td>
+                            <td>event.field: Name of the sort field.<br>
+                                event.order: Order of the sort.</td>
+                            <td>Callback to invoke when sorting occurs.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -394,19 +529,19 @@ loadData(event) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-datagrid</td>
+                            <td>ui-dataview</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-datagrid-header</td>
+                            <td>ui-dataview-header</td>
                             <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-datagrid-footer</td>
+                            <td>ui-dataview-footer</td>
                             <td>Footer section.</td>
                         </tr>
                         <tr>
-                            <td>ui-datagrid-content</td>
+                            <td>ui-dataview-content</td>
                             <td>Container of items.</td>
                         </tr>
                     </tbody>
@@ -424,50 +559,90 @@ loadData(event) &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="20"&gt;
+    &lt;p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
+    [sortField]="sortField" [sortOrder]="sortOrder"&gt;
     &lt;p-header&gt;
-        List of Cars
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;div class="ui-g"&gt;
+                &lt;div class="ui-g-12 ui-md-4"&gt;
+                    &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="&#123;'min-width':'15em'&#125;"&gt;&lt;/p-dropdown&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-g-6 ui-md-4 filter-container"&gt;
+                    &lt;div style="position:relative"&gt;
+                        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-g-6 ui-md-4" style="text-align:right"&gt;
+                    &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
     &lt;/p-header&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
+    &lt;ng-template let-car pTemplate="listItem"&gt;
+        &lt;div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9"&gt;
+            &lt;div class="ui-g-12 ui-md-3" style="text-align:center"&gt;
+                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-g-12 ui-md-8 car-details"&gt;
+                &lt;div class="ui-g"&gt;
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                    
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                    
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                    
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-g-12 ui-md-1 search-icon"&gt;
+                &lt;a href="#" (click)="selectCar($event, car)"&gt;
+                    &lt;i class="fa fa-2x fa-search" style="cursor:pointer"&gt;&lt;/i&gt;
+                &lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-car pTemplate="gridItem"&gt;
+        &lt;div style="padding:.5em" class="ui-g-12 ui-md-3"&gt;
             &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
-                &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"&gt;
-                &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
+                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" width="60"&gt;
+                &lt;div class="car-detail"&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
                 &lt;hr class="ui-widget-content" style="border-top:0"&gt;
-                &lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"&gt;&lt;/i&gt;
+                &lt;a href="#" (click)="selectCar($event, car)"&gt;
+                    &lt;i class="fa fa-search" style="cursor:pointer"&gt;&lt;/i&gt;
+                &lt;/a&gt;
             &lt;/p-panel&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-dataGrid&gt;
-
+&lt;/p-dataView&gt;
+    
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
-    &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-12" style="text-align:center"&gt;&lt;img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"&gt;&lt;/div&gt;
+    &lt;div class="ui-g" *ngIf="selectedCar"&gt;
+        &lt;div class="ui-g-12" style="text-align:center"&gt;
+            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png"&gt;
         &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Vin: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.vin}}&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Year: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.year}}&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Brand: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.brand}}&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;Color: &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.color}}&lt;/div&gt;
-        &lt;/div&gt;
+        &lt;div class="ui-g-4"&gt;Vin: &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.vin&#125;&#125;&lt;/div&gt;
+        
+        &lt;div class="ui-g-4"&gt;Brand: &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.brand&#125;&#125;&lt;/div&gt;
+        
+        &lt;div class="ui-g-4"&gt;Year: &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.year&#125;&#125;&lt;/div&gt;
+        
+        &lt;div class="ui-g-4"&gt;Color: &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.color&#125;&#125;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/p-dialog&gt;
 </code>
 </pre>
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class DataGridDemo implements OnInit &#123;
+export class DataViewDemo implements OnInit &#123;
 
     cars: Car[];
     
@@ -475,15 +650,43 @@ export class DataGridDemo implements OnInit &#123;
     
     displayDialog: boolean;
 
+    sortOptions: SelectItem[];
+
+    sortKey: string;
+
+    sortField: string;
+
+    sortOrder: number;
+
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsLarge().then(cars => this.cars = cars);
+
+        this.sortOptions = [
+            &#123;label: 'Newest First', value: '!year'&#125;,
+            &#123;label: 'Oldest First', value: 'year'&#125;,
+            &#123;label: 'Brand', value: 'brand'&#125;
+        ];
     &#125;
     
-    selectCar(car: Car) &#123;
+    selectCar(event: Event, car: Car) &#123;
         this.selectedCar = car;
         this.displayDialog = true;
+        event.preventDefault();
+    &#125;
+
+    onSortChange(event) &#123;
+        let value = event.value;
+
+        if (value.indexOf('!') === 0) &#123;
+            this.sortOrder = -1;
+            this.sortField = value.substring(1, value.length);
+        &#125;
+        else &#123;
+            this.sortOrder = 1;
+            this.sortField = value;
+        &#125;
     &#125;
     
     onDialogHide() &#123;
