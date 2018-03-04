@@ -15,7 +15,7 @@ import {TreeDragDropService} from '../../../components/common/api';
     providers: [TreeDragDropService]
 })
 export class TreeDemo implements OnInit {
-    
+
     msgs: Message[];
 
     @ViewChild('expandingTree')
@@ -33,23 +33,27 @@ export class TreeDemo implements OnInit {
     filesTree9: TreeNode[];
     filesTree10: TreeNode[];
     filesTree11: TreeNode[];
-    
+    filesTree12: TreeNode[];
+    filesTree13: TreeNode[];
+
     lazyFiles: TreeNode[];
-    
+
     selectedFile: TreeNode;
-    
+
     selectedFile2: TreeNode;
-    
+
     selectedFile3: TreeNode;
-    
+
     selectedFiles: TreeNode[];
-    
+
     selectedFiles2: TreeNode[];
-    
+
+    selectedFiles3: TreeNode[];
+
     items: MenuItem[];
-    
+
     loading: boolean;
-        
+
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
@@ -88,20 +92,22 @@ export class TreeDemo implements OnInit {
                 children: files
             }];
         });
+        this.nodeService.getFiles().then(files => this.filesTree12 = files);
+        this.nodeService.getFiles().then(files => this.filesTree13 = files);
 
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
-        
+
         this.items = [
             {label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedFile2)},
             {label: 'Unselect', icon: 'fa-close', command: (event) => this.unselectFile()}
         ];
     }
-    
+
     nodeSelect(event) {
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Node Selected', detail: event.node.label});
     }
-    
+
     nodeUnselect(event) {
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
@@ -111,19 +117,19 @@ export class TreeDemo implements OnInit {
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Node Expanded', detail: event.node.label});
     }
-    
+
     nodeExpand(event) {
         if(event.node) {
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
         }
     }
-    
+
     viewFile(file: TreeNode) {
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Node Selected with Right Click', detail: file.label});
     }
-    
+
     unselectFile() {
         this.selectedFile2 = null;
     }
@@ -139,7 +145,7 @@ export class TreeDemo implements OnInit {
             this.expandRecursive(node, false);
         } );
     }
-    
+
     private expandRecursive(node:TreeNode, isExpand:boolean){
         node.expanded = isExpand;
         if(node.children){

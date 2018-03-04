@@ -16,18 +16,18 @@ import {BlockableUI} from '../common/blockableui';
             <li *ngIf="tree.droppableNodes" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
             <li *ngIf="!tree.horizontal" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '']">
-                <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
+                <div class="ui-treenode-content" (click)="onNodeClick($event)" (dblclick)="onNodeDoubleClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
-                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)">
+                    [ngClass]="{'ui-treenode-selectable':(tree.selectionMode || tree.expandOnDoubleClick) && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)">
                     <span class="ui-tree-toggler  fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
-                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
+                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'" (click)="onCheckboxClick($event)" (dblclick)="$event.stopPropagation()"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
                         <span class="ui-chkbox-icon ui-clickable fa" 
                             [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                     ><span class="ui-treenode-label ui-corner-all" 
                         [ngClass]="{'ui-state-highlight':isSelected()}">
-                            <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                            <span *ngIf="!tree.getTemplateForNode(node)" class="ui-unselectable-text">{{node.label}}</span>
                             <span *ngIf="tree.getTemplateForNode(node)">
                                 <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                             </span>
@@ -57,13 +57,13 @@ import {BlockableUI} from '../common/blockableui';
                         </td>
                         <td class="ui-treenode" [ngClass]="{'ui-treenode-collapsed':!node.expanded}">
                             <div class="ui-treenode-content ui-state-default ui-corner-all" 
-                                [ngClass]="{'ui-treenode-selectable':tree.selectionMode,'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
+                                [ngClass]="{'ui-treenode-selectable':(tree.selectionMode || tree.expandOnDoubleClick) && node.selectable !== false,'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (dblclick)="onNodeDoubleClick($event)" (contextmenu)="onNodeRightClick($event)"
                                 (touchend)="onNodeTouchEnd()">
                                 <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-plus':!node.expanded,'fa-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                                 ><span class="ui-treenode-label ui-corner-all">
-                                        <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                                        <span *ngIf="!tree.getTemplateForNode(node)" class="ui-unselectable-text">{{node.label}}</span>
                                         <span *ngIf="tree.getTemplateForNode(node)">
                                         <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                                         </span>
@@ -135,7 +135,21 @@ export class UITreeNode implements OnInit {
     }
 
     onNodeClick(event: MouseEvent) {
-        this.tree.onNodeClick(event, this.node);
+        if(!this.tree.expandOnDoubleClick || !this.tree.isCheckboxSelectionMode()) {
+            this.tree.onNodeClick(event, this.node);
+        }
+    }
+
+    onCheckboxClick(event: MouseEvent) {
+        if(this.tree.expandOnDoubleClick && this.tree.isCheckboxSelectionMode()) {
+            this.tree.onNodeClick(event, this.node);
+        }
+    }
+
+    onNodeDoubleClick(event: MouseEvent) {
+        if(this.tree.expandOnDoubleClick) {
+            this.toggle(event);
+        }
     }
 
     onNodeTouchEnd() {
@@ -365,6 +379,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() loadingIcon: string = 'fa-circle-o-notch';
 
     @Input() emptyMessage: string = 'No records found';
+
+    @Input() expandOnDoubleClick: boolean = false;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
