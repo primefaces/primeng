@@ -48,6 +48,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     
     @Input() rowsPerPageOptions: number[];
 
+    @Input() paginatorPosition: string = 'bottom';
+    
+    @Input() alwaysShowPaginator: boolean = true;
+
+    @Input() paginatorDropdownAppendTo: any;
+
     @Input() lazy: boolean;
 
     @Input() emptyMessage: string = 'No records found';
@@ -57,18 +63,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
-    @Input() paginatorPosition: string = 'bottom';
-    
-    @Input() alwaysShowPaginator: boolean = true;
-
-    @Input() paginatorDropdownAppendTo: any;
 
     @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Input() filterBy: string;
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
+
+    @Output() onSort: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(Header) header;
 
@@ -184,9 +186,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
         this.onPage.emit({
             first: this.first,
-            rows: this.rows,
-            sortField: this.sortField,
-            sortOrder: this.sortOrder
+            rows: this.rows
         });
     }
 
@@ -216,6 +216,11 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
                 return (this.sortOrder * result);
             });
         }
+
+        this.onSort.emit({
+            sortField: this.sortField,
+            sortOrder: this.sortOrder
+        });
     }
 
     isEmpty() {
