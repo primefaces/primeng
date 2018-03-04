@@ -79,9 +79,9 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     
     public itemTemplate: TemplateRef<any>;
 
-    public dataToRender: any[];
-
-    public first: number = 0;
+    public dataToRender: any[];    
+    
+    public _first: number = 0;
     
     public page: number = 0;
     
@@ -124,6 +124,14 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
         if(this.immutable) {
             this.handleDataChange();
         }
+    }
+
+    @Input() get first():number{
+        return this._first;
+    }
+
+    set first(value:number){
+        this._first = value;
     }
     
     handleDataChange() {
