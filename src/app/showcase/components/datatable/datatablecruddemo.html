@@ -8,7 +8,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15" [responsive]="true">
         <p-header>CRUD for Cars</p-header>
         <p-column field="vin" header="Vin" [sortable]="true"></p-column>
         <p-column field="year" header="Year" [sortable]="true"></p-column>
@@ -131,7 +131,7 @@ class PrimeCar implements Car &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15" [responsive]="true"&gt;
     &lt;p-header&gt;CRUD for Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
