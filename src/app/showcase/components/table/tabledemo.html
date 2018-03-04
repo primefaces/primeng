@@ -1290,12 +1290,12 @@ export class DataTableDemo implements OnInit &#123;
             <p>It is important to note that when you need to change column widths, since table width is 100%, giving fixed pixel widths does not work well as browsers scale them, instead give percentage widths.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataTable [value]="cars" [resizableColumns]="true"&gt;
+&lt;p-table [value]="cars" [resizableColumns]="true"&gt;
     &lt;p-column field="vin" header="Vin" [style]="&#123;'width':'20%'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [style]="&#123;'width':'30%'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [style]="&#123;'width':'15%'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [style]="&#123;'width':'35%'&#125;"&gt;&lt;/p-column&gt;
-&lt;/p-dataTable&gt;
+&lt;/p-table&gt;
 </code>
 </pre>
 
