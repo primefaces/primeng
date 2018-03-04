@@ -116,10 +116,10 @@ export class TableColResizeDemo implements OnInit &#123;
         this.carService.getCarsMedium().then(cars => this.cars2 = cars);
 
         this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
+            &#123; field: 'vin', header: 'Vin', width: '25%'&#125;,
+            &#123; field: 'year', header: 'Year', width: '15%' &#125;,
+            &#123; field: 'brand', header: 'Brand', width: '35%' &#125;,
+            &#123; field: 'color', header: 'Color', width: '25%' &#125;
         ];
     &#125;
 &#125;
