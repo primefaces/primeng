@@ -1423,8 +1423,8 @@ export class Table implements OnInit, AfterContentInit {
     onColumnDrop(event, dropColumn) {
         event.preventDefault();
         if (this.draggedColumn) {
-            let dragIndex = this.domHandler.index(this.draggedColumn);
-            let dropIndex = this.domHandler.index(dropColumn);
+            let dragIndex = this.domHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
+            let dropIndex = this.domHandler.indexWithinGroup(dropColumn, 'preorderablecolumn');
             let allowDrop = (dragIndex != dropIndex);
             if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
                 allowDrop = false;

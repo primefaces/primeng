@@ -70,6 +70,16 @@ export class DomHandler {
         return -1;
     }
 
+    public indexWithinGroup(element: any, attributeName: string): number {
+        let children = element.parentNode.childNodes;
+        let num = 0;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] == element) return num;
+            if (children[i].attributes && children[i].attributes[attributeName] && children[i].nodeType == 1) num++;
+        }
+        return -1;
+    }
+
     public relativePosition(element: any, target: any): void {
         let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         let targetHeight = target.offsetHeight;
