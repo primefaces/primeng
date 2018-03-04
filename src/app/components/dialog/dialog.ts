@@ -177,6 +177,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.focus();
             this.executePostDisplayActions = false;
         } 
+        else if(this.visible) {
+            this.positionOverlay();
+        }
     }
 
     focus() {
