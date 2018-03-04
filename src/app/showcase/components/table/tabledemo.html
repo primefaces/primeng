@@ -1290,12 +1290,24 @@ export class DataTableDemo implements OnInit &#123;
             <p>It is important to note that when you need to change column widths, since table width is 100%, giving fixed pixel widths does not work well as browsers scale them, instead give percentage widths.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataTable [value]="cars" [resizableColumns]="true"&gt;
-    &lt;p-column field="vin" header="Vin" [style]="&#123;'width':'20%'&#125;"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year" [style]="&#123;'width':'30%'&#125;"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand" [style]="&#123;'width':'15%'&#125;"&gt;&lt;/p-column&gt;
-    &lt;p-column field="color" header="Color" [style]="&#123;'width':'35%'&#125;"&gt;&lt;/p-column&gt;
-&lt;/p-dataTable&gt;
+&lt;p-table [value]="cars"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th style="width:20%"&gt;Vin&lt;/th&gt;
+            &lt;th style="width:30%"&gt;Year&lt;/th&gt;
+            &lt;th style="width:15%"&gt;Brand&lt;/th&gt;
+            &lt;th style="width:35%"&gt;Color&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-car&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
 </code>
 </pre>
 
