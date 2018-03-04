@@ -6,7 +6,7 @@ import {SelectItem} from '../../../components/common/api';
 @Component({
     templateUrl: './dataviewdemo.html',
     styles: [`      
-        .search-icon { 
+        .ui-button { 
             margin-top: 3em;
         }  
 
