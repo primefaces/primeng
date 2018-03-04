@@ -36,6 +36,18 @@ export class Messages implements OnDestroy {
     
     @Input() styleClass: string;
 
+    @Input() icons: {
+      success: string,
+      info: string,
+      error: string,
+      warn: string,
+    } = {
+      success: 'fa-check',
+      info: 'fa-info-circle',
+      error: 'fa-close',
+      warn: 'fa-warning',
+    };
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
 
     subscription: Subscription;
@@ -77,19 +89,19 @@ export class Messages implements OnDestroy {
             let msg = this.value[0];
             switch(msg.severity) {
                 case 'success':
-                    icon = 'fa-check';
+                    icon = this.icons.success;
                 break;
 
                 case 'info':
-                    icon = 'fa-info-circle';
+                    icon = this.icons.info;
                 break;
 
                 case 'error':
-                    icon = 'fa-close';
+                    icon = this.icons.error;
                 break;
 
                 case 'warn':
-                    icon = 'fa-warning';
+                    icon = this.icons.warn;
                 break;
 
                 default:
