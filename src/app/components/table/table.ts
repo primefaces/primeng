@@ -1974,6 +1974,62 @@ export class SelectableRow implements OnInit, OnDestroy {
 }
 
 @Directive({
+    selector: '[pSelectableRowDblClick]',
+    providers: [DomHandler],
+    host: {
+        '[class.ui-state-highlight]': 'selected'
+    }
+})
+export class SelectableRowDblClick implements OnInit, OnDestroy {
+
+    @Input("pSelectableRowDblClick") data: any;
+
+    @Input("pSelectableRowIndex") index: number;
+
+    @Input() pSelectableRowDisabled: boolean;
+
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
+        if (this.isEnabled()) {
+            this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+                this.selected = this.dt.isSelected(this.data);
+            });
+        }
+    }
+
+    ngOnInit() {
+        if (this.isEnabled()) {
+            this.selected = this.dt.isSelected(this.data);
+        }
+    }
+
+    @HostListener('dblclick', ['$event'])
+    onClick(event: Event) {
+        if (this.isEnabled()) {
+            this.dt.handleRowClick({
+                originalEvent: event,
+                rowData: this.data,
+                rowIndex: this.index
+            });
+        }
+    }   
+    
+    isEnabled() {
+        return this.pSelectableRowDisabled !== false;
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+}
+
+@Directive({
     selector: '[pContextMenuRow]',
     host: {
         '[class.ui-contextmenu-selected]': 'selected'
@@ -2753,7 +2809,7 @@ export class ReorderableRow implements AfterViewInit {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick]
 })
 export class TableModule { }

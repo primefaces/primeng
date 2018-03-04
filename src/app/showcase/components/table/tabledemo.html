@@ -946,7 +946,10 @@ export class TableFilterDemo implements OnInit &#123;
             <h3>Selection</h3>
             <p>Table provides built-in single and multiple selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a selectionMode, bind a selection reference and add pSelectableRow directive
-            whose value is the rowData to the rows that can be selected. Alternatively instead of row click, radiobutton or checkbox elements can be used to implement row selection.</p>
+            whose value is the rowData to the rows that can be selected. If you prefer double click use pSelectableRowDblClick directive instead. In both cases optional 
+            pSelectableRowIndex property is avaiable to access the row index.</p>
+            
+            <p>Alternatively instead of row click, radiobutton or checkbox elements can be used to implement row selection.</p>
 
             <p>When resolving if a row is selected, by default Table compares selection array with the datasource which may cause a performance issue with huge datasets that do not use pagination.
                 If available the fastest way is to use dataKey property that identifies a unique row so that Table can avoid comparing arrays as internally a map instance is used instead of looping arrays, on the other hand
