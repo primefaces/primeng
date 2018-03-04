@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation ui-fluid">
-    <p-paginator [rows]="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
 </div>
 
 <div class="content-section documentation">
@@ -30,7 +30,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
             <p>Rows and TotalRecords define how many pages the paginator should display. Paginator below will have 10 pages.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator [rows]="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="100"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -39,7 +39,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator [rows]="10" totalRecords="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -47,7 +47,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
             <p>Number of items per page can be changed by the user using a dropdown if you define rowsPerPageOptions as an array of possible values.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator [rows]="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -235,7 +235,7 @@ export class MyComponent &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator [rows]="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
         </p-tabPanel>
