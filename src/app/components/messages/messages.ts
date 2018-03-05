@@ -38,6 +38,8 @@ export class Messages implements OnInit, OnDestroy {
 
     @Input() enableService: boolean = true;
 
+    @Input() key: string;
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
 
     subscription: Subscription;
@@ -48,10 +50,13 @@ export class Messages implements OnInit, OnDestroy {
         if(this.messageService && this.enableService) {
             this.subscription = this.messageService.messageObserver.subscribe((messages: any) => {
                 if(messages) {
-                    if(messages instanceof Array)
-                        this.value = this.value ? [...this.value, ...messages] : [...messages];
-                    else
-                        this.value = this.value ? [...this.value, ...[messages]]: [messages];
+                    if(messages instanceof Array) {
+                        let filteredMessages = messages.filter(m => this.key === m.key);
+                        this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
+                    }
+                    else if (this.key === messages.key) {
+                        this.value = this.value ? [...this.value, ...[messages]] : [messages];
+                    }
                 }
                 else {
                     this.value = null;

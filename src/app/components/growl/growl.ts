@@ -42,6 +42,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() key: string;
     
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
@@ -73,10 +75,13 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         if(messageService) {
             this.subscription = messageService.messageObserver.subscribe(messages => {
                 if(messages) {
-                    if(messages instanceof Array)
-                        this.value = this.value ? [...this.value, ...messages] : [...messages];
-                    else
-                        this.value = this.value ? [...this.value, ...[messages]]: [messages];
+                    if(messages instanceof Array) {
+                        let filteredMessages = messages.filter(m => this.key === m.key);
+                        this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
+                    }
+                    else if (this.key === messages.key) {
+                        this.value = this.value ? [...this.value, ...[messages]] : [messages];
+                    }
                 }
                 else {
                     this.value = null;

@@ -3,4 +3,5 @@ export interface Message {
     summary?: string;
     detail?: string;
     id?: any;
+    key?: string;
 }
