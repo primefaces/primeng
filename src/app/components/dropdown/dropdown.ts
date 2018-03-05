@@ -630,12 +630,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
     
-    findOption(val: any, opts: any[]): SelectItem {
-        if(this.group) {
+    findOption(val: any, opts: any[], inGroup?: boolean): SelectItem {
+        if(this.group && !inGroup) {
             let opt: SelectItem;
             if(opts && opts.length) {
                 for(let optgroup of opts) {
-                    opt = this.findOption(val, optgroup.items);
+                    opt = this.findOption(val, optgroup.items, true);
                     if(opt) {
                         break;
                     }
