@@ -28,13 +28,24 @@ import {Subscription}   from 'rxjs/Subscription';
 })
 export class Messages implements OnDestroy {
 
-    @Input() value: Message[];
+    private _value: Message[];
+
+    get value(){
+      return this._value;
+    }
+
+    @Input()
+    set value(value: Message[]){
+      this._value = value ? value.filter((m) => this.key === m.key): value ;
+    }
 
     @Input() closable: boolean = true;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
+
+    @Input() key: string;
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
 
@@ -43,11 +54,17 @@ export class Messages implements OnDestroy {
     constructor(@Optional() public messageService: MessageService) {
         if(messageService) {
             this.subscription = messageService.messageObserver.subscribe((messages: any) => {
-                if(messages) {
-                    if(messages instanceof Array)
-                        this.value = this.value ? [...this.value, ...messages] : [...messages];
-                    else
+                if (messages) {
+                    if (messages instanceof Array){
+                      messages =  messages.filter((m) => this.key === m.key);
+                      this.value = this.value ? [...this.value, ...messages] : [...messages];
+                    }
+
+                    else {
+                      if (this.key === messages.key)
                         this.value = this.value ? [...this.value, ...[messages]]: [messages];
+                    }
+
                 }
                 else {
                     this.value = null;

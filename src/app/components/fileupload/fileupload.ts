@@ -28,7 +28,7 @@ import {BlockableUI} from '../common/blockableui';
                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
                 
-                <p-messages [value]="msgs"></p-messages>
+                <p-messages [value]="msgs" [key]="key"></p-messages>
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
@@ -104,6 +104,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     @Input() mode: string = 'advanced';
 
     @Input() customUpload: boolean;
+
+    @Input() key: string;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
@@ -241,6 +243,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     validate(file: File): boolean {
         if(this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
+                key: this.key,
                 severity: 'error',
                 summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
                 detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept)
@@ -250,6 +253,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
         if(this.maxFileSize  && file.size > this.maxFileSize) {
             this.msgs.push({
+                key: this.key,
                 severity: 'error',
                 summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name),
                 detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
