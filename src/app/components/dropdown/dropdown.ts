@@ -584,9 +584,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             
             //enter
             case 13:
-                this.hide();
-
-                event.preventDefault();
+                let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
+                if (selectedItemIndex !== -1) {
+                    this.hide();
+                    event.preventDefault();
+                }
             break;
             
             //escape and tab
