@@ -93,6 +93,18 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 </code>
 </pre>
 
+            <h3>Dynamic Tabs</h3>
+            <p>p-tabPanel components can be generated dynamically using ngFor, note that in this case due to an Angular issue selected property must be enabled manually.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView&gt;
+    &lt;p-tabPanel [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 1"&gt;
+        {{item.content}}
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
             <h3>Selection</h3>
             <p>First tab is selected by default, to customize this enable selected property on another panel.</p>
 <pre>
@@ -127,9 +139,9 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView [controlClose]="true" (onClose)="handleClose($event)"&gt;
-&lt;p-tabPanel header="Header Text" [closable]="true"&gt;
-    Content 1
-&lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
+        Content 1
+    &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
 </code>
 </pre>
@@ -235,7 +247,7 @@ export class TabViewDemo &#123;
 </code>
 </pre>
 
-            <h3>Attributes for TabView</h3>
+            <h3>Properties of TabView</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -275,7 +287,7 @@ export class TabViewDemo &#123;
                 </table>
             </div>
             
-            <h3>Attributes for TabPanel</h3>
+            <h3>Properties of TabPanel</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
