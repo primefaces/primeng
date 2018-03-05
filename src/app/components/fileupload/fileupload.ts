@@ -28,7 +28,7 @@ import {BlockableUI} from '../common/blockableui';
                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
                 
-                <p-messages [value]="msgs"></p-messages>
+                <p-messages [value]="msgs" [enableService]="false"></p-messages>
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
