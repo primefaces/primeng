@@ -1264,7 +1264,8 @@ export class DataTableDemo implements OnInit &#123;
             <h3>Column Resize</h3>
             <p>Columns can be resized using drag drop by setting the resizableColumns to true. There are two resize modes; "fit" and "expand". Fit is the default one and
             the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width. onColumnResize
-            is a callback that passes the resized column header as a parameter. For dynamic columns, setting pResizableColumnDisabled property as false disables resizing for that particular column.</p>
+            is a callback that passes the resized column header as a parameter. For dynamic columns, setting pResizableColumnDisabled property as false disables resizing for that particular column.
+            </p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1278,7 +1279,7 @@ export class DataTableDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
+            &lt;td *ngFor="let col of columns" class="ui-resizable-column"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
@@ -1329,7 +1330,7 @@ export class DataTableDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
+            &lt;td *ngFor="let col of columns" class="ui-resizable-column"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;

@@ -20,7 +20,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns">
+                <td *ngFor="let col of columns" class="ui-resizable-column">
                     {{rowData[col.field]}}
                 </td>
             </tr>
@@ -38,7 +38,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns">
+                <td *ngFor="let col of columns" class="ui-resizable-column">
                     {{rowData[col.field]}}
                 </td>
             </tr>
@@ -61,7 +61,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns">
+                <td *ngFor="let col of columns" class="ui-resizable-column">
                     {{rowData[col.field]}}
                 </td>
             </tr>
@@ -84,7 +84,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns">
+                <td *ngFor="let col of columns" class="ui-resizable-column">
                     {{rowData[col.field]}}
                 </td>
             </tr>
@@ -144,7 +144,7 @@ export class TableColResizeDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
+            &lt;td *ngFor="let col of columns" class="ui-resizable-column"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
@@ -162,7 +162,7 @@ export class TableColResizeDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
+            &lt;td *ngFor="let col of columns" class="ui-resizable-column"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
@@ -185,7 +185,7 @@ export class TableColResizeDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
+            &lt;td *ngFor="let col of columns" class="ui-resizable-column"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
@@ -208,7 +208,7 @@ export class TableColResizeDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
+            &lt;td *ngFor="let col of columns" class="ui-resizable-column"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
