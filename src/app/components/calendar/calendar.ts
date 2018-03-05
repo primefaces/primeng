@@ -1006,11 +1006,13 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     onMonthDropdownChange(m: string) {
         this.currentMonth = parseInt(m);
+        this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
     onYearDropdownChange(y: string) {
         this.currentYear = parseInt(y);
+        this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
