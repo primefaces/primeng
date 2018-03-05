@@ -324,7 +324,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 value: this.value
             });
         }
-        
     }
     
     ngAfterViewChecked() {
@@ -731,6 +730,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     clear(event: Event) {
         this.clearClick = true;
         this.value = null;
+        this.onModelChange(this.value);
         this.updateSelectedOption(this.value);
         this.updateEditableLabel();
         this.updateFilledState();
