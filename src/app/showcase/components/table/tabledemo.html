@@ -1189,6 +1189,14 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
+
+            <p>If you require the edited row data and the field at onEditComplete event, bind the data to the pEditableColumn directive and the field to the pEditableColumnField directive</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+    <td [pEditableColumn]="rowData" [pEditableColumnField]="'year'">
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/table/editable']">live example.</a></p>
 
             <h3>Expandable Rows</h3>
@@ -2305,14 +2313,6 @@ export class DataTableDemo implements OnInit &#123;
                             <td>event.column: Column object of the cell<br>
                                 event.data: Row data</td>
                             <td>Callback to invoke when a cell switches to edit mode.</td>
-                        </tr>
-                        <tr>
-                            <td>onEdit</td>
-                            <td>event.originalEvent: Browser event
-                                event.column: Column object of the cell<br>
-                                event.data: Row data <br />
-                                event.index: Row index</td>
-                            <td>Callback to invoke when cell data is being edited.</td>
                         </tr>
                         <tr>
                             <td>onEditComplete</td>
