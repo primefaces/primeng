@@ -227,6 +227,10 @@
     @include hover-element();
 }
 
+.ui-dropdown .ui-dropdown-clear-icon {
+    color: lighten($inputTextColor, 40%);
+}
+
 .ui-dropdown:not(.ui-state-disabled):hover {
     @include hover-element();
 }
