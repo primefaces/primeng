@@ -320,8 +320,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.itemTouched = true;
     }
 
+    private sortByIndexInList(items: any[], list: any) {
+        return items.sort((item1, item2) =>
+            this.findIndexInList(item1, list) - this.findIndexInList(item2, list));
+    }
+
     moveUp(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -345,6 +351,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveTop(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -365,6 +372,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveDown(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -388,6 +396,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveBottom(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
