@@ -58,6 +58,31 @@
         </ng-template>
     </p-table>
 
+    <h3>Multiple Row Selection with MetaKey</h3>
+    <p-table [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars2" [metaKeySelection]="true">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <ul>
+                <li *ngFor="let car of selectedCars2" style="text-align: left">
+                    {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
+                </li>
+            </ul>
+        </ng-template>
+    </p-table>
+
     <h3>Column Selection</h3>
     <p-table [columns]="cols" [value]="cars">
         <ng-template pTemplate="header" let-columns>
@@ -127,7 +152,7 @@
     </p-table>
 
     <h3>Checkbox Selection</h3>
-    <p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars2" dataKey="vin">
+    <p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars3" dataKey="vin">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width: 2.25em">
@@ -150,7 +175,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <ul>
-                <li *ngFor="let car of selectedCars2" style="text-align: left">
+                <li *ngFor="let car of selectedCars3" style="text-align: left">
                     {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
                 </li>
             </ul>
@@ -186,6 +211,8 @@ export class TableSelectionDemo implements OnInit &#123;
     selectedCars1: Car[];
 
     selectedCars2: Car[];
+
+    selectedCars3: Car[];
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -274,6 +301,31 @@ export class TableSelectionDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
 
+&lt;h3&gt;Multiple Row Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars2" [metaKeySelection]="true"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex"&gt;
+        &lt;tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+        &lt;ul&gt;
+            &lt;li *ngFor="let car of selectedCars2" style="text-align: left"&gt;
+                &#123;&#123;car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color&#125;&#125;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
 &lt;h3&gt;Column Selection&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="cars"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -343,7 +395,7 @@ export class TableSelectionDemo implements OnInit &#123;
 &lt;/p-table&gt;
 
 &lt;h3&gt;Checkbox Selection&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars2" dataKey="vin"&gt;
+&lt;p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars3" dataKey="vin"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th style="width: 2.25em"&gt;
@@ -366,7 +418,7 @@ export class TableSelectionDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
         &lt;ul&gt;
-            &lt;li *ngFor="let car of selectedCars2" style="text-align: left"&gt;
+            &lt;li *ngFor="let car of selectedCars3" style="text-align: left"&gt;
                 &#123;&#123;car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color&#125;&#125;
             &lt;/li&gt;
         &lt;/ul&gt;

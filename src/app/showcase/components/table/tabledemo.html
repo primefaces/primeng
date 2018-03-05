@@ -947,9 +947,11 @@ export class TableFilterDemo implements OnInit &#123;
             <p>Table provides built-in single and multiple selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a selectionMode, bind a selection reference and add pSelectableRow directive
             whose value is the rowData to the rows that can be selected. If you prefer double click use pSelectableRowDblClick directive instead. In both cases optional 
-            pSelectableRowIndex property is avaiable to access the row index.</p>
+            pSelectableRowIndex property is avaiable to access the row index. By default each row click adds or removes the row from the selection, if you prefer a classic
+            metaKey based selection approach enable metaKeySelection true so that multiple selection or unselection of a row requires metaKey to be pressed. Note that, on touch enabled
+            devices, metaKey based selection is turned off automatically as there is no metaKey in devices such as mobile phones.</p>
             
-            <p>Alternatively instead of row click, radiobutton or checkbox elements can be used to implement row selection.</p>
+            <p>Alternative to the row click, radiobutton or checkbox elements can be used to implement row selection.</p>
 
             <p>When resolving if a row is selected, by default Table compares selection array with the datasource which may cause a performance issue with huge datasets that do not use pagination.
                 If available the fastest way is to use dataKey property that identifies a unique row so that Table can avoid comparing arrays as internally a map instance is used instead of looping arrays, on the other hand
@@ -2040,6 +2042,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>A property to uniquely identify a record in data.</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
                         <tr>
                             <td>rowTrackBy</td>

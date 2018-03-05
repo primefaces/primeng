@@ -137,6 +137,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() dataKey: string;
 
+    @Input() metaKeySelection: boolean;
+
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
     @Input() lazy: boolean = false;
@@ -310,6 +312,8 @@ export class Table implements OnInit, AfterContentInit {
     filterTimeout: any;
 
     initialized: boolean;
+
+    rowTouched: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
@@ -675,44 +679,95 @@ export class Table implements OnInit, AfterContentInit {
             }
             else {
                 let rowData = event.rowData;
-                let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
                 let selected = this.isSelected(rowData);
+                let metaSelection = this.rowTouched ? false : this.metaKeySelection;
+                let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
                 this.anchorRowIndex = event.rowIndex;
                 this.rangeRowIndex = event.rowIndex;
 
-                if (this.selectionMode === 'single') {
-                    if (selected) {
-                        this._selection = null;
-                        this.selectionKeys = {};
-                        this.selectionChange.emit(this.selection);
-                        this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                if(metaSelection) {
+                    let metaKey = event.originalEvent.metaKey||event.originalEvent.ctrlKey;
+                    
+                    if(selected && metaKey) {
+                        if(this.isSingleSelectionMode()) {
+                            this._selection = null;
+                            this.selectionKeys = {};
+                            this.selectionChange.emit(null);
+                        }
+                        else {
+                            let selectionIndex = this.findIndexInSelection(rowData);
+                            this._selection = this.selection.filter((val,i) => i!=selectionIndex);
+                            this.selectionChange.emit(this.selection);
+                            if(dataKeyValue) {
+                                delete this.selectionKeys[dataKeyValue];
+                            }
+                        }
+                        
+                        this.onRowUnselect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row'});
                     }
                     else {
-                        this._selection = rowData;
-                        this.selectionChange.emit(this.selection);
-                        this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
-                        if (dataKeyValue) {
-                            this.selectionKeys = {};
-                            this.selectionKeys[dataKeyValue] = 1;
+                        if(this.isSingleSelectionMode()) {
+                            this._selection = rowData;
+                            this.selectionChange.emit(rowData);
+                            if(dataKeyValue) {
+                                this.selectionKeys = {};
+                                this.selectionKeys[dataKeyValue] = 1;
+                            }
                         }
+                        else if(this.isMultipleSelectionMode()) {
+                            if(metaKey) {
+                                this._selection = this.selection||[];
+                            }
+                            else {
+                                this._selection = [];
+                                this.selectionKeys = {};
+                            }
+
+                            this._selection = [...this.selection,rowData];
+                            this.selectionChange.emit(this.selection);
+                            if(dataKeyValue) {
+                                this.selectionKeys[dataKeyValue] = 1;
+                            }
+                        }
+
+                        this.onRowSelect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row'});
                     }
                 }
-                else if (this.selectionMode === 'multiple') {
-                    if (selected) {
-                        let selectionIndex = this.findIndexInSelection(rowData);
-                        this._selection = this.selection.filter((val, i) => i != selectionIndex);
-                        this.selectionChange.emit(this.selection);
-                        this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
-                        if (dataKeyValue) {
-                            delete this.selectionKeys[dataKeyValue];
+                else {
+                    if (this.selectionMode === 'single') {
+                        if (selected) {
+                            this._selection = null;
+                            this.selectionKeys = {};
+                            this.selectionChange.emit(this.selection);
+                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                        }
+                        else {
+                            this._selection = rowData;
+                            this.selectionChange.emit(this.selection);
+                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                            if (dataKeyValue) {
+                                this.selectionKeys = {};
+                                this.selectionKeys[dataKeyValue] = 1;
+                            }
                         }
                     }
-                    else {
-                        this._selection = this.selection ? [...this.selection, rowData] : [rowData];
-                        this.selectionChange.emit(this.selection);
-                        this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
-                        if (dataKeyValue) {
-                            this.selectionKeys[dataKeyValue] = 1;
+                    else if (this.selectionMode === 'multiple') {
+                        if (selected) {
+                            let selectionIndex = this.findIndexInSelection(rowData);
+                            this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                            this.selectionChange.emit(this.selection);
+                            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                            if (dataKeyValue) {
+                                delete this.selectionKeys[dataKeyValue];
+                            }
+                        }
+                        else {
+                            this._selection = this.selection ? [...this.selection, rowData] : [rowData];
+                            this.selectionChange.emit(this.selection);
+                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                            if (dataKeyValue) {
+                                this.selectionKeys[dataKeyValue] = 1;
+                            }
                         }
                     }
                 }
@@ -720,6 +775,12 @@ export class Table implements OnInit, AfterContentInit {
 
             this.tableService.onSelectionChange();
         }
+
+        this.rowTouched = false;
+    }
+
+    handleRowTouchEnd(event) {
+        this.rowTouched = true;
     }
 
     handleRowRightClick(event) {
@@ -1959,7 +2020,14 @@ export class SelectableRow implements OnInit, OnDestroy {
                 rowIndex: this.index
             });
         }
-    }   
+    } 
+    
+    @HostListener('touchend', ['$event'])
+    onTouchEnd(event: Event) {
+        if (this.isEnabled()) {
+            this.dt.handleRowTouchEnd(event);
+        }
+    } 
     
     isEnabled() {
         return this.pSelectableRowDisabled !== false;

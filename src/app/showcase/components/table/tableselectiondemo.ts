@@ -26,6 +26,8 @@ export class TableSelectionDemo implements OnInit {
 
     selectedCars2: Car[];
 
+    selectedCars3: Car[];
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
