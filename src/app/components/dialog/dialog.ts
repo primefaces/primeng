@@ -183,7 +183,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
 
     focus() {
-        let focusable = this.domHandler.findSingle(this.containerViewChild.nativeElement, 'button, input, textarea, select');
+        let focusable = this.domHandler.findSingle(this.containerViewChild.nativeElement, 'button');
         if(focusable) {
             focusable.focus();
         }
