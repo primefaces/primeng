@@ -98,7 +98,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView&gt;
-    &lt;p-tabPanel [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 1"&gt;
+    &lt;p-tabPanel [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 0"&gt;
         {{item.content}}
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
