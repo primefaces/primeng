@@ -584,8 +584,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             
             //enter
             case 13:
-                this.hide();
-
+                if (!this.filter || (this.optionsToDisplay && this.optionsToDisplay.length > 0)) {
+                    this.hide();
+                }
+                
                 event.preventDefault();
             break;
             
