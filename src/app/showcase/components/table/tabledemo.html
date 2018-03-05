@@ -1429,9 +1429,7 @@ export class DataTableDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/export']">live example.</a></p>
 
             <h3>Scrolling</h3>
-            <p>DataTable supports both horizontal and vertical scrolling as well as frozen columns and rows.</p>
-
-            <p>Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
+            <p>DataTable supports both horizontal and vertical scrolling as well as frozen columns and rows. Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>Sample below uses vertical scrolling where headers are fixed and data is scrollable.</p>
 <pre>
@@ -1454,7 +1452,8 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
-            <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns.</p>
+            <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns. In general when customizing the column widths of scrollable tables, 
+                use colgroup as below to avoid misalignment issues as it will apply both the header,body and footer sections which are different separate elements internally.</p>
         
 <pre>
 <code class="language-markup" pCode ngNonBindable>
