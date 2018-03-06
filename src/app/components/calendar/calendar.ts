@@ -265,6 +265,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @Output() onMonthChange: EventEmitter<any> = new EventEmitter();
     
+    @Output() onYearChange: EventEmitter<any> = new EventEmitter();
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     _locale: LocaleSettings = {
@@ -1012,7 +1014,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     onYearDropdownChange(y: string) {
         this.currentYear = parseInt(y);
-        this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
+        this.onYearChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
