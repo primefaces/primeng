@@ -44,7 +44,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true,'ui-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</label>
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
-            <i class="ui-dropdown-clear-icon fa fa-close" (click)="clear($event)" *ngIf="value != null"></i>
+            <i class="ui-dropdown-clear-icon fa fa-close" (click)="clear($event)" *ngIf="clearButton && value != null"></i>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
@@ -146,6 +146,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() resetFilterOnHide: boolean = false;
     
+    @Input() clearButton: boolean = true;
+
     @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
     
     @Input() optionLabel: string;
