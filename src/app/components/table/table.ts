@@ -1805,6 +1805,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         }
 
         if(this.dt.virtualScroll) {
+            this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * this.dt.virtualRowHeight + 'px';            
             let viewport = this.domHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
             let tableHeight = this.domHandler.getOuterHeight(this.scrollTableViewChild.nativeElement);
             let pageHeight = 28 * this.dt.rows;
