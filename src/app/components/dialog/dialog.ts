@@ -14,7 +14,7 @@ let idx: number = 0;
             [ngStyle]="style" [class]="styleClass" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'"
             role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
-                (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
+                (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
                     <ng-content select="p-header"></ng-content>
@@ -118,6 +118,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     dragging: boolean;
 
     documentDragListener: any;
+
+    documentDragEndListener: any;
     
     resizing: boolean;
 
@@ -351,12 +353,17 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.dragging) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
-            let leftPos = parseInt(this.containerViewChild.nativeElement.style.left);
-            let topPos = parseInt(this.containerViewChild.nativeElement.style.top);
+            let leftPos = parseInt(this.containerViewChild.nativeElement.style.left) + deltaX;
+            let topPos = parseInt(this.containerViewChild.nativeElement.style.top) + deltaY;
 
-            this.containerViewChild.nativeElement.style.left = leftPos + deltaX + 'px';
-            this.containerViewChild.nativeElement.style.top = topPos + deltaY + 'px';
-            
+            if(leftPos >= 0 ) {
+                this.containerViewChild.nativeElement.style.left = leftPos + 'px';
+            }
+
+            if(topPos >= 0 ) {
+                this.containerViewChild.nativeElement.style.top = topPos + 'px';
+            }
+
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
         }
@@ -414,6 +421,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     bindGlobalListeners() {
         if(this.draggable) {
             this.bindDocumentDragListener();
+            this.bindDocumentDragEndListener();
         }
         
         if(this.resizable) {
@@ -431,6 +439,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     unbindGlobalListeners() {
         this.unbindDocumentDragListener();
+        this.unbindDocumentDragEndListener();
         this.unbindDocumentResizeListeners();
         this.unbindDocumentResponsiveListener();
         this.unbindDocumentEscapeListener();
@@ -447,6 +456,20 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.documentDragListener) {
             window.document.removeEventListener('mousemove', this.documentDragListener);
             this.documentDragListener = null;
+        }
+    }
+
+    bindDocumentDragEndListener() {
+        this.zone.runOutsideAngular(() => {
+            this.documentDragEndListener = this.endDrag.bind(this);
+            window.document.addEventListener('mouseup', this.documentDragEndListener);
+        });
+    }
+    
+    unbindDocumentDragEndListener() {
+        if(this.documentDragEndListener) {
+            window.document.removeEventListener('mouseup', this.documentDragEndListener);
+            this.documentDragEndListener = null;
         }
     }
     
