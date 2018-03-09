@@ -663,7 +663,7 @@ export class DataTablePageDemo implements OnInit &#123;
 
             <h3>Sorting</h3>
             <p>A column can be made sortable by adding the pSortableColumn directive whose value is the field to sort against and a sort indicator via p-sortIcon component. For dynamic columns, 
-                setting pSortableColumnDisabled property as false disables sorting for that particular column.
+                setting pSortableColumnDisabled property as true disables sorting for that particular column.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -958,7 +958,7 @@ export class TableFilterDemo implements OnInit &#123;
                 if dataKey cannot be provided consider using compareSelectionBy property as "equals" which uses reference comparison instead of the default "deepEquals" comparison. Latter is slower since it checks all properties.
             </p>
 
-            <p>For dynamic columns, setting pSelectableRowDisabled property as false disables selection for that particular row.</p>
+            <p>For dynamic columns, setting pSelectableRowDisabled property as true disables selection for that particular row.</p>
 
             <p>In single mode, selection binding is an object reference.</p>
 <pre>
@@ -1102,7 +1102,7 @@ export class DataTableDemo implements OnInit &#123;
             <h3>ContextMenu</h3>
             <p>DataTable has exclusive integration with contextmenu component. In order to attach a menu to a datatable, add pContextMenuRow directive to the rows that can be selected with context menu, define a local template
             variable for the menu and bind it to the contextMenu property of the datatable. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection
-            property is used to get a hold of the right clicked row. For dynamic columns, setting pContextMenuRowDisabled property as false disables context menu for that particular row.</p>
+            property is used to get a hold of the right clicked row. For dynamic columns, setting pContextMenuRowDisabled property as true disables context menu for that particular row.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm"&gt;
@@ -1202,7 +1202,7 @@ export class DataTableDemo implements OnInit &#123;
             <h3>Expandable Rows</h3>
             <p>Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and
                 use the pRowToggler directive whose value is the row data instance on an element of your choice whose click event toggles the expansion. This
-            enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting pRowTogglerDisabled as false disabled toggle event for the element.</p>
+            enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting pRowTogglerDisabled as true disables the toggle event for the element.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" dataKey="vin"&gt;
@@ -1274,7 +1274,7 @@ export class DataTableDemo implements OnInit &#123;
             <h3>Column Resize</h3>
             <p>Columns can be resized using drag drop by setting the resizableColumns to true. There are two resize modes; "fit" and "expand". Fit is the default one and
             the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width. onColumnResize
-            is a callback that passes the resized column header as a parameter. For dynamic columns, setting pResizableColumnDisabled property as false disables resizing for that particular column.
+            is a callback that passes the resized column header as a parameter. For dynamic columns, setting pResizableColumnDisabled property as true disables resizing for that particular column.
             </p>
 
 <pre>
@@ -1353,7 +1353,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <h3>Column Reordering</h3>
             <p>Columns can be reordered using drag drop by setting the reorderableColumns to true and adding pReorderableColumn directive to the columns that can be dragged. Note that
-                columns should be dynamic for reordering to work. For dynamic columns, setting pReorderableColumnDisabled property as false disables resizing for that particular column.</p>
+                columns should be dynamic for reordering to work. For dynamic columns, setting pReorderableColumnDisabled property as true disables reordering for that particular column.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" [reorderableColumns]="true"&gt;
