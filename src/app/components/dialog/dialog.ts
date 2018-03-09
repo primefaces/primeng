@@ -100,6 +100,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() minX: number = 0;
 
     @Input() minY: number = 0;
+
+    @Input() autoAlign: boolean = true;
         
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
@@ -153,7 +155,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     initialized: boolean;
 
-    positionChanged: boolean;
+    currentHeight: number;
     
     id: string = `ui-dialog-${idx++}`;
                 
@@ -183,10 +185,20 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.onShow.emit({});
             this.positionOverlay();
             this.focus();
+            this.currentHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
             this.executePostDisplayActions = false;
-        } 
-        else if(this.visible && !this.positionChanged) {
-            this.positionOverlay();
+        }
+        else if(this.autoAlign && this.visible) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    let height = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
+
+                    if(height !== this.currentHeight) {
+                        this.currentHeight = height;
+                        this.positionOverlay();
+                    }
+                }, 50);
+            });
         }
     }
 
@@ -200,7 +212,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     show() {
         this.executePostDisplayActions = true;
         this.moveOnTop();
-        this.positionChanged = false;
         this.bindGlobalListeners();
         
         if(this.modal) {
@@ -377,7 +388,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     endDrag(event: MouseEvent) {
         if(this.draggable) {
             this.dragging = false;
-            this.positionChanged = true;
             this.domHandler.removeClass(document.body, 'ui-unselectable-text');
         }
     }
