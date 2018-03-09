@@ -96,6 +96,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() minX: number = 0;
+
+    @Input() minY: number = 0;
         
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
@@ -357,11 +361,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             let leftPos = parseInt(this.containerViewChild.nativeElement.style.left) + deltaX;
             let topPos = parseInt(this.containerViewChild.nativeElement.style.top) + deltaY;
 
-            if(leftPos >= 0 ) {
+            if(leftPos >= this.minX) {
                 this.containerViewChild.nativeElement.style.left = leftPos + 'px';
             }
 
-            if(topPos >= 0 ) {
+            if(topPos >= this.minY) {
                 this.containerViewChild.nativeElement.style.top = topPos + 'px';
             }
 
