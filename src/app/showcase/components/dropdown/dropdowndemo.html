@@ -15,7 +15,7 @@
     <p>Selected Car: {{selectedCar1 || 'none'}}</p>
     
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="true">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="true" [showClear]="true">
         <ng-template let-item pTemplate="selectedItem">
             <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
             <span style="vertical-align:middle">{{item.label}}</span>
