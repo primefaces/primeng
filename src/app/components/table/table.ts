@@ -1923,7 +1923,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     isEnabled() {
-        return this.pSortableColumnDisabled !== false;
+        return this.pSortableColumnDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -2030,7 +2030,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     } 
     
     isEnabled() {
-        return this.pSelectableRowDisabled !== false;
+        return this.pSelectableRowDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -2086,7 +2086,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
     }   
     
     isEnabled() {
-        return this.pSelectableRowDisabled !== false;
+        return this.pSelectableRowDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -2134,7 +2134,7 @@ export class ContextMenuRow {
     }
 
     isEnabled() {
-        return this.pContextMenuRowDisabled !== false;
+        return this.pContextMenuRowDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -2165,7 +2165,7 @@ export class RowToggler {
     }
 
     isEnabled() {
-        return this.pRowTogglerDisabled !== false;
+        return this.pRowTogglerDisabled !== true;
     }
 }
 
@@ -2237,7 +2237,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     }
 
     isEnabled() {
-        return this.pResizableColumnDisabled !== false;
+        return this.pResizableColumnDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -2351,7 +2351,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     isEnabled() {
-        return this.pReorderableColumnDisabled !== false;
+        return this.pReorderableColumnDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -2530,7 +2530,7 @@ export class EditableColumn implements AfterViewInit {
     }
 
     isEnabled() {
-        return this.pEditableColumnDisabled !== false;
+        return this.pEditableColumnDisabled !== true;
     }
 
 }
@@ -2864,7 +2864,7 @@ export class ReorderableRow implements AfterViewInit {
     }
 
     isEnabled() {
-        return this.pReorderableRowDisabled !== false;
+        return this.pReorderableRowDisabled !== true;
     }
 
     @HostListener('drop', ['$event'])
