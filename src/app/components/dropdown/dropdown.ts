@@ -733,6 +733,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.clearClick = true;
         this.value = null;
         this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
         this.updateSelectedOption(this.value);
         this.updateEditableLabel();
         this.updateFilledState();
