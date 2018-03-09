@@ -397,6 +397,12 @@ export class MyModel &#123;
                             <td>false</td>
                             <td>Whether to display options as grouped when nested options are provided.</td>
                         </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -482,6 +488,10 @@ clearFilter(dropdown: Dropdown) &#123;
                         <tr>
                             <td>ui-dropdown</td>
                             <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dropdown-clearable</td>
+                            <td>Container element when showClear is on.</td>
                         </tr>
                         <tr>
                             <td>ui-dropdown-label</td>
