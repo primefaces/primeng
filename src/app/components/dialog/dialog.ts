@@ -227,6 +227,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.onHide.emit({});
         this.unbindMaskClickListener();
         this.unbindGlobalListeners();
+        this.dragging = false;
         
         if(this.modal) {
             this.disableModality();
