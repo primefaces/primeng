@@ -146,6 +146,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     executePostDisplayActions: boolean;
     
     initialized: boolean;
+
+    positionChanged: boolean;
     
     id: string = `ui-dialog-${idx++}`;
                 
@@ -177,7 +179,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.focus();
             this.executePostDisplayActions = false;
         } 
-        else if(this.visible) {
+        else if(this.visible && !this.positionChanged) {
             this.positionOverlay();
         }
     }
@@ -192,6 +194,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     show() {
         this.executePostDisplayActions = true;
         this.moveOnTop();
+        this.positionChanged = false;
         this.bindGlobalListeners();
         
         if(this.modal) {
@@ -362,6 +365,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     endDrag(event: MouseEvent) {
         if(this.draggable) {
             this.dragging = false;
+            this.positionChanged = true;
             this.domHandler.removeClass(document.body, 'ui-unselectable-text');
         }
     }
