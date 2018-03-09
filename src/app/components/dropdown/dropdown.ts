@@ -409,6 +409,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
         
         this.selfClick = true;
+        this.clearClick = this.domHandler.hasClass(event.target, 'ui-dropdown-clear-icon');
         
         if(!this.itemClick && !this.clearClick) {
             this.focusViewChild.nativeElement.focus();
@@ -712,7 +713,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 
                 this.selfClick = false;
                 this.itemClick = false;
-                this.clearClick = false;
                 this.cd.markForCheck();
             });
         }
