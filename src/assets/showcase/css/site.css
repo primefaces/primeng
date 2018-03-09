@@ -993,6 +993,45 @@ a {
     transform: scale(1.05);
 }
 
+/* Why You Should */
+.home .why-should {
+    background-color: #f5f7f8;
+    text-align: center;
+    padding: 30px;
+}
+
+.home .why-should h3 {
+    margin-bottom: 10px;
+}
+
+.home .why-should img {
+    width: 100%;
+}
+
+.home .why-should .ui-g > div {
+    padding: .5em 1em;
+}
+
+.home .why-should .ui-g > div > h3 {
+    float: left;
+}
+.home .why-should .ui-g .primeng > ul {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+.home .why-should .ui-g .primeng > ul > li {
+    padding-bottom: 10px;
+}
+.home .why-should .ui-g .others > ul {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+.home .why-should .ui-g .others > ul > li {
+    padding-bottom: 10px;
+}
+
 /* PRO */
 .home .prosupport,
 .support-image {
