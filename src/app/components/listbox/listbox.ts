@@ -36,8 +36,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           <span class="fa fa-search"></span>
         </div>
       </div>
-      <div class="ui-listbox-list-wrapper">
-        <ul class="ui-listbox-list" [ngStyle]="listStyle">
+      <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
+        <ul class="ui-listbox-list">
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
               [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
               (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
