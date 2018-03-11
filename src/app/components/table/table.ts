@@ -1853,11 +1853,20 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     }
 
     alignScrollBar() {
-        if(!this.frozen) {
-            let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
-            this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-            if(this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+        if (!this.frozen) {
+            const scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
+            const isRTL = window.getComputedStyle(this.el.nativeElement).getPropertyValue('direction') === 'rtl';
+            if (isRTL) {
+                this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = scrollBarWidth + 'px';
+            } else {
+                this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+            }
+            if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                if (isRTL) {
+                    this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = scrollBarWidth + 'px';
+                } else {
+                    this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+                }
             }
         }
     }
