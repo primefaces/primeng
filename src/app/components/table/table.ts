@@ -19,11 +19,13 @@ export class TableService {
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
     private valueSource = new Subject<any>();
+    private totalRecordsSource = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     valueSource$ = this.valueSource.asObservable();
+    totalRecordsSource$ = this.totalRecordsSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -40,6 +42,10 @@ export class TableService {
     onValueChange(value: any) {
         this.valueSource.next(value);
     }
+
+    onTotalRecordsChange() {
+        this.totalRecordsSource.next();
+    }    
 }
 
 @Component({
@@ -481,6 +487,7 @@ export class Table implements OnInit, AfterContentInit {
 
     updateTotalRecords() {
         this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
+        if (this.lazy) this.tableService.onTotalRecordsChange();
     }
 
     onPageChange(event) {
@@ -1702,6 +1709,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     _scrollHeight: string;
 
     subscription: Subscription;
+    subscriptionTrc: Subscription;
 
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
@@ -1711,6 +1719,13 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 }, 50);
             });
         });
+        this.subscriptionTrc = this.dt.tableService.totalRecordsSource$.subscribe(() => {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.setVirtualScrollerHeight();
+                }, 50);
+            });
+        });        
      }
 
     @Input() get scrollHeight(): string {
@@ -1746,7 +1761,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         }
 
         if(this.dt.virtualScroll) {
-            this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * this.dt.virtualRowHeight + 'px';
+            this.setVirtualScrollerHeight();
         }
     }
 
@@ -1827,6 +1842,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
             }
         }
     }
+    
+    setVirtualScrollerHeight() {
+        this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * this.dt.virtualRowHeight + 'px';
+    }
 
     setScrollHeight() {
         if(this.scrollHeight && this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
@@ -1870,6 +1889,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         if(this.subscription) {
             this.subscription.unsubscribe();
         }
+        
+        if(this.subscriptionTrc) {
+            this.subscriptionTrc.unsubscribe();
+        }        
     }
 }
 
