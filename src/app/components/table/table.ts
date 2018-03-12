@@ -531,53 +531,55 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     sortSingle() {
-        this.first = 0;
+        if(this.sortField && this.sortOrder) {
+            this.first = 0;
 
-        if(this.lazy) {
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else if (this.value) {
-            if(this.customSort) {
-                this.sortFunction.emit({
-                    data: this.value,
-                    mode: this.sortMode,
-                    field: this.sortField,
-                    order: this.sortOrder
-                });
+            if(this.lazy) {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
-            else {
-                this.value.sort((data1, data2) => {
-                    let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
-                    let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
-                    let result = null;
+            else if (this.value) {
+                if(this.customSort) {
+                    this.sortFunction.emit({
+                        data: this.value,
+                        mode: this.sortMode,
+                        field: this.sortField,
+                        order: this.sortOrder
+                    });
+                }
+                else {
+                    this.value.sort((data1, data2) => {
+                        let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
+                        let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
+                        let result = null;
+        
+                        if (value1 == null && value2 != null)
+                            result = -1;
+                        else if (value1 != null && value2 == null)
+                            result = 1;
+                        else if (value1 == null && value2 == null)
+                            result = 0;
+                        else if (typeof value1 === 'string' && typeof value2 === 'string')
+                            result = value1.localeCompare(value2);
+                        else
+                            result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+        
+                        return (this.sortOrder * result);
+                    });
+                }
+                
+                if(this.hasFilter()) {
+                    this._filter();
+                }
+            }
     
-                    if (value1 == null && value2 != null)
-                        result = -1;
-                    else if (value1 != null && value2 == null)
-                        result = 1;
-                    else if (value1 == null && value2 == null)
-                        result = 0;
-                    else if (typeof value1 === 'string' && typeof value2 === 'string')
-                        result = value1.localeCompare(value2);
-                    else
-                        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+            let sortMeta: SortMeta = {
+                field: this.sortField,
+                order: this.sortOrder
+            };
     
-                    return (this.sortOrder * result);
-                });
-            }
-            
-            if(this.hasFilter()) {
-                this._filter();
-            }
+            this.onSort.emit(sortMeta);
+            this.tableService.onSort(sortMeta);
         }
-
-        let sortMeta: SortMeta = {
-            field: this.sortField,
-            order: this.sortOrder
-        };
-
-        this.onSort.emit(sortMeta);
-        this.tableService.onSort(sortMeta);
     }
 
     sortMultiple() {
