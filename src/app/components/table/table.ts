@@ -495,6 +495,8 @@ export class Table implements OnInit, AfterContentInit {
             first: this.first,
             rows: this.rows
         });
+
+        this.tableService.onValueChange(this.value);
     }
 
     sort(event) {
@@ -1065,6 +1067,8 @@ export class Table implements OnInit, AfterContentInit {
             filters: this.filters,
             filteredValue: this.filteredValue || this.value
         });
+
+        this.tableService.onValueChange(this.value);
     }
 
     hasFilter() {
