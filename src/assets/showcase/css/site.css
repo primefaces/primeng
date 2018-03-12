@@ -1006,7 +1006,7 @@ a {
 }
 
 .home .why-templates hr {
-    border-color: #acacac;
+    border: 1px dotted solid #262626;
     margin-bottom: 20px;
 }
 
@@ -1022,7 +1022,6 @@ a {
     padding: 0;
     margin: 0;
     text-align: left;
-    margin-left: 30px;
     list-style-type: none;
 }
 
