@@ -339,20 +339,27 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                while (pos.begin < this.firstNonMaskPos && !this.tests[pos.begin])
                   pos.begin++;
             }
-            this.caret(pos.begin,pos.begin);
+
+            setTimeout(() => {
+                this.caret(pos.begin, pos.begin);
+                this.updateModel(e);
+                if (this.isCompleted()) {
+                    this.onComplete.emit();
+                }
+            }, 0);
         } else {
             this.checkVal(true);
-            const newPos = this.seekNext(pos.begin);
-
-			setTimeout(() => this.caret(newPos, newPos));
+            while (pos.begin < this.len && !this.tests[pos.begin])
+                pos.begin++;
+                
+            setTimeout(() => {
+                this.caret(pos.begin, pos.begin);
+                this.updateModel(e);
+                if (this.isCompleted()) {
+                    this.onComplete.emit();
+                }
+            }, 0);
         }
-
-        setTimeout(() => {
-            this.updateModel(e);
-            if (this.isCompleted()) {
-                this.onComplete.emit();
-            }
-        }, 0);
     }
 
     onInputBlur(e) {
