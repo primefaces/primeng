@@ -422,7 +422,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             next,
             completed;
 
-        if (e.ctrlKey || e.altKey || e.metaKey || k < 32) {//Ignore
+        if (e.ctrlKey || e.altKey || e.metaKey || k < 32  || (k > 34 && k < 41)) {//Ignore
             return;
         } else if ( k && k !== 13 ) {
             if (pos.end - pos.begin !== 0){
