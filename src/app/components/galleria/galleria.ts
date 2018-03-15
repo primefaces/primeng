@@ -55,6 +55,8 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     @Input() transitionInterval: number = 4000;
 
     @Input() showCaption: boolean = true;
+
+    @Input() effectDuration: number = 500;
     
     @Output() onImageClicked = new EventEmitter();
 
@@ -202,7 +204,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             let oldPanel = this.panels[this.activeIndex],
             newPanel = this.panels[index];
             
-            this.domHandler.fadeIn(newPanel, 500);
+            this.domHandler.fadeIn(newPanel, this.effectDuration);
             
             if(this.showFilmstrip) {
                 let oldFrame = this.frames[this.activeIndex],
