@@ -1,4 +1,4 @@
-### There is no guarantee in receiving an immediate response in GitHub Issue Tracker, If you'd like to secure our response, you may consider *PrimeNG PRO Support* where support is provided within 4 business hours
+##If you have a PrimeNG PRO Support subscription please post your issue at https://pro.primefaces.org instead where our team will respond within 4 business hours.
 
 **I'm submitting a ...**  (check one with "x")
 ```
@@ -31,10 +31,10 @@ https://plnkr.co or similar (you can use this template as a starting point: http
 **Please tell us about your environment:**
 <!-- Operating system, IDE, package manager, HTTP server, ... -->
 
-* **Angular version:** 2.0.X
+* **Angular version:** 5.X
 <!-- Check whether this is still an issue in the most recent Angular version -->
 
-* **PrimeNG version:** 2.0.X
+* **PrimeNG version:** 5.X
 <!-- Check whether this is still an issue in the most recent Angular version -->
 
 * **Browser:** [all | Chrome XX | Firefox XX | IE XX | Safari XX | Mobile Chrome XX | Android X.X Web Browser | iOS XX Safari | iOS XX UIWebView | iOS XX WKWebView ]
