@@ -1434,7 +1434,7 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     onColumnDragStart(event, columnElement) {
-        if (this.domHandler.hasClass(event.target, 'ui-column-resizer')) {
+        if (this.domHandler.hasClass(event.target, 'ui-column-resizer') || this.resizeHelperViewChild.nativeElement.style.display === 'block') {
             event.preventDefault();
             return;
         }
