@@ -48,6 +48,7 @@ export class KeyFilter implements Validator {
     };
 
     @Input() pValidateOnly: boolean;
+    @Input() pBlockKeyOnly: boolean;
 
     regex: RegExp;
 
@@ -122,6 +123,9 @@ export class KeyFilter implements Validator {
     }
 
     validate(c: AbstractControl): { [key: string]: any } {
+        if (this.pBlockKeyOnly) {
+            return null;
+        }
         let value = this.el.nativeElement.value;
         if (!this.regex.test(value)) {
             return {
