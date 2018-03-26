@@ -248,6 +248,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() panelStyleClass: string;
   
     @Input() keepInvalid: boolean = false;
+
+    @Input() hideOnDateTimeSelect: boolean = false;
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -639,7 +641,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             }
         }
         
-        if(!this.showTime && this.isSingleSelection()) {
+        if(this.isSingleSelection() && (!this.showTime || this.hideOnDateTimeSelect)) {
             this.overlayVisible = false;
         }
 
