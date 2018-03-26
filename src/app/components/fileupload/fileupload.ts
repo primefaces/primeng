@@ -361,16 +361,20 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
 
     clearInputElement() {
-      if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
-        this.advancedFileInput.nativeElement.value = '';
-      }
+        if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
+            this.advancedFileInput.nativeElement.value = '';
+        }
+
+        if (this.basicFileInput && this.basicFileInput.nativeElement) {
+            this.basicFileInput.nativeElement.value = '';
+        }
     }
 
     clearIEInput() {
-      if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
-        this.duplicateIEEvent = true; //IE11 fix to prevent onFileChange trigger again
-        this.advancedFileInput.nativeElement.value = '';
-      }
+        if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
+            this.duplicateIEEvent = true; //IE11 fix to prevent onFileChange trigger again
+            this.advancedFileInput.nativeElement.value = '';
+        }
     }
 
     hasFiles(): boolean {
