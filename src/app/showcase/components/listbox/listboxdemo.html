@@ -136,6 +136,20 @@ export class MyModel &#123;
 </code>
 </pre>
 
+        <h3>Updating Options</h3>
+        <p>When itemLabel property is used, Listbox does not detect changes in the options so provide a new reference when you need to update the options such as adding a new option.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+addOption() &#123;
+    //fails
+    this.options.push(&#123;name:'New York', code: 'NY'&#125;);
+
+    //correct
+    this.options = [...this.cities, &#123;name:'New York', code: 'NY'&#125;];
+&#125;
+</code>
+</pre>
+
       <h3>Filter</h3>
       <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
         mode is "contains" and alternative is "startsWith" configuted by filterMode property.</p>
