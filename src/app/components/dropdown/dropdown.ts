@@ -18,7 +18,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     selector: 'p-dropdown',
     template: `
          <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
-            'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus, 'ui-dropdown-clearable': showClear && !disabled}"
+            'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focused, 'ui-dropdown-clearable': showClear && !disabled}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
                 <select [required]="required" [attr.name]="name" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
@@ -96,7 +96,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     ],
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
-        '[class.ui-inputwrapper-focus]': 'focus'
+        '[class.ui-inputwrapper-focus]': 'focused'
     },
     providers: [DomHandler,ObjectUtils,DROPDOWN_VALUE_ACCESSOR]
 })
@@ -200,7 +200,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     hover: boolean;
     
-    focus: boolean;
+    focused: boolean;
 
     filled: boolean;
     
@@ -439,7 +439,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onEditableInputFocus(event) {
-        this.focus = true;
+        this.focused = true;
         this.hide();
     }
     
@@ -492,12 +492,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onInputFocus(event) {
-        this.focus = true;
+        this.focused = true;
         this.onFocus.emit(event);
     }
     
     onInputBlur(event) {
-        this.focus = false;
+        this.focused = false;
         this.onModelTouched();
         this.onBlur.emit(event);
     }
@@ -706,6 +706,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-label.ui-inputtext').focus();
         else
             this.domHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
+    }
+
+    focus(): void {
+        this.applyFocus();
     }
     
     bindDocumentClickListener() {
