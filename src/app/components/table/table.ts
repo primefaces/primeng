@@ -1843,13 +1843,20 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
+
+                if(this.frozen) {
+                    scrollBodyHeight -= this.domHandler.calculateScrollbarWidth();
+                }
                 
                 this.scrollBodyViewChild.nativeElement.style.height = 'auto';
                 this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
             }
             else {
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
+                if(this.frozen)
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - this.domHandler.calculateScrollbarWidth()) + 'px';
+                else
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
             }
         }
     }
