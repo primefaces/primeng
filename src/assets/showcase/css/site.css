@@ -378,6 +378,7 @@ body {
 .layout-footer {
     font-size: 14px;
     color: #000000;
+    font-weight: bold;
 }
 
 .layout-footer .footer-links {
