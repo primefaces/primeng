@@ -119,6 +119,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'ui-button-text-empty': (!icon && !label),
                         'ui-state-disabled': disabled}"
                         (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)">
+            <ng-content></ng-content>
             <span [ngClass]="{'ui-clickable': true,
                         'ui-button-icon-left': (iconPos === 'left'), 
                         'ui-button-icon-right': (iconPos === 'right')}"
