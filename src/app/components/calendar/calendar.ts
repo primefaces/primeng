@@ -777,10 +777,21 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     updateModel(value) {
         this.value = value;
         
-        if(this.dataType == 'date')
+        if(this.dataType == 'date') {
             this.onModelChange(this.value);
-        else if(this.dataType == 'string')
-            this.onModelChange(this.formatDateTime(this.value));
+        }
+        else if(this.dataType == 'string') {
+            if(this.isSingleSelection()) {
+                this.onModelChange(this.formatDateTime(this.value));
+            }
+            else {
+                let stringArrValue = null;
+                if(this.value) {
+                    stringArrValue = this.value.map(date => this.formatDateTime(date));
+                }        
+                this.onModelChange(stringArrValue);        
+            }   
+        }
     }
     
     getFirstDayOfMonthIndex(month: number, year: number) {
