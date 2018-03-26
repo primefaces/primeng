@@ -14,7 +14,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #inputfield [attr.type]="type" [attr.id]="inputId" [value]="valueAsString" class="ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all"
+            <input #inputfield [attr.type]="type" [attr.id]="inputId" [value]="valueAsString" class="ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.name]="name"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [attr.readonly]="readonly" [attr.required]="required"
             (keydown)="onInputKeydown($event)" (keyup)="onInputKeyup($event)" (keypress)="onInputKeyPress($event)" (blur)="onInputBlur($event)" (change)="handleChange($event)" (focus)="onInputFocus($event)">
             <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled" [attr.readonly]="readonly"
@@ -70,6 +70,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() type: string = 'text';
     
     @Input() required: boolean;
+
+    @Input() name: string;
             
     value: number;
     
