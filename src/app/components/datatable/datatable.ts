@@ -82,7 +82,7 @@ export class DTCheckbox {
                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': col.sortable, 'ui-state-active': dt.isSorted(col), 'ui-resizable-column': dt.resizableColumns, 'ui-selection-column':col.selectionMode,
                             'ui-helper-hidden': col.hidden}"
                 (dragstart)="dt.onColumnDragStart($event)" (dragleave)="dt.onColumnDragleave($event)" (drop)="dt.onColumnDrop($event)" (mousedown)="dt.onHeaderMousedown($event,headerCell)"
-                [attr.tabindex]="col.sortable ? tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)"
+                [attr.tabindex]="col.sortable ? dt.tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)"
                 [attr.scope]="col.scope||(col.colspan ? 'colgroup' : 'col')">
                 <span class="ui-column-resizer ui-clickable" *ngIf="dt.resizableColumns && col.resizable && ((dt.columnResizeMode == 'fit' && !lastCol) || dt.columnResizeMode == 'expand')" (mousedown)="dt.initColumnResize($event)"></span>
                 <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
@@ -167,9 +167,9 @@ export class ColumnFooters {
                                 (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" (blur)="dt.onCellEditorBlur($event, col, rowData, rowIndex)"
                                 (input)="dt.onCellEditorInput($event, col, rowData, rowIndex)" (change)="dt.onCellEditorChange($event, col, rowData, rowIndex)"
                                 class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event, colIndex)"></a>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event)"></a>
                             <ng-container *ngTemplateOutlet="col.editorTemplate; context: {$implicit: col, rowData: rowData, rowIndex: rowIndex}"></ng-container>
-                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event, colIndex)"></a>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event)"></a>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
                             <span class="ui-row-toggler fa fa-fw ui-clickable" [ngClass]="dt.isRowExpanded(rowData) ? dt.expandedIcon : dt.collapsedIcon"></span>

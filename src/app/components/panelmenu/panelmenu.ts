@@ -94,7 +94,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </div>
-                    <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'"  (@rootItem.done)="onToggleDone($event)"
+                    <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'"  (@rootItem.done)="onToggleDone()"
                          [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
                         <div class="ui-panelmenu-content ui-widget-content">
                             <p-panelMenuSub [item]="item" [expanded]="true" class="ui-panelmenu-root-submenu"></p-panelMenuSub>
