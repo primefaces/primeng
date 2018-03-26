@@ -163,6 +163,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -407,6 +409,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.disabled||this.readonly) {
             return;
         }
+
+        this.onClick.emit(event);
         
         this.selfClick = true;
         this.clearClick = this.domHandler.hasClass(event.target, 'ui-dropdown-clear-icon');
