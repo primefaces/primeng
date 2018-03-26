@@ -99,7 +99,11 @@ export class GMap implements AfterViewChecked,DoCheck {
         let changes = this.differ.diff(this.overlays);
         
         if(changes && this.map) {
-            changes.forEachRemovedItem((record) => {record.item.setMap(null)});
+            changes.forEachRemovedItem((record) => {
+                google.maps.event.clearInstanceListeners(record.item);
+                record.item.setMap(null);
+            });
+
             changes.forEachAddedItem((record) => {
                 record.item.setMap(this.map);
                 record.item.addListener('click', (event) => {
@@ -148,7 +152,6 @@ export class GMap implements AfterViewChecked,DoCheck {
                     map: this.map
                 });
             });
-            
         });
     }
     
