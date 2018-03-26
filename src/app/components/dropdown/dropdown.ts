@@ -348,6 +348,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
         
         if(this.selectedOptionUpdated && this.itemsWrapper) {
+            this.updateDimensions();
             let selectedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
             if(selectedItem) {
                 this.domHandler.scrollInView(this.itemsWrapper, this.domHandler.findSingle(this.panel, 'li.ui-state-highlight'));
@@ -397,9 +398,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     updateDimensions() {
-        if(this.autoWidth) {
+        if(this.autoWidth && this.el.nativeElement && this.el.nativeElement.children[0]) {
             let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
-            if(!this.style||(!this.style['width']&&!this.style['min-width'])) {
+            if(select && !this.style||(this.style && (!this.style['width']&&!this.style['min-width']))) {
                 this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
             }
         }
