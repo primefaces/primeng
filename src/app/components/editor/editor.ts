@@ -116,8 +116,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         this.quill.on('text-change', (delta, oldContents, source) => {
             if (source === 'user') {
                 let html = editorElement.children[0].innerHTML;
-                let text = this.quill.getText();
-                if (html == '<p><br></p>') {
+                let text = this.quill.getText().trim();
+                if (text.length === 0) {
                     html = null;
                 }
 
