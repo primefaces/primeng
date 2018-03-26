@@ -78,7 +78,7 @@ export class TieredMenuSub {
     onItemMouseLeave(event: Event) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
-        }, 1000);
+        }, 250);
     }
     
     itemClick(event: Event, item: MenuItem) {
