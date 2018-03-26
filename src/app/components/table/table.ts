@@ -117,8 +117,6 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() first: number = 0;
 
-    @Input() totalRecords: number = 0;
-
     @Input() pageLinks: number = 5;
 
     @Input() rowsPerPageOptions: number[];
@@ -244,6 +242,8 @@ export class Table implements OnInit, AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     _value: any[] = [];
+
+    _totalRecords: number = 0;
 
     filteredValue: any[];
 
@@ -401,9 +401,10 @@ export class Table implements OnInit, AfterContentInit {
     }
     set value(val: any[]) {
         this._value = val;
-        this.updateTotalRecords();
-
+        
         if (!this.lazy) {
+            this.totalRecords = (this._value ? this._value.length : 0);
+
             if (this.sortMode == 'single')
                 this.sortSingle();
             else if (this.sortMode == 'multiple')
@@ -415,6 +416,14 @@ export class Table implements OnInit, AfterContentInit {
         }
 
         this.tableService.onValueChange(val);
+    }
+
+    @Input() get totalRecords(): number {
+        return this._totalRecords;
+    }
+    set totalRecords(val: number) {
+        this._totalRecords = val;
+        this.tableService.onTotalRecordsChange(this._totalRecords);
     }
 
     @Input() get sortField(): string {
@@ -483,12 +492,6 @@ export class Table implements OnInit, AfterContentInit {
                 this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
             }
         }
-    }
-
-    updateTotalRecords() {
-        this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
-
-        this.tableService.onTotalRecordsChange(this.totalRecords);
     }
 
     onPageChange(event) {
@@ -1220,10 +1223,12 @@ export class Table implements OnInit, AfterContentInit {
         this.filters = {};
         
         this.first = 0;
-        this.updateTotalRecords();
         
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        else {
+            this.totalRecords = (this._value ? this._value.length : 0);
         }
     }
 
@@ -1880,7 +1885,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     }
 
     setVirtualScrollerHeight() {
-        this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * this.dt.virtualRowHeight + 'px';
+        if(this.virtualScrollerViewChild.nativeElement) {
+            this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * this.dt.virtualRowHeight + 'px';
+        }
     }
 
     hasVerticalOverflow() {
