@@ -199,31 +199,37 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     }
 
     handleSuggestionsChange() {
-        if(this.panelEL && this.panelEL.nativeElement && this.loading) {
-            this.highlightOption = null;
-            if(this._suggestions && this._suggestions.length) {
-                this.noResults = false;
-                this.show();
-                this.suggestionsUpdated = true;
-
-                if(this.autoHighlight) {
-                    this.highlightOption = this._suggestions[0];
-                }
-            }
-            else {
-                this.noResults = true;
-
-                if(this.emptyMessage) {
-                    this.show();
-                    this.suggestionsUpdated = true;
+        if(this._suggestions != null) { //async pipe support
+            if(this.panelEL && this.panelEL.nativeElement && this.loading) {
+                this.highlightOption = null;
+                if(this._suggestions) {
+                    if(this._suggestions.length) {
+                        this.noResults = false;
+                        this.show();
+                        this.suggestionsUpdated = true;
+        
+                        if(this.autoHighlight) {
+                            this.highlightOption = this._suggestions[0];
+                        }
+                    }
+                    else {}
+                    
                 }
                 else {
-                    this.hide();
+                    this.noResults = true;
+    
+                    if(this.emptyMessage) {
+                        this.show();
+                        this.suggestionsUpdated = true;
+                    }
+                    else {
+                        this.hide();
+                    }
                 }
             }
+    
+            this.loading = false;
         }
-
-        this.loading = false;
     }
 
     ngAfterContentInit() {
