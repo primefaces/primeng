@@ -22,8 +22,8 @@ export const RADIO_VALUE_ACCESSOR: any = {
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':rb.checked}"></span>
             </div>
         </div>
-        <label class="ui-radiobutton-label" (click)="select()" 
-            [ngClass]="{'ui-label-active':rb.checked,'ui-label-disabled':disabled,'ui-label-focus':focused}"
+        <label (click)="select()" [class]="labelStyleClass"
+            [ngClass]="{'ui-radiobutton-label':true, 'ui-label-active':rb.checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR]
@@ -45,6 +45,8 @@ export class RadioButton implements ControlValueAccessor {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() labelStyleClass: string;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     

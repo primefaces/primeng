@@ -21,8 +21,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
             </div>
         </div>
-        <label class="ui-chkbox-label" (click)="onClick($event,cb,true)" 
-                [ngClass]="{'ui-label-active':checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
+        <label (click)="onClick($event,cb,true)" [class]="labelStyleClass"
+                [ngClass]="{'ui-chkbox-label': true, 'ui-label-active':checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
                 *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR]
@@ -46,6 +46,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() labelStyleClass: string;
     
     @Input() formControl: FormControl;
     
