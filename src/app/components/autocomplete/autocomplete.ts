@@ -202,18 +202,14 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         if(this._suggestions != null) { //async pipe support
             if(this.panelEL && this.panelEL.nativeElement && this.loading) {
                 this.highlightOption = null;
-                if(this._suggestions) {
-                    if(this._suggestions.length) {
-                        this.noResults = false;
-                        this.show();
-                        this.suggestionsUpdated = true;
-        
-                        if(this.autoHighlight) {
-                            this.highlightOption = this._suggestions[0];
-                        }
+                if(this._suggestions && this._suggestions.length) {
+                    this.noResults = false;
+                    this.show();
+                    this.suggestionsUpdated = true;
+    
+                    if(this.autoHighlight) {
+                        this.highlightOption = this._suggestions[0];
                     }
-                    else {}
-                    
                 }
                 else {
                     this.noResults = true;
