@@ -21,4 +21,16 @@ export interface MenuItem {
     title?: string;
     id?: string;
     automationId?: any;
+    toolTipMessage?: string;
+    toolTipPosition?: string;
+    toolTipEvent?: string;
+    toolTipPositionStyle?: string;
+    toolTipDisabled?: boolean;
+    toolTipAppendTo?: string;
+    toolTipHideDelay?: number;
+    toolTipShowDelay?: number;
+    tooltipLife?: number;
+    toolTipStyleClass?: string;
+    toolTipEscape?: boolean;
+    toolTipZIndex?: string;
 }

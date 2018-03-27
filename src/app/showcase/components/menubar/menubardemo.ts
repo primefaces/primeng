@@ -14,10 +14,13 @@ export class MenubarDemo {
                 label: 'File',
                 icon: 'fa-file-o',
                 items: [{
-                        label: 'New', 
+                        label: 'New',
                         icon: 'fa-plus',
                         items: [
-                            {label: 'Project'},
+                            {
+                                label: 'Project',
+                                toolTipMessage: 'Test ToolTip'
+                            },
                             {label: 'Other'},
                         ]
                     },
@@ -42,11 +45,11 @@ export class MenubarDemo {
                         label: 'Contents'
                     },
                     {
-                        label: 'Search', 
-                        icon: 'fa-search', 
+                        label: 'Search',
+                        icon: 'fa-search',
                         items: [
                             {
-                                label: 'Text', 
+                                label: 'Text',
                                 items: [
                                     {
                                         label: 'Workspace'

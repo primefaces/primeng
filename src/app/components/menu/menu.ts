@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
 import {RouterModule} from '@angular/router';
+import {TooltipModule} from '../tooltip/tooltip';
 
 @Component({
     selector: '[pMenuItemContent]',
@@ -23,7 +24,7 @@ import {RouterModule} from '@angular/router';
 export class MenuItemContent {
 
     @Input("pMenuItemContent") item: MenuItem;
-    
+
     constructor(@Inject(forwardRef(() => Menu)) public menu: Menu) {}
 }
 
@@ -38,12 +39,34 @@ export class MenuItemContent {
                     <li class="ui-submenu-header ui-widget-header ui-corner-all" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}">{{submenu.label}}</li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
                         <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
-                        <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
+                        <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}" [pTooltip]="child.toolTipMessage"
+                            [tooltipPosition]="item.toolTipPosition ? item.toolTipPosition : 'right'"
+                            [tooltipEvent]="item.toolTipEvent ? item.toolTipEvent : 'hover'"
+                            [appendTo]="item.toolTipAppendTo ? item.toolTipAppendTo : 'body'"
+                            [positionStyle]="item.toolTipPositionStyle ? item.toolTipPositionStyle : 'absolute'"
+                            [tooltipStyleClass]="item.toolTipStyleClass"
+                            [tooltipZIndex]="item.toolTipZIndex ? item.toolTipZIndex : 'auto'"
+                            [tooltipDisabled]="item.toolTipDisabled ? item.toolTipDisabled : false"
+                            [escape]="item.toolTipEscape ? item.toolTipEscape : true"
+                            [showDelay]="item.toolTipShowDelay"
+                            [hideDelay]="item.toolTipHideDelay"
+                            [life]="item.toolTipLife"></li>
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator" [ngClass]="{'ui-helper-hidden': item.visible === false}"></li>
-                    <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': item.visible === false}"></li>
+                    <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': item.visible === false}" [pTooltip]="child.toolTipMessage"
+                        [tooltipPosition]="item.toolTipPosition ? item.toolTipPosition : 'right'"
+                        [tooltipEvent]="item.toolTipEvent ? item.toolTipEvent : 'hover'"
+                        [appendTo]="item.toolTipAppendTo ? item.toolTipAppendTo : 'body'"
+                        [positionStyle]="item.toolTipPositionStyle ? item.toolTipPositionStyle : 'absolute'"
+                        [tooltipStyleClass]="item.toolTipStyleClass"
+                        [tooltipZIndex]="item.toolTipZIndex ? item.toolTipZIndex : 'auto'"
+                        [tooltipDisabled]="item.toolTipDisabled ? item.toolTipDisabled : false"
+                        [escape]="item.toolTipEscape ? item.toolTipEscape : true"
+                        [showDelay]="item.toolTipShowDelay"
+                        [hideDelay]="item.toolTipHideDelay"
+                        [life]="item.toolTipLife"></li>
                 </ng-template>
             </ul>
         </div>
@@ -60,28 +83,28 @@ export class Menu implements AfterViewInit,OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     container: HTMLDivElement;
-    
+
     documentClickListener: any;
-    
+
     preventDocumentDefault: any;
 
     onResizeTarget: any;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
-        
+
         if(this.popup) {
             if(this.appendTo) {
                 if(this.appendTo === 'body')
@@ -89,7 +112,7 @@ export class Menu implements AfterViewInit,OnDestroy {
                 else
                     this.domHandler.appendChild(this.container, this.appendTo);
             }
-            
+
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
@@ -98,13 +121,13 @@ export class Menu implements AfterViewInit,OnDestroy {
             });
         }
     }
-    
+
     toggle(event) {
         if(this.container.offsetParent)
             this.hide();
         else
             this.show(event);
-            
+
         this.preventDocumentDefault = true;
     }
 
@@ -113,7 +136,7 @@ export class Menu implements AfterViewInit,OnDestroy {
             this.domHandler.absolutePosition(this.container, this.onResizeTarget);
         }
     }
-    
+
     show(event) {
         let target = event.currentTarget;
         this.onResizeTarget = event.currentTarget;
@@ -129,45 +152,45 @@ export class Menu implements AfterViewInit,OnDestroy {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
+
     hide() {
         this.container.style.display = 'none';
     }
-    
+
     itemClick(event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-        
+
         if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         if(this.popup) {
             this.hide();
         }
     }
-    
+
     ngOnDestroy() {
         if(this.popup) {
             if(this.documentClickListener) {
                 this.documentClickListener();
             }
-            
+
             if(this.appendTo) {
                 this.el.nativeElement.appendChild(this.container);
             }
         }
     }
-    
+
     hasSubMenu(): boolean {
         if(this.model) {
             for(var item of this.model) {
@@ -181,7 +204,7 @@ export class Menu implements AfterViewInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
+    imports: [CommonModule,RouterModule,TooltipModule],
     exports: [Menu,RouterModule],
     declarations: [Menu,MenuItemContent]
 })
