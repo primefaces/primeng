@@ -31,10 +31,17 @@ import {PrimeTemplate} from '../common/shared';
             </td>
         </tr>
         <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
-            <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
-                <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
-                <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
-            </ng-template>
+            <ng-container *ngIf="node.children && node.children.length === 1">
+                <td [attr.colspan]="colspan">
+                    <div class="ui-organizationchart-line-down"></div>
+                </td>
+            </ng-container>
+            <ng-container *ngIf="node.children && node.children.length > 1">
+                <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
+                    <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
+                    <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
+                </ng-template>
+            </ng-container>
         </tr>
         <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-nodes" [@childState]="'in'">
             <td *ngFor="let child of node.children" colspan="2">
