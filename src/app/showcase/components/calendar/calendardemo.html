@@ -19,7 +19,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Icon</h3>
-            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar>{{date3|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -609,7 +609,7 @@ export class MyModel &#123;
                                 event.year: New year
                             </td>
                             <td>Callback to invoke when a month is changed using the navigators.</td>
-                        </tr>                        
+                        </tr>
                         <tr>
                             <td>onYearChange</td>
                             <td>event.month: New month <br />
