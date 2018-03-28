@@ -12,7 +12,7 @@
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
                     <div class="ui-g-12 ui-md-4">
-                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'140px'}"></p-dropdown>
                     </div>
                     <div class="ui-g-6 ui-md-4 filter-container">
                         <div style="position:relative">
@@ -34,13 +34,13 @@
                     <div class="ui-g">
                         <div class="ui-g-2 ui-sm-6">Vin: </div>
                         <div class="ui-g-10 ui-sm-6"><b>{{car.vin}}</b></div>
-                        
+
                         <div class="ui-g-2 ui-sm-6">Year: </div>
                         <div class="ui-g-10 ui-sm-6"><b>{{car.year}}</b></div>
-                        
+
                         <div class="ui-g-2 ui-sm-6">Brand: </div>
                         <div class="ui-g-10 ui-sm-6"><b>{{car.brand}}</b></div>
-                        
+
                         <div class="ui-g-2 ui-sm-6">Color: </div>
                         <div class="ui-g-10 ui-sm-6"><b>{{car.color}}</b></div>
                     </div>
@@ -61,21 +61,21 @@
             </div>
         </ng-template>
     </p-dataView>
-        
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
         <div class="ui-g" *ngIf="selectedCar">
             <div class="ui-g-12" style="text-align:center">
                 <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
             </div>
             <div class="ui-g-4">Vin: </div>
             <div class="ui-g-8">{{selectedCar.vin}}</div>
-            
+
             <div class="ui-g-4">Brand: </div>
             <div class="ui-g-8">{{selectedCar.brand}}</div>
-            
+
             <div class="ui-g-4">Year: </div>
             <div class="ui-g-8">{{selectedCar.year}}</div>
-            
+
             <div class="ui-g-4">Color: </div>
             <div class="ui-g-8">{{selectedCar.color}}</div>
         </div>
@@ -94,7 +94,7 @@ import &#123;DataViewModule&#125; from 'primeng/dataview';
 
             <h3>Getting Started</h3>
             <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. list and grid.</p>
-            
+
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -112,10 +112,10 @@ export interface Car &#123;
 import &#123;Injectable&#125; from 'angular2/core';
 import &#123;Http, Response&#125; from 'angular2/http';
 import &#123;Car&#125; from '../domain/car';
-    
+
 @Injectable()
 export class CarService &#123;
-    
+
     constructor(private http: Http) &#123;&#125;
 
     getCarsLarge() &#123;
@@ -127,7 +127,7 @@ export class CarService &#123;
 &#125;
 </code>
 </pre>
-        
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class DataViewDemo implements OnInit &#123;
@@ -199,7 +199,7 @@ export class DataViewDemo implements OnInit &#123;
 </pre>
 
             <h3>DataViewLayoutOptions</h3>
-            <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. p-dataViewLayoutOptions is a helper component 
+            <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. p-dataViewLayoutOptions is a helper component
                 to display a buttonset to choose the layout mode in DataView. Location of the p-dataViewLayoutOptions should be inside the DataView component. If you prefer a different UI element
                 you can create your own that updates the layout property of the DataView.
             </p>
@@ -227,7 +227,7 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </code>
 </pre>
-                        
+
             <h3>Paginator</h3>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
                 of page links to display.</p>
@@ -247,11 +247,11 @@ export class DataViewDemo implements OnInit &#123;
 &lt;/p-dataView&gt;
 </code>
 </pre>
-    
+
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
-             onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object 
-            that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator 
+             onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object
+            that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -287,7 +287,7 @@ loadData(event) &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;
     &lt;p-header&gt;
-        &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" 
+        &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
             (onChange)="onSortChange($event)" [autoWidth]="false" [style]="&#123;'min-width':'15em'&#125;"&gt;&lt;/p-dropdown&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
@@ -309,7 +309,7 @@ loadData(event) &#123;
 export class DataViewSortDemo implements OnInit &#123;
 
     cars: Car[];
-        
+
     sortOptions: SelectItem[];
 
     sortKey: string;
@@ -364,7 +364,7 @@ export class DataViewSortDemo implements OnInit &#123;
 </code>
 </pre>
             <h3>Custom UI Elements</h3>
-            <p>As mentioned above, layout options selector, sorting and filtering are baked-in and no strict UI is enforces to make it possible to come up with your own UI elements 
+            <p>As mentioned above, layout options selector, sorting and filtering are baked-in and no strict UI is enforces to make it possible to come up with your own UI elements
                 to enable these features.
             </p>
 
@@ -475,7 +475,7 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Comma separated list of fields in the object graph to search against.</td>
-                        </tr>                  
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -583,13 +583,13 @@ export class DataViewSortDemo implements OnInit &#123;
                 &lt;div class="ui-g"&gt;
                     &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
                     &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                    
+
                     &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
                     &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                    
+
                     &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
                     &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                    
+
                     &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
                     &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
                 &lt;/div&gt;
@@ -610,7 +610,7 @@ export class DataViewSortDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-    
+
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
     &lt;div class="ui-g" *ngIf="selectedCar"&gt;
         &lt;div class="ui-g-12" style="text-align:center"&gt;
@@ -618,13 +618,13 @@ export class DataViewSortDemo implements OnInit &#123;
         &lt;/div&gt;
         &lt;div class="ui-g-4"&gt;Vin: &lt;/div&gt;
         &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.vin&#125;&#125;&lt;/div&gt;
-        
+
         &lt;div class="ui-g-4"&gt;Brand: &lt;/div&gt;
         &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.brand&#125;&#125;&lt;/div&gt;
-        
+
         &lt;div class="ui-g-4"&gt;Year: &lt;/div&gt;
         &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.year&#125;&#125;&lt;/div&gt;
-        
+
         &lt;div class="ui-g-4"&gt;Color: &lt;/div&gt;
         &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.color&#125;&#125;&lt;/div&gt;
     &lt;/div&gt;
@@ -637,9 +637,9 @@ export class DataViewSortDemo implements OnInit &#123;
 export class DataViewDemo implements OnInit &#123;
 
     cars: Car[];
-    
+
     selectedCar: Car;
-    
+
     displayDialog: boolean;
 
     sortOptions: SelectItem[];
@@ -661,7 +661,7 @@ export class DataViewDemo implements OnInit &#123;
             &#123;label: 'Brand', value: 'brand'&#125;
         ];
     &#125;
-    
+
     selectCar(event: Event, car: Car) &#123;
         this.selectedCar = car;
         this.displayDialog = true;
@@ -680,7 +680,7 @@ export class DataViewDemo implements OnInit &#123;
             this.sortField = value;
         &#125;
     &#125;
-    
+
     onDialogHide() &#123;
         this.selectedCar = null;
     &#125;
