@@ -1733,13 +1733,15 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
             });
         });
 
-        this.totalRecordsSubscription = this.dt.tableService.totalRecordsSource$.subscribe(() => {
-            this.zone.runOutsideAngular(() => {
-                setTimeout(() => {
-                    this.setVirtualScrollerHeight();
-                }, 50);
-            });
-        });   
+        if (this.dt.virtualScroll) {
+            this.totalRecordsSubscription = this.dt.tableService.totalRecordsSource$.subscribe(() => {
+                this.zone.runOutsideAngular(() => {
+                    setTimeout(() => {
+                        this.setVirtualScrollerHeight();
+                    }, 50);
+                });
+            });  
+        }
      }
 
     @Input() get scrollHeight(): string {
