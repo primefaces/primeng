@@ -89,19 +89,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.activate();
         }
     }
-    
+
     onMouseLeave(e: Event) {
         this.deactivate(true);
     }
-    
+
     onFocus(e: Event) {
         this.activate();
     }
-    
+
     onBlur(e: Event) {
         this.deactivate(true);
     }
-  
+
     onClick(e: Event) {
         this.deactivate(true);
     }
@@ -267,9 +267,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getHostOffset() {
-        let offset = this.el.nativeElement.getBoundingClientRect();
-        let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
-        let targetTop = offset.top + this.domHandler.getWindowScrollTop();
+        const offset = this.el.nativeElement.getBoundingClientRect();
+        const targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
+        const targetTop = this.el.nativeElement.offsetTop !== offset.top ? offset.top + this.domHandler.getWindowScrollTop() : offset.top;
 
         return { left: targetLeft, top: targetTop };
     }
@@ -367,10 +367,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 document.body.removeChild(this.container);
             else if (this.appendTo === 'target')
                 this.el.nativeElement.removeChild(this.container);
-            else 
+            else
                 this.domHandler.removeChild(this.container, this.appendTo);
         }
-        
+
         this.container = null;
     }
 
