@@ -493,9 +493,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                 case 8:
                     if(this.value && this.value.length && !this.multiInputEL.nativeElement.value) {
                         this.value = [...this.value];
-                        let removedValue = this.value.pop();
-                        this.onUnselect.emit(removedValue);
+                        const removedValue = this.value.pop();
                         this.onModelChange(this.value);
+                        this.updateFilledState();
+                        this.onUnselect.emit(removedValue);
                     }
                 break;
             }
