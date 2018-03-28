@@ -1447,11 +1447,6 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     onColumnDragStart(event, columnElement) {
-        if (this.domHandler.hasClass(event.target, 'ui-column-resizer')) {
-            event.preventDefault();
-            return;
-        }
-
         this.reorderIconWidth = this.domHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild.nativeElement);
         this.reorderIconHeight = this.domHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild.nativeElement);
         this.draggedColumn = columnElement;
