@@ -947,7 +947,7 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
-        this._selection = check ? this.value.slice() : [];            
+        this._selection = check ? this.filteredValue ? this.filteredValue.slice(): this.value.slice() : [];            
         this.preventSelectionSetterPropagation = true;
         this.updateSelectionKeys();
         this.selectionChange.emit(this._selection);
