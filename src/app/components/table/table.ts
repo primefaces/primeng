@@ -745,7 +745,7 @@ export class Table implements OnInit, AfterContentInit {
                             }
                         }
 
-                        this.onRowSelect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row'});
+                        this.onRowSelect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex});
                     }
                 }
                 else {
@@ -759,7 +759,7 @@ export class Table implements OnInit, AfterContentInit {
                         else {
                             this._selection = rowData;
                             this.selectionChange.emit(this.selection);
-                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
                             if (dataKeyValue) {
                                 this.selectionKeys = {};
                                 this.selectionKeys[dataKeyValue] = 1;
@@ -779,7 +779,7 @@ export class Table implements OnInit, AfterContentInit {
                         else {
                             this._selection = this.selection ? [...this.selection, rowData] : [rowData];
                             this.selectionChange.emit(this.selection);
-                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: event.rowIndex });
                             if (dataKeyValue) {
                                 this.selectionKeys[dataKeyValue] = 1;
                             }
