@@ -267,11 +267,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getHostOffset() {
-        let offset = this.el.nativeElement.getBoundingClientRect();
-        let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
-        let targetTop = offset.top + this.domHandler.getWindowScrollTop();
-
-        return { left: targetLeft, top: targetTop };
+        if(this.appendTo === 'body' || this.appendTo === 'target') {
+            let offset = this.el.nativeElement.getBoundingClientRect();
+            let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
+            let targetTop = offset.top + this.domHandler.getWindowScrollTop();
+    
+            return { left: targetLeft, top: targetTop };
+        }
+        else {
+            return { left: 0, top: 0 };
+        }
     }
 
     alignRight() {
