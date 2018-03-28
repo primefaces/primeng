@@ -62,6 +62,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() dragdrop: boolean;
     
     @Input() dragdropScope: string;
+
+    @Input() trackBy: Function = (index: number, item: any) => item;
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
     
@@ -96,8 +98,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     public visibleOptions: any[];
     
     public _value: any[];
-    
-    @Input() trackBy: Function = (index: number, item: any) => item;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
          
