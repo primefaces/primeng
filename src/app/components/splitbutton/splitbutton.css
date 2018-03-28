@@ -6,9 +6,6 @@
 
 .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
     width: 2em;
-}
-
-.ui-splitbutton .ui-button {
     vertical-align: top;
 }
 
