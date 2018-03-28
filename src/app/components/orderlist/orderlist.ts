@@ -22,7 +22,7 @@ import {ObjectUtils} from '../utils/objectutils';
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
-                    <ng-template ngFor let-item [ngForOf]="value" let-i="index" let-l="last">
+                    <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item"
@@ -96,6 +96,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     public visibleOptions: any[];
     
     public _value: any[];
+    
+    @Input() trackBy: Function = (index: number, item: any) => item;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
          
