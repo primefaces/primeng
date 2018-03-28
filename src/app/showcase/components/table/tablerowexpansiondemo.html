@@ -20,7 +20,7 @@
         <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
             <tr>
                 <td>
-                    <a href="#" [pRowToggler]="rowData">
+                    <a (click)="expand()" [pRowToggler]="rowData">
                         <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
                     </a>
                 </td>
@@ -73,6 +73,8 @@ export class TableRowExpansionDemo implements OnInit &#123;
     cars: Car[];
 
     cols: any[];
+    
+    expanded: boolean = false;
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -85,6 +87,10 @@ export class TableRowExpansionDemo implements OnInit &#123;
             &#123; field: 'brand', header: 'Brand' &#125;,
             &#123; field: 'color', header: 'Color' &#125;
         ];
+    &#125;
+    
+    expand() &#123;
+        this.expanded = !this.expanded;
     &#125;
 &#125;
 </code>
