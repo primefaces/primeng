@@ -370,6 +370,10 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         this.schedule.fullCalendar('updateEvent', event);
     }
  
+    updateOption(option: any) {
+        this.schedule.fullCalendar('option', option);
+    }
+ 
     _findEvent(id: string) {
         let event;
         if(this.events) {
