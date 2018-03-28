@@ -10,6 +10,8 @@ export class TableRowExpansionDemo implements OnInit {
     cars: Car[];
 
     cols: any[];
+    
+    expanded: boolean = false;
 
     constructor(private carService: CarService) { }
 
@@ -22,5 +24,9 @@ export class TableRowExpansionDemo implements OnInit {
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' }
         ];
+    }
+    
+    expand() {
+        this.expanded = !this.expanded;
     }
 }
