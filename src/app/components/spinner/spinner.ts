@@ -264,7 +264,9 @@ export class Spinner implements OnInit,ControlValueAccessor {
             let textValue = String(this.value).replace('.', this.decimalSeparator);
             
             if(this.formatInput) {
-                textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
+                let parts = textValue.split(this.decimalSeparator);
+                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
+                textValue = parts.join(this.decimalSeparator);
             }
             
             this.valueAsString = textValue;
