@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {TerminalService} from './terminalservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-terminal',

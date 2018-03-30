@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/treenode';
 import {Header,Footer,Column} from '../common/shared';
 import {SharedModule} from '../common/shared';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
