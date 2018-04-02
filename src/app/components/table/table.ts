@@ -130,6 +130,8 @@ export class Table implements OnInit, AfterContentInit {
     @Input() defaultSortOrder: number = 1;
 
     @Input() sortMode: string = 'single';
+    
+    @Input() resetPageOnSort: boolean = true;
 
     @Input() selectionMode: string;
 
@@ -543,7 +545,7 @@ export class Table implements OnInit, AfterContentInit {
 
     sortSingle() {
         if(this.sortField && this.sortOrder) {
-            this.first = 0;
+            this.first = this.resetPageOnSort ? 0 : this.first;
 
             if(this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());

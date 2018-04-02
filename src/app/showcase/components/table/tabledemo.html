@@ -135,7 +135,7 @@ export class DataTableDemo implements OnInit &#123;
 </pre>
 
         <h3>Dynamic Columns</h3>
-        <p>Instead of configuring columns one by one, a simple ngFor can be used to implement dynamic columns. cols property below is an array of objects that represent a column, 
+        <p>Instead of configuring columns one by one, a simple ngFor can be used to implement dynamic columns. cols property below is an array of objects that represent a column,
             only property that table component uses is field, rest of the properties like header depend on your choice.
         </p>
 <pre>
@@ -185,7 +185,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Other alternative is binding the cols array to the columns property and then defining a template variable to access it within your templates. 
+            <p>Other alternative is binding the cols array to the columns property and then defining a template variable to access it within your templates.
                 There are 3 cases where this is required which are csv export, reorderable columns and global filtering without the globalFilterFields property.
             </p>
 <pre>
@@ -217,8 +217,8 @@ export class DynamicColumnsDemo implements OnInit &#123;
             </p>
 
             <h3>Templates</h3>
-            <p>Table is a template driven component with named templates such as header and body that we've used so far. Templates grant a great level of customization and flexibility 
-                where you have total control over the presentation while table handles the features such as paging, sorting, filtering and more. This speeds up development without sacrifing 
+            <p>Table is a template driven component with named templates such as header and body that we've used so far. Templates grant a great level of customization and flexibility
+                where you have total control over the presentation while table handles the features such as paging, sorting, filtering and more. This speeds up development without sacrifing
                 flexibility. Here is the full list of available templates.</p>
 
             <div class="doc-tablewrapper">
@@ -487,12 +487,12 @@ export class TableRowGroupDemo implements OnInit &#123;
             &#125;
         &#125;
     &#125;
-    
+
 &#125;
 </code>
 </pre>
 
-            <p>Using this metadata rows can be grouped using a subheader that displays the group. Note that grouped data should be sorted so enable sortField 
+            <p>Using this metadata rows can be grouped using a subheader that displays the group. Note that grouped data should be sorted so enable sortField
             so that table applies sorting before grouping if your data is not sorted.</p>
 
 <pre>
@@ -509,7 +509,7 @@ export class TableRowGroupDemo implements OnInit &#123;
         &lt;tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex"&gt;
             &lt;td colspan="3"&gt;
                 &lt;span style="font-weight:bold"&gt;&#123;&#123;rowData.brand&#125;&#125;&lt;/span&gt;
-            &lt;/td&lt;                
+            &lt;/td&lt;
         &lt;/tr&lt;
         &lt;tr&lt;
             &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
@@ -520,7 +520,7 @@ export class TableRowGroupDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
-            
+
 <p>An alternative grouping could be using rowspans for the group field.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -662,7 +662,7 @@ export class DataTablePageDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/page']">live example.</a></p>
 
             <h3>Sorting</h3>
-            <p>A column can be made sortable by adding the pSortableColumn directive whose value is the field to sort against and a sort indicator via p-sortIcon component. For dynamic columns, 
+            <p>A column can be made sortable by adding the pSortableColumn directive whose value is the field to sort against and a sort indicator via p-sortIcon component. For dynamic columns,
                 setting pSortableColumnDisabled property as true disables sorting for that particular column.
             </p>
 <pre>
@@ -795,7 +795,7 @@ export class CustomTableSortDemo implements OnInit &#123;
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -931,7 +931,7 @@ export class TableFilterDemo implements OnInit &#123;
 </pre>
 
             <p>If you have static columns and need to use global filtering, globalFilterFields property must be defined to configure which fields should be used in global filtering. Another
-                use case of this property is to change the fields to utilize in global filtering with dynamic columns.  
+                use case of this property is to change the fields to utilize in global filtering with dynamic columns.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -946,11 +946,11 @@ export class TableFilterDemo implements OnInit &#123;
             <h3>Selection</h3>
             <p>Table provides built-in single and multiple selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a selectionMode, bind a selection reference and add pSelectableRow directive
-            whose value is the rowData to the rows that can be selected. If you prefer double click use pSelectableRowDblClick directive instead. In both cases optional 
+            whose value is the rowData to the rows that can be selected. If you prefer double click use pSelectableRowDblClick directive instead. In both cases optional
             pSelectableRowIndex property is avaiable to access the row index. By default each row click adds or removes the row from the selection, if you prefer a classic
             metaKey based selection approach enable metaKeySelection true so that multiple selection or unselection of a row requires metaKey to be pressed. Note that, on touch enabled
             devices, metaKey based selection is turned off automatically as there is no metaKey in devices such as mobile phones.</p>
-            
+
             <p>Alternative to the row click, radiobutton or checkbox elements can be used to implement row selection.</p>
 
             <p>When resolving if a row is selected, by default Table compares selection array with the datasource which may cause a performance issue with huge datasets that do not use pagination.
@@ -1463,9 +1463,9 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
-            <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns. In general when customizing the column widths of scrollable tables, 
+            <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
                 use colgroup as below to avoid misalignment issues as it will apply both the header,body and footer sections which are different separate elements internally.</p>
-        
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [style]="&#123;width:'500px'&#125;"&gt;
@@ -1520,7 +1520,7 @@ export class DataTableDemo implements OnInit &#123;
 </pre>
 
         <p>Certain rows can be fixed by using the frozenValue property along with the "frozenrows" template.</p>
-            
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars4" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px"&gt;
@@ -1630,12 +1630,12 @@ export class DataTableDemo implements OnInit &#123;
 </pre>
 
             <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
-                on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight 
+                on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight
                 property which defaults to 27px. Note that variable row height is not supported due to the nature of the virtual scrolling behavior.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" 
+&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px"
     [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [lazy]="true" [totalRecords]="totalRecords"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1842,7 +1842,7 @@ export class DataTableDemo implements OnInit &#123;
 </pre>
 
             <h3>Styling Certain Rows and Columns</h3>
-            <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class. Example here 
+            <p>Certain rows and cells can easily be styled using templating features. In example below, the row whose vin property is '123' will get the 'success' style class. Example here
                 paint the background of the last cell using a colgroup and highlights rows whose year is older than 2000.
             </p>
 <pre>
@@ -1942,13 +1942,13 @@ export class DataTableDemo implements OnInit &#123;
                             <td>number</td>
                             <td>null</td>
                             <td>Number of rows to display per page.</td>
-                        </tr>  
+                        </tr>
                         <tr>
                             <td>first</td>
                             <td>number</td>
                             <td>0</td>
                             <td>Index of the first row to be displayed.</td>
-                        </tr>                     
+                        </tr>
                         <tr>
                             <td>totalRecords</td>
                             <td>number</td>
@@ -2212,6 +2212,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the cell widths scale according to their content or not.</td>
+                        </tr>
+                        <tr>
+                            <td>resetPageOnSort</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>If true, reset to first page.</td>
                         </tr>
                     </tbody>
                 </table>
