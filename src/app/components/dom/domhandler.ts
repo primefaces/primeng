@@ -340,6 +340,13 @@ export class DomHandler {
         };
     }
 
+    public replaceElementWith(element: any, replacementElement: any): any {
+        let parentNode = element.parentNode;
+        if(!parentNode) 
+            throw `Can't replace element`;
+        return parentNode.replaceChild(replacementElement, element);
+    }
+
     getUserAgent(): string {
         return navigator.userAgent;
     }
