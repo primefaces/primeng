@@ -196,6 +196,8 @@ export class Table implements OnInit, AfterContentInit {
     @Input() customSort: boolean;
 
     @Input() autoLayout: boolean;
+    
+    @Input() exportFunction ;
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -1241,7 +1243,7 @@ export class Table implements OnInit, AfterContentInit {
         if (options && options.selectionOnly) {
             data = this.selection || [];
         }
-
+        
         //headers
         for (let i = 0; i < this.columns.length; i++) {
             let column = this.columns[i];
@@ -1261,14 +1263,23 @@ export class Table implements OnInit, AfterContentInit {
                 let column = this.columns[i];
                 if (column.exportable !== false && column.field) {
                     let cellData = this.objectUtils.resolveFieldData(record, column.field);
-
-                    if (cellData != null)
-                        cellData = String(cellData).replace(/"/g, '""');
+                    
+                    if (cellData != null) {
+                        if (this.exportFunction) {
+                            cellData = this.exportFunction({
+                                data: cellData,
+                                field: column.field
+                            });
+                        }
+                        else
+                            cellData = String(cellData).replace(/"/g, '""');
+                    }
                     else
                         cellData = '';
-
+        
+        
                     csv += '"' + cellData + '"';
-
+        
                     if (i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
                     }
