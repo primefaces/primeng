@@ -10,6 +10,10 @@ import {SelectItem} from '../common/selectitem';
     selector: 'p-dataView',
     template: `
         <div [ngClass]="{'ui-dataview ui-widget': true, 'ui-dataview-list': (layout === 'list'), 'ui-dataview-grid': (layout === 'grid')}" [ngStyle]="style" [class]="styleClass">
+            <div class="ui-dataview-loading ui-widget-overlay" *ngIf="loading"></div>
+            <div class="ui-dataview-loading-content" *ngIf="loading">
+                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+            </div>
             <div class="ui-dataview-header ui-widget-header ui-corner-top">
                 <ng-content select="p-header"></ng-content>
             </div>
@@ -68,6 +72,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Input() filterBy: string;
     
+    @Input() loading: boolean;
+
+    @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
