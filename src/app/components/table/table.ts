@@ -2008,7 +2008,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <span class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></span>
+        <span class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1 || sortOrder === '1', 'fa-sort-desc': sortOrder === -1 || sortOrder === '-1'}"></span>
     `
 })
 export class SortIcon implements OnInit, OnDestroy {
@@ -2018,8 +2018,6 @@ export class SortIcon implements OnInit, OnDestroy {
     subscription: Subscription;
 
     sortOrder: number;
-
-    sorted: boolean;
 
     constructor(public dt: Table) {
         this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
