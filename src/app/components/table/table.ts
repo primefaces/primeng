@@ -2677,7 +2677,9 @@ export class TableRadioButton  {
     }
 
     onClick(event: Event) {
-        this.dt.toggleRowWithRadio(event, this.value);
+        if(!this.disabled) {
+            this.dt.toggleRowWithRadio(event, this.value);
+        }
         this.domHandler.clearSelection();
     }
 
