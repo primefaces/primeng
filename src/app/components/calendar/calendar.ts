@@ -549,7 +549,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                     this.currentHour = date.getUTCHours() == 0 ? 12 : date.getUTCHours() % 12;
                 else
                     this.currentHour = date.getUTCHours();
-            } 
+            }
             else {
                 this.currentMinute = date.getMinutes();
                 this.currentSecond = date.getSeconds();
@@ -739,10 +739,16 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         if(this.minDate && this.minDate > date) {
             date = this.minDate;
+            this.currentHour = date.getHours();
+            this.currentMinute = date.getMinutes();
+            this.currentSecond = date.getSeconds();
         }
         
         if(this.maxDate && this.maxDate < date) {
             date = this.maxDate;
+            this.currentHour = date.getHours();
+            this.currentMinute = date.getMinutes();
+            this.currentSecond = date.getSeconds();
         }
         
         if(this.isSingleSelection()) {
@@ -788,9 +794,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 let stringArrValue = null;
                 if(this.value) {
                     stringArrValue = this.value.map(date => this.formatDateTime(date));
-                }        
-                this.onModelChange(stringArrValue);        
-            }   
+                }
+                this.onModelChange(stringArrValue);
+            }
         }
     }
     
@@ -1211,7 +1217,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             else {
                 value.setUTCHours(this.currentHour);
             }
-        } 
+        }
         else {
             if (this.hourFormat == '12') {
                 if (this.currentHour === 12)
