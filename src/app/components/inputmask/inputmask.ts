@@ -605,7 +605,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     updateModel(e) {
         const updatedValue = this.unmask ? this.getUnmaskedValue() : e.target.value;
-        if(updatedValue!==null || updatedValue!== undefined) {
+        if(updatedValue !== null || updatedValue !== undefined) {
             this.value = updatedValue;
             this.onModelChange(this.value);
         }
