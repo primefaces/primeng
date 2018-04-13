@@ -1519,7 +1519,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             hours-=12;
         }
         
-        output += (hours < 10) ? '0' + hours : hours;
+        output += hours === 0 ? 12 : (hours < 10) ? '0' + hours : hours;
         output += ':';
         output += (minutes < 10) ? '0' + minutes : minutes;
         
