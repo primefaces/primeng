@@ -149,6 +149,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.inputfieldViewChild.nativeElement.focus();
             this.repeat(event, null, 1);
             this.updateFilledState();
+            event.preventDefault();
         }
     }
     
@@ -169,6 +170,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.inputfieldViewChild.nativeElement.focus();
             this.repeat(event, null, -1);
             this.updateFilledState();
+            event.preventDefault();
         }
     }
     
