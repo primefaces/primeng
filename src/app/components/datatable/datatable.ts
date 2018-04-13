@@ -13,7 +13,7 @@ import {FilterMetadata} from '../common/filtermetadata';
 import {SortMeta} from '../common/sortmeta';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
 
 @Component({

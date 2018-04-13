@@ -2,7 +2,7 @@ import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} 
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {MessageService} from '../common/messageservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-messages',
