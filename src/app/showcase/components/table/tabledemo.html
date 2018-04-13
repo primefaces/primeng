@@ -2219,6 +2219,15 @@ export class DataTableDemo implements OnInit &#123;
                             <td>true</td>
                             <td>If true, reset to first page.</td>
                         </tr>
+                        <tr>
+                            <td>exportFunction</td>
+                            <td>function</td>
+                            <td>null</td>
+                            <td>A function to implement custom export. Need to return string value.<br/>
+                                event.data: Field data.<br>
+                                event.field: Column field.
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

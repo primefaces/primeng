@@ -196,6 +196,8 @@ export class Table implements OnInit, AfterContentInit {
     @Input() customSort: boolean;
 
     @Input() autoLayout: boolean;
+    
+    @Input() exportFunction ;
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -1241,7 +1243,7 @@ export class Table implements OnInit, AfterContentInit {
         if (options && options.selectionOnly) {
             data = this.selection || [];
         }
-
+        
         //headers
         for (let i = 0; i < this.columns.length; i++) {
             let column = this.columns[i];
@@ -1261,14 +1263,23 @@ export class Table implements OnInit, AfterContentInit {
                 let column = this.columns[i];
                 if (column.exportable !== false && column.field) {
                     let cellData = this.objectUtils.resolveFieldData(record, column.field);
-
-                    if (cellData != null)
-                        cellData = String(cellData).replace(/"/g, '""');
+                    
+                    if (cellData != null) {
+                        if (this.exportFunction) {
+                            cellData = this.exportFunction({
+                                data: cellData,
+                                field: column.field
+                            });
+                        }
+                        else
+                            cellData = String(cellData).replace(/"/g, '""');
+                    }
                     else
                         cellData = '';
-
+        
+        
                     csv += '"' + cellData + '"';
-
+        
                     if (i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
                     }
@@ -1997,7 +2008,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <span class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></span>
+        <span class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1 || sortOrder === '1', 'fa-sort-desc': sortOrder === -1 || sortOrder === '-1'}"></span>
     `
 })
 export class SortIcon implements OnInit, OnDestroy {
@@ -2007,8 +2018,6 @@ export class SortIcon implements OnInit, OnDestroy {
     subscription: Subscription;
 
     sortOrder: number;
-
-    sorted: boolean;
 
     constructor(public dt: Table) {
         this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
