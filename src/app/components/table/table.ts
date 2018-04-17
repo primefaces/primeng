@@ -1205,24 +1205,23 @@ export class Table implements OnInit, AfterContentInit {
             return value > filter;
         },
 
-        containsIn: function (value, filter) {
+        containsIn(value, filter): boolean {
             if (filter === undefined || filter === null || filter.length === 0) {
                 return true;
             }
             if (value === undefined || value === null) {
                 return false;
             }
-            for (let _i = 0; _i < filter.length; _i++) {
-                if (filter[_i] === undefined || filter[_i] === null || (typeof filter[_i] === 'string' && filter[_i].trim() === '')) {
+            for (let i = 0; i < filter.length; i++) {
+                if (filter[i] === undefined || filter[i] === null || (typeof filter[i] === 'string' && filter[i].trim() === '')) {
                     return true;
                 }
                 if (value === undefined || value === null) {
                     return false;
                 }
-                const _regExp = new RegExp('\\b' + filter[_i].toLowerCase() + '\\b');
-                const _result = _regExp.test(value.toString().toLowerCase());
-                if (_result) {
-                    return _result;
+                const regExp = new RegExp('\\b' + filter[i].toLowerCase() + '\\b');
+                if (regExp.test(value.toString().toLowerCase())) {
+                    return true;
                 }
             }
             return false;
