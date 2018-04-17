@@ -28,7 +28,7 @@ import {RouterModule} from '@angular/router';
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                     </a>
-                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-tieredMenuSub>
+                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -44,6 +44,8 @@ export class TieredMenuSub {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() hideDelay: number = 250;
     
     constructor(public domHandler: DomHandler) {}
     
@@ -78,7 +80,7 @@ export class TieredMenuSub {
     onItemMouseLeave(event: Event) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
-        }, 250);
+        }, this.hideDelay);
     }
     
     itemClick(event: Event, item: MenuItem) {
@@ -109,7 +111,7 @@ export class TieredMenuSub {
     template: `
         <div [ngClass]="{'ui-tieredmenu ui-widget ui-widget-content ui-corner-all':true, 'ui-tieredmenu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style">
-            <p-tieredMenuSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-tieredMenuSub>
+            <p-tieredMenuSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
         </div>
     `,
     providers: [DomHandler]
@@ -129,6 +131,8 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() hideDelay: number = 250
     
     container: any;
     
