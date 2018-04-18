@@ -82,16 +82,16 @@ export class ConfirmDialogDemo &#123;
                             <td>Optional key to match the key of the confirm dialog, necessary to use when component tree has multiple confirm dialogs.</td>
                         </tr>
                         <tr>
-                            <td>header</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Header text of the dialog.</td>
-                        </tr>
-                        <tr>
                             <td>icon</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Icon to display next to the message.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Header text of the dialog.</td>
                         </tr>
                         <tr>
                             <td>accept</td>
@@ -106,16 +106,28 @@ export class ConfirmDialogDemo &#123;
                             <td>Callback to execute when action is rejected.</td>
                         </tr>
                         <tr>
-                            <td>acceptButtonStyleClass</td>
+                            <td>acceptLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Style class of the accept button.</td>
+                            <td>Label of the accept button.</td>
                         </tr>
                         <tr>
-                            <td>rejectButtonStyleClass</td>
+                            <td>rejectLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Style class of the reject button.</td>
+                            <td>Label of the reject button.</td>
+                        </tr>
+                        <tr>
+                            <td>acceptVisible</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Visibility of the accept button.</td>
+                        </tr>
+                        <tr>
+                            <td>rejectLabel</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Visibility of the reject button.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -253,6 +265,18 @@ export class ConfirmDialogDemo &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>acceptButtonStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the accept button.</td>
+                        </tr>
+                        <tr>
+                            <td>rejectButtonStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the reject button.</td>
                         </tr>
                     </tbody>
                 </table>
