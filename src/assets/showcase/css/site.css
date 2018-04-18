@@ -551,13 +551,13 @@ body {
     background-color: #dae8ef;
     color: #404C51;
     border: solid 1px #C1D5DF;
-    padding: 5px;
+    padding: 8px 14px;
     font-size: 16px;
     text-align: left;
 }
 .doc-table tbody td {
     color: #404C51;
-    padding: 4px 10px;
+    padding: 8px 14px;
     border: 1px solid #E5EBF0;
     font-size: 15px;
     opacity: .90;
