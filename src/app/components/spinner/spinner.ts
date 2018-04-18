@@ -31,7 +31,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,SPINNER_VALUE_ACCESSOR],
+    providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
 })
 export class Spinner implements OnInit,ControlValueAccessor {
         
@@ -217,6 +217,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onInputBlur(event) {
         this.focus = false;
+        this.restrictValue();
         this.onModelTouched();
         this.onBlur.emit(event);
     }
@@ -244,21 +245,31 @@ export class Spinner implements OnInit,ControlValueAccessor {
                 value = parseInt(val);
             }
                             
-            if(!isNaN(value)) {
-                if(this.max !== undefined && value > this.max) {
-                    value = this.max;
-                }
-                
-                if(this.min !== undefined && value < this.min) {
-                    value = this.min;
-                }
-            }
-            else {
+            if(isNaN(value)) {
                 value = null;
             }
         }
         
         return value;
+    }
+
+    restrictValue() {
+        let restricted: boolean;
+
+        if(this.max !== undefined && this.value > this.max) {
+            this.value = this.max;
+            restricted = true;
+        }
+        
+        if(this.min !== undefined && this.value < this.min) {
+            this.value = this.min;
+            restricted = true;
+        }
+
+        if(restricted) {
+            this.onModelChange(this.value);
+            this.formatValue();
+        }
     }
     
     formatValue(): void {    
