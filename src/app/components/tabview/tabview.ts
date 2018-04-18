@@ -166,6 +166,8 @@ export class TabView implements AfterContentInit,BlockableUI {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
+
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
     
     initialized: boolean;
     
@@ -174,6 +176,8 @@ export class TabView implements AfterContentInit,BlockableUI {
     _activeIndex: number;
     
     _lazy: boolean;
+
+    preventActiveIndexPropagation: boolean;
 
     constructor(public el: ElementRef) {}
     
@@ -218,8 +222,12 @@ export class TabView implements AfterContentInit,BlockableUI {
             if(selectedTab) {
                 selectedTab.selected = false
             }
+            
             tab.selected = true;
-            this.onChange.emit({originalEvent: event, index: this.findTabIndex(tab)});
+            let selectedTabIndex = this.findTabIndex(tab);
+            this.preventActiveIndexPropagation = true;
+            this.activeIndexChange.emit(selectedTabIndex);
+            this.onChange.emit({originalEvent: event, index: selectedTabIndex});
         }
         
         if(event) {
@@ -293,7 +301,11 @@ export class TabView implements AfterContentInit,BlockableUI {
 
     set activeIndex(val:number) {
         this._activeIndex = val;
-        
+        if(this.preventActiveIndexPropagation) {
+            this.preventActiveIndexPropagation = false;
+            return;
+        }
+
         if(this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
             this.findSelectedTab().selected = false;
             this.tabs[this._activeIndex].selected = true;
