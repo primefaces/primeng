@@ -124,7 +124,7 @@ export class KeyFilter implements Validator {
     validate(c: AbstractControl): { [key: string]: any } {
         if(this.pValidateOnly) {
             let value = this.el.nativeElement.value;
-            if (!this.regex.test(value)) {
+            if (value && !this.regex.test(value)) {
                 return {
                     validatePattern: false
                 }
