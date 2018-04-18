@@ -34,10 +34,12 @@ let idx: number = 0;
     animations: [
         trigger('panelContent', [
             state('hidden', style({
-                height: '0'
+                height: '0',
+                opacity: 0
             })),
             state('visible', style({
-                height: '*'
+                height: '*',
+                opacity: 1
             })),
             transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
