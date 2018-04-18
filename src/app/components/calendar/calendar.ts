@@ -71,7 +71,7 @@ export interface LocaleSettings {
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true"
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
-                                    (click)="onDateSelect($event,date)">
+                                    (click)="onDateSelect($event,date)" draggable="false">
                                     <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                     <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
                                 </a>

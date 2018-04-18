@@ -1598,7 +1598,6 @@ export class Table implements OnInit, AfterContentInit {
                 dropIndex: this.droppedRowIndex
             });
         }
-        
         //cleanup
         this.onRowDragLeave(event, rowElement);
         this.onRowDragEnd(event);
@@ -2946,6 +2945,8 @@ export class ReorderableRow implements AfterViewInit {
         if (this.isEnabled() && this.dt.rowDragging) {
             this.dt.onRowDrop(event, this.el.nativeElement);
         }
+    
+        event.preventDefault()
     }
 }
 
