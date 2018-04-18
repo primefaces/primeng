@@ -547,7 +547,9 @@ export class Table implements OnInit, AfterContentInit {
 
     sortSingle() {
         if(this.sortField && this.sortOrder) {
-            this.first = this.resetPageOnSort ? 0 : this.first;
+            if(this.resetPageOnSort) {
+                this.first = 0;
+            }
 
             if(this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
