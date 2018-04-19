@@ -24,7 +24,7 @@ import {RouterModule} from '@angular/router';
                         </a>
                         <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" 
                             [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
-                            (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
+                            (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="ui-menuitem-text">{{category.label}}</span>
                         </a>
