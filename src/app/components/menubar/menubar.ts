@@ -116,7 +116,7 @@ export class MenubarSub implements OnDestroy {
                 this.hideTimeout = null;
             }
 
-            this.activeItem = item;
+            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item)? null: item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
