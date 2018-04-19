@@ -2512,6 +2512,8 @@ export class EditableColumn implements AfterViewInit {
     
             //tab
             else if (event.keyCode == 9) {
+                this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+                
                 if (event.shiftKey)
                     this.moveToPreviousCell(event);
                 else
