@@ -108,7 +108,18 @@ export class MyModel &#123;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 </code>
 </pre>
-        
+
+            <h3>Footer</h3>
+            <p>MultiSelect uses p-footer element to display custom content inside the footer.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
+    &lt;p-footer&gt;
+        //Footer contentr
+    &lt;/p-footer&gt;
+&lt;/p-multiSelect&gt;
+</code>
+</pre>     
         
             <h3>Properties</h3>
             <div class="doc-tablewrapper">

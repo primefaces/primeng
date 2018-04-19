@@ -141,7 +141,12 @@
     padding:0px;
 }
 
+.ui-multiselect-footer {
+    padding: .25em;
+}
+
 .ui-fluid .ui-multiselect {
     width: 100%;
     box-sizing: border-box;
 }
+
