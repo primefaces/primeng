@@ -635,6 +635,12 @@ export class Table implements OnInit, AfterContentInit {
         let value2 = this.objectUtils.resolveFieldData(data2, multiSortMeta[index].field);
         let result = null;
 
+        if (value1 == null && value2 != null)
+            result = -1;
+        else if (value1 != null && value2 == null)
+            result = 1;
+        else if (value1 == null && value2 == null)
+            result = 0;
         if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));
