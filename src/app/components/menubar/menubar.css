@@ -51,6 +51,7 @@
 
 .ui-menubar .ui-submenu-list .ui-menuitem {
     margin: .125em 0;
+    position: relative;
 }
 
 .ui-menubar .ui-submenu-list .ui-menuitem-link .ui-submenu-icon {
