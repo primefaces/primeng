@@ -123,7 +123,7 @@
     "component-selector": [
       true,
       "element",
-      "app",
+      ["app", "p", "datascroller", "datatable", "table"],
       "kebab-case"
     ],
     "use-input-property-decorator": true,
