@@ -14,15 +14,16 @@ export const RADIO_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [ngClass]="'ui-radiobutton ui-widget'" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" 
-                    [checked]="checked" (change)="onChange($event)" (focus)="onFocus($event)" (blur)="onBlur($event)">
+                    [checked]="checked" (change)="onInputChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
+                    [disabled]="disabled">
             </div>
-            <div (click)="handleClick()"
+            <div (click)="onFakeInputClick($event)"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':rb.checked}"></span>
             </div>
         </div>
-        <label (click)="select()" [class]="labelStyleClass"
+        <label (click)="onLabelClick($event)" [class]="labelStyleClass"
             [ngClass]="{'ui-radiobutton-label':true, 'ui-label-active':rb.checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
@@ -62,19 +63,19 @@ export class RadioButton implements ControlValueAccessor {
 
     constructor(private cd: ChangeDetectorRef) {}
     
-    handleClick() {
-        if(!this.disabled) {
-            this.select();
-        }
+    onFakeInputClick(event) {
+        this.select(event);
     }
     
-    select() {
-        if(!this.disabled) {
-            this.onClick.emit(null);
-            this.inputViewChild.nativeElement.checked = true;
-            this.checked = true;
-            this.onModelChange(this.value);
+    select(event) {
+        if (this.disabled) {
+            event.preventDefault();
+            return;
         }
+        this.onClick.emit(null);
+        this.inputViewChild.nativeElement.checked = true;
+        this.checked = true;
+        this.onModelChange(this.value);
     }
             
     writeValue(value: any) : void {
@@ -99,17 +100,21 @@ export class RadioButton implements ControlValueAccessor {
         this.disabled = val;
     }
     
-    onFocus(event) {
+    onInputFocus(event) {
         this.focused = true;
     }
 
-    onBlur(event) {
+    onInputBlur(event) {
         this.focused = false;
         this.onModelTouched();
     }
     
-    onChange(event) {
-        this.select();
+    onInputChange(event) {
+        this.select(event);
+    }
+
+    onLabelClick(event) {
+        this.select(event);
     }
 }
 
