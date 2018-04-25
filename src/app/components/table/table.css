@@ -130,7 +130,8 @@
 
 /* Edit */
 .ui-table .ui-table-tbody > tr > td.ui-editing-cell {
-    padding: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .ui-table .ui-table-tbody > tr > td.ui-editing-cell p-celleditor >  * {
