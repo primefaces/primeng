@@ -173,7 +173,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             
     public itemTemplate: TemplateRef<any>;
     
-    public focusedItemCheckbox: HTMLInputElement;
+    public focusedItemCheckbox: HTMLInputElement | null;
     
     _options: any[];
     
