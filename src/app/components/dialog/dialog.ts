@@ -103,7 +103,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() autoAlign: boolean = true;
 
-    @Input() focusOnDisplay: boolean = true;
+    @Input() focusOnShow: boolean = true;
         
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
@@ -186,7 +186,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.executePostDisplayActions) {
             this.onShow.emit({});
             this.positionOverlay();
-            if(this.focusOnDisplay) {
+            if(this.focusOnShow) {
                 this.focus();
             }
             this.currentHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
