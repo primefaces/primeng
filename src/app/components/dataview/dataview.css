@@ -1,3 +1,7 @@
+.ui-dataview {
+    position: relative;
+}
+
 .ui-dataview .ui-paginator {
 	text-align: center;
 }
@@ -35,3 +39,21 @@
     width: 100%;
 }
 
+/* Loader */
+.ui-dataview-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.ui-dataview-loading-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    margin-top: -1em;
+    margin-left: -1em;
+}
