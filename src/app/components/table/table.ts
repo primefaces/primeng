@@ -2790,10 +2790,16 @@ export class TableHeaderCheckbox  {
 
     disabled: boolean;
 
-    subscription: Subscription;
+    selectionChangeSubscription: Subscription;
+
+    valueChangeSubscription: Subscription;
 
     constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
-        this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+        this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
+            this.checked = this.updateCheckedState();
+        });
+
+        this.selectionChangeSubscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
         });
     }
@@ -2819,13 +2825,18 @@ export class TableHeaderCheckbox  {
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+        if (this.selectionChangeSubscription) {
+            this.selectionChangeSubscription.unsubscribe();
+        }
+
+        if (this.valueChangeSubscription) {
+            this.valueChangeSubscription.unsubscribe();
         }
     }
 
     updateCheckedState() {
-        return (this.dt.value && this.dt.value.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === this.dt.value.length);
+        const val = this.dt.filteredValue||this.dt.value;
+        return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
     }
    
 }
