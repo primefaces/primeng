@@ -173,7 +173,7 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() virtualScrollDelay: number = 500;
 
-    @Input() virtualRowHeight: number = 27;
+    @Input() virtualRowHeight: number = 28;
 
     @Input() frozenWidth: string;
 
@@ -1864,7 +1864,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         if(this.dt.virtualScroll) {
             let viewport = this.domHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
             let tableHeight = this.domHandler.getOuterHeight(this.scrollTableViewChild.nativeElement);
-            let pageHeight = 28 * this.dt.rows;
+            let pageHeight = this.dt.virtualRowHeight * this.dt.rows;
             let virtualTableHeight = this.domHandler.getOuterHeight(this.virtualScrollerViewChild.nativeElement);
             let pageCount = (virtualTableHeight / pageHeight)||1;
             let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
