@@ -1230,6 +1230,7 @@ export class Table implements OnInit, AfterContentInit {
         this._sortField = null;
         this._sortOrder = 1;
         this._multiSortMeta = null;
+        this.tableService.onSort(null);
         
         this.filteredValue = null;
         this.filters = {};
