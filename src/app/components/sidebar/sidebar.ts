@@ -48,6 +48,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() modal: boolean = true;
         
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -117,12 +119,18 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
         if(this.autoZIndex) {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
-        this.enableModality();
+
+        if(this.modal) {
+            this.enableModality();
+        }
     }
     
     hide() {
         this.onHide.emit({});
-        this.disableModality();
+
+        if(this.modal) {
+            this.disableModality();
+        }
     }
     
     close(event: Event) {
