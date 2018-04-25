@@ -15,9 +15,9 @@ your issue will be added to the waiting list of community issues and will be rev
 ```
 
 **Plunkr Case (Bug Reports)**
-Please fork the plunkr below and create a case demonstrating your bug report. Issues without a plunkr have much less possibility to be reviewed.
+Please demonstrate your case at stackblitz by using the issue template below. Issues without a test case have much less possibility to be reviewd in detail and assisted.
 
-http://plnkr.co/edit/qtZi5lB3DjkNt7Kdivg9?p=preview
+https://stackblitz.com/github/primefaces/primeng-issue-template
 
 **Current behavior**
 <!-- Describe how the bug manifests. -->
