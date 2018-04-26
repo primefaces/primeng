@@ -14,9 +14,10 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #inputfield [attr.type]="type" [attr.id]="inputId" [value]="valueAsString" class="ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.name]="name"
+            <input #inputfield [attr.type]="type" [attr.id]="inputId" [value]="valueAsString" [attr.name]="name"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [attr.readonly]="readonly" [attr.required]="required"
-            (keydown)="onInputKeydown($event)" (keyup)="onInputKeyup($event)" (keypress)="onInputKeyPress($event)" (blur)="onInputBlur($event)" (change)="handleChange($event)" (focus)="onInputFocus($event)">
+            (keydown)="onInputKeydown($event)" (keyup)="onInputKeyup($event)" (keypress)="onInputKeyPress($event)" (blur)="onInputBlur($event)" (change)="handleChange($event)" (focus)="onInputFocus($event)"
+            [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
             <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled" [attr.readonly]="readonly"
                 (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event)" (mouseup)="onUpButtonMouseup($event)">
                 <span class="fa fa-caret-up ui-clickable"></span>
@@ -31,7 +32,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,SPINNER_VALUE_ACCESSOR],
+    providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
 })
 export class Spinner implements OnInit,ControlValueAccessor {
         
@@ -72,6 +73,10 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() required: boolean;
 
     @Input() name: string;
+
+    @Input() inputStyle: string;
+
+    @Input() inputStyleClass: string;
             
     value: number;
     
@@ -149,6 +154,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.inputfieldViewChild.nativeElement.focus();
             this.repeat(event, null, 1);
             this.updateFilledState();
+            event.preventDefault();
         }
     }
     
@@ -169,6 +175,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.inputfieldViewChild.nativeElement.focus();
             this.repeat(event, null, -1);
             this.updateFilledState();
+            event.preventDefault();
         }
     }
     
@@ -215,6 +222,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onInputBlur(event) {
         this.focus = false;
+        this.restrictValue();
         this.onModelTouched();
         this.onBlur.emit(event);
     }
@@ -242,21 +250,31 @@ export class Spinner implements OnInit,ControlValueAccessor {
                 value = parseInt(val);
             }
                             
-            if(!isNaN(value)) {
-                if(this.max !== undefined && value > this.max) {
-                    value = this.max;
-                }
-                
-                if(this.min !== undefined && value < this.min) {
-                    value = this.min;
-                }
-            }
-            else {
+            if(isNaN(value)) {
                 value = null;
             }
         }
         
         return value;
+    }
+
+    restrictValue() {
+        let restricted: boolean;
+
+        if(this.max !== undefined && this.value > this.max) {
+            this.value = this.max;
+            restricted = true;
+        }
+        
+        if(this.min !== undefined && this.value < this.min) {
+            this.value = this.min;
+            restricted = true;
+        }
+
+        if(restricted) {
+            this.onModelChange(this.value);
+            this.formatValue();
+        }
     }
     
     formatValue(): void {    

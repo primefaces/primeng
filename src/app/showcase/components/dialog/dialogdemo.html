@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+    <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
         <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -115,7 +115,7 @@ export class ModelComponent &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog [autoAlign]="false" [contentStyle]="&#123;'max-height':'200px' [autoAlign]="true"&#125;"&gt;
+&lt;p-dialog [contentStyle]="&#123;'max-height':'200px' [autoAlign]="true"&#125;"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="let item of items"&gt;&#123;&#123;item&#125;&#125;&lt;li&gt;
     &lt;/ul&gt;
@@ -315,6 +315,12 @@ export class ModelComponent &#123;
                             <td>false</td>
                             <td>Whether to reposition after dynamic content changes the height of the dialog.</td>
                         </tr>
+                        <tr>
+                            <td>focusOnShow</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When enabled, first button receives focus on show.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -398,7 +404,7 @@ export class ModelComponent &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"&gt;
     &lt;span&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 

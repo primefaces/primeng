@@ -24,7 +24,7 @@ import {ObjectUtils} from '../utils/objectutils';
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightSource}" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,-1)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, -1)">
-                    <ng-template ngFor let-item [ngForOf]="source" let-i="index" let-l="last">
+                    <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="trackBy" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, -1)" (drop)="onDrop($event, i, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource), 'ui-state-disabled': disabled}"
@@ -53,7 +53,7 @@ import {ObjectUtils} from '../utils/objectutils';
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightTarget}" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,1)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event,1)">
-                    <ng-template ngFor let-item [ngForOf]="target" let-i="index" let-l="last">
+                    <ng-template ngFor let-item [ngForOf]="target" [ngForTrackBy]="trackBy" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, 1)" (drop)="onDrop($event, i, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget), 'ui-state-disabled': disabled}"
@@ -92,6 +92,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() responsive: boolean;
     
     @Input() filterBy: string;
+
+    @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Input() showSourceFilter: boolean = true;
 

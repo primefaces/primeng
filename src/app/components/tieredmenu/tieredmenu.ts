@@ -9,8 +9,8 @@ import {RouterModule} from '@angular/router';
     template: `
         <ul [ngClass]="{'ui-widget-content ui-corner-all ui-shadow ui-submenu-list': !root}" (click)="listClick($event)">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
-                <li *ngIf="!child.separator" #listItem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menuitem-active':listItem==activeItem}"
+                <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}">
+                <li *ngIf="!child.separator" #listItem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menuitem-active':listItem==activeItem,'ui-helper-hidden': child.visible === false}"
                     [class]="child.styleClass" [ngStyle]="child.style"
                     (mouseenter)="onItemMouseEnter($event, listItem, child)" (mouseleave)="onItemMouseLeave($event)">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
@@ -28,7 +28,7 @@ import {RouterModule} from '@angular/router';
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                     </a>
-                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-tieredMenuSub>
+                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -44,6 +44,8 @@ export class TieredMenuSub {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() hideDelay: number = 250;
     
     constructor(public domHandler: DomHandler) {}
     
@@ -78,7 +80,7 @@ export class TieredMenuSub {
     onItemMouseLeave(event: Event) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
-        }, 250);
+        }, this.hideDelay);
     }
     
     itemClick(event: Event, item: MenuItem) {
@@ -109,7 +111,7 @@ export class TieredMenuSub {
     template: `
         <div [ngClass]="{'ui-tieredmenu ui-widget ui-widget-content ui-corner-all':true, 'ui-tieredmenu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style">
-            <p-tieredMenuSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-tieredMenuSub>
+            <p-tieredMenuSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
         </div>
     `,
     providers: [DomHandler]
@@ -129,6 +131,8 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() hideDelay: number = 250
     
     container: any;
     

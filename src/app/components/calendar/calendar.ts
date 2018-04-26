@@ -71,7 +71,7 @@ export interface LocaleSettings {
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true"
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
-                                    (click)="onDateSelect($event,date)">
+                                    (click)="onDateSelect($event,date)" draggable="false">
                                     <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                     <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
                                 </a>
@@ -549,7 +549,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                     this.currentHour = date.getUTCHours() == 0 ? 12 : date.getUTCHours() % 12;
                 else
                     this.currentHour = date.getUTCHours();
-            } 
+            }
             else {
                 this.currentMinute = date.getMinutes();
                 this.currentSecond = date.getSeconds();
@@ -739,10 +739,16 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         if(this.minDate && this.minDate > date) {
             date = this.minDate;
+            this.currentHour = date.getHours();
+            this.currentMinute = date.getMinutes();
+            this.currentSecond = date.getSeconds();
         }
         
         if(this.maxDate && this.maxDate < date) {
             date = this.maxDate;
+            this.currentHour = date.getHours();
+            this.currentMinute = date.getMinutes();
+            this.currentSecond = date.getSeconds();
         }
         
         if(this.isSingleSelection()) {
@@ -788,9 +794,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 let stringArrValue = null;
                 if(this.value) {
                     stringArrValue = this.value.map(date => this.formatDateTime(date));
-                }        
-                this.onModelChange(stringArrValue);        
-            }   
+                }
+                this.onModelChange(stringArrValue);
+            }
         }
     }
     
@@ -1211,7 +1217,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             else {
                 value.setUTCHours(this.currentHour);
             }
-        } 
+        }
         else {
             if (this.hourFormat == '12') {
                 if (this.currentHour === 12)
@@ -1513,7 +1519,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             hours-=12;
         }
         
-        output += (hours < 10) ? '0' + hours : hours;
+        output += hours === 0 ? 12 : (hours < 10) ? '0' + hours : hours;
         output += ':';
         output += (minutes < 10) ? '0' + minutes : minutes;
         

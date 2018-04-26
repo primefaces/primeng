@@ -58,7 +58,8 @@
     "no-eval": true,
     "no-inferrable-types": [
       true,
-      "ignore-params"
+      "ignore-params",
+      "ignore-properties"
     ],
     "no-misused-new": true,
     "no-non-null-assertion": true,
@@ -133,7 +134,7 @@
     "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
-    "component-class-suffix": true,
+    "component-class-suffix": false,
     "directive-class-suffix": true,
     "no-access-missing-member": true,
     "templates-use-public": true,
