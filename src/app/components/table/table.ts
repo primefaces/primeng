@@ -1235,11 +1235,15 @@ export class Table implements OnInit, AfterContentInit {
     public exportCSV(options?: any) {
         let data = this.filteredValue || this.value;
         let csv = '\ufeff';
+        let exportFilename = this.exportFilename;
+        
+        if (options) {
+            exportFilename = options.exportFilename || this.exportFilename;
 
-        if (options && options.selectionOnly) {
-            data = this.selection || [];
+            if (options.selectionOnly) {
+                data = this.selection || [];
+            }
         }
-
         //headers
         for (let i = 0; i < this.columns.length; i++) {
             let column = this.columns[i];
@@ -1279,7 +1283,7 @@ export class Table implements OnInit, AfterContentInit {
         });
 
         if (window.navigator.msSaveOrOpenBlob) {
-            navigator.msSaveOrOpenBlob(blob, this.exportFilename + '.csv');
+            navigator.msSaveOrOpenBlob(blob, exportFilename + '.csv');
         }
         else {
             let link = document.createElement("a");
@@ -1287,7 +1291,7 @@ export class Table implements OnInit, AfterContentInit {
             document.body.appendChild(link);
             if (link.download !== undefined) {
                 link.setAttribute('href', URL.createObjectURL(blob));
-                link.setAttribute('download', this.exportFilename + '.csv');
+                link.setAttribute('download', exportFilename + '.csv');
                 link.click();
             }
             else {

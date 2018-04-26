@@ -12,6 +12,8 @@
         <ng-template pTemplate="caption">
             <div class="ui-helper-clearfix">
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data - Custom File Name" (click)="dt.exportCSV({exportFilename:'myData'})" style="float:left"></button>                                                               
+                <button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only - Custom File Name" (click)="dt.exportCSV({exportFilename:'myData',selectionOnly:true})" style="float:right"></button> 
                 <button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
             </div>
         </ng-template>
@@ -77,6 +79,8 @@ export class TableExportDemo implements OnInit &#123;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data - Custom File Name" (click)="dt.exportCSV(&#123;exportFilename:'myData'&#125;)" style="float:left"&gt;&lt;/button&gt;       
+            &lt;button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only - Custom File Name" (click)="dt.exportCSV(&#123;exportFilename:'myData',selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;                             
             &lt;button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
