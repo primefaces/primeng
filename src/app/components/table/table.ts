@@ -1219,7 +1219,7 @@ export class Table implements OnInit, AfterContentInit {
                 if (value === undefined || value === null) {
                     return false;
                 }
-                const regExp = new RegExp('\\b' + filter[i].toLowerCase() + '\\b');
+                const regExp = new RegExp('\\b' + filter[i].toLowerCase().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b');
                 if (regExp.test(value.toString().toLowerCase())) {
                     return true;
                 }
