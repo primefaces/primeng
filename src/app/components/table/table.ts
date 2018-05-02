@@ -413,6 +413,8 @@ export class Table implements OnInit, AfterContentInit {
                 this.sortSingle();
             else if (this.sortMode == 'multiple')
                 this.sortMultiple();
+            else if(this.hasFilter())       //sort already filters
+                this._filter();
         }
 
         if(this.virtualScroll && this.virtualScrollCallback) {
