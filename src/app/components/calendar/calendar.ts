@@ -15,12 +15,12 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
 
 export interface LocaleSettings {
     firstDayOfWeek?: number;
+    yearNameSuffix?: string;
     dayNames: string[];
     dayNamesShort: string[];
     dayNamesMin: string[];
     monthNames: string[];
     monthNamesShort: string[];
-    yearNameToPostfix?: string;
     today: string;
     clear: string;
 }
@@ -67,7 +67,7 @@ export interface LocaleSettings {
                             </select>
                             <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)">
                                 <option [value]="year" *ngFor="let year of yearOptions" [selected]="year == currentYear">
-                                    {{year}}{{locale?.yearNameToPostfix}}
+                                    {{year}}{{locale?.yearNameSuffix}}
                                 </option>
                             </select>
                             <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
