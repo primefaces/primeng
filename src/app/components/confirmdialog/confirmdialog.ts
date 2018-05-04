@@ -6,7 +6,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
 import {ButtonModule} from '../button/button';
 import {Confirmation} from '../common/confirmation';
 import {ConfirmationService} from '../common/confirmationservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-confirmDialog',
@@ -47,33 +47,33 @@ import {Subscription}   from 'rxjs/Subscription';
     providers: [DomHandler]
 })
 export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
-    
+
     @Input() header: string;
-    
+
     @Input() icon: string;
-    
+
     @Input() message: string;
-    
+
     @Input() acceptIcon: string = 'fa-check';
-    
+
     @Input() acceptLabel: string = 'Yes';
-    
+
     @Input() acceptVisible: boolean = true;
 
     @Input() rejectIcon: string = 'fa-close';
-    
+
     @Input() rejectLabel: string = 'No';
-    
+
     @Input() rejectVisible: boolean = true;
-    
+
     @Input() acceptButtonStyleClass: string;
-    
+
     @Input() rejectButtonStyleClass: string;
-        
+
     @Input() width: any;
 
     @Input() height: any;
-    
+
     @Input() closeOnEscape: boolean = true;
 
     @Input() rtl: boolean;
@@ -81,32 +81,32 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() closable: boolean = true;
 
     @Input() responsive: boolean = true;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() key: string;
-        
+
     @ContentChild(Footer) footer;
-    
+
     confirmation: Confirmation;
-        
+
     _visible: boolean;
-    
+
     documentEscapeListener: any;
-    
+
     documentResponsiveListener: any;
-    
+
     mask: any;
-        
+
     contentContainer: any;
-    
+
     positionInitialized: boolean;
-    
+
     subscription: Subscription;
-    
+
     executePostShowActions: boolean;
-            
-    constructor(public el: ElementRef, public domHandler: DomHandler, 
+
+    constructor(public el: ElementRef, public domHandler: DomHandler,
             public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
             if(confirmation.key === this.key) {
@@ -123,7 +123,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
-                
+
                 if(this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
@@ -131,36 +131,36 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
                 this.visible = true;
             }
-        });         
+        });
     }
-    
+
     @Input() get visible(): boolean {
         return this._visible;
     }
 
     set visible(val:boolean) {
         this._visible = val;
-        
-        if(this._visible) {      
+
+        if(this._visible) {
             if(!this.positionInitialized) {
                 this.center();
                 this.positionInitialized = true;
             }
-            
+
             this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
             this.bindGlobalListeners();
             this.executePostShowActions = true;
-        } 
-        
+        }
+
         if(this._visible)
             this.enableModality();
         else
             this.disableModality();
     }
-    
+
     ngAfterViewInit() {
         this.contentContainer = this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog-content');
-        
+
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.el.nativeElement);
@@ -168,14 +168,14 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                 this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
         }
     }
-    
+
     ngAfterViewChecked() {
         if(this.executePostShowActions) {
             this.domHandler.findSingle(this.el.nativeElement.children[0], 'button').focus();
             this.executePostShowActions = false;
         }
     }
-        
+
     center() {
         let container = this.el.nativeElement.children[0];
         let elementWidth = this.domHandler.getOuterWidth(container);
@@ -195,7 +195,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         container.style.left = x + 'px';
         container.style.top = y + 'px';
     }
-    
+
     enableModality() {
         if(!this.mask) {
             this.mask = document.createElement('div');
@@ -205,7 +205,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.domHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
-    
+
     disableModality() {
         if(this.mask) {
             document.body.removeChild(this.mask);
@@ -213,25 +213,25 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.mask = null;
         }
     }
-    
+
     close(event: Event) {
         if(this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
-        
+
         this.hide();
         event.preventDefault();
     }
-    
+
     hide() {
         this.visible = false;
         this.unbindGlobalListeners();
     }
-    
+
     moveOnTop() {
         this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
     }
-    
+
     bindGlobalListeners() {
         if(this.closeOnEscape && this.closable && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
@@ -242,7 +242,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                 }
             });
         }
-        
+
         if(this.responsive) {
             this.zone.runOutsideAngular(() => {
                 this.documentResponsiveListener = this.center.bind(this);
@@ -250,51 +250,51 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             });
         }
     }
-    
+
     unbindGlobalListeners() {
         if(this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
-        
+
         if(this.documentResponsiveListener) {
             window.removeEventListener('resize', this.documentResponsiveListener);
             this.documentResponsiveListener = null;
         }
     }
-                
+
     ngOnDestroy() {
         this.disableModality();
-                        
+
         if(this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
-        
+
         if(this.documentEscapeListener) {
             this.documentEscapeListener();
         }
-        
+
         if(this.appendTo && this.appendTo === 'body') {
             document.body.removeChild(this.el.nativeElement);
         }
-        
+
         this.subscription.unsubscribe();
     }
-    
+
     accept() {
         if(this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
-        
+
         this.hide();
         this.confirmation = null;
     }
-    
+
     reject() {
         if(this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
-        
+
         this.hide();
         this.confirmation = null;
     }
