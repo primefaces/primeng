@@ -1951,7 +1951,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     bindDocumentEditListener() {
         if(!this.documentEditListener) {
             this.documentEditListener = this.renderer.listen('document', 'click', (event) => {
-                if(!this.editorClick) {
+                if(!this.editorClick && event.button !== 2) {
                     this.closeCell();
                 }
                 this.editorClick = false;
