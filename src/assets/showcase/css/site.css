@@ -1035,7 +1035,7 @@ a {
 /* PRO */
 .home .prosupport,
 .support-image {
-    background-color: #20272a;
+    background-color: rgba(79,41,64,.8);
     padding: 30px;
     color: #ffffff;
 }
@@ -1062,39 +1062,6 @@ a {
 }
 
 .support p {
-    line-height: 1.5;
-}
-
-/* NGCONF */
-.home .ngconf,
-.ngconf-image {
-    background-color: rgba(79,41,64,.8);
-    padding: 30px;
-    color: #ffffff;
-}
-
-.ngconf-image .ui-md-6:last-child {
-    text-align: right;
-}
-
-.ngconf li {
-    line-height: 1.5;
-}
-
-.home .ngconf p {
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.home .ngconf .ui-md-6:last-child {
-    text-align: center;
-}
-
-.home .ngconf .home-button {
-    margin-top: 10px;
-}
-
-.ngconf p {
     line-height: 1.5;
 }
 
