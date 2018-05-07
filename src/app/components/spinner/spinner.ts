@@ -35,7 +35,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
 })
 export class Spinner implements OnInit,ControlValueAccessor {
-        
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -77,7 +77,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() inputStyle: string;
 
     @Input() inputStyleClass: string;
-            
+    
     value: number;
     
     valueAsString: string = '';
@@ -85,16 +85,18 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
-        
+    
     keyPattern: RegExp = /[0-9\+\-]/;
-        
+    
     public precision: number;
     
     public timer: any;
-        
+    
     public focus: boolean;
     
     public filled: boolean;
+    
+    public negativeSeparator = '-';
     
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
     
@@ -161,9 +163,9 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onUpButtonMouseup(event: Event) {
         if(!this.disabled) {
             this.clearTimer();
-        }        
+        }
     }
-        
+    
     onUpButtonMouseleave(event: Event) {
         if(!this.disabled) {
             this.clearTimer();
@@ -184,14 +186,14 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.clearTimer();
         }
     }
-        
+    
     onDownButtonMouseleave(event: Event) {
         if(!this.disabled) {
             this.clearTimer();
         }
     }
     
-    onInputKeydown(event: KeyboardEvent) {  
+    onInputKeydown(event: KeyboardEvent) {
         if(event.which == 38) {
             this.spin(event, 1);
             event.preventDefault();
@@ -206,16 +208,16 @@ export class Spinner implements OnInit,ControlValueAccessor {
         let inputChar = String.fromCharCode(event.charCode);
         if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator && event.keyCode != 9 && event.keyCode != 8 && event.keyCode != 37 && event.keyCode != 39 && event.keyCode != 46) {
             event.preventDefault();
-        }    
+        }
     }
 
     onInputKeyup(event: KeyboardEvent) {
         let inputValue = (<HTMLInputElement> event.target).value;
-        if (event.key !== this.decimalSeparator && event.key !== this.thousandSeparator) {
+        if (event.key !== this.decimalSeparator && event.key !== this.thousandSeparator && event.key !== this.negativeSeparator) {
             this.value = this.parseValue(inputValue);
             this.formatValue();
         }
-       
+    
         this.onModelChange(this.value);
         this.updateFilledState();
     }
@@ -242,14 +244,14 @@ export class Spinner implements OnInit,ControlValueAccessor {
         if(val.trim() === '') {
             value = null;
         }
-        else {        
+        else {
             if(this.precision) {
                 value = parseFloat(val.replace(',','.'));
             }
             else {
                 value = parseInt(val);
             }
-                            
+            
             if(isNaN(value)) {
                 value = null;
             }
@@ -277,7 +279,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         }
     }
     
-    formatValue(): void {    
+    formatValue(): void {
         if(this.value !== null && this.value !== undefined) {
             let textValue = String(this.value).replace('.', this.decimalSeparator);
             
@@ -299,7 +301,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     handleChange(event: Event) {
         this.onChange.emit(event);
     }
-        
+    
     clearTimer() {
         if(this.timer) {
             clearInterval(this.timer);
@@ -307,8 +309,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
     
     writeValue(value: any) : void {
-        this.value = value;    
-        this.formatValue();    
+        this.value = value;
+        this.formatValue();
         this.updateFilledState();
     }
     

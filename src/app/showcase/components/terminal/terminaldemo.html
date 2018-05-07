@@ -32,7 +32,7 @@ import &#123;TerminalService&#125; from 'primeng/components/terminal/terminalser
     providers: [TerminalService]
 &#125;)
 export class TerminalDemo &#123;
-    
+
     constructor(private terminalService: TerminalService) &#123;
         this.terminalService.commandHandler.subscribe(command => &#123;
             let response = (command === 'date') ? new Date().toDateString() : 'Unknown command: ' + command;
@@ -82,7 +82,7 @@ export class TerminalDemo &#123;
                     </tbody>
                 </table>
             </div>
-            
+
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -128,12 +128,12 @@ export class TerminalDemo &#123;
 &lt;p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"&gt;&lt;/p-terminal&gt;
 </code>
 </pre>
-    
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
 import &#123;TerminalService&#125; from 'primeng/components/terminal/terminalservice';
-import &#123;Subscription&#125; from 'rxjs/Subscription';
+import &#123;Subscription&#125; from 'rxjs';
 
 @Component(&#123;
     templateUrl: './terminaldemo.html',
@@ -142,14 +142,14 @@ import &#123;Subscription&#125; from 'rxjs/Subscription';
 export class TerminalDemo &#123;
 
     subscription: Subscription;
-    
+
     constructor(private terminalService: TerminalService) &#123;
         this.terminalService.commandHandler.subscribe(command => &#123;
             let response = (command === 'date') ? new Date().toDateString() : 'Unknown command: ' + command;
             this.terminalService.sendResponse(response);
         &#125;);
     &#125;
-    
+
     ngOnDestroy() &#123;
         if(this.subscription) &#123;
             this.subscription.unsubscribe();
