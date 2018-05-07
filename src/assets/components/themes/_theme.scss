@@ -634,14 +634,26 @@
     }
 
     .ui-sortable-column {
+        .ui-sortable-column-icon {
+            color: $headerTextColor;
+        }
+
         &.ui-state-highlight {
             background-color: $stateHighlightBgColor;
             color: $stateHighlightTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHighlightTextColor;
+            }
         }
 
         &:not(.ui-state-highlight):hover {
             background: $stateHoverBgColor;
             color: $stateHoverTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHoverTextColor;
+            }
         }
     }
 

@@ -2018,12 +2018,18 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <span class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></span>
+        <a href="#" (click)="onClick($event)" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
+            <i class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></i>
+        </a>
     `
 })
 export class SortIcon implements OnInit, OnDestroy {
 
     @Input() field: string;
+    
+    @Input() ariaLabelDesc: string;
+    
+    @Input() ariaLabelAsc: string;
 
     subscription: Subscription;
 
@@ -2037,6 +2043,10 @@ export class SortIcon implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.updateSortState();
+    }
+    
+    onClick(event){
+        event.preventDefault();
     }
 
     updateSortState() {

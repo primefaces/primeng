@@ -819,6 +819,9 @@ export class CustomTableSortDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p>For screen reader support of sortable headers, use ariaLabelDesc and ariaLabelAsc properties
+                on p-sortIcon directive.</p>
+
             <p>See the <a [routerLink]="['/table/sort']">live example.</a></p>
 
             <h3>Filtering</h3>
@@ -1631,7 +1634,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
                 on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight
-                property which defaults to 28px, in your row template also assign the height of the row with the same value for smooth scrolling. 
+                property which defaults to 28px, in your row template also assign the height of the row with the same value for smooth scrolling.
                 Note that variable row height is not supported due to the nature of the virtual scrolling behavior.
             </p>
 <pre>
