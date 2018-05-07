@@ -372,7 +372,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 document.body.removeChild(this.container);
             else if (this.appendTo === 'target')
                 this.el.nativeElement.removeChild(this.container);
-            else 
+            else
                 this.domHandler.removeChild(this.container, this.appendTo);
         }
         
@@ -382,6 +382,14 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.unbindEvents();
         this.remove();
+    
+        if (this.showTimeout) {
+            clearTimeout(this.showTimeout);
+        }
+    
+        if (this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+        }
     }
 }
 
