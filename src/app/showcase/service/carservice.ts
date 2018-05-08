@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/toPromise';
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -14,27 +12,27 @@ export class CarService {
     return this.http.get<any>('assets/showcase/data/cars-small.json')
       .toPromise()
       .then(res => <Car[]>res.data)
-      .then(data => { return data; });
+      .then(data => data);
     }
 
     getCarsMedium() {
     return this.http.get<any>('assets/showcase/data/cars-medium.json')
       .toPromise()
       .then(res => <Car[]>res.data)
-      .then(data => { return data; });
+      .then(data => data);
     }
 
     getCarsLarge() {
     return this.http.get<any>('assets/showcase/data/cars-large.json')
       .toPromise()
       .then(res => <Car[]>res.data)
-      .then(data => { return data; });
+      .then(data => data);
     }
 
   getCarsHuge() {
     return this.http.get<any>('assets/showcase/data/cars-huge.json')
       .toPromise()
       .then(res => <Car[]>res.data)
-      .then(data => { return data; });
+      .then(data => data);
   }
 }

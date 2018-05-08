@@ -1,10 +1,10 @@
-import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
+import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter,
     ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header } from '../common/shared';
 import { BlockableUI } from '../common/blockableui';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 let idx: number = 0;
 
@@ -124,29 +124,29 @@ export class AccordionTab implements OnDestroy {
     `
 })
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
-    
+
     @Input() multiple: boolean;
-    
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @Output() onOpen: EventEmitter<any> = new EventEmitter();
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() expandIcon: string = 'fa fa-fw fa-caret-right';
 
     @Input() collapseIcon: string = 'fa fa-fw fa-caret-down';
-    
+
     @Input() lazy: boolean;
 
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
     tabListSubscription: Subscription;
-    
+
     private _activeIndex: any;
-    
+
     public tabs: AccordionTab[] = [];
 
     constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
@@ -164,11 +164,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         this.tabs = this.tabList.toArray();
         this.updateSelectionState();
     }
-      
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
-    } 
-    
+    }
+
     @Input() get activeIndex(): any {
         return this._activeIndex;
     }
