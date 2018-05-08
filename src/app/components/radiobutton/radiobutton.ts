@@ -16,7 +16,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
                 <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" 
                     [checked]="checked" (change)="onChange($event)" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled">
             </div>
-            <div (click)="handleClick($event, rb, focus)"
+            <div (click)="handleClick($event, rb, true)"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':rb.checked}"></span>
