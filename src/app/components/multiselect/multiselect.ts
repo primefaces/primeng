@@ -25,7 +25,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
-                <span class="ui-clickable" [ngClass]="dropdownIcon"></span>
+                <span class="ui-multiselect-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div #panel [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']" [ngStyle]="panelStyle"
                 [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
@@ -40,7 +40,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
                         <input #filterInput type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
-                        <span class="fa fa-fw fa-search"></span>
+                        <span class="ui-multiselect-filter-icon fa fa-fw fa-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
                         <span class="fa fa-close"></span>

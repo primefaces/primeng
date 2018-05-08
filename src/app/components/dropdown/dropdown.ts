@@ -46,14 +46,14 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <i class="ui-dropdown-clear-icon fa fa-close" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
-                <span class="ui-clickable" [ngClass]="dropdownIcon"></span>
+                <span class="ui-dropdown-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-shadow'" [@panelState]="panelVisible ? 'visible' : 'hidden'"
                 [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event)">
-                    <span class="fa fa-search"></span>
+                    <span class="ui-dropdown-filter-icon fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="lazy ? panelVisible : true">

@@ -33,7 +33,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         </div>
         <div class="ui-listbox-filter-container" *ngIf="filter">
           <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
-          <span class="fa fa-search"></span>
+          <span class="ui-listbox-filter-icon fa fa-search"></span>
         </div>
       </div>
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
