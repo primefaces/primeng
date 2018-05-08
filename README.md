@@ -21,7 +21,7 @@ PrimeNG is a collection of rich UI components for Angular. All widgets are open 
 
 - **Productivity:** Allocate your valuable time on business logic rather than dealing with the complex user interface requirements.
 
-- **Themes:** Don’t get tied up in just one look&feel. Choose from a variety of options including material and flat design.
+- **Themes:** Don't get tied up in just one look&feel. Choose from a variety of options including material and flat design.
 
 - **Templates:** Professionally designed highly customizable native Angular CLI application templates to get started in no time.
 
