@@ -182,6 +182,7 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     }   
          
     ngOnDestroy() {
+        this.overlayViewChild.nativeElement.remove();
         this.unbindDocumentClickListener();
     }
 }
