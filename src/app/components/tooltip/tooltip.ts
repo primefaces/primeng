@@ -109,7 +109,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.show();
 
         if (this.life) {
-            this.hideTimeout = setTimeout(() => { this.hide() }, this.hideDelay);
+            let duration = this.showDelay ? this.life + this.showDelay : this.life;
+            this.hideTimeout = setTimeout(() => { this.hide() }, duration);
         }
     }
 
@@ -117,10 +118,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.active = false;
         this.clearShowTimeout();
 
-        if (this.hideDelay)
+        if (this.hideDelay) {
+            this.clearHideTimeout();    //life timeout
             this.hideTimeout = setTimeout(() => { this.hide() }, this.hideDelay);
-        else
+        }
+        else {
             this.hide();
+        }
     }
 
     get text(): string {
