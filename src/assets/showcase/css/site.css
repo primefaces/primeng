@@ -325,6 +325,23 @@ body {
     width: 300px;
 }
 
+#layout-sidebar .menu-search {
+    padding: 12px 26px;
+}
+
+
+#layout-sidebar .menu-search input {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: none;
+    box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5);
+    outline: none;
+    font-size: 14px;
+    padding-left: 30px;
+}
+
 #layout-content {
     margin-left: 300px;
     padding-top: 70px;

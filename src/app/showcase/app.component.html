@@ -58,7 +58,10 @@
     </div>
 
     <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
-        <div class="layout-menu">
+        <div class="menu-search">
+            <input type="text" placeholder="Search Menu" [(ngModel)]="searchText" (keyup)="filterMenu()"/>
+        </div>
+        <div #sidebarmenu class="layout-menu">
             <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
                 <img src="assets/showcase/images/icons/input-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/input.svg" class="layout-menu-icon-inactive"/>

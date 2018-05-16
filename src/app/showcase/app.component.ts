@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
+
+declare var $;
 
 @Component({
   selector: 'app-root',
@@ -38,9 +40,28 @@ export class AppComponent implements OnInit{
     activeMenuId: string;
     
     notification: boolean = false;
+
+    searchText: string;
+    allComponentCategories: any; 
+    allComponents:any;
+
+    @ViewChild('sidebarmenu') _sidebarmenu;
+
+    constructor(private elemRef: ElementRef){
+
+    }
     
     ngOnInit() {
       setTimeout(()=>this.notification = true , 1000)
+    }
+
+    ngAfterViewInit() {
+        console.log(this._sidebarmenu);
+        if($){
+            this.allComponentCategories = $(this._sidebarmenu.nativeElement).find(">a");
+            this.allComponents = $(this._sidebarmenu.nativeElement).find("div.submenuhide");
+        }
+        
     }
     
     changeTheme(event: Event, theme: string) {
@@ -57,5 +78,67 @@ export class AppComponent implements OnInit{
     closeNotification(event) {
       this.notification = false;
       event.preventDefault();
+    }
+
+    filterMenu() {
+        if (this.searchText) {
+            this.allComponentCategories.each((index, category)=>{
+                let categorySpan = $(category).find('>span');
+                if(categorySpan && categorySpan.text().toLowerCase().indexOf(this.searchText) !== -1){
+                    //matches category, make all components visible for this category
+                    $(this.allComponents[index]).find('>a').each((index, component)=>{
+                        $(component).removeClass("hidden");
+                    });
+                    $(category).removeClass('hidden');
+                }else {
+                    //look into components
+                    //if all components don't match, hide the category as well
+                    let allHidden = this.filterComponents(index);
+                    if(allHidden){
+                        $(category).addClass('hidden');
+                    }else {
+                        $(category).removeClass('hidden');
+                    }
+                }
+            })
+        }else {
+            this.allComponentCategories.each((index, category)=>{
+                $(category).removeClass('hidden');
+            });
+            this.allComponents.each((index, category)=>{
+                let subComponents = $(category).find('>a');
+                subComponents.each((index, component)=>{
+                    $(component).removeClass("hidden");
+                })
+            });
+        }
+      
+      }
+
+      filterComponents(index:number):boolean {
+        let allComponentsHidden = false;
+
+        let selectedCategory = this.allComponents[index];
+
+        let subComponents = $(selectedCategory).find('>a');
+
+        subComponents.each((index, component)=>{
+            let componentName = $(component).text().substr(2, $(component).text().length);
+            if(componentName.toLowerCase().indexOf(this.searchText) !== -1){
+                //matches component, remove hidden calss if applied
+                $(component).removeClass("hidden");
+            }else {
+                //doesn't match, hide the component
+                $(component).addClass("hidden");
+            }
+        });
+
+        
+        if($(selectedCategory).find('.hidden').length === subComponents.length){
+            allComponentsHidden = true;
+        }
+
+        return allComponentsHidden;
+
     }
 }
