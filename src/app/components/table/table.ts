@@ -409,9 +409,9 @@ export class Table implements OnInit, AfterContentInit {
         if (!this.lazy) {
             this.totalRecords = (this._value ? this._value.length : 0);
 
-            if (this.sortMode == 'single')
+            if (this.sortMode == 'single' && this.sortField)
                 this.sortSingle();
-            else if (this.sortMode == 'multiple')
+            else if (this.sortMode == 'multiple' && this.multiSortMeta)
                 this.sortMultiple();
             else if(this.hasFilter())       //sort already filters
                 this._filter();
