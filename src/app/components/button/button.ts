@@ -24,6 +24,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.domHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
         if(this.icon) {
             let iconElement = document.createElement("span");
+            iconElement.setAttribute("aria-hidden", "true");
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
             iconElement.className = iconPosClass  + ' ui-clickable fa fa-fw ' + this.icon;
             this.el.nativeElement.appendChild(iconElement);
