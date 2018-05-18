@@ -6,7 +6,7 @@ import {TreeNode} from '../common/treenode';
 import {SharedModule} from '../common/shared';
 import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
 
 @Component({

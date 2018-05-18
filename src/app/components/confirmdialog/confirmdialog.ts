@@ -6,7 +6,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
 import {ButtonModule} from '../button/button';
 import {Confirmation} from '../common/confirmation';
 import {ConfirmationService} from '../common/confirmationservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-confirmDialog',

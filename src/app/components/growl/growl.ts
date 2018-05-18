@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
 import {MessageService} from '../common/messageservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-growl',

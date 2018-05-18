@@ -8,9 +8,7 @@ import { SortMeta } from '../common/sortmeta';
 import { FilterMetadata } from '../common/filtermetadata';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subject, Subscription, Observable } from 'rxjs';
 
 @Injectable()
 export class TableService {
