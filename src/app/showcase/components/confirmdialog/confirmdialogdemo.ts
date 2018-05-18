@@ -4,6 +4,11 @@ import {Message} from '../../../components/common/api';
 
 @Component({
     templateUrl: './confirmdialogdemo.html',
+    styles: [`
+        :host ::ng-deep button {
+            margin-right: .25em;
+        }
+    `],
     providers: [ConfirmationService]
 })
 export class ConfirmDialogDemo {

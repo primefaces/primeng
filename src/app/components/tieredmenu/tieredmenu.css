@@ -32,6 +32,10 @@
     text-decoration: none;
 }
 
+.ui-tieredmenu .ui-menuitem-icon {
+    margin-right: .25em;
+}
+
 .ui-tieredmenu .ui-menuitem {
     position: relative;
     margin: .125em 0;

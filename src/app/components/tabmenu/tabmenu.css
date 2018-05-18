@@ -26,8 +26,8 @@
     padding: 0.5em 1em;
 }
 
-.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem .ui-icon { 
-    float: left; 
+.ui-tabmenu .ui-menuitem-icon  { 
+    margin-right: .25em;
 }
 
 .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-disabled a {

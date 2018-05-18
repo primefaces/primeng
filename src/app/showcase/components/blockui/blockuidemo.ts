@@ -1,7 +1,12 @@
 import {Component,OnInit,EventEmitter} from '@angular/core';
 
 @Component({
-    templateUrl: './blockuidemo.html'
+    templateUrl: './blockuidemo.html',
+    styles: [`
+        :host ::ng-deep button {
+            margin-right: .25em;
+        }
+    `]
 })
 export class BlockUIDemo {
 

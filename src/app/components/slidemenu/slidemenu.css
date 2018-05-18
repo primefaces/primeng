@@ -38,6 +38,10 @@
     text-decoration: none;
 }
 
+.ui-slidemenu .ui-menuitem-icon {
+    margin-right: .25em;
+}
+
 .ui-slidemenu .ui-menuitem {
     position: relative;
     margin: .125em 0;

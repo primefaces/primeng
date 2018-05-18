@@ -32,3 +32,7 @@
     display: block;
     text-decoration: none;
 }
+
+.ui-menu .ui-menuitem-icon {
+    margin-right: .25em;
+}
