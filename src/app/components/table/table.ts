@@ -2783,10 +2783,9 @@ export class TableCheckbox  {
     template: `
         <div class="ui-chkbox ui-widget" (click)="onClick($event, cb.checked)">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!dt.value || dt.value.length === 0">
+                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()">
             </div>
-            <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled': (!dt.value || dt.value.length === 0)}">
+            <div #box class="ui-chkbox-box ui-widget ui-state-default" [ngClass]="{'ui-state-active':checked, 'ui-state-disabled': isDisabled()}">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
             </div>
         </div>
@@ -2797,7 +2796,7 @@ export class TableHeaderCheckbox  {
     @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
-
+    @Input()
     disabled: boolean;
 
     selectionChangeSubscription: Subscription;
@@ -2819,7 +2818,7 @@ export class TableHeaderCheckbox  {
     }
 
     onClick(event: Event, checked) {
-        if(this.dt.value && this.dt.value.length > 0) {
+        if (!this.isDisabled()) {
             this.dt.toggleRowsWithCheckbox(event, !checked);
         }
         
@@ -2847,6 +2846,10 @@ export class TableHeaderCheckbox  {
     updateCheckedState() {
         const val = this.dt.filteredValue||this.dt.value;
         return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
+    }
+
+    isDisabled() {
+        return this.disabled || !this.dt.value || !this.dt.value.length;
     }
    
 }
