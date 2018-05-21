@@ -226,7 +226,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let metaSelection = this.optionTouched ? false : this.metaKeySelection;
 
         if (metaSelection) {
-            let metaKey = (event.metaKey || event.ctrlKey);
+            let metaKey = (event.metaKey || event.ctrlKey || this.checkbox);
 
             if (selected) {
                 if (metaKey) {
