@@ -8,6 +8,21 @@ import {GrowlModule} from '../../../components/growl/growl';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {ContextMenuModule} from '../../../components/contextmenu/contextmenu';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import { TreeTableSubmenu } from './treetablesubmenu';
+import { TreeTablePageDemo } from './treetablepagedemo';
+import { TreeTableSortDemo } from './treetablesortdemo';
+import { TreeTableSelectionDemo } from './treetableselectiondemo';
+import { TreeTableSectionsDemo } from './treetablesectionsdemo';
+import { TreeTableStyleDemo } from './treetablestyledemo';
+import { TreeTableLazyDemo } from './treetablelazydemo';
+import { TreeTableColGroupDemo } from './treetablecolgroupdemo';
+import { TreeTableScrollDemo } from './treetablescrolldemo';
+import { TreeTableColToggleDemo } from './treetablecoltoggledemo';
+import { TreeTableCrudDemo } from './treetablecruddemo';
+import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
+import { TreeTableColResizeDemo } from './treetablecolresizedemo';
+import { TreeTableReorderDemo } from './treetablereorderdemo';
+import { TreeTableEditDemo } from './treetableeditdemo';
 
 @NgModule({
 	imports: [
@@ -21,7 +36,22 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         CodeHighlighterModule
 	],
 	declarations: [
-		TreeTableDemo
+        TreeTableDemo,
+        TreeTablePageDemo,
+        TreeTableSortDemo,
+        TreeTableSelectionDemo,
+        TreeTableSectionsDemo,
+        TreeTableStyleDemo,
+        TreeTableLazyDemo,
+        TreeTableColGroupDemo,
+        TreeTableScrollDemo,
+        TreeTableColToggleDemo,
+        TreeTableCrudDemo,
+        TreeTableContextMenuDemo,
+        TreeTableColResizeDemo,
+        TreeTableReorderDemo,
+        TreeTableEditDemo,
+        TreeTableSubmenu
 	]
 })
 export class TreeTableDemoModule {}
