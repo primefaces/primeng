@@ -735,6 +735,10 @@
             color: $stateHoverTextColor;
         }
     }
+
+    .ui-treetable-toggler {
+        color: $contentTextColor;
+    }
 }
 
 @media ( max-width: 35em ) {

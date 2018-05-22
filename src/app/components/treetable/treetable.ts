@@ -146,7 +146,7 @@ export class TreeTableBody {
 @Component({
     selector: 'p-treeTableToggler',
     template: `
-        <a href="#" (click)="onClick($event)" [style.visibility]="rowNode.node.children && rowNode.node.children.length ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
+        <a href="#" class="ui-treetable-toggler" (click)="onClick($event)" [style.visibility]="rowNode.node.children && rowNode.node.children.length ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
             <i [ngClass]="rowNode.node.expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
         </a>
     `
