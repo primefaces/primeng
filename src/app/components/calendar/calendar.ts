@@ -684,7 +684,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 }
             }
         }
-
+        
         this.inputFieldValue = formattedValue;
         this.updateFilledState();
         if(this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
@@ -1533,7 +1533,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         
         if(this.hourFormat == '12') {
-            output += date.getHours() > 11 ? ' PM' : ' AM';
+            output += this.pm ? ' PM' : ' AM';
         }
         
         return output;
