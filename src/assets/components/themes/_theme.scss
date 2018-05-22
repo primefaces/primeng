@@ -391,13 +391,6 @@
     }
 }
 
-.ui-treetable {
-    .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
-        background: $stateHoverBgColor;
-        color: $stateHoverTextColor;
-    }
-}
-
 .ui-organizationchart {
     .ui-organizationchart-node-content {
         &.ui-organizationchart-selectable-node:not(.ui-state-highlight):hover {
@@ -679,6 +672,84 @@
 }
 
 .ui-table .ui-table-tbody > tr.ui-table-dragpoint-bottom > td {
+    box-shadow: inset 0 -2px 0 0 $stateHighlightBgColor;
+}
+
+/* TurboTable */
+.ui-treetable {
+    .ui-treetable-thead > tr > th,
+    .ui-treetable-tfoot > tr > td {
+        background: $headerBgColor;
+        border: 1px solid $headerBorderColor;
+        color: $headerTextColor;
+    }
+
+    .ui-treetable-tbody > tr {
+        background: $contentBgColor;
+        color: $contentTextColor;
+
+        > td {
+            border: 1px solid $contentBorderColor;
+            background: inherit;
+        }
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+        }
+
+        &.ui-contextmenu-selected {
+            background-color: lighten($stateHighlightBgColor, 20%);
+            color: $stateHighlightTextColor;
+        }
+    }
+
+    .ui-sortable-column {
+        .ui-sortable-column-icon {
+            color: $headerTextColor;
+        }
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHighlightTextColor;
+            }
+        }
+
+        &:not(.ui-state-highlight):hover {
+            background: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHoverTextColor;
+            }
+        }
+    }
+
+    &.ui-treetable-hoverable-rows {
+        .ui-treetable-tbody > tr:not(.ui-state-highlight):hover {
+            cursor: pointer;
+            background: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+        }
+    }
+}
+
+@media ( max-width: 35em ) {
+    .ui-treetable-responsive .ui-treetable-tbody > tr {
+        border-top: 1px solid $contentBorderColor;
+        border-bottom: 1px solid $contentBorderColor;
+    }
+}
+
+/* Row Reorder */
+.ui-treetable .ui-treetable-tbody > tr.ui-treetable-dragpoint-top > td {
+    box-shadow: inset 0 2px 0 0 $stateHighlightBgColor;
+}
+
+.ui-treetable .ui-treetable-tbody > tr.ui-treetable-dragpoint-bottom > td {
     box-shadow: inset 0 -2px 0 0 $stateHighlightBgColor;
 }
 
