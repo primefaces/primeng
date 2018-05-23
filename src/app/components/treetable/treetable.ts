@@ -164,9 +164,9 @@ export class TreeTable implements AfterContentInit, OnInit {
     initialized: boolean;
 
     ngOnInit() {
-        /*if (this.lazy) {
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }*/
+        }
         this.initialized = true;
     }
 
@@ -256,17 +256,20 @@ export class TreeTable implements AfterContentInit, OnInit {
     serializePageNodes() {
         this.serializedValue = []; 
         if(this.value && this.value.length) {
-            for(let i = this.first; i < (this.first + this.rows); i++) {
+            const first = this.lazy ? 0 : this.first;
+
+            for(let i = first; i < (first + this.rows); i++) {
                 let node = this.value[i];
-    
-                this.serializedValue.push({
-                    node: node,
-                    parent: null,
-                    level: 0,
-                    visible: true
-                });
-    
-                this.serializeNodes(node, node.children, 1, true);
+                if(node) {
+                    this.serializedValue.push({
+                        node: node,
+                        parent: null,
+                        level: 0,
+                        visible: true
+                    });
+        
+                    this.serializeNodes(node, node.children, 1, true);
+                }
             }
         }
     }
@@ -292,7 +295,7 @@ export class TreeTable implements AfterContentInit, OnInit {
     set sortOrder(val: number) {
         this._sortOrder = val;
 
-         //avoid triggering lazy load prior to lazy initialization at onInit
+        //avoid triggering lazy load prior to lazy initialization at onInit
         if ( !this.lazy || this.initialized ) {
             if (this.sortMode === 'single') {
                 this.sortSingle();
@@ -315,16 +318,17 @@ export class TreeTable implements AfterContentInit, OnInit {
         this.first = event.first;
         this.rows = event.rows;
 
-        /*if (this.lazy) {
+        if (this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }*/
+        else
+            this.serializePageNodes();
 
         this.onPage.emit({
             first: this.first,
             rows: this.rows
         });
-
-        this.serializePageNodes();
+        
+        //todo for scroll: this.tableService.onValueChange(this.value);
     }
 
     sort(event) {
@@ -690,7 +694,6 @@ export class TreeTableToggler {
             });
         }
         else {
-            //this.collapseNodeChildren(this.rowNode.node.children);
             this.tt.onNodeCollapse.emit({
                 originalEvent: event,
                 node: this.rowNode.node
@@ -699,16 +702,6 @@ export class TreeTableToggler {
         this.tt.updateSerializedValue();
         event.preventDefault();
     }
-
-    /*collapseNodeChildren(nodes) {
-        if(nodes && nodes.length) {
-            for(let node of nodes) {
-                node.expanded = false;
-                
-                this.collapseNodeChildren(node.children);
-            }
-        }
-    }*/
 }
 
 @NgModule({
