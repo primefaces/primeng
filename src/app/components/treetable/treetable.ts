@@ -234,19 +234,21 @@ export class TreeTable implements AfterContentInit, OnInit {
         if(this.paginator)
             this.serializePageNodes();
         else
-            this.serializeNodes(null, this.value, 0);
+            this.serializeNodes(null, this.value, 0, true);
     }
 
-    serializeNodes(parent, nodes, level) {
+    serializeNodes(parent, nodes, level, visible) {
         if(nodes && nodes.length) {
             for(let node of nodes) {
-                this.serializedValue.push({
+                const rowNode = {
                     node: node,
                     parent: parent,
-                    level: level
-                });
+                    level: level,
+                    visible: visible && (parent ? parent.expanded : true)
+                };
+                this.serializedValue.push(rowNode);
 
-                this.serializeNodes(node, node.children, level + 1);
+                this.serializeNodes(node, node.children, level + 1, rowNode.visible);
             }
         }
     }
@@ -260,10 +262,11 @@ export class TreeTable implements AfterContentInit, OnInit {
                 this.serializedValue.push({
                     node: node,
                     parent: null,
-                    level: 0
+                    level: 0,
+                    visible: true
                 });
     
-                this.serializeNodes(node, node.children, 1);
+                this.serializeNodes(node, node.children, 1, true);
             }
         }
     }
@@ -534,7 +537,7 @@ export class TreeTable implements AfterContentInit, OnInit {
     selector: '[pTreeTableBody]',
     template: `
         <ng-template ngFor let-serializedNode let-rowIndex="index" [ngForOf]="tt.serializedValue" [ngForTrackBy]="tt.rowTrackBy">
-            <ng-container *ngIf="!serializedNode.parent || serializedNode.parent.expanded">
+            <ng-container *ngIf="serializedNode.visible">
                 <ng-container *ngTemplateOutlet="template; context: {$implicit: serializedNode, rowData: serializedNode.node.data, columns: columns}"></ng-container>
             </ng-container>
         </ng-template>
@@ -684,10 +687,28 @@ export class TreeTableToggler {
             this.tt.onNodeExpand.emit({
                 originalEvent: event,
                 node: this.rowNode.node
-            })
+            });
         }
+        else {
+            //this.collapseNodeChildren(this.rowNode.node.children);
+            this.tt.onNodeCollapse.emit({
+                originalEvent: event,
+                node: this.rowNode.node
+            });
+        }
+        this.tt.updateSerializedValue();
         event.preventDefault();
     }
+
+    /*collapseNodeChildren(nodes) {
+        if(nodes && nodes.length) {
+            for(let node of nodes) {
+                node.expanded = false;
+                
+                this.collapseNodeChildren(node.children);
+            }
+        }
+    }*/
 }
 
 @NgModule({
