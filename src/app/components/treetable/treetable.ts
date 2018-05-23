@@ -49,6 +49,10 @@ export class TreeTableService {
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
                 [ngClass]="{'ui-treetable ui-widget': true, 'ui-table-auto-layout': autoLayout}">
+            <div class="ui-treetable-loading ui-widget-overlay" *ngIf="loading"></div>
+            <div class="ui-treetable-loading-content" *ngIf="loading">
+                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+            </div>
             <div *ngIf="captionTemplate" class="ui-treetable-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
@@ -116,6 +120,10 @@ export class TreeTable implements AfterContentInit, OnInit {
     @Input() resetPageOnSort: boolean = true;
 
     @Input() customSort: boolean;
+
+    @Input() loading: boolean;
+
+    @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
 
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
@@ -254,7 +262,7 @@ export class TreeTable implements AfterContentInit, OnInit {
     }
 
     serializePageNodes() {
-        this.serializedValue = []; 
+        this.serializedValue = [];
         if(this.value && this.value.length) {
             const first = this.lazy ? 0 : this.first;
 

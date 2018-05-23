@@ -13,6 +13,8 @@ export class TreeTableLazyDemo {
 
     totalRecords: number;
 
+    loading: boolean;
+
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
@@ -24,29 +26,47 @@ export class TreeTableLazyDemo {
 
         //in a production application, retrieve the logical number of rows from a remote datasource
         this.totalRecords = 1000;
+
+        this.loading = true;
     }
 
     loadNodes(event) {
-        this.files = [];
-        for(let i = 0; i < event.rows; i++) {
-            let node = {
-                data:{  
-                    name: 'Item ' + (event.first + i),
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + (event.first + i)
-                },
-                children: [
-                    {
-                        data: {  
-                            name: 'Item ' + (event.first + i) + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + (event.first + i)
-                        }
-                    }
-                ]
-            };
+        this.loading = true;
 
-            this.files.push(node);
-        }
+        //in a production application, make a remote request to load data using state metadata from event
+        //event.first = First row offset
+        //event.rows = Number of rows per page
+        //event.sortField = Field name to sort with
+        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+
+        //imitate db connection over a network
+        setTimeout(() => {
+            this.loading = false;
+            this.files = [];
+            
+            for(let i = 0; i < event.rows; i++) {
+                let node = {
+                    data:{  
+                        name: 'Item ' + (event.first + i),
+                        size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                        type: 'Type ' + (event.first + i)
+                    },
+                    children: [
+                        {
+                            data: {  
+                                name: 'Item ' + (event.first + i) + ' - 0',
+                                size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                                type: 'Type ' + (event.first + i)
+                            }
+                        }
+                    ]
+                };
+
+                this.files.push(node);
+            }
+        }, 1000);
+
+        
     }
 }
