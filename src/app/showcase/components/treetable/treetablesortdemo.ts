@@ -25,8 +25,8 @@ export class TreeTableSortDemo implements OnInit {
                     size: '100kb',
                     type: 'Link'
                 }
-            })
-        );
+            });
+        });
 
         this.cols = [
             { field: 'name', header: 'Name' },
