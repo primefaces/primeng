@@ -44,29 +44,48 @@ export class TreeTableLazyDemo {
         setTimeout(() => {
             this.loading = false;
             this.files = [];
-            
+
             for(let i = 0; i < event.rows; i++) {
                 let node = {
-                    data:{  
+                    data: {  
                         name: 'Item ' + (event.first + i),
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'Type ' + (event.first + i)
                     },
-                    children: [
-                        {
-                            data: {  
-                                name: 'Item ' + (event.first + i) + ' - 0',
-                                size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                                type: 'Type ' + (event.first + i)
-                            }
-                        }
-                    ]
+                    leaf: false
                 };
 
                 this.files.push(node);
             }
         }, 1000);
+    }
 
+    onNodeExpand(event) {
+        this.loading = true;
+
+        setTimeout(() => {
+            this.loading = false;
+            const node = event.node;
+
+            node.children = [
+                {
+                    data: {  
+                        name: node.data.name + ' - 0',
+                        size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                        type: 'File'
+                    },
+                },
+                {
+                    data: {  
+                        name: node.data.name + ' - 1',
+                        size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                        type: 'File'
+                    }
+                }
+            ];
+
+            this.files = [...this.files];
+        }, 250);
         
     }
 }

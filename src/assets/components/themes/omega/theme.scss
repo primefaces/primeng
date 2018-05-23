@@ -350,6 +350,20 @@ $inputGroupTextColor: #222222;
     }
 }
 
+/* TurboTable */
+.ui-treetable {
+    .ui-treetable-thead > tr > th,
+    .ui-treetable-tfoot > tr > td {
+        background: #ebedf0;
+        border-color: #d9d9d9;
+    }
+
+    .ui-sortable-column:not(.ui-state-highlight):hover {
+        background: #d3d5d8;
+        border-color: #d9d9d9;
+    }
+}
+
 /* Panel */
 .ui-panel.ui-widget {
     padding: 0;

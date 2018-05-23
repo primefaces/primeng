@@ -681,7 +681,7 @@ export class SortIcon implements OnInit, OnDestroy {
 @Component({
     selector: 'p-treeTableToggler',
     template: `
-        <a href="#" class="ui-treetable-toggler" *ngIf="rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" (click)="onClick($event)" [style.visibility]="rowNode.node.children && rowNode.node.children.length ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
+        <a href="#" class="ui-treetable-toggler" *ngIf="rowNode.node.leaf === false || rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" (click)="onClick($event)" [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
             <i [ngClass]="rowNode.node.expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
         </a>
     `
@@ -707,7 +707,9 @@ export class TreeTableToggler {
                 node: this.rowNode.node
             });
         }
+
         this.tt.updateSerializedValue();
+        
         event.preventDefault();
     }
 }
