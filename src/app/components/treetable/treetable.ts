@@ -42,7 +42,8 @@ export class TreeTableService {
     selector: 'p-treeTable',
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
-                [ngClass]="{'ui-treetable ui-widget': true, 'ui-table-auto-layout': autoLayout}">
+                [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-auto-layout': autoLayout,
+                'ui-treetable-resizable': resizableColumns, 'ui-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit')}">
             <div class="ui-treetable-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-treetable-loading-content" *ngIf="loading">
                 <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
@@ -78,6 +79,8 @@ export class TreeTableService {
             <div *ngIf="summaryTemplate" class="ui-treetable-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
+
+            <div #resizeHelper class="ui-column-resizer-helper ui-state-highlight" style="display:none" *ngIf="resizableColumns"></div>
         </div>
     `,
     providers: [DomHandler,ObjectUtils,TreeTableService]
@@ -132,6 +135,10 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     @Input() frozenColumns: any[];
 
+    @Input() resizableColumns: boolean;
+
+    @Input() columnResizeMode: string = 'fit';
+
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
@@ -145,6 +152,14 @@ export class TreeTable implements AfterContentInit, OnInit {
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
+
+    @Output() onColResize: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('container') containerViewChild: ElementRef;
+
+    @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
+
+    @ViewChild('table') tableViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -183,6 +198,8 @@ export class TreeTable implements AfterContentInit, OnInit {
     frozenFooterTemplate: TemplateRef<any>;
 
     frozenColGroupTemplate: TemplateRef<any>;
+
+    lastResizerHelperX: number;
 
     initialized: boolean;
 
@@ -579,6 +596,112 @@ export class TreeTable implements AfterContentInit, OnInit {
     isEmpty() {
         return this.value == null || this.value.length == 0;
     }
+    
+    onColumnResizeBegin(event) {
+        let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
+        this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
+    }
+
+    onColumnResize(event) {
+        let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
+        this.domHandler.addClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+        this.resizeHelperViewChild.nativeElement.style.height = this.containerViewChild.nativeElement.offsetHeight + 'px';
+        this.resizeHelperViewChild.nativeElement.style.top = 0 + 'px';
+        this.resizeHelperViewChild.nativeElement.style.left = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft) + 'px';
+
+        this.resizeHelperViewChild.nativeElement.style.display = 'block';
+    }
+
+    onColumnResizeEnd(event, column) {
+        let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
+        let columnWidth = column.offsetWidth;
+        let newColumnWidth = columnWidth + delta;
+        let minWidth = column.style.minWidth || 15;
+
+        if (columnWidth + delta > parseInt(minWidth)) {
+            if (this.columnResizeMode === 'fit') {
+                let nextColumn = column.nextElementSibling;
+                while (!nextColumn.offsetParent) {
+                    nextColumn = nextColumn.nextElementSibling;
+                }
+
+                if (nextColumn) {
+                    let nextColumnWidth = nextColumn.offsetWidth - delta;
+                    let nextColumnMinWidth = nextColumn.style.minWidth || 15;
+
+                    if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
+                        if (this.scrollable) {
+                            let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-body-table');
+                            let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-header-table');
+                            let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-footer-table');
+                            let resizeColumnIndex = this.domHandler.index(column);
+
+                            this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                        }
+                        else {
+                            column.style.width = newColumnWidth + 'px';
+                            if (nextColumn) {
+                                nextColumn.style.width = nextColumnWidth + 'px';
+                            }
+                        }
+                    }
+                }
+            }
+            else if (this.columnResizeMode === 'expand') {
+                if (this.scrollable) {
+                    let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-body-table');
+                    let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-header-table');
+                    let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-footer-table');
+                    scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
+                    scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
+                    if(scrollableFooterTable) {
+                        scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
+                    }
+                    let resizeColumnIndex = this.domHandler.index(column);
+
+                    this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
+                    this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
+                    this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+                }
+                else {
+                    this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
+                    column.style.width = newColumnWidth + 'px';
+                    let containerWidth = this.tableViewChild.nativeElement.style.width;
+                    this.containerViewChild.nativeElement.style.width = containerWidth + 'px';
+                }
+            }
+
+            this.onColResize.emit({
+                element: column,
+                delta: delta
+            });
+        }
+
+        this.resizeHelperViewChild.nativeElement.style.display = 'none';
+        this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+    }
+
+    resizeColGroup(table, resizeColumnIndex, newColumnWidth, nextColumnWidth) {
+        if(table) {
+            let colGroup = table.children[0].nodeName === 'COLGROUP' ? table.children[0] : null;
+
+            if(colGroup) {
+                let col = colGroup.children[resizeColumnIndex];
+                let nextCol = col.nextElementSibling;
+                col.style.width = newColumnWidth + 'px';
+    
+                if (nextCol && nextColumnWidth) {
+                    nextCol.style.width = nextColumnWidth + 'px';
+                }
+            }
+            else {
+                throw "Scrollable tables require a colgroup to support resizable columns";
+            }
+        }
+    }
+
 }
 
 @Component({
@@ -945,6 +1068,86 @@ export class SortIcon implements OnInit, OnDestroy {
     }
 }
 
+@Directive({
+    selector: '[ttResizableColumn]'
+})
+export class ResizableTreeTableColumn implements AfterViewInit, OnDestroy {
+
+    @Input() ttResizableColumnDisabled: boolean;
+
+    resizer: HTMLSpanElement;
+
+    resizerMouseDownListener: any;
+
+    documentMouseMoveListener: any;
+
+    documentMouseUpListener: any;
+
+    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+
+    ngAfterViewInit() {
+        if (this.isEnabled()) {
+            this.domHandler.addClass(this.el.nativeElement, 'ui-resizable-column');
+            this.resizer = document.createElement('span');
+            this.resizer.className = 'ui-column-resizer ui-clickable';
+            this.el.nativeElement.appendChild(this.resizer);
+    
+            this.zone.runOutsideAngular(() => {
+                this.resizerMouseDownListener = this.onMouseDown.bind(this);
+                this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
+            });
+        }
+    }
+
+    bindDocumentEvents() {
+        this.zone.runOutsideAngular(() => {
+            this.documentMouseMoveListener = this.onDocumentMouseMove.bind(this);
+            document.addEventListener('mousemove', this.documentMouseMoveListener);
+
+            this.documentMouseUpListener = this.onDocumentMouseUp.bind(this);
+            document.addEventListener('mouseup', this.documentMouseUpListener);
+        });
+    }
+
+    unbindDocumentEvents() {
+        if (this.documentMouseMoveListener) {
+            document.removeEventListener('mousemove', this.documentMouseMoveListener);
+            this.documentMouseMoveListener = null;
+        }
+
+        if (this.documentMouseUpListener) {
+            document.removeEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseUpListener = null;
+        }
+    }
+
+    onMouseDown(event: Event) {
+        this.tt.onColumnResizeBegin(event);
+        this.bindDocumentEvents();
+    }
+
+    onDocumentMouseMove(event: Event) {
+        this.tt.onColumnResize(event);
+    }
+
+    onDocumentMouseUp(event: Event) {
+        this.tt.onColumnResizeEnd(event, this.el.nativeElement);
+        this.unbindDocumentEvents();
+    }
+
+    isEnabled() {
+        return this.ttResizableColumnDisabled !== true;
+    }
+
+    ngOnDestroy() {
+        if (this.resizerMouseDownListener) {
+            this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
+        }
+        
+        this.unbindDocumentEvents();
+    }
+}
+
 @Component({
     selector: 'p-treeTableToggler',
     template: `
@@ -984,7 +1187,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon],
-    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon]
+    exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon,ResizableTreeTableColumn],
+    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon,ResizableTreeTableColumn]
 })
 export class TreeTableModule { }
