@@ -14,14 +14,12 @@ export class TreeTableService {
     private sortSource = new Subject<SortMeta|SortMeta[]>();
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
-    private valueSource = new Subject<any>();
-    private totalRecordsSource = new Subject<any>();
+    private uiUpdateSource = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
-    valueSource$ = this.valueSource.asObservable();
-    totalRecordsSource$ = this.totalRecordsSource.asObservable();
+    uiUpdateSource$ = this.uiUpdateSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -35,12 +33,8 @@ export class TreeTableService {
         this.contextMenuSource.next(data);
     }
 
-    onValueChange(value: any) {
-        this.valueSource.next(value);
-    }
-
-    onTotalRecordsChange(value: number) {
-        this.totalRecordsSource.next(value);
+    onUIUpdate(value: any) {
+        this.uiUpdateSource.next(value);
     }
 }
 
@@ -275,6 +269,7 @@ export class TreeTable implements AfterContentInit, OnInit {
         }
 
         this.updateSerializedValue();
+        this.tableService.onUIUpdate(this.value);
     }
 
     updateSerializedValue() {
@@ -377,7 +372,7 @@ export class TreeTable implements AfterContentInit, OnInit {
             rows: this.rows
         });
         
-        //todo for scroll: this.tableService.onValueChange(this.value);
+        this.tableService.onUIUpdate(this.value);
     }
 
     sort(event) {
@@ -662,8 +657,6 @@ export class ScrollableTreeTableView implements AfterViewInit, OnDestroy, AfterV
 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
-
     headerScrollListener: Function;
 
     bodyScrollListener: Function;
@@ -679,7 +672,7 @@ export class ScrollableTreeTableView implements AfterViewInit, OnDestroy, AfterV
     initialized: boolean;
 
     constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {
-        this.subscription = this.tt.tableService.valueSource$.subscribe(() => {
+        this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.alignScrollBar();
@@ -983,6 +976,7 @@ export class TreeTableToggler {
         }
 
         this.tt.updateSerializedValue();
+        this.tt.tableService.onUIUpdate(this.tt.value);
         
         event.preventDefault();
     }
