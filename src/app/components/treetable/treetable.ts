@@ -1,4 +1,4 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from '../common/treenode';
 import { Subject, Subscription, Observable } from 'rxjs';
@@ -59,6 +59,7 @@ export class TreeTableService {
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
+            
             <div class="ui-treetable-wrapper" *ngIf="!scrollable">
                 <table #table class="ui-treetable-table">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -71,6 +72,12 @@ export class TreeTableService {
                     <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="bodyTemplate"></tbody>
                 </table>
             </div>
+
+            <div class="ui-treetable-scrollable-wrapper" *ngIf="scrollable">
+               <div class="ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
+            </div>
+
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
@@ -90,8 +97,6 @@ export class TreeTable implements AfterContentInit, OnInit {
     @Input() styleClass: string;
 
     @Input() autoLayout: boolean;
-
-    @Input() scrollable: boolean;
 
     @Input() lazy: boolean = false;
 
@@ -124,6 +129,14 @@ export class TreeTable implements AfterContentInit, OnInit {
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
+
+    @Input() scrollable: boolean;
+
+    @Input() scrollHeight: string;
+
+    @Input() frozenWidth: string;
+
+    @Input() frozenColumns: any[];
 
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
@@ -168,6 +181,14 @@ export class TreeTable implements AfterContentInit, OnInit {
     paginatorLeftTemplate: TemplateRef<any>;
 
     paginatorRightTemplate: TemplateRef<any>;
+
+    frozenHeaderTemplate: TemplateRef<any>;
+
+    frozenBodyTemplate: TemplateRef<any>;
+
+    frozenFooterTemplate: TemplateRef<any>;
+
+    frozenColGroupTemplate: TemplateRef<any>;
 
     initialized: boolean;
 
@@ -215,6 +236,22 @@ export class TreeTable implements AfterContentInit, OnInit {
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
+                break;
+
+                case 'frozenheader':
+                    this.frozenHeaderTemplate = item.template;
+                break;
+
+                case 'frozenbody':
+                    this.frozenBodyTemplate = item.template;
+                break;
+
+                case 'frozenfooter':
+                    this.frozenFooterTemplate = item.template;
+                break;
+
+                case 'frozencolgroup':
+                    this.frozenColGroupTemplate = item.template;
                 break;
             }
         });
@@ -571,6 +608,239 @@ export class TreeTableBody {
     constructor(public tt: TreeTable) {}
 }
 
+@Component({
+    selector: '[ttScrollableView]',
+    template: `
+        <div #scrollHeader class="ui-treetable-scrollable-header ui-widget-header">
+            <div #scrollHeaderBox class="ui-treetable-scrollable-header-box">
+                <table class="ui-treetable-scrollable-header-table">
+                    <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                    <thead class="ui-treetable-thead">
+                        <ng-container *ngTemplateOutlet="frozen ? tt.frozenHeaderTemplate||tt.headerTemplate : tt.headerTemplate; context {$implicit: columns}"></ng-container>
+                    </thead>
+                    <tbody class="ui-treetable-tbody">
+                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="tt.frozenValue" [ngForTrackBy]="tt.rowTrackBy">
+                            <ng-container *ngTemplateOutlet="tt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                        </ng-template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div #scrollBody class="ui-treetable-scrollable-body">
+            <table #scrollTable class="ui-treetable-scrollable-body-table">
+                <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate"></tbody>
+            </table>
+        </div>
+        <div #scrollFooter *ngIf="tt.footerTemplate" class="ui-treetable-scrollable-footer ui-widget-header">
+            <div #scrollFooterBox class="ui-treetable-scrollable-footer-box">
+                <table class="ui-treetable-scrollable-footer-table">
+                    <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                    <tfoot class="ui-treetable-tfoot">
+                        <ng-container *ngTemplateOutlet="frozen ? tt.frozenFooterTemplate||tt.footerTemplate : tt.footerTemplate; context {$implicit: columns}"></ng-container>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    `
+})
+export class ScrollableTreeTableView implements AfterViewInit, OnDestroy, AfterViewChecked {
+
+    @Input("ttScrollableView") columns: any[];
+
+    @Input() frozen: boolean;
+
+    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
+
+    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
+
+    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
+
+    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
+
+    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
+
+    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
+
+    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
+
+    headerScrollListener: Function;
+
+    bodyScrollListener: Function;
+
+    footerScrollListener: Function;
+
+    frozenSiblingBody: Element;
+
+    _scrollHeight: string;
+
+    subscription: Subscription;
+    
+    initialized: boolean;
+
+    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {
+        this.subscription = this.tt.tableService.valueSource$.subscribe(() => {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.alignScrollBar();
+                }, 50);
+            });
+        });
+
+        this.initialized = false;
+     }
+
+    @Input() get scrollHeight(): string {
+        return this._scrollHeight;
+    }
+    set scrollHeight(val: string) {
+        this._scrollHeight = val;
+        this.setScrollHeight();
+    }
+    
+    ngAfterViewChecked() {
+        if(!this.initialized && this.el.nativeElement.offsetParent) {
+            this.alignScrollBar();
+            this.initialized = true;
+        }
+    }
+
+    ngAfterViewInit() {
+        this.bindEvents();
+        this.setScrollHeight();
+        this.alignScrollBar();
+
+        if(!this.frozen) {
+            if (this.tt.frozenColumns || this.tt.frozenBodyTemplate) {
+                this.domHandler.addClass(this.el.nativeElement, 'ui-treetable-unfrozen-view');
+            }
+
+            if(this.tt.frozenWidth) {
+                this.el.nativeElement.style.left = this.tt.frozenWidth;
+                this.el.nativeElement.style.width = 'calc(100% - ' + this.tt.frozenWidth + ')';
+            }
+
+            let frozenView = this.el.nativeElement.previousElementSibling;
+            if (frozenView) {
+                this.frozenSiblingBody = this.domHandler.findSingle(frozenView, '.ui-treetable-scrollable-body');
+            }
+        }
+        else {
+            this.scrollBodyViewChild.nativeElement.style.paddingBottom = this.domHandler.calculateScrollbarWidth() + 'px';
+        }
+    }
+
+    bindEvents() {
+        this.zone.runOutsideAngular(() => {
+            let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
+
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                this.headerScrollListener = this.onHeaderScroll.bind(this);
+                this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
+            }
+
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                this.footerScrollListener = this.onFooterScroll.bind(this);
+                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
+            }
+
+            if(!this.frozen) {
+                this.bodyScrollListener = this.onBodyScroll.bind(this);
+                this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+            }
+        });
+    }
+
+    unbindEvents() {
+        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+            this.scrollHeaderBoxViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
+        }
+
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+            this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
+        }
+
+        this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+    }
+
+    onHeaderScroll(event) {
+        this.scrollHeaderViewChild.nativeElement.scrollLeft = 0;
+    }
+
+    onFooterScroll(event) {
+        this.scrollFooterViewChild.nativeElement.scrollLeft = 0;
+    }
+
+    onBodyScroll(event) {
+        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+            this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+        }
+
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+            this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+        }
+
+        if (this.frozenSiblingBody) {
+            this.frozenSiblingBody.scrollTop = this.scrollBodyViewChild.nativeElement.scrollTop;
+        }
+    }
+
+    setScrollHeight() {
+        if(this.scrollHeight && this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
+            if(this.scrollHeight.indexOf('%') !== -1) {
+                this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
+                this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
+                let containerHeight = this.domHandler.getOuterHeight(this.tt.el.nativeElement.children[0]);
+                let relativeHeight = this.domHandler.getOuterHeight(this.tt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
+                let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
+                let scrollBodyHeight = (relativeHeight - staticHeight);
+
+                if(this.frozen) {
+                    scrollBodyHeight -= this.domHandler.calculateScrollbarWidth();
+                }
+                
+                this.scrollBodyViewChild.nativeElement.style.height = 'auto';
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
+                this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
+            }
+            else {
+                if(this.frozen)
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - this.domHandler.calculateScrollbarWidth()) + 'px';
+                else
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
+            }
+        }
+    }
+
+    hasVerticalOverflow() {
+        return this.domHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > this.domHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+    }
+
+    alignScrollBar() {
+        if(!this.frozen) {
+            let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
+            this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+            
+            if(this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+            }
+        }
+        this.initialized = false;
+    }
+
+    ngOnDestroy() {
+        this.unbindEvents();
+
+        this.frozenSiblingBody = null;
+
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
+
+        this.initialized = false;
+    }
+}
+
 @Directive({
     selector: '[pSortableColumn]',
     providers: [DomHandler],
@@ -721,6 +991,6 @@ export class TreeTableToggler {
 @NgModule({
     imports: [CommonModule,PaginatorModule],
     exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon],
-    declarations: [TreeTable,TreeTableBody,TreeTableToggler,SortableColumn,SortIcon]
+    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon]
 })
 export class TreeTableModule { }
