@@ -837,7 +837,7 @@ export class Table implements OnInit, AfterContentInit {
         }
         
         for(let i = rangeStart; i <= rangeEnd; i++) {
-            let rangeRowData = this.value[i];
+            let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if(!this.isSelected(rangeRowData)) {
                 this._selection = [...this.selection, rangeRowData];
                 let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
