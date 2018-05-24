@@ -201,6 +201,10 @@ export class TreeTable implements AfterContentInit, OnInit {
                     this.summaryTemplate = item.template;
                 break;
 
+                case 'colgroup':
+                    this.colGroupTemplate = item.template;
+                break;
+
                 case 'emptymessage':
                     this.emptyMessageTemplate = item.template;
                 break;
