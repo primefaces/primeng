@@ -18,7 +18,7 @@ import { TreeTableLazyDemo } from './treetablelazydemo';
 import { TreeTableColGroupDemo } from './treetablecolgroupdemo';
 import { TreeTableScrollDemo } from './treetablescrolldemo';
 import { TreeTableColToggleDemo } from './treetablecoltoggledemo';
-import { TreeTableCrudDemo } from './treetablecruddemo';
+import { TreeTableResponsiveDemo } from './treetableresponsivedemo';
 import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
 import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
@@ -46,7 +46,7 @@ import { TreeTableEditDemo } from './treetableeditdemo';
         TreeTableColGroupDemo,
         TreeTableScrollDemo,
         TreeTableColToggleDemo,
-        TreeTableCrudDemo,
+        TreeTableResponsiveDemo,
         TreeTableContextMenuDemo,
         TreeTableColResizeDemo,
         TreeTableReorderDemo,
