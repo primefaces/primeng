@@ -279,11 +279,12 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         let elementWidth = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
         let elementHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
         if(elementWidth == 0 && elementHeight == 0) {
+            const displayMode = this.containerViewChild.nativeElement.style.display;
             this.containerViewChild.nativeElement.style.visibility = 'hidden';
             this.containerViewChild.nativeElement.style.display = 'block';
             elementWidth = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
             elementHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
-            this.containerViewChild.nativeElement.style.display = 'none';
+            this.containerViewChild.nativeElement.style.display = displayMode;
             this.containerViewChild.nativeElement.style.visibility = 'visible';
         }
         let viewport = this.domHandler.getViewport();
@@ -563,11 +564,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.disableModality();
         
         this.unbindGlobalListeners();
-        
+
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
-		
+
 		this.unbindMaskClickListener();
     }
 
@@ -575,7 +576,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Dialog,SharedModule],
+    exports: [Dialog, SharedModule],
     declarations: [Dialog]
 })
 export class DialogModule { }
