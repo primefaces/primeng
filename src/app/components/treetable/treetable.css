@@ -26,6 +26,11 @@
     table-layout: auto;
 }
 
+.ui-treetable .ui-treetable-chkbox {
+    margin: 0 .25em;
+    vertical-align: bottom;
+}
+
 /* Sections */
 .ui-treetable-caption,
 .ui-treetable-summary {

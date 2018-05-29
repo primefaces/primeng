@@ -42,7 +42,7 @@ export class TreeTableService {
     selector: 'p-treeTable',
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
-                [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-auto-layout': autoLayout, 'ui-treetable-hoverable-rows': (rowHover||selectionMode),
+                [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-auto-layout': autoLayout, 'ui-treetable-hoverable-rows': (rowHover||(selectionMode === 'single' || selectionMode === 'multiple')),
                 'ui-treetable-resizable': resizableColumns, 'ui-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit')}">
             <div class="ui-treetable-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-treetable-loading-content" *ngIf="loading">
@@ -352,6 +352,7 @@ export class TreeTable implements AfterContentInit, OnInit {
     serializeNodes(parent, nodes, level, visible) {
         if(nodes && nodes.length) {
             for(let node of nodes) {
+                node.parent = parent;
                 const rowNode = {
                     node: node,
                     parent: parent,
@@ -976,6 +977,102 @@ export class TreeTable implements AfterContentInit, OnInit {
             this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
             this.contextMenu.show(event.originalEvent);
             this.tableService.onContextMenu(node);
+        }
+    }
+
+    toggleNodeWithCheckbox(event) {
+        this.preventSelectionSetterPropagation = true;
+        let node = event.rowNode.node;
+        let selected = this.isSelected(node);
+
+        if(selected) {
+            this.propagateSelectionDown(node, false);
+            if(event.rowNode.parent) {
+                this.propagateSelectionUp(node.parent, false);
+            }
+            this.selectionChange.emit(this.selection);
+            this.onNodeUnselect.emit({originalEvent: event, node: node});
+        }
+        else {
+            this.propagateSelectionDown(node, true);
+            if (event.rowNode.parent) {
+                this.propagateSelectionUp(node.parent, true);
+            }
+            this.selectionChange.emit(this.selection);
+            this.onNodeSelect.emit({originalEvent: event, node: node});
+        }
+
+        this.tableService.onSelectionChange();
+    }
+
+    propagateSelectionUp(node: TreeNode, select: boolean) {
+        if (node.children && node.children.length) {
+            let selectedChildCount: number = 0;
+            let childPartialSelected: boolean = false;
+            let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+
+            for (let child of node.children) {
+                if (this.isSelected(child))
+                selectedChildCount++;
+                else if (child.partialSelected)
+                    childPartialSelected = true;
+            }
+            
+            if (select && selectedChildCount == node.children.length) {
+                this.selection = [...this.selection||[], node];
+                node.partialSelected = false;
+                if (dataKeyValue) {
+                    this.selectionKeys[dataKeyValue] = 1;
+                }
+            }
+            else {                
+                if (!select) {
+                    let index = this.findIndexInSelection(node);
+                    if (index >= 0) {
+                        this.selection = this.selection.filter((val,i) => i!=index);
+
+                        if (dataKeyValue) {
+                            delete this.selectionKeys[dataKeyValue];
+                        }
+                    }
+                }
+                
+                if (childPartialSelected || selectedChildCount > 0 && selectedChildCount != node.children.length)
+                    node.partialSelected = true;
+                else
+                    node.partialSelected = false;
+            }
+        }
+                
+        let parent = node.parent;
+        if (parent) {
+            this.propagateSelectionUp(parent, select);
+        }
+    }
+    
+    propagateSelectionDown(node: TreeNode, select: boolean) {
+        let index = this.findIndexInSelection(node);
+        let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+        
+        if (select && index == -1) {
+            this.selection = [...this.selection||[],node]
+            if (dataKeyValue) {
+                this.selectionKeys[dataKeyValue] = 1;
+            }
+        }
+        else if (!select && index > -1) {
+            this.selection = this.selection.filter((val,i) => i!=index);
+            if (dataKeyValue) {
+                delete this.selectionKeys[dataKeyValue];
+            }
+        }
+        
+        node.partialSelected = false;
+        
+        if (node.children && node.children.length) {
+            for (let child of node.children) {
+                this.propagateSelectionDown(child, select);
+            }
         }
     }
 
@@ -1740,6 +1837,68 @@ export class TTContextMenuRow {
 }
 
 @Component({
+    selector: 'p-treeTableCheckbox',
+    template: `
+        <div class="ui-chkbox ui-treetable-chkbox ui-widget" (click)="onClick($event)">
+            <div class="ui-helper-hidden-accessible">
+                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
+            </div>
+            <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
+                'ui-state-active':checked, 'ui-state-disabled':disabled}">
+                <span class="ui-chkbox-icon ui-clickable fa" [ngClass]="{'fa-check':checked, 'fa-minus': rowNode.node.partialSelected}"></span>
+            </div>
+        </div>
+    `
+})
+export class TTCheckbox  {
+
+    @Input() disabled: boolean;
+
+    @Input("value") rowNode: any;
+
+    @ViewChild('box') boxViewChild: ElementRef;
+
+    checked: boolean;
+
+    subscription: Subscription;
+
+    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+        this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
+            this.checked = this.tt.isSelected(this.rowNode.node);
+        });
+    }
+
+    ngOnInit() {
+        this.checked = this.tt.isSelected(this.rowNode.node);
+    }
+
+    onClick(event: Event) {
+        if(!this.disabled) {
+            this.tt.toggleNodeWithCheckbox({
+                originalEvent: event,
+                rowNode: this.rowNode
+            });
+        }
+        this.domHandler.clearSelection();
+    }
+
+    onFocus() {
+        this.domHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    onBlur() {
+        this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+   
+}
+
+@Component({
     selector: 'p-treeTableToggler',
     template: `
         <a href="#" class="ui-treetable-toggler" *ngIf="rowNode.node.leaf === false || rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" (click)="onClick($event)" [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
@@ -1778,7 +1937,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow],
-    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow]
+    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox],
+    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox]
 })
 export class TreeTableModule { }
