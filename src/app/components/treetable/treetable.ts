@@ -81,6 +81,9 @@ export class TreeTableService {
             </div>
 
             <div #resizeHelper class="ui-column-resizer-helper ui-state-highlight" style="display:none" *ngIf="resizableColumns"></div>
+
+            <span #reorderIndicatorUp class="fa fa-arrow-down ui-table-reorder-indicator-up" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="fa fa-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [DomHandler,ObjectUtils,TreeTableService]
@@ -139,6 +142,8 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     @Input() columnResizeMode: string = 'fit';
 
+    @Input() reorderableColumns: boolean;
+
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
@@ -155,9 +160,15 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     @Output() onColResize: EventEmitter<any> = new EventEmitter();
 
+    @Output() onColReorder: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
+
+    @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
+
+    @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
 
     @ViewChild('table') tableViewChild: ElementRef;
 
@@ -200,6 +211,14 @@ export class TreeTable implements AfterContentInit, OnInit {
     frozenColGroupTemplate: TemplateRef<any>;
 
     lastResizerHelperX: number;
+
+    reorderIconWidth: number;
+
+    reorderIconHeight: number;
+
+    draggedColumn: any;
+
+    dropPosition: number;
 
     initialized: boolean;
 
@@ -702,6 +721,83 @@ export class TreeTable implements AfterContentInit, OnInit {
         }
     }
 
+    onColumnDragStart(event, columnElement) {
+        this.reorderIconWidth = this.domHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild.nativeElement);
+        this.reorderIconHeight = this.domHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild.nativeElement);
+        this.draggedColumn = columnElement;
+        event.dataTransfer.setData('text', 'b');    // For firefox
+    }
+
+    onColumnDragEnter(event, dropHeader) {
+        if (this.reorderableColumns && this.draggedColumn && dropHeader) {
+            event.preventDefault();
+            let containerOffset = this.domHandler.getOffset(this.containerViewChild.nativeElement);
+            let dropHeaderOffset = this.domHandler.getOffset(dropHeader);
+
+            if (this.draggedColumn != dropHeader) {
+                let targetLeft = dropHeaderOffset.left - containerOffset.left;
+                let targetTop = containerOffset.top - dropHeaderOffset.top;
+                let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
+
+                this.reorderIndicatorUpViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (this.reorderIconHeight - 1) + 'px';
+                this.reorderIndicatorDownViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
+
+                if (event.pageX > columnCenter) {
+                    this.reorderIndicatorUpViewChild.nativeElement.style.left = (targetLeft + dropHeader.offsetWidth - Math.ceil(this.reorderIconWidth / 2)) + 'px';
+                    this.reorderIndicatorDownViewChild.nativeElement.style.left = (targetLeft + dropHeader.offsetWidth - Math.ceil(this.reorderIconWidth / 2)) + 'px';
+                    this.dropPosition = 1;
+                }
+                else {
+                    this.reorderIndicatorUpViewChild.nativeElement.style.left = (targetLeft - Math.ceil(this.reorderIconWidth / 2)) + 'px';
+                    this.reorderIndicatorDownViewChild.nativeElement.style.left = (targetLeft - Math.ceil(this.reorderIconWidth / 2)) + 'px';
+                    this.dropPosition = -1;
+                }
+
+                this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
+                this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
+            }
+            else {
+                event.dataTransfer.dropEffect = 'none';
+            }
+        }
+    }
+
+    onColumnDragLeave(event) {
+        if (this.reorderableColumns && this.draggedColumn) {
+            event.preventDefault();
+            this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
+            this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
+        }
+    }
+
+    onColumnDrop(event, dropColumn) {
+        event.preventDefault();
+        if (this.draggedColumn) {
+            let dragIndex = this.domHandler.indexWithinGroup(this.draggedColumn, 'ttreorderablecolumn');
+            let dropIndex = this.domHandler.indexWithinGroup(dropColumn, 'ttreorderablecolumn');
+            let allowDrop = (dragIndex != dropIndex);
+            if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
+                allowDrop = false;
+            }
+
+            if (allowDrop) {
+                this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
+
+                this.onColReorder.emit({
+                    dragIndex: dragIndex,
+                    dropIndex: dropIndex,
+                    columns: this.columns
+                });
+            }
+
+            this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
+            this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
+            this.draggedColumn.draggable = false;
+            this.draggedColumn = null;
+            this.dropPosition = null;
+        }
+    }
+
 }
 
 @Component({
@@ -1148,6 +1244,117 @@ export class ResizableTreeTableColumn implements AfterViewInit, OnDestroy {
     }
 }
 
+@Directive({
+    selector: '[ttReorderableColumn]'
+})
+export class ReorderableTreeTableColumn implements AfterViewInit, OnDestroy {
+
+    @Input() ttReorderableColumnDisabled: boolean;
+
+    dragStartListener: any;
+
+    dragOverListener: any;
+
+    dragEnterListener: any;
+
+    dragLeaveListener: any;
+
+    mouseDownListener: any;
+
+    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+
+    ngAfterViewInit() {
+        if (this.isEnabled()) {
+            this.bindEvents();
+        }
+    }
+
+    bindEvents() {
+        this.zone.runOutsideAngular(() => {
+            this.mouseDownListener = this.onMouseDown.bind(this);
+            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
+
+            this.dragStartListener = this.onDragStart.bind(this);
+            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
+
+            this.dragOverListener = this.onDragEnter.bind(this);
+            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
+
+            this.dragEnterListener = this.onDragEnter.bind(this);
+            this.el.nativeElement.addEventListener('dragenter', this.dragEnterListener);
+
+            this.dragLeaveListener = this.onDragLeave.bind(this);
+            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
+        });
+    }
+
+    unbindEvents() {
+        if (this.mouseDownListener) {
+            document.removeEventListener('mousedown', this.mouseDownListener);
+            this.mouseDownListener = null;
+        }
+
+        if (this.dragOverListener) {
+            document.removeEventListener('dragover', this.dragOverListener);
+            this.dragOverListener = null;
+        }
+
+        if (this.dragEnterListener) {
+            document.removeEventListener('dragenter', this.dragEnterListener);
+            this.dragEnterListener = null;
+        }
+
+        if (this.dragEnterListener) {
+            document.removeEventListener('dragenter', this.dragEnterListener);
+            this.dragEnterListener = null;
+        }
+
+        if (this.dragLeaveListener) {
+            document.removeEventListener('dragleave', this.dragLeaveListener);
+            this.dragLeaveListener = null;
+        }
+    }
+
+    onMouseDown(event) {
+        if (event.target.nodeName === 'INPUT' || this.domHandler.hasClass(event.target, 'ui-column-resizer'))
+            this.el.nativeElement.draggable = false;
+        else
+            this.el.nativeElement.draggable = true;
+    }
+
+    onDragStart(event) {
+        this.tt.onColumnDragStart(event, this.el.nativeElement);
+    }
+
+    onDragOver(event) {
+        event.preventDefault();
+    }
+
+    onDragEnter(event) {
+        this.tt.onColumnDragEnter(event, this.el.nativeElement);
+    }
+
+    onDragLeave(event) {
+        this.tt.onColumnDragLeave(event);
+    }
+
+    @HostListener('drop', ['$event'])
+    onDrop(event) {
+        if (this.isEnabled()) {
+            this.tt.onColumnDrop(event, this.el.nativeElement);
+        }
+    }
+
+    isEnabled() {
+        return this.ttReorderableColumnDisabled !== true;
+    }
+
+    ngOnDestroy() {
+        this.unbindEvents();
+    }
+
+}
+
 @Component({
     selector: 'p-treeTableToggler',
     template: `
@@ -1187,7 +1394,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon,ResizableTreeTableColumn],
-    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon,ResizableTreeTableColumn]
+    exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn],
+    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn]
 })
 export class TreeTableModule { }
