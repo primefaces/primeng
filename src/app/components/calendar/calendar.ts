@@ -53,10 +53,10 @@ export interface LocaleSettings {
                        [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle"
                        [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
                        [attr.tabindex]="tabindex"
-                       [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" autocomplete="off"
-                ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
-                         class="ui-datepicker-trigger ui-calendar-button"
-                         [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
+                       [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" autocomplete="off">
+                <button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
+                        class="ui-datepicker-trigger ui-calendar-button"
+                        [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
             </ng-template>
             <div #datepicker [class]="panelStyleClass"
                  [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}"
@@ -394,7 +394,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     set minDate(date: Date) {
         this._minDate = date;
 
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+        if (this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
@@ -406,7 +406,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     set maxDate(date: Date) {
         this._maxDate = date;
 
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+        if (this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
@@ -417,7 +417,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
 
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+        if (this.currentMonth != null && this.currentYear) {
 
             this.createMonth(this.currentMonth, this.currentYear);
         }
@@ -430,7 +430,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     set disabledDays(disabledDays: number[]) {
         this._disabledDays = disabledDays;
 
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+        if (this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
@@ -466,8 +466,8 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         let date = this.defaultDate || new Date();
         this.createWeekDays();
 
-        this.currentMonth = date.getMonth();
-        this.currentYear = date.getFullYear();
+        this.currentMonth = this.getMonth(date);
+        this.currentYear = this.getFullYear(date);
         this.initTime(date);
 
         this.createMonth(this.currentMonth, this.currentYear);
@@ -589,25 +589,15 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     }
 
     initTime(date: Date) {
-        this.pm = (!this.utc) ? (date.getHours() > 11) : (date.getUTCHours() > 11);
+        this.pm = this.getHours(date) > 11;
         if (this.showTime) {
-            if (this.utc) {
-                this.currentMinute = date.getUTCMinutes();
-                this.currentSecond = date.getUTCSeconds();
+            this.currentMinute = this.getMinutes(date);
+            this.currentSecond = this.getSeconds(date);
 
-                if (this.hourFormat == '12')
-                    this.currentHour = date.getUTCHours() == 0 ? 12 : date.getUTCHours() % 12;
-                else
-                    this.currentHour = date.getUTCHours();
-            }
-            else {
-                this.currentMinute = date.getMinutes();
-                this.currentSecond = date.getSeconds();
-
-                if (this.hourFormat == '12')
-                    this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
-                else
-                    this.currentHour = date.getHours();
+            if (this.hourFormat == '12') {
+                this.currentHour = this.getHours(date) == 0 ? 12 : this.getHours(date) % 12;
+            } else {
+                this.currentHour = this.getHours(date);
             }
         }
         else if (this.timeOnly) {
@@ -715,8 +705,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
             }
             else if (this.isMultipleSelection()) {
                 for (let i = 0; i < this.value.length; i++) {
-                    let dateAsString = this.formatDateTime(this.value[i]);
-                    formattedValue += dateAsString;
+                    formattedValue += this.formatDateTime(this.value[i]);
                     if (i !== (this.value.length - 1)) {
                         formattedValue += ', ';
                     }
@@ -760,45 +749,32 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     }
 
     selectDate(dateMeta) {
-        let date;
-        if (this.utc)
-            date = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
-        else
-            date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        let date = this.newDate(dateMeta.year, dateMeta.month, dateMeta.day);
 
         if (this.showTime) {
-            if (this.utc) {
-                if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
-                    date.setUTCHours(this.currentHour + 12);
-                else
-                    date.setUTCHours(this.currentHour);
+            if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
+                this.setHours(date, this.currentHour + 12);
+            else
+                this.setHours(date, this.currentHour);
 
-                date.setUTCMinutes(this.currentMinute);
-                date.setUTCSeconds(this.currentSecond);
-            }
-            else {
-                if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
-                    date.setHours(this.currentHour + 12);
-                else
-                    date.setHours(this.currentHour);
-
-                date.setMinutes(this.currentMinute);
-                date.setSeconds(this.currentSecond);
-            }
+            this.setMinutes(date, this.currentMinute);
+            this.setSeconds(date, this.currentSecond);
         }
 
         if (this.minDate && this.minDate > date) {
             date = this.minDate;
-            this.currentHour = date.getHours();
-            this.currentMinute = date.getMinutes();
-            this.currentSecond = date.getSeconds();
+
+            this.currentHour = this.getHours(date);
+            this.currentMinute = this.getMinutes(date);
+            this.currentSecond = this.getSeconds(date);
         }
 
         if (this.maxDate && this.maxDate < date) {
             date = this.maxDate;
-            this.currentHour = date.getHours();
-            this.currentMinute = date.getMinutes();
-            this.currentSecond = date.getSeconds();
+
+            this.currentHour = this.getHours(date);
+            this.currentMinute = this.getMinutes(date);
+            this.currentSecond = this.getSeconds(date);
         }
 
         if (this.isSingleSelection()) {
@@ -852,16 +828,17 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
 
     getFirstDayOfMonthIndex(month: number, year: number) {
         let day = new Date();
-        day.setDate(1);
-        day.setMonth(month);
-        day.setFullYear(year);
 
-        let dayIndex = day.getDay() + this.getSundayIndex();
+        this.setDate(day, 1);
+        this.setMonth(day, month);
+        this.setFullYear(day, year);
+
+        let dayIndex = this.getDay(day) + this.getSundayIndex();
         return dayIndex >= 7 ? dayIndex - 7 : dayIndex;
     }
 
     getDaysCountInMonth(month: number, year: number) {
-        return 32 - this.daylightSavingAdjust(new Date(year, month, 32)).getDate();
+        return 32 - this.getDate(this.daylightSavingAdjust(this.newDate(year, month, 32)));
     }
 
     getDaysCountInPrevMonth(month: number, year: number) {
@@ -931,16 +908,16 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     }
 
     isDateEquals(value, dateMeta) {
-        if (value)
-            return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
-        else
-            return false;
+        return value &&
+            this.getDate(value) === dateMeta.day &&
+            this.getMonth(value) === dateMeta.month &&
+            this.getFullYear(value) === dateMeta.year
     }
 
     isDateBetween(start, end, dateMeta) {
         let between: boolean = false;
         if (start && end) {
-            let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            let date: Date = this.newDate(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
 
@@ -960,7 +937,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     }
 
     isToday(today, day, month, year): boolean {
-        return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+        return this.getDate(today) === day && this.getMonth(today) === month && this.getFullYear(today) === year;
     }
 
     isSelectable(day, month, year): boolean {
@@ -970,15 +947,15 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         let validDay = true;
 
         if (this.minDate) {
-            if (this.minDate.getFullYear() > year) {
+            if (this.getFullYear(this.minDate) > year) {
                 validMin = false;
             }
-            else if (this.minDate.getFullYear() === year) {
-                if (this.minDate.getMonth() > month) {
+            else if (this.getFullYear(this.minDate) === year) {
+                if (this.getMonth(this.minDate) > month) {
                     validMin = false;
                 }
-                else if (this.minDate.getMonth() === month) {
-                    if (this.minDate.getDate() > day) {
+                else if (this.getMonth(this.minDate) === month) {
+                    if (this.getDate(this.minDate) > day) {
                         validMin = false;
                     }
                 }
@@ -986,15 +963,15 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         }
 
         if (this.maxDate) {
-            if (this.maxDate.getFullYear() < year) {
+            if (this.getFullYear(this.maxDate) < year) {
                 validMax = false;
             }
-            else if (this.maxDate.getFullYear() === year) {
-                if (this.maxDate.getMonth() < month) {
+            else if (this.getFullYear(this.maxDate) === year) {
+                if (this.getMonth(this.maxDate) < month) {
                     validMax = false;
                 }
-                else if (this.maxDate.getMonth() === month) {
-                    if (this.maxDate.getDate() < day) {
+                else if (this.getMonth(this.maxDate) === month) {
+                    if (this.getDate(this.maxDate) < day) {
                         validMax = false;
                     }
                 }
@@ -1015,7 +992,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     isDateDisabled(day: number, month: number, year: number): boolean {
         if (this.disabledDates) {
             for (let disabledDate of this.disabledDates) {
-                if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
+                if (this.getFullYear(disabledDate) === year && this.getMonth(disabledDate) === month && this.getDate(disabledDate) === day) {
                     return true;
                 }
             }
@@ -1026,8 +1003,8 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
 
     isDayDisabled(day: number, month: number, year: number): boolean {
         if (this.disabledDays) {
-            let weekday = new Date(year, month, day);
-            let weekdayNumber = weekday.getDay();
+            let weekday = this.newDate(year, month, day);
+            let weekdayNumber = this.getDay(weekday);
             return this.disabledDays.indexOf(weekdayNumber) !== -1;
         }
         return false;
@@ -1141,13 +1118,13 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         let valueDateString = value ? value.toDateString() : null;
 
         if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if (this.minDate.getHours() > hour) {
+            if (this.getHours(this.minDate) > hour) {
                 valid = false;
             }
         }
 
         if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if (this.maxDate.getHours() < hour) {
+            if (this.getHours(this.maxDate) < hour) {
                 valid = false;
             }
         }
@@ -1187,13 +1164,13 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         let valueDateString = value ? value.toDateString() : null;
 
         if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if (this.minDate.getMinutes() > minute) {
+            if (this.getMinutes(this.minDate) > minute) {
                 valid = false;
             }
         }
 
         if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if (this.maxDate.getMinutes() < minute) {
+            if (this.getMinutes(this.maxDate) < minute) {
                 valid = false;
             }
         }
@@ -1233,13 +1210,13 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         let valueDateString = value ? value.toDateString() : null;
 
         if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if (this.minDate.getSeconds() > second) {
+            if (this.getSeconds(this.minDate) > second) {
                 valid = false;
             }
         }
 
         if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if (this.maxDate.getSeconds() < second) {
+            if (this.getSeconds(this.maxDate) < second) {
                 valid = false;
             }
         }
@@ -1257,31 +1234,18 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         }
         value = value ? new Date(value.getTime()) : new Date();
 
-        if (this.utc) {
-            if (this.hourFormat == '12') {
-                if (this.currentHour === 12)
-                    value.setUTCHours(this.pm ? 12 : 0);
-                else
-                    value.setUTCHours(this.pm ? this.currentHour + 12 : this.currentHour);
-            }
-            else {
-                value.setUTCHours(this.currentHour);
-            }
+        if (this.hourFormat == '12') {
+            if (this.currentHour === 12)
+                this.setHours(value, this.pm ? 12 : 0);
+            else
+                this.setHours(value, this.pm ? this.currentHour + 12 : this.currentHour);
         }
         else {
-            if (this.hourFormat == '12') {
-                if (this.currentHour === 12)
-                    value.setHours(this.pm ? 12 : 0);
-                else
-                    value.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
-            }
-            else {
-                value.setHours(this.currentHour);
-            }
+            this.setHours(value, this.currentHour);
         }
 
-        value.setMinutes(this.currentMinute);
-        value.setSeconds(this.currentSecond);
+        this.setMinutes(value, this.currentMinute);
+        this.setSeconds(value, this.currentSecond);
         if (this.isRangeSelection()) {
             if (this.value[1]) {
                 value = [this.value[0], value];
@@ -1381,13 +1345,10 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
 
         this.pm = (ampm === 'PM' || ampm === 'pm');
         let time = this.parseTime(timeString);
-        if (!this.utc)
-            value.setHours(time.hour);
-        else
-            value.setUTCHours(time.hour);
 
-        value.setMinutes(time.minute);
-        value.setSeconds(time.second);
+        this.setHours(value, time.hour);
+        this.setMinutes(value, time.minute);
+        this.setSeconds(value, time.second);
     }
 
     updateUI() {
@@ -1397,10 +1358,10 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
             val = val[0];
         }
 
-        this.createMonth(val.getMonth(), val.getFullYear());
+        this.createMonth(this.getMonth(val), this.getFullYear(val));
 
         if (this.showTime || this.timeOnly) {
-            let hours = (this.utc) ? val.getUTCHours() : val.getHours();
+            let hours = this.getHours(val);
 
             if (this.hourFormat == '12') {
                 this.pm = hours > 11;
@@ -1413,11 +1374,11 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
                 }
             }
             else {
-                this.currentHour = (this.utc) ? val.getUTCHours() : val.getHours();
+                this.currentHour = this.getHours(val);
             }
 
-            this.currentMinute = val.getMinutes();
-            this.currentSecond = val.getSeconds();
+            this.currentMinute = this.getMinutes(val);
+            this.currentSecond = this.getSeconds(val);
         }
     }
 
@@ -1504,34 +1465,27 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
                 } else {
                     switch (format.charAt(iFormat)) {
                         case 'd':
-                            output += formatNumber('d', this.utc ? date.getUTCDate() : date.getDate(), 2);
+                            output += formatNumber('d', this.getDate(date), 2);
                             break;
                         case 'D':
-                            output += formatName('D', this.utc ? date.getUTCDay() : date.getDay(), this.locale.dayNamesShort, this.locale.dayNames);
+                            output += formatName('D', this.getDay(date), this.locale.dayNamesShort, this.locale.dayNames);
                             break;
                         case 'o':
-                            if (this.utc) {
-                                output += formatNumber('o',
-                                    Math.round((
-                                        new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()).getTime() -
-                                        new Date(date.getUTCFullYear(), 0, 0).getTime()) / 86400000), 3);
-                            } else {
-                                output += formatNumber('o',
-                                    Math.round((
-                                        new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() -
-                                        new Date(date.getFullYear(), 0, 0).getTime()) / 86400000), 3);
-                            }
+                            output += formatNumber('o',
+                                Math.round((
+                                    new Date(this.getFullYear(date), this.getMonth(date), this.getDate(date)).getTime() -
+                                    new Date(this.getFullYear(date), 0, 0).getTime()) / 86400000), 3);
                             break;
                         case 'm':
-                            output += formatNumber('m', (this.utc ? date.getUTCMonth() : date.getMonth()) + 1, 2);
+                            output += formatNumber('m', (this.getMonth(date)) + 1, 2);
                             break;
                         case 'M':
-                            output += formatName('M', this.utc ? date.getUTCMonth() : date.getMonth(), this.locale.monthNamesShort, this.locale.monthNames);
+                            output += formatName('M', this.getMonth(date), this.locale.monthNamesShort, this.locale.monthNames);
                             break;
                         case 'y':
-                            output += (lookAhead('y') ? (this.utc ? date.getUTCFullYear() : date.getFullYear()) :
-                                ((this.utc ? date.getUTCFullYear() : date.getFullYear()) % 100 < 10 ? '0' : '') +
-                                (this.utc ? date.getUTCFullYear() : date.getFullYear()) % 100);
+                            output += (lookAhead('y') ? this.getFullYear(date) :
+                                (this.getFullYear(date) % 100 < 10 ? '0' : '') +
+                                this.getFullYear(date) % 100);
                             break;
                         case '@':
                             output += date.getTime();
@@ -1561,9 +1515,9 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         }
 
         let output = '';
-        let hours = (this.utc) ? date.getUTCHours() : date.getHours();
-        let minutes = date.getMinutes();
-        let seconds = date.getSeconds();
+        let hours = this.getHours(date);
+        let minutes = this.getMinutes(date);
+        let seconds = this.getSeconds(date);
 
         if (this.hourFormat == '12' && hours > 11 && hours != 12) {
             hours -= 12;
@@ -1626,7 +1580,7 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
 
         let iFormat, dim, extra,
             iValue = 0,
-            shortYearCutoff = (typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : new Date().getFullYear() % 100 + parseInt(this.shortYearCutoff, 10)),
+            shortYearCutoff = (typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : this.getFullYear(new Date()) % 100 + parseInt(this.shortYearCutoff, 10)),
             year = -1,
             month = -1,
             day = -1,
@@ -1716,15 +1670,15 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
                         break;
                     case '@':
                         date = new Date(getNumber('@'));
-                        year = date.getFullYear();
-                        month = date.getMonth() + 1;
-                        day = date.getDate();
+                        year = this.getFullYear(date);
+                        month = this.getMonth(date) + 1;
+                        day = this.getDate(date);
                         break;
                     case '!':
                         date = new Date((getNumber('!') - this.ticksTo1970) / 10000);
-                        year = date.getFullYear();
-                        month = date.getMonth() + 1;
-                        day = date.getDate();
+                        year = this.getFullYear(date);
+                        month = this.getMonth(date) + 1;
+                        day = this.getDate(date);
                         break;
                     case '\'':
                         if (lookAhead('\'')) {
@@ -1747,9 +1701,9 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
         }
 
         if (year === -1) {
-            year = new Date().getFullYear();
+            year = this.getFullYear(new Date());
         } else if (year < 100) {
-            year += new Date().getFullYear() - new Date().getFullYear() % 100 +
+            year += this.getFullYear(new Date()) - this.getFullYear(new Date()) % 100 +
                 (year <= shortYearCutoff ? 0 : -100);
         }
 
@@ -1766,17 +1720,11 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
             } while (true);
         }
 
-        if (this.utc) {
-            date = new Date(Date.UTC(year, month - 1, day));
-            if (date.getUTCFullYear() !== year || date.getUTCMonth() + 1 !== month || date.getUTCDate() !== day) {
-                throw 'Invalid date'; // E.g. 31/02/00
-            }
-        } else {
-            date = this.daylightSavingAdjust(new Date(year, month - 1, day));
-            if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
-                throw 'Invalid date'; // E.g. 31/02/00
-            }
+        date = this.daylightSavingAdjust(this.newDate(year, month - 1, day));
+        if (this.getFullYear(date) !== year || this.getMonth(date) + 1 !== month || this.getDate(date) !== day) {
+            throw 'Invalid date'; // E.g. 31/02/00
         }
+
         return date;
     }
 
@@ -1799,9 +1747,9 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     onTodayButtonClick(event) {
         let date: Date = new Date();
         let dateMeta = {
-            day: date.getDate(),
-            month: date.getMonth(),
-            year: date.getFullYear(),
+            day: this.getDate(date),
+            month: this.getMonth(date),
+            year: this.getFullYear(date),
             today: true,
             selectable: true
         };
@@ -1846,6 +1794,119 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
             this.el.nativeElement.appendChild(this.overlayViewChild.nativeElement);
         }
     }
+
+    // region Date Accessors
+    newDate(year: number, month: number, day: number): Date {
+        if (this.utc) {
+            return new Date(Date.UTC(year, month, day));
+        }
+        return new Date(year, month, day);
+    }
+
+    getDate(date: Date): number {
+        if (this.utc) {
+            return date.getUTCDate();
+        }
+        return date.getDate();
+    }
+
+    setDate(date: Date, dateValue: number): Date {
+        if (this.utc) {
+            date.setUTCDate(dateValue);
+        }
+        date.setDate(dateValue);
+
+        return date;
+    }
+
+    getDay(date: Date): number {
+        if (this.utc) {
+            return date.getUTCDay();
+        }
+        return date.getDay();
+    }
+
+    getMonth(date: Date): number {
+        if (this.utc) {
+            return date.getUTCMonth();
+        }
+        return date.getMonth();
+    }
+
+    setMonth(date: Date, month: number): Date {
+        if (this.utc) {
+            date.setUTCMonth(month);
+        }
+        date.setMonth(month);
+
+        return date;
+    }
+
+    getFullYear(date: Date): number {
+        if (this.utc) {
+            return date.getUTCFullYear();
+        }
+        return date.getFullYear();
+    }
+
+    setFullYear(date: Date, fullYear: number): Date {
+        if (this.utc) {
+            date.setUTCFullYear(fullYear);
+        }
+        date.setFullYear(fullYear);
+
+        return date;
+    }
+
+    getHours(date: Date): number {
+        if (this.utc) {
+            return date.getUTCHours();
+        }
+        return date.getHours();
+    }
+
+    setHours(date: Date, hours: number): Date {
+        if (this.utc) {
+            date.setUTCHours(hours);
+        }
+        date.setHours(hours);
+
+        return date
+    }
+
+    getMinutes(date: Date): number {
+        if (this.utc) {
+            return date.getUTCMinutes();
+        }
+        return date.getMinutes();
+    }
+
+    setMinutes(date: Date, minutes: number): Date {
+        if (this.utc) {
+            date.setUTCMinutes(minutes);
+        }
+        date.setMinutes(minutes);
+
+        return date;
+    }
+
+    getSeconds(date: Date): number {
+        if (this.utc) {
+            return date.getUTCSeconds();
+        }
+        return date.getSeconds();
+    }
+
+    setSeconds(date: Date, seconds: number): Date {
+        if (this.utc) {
+            date.setUTCSeconds(seconds);
+        }
+        date.setSeconds(seconds);
+
+        return date;
+    }
+
+    // endregion
 }
 
 @NgModule({
