@@ -696,11 +696,19 @@
         &.ui-state-highlight {
             background-color: $stateHighlightBgColor;
             color: $stateHighlightTextColor;
+
+            .ui-treetable-toggler {
+                color: $stateHighlightTextColor;
+            }
         }
 
         &.ui-contextmenu-selected {
             background-color: lighten($stateHighlightBgColor, 20%);
             color: $stateHighlightTextColor;
+        }
+
+        .ui-treetable-toggler {
+            color: $contentTextColor;
         }
     }
 
@@ -734,10 +742,6 @@
             background: $stateHoverBgColor;
             color: $stateHoverTextColor;
         }
-    }
-
-    .ui-treetable-toggler {
-        color: $contentTextColor;
     }
 }
 

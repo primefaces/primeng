@@ -42,7 +42,7 @@ export class TreeTableService {
     selector: 'p-treeTable',
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
-                [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-auto-layout': autoLayout,
+                [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-auto-layout': autoLayout, 'ui-treetable-hoverable-rows': (rowHover||selectionMode),
                 'ui-treetable-resizable': resizableColumns, 'ui-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit')}">
             <div class="ui-treetable-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-treetable-loading-content" *ngIf="loading">
@@ -126,6 +126,22 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     @Input() customSort: boolean;
 
+    @Input() selectionMode: string;
+
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+
+    @Input() contextMenuSelection: any;
+
+    @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
+
+    @Input() dataKey: string;
+
+    @Input() metaKeySelection: boolean;
+
+    @Input() compareSelectionBy: string = 'deepEquals';
+
+    @Input() rowHover: boolean;
+
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
@@ -144,6 +160,8 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     @Input() reorderableColumns: boolean;
 
+    @Input() contextMenu: any;
+
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
@@ -161,6 +179,12 @@ export class TreeTable implements AfterContentInit, OnInit {
     @Output() onColResize: EventEmitter<any> = new EventEmitter();
 
     @Output() onColReorder: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -219,6 +243,14 @@ export class TreeTable implements AfterContentInit, OnInit {
     draggedColumn: any;
 
     dropPosition: number;
+
+    preventSelectionSetterPropagation: boolean;
+
+    _selection: any;
+
+    selectionKeys: any = {};
+
+    rowTouched: boolean;
 
     initialized: boolean;
 
@@ -391,6 +423,34 @@ export class TreeTable implements AfterContentInit, OnInit {
         this._multiSortMeta = val;
         if (this.sortMode === 'multiple') {
             this.sortMultiple();
+        }
+    }
+
+    @Input() get selection(): any {
+        return this._selection;
+    }
+
+    set selection(val: any) {
+        this._selection = val;
+
+        if(!this.preventSelectionSetterPropagation) {
+            this.updateSelectionKeys();
+            this.tableService.onSelectionChange();
+        }
+        this.preventSelectionSetterPropagation = false;
+    }
+
+    updateSelectionKeys() {
+        if(this.dataKey && this._selection) {
+            this.selectionKeys = {};
+            if(Array.isArray(this._selection)) {
+                for(let data of this._selection) {
+                    this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                }
+            }
+            else {
+                this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+            }
         }
     }
 
@@ -796,6 +856,168 @@ export class TreeTable implements AfterContentInit, OnInit {
             this.draggedColumn = null;
             this.dropPosition = null;
         }
+    }
+
+    handleRowClick(event) {
+        let targetNode = (<HTMLElement> event.originalEvent.target).nodeName;
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
+            return;
+        }
+
+        if(this.selectionMode) {
+            this.preventSelectionSetterPropagation = true;
+            let rowNode = event.rowNode;
+            let selected = this.isSelected(rowNode.node);
+            let metaSelection = this.rowTouched ? false : this.metaKeySelection;
+            let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowNode.node.data, this.dataKey)) : null;
+
+            if(metaSelection) {
+                let metaKey = event.originalEvent.metaKey||event.originalEvent.ctrlKey;
+
+                if(selected && metaKey) {
+                    if(this.isSingleSelectionMode()) {
+                        this._selection = null;
+                        this.selectionKeys = {};
+                        this.selectionChange.emit(null);
+                    }
+                    else {
+                        let selectionIndex = this.findIndexInSelection(rowNode.node);
+                        this._selection = this.selection.filter((val,i) => i != selectionIndex);
+                        this.selectionChange.emit(this.selection);
+                        if(dataKeyValue) {
+                            delete this.selectionKeys[dataKeyValue];
+                        }
+                    }
+
+                    this.onNodeUnselect.emit({originalEvent: event.originalEvent, node: rowNode.node, type: 'row'});
+                }
+                else {
+                    if(this.isSingleSelectionMode()) {
+                        this._selection = rowNode.node;
+                        this.selectionChange.emit(rowNode.node);
+                        if(dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
+                    }
+                    else if(this.isMultipleSelectionMode()) {
+                        if(metaKey) {
+                            this._selection = this.selection||[];
+                        }
+                        else {
+                            this._selection = [];
+                            this.selectionKeys = {};
+                        }
+
+                        this._selection = [...this.selection, rowNode.node];
+                        this.selectionChange.emit(this.selection);
+                        if(dataKeyValue) {
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
+                    }
+
+                    this.onNodeSelect.emit({originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex});
+                }
+            }
+            else {
+                if (this.selectionMode === 'single') {
+                    if (selected) {
+                        this._selection = null;
+                        this.selectionKeys = {};
+                        this.selectionChange.emit(this.selection);
+                        this.onNodeUnselect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row' });
+                    }
+                    else {
+                        this._selection = rowNode.node;
+                        this.selectionChange.emit(this.selection);
+                        this.onNodeSelect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex });
+                        if (dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
+                    }
+                }
+                else if (this.selectionMode === 'multiple') {
+                    if (selected) {
+                        let selectionIndex = this.findIndexInSelection(rowNode.node);
+                        this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                        this.selectionChange.emit(this.selection);
+                        this.onNodeUnselect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row' });
+                        if (dataKeyValue) {
+                            delete this.selectionKeys[dataKeyValue];
+                        }
+                    }
+                    else {
+                        this._selection = this.selection ? [...this.selection, rowNode.node] : [rowNode.node];
+                        this.selectionChange.emit(this.selection);
+                        this.onNodeSelect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex });
+                        if (dataKeyValue) {
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
+                    }
+                }
+            }
+
+            this.tableService.onSelectionChange();
+        }
+
+        this.rowTouched = false;
+    }
+
+    handleRowTouchEnd(event) {
+        this.rowTouched = true;
+    }
+
+    handleRowRightClick(event) {
+        if (this.contextMenu) {
+            this.contextMenuSelection = event.rowData;
+            this.contextMenuSelectionChange.emit(event.rowData);
+            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
+            this.contextMenu.show(event.originalEvent);
+            this.tableService.onContextMenu(event.rowData);
+        }
+    }
+
+    isSelected(node) {
+        if (node && this.selection) {
+            if (this.dataKey) {
+                return this.selectionKeys[this.objectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
+            }
+            else {
+                if (this.selection instanceof Array)
+                    return this.findIndexInSelection(node) > -1;
+                else
+                    return this.equals(node, this.selection);
+            }
+        }
+
+        return false;
+    }
+
+    findIndexInSelection(rowData: any) {
+        let index: number = -1;
+        if (this.selection && this.selection.length) {
+            for (let i = 0; i < this.selection.length; i++) {
+                if (this.equals(rowData, this.selection[i])) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
+    isSingleSelectionMode() {
+        return this.selectionMode === 'single';
+    }
+
+    isMultipleSelectionMode() {
+        return this.selectionMode === 'multiple';
+    }
+
+    equals(data1, data2) {
+        return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
     }
 
 }
@@ -1355,6 +1577,167 @@ export class ReorderableTreeTableColumn implements AfterViewInit, OnDestroy {
 
 }
 
+@Directive({
+    selector: '[ttSelectableRow]',
+    providers: [DomHandler],
+    host: {
+        '[class.ui-state-highlight]': 'selected'
+    }
+})
+export class TTSelectableRow implements OnInit, OnDestroy {
+
+    @Input("ttSelectableRow") rowNode: any;
+
+    @Input() ttSelectableRowDisabled: boolean;
+
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+        if (this.isEnabled()) {
+            this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
+                this.selected = this.tt.isSelected(this.rowNode.node);
+            });
+        }
+    }
+
+    ngOnInit() {
+        if (this.isEnabled()) {
+            this.selected = this.tt.isSelected(this.rowNode.node);
+        }
+    }
+
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        if (this.isEnabled()) {
+            this.tt.handleRowClick({
+                originalEvent: event,
+                rowNode: this.rowNode
+            });
+        }
+    }
+
+    @HostListener('touchend', ['$event'])
+    onTouchEnd(event: Event) {
+        if (this.isEnabled()) {
+            this.tt.handleRowTouchEnd(event);
+        }
+    }
+
+    isEnabled() {
+        return this.ttSelectableRowDisabled !== true;
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+}
+
+@Directive({
+    selector: '[ttSelectableRowDblClick]',
+    providers: [DomHandler],
+    host: {
+        '[class.ui-state-highlight]': 'selected'
+    }
+})
+export class TTSelectableRowDblClick implements OnInit, OnDestroy {
+
+    @Input("ttSelectableRowDblClick") rowNode: any;
+
+    @Input() ttSelectableRowDisabled: boolean;
+
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+        if (this.isEnabled()) {
+            this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
+                this.selected = this.tt.isSelected(this.rowNode.node);
+            });
+        }
+    }
+
+    ngOnInit() {
+        if (this.isEnabled()) {
+            this.selected = this.tt.isSelected(this.rowNode.node);
+        }
+    }
+
+    @HostListener('dblclick', ['$event'])
+    onClick(event: Event) {
+        if (this.isEnabled()) {
+            this.tt.handleRowClick({
+                originalEvent: event,
+                rowNode: this.rowNode
+            });
+        }
+    }
+
+    isEnabled() {
+        return this.ttSelectableRowDisabled !== true;
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+}
+
+@Directive({
+    selector: '[ttContextMenuRow]',
+    host: {
+        '[class.ui-contextmenu-selected]': 'selected'
+    }
+})
+export class TTContextMenuRow {
+
+    @Input("ttContextMenuRow") data: any;
+
+    @Input() ttContextMenuRowDisabled: boolean;
+
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public tt: TreeTable, public tableService: TreeTableService) {
+        if (this.isEnabled()) {
+            this.subscription = this.tt.tableService.contextMenuSource$.subscribe((data) => {
+                this.selected = this.tt.equals(this.data, data);
+            });
+        }
+    }
+
+    @HostListener('contextmenu', ['$event'])
+    onContextMenu(event: Event) {
+        if (this.isEnabled()) {
+            this.tt.handleRowRightClick({
+                originalEvent: event,
+                rowData: this.data
+            });
+
+            event.preventDefault();
+        }
+    }
+
+    isEnabled() {
+        return this.ttContextMenuRowDisabled !== true;
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+}
+
 @Component({
     selector: 'p-treeTableToggler',
     template: `
@@ -1394,7 +1777,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn],
-    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn]
+    exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow],
+    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow]
 })
 export class TreeTableModule { }

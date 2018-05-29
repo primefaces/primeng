@@ -8,7 +8,128 @@
 </div>
 
 <div class="content-section implementation">
-   
+    <p-growl [(value)]="msgs"></p-growl>
+
+    <h3 class="first">Single</h3>
+    <p-treeTable [value]="files1" [columns]="cols" selectionMode="single" [(selection)]="selectedNode1" dataKey="name">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttSelectableRow]="rowNode">
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div style="text-align: left">
+                Selected Node: <span style="font-weight: normal">{{selectedNode1 ? selectedNode1.data.name + ' - ' + selectedNode1.data.size + ' - ' + selectedNode1.data.type : 'none'}}</span>
+            </div>
+        </ng-template>
+    </p-treeTable>
+
+    <h3>Multiple</h3>
+    <p-treeTable [value]="files2" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes1" dataKey="name">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttSelectableRow]="rowNode">
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div style="text-align: left">
+                Selected Nodes: <span *ngIf="!selectedNodes1 || selectedNodes1.length === 0" style="font-weight: normal">none</span>
+                <ul *ngIf="selectedNodes1 && selectedNodes1.length">
+                    <li *ngFor="let node of selectedNodes1">
+                        <span style="font-weight: normal">{{node.data.name + ' - ' + node.data.size + ' - ' + node.data.type}}</span>
+                    </li>
+                </ul>
+            </div>
+        </ng-template>
+    </p-treeTable>
+
+    <h3>Multiple with MetaKey</h3>
+    <p-treeTable [value]="files3" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes2" dataKey="name" [metaKeySelection]="true">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttSelectableRow]="rowNode">
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div style="text-align: left">
+                Selected Nodes: <span *ngIf="!selectedNodes2 || selectedNodes2.length === 0" style="font-weight: normal">none</span>
+                <ul *ngIf="selectedNodes2 && selectedNodes2.length">
+                    <li *ngFor="let node of selectedNodes2">
+                        <span style="font-weight: normal">{{node.data.name + ' - ' + node.data.size + ' - ' + node.data.type}}</span>
+                    </li>
+                </ul>
+            </div>
+        </ng-template>
+    </p-treeTable>
+
+    <h3>Events</h3>
+    <p-treeTable [value]="files4" [columns]="cols" selectionMode="single" [(selection)]="selectedNode2" dataKey="name"
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttSelectableRow]="rowNode">
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+    </p-treeTable>
+
+    <h3>Checkbox</h3>
+    <p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3" dataKey="name">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+    </p-treeTable>
 </div>
 
 <div class="content-section documentation">
