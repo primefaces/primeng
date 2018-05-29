@@ -114,6 +114,12 @@
 
     <h3>Checkbox</h3>
     <p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3">
+        <ng-template pTemplate="caption">
+            <div style="text-align:left">
+                <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+                <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+            </div>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -340,6 +346,12 @@ export class TreeTableSelectionDemo &#123;
 
 &lt;h3&gt;Checkbox&lt;/h3&gt;
 &lt;p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        &lt;div style="text-align:left"&gt;
+            &lt;p-treeTableHeaderCheckbox&gt;&lt;/p-treeTableHeaderCheckbox&gt;
+            &lt;span style="margin-left: .25em; vertical-align: middle"&gt;Toggle All&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;

@@ -186,6 +186,8 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
+    @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -1005,6 +1007,25 @@ export class TreeTable implements AfterContentInit, OnInit {
         this.tableService.onSelectionChange();
     }
 
+    toggleNodesWithCheckbox(event: Event, check: boolean) {
+        if (check) {
+            if (this.value && this.value.length) {
+                for (let node of this.value) {
+                    this.propagateSelectionDown(node, true);
+                }
+            }
+        }
+        else {
+            this._selection = [];
+            this.selectionKeys = {};
+        }
+
+        this.preventSelectionSetterPropagation = true;
+        this.selectionChange.emit(this._selection);
+        this.tableService.onSelectionChange();
+        this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
+    }
+    
     propagateSelectionUp(node: TreeNode, select: boolean) {
         if (node.children && node.children.length) {
             let selectedChildCount: number = 0;
@@ -1019,7 +1040,7 @@ export class TreeTable implements AfterContentInit, OnInit {
             }
             
             if (select && selectedChildCount == node.children.length) {
-                this.selection = [...this.selection||[], node];
+                this._selection =  [...this.selection||[], node];
                 node.partialSelected = false;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
@@ -1029,7 +1050,7 @@ export class TreeTable implements AfterContentInit, OnInit {
                 if (!select) {
                     let index = this.findIndexInSelection(node);
                     if (index >= 0) {
-                        this.selection = this.selection.filter((val,i) => i!=index);
+                        this._selection =  this.selection.filter((val,i) => i!=index);
 
                         if (dataKeyValue) {
                             delete this.selectionKeys[dataKeyValue];
@@ -1055,13 +1076,13 @@ export class TreeTable implements AfterContentInit, OnInit {
         let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
         
         if (select && index == -1) {
-            this.selection = [...this.selection||[],node]
+            this._selection =  [...this.selection||[],node]
             if (dataKeyValue) {
                 this.selectionKeys[dataKeyValue] = 1;
             }
         }
         else if (!select && index > -1) {
-            this.selection = this.selection.filter((val,i) => i!=index);
+            this._selection =  this.selection.filter((val,i) => i!=index);
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
@@ -1899,6 +1920,95 @@ export class TTCheckbox  {
 }
 
 @Component({
+    selector: 'p-treeTableHeaderCheckbox',
+    template: `
+        <div class="ui-chkbox ui-treetable-header-chkbox ui-widget" (click)="onClick($event, cb.checked)">
+            <div class="ui-helper-hidden-accessible">
+                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!tt.value||tt.value.length === 0">
+            </div>
+            <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
+                'ui-state-active':checked, 'ui-state-disabled': (!tt.value || tt.value.length === 0)}">
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+            </div>
+        </div>
+    `
+})
+export class TTHeaderCheckbox  {
+
+    @ViewChild('box') boxViewChild: ElementRef;
+
+    checked: boolean;
+
+    disabled: boolean;
+
+    selectionChangeSubscription: Subscription;
+
+    valueChangeSubscription: Subscription;
+
+    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+        this.valueChangeSubscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
+            this.checked = this.updateCheckedState();
+        });
+
+        this.selectionChangeSubscription = this.tt.tableService.selectionSource$.subscribe(() => {
+            this.checked = this.updateCheckedState();
+        });
+    }
+
+    ngOnInit() {
+        this.checked = this.updateCheckedState();
+    }
+
+    onClick(event: Event, checked) {
+        if(this.tt.value && this.tt.value.length > 0) {
+            this.tt.toggleNodesWithCheckbox(event, !checked);
+        }
+        
+        this.domHandler.clearSelection();
+    }
+
+    onFocus() {
+        this.domHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    onBlur() {
+        this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    ngOnDestroy() {
+        if (this.selectionChangeSubscription) {
+            this.selectionChangeSubscription.unsubscribe();
+        }
+
+        if (this.valueChangeSubscription) {
+            this.valueChangeSubscription.unsubscribe();
+        }
+    }
+
+    updateCheckedState() {
+        let checked: boolean;
+
+        if (this.tt.value) {
+            for (let node of this.tt.value) {
+                if (this.tt.isSelected(node)) {
+                    checked = true;
+                }   
+                else  {
+                    checked = false;
+                    break;
+                }
+            }
+        }
+        else {
+            checked = false;
+        }
+
+        return checked;
+    }
+   
+}
+
+@Component({
     selector: 'p-treeTableToggler',
     template: `
         <a href="#" class="ui-treetable-toggler" *ngIf="rowNode.node.leaf === false || rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" (click)="onClick($event)" [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
@@ -1937,7 +2047,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox],
-    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox]
+    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox],
+    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox]
 })
 export class TreeTableModule { }
