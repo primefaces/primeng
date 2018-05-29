@@ -29,8 +29,8 @@ export class TreeTableService {
         this.selectionSource.next();
     }
 
-    onContextMenu(data: any) {
-        this.contextMenuSource.next(data);
+    onContextMenu(node: any) {
+        this.contextMenuSource.next(node);
     }
 
     onUIUpdate(value: any) {
@@ -970,11 +970,12 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     handleRowRightClick(event) {
         if (this.contextMenu) {
-            this.contextMenuSelection = event.rowData;
-            this.contextMenuSelectionChange.emit(event.rowData);
-            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
+            let node = event.rowNode.node;
+            this.contextMenuSelection = node;
+            this.contextMenuSelectionChange.emit(node);
+            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
             this.contextMenu.show(event.originalEvent);
-            this.tableService.onContextMenu(event.rowData);
+            this.tableService.onContextMenu(node);
         }
     }
 
@@ -994,11 +995,11 @@ export class TreeTable implements AfterContentInit, OnInit {
         return false;
     }
 
-    findIndexInSelection(rowData: any) {
+    findIndexInSelection(node: any) {
         let index: number = -1;
         if (this.selection && this.selection.length) {
             for (let i = 0; i < this.selection.length; i++) {
-                if (this.equals(rowData, this.selection[i])) {
+                if (this.equals(node, this.selection[i])) {
                     index = i;
                     break;
                 }
@@ -1016,8 +1017,8 @@ export class TreeTable implements AfterContentInit, OnInit {
         return this.selectionMode === 'multiple';
     }
 
-    equals(data1, data2) {
-        return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
+    equals(node1, node2) {
+        return this.compareSelectionBy === 'equals' ? (node1 === node2) : this.objectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
 }
@@ -1698,7 +1699,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 })
 export class TTContextMenuRow {
 
-    @Input("ttContextMenuRow") data: any;
+    @Input("ttContextMenuRow") rowNode: any;
 
     @Input() ttContextMenuRowDisabled: boolean;
 
@@ -1708,8 +1709,8 @@ export class TTContextMenuRow {
 
     constructor(public tt: TreeTable, public tableService: TreeTableService) {
         if (this.isEnabled()) {
-            this.subscription = this.tt.tableService.contextMenuSource$.subscribe((data) => {
-                this.selected = this.tt.equals(this.data, data);
+            this.subscription = this.tt.tableService.contextMenuSource$.subscribe((node) => {
+                this.selected = this.tt.equals(this.rowNode.node, node);
             });
         }
     }
@@ -1719,7 +1720,7 @@ export class TTContextMenuRow {
         if (this.isEnabled()) {
             this.tt.handleRowRightClick({
                 originalEvent: event,
-                rowData: this.data
+                rowNode: this.rowNode
             });
 
             event.preventDefault();
