@@ -192,9 +192,9 @@ export class ColumnFooters {
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
-                <ng-template *ngIf="dt.emptyMessageTemplate">
+                <ng-container *ngIf="dt.emptyMessageTemplate">
                     <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate"></ng-container>
-                </ng-template>
+                </ng-container>
             </td>
         </tr>
     `
@@ -745,7 +745,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public emptyMessageTemplate: TemplateRef<any>;
     
     public paginatorLeftTemplate: TemplateRef<any>;
-            
+    
     public paginatorRightTemplate: TemplateRef<any>;
     
     public scrollBarWidth: number;
