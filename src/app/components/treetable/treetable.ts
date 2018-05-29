@@ -1035,7 +1035,7 @@ export class TreeTable implements AfterContentInit, OnInit {
         </ng-container>
     `
 })
-export class TreeTableBody {
+export class TTBody {
 
     @Input("pTreeTableBody") columns: any[];
 
@@ -1080,7 +1080,7 @@ export class TreeTableBody {
         </div>
     `
 })
-export class ScrollableTreeTableView implements AfterViewInit, OnDestroy, AfterViewChecked {
+export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChecked {
 
     @Input("ttScrollableView") columns: any[];
 
@@ -1276,18 +1276,18 @@ export class ScrollableTreeTableView implements AfterViewInit, OnDestroy, AfterV
 }
 
 @Directive({
-    selector: '[pSortableColumn]',
+    selector: '[ttSortableColumn]',
     providers: [DomHandler],
     host: {
         '[class.ui-sortable-column]': 'true',
         '[class.ui-state-highlight]': 'sorted'
     }
 })
-export class SortableColumn implements OnInit, OnDestroy {
+export class TTSortableColumn implements OnInit, OnDestroy {
 
-    @Input("pSortableColumn") field: string;
+    @Input("ttSortableColumn") field: string;
 
-    @Input() pSortableColumnDisabled: boolean;
+    @Input() ttSortableColumnDisabled: boolean;
 
     sorted: boolean;
     
@@ -1325,7 +1325,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     isEnabled() {
-        return this.pSortableColumnDisabled !== true;
+        return this.ttSortableColumnDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -1336,14 +1336,14 @@ export class SortableColumn implements OnInit, OnDestroy {
 }
 
 @Component({
-    selector: 'p-sortIcon',
+    selector: 'p-treeTableSortIcon',
     template: `
         <a href="#" (click)="onClick($event)" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
             <i class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></i>
         </a>
     `
 })
-export class SortIcon implements OnInit, OnDestroy {
+export class TTSortIcon implements OnInit, OnDestroy {
 
     @Input() field: string;
     
@@ -1355,8 +1355,8 @@ export class SortIcon implements OnInit, OnDestroy {
 
     sortOrder: number;
 
-    constructor(public dt: TreeTable) {
-        this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
+    constructor(public tt: TreeTable) {
+        this.subscription = this.tt.tableService.sortSource$.subscribe(sortMeta => {
             this.updateSortState();
         });
     }
@@ -1370,11 +1370,11 @@ export class SortIcon implements OnInit, OnDestroy {
     }
 
     updateSortState() {
-        if (this.dt.sortMode === 'single') {
-            this.sortOrder = this.dt.isSorted(this.field) ? this.dt.sortOrder : 0;
+        if (this.tt.sortMode === 'single') {
+            this.sortOrder = this.tt.isSorted(this.field) ? this.tt.sortOrder : 0;
         }
-        else if (this.dt.sortMode === 'multiple') {
-            let sortMeta = this.dt.getSortMeta(this.field);
+        else if (this.tt.sortMode === 'multiple') {
+            let sortMeta = this.tt.getSortMeta(this.field);
             this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
     }
@@ -1389,7 +1389,7 @@ export class SortIcon implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttResizableColumn]'
 })
-export class ResizableTreeTableColumn implements AfterViewInit, OnDestroy {
+export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     @Input() ttResizableColumnDisabled: boolean;
 
@@ -1469,7 +1469,7 @@ export class ResizableTreeTableColumn implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[ttReorderableColumn]'
 })
-export class ReorderableTreeTableColumn implements AfterViewInit, OnDestroy {
+export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
     @Input() ttReorderableColumnDisabled: boolean;
 
@@ -1777,7 +1777,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow],
-    declarations: [TreeTable,TreeTableBody,TreeTableToggler,ScrollableTreeTableView,SortableColumn,SortIcon,ResizableTreeTableColumn,ReorderableTreeTableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow]
+    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow],
+    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow]
 })
 export class TreeTableModule { }

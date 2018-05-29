@@ -12,9 +12,9 @@
     <p-treeTable [value]="files1" [columns]="cols">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                     {{col.header}}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                    <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
                 </th>
             </tr>
         </ng-template>
@@ -32,9 +32,9 @@
     <p-treeTable [value]="files2" [columns]="cols" sortMode="multiple">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                     {{col.header}}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                    <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
                 </th>
             </tr>
         </ng-template>
@@ -103,9 +103,9 @@ export class TreeTableSortDemo implements OnInit &#123;
 &lt;p-treeTable [value]="files1" [columns]="cols"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
+            &lt;th *ngFor="let col of columns" [ttSortableColumn]="col.field"&gt;
                 &#123;&#123;col.header&#125;&#125;
-                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
+                &lt;p-treeTableSortIcon [field]="col.field"&gt;&lt;/p-treeTableSortIcon&gt;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -123,9 +123,9 @@ export class TreeTableSortDemo implements OnInit &#123;
 &lt;p-treeTable [value]="files2" [columns]="cols" sortMode="multiple"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
+            &lt;th *ngFor="let col of columns" [ttSortableColumn]="col.field"&gt;
                 &#123;&#123;col.header&#125;&#125;
-                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
+                &lt;p-treeTableSortIcon [field]="col.field"&gt;&lt;/p-treeTableSortIcon&gt;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
