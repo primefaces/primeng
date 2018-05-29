@@ -88,7 +88,7 @@ export class TreeTableService {
     `,
     providers: [DomHandler,ObjectUtils,TreeTableService]
 })
-export class TreeTable implements AfterContentInit, OnInit {
+export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() columns: any[];
 
@@ -188,6 +188,12 @@ export class TreeTable implements AfterContentInit, OnInit {
 
     @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
 
+    @Output() onEditInit: EventEmitter<any> = new EventEmitter();
+
+    @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
+
+    @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -253,6 +259,8 @@ export class TreeTable implements AfterContentInit, OnInit {
     selectionKeys: any = {};
 
     rowTouched: boolean;
+
+    editingCell: Element;
 
     initialized: boolean;
 
@@ -1139,6 +1147,11 @@ export class TreeTable implements AfterContentInit, OnInit {
         return this.compareSelectionBy === 'equals' ? (node1 === node2) : this.objectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
+    ngOnDestroy() {
+        this.editingCell = null;
+        this.initialized = null;
+    }
+
 }
 
 @Component({
@@ -2008,6 +2021,220 @@ export class TTHeaderCheckbox  {
    
 }
 
+@Directive({
+    selector: '[ttEditableColumn]'
+})
+export class TTEditableColumn implements AfterViewInit {
+
+    @Input("pEditableColumn") data: any;
+
+    @Input("pEditableColumnField") field: any;
+
+    @Input() pEditableColumnDisabled: boolean;
+
+    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+
+    ngAfterViewInit() {
+        if (this.isEnabled()) {
+            this.domHandler.addClass(this.el.nativeElement, 'ui-editable-column');
+        }
+    }
+
+    isValid() {
+        return (this.tt.editingCell && this.domHandler.find(this.tt.editingCell, '.ng-invalid.ng-dirty').length === 0);
+    }
+
+    @HostListener('click', ['$event'])
+    onClick(event: MouseEvent) {
+        if (this.isEnabled()) {
+            if (this.tt.editingCell) {
+                if (this.tt.editingCell !== this.el.nativeElement) {
+                    if (!this.isValid()) {
+                        return;
+                    }
+        
+                    this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+                    this.openCell();
+                }
+            }
+            else {
+                this.openCell();
+            }
+        }
+    }
+
+    openCell() {
+        this.tt.editingCell = this.el.nativeElement;
+        this.domHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
+        this.tt.onEditInit.emit({ field: this.field, data: this.data});
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => {
+                let focusable = this.domHandler.findSingle(this.el.nativeElement, 'input, textarea');
+                if (focusable) {
+                    focusable.focus();
+                }
+            }, 50);
+        });
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            //enter
+            if (event.keyCode == 13) {
+                if (this.isValid()) {
+                    this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+                    this.tt.editingCell = null;
+                    this.tt.onEditComplete.emit({ field: this.field, data: this.data });
+                }
+    
+                event.preventDefault();
+            }
+    
+            //escape
+            else if (event.keyCode == 27) {
+                if (this.isValid()) {
+                    this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+                    this.tt.editingCell = null;
+                    this.tt.onEditCancel.emit({ field: this.field, data: this.data });
+                }
+    
+                event.preventDefault();
+            }
+    
+            //tab
+            else if (event.keyCode == 9) {
+                this.tt.onEditComplete.emit({ field: this.field, data: this.data });
+                
+                if (event.shiftKey)
+                    this.moveToPreviousCell(event);
+                else
+                    this.moveToNextCell(event);
+            }
+        }
+    }
+
+    findCell(element) {
+        if (element) {
+            let cell = element;
+            while (cell && !this.domHandler.hasClass(cell, 'ui-editing-cell')) {
+                cell = cell.parentElement;
+            }
+
+            return cell;
+        }
+        else {
+            return null;
+        }
+    }
+
+    moveToPreviousCell(event: KeyboardEvent) {
+        let currentCell = this.findCell(event.target);
+        let row = currentCell.parentElement;
+        let targetCell = this.findPreviousEditableColumn(currentCell);
+
+        if (targetCell) {
+            this.domHandler.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+
+    moveToNextCell(event: KeyboardEvent) {
+        let currentCell = this.findCell(event.target);
+        let row = currentCell.parentElement;
+        let targetCell = this.findNextEditableColumn(currentCell);
+
+        if (targetCell) {
+            this.domHandler.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+
+    findPreviousEditableColumn(cell: Element) {
+        let prevCell = cell.previousElementSibling;
+
+        if (!prevCell) {
+            let previousRow = cell.parentElement.previousElementSibling;
+            if (previousRow) {
+                prevCell = previousRow.lastElementChild;
+            }
+        }
+
+        if (prevCell) {
+            if (this.domHandler.hasClass(prevCell, 'ui-editable-column'))
+                return prevCell;
+            else
+                return this.findPreviousEditableColumn(prevCell);
+        }
+        else {
+            return null;
+        }
+    }
+
+    findNextEditableColumn(cell: Element) {
+        let nextCell = cell.nextElementSibling;
+
+        if (!nextCell) {
+            let nextRow = cell.parentElement.nextElementSibling;
+            if (nextRow) {
+                nextCell = nextRow.firstElementChild;
+            }
+        }
+
+        if (nextCell) {
+            if (this.domHandler.hasClass(nextCell, 'ui-editable-column'))
+                return nextCell;
+            else
+                return this.findNextEditableColumn(nextCell);
+        }
+        else {
+            return null;
+        }
+    }
+
+    isEnabled() {
+        return this.pEditableColumnDisabled !== true;
+    }
+
+}
+
+@Component({
+    selector: 'p-treeTableCellEditor',
+    template: `
+        <ng-container *ngIf="tt.editingCell === editableColumn.el.nativeElement">
+            <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="!tt.editingCell || tt.editingCell !== editableColumn.el.nativeElement">
+            <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
+        </ng-container>
+    `
+})
+export class TreeTableCellEditor implements AfterContentInit {
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+
+    inputTemplate: TemplateRef<any>;
+
+    outputTemplate: TemplateRef<any>;
+
+    constructor(public tt: TreeTable, public editableColumn: TTEditableColumn) { }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'input':
+                    this.inputTemplate = item.template;
+                    break;
+
+                case 'output':
+                    this.outputTemplate = item.template;
+                    break;
+            }
+        });
+    }
+    
+}
+
 @Component({
     selector: 'p-treeTableToggler',
     template: `
@@ -2047,7 +2274,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox],
-    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox]
+    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
+    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
 })
 export class TreeTableModule { }

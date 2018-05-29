@@ -139,7 +139,7 @@
     padding-bottom: 0;
 }
 
-.ui-treetable .ui-treetable-tbody > tr > td.ui-editing-cell p-celleditor >  * {
+.ui-treetable .ui-treetable-tbody > tr > td.ui-editing-cell p-treetablecelleditor >  * {
     width: 100%;
 }
 
