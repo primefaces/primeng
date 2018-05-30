@@ -1159,7 +1159,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     template: `
         <ng-template ngFor let-serializedNode let-rowIndex="index" [ngForOf]="tt.serializedValue" [ngForTrackBy]="tt.rowTrackBy">
             <ng-container *ngIf="serializedNode.visible">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: serializedNode, rowData: serializedNode.node.data, columns: columns}"></ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: serializedNode, node: serializedNode.node, rowData: serializedNode.node.data, columns: columns}"></ng-container>
             </ng-container>
         </ng-template>
         <ng-container *ngIf="tt.isEmpty()">
