@@ -246,7 +246,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>$implicit: Data of the row <br>
                                 rowIndex: Index of the row <br>
                                 columns: Columns collection <br>
-                                expanded: Whethert the row is expanded
+                                expanded: Whether the row is expanded
                             </td>
                             <td>Content of the tbody element.</td>
                         </tr>
@@ -718,7 +718,7 @@ export class DataTablePageDemo implements OnInit &#123;
             <p>In multiple mode, use the multiSortMeta property and bind an array of SortMeta objects.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars1" [multiSortMeta]="multiSortMeta"&gt;
+&lt;p-table [columns]="cols" [value]="cars1" sortMode="multiple" [multiSortMeta]="multiSortMeta"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
