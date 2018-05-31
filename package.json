@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "6.0.0-alpha.2",
+    "version": "6.0.0-alpha.3-SNAPSHOT",
     "license": "MIT",
     "scripts": {
         "ng": "ng",
