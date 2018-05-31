@@ -1132,7 +1132,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <h3>Editing</h3>
             <p>Incell editing is enabled by adding pEditableColumn directive to an editable cell that has a p:cellEditor helper
-                component to defint the input-output templates for the edit and view modes respectively.</p>
+                component to define the input-output templates for the edit and view modes respectively.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars"&gt;
@@ -1303,7 +1303,7 @@ export class DataTableDemo implements OnInit &#123;
             <p>It is important to note that when you need to change column widths, since table width is 100%, giving fixed pixel widths does not work well as browsers scale them, instead give percentage widths.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [value]="cars"&gt;
+&lt;p-table [value]="cars" [resizableColumns]="true"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th style="width:20%"&gt;Vin&lt;/th&gt;
@@ -1466,7 +1466,7 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
             <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
-                use colgroup as below to avoid misalignment issues as it will apply both the header,body and footer sections which are different separate elements internally.</p>
+                use colgroup as below to avoid misalignment issues as it will apply both the header, body and footer sections which are different separate elements internally.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1551,7 +1551,7 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Particular columns can be made fixed where others remain scrollable, there are to ways to implement this functionality, either
+            <p>Particular columns can be made fixed where others remain scrollable, there are two ways to implement this functionality, either
                 define a frozenColumns property if your frozen columns are dynamic or use frozenbody template. The width of the frozen section also
                 must be defined with frozenWidth property. Templates including header, body and footer apply to the frozen section as well, however
                 if require different content for the frozen section use frozenheader, frozenbody and frozenfooter instead. First example below uses
@@ -2260,7 +2260,7 @@ export class DataTableDemo implements OnInit &#123;
                             <td>event.originalEvent: Browser event <br>
                                 event.data: Unselected data <br >
                                 event.type: Type of unselection, valid values are "row" and "checkbox"</td>
-                            <td>Callback to invoke when a row is unselected with metakey.</td>
+                            <td>Callback to invoke when a row is unselected.</td>
                         </tr>
                         <tr>
                             <td>onPage</td>
@@ -2287,7 +2287,9 @@ export class DataTableDemo implements OnInit &#123;
                                 event.rows = Number of rows per page <br>
                                 event.sortField = Field name to sort with <br>
                                 event.sortOrder = Sort order as number, 1 for asc and -1 for dec <br>
-                                filters: FilterMetadata object having field as key and filter value, filter matchMode as value</td>
+                                event.multiSortMeta: An array of SortMeta objects used in multiple columns sorting. Each SortMeta has field and order properties.<br>
+                                event.filters: FilterMetadata object having field as key and filter value, filter matchMode as value<br>
+                                event.globalFilter: Value of the global filter if available</td>
                             <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
                         </tr>
                         <tr>
@@ -2318,13 +2320,13 @@ export class DataTableDemo implements OnInit &#123;
                             <td>onColReorder</td>
                             <td>event.dragIndex: Index of the dragged column <br>
                                 event.dropIndex: Index of the dropped column <br>
-                                event.columns: Columns array after reorder. <br></td>
+                                event.columns: Columns array after reorder</td>
                             <td>Callback to invoke when a column is reordered.</td>
                         </tr>
                         <tr>
                             <td>onRowReorder</td>
                             <td>event.dragIndex: Index of the dragged row<br>
-                                event.dropIndex: Index of the drop location <br></td>
+                                event.dropIndex: Index of the drop location</td>
                             <td>Callback to invoke when a row is reordered.</td>
                         </tr>
                         <tr>
@@ -2382,21 +2384,6 @@ export class DataTableDemo implements OnInit &#123;
                 </table>
             </div>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-table #tt [value]="cars"&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-update(dt: DataTable) &#123;
-    tt.reset();
-&#125;
-</code>
-</pre>
-
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -2413,7 +2400,7 @@ update(dt: DataTable) &#123;
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-datatable-caption</td>
+                            <td>ui-table-caption</td>
                             <td>Caption element.</td>
                         </tr>
                         <tr>
