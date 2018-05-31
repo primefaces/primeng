@@ -1203,11 +1203,6 @@ export class TTBody {
                     <thead class="ui-treetable-thead">
                         <ng-container *ngTemplateOutlet="frozen ? tt.frozenHeaderTemplate||tt.headerTemplate : tt.headerTemplate; context {$implicit: columns}"></ng-container>
                     </thead>
-                    <tbody class="ui-treetable-tbody">
-                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="tt.frozenValue" [ngForTrackBy]="tt.rowTrackBy">
-                            <ng-container *ngTemplateOutlet="tt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                        </ng-template>
-                    </tbody>
                 </table>
             </div>
         </div>
