@@ -1147,6 +1147,22 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
         return this.compareSelectionBy === 'equals' ? (node1 === node2) : this.objectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
+    public reset() {
+        this._sortField = null;
+        this._sortOrder = 1;
+        this._multiSortMeta = null;
+        this.tableService.onSort(null);
+                
+        this.first = 0;
+        
+        if(this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        else {
+            this.totalRecords = (this._value ? this._value.length : 0);
+        }
+    }
+
     ngOnDestroy() {
         this.editingCell = null;
         this.initialized = null;
