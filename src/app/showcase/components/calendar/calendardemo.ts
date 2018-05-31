@@ -16,27 +16,31 @@ export class CalendarDemo {
     date5: Date;
 
     date6: Date;
-    
+
     date7: Date;
-    
+
     date8: Date;
-    
+
     date9: Date;
-    
+
     date10: Date;
-    
+
     date11: Date;
-    
+
+    date12: Date;
+
+    date13: Date;
+
     dates: Date[];
-    
+
     rangeDates: Date[];
-    
+
     minDate: Date;
-    
+
     maxDate: Date;
-    
+
     invalidDates: Array<Date>;
-    
+
     es: any;
 
     ngOnInit() {
@@ -50,7 +54,7 @@ export class CalendarDemo {
             today: 'Hoy',
             clear: 'Borrar'
         };
-        
+
         let today = new Date();
         let month = today.getMonth();
         let year = today.getFullYear();
@@ -64,7 +68,7 @@ export class CalendarDemo {
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
         this.maxDate.setFullYear(nextYear);
-        
+
         let invalidDate = new Date();
         invalidDate.setDate(today.getDate() - 1);
         this.invalidDates = [today,invalidDate];
