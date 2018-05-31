@@ -690,6 +690,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     onColumnResizeBegin(event) {
         let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
+        event.preventDefault();
     }
 
     onColumnResize(event) {
