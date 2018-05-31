@@ -25,7 +25,7 @@
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
                 </td>
-            </tr>            
+            </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: left">
@@ -49,7 +49,7 @@
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
                 </td>
-            </tr>            
+            </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: left">
@@ -78,7 +78,7 @@
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
                 </td>
-            </tr>            
+            </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: left">
@@ -108,7 +108,7 @@
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
                 </td>
-            </tr>            
+            </tr>
         </ng-template>
     </p-treeTable>
 
@@ -134,7 +134,7 @@
                     <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
                     {{rowData[col.field]}}
                 </td>
-            </tr>            
+            </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: left">
@@ -204,14 +204,14 @@ export class TreeTableSelectionDemo &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.data.name&#125;);
     &#125;
-    
+
     nodeUnselect(event) &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.data.name&#125;);
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="treetableselectiondemo.html">
@@ -238,7 +238,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
         &lt;div style="text-align: left"&gt;
@@ -262,7 +262,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
         &lt;div style="text-align: left"&gt;
@@ -291,7 +291,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
         &lt;div style="text-align: left"&gt;
@@ -321,26 +321,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-
-&lt;h3&gt;Checkbox&lt;/h3&gt;
-&lt;p-treeTable [value]="files5" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes3" dataKey="name"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
         &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;            
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 
@@ -366,7 +347,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableCheckbox&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
         &lt;div style="text-align: left"&gt;

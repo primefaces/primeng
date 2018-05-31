@@ -949,7 +949,8 @@ export class TableFilterDemo implements OnInit &#123;
             <h3>Selection</h3>
             <p>Table provides built-in single and multiple selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a selectionMode, bind a selection reference and add pSelectableRow directive
-            whose value is the rowData to the rows that can be selected. If you prefer double click use pSelectableRowDblClick directive instead. In both cases optional
+            whose value is the rowData to the rows that can be selected. Additionally if you prefer double click use ttSelectableRowDblClick directive instead and
+            to disable selection events on a particular row use ttSelectableRowDisabled. In both cases optional
             pSelectableRowIndex property is avaiable to access the row index. By default each row click adds or removes the row from the selection, if you prefer a classic
             metaKey based selection approach enable metaKeySelection true so that multiple selection or unselection of a row requires metaKey to be pressed. Note that, on touch enabled
             devices, metaKey based selection is turned off automatically as there is no metaKey in devices such as mobile phones.</p>
@@ -960,8 +961,6 @@ export class TableFilterDemo implements OnInit &#123;
                 If available the fastest way is to use dataKey property that identifies a unique row so that Table can avoid comparing arrays as internally a map instance is used instead of looping arrays, on the other hand
                 if dataKey cannot be provided consider using compareSelectionBy property as "equals" which uses reference comparison instead of the default "deepEquals" comparison. Latter is slower since it checks all properties.
             </p>
-
-            <p>For dynamic columns, setting pSelectableRowDisabled property as true disables selection for that particular row.</p>
 
             <p>In single mode, selection binding is an object reference.</p>
 <pre>
