@@ -1364,6 +1364,10 @@ export class Table implements OnInit, AfterContentInit {
     }
 
     onColumnResizeBegin(event) {
+        if (event.preventDefault) {
+            event.preventDefault();
+        }
+        
         let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
         event.preventDefault();
