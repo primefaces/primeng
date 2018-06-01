@@ -26,7 +26,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             let iconElement = document.createElement("span");
             iconElement.setAttribute("aria-hidden", "true");
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
-            iconElement.className = iconPosClass  + ' ui-clickable fa fa-fw ' + this.icon;
+            iconElement.className = iconPosClass  + ' ui-clickable ' + this.icon;
             this.el.nativeElement.appendChild(iconElement);
         }
         
@@ -94,8 +94,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         
         if(this.initialized) {
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
-            this.domHandler.findSingle(this.el.nativeElement, '.fa').className =
-                iconPosClass + ' ui-clickable fa fa-fw ' + this.icon;
+            this.domHandler.findSingle(this.el.nativeElement, '.ui-clickable').className =
+                iconPosClass + ' ui-clickable ' + this.icon;
         }
     }
         

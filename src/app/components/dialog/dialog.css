@@ -63,7 +63,7 @@
 .ui-confirmdialog.ui-dialog .ui-dialog-content {
     padding: 1em 2em;
 }
-.ui-confirmdialog .ui-dialog-content .fa {
+.ui-confirmdialog .ui-dialog-content .ui-confirmdialog-icon {
     font-size: 1.5em;
     vertical-align: middle;
     margin-right: .5em;

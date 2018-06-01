@@ -24,7 +24,7 @@ export class InplaceContent {}
             </div>
             <div class="ui-inplace-content" *ngIf="active">
                 <ng-content select="[pInplaceContent]"></ng-content>
-                <button type="button" icon="fa-close" pButton (click)="deactivate($event)" *ngIf="closable"></button>
+                <button type="button" icon="pi pi-times" pButton (click)="deactivate($event)" *ngIf="closable"></button>
             </div>
         </div>
     `

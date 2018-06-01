@@ -15,7 +15,7 @@ let idx: number = 0;
                 <ng-content select="p-header"></ng-content>
                 <a *ngIf="toggleable" [attr.id]="id + '-label'" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
                     (click)="toggle($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
-                    <span [class]="collapsed ? 'fa fa-fw ' + expandIcon : 'fa fa-fw ' + collapseIcon"></span>
+                    <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                 </a>
             </div>
             <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
@@ -57,9 +57,9 @@ export class Panel implements BlockableUI {
     
     @Input() styleClass: string;
     
-    @Input() expandIcon: string = 'fa-plus';
+    @Input() expandIcon: string = 'pi pi-plus';
     
-    @Input() collapseIcon: string = 'fa-minus';
+    @Input() collapseIcon: string = 'pi pi-minus';
   
     @Input() showHeader: boolean = true;
     

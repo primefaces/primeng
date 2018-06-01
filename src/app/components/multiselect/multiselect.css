@@ -18,9 +18,12 @@
     padding: 0 .25em;
 }
 
-.ui-multiselect .ui-multiselect-trigger  .fa {
-    margin-top: .4em;
-    margin-left: -.125em;
+.ui-multiselect .ui-multiselect-trigger  .ui-multiselect-trigger-icon {
+    top: 50%;
+    left: 50%;
+    margin-top: -.5em;
+    margin-left: -.5em;
+    position: absolute;
 }
 
 .ui-multiselect .ui-multiselect-label-container  {
@@ -110,7 +113,7 @@
     width: 85%;
 }
 
-.ui-multiselect-header .ui-multiselect-filter-container .fa {
+.ui-multiselect-header .ui-multiselect-filter-container .ui-multiselect-filter-icon {
     position: absolute;
     top: .25em;
     left: .125em;

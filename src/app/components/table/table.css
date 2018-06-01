@@ -195,3 +195,7 @@
     margin-top: -1em;
     margin-left: -1em;
 }
+
+.ui-table-loading-content-icon {
+    font-size: 2em;
+}

@@ -55,7 +55,7 @@ export class TableService {
                 'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
             <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-table-loading-content" *ngIf="loading">
-                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+                <i [class]="'ui-table-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
@@ -91,8 +91,8 @@ export class TableService {
 
             <div #resizeHelper class="ui-column-resizer-helper ui-state-highlight" style="display:none" *ngIf="resizableColumns"></div>
 
-            <span #reorderIndicatorUp class="fa fa-arrow-down ui-table-reorder-indicator-up" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="fa fa-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="pi pi-arrow-down ui-table-reorder-indicator-up" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="pi pi-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [DomHandler, ObjectUtils, TableService]
@@ -187,7 +187,7 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
+    @Input() loadingIcon: string = 'pi pi-spinner';
 
     @Input() rowHover: boolean;
 
@@ -2019,7 +2019,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <a href="#" (click)="onClick($event)" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
-            <i class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></i>
+            <i class="ui-sortable-column-icon pi pi-fw pi-sort" [ngClass]="{'pi-sort-asc': sortOrder === 1, 'pi-sort-desc': sortOrder === -1}"></i>
         </a>
     `
 })
@@ -2671,7 +2671,7 @@ export class CellEditor implements AfterContentInit {
             </div>
             <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
-                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':checked}"></span>
+                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-radio-on':checked}"></span>
             </div>
         </div>
     `
@@ -2730,7 +2730,7 @@ export class TableRadioButton  {
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `
@@ -2789,7 +2789,7 @@ export class TableCheckbox  {
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled': (!dt.value || dt.value.length === 0)}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `

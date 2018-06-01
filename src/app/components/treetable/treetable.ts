@@ -46,7 +46,7 @@ export class TreeTableService {
                 'ui-treetable-resizable': resizableColumns, 'ui-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit')}">
             <div class="ui-treetable-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-treetable-loading-content" *ngIf="loading">
-                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+                <i [class]="'ui-treetable-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="captionTemplate" class="ui-treetable-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
@@ -82,8 +82,8 @@ export class TreeTableService {
 
             <div #resizeHelper class="ui-column-resizer-helper ui-state-highlight" style="display:none" *ngIf="resizableColumns"></div>
 
-            <span #reorderIndicatorUp class="fa fa-arrow-down ui-table-reorder-indicator-up" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="fa fa-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="pi pi-arrow-down ui-table-reorder-indicator-up" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="pi pi-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [DomHandler,ObjectUtils,TreeTableService]
@@ -144,7 +144,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
+    @Input() loadingIcon: string = 'pi pi-spinner';
 
     @Input() scrollable: boolean;
 
@@ -1483,7 +1483,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     selector: 'p-treeTableSortIcon',
     template: `
         <a href="#" (click)="onClick($event)" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
-            <i class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></i>
+            <i class="ui-sortable-column-icon pi pi-fw pi-sort" [ngClass]="{'pi-sort-asc': sortOrder === 1, 'pi-sort-desc': sortOrder === -1}"></i>
         </a>
     `
 })
@@ -1891,7 +1891,7 @@ export class TTContextMenuRow {
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
-                <span class="ui-chkbox-icon ui-clickable fa" [ngClass]="{'fa-check':checked, 'fa-minus': rowNode.node.partialSelected}"></span>
+                <span class="ui-chkbox-icon ui-clickable pi" [ngClass]="{'pi-check':checked, 'pi-minus': rowNode.node.partialSelected}"></span>
             </div>
         </div>
     `
@@ -1953,7 +1953,7 @@ export class TTCheckbox  {
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled': (!tt.value || tt.value.length === 0)}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `
@@ -2251,7 +2251,7 @@ export class TreeTableCellEditor implements AfterContentInit {
     selector: 'p-treeTableToggler',
     template: `
         <a href="#" class="ui-treetable-toggler" *ngIf="rowNode.node.leaf === false || rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" (click)="onClick($event)" [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
-            <i [ngClass]="rowNode.node.expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+            <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
         </a>
     `
 })

@@ -54,7 +54,7 @@
     width: 100%;
 }
 
-.ui-orderlist .ui-orderlist-filter-container .fa {
+.ui-orderlist .ui-orderlist-filter-container .ui-orderlist-filter-icon {
     position: absolute;
     top: 50%;
     left: 1em;

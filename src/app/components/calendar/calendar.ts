@@ -41,10 +41,10 @@ export interface LocaleSettings {
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly && (overlayVisible || inline)">
                     <ng-content select="p-header"></ng-content>
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
-                        <span class="fa fa-angle-left"></span>
+                        <span class="pi pi-chevron-left"></span>
                     </a>
                     <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)">
-                        <span class="fa fa-angle-right"></span>
+                        <span class="pi pi-chevron-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
                         <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{locale.monthNames[currentMonth]}}</span>
@@ -82,56 +82,56 @@ export interface LocaleSettings {
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
                         <a href="#" (click)="incrementHour($event)">
-                            <span class="fa fa-angle-up"></span>
+                            <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
                         <a href="#" (click)="decrementHour($event)">
-                            <span class="fa fa-angle-down"></span>
+                            <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-separator">
                         <a href="#">
-                            <span class="fa fa-angle-up"></span>
+                            <span class="pi pi-chevron-up"></span>
                         </a>
                         <span>:</span>
                         <a href="#">
-                            <span class="fa fa-angle-down"></span>
+                            <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-minute-picker">
                         <a href="#" (click)="incrementMinute($event)">
-                            <span class="fa fa-angle-up"></span>
+                            <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
                         <a href="#" (click)="decrementMinute($event)">
-                            <span class="fa fa-angle-down"></span>
+                            <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-separator" *ngIf="showSeconds">
                         <a href="#">
-                            <span class="fa fa-angle-up"></span>
+                            <span class="pi pi-chevron-up"></span>
                         </a>
                         <span>:</span>
                         <a href="#">
-                            <span class="fa fa-angle-down"></span>
+                            <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-second-picker" *ngIf="showSeconds">
                         <a href="#" (click)="incrementSecond($event)">
-                            <span class="fa fa-angle-up"></span>
+                            <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
                         <a href="#" (click)="decrementSecond($event)">
-                            <span class="fa fa-angle-down"></span>
+                            <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
                         <a href="#" (click)="toggleAMPM($event)">
-                            <span class="fa fa-angle-up"></span>
+                            <span class="pi pi-chevron-up"></span>
                         </a>
                         <span>{{pm ? 'PM' : 'AM'}}</span>
                         <a href="#" (click)="toggleAMPM($event)">
-                            <span class="fa fa-angle-down"></span>
+                            <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                 </div>

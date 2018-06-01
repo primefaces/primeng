@@ -15,12 +15,12 @@ import {BlockableUI} from '../common/blockableui';
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
-                <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
             
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -36,7 +36,7 @@ import {BlockableUI} from '../common/blockableui';
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
                             <div>{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
-                            <div><button type="button" icon="fa-close" pButton (click)="remove($event,i)"></button></div>
+                            <div><button type="button" icon="pi pi-times" pButton (click)="remove($event,i)"></button></div>
                         </div>
                     </div>
                     <div *ngIf="fileTemplate">
@@ -49,7 +49,7 @@ import {BlockableUI} from '../common/blockableui';
         <span class="ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" *ngIf="mode === 'basic'" 
         (mouseup)="onSimpleUploaderClick($event)"
         [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus, 'ui-state-disabled':disabled}">
-            <span class="ui-button-icon-left fa" [ngClass]="{'fa-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
+            <span class="ui-button-icon-left pi" [ngClass]="{'pi-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
             <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
             <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                 (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">

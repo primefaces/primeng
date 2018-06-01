@@ -17,7 +17,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"
                 [ngClass]="{'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}">
-                <span class="ui-chkbox-icon fa ui-clickable" [ngClass]="{'fa-check':value==true,'fa-close':value==false}"></span>
+                <span class="ui-chkbox-icon pi ui-clickable" [ngClass]="{'pi-check':value==true,'pi-times':value==false}"></span>
             </div>
         </div>
         <label class="ui-chkbox-label" (click)="onClick($event,input)"

@@ -12,7 +12,7 @@ import {DomHandler} from '../dom/domhandler';
             'ui-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" [ngStyle]="style" [class]="styleClass">
             <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
-                <span class="fa fa-fw fa-close"></span>
+                <span class="pi pi-times"></span>
             </a>
             <ng-content></ng-content>
         </div>

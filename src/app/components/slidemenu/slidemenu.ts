@@ -18,18 +18,18 @@ import {RouterModule} from '@angular/router';
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'ui-state-disabled':child.disabled}" 
                         (click)="itemClick($event, child, listitem)">
-                        <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
-                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" 
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
                         [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'ui-state-disabled':child.disabled}" 
                         (click)="itemClick($event, child, listitem)">
-                        <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
-                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                     </a>
                     <p-slideMenuSub class="ui-submenu" [item]="child" [menuWidth]="menuWidth" *ngIf="child.items"></p-slideMenuSub>
                 </li>
@@ -95,7 +95,7 @@ export class SlideMenuSub implements OnDestroy {
                     <p-slideMenuSub [item]="model" root="root" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
                 <div #backward class="ui-slidemenu-backward ui-widget-header ui-corner-all" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
-                    <span class="ui-slidemenu-backward-icon fa fa-fw fa-caret-left"></span><span>{{backLabel}}</span>
+                    <span class="ui-slidemenu-backward-icon pi pi-fw pi-caret-left"></span><span>{{backLabel}}</span>
                 </div>
             </div>
         </div>

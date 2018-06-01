@@ -59,7 +59,7 @@
     width: 100%;
 }
 
-.ui-picklist .ui-picklist-filter-container .fa {
+.ui-picklist .ui-picklist-filter-container .ui-picklist-filter-icon {
     position: absolute;
     top: 50%;
     left: 1em;
