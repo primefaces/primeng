@@ -104,11 +104,11 @@
 
 .ui-treetable-resizable .ui-treetable-thead > tr > th,
 .ui-treetable-resizable .ui-treetable-tfoot > tr > td,
-.ui-treetable-resizable .ui-treetable-data > tr > td {
+.ui-treetable-resizable .ui-treetable-tbody > tr > td {
     overflow: hidden;
 }
 
-.ui-resizable-column {
+.ui-treetable-resizable .ui-resizable-column {
     background-clip: padding-box;
     position: relative;
 }

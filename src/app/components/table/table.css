@@ -95,11 +95,11 @@
 
 .ui-table-resizable .ui-table-thead > tr > th,
 .ui-table-resizable .ui-table-tfoot > tr > td,
-.ui-table-resizable .ui-table-data > tr > td {
+.ui-table-resizable .ui-table-tbody > tr > td {
     overflow: hidden;
 }
 
-.ui-resizable-column {
+.ui-table-resizable .ui-resizable-column {
     background-clip: padding-box;
     position: relative;
 }
