@@ -1483,7 +1483,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     selector: 'p-treeTableSortIcon',
     template: `
         <a href="#" (click)="onClick($event)" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
-            <i class="ui-sortable-column-icon pi pi-fw pi-sort" [ngClass]="{'pi-sort-asc': sortOrder === 1, 'pi-sort-desc': sortOrder === -1}"></i>
+            <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-up': sortOrder === 1, 'pi-sort-down': sortOrder === -1, 'pi-sort': sortOrder === 0}"></i>
         </a>
     `
 })

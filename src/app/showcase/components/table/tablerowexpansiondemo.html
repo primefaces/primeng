@@ -21,7 +21,7 @@
             <tr>
                 <td>
                     <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                        <i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-pw pi-chevron-circle-right'" style="font-size: 1.25em"></i>
                     </a>
                 </td>
                 <td *ngFor="let col of columns">
@@ -111,7 +111,7 @@ export class TableRowExpansionDemo implements OnInit &#123;
         &lt;tr&gt;
             &lt;td&gt;
                 &lt;a href="#" [pRowToggler]="rowData"&gt;
-                    &lt;i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"&gt;&lt;/i&gt;
+                    &lt;i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-pw pi-chevron-circle-right'" style="font-size: 1.25em"&gt;&lt;/i&gt;
                 &lt;/a&gt;
             &lt;/td&gt;
             &lt;td *ngFor="let col of columns"&gt;

@@ -80,3 +80,13 @@
     top: 5px;
     right: 5px;
 }
+
+/* Message */
+.ui-message .ui-message-icon {
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+.ui-message .ui-message-text {
+    vertical-align: middle;
+}
