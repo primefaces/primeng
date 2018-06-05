@@ -11,6 +11,7 @@
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 npm install primeng --save
+npm install primeicons --save
 </code>
 </pre>
 
@@ -29,12 +30,13 @@ import &#123;MenuItem&#125; from 'primeng/api';                 //api
 </pre>
 
     <h3>Dependencies</h3>
-    <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require font-awesome for icons.</p>
+    <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require <a href="https://www.npmjs.com/package/primeicons">PrimeIcons</a> for icons.</p>
 
-    <p>The css dependencies are as follows, font awesome, theme of your choice and structural css of components.</p>
+    <p>The css dependencies are as follows, Prime Icons, theme of your choice and structural css of components.</p>
+
 <pre>
 <code class="language-html" pCode ngNonBindable>
-&lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="/node_modules/primeicons/primeicons.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" /&gt;
 </code>
@@ -111,8 +113,8 @@ export class YourAppModule &#123; &#125;
 <code class="language-js" pCode ngNonBindable>
 "dependencies": &#123;
   //...
-  "primeng": "^5.2.0",
-  "font-awesome": "^4.7.0"
+  "primeng": "^6.0.0-beta.1",
+  "primeicons": "^1.0.0-beta.6"
 &#125;,
 </code>
 </pre>
@@ -122,7 +124,7 @@ export class YourAppModule &#123; &#125;
 <pre>
 <code class="language-js" pCode ngNonBindable>
 "styles": [
-  "../node_modules/font-awesome/css/font-awesome.min.css",
+  "../node_modules/primeicons/primeicons.css",
   "../node_modules/primeng/resources/themes/omega/theme.css",
   "../node_modules/primeng/resources/primeng.min.css",
   //...
@@ -131,18 +133,6 @@ export class YourAppModule &#123; &#125;
 </pre>
 
     <p>That is all, you may now import PrimeNG components, for a working example visit the <a href="https://github.com/primefaces/primeng-quickstart-cli">PrimeNG CLI QuickStart</a> sample at GitHub.</p>
-
-    <h3>Angular Seed Integration</h3>
-    <p>Angular2 Seed is an alternative modular starter project, there is an <a href="https://github.com/mgechev/angular2-seed/wiki/Add-PrimeNG">official entry</a> at the project wiki
-        describing how to use PrimeNG with seed.</p>
-
-    <h3>QuickStart with System.js</h3>
-    <p><a href="https://angular.io/docs/ts/latest/quickstart.html">The official quickstart example</a> of Angular uses System.JS and we
-    have extended it to add PrimeNG. Visit the <a href="https://github.com/primefaces/primeng-quickstart">PrimeNG-Quickstart</a> at GitHub for an example.</p>
-
-    <h3>QuickStart with Webpack</h3>
-    <p>There is also a webpack version of the <a href="https://angular.io/docs/ts/latest/guide/webpack.html">The official quickstart example</a> of Angular and we
-    have extended it to add PrimeNG. Visit the <a href="https://github.com/primefaces/primeng-quickstart-webpack">PrimeNG-Quickstart-Webpack</a> at GitHub for an example.</p>
 
     <h4>External Articles</h4>
     <ul>
