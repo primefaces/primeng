@@ -13,10 +13,10 @@ export const RATING_VALUE_ACCESSOR: any = {
     template: `
         <div class="ui-rating" [ngClass]="{'ui-state-disabled': disabled}">
             <a href="#" *ngIf="cancel" (click)="clear($event)" class="ui-rating-cancel">
-                <span class="ui-rating-icon fa" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
+                <span class="ui-rating-icon" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
             </a>
             <a href="#" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)">
-                <span class="ui-rating-icon fa" 
+                <span class="ui-rating-icon" 
                     [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
                     [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"
                 ></span>
@@ -35,15 +35,15 @@ export class Rating implements ControlValueAccessor {
 
     @Input() cancel: boolean = true;
 
-    @Input() iconOnClass: string = 'fa-star';
+    @Input() iconOnClass: string = 'pi pi-star';
 
     @Input() iconOnStyle: any;
 
-    @Input() iconOffClass: string = 'fa-star-o';
+    @Input() iconOffClass: string = 'pi pi-star-o';
 
     @Input() iconOffStyle: any;
 
-    @Input() iconCancelClass: string = 'fa-ban';
+    @Input() iconCancelClass: string = 'pi pi-ban';
 
     @Input() iconCancelStyle: any;
 
