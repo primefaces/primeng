@@ -78,7 +78,7 @@ export class TableService {
             </div>
 
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: _frozenWidth}" [scrollHeight]="scrollHeight"></div>
                <div [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
             </div>
             
@@ -173,8 +173,6 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() virtualRowHeight: number = 28;
 
-    @Input() frozenWidth: string;
-
     @Input() responsive: boolean;
 
     @Input() contextMenu: any;
@@ -231,6 +229,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
 
+    @Output() frozenWidthChange: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -246,6 +246,8 @@ export class Table implements OnInit, AfterContentInit {
     _value: any[] = [];
 
     _totalRecords: number = 0;
+
+    _frozenWidth: string;
 
     filteredValue: any[];
 
@@ -428,6 +430,14 @@ export class Table implements OnInit, AfterContentInit {
     set totalRecords(val: number) {
         this._totalRecords = val;
         this.tableService.onTotalRecordsChange(this._totalRecords);
+    }
+
+    @Input() get frozenWidth(): string {
+        return this._frozenWidth;
+    }
+    set frozenWidth(val: string) {
+        this._frozenWidth = val;
+        this.frozenWidthChange.emit(this._frozenWidth);
     }
 
     @Input() get sortField(): string {
@@ -1741,6 +1751,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     subscription: Subscription;
 
     totalRecordsSubscription: Subscription;
+
+    frozenWidthSubscription: Subscription;
     
     initialized: boolean;
 
@@ -1764,7 +1776,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
         
         this.initialized = false;
-     }
+    }
 
     @Input() get scrollHeight(): string {
         return this._scrollHeight;
@@ -1791,10 +1803,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 this.domHandler.addClass(this.el.nativeElement, 'ui-table-unfrozen-view');
             }
 
-            if(this.dt.frozenWidth) {
-                this.el.nativeElement.style.left = this.dt.frozenWidth;
-                this.el.nativeElement.style.width = 'calc(100% - ' + this.dt.frozenWidth + ')';
-            }
+            this.calcNonFrozenWidth();
+            this.frozenWidthSubscription = this.dt.frozenWidthChange.subscribe(() => {
+                this.calcNonFrozenWidth();
+            });
 
             let frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
@@ -1807,6 +1819,13 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
         if(this.dt.virtualScroll) {
             this.setVirtualScrollerHeight();
+        }
+    }
+
+    calcNonFrozenWidth() {
+        if(this.dt.frozenWidth) {
+            this.el.nativeElement.style.left = this.dt.frozenWidth;
+            this.el.nativeElement.style.width = 'calc(100% - ' + this.dt.frozenWidth + ')';
         }
     }
 
@@ -1944,6 +1963,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
         if(this.subscription) {
             this.subscription.unsubscribe();
+        }
+
+        if(this.frozenWidthSubscription) {
+            this.frozenWidthSubscription.unsubscribe();
         }
 
         if(this.totalRecordsSubscription) {
