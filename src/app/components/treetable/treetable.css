@@ -14,6 +14,10 @@
     padding: .25em .5em;
 }
 
+.ui-treetable .ui-treetable-toggler {
+    vertical-align: middle;
+}
+
 .ui-treetable .ui-sortable-column {
     cursor: pointer;
 }
@@ -28,7 +32,7 @@
 
 .ui-treetable .ui-treetable-chkbox {
     margin: 0 .25em;
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 /* Sections */
@@ -201,6 +205,6 @@
     margin-left: -1em;
 }
 
-..ui-treetable-loading-icon {
+.ui-treetable-loading-icon {
     font-size: 2em;
 }
