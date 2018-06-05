@@ -19,17 +19,17 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Icon</h3>
-            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar>{{date3|date}}
+            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> {{date3|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Min-Max</h3>
-            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" readonlyInput="true"></p-calendar> {{date4|date}}
+            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar> {{date4|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Disable Days</h3>
-            <p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="true"></p-calendar> {{date5|date}}
+            <p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"></p-calendar> {{date5|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -49,17 +49,17 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Multiple</h3>
-            <p-calendar [(ngModel)]="dates" selectionMode="multiple" readonlyInput="true"></p-calendar>
+            <p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Range</h3>
-            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"></p-calendar>
+            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Button Bar</h3>
-            <p-calendar [(ngModel)]="date9" showButtonBar="true"></p-calendar>
+            <p-calendar [(ngModel)]="date9" [showButtonBar]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -69,6 +69,19 @@
                     <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#7cc67c' : 'inherit'}" style="border-radius:50%">{{date.day}}</span>
                 </ng-template>
             </p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>UTC</h3>
+            <p-calendar [(ngModel)]="date12" [utc]="true" [showTime]="true" [readonlyInput]="true"></p-calendar>
+            {{date12|date}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>UTC Min-Max</h3>
+            <p-calendar [(ngModel)]="date13" [minDate]="minDate" [maxDate]="maxDate"
+                        [utc]="true" [showTime]="true" [readonlyInput]="true"></p-calendar>
+            {{date13|date}}
         </div>
     </div>
 
