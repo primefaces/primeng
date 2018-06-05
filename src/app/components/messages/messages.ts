@@ -98,7 +98,7 @@ export class Messages implements OnInit, OnDestroy {
                 break;
 
                 case 'warn':
-                    icon = 'pi-ex';
+                    icon = 'pi-exclamation-triangle';
                 break;
 
                 default:

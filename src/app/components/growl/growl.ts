@@ -16,7 +16,7 @@ import {Subscription}   from 'rxjs';
                 <div class="ui-growl-item">
                      <div class="ui-growl-icon-close pi pi-times" (click)="remove(i,msgel)"></div>
                      <span class="ui-growl-image pi"
-                        [ngClass]="{'pi-info-circle':msg.severity == 'info','pi-ex':msg.severity == 'warn',
+                        [ngClass]="{'pi-info-circle':msg.severity == 'info','pi-exclamation-triangle':msg.severity == 'warn',
                                 'pi-times':msg.severity == 'error','pi-check':msg.severity == 'success'}"></span>
                      <div class="ui-growl-message">
                         <span class="ui-growl-title">{{msg.summary}}</span>

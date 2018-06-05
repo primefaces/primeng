@@ -12,10 +12,10 @@ export class TieredMenuDemo {
         this.items = [
             {
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-file-o',
                 items: [{
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-plus',
                         items: [
                             {label: 'Project'},
                             {label: 'Other'},
@@ -28,22 +28,22 @@ export class TieredMenuDemo {
             },
             {
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-edit',
                 items: [
-                    {label: 'Undo', icon: 'fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa-mail-reply'}
+                    {label: 'Undo', icon: 'fa fa-mail-forward'},
+                    {label: 'Redo', icon: 'fa fa-mail-reply'}
                 ]
             },
             {
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-question',
                 items: [
                     {
                         label: 'Contents'
                     },
                     {
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-search', 
                         items: [
                             {
                                 label: 'Text', 
@@ -61,28 +61,28 @@ export class TieredMenuDemo {
             },
             {
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-gear',
                 items: [
                     {
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-refresh',
                         items: [
-                            {label: 'Save', icon: 'fa-save'},
-                            {label: 'Update', icon: 'fa-save'},
+                            {label: 'Save', icon: 'fa fa-save'},
+                            {label: 'Update', icon: 'fa fa-save'},
                         ]
                     },
                     {
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-phone',
                         items: [
-                            {label: 'Delete', icon: 'fa-minus'}
+                            {label: 'Delete', icon: 'fa fa-minus'}
                         ]
                     }
                 ]
             },
             {separator:true},
             {
-                label: 'Quit', icon: 'fa-minus'
+                label: 'Quit', icon: 'fa fa-minus'
             }
         ];
     }

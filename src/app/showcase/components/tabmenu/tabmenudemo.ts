@@ -10,11 +10,11 @@ export class TabMenuDemo {
 
     ngOnInit() {
         this.items = [
-            {label: 'Stats', icon: 'fa-bar-chart'},
-            {label: 'Calendar', icon: 'fa-calendar'},
-            {label: 'Documentation', icon: 'fa-book'},
-            {label: 'Support', icon: 'fa-support'},
-            {label: 'Social', icon: 'fa-twitter'}
+            {label: 'Stats', icon: 'fa fa-bar-chart'},
+            {label: 'Calendar', icon: 'fa fa-calendar'},
+            {label: 'Documentation', icon: 'fa fa-book'},
+            {label: 'Support', icon: 'fa fa-support'},
+            {label: 'Social', icon: 'fa fa-twitter'}
         ];
     }
 }

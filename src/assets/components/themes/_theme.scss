@@ -10,10 +10,14 @@
 
 @mixin icon-override($icon) {
     background: none !important;
+    font-family: 'primeicons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
     display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-indent: 0px !important;
@@ -556,14 +560,14 @@
         .fc-prev-button {
             .ui-icon-circle-triangle-w {
                 margin-top: .3em;
-                @include icon_override("\f053");
+                @include icon_override("\e900");
             }
         }
 
         .fc-next-button {
             .ui-icon-circle-triangle-e {
                 margin-top: .3em;
-                @include icon_override("\f054");
+                @include icon_override("\e901");
             }
         }
     }

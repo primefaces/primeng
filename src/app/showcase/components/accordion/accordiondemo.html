@@ -52,8 +52,8 @@
     
     <h3>Programmatic Change</h3>
     <div style="margin-bottom: 1em">
-        <button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"></button>
-        <button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"></button>
+        <button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()" style="margin-right:.25em"></button>
+        <button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"></button>
     </div>
         
     <p-accordion [activeIndex]="index">
@@ -175,8 +175,8 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
             that define the indexes of active tabs.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
-&lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
         
 &lt;p-accordion [activeIndex]="index"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
@@ -431,8 +431,8 @@ onTabOpen(e) &#123;
 
 &lt;h3&gt;Programmatic Change&lt;/h3&gt;
 &lt;div style="margin-bottom: 1em"&gt;
-    &lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()" style="margin-right:.25em"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
 &lt;/div&gt;
     
 &lt;p-accordion [activeIndex]="index"&gt;

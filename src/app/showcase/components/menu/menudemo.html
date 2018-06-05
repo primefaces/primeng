@@ -11,7 +11,7 @@
 
     <h3>Popup</h3>
     <p-menu #menu popup="popup" [model]="items"></p-menu>
-    <button type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"></button>
+    <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
 </div>
 
 <div class="content-section documentation">
@@ -44,9 +44,9 @@ export class MenuDemo &#123;
 
     ngOnInit() &#123;
         this.items = [
-                    &#123;label: 'New', icon: 'fa-plus'&#125;,
-                    &#123;label: 'Open', icon: 'fa-download'&#125;,
-                    &#123;label: 'Undo', icon: 'fa-refresh'&#125;
+                    &#123;label: 'New', icon: 'fa fa-plus'&#125;,
+                    &#123;label: 'Open', icon: 'fa fa-download'&#125;,
+                    &#123;label: 'Undo', icon: 'fa fa-refresh'&#125;
                 ];
     &#125;
 &#125;
@@ -65,15 +65,15 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa-download'&#125;
+                &#123;label: 'New', icon: 'fa fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'fa fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa fa-repeat'&#125;
             ]
         &#125;];
     &#125;
@@ -87,7 +87,7 @@ export class MenuDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-menu #menu popup="popup" [model]="items"&gt;&lt;/p-menu&gt;
-&lt;button type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="fa fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
        
@@ -230,7 +230,7 @@ export class MenuDemo &#123;
 
 &lt;h3&gt;Popup&lt;/h3&gt;
 &lt;p-menu #menu popup="popup" [model]="items"&gt;&lt;/p-menu&gt;
-&lt;button type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -244,15 +244,15 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa-download'&#125;
+                &#123;label: 'New', icon: 'fa fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'fa fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa fa-repeat'&#125;
             ]
         &#125;];
     &#125;

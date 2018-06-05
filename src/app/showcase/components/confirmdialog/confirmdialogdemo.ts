@@ -21,7 +21,7 @@ export class ConfirmDialogDemo {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to proceed?',
             header: 'Confirmation',
-            icon: 'pi pi-ex',
+            icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
             },

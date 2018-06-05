@@ -8,18 +8,18 @@
 <div class="content-section implementation">
     <p-toolbar>
         <div class="ui-toolbar-group-left">
-            <button pButton type="button" label="New" icon="fa-plus"></button>
-            <button pButton type="button" label="Open" icon="fa-folder-open" class="ui-button-success"></button>
+            <button pButton type="button" label="New" icon="pi pi-plus"></button>
+            <button pButton type="button" label="Upload" icon="pi pi-upload" class="ui-button-success"></button>
                 
-            <i class="fa fa-bars"></i>
+            <i class="pi pi-bars"></i>
             
-            <p-splitButton label="Save" icon="fa-check" [model]="items" styleClass="ui-button-warning"></p-splitButton>
+            <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="ui-button-warning"></p-splitButton>
         </div>
         
         <div class="ui-toolbar-group-right">
-            <button pButton type="button" icon="fa-search"></button>
-            <button pButton type="button" icon="fa-refresh"></button>
-            <button pButton type="button" icon="fa-trash" class="ui-button-danger"></button>
+            <button pButton type="button" icon="pi pi-search"></button>
+            <button pButton type="button" icon="pi pi-calendar" class="ui-button-success"></button>
+            <button pButton type="button" icon="pi pi-times" class="ui-button-danger"></button>
         </div>
    </p-toolbar>
 </div>
@@ -41,19 +41,18 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toolbar&gt;
     &lt;div class="ui-toolbar-group-left"&gt;
-        &lt;button pButton type="button" label="New" icon="fa-plus"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Open" icon="fa-folder-open"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="New" icon="pi pi-plus"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="Upload" icon="pi pi-upload" class="ui-button-success"&gt;&lt;/button&gt;
             
-        &lt;i class="fa fa-bars"&gt;&lt;/i&gt;
+        &lt;i class="pi pi-bars"&gt;&lt;/i&gt;
         
-        &lt;p-splitButton label="Save" icon="fa-check" [model]="items"&gt;&lt;/p-splitButton&gt;
+        &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-toolbar-group-right"&gt;
-        &lt;button pButton type="button" icon="fa-search"&gt;&lt;/button&gt;
-        &lt;i class="fa fa-bars"&gt;&lt;/i&gt;
-        &lt;button pButton type="button" icon="fa-refresh"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="fa-trash"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-search"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-calendar" class="ui-button-success"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-times" class="ui-button-danger"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
 </code>
@@ -127,18 +126,18 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toolbar&gt;
     &lt;div class="ui-toolbar-group-left"&gt;
-        &lt;button pButton type="button" label="New" icon="fa-plus"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Open" icon="fa-folder-open" class="ui-button-success"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="New" icon="pi pi-plus"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="Upload" icon="pi pi-upload" class="ui-button-success"&gt;&lt;/button&gt;
             
-        &lt;i class="fa fa-bars"&gt;&lt;/i&gt;
+        &lt;i class="pi pi-bars"&gt;&lt;/i&gt;
         
-        &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
+        &lt;p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-toolbar-group-right"&gt;
-        &lt;button pButton type="button" icon="fa-search"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="fa-refresh"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="fa-trash" class="ui-button-danger"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-search"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-calendar" class="ui-button-success"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-times" class="ui-button-danger"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
 </code>
