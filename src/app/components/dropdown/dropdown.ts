@@ -70,7 +70,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToDisplay, selectedOption: selectedOption}"></ng-container>
                         </ng-container>
                         <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                            <li *ngFor="let option of options;let i=index" [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 'ui-dropdown-item-empty':!option.label||option.label.length === 0}" 
+                            <li *ngFor="let option of options;let i=index" [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
                                     (click)="onItemClick($event, option)">
                                 <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option}"></ng-container>
@@ -441,6 +441,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     onEditableInputFocus(event) {
         this.focused = true;
         this.hide();
+        this.onFocus.emit(event);
     }
     
     onEditableInputChange(event) {
