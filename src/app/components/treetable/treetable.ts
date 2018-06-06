@@ -722,9 +722,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
-                            let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-body-table');
-                            let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-header-table');
-                            let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-footer-table');
+                            let scrollableView = this.findParentScrollableView(column);
+                            let scrollableBodyTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
+                            let scrollableHeaderTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
+                            let scrollableFooterTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
                             let resizeColumnIndex = this.domHandler.index(column);
 
                             this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
@@ -742,9 +743,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
             }
             else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
-                    let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-body-table');
-                    let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-header-table');
-                    let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-treetable-scrollable-footer-table');
+                    let scrollableView = this.findParentScrollableView(column);
+                    let scrollableBodyTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
+                    let scrollableHeaderTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
+                    let scrollableFooterTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
                     scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     if(scrollableFooterTable) {
@@ -772,6 +774,20 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
         this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+    }
+
+    findParentScrollableView(column) {
+        if (column) {
+            let parent = column.parentElement;
+            while (parent && !this.domHandler.hasClass(parent, 'ui-table-scrollable-view')) {
+                parent = parent.parentElement;
+            }
+
+            return parent;
+        }
+        else {
+            return null;
+        }
     }
 
     resizeColGroup(table, resizeColumnIndex, newColumnWidth, nextColumnWidth) {
