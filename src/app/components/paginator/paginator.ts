@@ -13,23 +13,23 @@ import {SharedModule} from '../common/shared';
             <div class="ui-paginator-left-content" *ngIf="templateLeft">
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>
-            <a href="#" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all" [attr.aria-label]="'step page to first page'"
                     (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="ui-paginator-icon pi pi-step-backward"></span>
             </a>
-            <a href="#" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all" [attr.aria-label]="'step to previous page'"
                     (click)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="ui-paginator-icon pi pi-caret-left"></span>
             </a>
             <span class="ui-paginator-pages">
-                <a href="#" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
+                <a href="#" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all" [attr.aria-label]="'step to ' + pageLink + ' page'"
                     (click)="onPageLinkClick($event, pageLink - 1)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
-            <a href="#" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all" [attr.aria-label]="'step to next page'"
                     (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="ui-paginator-icon pi pi-caret-right"></span>
             </a>
-            <a href="#" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all" [attr.aria-label]="'step to last page'"
                     (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="ui-paginator-icon pi pi-step-forward"></span>
             </a>
