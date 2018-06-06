@@ -86,18 +86,18 @@ update(event: Event) &#123;
                     <td>width</td>
                     <td>string</td>
                     <td>null</td>
-                    <td>Width of the chart in non-responsive mode.</td>
+                    <td>Width of the chart.</td>
                 </tr>
                 <tr>
                     <td>height</td>
                     <td>string</td>
                     <td>null</td>
-                    <td>Height of the chart in non-responsive mode.</td>
+                    <td>Height of the chart.</td>
                 </tr>
                 <tr>
                     <td>responsive</td>
                     <td>boolean</td>
-                    <td>false</td>
+                    <td>true</td>
                     <td>Whether the chart is redrawn on screen size change.</td>
                 </tr>
                 <tr>
@@ -249,7 +249,7 @@ selectData(event) &#123;
     <p>Charts are responsive by default and vw-vh units should be used when customizing the width and height of the chart.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-chart type="line" [data]="data" width="40w" height="80w"&gt;&lt;/p-chart&gt;
+&lt;p-chart type="line" [data]="data" width="40vw" height="80vh"&gt;&lt;/p-chart&gt;
 </code>
 </pre>
 
