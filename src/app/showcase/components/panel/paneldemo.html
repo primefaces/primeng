@@ -20,7 +20,7 @@
             <div class="ui-helper-clearfix">
                 <span class="ui-panel-title" style="display:inline-block;margin-top:.4em">Custom Header</span>
 
-                <p-splitButton [style]="{'float':'right'}" label="Save" icon="fa-check" (onClick)="save()" [model]="items"></p-splitButton>
+                <p-splitButton [style]="{'float':'right'}" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"></p-splitButton>
             </div>
         </p-header>
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
@@ -28,8 +28,8 @@
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
         kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
         <p-footer>
-            <button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"></button>
-            <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button>
+            <button pButton type="button" icon="pi pi-plus" label="New" class="ui-button-info" style="margin-right: .25em"></button>
+            <button pButton type="button" icon="pi pi-search" label="View" class="ui-button-success"></button>
         </p-footer>
     </p-panel>
 </div>
@@ -124,13 +124,13 @@ import &#123;PanelModule&#125; from 'primeng/panel';
                         <tr>
                             <td>expandIcon</td>
                             <td>string</td>
-                            <td>fa-plus</td>
+                            <td>pi pi-plus</td>
                             <td>Expand icon of the toggle button.</td>
                         </tr>
                         <tr>
                             <td>collapseIcon</td>
                             <td>string</td>
-                            <td>fa-minus</td>
+                            <td>pi pi-minus</td>
                             <td>Collapsed icon of the toggle button.</td>
                         </tr>
                         <tr>
@@ -230,17 +230,16 @@ import &#123;PanelModule&#125; from 'primeng/panel';
     &lt;p-header&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"&gt;Custom Header&lt;/span&gt;
-
-            &lt;p-splitButton [style]="&#123;'float':'right'&#125;" label="Save" icon="fa-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
+            &lt;p-splitButton [style]="&#123;'float':'right'&#125;" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
         &lt;/div&gt;
     &lt;/p-header&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
     &lt;p-footer&gt;
-        &lt;button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="fa-list" label="View" class="ui-button-success"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-plus" label="New" class="ui-button-info" style="margin-right: .25em"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="pi pi-search" label="View" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;/p-footer&gt;
 &lt;/p-panel&gt;
 </code>

@@ -12,15 +12,15 @@ export class MenuDemo {
         this.items = [{
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa fa-plus'},
-                {label: 'Open', icon: 'fa fa-download'}
+                {label: 'New', icon: 'fa fa-fw fa-plus'},
+                {label: 'Open', icon: 'fa fa-fw fa-download'}
             ]
         },
         {
             label: 'Edit',
             items: [
-                {label: 'Undo', icon: 'fa fa-refresh'},
-                {label: 'Redo', icon: 'fa fa-repeat'}
+                {label: 'Undo', icon: 'fa fa-fw fa-refresh'},
+                {label: 'Redo', icon: 'fa fa-fw fa-repeat'}
             ]
         }];
     }

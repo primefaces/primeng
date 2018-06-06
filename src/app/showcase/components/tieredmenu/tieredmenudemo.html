@@ -48,7 +48,7 @@ export class TieredMenuDemo &#123;
                 label: 'File',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -60,10 +60,10 @@ export class TieredMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;
         ];
@@ -78,7 +78,7 @@ export class TieredMenuDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tieredMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button #btn type="button" pButton icon="fa fa fa-fw fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -246,10 +246,10 @@ export class TieredMenuDemo &#123;
         this.items = [
             &#123;
                 label: 'File',
-                icon: 'fa fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -262,22 +262,22 @@ export class TieredMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -295,28 +295,28 @@ export class TieredMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            &#123;label: 'Save', icon: 'fa fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'fa fa-fw fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa fa-fw fa-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'fa fa-fw fa-minus'&#125;
                         ]
                     &#125;
                 ]
             &#125;,
             &#123;separator:true&#125;,
             &#123;
-                label: 'Quit', icon: 'fa fa-minus'
+                label: 'Quit', icon: 'fa fa-fw fa-minus'
             &#125;
         ];
     &#125;

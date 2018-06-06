@@ -33,15 +33,15 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa-download'&#125;
+                &#123;label: 'New', icon: 'fa fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'fa fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa fa-repeat'&#125;
             ]
         &#125;];
     &#125;
@@ -197,7 +197,7 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus', command: (event) => &#123;
+                &#123;label: 'New', icon: 'fa fa-plus', command: (event) => &#123;
                     //event.originalEvent: Browser event
                     //event.item: menuitem metadata
                 }}
@@ -221,9 +221,9 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus', url: 'http://www.primefaces.org/primeng'&#125;,
-                &#123;label: 'Open', icon: 'fa-download', routerLink: ['/pagename']&#125;
-                &#123;label: 'Recent Files', icon: 'fa-download', routerLink: ['/pagename'], queryParams: &#123;'recent': 'true'&#125;&#125;
+                &#123;label: 'New', icon: 'fa fa-plus', url: 'http://www.primefaces.org/primeng'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-download', routerLink: ['/pagename']&#125;
+                &#123;label: 'Recent Files', icon: 'fa fa-download', routerLink: ['/pagename'], queryParams: &#123;'recent': 'true'&#125;&#125;
             ]
         &#125;
     &#125;
