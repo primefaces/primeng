@@ -53,7 +53,7 @@ export class DomHandler {
     }
 
     public find(element: any, selector: string): any[] {
-        return element.querySelectorAll(selector);
+        return Array.from(element.querySelectorAll(selector));
     }
 
     public findSingle(element: any, selector: string): any {
