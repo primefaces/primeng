@@ -214,8 +214,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onInputKeyup(event: KeyboardEvent) {
         const inputValue = (<HTMLInputElement> event.target).value;
         const lastCharBeforeEvent = inputValue.charAt(inputValue.length - 2);
-        if (event.key !== this.decimalSeparator && event.key !== this.thousandSeparator && event.key !== this.negativeSeparator
-            && (event.key !== '0' || lastCharBeforeEvent !== this.decimalSeparator && lastCharBeforeEvent !== '0')) {
+        if (event.key !== this.decimalSeparator && event.key !== this.thousandSeparator && event.key !== this.negativeSeparator) {
             this.value = this.parseValue(inputValue);
             this.formatValue();
         }
