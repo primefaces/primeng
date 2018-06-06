@@ -1399,9 +1399,9 @@ export class Table implements OnInit, AfterContentInit {
 
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
-                            let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
-                            let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
-                            let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-footer-table');
+                            let scrollableBodyTable = this.domHandler.find(this.el.nativeElement, 'table.ui-table-scrollable-body-table').pop();
+                            let scrollableHeaderTable = this.domHandler.find(this.el.nativeElement, 'table.ui-table-scrollable-header-table').pop();
+                            let scrollableFooterTable = this.domHandler.find(this.el.nativeElement, 'table.ui-table-scrollable-footer-table').pop();
                             let resizeColumnIndex = this.domHandler.index(column);
 
                             this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
@@ -1419,9 +1419,9 @@ export class Table implements OnInit, AfterContentInit {
             }
             else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
-                    let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
-                    let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
-                    let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-footer-table');
+                    let scrollableBodyTable = this.domHandler.find(this.el.nativeElement, 'table.ui-table-scrollable-body-table').pop();
+                    let scrollableHeaderTable = this.domHandler.find(this.el.nativeElement, 'table.ui-table-scrollable-header-table').pop();
+                    let scrollableFooterTable = this.domHandler.find(this.el.nativeElement, 'table.ui-table-scrollable-footer-table').pop();
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
                     scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     if(scrollableFooterTable) {
