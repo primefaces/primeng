@@ -78,7 +78,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     
     generateLegend() {
         if(this.chart) {
-            this.chart.generateLegend();
+            return this.chart.generateLegend();
         }
     }
     
