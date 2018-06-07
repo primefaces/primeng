@@ -54,7 +54,7 @@
     width: 100%;
 }
 
-.ui-orderlist .ui-orderlist-filter-container .fa {
+.ui-orderlist .ui-orderlist-filter-container .ui-orderlist-filter-icon {
     position: absolute;
     top: 50%;
     left: 1em;
@@ -107,9 +107,9 @@
     }
     
     .ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls .ui-button {
-        display: inline;
-        width: 20%;
         display: inline-block;
+        width: 20%;
+        margin-right: .25em;
     }
     
     .ui-orderlist.ui-orderlist-responsive .ui-orderlist-list-container {

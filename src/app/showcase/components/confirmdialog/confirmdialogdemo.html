@@ -11,9 +11,9 @@
     
     <p-confirmDialog></p-confirmDialog>
 
-    <button type="button" (click)="confirm1()" pButton icon="fa-check" label="Confirm"></button>
+    <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
     
-    <button type="button" (click)="confirm2()" pButton icon="fa-trash" label="Delete"></button>
+    <button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"></button>
 </div>
 
 <div class="content-section documentation">
@@ -33,9 +33,9 @@ import &#123;ConfirmationService&#125; from 'primeng/api';
                     
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"&gt;&lt;/p-confirmDialog&gt;
 
-&lt;button type="text" (click)="confirm()" pButton icon="fa-check" label="Confirm"&gt;&lt;/button&gt;
+&lt;button type="text" (click)="confirm()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -143,10 +143,10 @@ export class ConfirmDialogDemo &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd&gt;
+&lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" #cd&gt;
     &lt;p-footer&gt;
-        &lt;button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
-        &lt;button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
     &lt;/p-footer&gt;
 &lt;/p-confirmDialog&gt;
 </code>
@@ -197,7 +197,7 @@ export class ConfirmDialogDemo &#123;
                         <tr>
                           <td>acceptIcon</td>
                           <td>string</td>
-                          <td>fa-check</td>
+                          <td>pi pi-check</td>
                           <td>Icon of the accept button.</td>
                         </tr>
                         <tr>
@@ -215,7 +215,7 @@ export class ConfirmDialogDemo &#123;
                         <tr>
                           <td>rejectIcon</td>
                           <td>string</td>
-                          <td>fa-close</td>
+                          <td>pi pi-times</td>
                           <td>Icon of the reject button.</td>
                         </tr>
                         <tr>
@@ -340,9 +340,9 @@ export class ConfirmDialogDemo &#123;
     
 &lt;p-confirmDialog&gt;&lt;/p-confirmDialog&gt;
 
-&lt;button type="button" (click)="confirm1()" pButton icon="fa-check" label="Confirm"&gt;&lt;/button&gt;
+&lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 
-&lt;button type="button" (click)="confirm2()" pButton icon="fa-trash" label="Delete"&gt;&lt;/button&gt;
+&lt;button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -362,7 +362,7 @@ export class ConfirmDialogDemo &#123;
         this.confirmationService.confirm(&#123;
             message: 'Are you sure that you want to proceed?',
             header: 'Confirmation',
-            icon: 'fa fa-question-circle',
+            icon: 'pi pi-exclamation-triangle',
             accept: () => &#123;
                 this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'You have accepted'&#125;];
             &#125;,
@@ -376,7 +376,7 @@ export class ConfirmDialogDemo &#123;
         this.confirmationService.confirm(&#123;
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
-            icon: 'fa fa-trash',
+            icon: 'pi pi-info-circle',
             accept: () => &#123;
                 this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;];
             &#125;,

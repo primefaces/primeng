@@ -44,7 +44,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true,'ui-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</label>
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
-            <i class="ui-dropdown-clear-icon fa fa-close" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
+            <i class="ui-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="ui-dropdown-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
@@ -53,7 +53,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event)">
-                    <span class="ui-dropdown-filter-icon fa fa-search"></span>
+                    <span class="ui-dropdown-filter-icon pi pi-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="lazy ? panelVisible : true">
@@ -70,7 +70,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToDisplay, selectedOption: selectedOption}"></ng-container>
                         </ng-container>
                         <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                            <li *ngFor="let option of options;let i=index" [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 'ui-dropdown-item-empty':!option.label||option.label.length === 0}" 
+                            <li *ngFor="let option of options;let i=index" [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
                                     (click)="onItemClick($event, option)">
                                 <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option}"></ng-container>
@@ -146,7 +146,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() resetFilterOnHide: boolean = false;
     
-    @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
+    @Input() dropdownIcon: string = 'pi pi-caret-down';
     
     @Input() optionLabel: string;
 
@@ -441,6 +441,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     onEditableInputFocus(event) {
         this.focused = true;
         this.hide();
+        this.onFocus.emit(event);
     }
     
     onEditableInputChange(event) {

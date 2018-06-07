@@ -9,11 +9,12 @@
 <div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
+    <p-gmap #gmap [style]="{'width':'100%','height':'320px', 'margin-bottom': '1em'}" [options]="options" [overlays]="overlays" 
        (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"></p-gmap>
-    <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"></button>
-    <button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())" style="margin-top:10px"></button>
-    <button type="button" pButton label="Zoom Out" icon="fa-search-minus" (click)="zoomOut(gmap.getMap())" style="margin-top:10px"></button>
+
+    <button type="button" pButton label="Clear" icon="pi pi-times" (click)="clear()" style="margin-right:.25em"></button>
+    <button type="button" pButton label="Zoom In" icon="pi pi-plus" (click)="zoomIn(gmap.getMap())" style="margin-right:.25em"></button>
+    <button type="button" pButton label="Zoom Out" icon="pi pi-minus" (click)="zoomOut(gmap.getMap())"></button>
 
     <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location" [width]="300">
         <div class="ui-g ui-fluid" *ngIf="selectedPosition">
@@ -31,7 +32,7 @@
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" pButton label="Add Marker" icon="fa-plus" (click)="addMarker()"></button>
+                <button type="button" pButton label="Add Marker" icon="pi pi-plus" (click)="addMarker()"></button>
             </div>
         </p-footer>
     </p-dialog>
@@ -352,11 +353,12 @@ export class MyModel &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
-    (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"&gt;&lt;/p-gmap&gt;
-&lt;button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"&gt;&lt;/button&gt;
-&lt;button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())" style="margin-top:10px"&gt;&lt;/button&gt;
-&lt;button type="button" pButton label="Zoom Out" icon="fa-search-minus" (click)="zoomOut(gmap.getMap())" style="margin-top:10px"&gt;&lt;/button&gt;
+&lt;p-gmap #gmap [style]="&#123;'width':'100%','height':'320px', 'margin-bottom': '1em'&#125;" [options]="options" [overlays]="overlays" 
+       (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"&gt;&lt;/p-gmap&gt;
+
+&lt;button type="button" pButton label="Clear" icon="pi pi-times" (click)="clear()" style="margin-right:.25em"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Zoom In" icon="pi pi-plus" (click)="zoomIn(gmap.getMap())" style="margin-right:.25em"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Zoom Out" icon="pi pi-minus" (click)="zoomOut(gmap.getMap())"&gt;&lt;/button&gt;
 
 &lt;p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location"&gt;
     &lt;div class="ui-g ui-fluid" *ngIf="selectedPosition"&gt;

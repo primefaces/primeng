@@ -1,6 +1,6 @@
 @mixin hover-element() {
     border-color: $stateHoverBorderColor;
-    background: $stateHoverBgColor;
+    background-color: $stateHoverBgColor;
     color: $stateHoverTextColor;
 
     a {
@@ -10,10 +10,14 @@
 
 @mixin icon-override($icon) {
     background: none !important;
+    font-family: 'primeicons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
     display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-indent: 0px !important;
@@ -40,7 +44,7 @@
 
 .ui-widget-content {
     border: $contentBorderWidth solid $contentBorderColor;
-    background: $contentBgColor;
+    background-color: $contentBgColor;
     color: $contentTextColor;
 
     a {
@@ -50,7 +54,7 @@
 
 .ui-widget-header {
     border: $headerBorderWidth solid $headerBorderColor;
-    background: $headerBgColor;
+    background-color: $headerBgColor;
     color: $headerTextColor;
     font-weight: $headerFontWeight;
 
@@ -60,14 +64,14 @@
 }
 
 .ui-widget-overlay {
-    background: #666666;
+    background-color: #666666;
     opacity: .50;
     filter:Alpha(Opacity=50);
 }
 
 .ui-state-default {
     border: $stateDefaultBorderWidth solid $stateDefaultBorderColor;
-    background: $stateDefaultBgColor;
+    background-color: $stateDefaultBgColor;
     color: $stateDefaultTextColor;
 
     a {
@@ -77,7 +81,7 @@
 
 .ui-state-active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor;
+    background-color: $stateActiveBgColor;
     color: $stateActiveTextColor;
 
     a {
@@ -87,7 +91,7 @@
 
 .ui-state-highlight  {
     border-color: $stateHighlightBorderColor;
-    background: $stateHighlightBgColor;
+    background-color: $stateHighlightBgColor;
     color: $stateHighlightTextColor;
 
     a {
@@ -97,7 +101,7 @@
 
 .ui-state-focus {
     border-color: $stateFocusBorderColor;
-    background: $stateFocusBgColor;
+    background-color: $stateFocusBgColor;
     color: $stateFocusTextColor;
 
     a {
@@ -107,7 +111,7 @@
 
 .ui-state-error {
     border-color: $stateErrorBorderColor;
-    background: $stateErrorBgColor;
+    background-color: $stateErrorBgColor;
     color: $stateErrorTextColor;
 
     a {
@@ -129,7 +133,7 @@
 
 /* Forms */
 .ui-inputtext {
-    background: $inputBgColor;
+    background-color: $inputBgColor;
     color: $inputTextColor;
 }
 
@@ -215,7 +219,7 @@
 .ui-button:enabled:active,
 .ui-fileupload-choose:not(.ui-state-disabled):active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor;
+    background-color: $stateActiveBgColor;
     color: $stateActiveTextColor;
 }
 
@@ -257,7 +261,7 @@
     &.ui-state-disabled {
         .ui-chkbox-box:not(.ui-state-active):hover {
             border-color: $stateDefaultBorderColor;
-            background: $stateDefaultBgColor;
+            background-color: $stateDefaultBgColor;
             color: $stateDefaultTextColor;
         }
     }
@@ -285,7 +289,7 @@
 
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor;
+    background-color: $stateActiveBgColor;
     color: $stateActiveTextColor;
 }
 
@@ -311,7 +315,7 @@
     }
 
     .ui-sortable-column:not(.ui-state-active):hover {
-        background: $stateHoverBgColor;
+        background-color: $stateHoverBgColor;
         color: $stateHoverTextColor;
     }
 
@@ -322,7 +326,7 @@
     tbody.ui-datatable-hoverable-rows {
         > tr.ui-widget-content:not(.ui-state-highlight):hover {
             cursor: pointer;
-            background: $stateHoverBgColor;
+            background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
         }
     }
@@ -341,7 +345,7 @@
 
     .ui-picklist-droppoint-highlight {
         border-color: $stateHighlightBorderColor;
-        background: $stateHighlightBgColor;
+        background-color: $stateHighlightBgColor;
         color: darken($contentTextColor,1%);
 
         a {
@@ -372,7 +376,7 @@
         }
 
         &.ui-treenode-dragover {
-            background: $stateActiveBgColor;
+            background-color: $stateActiveBgColor;
             color: $stateActiveTextColor;
         }
     }
@@ -556,14 +560,14 @@
         .fc-prev-button {
             .ui-icon-circle-triangle-w {
                 margin-top: .3em;
-                @include icon_override("\f053");
+                @include icon_override("\e900");
             }
         }
 
         .fc-next-button {
             .ui-icon-circle-triangle-e {
                 margin-top: .3em;
-                @include icon_override("\f054");
+                @include icon_override("\e901");
             }
         }
     }
@@ -601,18 +605,18 @@
 .ui-table {
     .ui-table-thead > tr > th,
     .ui-table-tfoot > tr > td {
-        background: $headerBgColor;
+        background-color: $headerBgColor;
         border: 1px solid $headerBorderColor;
         color: $headerTextColor;
     }
 
     .ui-table-tbody > tr {
-        background: $contentBgColor;
+        background-color: $contentBgColor;
         color: $contentTextColor;
 
         > td {
             border: 1px solid $contentBorderColor;
-            background: inherit;
+            background-color: inherit;
         }
 
         &.ui-state-highlight {
@@ -641,7 +645,7 @@
         }
 
         &:not(.ui-state-highlight):hover {
-            background: $stateHoverBgColor;
+            background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
 
             .ui-sortable-column-icon {
@@ -653,7 +657,7 @@
     &.ui-table-hoverable-rows {
         .ui-table-tbody > tr:not(.ui-state-highlight):hover {
             cursor: pointer;
-            background: $stateHoverBgColor;
+            background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
         }
     }
@@ -679,28 +683,36 @@
 .ui-treetable {
     .ui-treetable-thead > tr > th,
     .ui-treetable-tfoot > tr > td {
-        background: $headerBgColor;
+        background-color: $headerBgColor;
         border: 1px solid $headerBorderColor;
         color: $headerTextColor;
     }
 
     .ui-treetable-tbody > tr {
-        background: $contentBgColor;
+        background-color: $contentBgColor;
         color: $contentTextColor;
 
         > td {
             border: 1px solid $contentBorderColor;
-            background: inherit;
+            background-color: inherit;
         }
 
         &.ui-state-highlight {
             background-color: $stateHighlightBgColor;
             color: $stateHighlightTextColor;
+
+            .ui-treetable-toggler {
+                color: $stateHighlightTextColor;
+            }
         }
 
         &.ui-contextmenu-selected {
             background-color: lighten($stateHighlightBgColor, 20%);
             color: $stateHighlightTextColor;
+        }
+
+        .ui-treetable-toggler {
+            color: $contentTextColor;
         }
     }
 
@@ -719,7 +731,7 @@
         }
 
         &:not(.ui-state-highlight):hover {
-            background: $stateHoverBgColor;
+            background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
 
             .ui-sortable-column-icon {
@@ -731,13 +743,9 @@
     &.ui-treetable-hoverable-rows {
         .ui-treetable-tbody > tr:not(.ui-state-highlight):hover {
             cursor: pointer;
-            background: $stateHoverBgColor;
+            background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
         }
-    }
-
-    .ui-treetable-toggler {
-        color: $contentTextColor;
     }
 }
 

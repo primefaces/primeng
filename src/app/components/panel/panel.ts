@@ -18,8 +18,7 @@ let idx: number = 0;
                    class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
                    (click)="!togglerOnHeader && toggle($event)" [attr.aria-controls]="id + '-content'" role="tab"
                    [attr.aria-expanded]="!collapsed">
-                    <span [class]="collapsed ? 'fa fa-fw ' + expandIcon : 'fa fa-fw ' + collapseIcon"></span>
-                </a>
+                    <span [class]="collapsed ? expandIcon : collapseIcon"></span>
             </div>
             <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'"
                  (@panelContent.start)="onToggleStart($event)" (@panelContent.done)="onToggleDone($event)"
@@ -61,9 +60,9 @@ export class Panel implements BlockableUI {
 
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'fa-plus';
-
-    @Input() collapseIcon: string = 'fa-minus';
+    @Input() expandIcon: string = 'pi pi-plus';
+    
+    @Input() collapseIcon: string = 'pi pi-minus';
 
     @Input() showHeader: boolean = true;
 

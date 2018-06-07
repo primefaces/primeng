@@ -43,16 +43,16 @@ p-button {
 }
 
 /*button icon element(s) */
-.ui-button-icon-only .fa,
-.ui-button-text-icon-left .fa,
-.ui-button-text-icon-right .fa {
+.ui-button-icon-only .ui-button-icon-left,
+.ui-button-text-icon-left .ui-button-icon-left,
+.ui-button-text-icon-right .ui-button-icon-right {
     position: absolute;
     top: 50%;
     margin-top: -.5em;
     height: 1em;
 }
 
-.ui-button-icon-only .fa {
+.ui-button-icon-only .ui-button-icon-left {
     top: 50%;
     left: 50%;
     margin-top: -.5em;

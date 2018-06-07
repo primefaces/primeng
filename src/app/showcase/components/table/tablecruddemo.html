@@ -26,7 +26,7 @@
 
         <ng-template pTemplate="summary" let-rowData>
             <div style="text-align:left">
-                <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+                <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
             </div>
         </ng-template>
         
@@ -69,8 +69,8 @@
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
-                <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+                <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+                <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
             </div>
         </p-footer>
     </p-dialog>
@@ -180,7 +180,7 @@ export class TableCrudDemo implements OnInit &#123;
 
     &lt;ng-template pTemplate="summary" let-rowData&gt;
         &lt;div style="text-align:left"&gt;
-            &lt;button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     
@@ -223,8 +223,8 @@ export class TableCrudDemo implements OnInit &#123;
     &lt;/div&gt;
     &lt;p-footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-check" (click)="save()" label="Save"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;

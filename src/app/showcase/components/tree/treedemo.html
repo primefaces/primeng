@@ -75,7 +75,7 @@
     <h3>Programatic Tree Expansion</h3>
     <p-tree #expandingTree [value]="filesTree10"></p-tree>
     <div style="margin-top: 8px">
-        <button pButton type="button" label="Expand all" (click)="expandAll()"></button>
+        <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .25em"></button>
         <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
     </div>
 
@@ -235,47 +235,47 @@ export class NodeService &#123;
         &#123;
             "label": "Documents",
             "data": "Documents Folder",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+            "expandedIcon": "fa fa-folder-open",
+            "collapsedIcon": "fa fa-folder",
             "children": [&#123;
                     "label": "Work",
                     "data": "Work Folder",
-                    "expandedIcon": "fa-folder-open",
-                    "collapsedIcon": "fa-folder",
-                    "children": [&#123;"label": "Expenses.doc", "icon": "fa-file-word-o", "data": "Expenses Document"&#125;, &#123;"label": "Resume.doc", "icon": "fa-file-word-o", "data": "Resume Document"&#125;]
+                    "expandedIcon": "fa fa-folder-open",
+                    "collapsedIcon": "fa fa-folder",
+                    "children": [&#123;"label": "Expenses.doc", "icon": "fa fa-file-word-o", "data": "Expenses Document"&#125;, &#123;"label": "Resume.doc", "icon": "fa fa-file-word-o", "data": "Resume Document"&#125;]
                 &#125;,
                 &#123;
                     "label": "Home",
                     "data": "Home Folder",
-                    "expandedIcon": "fa-folder-open",
-                    "collapsedIcon": "fa-folder",
-                    "children": [&#123;"label": "Invoices.txt", "icon": "fa-file-word-o", "data": "Invoices for this month"&#125;]
+                    "expandedIcon": "fa fa-folder-open",
+                    "collapsedIcon": "fa fa-folder",
+                    "children": [&#123;"label": "Invoices.txt", "icon": "fa fa-file-word-o", "data": "Invoices for this month"&#125;]
                 &#125;]
         &#125;,
         &#123;
             "label": "Pictures",
             "data": "Pictures Folder",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+            "expandedIcon": "fa fa-folder-open",
+            "collapsedIcon": "fa fa-folder",
             "children": [
-                &#123;"label": "barcelona.jpg", "icon": "fa-file-image-o", "data": "Barcelona Photo"&#125;,
-                &#123;"label": "logo.jpg", "icon": "fa-file-image-o", "data": "PrimeFaces Logo"&#125;,
-                &#123;"label": "primeui.png", "icon": "fa-file-image-o", "data": "PrimeUI Logo"&#125;]
+                &#123;"label": "barcelona.jpg", "icon": "fa fa-file-image-o", "data": "Barcelona Photo"&#125;,
+                &#123;"label": "logo.jpg", "icon": "fa fa-file-image-o", "data": "PrimeFaces Logo"&#125;,
+                &#123;"label": "primeui.png", "icon": "fa fa-file-image-o", "data": "PrimeUI Logo"&#125;]
         &#125;,
         &#123;
             "label": "Movies",
             "data": "Movies Folder",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+            "expandedIcon": "fa fa-folder-open",
+            "collapsedIcon": "fa fa-folder",
             "children": [&#123;
                     "label": "Al Pacino",
                     "data": "Pacino Movies",
-                    "children": [&#123;"label": "Scarface", "icon": "fa-file-video-o", "data": "Scarface Movie"&#125;, &#123;"label": "Serpico", "icon": "fa-file-video-o", "data": "Serpico Movie"&#125;]
+                    "children": [&#123;"label": "Scarface", "icon": "fa fa-file-video-o", "data": "Scarface Movie"&#125;, &#123;"label": "Serpico", "icon": "fa fa-file-video-o", "data": "Serpico Movie"&#125;]
                 &#125;,
                 &#123;
                     "label": "Robert De Niro",
                     "data": "De Niro Movies",
-                    "children": [&#123;"label": "Goodfellas", "icon": "fa-file-video-o", "data": "Goodfellas Movie"&#125;, &#123;"label": "Untouchables", "icon": "fa-file-video-o", "data": "Untouchables Movie"&#125;]
+                    "children": [&#123;"label": "Goodfellas", "icon": "fa fa-file-video-o", "data": "Goodfellas Movie"&#125;, &#123;"label": "Untouchables", "icon": "fa fa-file-video-o", "data": "Untouchables Movie"&#125;]
                 &#125;]
         &#125;
     ]
@@ -490,22 +490,22 @@ export class TreeDemoComponent implements OnInit &#123;
         &#123;
             "label": "Lazy Node 0",
             "data": "Node 0",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+            "expandedIcon": "fa fa-folder-open",
+            "collapsedIcon": "fa fa-folder",
             "leaf": false
         &#125;,
         &#123;
             "label": "Lazy Node 1",
             "data": "Node 1",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+            "expandedIcon": "fa fa-folder-open",
+            "collapsedIcon": "fa fa-folder",
             "leaf": false
         &#125;,
         &#123;
             "label": "Lazy Node 1",
             "data": "Node 2",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+            "expandedIcon": "fa fa-folder-open",
+            "collapsedIcon": "fa fa-folder",
             "leaf": false
         &#125;
     ]
@@ -833,7 +833,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 &lt;h3&gt;Programatic Tree Expansion&lt;/h3&gt;
 &lt;p-tree #expandingTree [value]="filesTree10"&gt;&lt;/p-tree&gt;
 &lt;div style="margin-top: 8px"&gt;
-    &lt;button pButton type="button" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .25em"&gt;&lt;/button&gt;
     &lt;button pButton type="button" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
@@ -899,16 +899,16 @@ export class TreeDemo implements OnInit &#123;
             &#123;
                 label: "Backup",
                 data: "Backup Folder",
-                expandedIcon: "fa-folder-open",
-                collapsedIcon: "fa-folder"
+                expandedIcon: "fa fa-folder-open",
+                collapsedIcon: "fa fa-folder"
             &#125;
         ];
         this.filesTree9 = [
             &#123;
                 label: "Storage",
                 data: "Storage Folder",
-                expandedIcon: "fa-folder-open",
-                collapsedIcon: "fa-folder"
+                expandedIcon: "fa fa-folder-open",
+                collapsedIcon: "fa fa-folder"
             &#125;
         ];
         this.nodeService.getFiles().then(files => this.filesTree10 = files);
@@ -922,8 +922,8 @@ export class TreeDemo implements OnInit &#123;
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
 
         this.items = [
-            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedFile2)&#125;,
-            &#123;label: 'Unselect', icon: 'fa-close', command: (event) => this.unselectFile()&#125;
+            &#123;label: 'View', icon: 'fa fa-search', command: (event) => this.viewFile(this.selectedFile2)&#125;,
+            &#123;label: 'Unselect', icon: 'fa fa-close', command: (event) => this.unselectFile()&#125;
         ];
     &#125;
 

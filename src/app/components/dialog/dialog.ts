@@ -20,7 +20,7 @@ let idx: number = 0;
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
-                    <span class="fa fa-fw fa-close"></span>
+                    <span class="pi pi-times"></span>
                 </a>
             </div>
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">

@@ -16,7 +16,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelect',
     template: `
-        <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
+        <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-multiselect-open':overlayVisible,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onInputKeydown($event)">
@@ -35,15 +35,15 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
-                            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
+                            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isAllChecked()}"></span>
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
                         <input #filterInput type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
-                        <span class="ui-multiselect-filter-icon fa fa-fw fa-search"></span>
+                        <span class="ui-multiselect-filter-icon pi pi-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
-                        <span class="fa fa-close"></span>
+                        <span class="pi pi-times"></span>
                     </a>
                 </div>
                 <div class="ui-multiselect-items-wrapper">
@@ -55,7 +55,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <input #itemcb type="checkbox" readonly="readonly" [checked]="isSelected(option.value)" (focus)="focusedItemCheckbox=itemcb" (blur)="focusedItemCheckbox=null" [attr.aria-label]="option.label">
                                 </div>
                                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value), 'ui-state-focus': (focusedItemCheckbox === itemcb)}">
-                                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
+                                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
                             <label *ngIf="!itemTemplate">{{option.label}}</label>
@@ -117,7 +117,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @Input() resetFilterOnHide: boolean = false;
     
-    @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
+    @Input() dropdownIcon: string = 'pi pi-caret-down';
     
     @Input() optionLabel: string;
 

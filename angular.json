@@ -26,6 +26,7 @@
               "styles": [
                 "node_modules/fullcalendar/dist/fullcalendar.min.css",
                 "node_modules/quill/dist/quill.snow.css",
+                "node_modules/primeicons/primeicons.css",
                 "node_modules/font-awesome/css/font-awesome.min.css",
                 "src/styles.css"
               ],

@@ -10,7 +10,7 @@ import { TreeTableLazyDemo } from './treetablelazydemo';
 import { TreeTableColGroupDemo } from './treetablecolgroupdemo';
 import { TreeTableScrollDemo } from './treetablescrolldemo';
 import { TreeTableColToggleDemo } from './treetablecoltoggledemo';
-import { TreeTableCrudDemo } from './treetablecruddemo';
+import { TreeTableResponsiveDemo } from './treetableresponsivedemo';
 import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
 import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
@@ -29,7 +29,7 @@ import { TreeTableEditDemo } from './treetableeditdemo';
 			{ path: 'colgroup', component: TreeTableColGroupDemo },
 			{ path: 'scroll', component: TreeTableScrollDemo },
 			{ path: 'coltoggle', component: TreeTableColToggleDemo },
-			{ path: 'crud', component: TreeTableCrudDemo },
+			{ path: 'responsive', component: TreeTableResponsiveDemo },
 			{ path: 'contextmenu', component: TreeTableContextMenuDemo },
 			{ path: 'colresize', component: TreeTableColResizeDemo },
 			{ path: 'reorder', component: TreeTableReorderDemo },

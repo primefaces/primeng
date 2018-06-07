@@ -55,7 +55,7 @@ export class TableService {
                 'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
             <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-table-loading-content" *ngIf="loading">
-                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+                <i [class]="'ui-table-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
@@ -78,8 +78,8 @@ export class TableService {
             </div>
 
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-table-scrollable-view ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-table-scrollable-view" [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
             </div>
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -91,8 +91,8 @@ export class TableService {
 
             <div #resizeHelper class="ui-column-resizer-helper ui-state-highlight" style="display:none" *ngIf="resizableColumns"></div>
 
-            <span #reorderIndicatorUp class="fa fa-arrow-down ui-table-reorder-indicator-up" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="fa fa-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="pi pi-arrow-down ui-table-reorder-indicator-up" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="pi pi-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [DomHandler, ObjectUtils, TableService]
@@ -187,7 +187,7 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
+    @Input() loadingIcon: string = 'pi pi-spinner';
 
     @Input() rowHover: boolean;
 
@@ -975,13 +975,14 @@ export class Table implements OnInit, AfterContentInit {
         if(this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
-
+        
+        if (!this.isFilterBlank(value)) {
+            this.filters[field] = { value: value, matchMode: matchMode };
+        } else if (this.filters[field]) {
+            delete this.filters[field];
+        }
+        
         this.filterTimeout = setTimeout(() => {
-            if (!this.isFilterBlank(value))
-                this.filters[field] = { value: value, matchMode: matchMode };
-            else if (this.filters[field])
-                delete this.filters[field];
-
             this._filter();
             this.filterTimeout = null;
         }, this.filterDelay);
@@ -1366,6 +1367,7 @@ export class Table implements OnInit, AfterContentInit {
     onColumnResizeBegin(event) {
         let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
+        event.preventDefault();
     }
 
     onColumnResize(event) {
@@ -1397,9 +1399,10 @@ export class Table implements OnInit, AfterContentInit {
 
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
-                            let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
-                            let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
-                            let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-footer-table');
+                            let scrollableView = this.findParentScrollableView(column);
+                            let scrollableBodyTable = this.domHandler.findSingle(scrollableView, 'table.ui-table-scrollable-body-table');
+                            let scrollableHeaderTable = this.domHandler.findSingle(scrollableView, 'table.ui-table-scrollable-header-table');
+                            let scrollableFooterTable = this.domHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
                             let resizeColumnIndex = this.domHandler.index(column);
 
                             this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
@@ -1417,9 +1420,10 @@ export class Table implements OnInit, AfterContentInit {
             }
             else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
-                    let scrollableBodyTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
-                    let scrollableHeaderTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-header-table');
-                    let scrollableFooterTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-footer-table');
+                    let scrollableView = this.findParentScrollableView(column);
+                    let scrollableBodyTable = this.domHandler.findSingle(scrollableView, 'table.ui-table-scrollable-body-table');
+                    let scrollableHeaderTable = this.domHandler.findSingle(scrollableView, 'table.ui-table-scrollable-header-table');
+                    let scrollableFooterTable = this.domHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
                     scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     if(scrollableFooterTable) {
@@ -1447,6 +1451,20 @@ export class Table implements OnInit, AfterContentInit {
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
         this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+    }
+
+    findParentScrollableView(column) {
+        if (column) {
+            let parent = column.parentElement;
+            while (parent && !this.domHandler.hasClass(parent, 'ui-table-scrollable-view')) {
+                parent = parent.parentElement;
+            }
+
+            return parent;
+        }
+        else {
+            return null;
+        }
     }
 
     resizeColGroup(table, resizeColumnIndex, newColumnWidth, nextColumnWidth) {
@@ -1800,7 +1818,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             }
         }
         else {
-            this.scrollBodyViewChild.nativeElement.style.paddingBottom = this.domHandler.calculateScrollbarWidth() + 'px';
+            this.scrollBodyViewChild.nativeElement.style.marginBottom = this.domHandler.calculateScrollbarWidth() + 'px';
         }
 
         if(this.dt.virtualScroll) {
@@ -2017,7 +2035,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <a href="#" (click)="onClick($event)" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
-            <i class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></i>
+            <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-up': sortOrder === 1, 'pi-sort-down': sortOrder === -1, 'pi-sort': sortOrder === 0}"></i>
         </a>
     `
 })
@@ -2669,7 +2687,7 @@ export class CellEditor implements AfterContentInit {
             </div>
             <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
-                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':checked}"></span>
+                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':checked}"></span>
             </div>
         </div>
     `
@@ -2728,7 +2746,7 @@ export class TableRadioButton  {
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `
@@ -2787,7 +2805,7 @@ export class TableCheckbox  {
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled': (!dt.value || dt.value.length === 0)}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `

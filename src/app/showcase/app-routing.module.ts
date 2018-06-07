@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: '', component: HomeComponent},
             {path: 'setup', loadChildren: './components/setup/setup.module#SetupModule'},
             {path: 'theming', loadChildren: './components/theming/theming.module#ThemingModule'},
+            {path: 'icons', loadChildren: './components/icons/icons.module#IconsModule'},
             {path: 'accordion', loadChildren: './components/accordion/accordiondemo.module#AccordionDemoModule'},
             {path: 'autocomplete', loadChildren: './components/autocomplete/autocompletedemo.module#AutoCompleteDemoModule'},
             {path: 'blockui', loadChildren: './components/blockui/blockuidemo.module#BlockUIDemoModule'},

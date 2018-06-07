@@ -177,7 +177,7 @@ export class GroupDemo &#123;
             <h3>Custom Content</h3>
             <p>Both the selected option and the options list can be templated to provide customization on the default behavior which is displaying label property of an option. Use
                 "selectedItem" template to customize the selected label display and the "item" template to change the content of the options in the dropdown panel. In addition when grouping is enabled, "group" template is available 
-                to customize the option groups. All templates get the option instance as the default local template variable. 
+                to customize the option groups. All templates get the option instance as the default local template variable. If the options are custom objects not SelectItem instances, use value property to access the custom object.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>

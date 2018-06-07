@@ -20,11 +20,11 @@ export const SPINNER_VALUE_ACCESSOR: any = {
             [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
             <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled" [attr.readonly]="readonly"
                 (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event)" (mouseup)="onUpButtonMouseup($event)">
-                <span class="ui-spinner-button-icon fa fa-caret-up ui-clickable"></span>
+                <span class="ui-spinner-button-icon pi pi-caret-up ui-clickable"></span>
             </button>
             <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled" [attr.readonly]="readonly"
                 (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event)" (mouseup)="onDownButtonMouseup($event)">
-                <span class="ui-spinner-button-icon fa fa-caret-down ui-clickable"></span>
+                <span class="ui-spinner-button-icon pi pi-caret-down ui-clickable"></span>
             </button>
         </span>
     `,
@@ -212,7 +212,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyup(event: KeyboardEvent) {
-        let inputValue = (<HTMLInputElement> event.target).value;
+        const inputValue = (<HTMLInputElement> event.target).value;
+        const lastCharBeforeEvent = inputValue.charAt(inputValue.length - 2);
         if (event.key !== this.decimalSeparator && event.key !== this.thousandSeparator && event.key !== this.negativeSeparator) {
             this.value = this.parseValue(inputValue);
             this.formatValue();

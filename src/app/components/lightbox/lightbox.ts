@@ -18,17 +18,17 @@ import {DomHandler} from '../dom/domhandler';
             [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing" (click)="preventDocumentClickListener=true">
            <div class="ui-lightbox-content-wrapper">
               <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
-                [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="fa fa-fw fa-caret-left"></span></a>
+                [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="ui-lightbox-nav-icon pi pi-chevron-left"></span></a>
               <div #content class="ui-lightbox-content ui-corner-all" 
                 [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                 <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,content)" style="display:none">
                 <ng-content></ng-content>
               </div>
               <a class="ui-state-default ui-lightbox-nav-right ui-corner-left ui-helper-hidden" [style.zIndex]="zindex + 1" (click)="next(img)"
-                [ngClass]="{'ui-helper-hidden':!rightVisible}"><span class="fa fa-fw fa-caret-right"></span></a>
+                [ngClass]="{'ui-helper-hidden':!rightVisible}"><span class="ui-lightbox-nav-icon pi pi-chevron-right"></span></a>
            </div>
            <div class="ui-lightbox-caption ui-widget-header" [style.display]="captionText ? 'block' : 'none'">
-              <span class="ui-lightbox-caption-text">{{captionText}}</span><a class="ui-lightbox-close ui-corner-all" href="#" (click)="hide($event)"><span class="fa fa-fw fa-close"></span></a>
+              <span class="ui-lightbox-caption-text">{{captionText}}</span><a class="ui-lightbox-close ui-corner-all" href="#" (click)="hide($event)"><span class="pi pi-times"></span></a>
               <div style="clear:both"></div>
            </div>
         </div>

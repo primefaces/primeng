@@ -19,7 +19,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/treetable/coltoggle']">&#9679; Toggle</a></li>
                 <li><a [routerLink]="['/treetable/style']">&#9679; Style</a></li>
                 <li><a [routerLink]="['/treetable/contextmenu']">&#9679; ContextMenu</a></li>
-                <li><a [routerLink]="['/treetable/crud']">&#9679; Crud</a></li>
+                <li><a [routerLink]="['/treetable/responsive']">&#9679; Responsive</a></li>
             </ul>
         </div>
     `

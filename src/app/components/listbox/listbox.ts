@@ -28,12 +28,12 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <input #cb type="checkbox" readonly="readonly" [checked]="allChecked">
           </div>
           <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':allChecked}" (click)="toggleAll($event,cb)">
-            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':allChecked}"></span>
+            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':allChecked}"></span>
           </div>
         </div>
         <div class="ui-listbox-filter-container" *ngIf="filter">
           <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
-          <span class="ui-listbox-filter-icon fa fa-search"></span>
+          <span class="ui-listbox-filter-icon pi pi-search"></span>
         </div>
       </div>
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
@@ -46,7 +46,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
               </div>
               <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
               </div>
             </div>
             <span *ngIf="!itemTemplate">{{option.label}}</span>

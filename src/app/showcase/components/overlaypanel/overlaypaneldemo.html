@@ -16,7 +16,7 @@
     
     <h3>Customized</h3>
     <p>This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.</p>
-    <i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
+    <i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
         <p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;">
@@ -31,7 +31,7 @@
     <p-dataTable [value]="cars2">
         <p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo">
             <ng-template let-car="rowData" pTemplate="body">
-                <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
+                <button type="button" pButton (click)="selectCar($event,car,op3);" icon="pi pi-search"></button>
             </ng-template>
         </p-column>
         <p-column field="vin" header="Vin"></p-column>
@@ -256,7 +256,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 
 &lt;h3&gt;Customized&lt;/h3&gt;
 &lt;p&gt;This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.&lt;/p&gt;
-&lt;i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
+&lt;i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
 
 &lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
     &lt;p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;"&gt;
@@ -271,7 +271,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 &lt;p-dataTable [value]="cars2"&gt;
     &lt;p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo"&gt;
         &lt;ng-template let-car="rowData" pTemplate="body"&gt;
-            &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="pi pi-search"&gt;&lt;/button&gt;
         &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
