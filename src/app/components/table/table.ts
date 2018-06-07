@@ -273,6 +273,8 @@ export class Table implements OnInit, AfterContentInit {
 
     frozenColGroupTemplate: TemplateRef<any>;
 
+    frozenExpandedRowTemplate: TemplateRef<any>;
+
     emptyMessageTemplate: TemplateRef<any>;
 
     paginatorLeftTemplate: TemplateRef<any>;
@@ -381,6 +383,10 @@ export class Table implements OnInit, AfterContentInit {
 
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
+                break;
+
+                case 'frozenrowexpansion':
+                    this.frozenExpandedRowTemplate = item.template;
                 break;
 
                 case 'emptymessage':
@@ -1698,9 +1704,22 @@ export class TableBody {
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenHeaderTemplate||dt.headerTemplate : dt.headerTemplate; context {$implicit: columns}"></ng-container>
                     </thead>
                     <tbody class="ui-table-tbody">
-                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
-                            <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                        </ng-template>
+                        <ng-container *ngIf="!dt.frozenExpandedRowTemplate">
+                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
+                                <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                            </ng-template>
+                        </ng-container>
+                        <ng-container *ngIf="dt.frozenExpandedRowTemplate">
+                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
+                                <ng-container *ngIf="dt.isRowExpanded(rowData); else collapsedrow">
+                                    <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns, expanded: true}"></ng-container>
+                                    <ng-container *ngTemplateOutlet="dt.frozenExpandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                                </ng-container>
+                                <ng-template #collapsedrow>
+                                    <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                                </ng-template>
+                            </ng-template>
+                        </ng-container>
                     </tbody>
                 </table>
             </div>
