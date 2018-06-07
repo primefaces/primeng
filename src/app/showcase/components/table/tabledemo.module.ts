@@ -29,9 +29,11 @@ import { TableCrudDemo } from './tablecruddemo';
 import { TableResponsiveDemo } from './tableresponsivedemo';
 import { TableContextMenuDemo } from './tablecontextmenudemo';
 import { TableColResizeDemo } from './tablecolresizedemo';
-import { TableColReorderDemo } from './tablecolreorderdemo';
+import { TableReorderDemo } from './tablereorderdemo';
 import { TableEditDemo } from './tableeditdemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
+import { TabViewModule } from '../../../components/tabview/tabview';
+import { CodeHighlighterModule } from '../../../components/codehighlighter/codehighlighter';
 
 @NgModule({
 	imports: [
@@ -46,7 +48,9 @@ import { TableRowGroupDemo } from './tablerowgroupdemo';
 		DropdownModule,
 		ButtonModule,
 		GrowlModule,
-		InputTextModule
+		InputTextModule,
+		TabViewModule,
+		CodeHighlighterModule
 	],
 	declarations: [
 		TableSubmenu,
@@ -67,7 +71,7 @@ import { TableRowGroupDemo } from './tablerowgroupdemo';
 		TableResponsiveDemo,
 		TableContextMenuDemo,
 		TableColResizeDemo,
-		TableColReorderDemo,
+		TableReorderDemo,
 		TableEditDemo,
 		TableRowGroupDemo
 	]

@@ -11,27 +11,27 @@ import {ObjectUtils} from '../utils/objectutils';
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true,'ui-picklist-responsive': responsive}">
             <div class="ui-picklist-source-controls ui-picklist-buttons" *ngIf="showSourceControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showSourceFilter !== false">
                     <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,-1)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
-                    <span class="fa fa-search"></span>
+                    <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightSource}" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,-1)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, -1)">
-                    <ng-template ngFor let-item [ngForOf]="source" let-i="index" let-l="last">
+                    <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="trackBy" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, -1)" (drop)="onDrop($event, i, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource), 'ui-state-disabled': disabled}"
                             (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, -1)" (dragend)="onDragEnd($event)">
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, -1)" (drop)="onDrop($event, i + 1, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
@@ -40,27 +40,27 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
-                    <button type="button" pButton icon="fa-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
-                    <button type="button" pButton icon="fa-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
-                    <button type="button" pButton icon="fa-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
+                    <button type="button" pButton icon="pi pi-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
+                    <button type="button" pButton icon="pi pi-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showTargetFilter !== false">
                     <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,1)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder">
-                    <span class="fa fa-search"></span>
+                    <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightTarget}" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,1)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event,1)">
-                    <ng-template ngFor let-item [ngForOf]="target" let-i="index" let-l="last">
+                    <ng-template ngFor let-item [ngForOf]="target" [ngForTrackBy]="trackBy" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, 1)" (drop)="onDrop($event, i, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget), 'ui-state-disabled': disabled}"
                             (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, 1)" (dragend)="onDragEnd($event)">
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, 1)" (drop)="onDrop($event, i + 1, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
@@ -69,10 +69,10 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
                 </div>
             </div>
         </div>
@@ -92,6 +92,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() responsive: boolean;
     
     @Input() filterBy: string;
+
+    @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Input() showSourceFilter: boolean = true;
 
@@ -320,8 +322,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.itemTouched = true;
     }
 
+    private sortByIndexInList(items: any[], list: any) {
+        return items.sort((item1, item2) =>
+            this.findIndexInList(item1, list) - this.findIndexInList(item2, list));
+    }
+
     moveUp(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -345,6 +353,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveTop(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -365,6 +374,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveDown(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -388,6 +398,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveBottom(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
+            selectedItems = this.sortByIndexInList(selectedItems, list);
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);

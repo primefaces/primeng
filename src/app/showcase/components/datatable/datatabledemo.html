@@ -2,8 +2,8 @@
 
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">DataTable</span>
-        <span>DataTable displays data in tabular format.</span>
+        <span class="feature-title">DataTable - <span class="subitem">Deprecated</span></span>
+        <span>DataTable is deprecated, use <a [routerLink]="['/table']">TurboTable</a> instead.</span>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;DataTableModule,SharedModule&#125; from 'primeng/primeng';
+import &#123;DataTableModule&#125; from 'primeng/datatable';
 </code>
 </pre>
 
@@ -164,7 +164,7 @@ export class DataTableDemo implements OnInit &#123;
                             <td>filterMatchMode</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Defines filterMatchMode; "startsWith", "contains", "endsWidth", "equals", "notEquals" and "in".</td>
+                            <td>Defines filterMatchMode; "startsWith", "contains", "endsWith", "equals", "notEquals" and "in".</td>
                         </tr>
                         <tr>
                             <td>filterType</td>
@@ -387,12 +387,6 @@ export class DataTableDemo implements OnInit &#123;
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
 <pre>
-<code class="language-typescript" pCode ngNonBindable>
-import &#123;Header&#125; from 'primeng/primeng';
-import &#123;Footer&#125; from 'primeng/primeng';
-</code>
-</pre>
-<pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
@@ -496,12 +490,12 @@ import &#123;Footer&#125; from 'primeng/primeng';
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="price" header="Price"&gt;
         &lt;ng-template let-col let-car="rowData" pTemplate="body"&gt;
-            &lt;span&gt;&#123;&#123;car[col.field] | currency:'USD':true:'.0-0'&#125;&#125;&lt;/span&gt;
+            &lt;span&gt;&#123;&#123;car[col.field] | currency:'USD':'symbol':'.0-0'&#125;&#125;&lt;/span&gt;
         &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;ng-template pTemplate="rowgroupfooter" let-car&gt;
         &lt;td colspan="3" style="text-align:right"&gt;Total Price&lt;/td&gt;
-        &lt;td&gt;&#123;&#123;calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' &#125;&#125;&lt;/td&gt;
+        &lt;td&gt;&#123;&#123;calculateGroupTotal(car['brand']) | currency:'USD':'symbol':'.0-0' &#125;&#125;&lt;/td&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataTable&gt;
 </code>

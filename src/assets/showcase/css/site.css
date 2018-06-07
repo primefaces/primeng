@@ -304,6 +304,18 @@ body {
     color: #6d7879;
 }
 
+.menuitem-badge {
+    background: linear-gradient(-180deg, #60E17A 0%, #49BD61 100%);
+    padding: 2px 4px;
+    vertical-align: middle;
+    border-radius: 3px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+    top: -1px;
+}
+
 #layout-sidebar .layout-menu > div a:hover {
     background-color: #eeeeee;
 }
@@ -344,6 +356,11 @@ body {
     color: #ffffff;
 }
 
+.content-section.introduction a {
+    color: #ffffff;
+    font-weight: 700;
+}
+
 .content-section:first-of-type > div > span {
     line-height: 1.5em;
 }
@@ -360,7 +377,8 @@ body {
 
 .layout-footer {
     font-size: 14px;
-    color: #84939f;
+    color: #000000;
+    font-weight: bold;
 }
 
 .layout-footer .footer-links {
@@ -389,22 +407,35 @@ body {
     color: #5C666A;
 }
 
-.SubSubMenu {
+.content-submenu {
+    background-image: linear-gradient(to left, #20272a, #20272a);
     padding: 15px 30px;
+    border-bottom: 1px solid #1b81d7;
 }
-.SubSubMenu ul {
+.content-submenu ul {
     margin: 0;
     padding: 0;
     width: 100%;
 }
-.SubSubMenu ul li {
+.content-submenu ul li {
     list-style: none;
     width: 20%;
     float: left;
     margin-top: 5px;
 }
-.SubSubMenu ul li a:hover {
-    color: #229be0
+.content-submenu ul li a {
+    color: #cac6c6;
+    display: block;
+    width: 90%;
+    border: 1px solid transparent;
+    transition: border-color .1s;
+    padding: 6px 12px;
+    border-radius: 3px;
+}
+.content-submenu ul li a:hover {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+
 }
 
 /* Documentation Section */
@@ -520,13 +551,13 @@ body {
     background-color: #dae8ef;
     color: #404C51;
     border: solid 1px #C1D5DF;
-    padding: 5px;
+    padding: 8px 14px;
     font-size: 16px;
     text-align: left;
 }
 .doc-table tbody td {
     color: #404C51;
-    padding: 4px 10px;
+    padding: 8px 14px;
     border: 1px solid #E5EBF0;
     font-size: 15px;
     opacity: .90;
@@ -637,7 +668,7 @@ body {
         padding-top: 2em;
     }
 
-    .SubSubMenu ul li {
+    .content-submenu ul li {
         width: 50%;
     }
 }
@@ -862,11 +893,11 @@ a {
 }
 
 .home .whouses .ui-g > div {
-    padding: 1em .5em;
+    padding: 1em 2em;
 }
 
 .home .whouses img {
-    height: 30px;
+    height: 42px;
 }
 
 .home .testimonials {
@@ -875,13 +906,37 @@ a {
     margin-top: 30px;
 }
 
-.home .testimonials h3 {
-    margin-bottom: 10px;
+.home .testimonials .ui-g > div {
+    margin-left: -1px;
+    margin-top: -1px;
+    border: 1px solid #333D41;
+}
+
+.home .testimonials .ui-g > div:nth-child(2n) {
+    background-color: #283134;
 }
 
 .home .testimonials p {
     font-size: 14px;
     line-height: 1.5;
+    font-style: italic;
+}
+
+.home .testimonials h3 {
+    margin-bottom: 26px;
+}
+
+.home .testimonials img {
+    padding-top: 10px;
+}
+
+.home .testimonials hr {
+  width: 40px;
+  color: #4c5254;
+}
+
+.home .testimonials i {
+    font-style: normal;
 }
 
 /* Book */
@@ -893,11 +948,11 @@ a {
 }
 
 .home .book .ui-g-12:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .home .book .ui-g-12:first-child {
-    text-align: center;
+    text-align: left;
 }
 
 .home .book img {
@@ -939,10 +994,66 @@ a {
     transform: scale(1.05);
 }
 
+.home .why-templates {
+    background-color: #20272a;
+    text-align: center;
+    color: #ffffff;
+    padding: 30px;
+}
+
+.home .why-templates h3 {
+    margin: 10px 0;
+    display: block;
+}
+
+.home .why-templates hr {
+    border: 1px dotted solid #262626;
+    margin-bottom: 20px;
+}
+
+.home .why-templates img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.home .why-templates .ui-g > div {
+    padding: .5em 1em;
+}
+
+.home .why-templates ul {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    list-style-type: none;
+}
+
+.home .why-templates  ul > li {
+    padding-bottom: 10px;
+    text-align: left;
+    text-align: center;
+}
+
+/* Designer */
+.home .primeng-designer {
+    background-color: #ffffff;
+    padding: 30px;
+}
+
+.home .primeng-designer h3 {
+    margin: 10px 0 20px 0;
+    display: block;
+    text-align: center;
+}
+
+.home .primeng-designer img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
 /* PRO */
 .home .prosupport,
 .support-image {
-    background-color: #20272a;
+    background-color: rgba(79,41,64,.8);
     padding: 30px;
     color: #ffffff;
 }
@@ -1022,4 +1133,3 @@ a {
     display: block;
   }
 }
-

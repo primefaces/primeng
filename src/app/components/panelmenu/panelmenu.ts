@@ -30,22 +30,22 @@ export class BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenuSub',
     template: `
-        <ul class="ui-menu-list ui-helper-reset" [@submenu]="expanded ? 'visible' : 'hidden'">
+        <ul class="ui-submenu-list" [@submenu]="expanded ? 'visible' : 'hidden'">
             <ng-template ngFor let-child [ngForOf]="item.items">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
-                <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}" [class]="child.styleClass" [ngStyle]="child.style">
+                <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="child.styleClass" [class.ui-helper-hidden]="child.visible === false" [ngStyle]="child.style">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.expanded ? null : '-1'" [attr.id]="child.id"
-                        [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" 
+                        [ngClass]="{'ui-state-disabled':child.disabled}" 
                         (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
-                        <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span
-                        ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
+                        <span class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!child.expanded,'pi-caret-down':child.expanded}" *ngIf="child.items"></span
+                        ><span class="ui-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
-                        [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" [attr.tabindex]="item.expanded ? null : '-1'" [attr.id]="child.id"
+                        [ngClass]="{'ui-state-disabled':child.disabled}" [attr.tabindex]="item.expanded ? null : '-1'" [attr.id]="child.id"
                         (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
-                        <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span
-                        ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
+                        <span class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!child.expanded,'pi-caret-down':child.expanded}" *ngIf="child.items"></span
+                        ><span class="ui-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
                     <p-panelMenuSub [item]="child" [expanded]="child.expanded" *ngIf="child.items"></p-panelMenuSub>
@@ -77,29 +77,31 @@ export class PanelMenuSub extends BasePanelMenuItem {
     selector: 'p-panelMenu',
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-panelmenu ui-widget'">
-            <div *ngFor="let item of model;let f=first;let l=last;" class="ui-panelmenu-panel">
-                <div [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-top':f,'ui-corner-bottom':l&&!item.expanded,
+            <ng-container *ngFor="let item of model;let f=first;let l=last;">
+                <div class="ui-panelmenu-panel" [ngClass]="{'ui-helper-hidden': item.visible === false}">
+                    <div [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-top':f,'ui-corner-bottom':l&&!item.expanded,
                     'ui-state-active':item.expanded,'ui-state-disabled':item.disabled}" [class]="item.styleClass" [ngStyle]="item.style">
-                    <a *ngIf="!item.routerLink" [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
-                        [attr.target]="item.target" [attr.title]="item.title">
-                        <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
-                        ><span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span
+                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" (click)="handleClick($event,item)"
+                           [attr.target]="item.target" [attr.title]="item.title" class="ui-panelmenu-header-link">
+                        <span *ngIf="item.items" class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!item.expanded,'pi-caret-down':item.expanded}"></span
+                        ><span class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>
-                    </a>
-                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
-                        [attr.target]="item.target" [attr.title]="item.title">
-                        <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
-                        ><span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span
+                        </a>
+                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
+                           (click)="handleClick($event,item)" [attr.target]="item.target" [attr.title]="item.title" class="ui-panelmenu-header-link">
+                        <span *ngIf="item.items" class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!item.expanded,'pi-caret-down':item.expanded}"></span
+                        ><span class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>
-                    </a>
-                </div>
-                <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'"  (@rootItem.done)="onToggleDone($event)"
-                    [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
-                    <div class="ui-panelmenu-content ui-widget-content">
-                        <p-panelMenuSub [item]="item" [expanded]="true"></p-panelMenuSub>
+                        </a>
+                    </div>
+                    <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'"  (@rootItem.done)="onToggleDone()"
+                         [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
+                        <div class="ui-panelmenu-content ui-widget-content">
+                            <p-panelMenuSub [item]="item" [expanded]="true" class="ui-panelmenu-root-submenu"></p-panelMenuSub>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ng-container>
         </div>
     `,
     animations: [

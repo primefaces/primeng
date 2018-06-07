@@ -11,6 +11,11 @@ src
 e2e
 karma.conf.js
 protractor.conf.js
+*.spec.d.ts
+*.spec.js
+*.spec.js.map
+*.spec.metadata.json
+*.spec.ngsummary.json
 
 # dependencies
 node_modules
@@ -41,9 +46,11 @@ npm-debug.log
 testem.log
 /typings
 .gitignore
+exports
 
 # config
 .angular-cli.json
+angular.json
 tsconfig.json
 tsconfig-release.json
 tsconfig-aot.json

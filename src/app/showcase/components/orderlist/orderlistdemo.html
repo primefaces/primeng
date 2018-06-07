@@ -25,7 +25,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;OrderListModule&#125; from 'primeng/primeng';
+import &#123;OrderListModule&#125; from 'primeng/orderlist';
 </code>
 </pre>
 
@@ -171,6 +171,12 @@ export class MyComponent &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Placeholder text on filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>trackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
                         </tr>
                     </tbody>
                 </table>

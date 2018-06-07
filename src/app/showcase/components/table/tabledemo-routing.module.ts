@@ -17,7 +17,7 @@ import { TableCrudDemo } from './tablecruddemo';
 import { TableResponsiveDemo } from './tableresponsivedemo';
 import { TableContextMenuDemo } from './tablecontextmenudemo';
 import { TableColResizeDemo } from './tablecolresizedemo';
-import { TableColReorderDemo } from './tablecolreorderdemo';
+import { TableReorderDemo } from './tablereorderdemo';
 import { TableEditDemo } from './tableeditdemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
 
@@ -41,7 +41,7 @@ import { TableRowGroupDemo } from './tablerowgroupdemo';
 			{ path: 'responsive', component: TableResponsiveDemo },
 			{ path: 'contextmenu', component: TableContextMenuDemo },
 			{ path: 'colresize', component: TableColResizeDemo },
-			{ path: 'colreorder', component: TableColReorderDemo },
+			{ path: 'reorder', component: TableReorderDemo },
 			{ path: 'edit', component: TableEditDemo },
 			{ path: 'rowgroup', component: TableRowGroupDemo }
 		])

@@ -27,13 +27,33 @@
 .ui-paginator .ui-paginator-first,
 .ui-paginator .ui-paginator-prev,
 .ui-paginator .ui-paginator-current {
-	display: inline-block;
-	padding: .125em .375em;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
 	zoom: 1;
 	margin-left: .063em;
 	margin-right: .063em;
 	text-decoration: none;
     vertical-align: middle;
+    text-align: center;
+    position: relative;
+}
+
+.ui-paginator .ui-paginator-pages {
+    width: auto;
+    line-height: 1;
+}
+
+.ui-paginator .ui-paginator-icon {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    margin-top: -.5em;
+    margin-left: -.5em;
 }
 
 .ui-paginator .ui-paginator-page,

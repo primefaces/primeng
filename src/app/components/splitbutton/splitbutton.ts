@@ -12,22 +12,24 @@ import {RouterModule} from '@angular/router';
     template: `
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-right': 'ui-corner-left'" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
-            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
+            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="pi pi-caret-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
             <div #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
                     [ngStyle]="menuStyle" [class]="menuStyleClass" [@overlayState]="menuVisible ? 'visible' : 'hidden'">
                 <ul class="ui-menu-list ui-helper-reset">
-                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model">
-                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
-                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
-                            <span class="ui-menuitem-text">{{item.label}}</span>
-                        </a>
-                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
-                            class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
-                            <span class="ui-menuitem-text">{{item.label}}</span>
-                        </a>
-                    </li>
+                    <ng-template ngFor let-item [ngForOf]="model">
+                        <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngIf="item.visible !== false">
+                            <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                                [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
+                                <span class="ui-menuitem-text">{{item.label}}</span>
+                            </a>
+                            <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
+                                class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
+                                <span class="ui-menuitem-text">{{item.label}}</span>
+                            </a>
+                        </li>
+                    </ng-template>
                 </ul>
             </div>
         </div>
@@ -181,6 +183,10 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
          
     ngOnDestroy() {
         this.unbindDocumentClickListener();
+
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.overlayViewChild.nativeElement);
+        }
     }
 }
 

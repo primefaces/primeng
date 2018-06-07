@@ -26,23 +26,23 @@ export class UIMessage {
         if(this.severity) {
             switch(this.severity) {
                 case 'success':
-                    icon = 'fa fa-check';
+                    icon = 'pi pi-check';
                 break;
 
                 case 'info':
-                    icon = 'fa fa-info-circle';
+                    icon = 'pi pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'fa fa-close';
+                    icon = 'pi pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'fa fa-warning';
+                    icon = 'pi pi-ex';
                 break;
 
                 default:
-                    icon = 'fa fa-info-circle';
+                    icon = 'pi pi-info-circle';
                 break;
             }
         }

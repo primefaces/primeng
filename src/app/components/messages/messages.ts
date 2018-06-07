@@ -1,8 +1,8 @@
-import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {MessageService} from '../common/messageservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-messages',
@@ -11,11 +11,12 @@ import {Subscription}   from 'rxjs/Subscription';
                     [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}">
+                    'ui-messages-success':(value[0].severity === 'success')}"
+                    [ngStyle]="style" [class]="styleClass">
             <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
-                <i class="fa fa-close"></i>
+                <i class="pi pi-times"></i>
             </a>
-            <span class="ui-messages-icon fa fa-fw fa-2x" [ngClass]="icon"></span>
+            <span class="ui-messages-icon pi" [ngClass]="icon"></span>
             <ul>
                 <li *ngFor="let msg of value">
                     <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
@@ -25,24 +26,37 @@ import {Subscription}   from 'rxjs/Subscription';
         </div>
     `
 })
-export class Messages implements OnDestroy {
+export class Messages implements OnInit, OnDestroy {
 
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
 
+    @Input() style: any;
+    
+    @Input() styleClass: string;
+
+    @Input() enableService: boolean = true;
+
+    @Input() key: string;
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
 
     subscription: Subscription;
 
-    constructor(@Optional() public messageService: MessageService) {
-        if(messageService) {
-            this.subscription = messageService.messageObserver.subscribe((messages: any) => {
+    constructor(@Optional() public messageService: MessageService) {}
+
+    ngOnInit() {
+        if(this.messageService && this.enableService) {
+            this.subscription = this.messageService.messageObserver.subscribe((messages: any) => {
                 if(messages) {
-                    if(messages instanceof Array)
-                        this.value = this.value ? [...this.value, ...messages] : [...messages];
-                    else
-                        this.value = this.value ? [...this.value, ...[messages]]: [messages];
+                    if(messages instanceof Array) {
+                        let filteredMessages = messages.filter(m => this.key === m.key);
+                        this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
+                    }
+                    else if (this.key === messages.key) {
+                        this.value = this.value ? [...this.value, ...[messages]] : [messages];
+                    }
                 }
                 else {
                     this.value = null;
@@ -72,23 +86,23 @@ export class Messages implements OnDestroy {
             let msg = this.value[0];
             switch(msg.severity) {
                 case 'success':
-                    icon = 'fa-check';
+                    icon = 'pi-check';
                 break;
 
                 case 'info':
-                    icon = 'fa-info-circle';
+                    icon = 'pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'fa-close';
+                    icon = 'pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'fa-warning';
+                    icon = 'pi-exclamation-triangle';
                 break;
 
                 default:
-                    icon = 'fa-info-circle';
+                    icon = 'pi-info-circle';
                 break;
             }
         }

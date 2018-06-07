@@ -2,7 +2,6 @@ import {Component,OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
 
-
 @Component({
     templateUrl: './datatabledemo.html'
 })
@@ -19,7 +18,7 @@ export class DataTableDemo implements OnInit {
     ngOnInit() {
         this.loading = true;
         setTimeout(() => {
-            this.carService.getCarsHuge().then(cars => this.cars = cars);
+            this.carService.getCarsSmall().then(cars => this.cars = cars);
             this.loading = false;
         }, 1000);
         

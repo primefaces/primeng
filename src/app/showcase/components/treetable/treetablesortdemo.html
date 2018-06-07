@@ -1,0 +1,145 @@
+<treetable-submenu></treetable-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">TreeTable - <span class="subitem">Sort</span></span>
+        <span>TreeTable supports both single column and multiple column sorting.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Single Sort</h3>
+    <p-treeTable [value]="files1" [columns]="cols">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-treeTable>
+
+    <h3>Multiple Sort</h3>
+    <p-treeTable [value]="files2" [columns]="cols" sortMode="multiple">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+    </p-treeTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="treetablesortdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablesortdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableSortDemo implements OnInit &#123;
+
+    files1: TreeNode[];
+
+    files2: TreeNode[];
+
+    cols: any[];
+
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFilesystem().then(files => this.files1 = files);
+        this.nodeService.getFilesystem().then(files => &#123;
+            this.files2 = files;
+            this.files2.push(&#123;
+                data: &#123;
+                    name: 'Documents',
+                    size: '100kb',
+                    type: 'Link'
+                &#125;
+            &#125;);
+        &#125;);
+
+        this.cols = [
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'size', header: 'Size' &#125;,
+            &#123; field: 'type', header: 'Type' &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="treetablesortdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablesortdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Single Sort&lt;/h3&gt;
+&lt;p-treeTable [value]="files1" [columns]="cols"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [ttSortableColumn]="col.field"&gt;
+                &#123;&#123;col.header&#125;&#125;
+                &lt;p-treeTableSortIcon [field]="col.field"&gt;&lt;/p-treeTableSortIcon&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+
+&lt;h3&gt;Multiple Sort&lt;/h3&gt;
+&lt;p-treeTable [value]="files2" [columns]="cols" sortMode="multiple"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [ttSortableColumn]="col.field"&gt;
+                &#123;&#123;col.header&#125;&#125;
+                &lt;p-treeTableSortIcon [field]="col.field"&gt;&lt;/p-treeTableSortIcon&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -36,11 +36,11 @@
         <button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
-    <button pButton type="button" (click)="visibleSidebar1 = true" icon="fa-arrow-right"></button>
-    <button pButton type="button" (click)="visibleSidebar2 = true" icon="fa-arrow-left"></button>
-    <button pButton type="button" (click)="visibleSidebar3 = true" icon="fa-arrow-down"></button>
-    <button pButton type="button" (click)="visibleSidebar4 = true" icon="fa-arrow-up"></button>
-    <button pButton type="button" (click)="visibleSidebar5 = true" icon="fa-arrows-alt"></button>    
+    <button pButton type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"></button>
+    <button pButton type="button" (click)="visibleSidebar2 = true" icon="pi pi-arrow-left"></button>
+    <button pButton type="button" (click)="visibleSidebar3 = true" icon="pi pi-arrow-down"></button>
+    <button pButton type="button" (click)="visibleSidebar4 = true" icon="pi pi-arrow-up"></button>
+    <button pButton type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"></button>    
 </div>
 
 <div class="content-section documentation">
@@ -49,7 +49,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;SidebarModule&#125; from 'primeng/primeng';
+import &#123;SidebarModule&#125; from 'primeng/sidebar';
 </code>
 </pre>
 
@@ -62,7 +62,7 @@ import &#123;SidebarModule&#125; from 'primeng/primeng';
     Content
 &lt;/p-sidebar&gt;
 
-&lt;button type="text" (click)="display = true" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
+&lt;button type="text" (click)="display = true" pButton icon="pi pi-plus" label="Show"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -163,6 +163,12 @@ Content
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to automatically manage layering.</td>
+                        </tr>
+                        <tr>
+                            <td>modal</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether an overlay mask is displayed behind the sidebar.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -268,19 +274,19 @@ Content
         
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000"&#125;"&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Left Sidebar&lt;/h1&gt;
     &lt;button pButton type="button" (click)="visibleSidebar1 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;button pButton type="button" (click)="visibleSidebar1 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/p-sidebar&gt;
 
-&lt;p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000"&#125;"&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Right Sidebar&lt;/h1&gt;
     &lt;button pButton type="button" (click)="visibleSidebar2 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/p-sidebar&gt;
 
-&lt;p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000"&#125;"&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar3" position="top" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Top Sidebar&lt;/h1&gt;
     &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
@@ -292,17 +298,17 @@ Content
     &lt;button pButton type="button" (click)="visibleSidebar4 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/p-sidebar&gt;
 
-&lt;p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000"&#125;"&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000"&gt;
     &lt;h1 style="font-weight:normal"&gt;Full Screen Sidebar&lt;/h1&gt;
     &lt;button pButton type="button" (click)="visibleSidebar5 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/p-sidebar&gt;
 
-&lt;button pButton type="button" (click)="visibleSidebar1 = true" icon="fa-arrow-right"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar2 = true" icon="fa-arrow-left"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar3 = true" icon="fa-arrow-down"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar4 = true" icon="fa-arrow-up"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="visibleSidebar5 = true" icon="fa-arrows-alt"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="visibleSidebar2 = true" icon="pi pi-arrow-left"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="visibleSidebar3 = true" icon="pi pi-arrow-down"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="visibleSidebar4 = true" icon="pi pi-arrow-up"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"&gt;&lt;/button&gt;
 </code>
 </pre>
 

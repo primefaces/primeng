@@ -1,0 +1,127 @@
+<treetable-submenu></treetable-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">TreeTable - <span class="subitem">Responsive</span></span>
+        <span>This sample demonstrates how to implement a responsive TreeTable using media queries.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-treeTable [value]="files">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th class="priority-2">Size</th>
+                <th class="priority-3">Type</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr>
+                <td>
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.name}}
+                    <span class="visibility-sm">
+                        / {{rowData.size}} - {{rowData.type}}
+                    </span>
+                </td>
+                <td class="priority-2">{{rowData.size}}</td>
+                <td class="priority-3">{{rowData.type}}</td>
+            </tr>            
+        </ng-template>
+    </p-treeTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="treetableresponsivedemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablepagedemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './treetableresponsivedemo.html',
+    styles: [`
+        :host ::ng-deep .priority-2, 
+        :host ::ng-deep .priority-3,
+        :host ::ng-deep .visibility-sm &#123;
+            display: none;
+        &#125;
+
+        @media screen and (max-width: 39.938em) &#123;
+            :host ::ng-deep .visibility-sm &#123;
+                display: inline;
+            &#125;
+        &#125;
+
+        @media screen and (min-width: 40em) &#123;
+            :host ::ng-deep .priority-2 &#123;
+                display: table-cell;
+            &#125;
+        &#125;
+
+        @media screen and (min-width: 64em) &#123;
+            :host ::ng-deep .priority-3 &#123;
+                display: table-cell;
+            &#125;
+        &#125;
+    `]
+&#125;)
+export class TreeTableResponsiveDemo &#123;
+
+    files: TreeNode[];
+
+    cols: any[];
+
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFilesystem().then(files => this.files = files);
+
+        this.cols = [
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'size', header: 'Size' &#125;,
+            &#123; field: 'type', header: 'Type' &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="treetableresponsivedemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablepagedemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th class="priority-2"&gt;Size&lt;/th&gt;
+            &lt;th class="priority-3"&gt;Type&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData.name&#125;&#125;
+                &lt;span class="visibility-sm"&gt;
+                    / &#123;&#123;rowData.size&#125;&#125; - &#123;&#123;rowData.type&#125;&#125;
+                &lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td class="priority-2"&gt;&#123;&#123;rowData.size&#125;&#125;&lt;/td&gt;
+            &lt;td class="priority-3"&gt;&#123;&#123;rowData.type&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

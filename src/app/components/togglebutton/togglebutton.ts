@@ -63,7 +63,7 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     }
 
     getIconClass() {
-        let baseClass = 'ui-button-icon-left fa fa-fw';
+        let baseClass = 'ui-button-icon-left ui-togglebutton-icon';
         return baseClass + ' ' + (this.checked ? this.onIcon : this.offIcon);
     }
     

@@ -3,7 +3,12 @@ import {Message} from '../../../components/common/api';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: './splitbuttondemo.html'
+    templateUrl: './splitbuttondemo.html',
+    styles: [`
+        :host ::ng-deep .ui-splitbutton {
+            margin-right: .25em;
+        }
+    `]
 })
 export class SplitButtonDemo implements OnInit {
 

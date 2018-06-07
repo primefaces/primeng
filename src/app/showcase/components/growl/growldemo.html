@@ -15,7 +15,7 @@
         <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
         <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
         <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
-        <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"></button>
+        <button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"></button>
     </div>
     
     <h3>Message Service</h3>
@@ -29,7 +29,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;GrowlModule&#125; from 'primeng/primeng';
+import &#123;GrowlModule&#125; from 'primeng/growl';
 </code>
 </pre>
 
@@ -45,7 +45,7 @@ import &#123;GrowlModule&#125; from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;Message&#125; from 'primeng/primeng';
+import &#123;Message&#125; from 'primeng/api';
 
 export class MyModel &#123;
 
@@ -58,7 +58,8 @@ export class MyModel &#123;
             <h3>Message Service</h3>
             <p>MessageService allows having one growl in the entire application instead of having separate ones in each component that uses it.
             In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as the application instance itself 
-            so that descandant components can have it injected.</p>
+            so that descandant components can have it injected. If there are multiple growl components having the same message service, you may use key property of the component
+            to match the key of the message to implement scoping.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
@@ -197,6 +198,12 @@ clear() &#123;
                             <td>true</td>
                             <td>Whether to automatically manage layering.</td>
                         </tr>
+                        <tr>
+                            <td>key</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Id to match the key of the message to enable scoping in service based messaging.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -294,7 +301,7 @@ clear() &#123;
     &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Message Service&lt;/h3&gt;

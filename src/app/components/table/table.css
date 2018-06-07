@@ -12,18 +12,62 @@
 .ui-table .ui-table-tbody > tr > td,
 .ui-table .ui-table-tfoot > tr > td {
     padding: .25em .5em;
-    border: 1px solid #d9d9d9;
+}
+
+.ui-table .ui-sortable-column {
+    cursor: pointer;
+}
+
+.ui-table-auto-layout > .ui-table-wrapper {
+    overflow-x: auto;
+}
+
+.ui-table-auto-layout > .ui-table-wrapper > table {
+    table-layout: auto;
+}
+
+/* Sections */
+.ui-table-caption,
+.ui-table-summary {
+    padding: .25em .5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ui-table-caption {
+    border-bottom: 0 none;
+}
+
+.ui-table-summary {
+    border-top: 0 none;
+}
+
+/* Paginator */
+.ui-table .ui-paginator-top {
+    border-bottom: 0 none;
+}
+
+.ui-table .ui-paginator-bottom {
+    border-top: 0 none;
 }
 
 /* Scrollable */
+.ui-table-scrollable-wrapper {
+    position: relative;
+}
 .ui-table-scrollable-header,
 .ui-table-scrollable-footer {
     overflow: hidden;
+    border: 0 none;
 }
 
 .ui-table-scrollable-body {
     overflow: auto;
     position: relative;
+}
+
+.ui-table-scrollable-body > table > .ui-table-tbody > tr:first-child > td {
+    border-top: 0 none;
 }
 
 .ui-table-virtual-table {
@@ -35,14 +79,13 @@
     overflow: hidden;
 }
 
+.ui-table-frozen-view > .ui-table-scrollable-body > table > .ui-table-tbody > tr > td:last-child {
+    border-right: 0 none;
+}
+
 .ui-table-unfrozen-view {
     position: absolute;
     top: 0px;
-}
-
-/* ContextMenu */
-.ui-table .ui-contextmenu-selected {
-    background-color: #3c91f3;
 }
 
 /* Resizable */
@@ -52,13 +95,17 @@
 
 .ui-table-resizable .ui-table-thead > tr > th,
 .ui-table-resizable .ui-table-tfoot > tr > td,
-.ui-table-resizable .ui-table-data > tr > td {
+.ui-table-resizable .ui-table-tbody > tr > td {
     overflow: hidden;
 }
 
-.ui-resizable-column {
+.ui-table-resizable .ui-resizable-column {
     background-clip: padding-box;
     position: relative;
+}
+
+.ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer {
+    display: none;
 }
 
 .ui-table .ui-column-resizer {
@@ -83,7 +130,8 @@
 
 /* Edit */
 .ui-table .ui-table-tbody > tr > td.ui-editing-cell {
-    padding: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .ui-table .ui-table-tbody > tr > td.ui-editing-cell p-celleditor >  * {
@@ -142,6 +190,12 @@
 .ui-table-loading-content {
     position: absolute;
     left: 50%;
-    top: 25%;
+    top: 50%;
     z-index: 2;
+    margin-top: -1em;
+    margin-left: -1em;
+}
+
+.ui-table-loading-icon {
+    font-size: 2em;
 }

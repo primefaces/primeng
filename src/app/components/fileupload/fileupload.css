@@ -92,5 +92,21 @@
     width: 2em;
 }
 
+@media (max-width: 40em) {
+    .ui-fileupload-buttonbar .ui-button {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: .25em;
+    }
+
+    .ui-fileupload-buttonbar .ui-button:last-child {
+        margin-bottom: 0;
+    }
+
+    .ui-fileupload-row > div {
+        display: block;
+    }
+}
 
 

@@ -322,6 +322,48 @@ $inputGroupTextColor: #222222;
     }
 }
 
+/* TurboTable */
+.ui-table {
+    .ui-table-thead > tr > th,
+    .ui-table-tfoot > tr > td {
+        background-color: #ebedf0;
+        border-color: #d9d9d9;
+    }
+
+    .ui-sortable-column:not(.ui-state-highlight):hover {
+        background-color: #d3d5d8;
+        border-color: #d9d9d9;
+    }
+
+    .ui-table-tbody > tr:nth-child(even) {
+        background-color: #fafafb;
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+        }
+
+        &.ui-contextmenu-selected {
+            background-color: lighten($stateHighlightBgColor, 20%);
+            color: $stateHighlightTextColor;
+        }
+    }
+}
+
+/* TurboTable */
+.ui-treetable {
+    .ui-treetable-thead > tr > th,
+    .ui-treetable-tfoot > tr > td {
+        background-color: #ebedf0;
+        border-color: #d9d9d9;
+    }
+
+    .ui-sortable-column:not(.ui-state-highlight):hover {
+        background-color: #d3d5d8;
+        border-color: #d9d9d9;
+    }
+}
+
 /* Panel */
 .ui-panel.ui-widget {
     padding: 0;
@@ -364,7 +406,7 @@ $inputGroupTextColor: #222222;
 }
 
 .ui-togglebutton.ui-button.ui-state-hover,.ui-togglebutton.ui-button.ui-state-focus,
-.ui-selectbutton .ui-button.ui-state-hover,.ui-selectbutton .ui-button.ui-state-focus {
+.ui-selectbutton .ui-button.ui-state-hover,.ui-selectbutton .ui-button.ui-state-focus, .ui-selectbutton .ui-button:focus {
    border: 1px solid #c0c0c0; 
    background: #eeeeee; 
    font-weight: normal; 
@@ -372,7 +414,8 @@ $inputGroupTextColor: #222222;
 }
 
 .ui-togglebutton.ui-button.ui-state-focus,
-.ui-selectbutton .ui-button.ui-state-focus.ui-state-active  {
+.ui-selectbutton .ui-button.ui-state-focus.ui-state-active,
+.ui-selectbutton .ui-button.ui-state-active:focus  {
     -moz-box-shadow: 0px 0px 5px #1f89ce;
 	-webkit-box-shadow: 0px 0px 5px #1f89ce;
 	box-shadow: 0px 0px 5px #1f89ce;
@@ -447,8 +490,11 @@ $inputGroupTextColor: #222222;
 
 /* Menus */
 .ui-menu,
-.ui-menu .ui-menu-child {
-    border: 1px solid #d9d9d9;
+.ui-menubar, .ui-menubar .ui-submenu-list,
+.ui-tieredmenu, .ui-tieredmenu .ui-submenu-list,
+.ui-slidemenu, .ui-slidemenu .ui-submenu-list,
+.ui-contextmenu, .ui-contextmenu .ui-submenu-list,
+.ui-megamenu {
     color: #1b1d1f;
     background: #f6f7f9 0 0 repeat-x;  /* Old browsers */
     background: -moz-linear-gradient(top, #f6f7f9 0%, #ebedf0 100%); /* FF3.6+ */
@@ -459,22 +505,24 @@ $inputGroupTextColor: #222222;
     background: linear-gradient(to bottom, #f6f7f9 0%,#ebedf0 100%); /* W3C */
 }
 
-.ui-menu {
-    .ui-menuitem {
-        .ui-menuitem-link {
-            &:hover {
-                background-color: #a6a6a6;
-                color: #ffffff;
-            }
-        }
-        
-        &.ui-menuitem-active {
-            > .ui-menuitem-link {
-                background-color: #a6a6a6;
-                color: #ffffff;
-            }
-        }
-    }
+.ui-menu .ui-menuitem > .ui-menuitem-link:hover,
+.ui-menubar .ui-menuitem > .ui-menuitem-link:hover,
+.ui-tieredmenu .ui-menuitem > .ui-menuitem-link:hover,
+.ui-slidemenu .ui-menuitem > .ui-menuitem-link:hover,
+.ui-contextmenu .ui-menuitem > .ui-menuitem-link:hover,
+.ui-megamenu .ui-menuitem > .ui-menuitem-link:hover {
+    background-color: #a6a6a6;
+    color: #ffffff;
+}
+
+.ui-menu .ui-menuitem.ui-menuitem-active > .ui-menuitem-link,
+.ui-menubar .ui-menuitem.ui-menuitem-active > .ui-menuitem-link,
+.ui-tieredmenu .ui-menuitem.ui-menuitem-active > .ui-menuitem-link,
+.ui-slidemenu .ui-menuitem.ui-menuitem-active > .ui-menuitem-link,
+.ui-contextmenu .ui-menuitem.ui-menuitem-active > .ui-menuitem-link,
+.ui-megamenu .ui-menuitem.ui-menuitem-active > .ui-menuitem-link {
+    background-color: #a6a6a6;
+    color: #ffffff;
 }
 
 /* PanelMenu */

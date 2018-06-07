@@ -13,7 +13,7 @@ import {FilterMetadata} from '../common/filtermetadata';
 import {SortMeta} from '../common/sortmeta';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
 
 @Component({
@@ -82,7 +82,7 @@ export class DTCheckbox {
                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': col.sortable, 'ui-state-active': dt.isSorted(col), 'ui-resizable-column': dt.resizableColumns, 'ui-selection-column':col.selectionMode,
                             'ui-helper-hidden': col.hidden}"
                 (dragstart)="dt.onColumnDragStart($event)" (dragleave)="dt.onColumnDragleave($event)" (drop)="dt.onColumnDrop($event)" (mousedown)="dt.onHeaderMousedown($event,headerCell)"
-                [attr.tabindex]="col.sortable ? tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)"
+                [attr.tabindex]="col.sortable ? dt.tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)"
                 [attr.scope]="col.scope||(col.colspan ? 'colgroup' : 'col')">
                 <span class="ui-column-resizer ui-clickable" *ngIf="dt.resizableColumns && col.resizable && ((dt.columnResizeMode == 'fit' && !lastCol) || dt.columnResizeMode == 'expand')" (mousedown)="dt.initColumnResize($event)"></span>
                 <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
@@ -140,7 +140,7 @@ export class ColumnFooters {
                         <span class="fa fa-fw" [ngClass]="dt.isRowGroupExpanded(rowData) ? dt.expandedIcon : dt.collapsedIcon"></span>
                     </a>
                     <span class="ui-rowgroup-header-name">
-                        <ng-container *ngTemplateOutlet="col.rowGroupHeaderTemplate; context: {$implicit: rowData}"></ng-container>
+                        <ng-container *ngTemplateOutlet="dt.rowGroupHeaderTemplate; context: {$implicit: rowData}"></ng-container>
                     </span>
                 </td>
             </tr>
@@ -167,9 +167,9 @@ export class ColumnFooters {
                                 (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" (blur)="dt.onCellEditorBlur($event, col, rowData, rowIndex)"
                                 (input)="dt.onCellEditorInput($event, col, rowData, rowIndex)" (change)="dt.onCellEditorChange($event, col, rowData, rowIndex)"
                                 class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event, colIndex)"></a>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event)"></a>
                             <ng-container *ngTemplateOutlet="col.editorTemplate; context: {$implicit: col, rowData: rowData, rowIndex: rowIndex}"></ng-container>
-                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event, colIndex)"></a>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event)"></a>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
                             <span class="ui-row-toggler fa fa-fw ui-clickable" [ngClass]="dt.isRowExpanded(rowData) ? dt.expandedIcon : dt.collapsedIcon"></span>
@@ -192,7 +192,9 @@ export class ColumnFooters {
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
-                <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate"></ng-container>
+                <ng-container *ngIf="dt.emptyMessageTemplate">
+                    <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate"></ng-container>
+                </ng-container>
             </td>
         </tr>
     `
@@ -743,7 +745,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public emptyMessageTemplate: TemplateRef<any>;
     
     public paginatorLeftTemplate: TemplateRef<any>;
-            
+    
     public paginatorRightTemplate: TemplateRef<any>;
     
     public scrollBarWidth: number;
@@ -1949,7 +1951,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     bindDocumentEditListener() {
         if(!this.documentEditListener) {
             this.documentEditListener = this.renderer.listen('document', 'click', (event) => {
-                if(!this.editorClick) {
+                if(!this.editorClick && event.button !== 2) {
                     this.closeCell();
                 }
                 this.editorClick = false;

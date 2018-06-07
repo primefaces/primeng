@@ -53,7 +53,7 @@ export class DomHandler {
     }
 
     public find(element: any, selector: string): any[] {
-        return element.querySelectorAll(selector);
+        return Array.from(element.querySelectorAll(selector));
     }
 
     public findSingle(element: any, selector: string): any {
@@ -66,6 +66,16 @@ export class DomHandler {
         for (var i = 0; i < children.length; i++) {
             if (children[i] == element) return num;
             if (children[i].nodeType == 1) num++;
+        }
+        return -1;
+    }
+
+    public indexWithinGroup(element: any, attributeName: string): number {
+        let children = element.parentNode.childNodes;
+        let num = 0;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] == element) return num;
+            if (children[i].attributes && children[i].attributes[attributeName] && children[i].nodeType == 1) num++;
         }
         return -1;
     }
@@ -328,6 +338,13 @@ export class DomHandler {
             top: rect.top + document.body.scrollTop,
             left: rect.left + document.body.scrollLeft
         };
+    }
+
+    public replaceElementWith(element: any, replacementElement: any): any {
+        let parentNode = element.parentNode;
+        if(!parentNode) 
+            throw `Can't replace element`;
+        return parentNode.replaceChild(replacementElement, element);
     }
 
     getUserAgent(): string {

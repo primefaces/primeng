@@ -15,7 +15,8 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;PanelMenuModule,MenuItem&#125; from 'primeng/primeng';
+import &#123;PanelMenuModule&#125; from 'primeng/panelmenu';
+import &#123;MenuItem&#125; from 'primeng/api';
 </code>
 </pre>
 
@@ -40,10 +41,10 @@ export class PanelMenuDemo &#123;
         this.items = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -55,22 +56,22 @@ export class PanelMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -88,21 +89,21 @@ export class PanelMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'fa fa-fw fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa fa-fw fa-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'fa fa-fw fa-minus'&#125;
                         ]
                     &#125;
                 ]
@@ -228,38 +229,39 @@ export class PanelMenuDemo &#123;
         this.items = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
-                            &#123;label: 'Project'&#125;,
-                            &#123;label: 'Other'&#125;,
+                            &#123;label: 'Project', icon: 'fa fa-fw fa-lock'&#125;,
+                            &#123;label: 'Other', icon: 'fa fa-fw fa-list'&#125;
                         ]
                     &#125;,
-                    &#123;label: 'Open'&#125;,
+                    &#123;label: 'Open', icon: 'fa fa-fw fa-external-link'&#125;,
                     &#123;separator: true&#125;,
-                    &#123;label: 'Quit'&#125;
+                    &#123;label: 'Quit', icon: 'fa fa-fw fa-close'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     &#123;
-                        label: 'Contents'
+                        label: 'Contents',
+                        icon: 'fa fa-fw fa-bars'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -270,28 +272,29 @@ export class PanelMenuDemo &#123;
                                 ]
                             &#125;,
                             &#123;
-                                label: 'File'
+                                label: 'File',
+                                icon: 'fa fa-fw fa-file',
                             &#125;
                     ]&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'fa fa-fw fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa fa-fw fa-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'fa fa-fw fa-minus'&#125;
                         ]
                     &#125;
                 ]

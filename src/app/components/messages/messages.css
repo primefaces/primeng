@@ -10,6 +10,7 @@
     display:inline-block;
     padding: 0;
     vertical-align: middle;
+    font-size: 2em;
 }
 
 .ui-messages-summary {
@@ -78,4 +79,14 @@
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+/* Message */
+.ui-message .ui-message-icon {
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+.ui-message .ui-message-text {
+    vertical-align: middle;
 }

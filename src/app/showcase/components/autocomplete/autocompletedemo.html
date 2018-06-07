@@ -40,7 +40,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;AutoCompleteModule&#125; from 'primeng/primeng';
+import &#123;AutoCompleteModule&#125; from 'primeng/autocomplete';
 </code>
 </pre>
 
@@ -79,6 +79,8 @@ export class AutoCompleteDemo &#123;
                 this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
                 both methods can be used depending on your preference.
             </p>
+
+            <p>Note that if no suggestions are available after searching, provide an empty array instead of a null value.</p>
 
             <h3>Model Driven Forms</h3>
             <p>AutoComplete can be used in a model driven form as well.</p>

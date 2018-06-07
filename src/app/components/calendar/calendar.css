@@ -12,6 +12,10 @@
     border-left: 0 none;
 }
 
+.ui-calendar .ui-calendar-button .ui-button-icon-left {
+    font-size: 1.5em;
+}
+
 .ui-calendar .ui-calendar-button:enabled:hover,
 .ui-calendar .ui-calendar-button:focus {
     border-left: 0 none;
@@ -95,6 +99,9 @@
 }
 .ui-datepicker select.ui-datepicker-month {
     margin-right: .25em;
+}
+.ui-datepicker span.ui-datepicker-year {
+	margin-left: .25em;
 }
 .ui-datepicker table {
 	width: 100%;

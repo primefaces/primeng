@@ -8,31 +8,6 @@ import {TreeNode} from '../common/treenode';
 import {PrimeTemplate} from '../common/shared';
 
 @Component({
-    selector: 'p-organizationChartNodeTemplateLoader',
-    template: ``
-})
-export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
-        
-    @Input() node: any;
-    
-    @Input() template: TemplateRef<any>;
-    
-    view: EmbeddedViewRef<any>;
-        
-    constructor(public viewContainer: ViewContainerRef) {}
-    
-    ngOnInit() {
-        this.view = this.viewContainer.createEmbeddedView(this.template, {
-            '\$implicit': this.node
-        });
-    }
-    
-    ngOnDestroy() {
-        this.view.destroy();
-    }
-}
-
-@Component({
     selector: '[pOrganizationChartNode]',
     template: `
         <tr *ngIf="node">
@@ -42,10 +17,10 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
                     (click)="onNodeClick($event,node)">
                     <div *ngIf="!chart.getTemplateForNode(node)">{{node.label}}</div>
                     <div *ngIf="chart.getTemplateForNode(node)">
-                        <p-organizationChartNodeTemplateLoader [node]="node" [template]="chart.getTemplateForNode(node)"></p-organizationChartNodeTemplateLoader>
+                        <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                     </div>
                     <a *ngIf="!leaf" href="#" class="ui-node-toggler" (click)="toggleNode($event, node)">
-                        <i class="fa ui-node-toggler-icon" [ngClass]="{'fa-chevron-down': node.expanded, 'fa-chevron-up': !node.expanded}"></i>
+                        <i class="ui-node-toggler-icon" [ngClass]="{'pi pi-chevron-down': node.expanded, 'pi-chevron-up': !node.expanded}"></i>
                     </a>
                 </div>
             </td>
@@ -56,10 +31,17 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
             </td>
         </tr>
         <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
-            <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
-                <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
-                <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
-            </ng-template>
+            <ng-container *ngIf="node.children && node.children.length === 1">
+                <td [attr.colspan]="colspan">
+                    <div class="ui-organizationchart-line-down"></div>
+                </td>
+            </ng-container>
+            <ng-container *ngIf="node.children && node.children.length > 1">
+                <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
+                    <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
+                    <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
+                </ng-template>
+            </ng-container>
         </tr>
         <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-nodes" [@childState]="'in'">
             <td *ngFor="let child of node.children" colspan="2">
@@ -235,6 +217,6 @@ export class OrganizationChart implements AfterContentInit {
 @NgModule({
     imports: [CommonModule],
     exports: [OrganizationChart,SharedModule],
-    declarations: [OrganizationChart,OrganizationChartNode,OrganizationChartNodeTemplateLoader]
+    declarations: [OrganizationChart,OrganizationChartNode]
 })
 export class OrganizationChartModule { }

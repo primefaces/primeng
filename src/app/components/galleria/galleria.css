@@ -1,6 +1,6 @@
-.ui-galleria { 
-    overflow: hidden; 
-    visibility: hidden; 
+.ui-galleria {
+    overflow: hidden;
+    visibility: hidden;
     position: relative;
 }
 
@@ -24,7 +24,7 @@
     position: relative;
 }
 
-.ui-galleria-filmstrip { 
+.ui-galleria-filmstrip {
     list-style: none outside none;
     margin: 0;
     padding: 0;
@@ -53,14 +53,15 @@
 .ui-galleria-nav-next, .ui-galleria-nav-prev {
 	cursor: pointer;
     position: absolute;
+    z-index: 910;
 }
 
-.ui-galleria-nav-prev {	
-    left: 5px;
+.ui-galleria-nav-prev {
+    left: 4px;
 }
 
 .ui-galleria-nav-next {
-    right: 5px;
+    right: 4px;
 }
 
 .ui-galleria-caption {

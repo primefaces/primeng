@@ -1,0 +1,89 @@
+<treetable-submenu></treetable-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">TreeTable - <span class="subitem">Reorder</span></span>
+        <span>Order of the columns can be changed using drag and drop.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-treeTable [value]="files" [columns]="cols" [reorderableColumns]="true">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" ttReorderableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+    </p-treeTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="treetablecolreorder.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecolreorder.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableReorderDemo &#123;
+
+    files: TreeNode[];
+
+    cols: any[];
+
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFilesystem().then(files => this.files = files);
+
+        this.cols = [
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'size', header: 'Size' &#125;,
+            &#123; field: 'type', header: 'Type' &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="treetablecolreorder.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treeable/treetablecolreorder.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" [columns]="cols" [reorderableColumns]="true"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" ttReorderableColumn&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;            
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -11,7 +11,7 @@
 
     <h3>Popup</h3>
     <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
-    <button #btn type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"></button>
+    <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
 </div>
 
 <div class="content-section documentation">
@@ -20,7 +20,8 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;TieredMenuModule,MenuItem&#125; from 'primeng/primeng';
+import &#123;TieredMenuModule&#125; from 'primeng/tieredmenu';
+import &#123;MenuItem&#125; from 'primeng/api';
 </code>
 </pre>
 
@@ -47,7 +48,7 @@ export class TieredMenuDemo &#123;
                 label: 'File',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -59,10 +60,10 @@ export class TieredMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;
         ];
@@ -77,7 +78,7 @@ export class TieredMenuDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tieredMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button #btn type="button" pButton icon="fa fa fa-fw fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -123,6 +124,24 @@ export class TieredMenuDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>baseZIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Base zIndex value to use in layering.</td>
+                        </tr>
+                        <tr>
+                            <td>autoZIndex</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to automatically manage layering.</td>
+                        </tr>
+                        <tr>
+                            <td>hideDelay</td>
+                            <td>number</td>
+                            <td>250</td>
+                            <td>Delay in milliseconds to hide the menu on mouse leave.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -213,7 +232,7 @@ export class TieredMenuDemo &#123;
 
 &lt;h3&gt;Popup&lt;/h3&gt;
 &lt;p-tieredMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -227,10 +246,10 @@ export class TieredMenuDemo &#123;
         this.items = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -243,22 +262,22 @@ export class TieredMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -276,28 +295,28 @@ export class TieredMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'fa fa-fw fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa fa-fw fa-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'fa fa-fw fa-minus'&#125;
                         ]
                     &#125;
                 ]
             &#125;,
             &#123;separator:true&#125;,
             &#123;
-                label: 'Quit', icon: 'fa-minus'
+                label: 'Quit', icon: 'fa fa-fw fa-minus'
             &#125;
         ];
     &#125;

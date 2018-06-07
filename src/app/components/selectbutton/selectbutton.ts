@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ContentChild,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {ObjectUtils} from '../utils/objectutils';
@@ -15,8 +15,15 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" [ngStyle]="style" [class]="styleClass">
             <div *ngFor="let option of options; let i = index" class="ui-button ui-widget ui-state-default ui-button-text-only {{option.styleClass}}"
-                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled, 'ui-state-focus': cbox == focusedItem}" (click)="onItemClick($event,option,cbox,i)">
-                <span class="ui-button-text ui-clickable">{{option.label}}</span>
+                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled, 'ui-state-focus': cbox == focusedItem, 
+                'ui-button-text-icon-left': (option.icon != null), 'ui-button-icon-only': (option.icon && !option.label)}" (click)="onItemClick($event,option,cbox,i)" [attr.title]="option.title">
+                <ng-container *ngIf="!itemTemplate else customcontent">
+                    <span [ngClass]="['ui-clickable', 'ui-button-icon-left']" [class]="option.icon" *ngIf="option.icon"></span>
+                    <span class="ui-button-text ui-clickable">{{option.label||'ui-btn'}}</span>
+                </ng-container>
+                <ng-template #customcontent>
+                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option.value, index: i}"></ng-container>
+                </ng-template>
                 <div class="ui-helper-hidden-accessible">
                     <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled">
                 </div>
@@ -36,12 +43,16 @@ export class SelectButton implements ControlValueAccessor {
     @Input() styleClass: string;
 
     @Input() disabled: boolean;
+
+    @Input() dataKey: string
     
     @Input() optionLabel: string;
     
     @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @ContentChild(TemplateRef) itemTemplate;
     
     value: any;
     
@@ -60,7 +71,7 @@ export class SelectButton implements ControlValueAccessor {
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        let opts = this.optionLabel || this.itemTemplate ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
     }
     
@@ -126,7 +137,7 @@ export class SelectButton implements ControlValueAccessor {
         if(this.multiple)
             return this.findItemIndex(option) != -1;
         else
-            return option.value == this.value;
+            return this.objectUtils.equals(option.value, this.value, this.dataKey);
     }
     
     findItemIndex(option: SelectItem) {

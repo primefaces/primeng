@@ -3,9 +3,9 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'table-submenu',
     template: `
-        <div class="content-section SubSubMenu ui-helper-clearfix">
+        <div class="content-section content-submenu ui-helper-clearfix">
             <ul>
-                <li><a [routerLink]="['/table']">&#9679; Basic</a></li>
+                <li><a [routerLink]="['/table']">&#9679; Documentation</a></li>
                 <li><a [routerLink]="['/table/sections']">&#9679; Sections</a></li>
                 <li><a [routerLink]="['/table/page']">&#9679; Page</a></li>
                 <li><a [routerLink]="['/table/sort']">&#9679; Sort</a></li>
@@ -18,7 +18,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/table/rowexpansion']">&#9679; RowExpand</a></li>
                 <li><a [routerLink]="['/table/rowgroup']">&#9679; RowGroup</a></li>
                 <li><a [routerLink]="['/table/colresize']">&#9679; Resize</a></li>
-                <li><a [routerLink]="['/table/colreorder']">&#9679; Reorder</a></li>
+                <li><a [routerLink]="['/table/reorder']">&#9679; Reorder</a></li>
                 <li><a [routerLink]="['/table/coltoggle']">&#9679; Toggle</a></li>
                 <li><a [routerLink]="['/table/style']">&#9679; Style</a></li>
                 <li><a [routerLink]="['/table/export']">&#9679; Export</a></li>

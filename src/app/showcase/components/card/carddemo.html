@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <p-card title="Simple Card" [style]="{width: '360px'}">
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+        <div style="line-height:1.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
     </p-card>
 
@@ -17,11 +17,11 @@
         <p-header>
             <img src="Card" src="assets/showcase/images/usercard.png">
         </p-header>
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+        <div style="line-height:1.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
         <p-footer>
-            <button pButton type="button" label="Save" icon="fa-check"></button>
-            <button pButton type="button" label="Cancel" icon="fa-close" class="ui-button-secondary"></button>
+            <button pButton type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
         </p-footer>
     </p-card>
 </div>
@@ -32,7 +32,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;CardModule&#125; from 'primeng/primeng';
+import &#123;CardModule&#125; from 'primeng/card';
 </code>
 </pre>
 
@@ -173,8 +173,8 @@ import &#123;CardModule&#125; from 'primeng/primeng';
     &lt;div&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/div&gt;
     &lt;p-footer&gt;
-        &lt;button pButton type="button" label="Save" icon="fa-check"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Cancel" icon="fa-close" class="ui-button-secondary"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"&gt;&lt;/button&gt;
     &lt;/p-footer&gt;
 &lt;/p-card&gt;
 </code>

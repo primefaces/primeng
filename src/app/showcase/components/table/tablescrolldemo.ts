@@ -32,6 +32,8 @@ export class TableScrollDemo implements OnInit {
 
     sales: any[];
 
+    loading: boolean;
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
@@ -58,7 +60,7 @@ export class TableScrollDemo implements OnInit {
         ];
 
         this.frozenCols = [
-            { field: 'vin', header: 'Vin' },
+            { field: 'vin', header: 'Vin' }
         ];
 
         this.frozenCars = [
@@ -80,10 +82,12 @@ export class TableScrollDemo implements OnInit {
         ];
 
         this.totalRecords = 250000;
+        this.loading = true;
     }
 
     loadDataOnScroll(event: LazyLoadEvent) {      
-        console.log('new data');      
+        this.loading = true;   
+
         //for demo purposes keep loading the same dataset 
         //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         setTimeout(() => {
@@ -128,7 +132,9 @@ export class TableScrollDemo implements OnInit {
                 {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 37},
                 {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38},
                 {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39}
-            ];  
+            ]; 
+            
+            this.loading = false;  
         }, 1000);   
     }
 }

@@ -56,7 +56,7 @@
                     SplitButton
                 </div>
                 <div class="ui-g-8">
-                    <p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"></p-splitButton>
+                    <p-splitButton label="Save" icon="pi pi-check" [model]="splitMenuItems"></p-splitButton>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-6">
@@ -101,7 +101,7 @@
                 Dialog
             </div>
             <div class="ui-g-10">
-                <button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"></button>
+                <button pButton label="Show" type="button" icon="pi pi-plus" (click)="showDialog()"></button>
             </div>
         </div>
 
@@ -243,7 +243,7 @@
             SplitButton
         &lt;/div&gt;
         &lt;div class="ui-g-8"&gt;
-            &lt;p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"&gt;&lt;/p-splitButton&gt;
+            &lt;p-splitButton label="Save" icon="pi pi-check" [model]="splitMenuItems"&gt;&lt;/p-splitButton&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="ui-g-12 ui-md-6"&gt;
@@ -288,7 +288,7 @@
         Dialog
     &lt;/div&gt;
     &lt;div class="ui-g-10"&gt;
-        &lt;button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"&gt;&lt;/button&gt;
+        &lt;button pButton label="Show" type="button" icon="pi pi-plus" (click)="showDialog()"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
@@ -489,25 +489,25 @@ export class ResponsiveDemo implements OnInit &#123;
         this.items1 = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa-download'&#125;
+                &#123;label: 'New', icon: 'fa fa-fw fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-fw fa-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'fa fa-fw fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa fa-fw fa-repeat'&#125;
             ]
         &#125;];
         
         this.items2 = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -519,22 +519,22 @@ export class ResponsiveDemo implements OnInit &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -552,21 +552,21 @@ export class ResponsiveDemo implements OnInit &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'fa fa-fw fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa fa-fw fa-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'fa fa-fw fa-minus'&#125;
                         ]
                     &#125;
                 ]
@@ -574,10 +574,10 @@ export class ResponsiveDemo implements OnInit &#123;
         ];
         
         this.splitMenuItems = [
-            &#123;label: 'Update', icon: 'fa-refresh'&#125;,
-            &#123;label: 'Delete', icon: 'fa-close'&#125;,
-            &#123;label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'&#125;,
-            &#123;label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']&#125;
+            &#123;label: 'Update', icon: 'fa fa-fw fa-refresh'&#125;,
+            &#123;label: 'Delete', icon: 'fa fa-fw fa-close'&#125;,
+            &#123;label: 'Angular.io', icon: 'fa fa-fw fa-link', url: 'http://angular.io'&#125;,
+            &#123;label: 'Theming', icon: 'fa fa-fw fa-paint-brush', routerLink: ['/theming']&#125;
         ];
     &#125;
 

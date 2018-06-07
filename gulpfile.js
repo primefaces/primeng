@@ -46,6 +46,11 @@ gulp.task('themes', function() {
         .pipe(gulp.dest('resources/themes'));
 });
 
+gulp.task('build-exports', function() {
+    return gulp.src(['exports/*.js','exports/*.d.ts'])
+        .pipe(gulp.dest('./'));
+});
+
 //Cleaning previous gulp tasks from project
 gulp.task('clean', function() {
 	del(['resources']);

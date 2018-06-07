@@ -42,10 +42,12 @@
     display: block; 
 }
 
-.ui-tabview .ui-tabview-nav li .ui-tabview-left-icon,
-.ui-tabview .ui-tabview-nav li .ui-tabview-right-icon,
-.ui-tabview .ui-tabview-nav li .ui-tabview-title { 
-    vertical-align: middle;
+.ui-tabview .ui-tabview-nav li .ui-tabview-left-icon {
+    margin-right: .25em;
+}
+
+.ui-tabview .ui-tabview-nav li .ui-tabview-right-icon {
+    margin-left: .25em;
 }
 
 .ui-tabview .ui-tabview-nav li .ui-tabview-close { 

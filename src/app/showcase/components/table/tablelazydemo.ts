@@ -17,6 +17,8 @@ export class TableLazyDemo implements OnInit {
 
     cols: any[];
 
+    loading: boolean;
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
@@ -32,9 +34,13 @@ export class TableLazyDemo implements OnInit {
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' }
         ];
+
+        this.loading = true;
     }
 
-    loadCarsLazy(event: LazyLoadEvent) {
+    loadCarsLazy(event: LazyLoadEvent) {  
+        this.loading = true;
+
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -46,8 +52,8 @@ export class TableLazyDemo implements OnInit {
         setTimeout(() => {
             if (this.datasource) {
                 this.cars = this.datasource.slice(event.first, (event.first + event.rows));
-                console.log('x');
+                this.loading = false;
             }
-        }, 250);
+        }, 1000);
     }
 }

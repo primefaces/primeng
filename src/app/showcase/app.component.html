@@ -17,7 +17,12 @@
                 <ul>
                     <li class="topbar-submenu-header">THEMING</li>
                     <li><a [routerLink]="['./theming']">Guide</a></li>
+                    <li><a href="https://www.primefaces.org/designer/primeng">Designer <span class="menuitem-badge">NEW</span></a></li>
+                    <li><a [routerLink]="['./icons']">Icons <span class="menuitem-badge">NEW</span></a></li>
                     <li class="topbar-submenu-header">PREMIUM</li>
+                    <li><a href="http://www.primefaces.org/layouts/ecuador-ng"><img src="assets/showcase/images/themeswitcher-ecuador.png" alt="Ecuador"><span class="ui-text">Ecuador</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/harmony-ng"><img src="assets/showcase/images/themeswitcher-harmony.png" alt="Harmony"><span class="ui-text">Harmony</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/apollo-ng"><img src="assets/showcase/images/themeswitcher-apollo.png" alt="Apollo"><span class="ui-text">Apollo</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/serenity-ng"><img src="assets/showcase/images/themeswitcher-serenity.png" alt="Serenity (Material)"><span class="ui-text">Serenity</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/avalon-ng"><img src="assets/showcase/images/themeswitcher-avalon.png" alt="Avalon (Bootstrap)"><span class="ui-text">Avalon</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima (Material)"><span class="ui-text">Ultima</span></a></li>
@@ -106,8 +111,8 @@
                 <a [routerLink]="['/carousel']" (click)="menuActive = false">&#9679; Carousel</a>
                 <a [routerLink]="['/datagrid']" (click)="menuActive = false">&#9679; DataGrid</a>
                 <a [routerLink]="['/datalist']" (click)="menuActive = false">&#9679; DataList</a>
+                <a [routerLink]="['/dataview']" (click)="menuActive = false">&#9679; DataView</a>
                 <a [routerLink]="['/datascroller']" (click)="menuActive = false">&#9679; DataScroller</a>
-                <a [routerLink]="['/datatable']" (click)="menuActive = false">&#9679; DataTable</a>
                 <a [routerLink]="['/organizationchart']" (click)="menuActive = false">&#9679; Org Chart</a>
                 <a [routerLink]="['/orderlist']" (click)="menuActive = false">&#9679; OrderList</a>
                 <a [routerLink]="['/gmap']" (click)="menuActive = false">&#9679; GMap</a>
@@ -116,7 +121,7 @@
                 <a [routerLink]="['/schedule']" (click)="menuActive = false">&#9679; Schedule</a>
                 <a [routerLink]="['/table']" (click)="menuActive = false">&#9679; Table</a>
                 <a [routerLink]="['/tree']" (click)="menuActive = false">&#9679; Tree</a>
-                <a [routerLink]="['/treetable']" (click)="menuActive = false">&#9679; TreeTable</a>
+                <a [routerLink]="['/treetable']" (click)="menuActive = false">&#9679; TreeTable <span class="menuitem-badge">NEW</span></a>
             </div>
 
             <a id="menu_panel" #panelmenutitle [class.active-menuitem]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === panelmenutitle.id ? null : panelmenutitle.id)">
@@ -253,7 +258,7 @@
         </div>
 
         <div class="content-section layout-footer clearfix">
-            <span><a href="http://www.primetek.com.tr">PrimeTek</a>, Copyright &copy; 2017</span>
+            <span>PrimeNG 6.0.0-beta.1</span>
             <div class="footer-links">
                 <a href="https://github.com/primefaces/primeng"><i class="fa fa-github"></i></a>
                 <a href="https://twitter.com/prime_ng"><i class="fa fa-twitter"></i></a>

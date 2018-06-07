@@ -35,7 +35,7 @@
 
   <br />
 
-  <button type="button" (click)="selectedCar=null" pButton icon="fa-close" label="Clear Selected Car"></button>
+  <button type="button" (click)="selectedCar=null" pButton icon="pi pi-times" label="Clear Selected Car"></button>
 </div>
 
 <div class="content-section documentation">
@@ -44,7 +44,7 @@
       <h3>Import</h3>
       <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;ListboxModule&#125; from 'primeng/primeng';
+import &#123;ListboxModule&#125; from 'primeng/listbox';
 </code>
 </pre>
 
@@ -63,7 +63,7 @@ import &#123;ListboxModule&#125; from 'primeng/primeng';
 
       <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/primeng';
+import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
 
@@ -113,7 +113,7 @@ export class MyModel &#123;
 
       <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/primeng';
+import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
 
@@ -132,6 +132,20 @@ export class MyModel &#123;
         ];
     &#125;
 
+&#125;
+</code>
+</pre>
+
+        <h3>Updating Options</h3>
+        <p>When itemLabel property is used, Listbox does not detect changes in the options so provide a new reference when you need to update the options such as adding a new option.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+addOption() &#123;
+    //fails
+    this.options.push(&#123;name:'New York', code: 'NY'&#125;);
+
+    //correct
+    this.options = [...this.cities, &#123;name:'New York', code: 'NY'&#125;];
 &#125;
 </code>
 </pre>
@@ -179,7 +193,7 @@ export class MyModel &#123;
 
       <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/primeng'
+import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
 
@@ -408,7 +422,7 @@ export class MyModel &#123;
   &lt;/p-footer&gt;
 &lt;/p-listbox&gt;
 
-&lt;button type="button" (click)="selectedCar=null" pButton icon="fa-close" label="Clear Selected Car"&gt;&lt;/button&gt;
+&lt;button type="button" (click)="selectedCar=null" pButton icon="pi pi-times" label="Clear Selected Car"&gt;&lt;/button&gt;
 </code>
 </pre>
 

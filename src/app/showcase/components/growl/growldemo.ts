@@ -4,6 +4,11 @@ import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './growldemo.html',
+    styles: [`
+        :host ::ng-deep button {
+            margin-right: .25em;
+        }
+    `],
     providers: [MessageService]
 })
 export class GrowlDemo {

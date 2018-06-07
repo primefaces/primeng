@@ -20,4 +20,5 @@ export interface MenuItem {
     styleClass?:string;
     title?: string;
     id?: string;
+    automationId?: any;
 }

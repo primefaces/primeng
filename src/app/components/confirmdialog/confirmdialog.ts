@@ -6,7 +6,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
 import {ButtonModule} from '../button/button';
 import {Confirmation} from '../common/confirmation';
 import {ConfirmationService} from '../common/confirmationservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-confirmDialog',
@@ -16,11 +16,11 @@ import {Subscription}   from 'rxjs/Subscription';
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
-                    <span class="fa fa-fw fa-close"></span>
+                    <span class="pi pi-fw pi-times"></span>
                 </a>
             </div>
             <div class="ui-dialog-content ui-widget-content">
-                <i [ngClass]="'fa'" [class]="icon" *ngIf="icon"></i>
+                <i [ngClass]="'ui-confirmdialog-icon'" [class]="icon" *ngIf="icon"></i>
                 <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
             </div>
             <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
@@ -54,13 +54,13 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @Input() message: string;
     
-    @Input() acceptIcon: string = 'fa-check';
+    @Input() acceptIcon: string = 'pi pi-check';
     
     @Input() acceptLabel: string = 'Yes';
     
     @Input() acceptVisible: boolean = true;
 
-    @Input() rejectIcon: string = 'fa-close';
+    @Input() rejectIcon: string = 'pi pi-times';
     
     @Input() rejectLabel: string = 'No';
     
@@ -116,7 +116,9 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                 this.header = this.confirmation.header||this.header;
                 this.rejectVisible = this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible;
                 this.acceptVisible = this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible;
-                
+                this.acceptLabel = this.confirmation.acceptLabel||this.acceptLabel;
+                this.rejectLabel = this.confirmation.rejectLabel||this.rejectLabel;
+
                 if(this.confirmation.accept) {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
