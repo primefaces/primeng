@@ -22,7 +22,10 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onInputKeydown($event)">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
-                <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
+                <label class="ui-multiselect-label ui-corner-all">
+                    <ng-container *ngIf="!selectedItemTemplate">{{valuesAsString}}</ng-container>
+                    <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: value, index: i}"></ng-container>
+                </label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
                 <span class="ui-multiselect-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
@@ -172,6 +175,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     public filtered: boolean;
             
     public itemTemplate: TemplateRef<any>;
+            
+    public selectedItemTemplate: TemplateRef<any>;
     
     public focusedItemCheckbox: HTMLInputElement | null;
     
@@ -198,6 +203,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+                case 'selectedItem':
+                    this.selectedItemTemplate = item.template;
                 break;
                 
                 default:
