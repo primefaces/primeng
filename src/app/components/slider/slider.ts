@@ -226,10 +226,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         let val = oldValue;
         
         if(diff < 0) {
-            val = oldValue + Math.ceil((newValue - oldValue) / this.step) * this.step;
+            val = oldValue + Math.ceil(newValue / this.step - oldValue / this.step) * this.step;
         }
         else if(diff > 0) {
-            val = oldValue + Math.floor((newValue - oldValue) / this.step) * this.step;
+            val = oldValue + Math.floor(newValue / this.step - oldValue / this.step) * this.step;
         }
         
         this.updateValue(val);
