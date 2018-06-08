@@ -88,3 +88,12 @@
 .ui-slidemenu .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
     display: block;
 }
+
+.ui-slidemenu ul:not(.ui-active-submenu) > .ui-menuitem:not(.ui-menuitem-active),
+.ui-slidemenu .ui-active-submenu > .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
+    display: none;
+}
+
+.ui-slidemenu .ui-active-submenu > .ui-menuitem-active ~ .ui-menuitem {
+    display: block;
+}
