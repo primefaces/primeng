@@ -1495,7 +1495,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         
         if(this.hourFormat == '12') {
-            output += this.pm ? ' PM' : ' AM';
+            output += date.getHours() > 11 ? ' PM' : ' AM';
         }
         
         return output;
