@@ -28,10 +28,8 @@
 }
 
 .ui-dialog .ui-dialog-titlebar-icon {
-    text-decoration: none
-}
-
-.ui-dialog .ui-dialog-titlebar-close {
+    text-decoration: none;
+    float: right;
     float: right;
     padding: .125em;
     cursor: pointer;

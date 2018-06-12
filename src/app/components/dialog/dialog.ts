@@ -22,11 +22,14 @@ let idx: number = 0;
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
                     <span class="pi pi-times"></span>
                 </a>
+                <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" href="#" role="button" (click)="toggleMaximize($event)">
+                    <span [ngClass]="maximized ? 'pi pi-minus' : 'pi pi-plus'"></span>
+                </a>
             </div>
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
                 <ng-content></ng-content>
             </div>
-            <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
+            <div #footer class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
                 <ng-content select="p-footer"></ng-content>
             </div>
             <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
@@ -104,6 +107,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() autoAlign: boolean = true;
 
     @Input() focusOnShow: boolean = true;
+
+    @Input() maximizable: boolean;
         
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
@@ -114,6 +119,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @ViewChild('titlebar') headerViewChild: ElementRef;
     
     @ViewChild('content') contentViewChild: ElementRef;
+
+    @ViewChild('footer') footerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
@@ -158,6 +165,16 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     initialized: boolean;
 
     currentHeight: number;
+
+    maximized: boolean;
+
+    preMaximizeContentHeight: number;
+
+    preMaximizeContainerWidth: number;
+
+    preMaximizePageX: number;
+
+    preMaximizePageY: number;
     
     id: string = `ui-dialog-${idx++}`;
                 
@@ -192,7 +209,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.currentHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
             this.executePostDisplayActions = false;
         }
-        else if(this.autoAlign && this.visible) {
+        else if(this.autoAlign && this.visible && !this.maximized) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     let height = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
@@ -336,6 +353,40 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             }
             this.mask = null;
         }
+    }
+
+    toggleMaximize(event) {
+        if (this.maximized)
+            this.revertMaximize();
+        else
+            this.maximize();
+
+        event.preventDefault();
+    }
+
+    maximize() {
+        this.preMaximizePageX = parseFloat(this.containerViewChild.nativeElement.style.top);
+        this.preMaximizePageY = parseFloat(this.containerViewChild.nativeElement.style.left);
+        this.preMaximizeContainerWidth = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
+        this.preMaximizeContentHeight = this.domHandler.getOuterHeight(this.contentViewChild.nativeElement);
+
+        this.containerViewChild.nativeElement.style.top = '0px';
+        this.containerViewChild.nativeElement.style.left = '0px';
+        this.containerViewChild.nativeElement.style.width = '100%';
+        const diffHeight = this.domHandler.getOuterHeight(this.headerViewChild.nativeElement) + this.domHandler.getOuterHeight(this.footerViewChild.nativeElement) + parseFloat(this.containerViewChild.nativeElement.style.top);
+        this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
+
+        this.maximized = true;
+    }
+
+    revertMaximize() {
+        debugger;
+        this.containerViewChild.nativeElement.style.top = this.preMaximizePageX + 'px';
+        this.containerViewChild.nativeElement.style.left = this.preMaximizePageY + 'px';
+        this.containerViewChild.nativeElement.style.width = this.preMaximizeContainerWidth + 'px';
+        this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
+
+        this.maximized = false;
     }
         
     unbindMaskClickListener() {
@@ -525,6 +576,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     onWindowResize(event) {
+        if (this.maximized) {
+            return;
+        }
+        
         let viewport = this.domHandler.getViewport();
         let width = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
         if(viewport.width <= this.breakpoint) {
