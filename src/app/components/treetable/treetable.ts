@@ -1439,7 +1439,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     selector: '[ttSortableColumn]',
     providers: [DomHandler],
     host: {
-        '[class.ui-sortable-column]': 'true',
+        '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted'
     }
 })

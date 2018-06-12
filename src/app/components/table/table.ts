@@ -1978,7 +1978,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     selector: '[pSortableColumn]',
     providers: [DomHandler],
     host: {
-        '[class.ui-sortable-column]': 'true',
+        '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted'
     }
 })
