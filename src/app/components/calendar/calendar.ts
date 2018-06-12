@@ -266,8 +266,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Output() onMonthChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onYearChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onValueChange: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -783,8 +781,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 this.onModelChange(stringArrValue);
             }
         }
-
-        this.onValueChange.emit(this.value);
     }
     
     getFirstDayOfMonthIndex(month: number, year: number) {
