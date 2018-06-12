@@ -23,7 +23,7 @@ let idx: number = 0;
                     <span class="pi pi-times"></span>
                 </a>
                 <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" href="#" role="button" (click)="toggleMaximize($event)">
-                    <span [ngClass]="maximized ? 'pi pi-minus' : 'pi pi-plus'"></span>
+                    <span [ngClass]="maximized ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></span>
                 </a>
             </div>
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
