@@ -1321,6 +1321,11 @@ export class Table implements OnInit, AfterContentInit {
         }
     }
 
+    public closeCellEdit() {
+        this.domHandler.removeClass(this.editingCell, 'ui-editing-cell');
+        this.editingCell = null;
+    }
+
     toggleRow(rowData: any, event?: Event) {
         if(!this.dataKey) {
             throw new Error('dataKey must be defined to use row expansion');
@@ -2519,6 +2524,11 @@ export class EditableColumn implements AfterViewInit {
             }, 50);
         });
     }
+    
+    closeEditingCell() {
+        this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+        this.dt.editingCell = null;
+    }
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
@@ -2526,8 +2536,7 @@ export class EditableColumn implements AfterViewInit {
             //enter
             if (event.keyCode == 13) {
                 if (this.isValid()) {
-                    this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
-                    this.dt.editingCell = null;
+                    this.closeEditingCell();
                     this.dt.onEditComplete.emit({ field: this.field, data: this.data });
                 }
     
@@ -2537,8 +2546,7 @@ export class EditableColumn implements AfterViewInit {
             //escape
             else if (event.keyCode == 27) {
                 if (this.isValid()) {
-                    this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
-                    this.dt.editingCell = null;
+                    this.closeEditingCell();
                     this.dt.onEditCancel.emit({ field: this.field, data: this.data });
                 }
     
