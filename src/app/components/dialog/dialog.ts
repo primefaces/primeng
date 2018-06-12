@@ -376,6 +376,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         const diffHeight = this.domHandler.getOuterHeight(this.headerViewChild.nativeElement) + this.domHandler.getOuterHeight(this.footerViewChild.nativeElement) + parseFloat(this.containerViewChild.nativeElement.style.top);
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
+        this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+
         this.maximized = true;
     }
 
@@ -385,6 +387,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.containerViewChild.nativeElement.style.left = this.preMaximizePageY + 'px';
         this.containerViewChild.nativeElement.style.width = this.preMaximizeContainerWidth + 'px';
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
+
+        this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
 
         this.maximized = false;
     }
