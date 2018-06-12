@@ -285,12 +285,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-        this.cd.detectChanges();
     }
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
-        this.cd.markForCheck();
     }
 
     onInput(event: KeyboardEvent) {
