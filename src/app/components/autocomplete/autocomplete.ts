@@ -48,7 +48,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     `,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
-        '[class.ui-inputwrapper-focus]': 'focus'
+        '[class.ui-inputwrapper-focus]': 'focus && !disabled'
     },
     providers: [DomHandler,ObjectUtils,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
@@ -285,10 +285,12 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+        this.cd.detectChanges();
     }
 
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
 
     onInput(event: KeyboardEvent) {
