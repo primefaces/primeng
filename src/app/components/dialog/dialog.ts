@@ -172,6 +172,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     preMaximizeContainerWidth: number;
 
+    preMaximizeContainerHeight: number;
+
     preMaximizePageX: number;
 
     preMaximizePageY: number;
@@ -368,11 +370,13 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.preMaximizePageX = parseFloat(this.containerViewChild.nativeElement.style.top);
         this.preMaximizePageY = parseFloat(this.containerViewChild.nativeElement.style.left);
         this.preMaximizeContainerWidth = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
+        this.preMaximizeContainerHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
         this.preMaximizeContentHeight = this.domHandler.getOuterHeight(this.contentViewChild.nativeElement);
 
         this.containerViewChild.nativeElement.style.top = '0px';
         this.containerViewChild.nativeElement.style.left = '0px';
-        this.containerViewChild.nativeElement.style.width = '100%';
+        this.containerViewChild.nativeElement.style.width = '100vw';
+        this.containerViewChild.nativeElement.style.height = '100vh';
         const diffHeight = this.domHandler.getOuterHeight(this.headerViewChild.nativeElement) + this.domHandler.getOuterHeight(this.footerViewChild.nativeElement) + parseFloat(this.containerViewChild.nativeElement.style.top);
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
@@ -386,6 +390,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.containerViewChild.nativeElement.style.top = this.preMaximizePageX + 'px';
         this.containerViewChild.nativeElement.style.left = this.preMaximizePageY + 'px';
         this.containerViewChild.nativeElement.style.width = this.preMaximizeContainerWidth + 'px';
+        this.containerViewChild.nativeElement.style.height = this.preMaximizeContainerHeight + 'px';
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
 
         this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
