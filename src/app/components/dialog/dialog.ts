@@ -104,8 +104,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() minY: number = 0;
 
-    @Input() autoAlign: boolean = true;
-
     @Input() focusOnShow: boolean = true;
 
     @Input() maximizable: boolean;
@@ -164,8 +162,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     initialized: boolean;
 
-    currentHeight: number;
-
     maximized: boolean;
 
     preMaximizeContentHeight: number;
@@ -208,20 +204,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             if(this.focusOnShow) {
                 this.focus();
             }
-            this.currentHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
             this.executePostDisplayActions = false;
-        }
-        else if(this.autoAlign && this.visible && !this.maximized) {
-            this.zone.runOutsideAngular(() => {
-                setTimeout(() => {
-                    let height = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
-
-                    if(height !== this.currentHeight) {
-                        this.currentHeight = height;
-                        this.positionOverlay();
-                    }
-                }, 50);
-            });
         }
     }
 
