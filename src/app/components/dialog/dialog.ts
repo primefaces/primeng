@@ -287,8 +287,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.containerViewChild.nativeElement.style.visibility = 'visible';
         }
         let viewport = this.domHandler.getViewport();
-        let x = Math.max((viewport.width - elementWidth) / 2, 0);
-        let y = Math.max((viewport.height - elementHeight) / 2, 0);
+        let x = Math.max(Math.floor((viewport.width - elementWidth) / 2), 0);
+        let y = Math.max(Math.floor((viewport.height - elementHeight) / 2), 0);
 
         this.containerViewChild.nativeElement.style.left = x + 'px';
         this.containerViewChild.nativeElement.style.top = y + 'px';
