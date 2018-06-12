@@ -21,7 +21,7 @@ import {BlockableUI} from '../common/blockableui';
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)">
                     <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
-                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
+                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox' && node.selectable !== false"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
                         <span class="ui-chkbox-icon ui-clickable pi"
                             [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
