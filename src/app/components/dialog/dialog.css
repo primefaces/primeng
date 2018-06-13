@@ -54,6 +54,11 @@
     height: 100%;
 }
 
+.ui-dialog-maximized {
+    -webkit-transition: left .3s, top .3s, width .3s,height .3s;
+    transition: left .3s, top .3s, width .3s,height .3s;
+}
+
 /* ConfirmDialog */
 .ui-confirmdialog {
     width: 30em;

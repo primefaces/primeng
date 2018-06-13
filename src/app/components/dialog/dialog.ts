@@ -350,6 +350,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
 
     maximize() {
+        this.domHandler.addClass(this.containerViewChild.nativeElement, 'ui-dialog-maximized');
         this.preMaximizePageX = parseFloat(this.containerViewChild.nativeElement.style.top);
         this.preMaximizePageY = parseFloat(this.containerViewChild.nativeElement.style.left);
         this.preMaximizeContainerWidth = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
@@ -369,16 +370,17 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
 
     revertMaximize() {
-        debugger;
         this.containerViewChild.nativeElement.style.top = this.preMaximizePageX + 'px';
         this.containerViewChild.nativeElement.style.left = this.preMaximizePageY + 'px';
         this.containerViewChild.nativeElement.style.width = this.preMaximizeContainerWidth + 'px';
         this.containerViewChild.nativeElement.style.height = this.preMaximizeContainerHeight + 'px';
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
 
-        this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
-
         this.maximized = false;
+
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-dialog-maximized'), 300);
+        });
     }
         
     unbindMaskClickListener() {
