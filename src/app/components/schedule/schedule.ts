@@ -14,8 +14,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-
-declare var jQuery: any;
+import {Calendar} from 'fullcalendar';
 
 // tslint:disable:no-output-on-prefix
 @Component({
@@ -145,7 +144,7 @@ export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges,
 
     differ: any;
 
-    schedule: any;
+    schedule: Calendar;
 
     config: any;
 
@@ -269,17 +268,22 @@ export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges,
             }
 
             if (Object.keys(options).length) {
-                this.schedule.fullCalendar('option', options);
+                this.schedule.option(options);
             }
         }
     }
 
     initialize() {
-        this.schedule = jQuery(this.el.nativeElement.children[0]);
-        this.schedule.fullCalendar(this.config);
+        this.schedule = new Calendar(
+            this.el.nativeElement.children[0],
+            this.config
+        );
+
         if (this.events) {
-            this.schedule.fullCalendar('addEventSource', this.events);
+            this.schedule.addEventSource(this.events);
         }
+
+        this.schedule.render();
         this.initialized = true;
     }
 
@@ -287,58 +291,58 @@ export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges,
         const changes = this.differ.diff(this.events);
 
         if (this.schedule && changes) {
-            this.schedule.fullCalendar('removeEventSources');
+            this.schedule.removeEventSources(this.events);
 
             if (this.events) {
-                this.schedule.fullCalendar('addEventSource', this.events);
+                this.schedule.addEventSource(this.events);
             }
         }
     }
 
     ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).fullCalendar('destroy');
+        this.schedule.destroy();
         this.initialized = false;
         this.schedule = null;
     }
 
     gotoDate(date: any) {
-        this.schedule.fullCalendar('gotoDate', date);
+        this.schedule.gotoDate(date);
     }
 
     prev() {
-        this.schedule.fullCalendar('prev');
+        this.schedule.prev();
     }
 
     next() {
-        this.schedule.fullCalendar('next');
+        this.schedule.next();
     }
 
     prevYear() {
-        this.schedule.fullCalendar('prevYear');
+        this.schedule.prevYear();
     }
 
     nextYear() {
-        this.schedule.fullCalendar('nextYear');
+        this.schedule.nextYear();
     }
 
     today() {
-        this.schedule.fullCalendar('today');
+        this.schedule.today();
     }
 
     incrementDate(duration: any) {
-        this.schedule.fullCalendar('incrementDate', duration);
+        this.schedule.incrementDate(duration);
     }
 
     changeView(viewName: string) {
-        this.schedule.fullCalendar('changeView', viewName);
+        this.schedule.changeView(viewName, this.schedule.getDate());
     }
 
     getDate() {
-        return this.schedule.fullCalendar('getDate');
+        return this.schedule.getDate();
     }
 
     updateEvent(event: any) {
-        this.schedule.fullCalendar('updateEvent', event);
+        this.schedule.updateEvent(event);
     }
 
     _findEvent(id: string) {
