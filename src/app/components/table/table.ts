@@ -1396,7 +1396,7 @@ export class Table implements OnInit, AfterContentInit {
     
         const newColumnWidth = columnWidth + delta;
     
-        if (columnWidth + delta > minWidth) {
+        if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
                 let nextColumn = column.nextElementSibling;
                 while (!nextColumn.offsetParent) {
