@@ -46,10 +46,10 @@ import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/api';
 
-interface City &#123;&#123;
+interface City &#123;
     name: string,
     code: string
-&#125;&#125;
+&#125;
 
 export class MyModel &#123;
 
@@ -108,7 +108,22 @@ export class MyModel &#123;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 </code>
 </pre>
-        
+
+            <h3>Change Detection</h3>
+            <p>MultiSelect detects changes to options and selected values using setters so when changing your model, 
+                prefer creating a new array reference instead of manipulating an existing array.</p>
+
+            <h3>Footer</h3>
+            <p>MultiSelect uses p-footer element to display custom content inside the footer.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
+    &lt;p-footer&gt;
+        //Footer contentr
+    &lt;/p-footer&gt;
+&lt;/p-multiSelect&gt;
+</code>
+</pre>     
         
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -333,7 +348,7 @@ export class MyModel &#123;
                             <td>Container of the label to display selected items.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-label-container</td>
+                            <td>ui-multiselect-label</td>
                             <td>Label to display selected items.</td>
                         </tr>
                         <tr>
@@ -355,6 +370,10 @@ export class MyModel &#123;
                         <tr>
                             <td>ui-multiselect-item</td>
                             <td>An item in the list.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-open</td>
+                            <td>Container element when overlay is visible.</td>
                         </tr>
                     </tbody>
                 </table>

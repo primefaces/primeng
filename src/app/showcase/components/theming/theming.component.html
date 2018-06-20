@@ -1,17 +1,19 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Theming</span>
-        <span>Create your own PrimeNG experience</span>
+        <span>Create your own PrimeNG experience using free themes, premium themes and PrimeNG Designer API.</span>
     </div>
 </div>
 
 <div class="content-section documentation">
-    <h3 style="margin-top:0px">Structural CSS</h3>
-    <p>These style classes define the skeleton of the components and include css properties such as margin, padding, display type, dimensions and positioning.
-    Refer to documentation of each component for the list of structural classes per component.</p>
+    <h3 style="margin-top:0px">Structure and Skin</h3>
+    <p>Structural CSS and Theming CSS are separated, primeng.css file contains the structural css whereas theme.css files provide the skin on top of the structure.</p>
 
-    <h3>Skinning CSS</h3>
-    <p>Skinning defines the look and feel properties like colors, border colors, background images.</p>
+    <p>Structural css properties such as margin, padding, display type, dimensions and positioning are defined at component specific styles.
+    Refer to documentation of each component for the list of structural classes per component such as .ui-panel.</p>
+
+    <p>Free themes make use of the following style classes that define skinning properties like colors, border colors, background image whereas premium themes and PrimeNG designer
+        follow a SASS variable driven component specific approach.</p>
 
     <div class="doc-tablewrapper">
         <table class="doc-table">
@@ -54,15 +56,12 @@
                     <td>ui-state-disabled</td>
                     <td>Disabled elements</td>
                 </tr>
-                <tr>
-                    <td>fa</td>
-                    <td>Icon elements based on font awesome</td>
-                </tr>
             </tbody>
         </table>
     </div>
 
-    <p>These classes are not aware of structural css like margins and paddings, mostly they only define colors. This clean separation brings great flexibility in theming because you don’t need to know each and every skinning selectors of components to change their style.</p>
+    <p>These classes are not aware of structural css like margins and paddings, mostly they only define colors. 
+        This clean separation brings simplicity in theming because you don’t need to know each and every skinning selectors of components to change their style.</p>
 
     <p>For example Panel component’s header section has the "ui-panel-titlebar" structural class, to change the color of a panel
         header you don’t need to about this class as "ui-widget-header" defines colors for panel header. However if you only
@@ -88,10 +87,7 @@
         of your component as "none".
     </p>
 
-    <h3>Free Themes</h3>
-    <p>16 free themes are available for PrimeNG, these include the themeroller themes and our custom themes. ThemeSwitcher on the top right section
-        of the page dynamically changes the theme at demo pages. Themes are distributed along with PrimeNG itself. Free themes are based on a basic SASS structure whereas
-        premium themes offer far more advanced SASS integration with advanced customization options.</p>
+    <p>16 free themes are available for PrimeNG, based on a basic SASS structure whereas premium themes and designer api offer far more advanced SASS integration with advanced customization options.</p>
 
     <p>In order to create a custom theme based on the free themes structure, define the variables below and import the <a href="https://github.com/primefaces/primeng/blob/master/src/assets/components/themes/_theme.scss">_theme.scss</a>.</p>
 <pre>
@@ -169,4 +165,16 @@ $inputGroupTextColor: #2779aa;
         <img alt="Ultima" src="http://www.primefaces.org/images/market/ultima/ultima_layout_biggest.png" style="width:100%"/> 
     </a>
 
+    <h3>Designer API</h3>
+    <p>In case free themes and the premium templates/themes are not for you, you may be interested in the powerful PrimeNG Designer API.</p><p>
+        <a href="https://www.primefaces.org/designer/primeng">Designer API</a> is a SASS based theme engine to create PrimeNG themes easily featuring over 500 variables, 
+        a demo application and a base sample theme. Whether you have your own style guide or just need a custom theme, Designer API is the right tool to design and bring them to existence</p>
+        <p>Visit <a href="https://www.primefaces.org/designer/primeng">Designer API HomePage</a> for more information, live demos and access to a trial version.</p>
+    <a href="http://www.primefaces.org/designer/primeng">
+        <img alt="Why You Should PrimeNG" src="assets/showcase/images/primeng-designer.jpg" style="width:100%">
+    </a>
+
+    <h3>Icons</h3>
+    <p>PrimeNG components internally use <a href="https://github.com/primefaces/primeicons">PrimeIcons</a> library, the official icons suite from <a href="https://www.primetek.com.tr">PrimeTek</a>. 
+        Read more at <a [routerLink]="['./theming']">icons documentation</a> for more information and complete list of icons.</p>
 </div>

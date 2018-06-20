@@ -326,12 +326,12 @@ $inputGroupTextColor: #222222;
 .ui-table {
     .ui-table-thead > tr > th,
     .ui-table-tfoot > tr > td {
-        background: #ebedf0;
+        background-color: #ebedf0;
         border-color: #d9d9d9;
     }
 
     .ui-sortable-column:not(.ui-state-highlight):hover {
-        background: #d3d5d8;
+        background-color: #d3d5d8;
         border-color: #d9d9d9;
     }
 
@@ -347,6 +347,20 @@ $inputGroupTextColor: #222222;
             background-color: lighten($stateHighlightBgColor, 20%);
             color: $stateHighlightTextColor;
         }
+    }
+}
+
+/* TurboTable */
+.ui-treetable {
+    .ui-treetable-thead > tr > th,
+    .ui-treetable-tfoot > tr > td {
+        background-color: #ebedf0;
+        border-color: #d9d9d9;
+    }
+
+    .ui-sortable-column:not(.ui-state-highlight):hover {
+        background-color: #d3d5d8;
+        border-color: #d9d9d9;
     }
 }
 

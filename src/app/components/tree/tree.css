@@ -184,3 +184,7 @@
     margin-top: -1em;
     margin-left: -1em;
 }
+
+.ui-tree .ui-tree-loading-content .ui-tree-loading-icon {
+    font-size: 2em;
+} 

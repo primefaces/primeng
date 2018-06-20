@@ -11,9 +11,9 @@
     
     <p-confirmDialog></p-confirmDialog>
 
-    <button type="button" (click)="confirm1()" pButton icon="fa-check" label="Confirm"></button>
+    <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
     
-    <button type="button" (click)="confirm2()" pButton icon="fa-trash" label="Delete"></button>
+    <button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"></button>
 </div>
 
 <div class="content-section documentation">
@@ -33,9 +33,9 @@ import &#123;ConfirmationService&#125; from 'primeng/api';
                     
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"&gt;&lt;/p-confirmDialog&gt;
 
-&lt;button type="text" (click)="confirm()" pButton icon="fa-check" label="Confirm"&gt;&lt;/button&gt;
+&lt;button type="text" (click)="confirm()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -82,16 +82,16 @@ export class ConfirmDialogDemo &#123;
                             <td>Optional key to match the key of the confirm dialog, necessary to use when component tree has multiple confirm dialogs.</td>
                         </tr>
                         <tr>
-                            <td>header</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Header text of the dialog.</td>
-                        </tr>
-                        <tr>
                             <td>icon</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Icon to display next to the message.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Header text of the dialog.</td>
                         </tr>
                         <tr>
                             <td>accept</td>
@@ -106,16 +106,28 @@ export class ConfirmDialogDemo &#123;
                             <td>Callback to execute when action is rejected.</td>
                         </tr>
                         <tr>
-                            <td>acceptButtonStyleClass</td>
+                            <td>acceptLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Style class of the accept button.</td>
+                            <td>Label of the accept button.</td>
                         </tr>
                         <tr>
-                            <td>rejectButtonStyleClass</td>
+                            <td>rejectLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Style class of the reject button.</td>
+                            <td>Label of the reject button.</td>
+                        </tr>
+                        <tr>
+                            <td>acceptVisible</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Visibility of the accept button.</td>
+                        </tr>
+                        <tr>
+                            <td>rejectLabel</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Visibility of the reject button.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -131,10 +143,10 @@ export class ConfirmDialogDemo &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd&gt;
+&lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" #cd&gt;
     &lt;p-footer&gt;
-        &lt;button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
-        &lt;button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
     &lt;/p-footer&gt;
 &lt;/p-confirmDialog&gt;
 </code>
@@ -185,7 +197,7 @@ export class ConfirmDialogDemo &#123;
                         <tr>
                           <td>acceptIcon</td>
                           <td>string</td>
-                          <td>fa-check</td>
+                          <td>pi pi-check</td>
                           <td>Icon of the accept button.</td>
                         </tr>
                         <tr>
@@ -203,7 +215,7 @@ export class ConfirmDialogDemo &#123;
                         <tr>
                           <td>rejectIcon</td>
                           <td>string</td>
-                          <td>fa-close</td>
+                          <td>pi pi-times</td>
                           <td>Icon of the reject button.</td>
                         </tr>
                         <tr>
@@ -253,6 +265,18 @@ export class ConfirmDialogDemo &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>acceptButtonStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the accept button.</td>
+                        </tr>
+                        <tr>
+                            <td>rejectButtonStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the reject button.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -316,9 +340,9 @@ export class ConfirmDialogDemo &#123;
     
 &lt;p-confirmDialog&gt;&lt;/p-confirmDialog&gt;
 
-&lt;button type="button" (click)="confirm1()" pButton icon="fa-check" label="Confirm"&gt;&lt;/button&gt;
+&lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 
-&lt;button type="button" (click)="confirm2()" pButton icon="fa-trash" label="Delete"&gt;&lt;/button&gt;
+&lt;button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -338,7 +362,7 @@ export class ConfirmDialogDemo &#123;
         this.confirmationService.confirm(&#123;
             message: 'Are you sure that you want to proceed?',
             header: 'Confirmation',
-            icon: 'fa fa-question-circle',
+            icon: 'pi pi-exclamation-triangle',
             accept: () => &#123;
                 this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'You have accepted'&#125;];
             &#125;,
@@ -352,7 +376,7 @@ export class ConfirmDialogDemo &#123;
         this.confirmationService.confirm(&#123;
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
-            icon: 'fa fa-trash',
+            icon: 'pi pi-info-circle',
             accept: () => &#123;
                 this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;];
             &#125;,

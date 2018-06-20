@@ -19,7 +19,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Icon</h3>
-            <p-calendar [readonly]="true" [(ngModel)]="date3" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar>{{date3|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -357,7 +357,7 @@ export class MyModel &#123;
                         <tr>
                             <td>icon</td>
                             <td>string</td>
-                            <td>fa-calendar</td>
+                            <td>pi pi-calendar</td>
                             <td>Icon of the calendar button.</td>
                         </tr>
                         <tr>
@@ -493,12 +493,6 @@ export class MyModel &#123;
                             <td>Seconds to change per step.</td>
                         </tr>
                         <tr>
-                            <td>utc</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Whether to convert date to UTC on selection.</td>
-                        </tr>
-                        <tr>
                             <td>maxDateCount</td>
                             <td>number</td>
                             <td>null</td>
@@ -571,7 +565,9 @@ export class MyModel &#123;
                             <td>onSelect</td>
                             <td>value: Selected value
                             </td>
-                            <td>Callback to invoke when a date is selected.</td>
+                            <td>Callback to invoke when a date is selected. Note that this event is not called when
+                                the value is entered from the input manually.
+                            </td>
                         </tr>
                         <tr>
                             <td>onBlur</td>
@@ -615,7 +611,7 @@ export class MyModel &#123;
                                 event.year: New year
                             </td>
                             <td>Callback to invoke when a month is changed using the navigators.</td>
-                        </tr>                        
+                        </tr>
                         <tr>
                             <td>onYearChange</td>
                             <td>event.month: New month <br />

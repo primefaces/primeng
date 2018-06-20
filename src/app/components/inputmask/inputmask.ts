@@ -368,11 +368,11 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         this.focus = false;
         this.onModelTouched();
         this.checkVal();
-        this.updateModel(e);
         this.updateFilledState();
         this.onBlur.emit(e);
 
         if (this.inputViewChild.nativeElement.value != this.focusText) {
+            this.updateModel(e);
             let event = document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
             this.inputViewChild.nativeElement.dispatchEvent(event);
@@ -396,7 +396,6 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             pos = this.caret();
             begin = pos.begin;
             end = pos.end;
-
 
             if (end - begin === 0) {
                 begin=k!==46?this.seekPrev(begin):(end=this.seekNext(begin-1));
@@ -606,7 +605,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     updateModel(e) {
         const updatedValue = this.unmask ? this.getUnmaskedValue() : e.target.value;
-        if(updatedValue) {
+        if(updatedValue !== null || updatedValue !== undefined) {
             this.value = updatedValue;
             this.onModelChange(this.value);
         }

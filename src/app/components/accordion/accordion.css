@@ -39,6 +39,6 @@
     right: .5em;
 }
 
-.ui-rtl .ui-accordion .ui-accordion-toggle-icon.fa-caret-right:before {
-    content: '\f0d9';
+.ui-rtl .ui-accordion .ui-accordion-toggle-icon.pi-caret-right:before {
+    content: '\e904';
 }

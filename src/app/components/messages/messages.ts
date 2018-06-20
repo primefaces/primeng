@@ -2,7 +2,7 @@ import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} 
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {MessageService} from '../common/messageservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-messages',
@@ -14,9 +14,9 @@ import {Subscription}   from 'rxjs/Subscription';
                     'ui-messages-success':(value[0].severity === 'success')}"
                     [ngStyle]="style" [class]="styleClass">
             <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
-                <i class="fa fa-close"></i>
+                <i class="pi pi-times"></i>
             </a>
-            <span class="ui-messages-icon fa fa-fw fa-2x" [ngClass]="icon"></span>
+            <span class="ui-messages-icon pi" [ngClass]="icon"></span>
             <ul>
                 <li *ngFor="let msg of value">
                     <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
@@ -86,23 +86,23 @@ export class Messages implements OnInit, OnDestroy {
             let msg = this.value[0];
             switch(msg.severity) {
                 case 'success':
-                    icon = 'fa-check';
+                    icon = 'pi-check';
                 break;
 
                 case 'info':
-                    icon = 'fa-info-circle';
+                    icon = 'pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'fa-close';
+                    icon = 'pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'fa-warning';
+                    icon = 'pi-exclamation-triangle';
                 break;
 
                 default:
-                    icon = 'fa-info-circle';
+                    icon = 'pi-info-circle';
                 break;
             }
         }

@@ -12,7 +12,7 @@ import {DomHandler} from '../dom/domhandler';
             'ui-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" [ngStyle]="style" [class]="styleClass">
             <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
-                <span class="fa fa-fw fa-close"></span>
+                <span class="pi pi-times"></span>
             </a>
             <ng-content></ng-content>
         </div>
@@ -48,6 +48,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() modal: boolean = true;
         
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -117,12 +119,18 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
         if(this.autoZIndex) {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
-        this.enableModality();
+
+        if(this.modal) {
+            this.enableModality();
+        }
     }
     
     hide() {
         this.onHide.emit({});
-        this.disableModality();
+
+        if(this.modal) {
+            this.disableModality();
+        }
     }
     
     close(event: Event) {

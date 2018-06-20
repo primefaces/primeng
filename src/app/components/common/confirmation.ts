@@ -7,6 +7,8 @@ export interface Confirmation {
     header?: string;
     accept?: Function;
     reject?: Function;
+    acceptLabel?: string;
+    rejectLabel?: string;
     acceptVisible?: boolean;
     rejectVisible?: boolean;
     acceptEvent?: EventEmitter<any>;

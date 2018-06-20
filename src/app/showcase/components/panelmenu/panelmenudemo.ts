@@ -12,39 +12,39 @@ export class PanelMenuDemo {
         this.items = [
             {
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [{
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
-                            {label: 'Project', icon: 'fa-lock'},
-                            {label: 'Other', icon: 'fa-list'}
+                            {label: 'Project', icon: 'fa fa-fw fa-lock'},
+                            {label: 'Other', icon: 'fa fa-fw fa-list'}
                         ]
                     },
-                    {label: 'Open', icon: 'fa-external-link'},
+                    {label: 'Open', icon: 'fa fa-fw fa-external-link'},
                     {separator: true},
-                    {label: 'Quit', icon: 'fa-close'}
+                    {label: 'Quit', icon: 'fa fa-fw fa-close'}
                 ]
             },
             {
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    {label: 'Undo', icon: 'fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa-mail-reply'}
+                    {label: 'Undo', icon: 'fa fa-fw fa-mail-forward'},
+                    {label: 'Redo', icon: 'fa fa-fw fa-mail-reply'}
                 ]
             },
             {
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     {
                         label: 'Contents',
-                        icon: 'fa-bars'
+                        icon: 'fa fa-fw fa-bars'
                     },
                     {
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             {
                                 label: 'Text', 
@@ -56,28 +56,28 @@ export class PanelMenuDemo {
                             },
                             {
                                 label: 'File',
-                                icon: 'fa-file',
+                                icon: 'fa fa-fw fa-file',
                             }
                     ]}
                 ]
             },
             {
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     {
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            {label: 'Save', icon: 'fa-save'},
-                            {label: 'Update', icon: 'fa-save'},
+                            {label: 'Save', icon: 'fa fa-fw fa-save'},
+                            {label: 'Update', icon: 'fa fa-fw fa-save'},
                         ]
                     },
                     {
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            {label: 'Delete', icon: 'fa-minus'}
+                            {label: 'Delete', icon: 'fa fa-fw fa-minus'}
                         ]
                     }
                 ]

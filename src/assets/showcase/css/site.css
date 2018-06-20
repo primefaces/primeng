@@ -304,7 +304,7 @@ body {
     color: #6d7879;
 }
 
-#layout-sidebar .layout-menu > div a .menuitem-badge {
+.menuitem-badge {
     background: linear-gradient(-180deg, #60E17A 0%, #49BD61 100%);
     padding: 2px 4px;
     vertical-align: middle;
@@ -551,13 +551,13 @@ body {
     background-color: #dae8ef;
     color: #404C51;
     border: solid 1px #C1D5DF;
-    padding: 5px;
+    padding: 8px 14px;
     font-size: 16px;
     text-align: left;
 }
 .doc-table tbody td {
     color: #404C51;
-    padding: 4px 10px;
+    padding: 8px 14px;
     border: 1px solid #E5EBF0;
     font-size: 15px;
     opacity: .90;
@@ -1013,6 +1013,7 @@ a {
 
 .home .why-templates img {
     width: 100%;
+    margin-bottom: 30px;
 }
 
 .home .why-templates .ui-g > div {
@@ -1032,10 +1033,27 @@ a {
     text-align: center;
 }
 
+/* Designer */
+.home .primeng-designer {
+    background-color: #ffffff;
+    padding: 30px;
+}
+
+.home .primeng-designer h3 {
+    margin: 10px 0 20px 0;
+    display: block;
+    text-align: center;
+}
+
+.home .primeng-designer img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
 /* PRO */
 .home .prosupport,
 .support-image {
-    background-color: #20272a;
+    background-color: rgba(79,41,64,.8);
     padding: 30px;
     color: #ffffff;
 }
@@ -1062,39 +1080,6 @@ a {
 }
 
 .support p {
-    line-height: 1.5;
-}
-
-/* NGCONF */
-.home .ngconf,
-.ngconf-image {
-    background-color: rgba(79,41,64,.8);
-    padding: 30px;
-    color: #ffffff;
-}
-
-.ngconf-image .ui-md-6:last-child {
-    text-align: right;
-}
-
-.ngconf li {
-    line-height: 1.5;
-}
-
-.home .ngconf p {
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.home .ngconf .ui-md-6:last-child {
-    text-align: center;
-}
-
-.home .ngconf .home-button {
-    margin-top: 10px;
-}
-
-.ngconf p {
     line-height: 1.5;
 }
 

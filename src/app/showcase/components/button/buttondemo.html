@@ -6,40 +6,26 @@
 </div>
 
 <div class="content-section implementation">
-    <h3>Button Component</h3>
+    <h3 class="first">Button Component</h3>
     <p-button (onClick)="count()" label="Click"></p-button>
-    
-    <p-button (onClick)="count()" icon="fa fa-fw fa-check" label="Click"></p-button>
-    
-    <p-button (onClick)="count()" icon="fa fa-fw fa-check" iconPos="right" label="Click"></p-button>
-    
-    <p-button (onClick)="count()" icon="fa fa-fw fa-close"></p-button>
-    
-    <p-button (onClick)="count()" icon="fa fa-fw fa-check" [disabled]="true" label="Disabled"></p-button>
+    <p-button (onClick)="count()" icon="pi pi-check" label="Click"></p-button>
+    <p-button (onClick)="count()" icon="pi pi-check" iconPos="right" label="Click"></p-button>
+    <p-button (onClick)="count()" icon="pi pi-check"></p-button>
+    <p-button (onClick)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"></p-button>
 
     <h3>Button Directive</h3>
     <button pButton type="button" (click)="count()" label="Click"></button>
-
-    <button pButton type="button" (click)="count()" icon="fa-check" label="Click"></button>
-
-    <button pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Click"></button>
-
-    <button pButton type="button" (click)="count()" icon="fa-close"></button>
-
-    <button pButton type="button" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"></button>
+    <button pButton type="button" (click)="count()" icon="pi pi-check" label="Click"></button>
+    <button pButton type="button" (click)="count()" icon="pi pi-check" iconPos="right" label="Click"></button>
+    <button pButton type="button" (click)="count()" icon="pi pi-check"></button>
+    <button pButton type="button" (click)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
 
     <h3>Severity Buttons</h3>
-
     <button pButton type="button" (click)="count()" label="Primary"></button>
-
     <button pButton type="button" (click)="count()" label="Secondary" class="ui-button-secondary"></button>
-
     <button pButton type="button" (click)="count()" label="Success" class="ui-button-success"></button>
-
     <button pButton type="button" (click)="count()" label="Info"  class="ui-button-info"></button>
-
     <button pButton type="button" (click)="count()" label="Warning"  class="ui-button-warning"></button>
-
     <button pButton type="button" (click)="count()" label="Danger"  class="ui-button-danger"></button>
 
     <br /><br />
@@ -94,8 +80,8 @@ export class Model &#123;
             icon position is left. To display only an icon, leave label as undefined.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" icon="fa-check" iconPos="left"&gt;&lt;/button&gt;
-&lt;p-button label="Click" icon="fa-check" iconPos="left"&gt;&lt;/p-button&gt;
+&lt;button pButton type="button" icon="pi pi-check" iconPos="left"&gt;&lt;/button&gt;
+&lt;p-button label="Click" icon="fa fa-check" iconPos="left"&gt;&lt;/p-button&gt;
 </code>
 </pre>
 
@@ -271,41 +257,28 @@ export class Model &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3&gt;Button Component&lt;/h3&gt;
 &lt;p-button (onClick)="count()" label="Click"&gt;&lt;/p-button&gt;
-
-&lt;p-button (onClick)="count()" icon="fa fa-fw fa-check" label="Click"&gt;&lt;/p-button&gt;
-
-&lt;p-button (onClick)="count()" icon="fa fa-fw fa-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
-
-&lt;p-button (onClick)="count()" icon="fa fa-fw fa-close"&gt;&lt;/p-button&gt;
-
-&lt;p-button (onClick)="count()" icon="fa fa-fw fa-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
+&lt;p-button (onClick)="count()" icon="pi pi-check" label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button (onClick)="count()" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button (onClick)="count()" icon="pi pi-check"&gt;&lt;/p-button&gt;
+&lt;p-button (onClick)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
 
 &lt;h3&gt;Button Directive&lt;/h3&gt;
 &lt;button pButton type="button" (click)="count()" label="Click"&gt;&lt;/button&gt;
-
-&lt;button pButton type="button" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
-
-&lt;button pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
-
-&lt;button pButton type="button" (click)="count()" icon="fa-close"&gt;&lt;/button&gt;
-
-&lt;button pButton type="button" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" icon="pi pi-check" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" icon="pi pi-check"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
 
 &lt;h3&gt;Severity Buttons&lt;/h3&gt;
-
 &lt;button pButton type="button" (click)="count()" label="Primary"&gt;&lt;/button&gt;
-
 &lt;button pButton type="button" (click)="count()" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
-
 &lt;button pButton type="button" (click)="count()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
-
 &lt;button pButton type="button" (click)="count()" label="Info"  class="ui-button-info"&gt;&lt;/button&gt;
-
 &lt;button pButton type="button" (click)="count()" label="Warning"  class="ui-button-warning"&gt;&lt;/button&gt;
-
 &lt;button pButton type="button" (click)="count()" label="Danger"  class="ui-button-danger"&gt;&lt;/button&gt;
 
-Number of clicks: {{clicks}}
+&lt;br /&gt;&lt;br /&gt;
+Number of clicks: &#123;&#123;clicks&#125;&#125;
 </code>
 </pre>
 <pre>

@@ -3,7 +3,7 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Table - <span class="subitem">Scroll</span></span>
-        <span>Scrolling data is available horizontally, vertically or both. Optional virtual scrolling mode would be handy to deal with large datasets by loading data on demand during scrolling. 
+        <span>Scrolling data is available horizontally, vertically or both. Optional virtual scrolling mode would be handy to deal with large datasets by loading data on demand during scrolling.
             In additon certain columns and rows can be fixed as well.</span>
     </div>
 </div>
@@ -28,8 +28,8 @@
     </p-table>
 
     <h3>Virtual Scroll - 250K Rows</h3>
-    <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" 
-            [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
+    <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px"
+            [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [virtualRowHeight]="28"
             [lazy]="true" [totalRecords]="totalRecords" [loading]="loading">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -39,7 +39,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
+            <tr style="height:28px">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                 </td>
@@ -225,7 +225,7 @@ export class TableScrollDemo implements OnInit &#123;
     cars2: Car[];
 
     cars3: Car[];
-    
+
     cars4: Car[];
 
     cars5: Car[];
@@ -272,7 +272,7 @@ export class TableScrollDemo implements OnInit &#123;
         ];
 
         this.frozenCols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'vin', header: 'Vin' &#125;
         ];
 
         this.frozenCars = [
@@ -297,11 +297,11 @@ export class TableScrollDemo implements OnInit &#123;
         this.loading = true;
     &#125;
 
-    loadDataOnScroll(event: LazyLoadEvent) &#123;      
+    loadDataOnScroll(event: LazyLoadEvent) &#123;
         this.loading = true;
 
-        //for demo purposes keep loading the same dataset 
-        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
+        //for demo purposes keep loading the same dataset
+        //in a real production application, this data should come from server by building the query with LazyLoadEvent options
         setTimeout(() => &#123;
             this.virtualCars = [
                 &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first&#125;,
@@ -344,14 +344,14 @@ export class TableScrollDemo implements OnInit &#123;
                 &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 37&#125;,
                 &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38&#125;,
                 &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39&#125;
-            ];  
+            ];
 
-            this.loading = false;  
-        &#125;, 1000);   
+            this.loading = false;
+        &#125;, 1000);
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="tablescrolldemo.html">
@@ -381,7 +381,7 @@ export class TableScrollDemo implements OnInit &#123;
 
 &lt;h3&gt;Virtual Scroll - 250K Rows&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
-    [lazy]="true" [totalRecords]="totalRecords"&gt;
+    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="28"  [loading]="loading"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -390,7 +390,7 @@ export class TableScrollDemo implements OnInit &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
+        &lt;tr style="height:28px"&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;

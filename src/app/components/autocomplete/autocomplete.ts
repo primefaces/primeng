@@ -23,16 +23,16 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled"
             ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
-                    <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)" *ngIf="!disabled"></span>
+                    <span class="ui-autocomplete-token-icon pi pi-fw pi-times" (click)="removeItem(token)" *ngIf="!disabled"></span>
                     <span *ngIf="!selectedItemTemplate" class="ui-autocomplete-token-label">{{field ? objectUtils.resolveFieldData(val, field): val}}</span>
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: val}"></ng-container>
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul
-            ><i *ngIf="loading" class="ui-autocomplete-loader fa fa-circle-o-notch fa-spin fa-fw"></i><button #ddBtn type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
+            ><i *ngIf="loading" class="ui-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton icon="pi pi-fw pi-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
@@ -48,7 +48,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     `,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
-        '[class.ui-inputwrapper-focus]': 'focus'
+        '[class.ui-inputwrapper-focus]': 'focus && !disabled'
     },
     providers: [DomHandler,ObjectUtils,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
@@ -493,9 +493,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                 case 8:
                     if(this.value && this.value.length && !this.multiInputEL.nativeElement.value) {
                         this.value = [...this.value];
-                        let removedValue = this.value.pop();
-                        this.onUnselect.emit(removedValue);
+                        const removedValue = this.value.pop();
                         this.onModelChange(this.value);
+                        this.updateFilledState();
+                        this.onUnselect.emit(removedValue);
                     }
                 break;
             }
@@ -544,6 +545,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                     this.inputEL.nativeElement.value = '';
                 }
 
+                this.onClear.emit(event);
                 this.onModelChange(this.value);
             }
         }

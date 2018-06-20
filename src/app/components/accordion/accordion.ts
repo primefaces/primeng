@@ -4,7 +4,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header } from '../common/shared';
 import { BlockableUI } from '../common/blockableui';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 let idx: number = 0;
 
@@ -22,7 +22,7 @@ let idx: number = 0;
         </div>
         <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
-            role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
+            role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
             <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
                 <ng-content></ng-content>
             </div>
@@ -118,7 +118,7 @@ export class AccordionTab implements OnDestroy {
 @Component({
     selector: 'p-accordion',
     template: `
-        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass" role="presentation">
+        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass" role="tablist">
             <ng-content></ng-content>
         </div>
     `
@@ -135,9 +135,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'fa fa-fw fa-caret-right';
+    @Input() expandIcon: string = 'pi pi-fw pi-caret-right';
 
-    @Input() collapseIcon: string = 'fa fa-fw fa-caret-down';
+    @Input() collapseIcon: string = 'pi pi-fw pi-caret-down';
     
     @Input() lazy: boolean;
 

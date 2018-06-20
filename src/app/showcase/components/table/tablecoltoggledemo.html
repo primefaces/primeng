@@ -12,7 +12,7 @@
         <ng-template pTemplate="caption">
             <div style="text-align:left">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                         selectedItemsLabel="&#123;0&#125; columns selected" [style]="&#123;minWidth: '200px'&#125;" defaultLabel="Choose Columns"></p-multiSelect>
+                         selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -65,7 +65,7 @@ export class TableColToggleDemo implements OnInit &#123;
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="tablecoltoggle.html">

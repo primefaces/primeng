@@ -118,6 +118,10 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     @Output() onViewRender: EventEmitter<any> = new EventEmitter();
     
     @Output() onViewDestroy: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNavLinkDayClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNavLinkWeekClick: EventEmitter<any> = new EventEmitter();
         
     initialized: boolean;
     
@@ -272,6 +276,18 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 'view': view,
                 'element': element
               });
+            },
+            navLinkDayClick: (weekStart, jsEvent) => {
+                this.onNavLinkDayClick.emit({
+                    'weekStart': weekStart,
+                    'event': jsEvent
+                });
+            },
+            navLinkWeekClick: (weekStart, jsEvent) => {
+                this.onNavLinkWeekClick.emit({
+                    'weekStart': weekStart,
+                    'event': jsEvent
+                });
             }
         };
                 

@@ -18,9 +18,9 @@ export class InputTextarea implements OnInit,DoCheck {
     
     @Input() autoResize: boolean;
     
-    @Input() rows: number;
+    @Input() rows: number = 2;
     
-    @Input() cols: number;
+    @Input() cols: number = 20;
     
     @Output() onResize: EventEmitter<any> = new EventEmitter();
     
@@ -29,7 +29,7 @@ export class InputTextarea implements OnInit,DoCheck {
     colsDefault: number;
     
     filled: boolean;
-        
+    
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
     
     ngOnInit() {
@@ -42,7 +42,7 @@ export class InputTextarea implements OnInit,DoCheck {
     }
     
     //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
-    @HostListener('input', ['$event']) 
+    @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();
     }
@@ -52,21 +52,21 @@ export class InputTextarea implements OnInit,DoCheck {
                         (this.ngModel && this.ngModel.model);
     }
     
-    @HostListener('focus', ['$event']) 
-    onFocus(e) {        
+    @HostListener('focus', ['$event'])
+    onFocus(e) {
         if(this.autoResize) {
             this.resize(e);
         }
     }
     
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {        
+    @HostListener('blur', ['$event'])
+    onBlur(e) {
         if(this.autoResize) {
             this.resize(e);
         }
     }
     
-    @HostListener('keyup', ['$event']) 
+    @HostListener('keyup', ['$event'])
     onKeyup(e) {
         if(this.autoResize) {
             this.resize(e);

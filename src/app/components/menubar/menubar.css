@@ -25,6 +25,10 @@
     text-decoration: none;
 }
 
+.ui-menubar .ui-menuitem-icon {
+    margin-right: .25em;
+}
+
 .ui-menubar .ui-menubar-root-list {
     display: inline-block;
 }
@@ -51,6 +55,7 @@
 
 .ui-menubar .ui-submenu-list .ui-menuitem {
     margin: .125em 0;
+    position: relative;
 }
 
 .ui-menubar .ui-submenu-list .ui-menuitem-link .ui-submenu-icon {

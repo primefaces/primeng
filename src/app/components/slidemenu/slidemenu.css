@@ -38,6 +38,10 @@
     text-decoration: none;
 }
 
+.ui-slidemenu .ui-menuitem-icon {
+    margin-right: .25em;
+}
+
 .ui-slidemenu .ui-menuitem {
     position: relative;
     margin: .125em 0;
@@ -82,5 +86,14 @@
 }
 
 .ui-slidemenu .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
+    display: block;
+}
+
+.ui-slidemenu ul:not(.ui-active-submenu) > .ui-menuitem:not(.ui-menuitem-active),
+.ui-slidemenu .ui-active-submenu > .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
+    display: none;
+}
+
+.ui-slidemenu .ui-active-submenu > .ui-menuitem-active ~ .ui-menuitem {
     display: block;
 }

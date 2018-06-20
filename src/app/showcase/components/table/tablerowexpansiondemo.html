@@ -21,7 +21,7 @@
             <tr>
                 <td>
                     <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                        <i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-pw pi-chevron-circle-right'" style="font-size: 1.25em"></i>
                     </a>
                 </td>
                 <td *ngFor="let col of columns">
@@ -42,7 +42,7 @@
                                     <b>Vin:</b> {{rowData.vin}}
                                 </div>
                                 <div class="ui-g-12">
-                                    <b>Vin:</b> {{rowData.color}}
+                                    <b>Year:</b> {{rowData.year}}
                                 </div>
                                 <div class="ui-g-12">
                                     <b>Brand:</b> {{rowData.brand}}
@@ -111,7 +111,7 @@ export class TableRowExpansionDemo implements OnInit &#123;
         &lt;tr&gt;
             &lt;td&gt;
                 &lt;a href="#" [pRowToggler]="rowData"&gt;
-                    &lt;i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"&gt;&lt;/i&gt;
+                    &lt;i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-pw pi-chevron-circle-right'" style="font-size: 1.25em"&gt;&lt;/i&gt;
                 &lt;/a&gt;
             &lt;/td&gt;
             &lt;td *ngFor="let col of columns"&gt;
@@ -132,7 +132,7 @@ export class TableRowExpansionDemo implements OnInit &#123;
                                 &lt;b&gt;Vin:&lt;/b&gt; &#123;&#123;rowData.vin&#125;&#125;
                             &lt;/div&gt;
                             &lt;div class="ui-g-12"&gt;
-                                &lt;b&gt;Vin:&lt;/b&gt; &#123;&#123;rowData.color&#125;&#125;
+                                &lt;b&gt;Year:&lt;/b&gt; &#123;&#123;rowData.year&#125;&#125;
                             &lt;/div&gt;
                             &lt;div class="ui-g-12"&gt;
                                 &lt;b&gt;Brand:&lt;/b&gt; &#123;&#123;rowData.brand&#125;&#125;

@@ -7,6 +7,7 @@
     position: relative;
     border: 0;
 }
+
 .ui-dialog .ui-dialog-content {
     position: relative;
     border: 0;
@@ -15,15 +16,7 @@
     overflow: auto;
     zoom: 1;
 }
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-    float: right;
-}
 
-.ui-dialog .ui-dialog-buttonpane button {
-    margin: .5em .4em .5em 0;
-    cursor: pointer;
-    float: right;
-}
 .ui-dialog .ui-resizable-se {
     width: 14px;
     height: 14px;
@@ -33,18 +26,20 @@
 .ui-draggable .ui-dialog-titlebar {
     cursor: move;
 }
+
 .ui-dialog .ui-dialog-titlebar-icon {
-    text-decoration: none
-}
-.ui-dialog .ui-dialog-titlebar-close {
+    text-decoration: none;
+    float: right;
     float: right;
     padding: .125em;
     cursor: pointer;
     border: 1px solid transparent;
 }
-.ui-dialog .ui-dialog-titlebar-close span {
+
+.ui-dialog .ui-dialog-titlebar-icon span {
     display: block;
     margin: 0;
+    font-size: 1.25em;
 }
 
 .ui-dialog-footer {
@@ -59,6 +54,11 @@
     height: 100%;
 }
 
+.ui-dialog-maximized {
+    -webkit-transition: left .3s, top .3s, width .3s,height .3s;
+    transition: left .3s, top .3s, width .3s,height .3s;
+}
+
 /* ConfirmDialog */
 .ui-confirmdialog {
     width: 30em;
@@ -67,13 +67,17 @@
 .ui-confirmdialog.ui-dialog .ui-dialog-content {
     padding: 1em 2em;
 }
-.ui-confirmdialog .ui-dialog-content .fa {
+.ui-confirmdialog .ui-dialog-content .ui-confirmdialog-icon {
     font-size: 1.5em;
     vertical-align: middle;
     margin-right: .5em;
 }
 .ui-confirmdialog .ui-dialog-content .ui-confirmdialog-message {
     vertical-align: middle;
+}
+
+.ui-dialog-footer .ui-button {
+    margin-right: .25em;
 }
 
 /* Fluid */

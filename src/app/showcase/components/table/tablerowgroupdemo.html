@@ -11,7 +11,35 @@
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Subheader</h3>
+    <h3 class="first">Toggleable Row Groups</h3>
+    <p-table [value]="cars" dataKey="brand">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Vin</th>
+                <th>Year</th>
+                <th>Color</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+            <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex">
+                <td colspan="3">
+                    <a href="#" [pRowToggler]="rowData">
+                        <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                        <span>{{rowData.brand}}</span>
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td>{{rowData.vin}}</td>
+                <td>{{rowData.year}}</td>
+                <td>{{rowData.color}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <h3>Subheader</h3>
     <p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()">
         <ng-template pTemplate="header">
             <tr>
@@ -24,7 +52,7 @@
             <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex">
                 <td colspan="3">
                     <span style="font-weight:bold">{{rowData.brand}}</span>
-                </td>                
+                </td>
             </tr>
             <tr>
                 <td>{{rowData.vin}}</td>
@@ -55,6 +83,7 @@
             </tr>
         </ng-template>
     </p-table>
+
 </div>
 
 <div class="content-section documentation">
@@ -105,10 +134,10 @@ export class TableRowGroupDemo implements OnInit &#123;
             &#125;
         &#125;
     &#125;
-    
+
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="tablerowgroupdemo.html">
@@ -118,7 +147,35 @@ export class TableRowGroupDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Subheader&lt;/h3&gt;
+&lt;h3 class="first"&gt;Toggleable Row Groups&lt;/h3&gt;
+&lt;p-table [value]="cars" dataKey="brand"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Vin&lt;/th&gt;
+            &lt;th&gt;Year&lt;/th&gt;
+            &lt;th&gt;Color&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns"&gt;
+        &lt;tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex"&gt;
+            &lt;td colspan="3"&gt;
+                &lt;a href="#" [pRowToggler]="rowData"&gt;
+                    &lt;i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"&gt;&lt;/i&gt;
+                    &lt;span&gt;&#123;&#123;rowData.brand&#125;&#125;&lt;/span&gt;
+                &lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+    
+&lt;h3&gt;Subheader&lt;/h3&gt;
 &lt;p-table [value]="cars" sortField="brand" sortMode="single" (onSort)="onSort()"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -131,7 +188,7 @@ export class TableRowGroupDemo implements OnInit &#123;
         &lt;tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex"&gt;
             &lt;td colspan="3"&gt;
                 &lt;span style="font-weight:bold"&gt;&#123;&#123;rowData.brand&#125;&#125;&lt;/span&gt;
-            &lt;/td&gt;                
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
             &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;

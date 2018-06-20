@@ -64,4 +64,15 @@ describe('Spinner', () => {
         expect(spinner.value).toEqual(0.75);
         expect(spinner.valueAsString).toEqual('0.75');
     });
+
+    it('Should display the formated value with thousand and decimal separator when input is filled by value 1234.1234', () => {
+        spinner.precision = 4;
+        const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
+        spinnerInput.value = '1234.1234';
+        triggerEvent(spinnerInput, 'keyup');
+
+        fixture.detectChanges();
+
+        expect(spinner.valueAsString).toEqual('1,234.1234');
+    });
 });

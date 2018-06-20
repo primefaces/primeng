@@ -10,19 +10,19 @@ import {ObjectUtils} from '../utils/objectutils';
     template: `
         <div [ngClass]="{'ui-orderlist ui-widget':true,'ui-orderlist-responsive':responsive}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-orderlist-controls">
-                <button type="button" pButton icon="fa-angle-up" (click)="moveUp($event,listelement)"></button>
-                <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop($event,listelement)"></button>
-                <button type="button" pButton icon="fa-angle-down" (click)="moveDown($event,listelement)"></button>
-                <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom($event,listelement)"></button>
+                <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event,listelement)"></button>
+                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event,listelement)"></button>
+                <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event,listelement)"></button>
+                <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event,listelement)"></button>
             </div>
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                 <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filterBy">
                     <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder">
-                    <span class="fa fa-search"></span>
+                    <span class="ui-orderlist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
-                    <ng-template ngFor let-item [ngForOf]="value" let-i="index" let-l="last">
+                    <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item"
@@ -62,6 +62,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() dragdrop: boolean;
     
     @Input() dragdropScope: string;
+
+    @Input() trackBy: Function = (index: number, item: any) => item;
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
     

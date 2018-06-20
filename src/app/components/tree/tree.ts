@@ -6,7 +6,7 @@ import {TreeNode} from '../common/treenode';
 import {SharedModule} from '../common/shared';
 import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
 
 @Component({
@@ -19,13 +19,13 @@ import {BlockableUI} from '../common/blockableui';
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)">
-                    <span class="ui-tree-toggler  fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}"
+                    <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
-                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
-                        <span class="ui-chkbox-icon ui-clickable fa" 
-                            [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
+                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox' && node.selectable !== false"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
+                        <span class="ui-chkbox-icon ui-clickable pi"
+                            [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
-                    ><span class="ui-treenode-label ui-corner-all" 
+                    ><span class="ui-treenode-label ui-corner-all"
                         [ngClass]="{'ui-state-highlight':isSelected()}">
                             <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                             <span *ngIf="tree.getTemplateForNode(node)">
@@ -56,10 +56,10 @@ import {BlockableUI} from '../common/blockableui';
                             </table>
                         </td>
                         <td class="ui-treenode" [ngClass]="{'ui-treenode-collapsed':!node.expanded}">
-                            <div class="ui-treenode-content ui-state-default ui-corner-all" 
+                            <div class="ui-treenode-content ui-state-default ui-corner-all"
                                 [ngClass]="{'ui-treenode-selectable':tree.selectionMode,'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
                                 (touchend)="onNodeTouchEnd()">
-                                <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-plus':!node.expanded,'fa-minus':node.expanded}" *ngIf="!isLeaf()"
+                                <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                                 ><span class="ui-treenode-label ui-corner-all">
@@ -72,7 +72,7 @@ import {BlockableUI} from '../common/blockableui';
                         </td>
                         <td class="ui-treenode-children-container" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
                             <div class="ui-treenode-children">
-                                <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last;" [node]="childNode" 
+                                <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last;" [node]="childNode"
                                         [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
                             </div>
                         </td>
@@ -84,7 +84,7 @@ import {BlockableUI} from '../common/blockableui';
 })
 export class UITreeNode implements OnInit {
 
-    static ICON_CLASS: string = 'ui-treenode-icon fa fa-fw';
+    static ICON_CLASS: string = 'ui-treenode-icon ';
 
     @Input() node: TreeNode;
 
@@ -296,10 +296,10 @@ export class UITreeNode implements OnInit {
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
             <div class="ui-tree-loading-mask ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-tree-loading-content" *ngIf="loading">
-                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+                <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <ul class="ui-tree-container" *ngIf="value">
-                <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index" [node]="node" 
+                <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index" [node]="node"
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
             <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
@@ -307,7 +307,7 @@ export class UITreeNode implements OnInit {
         <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
             <div class="ui-tree-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-tree-loading-content" *ngIf="loading">
-                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+                <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
@@ -362,7 +362,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'fa-circle-o-notch';
+    @Input() loadingIcon: string = 'pi pi-spinner';
 
     @Input() emptyMessage: string = 'No records found';
 

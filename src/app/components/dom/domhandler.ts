@@ -53,7 +53,7 @@ export class DomHandler {
     }
 
     public find(element: any, selector: string): any[] {
-        return element.querySelectorAll(selector);
+        return Array.from(element.querySelectorAll(selector));
     }
 
     public findSingle(element: any, selector: string): any {
@@ -338,6 +338,13 @@ export class DomHandler {
             top: rect.top + document.body.scrollTop,
             left: rect.left + document.body.scrollLeft
         };
+    }
+
+    public replaceElementWith(element: any, replacementElement: any): any {
+        let parentNode = element.parentNode;
+        if(!parentNode) 
+            throw `Can't replace element`;
+        return parentNode.replaceChild(replacementElement, element);
     }
 
     getUserAgent(): string {

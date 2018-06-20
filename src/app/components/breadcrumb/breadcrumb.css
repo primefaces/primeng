@@ -2,7 +2,7 @@
 .ui-breadcrumb {
     margin: 0;
     padding: 0;
-    padding: .3em;
+    padding: .5em;
 }
 
 .ui-breadcrumb ul {
@@ -13,6 +13,7 @@
 .ui-breadcrumb ul li {
     display: inline-block;
     vertical-align: middle;
+    margin: 0 .25em;
 }
 
 .ui-breadcrumb ul li .ui-menuitem-link {

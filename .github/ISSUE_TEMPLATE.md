@@ -7,6 +7,8 @@ where our team will respond within 4 business hours.
 If you do not have a PrimeNG PRO Support subscription, fill-in the report below. Please note that
 your issue will be added to the waiting list of community issues and will be reviewed on a first-come first-serve basis, as a result, the support team is unable to guarantee a specific schedule on when it will be reviewed. Thank you for your understanding.
 
+Current Waiting Time: ~8 weeks.
+
 **I'm submitting a ...**  (check one with "x")
 ```
 [ ] bug report => Search github for a similar issue or PR before submitting
@@ -15,9 +17,9 @@ your issue will be added to the waiting list of community issues and will be rev
 ```
 
 **Plunkr Case (Bug Reports)**
-Please fork the plunkr below and create a case demonstrating your bug report. Issues without a plunkr have much less possibility to be reviewed.
+Please demonstrate your case at stackblitz by using the issue template below. Issues without a test case have much less possibility to be reviewd in detail and assisted.
 
-http://plnkr.co/edit/qtZi5lB3DjkNt7Kdivg9?p=preview
+https://stackblitz.com/github/primefaces/primeng-issue-template
 
 **Current behavior**
 <!-- Describe how the bug manifests. -->

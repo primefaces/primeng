@@ -1,10 +1,10 @@
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,
-            forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
+            forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
-import {SharedModule,PrimeTemplate} from '../common/shared';
+import {SharedModule,PrimeTemplate,Footer} from '../common/shared';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
@@ -16,7 +16,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelect',
     template: `
-        <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
+        <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-multiselect-open':overlayVisible,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onInputKeydown($event)">
@@ -25,7 +25,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
-                <span class="ui-clickable" [ngClass]="dropdownIcon"></span>
+                <span class="ui-multiselect-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div #panel [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']" [ngStyle]="panelStyle"
                 [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
@@ -35,15 +35,15 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
-                            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
+                            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isAllChecked()}"></span>
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
                         <input #filterInput type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
-                        <span class="fa fa-fw fa-search"></span>
+                        <span class="ui-multiselect-filter-icon pi pi-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
-                        <span class="fa fa-close"></span>
+                        <span class="pi pi-times"></span>
                     </a>
                 </div>
                 <div class="ui-multiselect-items-wrapper">
@@ -55,13 +55,16 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <input #itemcb type="checkbox" readonly="readonly" [checked]="isSelected(option.value)" (focus)="focusedItemCheckbox=itemcb" (blur)="focusedItemCheckbox=null" [attr.aria-label]="option.label">
                                 </div>
                                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value), 'ui-state-focus': (focusedItemCheckbox === itemcb)}">
-                                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
+                                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
                             <label *ngIf="!itemTemplate">{{option.label}}</label>
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                         </li>
                     </ul>
+                </div>
+                <div class="ui-multiselect-footer ui-widget-content" *ngIf="footerFacet">
+                    <ng-content select="p-footer"></ng-content>
                 </div>
             </div>
         </div>
@@ -114,7 +117,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @Input() resetFilterOnHide: boolean = false;
     
-    @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
+    @Input() dropdownIcon: string = 'pi pi-caret-down';
     
     @Input() optionLabel: string;
 
@@ -125,6 +128,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ViewChild('panel') panelViewChild: ElementRef;
     
     @ViewChild('filterInput') filterInputChild: ElementRef;
+
+    @ContentChild(Footer) footerFacet;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
         
@@ -168,7 +173,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             
     public itemTemplate: TemplateRef<any>;
     
-    public focusedItemCheckbox: HTMLInputElement;
+    public focusedItemCheckbox: HTMLInputElement | null;
     
     _options: any[];
     

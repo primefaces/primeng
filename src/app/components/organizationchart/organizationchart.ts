@@ -20,7 +20,7 @@ import {PrimeTemplate} from '../common/shared';
                         <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                     </div>
                     <a *ngIf="!leaf" href="#" class="ui-node-toggler" (click)="toggleNode($event, node)">
-                        <i class="fa ui-node-toggler-icon" [ngClass]="{'fa-chevron-down': node.expanded, 'fa-chevron-up': !node.expanded}"></i>
+                        <i class="ui-node-toggler-icon pi" [ngClass]="{'pi-chevron-down': node.expanded, 'pi-chevron-up': !node.expanded}"></i>
                     </a>
                 </div>
             </td>
