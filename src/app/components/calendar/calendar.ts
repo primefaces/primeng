@@ -30,10 +30,10 @@ export interface LocaleSettings {
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
                 <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick($event)" (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
+                    [readonly]="readonlyInput || readonly" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" autocomplete="off"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button"
-                    [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
+                    [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled || readonly" tabindex="-1"></button>
             </ng-template>
             <div #datepicker [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}"
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
@@ -202,6 +202,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() appendTo: any;
     
     @Input() readonlyInput: boolean;
+    
+    @Input() readonly: boolean = false;
     
     @Input() shortYearCutoff: any = '+10';
     
@@ -978,18 +980,24 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     onInputFocus(event: Event) {
+        if (this.readonly) {
+            return;
+        }
         this.focus = true;
         if(this.showOnFocus) {
-          this.showOverlay();
+            this.showOverlay();
         }
         this.onFocus.emit(event);
     }
     
     onInputClick(event: Event) {
-      this.datepickerClick=true;
-      if(this.autoZIndex) {
-        this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-      }
+        if (this.readonly) {
+            return;
+        }
+        this.datepickerClick=true;
+        if(this.autoZIndex) {
+            this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
     }
     
     onInputBlur(event: Event) {
