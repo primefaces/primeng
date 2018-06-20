@@ -418,9 +418,16 @@ export class TreeTableDemo implements OnInit &#123;
 
             <h3>Change Detection</h3>
             <p>TreeTable may need to be aware of changes in its value in some cases. For the sake of performance, this is only done when the reference of the value changes meaning a
-                setter is used instead of ngDoCheck/IterableDiffers which can reduce performance. So when you manipulate the value such as removing or adding an item, instead of using array methods such as push, splice
+                setter is used instead of ngDoCheck/IterableDiffers which can reduce performance. So when you manipulate the value such as removing a node, adding a node or changing children of a node, instead of using array methods such as push, splice
                 create a new array reference using a spread operator or similar.
             </p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+this.value = [...this.value];
+</code>
+</pre>
+
+            
 
             <h3>Sections</h3>
             <p>Table offers various templates to display additional information about the data such as a caption, header, summary and footer.</p>
