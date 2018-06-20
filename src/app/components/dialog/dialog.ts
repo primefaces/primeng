@@ -219,6 +219,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.executePostDisplayActions = true;
         this.moveOnTop();
         this.bindGlobalListeners();
+
+        if(this.maximized) {
+            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+        }
         
         if(this.modal) {
             this.enableModality();
@@ -249,6 +253,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.unbindMaskClickListener();
         this.unbindGlobalListeners();
         this.dragging = false;
+
+        if(this.maximized) {
+            this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+        }
         
         if(this.modal) {
             this.disableModality();
@@ -375,6 +383,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.containerViewChild.nativeElement.style.width = this.preMaximizeContainerWidth + 'px';
         this.containerViewChild.nativeElement.style.height = this.preMaximizeContainerHeight + 'px';
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
+
+        this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
 
         this.maximized = false;
 
