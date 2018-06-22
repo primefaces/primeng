@@ -717,7 +717,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.selfClick&&!this.itemClick) {
-                    this.panelVisible = false;
+                    this.hide();
                     this.unbindDocumentClickListener();
                 }
                 
