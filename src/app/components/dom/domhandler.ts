@@ -474,6 +474,11 @@ export class DomHandler {
     }
 
     isInteger(value): boolean {
-        return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+        if(Number.isInteger) {
+            return Number.isInteger(value);
+        }
+        else {
+            return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+        }
     }
 }
