@@ -472,4 +472,8 @@ export class DomHandler {
             version: match[2] || "0"
         };
     }
+
+    isInteger(value): boolean {
+        return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+    }
 }
