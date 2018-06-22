@@ -75,9 +75,10 @@ export interface Car &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;Injectable&#125; from 'angular2/core';
-import &#123;Http, Response&#125; from 'angular2/http';
-import &#123;Car&#125; from '../domain/car';
+import &#123; HttpClient &#125; from '@angular/common/http';
+import &#123; Injectable &#125; from '@angular/core';
+
+import &#123; Car &#125; from '../domain/car';
 
 @Injectable()
 export class CarService &#123;
@@ -317,7 +318,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                                 state.first: Index of the first records<br />
                                 state.totalRecords: Number of total records<br />
                             </td>
-                            <td>Content to display when there is no value to display.</td>
+                            <td>Custom content for the left section of the paginator.</td>
                         </tr>
                         <tr>
                             <td>paginatorright</td>
@@ -327,7 +328,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                                 state.first: Index of the first records<br />
                                 state.totalRecords: Number of total records<br />
                             </td>
-                            <td>Content to display when there is no value to display.</td>
+                            <td>Custom content for the right section of the paginator.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1406,7 +1407,7 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
-            <p>See the <a [routerLink]="['/table/colreorder']">live example.</a></p>
+            <p>See the <a [routerLink]="['/table/reorder']">live example.</a></p>
 
             <h3>Data Export</h3>
             <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
@@ -1877,7 +1878,7 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
+            <p>See the <a [routerLink]="['/table/style']">live example.</a></p>
 
             <h3>Performance Tips</h3>
             <ul>
