@@ -65,7 +65,7 @@ export class TableService {
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
-                <table #table>
+                <table #table [class]="tableStyleClass">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
@@ -108,7 +108,9 @@ export class Table implements OnInit, AfterContentInit {
     @Input() style: any;
 
     @Input() styleClass: string;
-
+    
+    @Input() tableStyleClass :string;
+    
     @Input() paginator: boolean;
 
     @Input() rows: number;
