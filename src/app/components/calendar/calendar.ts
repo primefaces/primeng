@@ -27,7 +27,7 @@ export interface LocaleSettings {
 @Component({
     selector: 'p-calendar',
     template:  `
-        <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn': showIcon}" [ngStyle]="style" [class]="styleClass">
+        <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn': showIcon,'ui-datepicker-timeonly':timeOnly}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
                 <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick($event)" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
