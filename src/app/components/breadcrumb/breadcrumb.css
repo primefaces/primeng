@@ -18,4 +18,5 @@
 
 .ui-breadcrumb ul li .ui-menuitem-link {
     text-decoration: none;
+    vertical-align: middle;
 }
