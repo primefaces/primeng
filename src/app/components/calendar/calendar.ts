@@ -1127,7 +1127,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         
         if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if(value.getHours() == this.minDate.getHours()){
+            if(value.getHours() == this.maxDate.getHours()){
                 if(this.maxDate.getMinutes() < minute) {
                     valid = false;
                 }
