@@ -228,7 +228,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() showOnFocus: boolean = true;
     
     @Input() dataType: string = 'date';
-        
+    
     @Input() selectionMode: string = 'single';
     
     @Input() maxDateCount: number;
@@ -357,6 +357,12 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     _disabledDates: Array<Date>;
     
     _disabledDays: Array<number>;
+    
+    selectElement: any;
+    
+    todayElement: any;
+    
+    focusElement: any;
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -994,10 +1000,20 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(!this.overlayViewChild.nativeElement.offsetParent || this.overlayViewChild.nativeElement.style.display === 'none') {
             inputfield.focus();
             this.showOverlay();
+    
+            if (this.overlayViewChild != undefined) {
+                setTimeout(() => {
+                    this.overlay = <HTMLDivElement> this.overlayViewChild.nativeElement;
+                    this.selectElement = this.domHandler.findSingle(this.overlay, 'a.ui-state-active');
+                    this.todayElement = this.domHandler.findSingle(this.overlay, 'a.ui-state-highlight');
+                    this.focusElement = this.selectElement ? this.selectElement : this.todayElement;
+                    this.focusElement.focus();
+                }, 200);
+            }
         }
         else
             this.overlayVisible = false;
-            
+        
         this.datepickerClick = true;
     }
     
