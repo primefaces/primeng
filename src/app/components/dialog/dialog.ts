@@ -10,7 +10,7 @@ let idx: number = 0;
 @Component({
     selector: 'p-dialog',
     template: `
-        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [style.display]="visible ? 'block' : 'none'"
+        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}"
             [ngStyle]="style" [class]="styleClass" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" [style.minHeight.px]="minHeight" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'"
             role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
@@ -39,13 +39,20 @@ let idx: number = 0;
     animations: [
         trigger('dialogState', [
             state('hidden', style({
-                opacity: 0
+                transform: 'translate3d(0, 25%, 0)', 
+                opacity: 0,
+                display: 'none'
             })),
             state('visible', style({
+                display: 'block',
+                transform: 'none', 
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            state('void', style({ 
+                transform: 'translate3d(0, 25%, 0) scale(0.9)', 
+                opacity: 0 
+            })),
+            transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
         ])
     ],
     providers: [DomHandler]
