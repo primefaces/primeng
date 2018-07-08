@@ -84,15 +84,15 @@ $inputGroupTextColor: #222222;
     .ui-accordion-header {
         background: $headerBgColor;
     	border-top: 1px solid $headerBorderColor;
-        
+
         a {
             color: $headerTextColor;
         }
-        
+
         &:not(.ui-state-active):not(.ui-state-disabled):hover {
             background: #ededf0;
         }
-        
+
         &.ui-state-active {
             background: #ffffff;
             border-left-color: transparent;
@@ -103,7 +103,7 @@ $inputGroupTextColor: #222222;
             border-radius: 0;
         }
     }
-    
+
      .ui-accordion-content {
          border: 0 none;
      }
@@ -114,21 +114,21 @@ $inputGroupTextColor: #222222;
     &.ui-widget-content {
         border: 0 none;
     }
-    
+
     .ui-tabview-nav {
         background: transparent;
-        
+
         > li {
             &.ui-state-default {
                background: #f6f7f9;
             }
-                        
+
             &.ui-state-active {
-                background: #ffffff; 
-                font-weight: normal; 
+                background: #ffffff;
+                font-weight: normal;
                 color: #555555;
             }
-            
+
             &:not(.ui-state-active):not(.ui-state-disabled):hover {
                 background: #ededf0;
             }
@@ -173,15 +173,15 @@ $inputGroupTextColor: #222222;
         	 border: 0 none;
              background: #8ec5fc;
         }
-        
+
         .ui-progressbar .ui-progressbar-label {
         	color: #222222;
         }
     }
-    
+
     &.ui-progressbar-indeterminate {
         background: #8ec5fc;
-        
+
         .ui-progressbar-value {
         	 border: 0 none;
              background-color: $stateHighlightBgColor;
@@ -191,7 +191,7 @@ $inputGroupTextColor: #222222;
 
 
 
-.ui-widget-header .ui-button,		
+.ui-widget-header .ui-button,
 .ui-widget-content .ui-button,
 .ui-widget.ui-button,
 .ui-button {
@@ -201,7 +201,7 @@ $inputGroupTextColor: #222222;
     -webkit-transition: background-color .2s;
     -moz-transition: background-color .2s;
     transition: background-color .2s;
-    
+
     &:enabled:hover,
     &:focus {
         border: 1px solid #1f89ce;
@@ -209,7 +209,7 @@ $inputGroupTextColor: #222222;
     	outline: 0 none;
         color: #ffffff;
     }
-    
+
     &:enabled:active {
         border: 1px solid #156090;
     	background: #186ba0;
@@ -234,8 +234,8 @@ $inputGroupTextColor: #222222;
 /* Checkbox and Radio */
 .ui-chkbox-box.ui-state-active,
 .ui-radiobutton-box.ui-state-active {
-    border: 1px solid #156090; 
-    background: #186ba0; 
+    border: 1px solid #156090;
+    background: #186ba0;
     color: #FFFFFF;
 }
 
@@ -247,7 +247,7 @@ $inputGroupTextColor: #222222;
 }
 
 .ui-chkbox-box.ui-state-focus.ui-state-active {
-    background: #186ba0; 
+    background: #186ba0;
 }
 
 /* Inputs */
@@ -285,33 +285,33 @@ $inputGroupTextColor: #222222;
             background: #ebedf0;
             border-color: #d9d9d9;
         }
-        
+
         &.ui-sortable-column:not(.ui-state-active):hover {
             background: #d3d5d8;
             border-color: #d9d9d9;
         }
-                
+
         &.ui-state-active {
             background: #186ba0;
             color: #ffffff;
         }
     }
-    
+
     tbody {
         > tr.ui-widget-content {
             border-color: #d9d9d9;
-            
+
             &.ui-datatable-odd {
                 background-color: #fafafb;
             }
-            
+
             &.ui-state-highlight {
                 background-color: $stateHighlightBgColor;
                 color: $stateHighlightTextColor;
             }
-        }        
+        }
     }
-    
+
     tfoot {
         td {
             &.ui-state-default {
@@ -367,20 +367,20 @@ $inputGroupTextColor: #222222;
 /* Panel */
 .ui-panel.ui-widget {
     padding: 0;
-    
+
     .ui-panel-titlebar.ui-corner-all {
-        -moz-border-radius-bottom-left: 0; 
-        -webkit-border-bottom-left-radius: 0; 
+        -moz-border-radius-bottom-left: 0;
+        -webkit-border-bottom-left-radius: 0;
         border-bottom-left-radius: 0;
-        -moz-border-radius-bottom-right: 0; 
-        -webkit-border-bottom-right-radius: 0; 
+        -moz-border-radius-bottom-right: 0;
+        -webkit-border-bottom-right-radius: 0;
         border-bottom-right-radius: 0;
     }
-    
+
     .ui-panel-titlebar {
          border-width: 0 0 1px 0;
     }
-    
+
     .ui-panel-titlebar-icon span {
         position: relative;
         top: 1px;
@@ -399,17 +399,17 @@ $inputGroupTextColor: #222222;
 /* ButtonSet */
 .ui-togglebutton.ui-button.ui-state-default,
 .ui-selectbutton .ui-button.ui-state-default {
-    border: 1px solid #d6d6d6; 
-    background: #ffffff; 
-    font-weight: normal; 
+    border: 1px solid #d6d6d6;
+    background: #ffffff;
+    font-weight: normal;
     color: #555555;
 }
 
 .ui-togglebutton.ui-button.ui-state-hover,.ui-togglebutton.ui-button.ui-state-focus,
 .ui-selectbutton .ui-button.ui-state-hover,.ui-selectbutton .ui-button.ui-state-focus, .ui-selectbutton .ui-button:focus {
-   border: 1px solid #c0c0c0; 
-   background: #eeeeee; 
-   font-weight: normal; 
+   border: 1px solid #c0c0c0;
+   background: #eeeeee;
+   font-weight: normal;
    color: #212121;
 }
 
@@ -423,8 +423,8 @@ $inputGroupTextColor: #222222;
 
 .ui-togglebutton.ui-button.ui-state-active,
 .ui-selectbutton .ui-button.ui-state-active {
-   border: 1px solid #156090; 
-   background: #186ba0; 
+   border: 1px solid #156090;
+   background: #186ba0;
    color: #FFFFFF;
 }
 
@@ -446,17 +446,17 @@ $inputGroupTextColor: #222222;
         background-color: #2196f3;
         border-color :#2196f3;
     }
-    
+
     &.ui-growl-message-error {
         background-color: #f44336;
         border-color :#f44336;
     }
-    
+
     &.ui-growl-message-warn {
         background-color: #FFB300;
         border-color :#FFB300;
     }
-    
+
     &.ui-growl-message-success {
         background-color: #4CAF50;
         border-color :#4CAF50;
@@ -466,21 +466,21 @@ $inputGroupTextColor: #222222;
 /* TabMenu */
 .ui-tabmenu {
     border: 0 none;
-    
+
     .ui-tabmenu-nav {
         background: none;
-        
+
         > li {
             &.ui-state-default {
                background: #f6f7f9;
             }
-                        
+
             &.ui-state-active {
-                background: #ffffff; 
-                font-weight: normal; 
+                background: #ffffff;
+                font-weight: normal;
                 color: #555555;
             }
-            
+
             &:not(.ui-state-active):not(.ui-state-disabled):hover {
                 background: #ededf0;
             }
@@ -528,15 +528,15 @@ $inputGroupTextColor: #222222;
 /* PanelMenu */
 .ui-panelmenu .ui-panelmenu-header.ui-state-active,
 .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
-    border-color: #156090; 
-    background: #186ba0; 
+    border-color: #156090;
+    background: #186ba0;
     color: #FFFFFF;
 }
 
 /* DatePicker */
 .ui-datepicker.ui-widget {
     padding: 0;
-    
+
     .ui-datepicker-header {
         -webkit-border-radius: 0px;
         -moz-border-radius: 0px;
@@ -544,48 +544,81 @@ $inputGroupTextColor: #222222;
         border-top: 0 none;
         border-left: 0 none;
         border-right: 0 none;
-        
-        a {            
+
+        a {
             &:hover {
                 border-width: 1px;
             }
         }
     }
-    
+
     .ui-datepicker-calendar {
         margin: 0;
-        
+
         thead th {
             background-color: #f6f8fa;
             padding: 8px;
         }
-        
+
         td {
             border-bottom: 1px solid rgba(213, 213, 213, 0.5);
             padding: 0;
-            
+
             a {
                 border: 0 none;
                 text-align: center;
                 padding: 8px;
-                
+
                 &.ui-state-highlight {
                     background-color: #d6d6d6;
                     color: #212121;
                 }
-                
+
                 &.ui-state-active {
                     background-color: #186ba0;
                     color: #ffffff;
                 }
             }
         }
-        
+
         tr:last-child td {
             border-bottom: 0 none;
         }
     }
-    
+
+    .ui-monthpicker {
+        margin: 0;
+
+        thead th {
+            background-color: #f6f8fa;
+            padding: 8px;
+        }
+
+        border-bottom: 1px solid rgba(213, 213, 213, 0.5);
+        padding: 0;
+
+        a {
+            border: 0 none;
+            text-align: center;
+            padding: 8px;
+
+            &.ui-state-highlight {
+                background-color: #d6d6d6;
+                color: #212121;
+            }
+
+            &.ui-state-active {
+                background-color: #186ba0;
+                color: #ffffff;
+            }
+
+            &:not(.ui-state-active):not(.ui-state-disabled):hover {
+                background: #ededf0;
+            }
+        }
+
+    }
+
     .ui-timepicker {
         border-bottom: 0 none;
         border-left: 0 none;
@@ -594,7 +627,7 @@ $inputGroupTextColor: #222222;
         -webkit-border-radius: 0;
         border-radius: 0;
     }
-    
+
     &.ui-datepicker-timeonly {
         .ui-timepicker {
             border-top: 0 none;

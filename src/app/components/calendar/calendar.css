@@ -244,3 +244,13 @@
 input[type=text]::-ms-clear {
     display: none;
 }
+
+.ui-monthpicker {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ui-monthpicker a{
+    width: 33%;
+    cursor: pointer;
+}

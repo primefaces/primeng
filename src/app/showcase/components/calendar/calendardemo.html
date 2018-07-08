@@ -70,10 +70,15 @@
                 </ng-template>
             </p-calendar>
         </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Month Only</h3>
+            <p-calendar [(ngModel)]="date11" [monthOnly]="true"></p-calendar>
+        </div>
     </div>
 
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date11" [inline]="true"></p-calendar>
+    <p-calendar [(ngModel)]="date12" [inline]="true"></p-calendar>
 </div>
 
 <div class="content-section documentation">
@@ -445,6 +450,12 @@ export class MyModel &#123;
                             <td>Whether to display timepicker only.</td>
                         </tr>
                         <tr>
+                            <td>monthOnly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display monthpicker only.</td>
+                        </tr>
+                        <tr>
                             <td>dataType</td>
                             <td>string</td>
                             <td>date</td>
@@ -715,10 +726,14 @@ export class MyModel &#123;
             &lt;/ng-template&gt;
         &lt;/p-calendar&gt;
     &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Month Only&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date11" [monthOnly]="true"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date11" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="date12" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
