@@ -31,7 +31,6 @@
                 "src/styles.css"
               ],
               "scripts": [
-                "./node_modules/jquery/dist/jquery.slim.js",
                 "./node_modules/moment/moment.js",
                 "./node_modules/chart.js/dist/Chart.js",
                 "./node_modules/fullcalendar/dist/fullcalendar.js",
