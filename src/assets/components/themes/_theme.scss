@@ -553,6 +553,12 @@
             }
         }
     }
+
+    &.ui-datepicker-month-picker {
+        .ui-datepicker-month-cell:hover {
+            @include hover-element();
+        }
+    }
 }
 
 .fc {

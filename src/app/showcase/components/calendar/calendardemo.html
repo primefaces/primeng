@@ -75,10 +75,15 @@
             <h3>Multiple Months</h3>
             <p-calendar [(ngModel)]="date11" [numberOfMonths]="3"></p-calendar>
         </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Month Picker</h3>
+            <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
     </div>
 
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date12" [inline]="true"></p-calendar>
+    <p-calendar [(ngModel)]="date13" [inline]="true"></p-calendar>
 </div>
 
 <div class="content-section documentation">
@@ -195,6 +200,14 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Multiple Months</h3>
+            <p>Displaying multiple months is enabled by setting numberOfMonths property to a value greater than 1.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="dateValue" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
             <h3>Localization</h3>
             <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.</p>
 <pre>
@@ -250,6 +263,13 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Month Picker</h3>
+            <p>Month picker is used to select month and year only without the date, set view mode as "month" to activate month picker.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="dateValue" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -551,6 +571,12 @@ export class MyModel &#123;
                             <td>1</td>
                             <td>Number of months to display.</td>
                         </tr>
+                        <tr>
+                            <td>view</td>
+                            <td>string</td>
+                            <td>date</td>
+                            <td>Type of view to display, valid valids are "date" for datepicker and "month" for month picker.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -728,13 +754,18 @@ export class MyModel &#123;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
-        &lt;h3>Multiple Months&lt;/h3&gt;
+        &lt;h3&gt;Multiple Months&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date11" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Month Picker&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date12" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="date13" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -765,6 +796,8 @@ export class CalendarDemo &#123;
     date11: Date;
 
     date12: Date;
+
+    date13: Date;
 
     dates: Date[];
 
