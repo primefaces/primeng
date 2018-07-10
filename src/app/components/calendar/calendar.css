@@ -212,6 +212,10 @@
     filter:Alpha(Opacity=70);
 }
 
+.ui-timepicker > div a:last-child {
+    margin-top: .3em;
+}
+
 .ui-timepicker > div a:hover {
     display: block;
     opacity: 1;
@@ -240,6 +244,14 @@ input[type=text]::-ms-clear {
 .ui-datepicker-touch-ui.ui-datepicker td span,
 .ui-datepicker-touch-ui.ui-datepicker td a {
 	padding: 2em 0;
+}
+
+.ui-datepicker-touch-ui .ui-timepicker {
+    padding: 1em 0;
+}
+
+.ui-datepicker-touch-ui .ui-timepicker > div a {
+    font-size: 2em;
 }
 
 .ui-datepicker-mask {
