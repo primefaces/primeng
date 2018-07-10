@@ -218,7 +218,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public itemsWrapper: HTMLDivElement;
     
-    public initialized: boolean;
+    public dimensionsUpdated: boolean;
     
     public selfClick: boolean;
     
@@ -288,7 +288,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
         
         this.updateDimensions();
-        this.initialized = true;
         
         if(this.appendTo) {
             if(this.appendTo === 'body')
@@ -331,6 +330,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     ngAfterViewChecked() {
+        if(this.autoWidth && !this.dimensionsUpdated) {
+            this.updateDimensions();
+        }
+        
         if(this.shown) {
             this.onShow();
             this.shown = false;
@@ -398,11 +401,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     updateDimensions() {
-        if(this.autoWidth && this.el.nativeElement && this.el.nativeElement.children[0]) {
+        if(this.autoWidth && this.el.nativeElement && this.el.nativeElement.children[0] && this.el.nativeElement.offsetParent) {
             let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
             if(select && !this.style||(this.style && (!this.style['width']&&!this.style['min-width']))) {
                 this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
             }
+            this.dimensionsUpdated = true;
         }
     }
     
@@ -753,7 +757,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     ngOnDestroy() {
-        this.initialized = false;
         
         this.unbindDocumentClickListener();
         
