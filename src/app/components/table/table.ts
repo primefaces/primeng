@@ -1216,6 +1216,28 @@ export class Table implements OnInit, AfterContentInit {
             }
 
             return value > filter;
+        },
+
+        containsIn(value, filter): boolean {
+            if (filter === undefined || filter === null || filter.length === 0) {
+                return true;
+            }
+            if (value === undefined || value === null) {
+                return false;
+            }
+            for (let i = 0; i < filter.length; i++) {
+                if (filter[i] === undefined || filter[i] === null || (typeof filter[i] === 'string' && filter[i].trim() === '')) {
+                    return true;
+                }
+                if (value === undefined || value === null) {
+                    return false;
+                }
+                const regExp = new RegExp('\\b' + filter[i].toLowerCase().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b');
+                if (regExp.test(value.toString().toLowerCase())) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
