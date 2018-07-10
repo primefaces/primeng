@@ -70,10 +70,15 @@
                 </ng-template>
             </p-calendar>
         </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Multiple Months</h3>
+            <p-calendar [(ngModel)]="date11" [numberOfMonths]="3"></p-calendar>
+        </div>
     </div>
 
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date11" [inline]="true"></p-calendar>
+    <p-calendar [(ngModel)]="date12" [inline]="true"></p-calendar>
 </div>
 
 <div class="content-section documentation">
