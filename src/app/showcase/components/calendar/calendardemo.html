@@ -80,10 +80,16 @@
             <h3>Month Picker</h3>
             <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
         </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Touch UI</h3>
+            <p-calendar [(ngModel)]="date13" [touchUI]="true"></p-calendar>
+        </div>
     </div>
 
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date13" [inline]="true"></p-calendar>
+    <p-calendar [(ngModel)]="date14" [inline]="true"></p-calendar>
+
 </div>
 
 <div class="content-section documentation">
@@ -268,6 +274,14 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <h3>Touch UI</h3>
+            <p>Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="dateValue" [touchUI]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -577,6 +591,12 @@ export class MyModel &#123;
                             <td>date</td>
                             <td>Type of view to display, valid valids are "date" for datepicker and "month" for month picker.</td>
                         </tr>
+                        <tr>
+                            <td>touchUI</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, calendar overlay is displayed as optimized for touch devices.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -762,10 +782,15 @@ export class MyModel &#123;
         &lt;h3&gt;Month Picker&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Touch UI&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date13" [touchUI]="true"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date13" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="date14" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 

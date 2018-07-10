@@ -36,7 +36,7 @@ export interface LocaleSettings {
                     [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
             </ng-template>
             <div #datepicker [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
-                'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-month-picker': (view === 'month')}"
+                'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-month-picker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 
                 <ng-container *ngIf="!timeOnly && (overlayVisible || inline)">
@@ -264,6 +264,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() numberOfMonths: number = 1;  
     
     @Input() view: string = 'date';
+
+    @Input() touchUI: boolean;
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -333,6 +335,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     currentSecond: number;
     
     pm: boolean;
+
+    mask: HTMLDivElement;
+
+    maskClickListener: Function;
     
     overlay: HTMLDivElement;
     
@@ -709,6 +715,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         if(this.isSingleSelection() && (!this.showTime || this.hideOnDateTimeSelect)) {
             this.overlayVisible = false;
+
+            if(this.mask) {
+                this.disableModality();
+            }
         }
 
         this.updateInputfield();
@@ -1445,10 +1455,61 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     alignOverlay() {
-        if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
-        else
-            this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
+        if (this.touchUI) {
+            this.enableModality();
+        }
+        else {
+            if(this.appendTo)
+                this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
+            else
+                this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
+        }
+    }
+
+    enableModality() {
+        if(!this.mask) {
+            this.mask = document.createElement('div');
+            this.mask.style.zIndex = String(parseInt(this.overlayViewChild.nativeElement.style.zIndex) - 1);
+            let maskStyleClass = 'ui-widget-overlay ui-datepicker-mask ui-datepicker-mask-scrollblocker';
+            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
+            
+			this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
+                this.disableModality();
+            });
+            document.body.appendChild(this.mask);
+            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+        }
+    }
+    
+    disableModality() {
+        if(this.mask) {
+            document.body.removeChild(this.mask);
+            let bodyChildren = document.body.children;
+            let hasBlockerMasks: boolean;
+            for(let i = 0; i < bodyChildren.length; i++) {
+                let bodyChild = bodyChildren[i];
+                if(this.domHandler.hasClass(bodyChild, 'ui-datepicker-mask-scrollblocker')) {
+                    hasBlockerMasks = true;
+                    break;
+                }
+            }
+            
+            if(!hasBlockerMasks) {
+                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            }
+
+            this.overlayVisible = false;
+            this.unbindMaskClickListener();
+
+            this.mask = null;
+        }
+    }
+
+    unbindMaskClickListener() {
+        if(this.maskClickListener) {
+            this.maskClickListener();
+            this.maskClickListener = null;
+		}
     }
 
     writeValue(value: any) : void {
@@ -1827,6 +1888,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     ngOnDestroy() {
         this.unbindDocumentClickListener();
+        this.unbindMaskClickListener();
         
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlayViewChild.nativeElement);

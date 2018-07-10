@@ -557,17 +557,14 @@ $inputGroupTextColor: #222222;
         
         thead th {
             background-color: #f6f8fa;
-            padding: 8px;
         }
         
         td {
             border-bottom: 1px solid rgba(213, 213, 213, 0.5);
-            padding: 0;
             
             a {
                 border: 0 none;
                 text-align: center;
-                padding: 8px;
                 
                 &.ui-state-highlight {
                     background-color: #d6d6d6;
