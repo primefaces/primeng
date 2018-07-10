@@ -84,13 +84,18 @@ export class ObjectUtils {
         }
     }
 
-    filter(value: any[], fields: any[], filterValue: string) {
+    filter(value: any[], fields: any[], filterValue: string, filterPredicate: Function = null) {
         let filteredItems: any[] = [];
 
-        if(value) {
-            for(let item of value) {
-                for(let field of fields) {
-                    if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
+        if (value) {
+            for (let item of value) {
+                for (let field of fields) {
+                    let fieldValue = String(this.resolveFieldData(item, field)).toLowerCase();
+                    filterValue = filterValue.toLowerCase();
+                    if (filterPredicate != null && filterPredicate(fieldValue, filterValue)) {
+                        filteredItems.push(item);
+                        break;
+                    } else if (filterPredicate == null && fieldValue.indexOf(filterValue) > -1) {
                         filteredItems.push(item);
                         break;
                     }
