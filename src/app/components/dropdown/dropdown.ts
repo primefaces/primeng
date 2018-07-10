@@ -158,6 +158,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() emptyFilterMessage: string = 'No results found';
     
+    @Input() filterPredicate: Function = null;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
