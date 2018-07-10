@@ -149,6 +149,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-sidebar-mask');
+            
             if(this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                     this.close(event);
