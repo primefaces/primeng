@@ -265,4 +265,13 @@ input[type=text]::-ms-clear {
         width: 17em;
         overflow: auto;
     }
+
+    .ui-datepicker-touch-ui.ui-datepicker th {
+        padding: 1em 0;
+    }
+
+    .ui-datepicker-touch-ui.ui-datepicker td span,
+    .ui-datepicker-touch-ui.ui-datepicker td a {
+        padding: 1em 0;
+    }
 }
