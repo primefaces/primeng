@@ -54,7 +54,7 @@
     position: static;
 }
 
-.ui-datepicker .ui-datepicker-calendar-group {
+.ui-datepicker .ui-datepicker-group {
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -113,7 +113,7 @@
 }
 
 /* Multiple Month DatePicker */
-.ui-datepicker-multiple-month .ui-datepicker-calendar-group {
+.ui-datepicker-multiple-month .ui-datepicker-group {
     display: table-cell;
     border-left-width: 0;
     border-top-width: 0;
@@ -173,7 +173,7 @@
 }
 
 /* Month Picker */
-.ui-datepicker-month-picker .ui-datepicker-month-cell {
+.ui-datepicker-monthpicker .ui-datepicker-month-cell {
     width: 33.3%;
     display: inline-block;
     text-align: center;

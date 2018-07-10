@@ -8,9 +8,9 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => Calendar),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => Calendar),
+    multi: true
 };
 
 export interface LocaleSettings {
@@ -36,11 +36,11 @@ export interface LocaleSettings {
                     [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
             </ng-template>
             <div #datepicker [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
-                'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-month-picker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
+                'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 
                 <ng-container *ngIf="!timeOnly && (overlayVisible || inline)">
-                    <div class="ui-datepicker-calendar-group ui-widget-content" *ngFor="let month of months; let i = index;">
+                    <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
                             <ng-content select="p-header"></ng-content>
                             <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="navBackward($event)" *ngIf="i === 0">
@@ -84,7 +84,7 @@ export interface LocaleSettings {
                                 </tbody>
                             </table>
                         </div>
-                        <div class="ui-datepicker-month-picker-container" *ngIf="view === 'month'">
+                        <div class="ui-datepicker-monthpicker-container" *ngIf="view === 'month'">
                             <a href="#" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-datepicker-month-cell" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
                                 {{m}}                                
                             </a>
@@ -464,17 +464,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
     ngOnInit() {
         let date = this.defaultDate||new Date();
-        this.createWeekDays();
-        
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
-        this.initTime(date);
 
-        this.createMonths(this.currentMonth, this.currentYear);
-        
-        this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
-            Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
-            
         if(this.yearNavigator && this.yearRange) {
             this.yearOptions = [];
             let years = this.yearRange.split(':'),
@@ -486,7 +478,13 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             }
         }
 
-        if(this.view === 'month') {
+        if(this.view === 'date') {
+            this.createWeekDays();
+            this.initTime(date);
+            this.createMonths(this.currentMonth, this.currentYear);
+            this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) + Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
+        }
+        else if(this.view === 'month') {
             this.monthPickerValues = [];
             for(let i = 0; i <= 11; i++) {
                 this.monthPickerValues.push(this.locale.monthNamesShort[i]);
