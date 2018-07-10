@@ -545,6 +545,12 @@ export class MyModel &#123;
                             <td>false</td>
                             <td>Whether to hide the overlay on date selection when showTime is enabled.</td>
                         </tr>
+                        <tr>
+                            <td>numberOfMonths</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Number of months to display.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -714,16 +720,21 @@ export class MyModel &#123;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Date Template&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date10"&gt;
+        &lt;p-calendar [(ngModel)]="date11"&gt;
             &lt;ng-template pTemplate="date" let-date&gt;
                 &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#7cc67c' : 'inherit'&#125;" style="border-radius:50%"&gt;{{date.day}}&lt;/span&gt;
             &lt;/ng-template&gt;
         &lt;/p-calendar&gt;
     &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3>Multiple Months&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date11" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date11" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="date12" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -752,6 +763,8 @@ export class CalendarDemo &#123;
     date10: Date;
 
     date11: Date;
+
+    date12: Date;
 
     dates: Date[];
 
