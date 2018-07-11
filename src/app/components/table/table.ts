@@ -1234,6 +1234,18 @@ export class Table implements OnInit, AfterContentInit {
 
             return value < filter;
         },
+        
+        lte(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value <= filter;
+        },
 
         gt(value, filter): boolean {
             if (filter === undefined || filter === null) {
@@ -1245,6 +1257,18 @@ export class Table implements OnInit, AfterContentInit {
             }
 
             return value > filter;
+        },
+        
+        gte(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value >= filter;
         }
     }
 
