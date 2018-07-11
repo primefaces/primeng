@@ -188,7 +188,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() styleClass: string;
     
     @Input() inputStyle: string;
-
+    
+    @Input() inputDateFormats: string[] = [];
+    
     @Input() inputId: string;
     
     @Input() name: string;
@@ -1386,12 +1388,36 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.populateTime(date, parts[0], parts[1]);
         }
         else {
-            if(this.showTime) {
-                date = this.parseDate(parts[0], this.dateFormat);
+            let tryOtherFormats = (t) => {
+                for (let i = 0; i < this.inputDateFormats.length; i++) {
+                    try {
+                        date = this.parseDate(t, this.inputDateFormats[i]);
+                        if (date && !isNaN(date.getTime()))
+                            return true;
+                    } catch (err) {
+                        continue;
+                    }
+                }
+                return false;
+            }
+            if (this.showTime) {
+                try {
+                    date = this.parseDate(parts[0], this.dateFormat);
+                } catch (err) {
+                    if (!tryOtherFormats(parts[0])) {
+                        throw err;
+                    }
+                }
                 this.populateTime(date, parts[1], parts[2]);
             }
             else {
-                 date = this.parseDate(text, this.dateFormat);
+                try {
+                    date = this.parseDate(text, this.dateFormat);
+                } catch (err) {
+                    if (!tryOtherFormats(text)) {
+                        throw err;
+                    }
+                }
             }
         }
         
