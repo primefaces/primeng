@@ -114,7 +114,8 @@ export class TieredMenuSub {
             <p-tieredMenuSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler],
+    host: { '(window:resize)': 'onResize($event)' }
 })
 export class TieredMenu implements AfterViewInit,OnDestroy {
 
@@ -135,6 +136,8 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     @Input() hideDelay: number = 250
     
     container: any;
+    
+    onResizeTarget: any;
     
     documentClickListener: any;
     
@@ -164,11 +167,18 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     
     show(event: Event) {
         this.preventDocumentDefault = true;
+        this.onResizeTarget = event.currentTarget;
         this.moveOnTop();
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, event.currentTarget);
         this.domHandler.fadeIn(this.container, 250);
         this.bindDocumentClickListener();
+    }
+    
+    onResize() {
+        if (this.onResizeTarget && this.container.offsetParent) {
+            this.domHandler.absolutePosition(this.container, this.onResizeTarget);
+        }
     }
     
     hide() {
