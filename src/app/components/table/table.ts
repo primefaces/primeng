@@ -2767,7 +2767,7 @@ export class CellEditor implements AfterContentInit {
     template: `
         <div class="ui-radiobutton ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
-                <input type="radio" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
+                <input type="radio" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled">
             </div>
             <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
@@ -2826,7 +2826,7 @@ export class TableRadioButton  {
     template: `
         <div class="ui-chkbox ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
-                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
+                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
@@ -2885,10 +2885,10 @@ export class TableCheckbox  {
     template: `
         <div class="ui-chkbox ui-widget" (click)="onClick($event, cb.checked)">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!dt.value || dt.value.length === 0">
+                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled': (!dt.value || dt.value.length === 0)}">
+                'ui-state-active':checked, 'ui-state-disabled': isDisabled()}">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
@@ -2898,9 +2898,9 @@ export class TableHeaderCheckbox  {
 
     @ViewChild('box') boxViewChild: ElementRef;
 
-    checked: boolean;
+    @Input() disabled: boolean;
 
-    disabled: boolean;
+    checked: boolean;
 
     selectionChangeSubscription: Subscription;
 
@@ -2934,6 +2934,10 @@ export class TableHeaderCheckbox  {
 
     onBlur() {
         this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    isDisabled() {
+        return this.disabled || !this.dt.value || !this.dt.value.length;
     }
 
     ngOnDestroy() {
