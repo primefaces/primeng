@@ -198,8 +198,10 @@ export class Table implements OnInit, AfterContentInit {
     @Input() customSort: boolean;
 
     @Input() autoLayout: boolean;
+
+    @Input() contextMenuSelectionMode: string = "separate";
     
-    @Input() exportFunction ;
+    @Input() exportFunction;
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -816,11 +818,38 @@ export class Table implements OnInit, AfterContentInit {
 
     handleRowRightClick(event) {
         if (this.contextMenu) {
-            this.contextMenuSelection = event.rowData;
-            this.contextMenuSelectionChange.emit(event.rowData);
-            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
-            this.contextMenu.show(event.originalEvent);
-            this.tableService.onContextMenu(event.rowData);
+            const rowData = event.rowData;
+
+            if (this.contextMenuSelectionMode === 'separate') {
+                this.contextMenuSelection = rowData;
+                this.contextMenuSelectionChange.emit(rowData);
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, data: rowData});
+                this.contextMenu.show(event.originalEvent);
+                this.tableService.onContextMenu(rowData);
+            }
+            else if (this.contextMenuSelectionMode === 'joint') {
+                this.preventSelectionSetterPropagation = true;
+                let selected = this.isSelected(rowData);
+                let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+                
+                if (!selected) {
+                    if (this.isSingleSelectionMode()) {
+                        this.selection = rowData;
+                        this.selectionChange.emit(rowData);
+                    }
+                    else if (this.isMultipleSelectionMode()) {
+                        this.selection = [rowData];
+                        this.selectionChange.emit(this.selection);
+                    }
+                    
+                    if (dataKeyValue) {
+                        this.selectionKeys[dataKeyValue] = 1;
+                    }
+                }
+    
+                this.contextMenu.show(event.originalEvent);
+                this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
+            }
         }
     }
 
