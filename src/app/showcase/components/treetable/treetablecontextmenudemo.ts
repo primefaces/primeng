@@ -29,8 +29,8 @@ export class TreeTableContextMenuDemo {
         ];
 
         this.items = [
-            { label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedNode) },
-            { label: 'Toggle', icon: 'fa-toggle-on', command: (event) => this.toggleFile(this.selectedNode) }
+            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedNode) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: (event) => this.toggleFile(this.selectedNode) }
         ];
     }
 

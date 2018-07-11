@@ -143,6 +143,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
 
+    @Input() contextMenuSelectionMode: string = "separate";
+
     @Input() dataKey: string;
 
     @Input() metaKeySelection: boolean;
@@ -198,8 +200,6 @@ export class Table implements OnInit, AfterContentInit {
     @Input() customSort: boolean;
 
     @Input() autoLayout: boolean;
-
-    @Input() contextMenuSelectionMode: string = "separate";
     
     @Input() exportFunction;
 
