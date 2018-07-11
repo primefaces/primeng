@@ -24,7 +24,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Min-Max</h3>
-            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" readonlyInput="true"></p-calendar> {{date4|date}}
+            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate"></p-calendar> {{date4|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -410,6 +410,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>null</td>
                             <td>When specified, prevents entering the date manually with keyboard.</td>
+                        </tr>
+                        <tr>
+                            <td>readonly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the calendar value cannot be changed.</td>
                         </tr>
                         <tr>
                             <td>shortYearCutoff</td>
