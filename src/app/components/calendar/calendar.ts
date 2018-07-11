@@ -1218,16 +1218,19 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             value = this.value[this.value.length - 1];
         }
         let valueDateString = value ? value.toDateString() : null;
-        
         if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if(this.minDate.getMinutes() > minute) {
-                valid = false;
+            if(value.getHours() == this.minDate.getHours()){
+                if(this.minDate.getMinutes() > minute) {
+                    valid = false;
+                }
             }
         }
         
         if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if(this.maxDate.getMinutes() < minute) {
-                valid = false;
+            if(value.getHours() == this.maxDate.getHours()){
+                if(this.maxDate.getMinutes() < minute) {
+                    valid = false;
+                }
             }
         }
         
