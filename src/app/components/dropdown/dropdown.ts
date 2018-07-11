@@ -483,7 +483,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     hide() {
         this.panelVisible = false;
-        
+        this.focusViewChild.nativeElement.focus();
+
         if(this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
@@ -596,11 +597,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             
             //enter
             case 13:
+                if (this.panelVisible) {
+                    event.preventDefault();
+                }
+
                 if (!this.filter || (this.optionsToDisplay && this.optionsToDisplay.length > 0)) {
                     this.hide();
                 }
-                
-                event.preventDefault();
             break;
             
             //escape and tab
