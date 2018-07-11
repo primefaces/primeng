@@ -20,8 +20,8 @@ export interface LocaleSettings {
     dayNamesMin: string[];
     monthNames: string[];
     monthNamesShort: string[];
-    today: string,
-    clear: string
+    today: string;
+    clear: string;
 }
 
 @Component({
