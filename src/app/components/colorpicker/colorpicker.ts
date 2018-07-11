@@ -227,7 +227,7 @@ export class ColorPicker implements ControlValueAccessor, AfterViewInit, AfterVi
     }
     
     updateColorSelector() {
-        let hsb: any = {};
+        const hsb: any = {};
 
         hsb.s = 100;
         hsb.b = 100;
