@@ -28,7 +28,8 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
             transition('hidden => visible', animate('400ms ease-out'))
         ])
     ],
-    providers: [DomHandler]
+    providers: [DomHandler],
+    host: { '(window:resize)': 'onResize($event)' }
 })
 export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
 
@@ -51,6 +52,8 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
     
     container: any;
+    
+    onResizeTarget: EventTarget;
 
     visible: boolean = false;
 
@@ -127,11 +130,18 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.show(event, target);
         }
     }
+    
+    onResize() {
+        if (this.onResizeTarget && this.container.offsetParent) {
+            this.domHandler.absolutePosition(this.container, this.onResizeTarget);
+        }
+    }
 
     show(event, target?) {
         this.onBeforeShow.emit(null);
         this.target = target||event.currentTarget||event.target;
         this.container.style.zIndex = ++DomHandler.zindex;
+        this.onResizeTarget = event.currentTarget;
 
         this.visible = true;
         this.willShow = true;
