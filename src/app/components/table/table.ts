@@ -2137,19 +2137,23 @@ export class SortIcon implements OnInit, OnDestroy {
     }
     
     get ariaText(): string {
+        let text: string;
+
         switch (this.sortOrder) {
             case 1:
-                return this.ariaLabelAsc;
+                text =  this.ariaLabelAsc;
             break;
             
             case -1:
-                return this.ariaLabelDesc;
+                text = this.ariaLabelDesc;
             break;
             
             default:
-                return this.ariaLabel;
+                text = this.ariaLabel;
             break;
         }
+
+        return text;
     }
     
     ngOnDestroy() {
