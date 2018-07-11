@@ -2069,7 +2069,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <a href="#" (click)="onClick($event)" [attr.aria-label]="ariaLabel">
+        <a href="#" (click)="onClick($event)" [attr.aria-label]="ariaText">
             <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-up': sortOrder === 1, 'pi-sort-down': sortOrder === -1, 'pi-sort': sortOrder === 0}"></i>
         </a>
     `
@@ -2078,7 +2078,7 @@ export class SortIcon implements OnInit, OnDestroy {
     
     @Input() field: string;
     
-    @Input() ariaLabelDefault: string;
+    @Input() ariaLabel: string;
     
     @Input() ariaLabelDesc: string;
     
@@ -2112,19 +2112,19 @@ export class SortIcon implements OnInit, OnDestroy {
         }
     }
     
-    get ariaLabel():string {
-        switch(this.sortOrder) {
+    get ariaText(): string {
+        switch (this.sortOrder) {
             case 1:
                 return this.ariaLabelAsc;
-                break;
+            break;
             
             case -1:
                 return this.ariaLabelDesc;
-                break;
+            break;
             
             default:
-                return this.ariaLabelDefault;
-                break;
+                return this.ariaLabel;
+            break;
         }
     }
     
