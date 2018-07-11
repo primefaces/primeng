@@ -2069,29 +2069,31 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <a href="#" (click)="onClick($event)" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
+        <a href="#" (click)="onClick($event)" [attr.aria-label]="ariaLabel">
             <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-up': sortOrder === 1, 'pi-sort-down': sortOrder === -1, 'pi-sort': sortOrder === 0}"></i>
         </a>
     `
 })
 export class SortIcon implements OnInit, OnDestroy {
-
+    
     @Input() field: string;
+    
+    @Input() ariaLabelDefault: string;
     
     @Input() ariaLabelDesc: string;
     
     @Input() ariaLabelAsc: string;
-
+    
     subscription: Subscription;
-
+    
     sortOrder: number;
-
+    
     constructor(public dt: Table) {
         this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
             this.updateSortState();
         });
     }
-
+    
     ngOnInit() {
         this.updateSortState();
     }
@@ -2099,7 +2101,7 @@ export class SortIcon implements OnInit, OnDestroy {
     onClick(event){
         event.preventDefault();
     }
-
+    
     updateSortState() {
         if (this.dt.sortMode === 'single') {
             this.sortOrder = this.dt.isSorted(this.field) ? this.dt.sortOrder : 0;
@@ -2109,7 +2111,23 @@ export class SortIcon implements OnInit, OnDestroy {
             this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
     }
-
+    
+    get ariaLabel():string {
+        switch(this.sortOrder) {
+            case 1:
+                return this.ariaLabelAsc;
+                break;
+            
+            case -1:
+                return this.ariaLabelDesc;
+                break;
+            
+            default:
+                return this.ariaLabelDefault;
+                break;
+        }
+    }
+    
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
