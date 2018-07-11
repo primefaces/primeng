@@ -159,7 +159,9 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() exportFilename: string = 'download';
 
-    @Input() filters: { [s: string]: FilterMetadata; } = {};
+    // here a column (represented by 's') can have multiple filters
+    // multiple with value - filterMatchMode pairs
+    @Input() filters: { [s: string]: FilterMetadata[]; } = {};
 
     @Input() globalFilterFields: string[];
 
@@ -1010,9 +1012,38 @@ export class Table implements OnInit, AfterContentInit {
         }
         
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode };
-        } else if (this.filters[field]) {
-            delete this.filters[field];
+            // if any filter applies to the column
+            if (this.filters[field] instanceof Array) {
+                // if the match mode already exists
+                if (this.filters[field].some(f => f.matchMode === matchMode)) {
+                    // then update the value
+                    this.filters[field].find(f => f.matchMode === matchMode).value = value
+                }
+                // if it does not exist
+                else {
+                    // then add the filter mode
+                    this.filters[field].push({ value: value, matchMode: matchMode });
+                }
+            }
+            // if no filter applies
+            else {
+                // then initalise the array
+                this.filters[field] = [{ value: value, matchMode: matchMode }];
+            }
+
+        }
+        // no value passed
+        // it means that the filter with the given match mode will be removed
+        else if (this.filters[field] instanceof Array) {
+            // find the index of the item to remove
+            let index = this.filters[field].findIndex(f => f.matchMode === matchMode);
+            // remove the item
+            this.filters[field].splice(index, 1);
+            // if the array has nothing
+            if (this.filters[field].length == 0) {
+                // then dispose it
+                delete this.filters[field];
+            }
         }
         
         this.filterTimeout = setTimeout(() => {
@@ -1070,31 +1101,38 @@ export class Table implements OnInit, AfterContentInit {
     
                     for (let prop in this.filters) {
                         if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
-                            localFiltered = true;
-                            let filterMeta = this.filters[prop];
-                            let filterField = prop;
-                            let filterValue = filterMeta.value;
-                            let filterMatchMode = filterMeta.matchMode || 'startsWith';
-                            let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
-                            let filterConstraint = this.filterConstraints[filterMatchMode];
-    
-                            if (!filterConstraint(dataFieldValue, filterValue)) {
-                                localMatch = false;
-                            }
-    
-                            if (!localMatch) {
-                                break;
+                            for (let index in this.filters[prop]) {
+                                localFiltered = true;
+                                // filter meta by index
+                                let filterMeta = this.filters[prop][index];
+                                let filterField = prop;
+                                let filterValue = filterMeta.value;
+                                let filterMatchMode = filterMeta.matchMode || 'startsWith';
+                                let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
+                                let filterConstraint = this.filterConstraints[filterMatchMode];
+
+                                if (!filterConstraint(dataFieldValue, filterValue)) {
+                                    localMatch = false;
+                                }
+
+                                if (!localMatch) {
+                                    break;
+                                }    
                             }
                         }
                     }
     
-                    if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
-                        for(let j = 0; j < globalFilterFieldsArray.length; j++) {
-                            let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
-                            
-                            if(globalMatch) {
-                                break;
+                    if (this.filters['global'] instanceof Array && !globalMatch && globalFilterFieldsArray) {
+                        if (this.filters['global'].length > 0) {
+                            // as global filter always has a member in filter meta array
+                            let filterMeta = this.filters['global'][0];
+                            for(let j = 0; j < globalFilterFieldsArray.length; j++) {
+                                let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
+                                globalMatch = this.filterConstraints[filterMeta.matchMode](this.objectUtils.resolveFieldData(this.value[i], globalFilterField), filterMeta.value);
+
+                                if(globalMatch) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -1255,7 +1293,7 @@ export class Table implements OnInit, AfterContentInit {
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
+            globalFilter: this.filters && this.filters['global'] instanceof Array ? this.filters['global'].length > 0 ? this.filters['global'][0].value : null : null,
             multiSortMeta: this.multiSortMeta
         };
     }
