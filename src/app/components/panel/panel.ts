@@ -1,8 +1,8 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild} from '@angular/core';
+import {NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Footer} from '../common/shared';
+import {SharedModule, Footer} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 
 let idx: number = 0;
 
@@ -10,21 +10,24 @@ let idx: number = 0;
     selector: 'p-panel',
     template: `
         <div [attr.id]="id" [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="showHeader">
+            <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="showHeader"
+                 (click)="toggleable && togglerOnHeader && toggle($event)">
                 <span class="ui-panel-title" *ngIf="header">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
-                <a *ngIf="toggleable" [attr.id]="id + '-label'" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
-                    (click)="toggle($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
+                <a *ngIf="toggleable" [attr.id]="id + '-label'"
+                   class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
+                   (click)="!togglerOnHeader && toggle($event)" [attr.aria-controls]="id + '-content'" role="tab"
+                   [attr.aria-expanded]="!collapsed">
                     <span [class]="collapsed ? expandIcon : collapseIcon"></span>
-                </a>
             </div>
-            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
-                [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}"
-                role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-label'">
+            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'"
+                 (@panelContent.start)="onToggleStart($event)" (@panelContent.done)="onToggleDone($event)"
+                 [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}"
+                 role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-label'">
                 <div class="ui-panel-content ui-widget-content">
                     <ng-content></ng-content>
                 </div>
-                
+
                 <div class="ui-panel-footer ui-widget-content" *ngIf="footerFacet">
                     <ng-content select="p-footer"></ng-content>
                 </div>
@@ -52,63 +55,56 @@ export class Panel implements BlockableUI {
     @Input() header: string;
 
     @Input() collapsed: boolean = false;
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() expandIcon: string = 'pi pi-plus';
     
     @Input() collapseIcon: string = 'pi pi-minus';
-  
+
     @Input() showHeader: boolean = true;
-    
+
+    @Input() togglerOnHeader: boolean = false;
+
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Footer) footerFacet;
-    
+
     animating: boolean;
-    
+
     id: string = `ui-panel-${idx++}`;
-    
-    constructor(private el: ElementRef) {}
-    
+
+    constructor(private el: ElementRef) {
+    }
+
     toggle(event) {
-        if(this.animating) {
+        if (this.animating) {
             return false;
         }
-        
-        this.animating = true;
-        this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
-        
-        if(this.toggleable) {
-            if(this.collapsed)
-                this.expand(event);
-            else
-                this.collapse(event);
+
+        if (this.toggleable) {
+            this.collapsed = !this.collapsed;
+            this.collapsedChange.emit({originalEvent: event, collapsed: this.collapsed});
         }
-        
+
         event.preventDefault();
     }
-    
-    expand(event) {
-        this.collapsed = false;
-        this.collapsedChange.emit(this.collapsed);
-    }
-    
-    collapse(event) {
-        this.collapsed = true;
-        this.collapsedChange.emit(this.collapsed);
-    }
-    
-    getBlockableElement(): HTMLElement {
+
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-    
+
+    onToggleStart(event: Event) {
+        this.animating = true;
+        this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
+    }
+
     onToggleDone(event: Event) {
         this.animating = false;
         this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});
@@ -118,7 +114,8 @@ export class Panel implements BlockableUI {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Panel,SharedModule],
+    exports: [Panel, SharedModule],
     declarations: [Panel]
 })
-export class PanelModule { }
+export class PanelModule {
+}

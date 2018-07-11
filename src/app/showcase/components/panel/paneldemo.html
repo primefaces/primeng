@@ -8,7 +8,7 @@
 <div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
 
-    <p-panel header="Godfather I" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
+    <p-panel header="Godfather I" [toggleable]="true" [style]="{'margin-bottom':'20px'}" [togglerOnHeader]="true">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
@@ -139,6 +139,12 @@ import &#123;PanelModule&#125; from 'primeng/panel';
                           <td>true</td>
                           <td>Specifies if header of panel cannot be displayed.</td>
                         </tr>
+                        <tr>
+                          <td>togglerOnHeader</td>
+                          <td>boolean</td>
+                          <td>false</td>
+                          <td>Specifies if header of panel can trigger the toggle action.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -165,6 +171,12 @@ import &#123;PanelModule&#125; from 'primeng/panel';
                             <td>event.originalEvent: browser event<br>
                                 event.collapsed: state as a boolean</td>
                             <td>Callback to invoke after content toggle.</td>
+                        </tr>
+                        <tr>
+                            <td>collapsedChange</td>
+                            <td>event.originalEvent: browser event<br>
+                                event.collapsed: state as a boolean</td>
+                            <td>Callback to invoke on content toggle.</td>
                         </tr>
                     </tbody>
                 </table>
