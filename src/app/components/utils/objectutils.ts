@@ -62,15 +62,18 @@ export class ObjectUtils {
         return false;
     }
 
-    resolveFieldData(data: any, field: string): any {
+    public resolveFieldData(data: any, field: any): any {
         if(data && field) {
-            if(field.indexOf('.') == -1) {
+            if (this.isFunction(field)) {
+                return field(data);
+            }
+            else if(field.indexOf('.') == -1) {
                 return data[field];
             }
             else {
                 let fields: string[] = field.split('.');
                 let value = data;
-                for(var i = 0, len = fields.length; i < len; ++i) {
+                for(let i = 0, len = fields.length; i < len; ++i) {
                     if (value == null) {
                         return null;
                     }
@@ -84,7 +87,9 @@ export class ObjectUtils {
         }
     }
 
-    filter(value: any[], fields: any[], filterValue: string) {
+    private isFunction = (obj: any) => !!(obj && obj.constructor && obj.call && obj.apply);
+
+    public filter(value: any[], fields: any[], filterValue: string) {
         let filteredItems: any[] = [];
 
         if(value) {
@@ -101,7 +106,7 @@ export class ObjectUtils {
         return filteredItems;
     }
 
-    reorderArray(value: any[], from: number, to: number) {
+    public reorderArray(value: any[], from: number, to: number) {
         let target: number;
         if(value && (from !== to)) {
             if(to >= value.length) {
@@ -114,7 +119,7 @@ export class ObjectUtils {
         }
     }
 
-    generateSelectItems(val: any[], field: string): SelectItem[] {
+    public generateSelectItems(val: any[], field: string): SelectItem[] {
         let selectItems: SelectItem[];
         if(val && val.length) {
             selectItems = [];
@@ -126,7 +131,7 @@ export class ObjectUtils {
         return selectItems;
     }
 
-    insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
+    public insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
         if(arr.length > 0) {
             let injected = false;
             for(let i = 0; i < arr.length; i++) {
@@ -147,7 +152,7 @@ export class ObjectUtils {
         }
     }
 
-    findIndexInList(item: any, list: any): number {
+    public findIndexInList(item: any, list: any): number {
         let index: number = -1;
 
         if(list) {
