@@ -41,7 +41,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
               [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
               (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
-            <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
+            <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
               <div class="ui-helper-hidden-accessible">
                 <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
               </div>
@@ -111,8 +111,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public onModelTouched: Function = () => { };
 
-    public checkboxClick: boolean;
-
     public optionTouched: boolean;
 
     public focus: boolean;
@@ -166,14 +164,14 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             return;
         }
 
-        if (!this.checkboxClick) {
-            if (this.multiple)
-                this.onOptionClickMultiple(event, option);
+        if (this.multiple) {
+            if (this.checkbox)
+                this.onOptionClickCheckbox(event, option);
             else
-                this.onOptionClickSingle(event, option);
+                this.onOptionClickMultiple(event, option);
         }
         else {
-            this.checkboxClick = false;
+            this.onOptionClickSingle(event, option);
         }
 
         this.optionTouched = false;
@@ -261,6 +259,28 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 value: this.value
             });
         }
+    }
+
+    onOptionClickCheckbox(event, option) {
+        if (this.disabled || this.readonly) {
+            return;
+        }
+
+        let selected = this.isSelected(option);
+
+        if (selected) {
+            this.removeOption(option);
+        }
+        else {
+            this.value = this.value ? this.value : [];
+            this.value = [...this.value, option.value];
+        }
+
+        this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
     }
 
     removeOption(option: any): void {
@@ -373,29 +393,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             originalEvent: event,
             value: this.value
         })
-    }
-
-    onCheckboxClick(event: Event, option: SelectItem) {
-        if (this.disabled || this.readonly) {
-            return;
-        }
-
-        this.checkboxClick = true;
-        let selected = this.isSelected(option);
-
-        if (selected) {
-            this.removeOption(option);
-        }
-        else {
-            this.value = this.value ? this.value : [];
-            this.value = [...this.value, option.value];
-        }
-
-        this.onModelChange(this.value);
-        this.onChange.emit({
-            originalEvent: event,
-            value: this.value
-        });
     }
 
     onInputFocus(event) {
