@@ -158,6 +158,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() emptyFilterMessage: string = 'No results found';
     
+    @Input() filterPredicate: Function = null;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -682,12 +684,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     activateFilter() {
         let searchFields: string[] = this.filterBy.split(',');
-        if(this.options && this.options.length) {
-            if(this.group) {
+        if (this.options && this.options.length) {
+            if (this.group) {
                 let filteredGroups = [];
-                for(let optgroup of this.options) {
-                    let filteredSubOptions = this.objectUtils.filter(optgroup.items, searchFields, this.filterValue);
-                    if(filteredSubOptions && filteredSubOptions.length) {
+                for (let optgroup of this.options) {
+                    let filteredSubOptions = this.objectUtils.filter(optgroup.items, searchFields, this.filterValue, this.filterPredicate);
+                    if (filteredSubOptions && filteredSubOptions.length) {
                         filteredGroups.push({
                             label: optgroup.label,
                             value: optgroup.value,
@@ -699,7 +701,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.optionsToDisplay = filteredGroups;
             }
             else {
-                this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue);
+                this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue, this.filterPredicate);
             }
 
             this.optionsChanged = true;
