@@ -661,7 +661,7 @@
     }
 
     &.ui-table-hoverable-rows {
-        .ui-table-tbody > tr:not(.ui-state-highlight):hover {
+        .ui-table-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
             cursor: pointer;
             background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
