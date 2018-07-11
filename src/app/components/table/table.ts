@@ -570,7 +570,8 @@ export class Table implements OnInit, AfterContentInit {
                     });
                 }
                 else {
-                    this.value.sort((data1, data2) => {
+                    if( this.sortField ){
+                       this.value.sort((data1, data2) => {
                         let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
                         let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
                         let result = null;
@@ -587,7 +588,8 @@ export class Table implements OnInit, AfterContentInit {
                             result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
         
                         return (this.sortOrder * result);
-                    });
+                       });
+                    }
                 }
                 
                 if(this.hasFilter()) {
