@@ -96,9 +96,14 @@ export class MyModel &#123;
             <h3>Templating</h3>
             <p>Label of a selectitem is displayed by default next to the checkbox in the overlay panel and it is possible to customize
             the content using templating. The ngTemplate receives the selectitem as the implicit variable along with the index of the option.</p>
+
+            <p>In addition selectedItems template can be used to customize the selected values display instead of the default comma separated list.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="&#123;minWidth:'12em'}"&gt;
+    &lt;ng-template let-selectedCars pTemplate="selectedItems"&gt;
+        &lt;span *ngFor="let selectedCar of selectedCars"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/span&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
         {{i}}
         &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;display:inline-block;vertical-align:middle"/&gt;

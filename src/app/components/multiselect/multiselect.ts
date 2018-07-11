@@ -23,8 +23,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">
-                    <ng-container *ngIf="!selectedItemTemplate">{{valuesAsString}}</ng-container>
-                    <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: value, index: i}"></ng-container>
+                    <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString}}</ng-container>
+                    <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
                 </label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
@@ -178,7 +178,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     public itemTemplate: TemplateRef<any>;
             
-    public selectedItemTemplate: TemplateRef<any>;
+    public selectedItemsTemplate: TemplateRef<any>;
     
     public focusedItemCheckbox: HTMLInputElement | null;
     
@@ -208,8 +208,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                case 'selectedItem':
-                    this.selectedItemTemplate = item.template;
+                
+                case 'selectedItems':
+                    this.selectedItemsTemplate = item.template;
                 break;
                 
                 default:
