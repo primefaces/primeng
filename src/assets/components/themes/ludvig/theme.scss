@@ -55,3 +55,22 @@ $invalidInputBorderColor: #ec4e4e;
 $inputGroupTextColor: #333333;
 
 @import '../_theme';
+
+
+.ui-button:focus,
+.ui-button:enabled:not(.ui-dataview-layout-option .ui-button):hover,
+.ui-fileupload-choose:not(.ui-state-disabled):hover {
+    outline: 0 none;
+    @include hover-element();
+}
+
+.ui-togglebutton.ui-button.ui-state-focus,
+.ui-selectbutton .ui-button.ui-state-focus.ui-state-active,
+.ui-selectbutton .ui-button.ui-state-active:focus  {
+    -moz-box-shadow: 0px 0px 5px $stateActiveBgColor;;
+    -webkit-box-shadow: 0px 0px 5px $stateActiveBgColor;;
+    box-shadow: 0px 0px 5px $stateActiveBgColor;;
+    border-color: $stateActiveBorderColor;
+    background-color: $stateActiveBgColor;
+    color: $stateActiveTextColor;
+}
