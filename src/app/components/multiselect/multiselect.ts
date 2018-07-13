@@ -38,7 +38,6 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isAllChecked()}"></span>
                         </div>
                     </div>
-                    <ng-content select="p-header"></ng-content>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
                         <input #filterInput type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
                         <span class="ui-multiselect-filter-icon pi pi-search"></span>
