@@ -52,7 +52,7 @@ export interface LocaleSettings {
                             <div class="ui-datepicker-title">
                                 <span class="ui-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
                                 <select class="ui-datepicker-month" *ngIf="monthNavigator && (view !== 'month')" (change)="onMonthDropdownChange($event.target.value)">
-                                    <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth + i">{{month}}</option>
+                                    <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
                                 </select>
                                 <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)">
                                     <option [value]="year" *ngFor="let year of yearOptions" [selected]="year == currentYear">{{year}}</option>
@@ -86,7 +86,7 @@ export interface LocaleSettings {
                         </div>
                         <div class="ui-datepicker-monthpicker-container" *ngIf="view === 'month'">
                             <a href="#" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-datepicker-month-cell" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
-                                {{m}}                                
+                                {{m}}
                             </a>
                         </div>
                     </div>
@@ -261,7 +261,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
     @Input() hideOnDateTimeSelect: boolean = false;
 
-    @Input() numberOfMonths: number = 1;  
+    @Input() numberOfMonths: number = 1;
     
     @Input() view: string = 'date';
 
@@ -323,7 +323,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     monthPickerValues: any[];
     
     weekDays: string[];
-        
+    
     currentMonth: number;
     
     currentYear: number;
@@ -544,7 +544,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.months.push(this.createMonth(m, y));
         }
     }
-        
+    
     createMonth(month: number, year: number) {
         let dates = [];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
@@ -669,7 +669,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
     decrementYear() {
         this.currentYear--;
-            
+        
         if(this.yearNavigator && this.currentYear < this.yearOptions[0]) {
             this.currentYear = this.yearOptions[this.yearOptions.length - 1];
         }
@@ -677,7 +677,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
     incrementYear() {
         this.currentYear++;
-                
+        
         if(this.yearNavigator && this.currentYear > this.yearOptions[this.yearOptions.length - 1]) {
             this.currentYear = this.yearOptions[0];
         }
@@ -941,7 +941,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         else {
             return false;
-        }            
+        }
     }
 
     isMonthSelected(month: number): boolean {
@@ -952,7 +952,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             return false;
         }
     }
-     
+    
     isDateEquals(value, dateMeta) {
         if(value)
             return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
