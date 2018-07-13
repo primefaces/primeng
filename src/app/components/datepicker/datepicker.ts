@@ -1,0 +1,1839 @@
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {CommonModule, DOCUMENT} from '@angular/common';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    ModuleWithProviders,
+    NgModule,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    Pipe,
+    PipeTransform,
+    Provider,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+import {DateTime, Zone} from 'luxon';
+import {fromEvent, Subscription} from 'rxjs';
+
+import {ButtonModule} from '../button/button';
+import {PrimeTemplate, SharedModule} from '../common/shared';
+
+import {DomHandler} from '../dom/domhandler';
+import {InputMask, InputMaskModule} from '../inputmask/inputmask';
+
+
+type DatePickerValue = Date | DateTime | number;
+
+interface DayEntry {
+    year: number;
+    month: number;
+    day: number;
+    today: boolean;
+    selectable: boolean;
+    otherMonth: boolean;
+}
+
+interface GenericEntry {
+    value: number;
+    label?: string | number;
+    selectable: boolean;
+}
+
+export interface DatePickerLocaleData {
+    dayNames: [string, string, string, string, string, string, string];
+    dayNamesShort: [string, string, string, string, string, string, string];
+    dayNamesMin: [string, string, string, string, string, string, string];
+    monthNames: [string, string, string, string, string, string, string, string, string, string, string, string];
+    monthNamesShort: [string, string, string, string, string, string, string, string, string, string, string, string];
+    clear: string;
+    today: string;
+    pm: string;
+    am: string;
+    year: string;
+    month: string;
+    hour: string;
+    minute: string;
+    second: string;
+}
+
+export const DATEPICKER_VALUE_ACCESSOR: Provider = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DatePicker),
+    multi: true
+};
+
+@Pipe({name: 'pPad'})
+export class DatePickerPadPipe implements PipeTransform {
+    public transform(value: string | number, lenght: number, padChar: string = '0'): string {
+        return String(value).padStart(lenght, padChar[0]);
+    }
+}
+
+@Component({
+    selector: 'p-datepicker',
+    template: `
+        <span class="ui-date-picker {{styleClass}}" [class.ui-date-picker-w-btn]="showIcon" [ngStyle]="style">
+            <ng-container *ngIf="!inline">
+                <p-inputMask *ngIf="!readonlyInput; else readonlyInputTemplate" [(ngModel)]="maskBinding"
+                             [inputId]="inputId" [required]="required"
+                             [mask]="maskFormat" [placeholder]="maskPlaceholder"
+                             (onFocus)="onMaskFocus($event)" (onBlur)="onMaskBlur($event)"
+                             (onClick)="onMaskClick()" (onComplete)="onMaskComplete()">
+                    <!-- TODO: Configure mask -->
+                </p-inputMask>
+                <ng-template #readonlyInputTemplate>
+                    <input #inputField type="text" autocomplete="off" [ngStyle]="inputStyle"
+                           class="ui-inputtext ui-widget ui-state-default ui-corner-all {{inputStyleClass}}"
+                           [attr.id]="inputId" (click)="onInputClick()"
+                           [value]="maskBinding" [placeholder]="placeholder || ''"
+                           [readonly]="readonlyInput" [disabled]="disabled">
+                </ng-template>
+                
+                <button *ngIf="showIcon" type="button" pButton
+                        class="ui-date-picker-trigger ui-date-picker-button"
+                        [class.ui-state-disabled]="disabled"
+                        [icon]="icon" (click)="onButtonClick()"
+                        [disabled]="disabled" tabindex="-1"></button>
+            </ng-container>
+            <div #datePicker
+                 class="ui-date-picker-panel ui-widget ui-widget-content ui-helper-clearfix ui-corner-all {{panelStyleClass}}}"
+                 [class.ui-date-picker-panel-inline]="inline"
+                 [class.ui-shadow]="!inline"
+                 [class.ui-state-disabled]="disabled"
+                 [class.ui-date-picker-panel-timeonly]="timeOnly"
+                 [style.display]="inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')"
+                 [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')"
+                 (click)="onDatePickerClick()">
+                
+                <ng-content select="p-header"></ng-content>
+                <!-- Headings -->
+                <div *ngIf="!timeOnly && (overlayVisible || inline)" [ngSwitch]="currentPicking"
+                     class="ui-date-picker-panel-header ui-widget-header ui-helper-clearfix ui-corner-all">
+                    <ng-container *ngSwitchCase="'year'">
+                        <a class="ui-date-picker-panel-prev ui-corner-all ui-date-picker-interactable"
+                           (click)="onYear(-18)">
+                            <span class="pi pi-chevron-left"></span>
+                        </a>
+                        <a class="ui-date-picker-panel-next ui-corner-all ui-date-picker-interactable"
+                           (click)="onYear(18)">
+                            <span class="pi pi-chevron-right"></span>
+                        </a>
+                        <div class="ui-date-picker-panel-title">
+                            <span class="ui-date-picker-panel-year">
+                                {{tableViewYear[0][0].label || tableViewYear[0][0].value}} - {{(tableViewYear[0][0].value || tableViewYear[0][0].value) + 17}}
+                            </span>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'month'">
+                        <a class="ui-date-picker-panel-prev ui-corner-all ui-date-picker-interactable"
+                           (click)="onYear(-1)">
+                            <span class="pi pi-chevron-left"></span>
+                        </a>
+                        <a class="ui-date-picker-panel-next ui-corner-all ui-date-picker-interactable"
+                           (click)="onYear(1)">
+                            <span class="pi pi-chevron-right"></span>
+                        </a>
+                        <div class="ui-date-picker-panel-title">
+                            <span class="ui-date-picker-panel-year"
+                                  [class.ui-date-picker-interactable]="yearNavigator"
+                                  (click)="onYearNavigatorClick()">
+                                {{currentYearLabel()}}
+                            </span>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <a class="ui-date-picker-panel-prev ui-corner-all ui-date-picker-interactable"
+                           (click)="onMonth(-1)">
+                            <span class="pi pi-chevron-left"></span>
+                        </a>
+                        <a class="ui-date-picker-panel-next ui-corner-all ui-date-picker-interactable"
+                           (click)="onMonth(1)">
+                            <span class="pi pi-chevron-right"></span>
+                        </a>
+                        
+                        <div class="ui-date-picker-panel-title">
+                            <span class="ui-date-picker-panel-month"
+                                  [class.ui-date-picker-interactable]="monthNavigator"
+                                  (click)="onMonthNavigatorClick()">
+                                {{currentMonthLabel()}}
+                            </span>
+                            <span class="ui-date-picker-panel-year"
+                                  [class.ui-date-picker-interactable]="yearNavigator"
+                                  (click)="onYearNavigatorClick()">
+                                {{currentYearLabel()}}
+                            </span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <!-- Contents -->
+                <ng-container *ngIf="overlayVisible || inline" [ngSwitch]="currentPicking">
+                    <ng-container *ngSwitchCase="'year'">
+                        <table class="ui-date-picker-panel-calendar ui-date-picker-panel-calendar-year">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="3">
+                                     <span>{{locale.year}}</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let yearRow of tableViewYear">
+                                <td *ngFor="let year of yearRow"
+                                    [class.ui-date-picker-panel-current-year]="isYearSelected(year)">
+                                    
+                                    <a class="ui-state-default"
+                                       [class.ui-state-active]="isYearSelected(year)"
+                                       [class.ui-state-disabled]="!year.selectable"
+                                       (click)="onYearSelect(year)">
+                                        <ng-container *ngIf="!templateYear">{{year.label || year.value}}</ng-container>
+                                        <ng-container *ngTemplateOutlet="templateYear; context: {$implicit: year}">
+                                        </ng-container>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'month'">
+                        <table class="ui-date-picker-panel-calendar ui-date-picker-panel-calendar-month">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="2">
+                                     <span>{{locale.month}}</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let monthRow of tableViewMonth">
+                                <td *ngFor="let month of monthRow"
+                                    [class.ui-date-picker-panel-current-month]="isMonthSelected(month)">
+                                    
+                                    <a class="ui-state-default"
+                                       [class.ui-state-active]="isMonthSelected(month)"
+                                       [class.ui-state-disabled]="!month.selectable"
+                                       (click)="onMonthSelect(month)">
+                                        <ng-container *ngIf="!templateMonth">
+                                            {{locale.monthNames[month.value - 1]}}
+                                        </ng-container>
+                                        <ng-container *ngTemplateOutlet="templateMonth; context: {$implicit: month}">
+                                        </ng-container>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'day'">
+                        <table class="ui-date-picker-panel-calendar ui-date-picker-panel-calendar-day">
+                            <thead>
+                            <tr>
+                                <th scope="col" *ngFor="let weekDay of weekDays">
+                                    <span>{{weekDay}}</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let week of tableViewDay">
+                                <td *ngFor="let date of week"
+                                    [class.ui-date-picker-panel-other-month]="date.otherMonth"
+                                    [class.ui-state-disabled]="date.otherMonth"
+                                    [class.ui-date-picker-panel-current-day]="isDaySelected(date)"
+                                    [class.ui-date-picker-panel-today]="date.today">
+                                    
+                                    <a class="ui-state-default" *ngIf="!date.otherMonth || showOtherMonths"
+                                       [class.ui-state-active]="isDaySelected(date)"
+                                       [class.ui-state-highlight]="date.today"
+                                       [class.ui-state-disabled]="!date.selectable"
+                                       (click)="onDateSelect(date)" draggable="false">
+                                        <ng-container *ngIf="!templateDate">{{date.day}}</ng-container>
+                                        <ng-container *ngTemplateOutlet="templateDate; context: {$implicit: date}">
+                                        </ng-container>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'hour'"> 
+                        <table class="ui-date-picker-panel-calendar ui-date-picker-panel-calendar-hour">
+                            <thead>
+                            <tr>
+                                <th scope="col" [attr.colspan]="hourFormat === '12' ? 2 : 4">
+                                    <span>{{locale.hour}}</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let hourRow of tableViewHour">
+                                <td *ngFor="let hour of hourRow"
+                                    [class.ui-state-disabled]="!hour.selectable"
+                                    [class.ui-date-picker-panel-current-hour]="isHourSelected(hour)">
+                                    
+                                    <a class="ui-state-default"
+                                       [class.ui-state-active]="isHourSelected(hour)"
+                                       (click)="onHourSelect(hour)" draggable="false">
+                                        <ng-container
+                                            *ngIf="!templateHour">{{(hour.label || hour.value) | pPad:2}}</ng-container>
+                                        <ng-container *ngTemplateOutlet="templateHour; context: {$implicit: hour}">
+                                        </ng-container>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'minute'">
+                         <table class="ui-date-picker-panel-calendar ui-date-picker-panel-calendar-minute">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="10">
+                                    <span>{{locale.minute}}</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let minuteRow of tableViewMinute">
+                                <td *ngFor="let minute of minuteRow"
+                                    [class.ui-state-disabled]="!minute.selectable"
+                                    [class.ui-date-picker-panel-current-hour]="isMinuteSelected(minute)">
+                                    
+                                    <a class="ui-state-default"
+                                       [class.ui-state-active]="isMinuteSelected(minute)"
+                                       (click)="onMinuteSelect(minute)" draggable="false">
+                                        <ng-container *ngIf="!templateMinute">{{(minute.label || minute.value) | pPad:2}}</ng-container>
+                                        <ng-container *ngTemplateOutlet="templateMinute; context: {$implicit: minute}">
+                                        </ng-container>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'second'">
+                        <table class="ui-date-picker-panel-calendar ui-date-picker-panel-calendar-minute">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="10">
+                                    <span>{{locale.second}}</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let secondRow of tableViewSecond">
+                                <td *ngFor="let second of secondRow"
+                                    [class.ui-state-disabled]="!second.selectable"
+                                    [class.ui-date-picker-panel-current-hour]="isSecondSelected(second)">
+                                    
+                                    <a class="ui-state-default"
+                                       [class.ui-state-active]="isSecondSelected(second)"
+                                       (click)="onSecondSelect(second)" draggable="false">
+                                        <ng-container *ngIf="!templateSecond">{{(second.label || second.value) | pPad:2}}</ng-container>
+                                        <ng-container *ngTemplateOutlet="templateSecond; context: {$implicit: second}">
+                                        </ng-container>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                </ng-container>
+                
+                <ng-container *ngIf="showTime || timeOnly">
+                    <div class="ui-time-picker ui-widget-header ui-corner-all">
+                        <div class="ui-hour-picker ui-date-picker-interactable"
+                             (click)="onHourNavigatorClick('from')">
+                            <span>{{(currentHourLabel('from') || 0) | pPad:2}}</span>
+                        </div>
+                        <div class="ui-separator">
+                            <span>:</span>
+                        </div>
+                        <div class="ui-minute-picker ui-date-picker-interactable"
+                             (click)="onMinuteNavigatorClick('from')">
+                            <span>{{(selectedFromMinute || 0) | pPad:2}}</span>
+                        </div>
+                        <ng-container *ngIf="showSeconds">
+                            <div class="ui-separator">
+                                <span>:</span>
+                            </div>
+                            <div class="ui-second-picker ui-date-picker-interactable"
+                                 (click)="onSecondNavigatorClick('from')">
+                                <span>{{(selectedFromSecond || 0) | pPad:2}}</span>
+                            </div>
+                        </ng-container>
+                        <div class="ui-ampm-picker ui-date-picker-interactable" *ngIf="hourFormat === '12'"
+                             (click)="toggleAMPM('from')">
+                            <span>{{pmFrom ? labelPM() : labelAM()}}</span>
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="isRangeSelection()" class="ui-time-picker ui-widget-header ui-corner-all">
+                        <div class="ui-hour-picker ui-date-picker-interactable"
+                             (click)="onHourNavigatorClick('to')">
+                            <span>{{(currentHourLabel('to') || 0) | pPad:2}}</span>
+                        </div>
+                        <div class="ui-separator">
+                            <span>:</span>
+                        </div>
+                        <div class="ui-minute-picker ui-date-picker-interactable"
+                             (click)="onMinuteNavigatorClick('to')">
+                            <span>{{(selectedToMinute || 0) | pPad:2}}</span>
+                        </div>
+                        <ng-container *ngIf="showSeconds">
+                            <div class="ui-separator">
+                                <span>:</span>
+                            </div>
+                            <div class="ui-second-picker ui-date-picker-interactable"
+                                 (click)="onSecondNavigatorClick('to')">
+                                <span>{{(selectedToSecond || 0) | pPad:2}}</span>
+                            </div>
+                        </ng-container>
+                        <div class="ui-ampm-picker ui-date-picker-interactable" *ngIf="hourFormat === '12'"
+                             (click)="toggleAMPM('to')">
+                            <span>{{pmTo ? labelPM() : labelAM()}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                
+                <div class="ui-date-picker-panel-buttonbar ui-widget-header" *ngIf="showButtonBar">
+                    <div class="ui-g">
+                        <div class="ui-g-6">
+                            <button type="button" [label]="locale.today" (click)="onTodayButtonClick($event)" pButton
+                                    [ngClass]="[todayButtonStyleClass]"></button>
+                        </div>
+                        <div class="ui-g-6">
+                            <button type="button" [label]="locale.clear" (click)="onClearButtonClick($event)" pButton
+                                    [ngClass]="[clearButtonStyleClass]"></button>
+                        </div>
+                    </div>
+                </div>
+                <ng-content select="p-footer"></ng-content>
+            </div>
+        </span>
+    `,
+    animations: [
+        trigger('overlayState', [
+            state('hidden', style({
+                opacity: 0
+            })),
+            state('visible', style({
+                opacity: 1
+            })),
+            transition('visible => hidden', animate('400ms ease-in')),
+            transition('hidden => visible', animate('400ms ease-out'))
+        ])
+    ],
+    host: {
+        '[class.ui-inputwrapper-filled]': 'controlFilled',
+        '[class.ui-inputwrapper-focus]': 'controlFocused'
+    },
+    providers: [
+        DomHandler,
+        DATEPICKER_VALUE_ACCESSOR
+    ]
+})
+export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+    // region Defaults
+    public static defaultFirstDayOfWeek: number = 0;
+    public static defaultLocale: DatePickerLocaleData = {
+        dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        dayNamesMin: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        today: 'Today',
+        clear: 'Clear',
+        pm: 'PM',
+        am: 'AM',
+        year: 'year',
+        month: 'month',
+        hour: 'Hour',
+        minute: 'Minute',
+        second: 'Second'
+    };
+    // endregion
+
+    // region Template Children
+    @ViewChild(InputMask) public inputMaskVC: InputMask;
+    @ViewChild('inputField') public inputFieldVC: ElementRef;
+    @ViewChild('datePicker') public datePickerVC: ElementRef;
+    @ContentChildren(PrimeTemplate) public templates: QueryList<PrimeTemplate>;
+    // endregion
+
+    // region Inputs
+    @Input() public firstDayOfWeek: number = DatePicker.defaultFirstDayOfWeek;
+    @Input() public locale: DatePickerLocaleData = DatePicker.defaultLocale;
+
+    @Input() public name: string;
+    @Input() public inputId: string;
+    @Input() public tabindex: number;
+    @Input() public placeholder: string;
+
+    @Input() public style: string;
+    @Input() public styleClass: string;
+    @Input() public inputStyle: string;
+    @Input() public inputStyleClass: string;
+
+    @Input() public disabled: boolean = false;
+    @Input() public readonlyInput: boolean;
+
+    @Input() public icon: string = 'pi pi-calendar';
+    @Input() public showIcon: boolean = false;
+    @Input() public inline: boolean = false;
+    @Input() public showTime: boolean = false;
+    @Input() public timeOnly: boolean;
+    @Input() public hourFormat: '24' | '12' = '24';
+    @Input() public showOtherMonths: boolean = true;
+    @Input() public showSeconds: boolean = false;
+
+    @Input() public appendTo: any;
+    @Input() public zone: 'utc' | 'local' | string | Zone = 'utc';
+    @Input() public dataType: 'date' | 'luxon' | 'timestamp' = 'date';
+    @Input() public selectionMode: 'single' | 'multiple' | 'range' = 'single';
+
+    @Input() public dateFormat: string = 'dd/MM/yyyy';
+    @Input() public minDate: DatePickerValue;
+    @Input() public maxDate: DatePickerValue;
+    @Input() public defaultDate: DatePickerValue;
+
+    @Input() public disabledDates: DatePickerValue[];
+    @Input() public disabledDays: number[];
+
+    @Input() public monthNavigator: boolean = true;
+    @Input() public yearNavigator: boolean = true;
+
+    @Input() public required: boolean;
+    @Input() public showOnFocus: boolean = true;
+    @Input() public showButtonBar: boolean;
+
+    @Input() public baseZIndex: number = 0;
+    @Input() public autoZIndex: boolean = true;
+
+    @Input() public panelStyleClass: string;
+    @Input() public todayButtonStyleClass: string = 'ui-button-secondary';
+    @Input() public clearButtonStyleClass: string = 'ui-button-secondary';
+    // endregion
+
+    // region Outputs
+    @Output() public onFocus: EventEmitter<Event> = new EventEmitter();
+    @Output() public onBlur: EventEmitter<Event> = new EventEmitter();
+    @Output() public onClose: EventEmitter<Event> = new EventEmitter();
+    @Output() public onTodayClick: EventEmitter<Event> = new EventEmitter();
+    @Output() public onClearClick: EventEmitter<Event> = new EventEmitter();
+    // endregion
+
+    // region TODO Input to prepare
+    @Input() selectOtherMonths: boolean;
+
+    @Input() shortYearCutoff: any = '+10';
+    @Input() yearRange: string;
+    @Input() stepHour: number = 1;
+    @Input() stepMinute: number = 1;
+    @Input() stepSecond: number = 1;
+
+    @Input() maxDateCount: number;
+
+    @Input() keepInvalid: boolean = false;
+    @Input() hideOnDateTimeSelect: boolean = false;
+    // endregion
+
+
+    public tableViewYear: GenericEntry[][];
+    public tableViewMonth: GenericEntry[][];
+    public tableViewDay: DayEntry[][];
+    public tableViewHour: GenericEntry[][];
+    public tableViewMinute: GenericEntry[][];
+    public tableViewSecond: GenericEntry[][];
+
+    public currentTimePickSource: 'from' | 'to';
+    public currentPicking: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' = 'day';
+
+    public weekDays: string[];
+
+    public overlayShown: boolean;
+    public overlayVisible: boolean;
+
+    public controlFilled: boolean;
+    public controlFocused: boolean;
+
+    public currentView: DateTime;
+
+    public get pmFrom(): boolean {
+        return this.selectedFromHour >= 12;
+    }
+
+    public get pmTo(): boolean {
+        return this.selectedToHour >= 12;
+    }
+
+    public selectedFromHour: number
+    public selectedFromMinute: number;
+    public selectedFromSecond: number;
+    public selectedToHour: number;
+    public selectedToMinute: number;
+    public selectedToSecond: number;
+
+    public templateYear: TemplateRef<PrimeTemplate>;
+    public templateMonth: TemplateRef<PrimeTemplate>;
+    public templateDate: TemplateRef<PrimeTemplate>;
+    public templateHour: TemplateRef<PrimeTemplate>;
+    public templateMinute: TemplateRef<PrimeTemplate>;
+    public templateSecond: TemplateRef<PrimeTemplate>;
+
+    public maskBinding: string = '';
+    public maskFormat: string = '';
+    public maskPlaceholder: string = '';
+    public outputFormat: string = '';
+
+    private datePickerClick: boolean;
+
+    private currentValue: DateTime[];
+
+    private onChangeFn: () => void;
+    private onTouchFn: () => void;
+
+    private documentClickListener: Subscription;
+
+    constructor(private el: ElementRef,
+                @Inject(DOCUMENT) private dom: Document,
+                private changeDetector: ChangeDetectorRef,
+                private domHandler: DomHandler) {
+        this.onChangeFn = () => void 0;
+        this.onTouchFn = () => void 0;
+
+        this.currentValue = [];
+    }
+
+    // region LifeCycle Hooks
+    public ngAfterContentInit(): void {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'year':
+                    this.templateYear = item.template;
+                    break;
+                case 'month':
+                    this.templateMonth = item.template;
+                    break;
+                case 'date':
+                    this.templateDate = item.template;
+                    break;
+                case 'hour':
+                    this.templateHour = item.template;
+                    break;
+                case 'minute':
+                    this.templateMinute = item.template;
+                    break;
+                case 'second':
+                    this.templateSecond = item.template;
+                    break;
+            }
+        });
+    }
+
+    public ngAfterViewInit(): void {
+        if (!this.inline && this.appendTo) {
+            if (this.appendTo === 'body') {
+                this.dom.body.appendChild(this.datePickerVC.nativeElement);
+            } else {
+                this.domHandler.appendChild(this.datePickerVC.nativeElement, this.appendTo);
+            }
+        }
+    }
+
+    public ngAfterViewChecked() {
+        if (this.overlayShown) {
+            const el = this.readonlyInput ? this.inputFieldVC : this.inputMaskVC.inputViewChild;
+
+            if (this.appendTo) {
+                this.domHandler.absolutePosition(this.datePickerVC.nativeElement, el.nativeElement);
+            } else {
+                this.domHandler.relativePosition(this.datePickerVC.nativeElement, el.nativeElement);
+            }
+            this.overlayShown = false;
+        }
+    }
+
+    public ngOnInit(): void {
+        this.currentView = this.toDateTime(this.defaultDate);
+        if (!this.currentView) {
+            this.currentView = DateTime.utc().setZone(this.zone);
+        }
+
+        this.selectedFromHour = this.selectedToHour = this.currentView.hour;
+        this.selectedFromMinute = this.selectedToMinute = this.currentView.minute;
+        this.selectedFromSecond = this.selectedToSecond = this.currentView.second;
+
+        if (this.inline) {
+            this.currentTimePickSource = 'from';
+            this.currentPicking = this.timeOnly ? 'hour' : 'day';
+            this.createAppropriateView();
+        }
+
+        this.prepareMaskProperties();
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        // The only valid selection mode when picking 'timeOnly' is 'single'.
+        if (this.timeOnly) {
+            this.selectionMode = 'single';
+        }
+
+        // Show time not available with 'multiple' selection mode.
+        this.showTime = this.showTime && this.selectionMode !== 'multiple';
+
+        // Input is active only with 'single' selection mode.
+        this.readonlyInput = this.readonlyInput || this.selectionMode !== 'single';
+
+        if ('selectionMode' in changes) {
+            switch (this.selectionMode) {
+                case 'single':
+                    if (this.currentValue.length > 1) {
+                        this.currentValue = [this.currentValue[0]];
+                    }
+                    break;
+                case 'range':
+                    if (this.currentValue.length !== 2) {
+                        this.currentValue = [null, null];
+                    }
+                    break;
+            }
+        }
+
+        this.createAppropriateView();
+        this.prepareMaskProperties();
+    }
+
+    public ngOnDestroy(): void {
+        this.unbindDocumentClickListener();
+        this.el.nativeElement.appendChild(this.datePickerVC.nativeElement);
+    }
+
+    // endregion
+
+    // region ControlValueAccessor
+    public registerOnChange(fn: any): void {
+        this.onChangeFn = () => {
+            let fireValue: DatePickerValue | DatePickerValue[] = null;
+            this.maskBinding = '';
+
+            switch (this.selectionMode) {
+                case 'single':
+                    if (this.currentValue.length === 1 && this.currentValue[0]) {
+                        fireValue = this.toFireValue(this.currentValue[0]);
+                        this.maskBinding = this.currentValue[0].toFormat(this.outputFormat);
+                    }
+                    break;
+                case 'multiple':
+                    const values = this.currentValue
+                        .filter(v => v != null)
+                        .map(v => v.startOf('day'));
+
+                    fireValue = values.map(v => this.toFireValue(v));
+                    this.maskBinding = values.map(v => v.toFormat(this.outputFormat)).join(', ');
+                    break;
+                case 'range':
+                    fireValue = [null, null];
+                    if (this.currentValue.length === 2 && this.currentValue.every(v => v != null)) {
+                        fireValue[0] = this.toFireValue(this.currentValue[0]);
+                        fireValue[1] = this.toFireValue(this.currentValue[1]);
+
+                        this.maskBinding = this.currentValue[0].toFormat(this.outputFormat) + ' - ' +
+                            this.currentValue[1].toFormat(this.outputFormat);
+                    }
+                    break;
+            }
+
+            fn(fireValue);
+        };
+    }
+
+    public registerOnTouched(fn: any): void {
+        this.onTouchFn = fn;
+    }
+
+    public setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
+    public writeValue(obj: DatePickerValue | DatePickerValue[]): void {
+        this.currentValue = [];
+
+        switch (this.selectionMode) {
+            case 'single':
+                const value = this.toDateTime(obj as DatePickerValue);
+                if (value) {
+                    this.currentValue[0] = value;
+                    this.selectedFromHour = value.hour;
+                    this.selectedFromMinute = value.minute;
+                    this.selectedFromSecond = value.second;
+                }
+                break;
+            case 'multiple':
+                if (obj instanceof Array) {
+                    this.currentValue = obj
+                        .map(v => this.toDateTime(v))
+                        .filter(v => !!v);
+                }
+                break;
+            case 'range':
+                if (obj instanceof Array && obj.length === 2 && obj.every(Number.isFinite)) {
+                    this.currentValue.length = 2;
+                    this.currentValue[0] = this.toDateTime(obj[0]);
+                    this.currentValue[1] = this.toDateTime(obj[1]);
+
+                    if (this.currentValue[0]) {
+                        this.selectedFromHour = this.currentValue[0].hour;
+                        this.selectedFromMinute = this.currentValue[0].minute;
+                        this.selectedFromSecond = this.currentValue[0].second;
+                    }
+                    if (this.currentValue[1]) {
+                        this.selectedToHour = this.currentValue[1].hour;
+                        this.selectedToMinute = this.currentValue[1].minute;
+                        this.selectedToSecond = this.currentValue[1].second;
+                    }
+                }
+                break;
+        }
+
+        this.createAppropriateView();
+    }
+
+    // endregion
+
+    // region Event Hooks
+    public onMaskFocus(evt: Event): void {
+        this.controlFocused = true;
+        if (this.showOnFocus) {
+            this.showOverlay();
+        }
+        this.onFocus.emit(evt);
+    }
+
+    public onMaskClick(): void {
+        this.datePickerClick = true;
+        if (this.autoZIndex) {
+            this.datePickerVC.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
+    }
+
+    public onMaskBlur(evt: Event): void {
+        this.controlFocused = false;
+        this.onBlur.emit(evt);
+        if (!this.keepInvalid) {
+            const input = DateTime.fromFormat(this.maskBinding, this.outputFormat);
+
+            if (!input || !input.isValid) {
+                this.updateInputView();
+                this.changeDetector.detectChanges();
+            }
+        }
+        this.onTouchFn();
+    }
+
+    public onMaskComplete(): void {
+        const input = DateTime.fromFormat(this.maskBinding, this.outputFormat);
+
+        if (input && input.isValid) {
+            let current = this.currentValue[0] || DateTime.utc().setZone(this.zone);
+
+            this.currentValue[0] = current = current.set({
+                year: input.year,
+                month: input.month,
+                day: input.day,
+                hour: input.hour,
+                minute: input.minute,
+                second: input.second,
+                millisecond: 0
+            });
+
+            this.selectedFromHour = current.hour;
+            this.selectedFromMinute = current.minute;
+            this.selectedFromSecond = current.second;
+
+            this.createAppropriateView();
+
+            this.onChangeFn();
+        }
+    }
+
+    public onInputClick(): void {
+        this.datePickerClick = true;
+
+        if (this.showOnFocus) {
+            this.showOverlay();
+        }
+    }
+
+    public onButtonClick(): void {
+        this.datePickerClick = true;
+
+        if (!this.datePickerVC.nativeElement.offsetParent || this.datePickerVC.nativeElement.style.display === 'none') {
+            if (this.inputMaskVC) {
+                this.inputMaskVC.inputViewChild.nativeElement.focus();
+            }
+            this.showOverlay();
+        } else {
+            this.hideOverlay();
+        }
+    }
+
+    public onTodayButtonClick(evt: Event): void {
+        if (this.selectionMode === 'single' && this.currentValue[0]) {
+            const now = DateTime.utc().setZone(this.zone);
+            this.currentValue[0] = this.currentValue[0].set({
+                year: now.year,
+                month: now.month,
+                day: now.day
+            });
+        }
+
+        this.onChangeFn();
+        this.onTodayClick.emit(evt);
+    }
+
+    public onClearButtonClick(evt: Event): void {
+        this.currentValue = [];
+
+        this.onChangeFn();
+        this.onClearClick.emit(evt);
+    }
+
+    public onDatePickerClick(): void {
+        this.datePickerClick = true;
+    }
+
+    public onYearNavigatorClick(): void {
+        if (!this.yearNavigator) {
+            return;
+        }
+
+        this.currentPicking = 'year';
+        this.createAppropriateView();
+    }
+
+    public onMonthNavigatorClick(): void {
+        if (!this.monthNavigator) {
+            return;
+        }
+
+        this.currentPicking = 'month';
+        this.createAppropriateView();
+    }
+
+    public onHourNavigatorClick(source: 'from' | 'to'): void {
+        if (this.showTime || this.timeOnly) {
+            this.currentPicking = 'hour';
+            this.currentView = this.currentView.set({hour: (source === 'from') ? this.selectedFromHour : this.selectedToHour});
+
+            this.currentTimePickSource = source;
+            this.createAppropriateView();
+        }
+    }
+
+    public onMinuteNavigatorClick(source: 'from' | 'to'): void {
+        if (this.showTime || this.timeOnly) {
+            this.currentPicking = 'minute';
+            this.currentView = this.currentView.set({minute: (source === 'from') ? this.selectedFromMinute : this.selectedToMinute});
+
+            this.currentTimePickSource = source;
+            this.createAppropriateView();
+        }
+    }
+
+    public onSecondNavigatorClick(source: 'from' | 'to'): void {
+        if (this.showTime || this.timeOnly) {
+            this.currentPicking = 'second';
+            this.currentView = this.currentView.set({second: (source === 'from') ? this.selectedFromSecond : this.selectedToSecond});
+
+            this.currentTimePickSource = source;
+            this.createAppropriateView();
+        }
+    }
+
+    public onYear(direction: number): void {
+        this.currentView = this.currentView.plus({years: direction});
+        this.createAppropriateView();
+    }
+
+    public onMonth(direction: number): void {
+        this.currentView = this.currentView.plus({months: direction});
+        this.createAppropriateView();
+    }
+
+    public onYearSelect(year: GenericEntry): void {
+        if (!year.selectable) {
+            return;
+        }
+
+        this.currentView = this.currentView.set({year: year.value});
+
+        if (this.monthNavigator) {
+            this.currentPicking = 'month';
+        } else {
+            this.currentPicking = 'day';
+        }
+
+        this.createAppropriateView();
+    }
+
+    public onMonthSelect(month: GenericEntry): void {
+        if (!month.selectable) {
+            return;
+        }
+
+        this.currentView = this.currentView.set({month: month.value});
+
+        this.currentPicking = 'day';
+        this.createAppropriateView();
+    }
+
+    public onDateSelect(date: DayEntry): void {
+        switch (this.selectionMode) {
+            case 'single':
+                const v = this.currentValue[0];
+
+                if (v) {
+                    this.currentValue[0] = v.set({
+                        year: date.year,
+                        month: date.month,
+                        day: date.day,
+                        hour: this.showTime ? this.selectedFromHour : 0,
+                        minute: this.showTime ? this.selectedFromMinute : 0,
+                        second: this.showTime && this.showSeconds ? this.selectedFromSecond : 0,
+                        millisecond: 0
+                    })
+                } else {
+                    this.currentValue[0] = DateTime.utc(date.year, date.month, date.day)
+                        .setZone(this.zone)
+                        .set({
+                            hour: this.showTime ? this.selectedFromHour : 0,
+                            minute: this.showTime ? this.selectedFromMinute : 0,
+                            second: this.showTime && this.showSeconds ? this.selectedFromSecond : 0
+                        });
+                }
+                break;
+            case 'multiple':
+                const idx = this.currentValue.findIndex(v => (
+                    v.year === date.year &&
+                    v.month === date.month &&
+                    v.day === date.day
+                ));
+
+                if (idx < 0) {
+                    this.currentValue.push(DateTime.utc(date.year, date.month, date.day).setZone(this.zone));
+                    this.currentValue.sort();
+                } else {
+                    this.currentValue = this.currentValue.filter((v, i) => i !== idx);
+                }
+                break;
+            case 'range':
+                // TODO
+                break;
+        }
+
+        this.onChangeFn();
+    }
+
+    public onHourSelect(hour: GenericEntry): void {
+        if (!hour.selectable) {
+            return;
+        }
+
+        let pmDiff = (this.currentTimePickSource === 'from' ? this.pmFrom : this.pmTo) ? 12 : 0;
+        if (this.hourFormat !== '12') {
+            pmDiff = 0;
+        }
+
+        this.currentView = this.currentView.set({hour: hour.value + pmDiff});
+        if (this.currentTimePickSource === 'from') {
+            this.selectedFromHour = this.currentView.hour;
+
+            if (this.timeOnly && !this.currentValue[0]) {
+                this.currentValue[0] = DateTime.fromMillis(0).setZone(this.zone);
+            }
+
+            if (this.currentValue[0]) {
+                this.currentValue[0] = this.currentValue[0].set({
+                    hour: this.currentView.hour
+                });
+            }
+        } else if (this.currentTimePickSource === 'to') {
+            this.selectedToHour = this.currentView.hour;
+
+            if (this.currentValue[1]) {
+                this.currentValue[1] = this.currentValue[1].set({
+                    hour: this.currentView.hour
+                });
+            }
+        }
+
+        if (!this.timeOnly) {
+            this.currentPicking = 'day';
+        }
+        this.createAppropriateView();
+
+        this.onChangeFn();
+    }
+
+    public onMinuteSelect(minute: GenericEntry): void {
+        if (!minute.selectable) {
+            return;
+        }
+
+        this.currentView = this.currentView.set({minute: minute.value});
+        if (this.currentTimePickSource === 'from') {
+            this.selectedFromMinute = this.currentView.minute;
+
+            if (this.currentValue[0]) {
+                this.currentValue[0] = this.currentValue[0].set({
+                    minute: minute.value
+                });
+            }
+        } else if (this.currentTimePickSource === 'to') {
+            this.selectedToMinute = this.currentView.minute;
+
+            if (this.currentValue[1]) {
+                this.currentValue[1] = this.currentValue[1].set({
+                    minute: minute.value
+                });
+            }
+        }
+
+        if (!this.timeOnly) {
+            this.currentPicking = 'day';
+        } else {
+            this.currentPicking = 'hour';
+        }
+        this.createAppropriateView();
+
+        this.onChangeFn();
+    }
+
+    public onSecondSelect(second: GenericEntry): void {
+        if (!second.selectable) {
+            return;
+        }
+
+        this.currentView = this.currentView.set({second: second.value});
+        if (this.currentTimePickSource === 'from') {
+            this.selectedFromSecond = this.currentView.second;
+
+            if (this.currentValue[0]) {
+                this.currentValue[0] = this.currentValue[0].set({
+                    second: second.value
+                });
+            }
+        } else if (this.currentTimePickSource === 'to') {
+            this.selectedToSecond = this.currentView.second;
+
+            if (this.currentValue[1]) {
+                this.currentValue[1] = this.currentValue[1].set({
+                    second: second.value
+                });
+            }
+        }
+
+        if (!this.timeOnly) {
+            this.currentPicking = 'day';
+        } else {
+            this.currentPicking = 'hour';
+        }
+        this.createAppropriateView();
+
+        this.onChangeFn();
+    }
+
+    public toggleAMPM(reference: 'from' | 'to'): void {
+        if (reference === 'from') {
+            this.selectedFromHour += 12 * (this.pmFrom ? -1 : 1);
+
+            if (this.currentValue[0]) {
+                this.currentValue[0] = this.currentValue[0].set({
+                    hour: this.selectedFromHour
+                });
+            }
+        } else if (reference === 'to') {
+            this.selectedToHour += 12 * (this.pmTo ? -1 : 1);
+
+            if (this.currentValue[1]) {
+                this.currentValue[1] = this.currentValue[1].set({
+                    hour: this.selectedToHour
+                });
+            }
+        }
+
+        if (reference === this.currentTimePickSource) {
+            this.createAppropriateView();
+        }
+
+        this.onChangeFn();
+    }
+
+    // endregion
+
+    // region Template Out
+    public isRangeSelection(): boolean {
+        return this.selectionMode === 'range';
+    }
+
+    public labelPM(): string {
+        return this.locale.pm;
+    }
+
+    public labelAM(): string {
+        return this.locale.am;
+    }
+
+    public currentMonthLabel(): string {
+        return this.currentView ? this.locale.monthNames[this.currentView.month - 1] : '--';
+    }
+
+    public currentYearLabel(): string {
+        return this.currentView ? `${this.currentView.year}` : '--';
+    }
+
+    public currentHourLabel(source: 'from' | 'to'): number {
+        const h24 = this.hourFormat !== '12';
+        let hour = source === 'from' ? this.selectedFromHour : this.selectedToHour;
+
+        if (!h24) {
+            const pm = hour >= 12;
+
+            if (pm) {
+                hour -= 12;
+            }
+
+            if (hour === 0) {
+                hour = 12;
+            }
+        }
+
+        return hour;
+    }
+
+    public isYearSelected(year: number): boolean {
+        return year === this.currentView.year;
+    }
+
+    public isMonthSelected(month: number): boolean {
+        return month === this.currentView.month;
+    }
+
+    public isDaySelected(date: DayEntry): boolean {
+        switch (this.selectionMode) {
+            case 'single':
+                return (
+                    this.currentValue[0] &&
+                    this.currentValue[0].year === date.year &&
+                    this.currentValue[0].month === date.month &&
+                    this.currentValue[0].day === date.day
+                );
+            case 'multiple':
+                return this.currentValue
+                    .some(v => (
+                        v.year === date.year &&
+                        v.month === date.month &&
+                        v.day === date.day
+                    ));
+            case 'range': {
+                const d = DateTime.utc(date.year, date.month, date.day);
+
+                return this.currentValue[0] && this.currentValue[1] && (
+                    this.currentValue[0].startOf('day') <= d &&
+                    this.currentValue[1].endOf('day') >= d
+                );
+            }
+        }
+
+        return false;
+    }
+
+    public isHourSelected(hour: number): boolean {
+        return hour === this.currentView.hour;
+    }
+
+    public isMinuteSelected(minute: number): boolean {
+        return minute === this.currentView.minute;
+    }
+
+    public isSecondSelected(second: number): boolean {
+        return second === this.currentView.second;
+    }
+
+    // endregion
+
+    // region Table views
+    private createWeekDays(): void {
+        this.weekDays = [];
+        this.weekDays.length = 7;
+
+        let dayIdx = this.firstDayOfWeek;
+        for (let i = 0; i < 7; ++i) {
+            this.weekDays[i] = this.locale.dayNamesMin[dayIdx];
+            dayIdx = (dayIdx === 6) ? 0 : ++dayIdx;
+        }
+    }
+
+    private createAppropriateView(): void {
+        if (!this.currentView) {
+            return;
+        }
+
+        switch (this.currentPicking) {
+            case 'year':
+                this.createYearView();
+                break;
+            case 'month':
+                this.createMonthView();
+                break;
+            case 'day':
+                this.createDayView();
+                break;
+            case 'hour':
+                this.createHourView();
+                break;
+            case 'minute':
+                this.createMinuteView();
+                break;
+            case 'second':
+                this.createSecondView();
+                break;
+        }
+    }
+
+    private createYearView(): void {
+        this.tableViewYear = [];
+
+        let year = this.currentView.year;
+        year -= year % 18;
+
+        for (let i = 0; i < 6; ++i) {
+            const yRow: GenericEntry[] = [];
+            for (let j = 0; j < 3; ++j) {
+                yRow.push({
+                    value: year,
+                    selectable: this.isYearSelectable(year)
+                });
+
+                year++;
+            }
+            this.tableViewYear.push(yRow);
+        }
+    }
+
+    private createMonthView(): void {
+        this.tableViewMonth = [];
+
+        let month: number = 1;
+        for (let i = 0; i < 6; ++i) {
+            const mRow: GenericEntry[] = [];
+            for (let j = 0; j < 2; ++j) {
+                mRow.push({
+                    value: month,
+                    selectable: this.isMonthSelectable(month)
+                });
+
+                month++;
+            }
+            this.tableViewMonth.push(mRow);
+        }
+    }
+
+    private createDayView(): void {
+        this.createWeekDays();
+
+        this.tableViewDay = [];
+
+        const monthThis = this.currentView.startOf('month');
+        const monthPrev = monthThis.minus({months: 1});
+        const monthNext = monthThis.plus({months: 1});
+
+        const firstDay = this.getWeekdayIndex(monthThis);
+        const daysLength = monthThis.daysInMonth;
+        const prevMonthDaysLength = monthPrev.daysInMonth;
+
+        let dayNo = 1;
+        const today = DateTime.utc();
+        const isToday = (day, month, year) => today.day === day && today.month === month && today.year === year;
+
+        for (let i = 0; i < 6; ++i) {
+            const week: DayEntry[] = [];
+
+            if (i === 0) {
+                for (let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; ++j) {
+                    week.push({
+                        day: j,
+                        month: monthPrev.month,
+                        year: monthPrev.year,
+                        otherMonth: true,
+                        today: isToday(j, monthPrev.month, monthPrev.year),
+                        selectable: false
+                    });
+                }
+
+                let remainingDaysLength = 7 - week.length;
+                for (let j = 0; j < remainingDaysLength; ++j) {
+                    week.push({
+                        day: dayNo,
+                        month: monthThis.month,
+                        year: monthThis.year,
+                        today: isToday(dayNo, monthThis.month, monthThis.year),
+                        selectable: this.isDaySelectable(dayNo),
+                        otherMonth: false
+                    });
+                    dayNo++;
+                }
+            } else {
+                for (let j = 0; j < 7; ++j) {
+                    if (dayNo > daysLength) {
+                        week.push({
+                            day: dayNo - daysLength,
+                            month: monthNext.month,
+                            year: monthNext.year,
+                            otherMonth: true,
+                            today: isToday(dayNo - daysLength, monthNext.month, monthNext.year),
+                            selectable: false
+                        });
+                    } else {
+                        week.push({
+                            day: dayNo,
+                            month: monthThis.month,
+                            year: monthThis.year,
+                            today: isToday(dayNo, monthThis.month, monthThis.year),
+                            selectable: this.isDaySelectable(dayNo),
+                            otherMonth: false
+                        });
+                    }
+
+                    dayNo++;
+                }
+            }
+
+            this.tableViewDay.push(week);
+        }
+    }
+
+    private createHourView(): void {
+        this.tableViewHour = [];
+
+        let hour = 0;
+        const h24 = this.hourFormat !== '12';
+        const isPm = this.currentTimePickSource === 'from' ? this.pmFrom : this.pmTo;
+
+        for (let i = 0; i < 6; ++i) {
+            const hRow: GenericEntry[] = [];
+            for (let j = 0; j < (h24 ? 4 : 2); ++j) {
+                const realHour = hour + (!h24 && isPm ? 12 : 0);
+
+                hRow.push({
+                    value: realHour,
+                    label: (!h24 && hour === 0) ? 12 : hour,
+                    selectable: this.isHourSelectable(realHour)
+                });
+
+                hour++;
+            }
+            this.tableViewHour.push(hRow);
+        }
+    }
+
+    private createMinuteView(): void {
+        this.tableViewMinute = [];
+
+        let minute = 0;
+
+        for (let i = 0; i < 6; ++i) {
+            const mRow: GenericEntry[] = [];
+            for (let j = 0; j < 10; ++j) {
+                mRow.push({
+                    value: minute,
+                    selectable: this.isMinuteSelectable(minute)
+                });
+
+                minute++;
+            }
+            this.tableViewMinute.push(mRow);
+        }
+    }
+
+    private createSecondView(): void {
+        this.tableViewSecond = [];
+
+        let second = 0;
+
+        for (let i = 0; i < 6; ++i) {
+            const sRow: GenericEntry[] = [];
+            for (let j = 0; j < 10; ++j) {
+                sRow.push({
+                    value: second,
+                    selectable: this.isSecondSelectable(second)
+                });
+
+                second++;
+            }
+            this.tableViewSecond.push(sRow);
+        }
+    }
+
+    // endregion
+
+    private showOverlay(): void {
+        if (!this.overlayVisible) {
+            this.currentTimePickSource = 'from';
+            this.currentPicking = this.timeOnly ? 'hour' : 'day';
+            this.createAppropriateView();
+        }
+
+        this.overlayVisible = true;
+        this.overlayShown = true;
+        if (this.autoZIndex) {
+            this.datePickerVC.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
+
+        this.bindDocumentClickListener();
+    }
+
+    private hideOverlay(): void {
+        this.overlayVisible = false;
+        this.onTouchFn();
+    }
+
+    private prepareMaskProperties(): void {
+        const h24 = this.hourFormat !== '12';
+
+        if (!this.readonlyInput) {
+            if (!this.timeOnly) {
+                const availableTokens = [
+                    'd', 'dd',
+                    'M', 'MM',
+                    'y', 'yy', 'yyyy'
+                ];
+
+                let mask = '';
+                let newDateFormat = '';
+
+                let compoundString = this.dateFormat[0];
+
+                for (let i = 1; i < this.dateFormat.length; ++i) {
+                    const char = this.dateFormat[i];
+
+                    let shouldProcess = true;
+
+                    if (compoundString[0] === char) {
+                        compoundString += char;
+                        shouldProcess = false;
+                    }
+
+                    if (i >= this.dateFormat.length - 1) {
+                        shouldProcess = true;
+                    }
+
+                    if (shouldProcess) {
+                        // Process lastChar
+                        if (availableTokens.some(t => t === compoundString)) {
+                            if (compoundString === 'd') {
+                                compoundString = 'dd';
+                            } else if (compoundString === 'M') {
+                                compoundString = 'MM';
+                            } else if (compoundString === 'y') {
+                                compoundString = 'yyyy';
+                            }
+
+                            switch (compoundString) {
+                                case 'dd':
+                                case 'MM':
+                                case 'yy':
+                                    mask += '99';
+                                    break;
+                                case 'yyyy':
+                                    mask += '9999';
+                                    break;
+                            }
+                        } else {
+                            mask += compoundString;
+                        }
+
+                        newDateFormat += compoundString;
+                        compoundString = char;
+                    }
+                }
+
+                this.maskFormat = mask;
+                this.maskPlaceholder = newDateFormat;
+                this.outputFormat = newDateFormat;
+            } else {
+                this.maskFormat = '99:99';
+                this.outputFormat = `${h24 ? 'HH' : 'hh'}:mm`;
+
+                if (this.showSeconds) {
+                    this.maskFormat += ':99';
+                    this.outputFormat += ':ss';
+                }
+
+                this.maskPlaceholder = this.outputFormat;
+                if (!h24) {
+                    this.maskFormat += ' aa';
+                    this.outputFormat += ' a';
+                    this.maskPlaceholder += ' #';
+                }
+            }
+        } else {
+            this.outputFormat = this.dateFormat;
+            this.maskFormat = '';
+            this.maskPlaceholder = '';
+
+            if (this.timeOnly) {
+                this.outputFormat = `${h24 ? 'HH' : 'hh'}:mm`;
+                if (this.showSeconds) {
+                    this.outputFormat += ':ss';
+                }
+                if (!h24) {
+                    this.outputFormat += ' a';
+                }
+            }
+        }
+
+        if (this.showTime && !this.timeOnly) {
+            this.maskFormat += ' 99:99';
+            this.outputFormat += ` ${h24 ? 'HH' : 'hh'}:mm`;
+
+            if (this.showSeconds) {
+                this.maskFormat += ':99';
+                this.outputFormat += ':ss';
+            }
+
+            this.maskPlaceholder = this.outputFormat;
+            if (!h24) {
+                this.maskFormat += ' aa';
+                this.outputFormat += ' a';
+                this.maskPlaceholder += ' #';
+            }
+        }
+
+        this.changeDetector.detectChanges();
+    }
+
+    private getWeekdayIndex(date: DateTime): number {
+        const tmp = date.weekday + this.getMondayIndex() - 1;
+        return tmp >= 7 ? tmp - 7 : tmp;
+    }
+
+    private getMondayIndex() {
+        return this.firstDayOfWeek > 0 ? 7 - this.firstDayOfWeek : 0;
+    }
+
+    private isYearSelectable(year: number,
+                             minDate: DateTime = this.toDateTime(this.minDate),
+                             maxDate: DateTime = this.toDateTime(this.maxDate)): boolean {
+
+        return minDate.year <= year && maxDate.year >= year;
+    }
+
+    private isMonthSelectable(month: number,
+                              minDate: DateTime = this.toDateTime(this.minDate),
+                              maxDate: DateTime = this.toDateTime(this.maxDate)): boolean {
+        const cYear = this.currentView.year;
+
+        return this.isYearSelectable(cYear, minDate, maxDate) && (
+            (minDate.year < cYear || minDate.month <= month) &&
+            (maxDate.year > cYear || maxDate.month >= month)
+        );
+    }
+
+    private isDaySelectable(day: number,
+                            minDate: DateTime = this.toDateTime(this.minDate),
+                            maxDate: DateTime = this.toDateTime(this.maxDate)): boolean {
+        const cYear = this.currentView.year;
+        const cMonth = this.currentView.month;
+
+        // TODO: handle disabled days
+
+        return this.isMonthSelectable(cMonth, minDate, maxDate) && (
+            (minDate.year < cYear || minDate.month < cMonth || minDate.day <= day) &&
+            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day >= day)
+        );
+    }
+
+    private isHourSelectable(hour: number,
+                             minDate: DateTime = this.toDateTime(this.minDate),
+                             maxDate: DateTime = this.toDateTime(this.maxDate)): boolean {
+        const cYear = this.currentView.year;
+        const cMonth = this.currentView.month;
+        const cDay = this.currentView.day;
+
+        return this.isDaySelectable(cDay, minDate, maxDate) && (
+            (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour <= hour) &&
+            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour >= hour)
+        );
+    }
+
+    private isMinuteSelectable(minute: number,
+                               minDate: DateTime = this.toDateTime(this.minDate),
+                               maxDate: DateTime = this.toDateTime(this.maxDate)): boolean {
+        const cYear = this.currentView.year;
+        const cMonth = this.currentView.month;
+        const cDay = this.currentView.day;
+        const cHour = this.currentView.hour;
+
+        return this.isHourSelectable(cHour, minDate, maxDate) && (
+            (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute <= minute) &&
+            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute >= minute)
+        );
+    }
+
+    private isSecondSelectable(second: number,
+                               minDate: DateTime = this.toDateTime(this.minDate),
+                               maxDate: DateTime = this.toDateTime(this.maxDate)): boolean {
+        const cYear = this.currentView.year;
+        const cMonth = this.currentView.month;
+        const cDay = this.currentView.day;
+        const cHour = this.currentView.hour;
+        const cMinute = this.currentView.minute;
+
+        return this.isMinuteSelectable(cMinute, minDate, maxDate) && (
+            (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute <= cMinute || maxDate.second <= second) &&
+            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute >= cMinute || maxDate.second >= second)
+        );
+    }
+
+    private updateInputView(): void {
+        this.maskBinding = '';
+
+        switch (this.selectionMode) {
+            case 'single':
+                if (this.currentValue.length === 1 && this.currentValue[0]) {
+                    this.maskBinding = this.currentValue[0].toFormat(this.outputFormat);
+                }
+                break;
+            case 'multiple':
+                this.maskBinding = this.currentValue
+                    .filter(v => v != null)
+                    .map(v => v.startOf('day').toFormat(this.outputFormat)).join(', ');
+                break;
+            case 'range':
+                if (this.currentValue.length === 2 && this.currentValue.every(v => v != null)) {
+                    this.maskBinding = this.currentValue[0].toFormat(this.outputFormat) + ' - ' +
+                        this.currentValue[1].toFormat(this.outputFormat);
+                }
+                break;
+        }
+
+    }
+
+    // region Conversion utils
+    private toDateTime(value: DatePickerValue): DateTime {
+        switch (this.dataType) {
+            case 'timestamp':
+                if (typeof value === 'number' && Number.isFinite(value)) {
+                    return DateTime.fromMillis(value).setZone(this.zone);
+                }
+                break;
+            case 'luxon':
+                if (value instanceof DateTime) {
+                    return value.setZone(this.zone);
+                }
+                break;
+            case 'date':
+                if (value instanceof Date) {
+                    return DateTime.fromJSDate(value).setZone(this.zone);
+                }
+                break;
+        }
+        return null;
+    }
+
+    private toFireValue(value: DateTime): DatePickerValue {
+        switch (this.dataType) {
+            case 'timestamp':
+                return value.toMillis();
+            case 'luxon':
+                return value;
+            case 'date':
+            default:
+                return value.toJSDate();
+        }
+    }
+
+    // endregion
+
+    // region Document Events
+    private bindDocumentClickListener(): void {
+        if (!this.documentClickListener) {
+            this.documentClickListener = fromEvent(this.dom, 'click')
+                .subscribe((evt: Event) => {
+                    if (!this.datePickerClick && this.overlayVisible) {
+                        this.hideOverlay();
+                        this.onClose.emit(evt);
+                    }
+
+                    this.datePickerClick = false;
+                    this.changeDetector.detectChanges();
+                });
+        }
+    }
+
+    private unbindDocumentClickListener(): void {
+        if (this.documentClickListener) {
+            this.documentClickListener.unsubscribe();
+            this.documentClickListener = null;
+        }
+    }
+
+    // endregion
+}
+
+@NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+
+        ButtonModule,
+        InputMaskModule,
+        SharedModule
+    ],
+    exports: [
+        DatePicker,
+        ButtonModule,
+        InputMaskModule,
+        SharedModule
+    ],
+    declarations: [
+        DatePicker,
+        DatePickerPadPipe
+    ]
+})
+export class DatePickerModule {
+    public static configure(options: {
+        defaultFirstDayOfWeek: number,
+        defaultLocale: DatePickerLocaleData
+    }): ModuleWithProviders {
+        if (options) {
+            if (options.defaultFirstDayOfWeek != null) {
+                DatePicker.defaultFirstDayOfWeek = options.defaultFirstDayOfWeek;
+            }
+            if (options.defaultLocale != null) {
+                DatePicker.defaultLocale = options.defaultLocale;
+            }
+        }
+
+        return {
+            ngModule: DatePickerModule,
+            providers: []
+        };
+    }
+}
