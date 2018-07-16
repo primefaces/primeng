@@ -113,7 +113,7 @@ export class DatePickerPadPipe implements PipeTransform {
         <span class="ui-date-picker {{styleClass}}" [class.ui-date-picker-w-btn]="showIcon" [ngStyle]="style">
             <ng-container *ngIf="!inline">
                 <p-inputMask *ngIf="!readonlyInput; else readonlyInputTemplate" [(ngModel)]="maskBinding"
-                             [inputId]="inputId" [required]="required"
+                             [inputId]="inputId" [required]="required" [tabindex]="tabindex"
                              [mask]="maskFormat" [placeholder]="placeholder || maskPlaceholder || ''"
                              (onFocus)="onMaskFocus($event)" (onBlur)="onMaskBlur($event)"
                              (onClick)="onMaskClick()" (onComplete)="onMaskComplete()">
@@ -509,7 +509,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
     @Input() public name: string;
     @Input() public inputId: string;
-    @Input() public tabindex: number;
+    @Input() public tabindex: string;
     @Input() public placeholder: string;
 
     @Input() public style: string;
