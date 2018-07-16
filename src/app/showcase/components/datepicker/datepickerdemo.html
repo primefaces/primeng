@@ -29,13 +29,13 @@
         <div class="ui-g-12 ui-md-4">
             <h3>Min-Max</h3>
             <p-datepicker [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate"
-                          [readonlyInput]="true"></p-datepicker>
+                          [readonlyInput]="true" precision="second"></p-datepicker>
             {{date4|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Disable Days</h3>
-            <p-datepicker [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]"
+            <p-datepicker [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[5,6]"
                           [readonlyInput]="true"></p-datepicker>
             {{date5|date}}
         </div>
@@ -53,13 +53,12 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Multiple</h3>
-            <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"></p-datepicker>
+            <p-datepicker [(ngModel)]="dates" selectionMode="multiple"></p-datepicker>
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Range</h3>
-            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [precision]="'minute'"
-                          [readonlyInput]="true"></p-datepicker>
+            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [precision]="'hour'"></p-datepicker>
         </div>
 
         <div class="ui-g-12 ui-md-4">

@@ -77,7 +77,7 @@ export class DatepickerDemo {
         this.maxDate.setFullYear(nextYear);
 
         let invalidDate = new Date();
-        invalidDate.setDate(today.getDate() - 1);
+        invalidDate.setDate(today.getDate() + 3);
         this.invalidDates = [today, invalidDate];
     }
 }
