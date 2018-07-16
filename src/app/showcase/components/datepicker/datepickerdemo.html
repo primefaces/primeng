@@ -15,8 +15,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Spanish</h3>
-            <p-datepicker [(ngModel)]="date2" [locale]="esLocale" [firstDayOfWeek]="esFirstDayOfWeek"
-                          dateFormat="dd/MM/yy"></p-datepicker>
+            <p-datepicker [(ngModel)]="date2" [locale]="esLocale"></p-datepicker>
             {{date2|date}}
         </div>
 
@@ -29,20 +28,26 @@
         <div class="ui-g-12 ui-md-4">
             <h3>Min-Max</h3>
             <p-datepicker [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate"
-                          [readonlyInput]="true" precision="second"></p-datepicker>
+                          [readonlyInput]="true" precision="minute"></p-datepicker>
             {{date4|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Disable Days</h3>
-            <p-datepicker [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[5,6]"
+            <p-datepicker [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[5,6]"
                           [readonlyInput]="true"></p-datepicker>
             {{date5|date}}
         </div>
 
         <div class="ui-g-12 ui-md-4">
+            <h3>Month</h3>
+            <p-datepicker [(ngModel)]="date6" precision="month" dateFormat="MM/yyyy"></p-datepicker>
+            {{date6}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
             <h3>Time</h3>
-            <p-datepicker [(ngModel)]="date7" [precision]="'second'"></p-datepicker>
+            <p-datepicker [(ngModel)]="date7" precision="minute"></p-datepicker>
             {{date7}}
         </div>
 
@@ -58,12 +63,12 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Range</h3>
-            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [precision]="'day'"></p-datepicker>
+            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range"></p-datepicker>
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Button Bar</h3>
-            <p-datepicker [(ngModel)]="date9" showButtonBar="true"></p-datepicker>
+            <p-datepicker [(ngModel)]="date9" [showButtonBar]="true"></p-datepicker>
         </div>
 
         <div class="ui-g-12 ui-md-4">

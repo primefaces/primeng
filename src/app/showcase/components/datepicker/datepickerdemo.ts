@@ -41,7 +41,7 @@ export class DatepickerDemo {
 
 
     public esFirstDayOfWeek: number;
-    public esLocale: Partial<DatePickerLocaleData>;
+    public esLocale: DatePickerLocaleData;
 
     ngOnInit() {
         this.esFirstDayOfWeek = 3;
@@ -51,15 +51,21 @@ export class DatepickerDemo {
             dayNamesMin: ['L', 'M', 'X', 'J', 'V', 'S', 'D'],
             monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
             monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+            pm: 'PM',
+            am: 'AM',
             today: 'Hoy',
             clear: 'Borrar',
-            year: 'Year',
-            month: 'Month',
-            hour: 'Hour',
-            minute: 'Minute',
-            second: 'Second',
-            pm: 'PM',
-            am: 'AM'
+            year: 'Año',
+            month: 'Mes',
+            hour: 'Hora',
+            minute: 'Minuto',
+            second: 'Segundo',
+            fromHour: 'Desde la Hora',
+            fromMinute: 'Desde el Minuto',
+            fromSecond: 'Desde el segundo',
+            toHour: 'A la Hora',
+            toMinute: 'Al Minuto',
+            toSecond: 'Al Segundo'
         };
 
         let today = new Date();
