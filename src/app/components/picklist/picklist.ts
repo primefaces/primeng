@@ -31,7 +31,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, -1)" (dragend)="onDragEnd($event)">
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
+                            <ng-container *ngTemplateOutlet="(sourceItemTemplate || itemTemplate); context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, -1)" (drop)="onDrop($event, i + 1, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
@@ -60,7 +60,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, 1)" (dragend)="onDragEnd($event)">
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
+                            <ng-container *ngTemplateOutlet="(targetItemTemplate || itemTemplate); context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, 1)" (drop)="onDrop($event, i + 1, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
@@ -151,6 +151,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     public itemTemplate: TemplateRef<any>;
     
+    public sourceItemTemplate: TemplateRef<any>;
+    
+    public targetItemTemplate: TemplateRef<any>;
+    
     public visibleOptionsSource: any[];
     
     public visibleOptionsTarget: any[];
@@ -198,6 +202,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+
+                case 'sourceItem':
+                    this.sourceItemTemplate = item.template;
+                break;
+
+                case 'targetItem':
+                    this.targetItemTemplate = item.template;
                 break;
                 
                 default:
