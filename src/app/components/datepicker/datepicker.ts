@@ -39,19 +39,36 @@ import {InputMask, InputMaskModule} from '../inputmask/inputmask';
 
 type DatePickerValue = Date | DateTime | number;
 
-interface DayEntry {
+interface GenericEntry {
+    label?: string | number;
+    selectable: boolean;
+}
+
+interface YearEntry extends GenericEntry {
     year: number;
+}
+
+interface MonthEntry extends YearEntry {
     month: number;
+}
+
+interface DayEntry extends MonthEntry {
     day: number;
     today: boolean;
-    selectable: boolean;
     otherMonth: boolean;
 }
 
-interface GenericEntry {
-    value: number;
-    label?: string | number;
-    selectable: boolean;
+interface HourEntry extends MonthEntry {
+    day: number,
+    hour: number
+}
+
+interface MinuteEntry extends HourEntry {
+    minute: number;
+}
+
+interface SecondEntry extends MinuteEntry {
+    second: number;
 }
 
 export interface DatePickerLocaleData {
@@ -206,7 +223,7 @@ export class DatePickerPadPipe implements PipeTransform {
                                        [class.ui-state-active]="isYearSelected(year)"
                                        [class.ui-state-disabled]="!year.selectable"
                                        (click)="onYearSelect(year)">
-                                        <ng-container *ngIf="!templateYear">{{year.label || year.value}}</ng-container>
+                                        <ng-container *ngIf="!templateYear">{{year.label || year.year}}</ng-container>
                                         <ng-container *ngTemplateOutlet="templateYear; context: {$implicit: year}">
                                         </ng-container>
                                     </a>
@@ -234,7 +251,7 @@ export class DatePickerPadPipe implements PipeTransform {
                                        [class.ui-state-disabled]="!month.selectable"
                                        (click)="onMonthSelect(month)">
                                         <ng-container *ngIf="!templateMonth">
-                                            {{locale.monthNames[month.value - 1]}}
+                                            {{locale.monthNames[month.month - 1]}}
                                         </ng-container>
                                         <ng-container *ngTemplateOutlet="templateMonth; context: {$implicit: month}">
                                         </ng-container>
@@ -294,7 +311,7 @@ export class DatePickerPadPipe implements PipeTransform {
                                        [class.ui-state-active]="isHourSelected(hour)"
                                        (click)="onHourSelect(hour)" draggable="false">
                                         <ng-container
-                                            *ngIf="!templateHour">{{(hour.label || hour.value) | pPad:2}}</ng-container>
+                                            *ngIf="!templateHour">{{(hour.label || hour.hour) | pPad:2}}</ng-container>
                                         <ng-container *ngTemplateOutlet="templateHour; context: {$implicit: hour}">
                                         </ng-container>
                                     </a>
@@ -321,7 +338,7 @@ export class DatePickerPadPipe implements PipeTransform {
                                     <a class="ui-state-default"
                                        [class.ui-state-active]="isMinuteSelected(minute)"
                                        (click)="onMinuteSelect(minute)" draggable="false">
-                                        <ng-container *ngIf="!templateMinute">{{(minute.label || minute.value) | pPad:2}}</ng-container>
+                                        <ng-container *ngIf="!templateMinute">{{(minute.label || minute.minute) | pPad:2}}</ng-container>
                                         <ng-container *ngTemplateOutlet="templateMinute; context: {$implicit: minute}">
                                         </ng-container>
                                     </a>
@@ -348,7 +365,7 @@ export class DatePickerPadPipe implements PipeTransform {
                                     <a class="ui-state-default"
                                        [class.ui-state-active]="isSecondSelected(second)"
                                        (click)="onSecondSelect(second)" draggable="false">
-                                        <ng-container *ngIf="!templateSecond">{{(second.label || second.value) | pPad:2}}</ng-container>
+                                        <ng-container *ngIf="!templateSecond">{{(second.label || second.second) | pPad:2}}</ng-container>
                                         <ng-container *ngTemplateOutlet="templateSecond; context: {$implicit: second}">
                                         </ng-container>
                                     </a>
@@ -553,12 +570,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     // endregion
 
 
-    public tableViewYear: GenericEntry[][];
-    public tableViewMonth: GenericEntry[][];
+    public tableViewYear: YearEntry[][];
+    public tableViewMonth: MonthEntry[][];
     public tableViewDay: DayEntry[][];
-    public tableViewHour: GenericEntry[][];
-    public tableViewMinute: GenericEntry[][];
-    public tableViewSecond: GenericEntry[][];
+    public tableViewHour: HourEntry[][];
+    public tableViewMinute: MinuteEntry[][];
+    public tableViewSecond: SecondEntry[][];
 
     public currentTimePickSource: 'from' | 'to';
     public currentPicking: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' = 'day';
@@ -1001,12 +1018,14 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         this.createAppropriateView();
     }
 
-    public onYearSelect(year: GenericEntry): void {
+    public onYearSelect(year: YearEntry): void {
         if (!year.selectable) {
             return;
         }
 
-        this.currentView = this.currentView.set({year: year.value});
+        const sYear = year.year;
+
+        this.currentView = this.currentView.set({year: sYear});
 
         if (this.showMonth() && this.monthNavigator) {
             this.currentPicking = 'month';
@@ -1019,25 +1038,25 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                     if (v) {
                         this.currentValue[0] = v.set({
-                            year: year.value, month: 1, day: 1,
+                            year: sYear, month: 1, day: 1,
                             hour: 0, minute: 0, second: 0, millisecond: 0
                         });
                     } else {
-                        this.currentValue[0] = DateTime.utc(year.value, 1, 1)
+                        this.currentValue[0] = DateTime.utc(sYear, 1, 1)
                             .setZone(this.zone, {keepLocalTime: true});
                     }
 
                     this.autoClose();
                     break;
                 case 'multiple':
-                    const found = this.currentValue.some(v => v.year === year.value);
+                    const found = this.currentValue.some(v => v.year === sYear);
                     if (found) {
-                        this.currentValue = this.currentValue.filter(v => v.year !== year.value);
+                        this.currentValue = this.currentValue.filter(v => v.year !== sYear);
                     }
 
 
                     if (!found && this.canPickOtherDates()) {
-                        this.currentValue.push(DateTime.utc(year.value, 1, 1)
+                        this.currentValue.push(DateTime.utc(sYear, 1, 1)
                             .setZone(this.zone, {keepLocalTime: true}));
                         this.currentValue.sort();
                     }
@@ -1048,11 +1067,11 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                         if (v) {
                             this.currentValue[0] = v.set({
-                                year: year.value, month: 1, day: 1,
+                                year: sYear, month: 1, day: 1,
                                 hour: 0, minute: 0, second: 0, millisecond: 0
                             });
                         } else {
-                            this.currentValue[0] = DateTime.utc(year.value, 1, 1)
+                            this.currentValue[0] = DateTime.utc(sYear, 1, 1)
                                 .setZone(this.zone, {keepLocalTime: true});
                         }
 
@@ -1063,11 +1082,11 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                         if (v) {
                             v = v.set({
-                                year: year.value, month: 1, day: 1,
+                                year: sYear, month: 1, day: 1,
                                 hour: 0, minute: 0, second: 0, millisecond: 0
                             });
                         } else {
-                            v = DateTime.utc(year.value, 1, 1)
+                            v = DateTime.utc(sYear, 1, 1)
                                 .setZone(this.zone, {keepLocalTime: true});
                         }
 
@@ -1090,12 +1109,14 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         this.createAppropriateView();
     }
 
-    public onMonthSelect(month: GenericEntry): void {
+    public onMonthSelect(month: MonthEntry): void {
         if (!month.selectable) {
             return;
         }
 
-        this.currentView = this.currentView.set({month: month.value});
+        const sMonth = month.month;
+
+        this.currentView = this.currentView.set({month: sMonth});
 
         if (this.showDay()) {
             this.currentPicking = 'day';
@@ -1107,12 +1128,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                     if (v) {
                         this.currentValue[0] = v.set({
                             year: this.currentView.year,
-                            month: month.value,
+                            month: sMonth,
                             day: 1,
                             hour: 0, minute: 0, second: 0, millisecond: 0
                         });
                     } else {
-                        this.currentValue[0] = DateTime.utc(this.currentView.year, month.value, 1)
+                        this.currentValue[0] = DateTime.utc(this.currentView.year, sMonth, 1)
                             .setZone(this.zone, {keepLocalTime: true});
                     }
 
@@ -1120,14 +1141,14 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                     break;
                 case 'multiple':
                     const found = this.currentValue
-                        .some(v => v.year === this.currentView.year && v.month === month.value);
+                        .some(v => v.year === this.currentView.year && v.month === sMonth);
                     if (found) {
                         this.currentValue = this.currentValue
-                            .filter(v => !(v.year === this.currentView.year && v.month === month.value));
+                            .filter(v => !(v.year === this.currentView.year && v.month === sMonth));
                     }
 
                     if (!found && this.canPickOtherDates()) {
-                        this.currentValue.push(DateTime.utc(this.currentView.year, month.value, 1)
+                        this.currentValue.push(DateTime.utc(this.currentView.year, sMonth, 1)
                             .setZone(this.zone, {keepLocalTime: true}));
                         this.currentValue.sort();
                     }
@@ -1139,12 +1160,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         if (v) {
                             this.currentValue[0] = v.set({
                                 year: this.currentView.year,
-                                month: month.value,
+                                month: sMonth,
                                 day: 1,
                                 hour: 0, minute: 0, second: 0, millisecond: 0
                             });
                         } else {
-                            this.currentValue[0] = DateTime.utc(this.currentView.year, month.value, 1)
+                            this.currentValue[0] = DateTime.utc(this.currentView.year, sMonth, 1)
                                 .setZone(this.zone, {keepLocalTime: true});
                         }
 
@@ -1156,12 +1177,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         if (v) {
                             v = v.set({
                                 year: this.currentView.year,
-                                month: month.value,
+                                month: sMonth,
                                 day: 1,
                                 hour: 0, minute: 0, second: 0, millisecond: 0
                             });
                         } else {
-                            v = DateTime.utc(this.currentView.year, month.value, 1)
+                            v = DateTime.utc(this.currentView.year, sMonth, 1)
                                 .setZone(this.zone, {keepLocalTime: true});
                         }
 
@@ -1322,17 +1343,19 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         this.onChangeFn();
     }
 
-    public onHourSelect(hour: GenericEntry): void {
+    public onHourSelect(hour: HourEntry): void {
         if (!hour.selectable) {
             return;
         }
+
+        const sHour = hour.hour;
 
         let pmDiff = (this.currentTimePickSource === 'from' ? this.pmFrom : this.pmTo) ? 12 : 0;
         if (this.hourFormat !== '12') {
             pmDiff = 0;
         }
 
-        this.currentView = this.currentView.set({hour: hour.value + pmDiff});
+        this.currentView = this.currentView.set({hour: sHour + pmDiff});
         if (this.currentTimePickSource === 'from') {
             this.selectedFromHour = this.currentView.hour;
 
@@ -1400,12 +1423,14 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         this.onChangeFn();
     }
 
-    public onMinuteSelect(minute: GenericEntry): void {
+    public onMinuteSelect(minute: MinuteEntry): void {
         if (!minute.selectable) {
             return;
         }
 
-        this.currentView = this.currentView.set({minute: minute.value});
+        const sMinute = minute.minute;
+
+        this.currentView = this.currentView.set({minute: sMinute});
         if (this.currentTimePickSource === 'from') {
             this.selectedFromMinute = this.currentView.minute;
 
@@ -1416,7 +1441,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[0]) {
                 this.currentValue[0] = this.currentValue[0].set({
-                    minute: minute.value,
+                    minute: sMinute,
                     second: this.showSeconds() ? this.selectedFromSecond : 0,
                     millisecond: 0
                 });
@@ -1431,7 +1456,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[1]) {
                 this.currentValue[1] = this.currentValue[1].set({
-                    minute: minute.value,
+                    minute: sMinute,
                     second: this.showSeconds() ? this.selectedToSecond : 0,
                     millisecond: 0
                 });
@@ -1459,18 +1484,20 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         this.onChangeFn();
     }
 
-    public onSecondSelect(second: GenericEntry): void {
+    public onSecondSelect(second: SecondEntry): void {
         if (!second.selectable) {
             return;
         }
 
-        this.currentView = this.currentView.set({second: second.value});
+        const sSecond = second.second;
+
+        this.currentView = this.currentView.set({second: sSecond});
         if (this.currentTimePickSource === 'from') {
             this.selectedFromSecond = this.currentView.second;
 
             if (this.currentValue[0]) {
                 this.currentValue[0] = this.currentValue[0].set({
-                    second: second.value,
+                    second: sSecond,
                     millisecond: 0
                 });
             }
@@ -1479,7 +1506,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[1]) {
                 this.currentValue[1] = this.currentValue[1].set({
-                    second: second.value,
+                    second: sSecond,
                     millisecond: 0
                 });
             }
@@ -1591,20 +1618,22 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         return hour;
     }
 
-    public isYearSelected(year: GenericEntry): boolean {
+    public isYearSelected(year: YearEntry): boolean {
+        const sYear = year.year;
+
         switch (this.selectionMode) {
             case 'single':
                 return (
                     this.currentValue[0] &&
-                    this.currentValue[0].year === year.value
+                    this.currentValue[0].year === sYear
                 );
             case 'multiple':
                 return this.currentValue
                     .some(v => (
-                        v.year === year.value
+                        v.year === sYear
                     ));
             case 'range': {
-                const d = DateTime.utc(year.value, 1, 1).setZone(this.zone, {keepLocalTime: true});
+                const d = DateTime.utc(sYear, 1, 1).setZone(this.zone, {keepLocalTime: true});
 
                 if (this.currentValue[0]) {
                     if (d.hasSame(this.currentValue[0], 'year')) {
@@ -1621,22 +1650,24 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         return false;
     }
 
-    public isMonthSelected(month: GenericEntry): boolean {
+    public isMonthSelected(month: MonthEntry): boolean {
+        const sMonth = month.month;
+
         switch (this.selectionMode) {
             case 'single':
                 return (
                     this.currentValue[0] &&
                     this.currentValue[0].year === this.currentView.year &&
-                    this.currentValue[0].month === month.value
+                    this.currentValue[0].month === sMonth
                 );
             case 'multiple':
                 return this.currentValue
                     .some(v => (
                         v.year === this.currentView.year &&
-                        v.month === month.value
+                        v.month === sMonth
                     ));
             case 'range': {
-                const d = DateTime.utc(this.currentView.year, month.value, 1).setZone(this.zone, {keepLocalTime: true});
+                const d = DateTime.utc(this.currentView.year, sMonth, 1).setZone(this.zone, {keepLocalTime: true});
 
                 if (this.currentValue[0]) {
                     if (d.hasSame(this.currentValue[0], 'month')) {
@@ -1688,16 +1719,16 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         return false;
     }
 
-    public isHourSelected(hour: GenericEntry): boolean {
-        return hour.value === this.currentView.hour;
+    public isHourSelected(hour: HourEntry): boolean {
+        return hour.hour === this.currentView.hour;
     }
 
-    public isMinuteSelected(minute: GenericEntry): boolean {
-        return minute.value === this.currentView.minute;
+    public isMinuteSelected(minute: MinuteEntry): boolean {
+        return minute.minute === this.currentView.minute;
     }
 
-    public isSecondSelected(second: GenericEntry): boolean {
-        return second.value === this.currentView.second;
+    public isSecondSelected(second: SecondEntry): boolean {
+        return second.second === this.currentView.second;
     }
 
     // endregion
@@ -1748,10 +1779,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         year -= year % 18;
 
         for (let i = 0; i < 6; ++i) {
-            const yRow: GenericEntry[] = [];
+            const yRow: YearEntry[] = [];
             for (let j = 0; j < 3; ++j) {
                 yRow.push({
-                    value: year,
+                    year: year,
                     selectable: this.isYearSelectable(year)
                 });
 
@@ -1766,10 +1797,11 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
         let month: number = 1;
         for (let i = 0; i < 6; ++i) {
-            const mRow: GenericEntry[] = [];
+            const mRow: MonthEntry[] = [];
             for (let j = 0; j < 2; ++j) {
                 mRow.push({
-                    value: month,
+                    year: this.currentView.year,
+                    month: month,
                     selectable: this.isMonthSelectable(month)
                 });
 
@@ -1854,6 +1886,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     private createHourView(): void {
+        const date = (this.currentTimePickSource === 'from' ? this.currentValue[0] : this.currentValue[1]) || this.currentView;
         this.tableViewHour = [];
 
         let hour = 0;
@@ -1861,12 +1894,15 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         const isPm = this.currentTimePickSource === 'from' ? this.pmFrom : this.pmTo;
 
         for (let i = 0; i < 6; ++i) {
-            const hRow: GenericEntry[] = [];
+            const hRow: HourEntry[] = [];
             for (let j = 0; j < (h24 ? 4 : 2); ++j) {
                 const realHour = hour + (!h24 && isPm ? 12 : 0);
 
                 hRow.push({
-                    value: realHour,
+                    year: date.year,
+                    month: date.month,
+                    day: date.day,
+                    hour: realHour,
                     label: (!h24 && hour === 0) ? 12 : hour,
                     selectable: this.isHourSelectable(realHour)
                 });
@@ -1878,15 +1914,20 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     private createMinuteView(): void {
+        const date = (this.currentTimePickSource === 'from' ? this.currentValue[0] : this.currentValue[1]) || this.currentView;
         this.tableViewMinute = [];
 
         let minute = 0;
 
         for (let i = 0; i < 6; ++i) {
-            const mRow: GenericEntry[] = [];
+            const mRow: MinuteEntry[] = [];
             for (let j = 0; j < 10; ++j) {
                 mRow.push({
-                    value: minute,
+                    year: date.year,
+                    month: date.month,
+                    day: date.day,
+                    hour: date.hour,
+                    minute: minute,
                     selectable: this.isMinuteSelectable(minute)
                 });
 
@@ -1897,15 +1938,21 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     private createSecondView(): void {
+        const date = (this.currentTimePickSource === 'from' ? this.currentValue[0] : this.currentValue[1]) || this.currentView;
         this.tableViewSecond = [];
 
         let second = 0;
 
         for (let i = 0; i < 6; ++i) {
-            const sRow: GenericEntry[] = [];
+            const sRow: SecondEntry[] = [];
             for (let j = 0; j < 10; ++j) {
                 sRow.push({
-                    value: second,
+                    year: date.year,
+                    month: date.month,
+                    day: date.day,
+                    hour: date.hour,
+                    minute: date.minute,
+                    second: second,
                     selectable: this.isSecondSelectable(second)
                 });
 
