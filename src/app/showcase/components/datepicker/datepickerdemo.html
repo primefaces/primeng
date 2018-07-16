@@ -42,7 +42,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Time</h3>
-            <p-datepicker [(ngModel)]="date7" [showTime]="true"></p-datepicker>
+            <p-datepicker [(ngModel)]="date7" [precision]="'second'"></p-datepicker>
             {{date7}}
         </div>
 
@@ -58,7 +58,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Range</h3>
-            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [showTime]="true"
+            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [precision]="'minute'"
                           [readonlyInput]="true"></p-datepicker>
         </div>
 

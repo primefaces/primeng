@@ -69,6 +69,12 @@ export interface DatePickerLocaleData {
     hour: string;
     minute: string;
     second: string;
+    fromHour: string;
+    fromMinute: string;
+    fromSecond: string;
+    toHour: string;
+    toMinute: string;
+    toSecond: string;
 }
 
 export const DATEPICKER_VALUE_ACCESSOR: Provider = {
@@ -275,7 +281,7 @@ export class DatePickerPadPipe implements PipeTransform {
                             <thead>
                             <tr>
                                 <th scope="col" [attr.colspan]="hourFormat === '12' ? 2 : 4">
-                                    <span>{{locale.hour}}</span>
+                                    <span>{{!isRangeSelection() ? locale.hour : (isSourceFrom() ? locale.fromHour : locale.toHour)}}</span>
                                 </th>
                             </tr>
                             </thead>
@@ -303,7 +309,7 @@ export class DatePickerPadPipe implements PipeTransform {
                             <thead>
                             <tr>
                                 <th scope="col" colspan="10">
-                                    <span>{{locale.minute}}</span>
+                                    <span>{{!isRangeSelection() ? locale.minute : (isSourceFrom() ? locale.fromMinute : locale.toMinute)}}</span>
                                 </th>
                             </tr>
                             </thead>
@@ -330,7 +336,7 @@ export class DatePickerPadPipe implements PipeTransform {
                             <thead>
                             <tr>
                                 <th scope="col" colspan="10">
-                                    <span>{{locale.second}}</span>
+                                    <span>{{!isRangeSelection() ? locale.second : (isSourceFrom() ? locale.fromSecond : locale.toSecond)}}</span>
                                 </th>
                             </tr>
                             </thead>
@@ -354,7 +360,7 @@ export class DatePickerPadPipe implements PipeTransform {
                     </ng-container>
                 </ng-container>
                 
-                <ng-container *ngIf="showTime || timeOnly">
+                <ng-container *ngIf="showTime()">
                     <div class="ui-time-picker ui-widget-header ui-corner-all">
                         <div class="ui-hour-picker ui-date-picker-interactable"
                              (click)="onHourNavigatorClick('from')">
@@ -363,11 +369,11 @@ export class DatePickerPadPipe implements PipeTransform {
                         <div class="ui-separator">
                             <span>:</span>
                         </div>
-                        <div class="ui-minute-picker ui-date-picker-interactable"
+                        <div class="ui-minute-picker" [class.ui-date-picker-interactable]="showMinutes()"
                              (click)="onMinuteNavigatorClick('from')">
-                            <span>{{(selectedFromMinute || 0) | pPad:2}}</span>
+                            <span>{{(showMinutes() ? (selectedFromMinute || 0) : 0) | pPad:2}}</span>
                         </div>
-                        <ng-container *ngIf="showSeconds">
+                        <ng-container *ngIf="showSeconds()">
                             <div class="ui-separator">
                                 <span>:</span>
                             </div>
@@ -390,11 +396,11 @@ export class DatePickerPadPipe implements PipeTransform {
                         <div class="ui-separator">
                             <span>:</span>
                         </div>
-                        <div class="ui-minute-picker ui-date-picker-interactable"
+                        <div class="ui-minute-picker" [class.ui-date-picker-interactable]="showMinutes()"
                              (click)="onMinuteNavigatorClick('to')">
-                            <span>{{(selectedToMinute || 0) | pPad:2}}</span>
+                            <span>{{(showMinutes() ? (selectedToMinute || 0) : 0) | pPad:2}}</span>
                         </div>
-                        <ng-container *ngIf="showSeconds">
+                        <ng-container *ngIf="showSeconds()">
                             <div class="ui-separator">
                                 <span>:</span>
                             </div>
@@ -460,11 +466,17 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         clear: 'Clear',
         pm: 'PM',
         am: 'AM',
-        year: 'year',
-        month: 'month',
+        year: 'Year',
+        month: 'Month',
         hour: 'Hour',
         minute: 'Minute',
-        second: 'Second'
+        second: 'Second',
+        fromHour: 'From Hour',
+        fromMinute: 'From Minute',
+        fromSecond: 'From Second',
+        toHour: 'To Hour',
+        toMinute: 'To Minute',
+        toSecond: 'To Second'
     };
     // endregion
 
@@ -477,7 +489,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
     // region Inputs
     @Input() public firstDayOfWeek: number = DatePicker.defaultFirstDayOfWeek;
-    @Input() public locale: DatePickerLocaleData = DatePicker.defaultLocale;
+    @Input() public locale: Partial<DatePickerLocaleData> = DatePicker.defaultLocale;
 
     @Input() public name: string;
     @Input() public inputId: string;
@@ -495,11 +507,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     @Input() public icon: string = 'pi pi-calendar';
     @Input() public showIcon: boolean = false;
     @Input() public inline: boolean = false;
-    @Input() public showTime: boolean = false;
     @Input() public timeOnly: boolean;
+    @Input() public precision: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' = 'day';
     @Input() public hourFormat: '24' | '12' = '24';
     @Input() public showOtherMonths: boolean = true;
-    @Input() public showSeconds: boolean = false;
 
     @Input() public appendTo: any;
     @Input() public zone: 'utc' | 'local' | string | Zone = 'utc';
@@ -581,7 +592,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         return this.selectedToHour >= 12;
     }
 
-    public selectedFromHour: number
+    public selectedFromHour: number;
     public selectedFromMinute: number;
     public selectedFromSecond: number;
     public selectedToHour: number;
@@ -688,13 +699,23 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
+        if ('locale' in changes && this.locale !== DatePicker.defaultLocale) {
+            this.locale = Object.assign({}, DatePicker.defaultLocale, this.locale);
+        }
+
         // The only valid selection mode when picking 'timeOnly' is 'single'.
         if (this.timeOnly) {
             this.selectionMode = 'single';
+
+            if (!this.showTime()) {
+                this.precision = 'hour';
+            }
         }
 
         // Show time not available with 'multiple' selection mode.
-        this.showTime = this.showTime && this.selectionMode !== 'multiple';
+        if (this.showTime() && this.selectionMode === 'multiple') {
+            this.precision = 'day';
+        }
 
         // Input is active only with 'single' selection mode.
         this.readonlyInput = this.readonlyInput || this.selectionMode !== 'single';
@@ -716,6 +737,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
         this.createAppropriateView();
         this.prepareMaskProperties();
+
+        if (!this.isPrecisionValid()) {
+            console.warn(`<p-datepicker>: Invalid precision: ${this.precision}`);
+        }
     }
 
     public ngOnDestroy(): void {
@@ -851,7 +876,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         if (input && input.isValid) {
             let current = this.currentValue[0] || DateTime.utc().setZone(this.zone);
 
-            this.currentValue[0] = current = current.set({
+            this.currentView = this.currentValue[0] = current = current.set({
                 year: input.year,
                 month: input.month,
                 day: input.day,
@@ -936,7 +961,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     public onHourNavigatorClick(source: 'from' | 'to'): void {
-        if (this.showTime || this.timeOnly) {
+        if (this.showHours()) {
             this.currentPicking = 'hour';
             this.currentView = this.currentView.set({hour: (source === 'from') ? this.selectedFromHour : this.selectedToHour});
 
@@ -946,7 +971,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     public onMinuteNavigatorClick(source: 'from' | 'to'): void {
-        if (this.showTime || this.timeOnly) {
+        if (this.showMinutes()) {
             this.currentPicking = 'minute';
             this.currentView = this.currentView.set({minute: (source === 'from') ? this.selectedFromMinute : this.selectedToMinute});
 
@@ -956,7 +981,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     public onSecondNavigatorClick(source: 'from' | 'to'): void {
-        if (this.showTime || this.timeOnly) {
+        if (this.showSeconds()) {
             this.currentPicking = 'second';
             this.currentView = this.currentView.set({second: (source === 'from') ? this.selectedFromSecond : this.selectedToSecond});
 
@@ -982,10 +1007,49 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
         this.currentView = this.currentView.set({year: year.value});
 
-        if (this.monthNavigator) {
+        if (this.showMonth() && this.monthNavigator) {
             this.currentPicking = 'month';
-        } else {
+        } else if (this.showDay()) {
             this.currentPicking = 'day';
+        } else {
+            switch (this.selectionMode) {
+                case 'single':
+                    const v = this.currentValue[0];
+
+                    if (v) {
+                        this.currentValue[0] = v.set({
+                            year: year.value, month: 1, day: 1,
+                            hour: 0, minute: 0, second: 0, millisecond: 0
+                        });
+                    } else {
+                        this.currentValue[0] = DateTime.utc()
+                            .setZone(this.zone)
+                            .set({
+                                year: year.value, month: 1, day: 1,
+                                hour: 0, minute: 0, second: 0, millisecond: 0
+                            });
+                    }
+                    break;
+                case 'multiple':
+                    const found = this.currentValue.some(v => v.year === year.value);
+                    if (found) {
+                        this.currentValue = this.currentValue.filter(v => v.year !== year.value);
+                    }
+
+
+                    if (!found) {
+                        this.currentValue.push(DateTime.utc()
+                            .setZone(this.zone)
+                            .set({year: year.value, month: 1, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0}));
+                        this.currentValue.sort();
+                    }
+                    break;
+                case 'range':
+                    // TODO
+                    break;
+            }
+
+            this.onChangeFn();
         }
 
         this.createAppropriateView();
@@ -998,11 +1062,65 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
         this.currentView = this.currentView.set({month: month.value});
 
-        this.currentPicking = 'day';
+        if (this.showDay()) {
+            this.currentPicking = 'day';
+        } else {
+            switch (this.selectionMode) {
+                case 'single':
+                    const v = this.currentValue[0];
+
+                    if (v) {
+                        this.currentValue[0] = v.set({
+                            year: this.currentView.year,
+                            month: month.value,
+                            day: 1,
+                            hour: 0, minute: 0, second: 0, millisecond: 0
+                        });
+                    } else {
+                        this.currentValue[0] = DateTime.utc()
+                            .setZone(this.zone)
+                            .set({
+                                year: this.currentView.year,
+                                month: month.value,
+                                day: 1,
+                                hour: 0, minute: 0, second: 0, millisecond: 0
+                            });
+                    }
+                    break;
+                case 'multiple':
+                    const found = this.currentValue
+                        .some(v => v.year === this.currentView.year && v.month === month.value);
+                    if (found) {
+                        this.currentValue = this.currentValue
+                            .filter(v => !(v.year === this.currentView.year && v.month === month.value));
+                    }
+
+                    if (!found) {
+                        this.currentValue.push(DateTime.utc()
+                            .setZone(this.zone)
+                            .set({
+                                year: this.currentView.year,
+                                month: month.value,
+                                day: 1, hour: 0, minute: 0, second: 0, millisecond: 0
+                            }));
+                        this.currentValue.sort();
+                    }
+                    break;
+                case 'range':
+                    // TODO
+                    break;
+            }
+
+            this.onChangeFn();
+        }
         this.createAppropriateView();
     }
 
     public onDateSelect(date: DayEntry): void {
+        if (!date.selectable) {
+            return;
+        }
+
         switch (this.selectionMode) {
             case 'single':
                 const v = this.currentValue[0];
@@ -1012,18 +1130,18 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         year: date.year,
                         month: date.month,
                         day: date.day,
-                        hour: this.showTime ? this.selectedFromHour : 0,
-                        minute: this.showTime ? this.selectedFromMinute : 0,
-                        second: this.showTime && this.showSeconds ? this.selectedFromSecond : 0,
+                        hour: this.showHours() ? this.selectedFromHour : 0,
+                        minute: this.showMinutes() ? this.selectedFromMinute : 0,
+                        second: this.showSeconds() ? this.selectedFromSecond : 0,
                         millisecond: 0
                     })
                 } else {
                     this.currentValue[0] = DateTime.utc(date.year, date.month, date.day)
                         .setZone(this.zone)
                         .set({
-                            hour: this.showTime ? this.selectedFromHour : 0,
-                            minute: this.showTime ? this.selectedFromMinute : 0,
-                            second: this.showTime && this.showSeconds ? this.selectedFromSecond : 0
+                            hour: this.showHours() ? this.selectedFromHour : 0,
+                            minute: this.showMinutes() ? this.selectedFromMinute : 0,
+                            second: this.showSeconds() ? this.selectedFromSecond : 0
                         });
                 }
                 break;
@@ -1069,7 +1187,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[0]) {
                 this.currentValue[0] = this.currentValue[0].set({
-                    hour: this.currentView.hour
+                    hour: this.currentView.hour,
+                    millisecond: 0
                 });
             }
         } else if (this.currentTimePickSource === 'to') {
@@ -1077,8 +1196,30 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[1]) {
                 this.currentValue[1] = this.currentValue[1].set({
-                    hour: this.currentView.hour
+                    hour: this.currentView.hour,
+                    millisecond: 0
                 });
+            }
+        }
+
+        if (!this.showSeconds()) {
+            this.selectedFromSecond = 0;
+            this.selectedToSecond = 0;
+
+            for (let i = 0; i < this.currentValue.length; ++i) {
+                this.currentValue[i] = this.currentValue[i].set({
+                    second: 0
+                })
+            }
+        }
+        if (!this.showMinutes()) {
+            this.selectedFromMinute = 0;
+            this.selectedToMinute = 0;
+
+            for (let i = 0; i < this.currentValue.length; ++i) {
+                this.currentValue[i] = this.currentValue[i].set({
+                    minute: 0
+                })
             }
         }
 
@@ -1101,7 +1242,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[0]) {
                 this.currentValue[0] = this.currentValue[0].set({
-                    minute: minute.value
+                    minute: minute.value,
+                    millisecond: 0
                 });
             }
         } else if (this.currentTimePickSource === 'to') {
@@ -1109,8 +1251,20 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[1]) {
                 this.currentValue[1] = this.currentValue[1].set({
-                    minute: minute.value
+                    minute: minute.value,
+                    millisecond: 0
                 });
+            }
+        }
+
+        if (!this.showSeconds()) {
+            this.selectedFromSecond = 0;
+            this.selectedToSecond = 0;
+
+            for (let i = 0; i < this.currentValue.length; ++i) {
+                this.currentValue[i] = this.currentValue[i].set({
+                    second: 0
+                })
             }
         }
 
@@ -1135,7 +1289,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[0]) {
                 this.currentValue[0] = this.currentValue[0].set({
-                    second: second.value
+                    second: second.value,
+                    millisecond: 0
                 });
             }
         } else if (this.currentTimePickSource === 'to') {
@@ -1143,7 +1298,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
             if (this.currentValue[1]) {
                 this.currentValue[1] = this.currentValue[1].set({
-                    second: second.value
+                    second: second.value,
+                    millisecond: 0
                 });
             }
         }
@@ -1187,6 +1343,38 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     // endregion
 
     // region Template Out
+    public isPrecisionValid(): boolean {
+        return this.precision === 'year' || this.showMonth();
+    }
+
+    public showMonth(): boolean {
+        return this.precision === 'month' || this.showDay();
+    }
+
+    public showDay(): boolean {
+        return this.precision === 'day' || this.showHours();
+    }
+
+    public showTime(): boolean {
+        return this.showHours() || this.showMinutes() || this.showSeconds();
+    }
+
+    public showHours(): boolean {
+        return this.precision === 'hour' || this.showMinutes();
+    }
+
+    public showMinutes(): boolean {
+        return this.precision === 'minute' || this.showSeconds();
+    }
+
+    public showSeconds(): boolean {
+        return this.precision === 'second';
+    }
+
+    public isSourceFrom(): boolean {
+        return this.currentTimePickSource === 'from';
+    }
+
     public isRangeSelection(): boolean {
         return this.selectionMode === 'range';
     }
@@ -1495,7 +1683,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     private showOverlay(): void {
         if (!this.overlayVisible) {
             this.currentTimePickSource = 'from';
-            this.currentPicking = this.timeOnly ? 'hour' : 'day';
+            this.currentPicking = this.timeOnly ? 'hour' : (this.showTime() ? 'day' : this.precision);
             this.createAppropriateView();
         }
 
@@ -1514,21 +1702,90 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     private prepareMaskProperties(): void {
+        const availableTokens = [
+            'd', 'dd',
+            'M', 'MM',
+            'y', 'yy', 'yyyy'
+        ];
+
         const h24 = this.hourFormat !== '12';
+        const min = this.showMinutes();
+        const sec = this.showSeconds();
 
-        if (!this.readonlyInput) {
-            if (!this.timeOnly) {
-                const availableTokens = [
-                    'd', 'dd',
-                    'M', 'MM',
-                    'y', 'yy', 'yyyy'
-                ];
+        const timeMaskFormat = `99:${min ? '99' : '00'}${sec ? ':99' : ''}${!h24 ? ' aa' : ''}`;
+        const timeOutputFormat = `${h24 ? 'HH' : 'hh'}:${min ? 'mm' : '00'}${sec ? ':ss' : ''}${!h24 ? ' a' : ''}`;
+        const timePlaceholderFormat = `${h24 ? 'HH' : 'hh'}:${min ? 'mm' : '00'}${sec ? ':ss' : ''}${!h24 ? ' #' : ''}`;
 
+        if (this.readonlyInput) {
+            this.maskFormat = '';
+            this.maskPlaceholder = '';
+
+            if (this.timeOnly) {
+                this.outputFormat = timeOutputFormat;
+            } else {
+                let newDateFormat = '';
+
+                let compoundString = this.dateFormat[0];
+                for (let i = 1; i < this.dateFormat.length; ++i) {
+                    const char = this.dateFormat[i];
+
+                    let shouldProcess = true;
+
+                    if (compoundString[0] === char) {
+                        compoundString += char;
+                        shouldProcess = false;
+                    }
+
+                    if (i >= this.dateFormat.length - 1) {
+                        shouldProcess = true;
+                    }
+
+                    if (shouldProcess) {
+                        // Process lastChar
+                        if (availableTokens.some(t => t === compoundString)) {
+
+                            switch (compoundString) {
+                                case 'd':
+                                case 'dd':
+                                    if (this.showDay()) {
+                                        newDateFormat += compoundString;
+                                    }
+                                    break;
+                                case 'M':
+                                case 'MM':
+                                    if (this.showMonth()) {
+                                        newDateFormat += compoundString;
+                                    }
+                                    break;
+                                case 'y':
+                                case 'yy':
+                                case 'yyyy':
+                                    newDateFormat += compoundString;
+                                    break;
+                            }
+                        } else {
+                            newDateFormat += compoundString;
+                        }
+
+                        compoundString = char;
+                    }
+                }
+
+                this.outputFormat = newDateFormat;
+                if (this.showTime()) {
+                    this.outputFormat += ` ${timeOutputFormat}`;
+                }
+            }
+        } else {
+            if (this.timeOnly) {
+                this.maskFormat = timeMaskFormat;
+                this.outputFormat = timeOutputFormat;
+                this.maskPlaceholder = timePlaceholderFormat;
+            } else {
                 let mask = '';
                 let newDateFormat = '';
 
                 let compoundString = this.dateFormat[0];
-
                 for (let i = 1; i < this.dateFormat.length; ++i) {
                     const char = this.dateFormat[i];
 
@@ -1556,19 +1813,31 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                             switch (compoundString) {
                                 case 'dd':
+                                    if (this.showDay()) {
+                                        mask += '99';
+                                        newDateFormat += compoundString;
+                                    }
+                                    break;
                                 case 'MM':
+                                    if (this.showMonth()) {
+                                        mask += '99';
+                                        newDateFormat += compoundString;
+                                    }
+                                    break;
                                 case 'yy':
                                     mask += '99';
+                                    newDateFormat += compoundString;
                                     break;
                                 case 'yyyy':
                                     mask += '9999';
+                                    newDateFormat += compoundString;
                                     break;
                             }
                         } else {
                             mask += compoundString;
+                            newDateFormat += compoundString;
                         }
 
-                        newDateFormat += compoundString;
                         compoundString = char;
                     }
                 }
@@ -1576,52 +1845,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                 this.maskFormat = mask;
                 this.maskPlaceholder = newDateFormat;
                 this.outputFormat = newDateFormat;
-            } else {
-                this.maskFormat = '99:99';
-                this.outputFormat = `${h24 ? 'HH' : 'hh'}:mm`;
 
-                if (this.showSeconds) {
-                    this.maskFormat += ':99';
-                    this.outputFormat += ':ss';
+                if (this.showTime()) {
+                    this.maskFormat += ` ${timeMaskFormat}`;
+                    this.outputFormat += ` ${timeOutputFormat}`;
+                    this.maskPlaceholder += ` ${timePlaceholderFormat}`;
                 }
-
-                this.maskPlaceholder = this.outputFormat;
-                if (!h24) {
-                    this.maskFormat += ' aa';
-                    this.outputFormat += ' a';
-                    this.maskPlaceholder += ' #';
-                }
-            }
-        } else {
-            this.outputFormat = this.dateFormat;
-            this.maskFormat = '';
-            this.maskPlaceholder = '';
-
-            if (this.timeOnly) {
-                this.outputFormat = `${h24 ? 'HH' : 'hh'}:mm`;
-                if (this.showSeconds) {
-                    this.outputFormat += ':ss';
-                }
-                if (!h24) {
-                    this.outputFormat += ' a';
-                }
-            }
-        }
-
-        if (this.showTime && !this.timeOnly) {
-            this.maskFormat += ' 99:99';
-            this.outputFormat += ` ${h24 ? 'HH' : 'hh'}:mm`;
-
-            if (this.showSeconds) {
-                this.maskFormat += ':99';
-                this.outputFormat += ':ss';
-            }
-
-            this.maskPlaceholder = this.outputFormat;
-            if (!h24) {
-                this.maskFormat += ' aa';
-                this.outputFormat += ' a';
-                this.maskPlaceholder += ' #';
             }
         }
 
@@ -1637,11 +1866,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         return this.firstDayOfWeek > 0 ? 7 - this.firstDayOfWeek : 0;
     }
 
+    // region Selection Availability
     private isYearSelectable(year: number,
                              minDate: DateTime = this.toDateTime(this.minDate),
                              maxDate: DateTime = this.toDateTime(this.maxDate)): boolean {
 
-        return minDate.year <= year && maxDate.year >= year;
+        return (!minDate || minDate.year <= year) && (!maxDate || maxDate.year >= year);
     }
 
     private isMonthSelectable(month: number,
@@ -1650,8 +1880,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         const cYear = this.currentView.year;
 
         return this.isYearSelectable(cYear, minDate, maxDate) && (
-            (minDate.year < cYear || minDate.month <= month) &&
-            (maxDate.year > cYear || maxDate.month >= month)
+            (!minDate || (minDate.year < cYear || minDate.month <= month)) &&
+            (!maxDate || (maxDate.year > cYear || maxDate.month >= month))
         );
     }
 
@@ -1664,8 +1894,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         // TODO: handle disabled days
 
         return this.isMonthSelectable(cMonth, minDate, maxDate) && (
-            (minDate.year < cYear || minDate.month < cMonth || minDate.day <= day) &&
-            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day >= day)
+            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day <= day)) &&
+            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day >= day))
         );
     }
 
@@ -1677,8 +1907,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         const cDay = this.currentView.day;
 
         return this.isDaySelectable(cDay, minDate, maxDate) && (
-            (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour <= hour) &&
-            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour >= hour)
+            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour <= hour)) &&
+            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour >= hour))
         );
     }
 
@@ -1691,8 +1921,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         const cHour = this.currentView.hour;
 
         return this.isHourSelectable(cHour, minDate, maxDate) && (
-            (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute <= minute) &&
-            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute >= minute)
+            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute <= minute)) &&
+            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute >= minute))
         );
     }
 
@@ -1706,10 +1936,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         const cMinute = this.currentView.minute;
 
         return this.isMinuteSelectable(cMinute, minDate, maxDate) && (
-            (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute <= cMinute || maxDate.second <= second) &&
-            (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute >= cMinute || maxDate.second >= second)
+            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute <= cMinute || maxDate.second <= second)) &&
+            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute >= cMinute || maxDate.second >= second))
         );
     }
+
+    // endregion
 
     private updateInputView(): void {
         this.maskBinding = '';

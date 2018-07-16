@@ -41,7 +41,7 @@ export class DatepickerDemo {
 
 
     public esFirstDayOfWeek: number;
-    public esLocale: DatePickerLocaleData;
+    public esLocale: Partial<DatePickerLocaleData>;
 
     ngOnInit() {
         this.esFirstDayOfWeek = 3;
