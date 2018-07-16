@@ -529,7 +529,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     @Input() public showOtherMonths: boolean = true;
 
     @Input() public appendTo: any;
-    @Input() public zone: 'utc' | 'local' | string | Zone = 'utc';
+    @Input() public zone: 'utc' | 'local' | string | Zone = 'local';
     @Input() public dataType: 'date' | 'luxon' | 'timestamp' = 'date';
     @Input() public selectionMode: 'single' | 'multiple' | 'range' = 'single';
 
