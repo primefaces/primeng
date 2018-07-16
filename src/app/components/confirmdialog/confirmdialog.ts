@@ -35,13 +35,20 @@ import {Subscription}   from 'rxjs';
     animations: [
         trigger('dialogState', [
             state('hidden', style({
-                opacity: 0
+                transform: 'translate3d(0, 25%, 0)', 
+                opacity: 0,
+                display: 'none'
             })),
             state('visible', style({
+                display: 'block',
+                transform: 'none', 
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            state('void', style({ 
+                transform: 'translate3d(0, 25%, 0) scale(0.9)', 
+                opacity: 0 
+            })),
+            transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
         ])
     ],
     providers: [DomHandler]

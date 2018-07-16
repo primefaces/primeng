@@ -33,8 +33,8 @@ export class TableContextMenuDemo implements OnInit {
         ];
 
         this.items = [
-            { label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar) },
-            { label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar) }
+            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewCar(this.selectedCar) },
+            { label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteCar(this.selectedCar) }
         ];
     }
 

@@ -553,6 +553,12 @@
             }
         }
     }
+
+    &.ui-datepicker-monthpicker {
+        .ui-datepicker-month-cell:hover {
+            @include hover-element();
+        }
+    }
 }
 
 .ui-date-picker-panel {
@@ -675,7 +681,7 @@
     }
 
     &.ui-table-hoverable-rows {
-        .ui-table-tbody > tr:not(.ui-state-highlight):hover {
+        .ui-table-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
             cursor: pointer;
             background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
@@ -729,6 +735,10 @@
         &.ui-contextmenu-selected {
             background-color: lighten($stateHighlightBgColor, 20%);
             color: $stateHighlightTextColor;
+
+            .ui-treetable-toggler {
+                color: $stateHighlightTextColor;
+            }
         }
 
         .ui-treetable-toggler {
@@ -761,7 +771,7 @@
     }
 
     &.ui-treetable-hoverable-rows {
-        .ui-treetable-tbody > tr:not(.ui-state-highlight):hover {
+        .ui-treetable-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
             cursor: pointer;
             background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;

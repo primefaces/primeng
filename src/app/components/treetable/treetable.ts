@@ -134,6 +134,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
     @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
 
+    @Input() contextMenuSelectionMode: string = "separate";
+
     @Input() dataKey: string;
 
     @Input() metaKeySelection: boolean;
@@ -998,12 +1000,38 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
     handleRowRightClick(event) {
         if (this.contextMenu) {
-            let node = event.rowNode.node;
-            this.contextMenuSelection = node;
-            this.contextMenuSelectionChange.emit(node);
-            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
-            this.contextMenu.show(event.originalEvent);
-            this.tableService.onContextMenu(node);
+            const node = event.rowNode.node;
+
+            if (this.contextMenuSelectionMode === 'separate') {
+                this.contextMenuSelection = node;
+                this.contextMenuSelectionChange.emit(node);
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node: node});
+                this.contextMenu.show(event.originalEvent);
+                this.tableService.onContextMenu(node);
+            }
+            else if (this.contextMenuSelectionMode === 'joint') {
+                this.preventSelectionSetterPropagation = true;
+                let selected = this.isSelected(node);
+                let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+
+                if (!selected) {
+                    if (this.isSingleSelectionMode()) {
+                        this.selection = node;
+                        this.selectionChange.emit(node);
+                    }
+                    else if (this.isMultipleSelectionMode()) {
+                        this.selection = [node];
+                        this.selectionChange.emit(this.selection);
+                    }
+                    
+                    if (dataKeyValue) {
+                        this.selectionKeys[dataKeyValue] = 1;
+                    }
+                }
+    
+                this.contextMenu.show(event.originalEvent);
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node: node});
+            }
         }
     }
 

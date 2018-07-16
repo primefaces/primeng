@@ -70,10 +70,26 @@
                 </ng-template>
             </p-calendar>
         </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Multiple Months</h3>
+            <p-calendar [(ngModel)]="date11" [numberOfMonths]="3"></p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Month Picker</h3>
+            <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Touch UI</h3>
+            <p-calendar [(ngModel)]="date13" [touchUI]="true"></p-calendar>
+        </div>
     </div>
 
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date11" [inline]="true"></p-calendar>
+    <p-calendar [(ngModel)]="date14" [inline]="true"></p-calendar>
+
 </div>
 
 <div class="content-section documentation">
@@ -190,6 +206,14 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Multiple Months</h3>
+            <p>Displaying multiple months is enabled by setting numberOfMonths property to a value greater than 1.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="dateValue" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
             <h3>Localization</h3>
             <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.</p>
 <pre>
@@ -245,6 +269,21 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Month Picker</h3>
+            <p>Month picker is used to select month and year only without the date, set view mode as "month" to activate month picker.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="dateValue" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <h3>Touch UI</h3>
+            <p>Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="dateValue" [touchUI]="true"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -540,6 +579,24 @@ export class MyModel &#123;
                             <td>false</td>
                             <td>Whether to hide the overlay on date selection when showTime is enabled.</td>
                         </tr>
+                        <tr>
+                            <td>numberOfMonths</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Number of months to display.</td>
+                        </tr>
+                        <tr>
+                            <td>view</td>
+                            <td>string</td>
+                            <td>date</td>
+                            <td>Type of view to display, valid valids are "date" for datepicker and "month" for month picker.</td>
+                        </tr>
+                        <tr>
+                            <td>touchUI</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, calendar overlay is displayed as optimized for touch devices.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -630,11 +687,47 @@ export class MyModel &#123;
                     <tbody>
                         <tr>
                             <td>ui-calendar</td>
-                            <td>Wrapper of input element</td>
+                            <td>Main container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-calendar-w-btn</td>
+                            <td>Main container element when button is enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-calendar-timeonly</td>
+                            <td>Main container element in time picker only mode.</td>
                         </tr>
                         <tr>
                             <td>ui-inputtext</td>
                             <td>Input element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datepicker</td>
+                            <td>Datepicker element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datepicker-inline</td>
+                            <td>Datepicker element in inline mode</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datepicker-monthpicker</td>
+                            <td>Datepicker element in month view.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datepicker-touch-ui</td>
+                            <td>Datepicker element in touch ui mode.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datepicker-calendar</td>
+                            <td>Table containing dates of a month.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datepicker-current-day</td>
+                            <td>Cell of selected date.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datepicker-today</td>
+                            <td>Cell of today's date.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -709,16 +802,31 @@ export class MyModel &#123;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Date Template&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date10"&gt;
+        &lt;p-calendar [(ngModel)]="date11"&gt;
             &lt;ng-template pTemplate="date" let-date&gt;
                 &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#7cc67c' : 'inherit'&#125;" style="border-radius:50%"&gt;{{date.day}}&lt;/span&gt;
             &lt;/ng-template&gt;
         &lt;/p-calendar&gt;
     &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Multiple Months&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date11" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Month Picker&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Touch UI&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date13" [touchUI]="true"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date11" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="date14" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -747,6 +855,10 @@ export class CalendarDemo &#123;
     date10: Date;
 
     date11: Date;
+
+    date12: Date;
+
+    date13: Date;
 
     dates: Date[];
 
