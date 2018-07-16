@@ -40,10 +40,10 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="pi pi-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
-                    <button type="button" pButton icon="pi pi-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
-                    <button type="button" pButton icon="pi pi-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
-                    <button type="button" pButton icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
+                    <button type="button" pButton icon="pi pi-angle-right" *ngIf="!hideMoveOneRight" [disabled]="disabled || moveDisabled || moveOneRightDisabled" (click)="moveRight()"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-right" *ngIf="!hideMoveAllRight" [disabled]="disabled || moveDisabled || moveAllRightDisabled" (click)="moveAllRight()"></button>
+                    <button type="button" pButton icon="pi pi-angle-left" *ngIf="!hideMoveOneLeft" [disabled]="disabled || moveDisabled || moveOneLeftDisabled" (click)="moveLeft()"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-left" *ngIf="!hideMoveAllLeft" [disabled]="disabled || moveDisabled || moveAllLeftDisabled" (click)="moveAllLeft()"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
@@ -122,6 +122,24 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() targetFilterPlaceholder: string;
 
     @Input() disabled: boolean = false;
+
+    @Input() moveDisabled: boolean = false;
+
+    @Input() moveOneLeftDisabled: boolean = false;
+
+    @Input() moveOneRightDisabled: boolean = false;
+
+    @Input() moveAllLeftDisabled: boolean = false;
+
+    @Input() moveAllRightDisabled: boolean = false;
+
+    @Input() hideMoveOneLeft: boolean = false;
+
+    @Input() hideMoveOneRight: boolean = false;
+
+    @Input() hideMoveAllLeft: boolean = false;
+
+    @Input() hideMoveAllRight: boolean = false;
     
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
@@ -259,7 +277,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onSourceItemDblClick() {
-        if(this.disabled) {
+        if(this.disabled || this.moveDisabled || this.moveOneRightDisabled) {
             return;
         }
         
@@ -267,7 +285,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onTargetItemDblClick() {
-        if(this.disabled) {
+        if(this.disabled || this.moveDisabled || this.moveOneLeftDisabled) {
             return;
         }
         
@@ -559,18 +577,30 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     onDrop(event: DragEvent, index: number, listType: number) {
         if(this.onListItemDroppoint) {
             if(listType === -1) {
-                if(this.fromListType === 1)
+                if(this.fromListType === 1) {
+                    if(this.disabled || this.moveDisabled || this.moveOneLeftDisabled) {
+                        event.preventDefault();
+                        return;
+                    }
                     this.insert(this.draggedItemIndexTarget, this.target, index, this.source, this.onMoveToSource);
-                else
+                }
+                else {
                     this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
+                }
 
                 this.dragOverItemIndexSource = null;
             }
             else {
-                if(this.fromListType === -1)
+                if(this.fromListType === -1) {
+                    if(this.disabled || this.moveDisabled || this.moveOneRightDisabled) {
+                        event.preventDefault();
+                        return;
+                    }
                     this.insert(this.draggedItemIndexSource, this.source, index, this.target, this.onMoveToTarget);
-                else
+                }
+                else {
                     this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
+                }
                     
                 this.dragOverItemIndexTarget = null;
             }
@@ -588,12 +618,22 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     onListDrop(event: DragEvent, listType:  number) {
         if(!this.onListItemDroppoint) {
             if(listType === -1) {
-                if(this.fromListType === 1)
+                if(this.fromListType === 1) {
+                    if(this.disabled || this.moveDisabled || this.moveOneLeftDisabled) {
+                        event.preventDefault();
+                        return;
+                    }
                     this.insert(this.draggedItemIndexTarget, this.target, null, this.source, this.onMoveToSource);
+                }
             }
             else {
-                if(this.fromListType === -1)
+                if(this.fromListType === -1) {
+                    if(this.disabled || this.moveDisabled || this.moveOneRightDisabled) {
+                        event.preventDefault();
+                        return;
+                    }
                     this.insert(this.draggedItemIndexSource, this.source, null, this.target, this.onMoveToTarget);
+                }
             }
             
             this.listHighlightTarget = false;
