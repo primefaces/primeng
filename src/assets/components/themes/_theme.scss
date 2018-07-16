@@ -555,6 +555,26 @@
     }
 }
 
+.ui-date-picker-panel {
+    .ui-date-picker-panel-header {
+        a {
+            color: $headerTextColor;
+
+            &:hover {
+                @include hover-element();
+            }
+        }
+    }
+
+    .ui-date-picker-panel-calendar {
+        td:not(.ui-state-disabled) {
+            a:hover {
+                @include hover-element();
+            }
+        }
+    }
+}
+
 .fc {
     .fc-toolbar {
         .fc-prev-button {
@@ -770,6 +790,7 @@
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
 p-calendar.ng-dirty.ng-invalid > .ui-calendar > .ui-inputtext,
+p-datepicker.ng-dirty.ng-invalid > .ui-date-picker > .ui-inputtext,
 p-chips.ng-dirty.ng-invalid > .ui-inputtext,
 p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
 p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,

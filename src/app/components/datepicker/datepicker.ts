@@ -540,6 +540,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     @Input() public panelStyleClass: string;
     @Input() public todayButtonStyleClass: string = 'ui-button-secondary';
     @Input() public clearButtonStyleClass: string = 'ui-button-secondary';
+
+    @Input() public hideOnDateTimeSelect: boolean = false;
     // endregion
 
     // region Outputs
@@ -548,10 +550,6 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     @Output() public onClose: EventEmitter<Event> = new EventEmitter();
     @Output() public onTodayClick: EventEmitter<Event> = new EventEmitter();
     @Output() public onClearClick: EventEmitter<Event> = new EventEmitter();
-    // endregion
-
-    // region TODO Input to prepare
-    @Input() public hideOnDateTimeSelect: boolean = false;
     // endregion
 
 
@@ -911,16 +909,26 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     public onTodayButtonClick(evt: Event): void {
-        if (this.selectionMode === 'single' && this.currentValue[0]) {
+        if (this.selectionMode === 'single') {
             const now = DateTime.utc().setZone(this.zone);
-            this.currentValue[0] = this.currentValue[0].set({
-                year: now.year,
-                month: now.month,
-                day: now.day
-            });
+            if (this.currentValue[0]) {
+                this.currentValue[0] = this.currentValue[0].set({
+                    year: now.year,
+                    month: now.month,
+                    day: now.day
+                });
+            } else {
+                this.currentValue[0] = now.set({
+                    hour: 0,
+                    minute: 0,
+                    second: 0,
+                    millisecond: 0
+                });
+            }
+
+            this.onChangeFn();
         }
 
-        this.onChangeFn();
         this.onTodayClick.emit(evt);
     }
 
@@ -1018,6 +1026,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         this.currentValue[0] = DateTime.utc(year.value, 1, 1)
                             .setZone(this.zone, {keepLocalTime: true});
                     }
+
+                    this.autoClose();
                     break;
                 case 'multiple':
                     const found = this.currentValue.some(v => v.year === year.value);
@@ -1067,7 +1077,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         } else {
                             this.currentValue[1] = v;
                             this.isPicking = false;
-                            this.onChangeFn();
+
+                            this.autoClose();
                         }
                     }
                     break;
@@ -1104,6 +1115,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         this.currentValue[0] = DateTime.utc(this.currentView.year, month.value, 1)
                             .setZone(this.zone, {keepLocalTime: true});
                     }
+
+                    this.autoClose();
                     break;
                 case 'multiple':
                     const found = this.currentValue
@@ -1158,7 +1171,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         } else {
                             this.currentValue[1] = v;
                             this.isPicking = false;
-                            this.onChangeFn();
+
+                            this.autoClose();
                         }
                     }
                     break;
@@ -1201,6 +1215,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         this.showSeconds() ? this.selectedFromSecond : 0
                     ).setZone(this.zone, {keepLocalTime: true});
                 }
+
+                this.autoClose();
                 break;
             case 'multiple':
                 const found = this.currentValue.some(v => (
@@ -1226,6 +1242,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                 if (!this.isPicking) {
                     const v = this.currentValue[0];
 
+                    this.validateHourSelection('from', DateTime
+                        .utc(date.year, date.month, date.day, this.selectedFromHour)
+                        .setZone(this.zone, {keepLocalTime: true}));
+
                     if (v) {
                         this.currentValue[0] = v.set({
                             year: date.year,
@@ -1246,10 +1266,6 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                             this.showSeconds() ? this.selectedFromSecond : 0
                         ).setZone(this.zone, {keepLocalTime: true});
                     }
-
-                    this.validateHourSelection('from', DateTime
-                        .utc(date.year, date.month, date.day, this.selectedFromHour)
-                        .setZone(this.zone, {keepLocalTime: true}));
                     this.isPicking = true;
                     this.currentValue[1] = null;
                 } else {
@@ -1276,20 +1292,28 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                     }
 
                     if (v <= this.currentValue[0]) {
-                        this.currentValue[0] = v;
-                        this.currentValue[1] = null;
-
                         this.validateHourSelection('from', DateTime
                             .utc(date.year, date.month, date.day, this.selectedFromHour)
                             .setZone(this.zone, {keepLocalTime: true}));
-                    } else {
-                        this.currentValue[1] = v;
-                        this.isPicking = false;
-                        this.onChangeFn();
 
+                        this.currentValue[0] = v.set({
+                            hour: this.showHours() ? this.selectedFromHour : 0,
+                            minute: this.showMinutes() ? this.selectedFromMinute : 0,
+                            second: this.showSeconds() ? this.selectedFromSecond : 0
+                        });
+                        this.currentValue[1] = null;
+                    } else {
                         this.validateHourSelection('to', DateTime
                             .utc(date.year, date.month, date.day, this.selectedToHour)
                             .setZone(this.zone, {keepLocalTime: true}));
+
+                        this.currentValue[1] = v.set({
+                            hour: this.showHours() ? this.selectedToHour : 0,
+                            minute: this.showMinutes() ? this.selectedToMinute : 0,
+                            second: this.showSeconds() ? this.selectedToSecond : 0
+                        });
+                        this.isPicking = false;
+                        this.autoClose();
                     }
                 }
                 break;
@@ -1908,6 +1932,16 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         }
 
         this.bindDocumentClickListener();
+    }
+
+    private autoClose(): void {
+        if (this.inline) {
+            return;
+        }
+
+        if (this.hideOnDateTimeSelect || !this.showHours()) {
+            this.hideOverlay();
+        }
     }
 
     private hideOverlay(): void {
