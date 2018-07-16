@@ -95,16 +95,21 @@
             <h3>Import</h3>
             <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;CalendarModule&#125; from 'primeng/calendar';
+import &#123;DatePickerModule&#125; from 'primeng/datepicker';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using the standard ngModel directive referencing to a Date property.</p>
+            <p>
+                Two-way value binding is defined using the standard ngModel directive referencing to either a JavaScript
+                Date, a DateTime Object (luxon) or a plain numeric timestamp property.<br>
+                To specify the preferred property type for the date element just set the <code>dataType</code> property
+                to either 'date', 'luxon' or 'timestamp' (the default is 'date').
+            </p>
 
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-datepicker [(ngModel)]="value"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="value" [dataType]="dataType"&gt;&lt;/p-datepicker&gt;
 </code>
 </pre>
 
@@ -112,7 +117,8 @@ import &#123;CalendarModule&#125; from 'primeng/calendar';
 <code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
-    value: Date;
+    dataType: 'date' | 'luxon' | 'timestamp';
+    value: Date | DateTime | number;
 
 &#125;
 </code>
@@ -144,10 +150,10 @@ export class MyModel &#123;
                 is the end date.</p>
 
             <h3>DateFormat</h3>
-            <p>Default date format is mm/dd/yy, to customize this use dateFormat property.</p>
+            <p>Default date format is dd/MM/yyyy, to customize this use dateFormat property.</p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-datepicker [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="dateValue" dateFormat="dd.MM.yy"&gt;&lt;/p-datepicker&gt;
 </code>
 </pre>
 
@@ -155,37 +161,33 @@ export class MyModel &#123;
             <ul>
                 <li>d - day of month (no leading zero)</li>
                 <li>dd - day of month (two digit)</li>
-                <li>o - day of the year (no leading zeros)</li>
-                <li>oo - day of the year (three digit)</li>
-                <li>D - day name short</li>
-                <li>DD - day name long</li>
-                <li>m - month of year (no leading zero)</li>
-                <li>mm - month of year (two digit)</li>
-                <li>M - month name short</li>
-                <li>MM - month name long</li>
-                <li>y - year (two digit)</li>
-                <li>yy - year (four digit)</li>
-                <li>@ - Unix timestamp (ms since 01/01/1970)</li>
-                <li> ! - Windows ticks (100ns since 01/01/0001)</li>
-                <li>'...' - literal text</li>
-                <li>'' - single quote</li>
+                <li>M - month of year (no leading zero)</li>
+                <li>MM - month of year (two digit)</li>
+                <li>y - year (no leading zeros)</li>
+                <li>yy - year (two digit)</li>
+                <li>yyyy - year (four digit)</li>
+                <li>a - meridian indicator (AM | PM)</li>
                 <li>anything else - literal text</li>
             </ul>
 
             <h3>Time</h3>
-            <p>TimePicker is enabled with showTime property and 24 (default) or 12 hour mode is configured using
-                hourFormat option.</p>
+            <p>
+                TimePicker is enabled increasing picker precision by setting it either to 'hour', 'minute' or 'second'
+                property and 24 (default) or 12 hour mode is configured using hourFormat option.
+            </p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-datepicker [(ngModel)]="value" showTime="true" hourFormat="12"&gt;&lt;/p-datepicker&gt;
-&lt;p-datepicker [(ngModel)]="value" showTime="true" hourFormat="24"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="value" precision="minute" hourFormat="12"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="value" precision="second" hourFormat="24"&gt;&lt;/p-datepicker&gt;
 </code>
 </pre>
 
             <h3>Date Restriction</h3>
-            <p>To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use
-                minDate
-                and maxDate options.</p>
+            <p>
+                To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use
+                minDate and maxDate options.<br>
+                Note: minDate and maxDate must be of the same type specified with the dataType attribute.
+            </p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-datepicker [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="true"&gt;&lt;/p-datepicker&gt;
@@ -193,11 +195,14 @@ export class MyModel &#123;
 </pre>
 
             <h3>Disable specific dates and/or days</h3>
-            <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use
-                disabledDates and/or disabledDays options.</p>
+            <p>
+                To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use
+                disabledDates and/or disabledDays options.<br>
+                Note: disabledDates and disabledDays must be of the same type specified with the dataType attribute.
+            </p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-datepicker [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="true"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[5,6]" [readonlyInput]="true"&gt;&lt;/p-datepicker&gt;
 </code>
 </pre>
 
@@ -205,16 +210,19 @@ export class MyModel &#123;
             <p>Button bar displays today and clear buttons and enabled using showButtonBar property.</p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-datepicker [(ngModel)]="dateValue" showButtonBar="true"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="dateValue" [showButtonBar]="true"&gt;&lt;/p-datepicker&gt;
 </code>
 </pre>
 
             <h3>Localization</h3>
-            <p>Localization for different languages and formats is defined by binding the locale settings object to the
-                locale property. Following is the default values for English.</p>
+            <p>
+                Localization for different languages and formats is defined by binding the locale settings object to
+                both the 'locale' and 'firstDayOfWeek' properties. Following is the default values for English.<br>
+                Note: firstDayOfWeek defaults to Monday (the values are 0-6 Monday-Sunday)
+            </p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-datepicker [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="dateValue" [locale]="en" [firstDayOfWeek]="6"&gt;&lt;/p-datepicker&gt;
 </code>
 </pre>
 
@@ -222,18 +230,30 @@ export class MyModel &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
-    en: any;
+    en: DatePickerLocaleData;
 
     ngOnInit() &#123;
         this.en = &#123;
-            firstDayOfWeek: 0,
-            dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-            monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-            monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+            dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            dayNamesMin: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             today: 'Today',
-            clear: 'Clear'
+            clear: 'Clear',
+            pm: 'PM',
+            am: 'AM',
+            year: 'Year',
+            month: 'Month',
+            hour: 'Hour',
+            minute: 'Minute',
+            second: 'Second',
+            fromHour: 'From Hour',
+            fromMinute: 'From Minute',
+            fromSecond: 'From Second',
+            toHour: 'To Hour',
+            toMinute: 'To Minute',
+            toSecond: 'To Second'
         &#125;;
     &#125;
 &#125;
@@ -251,17 +271,25 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <p>In addition, cell contents can be templated using an ng-template with a pTemplate directive whose value
-                is "date". This is a handy feature to highlight specific dates. Note that the implicit
-                variable passed to the template is not a date instance but a metadata object to represent a Date with
-                "day", "month" and "year" properties. Example below
-                changes the background color of dates between 10th and 21st of each month.</p>
+            <p>
+                In addition, cell contents can be templated using an ng-template with a pTemplate directive whose value
+                is either "year", "month", "date", "hour", "minute" or "second". This is a handy feature to highlight
+                specific elements.<br>
+                Note that the implicit variable passed to the template is not a date instance but a metadata object to
+                represent that element. The available properties are 'year', 'month', 'day', 'hour', 'minute', 'second'
+                properties.<br>
+                Example below changes the background color of dates between 10th and 21st of each month.
+            </p>
 
             <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-datepicker [(ngModel)]="date10"&gt;
     &lt;ng-template pTemplate="date" let-date&gt;
-        &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#7cc67c' : 'inherit'&#125;" style="border-radius:50%"&gt;{{date.day}}&lt;/span&gt;
+        &lt;span style="border-radius:10%;"
+              [style.text-align]="(date.day < 21 && date.day > 10) ? 'center' : null"
+              [style.background-color]="(date.day < 21 && date.day > 10) ? '#7cc67c' : null"&gt;
+            {{date.day}}
+        &lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-datepicker&gt;
 </code>
