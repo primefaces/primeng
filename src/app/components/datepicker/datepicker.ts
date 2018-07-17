@@ -157,7 +157,7 @@ export class DatePickerPadPipe implements PipeTransform {
                         </a>
                         <div class="ui-date-picker-panel-title">
                             <span class="ui-date-picker-panel-year">
-                                {{tableViewYear[0][0].label || tableViewYear[0][0].value}} - {{(tableViewYear[0][0].value || tableViewYear[0][0].value) + 17}}
+                                {{tableViewYear[0][0].year}} - {{(tableViewYear[0][0].year) + 17}}
                             </span>
                         </div>
                     </ng-container>
@@ -178,7 +178,7 @@ export class DatePickerPadPipe implements PipeTransform {
                             </span>
                         </div>
                     </ng-container>
-                    <ng-container *ngSwitchDefault>
+                    <ng-container *ngSwitchCase="'day'">
                         <a class="ui-date-picker-panel-prev ui-corner-all ui-date-picker-interactable"
                            (click)="onMonth(-1)">
                             <span class="pi pi-chevron-left"></span>
@@ -189,6 +189,35 @@ export class DatePickerPadPipe implements PipeTransform {
                         </a>
                         
                         <div class="ui-date-picker-panel-title">
+                            <span class="ui-date-picker-panel-month"
+                                  [class.ui-date-picker-interactable]="monthNavigator"
+                                  (click)="onMonthNavigatorClick()">
+                                {{currentMonthLabel()}}
+                            </span>
+                            <span class="ui-date-picker-panel-year"
+                                  [class.ui-date-picker-interactable]="yearNavigator"
+                                  (click)="onYearNavigatorClick()">
+                                {{currentYearLabel()}}
+                            </span>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <ng-container>
+                            <a class="ui-date-picker-panel-prev ui-corner-all ui-date-picker-interactable"
+                               (click)="onDay(-1)">
+                                <span class="pi pi-chevron-left"></span>
+                            </a>
+                            <a class="ui-date-picker-panel-next ui-corner-all ui-date-picker-interactable"
+                               (click)="onDay(1)">
+                                <span class="pi pi-chevron-right"></span>
+                            </a>
+                        </ng-container>
+                        
+                        <div class="ui-date-picker-panel-title">
+                            <span class="ui-date-picker-panel-day ui-date-picker-interactable"
+                                  (click)="onDayNavigatorClick()">
+                                {{currentDayLabel() | pPad:2}}
+                            </span>
                             <span class="ui-date-picker-panel-month"
                                   [class.ui-date-picker-interactable]="monthNavigator"
                                   (click)="onMonthNavigatorClick()">
@@ -884,7 +913,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         if (input && input.isValid) {
             let current = this.currentValue[0] || DateTime.utc().setZone(this.zone);
 
-            this.currentView = this.currentValue[0] = current = current.set({
+            current = current.set({
                 year: input.year,
                 month: this.showMonth() ? input.month : 1,
                 day: this.showDay() ? input.day : 1,
@@ -894,6 +923,17 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                 millisecond: 0
             });
 
+            const minDate = this.toDateTime(this.minDate);
+            const maxDate = this.toDateTime(this.maxDate);
+
+            if (minDate && minDate > current) {
+                current = minDate;
+            }
+            if (maxDate && maxDate < current) {
+                current = maxDate;
+            }
+
+            this.currentView = this.currentValue[0] = current;
             this.selectedFromHour = current.hour;
             this.selectedFromMinute = current.minute;
             this.selectedFromSecond = current.second;
@@ -901,6 +941,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
             this.createAppropriateView();
 
             this.onChangeFn();
+
+            this.changeDetector.detectChanges();
         }
     }
 
@@ -960,8 +1002,19 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         this.datePickerClick = true;
     }
 
+    public onDayNavigatorClick(): void {
+        if (this.timeOnly) {
+            return;
+        }
+
+        if (this.showDay()) {
+            this.currentPicking = 'day';
+            this.createAppropriateView();
+        }
+    }
+
     public onYearNavigatorClick(): void {
-        if (!this.yearNavigator) {
+        if (!this.yearNavigator || this.timeOnly) {
             return;
         }
 
@@ -970,12 +1023,14 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     public onMonthNavigatorClick(): void {
-        if (!this.monthNavigator) {
+        if (!this.monthNavigator || this.timeOnly) {
             return;
         }
 
-        this.currentPicking = 'month';
-        this.createAppropriateView();
+        if (this.showMonth()) {
+            this.currentPicking = 'month';
+            this.createAppropriateView();
+        }
     }
 
     public onHourNavigatorClick(source: 'from' | 'to'): void {
@@ -1016,6 +1071,26 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     public onMonth(direction: number): void {
         this.currentView = this.currentView.plus({months: direction});
         this.createAppropriateView();
+    }
+
+    public onDay(direction: number): void {
+        this.currentView = this.currentView.plus({days: direction});
+        const selectable = this.isDaySelectable(this.currentView.day);
+        if (!selectable) {
+            this.currentView = this.currentView.minus({days: direction});
+        }
+
+        this.onDateSelect({
+            selectable: true,
+            day: this.currentView.day,
+            month: this.currentView.month,
+            year: this.currentView.year,
+
+            otherMonth: false,
+            today: false
+        });
+        this.createAppropriateView();
+        this.changeDetector.detectChanges();
     }
 
     public onYearSelect(year: YearEntry): void {
@@ -1208,6 +1283,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         if (!date.selectable) {
             return;
         }
+
+        this.currentView = this.currentView.set({day: date.day});
 
         switch (this.selectionMode) {
             case 'single':
@@ -1597,6 +1674,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
     public currentYearLabel(): string {
         return this.currentView ? `${this.currentView.year}` : '--';
+    }
+
+    public currentDayLabel(): number {
+        return this.currentView.day;
     }
 
     public currentHourLabel(source: 'from' | 'to'): number {
