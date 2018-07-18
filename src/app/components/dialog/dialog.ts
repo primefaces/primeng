@@ -39,18 +39,18 @@ let idx: number = 0;
     animations: [
         trigger('dialogState', [
             state('hidden', style({
-                transform: 'translate3d(0, 25%, 0)', 
+                transform: 'translate3d(0, 25%, 0)',
                 opacity: 0,
                 display: 'none'
             })),
             state('visible', style({
                 display: 'block',
-                transform: 'none', 
+                transform: 'none',
                 opacity: 1
             })),
-            state('void', style({ 
-                transform: 'translate3d(0, 25%, 0) scale(0.9)', 
-                opacity: 0 
+            state('void', style({
+                transform: 'translate3d(0, 25%, 0) scale(0.9)',
+                opacity: 0
             })),
             transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
         ])
@@ -94,7 +94,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() appendTo: any;
     
     @Input() style: any;
-        
+    
     @Input() styleClass: string;
     
     @Input() showHeader: boolean = true;
@@ -114,11 +114,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() focusOnShow: boolean = true;
 
     @Input() maximizable: boolean;
-        
+    
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
     @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
-            
+    
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('titlebar') headerViewChild: ElementRef;
@@ -158,7 +158,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     lastPageY: number;
     
     mask: HTMLDivElement;
-            
+    
     closeIconMouseDown: boolean;
     
     preWidth: number;
@@ -182,7 +182,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     preMaximizePageY: number;
     
     id: string = `ui-dialog-${idx++}`;
-                
+    
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) {}
     
     @Input() get visible(): boolean {
@@ -203,7 +203,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             }
         }
     }
-        
+    
     ngAfterViewChecked() {
         if(this.executePostDisplayActions) {
             this.onShow.emit({});
@@ -218,7 +218,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     focus() {
         let focusable = this.domHandler.findSingle(this.containerViewChild.nativeElement, 'button');
         if(focusable) {
-            focusable.focus();
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => focusable.focus(), 5);
+            });
         }
     }
 
@@ -235,7 +237,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.enableModality();
         }
     }
-        
+    
     positionOverlay() {
         let viewport = this.domHandler.getViewport();
         if(this.domHandler.getOuterHeight(this.containerViewChild.nativeElement) > viewport.height) {
@@ -245,7 +247,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.positionLeft >= 0 && this.positionTop >= 0) {
             this.containerViewChild.nativeElement.style.left = this.positionLeft + 'px';
             this.containerViewChild.nativeElement.style.top = this.positionTop + 'px';
-        } 
+        }
         else if (this.positionTop >= 0) {
           this.center();
           this.containerViewChild.nativeElement.style.top = this.positionTop + 'px';
@@ -276,10 +278,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.visibleChange.emit(false);
         event.preventDefault();
     }
-        
-    ngAfterViewInit() { 
+    
+    ngAfterViewInit() {
         this.initialized = true;
-                      
+        
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
@@ -291,7 +293,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.show();
         }
     }
-        
+    
     center() {
         let elementWidth = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
         let elementHeight = this.domHandler.getOuterHeight(this.containerViewChild.nativeElement);
@@ -399,7 +401,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             setTimeout(() => this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-dialog-maximized'), 300);
         });
     }
-        
+    
     unbindMaskClickListener() {
         if(this.maskClickListener) {
             this.maskClickListener();
@@ -410,7 +412,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     moveOnTop() {
         if(this.autoZIndex) {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-        } 
+        }
     }
     
     onCloseMouseDown(event: Event) {
@@ -481,7 +483,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             if(newWidth > this.minWidth) {
                 this.containerViewChild.nativeElement.style.width = newWidth + 'px';
             }
-                
+            
             if(newHeight > this.minHeight) {
                 this.containerViewChild.nativeElement.style.height = newHeight + 'px';
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
@@ -497,7 +499,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.resizing = false;
             this.domHandler.removeClass(document.body, 'ui-unselectable-text');
         }
-    } 
+    }
     
     bindGlobalListeners() {
         if(this.draggable) {
