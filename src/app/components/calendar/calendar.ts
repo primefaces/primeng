@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,
         ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
@@ -37,9 +37,8 @@ export interface LocaleSettings {
             </ng-template>
             <div #datepicker [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
-                [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
-                
-                <ng-container *ngIf="!timeOnly && (overlayVisible || inline)">
+                (click)="onDatePickerClick($event)" [@overlayState]="'visible'" [@.disabled]="inline" (@overlayState.start)="onOverlayShowStart($event)" *ngIf="inline || overlayVisible">
+                <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
                             <ng-content select="p-header"></ng-content>
@@ -163,14 +162,15 @@ export interface LocaleSettings {
     `,
     animations: [
         trigger('overlayState', [
-            state('hidden', style({
+            state('void', style({
+                transform: 'translateY(5%)',
                 opacity: 0
             })),
             state('visible', style({
+                transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            transition('* => *', animate('150ms ease-in'))
         ])
     ],
     host: {
@@ -179,7 +179,7 @@ export interface LocaleSettings {
     },
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
-export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy,ControlValueAccessor {
+export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() defaultDate: Date;
     
@@ -343,9 +343,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     overlay: HTMLDivElement;
     
     overlayVisible: boolean;
-    
-    overlayShown: boolean;
-    
+        
     datepickerClick: boolean;
     
     onModelChange: Function = () => {};
@@ -500,14 +498,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 this.domHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
         }
     }
-    
-    ngAfterViewChecked() {
-        if(this.overlayShown) {
-            this.alignOverlay();
-            this.overlayShown = false;
-        }
-    }
-    
+        
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
@@ -1065,10 +1056,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     onInputClick(event: Event) {
-      this.datepickerClick=true;
-      if(this.autoZIndex) {
-        this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-      }
+        this.datepickerClick=true;
+        if(this.autoZIndex) {
+            this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
     }
     
     onInputBlur(event: Event) {
@@ -1080,23 +1071,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.onModelTouched();
     }
     
-    onButtonClick(event,inputfield) {
-        if(!this.overlayViewChild.nativeElement.offsetParent || this.overlayViewChild.nativeElement.style.display === 'none') {
+    onButtonClick(event, inputfield) {
+        if (!this.overlayVisible) {
             inputfield.focus();
             this.showOverlay();
-    
-            if (this.overlayViewChild != undefined) {
-                setTimeout(() => {
-                    this.overlay = <HTMLDivElement> this.overlayViewChild.nativeElement;
-                    this.selectElement = this.domHandler.findSingle(this.overlay, 'a.ui-state-active');
-                    this.todayElement = this.domHandler.findSingle(this.overlay, 'a.ui-state-highlight');
-                    this.focusElement = this.selectElement ? this.selectElement : this.todayElement;
-                    this.focusElement.focus();
-                }, 200);
-            }
         }
-        else
+        else {
             this.overlayVisible = false;
+        }
         
         this.datepickerClick = true;
     }
@@ -1446,31 +1428,36 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     showOverlay() {
-        this.overlayVisible = true;
-        this.overlayShown = true;
-        if(this.autoZIndex) {
-            this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-        }
-        
+        this.overlayVisible = true;        
         this.bindDocumentClickListener();
     }
+
+    onOverlayShowStart(event: AnimationEvent) {
+        if (!this.inline) {
+            this.alignOverlay(event.element);
+
+            if(this.autoZIndex) {
+                event.element.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            }
+        }
+    }
     
-    alignOverlay() {
+    alignOverlay(element) {
         if (this.touchUI) {
-            this.enableModality();
+            this.enableModality(element);
         }
         else {
             if(this.appendTo)
-                this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
+                this.domHandler.absolutePosition(element, this.inputfieldViewChild.nativeElement);
             else
-                this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
+                this.domHandler.relativePosition(element, this.inputfieldViewChild.nativeElement);
         }
     }
 
-    enableModality() {
+    enableModality(element) {
         if(!this.mask) {
             this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(this.overlayViewChild.nativeElement.style.zIndex) - 1);
+            this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
             let maskStyleClass = 'ui-widget-overlay ui-datepicker-mask ui-datepicker-mask-scrollblocker';
             this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
             

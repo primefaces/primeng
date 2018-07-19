@@ -46,9 +46,9 @@
 .ui-datepicker {
 	width: auto;
 	padding: .2em;
-	display: none;
     position: absolute;
 }
+
 .ui-datepicker.ui-datepicker-inline {
     display: inline-block;
     position: static;
