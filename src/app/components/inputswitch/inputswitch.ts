@@ -23,7 +23,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
             </div>
             <div [ngClass]="{'ui-inputswitch-handle ui-state-default':true, 'ui-state-focus':focused}"></div>
             <div class="ui-helper-hidden-accessible">
-                <input #in type="checkbox" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" aria-live="polite" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onBlur($event)" readonly="readonly" [attr.tabindex]="tabindex"/>
+                <input #in type="checkbox" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" aria-live="polite" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onBlur($event)" readonly="readonly" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired"/>
             </div>
         </div>
     `,
@@ -43,8 +43,12 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
 
     @Input() tabindex: number;
 
+    @Input() ariaLabel: string;
+
+    @Input() ariaRequired: boolean;
+
     @Input() inputId: string;
-    
+
     @Input() ariaLabelTemplate: string = "InputSwitch {0}";
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -70,11 +74,11 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     public offLabelChild: any;
 
     public offset: any;
-    
+
     public ariaLabel: string;
-    
+
     public ariaLabelledBy: string;
-    
+
     initialized: boolean = false;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
@@ -87,19 +91,19 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.onLabelChild = this.domHandler.findSingle(this.onContainer,'span.ui-inputswitch-onlabel');
         this.offLabelChild = this.domHandler.findSingle(this.offContainer,'span.ui-inputswitch-offlabel');
     }
-    
+
     ngAfterViewChecked() {
         if(this.container && this.container.offsetParent && !this.initialized) {
             this.render();
         }
     }
-    
+
     render() {
         let	onContainerWidth =  this.domHandler.width(this.onContainer),
             offContainerWidth = this.domHandler.width(this.offContainer),
             spanPadding	= this.domHandler.innerWidth(this.offLabelChild) - this.domHandler.width(this.offLabelChild),
             handleMargins = this.domHandler.getOuterWidth(this.handle) - this.domHandler.innerWidth(this.handle);
-        
+
         var containerWidth = (onContainerWidth > offContainerWidth) ? onContainerWidth : offContainerWidth,
             handleWidth = containerWidth;
 
@@ -112,7 +116,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.container.style.width = containerWidth + 'px';
         this.onLabelChild.style.width = labelWidth + 'px';
         this.offLabelChild.style.width = labelWidth + 'px';
-        
+
         //position
         this.offContainer.style.width = (this.domHandler.width(this.container) - 5) + 'px';
         this.offset = this.domHandler.width(this.container) - this.domHandler.getOuterWidth(this.handle);
@@ -127,7 +131,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
             this.onContainer.style.width = 0 + 'px';
             this.onLabelChild.style.marginLeft = -this.offset + 'px';
         }
-        
+
         this.initialized = true;
     }
 
@@ -141,7 +145,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
                 this.checked = true;
                 this.checkUI();
             }
-            
+
             this.onModelChange(this.checked);
             this.onChange.emit({
                 originalEvent: event,
@@ -178,7 +182,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
 
     writeValue(checked: any) : void {
         this.checked = checked;
-        
+
         if(this.initialized) {
             if(this.checked === true)
                 this.checkUI();
@@ -194,15 +198,15 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+
     updateAriaLabel() {
         let pattern = /{(.*?)}/,
         value = this.checked ? this.onLabel : this.offLabel;
-        
+
         this.ariaLabel = this.ariaLabelTemplate.replace(this.ariaLabelTemplate.match(pattern)[0], value);
     }
 }
