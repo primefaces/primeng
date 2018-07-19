@@ -14,7 +14,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [ngClass]="'ui-chkbox ui-widget'" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [name]="name" [value]="value" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
-                [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,cb,true)"
                         [ngClass]="{'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
@@ -34,52 +34,56 @@ export class Checkbox implements ControlValueAccessor {
     @Input() name: string;
 
     @Input() disabled: boolean;
-    
+
     @Input() binary: string;
-    
+
     @Input() label: string;
 
     @Input() tabindex: number;
 
     @Input() inputId: string;
-    
+
     @Input() style: any;
 
     @Input() styleClass: string;
 
     @Input() labelStyleClass: string;
-    
+
     @Input() formControl: FormControl;
-    
+
+    @Input() ariaLabel: string;
+
+    @Input() ariaRequired: boolean;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
+
     model: any;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-        
+
     focused: boolean = false;
-    
+
     checked: boolean = false;
 
     constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event,checkbox,focus:boolean) {
         event.preventDefault();
-        
+
         if(this.disabled) {
             return;
         }
-        
+
         this.checked = !this.checked;
         this.updateModel();
-        
+
         if(focus) {
             checkbox.focus();
         }
     }
-    
+
     updateModel() {
         if(!this.binary) {
             if(this.checked)
@@ -88,7 +92,7 @@ export class Checkbox implements ControlValueAccessor {
                 this.removeValue();
 
             this.onModelChange(this.model);
-            
+
             if(this.formControl) {
                 this.formControl.setValue(this.model);
             }
@@ -96,10 +100,10 @@ export class Checkbox implements ControlValueAccessor {
         else {
             this.onModelChange(this.checked);
         }
-        
+
         this.onChange.emit(this.checked);
     }
-    
+
     handleChange(event) {
         this.checked = event.target.checked;
         this.updateModel();
@@ -122,7 +126,7 @@ export class Checkbox implements ControlValueAccessor {
         else
             this.model = [this.value];
     }
-    
+
     onFocus(event) {
         this.focused = true;
     }
@@ -131,13 +135,13 @@ export class Checkbox implements ControlValueAccessor {
         this.focused = false;
         this.onModelTouched();
     }
-    
+
     writeValue(model: any) : void {
         this.model = model;
         this.checked = this.isChecked();
         this.cd.markForCheck();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -145,7 +149,7 @@ export class Checkbox implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
