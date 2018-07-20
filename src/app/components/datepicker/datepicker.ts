@@ -113,8 +113,9 @@ export class DatePickerPadPipe implements PipeTransform {
         <span class="ui-date-picker {{styleClass}}" [class.ui-date-picker-w-btn]="showIcon" [ngStyle]="style">
             <ng-container *ngIf="!inline">
                 <p-inputMask *ngIf="!readonlyInput; else readonlyInputTemplate" [(ngModel)]="maskBinding"
-                             [inputId]="inputId" [required]="required" [tabindex]="tabindex"
-                             [mask]="maskFormat" [placeholder]="placeholder || maskPlaceholder || ''"
+                             [inputId]="inputId" [required]="required" [tabindex]="tabindex" [style]="inputStyle"
+                             [mask]="maskFormat"
+                             [placeholder]="placeholder != null ? placeholder : (maskPlaceholder || '')"
                              (onFocus)="onMaskFocus($event)" (onBlur)="onMaskBlur($event)"
                              (onClick)="onMaskClick()" (onComplete)="onMaskComplete()">
                 </p-inputMask>
@@ -125,7 +126,7 @@ export class DatePickerPadPipe implements PipeTransform {
                            [value]="maskBinding" [placeholder]="placeholder || ''"
                            [readonly]="readonlyInput" [disabled]="disabled">
                 </ng-template>
-                
+
                 <button *ngIf="showIcon" type="button" pButton
                         class="ui-date-picker-trigger ui-date-picker-button"
                         [class.ui-state-disabled]="disabled"
@@ -141,7 +142,7 @@ export class DatePickerPadPipe implements PipeTransform {
                  [style.display]="inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')"
                  [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')"
                  (click)="onDatePickerClick()">
-                
+
                 <ng-content select="p-header"></ng-content>
                 <!-- Headings -->
                 <div *ngIf="!timeOnly && (overlayVisible || inline)" [ngSwitch]="currentPicking"
@@ -187,7 +188,7 @@ export class DatePickerPadPipe implements PipeTransform {
                            (click)="onMonth(1)">
                             <span class="pi pi-chevron-right"></span>
                         </a>
-                        
+
                         <div class="ui-date-picker-panel-title">
                             <span class="ui-date-picker-panel-month"
                                   [class.ui-date-picker-interactable]="monthNavigator"
@@ -212,7 +213,7 @@ export class DatePickerPadPipe implements PipeTransform {
                                 <span class="pi pi-chevron-right"></span>
                             </a>
                         </ng-container>
-                        
+
                         <div class="ui-date-picker-panel-title">
                             <span class="ui-date-picker-panel-day ui-date-picker-interactable"
                                   (click)="onDayNavigatorClick()">
@@ -247,12 +248,14 @@ export class DatePickerPadPipe implements PipeTransform {
                             <tr *ngFor="let yearRow of tableViewYear">
                                 <td *ngFor="let year of yearRow"
                                     [class.ui-date-picker-panel-current-year]="isYearSelected(year)">
-                                    
+
                                     <a class="ui-state-default"
                                        [class.ui-state-active]="isYearSelected(year)"
                                        [class.ui-state-disabled]="!year.selectable"
                                        (click)="onYearSelect(year)">
-                                        <ng-container *ngIf="!templateYear">{{year.label || year.year}}</ng-container>
+                                        <ng-container *ngIf="!templateYear">
+                                            {{year.label || year.year}}
+                                        </ng-container>
                                         <ng-container *ngTemplateOutlet="templateYear; context: {$implicit: year}">
                                         </ng-container>
                                     </a>
@@ -274,7 +277,7 @@ export class DatePickerPadPipe implements PipeTransform {
                             <tr *ngFor="let monthRow of tableViewMonth">
                                 <td *ngFor="let month of monthRow"
                                     [class.ui-date-picker-panel-current-month]="isMonthSelected(month)">
-                                    
+
                                     <a class="ui-state-default"
                                        [class.ui-state-active]="isMonthSelected(month)"
                                        [class.ui-state-disabled]="!month.selectable"
@@ -306,13 +309,15 @@ export class DatePickerPadPipe implements PipeTransform {
                                     [class.ui-state-disabled]="date.otherMonth"
                                     [class.ui-date-picker-panel-current-day]="isDaySelected(date)"
                                     [class.ui-date-picker-panel-today]="date.today">
-                                    
+
                                     <a class="ui-state-default" *ngIf="!date.otherMonth || showOtherMonths"
                                        [class.ui-state-active]="isDaySelected(date)"
                                        [class.ui-state-highlight]="date.today"
                                        [class.ui-state-disabled]="!date.selectable"
                                        (click)="onDateSelect(date)" draggable="false">
-                                        <ng-container *ngIf="!templateDate">{{date.day}}</ng-container>
+                                        <ng-container *ngIf="!templateDate">
+                                            {{date.day}}
+                                        </ng-container>
                                         <ng-container *ngTemplateOutlet="templateDate; context: {$implicit: date}">
                                         </ng-container>
                                     </a>
@@ -321,7 +326,7 @@ export class DatePickerPadPipe implements PipeTransform {
                             </tbody>
                         </table>
                     </ng-container>
-                    <ng-container *ngSwitchCase="'hour'"> 
+                    <ng-container *ngSwitchCase="'hour'">
                         <table class="ui-date-picker-panel-calendar ui-date-picker-panel-calendar-hour">
                             <thead>
                             <tr>
@@ -335,12 +340,13 @@ export class DatePickerPadPipe implements PipeTransform {
                                 <td *ngFor="let hour of hourRow"
                                     [class.ui-state-disabled]="!hour.selectable"
                                     [class.ui-date-picker-panel-current-hour]="isHourSelected(hour)">
-                                    
+
                                     <a class="ui-state-default"
                                        [class.ui-state-active]="isHourSelected(hour)"
                                        (click)="onHourSelect(hour)" draggable="false">
-                                        <ng-container
-                                            *ngIf="!templateHour">{{(hour.label || hour.hour) | pPad:2}}</ng-container>
+                                        <ng-container *ngIf="!templateHour">
+                                            {{(hour.label || hour.hour) | pPad:2}}
+                                        </ng-container>
                                         <ng-container *ngTemplateOutlet="templateHour; context: {$implicit: hour}">
                                         </ng-container>
                                     </a>
@@ -363,11 +369,13 @@ export class DatePickerPadPipe implements PipeTransform {
                                 <td *ngFor="let minute of minuteRow"
                                     [class.ui-state-disabled]="!minute.selectable"
                                     [class.ui-date-picker-panel-current-hour]="isMinuteSelected(minute)">
-                                    
+
                                     <a class="ui-state-default"
                                        [class.ui-state-active]="isMinuteSelected(minute)"
                                        (click)="onMinuteSelect(minute)" draggable="false">
-                                        <ng-container *ngIf="!templateMinute">{{(minute.label || minute.minute) | pPad:2}}</ng-container>
+                                        <ng-container *ngIf="!templateMinute">
+                                            {{(minute.label || minute.minute) | pPad:2}}
+                                        </ng-container>
                                         <ng-container *ngTemplateOutlet="templateMinute; context: {$implicit: minute}">
                                         </ng-container>
                                     </a>
@@ -390,11 +398,13 @@ export class DatePickerPadPipe implements PipeTransform {
                                 <td *ngFor="let second of secondRow"
                                     [class.ui-state-disabled]="!second.selectable"
                                     [class.ui-date-picker-panel-current-hour]="isSecondSelected(second)">
-                                    
+
                                     <a class="ui-state-default"
                                        [class.ui-state-active]="isSecondSelected(second)"
                                        (click)="onSecondSelect(second)" draggable="false">
-                                        <ng-container *ngIf="!templateSecond">{{(second.label || second.second) | pPad:2}}</ng-container>
+                                        <ng-container *ngIf="!templateSecond">
+                                            {{(second.label || second.second) | pPad:2}}
+                                        </ng-container>
                                         <ng-container *ngTemplateOutlet="templateSecond; context: {$implicit: second}">
                                         </ng-container>
                                     </a>
@@ -404,7 +414,7 @@ export class DatePickerPadPipe implements PipeTransform {
                         </table>
                     </ng-container>
                 </ng-container>
-                
+
                 <ng-container *ngIf="showHours()">
                     <div class="ui-time-picker ui-widget-header ui-corner-all">
                         <div class="ui-hour-picker ui-date-picker-interactable"
@@ -432,7 +442,7 @@ export class DatePickerPadPipe implements PipeTransform {
                             <span>{{pmFrom ? labelPM() : labelAM()}}</span>
                         </div>
                     </div>
-                    
+
                     <div *ngIf="isRangeSelection()" class="ui-time-picker ui-widget-header ui-corner-all">
                         <div class="ui-hour-picker ui-date-picker-interactable"
                              (click)="onHourNavigatorClick('to')">
@@ -460,7 +470,7 @@ export class DatePickerPadPipe implements PipeTransform {
                         </div>
                     </div>
                 </ng-container>
-                
+
                 <div class="ui-date-picker-panel-buttonbar ui-widget-header" *ngIf="showButtonBar">
                     <div class="ui-g">
                         <div class="ui-g-6">
@@ -791,6 +801,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     public registerOnChange(fn: any): void {
         this.onChangeFn = () => {
             let fireValue: DatePickerValue | DatePickerValue[] = null;
+            this.controlFilled = false;
             this.maskBinding = '';
 
             switch (this.selectionMode) {
@@ -798,6 +809,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                     if (this.currentValue.length === 1 && this.currentValue[0]) {
                         fireValue = this.toFireValue(this.currentValue[0]);
                         this.maskBinding = this.currentValue[0].toFormat(this.outputFormat);
+
+                        this.controlFilled = true;
                     }
                     break;
                 case 'multiple':
@@ -807,6 +820,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                     fireValue = values.map(v => this.toFireValue(v));
                     this.maskBinding = values.map(v => v.toFormat(this.outputFormat)).join(', ');
+
+                    if (values.length > 0) {
+                        this.controlFilled = true;
+                    }
                     break;
                 case 'range':
                     fireValue = [null, null];
@@ -816,6 +833,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                         this.maskBinding = this.currentValue[0].toFormat(this.outputFormat) + ' - ' +
                             this.currentValue[1].toFormat(this.outputFormat);
+
+                        this.controlFilled = true;
                     }
                     break;
             }
@@ -834,6 +853,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
     public writeValue(obj: DatePickerValue | DatePickerValue[]): void {
         this.currentValue = [];
+        this.controlFilled = false;
 
         switch (this.selectionMode) {
             case 'single':
@@ -843,6 +863,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                     this.selectedFromHour = value.hour;
                     this.selectedFromMinute = value.minute;
                     this.selectedFromSecond = value.second;
+
+                    this.controlFilled = true;
                 }
                 break;
             case 'multiple':
@@ -850,10 +872,14 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                     this.currentValue = obj
                         .map(v => this.toDateTime(v))
                         .filter(v => !!v);
+
+                    if (this.currentValue.length > 0) {
+                        this.controlFilled = true;
+                    }
                 }
                 break;
             case 'range':
-                if (obj instanceof Array && obj.length === 2 && obj.every(Number.isFinite)) {
+                if (obj instanceof Array && obj.length === 2) {
                     this.currentValue.length = 2;
                     this.currentValue[0] = this.toDateTime(obj[0]);
                     this.currentValue[1] = this.toDateTime(obj[1]);
@@ -868,11 +894,14 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         this.selectedToMinute = this.currentValue[1].minute;
                         this.selectedToSecond = this.currentValue[1].second;
                     }
+
+                    this.controlFilled = true;
                 }
                 break;
         }
 
         this.createAppropriateView();
+        this.updateInputView();
     }
 
     // endregion
@@ -1108,7 +1137,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
             this.currentPicking = 'day';
         } else {
             switch (this.selectionMode) {
-                case 'single':
+                case 'single': {
                     const v = this.currentValue[0];
 
                     if (v) {
@@ -1123,6 +1152,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                     this.autoClose();
                     break;
+                }
                 case 'multiple':
                     const found = this.currentValue.some(v => v.year === sYear);
                     if (found) {
@@ -1197,7 +1227,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
             this.currentPicking = 'day';
         } else {
             switch (this.selectionMode) {
-                case 'single':
+                case 'single': {
                     const v = this.currentValue[0];
 
                     if (v) {
@@ -1214,6 +1244,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                     this.autoClose();
                     break;
+                }
                 case 'multiple':
                     const found = this.currentValue
                         .some(v => v.year === this.currentView.year && v.month === sMonth);
@@ -1287,7 +1318,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         this.currentView = this.currentView.set({day: date.day});
 
         switch (this.selectionMode) {
-            case 'single':
+            case 'single': {
                 const v = this.currentValue[0];
                 this.validateHourSelection('from', DateTime
                     .utc(date.year, date.month, date.day, this.selectedFromHour)
@@ -1302,7 +1333,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                         minute: this.showMinutes() ? this.selectedFromMinute : 0,
                         second: this.showSeconds() ? this.selectedFromSecond : 0,
                         millisecond: 0
-                    })
+                    });
                 } else {
                     this.currentValue[0] = DateTime.utc(
                         date.year,
@@ -1316,6 +1347,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
                 this.autoClose();
                 break;
+            }
             case 'multiple':
                 const found = this.currentValue.some(v => (
                     v.year === date.year &&
@@ -1353,7 +1385,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                             minute: this.showMinutes() ? this.selectedFromMinute : 0,
                             second: this.showSeconds() ? this.selectedFromSecond : 0,
                             millisecond: 0
-                        })
+                        });
                     } else {
                         this.currentValue[0] = DateTime.utc(
                             date.year,
@@ -1377,7 +1409,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                             minute: this.showMinutes() ? this.selectedFromMinute : 0,
                             second: this.showSeconds() ? this.selectedFromSecond : 0,
                             millisecond: 0
-                        })
+                        });
                     } else {
                         v = DateTime.utc(
                             date.year,
@@ -1478,7 +1510,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
             for (let i = 0; i < this.currentValue.length; ++i) {
                 this.currentValue[i] = this.currentValue[i].set({
                     second: 0
-                })
+                });
             }
         }
         if (!this.showMinutes()) {
@@ -1488,7 +1520,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
             for (let i = 0; i < this.currentValue.length; ++i) {
                 this.currentValue[i] = this.currentValue[i].set({
                     minute: 0
-                })
+                });
             }
         }
 
@@ -1547,7 +1579,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
             for (let i = 0; i < this.currentValue.length; ++i) {
                 this.currentValue[i] = this.currentValue[i].set({
                     second: 0
-                })
+                });
             }
         }
 
@@ -1924,7 +1956,7 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
                     });
                 }
 
-                let remainingDaysLength = 7 - week.length;
+                const remainingDaysLength = 7 - week.length;
                 for (let j = 0; j < remainingDaysLength; ++j) {
                     week.push({
                         day: dayNo,
@@ -2395,8 +2427,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         const cHour = date.hour;
 
         return this.isHourSelectable(cHour, minDate, maxDate) && (
-            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute <= minute)) &&
-            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute >= minute))
+            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour ||
+                minDate.minute <= minute)) &&
+            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour ||
+                maxDate.minute >= minute))
         );
     }
 
@@ -2412,8 +2446,10 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
         const cMinute = date.minute;
 
         return this.isMinuteSelectable(cMinute, minDate, maxDate) && (
-            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour || minDate.minute < cMinute || minDate.second <= second)) &&
-            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour || maxDate.minute > cMinute || maxDate.second >= second))
+            (!minDate || (minDate.year < cYear || minDate.month < cMonth || minDate.day < cDay || minDate.hour < cHour ||
+                minDate.minute < cMinute || minDate.second <= second)) &&
+            (!maxDate || (maxDate.year > cYear || maxDate.month > cMonth || maxDate.day > cDay || maxDate.hour > cHour ||
+                maxDate.minute > cMinute || maxDate.second >= second))
         );
     }
 
