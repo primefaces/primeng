@@ -1,0 +1,837 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DatePicker</span>
+        <span>DatePicker is an input component to select a date with a fancy timezone support.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-4">
+            <h3>Basic</h3>
+            <p-datepicker [(ngModel)]="date1"></p-datepicker>
+            {{date1|date}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Spanish</h3>
+            <p-datepicker [(ngModel)]="date2" [locale]="esLocale"></p-datepicker>
+            {{date2|date}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Icon</h3>
+            <p-datepicker [(ngModel)]="date3" [showIcon]="true"></p-datepicker>
+            {{date3|date}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Min-Max</h3>
+            <p-datepicker [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" precision="minute"></p-datepicker>
+            {{date4|date}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Disable Days</h3>
+            <p-datepicker [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[5,6]"
+                          [readonlyInput]="true"></p-datepicker>
+            {{date5|date}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Month</h3>
+            <p-datepicker [(ngModel)]="date6" precision="month" dateFormat="MM/yyyy"></p-datepicker>
+            {{date6}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time</h3>
+            <p-datepicker [(ngModel)]="date7" precision="minute"></p-datepicker>
+            {{date7}}
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time Only</h3>
+            <p-datepicker [(ngModel)]="date8" [timeOnly]="true"></p-datepicker>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Multiple</h3>
+            <p-datepicker [(ngModel)]="dates" selectionMode="multiple"></p-datepicker>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Range</h3>
+            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range"></p-datepicker>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Button Bar</h3>
+            <p-datepicker [(ngModel)]="date9" [showButtonBar]="true"></p-datepicker>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Date Template</h3>
+            <p-datepicker [(ngModel)]="date10">
+                <ng-template pTemplate="date" let-date>
+                    <span style="border-radius:10%;"
+                          [style.text-align]="(date.day < 21 && date.day > 10) ? 'center' : null"
+                          [style.background-color]="(date.day < 21 && date.day > 10) ? '#7cc67c' : null">
+                        {{date.day}}
+                    </span>
+                </ng-template>
+            </p-datepicker>
+        </div>
+    </div>
+
+    <h3>Inline</h3>
+    <p-datepicker [(ngModel)]="date11" [inline]="true"></p-datepicker>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+            <pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;DatePickerModule&#125; from 'primeng/datepicker';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>
+                Two-way value binding is defined using the standard ngModel directive referencing to either a JavaScript
+                Date, a DateTime Object (luxon) or a plain numeric timestamp property.<br>
+                To specify the preferred property type for the date element just set the <code>dataType</code> property
+                to either 'date', 'luxon' or 'timestamp' (the default is 'date').
+            </p>
+
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="value" [dataType]="dataType"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MyModel &#123;
+
+    dataType: 'date' | 'luxon' | 'timestamp';
+    value: Date | DateTime | number;
+
+&#125;
+</code>
+</pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>Calendar can be used in a model driven form as well.</p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker formControlName="date"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <h3>Popup and Inline</h3>
+            <p>Calendar is displayed in a popup by default and inline property needs to be enabled for inline mode.</p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="value" [inline]="true"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <h3>Selection Mode</h3>
+            <p>By default calendar allows selecting one date and multiple dates can be selected by setting selectionMode
+                to multiple. In this
+                case calendar updates the value with an array of dates where optionally number of selectable dates can
+                be restricted with maxDateCount property.
+                Third alternative is the range mode that allows selecting a range based on an array of two values where
+                first value is the start date and second value
+                is the end date.</p>
+
+            <h3>DateFormat</h3>
+            <p>Default date format is dd/MM/yyyy, to customize this use dateFormat property.</p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="dateValue" dateFormat="dd.MM.yy"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <p>Following options can be a part of the format.</p>
+            <ul>
+                <li>d - day of month (no leading zero)</li>
+                <li>dd - day of month (two digit)</li>
+                <li>M - month of year (no leading zero)</li>
+                <li>MM - month of year (two digit)</li>
+                <li>y - year (no leading zeros)</li>
+                <li>yy - year (two digit)</li>
+                <li>yyyy - year (four digit)</li>
+                <li>a - meridian indicator (AM | PM)</li>
+                <li>anything else - literal text</li>
+            </ul>
+
+            <h3>Time</h3>
+            <p>
+                TimePicker is enabled increasing picker precision by setting it either to 'hour', 'minute' or 'second'
+                property and 24 (default) or 12 hour mode is configured using hourFormat option.
+            </p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="value" precision="minute" hourFormat="12"&gt;&lt;/p-datepicker&gt;
+&lt;p-datepicker [(ngModel)]="value" precision="second" hourFormat="24"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <h3>Date Restriction</h3>
+            <p>
+                To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use
+                minDate and maxDate options.<br>
+                Note: minDate and maxDate must be of the same type specified with the dataType attribute.
+            </p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="true"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <h3>Disable specific dates and/or days</h3>
+            <p>
+                To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use
+                disabledDates and/or disabledDays options.<br>
+                Note: disabledDates and disabledDays must be of the same type specified with the dataType attribute.
+            </p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[5,6]" [readonlyInput]="true"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <h3>Button Bar</h3>
+            <p>Button bar displays today and clear buttons and enabled using showButtonBar property.</p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="dateValue" [showButtonBar]="true"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <h3>Localization</h3>
+            <p>
+                Localization for different languages and formats is defined by binding the locale settings object to
+                both the 'locale' and 'firstDayOfWeek' properties. Following is the default values for English.<br>
+                Note: firstDayOfWeek defaults to Monday (the values are 0-6 Monday-Sunday)
+            </p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="dateValue" [locale]="en" [firstDayOfWeek]="6"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MyModel &#123;
+
+    en: DatePickerLocaleData;
+
+    ngOnInit() &#123;
+        this.en = &#123;
+            dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            dayNamesMin: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            today: 'Today',
+            clear: 'Clear',
+            pm: 'PM',
+            am: 'AM',
+            year: 'Year',
+            month: 'Month',
+            hour: 'Hour',
+            minute: 'Minute',
+            second: 'Second',
+            fromHour: 'From Hour',
+            fromMinute: 'From Minute',
+            fromSecond: 'From Second',
+            toHour: 'To Hour',
+            toMinute: 'To Minute',
+            toSecond: 'To Second'
+        &#125;;
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Custom Content</h3>
+            <p>Calendar UI accepts custom content using p-header and p-footer components.</p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="dateValue"&gt;
+    &lt;p-header&gt;Header&lt;/p-header&gt;
+    &lt;p-footer&gt;Footer&lt;/p-footer&gt;
+&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <p>
+                In addition, cell contents can be templated using an ng-template with a pTemplate directive whose value
+                is either "year", "month", "date", "hour", "minute" or "second". This is a handy feature to highlight
+                specific elements.<br>
+                Note that the implicit variable passed to the template is not a date instance but a metadata object to
+                represent that element. The available properties are 'year', 'month', 'day', 'hour', 'minute', 'second'
+                properties.<br>
+                Example below changes the background color of dates between 10th and 21st of each month.
+            </p>
+
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-datepicker [(ngModel)]="date10"&gt;
+    &lt;ng-template pTemplate="date" let-date&gt;
+        &lt;span style="border-radius:10%;"
+              [style.text-align]="(date.day < 21 && date.day > 10) ? 'center' : null"
+              [style.background-color]="(date.day < 21 && date.day > 10) ? '#7cc67c' : null"&gt;
+            {{date.day}}
+        &lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>zone</td>
+                        <td>string</td>
+                        <td>local</td>
+                        <td>
+                            Set timezone for the current instance of date picker.<br>
+                            Valid values are 'utc', 'local', any string like 'utc+#' or 'utc-#' example 'utc+3'.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>dataType</td>
+                        <td>string</td>
+                        <td>date</td>
+                        <td>
+                            Set the data-type to be used in this instance of Datepicker valid values
+                            are 'date', 'luxon' or 'timestamp'.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>defaultDate</td>
+                        <td>Date | DateTime | number</td>
+                        <td>null</td>
+                        <td>
+                            Set the date to highlight on first opening if the field is blank
+                            (types according to specified data-type).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>selectionMode</td>
+                        <td>string</td>
+                        <td>single</td>
+                        <td>Defines the quantity of the selection, valid values are 'single', 'multiple' and 'range'.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>style</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Inline style of the component.</td>
+                    </tr>
+                    <tr>
+                        <td>styleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the component.</td>
+                    </tr>
+                    <tr>
+                        <td>inputStyle</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Inline style of the input field.</td>
+                    </tr>
+                    <tr>
+                        <td>inputStyleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the input field.</td>
+                    </tr>
+                    <tr>
+                        <td>placeholder</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Placeholder text for the input.</td>
+                    </tr>
+                    <tr>
+                        <td>disabled</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>When specified, disables the component.</td>
+                    </tr>
+                    <tr>
+                        <td>dateFormat</td>
+                        <td>string</td>
+                        <td>dd/MM/yyyy</td>
+                        <td>Format of the date.</td>
+                    </tr>
+                    <tr>
+                        <td>inline</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>When enabled, displays the calendar as inline. Default is false for popup mode.</td>
+                    </tr>
+                    <tr>
+                        <td>showOtherMonths</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>
+                            Whether to display dates in other months (non-selectable) at the start or end of the current
+                            month.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>showIcon</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>When enabled, displays a button with icon next to input.</td>
+                    </tr>
+                    <tr>
+                        <td>showOnFocus</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>When disabled, datepicker will not be visible with input focus.</td>
+                    </tr>
+                    <tr>
+                        <td>icon</td>
+                        <td>string</td>
+                        <td>pi pi-calendar</td>
+                        <td>Icon of the calendar button.</td>
+                    </tr>
+                    <tr>
+                        <td>appendTo</td>
+                        <td>any</td>
+                        <td>null</td>
+                        <td>Target element to attach the overlay, valid values are "body" or a local ng-template
+                            variable of another element.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>readonlyInput</td>
+                        <td>boolean</td>
+                        <td>null</td>
+                        <td>When specified, prevents entering the date manually with keyboard.</td>
+                    </tr>
+                    <tr>
+                        <td>minDate</td>
+                        <td>Date | DateTime | number</td>
+                        <td>null</td>
+                        <td>The minimum selectable date (types according to specified data-type).</td>
+                    </tr>
+                    <tr>
+                        <td>maxDate</td>
+                        <td>Date | DateTime | number</td>
+                        <td>null</td>
+                        <td>The maximum selectable date (types according to specified data-type).</td>
+                    </tr>
+                    <tr>
+                        <td>disabledDates</td>
+                        <td>Array&lt;Date | DateTime | number&gt;</td>
+                        <td>null</td>
+                        <td>
+                            Array with dates that should be disabled (not selectable,
+                            types according to specified data-type).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>disabledDays</td>
+                        <td>Array&lt;number&gt;</td>
+                        <td>null</td>
+                        <td>Array with weekday numbers that should be disabled (not selectable).</td>
+                    </tr>
+                    <tr>
+                        <td>monthNavigator</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Whether the month should be clickable to allow navigation.</td>
+                    </tr>
+                    <tr>
+                        <td>yearNavigator</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Whether the year should be clickable to allow navigation.</td>
+                    </tr>
+                    <tr>
+                        <td>precision</td>
+                        <td>string</td>
+                        <td>day</td>
+                        <td>
+                            Set the precision of the date picker, valid values are 'year', 'month', 'day',
+                            'hour', 'minute', 'second'.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>hourFormat</td>
+                        <td>string</td>
+                        <td>24</td>
+                        <td>Specifies 12 or 24 hour format.</td>
+                    </tr>
+                    <tr>
+                        <td>locale</td>
+                        <td>object (DatePickerLocaleData interface)</td>
+                        <td>null</td>
+                        <td>An object having regional configuration properties for the calendar.</td>
+                    </tr>
+                    <tr>
+                        <td>firstDayOfWeek</td>
+                        <td>number</td>
+                        <td>0 (Monday)</td>
+                        <td>Specifies the first day of the month valid values are 0-6 representing Monday-Sunday.</td>
+                    </tr>
+                    <tr>
+                        <td>timeOnly</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Whether to display timepicker only.</td>
+                    </tr>
+                    <tr>
+                        <td>required</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>
+                            When present, it specifies that an input field must be filled out before submitting the
+                            form.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>tabindex</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Index of the element in tabbing order.</td>
+                    </tr>
+                    <tr>
+                        <td>maxDateCount</td>
+                        <td>number</td>
+                        <td>null</td>
+                        <td>Maximum number of selectable dates in multiple mode.</td>
+                    </tr>
+                    <tr>
+                        <td>showButtonBar</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Whether to display today and clear buttons at the footer</td>
+                    </tr>
+                    <tr>
+                        <td>todayButtonStyleClass</td>
+                        <td>string</td>
+                        <td>ui-secondary-button</td>
+                        <td>Style class of the today button.</td>
+                    </tr>
+                    <tr>
+                        <td>clearButtonStyleClass</td>
+                        <td>string</td>
+                        <td>ui-secondary-button</td>
+                        <td>Style class of the clear button.</td>
+                    </tr>
+                    <tr>
+                        <td>baseZIndex</td>
+                        <td>number</td>
+                        <td>0</td>
+                        <td>Base zIndex value to use in layering.</td>
+                    </tr>
+                    <tr>
+                        <td>autoZIndex</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Whether to automatically manage layering.</td>
+                    </tr>
+                    <tr>
+                        <td>panelStyleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the datetimepicker container element.</td>
+                    </tr>
+                    <tr>
+                        <td>keepInvalid</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Keep invalid value when input blur.</td>
+                    </tr>
+                    <tr>
+                        <td>hideOnDateTimeSelect</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Whether to hide the overlay on date selection when showTime is enabled.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>onFocus</td>
+                        <td>event: Focus event
+                        </td>
+                        <td>Callback to invoke on focus of input field.</td>
+                    </tr>
+                    <tr>
+                        <td>onBlur</td>
+                        <td>event: Blur event
+                        </td>
+                        <td>Callback to invoke on blur of input field.</td>
+                    </tr>
+                    <tr>
+                        <td>onClose</td>
+                        <td>event: Close event
+                        </td>
+                        <td>Callback to invoke when datepicker panel is closed.</td>
+                    </tr>
+                    <tr>
+                        <td>onInput</td>
+                        <td>event: Input event
+                        </td>
+                        <td>Callback to invoke when input field is being typed.</td>
+                    </tr>
+                    <tr>
+                        <td>onTodayClick</td>
+                        <td>event: Click event
+                        </td>
+                        <td>Callback to invoke when today button is clicked.</td>
+                    </tr>
+                    <tr>
+                        <td>onClearClick</td>
+                        <td>event: Click event
+                        </td>
+                        <td>Callback to invoke when clear button is clicked.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>
+                Following is the list of structural style classes, for theming classes visit
+                <a href="#" routerLink="/theming">theming page</a>.
+            </p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>ui-date-picker</td>
+                        <td>Wrapper of input element</td>
+                    </tr>
+                    <tr>
+                        <td>ui-inputtext</td>
+                        <td>Input element</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>
+                Luxon (<a href="https://github.com/moment/luxon" target="_blank">https://github.com/moment/luxon</a>)
+            </p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datepicker"
+               class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-g ui-fluid"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Basic&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date1"&gt;&lt;/p-datepicker&gt;
+        &#123;&#123;date1|date&#125;&#125;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Spanish&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date2" [locale]="esLocale"&gt;&lt;/p-datepicker&gt;
+        &#123;&#123;date2|date&#125;&#125;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Icon&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date3" [showIcon]="true"&gt;&lt;/p-datepicker&gt;
+        &#123;&#123;date3|date&#125;&#125;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Min-Max&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate"
+                      [readonlyInput]="true" precision="minute"&gt;&lt;/p-datepicker&gt;
+        &#123;&#123;date4|date&#125;&#125;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Disable Days&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[5,6]"
+                      [readonlyInput]="true"&gt;&lt;/p-datepicker&gt;
+        &#123;&#123;date5|date&#125;&#125;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Month&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date6" precision="month" dateFormat="MM/yyyy"&gt;&lt;/p-datepicker&gt;
+        &#123;&#123;date6&#125;&#125;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Time&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date7" precision="minute"&gt;&lt;/p-datepicker&gt;
+        &#123;&#123;date7&#125;&#125;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Time Only&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date8" [timeOnly]="true"&gt;&lt;/p-datepicker&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Multiple&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="dates" selectionMode="multiple"&gt;&lt;/p-datepicker&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Range&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="rangeDates" selectionMode="range"&gt;&lt;/p-datepicker&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Button Bar&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date9" [showButtonBar]="true"&gt;&lt;/p-datepicker&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Date Template&lt;/h3&gt;
+        &lt;p-datepicker [(ngModel)]="date10"&gt;
+            &lt;ng-template pTemplate="date" let-date&gt;
+                &lt;span style="border-radius:10%;"
+                      [style.text-align]="(date.day &lt; 21 && date.day &gt; 10) ? 'center' : null"
+                      [style.background-color]="(date.day &lt; 21 && date.day &gt; 10) ? '#7cc67c' : null"&gt;
+                    &#123;&#123;date.day&#125;&#125;
+                &lt;/span&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-datepicker&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Inline&lt;/h3&gt;
+&lt;p-datepicker [(ngModel)]="date11" [inline]="true"&gt;&lt;/p-datepicker&gt;
+</code>
+</pre>
+
+            <pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DatepickerDemo &#123;
+    date1: Date;
+
+    date2: Date;
+
+    date3: Date;
+
+    date4: Date;
+
+    date5: Date;
+
+    date6: Date;
+
+    date7: Date;
+
+    date8: Date;
+
+    date9: Date;
+
+    date10: Date;
+
+    date11: Date;
+
+    dates: Date[];
+
+    rangeDates: Date[];
+
+    minDate: Date;
+
+    maxDate: Date;
+
+    invalidDates: Array&lt;Date&gt;;
+
+    public esLocale: DatePickerLocaleData;
+
+    ngOnInit() &#123;
+        this.esLocale = &#123;
+            dayNames: ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'],
+            dayNamesShort: ['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'],
+            dayNamesMin: ['L', 'M', 'X', 'J', 'V', 'S', 'D'],
+            monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+            monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+            pm: 'PM',
+            am: 'AM',
+            today: 'Hoy',
+            clear: 'Borrar',
+            year: 'Año',
+            month: 'Mes',
+            hour: 'Hora',
+            minute: 'Minuto',
+            second: 'Segundo',
+            fromHour: 'Desde la Hora',
+            fromMinute: 'Desde el Minuto',
+            fromSecond: 'Desde el segundo',
+            toHour: 'A la Hora',
+            toMinute: 'Al Minuto',
+            toSecond: 'Al Segundo'
+        &#125;;
+
+        let today = new Date();
+        let month = today.getMonth();
+        let year = today.getFullYear();
+        let prevMonth = (month === 0) ? 11 : month - 1;
+        let prevYear = (prevMonth === 11) ? year - 1 : year;
+        let nextMonth = (month === 11) ? 0 : month + 1;
+        let nextYear = (nextMonth === 0) ? year + 1 : year;
+        this.minDate = new Date();
+        this.minDate.setMonth(prevMonth);
+        this.minDate.setFullYear(prevYear);
+        this.maxDate = new Date();
+        this.maxDate.setMonth(nextMonth);
+        this.maxDate.setFullYear(nextYear);
+
+        let invalidDate = new Date();
+        invalidDate.setDate(today.getDate() + 3);
+        this.invalidDates = [today, invalidDate];
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

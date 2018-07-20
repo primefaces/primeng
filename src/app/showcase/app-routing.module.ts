@@ -30,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'datascroller', loadChildren: './components/datascroller/datascrollerdemo.module#DataScrollerDemoModule'},
             {path: 'datatable', loadChildren: './components/datatable/datatabledemo.module#DataTableDemoModule'},
             {path: 'dataview', loadChildren: './components/dataview/dataviewdemo.module#DataViewDemoModule'},
+            {path: 'datepicker', loadChildren: './components/datepicker/datepickerdemo.module#DatepickerDemoModule'},
             {path: 'defer', loadChildren: './components/defer/deferdemo.module#DeferDemoModule'},
             {path: 'dialog', loadChildren: './components/dialog/dialogdemo.module#DialogDemoModule'},
             {path: 'dragdrop', loadChildren: './components/dragdrop/dragdropdemo.module#DragDropDemoModule'},
@@ -92,7 +93,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'treetable', loadChildren: './components/treetable/treetabledemo.module#TreeTableDemoModule'},
             {path: 'tristatecheckbox', loadChildren: './components/tristatecheckbox/tristatecheckboxdemo.module#TriStateCheckboxDemoModule'},
             {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
-        ])    
+        ])
     ],
     exports: [RouterModule]
 })

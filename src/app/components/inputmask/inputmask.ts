@@ -42,7 +42,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     template: `<input #input pInputText [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder"
         [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
         (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
-        (input)="onInput($event)" (paste)="handleInputChange($event)">`,
+        (input)="onInput($event)" (paste)="handleInputChange($event)" (click)="onInputClick($event)">`,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
@@ -92,6 +92,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
 
     value: any;
 
@@ -353,7 +355,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             this.checkVal(true);
             while (pos.begin < this.len && !this.tests[pos.begin])
                 pos.begin++;
-                
+
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
                 this.updateModel(e);
@@ -377,6 +379,10 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             event.initEvent('change', true, false);
             this.inputViewChild.nativeElement.dispatchEvent(event);
         }
+    }
+
+    onInputClick(e) {
+        this.onClick.emit(e);
     }
 
     onKeyDown(e) {
