@@ -2,6 +2,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     AfterViewInit,
     ChangeDetectorRef,
     Component,
@@ -10,6 +11,7 @@ import {
     EventEmitter,
     forwardRef,
     Inject,
+    InjectionToken,
     Input,
     ModuleWithProviders,
     NgModule,
@@ -59,8 +61,8 @@ interface DayEntry extends MonthEntry {
 }
 
 interface HourEntry extends MonthEntry {
-    day: number,
-    hour: number
+    day: number;
+    hour: number;
 }
 
 interface MinuteEntry extends HourEntry {
@@ -93,6 +95,64 @@ export interface DatePickerLocaleData {
     toMinute: string;
     toSecond: string;
 }
+
+// region Default Values
+interface DefaultValues {
+    zone: 'utc' | 'local' | string | Zone;
+    dataType: 'date' | 'luxon' | 'timestamp';
+    selectionMode: 'single' | 'multiple' | 'range';
+
+    precision: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
+    hourFormat: '24' | '12';
+    dateFormat: string;
+
+    firstDayOfWeek: number;
+    locale: DatePickerLocaleData;
+}
+
+export const DEFAULT_VALUES: DefaultValues = {
+    zone: 'local',
+    dataType: 'date',
+    selectionMode: 'single',
+
+    precision: 'day',
+    hourFormat: '24',
+    dateFormat: 'dd/MM/yyyy',
+
+    firstDayOfWeek: 0,
+    locale: {
+        // dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        // dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        dayNamesMin: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        // monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        today: 'Today',
+        clear: 'Clear',
+        pm: 'PM',
+        am: 'AM',
+        year: 'Year',
+        month: 'Month',
+        hour: 'Hour',
+        minute: 'Minute',
+        second: 'Second',
+        fromHour: 'From Hour',
+        fromMinute: 'From Minute',
+        fromSecond: 'From Second',
+        toHour: 'To Hour',
+        toMinute: 'To Minute',
+        toSecond: 'To Second'
+    }
+};
+
+export const DEFAULTS_ACCESSOR = new InjectionToken<DefaultValues>('datePickerDefaults');
+
+export function compileDefaultValues(defaults: Partial<DefaultValues>): () => DefaultValues {
+    return () => {
+        return Object.assign({}, DEFAULT_VALUES, defaults);
+    };
+}
+
+// endregion
 
 export const DATEPICKER_VALUE_ACCESSOR: Provider = {
     provide: NG_VALUE_ACCESSOR,
@@ -508,33 +568,7 @@ export class DatePickerPadPipe implements PipeTransform {
         DATEPICKER_VALUE_ACCESSOR
     ]
 })
-export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnChanges, OnDestroy, ControlValueAccessor {
-    // region Defaults
-    public static defaultFirstDayOfWeek: number = 0;
-    public static defaultLocale: DatePickerLocaleData = {
-        // dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        // dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        dayNamesMin: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        // monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        today: 'Today',
-        clear: 'Clear',
-        pm: 'PM',
-        am: 'AM',
-        year: 'Year',
-        month: 'Month',
-        hour: 'Hour',
-        minute: 'Minute',
-        second: 'Second',
-        fromHour: 'From Hour',
-        fromMinute: 'From Minute',
-        fromSecond: 'From Second',
-        toHour: 'To Hour',
-        toMinute: 'To Minute',
-        toSecond: 'To Second'
-    };
-    // endregion
-
+export class DatePicker implements AfterContentInit, AfterViewChecked, AfterViewInit, OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     // region Template Children
     @ViewChild(InputMask) public inputMaskVC: InputMask;
     @ViewChild('inputField') public inputFieldVC: ElementRef;
@@ -543,8 +577,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     // endregion
 
     // region Inputs
-    @Input() public firstDayOfWeek: number = DatePicker.defaultFirstDayOfWeek;
-    @Input() public locale: Partial<DatePickerLocaleData> = DatePicker.defaultLocale;
+    @Input() public firstDayOfWeek: number; // Default set in constructor
+    @Input() public locale: Partial<DatePickerLocaleData>; // Default set in constructor
 
     @Input() public name: string;
     @Input() public inputId: string;
@@ -563,16 +597,16 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     @Input() public showIcon: boolean = false;
     @Input() public inline: boolean = false;
     @Input() public timeOnly: boolean;
-    @Input() public precision: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' = 'day';
-    @Input() public hourFormat: '24' | '12' = '24';
+    @Input() public precision: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second'; // Default set in constructor
+    @Input() public hourFormat: '24' | '12'; // Default set in constructor
     @Input() public showOtherMonths: boolean = true;
 
     @Input() public appendTo: any;
-    @Input() public zone: 'utc' | 'local' | string | Zone = 'local';
-    @Input() public dataType: 'date' | 'luxon' | 'timestamp' = 'date';
-    @Input() public selectionMode: 'single' | 'multiple' | 'range' = 'single';
+    @Input() public zone: 'utc' | 'local' | string | Zone; // Default set in constructor
+    @Input() public dataType: 'date' | 'luxon' | 'timestamp'; // Default set in constructor
+    @Input() public selectionMode: 'single' | 'multiple' | 'range'; // Default set in constructor
 
-    @Input() public dateFormat: string = 'dd/MM/yyyy';
+    @Input() public dateFormat: string; // Default set in constructor
     @Input() public minDate: DatePickerValue;
     @Input() public maxDate: DatePickerValue;
     @Input() public maxDateCount: number;
@@ -672,11 +706,24 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     constructor(private el: ElementRef,
                 @Inject(DOCUMENT) private dom: Document,
                 private changeDetector: ChangeDetectorRef,
-                private domHandler: DomHandler) {
+                private domHandler: DomHandler,
+                @Inject(DEFAULTS_ACCESSOR) private defaults: DefaultValues) {
         this.onChangeFn = () => void 0;
         this.onTouchFn = () => void 0;
 
         this.currentValue = [];
+
+        // Apply defaults
+        this.zone = this.defaults.zone;
+        this.dataType = this.defaults.dataType;
+        this.selectionMode = this.defaults.selectionMode;
+
+        this.precision = this.defaults.precision;
+        this.hourFormat = this.defaults.hourFormat;
+        this.dateFormat = this.defaults.dateFormat;
+
+        this.firstDayOfWeek = this.defaults.firstDayOfWeek;
+        this.locale = this.defaults.locale;
     }
 
     // region LifeCycle Hooks
@@ -748,8 +795,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if ('locale' in changes && this.locale !== DatePicker.defaultLocale) {
-            this.locale = Object.assign({}, DatePicker.defaultLocale, this.locale);
+        if ('locale' in changes && this.locale !== this.defaults.locale) {
+            this.locale = Object.assign({}, this.defaults.locale, this.locale);
         }
 
         // The only valid selection mode when picking 'timeOnly' is 'single'.
@@ -2572,25 +2619,21 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     declarations: [
         DatePicker,
         DatePickerPadPipe
+    ],
+    providers: [
+        {provide: DEFAULTS_ACCESSOR, useValue: DEFAULT_VALUES}
     ]
 })
 export class DatePickerModule {
-    public static configure(options: {
-        defaultFirstDayOfWeek: number,
-        defaultLocale: DatePickerLocaleData
-    }): ModuleWithProviders {
-        if (options) {
-            if (options.defaultFirstDayOfWeek != null) {
-                DatePicker.defaultFirstDayOfWeek = options.defaultFirstDayOfWeek;
-            }
-            if (options.defaultLocale != null) {
-                DatePicker.defaultLocale = options.defaultLocale;
-            }
-        }
-
+    public static configure(defaultValues: Partial<DefaultValues>): ModuleWithProviders {
         return {
             ngModule: DatePickerModule,
-            providers: []
+            providers: [
+                {
+                    provide: DEFAULTS_ACCESSOR,
+                    useFactory: compileDefaultValues(defaultValues)
+                }
+            ]
         };
     }
 }
