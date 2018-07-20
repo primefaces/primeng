@@ -11,10 +11,10 @@ import {ObjectUtils} from '../utils/objectutils';
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true,'ui-picklist-responsive': responsive}">
             <div class="ui-picklist-source-controls ui-picklist-buttons" *ngIf="showSourceControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-up" [disabled]="disabled || reorderDisabled || reorderSourceDisabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-up" [disabled]="disabled || reorderDisabled || reorderSourceDisabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-down" [disabled]="disabled || reorderDisabled || reorderSourceDisabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-down" [disabled]="disabled || reorderDisabled || reorderSourceDisabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
@@ -69,10 +69,10 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="pi pi-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="pi pi-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="pi pi-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-up" [disabled]="disabled || reorderDisabled || reorderTargetDisabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-up" [disabled]="disabled || reorderDisabled || reorderTargetDisabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-down" [disabled]="disabled || reorderDisabled || reorderTargetDisabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="pi pi-angle-double-down" [disabled]="disabled || reorderDisabled || reorderTargetDisabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
                 </div>
             </div>
         </div>
@@ -124,6 +124,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() disabled: boolean = false;
 
     @Input() moveDisabled: boolean = false;
+
+    @Input() reorderDisabled: boolean = false;
+
+    @Input() reorderSourceDisabled: boolean = false;
+
+    @Input() reorderTargetDisabled: boolean = false;
 
     @Input() moveOneLeftDisabled: boolean = false;
 
@@ -585,6 +591,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.insert(this.draggedItemIndexTarget, this.target, index, this.source, this.onMoveToSource);
                 }
                 else {
+                    if (this.disabled || this.reorderDisabled || this.reorderSourceDisabled) {
+                        event.preventDefault();
+                        return;
+                    }
                     this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
                 }
 
@@ -599,6 +609,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.insert(this.draggedItemIndexSource, this.source, index, this.target, this.onMoveToTarget);
                 }
                 else {
+                    if (this.disabled || this.reorderDisabled || this.reorderTargetDisabled) {
+                        event.preventDefault();
+                        return;
+                    }
                     this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
                 }
                     
