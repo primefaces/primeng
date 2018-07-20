@@ -97,7 +97,7 @@ export interface DatePickerLocaleData {
 }
 
 // region Default Values
-interface DefaultValues {
+export interface DefaultValues {
     zone: 'utc' | 'local' | string | Zone;
     dataType: 'date' | 'luxon' | 'timestamp';
     selectionMode: 'single' | 'multiple' | 'range';
