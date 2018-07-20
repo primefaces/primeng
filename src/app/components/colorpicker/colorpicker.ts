@@ -227,7 +227,13 @@ export class ColorPicker implements ControlValueAccessor, AfterViewInit, AfterVi
     }
     
     updateColorSelector() {
-        this.colorSelectorViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
+        const hsb: any = {};
+
+        hsb.s = 100;
+        hsb.b = 100;
+        hsb.h = this.value.h;
+
+        this.colorSelectorViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(hsb);
     }
         
     updateUI() {
