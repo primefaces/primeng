@@ -67,6 +67,8 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     targetClickEvent: boolean;
     
     closeClick: boolean;
+
+    documentResizeListener: any;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
     
@@ -85,6 +87,7 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.willShow) {
             this.domHandler.absolutePosition(this.container, this.target);
             this.bindDocumentClickListener();
+            this.bindDocumentResizeListener();
             this.onAfterShow.emit(null);
             this.willShow = false;
         }
@@ -149,6 +152,7 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.selfClick = false;
             this.targetClickEvent = false;
             this.unbindDocumentClickListener();
+            this.unbindDocumentResizeListener();
         }
     }
         
@@ -167,8 +171,25 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
         event.preventDefault();
     }
 
+    onWindowResize(event) {
+        this.hide();
+    }
+
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
     ngOnDestroy() {
         this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
         
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.container);
