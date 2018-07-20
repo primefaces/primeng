@@ -147,9 +147,7 @@ export const DEFAULT_VALUES: DefaultValues = {
 export const DEFAULTS_ACCESSOR = new InjectionToken<DefaultValues>('datePickerDefaults');
 
 export function compileDefaultValues(defaults: Partial<DefaultValues>): () => DefaultValues {
-    return () => {
-        return Object.assign({}, DEFAULT_VALUES, defaults);
-    };
+    return Object.assign({}, DEFAULT_VALUES, defaults);
 }
 
 // endregion
@@ -2631,7 +2629,7 @@ export class DatePickerModule {
             providers: [
                 {
                     provide: DEFAULTS_ACCESSOR,
-                    useFactory: compileDefaultValues(defaultValues)
+                    useValue: compileDefaultValues(defaultValues)
                 }
             ]
         };
