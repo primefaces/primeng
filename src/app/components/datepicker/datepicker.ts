@@ -72,11 +72,11 @@ interface SecondEntry extends MinuteEntry {
 }
 
 export interface DatePickerLocaleData {
-    dayNames: [string, string, string, string, string, string, string];
-    dayNamesShort: [string, string, string, string, string, string, string];
+    // dayNames: [string, string, string, string, string, string, string];
+    // dayNamesShort: [string, string, string, string, string, string, string];
     dayNamesMin: [string, string, string, string, string, string, string];
     monthNames: [string, string, string, string, string, string, string, string, string, string, string, string];
-    monthNamesShort: [string, string, string, string, string, string, string, string, string, string, string, string];
+    // monthNamesShort: [string, string, string, string, string, string, string, string, string, string, string, string];
     clear: string;
     today: string;
     pm: string;
@@ -512,11 +512,11 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
     // region Defaults
     public static defaultFirstDayOfWeek: number = 0;
     public static defaultLocale: DatePickerLocaleData = {
-        dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        // dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        // dayNamesShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         dayNamesMin: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
         monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        // monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         today: 'Today',
         clear: 'Clear',
         pm: 'PM',
