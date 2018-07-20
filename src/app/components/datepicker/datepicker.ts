@@ -665,6 +665,8 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
     private isPicking: boolean;
 
+    private blurTimer: any;
+
     private documentClickListener: Subscription;
 
     constructor(private el: ElementRef,
@@ -934,6 +936,12 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
             }
         }
         this.onTouchFn();
+
+        if (!this.datePickerClick) {
+            this.blurTimer = setTimeout(() => {
+                this.hideOverlay();
+            }, 100);
+        }
     }
 
     public onMaskComplete(): void {
@@ -1029,6 +1037,11 @@ export class DatePicker implements AfterContentInit, AfterViewInit, OnInit, OnCh
 
     public onDatePickerClick(): void {
         this.datePickerClick = true;
+
+        if (this.blurTimer) {
+            clearTimeout(this.blurTimer);
+            this.blurTimer = null;
+        }
     }
 
     public onDayNavigatorClick(): void {
