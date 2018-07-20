@@ -12,7 +12,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
                 <ng-content></ng-content>
             </div>
             <a href="#" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)">
-                <span class="pi pi-times"></span>
+                <span class="ui-overlaypanel-close-icon pi pi-times"></span>
             </a>
         </div>
     `,
