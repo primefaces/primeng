@@ -146,7 +146,7 @@ export const DEFAULT_VALUES: DefaultValues = {
 
 export const DEFAULTS_ACCESSOR = new InjectionToken<DefaultValues>('datePickerDefaults');
 
-export function compileDefaultValues(defaults: Partial<DefaultValues>): () => DefaultValues {
+export function compileDefaultValues(defaults: Partial<DefaultValues>): DefaultValues {
     return Object.assign({}, DEFAULT_VALUES, defaults);
 }
 
