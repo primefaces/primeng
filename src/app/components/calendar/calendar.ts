@@ -616,6 +616,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
         if (this.view === 'month') {
             this.decrementYear();
+            this.createMonths(this.currentMonth, this.currentYear);
         }
         else {
             if(this.currentMonth === 0) {
@@ -641,6 +642,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
         if (this.view === 'month') {
             this.incrementYear();
+            this.createMonths(this.currentMonth, this.currentYear);
         }
         else {
             if(this.currentMonth === 11) {
