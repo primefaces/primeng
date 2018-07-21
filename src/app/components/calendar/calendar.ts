@@ -1738,6 +1738,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             iValue++;
         };
 
+        if(this.view === 'month') {
+            day = 1;
+        }
+        
         for (iFormat = 0; iFormat < format.length; iFormat++) {
             if(literal) {
                 if(format.charAt(iFormat) === "'" && !lookAhead("'")) {
