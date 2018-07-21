@@ -1426,13 +1426,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             case 'visible':
                 if (!this.inline) {
                     this.overlay = event.element;
-                    this.appendContainer();
-                    this.alignOverlay();
-                    this.bindDocumentClickListener();
-        
+                    this.appendOverlay();
                     if (this.autoZIndex) {
                         this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                     }
+                    this.alignOverlay();
+                    this.bindDocumentClickListener();
                 }
             break;
 
@@ -1442,7 +1441,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    appendContainer() {
+    appendOverlay() {
         if (this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
@@ -1451,7 +1450,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    restoreAppend() {
+    restoreOverlayAppend() {
         if (this.overlay && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
         }
@@ -1892,11 +1891,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     ngOnDestroy() {
         this.unbindDocumentClickListener();
         this.unbindMaskClickListener();
-        
-        if (!this.inline && this.appendTo) {
-            this.restoreAppend();
-        }
-
+        this.restoreOverlayAppend();
         this.overlay = null;
     }
 }

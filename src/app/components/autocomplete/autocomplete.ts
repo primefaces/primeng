@@ -219,7 +219,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     ngAfterViewChecked() {
         //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
         if(this.suggestionsUpdated && this.overlay && this.overlay.offsetParent) {
-            setTimeout(() => this.align(), 1);
+            setTimeout(() => this.alignOverlay(), 1);
             this.suggestionsUpdated = false;
         }
 
@@ -387,15 +387,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                
-                if (this.appendTo) {
-                    this.appendContainer();
-                    this.overlay.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
-                }
-
+                this.appendOverlay();
                 this.overlay.style.zIndex = String(++DomHandler.zindex);
+                this.alignOverlay();
                 this.bindDocumentClickListener();
-                this.align();
             break;
 
             case 'void':
@@ -410,22 +405,24 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         }
     }
 
-    appendContainer() {
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
+    appendOverlay() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
                 this.domHandler.appendChild(this.overlay, this.appendTo);
+
+            this.overlay.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
         }
     }
 
-    restoreAppend() {
-        if (this.appendTo) {
+    restoreOverlayAppend() {
+        if (this.overlay && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
         }
     }
 
-    align() {
+    alignOverlay() {
         if(this.appendTo)
             this.domHandler.absolutePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
         else
@@ -674,11 +671,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     ngOnDestroy() {
         this.unbindDocumentClickListener();
-
-        if(this.overlay && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlay);
-        }
-
+        this.restoreOverlayAppend();
         this.overlay = null;
     }
 }
