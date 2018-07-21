@@ -586,7 +586,6 @@ export class Dialog implements OnDestroy {
     }
     
     ngOnDestroy() {
-        this.container = null;
         this.onHide.emit({});
         this.restoreAppend();
         this.unbindGlobalListeners();
@@ -599,6 +598,8 @@ export class Dialog implements OnDestroy {
         if (this.modal) {
             this.disableModality();
         }
+
+        this.container = null;
     }
 
 }

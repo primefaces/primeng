@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,
+import {NgModule,Component,ElementRef,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,
         ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
@@ -35,7 +35,7 @@ export interface LocaleSettings {
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button"
                     [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
             </ng-template>
-            <div #datepicker [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
+            <div [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
                 (click)="onDatePickerClick($event)" [@overlayAnimation]="'visible'" [@.disabled]="inline" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
                 <ng-container *ngIf="!timeOnly">
@@ -180,7 +180,7 @@ export interface LocaleSettings {
     },
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
-export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
+export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() defaultDate: Date;
     
@@ -301,6 +301,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() tabindex: number;
 
+    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+
     private _utc: boolean;
 
     @Input() get utc(): boolean {
@@ -310,11 +312,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this._utc = _utc;
         console.log("Setting utc has no effect as built-in UTC support is dropped.");
     }
-    
-    @ViewChild('datepicker') overlayViewChild: ElementRef;
-    
-    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
-    
+            
     value: any;
     
     dates: any[];
@@ -490,16 +488,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             }
         }
     }
-    
-    ngAfterViewInit() {
-        if(!this.inline && this.appendTo) {
-            if(this.appendTo === 'body')
-                document.body.appendChild(this.overlayViewChild.nativeElement);
-            else
-                this.domHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
-        }
-    }
-        
+            
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
@@ -1429,31 +1418,54 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     showOverlay() {
-        this.overlayVisible = true;        
-        this.bindDocumentClickListener();
+        this.overlayVisible = true;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        if (event.toState === 'visible') {
-            if (!this.inline) {
-                this.alignOverlay(event.element);
-    
-                if(this.autoZIndex) {
-                    event.element.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        switch(event.toState) {
+            case 'visible':
+                if (!this.inline) {
+                    this.overlay = event.element;
+                    this.appendContainer();
+                    this.alignOverlay();
+                    this.bindDocumentClickListener();
+        
+                    if (this.autoZIndex) {
+                        event.element.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                    }
                 }
-            }
+            break;
+
+            case 'void':
+                this.ngOnDestroy();
+            break;
+        }
+    }
+
+    appendContainer() {
+        if (this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.overlay);
+            else
+                this.domHandler.appendChild(this.overlay, this.appendTo);
+        }
+    }
+
+    restoreAppend() {
+        if (this.overlay && this.appendTo) {
+            this.el.nativeElement.appendChild(this.overlay);
         }
     }
     
-    alignOverlay(element) {
+    alignOverlay() {
         if (this.touchUI) {
-            this.enableModality(element);
+            this.enableModality(this.overlay);
         }
         else {
             if(this.appendTo)
-                this.domHandler.absolutePosition(element, this.inputfieldViewChild.nativeElement);
+                this.domHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
             else
-                this.domHandler.relativePosition(element, this.inputfieldViewChild.nativeElement);
+                this.domHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
         }
     }
 
@@ -1881,9 +1893,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.unbindDocumentClickListener();
         this.unbindMaskClickListener();
         
-        if(!this.inline && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlayViewChild.nativeElement);
+        if (!this.inline && this.appendTo) {
+            this.restoreAppend();
         }
+
+        this.overlay = null;
     }
 }
 
