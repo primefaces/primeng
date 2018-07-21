@@ -1046,9 +1046,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     onInputClick(event: Event) {
-        this.datepickerClick=true;
-        if(this.autoZIndex) {
-            this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        this.datepickerClick = true;
+        if (this.overlay && this.autoZIndex) {
+            this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
     
@@ -1431,7 +1431,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     this.bindDocumentClickListener();
         
                     if (this.autoZIndex) {
-                        event.element.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                        this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                     }
                 }
             break;
