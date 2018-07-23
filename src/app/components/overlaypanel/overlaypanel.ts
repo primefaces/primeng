@@ -1,13 +1,13 @@
-import {NgModule,Component,Input,Output,AfterViewInit,AfterViewChecked,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Component({
     selector: 'p-overlayPanel',
     template: `
-        <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass"
-            [style.display]="visible ? 'block' : 'none'" (click)="onPanelClick($event)" [@panelState]="visible ? 'visible' : 'hidden'">
+        <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass" (click)="onPanelClick($event)"
+            [@animation]="'visible'" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-overlaypanel-content">
                 <ng-content></ng-content>
             </div>
@@ -17,20 +17,22 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
         </div>
     `,
     animations: [
-        trigger('panelState', [
-            state('hidden', style({
+        trigger('animation', [
+            state('void', style({
+                transform: 'translateY(5%)',
                 opacity: 0
             })),
             state('visible', style({
+                transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            transition('void => visible', animate('225ms ease-out')),
+            transition('visible => void', animate('195ms ease-in'))
         ])
     ],
     providers: [DomHandler]
 })
-export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class OverlayPanel implements OnDestroy {
 
     @Input() dismissable: boolean = true;
 
@@ -42,15 +44,11 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @Input() appendTo: any;
 
-    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
 
-    @Output() onAfterShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
     
-    container: any;
+    container: HTMLDivElement;
 
     visible: boolean = false;
 
@@ -61,9 +59,7 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     target: any;
     
     willHide: boolean;
-    
-    willShow: boolean;
-    
+        
     targetClickEvent: boolean;
     
     closeClick: boolean;
@@ -71,37 +67,11 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     documentResizeListener: any;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
-    
-    ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
         
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
-                document.body.appendChild(this.container);
-            else
-                this.domHandler.appendChild(this.container, this.appendTo);
-        }
-    }
-    
-    ngAfterViewChecked() {
-        if(this.willShow) {
-            this.domHandler.absolutePosition(this.container, this.target);
-            this.bindDocumentClickListener();
-            this.bindDocumentResizeListener();
-            this.onAfterShow.emit(null);
-            this.willShow = false;
-        }
-        
-        if(this.willHide) {
-            this.onAfterHide.emit(null);
-            this.willHide = false;
-        }
-    }
-    
     bindDocumentClickListener() {
-        if(!this.documentClickListener && this.dismissable) {
+        if (!this.documentClickListener && this.dismissable) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.selfClick && !this.targetClickEvent) {
+                if (!this.selfClick && !this.targetClickEvent) {
                     this.hide();
                 }
                 
@@ -113,15 +83,15 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     unbindDocumentClickListener() {
-        if(this.documentClickListener) {
+        if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
     }
     
     toggle(event, target?) {                          
-        if(!this.target || this.target === (target||event.currentTarget||event.target)) {
-            if(this.visible)
+        if (!this.target || this.target === (target||event.currentTarget||event.target)) {
+            if (this.visible)
                 this.hide();
             else
                 this.show(event, target);
@@ -132,36 +102,57 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
 
     show(event, target?) {
-        this.onBeforeShow.emit(null);
         this.target = target||event.currentTarget||event.target;
-        this.container.style.zIndex = ++DomHandler.zindex;
-
         this.visible = true;
-        this.willShow = true;
         
-        if(event.type === 'click') {
+        if (event.type === 'click') {
             this.targetClickEvent = true;
         }
     }
 
-    hide() {
-        if(this.visible) {
-            this.onBeforeHide.emit(null);
-            this.willHide = true;
-            this.visible = false;
-            this.selfClick = false;
-            this.targetClickEvent = false;
-            this.unbindDocumentClickListener();
-            this.unbindDocumentResizeListener();
+    appendContainer() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.container);
+            else
+                this.domHandler.appendChild(this.container, this.appendTo);
         }
+    }
+
+    restoreAppend() {
+        if (this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
+        }
+    }
+
+    onAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                this.container = event.element;
+                this.onShow.emit(null);
+                this.appendContainer();
+                this.container.style.zIndex = String(++DomHandler.zindex);
+                this.domHandler.absolutePosition(this.container, this.target);
+                this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
+            break;
+
+            case 'void':
+                this.ngOnDestroy();
+            break;
+        }
+    }
+
+    hide() {
+        this.visible = false;
     }
         
     onPanelClick(event) {
-        if(this.closeClick) {
+        if (this.closeClick) {
             this.hide();
             this.closeClick = false;
         }
-        else if(this.dismissable) {
+        else if (this.dismissable) {
             this.selfClick = true;
         }
     }
@@ -188,14 +179,13 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
 
     ngOnDestroy() {
+        this.onHide.emit(null);
+        this.restoreAppend();
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
-        
-        if(this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
-        }
-        
         this.target = null;
+        this.selfClick = false;
+        this.targetClickEvent = false;
     }
 }
 
