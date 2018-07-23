@@ -56,7 +56,7 @@ export interface LocaleSettings {
                                 <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)">
                                     <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
                                 </select>
-                                <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{month.year}}</span>
+                                <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
                             </div>
                         </div>
                         <div class="ui-datepicker-calendar-container" *ngIf="view ==='date'">
