@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -47,28 +47,28 @@ export class TieredMenuSub {
     @Input() baseZIndex: number = 0;
 
     @Input() hideDelay: number = 250;
-    
-    constructor(public domHandler: DomHandler) {}
+
+    constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu, public domHandler: DomHandler) {}
     
     activeItem: HTMLLIElement;
 
     hideTimeout: any;
                 
     onItemMouseEnter(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
-        if(menuitem.disabled) {
+        if (menuitem.disabled) {
             return;
         }
 
-        if(this.hideTimeout) {
+        if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
         
         this.activeItem = item;
         let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
-        if(nextElement) {
+        if (nextElement) {
             let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
-            if(this.autoZIndex) {
+            if (this.autoZIndex) {
                 sublist.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
             }
             sublist.style.zIndex = String(++DomHandler.zindex);
@@ -85,20 +85,24 @@ export class TieredMenuSub {
     }
     
     itemClick(event: Event, item: MenuItem) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return true;
         }
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
         
-        if(item.command) {            
+        if (item.command) {            
             item.command({
                 originalEvent: event,
                 item: item
             });
+        }
+
+        if (!item.items && this.tieredMenu.popup) {
+            this.tieredMenu.hide();
         }
     }
     
