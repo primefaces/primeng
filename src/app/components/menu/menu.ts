@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,HostListener,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -30,8 +31,9 @@ export class MenuItemContent {
 @Component({
     selector: 'p-menu',
     template: `
-        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all':true, 'ui-menu-dynamic ui-shadow':popup}"
-            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
+        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all': true, 'ui-menu-dynamic ui-shadow': popup}"
+            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible"
+            [@overlayAnimation]="'visible'" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
             <ul>
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-menu-separator ui-widget-content" *ngIf="submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}"></li>
@@ -48,10 +50,23 @@ export class MenuItemContent {
             </ul>
         </div>
     `,
-    providers: [DomHandler],
-    host: {'(window:resize)': 'onResize($event)'}
+    animations: [
+        trigger('overlayAnimation', [
+            state('void', style({
+                transform: 'translateY(5%)',
+                opacity: 0
+            })),
+            state('visible', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
+            transition('void => visible', animate('225ms ease-out')),
+            transition('visible => void', animate('195ms ease-in'))
+        ])
+    ],
+    providers: [DomHandler]
 })
-export class Menu implements AfterViewInit,OnDestroy {
+export class Menu implements OnDestroy {
 
     @Input() model: MenuItem[];
 
@@ -72,106 +87,147 @@ export class Menu implements AfterViewInit,OnDestroy {
     container: HTMLDivElement;
     
     documentClickListener: any;
+
+    documentResizeListener: any;
     
     preventDocumentDefault: any;
 
-    onResizeTarget: any;
+    target: any;
+
+    visible: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
-    ngAfterViewInit() {
-        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
-        
-        if(this.popup) {
-            if(this.appendTo) {
-                if(this.appendTo === 'body')
-                    document.body.appendChild(this.container);
-                else
-                    this.domHandler.appendChild(this.container, this.appendTo);
-            }
-            
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.preventDocumentDefault) {
-                    this.hide();
-                }
-                this.preventDocumentDefault = false;
-            });
-        }
-    }
-    
     toggle(event) {
-        if(this.container.offsetParent)
+        if (this.visible)
             this.hide();
         else
             this.show(event);
-            
+
         this.preventDocumentDefault = true;
     }
 
-    onResize(event) {
-        if(this.onResizeTarget && this.container.offsetParent) {
-            this.domHandler.absolutePosition(this.container, this.onResizeTarget);
+    show(event) {
+        this.target = event.currentTarget;
+        this.visible = true;
+        this.preventDocumentDefault = true;
+    }
+
+    onOverlayAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                if (this.popup) {
+                    this.container = event.element;
+                    this.moveOnTop();
+                    this.appendOverlay();
+                    this.domHandler.absolutePosition(this.container, this.target);
+                    this.bindDocumentClickListener();
+                    this.bindDocumentResizeListener();
+                }
+            break;
+
+            case 'void':
+                this.ngOnDestroy();
+            break;
+        }
+    }
+
+    appendOverlay() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.container);
+            else
+                this.domHandler.appendChild(this.container, this.appendTo);
+        }
+    }
+
+    restoreOverlayAppend() {
+        if (this.container && this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
         }
     }
     
-    show(event) {
-        let target = event.currentTarget;
-        this.onResizeTarget = event.currentTarget;
-        this.moveOnTop();
-        this.container.style.display = 'block';
-        this.domHandler.absolutePosition(this.container, target);
-        this.domHandler.fadeIn(this.container, 250);
-        this.preventDocumentDefault = true;
-    }
-
     moveOnTop() {
-        if(this.autoZIndex) {
-            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        if (this.autoZIndex) {
+            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
     
     hide() {
-        this.container.style.display = 'none';
+        this.visible = false;
+    }
+
+    onWindowResize() {
+        this.hide();
     }
     
     itemClick(event, item: MenuItem) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
         
-        if(item.command) {
+        if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
         
-        if(this.popup) {
+        if (this.popup) {
             this.hide();
+        }
+    }
+
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if (!this.preventDocumentDefault) {
+                    this.hide();
+                }
+
+                this.preventDocumentDefault = false;
+            });
+        }
+    }
+
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
         }
     }
     
     ngOnDestroy() {
-        if(this.popup) {
-            if(this.documentClickListener) {
-                this.documentClickListener();
-            }
-            
-            if(this.appendTo) {
-                this.el.nativeElement.appendChild(this.container);
-            }
+        if (this.popup) {
+            this.unbindDocumentClickListener();
+            this.unbindDocumentResizeListener();
+            this.restoreOverlayAppend();
+            this.preventDocumentDefault = false;
+            this.target = null;
         }
     }
     
     hasSubMenu(): boolean {
-        if(this.model) {
-            for(var item of this.model) {
-                if(item.items) {
+        if (this.model) {
+            for (var item of this.model) {
+                if (item.items) {
                     return true;
                 }
             }
