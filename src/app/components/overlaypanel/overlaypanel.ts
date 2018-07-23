@@ -146,7 +146,7 @@ export class OverlayPanel implements OnDestroy {
     hide() {
         this.visible = false;
     }
-        
+    
     onPanelClick(event) {
         if (this.closeClick) {
             this.hide();
