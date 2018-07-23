@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2} from '@angular/core';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -109,14 +110,28 @@ export class TieredMenuSub {
 @Component({
     selector: 'p-tieredMenu',
     template: `
-        <div [ngClass]="{'ui-tieredmenu ui-widget ui-widget-content ui-corner-all':true, 'ui-tieredmenu-dynamic ui-shadow':popup}" 
-            [class]="styleClass" [ngStyle]="style">
+        <div [ngClass]="{'ui-tieredmenu ui-widget ui-widget-content ui-corner-all':true, 'ui-tieredmenu-dynamic ui-shadow':popup}" [class]="styleClass" [ngStyle]="style"
+            [@overlayAnimation]="'visible'" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="!popup || visible">
             <p-tieredMenuSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
         </div>
     `,
+    animations: [
+        trigger('overlayAnimation', [
+            state('void', style({
+                transform: 'translateY(5%)',
+                opacity: 0
+            })),
+            state('visible', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
+            transition('void => visible', animate('225ms ease-out')),
+            transition('visible => void', animate('195ms ease-in'))
+        ])
+    ],
     providers: [DomHandler]
 })
-export class TieredMenu implements AfterViewInit,OnDestroy {
+export class TieredMenu implements OnDestroy {
 
     @Input() model: MenuItem[];
 
@@ -134,80 +149,121 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
 
     @Input() hideDelay: number = 250
     
-    container: any;
+    container: HTMLDivElement;
     
     documentClickListener: any;
+
+    documentResizeListener: any;
     
-    preventDocumentDefault: any;
+    preventDocumentDefault: boolean;
+
+    target: any;
+
+    visible: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
-
-    ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
-        
-        if(this.popup) {
-            if(this.appendTo) {
-                if(this.appendTo === 'body')
-                    document.body.appendChild(this.container);
-                else
-                    this.domHandler.appendChild(this.container, this.appendTo);
-            }
-        }
-    }
     
-    toggle(event: Event) {
-        if(this.container.offsetParent)
+    toggle(event) {
+        if (this.visible)
             this.hide();
         else
             this.show(event);
-    }
-    
-    show(event: Event) {
+
         this.preventDocumentDefault = true;
-        this.moveOnTop();
-        this.container.style.display = 'block';
-        this.domHandler.absolutePosition(this.container, event.currentTarget);
-        this.domHandler.fadeIn(this.container, 250);
-        this.bindDocumentClickListener();
     }
     
-    hide() {
-        this.container.style.display = 'none';
-        this.unbindDocumentClickListener();
+    show(event) {
+        this.target = event.currentTarget;
+        this.visible = true;
+        this.preventDocumentDefault = true;
     }
 
+    onOverlayAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                if (this.popup) {
+                    this.container = event.element;
+                    this.moveOnTop();
+                    this.appendOverlay();
+                    this.domHandler.absolutePosition(this.container, this.target);
+                    this.bindDocumentClickListener();
+                    this.bindDocumentResizeListener();
+                }
+            break;
+
+            case 'void':
+                this.ngOnDestroy();
+            break;
+        }
+    }
+    
+    appendOverlay() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.container);
+            else
+                this.domHandler.appendChild(this.container, this.appendTo);
+        }
+    }
+
+    restoreOverlayAppend() {
+        if (this.container && this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
+        }
+    }
+    
     moveOnTop() {
-        if(this.autoZIndex) {
+        if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
-    
-    unbindDocumentClickListener() {
-        if(this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
+
+    hide() {
+        this.visible = false;
+    }
+
+    onWindowResize() {
+        this.hide();
     }
     
     bindDocumentClickListener() {
-        if(!this.documentClickListener) {
+        if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.preventDocumentDefault) {
+                if (!this.preventDocumentDefault) {
                     this.hide();
                 }
+
                 this.preventDocumentDefault = false;
             });
         }
     }
 
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+    
     ngOnDestroy() {
-        if(this.popup) {
-            if(this.documentClickListener) {
-                this.unbindDocumentClickListener();
-            }
-            if(this.appendTo) {
-                this.el.nativeElement.appendChild(this.container);
-            }
+        if (this.popup) {
+            this.unbindDocumentClickListener();
+            this.unbindDocumentResizeListener();
+            this.restoreOverlayAppend();
+            this.preventDocumentDefault = false;
+            this.target = null;
         }
     }
 

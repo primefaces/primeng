@@ -90,7 +90,7 @@ export class Menu implements OnDestroy {
 
     documentResizeListener: any;
     
-    preventDocumentDefault: any;
+    preventDocumentDefault: boolean;
 
     target: any;
 
