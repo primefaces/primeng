@@ -319,10 +319,31 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     get allChecked(): boolean {
-        if (this.filterValue)
+        if (this.filterValue) {
             return this.allFilteredSelected();
-        else
-            return this.value && this.options && (this.value.length === this.options.length);
+        }
+            
+        else {
+            let optionCount = this.getEnabledOptionCount();
+
+            return this.value && this.options && (this.value.length > 0 && this.value.length === optionCount);
+        }
+    }
+
+    getEnabledOptionCount(): number {
+        if (this.options) {
+            let count = 0;
+            for (let opt of this.options) {
+                if (!opt.disabled) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+        else {
+            return 0;
+        }
     }
 
     allFilteredSelected(): boolean {
@@ -360,7 +381,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 this.value = [];
                 for (let i = 0; i < this.options.length; i++) {
                     let opt = this.options[i];
-                    if (this.isItemVisible(opt)) {
+                    if (this.isItemVisible(opt) && !opt.disabled) {
                         this.value.push(opt.value);
                     }
                 }

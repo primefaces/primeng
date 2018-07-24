@@ -256,6 +256,11 @@
         .ui-listbox-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
             @include hover-element();
         }
+
+        .ui-listbox-item.ui-state-disabled .ui-chkbox-box:hover {
+            background-color: $inputBgColor;
+            border-color: $stateDefaultBorderColor;
+        }
     }
 
     &.ui-state-disabled {
