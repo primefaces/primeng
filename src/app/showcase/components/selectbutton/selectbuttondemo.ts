@@ -23,7 +23,7 @@ export class SelectButtonDemo {
     constructor() {
         this.types = [
             {label: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'},
-            {label: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'},
+            {label: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa', disabled: true},
             {label: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'}
         ];
 
