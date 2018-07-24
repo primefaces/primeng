@@ -1,8 +1,8 @@
 .ui-notify {
-	position:fixed;
+	position: fixed;
 	top: 20px;
 	right: 20px;
-	width: 20em;
+    width: 20em;
 }
 
 .ui-notify-message {
