@@ -341,10 +341,30 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     isAllChecked() {
-        if (this.filterValue && this.filterValue.trim().length)
-            return this.value&&this.visibleOptions&&this.visibleOptions.length&&(this.value.length == this.visibleOptions.length);
-        else
-            return this.value&&this.options&&(this.value.length == this.options.length);
+        if (this.filterValue && this.filterValue.trim().length) {
+            return this.value && this.visibleOptions&&this.visibleOptions.length && (this.value.length == this.visibleOptions.length);
+        }
+        else {
+            let optionCount = this.getEnabledOptionCount();
+
+            return this.value && this.options && (this.value.length > 0 && this.value.length == optionCount);
+        }
+    }
+
+    getEnabledOptionCount(): number {
+        if (this.options) {
+            let count = 0;
+            for (let opt of this.options) {
+                if (!opt.disabled) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+        else {
+            return 0;
+        }
     }
     
     show() {
