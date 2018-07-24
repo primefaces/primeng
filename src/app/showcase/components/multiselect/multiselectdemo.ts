@@ -15,7 +15,7 @@ export class MultiSelectDemo {
     constructor() {
         this.cars = [
             {label: 'Audi', value: 'Audi'},
-            {label: 'BMW', value: 'BMW', disabled: true},
+            {label: 'BMW', value: 'BMW'},
             {label: 'Fiat', value: 'Fiat'},
             {label: 'Ford', value: 'Ford'},
             {label: 'Honda', value: 'Honda'},
