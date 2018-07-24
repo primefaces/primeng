@@ -69,8 +69,11 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToDisplay, selectedOption: selectedOption}"></ng-container>
                         </ng-container>
                         <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                            <li *ngFor="let option of options;let i=index" [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
-                                    (click)="onItemClick($event, option)">
+                            <li *ngFor="let option of options;let i=index"  (click)="onItemClick($event, option)"
+                                    [ngClass]="{'ui-dropdown-item ui-corner-all':true, 
+                                                'ui-state-highlight':(selectedOption == option), 
+                                                'ui-state-disabled':(option.disabled), 
+                                                'ui-dropdown-item-empty':!option.label||option.label.length === 0}">
                                 <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option}"></ng-container>
                             </li>
@@ -505,6 +508,70 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.onModelTouched();
         this.onBlur.emit(event);
     }
+
+    findPrevEnabledOption(index) {
+        let prevEnabledOption;
+
+        if (this.optionsToDisplay && this.optionsToDisplay.length) {
+            for (let i = (index - 1); 0 <= i; i--) {
+                let option = this.optionsToDisplay[i];
+                if (option.disabled) {
+                    continue;
+                }
+                else {
+                    prevEnabledOption = option;
+                    break;
+                }
+            }
+
+            if (!prevEnabledOption) {
+                for (let i = this.optionsToDisplay.length - 1; i >= index ; i--) {
+                    let option = this.optionsToDisplay[i];
+                    if (option.disabled) {
+                        continue;
+                    }
+                    else {
+                        prevEnabledOption = option;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return prevEnabledOption;
+    }
+
+    findNextEnabledOption(index) {
+        let nextEnabledOption;
+
+        if (this.optionsToDisplay && this.optionsToDisplay.length) {
+            for (let i = (index + 1); index < (this.optionsToDisplay.length - 1); i++) {
+                let option = this.optionsToDisplay[i];
+                if (option.disabled) {
+                    continue;
+                }
+                else {
+                    nextEnabledOption = option;
+                    break;
+                }
+            }
+
+            if (!nextEnabledOption) {
+                for (let i = 0; i < index; i++) {
+                    let option = this.optionsToDisplay[i];
+                    if (option.disabled) {
+                        continue;
+                    }
+                    else {
+                        nextEnabledOption = option;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return nextEnabledOption;
+    }
     
     onKeydown(event) {
         if(this.readonly || !this.optionsToDisplay || this.optionsToDisplay.length === null) {
@@ -538,13 +605,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                     }
                     else {
                         let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
-                        let nextItemIndex = selectedItemIndex + 1;
-                        if(nextItemIndex != (this.optionsToDisplay.length)) {
-                            this.selectItem(event, this.optionsToDisplay[nextItemIndex]);
+                        let nextEnabledOption = this.findNextEnabledOption(selectedItemIndex);
+                        if (nextEnabledOption) {
+                            this.selectItem(event, nextEnabledOption);
                             this.selectedOptionUpdated = true;
-                        }
-                        else {
-                            this.selectItem(event, this.optionsToDisplay[0]);
                         }
                     }
                 }
@@ -574,9 +638,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 }
                 else {
                     let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
-                    if(selectedItemIndex > 0) {
-                        let prevItemIndex = selectedItemIndex - 1;
-                        this.selectItem(event, this.optionsToDisplay[prevItemIndex]);
+                    let prevEnabledOption = this.findPrevEnabledOption(selectedItemIndex);
+                    if (prevEnabledOption) {
+                        this.selectItem(event, prevEnabledOption);
                         this.selectedOptionUpdated = true;
                     }
                 }

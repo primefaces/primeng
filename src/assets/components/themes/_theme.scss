@@ -239,7 +239,7 @@
     @include hover-element();
 }
 
-.ui-dropdown-panel .ui-dropdown-item:not(.ui-state-highlight):hover {
+.ui-dropdown-panel .ui-dropdown-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
     @include hover-element();
 }
 
