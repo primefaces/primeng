@@ -271,8 +271,13 @@
     @include hover-element();
 }
 
-.ui-multiselect-panel .ui-multiselect-item:not(.ui-state-highlight):hover {
+.ui-multiselect-panel .ui-multiselect-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
     @include hover-element();
+}
+
+.ui-multiselect-panel .ui-multiselect-item.ui-state-disabled:hover .ui-chkbox-box {
+    background-color: $inputBgColor;
+    border-color: $stateDefaultBorderColor;
 }
 
 .ui-multiselect-panel .ui-multiselect-close {
