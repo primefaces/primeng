@@ -39,8 +39,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
         <ul class="ui-listbox-list">
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
-              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
-              (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
+              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}"
+              (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
             <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
               <div class="ui-helper-hidden-accessible">
                 <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
@@ -160,7 +160,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     onOptionClick(event, option) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || option.disabled || this.readonly) {
             return;
         }
 
@@ -178,11 +178,22 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     onOptionTouchEnd(event, option) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || option.disabled || this.readonly) {
             return;
         }
 
         this.optionTouched = true;
+    }
+
+    onOptionDoubleClick(event: Event, option: SelectItem): any {
+        if (this.disabled || option.disabled || this.readonly) {
+            return;
+        }
+
+        this.onDblClick.emit({
+            originalEvent: event,
+            value: this.value
+        })
     }
 
     onOptionClickSingle(event, option) {
@@ -382,17 +393,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             return true;
         }
-    }
-
-    onDoubleClick(event: Event, option: SelectItem): any {
-        if (this.disabled || this.readonly) {
-            return;
-        }
-
-        this.onDblClick.emit({
-            originalEvent: event,
-            value: this.value
-        })
     }
 
     onInputFocus(event) {

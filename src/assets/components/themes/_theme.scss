@@ -253,7 +253,7 @@
     }
 
     &:not(.ui-state-disabled) {
-        .ui-listbox-item:not(.ui-state-highlight):hover {
+        .ui-listbox-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
             @include hover-element();
         }
     }
