@@ -32,11 +32,13 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
             })),
             transition('void => *', [
                 style({transform: 'translateY(100%)', opacity: 0}),
-                animate('225ms ease-out')
+                animate('300ms ease-out')
             ]),
             transition('* => void', [
-                animate(('195ms ease-in'), style({
-                    height: 0
+                animate(('250ms ease-in'), style({
+                    height: 0,
+                    opacity: 0,
+                    transform: 'translateY(-100%)'
                 }))
             ])
         ])
