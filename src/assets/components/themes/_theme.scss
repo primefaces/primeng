@@ -778,6 +778,8 @@
 /* InputSwitch */
 .ui-inputswitch {
     .ui-inputswitch-slider {
+        -webkit-transition: background-color .3s, box-shadow .2s;
+        transition: background-color .3s, box-shadow .2s;
         background: #cccccc; 
     
         &:before {
