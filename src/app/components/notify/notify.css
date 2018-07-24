@@ -8,13 +8,12 @@
 .ui-notify-message {
     position: relative;
 	display: block;
-    padding: .5em 1em;
-    margin-bottom: .5em;
+    margin-bottom: .75em;
+    overflow: hidden;
 }
 
 .ui-notify-message-content {
-	padding: 0;
-	margin: 0;
+    padding: .5em 1em;
 }
 
 .ui-notify-close-icon {
@@ -39,7 +38,7 @@
     font-size: 2em;
 }
 
-.ui-notify-message-content {
+.ui-notify-message-text-content {
 	padding: 0 0 .25em 0;
     margin-left: 2.5em;
 }

@@ -4,4 +4,6 @@ export interface Message {
     detail?: string;
     id?: any;
     key?: string;
+    timeout?: number;
+    sticky?: boolean;
 }
