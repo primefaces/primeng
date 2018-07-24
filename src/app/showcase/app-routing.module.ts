@@ -56,6 +56,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'menumodel', loadChildren: './components/menumodel/menumodeldemo.module#MenuModelDemoModule'},
             {path: 'messages', loadChildren: './components/messages/messagesdemo.module#MessagesDemoModule'},
             {path: 'multiselect', loadChildren: './components/multiselect/multiselectdemo.module#MultiSelectDemoModule'},
+            {path: 'notify', loadChildren: './components/notify/notifydemo.module#NotifyDemoModule'},
             {path: 'orderlist', loadChildren: './components/orderlist/orderlistdemo.module#OrderListDemoModule'},
             {path: 'organizationchart', loadChildren: './components/organizationchart/organizationchartdemo.module#OrganizationChartDemoModule'},
             {path: 'overlaypanel', loadChildren: './components/overlaypanel/overlaypaneldemo.module#OverlayPanelDemoModule'},

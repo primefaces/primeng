@@ -202,7 +202,7 @@
             </a>
             <div [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/messages']" (click)="menuActive = false">&#9679; Messages</a>
-                <a [routerLink]="['/growl']" (click)="menuActive = false">&#9679; Growl</a>
+                <a [routerLink]="['/notify']" (click)="menuActive = false">&#9679; Notify</a>
             </div>
 
             <a id="menu_multimedia" #multimediamenutitle [class.active-menuitem]="multimediamenutitle.id == activeMenuId"
