@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './notifydemo.html',
+    templateUrl: './toastdemo.html',
     styles: [`
         :host ::ng-deep button {
             margin-right: .25em;
@@ -10,7 +10,7 @@ import {MessageService} from '../../../components/common/messageservice';
     `],
     providers: [MessageService]
 })
-export class NotifyDemo {
+export class ToastDemo {
 
     constructor(private messageService: MessageService) {}
 

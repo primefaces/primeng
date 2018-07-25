@@ -1,15 +1,15 @@
 import {NgModule}     from '@angular/core';
 import {RouterModule} from '@angular/router'
-import {NotifyDemo} from './notifydemo';
+import {ToastDemo} from './toastdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'', component: NotifyDemo}
+			{path:'', component: ToastDemo}
 		])
 	],
 	exports: [
 		RouterModule
 	]
 })
-export class NotifyDemoRoutingModule {}
+export class ToastDemoRoutingModule {}

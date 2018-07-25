@@ -1,15 +1,15 @@
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Notify</span>
-        <span>Notify is used to display messages in an overlay.</span>
+        <span class="feature-title">Toast</span>
+        <span>Toast is used to display messages in an overlay.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-notify [style]="{marginTop: '80px'}"></p-notify>
-    <p-notify [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-notify>
-    <p-notify [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-notify>
-    <p-notify position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+    <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+    <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
             <div style="text-align: center">
                 <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </ng-template>
-    </p-notify>
+    </p-toast>
 
     <h3 class="first">Severities</h3>
     <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
@@ -53,7 +53,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;NotifyModule&#125; from 'primeng/notify';
+import &#123;ToastModule&#125; from 'primeng/toast';
 </code>
 </pre>
 
@@ -98,7 +98,7 @@ import &#123;NotifyModule&#125; from 'primeng/notify';
                             <td>key</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Key of the message in case message is targeted to a specific notify component.</td>
+                            <td>Key of the message in case message is targeted to a specific toast component.</td>
                         </tr>
                         <tr>
                             <td>life</td>
@@ -128,10 +128,10 @@ import &#123;NotifyModule&#125; from 'primeng/notify';
                 </table>
             </div>
 
-            <p>A message is displayed using a MessageService, make sure your component has an injectable MessageService defined as a provider otherwise Notify cannot be utilized.</p>
+            <p>A message is displayed using a MessageService, make sure your component has an injectable MessageService defined as a provider otherwise Toast cannot be utilized.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-notify&gt;&lt;/p-notify&gt;
+&lt;p-toast&gt;&lt;/p-toast&gt;
 </code>
 </pre>
        
@@ -164,10 +164,10 @@ export class MyComponent &#123;
 </pre>
 
             <h3>Positions</h3>
-            <p>Notify supports various positions where default is "top-right".</p>
+            <p>Toast supports various positions where default is "top-right".</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-notify position="top-left"&gt;&lt;/p-notify&gt;
+&lt;p-toast position="top-left"&gt;&lt;/p-toast&gt;
 </code>
 </pre>
 
@@ -183,11 +183,11 @@ export class MyComponent &#123;
             </ul>
 
             <h3>Targeting Messages</h3>
-            <p>A page may have multiple notify components, in case you'd like to target a specific message to a particular notify, use the key property so that notify and the message can match.</p>
+            <p>A page may have multiple toast components, in case you'd like to target a specific message to a particular toast, use the key property so that toast and the message can match.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-notify key="myKey1"&gt;&lt;/p-notify&gt;
-&lt;p-notify key="myKey2"&gt;&lt;/p-notify&gt;
+&lt;p-toast key="myKey1"&gt;&lt;/p-toast&gt;
+&lt;p-toast key="myKey2"&gt;&lt;/p-toast&gt;
 </code>
 </pre>
 
@@ -200,19 +200,19 @@ this.messageService.add(&#123;key: 'myKey2': severity:'success', summary: 'Summa
 
             <h3>Clearing Messages</h3>
             <p>Clicking the close icon on the message, removes it manually. Same can also be achieved programmatically using the clear function of the message service. Calling it without
-                any arguments, removes all displayed messages whereas calling it with a key, removes the messages displayed on a notify having the same key.
+                any arguments, removes all displayed messages whereas calling it with a key, removes the messages displayed on a toast having the same key.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-notify key="myKey1"&gt;&lt;/p-notify&gt;
-&lt;p-notify key="myKey2"&gt;&lt;/p-notify&gt;
+&lt;p-toast key="myKey1"&gt;&lt;/p-toast&gt;
+&lt;p-toast key="myKey2"&gt;&lt;/p-toast&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-this.messageService.clear();            //clears messages of both notify components
-this.messageService.clear('myKey1');    //clears messages of the first notify only
+this.messageService.clear();            //clears messages of both toast components
+this.messageService.clear('myKey1');    //clears messages of the first toast only
 </code>
 </pre>
 
@@ -220,7 +220,7 @@ this.messageService.clear('myKey1');    //clears messages of the first notify on
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-notify position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
+&lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
         &lt;div style="text-align: center"&gt;
             &lt;i class="pi pi-exclamation-triangle" style="font-size: 3em"&gt;&lt;/i&gt;
@@ -236,7 +236,7 @@ this.messageService.clear('myKey1');    //clears messages of the first notify on
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-notify&gt;
+&lt;/p-toast&gt;
 </code>
 </pre>
     
@@ -330,67 +330,67 @@ this.messageService.clear('myKey1');    //clears messages of the first notify on
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-notify</td>
+                            <td>ui-toast</td>
                             <td>Main container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-top-right</td>
+                            <td>ui-toast-top-right</td>
                             <td>Main container element positioned at the top right of the screen.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-top-left</td>
+                            <td>ui-toast-top-left</td>
                             <td>Main container element positioned at the top right of the screen.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-bottom-right</td>
+                            <td>ui-toast-bottom-right</td>
                             <td>Main container element positioned at the top right of the screen.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-bottom-left</td>
+                            <td>ui-toast-bottom-left</td>
                             <td>Main container element positioned at the top right of the screen.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-top-center</td>
+                            <td>ui-toast-top-center</td>
                             <td>Main container element positioned at the top center of the screen.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-bottom-center</td>
+                            <td>ui-toast-bottom-center</td>
                             <td>Main container element positioned at the bottom center of the screen.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-center</td>
+                            <td>ui-toast-center</td>
                             <td>Main container element positioned at the center of the screen.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-message</td>
+                            <td>ui-toast-message</td>
                             <td>Element of a message.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-message-info</td>
+                            <td>ui-toast-message-info</td>
                             <td>Element of an info message.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-message-success</td>
+                            <td>ui-toast-message-success</td>
                             <td>Element of an success message.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-message-warn</td>
+                            <td>ui-toast-message-warn</td>
                             <td>Element of an warn message.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-message-error</td>
+                            <td>ui-toast-message-error</td>
                             <td>Element of an error message.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-message-content</td>
+                            <td>ui-toast-message-content</td>
                             <td>Content element of a message element.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-close-icon</td>
+                            <td>ui-toast-close-icon</td>
                             <td>Icon to close a message.</td>
                         </tr>
                         <tr>
-                            <td>ui-notify-message-text-content</td>
+                            <td>ui-toast-message-text-content</td>
                             <td>Content element of the message text.</td>
                         </tr>
                     </tbody>
@@ -408,10 +408,10 @@ this.messageService.clear('myKey1');    //clears messages of the first notify on
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-notify [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-notify&gt;
-&lt;p-notify [style]="&#123;marginTop: '80px'&#125;" position="top-left" key="tl"&gt;&lt;/p-notify&gt;
-&lt;p-notify [style]="&#123;marginTop: '80px'&#125;" position="top-center" key="tc"&gt;&lt;/p-notify&gt;
-&lt;p-notify position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;" position="top-left" key="tl"&gt;&lt;/p-toast&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;" position="top-center" key="tc"&gt;&lt;/p-toast&gt;
+&lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
         &lt;div style="text-align: center"&gt;
             &lt;i class="pi pi-exclamation-triangle" style="font-size: 3em"&gt;&lt;/i&gt;
@@ -427,7 +427,7 @@ this.messageService.clear('myKey1');    //clears messages of the first notify on
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-notify&gt;
+&lt;/p-toast&gt;
 
 &lt;h3 class="first"&gt;Severities&lt;/h3&gt;
 &lt;button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
@@ -453,7 +453,7 @@ this.messageService.clear('myKey1');    //clears messages of the first notify on
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
-    templateUrl: './notifydemo.html',
+    templateUrl: './toastdemo.html',
     styles: [`
         :host ::ng-deep button &#123;
             margin-right: .25em;
@@ -461,7 +461,7 @@ this.messageService.clear('myKey1');    //clears messages of the first notify on
     `],
     providers: [MessageService]
 &#125;)
-export class NotifyDemo &#123;
+export class ToastDemo &#123;
 
     constructor(private messageService: MessageService) &#123;&#125;
 

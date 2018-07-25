@@ -8,21 +8,21 @@ import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild} from '@angular/animations';
 
 @Component({
-    selector: 'p-notifyItem',
+    selector: 'p-toastItem',
     template: `
-        <div #container class="ui-notify-message ui-shadow" [@messageState]="'visible'"
-            [ngClass]="{'ui-notify-message-info': message.severity == 'info','ui-notify-message-warn': message.severity == 'warn',
-                'ui-notify-message-error': message.severity == 'error','ui-notify-message-success': message.severity == 'success'}"
+        <div #container class="ui-toast-message ui-shadow" [@messageState]="'visible'"
+            [ngClass]="{'ui-toast-message-info': message.severity == 'info','ui-toast-message-warn': message.severity == 'warn',
+                'ui-toast-message-error': message.severity == 'error','ui-toast-message-success': message.severity == 'success'}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-            <div class="ui-notify-message-content">
-                <a href="#" class="ui-notify-close-icon pi pi-times" (click)="onCloseIconClick($event)" *ngIf="message.closable !== false"></a>
+            <div class="ui-toast-message-content">
+                <a href="#" class="ui-toast-close-icon pi pi-times" (click)="onCloseIconClick($event)" *ngIf="message.closable !== false"></a>
                 <ng-container *ngIf="!template">
-                    <span class="ui-notify-icon pi"
+                    <span class="ui-toast-icon pi"
                         [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                             'pi-times': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
-                    <div class="ui-notify-message-text-content">
-                        <div class="ui-notify-summary">{{message.summary}}</div>
-                        <div class="ui-notify-detail">{{message.detail}}</div>
+                    <div class="ui-toast-message-text-content">
+                        <div class="ui-toast-summary">{{message.summary}}</div>
+                        <div class="ui-toast-detail">{{message.detail}}</div>
                     </div>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
@@ -50,7 +50,7 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
     ],
     providers: [DomHandler]
 })
-export class NotifyItem implements AfterViewInit, OnDestroy {
+export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Input() message: Message;
 
@@ -111,22 +111,22 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
 }
 
 @Component({
-    selector: 'p-notify',
+    selector: 'p-toast',
     template: `
-        <div #container [ngClass]="{'ui-notify ui-widget': true, 
-                'ui-notify-top-right': position === 'top-right',
-                'ui-notify-top-left': position === 'top-left',
-                'ui-notify-bottom-right': position === 'bottom-right',
-                'ui-notify-bottom-left': position === 'bottom-left',
-                'ui-notify-top-center': position === 'top-center',
-                'ui-notify-bottom-center': position === 'bottom-center',
-                'ui-notify-center': position === 'center'}" 
+        <div #container [ngClass]="{'ui-toast ui-widget': true, 
+                'ui-toast-top-right': position === 'top-right',
+                'ui-toast-top-left': position === 'top-left',
+                'ui-toast-bottom-right': position === 'bottom-right',
+                'ui-toast-bottom-left': position === 'bottom-left',
+                'ui-toast-top-center': position === 'top-center',
+                'ui-toast-bottom-center': position === 'bottom-center',
+                'ui-toast-center': position === 'center'}" 
                 [ngStyle]="style" [class]="styleClass">
-            <p-notifyItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)" [template]="template" @notifyAnimation></p-notifyItem>
+            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)" [template]="template" @toastAnimation></p-toastItem>
         </div>
     `,
     animations: [
-        trigger('notifyAnimation', [
+        trigger('toastAnimation', [
             transition(':enter, :leave', [
                 query('@*', animateChild())
             ])
@@ -134,7 +134,7 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
     ],
     providers: [DomHandler]
 })
-export class Notify implements OnInit,AfterContentInit,OnDestroy {
+export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() key: string;
 
@@ -265,7 +265,7 @@ export class Notify implements OnInit,AfterContentInit,OnDestroy {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Notify],
-    declarations: [Notify,NotifyItem]
+    exports: [Toast],
+    declarations: [Toast,ToastItem]
 })
-export class NotifyModule { }
+export class ToastModule { }

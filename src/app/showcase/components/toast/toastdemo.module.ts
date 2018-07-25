@@ -1,8 +1,8 @@
 import {NgModule}     from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NotifyDemo} from './notifydemo';
-import {NotifyDemoRoutingModule} from './notifydemo-routing.module';
-import {NotifyModule} from '../../../components/notify/notify';
+import {ToastDemo} from './toastdemo';
+import {ToastDemoRoutingModule} from './toastdemo-routing.module';
+import {ToastModule} from '../../../components/toast/toast';
 import {ButtonModule} from '../../../components/button/button';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
@@ -10,14 +10,14 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 @NgModule({
 	imports: [
 		CommonModule,
-		NotifyDemoRoutingModule,
-        NotifyModule,
+		ToastDemoRoutingModule,
+        ToastModule,
         ButtonModule,
         TabViewModule,
         CodeHighlighterModule
 	],
 	declarations: [
-		NotifyDemo
+		ToastDemo
 	]
 })
-export class NotifyDemoModule {}
+export class ToastDemoModule {}

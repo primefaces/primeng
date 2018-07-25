@@ -1,20 +1,20 @@
-.ui-notify {
+.ui-toast {
 	position: fixed;
     width: 20em;
 }
 
-.ui-notify-message {
+.ui-toast-message {
     position: relative;
 	display: block;
     margin-bottom: .75em;
     overflow: hidden;
 }
 
-.ui-notify-message-content {
+.ui-toast-message-content {
     padding: .5em 1em;
 }
 
-.ui-notify-close-icon {
+.ui-toast-close-icon {
 	position: absolute;
 	top: .25em;
 	right: .25em;
@@ -22,13 +22,13 @@
     display: inline-block;
 }
 
-.ui-notify-summary {
+.ui-toast-summary {
 	font-weight: bold;
 	padding: 0 0 .5em 0;
 	display: block;
 }
 
-.ui-notify-icon {
+.ui-toast-icon {
     position: absolute;
     display: inline-block;
     left: .5em;
@@ -37,85 +37,85 @@
     font-size: 2em;
 }
 
-.ui-notify-message-text-content {
+.ui-toast-message-text-content {
 	padding: 0 0 .25em 0;
     margin-left: 2.5em;
 }
 
-.ui-notify-message-info {
+.ui-toast-message-info {
     color: #1765A3;
     background-color: #BFE0FA;
     border-color: #BFE0FA;
 }
 
-.ui-notify-message-info .ui-notify-close-icon {
+.ui-toast-message-info .ui-toast-close-icon {
     color: #1765A3;
 }
 
-.ui-notify-message-success {
+.ui-toast-message-success {
     color: #2C832f;
     background-color: #B4F0B6;
     border-color: #B4F0B6;
 }
 
-.ui-notify-message-success .ui-notify-close-icon {
+.ui-toast-message-success .ui-toast-close-icon {
     color: #2C832f;
 }
 
-.ui-notify-message-warn {
+.ui-toast-message-warn {
     color: #8A6714;
     background-color: #FFE9B5;
     border-color: #FFE9B5;
 }
 
-.ui-notify-message-warn .ui-notify-close-icon {
+.ui-toast-message-warn .ui-toast-close-icon {
     color: #8A6714;
 }
 
-.ui-notify-message-error {
+.ui-toast-message-error {
     color: #AB1A0F;
     background-color: #FFCBC8;
     border-color: #FFCBC8;
 }
 
-.ui-notify-message-error .ui-notify-close-icon {
+.ui-toast-message-error .ui-toast-close-icon {
     color: #AB1A0F;
 }
 
 /* Positions */
-.ui-notify-top-right {
+.ui-toast-top-right {
 	top: 20px;
 	right: 20px;
 }
 
-.ui-notify-top-left {
+.ui-toast-top-left {
 	top: 20px;
 	left: 20px;
 }
 
-.ui-notify-bottom-right {
+.ui-toast-bottom-right {
 	bottom: 20px;
 	right: 20px;
 }
 
-.ui-notify-bottom-left {
+.ui-toast-bottom-left {
 	bottom: 20px;
 	right: 20px;
 }
 
-.ui-notify-top-center {
+.ui-toast-top-center {
 	top: 20px;
     left: 50%;
     margin-left: -10em;
 }
 
-.ui-notify-bottom-center {
+.ui-toast-bottom-center {
 	bottom: 20px;
 	left: 50%;
     margin-left: -10em;
 }
 
-.ui-notify-center {
+.ui-toast-center {
 	left: 50%;
 	top: 50%;
     min-width: 20vw;
