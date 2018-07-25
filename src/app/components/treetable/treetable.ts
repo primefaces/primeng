@@ -7,6 +7,7 @@ import { PaginatorModule } from '../paginator/paginator';
 import { PrimeTemplate } from '../common/shared';
 import { SortMeta } from '../common/sortmeta';
 import { ObjectUtils } from '../utils/objectutils';
+import { SharedModule } from '../common/shared';
 
 @Injectable()
 export class TreeTableService {
@@ -54,7 +55,7 @@ export class TreeTableService {
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
-            
+
             <div class="ui-treetable-wrapper" *ngIf="!scrollable">
                 <table #table class="ui-treetable-table">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -121,7 +122,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     @Input() defaultSortOrder: number = 1;
 
     @Input() sortMode: string = 'single';
-    
+
     @Input() resetPageOnSort: boolean = true;
 
     @Input() customSort: boolean;
@@ -392,7 +393,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                         level: 0,
                         visible: true
                     });
-        
+
                     this.serializeNodes(node, node.children, 1, true);
                 }
             }
@@ -480,7 +481,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
             first: this.first,
             rows: this.rows
         });
-        
+
         this.tableService.onUIUpdate(this.value);
     }
 
@@ -510,7 +511,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                 }
                 this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
-            
+
             this.sortMultiple();
         }
     }
@@ -527,12 +528,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
             else if (this.value) {
                 this.sortNodes(this.value);
             }
-    
+
             let sortMeta: SortMeta = {
                 field: this.sortField,
                 order: this.sortOrder
             };
-    
+
             this.onSort.emit(sortMeta);
             this.tableService.onSort(sortMeta);
             this.updateSerializedValue();
@@ -542,7 +543,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     sortNodes(nodes) {
         if(!nodes || nodes.length === 0) {
             return;
-        } 
+        }
 
         if(this.customSort) {
             this.sortFunction.emit({
@@ -586,7 +587,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
             else if (this.value) {
                this.sortMultipleNodes(this.value);
             }
-            
+
             this.onSort.emit({
                 multisortmeta: this.multiSortMeta
             });
@@ -598,8 +599,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     sortMultipleNodes(nodes) {
         if(!nodes || nodes.length === 0) {
             return;
-        } 
-        
+        }
+
         if(this.customSort) {
             this.sortFunction.emit({
                 data: this.value,
@@ -653,7 +654,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                 }
             }
         }
-       
+
         return null;
     }
 
@@ -688,7 +689,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     isEmpty() {
         return this.value == null || this.value.length == 0;
     }
-    
+
     onColumnResizeBegin(event) {
         let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
@@ -800,7 +801,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                 let col = colGroup.children[resizeColumnIndex];
                 let nextCol = col.nextElementSibling;
                 col.style.width = newColumnWidth + 'px';
-    
+
                 if (nextCol && nextColumnWidth) {
                     nextCol.style.width = nextColumnWidth + 'px';
                 }
@@ -1023,12 +1024,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                         this.selection = [node];
                         this.selectionChange.emit(this.selection);
                     }
-                    
+
                     if (dataKeyValue) {
                         this.selectionKeys[dataKeyValue] = 1;
                     }
                 }
-    
+
                 this.contextMenu.show(event.originalEvent);
                 this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node: node});
             }
@@ -1078,7 +1079,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
         this.tableService.onSelectionChange();
         this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
     }
-    
+
     propagateSelectionUp(node: TreeNode, select: boolean) {
         if (node.children && node.children.length) {
             let selectedChildCount: number = 0;
@@ -1091,7 +1092,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                 else if (child.partialSelected)
                     childPartialSelected = true;
             }
-            
+
             if (select && selectedChildCount == node.children.length) {
                 this._selection =  [...this.selection||[], node];
                 node.partialSelected = false;
@@ -1099,7 +1100,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                     this.selectionKeys[dataKeyValue] = 1;
                 }
             }
-            else {                
+            else {
                 if (!select) {
                     let index = this.findIndexInSelection(node);
                     if (index >= 0) {
@@ -1110,24 +1111,24 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                         }
                     }
                 }
-                
+
                 if (childPartialSelected || selectedChildCount > 0 && selectedChildCount != node.children.length)
                     node.partialSelected = true;
                 else
                     node.partialSelected = false;
             }
         }
-                
+
         let parent = node.parent;
         if (parent) {
             this.propagateSelectionUp(parent, select);
         }
     }
-    
+
     propagateSelectionDown(node: TreeNode, select: boolean) {
         let index = this.findIndexInSelection(node);
         let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
-        
+
         if (select && index == -1) {
             this._selection =  [...this.selection||[],node]
             if (dataKeyValue) {
@@ -1140,9 +1141,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
                 delete this.selectionKeys[dataKeyValue];
             }
         }
-        
+
         node.partialSelected = false;
-        
+
         if (node.children && node.children.length) {
             for (let child of node.children) {
                 this.propagateSelectionDown(child, select);
@@ -1197,9 +1198,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
         this._sortOrder = 1;
         this._multiSortMeta = null;
         this.tableService.onSort(null);
-                
+
         this.first = 0;
-        
+
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -1297,7 +1298,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     _scrollHeight: string;
 
     subscription: Subscription;
-    
+
     initialized: boolean;
 
     constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {
@@ -1319,7 +1320,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         this._scrollHeight = val;
         this.setScrollHeight();
     }
-    
+
     ngAfterViewChecked() {
         if(!this.initialized && this.el.nativeElement.offsetParent) {
             this.alignScrollBar();
@@ -1420,7 +1421,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
                 if(this.frozen) {
                     scrollBodyHeight -= this.domHandler.calculateScrollbarWidth();
                 }
-                
+
                 this.scrollBodyViewChild.nativeElement.style.height = 'auto';
                 this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
@@ -1442,7 +1443,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         if(!this.frozen) {
             let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
             this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-            
+
             if(this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
                 this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
             }
@@ -1478,7 +1479,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     @Input() ttSortableColumnDisabled: boolean;
 
     sorted: boolean;
-    
+
     subscription: Subscription;
 
     constructor(public tt: TreeTable, public domHandler: DomHandler) {
@@ -1534,9 +1535,9 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 export class TTSortIcon implements OnInit, OnDestroy {
 
     @Input() field: string;
-    
+
     @Input() ariaLabelDesc: string;
-    
+
     @Input() ariaLabelAsc: string;
 
     subscription: Subscription;
@@ -1552,7 +1553,7 @@ export class TTSortIcon implements OnInit, OnDestroy {
     ngOnInit() {
         this.updateSortState();
     }
-    
+
     onClick(event){
         event.preventDefault();
     }
@@ -1597,7 +1598,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
             this.resizer = document.createElement('span');
             this.resizer.className = 'ui-column-resizer ui-clickable';
             this.el.nativeElement.appendChild(this.resizer);
-    
+
             this.zone.runOutsideAngular(() => {
                 this.resizerMouseDownListener = this.onMouseDown.bind(this);
                 this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
@@ -1649,7 +1650,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
         if (this.resizerMouseDownListener) {
             this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
         }
-        
+
         this.unbindDocumentEvents();
     }
 }
@@ -1985,7 +1986,7 @@ export class TTCheckbox  {
             this.subscription.unsubscribe();
         }
     }
-   
+
 }
 
 @Component({
@@ -2032,7 +2033,7 @@ export class TTHeaderCheckbox  {
         if(this.tt.value && this.tt.value.length > 0) {
             this.tt.toggleNodesWithCheckbox(event, !checked);
         }
-        
+
         this.domHandler.clearSelection();
     }
 
@@ -2061,7 +2062,7 @@ export class TTHeaderCheckbox  {
             for (let node of this.tt.value) {
                 if (this.tt.isSelected(node)) {
                     checked = true;
-                }   
+                }
                 else  {
                     checked = false;
                     break;
@@ -2074,7 +2075,7 @@ export class TTHeaderCheckbox  {
 
         return checked;
     }
-   
+
 }
 
 @Directive({
@@ -2108,7 +2109,7 @@ export class TTEditableColumn implements AfterViewInit {
                     if (!this.isValid()) {
                         return;
                     }
-        
+
                     this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
                     this.openCell();
                 }
@@ -2143,10 +2144,10 @@ export class TTEditableColumn implements AfterViewInit {
                     this.tt.editingCell = null;
                     this.tt.onEditComplete.emit({ field: this.field, data: this.data });
                 }
-    
+
                 event.preventDefault();
             }
-    
+
             //escape
             else if (event.keyCode == 27) {
                 if (this.isValid()) {
@@ -2154,14 +2155,14 @@ export class TTEditableColumn implements AfterViewInit {
                     this.tt.editingCell = null;
                     this.tt.onEditCancel.emit({ field: this.field, data: this.data });
                 }
-    
+
                 event.preventDefault();
             }
-    
+
             //tab
             else if (event.keyCode == 9) {
                 this.tt.onEditComplete.emit({ field: this.field, data: this.data });
-                
+
                 if (event.shiftKey)
                     this.moveToPreviousCell(event);
                 else
@@ -2288,7 +2289,7 @@ export class TreeTableCellEditor implements AfterContentInit {
             }
         });
     }
-    
+
 }
 
 @Component({
@@ -2323,14 +2324,14 @@ export class TreeTableToggler {
 
         this.tt.updateSerializedValue();
         this.tt.tableService.onUIUpdate(this.tt.value);
-        
+
         event.preventDefault();
     }
 }
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
+    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor,SharedModule],
     declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
 })
 export class TreeTableModule { }
