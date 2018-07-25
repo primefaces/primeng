@@ -7,6 +7,17 @@ import {MessageService} from '../../../components/common/messageservice';
         :host ::ng-deep button {
             margin-right: .25em;
         }
+
+        :host ::ng-deep .custom-toast .ui-toast-message {
+            color: #ffffff;
+            background: #FC466B;
+            background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
+            background: linear-gradient(to right, #3F5EFB, #FC466B);
+        }
+
+        :host ::ng-deep .custom-toast .ui-toast-close-icon {
+            color: #ffffff;
+        }
     `],
     providers: [MessageService]
 })
@@ -28,6 +39,10 @@ export class ToastDemo {
 
     showError() {
         this.messageService.add({severity:'error', summary: 'Error Message', detail:'Validation failed'});
+    }
+
+    showCustom() {
+        this.messageService.add({key: 'custom', severity:'info', summary: 'Custom Toast', detail:'With a Gradient'});
     }
 
     showTopLeft() {

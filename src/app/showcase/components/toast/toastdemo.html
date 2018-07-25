@@ -7,8 +7,13 @@
 
 <div class="content-section implementation">
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
     <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+
     <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+
+    <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
+
     <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
             <div style="text-align: center">
@@ -32,6 +37,8 @@
     <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
     <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
     <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
+    <button type="button" pButton (click)="showCustom()" label="Custom"></button>
+
 
     <h3>Multiple</h3>
     <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
