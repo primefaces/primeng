@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
@@ -134,7 +134,7 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
     ],
     providers: [DomHandler]
 })
-export class Notify implements AfterContentInit,OnDestroy {
+export class Notify implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() key: string;
 
@@ -166,39 +166,39 @@ export class Notify implements AfterContentInit,OnDestroy {
 
     mask: HTMLDivElement;
     
-    constructor(public messageService: MessageService, public domHandler: DomHandler) {
-        if (messageService) {
-            this.messageSubscription = messageService.messageObserver.subscribe(messages => {
-                if (messages) {
-                    if (messages instanceof Array) {
-                        let filteredMessages = messages.filter(m => this.key === m.key);
-                        this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
-                    }
-                    else if (this.key === messages.key) {
-                        this.messages = this.messages ? [...this.messages, ...[messages]] : [messages];
-                    }
+    constructor(public messageService: MessageService, public domHandler: DomHandler) {}
 
-                    if (this.modal && this.messages && this.messages.length) {
-                        this.enableModality();
-                    }
+    ngOnInit() {
+        this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
+            if (messages) {
+                if (messages instanceof Array) {
+                    let filteredMessages = messages.filter(m => this.key === m.key);
+                    this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
                 }
-            });
+                else if (this.key === messages.key) {
+                    this.messages = this.messages ? [...this.messages, ...[messages]] : [messages];
+                }
 
-            this.clearSubscription = messageService.clearObserver.subscribe(key => {
-                if (key) {
-                    if (this.key === key) {
-                        this.messages = null;
-                    }
+                if (this.modal && this.messages && this.messages.length) {
+                    this.enableModality();
                 }
-                else {
+            }
+        });
+
+        this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
+            if (key) {
+                if (this.key === key) {
                     this.messages = null;
                 }
+            }
+            else {
+                this.messages = null;
+            }
 
-                if (this.modal) {
-                    this.disableModality();
-                }
-            });
-        }
+            if (this.modal) {
+                this.disableModality();
+            }
+        });       
     }
 
     ngAfterContentInit() {
