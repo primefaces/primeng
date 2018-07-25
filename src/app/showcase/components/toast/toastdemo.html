@@ -416,8 +416,13 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;" position="top-left" key="tl"&gt;&lt;/p-toast&gt;
+
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;" position="top-center" key="tc"&gt;&lt;/p-toast&gt;
+
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;" styleClass="custom-toast" key="custom" position="bottom-center"&gt;&lt;/p-toast&gt;
+
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
         &lt;div style="text-align: center"&gt;
@@ -465,6 +470,17 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
         :host ::ng-deep button &#123;
             margin-right: .25em;
         &#125;
+
+        :host ::ng-deep .custom-toast .ui-toast-message &#123;
+            color: #ffffff;
+            background: #FC466B;
+            background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
+            background: linear-gradient(to right, #3F5EFB, #FC466B);
+        &#125;
+
+        :host ::ng-deep .custom-toast .ui-toast-close-icon &#123;
+            color: #ffffff;
+        &#125;
     `],
     providers: [MessageService]
 &#125;)
@@ -486,6 +502,10 @@ export class ToastDemo &#123;
 
     showError() &#123;
         this.messageService.add(&#123;severity:'error', summary: 'Error Message', detail:'Validation failed'&#125;);
+    &#125;
+
+    showCustom() &#123;
+        this.messageService.add(&#123;key: 'custom', severity:'info', summary: 'Custom Toast', detail:'With a Gradient'&#125;);
     &#125;
 
     showTopLeft() &#123;
