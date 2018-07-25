@@ -173,7 +173,7 @@
 }
 
 /* Month Picker */
-.ui-datepicker-monthpicker .ui-datepicker-month-cell {
+.ui-monthpicker .ui-monthpicker-month {
     width: 33.3%;
     display: inline-block;
     text-align: center;
@@ -241,8 +241,8 @@ input[type=text]::-ms-clear {
 .ui-datepicker-touch-ui.ui-datepicker td {
 	padding: 0;
 }
-.ui-datepicker-touch-ui.ui-datepicker td span,
-.ui-datepicker-touch-ui.ui-datepicker td a {
+.ui-datepicker-touch-ui.ui-datepicker td > span,
+.ui-datepicker-touch-ui.ui-datepicker td > a {
 	padding: 2em 0;
 }
 

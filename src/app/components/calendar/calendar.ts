@@ -72,22 +72,26 @@ export interface LocaleSettings {
                                     <tr *ngFor="let week of month.dates">
                                         <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
-                                            <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true"
-                                                [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
-                                                (click)="onDateSelect($event,date)" draggable="false">
-                                                <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
-                                                <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
-                                            </a>
+                                            <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
+                                                <a class="ui-state-default" href="#" *ngIf="date.selectable" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}"
+                                                    (click)="onDateSelect($event,date)" draggable="false">
+                                                    <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
+                                                    <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
+                                                </a>
+                                                <span class="ui-state-default ui-state-disabled" *ngIf="!date.selectable">
+                                                    {{date.day}}
+                                                </span>
+                                            </ng-container>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="ui-datepicker-monthpicker-container" *ngIf="view === 'month'">
-                            <a href="#" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-datepicker-month-cell" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
-                                {{m}}
-                            </a>
-                        </div>
+                    </div>
+                    <div class="ui-monthpicker" *ngIf="view === 'month'">
+                        <a href="#" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
+                            {{m}}
+                        </a>
                     </div>
                 </ng-container>
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
