@@ -6,4 +6,5 @@ export interface Message {
     key?: string;
     timeout?: number;
     sticky?: boolean;
+    closable?: boolean;
 }

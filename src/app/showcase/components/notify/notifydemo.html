@@ -9,7 +9,23 @@
     <p-notify [style]="{marginTop: '80px'}"></p-notify>
     <p-notify [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-notify>
     <p-notify [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-notify>
-    <p-notify position="center" key="c"></p-notify>
+    <p-notify position="center" key="c" (onClose)="onReject()">
+        <ng-template let-message pTemplate="message">
+            <div style="text-align: center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                <h3>{{message.summary}}</h3>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-6">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+                </div>
+                <div class="ui-g-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+                </div>
+            </div>
+        </ng-template>
+    </p-notify>
 
     <h3 class="first">Severities</h3>
     <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
@@ -21,12 +37,14 @@
     <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
 
     <h3>Clear</h3>
-    <button type="button" pButton (click)="clear()" icon="pi pi-times" label="Remove"></button>
+    <button type="button" pButton (click)="clear()" icon="pi pi-times" label="Remove All"></button>
 
     <h3>Positions</h3>
     <button type="button" pButton (click)="showTopLeft()" label="Top Left" class="ui-button-success"></button>
     <button type="button" pButton (click)="showTopCenter()" label="Top Center" class="ui-button-info"></button>
-    <button type="button" pButton (click)="showCenter()" label="Center" class="ui-button-warning"></button>
+
+    <h3>Template</h3>
+    <button type="button" pButton (click)="showConfirm()" label="Confirm" class="ui-button-warning"></button>
 </div>
 
 <div class="content-section documentation">

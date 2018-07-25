@@ -1,7 +1,8 @@
-import {NgModule,Component,Input,Output,AfterViewInit,OnDestroy,ElementRef,ViewChild,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
+import {PrimeTemplate} from '../common/shared';
 import {MessageService} from '../common/messageservice';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild} from '@angular/animations';
@@ -14,14 +15,17 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
                 'ui-notify-message-error': message.severity == 'error','ui-notify-message-success': message.severity == 'success'}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="ui-notify-message-content">
-                <a href="#" class="ui-notify-close-icon pi pi-times" (click)="onCloseIconClick($event)"></a>
-                <span class="ui-notify-icon pi"
-                    [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
-                        'pi-times': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
-                <div class="ui-notify-message-text-content">
-                    <div class="ui-notify-summary">{{message.summary}}</div>
-                    <div class="ui-notify-detail">{{message.detail}}</div>
-                </div>
+                <a href="#" class="ui-notify-close-icon pi pi-times" (click)="onCloseIconClick($event)" *ngIf="message.closable !== false"></a>
+                <ng-container *ngIf="!template">
+                    <span class="ui-notify-icon pi"
+                        [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
+                            'pi-times': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
+                    <div class="ui-notify-message-text-content">
+                        <div class="ui-notify-summary">{{message.summary}}</div>
+                        <div class="ui-notify-detail">{{message.detail}}</div>
+                    </div>
+                </ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
             </div>
         </div>
     `,
@@ -50,6 +54,8 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
     @Input() message: Message;
 
     @Input() index: number;
+
+    @Input() template: TemplateRef<any>;
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
@@ -112,7 +118,7 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
                 'ui-notify-bottom-center': position === 'bottom-center',
                 'ui-notify-center': position === 'center'}" 
                 [ngStyle]="style" [class]="styleClass">
-            <p-notifyItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onClose($event)" @notifyAnimation></p-notifyItem>
+            <p-notifyItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)" [template]="template" @notifyAnimation></p-notifyItem>
         </div>
     `,
     animations: [
@@ -124,7 +130,7 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
     ],
     providers: [DomHandler]
 })
-export class Notify implements OnDestroy {
+export class Notify implements AfterContentInit,OnDestroy {
 
     @Input() key: string;
 
@@ -138,15 +144,23 @@ export class Notify implements OnDestroy {
 
     @Input() position: string = 'top-right';
 
+    @Output() onClose: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
-    subscription: Subscription;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    messageSubscription: Subscription;
+
+    clearSubscription: Subscription;
 
     messages: Message[];
+
+    template: TemplateRef<any>;
     
     constructor(public messageService: MessageService) {
         if (messageService) {
-            this.subscription = messageService.messageObserver.subscribe(messages => {
+            this.messageSubscription = messageService.messageObserver.subscribe(messages => {
                 if (messages) {
                     if (messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
@@ -156,11 +170,33 @@ export class Notify implements OnDestroy {
                         this.messages = this.messages ? [...this.messages, ...[messages]] : [messages];
                     }
                 }
+            });
+
+            this.clearSubscription = messageService.clearObserver.subscribe(key => {
+                if (key) {
+                    if (this.key === key) {
+                        this.messages = null;
+                    }
+                }
                 else {
                     this.messages = null;
                 }
             });
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'message':
+                    this.template = item.template;
+                break;
+
+                default:
+                    this.template = item.template;
+                break;
+            }
+        });
     }
 
     ngAfterViewInit() {
@@ -169,13 +205,19 @@ export class Notify implements OnDestroy {
         }
     }
 
-    onClose(event) {
+    onMessageClose(event) {
         this.messages.splice(event.index, 1);
+
+        this.onClose.emit(event);
     }
 
     ngOnDestroy() {        
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+        if (this.messageSubscription) {
+            this.messageSubscription.unsubscribe();
+        }
+        
+        if (this.clearSubscription) {
+            this.clearSubscription.unsubscribe();
         }
     }
 }
