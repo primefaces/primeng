@@ -30,6 +30,18 @@ export class NotifyDemo {
         this.messageService.add({severity:'error', summary:'Error Message', detail:'Validation failed'});
     }
 
+    showTopLeft() {
+        this.messageService.add({key: 'tl', severity:'info', summary:'Success Message', detail:'Order submitted'});
+    }
+
+    showTopCenter() {
+        this.messageService.add({key: 'tc', severity:'warn', summary:'Info Message', detail:'PrimeNG rocks'});
+    }
+
+    showCenter() {
+        this.messageService.add({key: 'c', severity:'error', summary:'Warn Message', detail:'There are unsaved changes'});
+    }
+
     showMultiple() {
         this.messageService.addAll([
             {severity:'info', summary:'Message 1', detail:'PrimeNG rocks'},

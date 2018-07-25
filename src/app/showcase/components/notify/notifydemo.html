@@ -7,15 +7,26 @@
 
 <div class="content-section implementation">
     <p-notify [style]="{marginTop: '80px'}"></p-notify>
+    <p-notify [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-notify>
+    <p-notify [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-notify>
+    <p-notify position="center" key="c"></p-notify>
 
-    <div>
-        <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
-        <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
-        <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
-        <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
-        <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
-        <button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"></button>
-    </div>
+    <h3 class="first">Severities</h3>
+    <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
+    <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
+    <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
+    <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
+
+    <h3>Multiple</h3>
+    <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
+
+    <h3>Clear</h3>
+    <button type="button" pButton (click)="clear()" icon="pi pi-times" label="Remove"></button>
+
+    <h3>Positions</h3>
+    <button type="button" pButton (click)="showTopLeft()" label="Top Left" class="ui-button-success"></button>
+    <button type="button" pButton (click)="showTopCenter()" label="Top Center" class="ui-button-info"></button>
+    <button type="button" pButton (click)="showCenter()" label="Center" class="ui-button-warning"></button>
 </div>
 
 <div class="content-section documentation">

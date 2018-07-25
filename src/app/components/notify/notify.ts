@@ -11,9 +11,10 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
     template: `
         <div class="ui-notify-message ui-shadow"  [@messageState]="'visible'"
             [ngClass]="{'ui-notify-message-info': message.severity == 'info','ui-notify-message-warn': message.severity == 'warn',
-                'ui-notify-message-error': message.severity == 'error','ui-notify-message-success': message.severity == 'success'}">
+                'ui-notify-message-error': message.severity == 'error','ui-notify-message-success': message.severity == 'success'}"
+                (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="ui-notify-message-content">
-                <div class="ui-notify-close-icon pi pi-times" (click)="remove(i,msgel)"></div>
+                <a href="#" class="ui-notify-close-icon pi pi-times" (click)="onCloseIconClick($event)"></a>
                 <span class="ui-notify-icon pi"
                     [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
@@ -42,8 +43,7 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
                 }))
             ])
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class NotifyItem implements AfterViewInit, OnDestroy {
 
@@ -56,6 +56,10 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
     timeout: any;
 
     ngAfterViewInit() {
+        this.initTimeout();
+    }
+
+    initTimeout() {
         if (!this.message.sticky) {
             this.timeout = setTimeout(() => {
                 this.onClose.emit({
@@ -66,18 +70,48 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    clearTimeout() {
         if (this.timeout) {
             clearTimeout(this.timeout);
             this.timeout = null;
         }
+    }
+    
+    onMouseEnter() {
+        this.clearTimeout();
+    }
+
+    onMouseLeave() {
+        this.initTimeout();
+    }
+ 
+    onCloseIconClick(event) {
+        this.clearTimeout();
+        
+        this.onClose.emit({
+            index: this.index,
+            message: this.message
+        });
+        event.preventDefault();
+    }
+
+    ngOnDestroy() {
+        this.clearTimeout();
     }
 }
 
 @Component({
     selector: 'p-notify',
     template: `
-        <div #container [ngClass]="'ui-notify ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div #container [ngClass]="{'ui-notify ui-widget': true, 
+                'ui-notify-top-right': position === 'top-right',
+                'ui-notify-top-left': position === 'top-left',
+                'ui-notify-bottom-right': position === 'bottom-right',
+                'ui-notify-bottom-left': position === 'bottom-left',
+                'ui-notify-top-center': position === 'top-center',
+                'ui-notify-bottom-center': position === 'bottom-center',
+                'ui-notify-center': position === 'center'}" 
+                [ngStyle]="style" [class]="styleClass">
             <p-notifyItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onClose($event)" @notifyAnimation></p-notifyItem>
         </div>
     `,
@@ -102,13 +136,15 @@ export class Notify implements OnDestroy {
         
     @Input() styleClass: string;
 
+    @Input() position: string = 'top-right';
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     subscription: Subscription;
 
     messages: Message[];
     
-    constructor(public messageService: MessageService) {        
+    constructor(public messageService: MessageService) {
         if (messageService) {
             this.subscription = messageService.messageObserver.subscribe(messages => {
                 if (messages) {

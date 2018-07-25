@@ -1,7 +1,5 @@
 .ui-notify {
 	position: fixed;
-	top: 20px;
-	right: 20px;
     width: 20em;
 }
 
@@ -18,9 +16,10 @@
 
 .ui-notify-close-icon {
 	position: absolute;
-	top: 4px;
-	right: 4px;
-	cursor: pointer;
+	top: .25em;
+	right: .25em;
+    cursor: pointer;
+    display: inline-block;
 }
 
 .ui-notify-summary {
@@ -81,4 +80,44 @@
 
 .ui-notify-message-error .ui-notify-close-icon {
     color: #AB1A0F;
+}
+
+/* Positions */
+.ui-notify-top-right {
+	top: 20px;
+	right: 20px;
+}
+
+.ui-notify-top-left {
+	top: 20px;
+	left: 20px;
+}
+
+.ui-notify-bottom-right {
+	bottom: 20px;
+	right: 20px;
+}
+
+.ui-notify-bottom-left {
+	bottom: 20px;
+	right: 20px;
+}
+
+.ui-notify-top-center {
+	top: 20px;
+    left: 50%;
+    margin-left: -10em;
+}
+
+.ui-notify-bottom-center {
+	bottom: 20px;
+	left: 50%;
+    margin-left: -10em;
+}
+
+.ui-notify-center {
+	left: 50%;
+	top: 50%;
+    min-width: 20vw;
+    transform: translate(-50%, -50%);
 }
