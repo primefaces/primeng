@@ -15,7 +15,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
         <div [ngClass]="{'ui-inputswitch ui-widget': true, 'ui-inputswitch-checked': checked, 'ui-state-disabled': disabled, 'ui-inputswitch-focus': focused}" 
             [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)" role="checkbox" [attr.aria-checked]="checked">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
+                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [checked]="checked" (change)="onInputChange($event)"
                         (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" />
             </div>
             <span class="ui-inputswitch-slider"></span>
@@ -30,6 +30,10 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() styleClass: string;
 
     @Input() tabindex: number;
+  
+    @Input() ariaLabel: string;
+
+    @Input() ariaRequired: boolean;
 
     @Input() inputId: string;
 
@@ -92,7 +96,7 @@ export class InputSwitch implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }

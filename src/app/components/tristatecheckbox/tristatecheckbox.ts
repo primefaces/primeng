@@ -13,7 +13,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div [ngStyle]="style" [ngClass]="'ui-chkbox ui-tristatechkbox ui-widget'" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
-                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" readonly [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
+                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" readonly [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"
                 [ngClass]="{'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}">
@@ -35,6 +35,10 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     @Input() name: string;
 
     @Input() tabindex: number;
+
+    @Input() ariaLabel: string;
+
+    @Input() ariaRequired: boolean;
 
     @Input() inputId: string;
 
