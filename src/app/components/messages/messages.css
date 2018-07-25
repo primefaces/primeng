@@ -69,6 +69,10 @@
     vertical-align: middle;
 }
 
+.ui-messages ul > li {
+    padding: .25em 0;
+}
+
 .ui-messages.ui-messages-noicon ul {
     margin: 0 1.5em 0 0;
 }
