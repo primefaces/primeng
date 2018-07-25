@@ -228,7 +228,9 @@ export class Notify implements AfterContentInit,OnDestroy {
             this.disableModality();
         }
 
-        this.onClose.emit(event);
+        this.onClose.emit({
+            message: event.message
+        });
     }
 
     enableModality() {

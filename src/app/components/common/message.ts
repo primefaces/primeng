@@ -7,4 +7,5 @@ export interface Message {
     life?: number;
     sticky?: boolean;
     closable?: boolean;
+    data?: any;
 }
