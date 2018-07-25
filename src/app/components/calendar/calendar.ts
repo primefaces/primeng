@@ -37,7 +37,7 @@ export interface LocaleSettings {
             </ng-template>
             <div [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
-                (click)="onDatePickerClick($event)" [@overlayAnimation]="'visible'" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
+                (click)="onDatePickerClick($event)" [@overlayAnimation]="touchUI ? 'visibleTouchUI': 'visible'" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
                 <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
@@ -166,16 +166,36 @@ export interface LocaleSettings {
     `,
     animations: [
         trigger('overlayAnimation', [
-            state('void', style({
-                transform: 'translateY(5%)',
-                opacity: 0
-            })),
             state('visible', style({
                 transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('void => visible', animate('225ms ease-out')),
-            transition('visible => void', animate('195ms ease-in'))
+            state('visibleTouchUI', style({
+                transform: 'translate(-50%,-50%)',
+                opacity: 1
+            })),
+            transition('void => visible', [
+                style({transform: 'translateY(5%)', opacity: 0}),
+                animate('225ms ease-out')
+            ]),
+            transition('visible => void', [
+                animate(('195ms ease-in'), 
+                style({
+                    opacity: 0,
+                    transform: 'translateY(5%)'
+                }))
+            ]),
+            transition('void => visibleTouchUI', [
+                style({opacity: 0, transform: 'translate3d(-50%, -40%, 0) scale(0.9)'}),
+                animate('225ms ease-out')
+            ]),
+            transition('visibleTouchUI => void', [
+                animate(('195ms ease-in'), 
+                style({
+                    opacity: 0,
+                    transform: 'translate3d(-50%, -40%, 0) scale(0.9)'
+                }))
+            ])
         ])
     ],
     host: {
@@ -1428,6 +1448,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onOverlayAnimationStart(event: AnimationEvent) {
         switch(event.toState) {
             case 'visible':
+            case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
                     this.appendOverlay();
