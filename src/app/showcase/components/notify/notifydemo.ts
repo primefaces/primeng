@@ -14,8 +14,6 @@ export class NotifyDemo {
 
     constructor(private messageService: MessageService) {}
 
-    pendingConfirm: boolean;
-
     showSuccess() {
         this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});
     }
@@ -41,10 +39,8 @@ export class NotifyDemo {
     }
 
     showConfirm() {
-        if (!this.pendingConfirm) {
-            this.pendingConfirm = true;
-            this.messageService.add({key: 'c', sticky: true, modal: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
-        }
+        this.messageService.clear();
+        this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
     }
 
     showMultiple() {
@@ -57,16 +53,13 @@ export class NotifyDemo {
 
     onConfirm() {
         this.messageService.clear('c');
-        this.pendingConfirm = false;
     }
 
     onReject() {
         this.messageService.clear('c');
-        this.pendingConfirm = false;
     }
     
     clear() {
         this.messageService.clear();
-        this.pendingConfirm = false;
     }
 }

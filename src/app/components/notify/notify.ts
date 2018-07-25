@@ -62,18 +62,10 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
-
     timeout: any;
-
-    mask: HTMLDivElement;
 
     ngAfterViewInit() {
         this.initTimeout();
-
-        if (this.message.modal) {
-            this.enableModality();
-        }
     }
 
     initTimeout() {
@@ -83,7 +75,7 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
                     index: this.index,
                     message: this.message
                 });
-            }, this.message.timeout || 3000);
+            }, this.message.life || 3000);
         }
     }
 
@@ -110,36 +102,11 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
             message: this.message
         });
 
-        if (this.mask) {
-            this.disableModality();
-        }
-
         event.preventDefault();
-    }
-
-    enableModality() {
-        if (!this.mask) {
-            this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(this.el.nativeElement.parentElement.style.zIndex) - 1);
-            let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
-            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
-            document.body.appendChild(this.mask);
-        }
-    }
-    
-    disableModality() {
-        if (this.mask) {
-            document.body.removeChild(this.mask);
-            this.mask = null;
-        }
     }
 
     ngOnDestroy() {
         this.clearTimeout();
-
-        if (this.mask) {
-            this.disableModality();
-        }
     }
 }
 
@@ -181,6 +148,8 @@ export class Notify implements AfterContentInit,OnDestroy {
 
     @Input() position: string = 'top-right';
 
+    @Input() modal: boolean;
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
@@ -194,8 +163,10 @@ export class Notify implements AfterContentInit,OnDestroy {
     messages: Message[];
 
     template: TemplateRef<any>;
+
+    mask: HTMLDivElement;
     
-    constructor(public messageService: MessageService) {
+    constructor(public messageService: MessageService, public domHandler: DomHandler) {
         if (messageService) {
             this.messageSubscription = messageService.messageObserver.subscribe(messages => {
                 if (messages) {
@@ -205,6 +176,10 @@ export class Notify implements AfterContentInit,OnDestroy {
                     }
                     else if (this.key === messages.key) {
                         this.messages = this.messages ? [...this.messages, ...[messages]] : [messages];
+                    }
+
+                    if (this.modal && this.messages && this.messages.length) {
+                        this.enableModality();
                     }
                 }
             });
@@ -217,6 +192,10 @@ export class Notify implements AfterContentInit,OnDestroy {
                 }
                 else {
                     this.messages = null;
+                }
+
+                if (this.modal) {
+                    this.disableModality();
                 }
             });
         }
@@ -245,7 +224,28 @@ export class Notify implements AfterContentInit,OnDestroy {
     onMessageClose(event) {
         this.messages.splice(event.index, 1);
 
+        if (this.messages.length === 0) {
+            this.disableModality();
+        }
+
         this.onClose.emit(event);
+    }
+
+    enableModality() {
+        if (!this.mask) {
+            this.mask = document.createElement('div');
+            this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
+            let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
+            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
+            document.body.appendChild(this.mask);
+        }
+    }
+    
+    disableModality() {
+        if (this.mask) {
+            document.body.removeChild(this.mask);
+            this.mask = null;
+        }
     }
 
     ngOnDestroy() {        
@@ -256,6 +256,8 @@ export class Notify implements AfterContentInit,OnDestroy {
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
+
+        this.disableModality();
     }
 }
 

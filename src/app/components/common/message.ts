@@ -4,8 +4,7 @@ export interface Message {
     detail?: string;
     id?: any;
     key?: string;
-    timeout?: number;
+    life?: number;
     sticky?: boolean;
     closable?: boolean;
-    modal?: boolean;
 }
