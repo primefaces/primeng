@@ -17,33 +17,33 @@ export class NotifyDemo {
     pendingConfirm: boolean;
 
     showSuccess() {
-        this.messageService.add({severity:'success', summary:'Success Message', detail:'Order submitted'});
+        this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});
     }
 
     showInfo() {
-        this.messageService.add({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
+        this.messageService.add({severity:'info', summary: 'Info Message', detail:'PrimeNG rocks'});
     }
 
     showWarn() {
-        this.messageService.add({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
+        this.messageService.add({severity:'warn', summary: 'Warn Message', detail:'There are unsaved changes'});
     }
 
     showError() {
-        this.messageService.add({severity:'error', summary:'Error Message', detail:'Validation failed'});
+        this.messageService.add({severity:'error', summary: 'Error Message', detail:'Validation failed'});
     }
 
     showTopLeft() {
-        this.messageService.add({key: 'tl', severity:'info', summary:'Success Message', detail:'Order submitted'});
+        this.messageService.add({key: 'tl', severity:'info', summary: 'Success Message', detail:'Order submitted'});
     }
 
     showTopCenter() {
-        this.messageService.add({key: 'tc', severity:'warn', summary:'Info Message', detail:'PrimeNG rocks'});
+        this.messageService.add({key: 'tc', severity:'warn', summary: 'Info Message', detail:'PrimeNG rocks'});
     }
 
     showConfirm() {
         if (!this.pendingConfirm) {
             this.pendingConfirm = true;
-            this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
+            this.messageService.add({key: 'c', sticky: true, modal: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
         }
     }
 

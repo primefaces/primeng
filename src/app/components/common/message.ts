@@ -7,4 +7,5 @@ export interface Message {
     timeout?: number;
     sticky?: boolean;
     closable?: boolean;
+    modal?: boolean;
 }

@@ -10,7 +10,7 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
 @Component({
     selector: 'p-notifyItem',
     template: `
-        <div class="ui-notify-message ui-shadow"  [@messageState]="'visible'"
+        <div #container class="ui-notify-message ui-shadow" [@messageState]="'visible'"
             [ngClass]="{'ui-notify-message-info': message.severity == 'info','ui-notify-message-warn': message.severity == 'warn',
                 'ui-notify-message-error': message.severity == 'error','ui-notify-message-success': message.severity == 'success'}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
@@ -47,7 +47,8 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
                 }))
             ])
         ])
-    ]
+    ],
+    providers: [DomHandler]
 })
 export class NotifyItem implements AfterViewInit, OnDestroy {
 
@@ -59,10 +60,20 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
+    @ViewChild('container') containerViewChild: ElementRef;
+
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+
     timeout: any;
+
+    mask: HTMLDivElement;
 
     ngAfterViewInit() {
         this.initTimeout();
+
+        if (this.message.modal) {
+            this.enableModality();
+        }
     }
 
     initTimeout() {
@@ -98,11 +109,37 @@ export class NotifyItem implements AfterViewInit, OnDestroy {
             index: this.index,
             message: this.message
         });
+
+        if (this.mask) {
+            this.disableModality();
+        }
+
         event.preventDefault();
+    }
+
+    enableModality() {
+        if (!this.mask) {
+            this.mask = document.createElement('div');
+            this.mask.style.zIndex = String(parseInt(this.el.nativeElement.parentElement.style.zIndex) - 1);
+            let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
+            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
+            document.body.appendChild(this.mask);
+        }
+    }
+    
+    disableModality() {
+        if (this.mask) {
+            document.body.removeChild(this.mask);
+            this.mask = null;
+        }
     }
 
     ngOnDestroy() {
         this.clearTimeout();
+
+        if (this.mask) {
+            this.disableModality();
+        }
     }
 }
 
