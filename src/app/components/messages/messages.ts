@@ -41,14 +41,16 @@ export class Messages implements OnInit, OnDestroy {
     @Input() key: string;
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
+    
+    messageSubscription: Subscription;
 
-    subscription: Subscription;
+    clearSubscription: Subscription;
 
     constructor(@Optional() public messageService: MessageService) {}
 
     ngOnInit() {
         if(this.messageService && this.enableService) {
-            this.subscription = this.messageService.messageObserver.subscribe((messages: any) => {
+            this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
                 if(messages) {
                     if(messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
@@ -56,6 +58,14 @@ export class Messages implements OnInit, OnDestroy {
                     }
                     else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
+                    }
+                }
+            });
+
+            this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
+                if (key) {
+                    if (this.key === key) {
+                        this.value = null;
                     }
                 }
                 else {
@@ -111,8 +121,12 @@ export class Messages implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.subscription) {
-            this.subscription.unsubscribe();
+        if (this.messageSubscription) {
+            this.messageSubscription.unsubscribe();
+        }
+        
+        if (this.clearSubscription) {
+            this.clearSubscription.unsubscribe();
         }
     }
 }
