@@ -1,10 +1,10 @@
 import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from '../common/treenode';
-import { Subject, Subscription, Observable } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { DomHandler } from '../dom/domhandler';
 import { PaginatorModule } from '../paginator/paginator';
-import { PrimeTemplate } from '../common/shared';
+import { PrimeTemplate, SharedModule } from '../common/shared';
 import { SortMeta } from '../common/sortmeta';
 import { ObjectUtils } from '../utils/objectutils';
 
@@ -2330,7 +2330,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
+    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
     declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
 })
 export class TreeTableModule { }
