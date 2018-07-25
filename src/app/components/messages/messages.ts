@@ -1,8 +1,9 @@
 import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message} from '../common/message';
 import {MessageService} from '../common/messageservice';
-import {Subscription}   from 'rxjs';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'p-messages',
@@ -12,7 +13,7 @@ import {Subscription}   from 'rxjs';
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
                     'ui-messages-success':(value[0].severity === 'success')}"
-                    [ngStyle]="style" [class]="styleClass">
+                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="'visible'">
             <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
                 <i class="pi pi-times"></i>
             </a>
@@ -24,7 +25,25 @@ import {Subscription}   from 'rxjs';
                 </li>
             </ul>
         </div>
-    `
+    `,
+    animations: [
+        trigger('messageAnimation', [
+            state('visible', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
+            transition('void => *', [
+                style({transform: 'translateY(-25%)', opacity: 0}),
+                animate('300ms ease-out')
+            ]),
+            transition('* => void', [
+                animate(('250ms ease-in'), style({
+                    opacity: 0,
+                    transform: 'translateY(-25%)'
+                }))
+            ])
+        ])
+    ]
 })
 export class Messages implements OnInit, OnDestroy {
 
