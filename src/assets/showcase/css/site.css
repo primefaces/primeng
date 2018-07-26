@@ -131,7 +131,7 @@ body {
     position: absolute;
     top: 65px;
     left: -50px;
-    width: 200px;
+    width: 250px;
     max-height: 300px;
     background-color: #ffffff;
     -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
@@ -312,7 +312,9 @@ body {
 }
 
 .menuitem-badge {
-    background: linear-gradient(-180deg, #60E17A 0%, #49BD61 100%);
+    background: #00b09b;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #96c93d, #00b09b);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #96c93d, #00b09b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
     padding: 2px 4px;
     vertical-align: middle;
     border-radius: 3px;
@@ -321,6 +323,29 @@ body {
     font-size: 11px;
     position: relative;
     top: -1px;
+}
+
+.theme-badge {
+    padding: 2px 4px;
+    vertical-align: middle;
+    border-radius: 3px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+    top: -1px;
+}
+
+.theme-badge.material {
+    background: #00b09b;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #202124, #404147);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #202124, #404147); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
+}
+
+.theme-badge.bootstrap {
+    background: #563D7C;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #563D7C, #966BD8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #563D7C, #966BD8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
 }
 
 #layout-sidebar .layout-menu > div a:hover {
