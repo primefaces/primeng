@@ -38,7 +38,7 @@ export class UIMessage {
                 break;
 
                 case 'warn':
-                    icon = 'pi pi-ex';
+                    icon = 'pi pi-exclamation-triangle';
                 break;
 
                 default:
