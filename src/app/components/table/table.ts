@@ -1766,8 +1766,6 @@ export class TableBody {
         </div>
         <div #scrollBody class="ui-table-scrollable-body">
             <table #scrollTable [ngClass]="dt.virtualScroll ? 'ui-table-virtual-table ' + dt.tableStyleClass : dt.tableStyleClass" [ngClass]="{'ui-table-virtual-table': dt.virtualScroll}" class="ui-table-scrollable-body-table" [ngStyle]="dt.tableStyle">
-                {{log(dt)}}
-                {{log(dt.virtualScroll)}}
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
             </table>
@@ -1841,10 +1839,6 @@ export class ScrollableView implements AfterViewInit, OnDestroy, AfterViewChecke
         }
 
         this.initialized = false;
-    }
-
-    log(val) {
-        console.log("Template Log:", val)
     }
 
     @Input() get scrollHeight(): string {
