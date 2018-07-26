@@ -1,5 +1,5 @@
 import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
-    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef} from '@angular/core';
+    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef, HostListener} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header } from '../common/shared';
@@ -57,6 +57,13 @@ export class AccordionTab implements OnDestroy {
     id: string = `ui-accordiontab-${idx++}`;
 
     constructor( @Inject(forwardRef(() => Accordion)) public accordion: Accordion) {}
+
+    @HostListener('keydown', ['$event']) onKeydown(event) {
+        if (event.keyCode === 32) {
+        event.preventDefault();
+        this.accordion.tabs[this.findTabIndex()].toggle(event);
+        }
+    }
 
     toggle(event) {
         if (this.disabled || this.animating) {
