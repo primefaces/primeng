@@ -70,6 +70,7 @@
     border-top: 0 none;
 }
 
+.ui-table-scrollable-body-table,
 .ui-table-virtual-table {
     position: absolute;
 }
