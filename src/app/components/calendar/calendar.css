@@ -142,8 +142,9 @@
 .ui-datepicker td > a {
 	display: block;
 	padding: .5em;
-	text-align: right;
-	text-decoration: none;
+    text-decoration: none;
+    border: 0 none;
+    text-align: center;
 }
 
 .ui-datepicker .ui-datepicker-buttonbar {

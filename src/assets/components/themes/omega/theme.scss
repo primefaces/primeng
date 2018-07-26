@@ -566,10 +566,7 @@ $inputGroupTextColor: #222222;
         td {
             border-bottom: 1px solid rgba(213, 213, 213, 0.5);
             
-            a {
-                border: 0 none;
-                text-align: center;
-                
+            a {                
                 &.ui-state-highlight {
                     background-color: #d6d6d6;
                     color: #212121;
