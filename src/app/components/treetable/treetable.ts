@@ -69,8 +69,8 @@ export class TreeTableService {
             </div>
 
             <div class="ui-treetable-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-treetable-scrollable-view ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-treetable-scrollable-view" [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
             </div>
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -781,7 +781,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     findParentScrollableView(column) {
         if (column) {
             let parent = column.parentElement;
-            while (parent && !this.domHandler.hasClass(parent, 'ui-table-scrollable-view')) {
+            while (parent && !this.domHandler.hasClass(parent, 'ui-treetable-scrollable-view')) {
                 parent = parent.parentElement;
             }
 
