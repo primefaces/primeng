@@ -33,7 +33,7 @@
     <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="{'width':'150px'}" placeholder="Select a Car" [group]="true">
         <ng-template let-group pTemplate="group">
             <img src="assets/showcase/images/demo/flag/{{group.value}}" style="width:20px;vertical-align:middle" />
-            <span style="vertical-align:middle">{{group.label}}</span>
+            <span style="vertical-align:middle;margin-left:.25em">{{group.label}}</span>
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
@@ -578,7 +578,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
         &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;group.value&#125;&#125;" style="width:20px;vertical-align:middle" /&gt;
-        &lt;span style="vertical-align:middle"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+        &lt;span style="vertical-align:middle;margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 </code>
