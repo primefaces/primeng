@@ -41,6 +41,8 @@ export class CalendarDemo {
     
     maxDate: Date;
     
+    flexDate: Date;
+
     invalidDates: Array<Date>;
     
     es: any;
