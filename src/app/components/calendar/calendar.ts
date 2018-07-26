@@ -717,11 +717,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         
         if(this.isSingleSelection() && (!this.showTime || this.hideOnDateTimeSelect)) {
-            this.overlayVisible = false;
+            setTimeout(() => {
+                this.overlayVisible = false;
 
-            if(this.mask) {
-                this.disableModality();
-            }
+                if(this.mask) {
+                    this.disableModality();
+                }
+            }, 150);
         }
 
         this.updateInputfield();
