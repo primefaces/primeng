@@ -2082,11 +2082,11 @@ export class TTHeaderCheckbox  {
 })
 export class TTEditableColumn implements AfterViewInit {
 
-    @Input("pEditableColumn") data: any;
+    @Input("ttEditableColumn") data: any;
 
-    @Input("pEditableColumnField") field: any;
+    @Input("ttEditableColumnField") field: any;
 
-    @Input() pEditableColumnDisabled: boolean;
+    @Input() ttEditableColumnDisabled: boolean;
 
     constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
 
@@ -2249,7 +2249,7 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     isEnabled() {
-        return this.pEditableColumnDisabled !== true;
+        return this.ttEditableColumnDisabled !== true;
     }
 
 }
