@@ -544,15 +544,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     getVisibleOptions(): SelectItem[] {
-        if (this.filterValue && this.filterValue.trim().length) {
-            let items = [];
-            for (let i = 0; i < this.options.length; i++) {
-                let option = this.options[i];
-                if (option.label.toLowerCase().includes(this.filterValue.toLowerCase())) {
-                    items.push(option);
-                }
-            }
-            return items;
+        if (this.visibleOptions && this.visibleOptions.length) {
+            return this.visibleOptions;
         }
         else {
             return this.options;
