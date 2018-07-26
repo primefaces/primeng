@@ -297,7 +297,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.selectItem(event, option);
         this.focusViewChild.nativeElement.focus();
         this.filled = true;
-        this.hide();
+
+        setTimeout(() => {
+            this.hide();
+        }, 150);
     }
     
     selectItem(event, option) {
@@ -783,17 +786,21 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.selfClick&&!this.itemClick) {
+                if(!this.selfClick && !this.itemClick) {
                     this.hide();
                     this.unbindDocumentClickListener();
                 }
                 
-                this.selfClick = false;
-                this.itemClick = false;
+                this.clearClickState();
                 this.cd.markForCheck();
             });
         }
     }
+
+    clearClickState() {
+        this.selfClick = false;
+        this.itemClick = false;
+    }  
     
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
