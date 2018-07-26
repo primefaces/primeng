@@ -369,7 +369,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     }
      
     changeView(viewName: string, dateOrRange: any) {
-        this.calendar.incrementDate(viewName, dateOrRange);
+        this.calendar.changeView(viewName, dateOrRange);
     }
     
     getDate() {
