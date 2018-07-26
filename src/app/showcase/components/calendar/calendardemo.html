@@ -24,12 +24,12 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Min-Max</h3>
-            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" readonlyInput="true"></p-calendar>
+            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Disable Days</h3>
-            <p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="true"></p-calendar>
+            <p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -49,12 +49,12 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Multiple</h3>
-            <p-calendar [(ngModel)]="dates" selectionMode="multiple" readonlyInput="true"></p-calendar>
+            <p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
             <h3>Range</h3>
-            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"></p-calendar>
+            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -78,7 +78,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Month Picker</h3>
-            <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+            <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
@@ -186,7 +186,7 @@ export class MyModel &#123;
                 and maxDate options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -194,7 +194,7 @@ export class MyModel &#123;
             <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use disabledDates and/or disabledDays options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -762,12 +762,12 @@ export class MyModel &#123;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Min-Max&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" readonlyInput="true"&gt;&lt;/p-calendar&gt;
+        &lt;p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Disable Days&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="true"&gt;&lt;/p-calendar&gt;
+        &lt;p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
@@ -787,12 +787,12 @@ export class MyModel &#123;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Multiple &lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="dates" selectionMode="multiple" readonlyInput="true"&gt;&lt;/p-calendar&gt;
+        &lt;p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Range&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"&gt;&lt;/p-calendar&gt;
+        &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-4"&gt;
