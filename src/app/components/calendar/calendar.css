@@ -181,6 +181,10 @@
     padding: .5em;
 }
 
+.ui-datepicker-monthpicker select.ui-datepicker-year {
+    width: auto;
+}
+
 /* Time Picker */
 .ui-timepicker {
     text-align: center;
