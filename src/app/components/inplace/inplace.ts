@@ -17,7 +17,7 @@ export class InplaceContent {}
 @Component({
     selector: 'p-inplace',
     template: `
-        <div [ngClass]="'ui-inplace ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'ui-inplace ui-widget': true, 'ui-inplace-closable': closable}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-inplace-display" (click)="activate($event)"
                 [ngClass]="{'ui-state-disabled':disabled}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
@@ -30,30 +30,30 @@ export class InplaceContent {}
     `
 })
 export class Inplace {
-        
+
     @Input() active: boolean;
-    
+
     @Input() closable: boolean;
-    
+
     @Input() disabled: boolean;
 
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Output() onActivate: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onDeactivate: EventEmitter<any> = new EventEmitter();
-    
+
     hover: boolean;
-    
+
     activate(event) {
         if(!this.disabled) {
             this.active = true;
             this.onActivate.emit(event);
         }
     }
-    
+
     deactivate(event) {
         if(!this.disabled) {
             this.active = false;
