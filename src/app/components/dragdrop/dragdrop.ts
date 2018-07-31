@@ -4,14 +4,13 @@ import {DomHandler} from '../dom/domhandler';
 
 @Directive({
     selector: '[pDraggable]',
-    host: {
-        '[draggable]': 'true'
-    },
     providers: [DomHandler]
 })
 export class Draggable implements AfterViewInit, OnDestroy {
     
     @Input('pDraggable') scope: string;
+
+    @Input() pDraggableDisabled: boolean;
         
     @Input() dragEffect: string;
     
@@ -34,7 +33,10 @@ export class Draggable implements AfterViewInit, OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
     
     ngAfterViewInit() {
-        this.bindMouseListeners();
+        if (!this.pDraggableDisabled) {
+            this.el.nativeElement.draggable = true;
+            this.bindMouseListeners();
+        }
     }
 
     bindDragListener() {
@@ -133,6 +135,8 @@ export class Draggable implements AfterViewInit, OnDestroy {
 export class Droppable implements AfterViewInit, OnDestroy {
     
     @Input('pDroppable') scope: string|string[];
+
+    @Input() pDroppableDisabled: boolean;
         
     @Input() dropEffect: string;
         
@@ -147,7 +151,9 @@ export class Droppable implements AfterViewInit, OnDestroy {
     dragOverListener: any;
 
     ngAfterViewInit() {
-        this.bindDragOverListener();
+        if (!this.pDroppableDisabled) {
+            this.bindDragOverListener();
+        }
     }
 
     bindDragOverListener() {

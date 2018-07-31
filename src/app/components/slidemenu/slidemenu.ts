@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild} from '@angular/core';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
-import {Location} from '@angular/common';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -58,27 +58,31 @@ export class SlideMenuSub implements OnDestroy {
     activeItem: any;
                             
     itemClick(event, item: MenuItem, listitem: any) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
                 
-        if(item.command) {            
+        if (item.command) {            
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
         
-        if(item.items && !this.slideMenu.animating) {
+        if (item.items && !this.slideMenu.animating) {
             this.slideMenu.left -= this.slideMenu.menuWidth;
             this.activeItem = listitem;
             this.slideMenu.animating = true;
             setTimeout(() => this.slideMenu.animating = false, this.effectDuration);
+        }
+
+        if (!item.items && this.slideMenu.popup) {
+            this.slideMenu.hide();
         }
     }
         
@@ -91,7 +95,8 @@ export class SlideMenuSub implements OnDestroy {
     selector: 'p-slideMenu',
     template: `
         <div #container [ngClass]="{'ui-slidemenu ui-widget ui-widget-content ui-corner-all':true, 'ui-slidemenu-dynamic ui-shadow':popup}" 
-            [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
+            [class]="styleClass" [ngStyle]="style" (click)="onClick($event)"
+            [@overlayAnimation]="'visible'" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="!popup || visible">
             <div class="ui-slidemenu-wrapper" [style.height.px]="viewportHeight">
                 <div #slideMenuContent class="ui-slidemenu-content">
                     <p-slideMenuSub [item]="model" root="root" [index]="0" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
@@ -102,9 +107,23 @@ export class SlideMenuSub implements OnDestroy {
             </div>
         </div>
     `,
+    animations: [
+        trigger('overlayAnimation', [
+            state('void', style({
+                transform: 'translateY(5%)',
+                opacity: 0
+            })),
+            state('visible', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
+            transition('void => visible', animate('225ms ease-out')),
+            transition('visible => void', animate('195ms ease-in'))
+        ])
+    ],
     providers: [DomHandler]
 })
-export class SlideMenu implements AfterViewInit,OnDestroy {
+export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     @Input() model: MenuItem[];
 
@@ -130,74 +149,114 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() baseZIndex: number = 0;
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    containerViewChild: ElementRef;
     
-    @ViewChild('backward') backwardViewChild: ElementRef;
+    backwardViewChild: ElementRef;
     
-    @ViewChild('slideMenuContent') slideMenuContentViewChild: ElementRef;
+    slideMenuContentViewChild: ElementRef;
+     
+    documentClickListener: any;
+
+    documentResizeListener: any;
     
-    public container: HTMLDivElement;
-    
-    public backwardElement: HTMLDivElement;
-    
-    public slideMenuContentElement: HTMLDivElement;
-    
-    public documentClickListener: any;
-    
-    public preventDocumentDefault: any;
+    preventDocumentDefault: boolean;
         
-    public left: number = 0;
+    left: number = 0;
     
-    public animating: boolean = false;
-        
+    animating: boolean = false;
+    
+    target: any;
+
+    visible: boolean;
+
+    viewportUpdated: boolean;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
-    ngAfterViewInit() {
-        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
-        this.backwardElement = <HTMLDivElement> this.backwardViewChild.nativeElement;
-        this.slideMenuContentElement = <HTMLDivElement> this.slideMenuContentViewChild.nativeElement;
-        this.slideMenuContentElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement) + 'px';
-        
-        if(this.popup) {
-            if(this.appendTo) {
-                if(this.appendTo === 'body')
-                    document.body.appendChild(this.container);
-                else
-                    this.domHandler.appendChild(this.container, this.appendTo);
-            }
-            
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.preventDocumentDefault) {
-                    this.hide();
-                }
-                this.preventDocumentDefault = false;
-            });
+    ngAfterViewChecked() {
+        if (!this.viewportUpdated && !this.popup && this.containerViewChild) {
+            this.updateViewPort();
+            this.viewportUpdated = true;
         }
+    }
+
+    @ViewChild('container') set container(element: ElementRef) {
+        this.containerViewChild = element;
+    }
+
+    @ViewChild('backward') set backward(element: ElementRef) {
+        this.backwardViewChild = element;
+    }
+
+    @ViewChild('slideMenuContent') set slideMenuContent(element: ElementRef) {
+        this.slideMenuContentViewChild = element;
+    }
+
+    updateViewPort() {
+        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
     }
     
     toggle(event) {
-        if(this.container.offsetParent)
+        if (this.visible)
             this.hide();
         else
             this.show(event);
+
+        this.preventDocumentDefault = true;
     }
     
     show(event) {
+        this.target = event.currentTarget;
+        this.visible = true;
         this.preventDocumentDefault = true;
-        this.moveOnTop();
-        this.container.style.display = 'block';
-        this.domHandler.absolutePosition(this.container, event.target);
-        this.domHandler.fadeIn(this.container, 250);
-    }
-    
-    hide() {
-        this.container.style.display = 'none';
     }
 
-    moveOnTop() {
-        if(this.autoZIndex) {
-            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+    onOverlayAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                if (this.popup) {
+                    this.updateViewPort();
+                    this.moveOnTop();
+                    this.appendOverlay();
+                    this.domHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
+                    this.bindDocumentClickListener();
+                    this.bindDocumentResizeListener();
+                }
+            break;
+
+            case 'void':
+                this.ngOnDestroy();
+            break;
         }
+    }
+    
+    appendOverlay() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.containerViewChild.nativeElement);
+            else
+                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+        }
+    }
+
+    restoreOverlayAppend() {
+        if (this.container && this.appendTo) {
+            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
+        }
+    }
+    
+    moveOnTop() {
+        if (this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
+    }
+
+    hide() {
+        this.visible = false;
+    }
+
+    onWindowResize() {
+        this.hide();
     }
     
     onClick(event) {
@@ -207,16 +266,46 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     goBack() {
         this.left += this.menuWidth;
     }
+
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if (!this.preventDocumentDefault) {
+                    this.hide();
+                }
+
+                this.preventDocumentDefault = false;
+            });
+        }
+    }
+
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
         
     ngOnDestroy() {
-        if(this.popup) {
-            if(this.documentClickListener) {
-                this.documentClickListener();
-            }
-            
-            if(this.appendTo) {
-                this.el.nativeElement.appendChild(this.container);
-            }
+        if (this.popup) {
+            this.unbindDocumentClickListener();
+            this.unbindDocumentResizeListener();
+            this.restoreOverlayAppend();
+            this.preventDocumentDefault = false;
+            this.target = null;
+            this.left = 0;
         }
     }
 

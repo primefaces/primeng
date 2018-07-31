@@ -97,6 +97,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     public filled: boolean;
     
     public negativeSeparator = '-';
+
+    decimalSeparatorRegEx: RegExp;
     
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
     
@@ -212,15 +214,26 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
 
     onInputKeyup(event: KeyboardEvent) {
-        const inputValue = (<HTMLInputElement> event.target).value;
-        const lastCharBeforeEvent = inputValue.charAt(inputValue.length - 2);
-        if (event.key !== this.decimalSeparator && event.key !== this.thousandSeparator && event.key !== this.negativeSeparator) {
-            this.value = this.parseValue(inputValue);
+        this.decimalSeparatorRegEx = this.decimalSeparatorRegEx||new RegExp(this.decimalSeparator === '.' ? '\\.' : this.decimalSeparator, "g");
+        const inputValue = (<HTMLInputElement> event.target).value.trim();
+        this.value = this.parseValue(inputValue);
+        if(this.shouldFormat(inputValue)) {
             this.formatValue();
         }
-    
         this.onModelChange(this.value);
         this.updateFilledState();
+    }
+
+    shouldFormat(value): boolean {
+        if(this.negativeSeparator === value) {
+            return false;
+        }
+
+        if(!this.domHandler.isInteger(this.step) && (value.match(this.decimalSeparatorRegEx)||[]).length === 1 && value.indexOf(this.decimalSeparator) === value.length - 1) {
+            return false;
+        }
+
+        return true;
     }
     
     onInputBlur(event) {

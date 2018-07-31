@@ -4,7 +4,7 @@ import { TreeNode } from '../common/treenode';
 import { Subject, Subscription, Observable } from 'rxjs';
 import { DomHandler } from '../dom/domhandler';
 import { PaginatorModule } from '../paginator/paginator';
-import { PrimeTemplate } from '../common/shared';
+import { PrimeTemplate, SharedModule } from '../common/shared';
 import { SortMeta } from '../common/sortmeta';
 import { ObjectUtils } from '../utils/objectutils';
 
@@ -69,8 +69,8 @@ export class TreeTableService {
             </div>
 
             <div class="ui-treetable-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-treetable-scrollable-view ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-treetable-scrollable-view" [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
             </div>
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -133,6 +133,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     @Input() contextMenuSelection: any;
 
     @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
+
+    @Input() contextMenuSelectionMode: string = "separate";
 
     @Input() dataKey: string;
 
@@ -779,7 +781,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
     findParentScrollableView(column) {
         if (column) {
             let parent = column.parentElement;
-            while (parent && !this.domHandler.hasClass(parent, 'ui-table-scrollable-view')) {
+            while (parent && !this.domHandler.hasClass(parent, 'ui-treetable-scrollable-view')) {
                 parent = parent.parentElement;
             }
 
@@ -998,12 +1000,38 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
     handleRowRightClick(event) {
         if (this.contextMenu) {
-            let node = event.rowNode.node;
-            this.contextMenuSelection = node;
-            this.contextMenuSelectionChange.emit(node);
-            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
-            this.contextMenu.show(event.originalEvent);
-            this.tableService.onContextMenu(node);
+            const node = event.rowNode.node;
+
+            if (this.contextMenuSelectionMode === 'separate') {
+                this.contextMenuSelection = node;
+                this.contextMenuSelectionChange.emit(node);
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node: node});
+                this.contextMenu.show(event.originalEvent);
+                this.tableService.onContextMenu(node);
+            }
+            else if (this.contextMenuSelectionMode === 'joint') {
+                this.preventSelectionSetterPropagation = true;
+                let selected = this.isSelected(node);
+                let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+
+                if (!selected) {
+                    if (this.isSingleSelectionMode()) {
+                        this.selection = node;
+                        this.selectionChange.emit(node);
+                    }
+                    else if (this.isMultipleSelectionMode()) {
+                        this.selection = [node];
+                        this.selectionChange.emit(this.selection);
+                    }
+                    
+                    if (dataKeyValue) {
+                        this.selectionKeys[dataKeyValue] = 1;
+                    }
+                }
+    
+                this.contextMenu.show(event.originalEvent);
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, node: node});
+            }
         }
     }
 
@@ -1439,7 +1467,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     selector: '[ttSortableColumn]',
     providers: [DomHandler],
     host: {
-        '[class.ui-sortable-column]': 'true',
+        '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted'
     }
 })
@@ -2054,11 +2082,11 @@ export class TTHeaderCheckbox  {
 })
 export class TTEditableColumn implements AfterViewInit {
 
-    @Input("pEditableColumn") data: any;
+    @Input("ttEditableColumn") data: any;
 
-    @Input("pEditableColumnField") field: any;
+    @Input("ttEditableColumnField") field: any;
 
-    @Input() pEditableColumnDisabled: boolean;
+    @Input() ttEditableColumnDisabled: boolean;
 
     constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
 
@@ -2221,7 +2249,7 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     isEnabled() {
-        return this.pEditableColumnDisabled !== true;
+        return this.ttEditableColumnDisabled !== true;
     }
 
 }
@@ -2302,7 +2330,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
+    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
     declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
 })
 export class TreeTableModule { }

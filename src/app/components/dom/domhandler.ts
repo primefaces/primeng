@@ -472,4 +472,13 @@ export class DomHandler {
             version: match[2] || "0"
         };
     }
+
+    isInteger(value): boolean {
+        if(Number.isInteger) {
+            return Number.isInteger(value);
+        }
+        else {
+            return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+        }
+    }
 }

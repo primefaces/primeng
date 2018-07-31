@@ -61,6 +61,7 @@
 @import '../../../app/components/table/table.css';
 @import '../../../app/components/terminal/terminal.css';
 @import '../../../app/components/tieredmenu/tieredmenu.css';
+@import '../../../app/components/toast/toast.css';
 @import '../../../app/components/toolbar/toolbar.css';
 @import '../../../app/components/tooltip/tooltip.css';
 @import '../../../app/components/tree/tree.css';

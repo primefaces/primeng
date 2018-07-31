@@ -9,8 +9,10 @@ import {RouterModule} from '@angular/router';
         <div [ngClass]="{'ui-steps ui-widget ui-helper-clearfix':true,'ui-steps-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
             <ul role="tablist">
                 <li *ngFor="let item of model; let i = index" class="ui-steps-item" #menuitem
-                    [ngClass]="{'ui-state-highlight':(i === activeIndex),'ui-state-default':(i !== activeIndex),
-                        'ui-state-disabled':item.disabled||(i !== activeIndex && readonly)}">
+                    [ngClass]="{'ui-state-highlight ui-steps-current':(i === activeIndex),
+                        'ui-state-default':(i !== activeIndex),
+                        'ui-state-complete':(i < activeIndex),
+                        'ui-state-disabled ui-steps-incomplete':item.disabled||(i !== activeIndex && readonly)}">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id">
                         <span class="ui-steps-number">{{i + 1}}</span>
                         <span class="ui-steps-title">{{item.label}}</span>

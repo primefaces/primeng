@@ -85,6 +85,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'tabview', loadChildren: './components/tabview/tabviewdemo.module#TabViewDemoModule'},
             {path: 'terminal', loadChildren: './components/terminal/terminaldemo.module#TerminalDemoModule'},
             {path: 'tieredmenu', loadChildren: './components/tieredmenu/tieredmenudemo.module#TieredMenuDemoModule'},
+            {path: 'toast', loadChildren: './components/toast/toastdemo.module#ToastDemoModule'},
             {path: 'togglebutton', loadChildren: './components/togglebutton/togglebuttondemo.module#ToggleButtonDemoModule'},
             {path: 'toolbar', loadChildren: './components/toolbar/toolbardemo.module#ToolbarDemoModule'},
             {path: 'tooltip', loadChildren: './components/tooltip/tooltipdemo.module#TooltipDemoModule'},

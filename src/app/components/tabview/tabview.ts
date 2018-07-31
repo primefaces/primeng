@@ -175,21 +175,10 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     _activeIndex: number;
     
-    _lazy: boolean;
-
     preventActiveIndexPropagation: boolean;
 
     constructor(public el: ElementRef) {}
-    
-    @Input() get lazy(): boolean {
-        return this._lazy;
-    }
-
-    set lazy(val: boolean) {
-        this._lazy = val;
-        console.log('Lazy property of TabView is deprecated, use an ngTemplate inside a TabPanel instead for Lazy Loading');
-    }
-    
+      
     ngAfterContentInit() {
         this.initTabs();
         

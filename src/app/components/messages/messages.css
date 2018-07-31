@@ -2,7 +2,6 @@
     border: 1px solid;
     margin: .5em 0;
     padding: 1em 1em 1em .5em;
-    display: none;
     position: relative;
 }
 
@@ -68,6 +67,10 @@
     list-style-type: none;
     display: inline-block;
     vertical-align: middle;
+}
+
+.ui-messages ul > li {
+    padding: .25em 0;
 }
 
 .ui-messages.ui-messages-noicon ul {

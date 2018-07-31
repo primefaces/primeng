@@ -18,4 +18,14 @@
 
 .ui-breadcrumb ul li .ui-menuitem-link {
     text-decoration: none;
+    vertical-align: middle;
+}
+
+.ui-breadcrumb .ui-menuitem-icon {
+    margin-right: .25em;
+    vertical-align: middle;
+}
+
+.ui-breadcrumb .ui-menuitem-text {
+    vertical-align: middle;
 }
