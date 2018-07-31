@@ -91,6 +91,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(Header) headerFacet;
@@ -219,6 +221,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             this.value = selected ? null : option.value;
             valueChanged = true;
         }
+
+        this.onClick.emit({
+            originalEvent: event,
+            value: option
+        });
 
         if (valueChanged) {
             this.onModelChange(this.value);
