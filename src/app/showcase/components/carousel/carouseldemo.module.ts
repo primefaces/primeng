@@ -4,7 +4,7 @@ import {CarouselDemo} from './carouseldemo';
 import {CarouselDemoRoutingModule} from './carouseldemo-routing.module';
 import {CarouselModule} from '../../../components/carousel/carousel';
 import {ButtonModule} from '../../../components/button/button';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -14,7 +14,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         CarouselDemoRoutingModule,
         CarouselModule,
         ButtonModule,
-        GrowlModule,
+        ToastModule,
         TabViewModule,
         CodeHighlighterModule
 	],
