@@ -209,6 +209,6 @@
     margin-left: -1em;
 }
 
-.ui-treetable-loading-icon {
+.ui-treetable .ui-treetable-loading-icon {
     font-size: 2em;
 }
