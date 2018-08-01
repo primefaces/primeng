@@ -12,39 +12,39 @@ export class PanelMenuDemo {
         this.items = [
             {
                 label: 'File',
-                icon: 'fa fa-fw fa-file-o',
+                icon: 'pi pi-pw pi-file',
                 items: [{
                         label: 'New', 
-                        icon: 'fa fa-fw fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
-                            {label: 'Project', icon: 'fa fa-fw fa-lock'},
-                            {label: 'Other', icon: 'fa fa-fw fa-list'}
+                            {label: 'User', icon: 'pi pi-fw pi-user-plus'},
+                            {label: 'Filter', icon: 'pi pi-fw pi-filter'}
                         ]
                     },
-                    {label: 'Open', icon: 'fa fa-fw fa-external-link'},
+                    {label: 'Open', icon: 'pi pi-fw pi-external-link'},
                     {separator: true},
-                    {label: 'Quit', icon: 'fa fa-fw fa-close'}
+                    {label: 'Quit', icon: 'pi pi-fw pi-times'}
                 ]
             },
             {
                 label: 'Edit',
-                icon: 'fa fa-fw fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    {label: 'Undo', icon: 'fa fa-fw fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa fa-fw fa-mail-reply'}
+                    {label: 'Delete', icon: 'pi pi-fw pi-trash'},
+                    {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
                 ]
             },
             {
                 label: 'Help',
-                icon: 'fa fa-fw fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     {
                         label: 'Contents',
-                        icon: 'fa fa-fw fa-bars'
+                        icon: 'pi pi-pi pi-bars'
                     },
                     {
                         label: 'Search', 
-                        icon: 'fa fa-fw fa-search', 
+                        icon: 'pi pi-pi pi-search', 
                         items: [
                             {
                                 label: 'Text', 
@@ -55,29 +55,29 @@ export class PanelMenuDemo {
                                 ]
                             },
                             {
-                                label: 'File',
-                                icon: 'fa fa-fw fa-file',
+                                label: 'User',
+                                icon: 'pi pi-fw pi-file',
                             }
                     ]}
                 ]
             },
             {
                 label: 'Actions',
-                icon: 'fa fa-fw fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     {
                         label: 'Edit',
-                        icon: 'fa fa-fw fa-refresh',
+                        icon: 'pi pi-fw pi-pencil',
                         items: [
-                            {label: 'Save', icon: 'fa fa-fw fa-save'},
-                            {label: 'Update', icon: 'fa fa-fw fa-save'},
+                            {label: 'Save', icon: 'pi pi-fw pi-save'},
+                            {label: 'Update', icon: 'pi pi-fw pi-save'},
                         ]
                     },
                     {
                         label: 'Other',
-                        icon: 'fa fa-fw fa-phone',
+                        icon: 'pi pi-fw pi-tags',
                         items: [
-                            {label: 'Delete', icon: 'fa fa-fw fa-minus'}
+                            {label: 'Delete', icon: 'pi pi-fw pi-minus'}
                         ]
                     }
                 ]

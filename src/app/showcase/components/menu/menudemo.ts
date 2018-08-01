@@ -13,7 +13,7 @@ export class MenuDemo {
             label: 'File',
             items: [
                 {label: 'New', icon: 'pi pi-fw pi-plus'},
-                {label: 'Open', icon: 'pi pi-fw pi-download'}
+                {label: 'Download', icon: 'pi pi-fw pi-download'}
             ]
         },
         {
