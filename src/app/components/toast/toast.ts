@@ -2,7 +2,7 @@ import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,On
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
-import {PrimeTemplate} from '../common/shared';
+import {PrimeTemplate,SharedModule} from '../common/shared';
 import {MessageService} from '../common/messageservice';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild} from '@angular/animations';
@@ -265,7 +265,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Toast],
+    exports: [Toast,SharedModule],
     declarations: [Toast,ToastItem]
 })
 export class ToastModule { }
