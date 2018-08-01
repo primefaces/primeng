@@ -1407,6 +1407,8 @@ body .ui-table .ui-sortable-column.ui-state-highlight {
   color: #ffffff; }
   body .ui-table .ui-sortable-column.ui-state-highlight a, body .ui-table .ui-sortable-column.ui-state-highlight a:hover {
     color: #ffffff; }
+body .ui-table .ui-editable-column input {
+  font-size: 14px; }
 body .ui-table .ui-table-tbody > tr {
   background: #ffffff;
   color: #333333; }
@@ -1753,7 +1755,7 @@ body .ui-carousel {
     border: 1px solid #007ad9;
     margin: 0; }
   body .ui-carousel .ui-carousel-button {
-    margin: 0.125em 0.5em;
+    margin: 0;
     color: #ffffff;
     -moz-transition: color 0.2s;
     -o-transition: color 0.2s;
@@ -1813,6 +1815,8 @@ body .ui-treetable .ui-sortable-column.ui-state-highlight {
   color: #ffffff; }
   body .ui-treetable .ui-sortable-column.ui-state-highlight a, body .ui-treetable .ui-sortable-column.ui-state-highlight a:hover {
     color: #ffffff; }
+body .ui-treetable .ui-editable-column input {
+  font-size: 14px; }
 body .ui-treetable .ui-treetable-tbody > tr {
   background: #ffffff;
   color: #333333; }
@@ -1821,9 +1825,7 @@ body .ui-treetable .ui-treetable-tbody > tr {
     border: 1px solid #c8c8c8; }
     body .ui-treetable .ui-treetable-tbody > tr > td .ui-treetable-toggler {
       color: #737373;
-      vertical-align: middle;
-      line-height: 1.5;
-      font-size: 16px; }
+      vertical-align: middle; }
     body .ui-treetable .ui-treetable-tbody > tr > td .ui-treetable-chkbox {
       vertical-align: middle;
       margin-right: 0.5em; }
@@ -1838,6 +1840,11 @@ body .ui-treetable .ui-treetable-tbody > tr {
   body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected {
     background-color: #e02365;
     color: #ffffff; }
+    body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td {
+      background: inherit;
+      border: 1px solid #c8c8c8; }
+      body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td .ui-treetable-toggler {
+        color: #ffffff; }
 body .ui-treetable.ui-treetable-hoverable-rows .ui-treetable-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
   cursor: pointer;
   background-color: #eaeaea;
