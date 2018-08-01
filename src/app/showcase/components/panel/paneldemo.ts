@@ -1,15 +1,16 @@
 import {Component,OnInit} from '@angular/core';
-import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: './paneldemo.html'
+    templateUrl: './paneldemo.html',
+    providers: [MessageService]
 })
 export class PanelDemo implements OnInit {
-
-    msgs: Message[] = [];
     
     items: MenuItem[];
+    
+    constructor(private messageService: MessageService) {}
     
     ngOnInit() {
         this.items = [
@@ -25,17 +26,14 @@ export class PanelDemo implements OnInit {
     }
 
     save() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Saved'});
+        this.messageService.add({severity:'info', summary:'Success', detail:'Data Saved'});
     }
 
     update() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Updated'});
+        this.messageService.add({severity:'info', summary:'Success', detail:'Data Updated'});
     }
 
     delete() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Deleted'});
+        this.messageService.add({severity:'info', summary:'Success', detail:'Data Deleted'});
     }
 }
