@@ -1299,6 +1299,13 @@ body .ui-toolbar {
   body .ui-toolbar .ui-toolbar-separator {
     vertical-align: middle;
     font-size: 16px; }
+body .ui-card {
+  background-color: #ffffff;
+  color: #333333; }
+body .ui-card-shadow {
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }
 
 body .ui-paginator {
   background-color: #ffffff;
@@ -1877,6 +1884,37 @@ body .ui-messages {
     right: .5em; }
   body .ui-messages .ui-messages-icon {
     font-size: 1.714em; }
+body .ui-message {
+  padding: 0.429em;
+  margin: 0; }
+  body .ui-message.ui-message-info {
+    background-color: #7fbcec;
+    border: 0 none;
+    color: #212121; }
+    body .ui-message.ui-message-info .ui-message-icon {
+      color: #212121; }
+  body .ui-message.ui-message-success {
+    background-color: #b7d8b7;
+    border: 0 none;
+    color: #212121; }
+    body .ui-message.ui-message-success .ui-message-icon {
+      color: #212121; }
+  body .ui-message.ui-message-warn {
+    background-color: #ffe399;
+    border: 0 none;
+    color: #212121; }
+    body .ui-message.ui-message-warn .ui-message-icon {
+      color: #212121; }
+  body .ui-message.ui-message-error {
+    background-color: #f8b7bd;
+    border: 0 none;
+    color: #212121; }
+    body .ui-message.ui-message-error .ui-message-icon {
+      color: #212121; }
+  body .ui-message .ui-message-icon {
+    font-size: 1.25em; }
+  body .ui-message .ui-message-text {
+    font-size: 0.9em; }
 body .ui-growl {
   top: 70px; }
   body .ui-growl .ui-growl-item-container {
