@@ -19,10 +19,7 @@
                         <input pInputText type="text" formControlName="firstname" placeholder="Required"/>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
-                            <i class="fa fa-close"></i>
-                            Firstname is required
-                        </div>
+                        <p-message severity="error" text="Firstname is required" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -33,10 +30,7 @@
                         <input pInputText type="text" formControlName="lastname" placeholder="Required"/>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
-                            <i class="fa fa-close"></i>
-                            Lastname is required
-                        </div>
+                        <p-message severity="error" text="Lastname is required" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -47,11 +41,8 @@
                         <input pInputText type="password" formControlName="password" placeholder="Required - Min(6)"/>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty">
-                            <i class="fa fa-close"></i>
-                            <span *ngIf="userform.controls['password'].errors['required']">Password is required</span>
-                            <span *ngIf="userform.controls['password'].errors['minlength']">Must be longer than 6 characters</span>
-                        </div>
+                        <p-message severity="error" [text]="userform.controls['password'].errors['required'] ? 'Password is required' : userform.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
+                            *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -71,10 +62,7 @@
                         <p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"></p-dropdown>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty">
-                            <i class="fa fa-close"></i>
-                            Gender is required
-                        </div>
+                        <p-message severity="error" text="Gender is required" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -168,10 +156,7 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;input pInputText type="text" formControlName="firstname" placeholder="Required"/&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        Firstname is required
-                    &lt;/div&gt;
+                    &lt;p-message severity="error" text="Firstname is required" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;
@@ -182,10 +167,7 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;input pInputText type="text" formControlName="lastname" placeholder="Required"/&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        Lastname is required
-                    &lt;/div&gt;
+                    &lt;p-message severity="error" text="Lastname is required" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;
@@ -196,11 +178,8 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;input pInputText type="password" formControlName="password" placeholder="Required - Min(6)"/&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        &lt;span *ngIf="userform.controls['password'].errors['required']"&gt;Password is required&lt;/span&gt;
-                        &lt;span *ngIf="userform.controls['password'].errors['minlength']"&gt;Must be longer than 6 characters&lt;/span&gt;
-                    &lt;/div&gt;
+                &lt;p-message severity="error" [text]="userform.controls['password'].errors['required'] ? 'Password is required' : userform.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
+                        *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;
@@ -220,10 +199,7 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        Gender is required
-                    &lt;/div&gt;
+                    &lt;p-message severity="error" text="Gender is required" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;

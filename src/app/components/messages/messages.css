@@ -43,17 +43,3 @@
     top: 5px;
     right: 5px;
 }
-
-/* Message */
-.ui-message {
-    vertical-align: top;
-}
-
-.ui-message .ui-message-icon {
-    font-size: 1.25em;
-    vertical-align: middle;
-}
-
-.ui-message .ui-message-text {
-    vertical-align: middle;
-}
