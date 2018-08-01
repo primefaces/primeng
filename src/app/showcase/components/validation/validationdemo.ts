@@ -1,23 +1,23 @@
 import {Component,OnInit} from '@angular/core';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
-import {Message,SelectItem} from '../../../components/common/api';
+import {SelectItem} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './validationdemo.html'
+    templateUrl: './validationdemo.html',
+    providers: [MessageService]
 })
 export class ValidationDemo implements OnInit {
-    
-    msgs: Message[] = [];
     
     userform: FormGroup;
     
     submitted: boolean;
     
     genders: SelectItem[];
-        
+    
     description: string;
     
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private messageService: MessageService) {}
     
     ngOnInit() {
         this.userform = this.fb.group({
@@ -36,8 +36,7 @@ export class ValidationDemo implements OnInit {
     
     onSubmit(value: string) {
         this.submitted = true;
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Form Submitted'});
+        this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted', sticky: true});
     }
     
     get diagnostic() { return JSON.stringify(this.userform.value); }
