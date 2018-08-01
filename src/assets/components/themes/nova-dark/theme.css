@@ -548,6 +548,11 @@ body {
       background-color: #eaeaea; }
     body .ui-listbox.ui-state-disabled .ui-chkbox-box:not(.ui-state-disabled):not(.ui-state-active):hover {
       border: 1px solid #a6a6a6; }
+    body .ui-listbox .ui-listbox-footer {
+      padding: 0.429em 0.857em 0.429em 0.857em;
+      border-top: 1px solid #eaeaea;
+      color: #333333;
+      background-color: #ffffff; }
   body .ui-editor-container .ui-editor-toolbar {
     background-color: #333333; }
   body .ui-editor-container .ql-picker.ql-expanded .ql-picker-label {
@@ -1877,7 +1882,10 @@ body .ui-messages {
       color: #212121; }
   body .ui-messages .ui-messages-close {
     top: .25em;
-    right: .5em; }
+    right: .5em;
+    font-size: 1.5em; }
+  body .ui-messages .ui-messages-icon {
+    font-size: 2em; }
 body .ui-message {
   padding: 0.429em;
   margin: 0; }
@@ -1905,6 +1913,10 @@ body .ui-message {
     color: #212121; }
     body .ui-message.ui-message-error .ui-message-icon {
       color: #212121; }
+  body .ui-message .ui-message-icon {
+    font-size: 1.25em; }
+  body .ui-message .ui-message-text {
+    font-size: 1em; }
 body .ui-growl {
   top: 70px; }
   body .ui-growl .ui-growl-item-container {
