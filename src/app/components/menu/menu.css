@@ -34,4 +34,9 @@
 
 .ui-menu .ui-menuitem-icon {
     margin-right: .25em;
+    vertical-align: middle;
+}
+
+.ui-menu .ui-menuitem-text {
+    vertical-align: middle;
 }
