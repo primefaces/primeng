@@ -5,10 +5,10 @@ import {CommonModule} from '@angular/common';
     selector: 'p-message',
     template: `
         <div aria-live="polite" class="ui-message ui-widget ui-corner-all" *ngIf="severity"
-        [ngClass]="{'ui-messages-info': (severity === 'info'),
-                'ui-messages-warn': (severity === 'warn'),
-                'ui-messages-error': (severity === 'error'),
-                'ui-messages-success': (severity === 'success')}">
+        [ngClass]="{'ui-message-info': (severity === 'info'),
+                'ui-message-warn': (severity === 'warn'),
+                'ui-message-error': (severity === 'error'),
+                'ui-message-success': (severity === 'success')}">
             <span class="ui-message-icon" [ngClass]="icon"></span>
             <span class="ui-message-text">{{text}}</span>
         </div>
