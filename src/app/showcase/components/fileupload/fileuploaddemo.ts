@@ -1,31 +1,29 @@
 import {Component} from '@angular/core';
-import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './fileuploaddemo.html'
+    templateUrl: './fileuploaddemo.html',
+    providers: [MessageService]
 })
 export class FileUploadDemo {
-
-    msgs: Message[];
     
     uploadedFiles: any[] = [];
+    
+    constructor(private messageService: MessageService) {}
 
     onUpload(event) {
         for(let file of event.files) {
             this.uploadedFiles.push(file);
         }
         
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
+        this.messageService.add({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
     }
     
-    onBasicUpload(event) {        
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode'});
+    onBasicUpload(event) {
+        this.messageService.add({severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode'});
     }
     
-    onBasicUploadAuto(event) {        
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode'});
+    onBasicUploadAuto(event) {
+        this.messageService.add({severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode'});
     }
 }

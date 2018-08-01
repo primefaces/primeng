@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [value]="msgs" sticky="sticky"></p-growl>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
     <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
         <p-panel header="Validate">
@@ -106,14 +106,14 @@
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component,OnInit&#125; from '@angular/core';
 import &#123;Validators,FormControl,FormGroup,FormBuilder&#125; from '@angular/forms';
-import &#123;Message,SelectItem&#125; from '../../../components/common/api';
+import &#123;SelectItem&#125; from '../../../components/common/api';
+import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
-    templateUrl: 'showcase/demo/validation/validationdemo.html'
+    templateUrl: 'showcase/demo/validation/validationdemo.html',
+    providers: [MessageService]
 &#125;)
 export class ValidationDemo implements OnInit &#123;
-
-    msgs: Message[] = [];
 
     userform: FormGroup;
 
@@ -123,7 +123,7 @@ export class ValidationDemo implements OnInit &#123;
 
     description: string;
 
-    constructor(private fb: FormBuilder) &#123;&#125;
+    constructor(private fb: FormBuilder, private messageService: MessageService) &#123;&#125;
 
     ngOnInit() &#123;
         this.userform = this.fb.group(&#123;
@@ -142,8 +142,7 @@ export class ValidationDemo implements OnInit &#123;
 
     onSubmit(value: string) &#123;
         this.submitted = true;
-        this.msgs = [];
-        this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Form Submitted'&#125;);
+        this.messageService.add(&#123;severity:'info', summary:'Success', detail:'Form Submitted'&#125;);
     &#125;
 
     get diagnostic() &#123; return JSON.stringify(this.userform.value); &#125;
@@ -156,7 +155,7 @@ export class ValidationDemo implements OnInit &#123;
         <p-tabPanel header="validationdemo.html">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs" sticky="sticky"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)"&gt;
     &lt;p-panel header="Validate"&gt;
