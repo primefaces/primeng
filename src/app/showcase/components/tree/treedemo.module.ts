@@ -4,7 +4,7 @@ import {FormsModule}  from '@angular/forms';
 import {TreeDemo} from './treedemo';
 import {TreeDemoRoutingModule} from './treedemo-routing.module';
 import {TreeModule} from '../../../components/tree/tree';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {ButtonModule} from '../../../components/button/button';
 import {ContextMenuModule} from '../../../components/contextmenu/contextmenu';
 import {TabViewModule} from '../../../components/tabview/tabview';
@@ -16,7 +16,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         FormsModule,
 		TreeDemoRoutingModule,
         TreeModule,
-        GrowlModule,
+        ToastModule,
         ButtonModule,
         ContextMenuModule,
         TabViewModule,
