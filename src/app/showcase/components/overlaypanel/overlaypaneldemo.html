@@ -19,26 +19,49 @@
     <i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
-        <p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;">
-            <p-column field="vin" header="Vin" [sortable]="true"></p-column>
-            <p-column field="year" header="Year" [sortable]="true"></p-column>
-            <p-column field="brand" header="Brand" [sortable]="true"></p-column>
-            <p-column field="color" header="Color" [sortable]="true"></p-column>
-        </p-dataTable>
+        <p-table [value]="cars1" [style]="{width: '500px'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Vin</th>
+                    <th>Year</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>{{car.vin}}</td>
+                    <td>{{car.year}}</td>
+                    <td>{{car.brand}}</td>
+                    <td>{{car.color}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </p-overlayPanel>
     
-    <h3>DataTable Integration</h3>
-    <p-dataTable [value]="cars2">
-        <p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo">
-            <ng-template let-car="rowData" pTemplate="body">
-                <button type="button" pButton (click)="selectCar($event,car,op3);" icon="pi pi-search"></button>
-            </ng-template>
-        </p-column>
-        <p-column field="vin" header="Vin"></p-column>
-        <p-column field="year" header="Year"></p-column>
-        <p-column field="brand" header="Brand"></p-column>
-        <p-column field="color" header="Color"></p-column>
-    </p-dataTable>
+    <h3>Table Integration</h3>
+    <p-table [value]="cars2">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4em"></th>
+                <th>Vin</th>
+                <th>Year</th>
+                <th>Brand</th>
+                <th>Color</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+            <tr>
+                <td>
+                    <button type="button" pButton (click)="selectCar($event,car,op3)" icon="pi pi-search"></button>
+                </td>
+                <td>{{car.vin}}</td>
+                <td>{{car.year}}</td>
+                <td>{{car.brand}}</td>
+                <td>{{car.color}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
     
     <p-overlayPanel #op3>
         <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" *ngIf="selectedCar"/>
@@ -249,29 +272,52 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 &lt;i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
 
 &lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
-    &lt;p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;"&gt;
-        &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
-        &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
-        &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
-        &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
-    &lt;/p-dataTable&gt;
+    &lt;p-table [value]="cars1" [style]="&#123;width: '500px'&#125;"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Vin&lt;/th&gt;
+                &lt;th&gt;Year&lt;/th&gt;
+                &lt;th&gt;Brand&lt;/th&gt;
+                &lt;th&gt;Color&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-car&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
 &lt;/p-overlayPanel&gt;
 
-&lt;h3&gt;DataTable Integration&lt;/h3&gt;
-&lt;p-dataTable [value]="cars2"&gt;
-    &lt;p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo"&gt;
-        &lt;ng-template let-car="rowData" pTemplate="body"&gt;
-            &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="pi pi-search"&gt;&lt;/button&gt;
-        &lt;/ng-template&gt;
-    &lt;/p-column&gt;
-    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
-    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-&lt;/p-dataTable&gt;
+&lt;h3&gt;Table Integration&lt;/h3&gt;
+&lt;p-table [value]="cars2"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th style="width: 4em"&gt;&lt;/th&gt;
+            &lt;th&gt;Vin&lt;/th&gt;
+            &lt;th&gt;Year&lt;/th&gt;
+            &lt;th&gt;Brand&lt;/th&gt;
+            &lt;th&gt;Color&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-car&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;button type="button" pButton (click)="selectCar($event,car,op3)" icon="pi pi-search"&gt;&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
 
 &lt;p-overlayPanel #op3&gt;
-    &lt;img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" *ngIf="selectedCar"/&gt;
+    &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png" *ngIf="selectedCar"/&gt;
 &lt;/p-overlayPanel&gt;
 </code>
 </pre>
