@@ -80,7 +80,6 @@ export class MenubarDemo {
                     }
                 ]
             },
-            {separator:true},
             {
                 label: 'Quit', icon: 'pi pi-fw pi-times'
             }

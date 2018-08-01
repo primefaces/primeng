@@ -2182,7 +2182,7 @@ body .ui-steps {
         background-color: #ffffff;
         border: 1px solid #c8c8c8;
         position: relative;
-        top: 14px;
+        top: 16px;
         margin-bottom: 14px;
         width: 28px;
         height: 28px;
@@ -2275,6 +2275,9 @@ body .ui-menu {
     background-color: #333333;
     font-weight: 400;
     border: 0 none; }
+  body .ui-menu .ui-menu-separator {
+    border: 1px solid #c8c8c8;
+    border-width: 1px 0 0 0; }
 body .ui-menubar {
   padding: 0;
   background-color: #ffffff;
@@ -2290,6 +2293,9 @@ body .ui-menubar {
     box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.16); }
     body .ui-menubar .ui-submenu-list .ui-menuitem {
       margin: 0; }
+    body .ui-menubar .ui-submenu-list .ui-menu-separator {
+      border: 1px solid #c8c8c8;
+      border-width: 1px 0 0 0; }
   body .ui-menubar .ui-menuitem {
     margin: 0; }
     body .ui-menubar .ui-menuitem.ui-menuitem-active > .ui-menuitem-link {
@@ -2322,6 +2328,9 @@ body .ui-contextmenu {
         color: #333333; }
       body .ui-contextmenu .ui-menuitem.ui-menuitem-active > .ui-menuitem-link .ui-menuitem-icon {
         color: #333333; }
+  body .ui-contextmenu .ui-menu-separator {
+    border: 1px solid #c8c8c8;
+    border-width: 1px 0 0 0; }
 body .ui-tieredmenu {
   padding: 0;
   background-color: #ffffff;
@@ -2343,6 +2352,9 @@ body .ui-tieredmenu {
         color: #333333; }
       body .ui-tieredmenu .ui-menuitem.ui-menuitem-active > .ui-menuitem-link .ui-menuitem-icon {
         color: #333333; }
+  body .ui-tieredmenu .ui-menu-separator {
+    border: 1px solid #c8c8c8;
+    border-width: 1px 0 0 0; }
 body .ui-slidemenu {
   padding: 0;
   background-color: #ffffff;
@@ -2371,6 +2383,9 @@ body .ui-slidemenu {
     body .ui-slidemenu .ui-slidemenu-backward:hover {
       background-color: #494949;
       color: #ffffff; }
+  body .ui-slidemenu .ui-menu-separator {
+    border: 1px solid #c8c8c8;
+    border-width: 1px 0 0 0; }
 body .ui-tabmenu {
   border: 0 none; }
   body .ui-tabmenu .ui-tabmenu-nav {
