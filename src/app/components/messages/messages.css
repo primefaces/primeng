@@ -5,19 +5,19 @@
     position: relative;
 }
 
-.ui-messages-icon {
+.ui-messages .ui-messages-icon {
     display:inline-block;
     padding: 0;
     vertical-align: middle;
     font-size: 2em;
 }
 
-.ui-messages-summary {
+.ui-messages .ui-messages-summary {
     font-weight: bold;
     margin-left: .25em;
 }
 
-.ui-messages-detail {
+.ui-messages .ui-messages-detail {
     margin-left: .25em;
 }
 
@@ -45,8 +45,12 @@
 }
 
 /* Message */
+.ui-message {
+    vertical-align: top;
+}
+
 .ui-message .ui-message-icon {
-    font-size: 1.5em;
+    font-size: 1.25em;
     vertical-align: middle;
 }
 

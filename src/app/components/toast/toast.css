@@ -3,18 +3,18 @@
     width: 20em;
 }
 
-.ui-toast-message {
+.ui-toast .ui-toast-message {
     position: relative;
 	display: block;
     margin-bottom: .75em;
     overflow: hidden;
 }
 
-.ui-toast-message-content {
+.ui-toast .ui-toast-message-content {
     padding: .5em 1em;
 }
 
-.ui-toast-close-icon {
+.ui-toast .ui-toast-close-icon {
 	position: absolute;
 	top: .25em;
 	right: .25em;
@@ -22,13 +22,13 @@
     display: inline-block;
 }
 
-.ui-toast-summary {
+.ui-toast .ui-toast-summary {
 	font-weight: bold;
 	padding: 0 0 .5em 0;
 	display: block;
 }
 
-.ui-toast-icon {
+.ui-toast .ui-toast-icon {
     position: absolute;
     display: inline-block;
     left: .5em;
@@ -37,7 +37,7 @@
     font-size: 2em;
 }
 
-.ui-toast-message-text-content {
+.ui-toast .ui-toast-message-text-content {
 	padding: 0 0 .25em 0;
     margin-left: 2.5em;
 }

@@ -90,10 +90,10 @@ body {
     background: #ffffff;
     padding: 0.429em;
     border: 1px solid #a6a6a6;
-    -moz-transition: border-color 0.3s;
-    -o-transition: border-color 0.3s;
-    -webkit-transition: border-color 0.3s;
-    transition: border-color 0.3s;
+    -moz-transition: border-color 0.2s;
+    -o-transition: border-color 0.2s;
+    -webkit-transition: border-color 0.2s;
+    transition: border-color 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none; }
@@ -120,10 +120,10 @@ body {
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
       border-radius: 3px;
-      -moz-transition: background-color 0.3s, border-color 0.3s;
-      -o-transition: background-color 0.3s, border-color 0.3s;
-      -webkit-transition: background-color 0.3s, border-color 0.3s;
-      transition: background-color 0.3s, border-color 0.3s; }
+      -moz-transition: background-color 0.2s, border-color 0.2s;
+      -o-transition: background-color 0.2s, border-color 0.2s;
+      -webkit-transition: background-color 0.2s, border-color 0.2s;
+      transition: background-color 0.2s, border-color 0.2s; }
       body .ui-chkbox .ui-chkbox-box:not(.ui-state-disabled):hover {
         border-color: #212121; }
       body .ui-chkbox .ui-chkbox-box.ui-state-focus {
@@ -161,10 +161,10 @@ body {
       height: 20px;
       text-align: center;
       position: relative;
-      -moz-transition: background-color 0.3s, border-color 0.3s;
-      -o-transition: background-color 0.3s, border-color 0.3s;
-      -webkit-transition: background-color 0.3s, border-color 0.3s;
-      transition: background-color 0.3s, border-color 0.3s;
+      -moz-transition: background-color 0.2s, border-color 0.2s;
+      -o-transition: background-color 0.2s, border-color 0.2s;
+      -webkit-transition: background-color 0.2s, border-color 0.2s;
+      transition: background-color 0.2s, border-color 0.2s;
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
       border-radius: 50%; }
@@ -198,10 +198,10 @@ body {
         top: 50%;
         margin-left: -5px;
         margin-top: -5px;
-        -moz-transition: background-color 0.3s;
-        -o-transition: background-color 0.3s;
-        -webkit-transition: background-color 0.3s;
-        transition: background-color 0.3s;
+        -moz-transition: background-color 0.2s;
+        -o-transition: background-color 0.2s;
+        -webkit-transition: background-color 0.2s;
+        transition: background-color 0.2s;
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
         border-radius: 50%; }
@@ -213,10 +213,10 @@ body {
     width: 3em;
     height: 1.75em; }
     body .ui-inputswitch .ui-inputswitch-slider {
-      -moz-transition: background-color 0.3s;
-      -o-transition: background-color 0.3s;
-      -webkit-transition: background-color 0.3s;
-      transition: background-color 0.3s;
+      -moz-transition: background-color 0.2s;
+      -o-transition: background-color 0.2s;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s;
       border-radius: 30px;
       background: #cccccc; }
       body .ui-inputswitch .ui-inputswitch-slider:before {
@@ -226,8 +226,8 @@ body {
         left: .25em;
         bottom: .25em;
         border-radius: 50%;
-        -webkit-transition: 0.3s;
-        transition: 0.3s; }
+        -webkit-transition: 0.2s;
+        transition: 0.2s; }
     body .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before {
       -webkit-transform: translateX(1.25em);
       -ms-transform: translateX(1.25em);
@@ -334,10 +334,10 @@ body {
   body .ui-dropdown {
     background: #ffffff;
     border: 1px solid #a6a6a6;
-    -moz-transition: border-color 0.3s;
-    -o-transition: border-color 0.3s;
-    -webkit-transition: border-color 0.3s;
-    transition: border-color 0.3s; }
+    -moz-transition: border-color 0.2s;
+    -o-transition: border-color 0.2s;
+    -webkit-transition: border-color 0.2s;
+    transition: border-color 0.2s; }
     body .ui-dropdown:not(.ui-state-disabled):hover {
       border-color: #212121; }
     body .ui-dropdown:not(.ui-state-disabled):focus {
@@ -404,10 +404,10 @@ body {
   body .ui-multiselect {
     background: #ffffff;
     border: 1px solid #a6a6a6;
-    -moz-transition: border-color 0.3s;
-    -o-transition: border-color 0.3s;
-    -webkit-transition: border-color 0.3s;
-    transition: border-color 0.3s; }
+    -moz-transition: border-color 0.2s;
+    -o-transition: border-color 0.2s;
+    -webkit-transition: border-color 0.2s;
+    transition: border-color 0.2s; }
     body .ui-multiselect:not(.ui-state-disabled):hover {
       border-color: #212121; }
     body .ui-multiselect:not(.ui-state-disabled):focus {
@@ -465,10 +465,10 @@ body {
         top: 50%;
         margin-top: -.5em;
         right: 0.857em;
-        -moz-transition: color 0.3s;
-        -o-transition: color 0.3s;
-        -webkit-transition: color 0.3s;
-        transition: color 0.3s; }
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        -webkit-transition: color 0.2s;
+        transition: color 0.2s; }
         body .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-close:hover {
           color: #007ad9; }
         body .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-close:focus {
@@ -598,10 +598,10 @@ body {
     text-align: center;
     display: inline-block;
     color: #333333;
-    -moz-transition: color 0.3s;
-    -o-transition: color 0.3s;
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s; }
+    -moz-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s; }
     body .ui-rating a:hover {
       color: #007ad9; }
     body .ui-rating a.ui-rating-cancel {
@@ -648,10 +648,10 @@ body {
       -moz-border-radius: 100%;
       -webkit-border-radius: 100%;
       border-radius: 100%;
-      -moz-transition: border-color 0.3s;
-      -o-transition: border-color 0.3s;
-      -webkit-transition: border-color 0.3s;
-      transition: border-color 0.3s; }
+      -moz-transition: border-color 0.2s;
+      -o-transition: border-color 0.2s;
+      -webkit-transition: border-color 0.2s;
+      transition: border-color 0.2s; }
     body .ui-slider .ui-slider-range {
       background-color: #007ad9; }
     body .ui-slider:not(.ui-state-disabled) .ui-slider-handle:hover {
@@ -690,10 +690,10 @@ body {
         cursor: pointer;
         top: 0;
         color: #a6a6a6;
-        -moz-transition: color 0.3s;
-        -o-transition: color 0.3s;
-        -webkit-transition: color 0.3s;
-        transition: color 0.3s; }
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        -webkit-transition: color 0.2s;
+        transition: color 0.2s; }
       body .ui-datepicker .ui-datepicker-header .ui-datepicker-next span:before {
         content: ""; }
       body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev span:before {
@@ -882,10 +882,10 @@ body .ui-button {
   background-color: #007ad9;
   border: 1px solid #007ad9;
   font-size: 14px;
-  -moz-transition: background-color 0.3s;
-  -o-transition: background-color 0.3s;
-  -webkit-transition: background-color 0.3s;
-  transition: background-color 0.3s; }
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s; }
   body .ui-button:enabled:hover {
     background-color: #116fbf;
     color: #ffffff;
@@ -922,10 +922,10 @@ body .ui-togglebutton {
   background-color: #dadada;
   border: 1px solid #dadada;
   color: #333333;
-  -moz-transition: background-color 0.3s;
-  -o-transition: background-color 0.3s;
-  -webkit-transition: background-color 0.3s;
-  transition: background-color 0.3s; }
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s; }
   body .ui-togglebutton .ui-button-icon-left {
     color: #666666; }
   body .ui-togglebutton:not(.ui-state-disabled):not(.ui-state-active):hover {
@@ -963,10 +963,10 @@ body .ui-selectbutton .ui-button {
   background-color: #dadada;
   border: 1px solid #dadada;
   color: #333333;
-  -moz-transition: background-color 0.3s;
-  -o-transition: background-color 0.3s;
-  -webkit-transition: background-color 0.3s;
-  transition: background-color 0.3s; }
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s; }
   body .ui-selectbutton .ui-button .ui-button-icon-left {
     color: #666666; }
   body .ui-selectbutton .ui-button:not(.ui-state-disabled):not(.ui-state-active):hover {
@@ -1129,10 +1129,10 @@ body .ui-panel {
       font-size: 14px;
       color: #848484;
       border: 1px solid transparent;
-      -moz-transition: color 0.3s;
-      -o-transition: color 0.3s;
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s; }
+      -moz-transition: color 0.2s;
+      -o-transition: color 0.2s;
+      -webkit-transition: color 0.2s;
+      transition: color 0.2s; }
       body .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon:hover {
         color: #333333; }
   body .ui-panel .ui-panel-content {
@@ -1158,10 +1158,10 @@ body .ui-fieldset {
     border: 1px solid #c8c8c8;
     color: #333333;
     background-color: #f4f4f4;
-    -moz-transition: background-color 0.3s;
-    -o-transition: background-color 0.3s;
-    -webkit-transition: background-color 0.3s;
-    transition: background-color 0.3s; }
+    -moz-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s; }
     body .ui-fieldset .ui-fieldset-legend a .ui-fieldset-toggler {
       float: none;
       display: inline-block;
@@ -1187,10 +1187,10 @@ body .ui-accordion .ui-accordion-header {
     background-color: #f4f4f4;
     color: #333333;
     font-weight: 400;
-    -moz-transition: background-color 0.3s;
-    -o-transition: background-color 0.3s;
-    -webkit-transition: background-color 0.3s;
-    transition: background-color 0.3s; }
+    -moz-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s; }
     body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
       color: #848484; }
       body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon.pi-caret-right:before {
@@ -1229,10 +1229,10 @@ body .ui-tabview.ui-tabview-top, body .ui-tabview.ui-tabview-bottom, body .ui-ta
     body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li, body .ui-tabview.ui-tabview-left .ui-tabview-nav li, body .ui-tabview.ui-tabview-right .ui-tabview-nav li {
       border: 1px solid #c8c8c8;
       background-color: #f4f4f4;
-      -moz-transition: background-color 0.3s;
-      -o-transition: background-color 0.3s;
-      -webkit-transition: background-color 0.3s;
-      transition: background-color 0.3s; }
+      -moz-transition: background-color 0.2s;
+      -o-transition: background-color 0.2s;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s; }
       body .ui-tabview.ui-tabview-top .ui-tabview-nav li a, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li a, body .ui-tabview.ui-tabview-left .ui-tabview-nav li a, body .ui-tabview.ui-tabview-right .ui-tabview-nav li a {
         float: none;
         display: inline-block;
@@ -1750,10 +1750,10 @@ body .ui-carousel {
   body .ui-carousel .ui-carousel-button {
     margin: 0.125em 0.5em;
     color: #848484;
-    -moz-transition: color 0.3s;
-    -o-transition: color 0.3s;
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s; }
+    -moz-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s; }
     body .ui-carousel .ui-carousel-button.ui-carousel-next-button:before {
       content: ""; }
     body .ui-carousel .ui-carousel-button.ui-carousel-prev-button:before {
@@ -1764,10 +1764,10 @@ body .ui-carousel {
     margin: 0.125em 0.5em; }
     body .ui-carousel .ui-carousel-page-links .ui-carousel-page-link {
       color: #848484;
-      -moz-transition: color 0.3s;
-      -o-transition: color 0.3s;
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s; }
+      -moz-transition: color 0.2s;
+      -o-transition: color 0.2s;
+      -webkit-transition: color 0.2s;
+      transition: color 0.2s; }
       body .ui-carousel .ui-carousel-page-links .ui-carousel-page-link:hover {
         color: #333333; }
 body .ui-treetable .ui-treetable-caption,
@@ -1876,11 +1876,8 @@ body .ui-messages {
     body .ui-messages.ui-messages-error .ui-messages-close {
       color: #212121; }
   body .ui-messages .ui-messages-close {
-    font-size: 1.5em;
     top: .25em;
     right: .5em; }
-  body .ui-messages .ui-messages-icon {
-    font-size: 1.714em; }
 body .ui-message {
   padding: 0.429em;
   margin: 0; }
@@ -1908,10 +1905,6 @@ body .ui-message {
     color: #212121; }
     body .ui-message.ui-message-error .ui-message-icon {
       color: #212121; }
-  body .ui-message .ui-message-icon {
-    font-size: 1.25em; }
-  body .ui-message .ui-message-text {
-    font-size: 0.9em; }
 body .ui-growl {
   top: 70px; }
   body .ui-growl .ui-growl-item-container {
@@ -2026,10 +2019,10 @@ body .ui-dialog {
       border: 0 none;
       padding: 0;
       margin-left: 0.5em;
-      -moz-transition: color 0.3s;
-      -o-transition: color 0.3s;
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s; }
+      -moz-transition: color 0.2s;
+      -o-transition: color 0.2s;
+      -webkit-transition: color 0.2s;
+      transition: color 0.2s; }
       body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon:hover {
         color: #333333; }
   body .ui-dialog .ui-dialog-content {
@@ -2098,10 +2091,10 @@ body .ui-lightbox {
     body .ui-lightbox .ui-lightbox-caption .ui-lightbox-close {
       padding: 0;
       color: #848484;
-      -moz-transition: color 0.3s;
-      -o-transition: color 0.3s;
-      -webkit-transition: color 0.3s;
-      transition: color 0.3s; }
+      -moz-transition: color 0.2s;
+      -o-transition: color 0.2s;
+      -webkit-transition: color 0.2s;
+      transition: color 0.2s; }
       body .ui-lightbox .ui-lightbox-caption .ui-lightbox-close:hover {
         color: #333333; }
   body .ui-lightbox .ui-lightbox-content-wrapper {
@@ -2114,10 +2107,10 @@ body .ui-lightbox {
     -webkit-border-radius: 0;
     border-radius: 0; }
     body .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-left, body .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-right {
-      -moz-transition: all 0.3s;
-      -o-transition: all 0.3s;
-      -webkit-transition: all 0.3s;
-      transition: all 0.3s;
+      -moz-transition: all 0.2s;
+      -o-transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      transition: all 0.2s;
       font-size: 3em;
       color: #ffffff;
       margin-top: -.5em; }
@@ -2499,10 +2492,10 @@ body .ui-progressbar {
     display: none !important; }
 body .ui-galleria .ui-galleria-nav-prev,
 body .ui-galleria .ui-galleria-nav-next {
-  -moz-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
   position: absolute;
   color: #737373; }
   body .ui-galleria .ui-galleria-nav-prev:hover,
@@ -2533,10 +2526,10 @@ body .ui-inplace {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    -moz-transition: background-color 0.3s;
-    -o-transition: background-color 0.3s;
-    -webkit-transition: background-color 0.3s;
-    transition: background-color 0.3s; }
+    -moz-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s; }
     body .ui-inplace .ui-inplace-display:not(.ui-state-disabled):hover {
       background-color: #eaeaea;
       color: #333333; }
