@@ -13,7 +13,7 @@ body {
     font-weight: normal;
     color: #404C51;
     -webkit-font-smoothing: antialiased;
-    font-size: 1em;
+    font-size: 14px;
 }
 
 #layout-topbar {
@@ -44,7 +44,7 @@ body {
     height: 60px;
     line-height: 58px;
     text-align: center;
-    transition: background-color .3s;
+    transition: background-color .2s;
 }
 
 #layout-topbar .menu-button:hover {
@@ -83,13 +83,14 @@ body {
 .topbar-menu > li > a {
     text-decoration: none;
     color: #ffffff;
-    transition: background-color .3s;
+    transition: background-color .2s;
     min-width: 120px;
     display: inline-block;
     text-align: center;
     box-sizing: border-box;
     height: 100%;
     line-height: 70px;
+    font-size: 16px;
 }
 
 .topbar-menu > li > a:hover {
@@ -254,10 +255,10 @@ body {
     padding-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
-    -moz-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    transition-duration: 0.3s;
+    -moz-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
     -moz-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     -o-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
@@ -265,10 +266,10 @@ body {
 }
 
 #layout-sidebar .layout-menu > div.submenushow {
-    -moz-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    transition-duration: 0.3s;
+    -moz-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
     -moz-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     -o-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
@@ -385,7 +386,6 @@ body {
 }
 
 .layout-footer {
-    font-size: 14px;
     color: #000000;
     font-weight: bold;
 }
@@ -408,7 +408,8 @@ body {
 .implementation > h3 {
     margin-top: 30px;
     color: #5C666A;
-    font-weight: 400;
+    font-weight: 700;
+    font-size: 16px;
 }
 .implementation h3.first {
     margin-top: 0px !important;
@@ -458,17 +459,16 @@ body {
 .documentation h3 {
     margin-top: 25px;
     margin-bottom: 0px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: normal;
 }
 .documentation h4 {
     margin-top: 25px;
     margin-bottom: 0px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
 }
 .documentation p {
-    font-size: 16px;
     line-height: 24px;
     margin: 10px 0 !important;
 }
@@ -486,7 +486,7 @@ body {
     font-weight: bold;
     margin-bottom: 1em;
     display: inline-block;
-    transition: background-color .3s;
+    transition: background-color .2s;
 }
 .documentation .btn-viewsource i {
     margin-right: .25em;
@@ -563,14 +563,12 @@ body {
     color: #404C51;
     border: solid 1px #C1D5DF;
     padding: 8px 14px;
-    font-size: 16px;
     text-align: left;
 }
 .doc-table tbody td {
     color: #404C51;
     padding: 8px 14px;
     border: 1px solid #E5EBF0;
-    font-size: 15px;
     opacity: .90;
 }
 .doc-table tbody tr:nth-child(even) {
@@ -619,7 +617,7 @@ body {
     #layout-sidebar {
         top: 100px;
         left: -300px;
-        transition: left .3s;
+        transition: left .2s;
         z-index: 9999;
     }
 
@@ -789,10 +787,11 @@ a {
 /* Introduction */
 .home p {
     line-height: 1.5;
+    font-size: 16px;
 }
 
 .home h3 {
-    font-size: 1.5em;
+    font-size: 20px;
 }
 
 .home-button {
@@ -801,7 +800,7 @@ a {
     color: #B27800;
     padding: 8px 14px;
     border-radius: 3px;
-    transition: background-color .3s;
+    transition: background-color .2s;
     display: inline-block;
     min-width: 120px;
     text-align: center;
@@ -876,8 +875,9 @@ a {
 
 .home .features .ui-g p {
     color: #535d62;
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 30px;
+    margin-top: 10px;
 }
 
 .home .features .ui-g > div {
@@ -1079,7 +1079,7 @@ a {
 }
 
 .home .prosupport p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
 }
 
