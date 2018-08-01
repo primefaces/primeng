@@ -90,7 +90,7 @@
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
-                <th style="width:3em"></th>
+                <th style="width:4em"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -128,7 +128,7 @@
     <p-table [columns]="cols" [value]="cars" [(selection)]="selectedCar4" dataKey="vin">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th style="width: 2.25em"></th>
+                <th style="width: 3em"></th>
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
@@ -155,7 +155,7 @@
     <p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars3" dataKey="vin">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th style="width: 2.25em">
+                <th style="width: 3em">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th *ngFor="let col of columns">
@@ -333,7 +333,7 @@ export class TableSelectionDemo implements OnInit &#123;
             &lt;th *ngFor="let col of columns"&gt;
                 &#123;&#123;col.header&#125;&#125;
             &lt;/th&gt;
-            &lt;th style="width:3em"&gt;&lt;/th&gt;
+            &lt;th style="width:4em"&gt;&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
@@ -371,7 +371,7 @@ export class TableSelectionDemo implements OnInit &#123;
 &lt;p-table [columns]="cols" [value]="cars" [(selection)]="selectedCar4" dataKey="vin"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th style="width: 2.25em"&gt;&lt;/th&gt;
+            &lt;th style="width: 3em"&gt;&lt;/th&gt;
             &lt;th *ngFor="let col of columns"&gt;
                 &#123;&#123;col.header&#125;&#125;
             &lt;/th&gt;
@@ -398,7 +398,7 @@ export class TableSelectionDemo implements OnInit &#123;
 &lt;p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars3" dataKey="vin"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th style="width: 2.25em"&gt;
+            &lt;th style="width: 3em"&gt;
                 &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
             &lt;/th&gt;
             &lt;th *ngFor="let col of columns"&gt;
