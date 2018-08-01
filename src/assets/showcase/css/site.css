@@ -1,27 +1,4 @@
 @charset "UTF-8";
-@font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../fonts/roboto-v15-latin-regular.eot');
-    /* IE9 Compat Modes */
-
-    src: local('Roboto'), local('Roboto-Regular'), url('../fonts/roboto-v15-latin-regular.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */
-
-    url('../fonts/roboto-v15-latin-regular.woff2') format('woff2'),
-    /* Super Modern Browsers */
-
-    url('../fonts/roboto-v15-latin-regular.woff') format('woff'),
-    /* Modern Browsers */
-
-    url('../fonts/roboto-v15-latin-regular.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-
-    url('../fonts/roboto-v15-latin-regular.svg#Roboto') format('svg');
-    /* Legacy iOS */
-}
-/*  ----------------------------------------------------------------------------------------------------- */
 html {
   height: 100%;
 }
@@ -32,7 +9,7 @@ body {
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
     font-weight: normal;
     color: #404C51;
     -webkit-font-smoothing: antialiased;
@@ -431,6 +408,7 @@ body {
 .implementation > h3 {
     margin-top: 30px;
     color: #5C666A;
+    font-weight: 400;
 }
 .implementation h3.first {
     margin-top: 0px !important;
@@ -488,8 +466,7 @@ body {
 .documentation p {
     font-size: 16px;
     line-height: 24px;
-    margin: 10px 0;
-    opacity: .90;
+    margin: 10px 0 !important;
 }
 .documentation .doc-tablewrapper {
     margin: 10px 0;
@@ -520,7 +497,6 @@ body {
     background: none;
     border: 0 none;
     color: #5C666A;
-    font-weight: lighter;
     -moz-border-radius: 4px !important;
     -webkit-border-radius: 4px !important;
     border-radius: 4px !important;
