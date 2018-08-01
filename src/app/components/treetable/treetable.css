@@ -22,6 +22,10 @@
     cursor: pointer;
 }
 
+.ui-treetable .ui-treetable-sort-icon {
+    vertical-align: middle;
+}
+
 .ui-treetable-auto-layout > .ui-treetable-wrapper {
     overflow-x: auto;
 }

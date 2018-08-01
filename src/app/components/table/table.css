@@ -18,6 +18,10 @@
     cursor: pointer;
 }
 
+.ui-table .ui-table-sort-icon {
+    vertical-align: middle;
+}
+
 .ui-table-auto-layout > .ui-table-wrapper {
     overflow-x: auto;
 }
