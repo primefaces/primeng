@@ -83,6 +83,65 @@
         </ng-template>
     </p-table>
 
+    <h3>Multiple Row Selection with Frozen Columns</h3>
+    <p-table [columns]="unfrozenCols" [frozenColumns]="frozenCols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars4" [scrollable]="true" scrollHeight="200px" frozenWidth="600px">
+
+        <ng-template pTemplate="frozencolgroup" let-columns>
+	    <col style="width:2.25em" />
+            <colgroup>
+                <col *ngFor="let col of columns" style="width:300px">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" style="width:300px">
+            </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="frozenheader" let-columns>
+            <tr>
+	        <th style="width: 2.25em">
+		    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+	        </th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+
+	<ng-template pTemplate="frozenbody" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td>
+                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+	</ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <ul>
+                <li *ngFor="let car of selectedCars4" style="text-align: left">
+                    {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
+                </li>
+            </ul>
+        </ng-template>
+    </p-table>
+
     <h3>Column Selection</h3>
     <p-table [columns]="cols" [value]="cars">
         <ng-template pTemplate="header" let-columns>

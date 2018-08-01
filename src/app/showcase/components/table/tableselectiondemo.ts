@@ -14,6 +14,10 @@ export class TableSelectionDemo implements OnInit {
 
     cols: any[];
 
+    frozenCols: any[];
+
+    unfrozenCols: any[];
+
     selectedCar1: Car;
 
     selectedCar2: Car;
@@ -28,6 +32,8 @@ export class TableSelectionDemo implements OnInit {
 
     selectedCars3: Car[];
 
+    selectedCars4: Car[];
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
@@ -39,6 +45,17 @@ export class TableSelectionDemo implements OnInit {
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' }
         ];
+
+	this.frozenCols = [
+            { field: 'vin', header: 'Vin' },
+            { field: 'price', header: 'Price' },
+	];
+
+	this.unfrozenCols = [
+            { field: 'year', header: 'Year' },
+            { field: 'brand', header: 'Brand' },
+            { field: 'color', header: 'Color' }
+	];
     }
 
     selectCarWithButton(car: Car) {
