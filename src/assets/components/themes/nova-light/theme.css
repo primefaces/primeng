@@ -1408,7 +1408,11 @@ body .ui-table .ui-sortable-column.ui-state-highlight {
   body .ui-table .ui-sortable-column.ui-state-highlight a, body .ui-table .ui-sortable-column.ui-state-highlight a:hover {
     color: #ffffff; }
 body .ui-table .ui-editable-column input {
-  font-size: 14px; }
+  font-size: 14px;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif; }
+  body .ui-table .ui-editable-column input:focus {
+    outline: 1px solid #007ad9;
+    outline-offset: 2px; }
 body .ui-table .ui-table-tbody > tr {
   background: #ffffff;
   color: #333333; }
@@ -1816,7 +1820,11 @@ body .ui-treetable .ui-sortable-column.ui-state-highlight {
   body .ui-treetable .ui-sortable-column.ui-state-highlight a, body .ui-treetable .ui-sortable-column.ui-state-highlight a:hover {
     color: #ffffff; }
 body .ui-treetable .ui-editable-column input {
-  font-size: 14px; }
+  font-size: 14px;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif; }
+  body .ui-treetable .ui-editable-column input:focus {
+    outline: 1px solid #007ad9;
+    outline-offset: 2px; }
 body .ui-treetable .ui-treetable-tbody > tr {
   background: #ffffff;
   color: #333333; }

@@ -133,9 +133,9 @@
 }
 
 /* Edit */
-.ui-table .ui-table-tbody > tr > td.ui-editing-cell {
-    padding-top: 0;
-    padding-bottom: 0;
+.ui-table .ui-table-tbody > tr > td.ui-editing-cell input{
+    padding: 0;
+    border: 0 none;
 }
 
 .ui-table .ui-table-tbody > tr > td.ui-editing-cell p-celleditor >  * {
