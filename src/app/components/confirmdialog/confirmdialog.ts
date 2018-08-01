@@ -165,7 +165,7 @@ export class ConfirmDialog implements OnDestroy {
     }
 
     restoreAppend() {
-        if (this.appendTo) {
+        if (this.container && this.appendTo) {
             this.el.nativeElement.appendChild(this.container);
         }
     }
