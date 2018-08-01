@@ -235,7 +235,7 @@ body {
 }
 
 #layout-sidebar .layout-menu > a span {
-    color: #6d7879;
+    color: #34393a;
     font-size: 16px;
     margin: 0px 0px 0px 30px;
     display: block;
@@ -451,6 +451,10 @@ body {
 .documentation .ui-tabview-panel {
     color: #404C51 !important;
 }
+.documentation .ui-tabview .ui-tabview-panels {
+    border: 0 none;
+}
+
 .documentation h3 {
     margin-top: 25px;
     margin-bottom: 0px;
