@@ -8,7 +8,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [(value)]="msgs"></p-growl>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
     <h3 class="first">Single Row Selection</h3>
     <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar1" dataKey="vin">
@@ -194,8 +194,6 @@
 <code class="language-typescript" pCode ngNonBindable>
 export class TableSelectionDemo implements OnInit &#123;
 
-    msgs: Message[] = [];
-
     cars: Car[];
 
     cols: any[];
@@ -214,7 +212,7 @@ export class TableSelectionDemo implements OnInit &#123;
 
     selectedCars3: Car[];
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
@@ -229,15 +227,15 @@ export class TableSelectionDemo implements OnInit &#123;
 
     selectCarWithButton(car: Car) &#123;
         this.selectedCar2 = car;
-        this.msgs = [&#123;severity:'info', summary:'Car Selected', detail:'Vin: ' + car.vin&#125;];
+        this.messageService.add(&#123;severity:'info', summary:'Car Selected', detail:'Vin: ' + car.vin&#125;);
     &#125;
 
     onRowSelect(event) &#123;
-        this.msgs = [&#123;severity:'info', summary:'Car Selected', detail:'Vin: ' + event.data.vin&#125;];
+        this.messageService.add(&#123;severity:'info', summary:'Car Selected', detail:'Vin: ' + event.data.vin&#125;);
     &#125;
 
     onRowUnselect(event) &#123;
-        this.msgs = [&#123;severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin&#125;];
+        this.messageService.add(&#123;severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin&#125;);
     &#125;
 &#125;
 </code>
@@ -251,7 +249,7 @@ export class TableSelectionDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;h3 class="first"&gt;Single Row Selection&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar1" dataKey="vin"&gt;
