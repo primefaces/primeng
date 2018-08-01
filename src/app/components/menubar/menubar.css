@@ -42,6 +42,10 @@
     padding: .5em;
 }
 
+.ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link > .ui-submenu-icon {
+    vertical-align: middle;
+}
+
 .ui-menubar .ui-menubar-root-list > li ul {
     display: none;
 }
