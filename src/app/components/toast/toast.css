@@ -41,47 +41,6 @@
 	padding: 0 0 .25em 0;
     margin-left: 2.5em;
 }
-
-.ui-toast-message-info {
-    color: #1765A3;
-    background-color: #BFE0FA;
-    border-color: #BFE0FA;
-}
-
-.ui-toast-message-info .ui-toast-close-icon {
-    color: #1765A3;
-}
-
-.ui-toast-message-success {
-    color: #2C832f;
-    background-color: #B4F0B6;
-    border-color: #B4F0B6;
-}
-
-.ui-toast-message-success .ui-toast-close-icon {
-    color: #2C832f;
-}
-
-.ui-toast-message-warn {
-    color: #8A6714;
-    background-color: #FFE9B5;
-    border-color: #FFE9B5;
-}
-
-.ui-toast-message-warn .ui-toast-close-icon {
-    color: #8A6714;
-}
-
-.ui-toast-message-error {
-    color: #AB1A0F;
-    background-color: #FFCBC8;
-    border-color: #FFCBC8;
-}
-
-.ui-toast-message-error .ui-toast-close-icon {
-    color: #AB1A0F;
-}
-
 /* Positions */
 .ui-toast-top-right {
 	top: 20px;
