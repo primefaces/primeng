@@ -30,15 +30,15 @@ export class SplitButtonDemo implements OnInit {
         ];
     }
 
-    save() {
-        this.messageService.add({severity:'info', summary:'Success', detail:'Data Saved'});
+    save(severity: string) {
+        this.messageService.add({severity: severity, summary:'Success', detail:'Data Saved'});
     }
     
     update() {
-        this.messageService.add({severity:'info', summary:'Success', detail:'Data Updated'});
+        this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
     }
     
     delete() {
-        this.messageService.add({severity:'info', summary:'Success', detail:'Data Deleted'});
+        this.messageService.add({severity:'success', summary:'Success', detail:'Data Deleted'});
     }
 }

@@ -9,17 +9,17 @@
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
     <h3 class="first">Basic</h3>
-    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items"></p-splitButton>
 
     <h3>Severities</h3>
-    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-secondary"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-success"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-info"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-warning"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-danger"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items" styleClass="ui-button-secondary"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save('success')" [model]="items" styleClass="ui-button-success"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items" styleClass="ui-button-info"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save('warn')" [model]="items" styleClass="ui-button-warning"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save('error')" [model]="items" styleClass="ui-button-danger"></p-splitButton>
 
     <h3>RTL</h3>
-    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" dir="rtl"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items" dir="rtl"></p-splitButton>
 </div>
 
 <div class="content-section documentation">
@@ -206,17 +206,17 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items"&gt;&lt;/p-splitButton&gt;
 
 &lt;h3&gt;Severities&lt;/h3&gt;
-&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-secondary"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-success"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-info"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
-&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" styleClass="ui-button-danger"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items" styleClass="ui-button-secondary"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save('success')" [model]="items" styleClass="ui-button-success"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items" styleClass="ui-button-info"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save('warn')" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save('error')" [model]="items" styleClass="ui-button-danger"&gt;&lt;/p-splitButton&gt;
 
 &lt;h3&gt;RTL&lt;/h3&gt;
-&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save()" [model]="items" dir="rtl"&gt;&lt;/p-splitButton&gt;
+&lt;p-splitButton label="Save" icon="pi pi-file" (onClick)="save('info')" [model]="items" dir="rtl"&gt;&lt;/p-splitButton&gt;
 </code>
 </pre>
 <pre>
@@ -240,16 +240,16 @@ export class SplitButtonDemo implements OnInit &#123;
         ];
     &#125;
 
-    save() &#123;
-        this.messageService.add(&#123;severity:'info', summary:'Success', detail:'Data Saved'&#125;);
+    save(severity: string) &#123;
+        this.messageService.add(&#123;severity:severity, summary:'Success', detail:'Data Saved'&#125;);
     &#125;
 
     update() &#123;
-        this.messageService.add(&#123;severity:'info', summary:'Success', detail:'Data Updated'&#125;);
+        this.messageService.add(&#123;severity:'success', summary:'Success', detail:'Data Updated'&#125;);
     &#125;
 
     delete() &#123;
-        this.messageService.add(&#123;severity:'info', summary:'Success', detail:'Data Deleted'&#125;);
+        this.messageService.add(&#123;severity:'success', summary:'Success', detail:'Data Deleted'&#125;);
     &#125;
 &#125;
 </code>
