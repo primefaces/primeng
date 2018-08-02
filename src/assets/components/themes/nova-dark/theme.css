@@ -1255,7 +1255,8 @@ body .ui-tabview.ui-tabview-top, body .ui-tabview.ui-tabview-bottom, body .ui-ta
           margin-left: 0.5em; }
       body .ui-tabview.ui-tabview-top .ui-tabview-nav li .ui-tabview-close, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li .ui-tabview-close, body .ui-tabview.ui-tabview-left .ui-tabview-nav li .ui-tabview-close, body .ui-tabview.ui-tabview-right .ui-tabview-nav li .ui-tabview-close {
         color: #ffffff;
-        margin: 0 0.5em 0 -0.5em; }
+        margin: 0 0.5em 0 0;
+        vertical-align: middle; }
       body .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-left .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-right .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover {
         background-color: #494949;
         border: 1px solid #494949; }
@@ -1310,7 +1311,8 @@ body .ui-toolbar {
     vertical-align: middle; }
   body .ui-toolbar .ui-toolbar-separator {
     vertical-align: middle;
-    font-size: 16px; }
+    color: #ffffff;
+    margin: 0 0.5em; }
 body .ui-card {
   background-color: #ffffff;
   color: #333333;
@@ -1339,6 +1341,12 @@ body .ui-paginator {
     body .ui-paginator .ui-paginator-next:not(.ui-state-disabled):not(.ui-state-active):hover,
     body .ui-paginator .ui-paginator-last:not(.ui-state-disabled):not(.ui-state-active):hover {
       background-color: #eaeaea;
+      color: #333333; }
+  body .ui-paginator .ui-dropdown {
+    border: 0 none; }
+    body .ui-paginator .ui-dropdown .ui-dropdown-trigger, body .ui-paginator .ui-dropdown .ui-dropdown-label {
+      color: #737373; }
+    body .ui-paginator .ui-dropdown:hover .ui-dropdown-trigger, body .ui-paginator .ui-dropdown:hover .ui-dropdown-label {
       color: #333333; }
   body .ui-paginator .ui-paginator-first:before {
     position: relative;
@@ -1764,7 +1772,6 @@ body .ui-carousel {
     border: 1px solid #333333;
     margin: 0; }
   body .ui-carousel .ui-carousel-button {
-    margin: 0;
     color: #ffffff;
     -moz-transition: color 0.2s;
     -o-transition: color 0.2s;
@@ -2027,7 +2034,11 @@ body .ui-overlaypanel {
     text-align: center;
     position: absolute;
     top: -0.769em;
-    right: -0.769em; }
+    right: -0.769em;
+    -moz-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s; }
     body .ui-overlaypanel .ui-overlaypanel-close:hover {
       background-color: #005b9f;
       color: #ffffff; }
@@ -2092,6 +2103,10 @@ body .ui-sidebar {
   -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
   -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16); }
+  body .ui-sidebar .ui-sidebar-close {
+    color: #737373; }
+    body .ui-sidebar .ui-sidebar-close:hover {
+      color: #333333; }
 body .ui-tooltip .ui-tooltip-text {
   background-color: #333333;
   color: #ffffff;
@@ -2168,6 +2183,8 @@ body .ui-breadcrumb {
   body .ui-breadcrumb ul li:first-child a {
     color: #737373;
     margin: 0; }
+  body .ui-breadcrumb ul li .ui-menuitem-icon {
+    color: #737373; }
 body .ui-steps {
   position: relative; }
   body .ui-steps .ui-steps-item {
