@@ -375,6 +375,10 @@ body {
     line-height: 1.5em;
 }
 
+.content-section:first-of-type > div > span:last-child {
+    font-size: 16px;
+}
+
 .content-section h2 {
     margin-top: 0;
 }
