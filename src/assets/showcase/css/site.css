@@ -484,7 +484,7 @@ body {
     border-radius: 2px;
     color: #ffffff;
     font-weight: bold;
-    margin-bottom: 1em;
+    margin: 1em 0;
     display: inline-block;
     transition: background-color .2s;
 }
