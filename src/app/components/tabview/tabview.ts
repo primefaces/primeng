@@ -1,6 +1,7 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,HostListener,AfterContentInit,
         ContentChildren,ContentChild,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {TooltipModule} from '../tooltip/tooltip';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
 
@@ -20,7 +21,7 @@ let idx: number = 0;
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="presentation"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
                 (click)="clickTab($event,tab)" *ngIf="!tab.closed">
-                <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id">
+                <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="orientation">
                     <span class="ui-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                     <span class="ui-tabview-title">{{tab.header}}</span>
                     <span class="ui-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
@@ -92,6 +93,8 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     @Input() rightIcon: string;
     
     @Input() cache: boolean = true;
+
+    @Input() tooltip: any;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -307,7 +310,7 @@ export class TabView implements AfterContentInit,BlockableUI {
 
 
 @NgModule({
-    imports: [CommonModule,SharedModule],
+    imports: [CommonModule,SharedModule,TooltipModule],
     exports: [TabView,TabPanel,TabViewNav,SharedModule],
     declarations: [TabView,TabPanel,TabViewNav]
 })
