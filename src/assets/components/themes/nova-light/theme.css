@@ -857,6 +857,10 @@ body {
     -moz-border-radius-bottomright: 3px;
     -webkit-border-bottom-right-radius: 3px;
     border-bottom-right-radius: 3px; }
+  body .ui-fluid .ui-inputgroup .ui-button {
+    width: auto; }
+    body .ui-fluid .ui-inputgroup .ui-button.ui-button-icon-only {
+      width: 2.357em; }
   body ::-webkit-input-placeholder {
     color: #666666; }
   body :-moz-placeholder {

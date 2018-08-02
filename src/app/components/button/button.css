@@ -14,10 +14,6 @@ p-button {
     display: inline-block;
 }
 
-.ui-button-icon-only {
-    width: 2em;
-}
-
 /*button text element */
 .ui-button .ui-button-text {
     display: block;
