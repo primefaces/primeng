@@ -721,6 +721,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 if(this.mask) {
                     this.disableModality();
                 }
+
+                this.cd.markForCheck();
             }, 150);
         }
 

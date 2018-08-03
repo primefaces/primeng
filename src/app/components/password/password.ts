@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -33,7 +33,7 @@ export class Password implements OnDestroy,DoCheck {
     
     filled: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone, public cd: ChangeDetectorRef) {}
     
     ngDoCheck() {
         this.updateFilledState();
@@ -88,6 +88,7 @@ export class Password implements OnDestroy,DoCheck {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.ngOnDestroy();
+                    this.cd.markForCheck();
                 }, 150);
             });
         }     
