@@ -608,14 +608,14 @@ body {
     -o-transition: color 0.2s;
     -webkit-transition: color 0.2s;
     transition: color 0.2s; }
-    body .ui-rating a:hover {
-      color: #007ad9; }
     body .ui-rating a.ui-rating-cancel {
       color: #e4018d; }
-      body .ui-rating a.ui-rating-cancel:hover {
-        color: #b5019f; }
     body .ui-rating a .ui-rating-icon {
       font-size: 20px; }
+  body .ui-rating:not(.ui-state-disabled) a:hover {
+    color: #007ad9; }
+  body .ui-rating:not(.ui-state-disabled) a.ui-rating-cancel:hover {
+    color: #b5019f; }
   body .ui-spinner .ui-spinner-input {
     padding-right: 2.429em; }
   body .ui-spinner .ui-spinner-button {
@@ -708,6 +708,9 @@ body {
         margin: 0;
         padding: 0;
         line-height: 1; }
+        body .ui-datepicker .ui-datepicker-header .ui-datepicker-title select {
+          margin-top: -.35em;
+          margin-bottom: 0; }
     body .ui-datepicker table {
       font-size: 14px;
       margin: 0.857em 0 0 0; }
@@ -752,9 +755,16 @@ body {
       padding: 0; }
       body .ui-datepicker.ui-datepicker-timeonly .ui-timepicker {
         border-top: 0 none; }
-    body .ui-datepicker .ui-datepicker-group {
-      border-right: 1px solid #d8dae2; }
-      body .ui-datepicker .ui-datepicker-group:last-child {
+    body .ui-datepicker.ui-datepicker-multiple-month .ui-datepicker-group {
+      border-right: 1px solid #d8dae2;
+      padding-right: 0.857em;
+      padding-left: 0.857em;
+      padding-top: 0;
+      padding-bottom: 0; }
+      body .ui-datepicker.ui-datepicker-multiple-month .ui-datepicker-group:first-child {
+        padding-left: 0; }
+      body .ui-datepicker.ui-datepicker-multiple-month .ui-datepicker-group:last-child {
+        padding-right: 0;
         border-right: 0 none; }
   body .ui-calendar.ui-calendar-w-btn .ui-inputtext {
     -moz-border-radius-topright: 0;
@@ -2553,7 +2563,7 @@ body .ui-progressbar {
   body .ui-progressbar .ui-progressbar-label {
     margin-top: 0;
     color: #333333;
-    display: none !important; }
+    line-height: 24px; }
 body .ui-galleria .ui-galleria-nav-prev,
 body .ui-galleria .ui-galleria-nav-next {
   -moz-transition: all 0.2s;
@@ -2580,6 +2590,7 @@ body .ui-terminal {
   padding: 0.571em 1em; }
   body .ui-terminal .ui-terminal-input {
     font-size: 14px;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
     height: 16px; }
   body .ui-terminal .ui-terminal-command {
     height: 16px; }
