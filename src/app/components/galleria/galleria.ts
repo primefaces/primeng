@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
             <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
                 <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
                     [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="clickImage($event,image,i)">
-                    <img class="ui-panel-images" [src]="image.source" [width]="image.width" [height]="image.height" [alt]="image.alt" [title]="image.title"/>
+                    <img class="ui-panel-images" [src]="image.source" [width]="image.width != undefined ? image.width : panelWidth" [height]="image.height != undefined ? image.height : panelHeight" [alt]="image.alt" [title]="image.title"/>
                 </li>
             </ul>
             <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showFilmstrip">
