@@ -30,6 +30,11 @@
 
 .ui-contextmenu .ui-menuitem-icon {
     margin-right: .25em;
+    vertical-align: middle;
+}
+
+.ui-contextmenu .ui-menuitem-text {
+    vertical-align: middle;
 }
 
 .ui-contextmenu .ui-menuitem {

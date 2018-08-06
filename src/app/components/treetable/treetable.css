@@ -22,6 +22,10 @@
     cursor: pointer;
 }
 
+.ui-treetable .ui-treetable-sort-icon {
+    vertical-align: middle;
+}
+
 .ui-treetable-auto-layout > .ui-treetable-wrapper {
     overflow-x: auto;
 }
@@ -138,9 +142,9 @@
 }
 
 /* Edit */
-.ui-treetable .ui-treetable-tbody > tr > td.ui-editing-cell {
-    padding-top: 0;
-    padding-bottom: 0;
+.ui-treetable .ui-treetable-tbody > tr > td.ui-editing-cell input {
+    padding: 0;
+    border: 0 none;
 }
 
 .ui-treetable .ui-treetable-tbody > tr > td.ui-editing-cell p-treetablecelleditor >  * {
@@ -205,6 +209,6 @@
     margin-left: -1em;
 }
 
-.ui-treetable-loading-icon {
+.ui-treetable .ui-treetable-loading-icon {
     font-size: 2em;
 }

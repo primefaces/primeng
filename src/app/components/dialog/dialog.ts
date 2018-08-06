@@ -551,7 +551,7 @@ export class Dialog implements OnDestroy {
     }
 
     restoreAppend() {
-        if (this.appendTo) {
+        if (this.container && this.appendTo) {
             this.el.nativeElement.appendChild(this.container);
         }
     }
@@ -580,13 +580,13 @@ export class Dialog implements OnDestroy {
             break;
 
             case 'void':
+                this.onHide.emit({});
                 this.ngOnDestroy();
             break;
         }
     }
     
     ngOnDestroy() {
-        this.onHide.emit({});
         this.restoreAppend();
         this.unbindGlobalListeners();
         this.dragging = false;

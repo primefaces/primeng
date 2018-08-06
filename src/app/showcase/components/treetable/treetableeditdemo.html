@@ -24,9 +24,7 @@
                         <ng-template pTemplate="input">
                             <input type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': i == 0 ? 'auto': '100%'}">
                         </ng-template>
-                        <ng-template pTemplate="output">
-                            {{rowData[col.field]}}
-                        </ng-template>
+                        <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
                     </p-treeTableCellEditor>
                 </td>
             </tr>            
@@ -88,9 +86,7 @@ export class TreeTableEditDemo &#123;
                     &lt;ng-template pTemplate="input"&gt;
                         &lt;input type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="&#123;'width': i == 0 ? 'auto': '100%'&#125;"&gt;
                     &lt;/ng-template&gt;
-                    &lt;ng-template pTemplate="output"&gt;
-                        &#123;&#123;rowData[col.field]&#125;&#125;
-                    &lt;/ng-template&gt;
+                    &lt;ng-template pTemplate="output"&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/ng-template&gt;
                 &lt;/p-treeTableCellEditor&gt;
             &lt;/td&gt;
         &lt;/tr&gt;            

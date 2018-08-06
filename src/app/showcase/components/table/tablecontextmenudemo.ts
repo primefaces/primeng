@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
-import { Message, MenuItem } from '../../../components/common/api';
+import { MenuItem } from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './tablecontextmenudemo.html'
+    templateUrl: './tablecontextmenudemo.html',
+    providers: [MessageService]
 })
 export class TableContextMenuDemo implements OnInit {
-
-    msgs: Message[];
 
     cars: Car[];
 
@@ -20,7 +20,7 @@ export class TableContextMenuDemo implements OnInit {
 
     items: MenuItem[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
@@ -39,8 +39,7 @@ export class TableContextMenuDemo implements OnInit {
     }
 
     viewCar(car: Car) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand });
+        this.messageService.add({ severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand });
     }
 
     deleteCar(car: Car) {
@@ -52,8 +51,7 @@ export class TableContextMenuDemo implements OnInit {
             }
         }
         this.cars.splice(index, 1);
-
-        this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand });
+        
+        this.messageService.add({ severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand });
     }
 }

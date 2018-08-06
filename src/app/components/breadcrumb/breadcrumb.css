@@ -12,13 +12,15 @@
 
 .ui-breadcrumb ul li {
     display: inline-block;
-    vertical-align: middle;
     margin: 0 .25em;
+}
+
+.ui-breadcrumb-chevron, .ui-breadcrumb-home {
+    vertical-align: middle;
 }
 
 .ui-breadcrumb ul li .ui-menuitem-link {
     text-decoration: none;
-    vertical-align: middle;
 }
 
 .ui-breadcrumb .ui-menuitem-icon {

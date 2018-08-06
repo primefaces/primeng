@@ -7,8 +7,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">  
-    <h3 class="first">Basic</h3>  
+<div class="content-section implementation">
+    <h3 class="first">Basic</h3>
     <p-treeTable [value]="files1">
         <ng-template pTemplate="header">
             <tr>
@@ -25,7 +25,7 @@
                 </td>
                 <td>{{rowData.size}}</td>
                 <td>{{rowData.type}}</td>
-            </tr>            
+            </tr>
         </ng-template>
     </p-treeTable>
 
@@ -44,7 +44,7 @@
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
                 </td>
-            </tr>            
+            </tr>
         </ng-template>
     </p-treeTable>
 </div>
@@ -78,7 +78,7 @@ export interface TreeNode &#123;
 <code class="language-typescript" pCode ngNonBindable>
 @Injectable()
 export class NodeService &#123;
-    
+
     constructor(private http: Http) &#123;&#125;
 
     getFilesystem() &#123;
@@ -95,30 +95,30 @@ export class NodeService &#123;
 <code class="language-javascript" pCode ngNonBindable>
 &#123;
     "data":
-    [  
-        &#123;  
-            "data":&#123;  
+    [
+        &#123;
+            "data":&#123;
                 "name":"Documents",
                 "size":"75kb",
                 "type":"Folder"
             &#125;,
             "children":[
-                &#123;  
-                    "data":&#123;  
+                &#123;
+                    "data":&#123;
                         "name":"Work",
                         "size":"55kb",
                         "type":"Folder"
                     &#125;,
-                    "children":[  
-                        &#123;  
-                            "data":&#123;  
+                    "children":[
+                        &#123;
+                            "data":&#123;
                                 "name":"Expenses.doc",
                                 "size":"30kb",
                                 "type":"Document"
                             &#125;
                         &#125;,
-                        &#123;  
-                            "data":&#123;  
+                        &#123;
+                            "data":&#123;
                                 "name":"Resume.doc",
                                 "size":"25kb",
                                 "type":"Resume"
@@ -126,15 +126,15 @@ export class NodeService &#123;
                         &#125;
                     ]
                 &#125;,
-                &#123;  
-                    "data":&#123;  
+                &#123;
+                    "data":&#123;
                         "name":"Home",
                         "size":"20kb",
                         "type":"Folder"
                     &#125;,
-                    "children":[  
-                        &#123;  
-                            "data":&#123;  
+                    "children":[
+                        &#123;
+                            "data":&#123;
                                 "name":"Invoices",
                                 "size":"20kb",
                                 "type":"Text"
@@ -144,29 +144,29 @@ export class NodeService &#123;
                 &#125;
             ]
         &#125;,
-        &#123;  
-            "data":&#123;  
+        &#123;
+            "data":&#123;
                 "name":"Pictures",
                 "size":"150kb",
                 "type":"Folder"
             &#125;,
-            "children":[  
-                &#123;  
-                    "data":&#123;  
+            "children":[
+                &#123;
+                    "data":&#123;
                         "name":"barcelona.jpg",
                         "size":"90kb",
                         "type":"Picture"
                     &#125;
                 &#125;,
-                &#123;  
-                    "data":&#123;  
+                &#123;
+                    "data":&#123;
                         "name":"primeui.png",
                         "size":"30kb",
                         "type":"Picture"
                     &#125;
                 &#125;,
-                &#123;  
-                    "data":&#123;  
+                &#123;
+                    "data":&#123;
                         "name":"optimus.jpg",
                         "size":"30kb",
                         "type":"Picture"
@@ -177,25 +177,25 @@ export class NodeService &#123;
     ]
 &#125;
 </code>
-</pre>  
+</pre>
 
 <p>Files get loaded from a service and then bound to the value property whereas <i>header</i> and <i>body</i> templates are used to define the content of these sections.</p>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
-    
+
     files: TreeNode[];
 
     constructor(private nodeService: NodeService) &#123;&#125;
-    
+
     ngOnInit() &#123;
         this.nodeService.getFileSystem().then(files => this.files = files);
     &#125;
 
 &#125;
 </code>
-</pre>    
+</pre>
 
         <p>Body template gets the following parameters;</p>
         <ul>
@@ -204,7 +204,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
             <li><strong>rowData</strong>: Data of the TreeNode instance.</li>
             <li><strong>columns</strong>: Columns of the TreeTable.</li>
         </ul>
-                  
+
         <p>Toggle icon is configured using the p-treeTableToggler by binding the rowNode instance. Most of the time, toggler icon is added to the first column however there is no restriction on where the toggler should be located inside the row.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -224,7 +224,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
             &lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.size&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.type&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -276,7 +276,7 @@ export class TreeTableDemo implements OnInit &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -301,7 +301,7 @@ export class TreeTableDemo implements OnInit &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -311,7 +311,7 @@ export class TreeTableDemo implements OnInit &#123;
 
             <h3>Table Layout</h3>
             <p>For performance reasons, default table-layout is fixed meaning the cell widths do not depend on their content. If you require cells to scale based on their contents
-                set <i>autoLayout</i> property to true. Note that for scrollable tables or tables with resizable columns auto layout is not supported. 
+                set <i>autoLayout</i> property to true. Note that for scrollable tables or tables with resizable columns auto layout is not supported.
             </p>
 
             <h3>Templates</h3>
@@ -427,7 +427,7 @@ this.value = [...this.value];
 </code>
 </pre>
 
-            
+
 
             <h3>Sections</h3>
             <p>Table offers various templates to display additional information about the data such as a caption, header, summary and footer.</p>
@@ -450,7 +450,7 @@ this.value = [...this.value];
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &123;&123;rowData[col.field]&125;&125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="footer" let-columns&gt;
         &lt;tr&gt;
@@ -491,15 +491,15 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                         expanded: true,
                         children: [
                             &#123;
-                                data: &#123; brand: 'Product A-1', lastYearSale: '20%', thisYearSale: '10%', lastYearProfit: '$24,406.00', thisYearProfit: '$13,342' &#125;, 
+                                data: &#123; brand: 'Product A-1', lastYearSale: '20%', thisYearSale: '10%', lastYearProfit: '$24,406.00', thisYearProfit: '$13,342' &#125;,
                             &#125;,
                             &#123;
-                                data: &#123; brand: 'Product A-2', lastYearSale: '5%', thisYearSale: '10%', lastYearProfit: '$10,000.00', thisYearProfit: '$10,000' &#125;, 
+                                data: &#123; brand: 'Product A-2', lastYearSale: '5%', thisYearSale: '10%', lastYearProfit: '$10,000.00', thisYearProfit: '$10,000' &#125;,
                             &#125;
                         ]
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product B', lastYearSale: '26%', thisYearSale: '20%', lastYearProfit: '$24,000.00', thisYearProfit: '$23,000' &#125;, 
+                        data: &#123; brand: 'Product B', lastYearSale: '26%', thisYearSale: '20%', lastYearProfit: '$24,000.00', thisYearProfit: '$23,000' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -507,10 +507,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Fate', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product X', lastYearSale: '50%', thisYearSale: '40%', lastYearProfit: '$223,132', thisYearProfit: '$156,061' &#125;, 
+                        data: &#123; brand: 'Product X', lastYearSale: '50%', thisYearSale: '40%', lastYearProfit: '$223,132', thisYearProfit: '$156,061' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product Y', lastYearSale: '33%', thisYearSale: '56%', lastYearProfit: '$200,000', thisYearProfit: '$156,061' &#125;, 
+                        data: &#123; brand: 'Product Y', lastYearSale: '33%', thisYearSale: '56%', lastYearProfit: '$200,000', thisYearProfit: '$156,061' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -518,10 +518,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Ruby', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product M', lastYearSale: '18%', thisYearSale: '2%', lastYearProfit: '$10,300', thisYearProfit: '$5,500' &#125;, 
+                        data: &#123; brand: 'Product M', lastYearSale: '18%', thisYearSale: '2%', lastYearProfit: '$10,300', thisYearProfit: '$5,500' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product N', lastYearSale: '20%', thisYearSale: '3%', lastYearProfit: '$2,021', thisYearProfit: '$3,000' &#125;, 
+                        data: &#123; brand: 'Product N', lastYearSale: '20%', thisYearSale: '3%', lastYearProfit: '$2,021', thisYearProfit: '$3,000' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -529,10 +529,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Sky', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product P', lastYearSale: '20%', thisYearSale: '16%', lastYearProfit: '$345,232', thisYearProfit: '$350,000' &#125;, 
+                        data: &#123; brand: 'Product P', lastYearSale: '20%', thisYearSale: '16%', lastYearProfit: '$345,232', thisYearProfit: '$350,000' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product R', lastYearSale: '29%', thisYearSale: '6%', lastYearProfit: '$400,009', thisYearProfit: '$300,323' &#125;, 
+                        data: &#123; brand: 'Product R', lastYearSale: '29%', thisYearSale: '6%', lastYearProfit: '$400,009', thisYearProfit: '$300,323' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -540,10 +540,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Comfort', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product S', lastYearSale: '10%', thisYearSale: '40%', lastYearProfit: '$243,242', thisYearProfit: '$100,000' &#125;, 
+                        data: &#123; brand: 'Product S', lastYearSale: '10%', thisYearSale: '40%', lastYearProfit: '$243,242', thisYearProfit: '$100,000' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product T', lastYearSale: '7%', thisYearSale: '39%', lastYearProfit: '$400,00', thisYearProfit: '$400,332' &#125;, 
+                        data: &#123; brand: 'Product T', lastYearSale: '7%', thisYearSale: '39%', lastYearProfit: '$400,00', thisYearProfit: '$400,332' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -551,10 +551,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Merit', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product L', lastYearSale: '20%', thisYearSale: '40%', lastYearProfit: '$121,132', thisYearProfit: '$100,000' &#125;, 
+                        data: &#123; brand: 'Product L', lastYearSale: '20%', thisYearSale: '40%', lastYearProfit: '$121,132', thisYearProfit: '$100,000' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product G', lastYearSale: '32%', thisYearSale: '25%', lastYearProfit: '$300,000', thisYearProfit: '$50,005' &#125;, 
+                        data: &#123; brand: 'Product G', lastYearSale: '32%', thisYearSale: '25%', lastYearProfit: '$300,000', thisYearProfit: '$50,005' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -562,10 +562,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Violet', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product SH1', lastYearSale: '30%', thisYearSale: '6%', lastYearProfit: '$101,211', thisYearProfit: '$30,214' &#125;, 
+                        data: &#123; brand: 'Product SH1', lastYearSale: '30%', thisYearSale: '6%', lastYearProfit: '$101,211', thisYearProfit: '$30,214' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product SH2', lastYearSale: '52%', thisYearSale: '6%', lastYearProfit: '$30,000', thisYearProfit: '$70,000' &#125;, 
+                        data: &#123; brand: 'Product SH2', lastYearSale: '52%', thisYearSale: '6%', lastYearProfit: '$30,000', thisYearProfit: '$70,000' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -573,10 +573,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Dulce', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product PN1', lastYearSale: '22%', thisYearSale: '25%', lastYearProfit: '$33,221', thisYearProfit: '$20,000' &#125;, 
+                        data: &#123; brand: 'Product PN1', lastYearSale: '22%', thisYearSale: '25%', lastYearProfit: '$33,221', thisYearProfit: '$20,000' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product PN2', lastYearSale: '22%', thisYearSale: '25%', lastYearProfit: '$33,221', thisYearProfit: '$33,322' &#125;, 
+                        data: &#123; brand: 'Product PN2', lastYearSale: '22%', thisYearSale: '25%', lastYearProfit: '$33,221', thisYearProfit: '$33,322' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -584,10 +584,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data: &#123; brand: 'Solace', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product HT1', lastYearSale: '60%', thisYearSale: '36%', lastYearProfit: '$465,000', thisYearProfit: '$150,653' &#125;, 
+                        data: &#123; brand: 'Product HT1', lastYearSale: '60%', thisYearSale: '36%', lastYearProfit: '$465,000', thisYearProfit: '$150,653' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product HT2', lastYearSale: '30%', thisYearSale: '20%', lastYearProfit: '$300,442', thisYearProfit: '$145,579' &#125;, 
+                        data: &#123; brand: 'Product HT2', lastYearSale: '30%', thisYearSale: '20%', lastYearProfit: '$300,442', thisYearProfit: '$145,579' &#125;,
                     &#125;
                 ]
             &#125;,
@@ -595,10 +595,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 data:  &#123; brand: 'Essence', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' &#125;,
                 children: [
                     &#123;
-                        data: &#123; brand: 'Product TS1', lastYearSale: '50%', thisYearSale: '34%', lastYearProfit: '$11,000', thisYearProfit: '$8,562' &#125;, 
+                        data: &#123; brand: 'Product TS1', lastYearSale: '50%', thisYearSale: '34%', lastYearProfit: '$11,000', thisYearProfit: '$8,562' &#125;,
                     &#125;,
                     &#123;
-                        data: &#123; brand: 'Product TS2', lastYearSale: '25%', thisYearSale: '20%', lastYearProfit: '$11,212', thisYearProfit: '$3,971' &#125;, 
+                        data: &#123; brand: 'Product TS2', lastYearSale: '25%', thisYearSale: '20%', lastYearProfit: '$11,212', thisYearProfit: '$3,971' &#125;,
                     &#125;
                 ]
             &#125;
@@ -792,7 +792,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -876,7 +876,7 @@ export class TreeTableSortDemo implements OnInit &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -890,9 +890,9 @@ export class TreeTableSortDemo implements OnInit &#123;
             <h3>Selection</h3>
             <p>TreeTable provides built-in single, multiple and checkbox selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a <strong>selectionMode</strong>, bind a selection reference and add <strong>ttSelectableRow</strong> directive
-            whose value is the rowNode to the rows that can be selected. Additionally if you prefer double click use <strong>ttSelectableRowDblClick</strong> directive instead and 
+            whose value is the rowNode to the rows that can be selected. Additionally if you prefer double click use <strong>ttSelectableRowDblClick</strong> directive instead and
             to disable selection events on a particular row use <strong>ttSelectableRowDisabled</strong> property.</p>
-            
+
             <p>By default each row click adds or removes the row from the selection, if you prefer a classic
             metaKey based selection approach enable <strong>metaKeySelection</strong> true so that multiple selection or unselection of a row requires metaKey to be pressed. Note that, on touch enabled
             devices, metaKey based selection is turned off automatically as there is no metaKey in devices such as mobile phones.</p>
@@ -938,7 +938,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -978,7 +978,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1008,7 +1008,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableCheckbox&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1022,7 +1022,7 @@ export class TreeTableSelectionDemo &#123;
             property is used to get a hold of the right clicked row. For dynamic columns, setting <strong>ttContextMenuRowDisabled</strong> property as true disables context menu for that particular row.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -1038,7 +1038,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 
@@ -1074,7 +1074,7 @@ export class TreeTableSelectionDemo &#123;
                     &lt;/ng-template&gt;
                 &lt;/p-treeTableCellEditor&gt;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1112,7 +1112,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1140,7 +1140,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1167,7 +1167,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1194,7 +1194,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1223,7 +1223,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1251,7 +1251,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1283,7 +1283,7 @@ export class TreeTableSelectionDemo &#123;
             &lt;td *ngFor="let col of columns; let i = index"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData"&gt;
         &lt;tr&gt;
@@ -1291,7 +1291,7 @@ export class TreeTableSelectionDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData.name&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1318,7 +1318,7 @@ export class TreeTableSelectionDemo &#123;
 
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" 
+&lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true"
     (onLazyLoad)="loadNodes($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -1353,7 +1353,7 @@ loadNodes(event: LazyLoadEvent) &#123;
 </code>
 </pre>
 
-            <p>Lazy loading applies to the first level nodes in the tree hierarchy, instead if you need to lazy load the children of a node, set <strong>leaf</strong> as true on that node 
+            <p>Lazy loading applies to the first level nodes in the tree hierarchy, instead if you need to lazy load the children of a node, set <strong>leaf</strong> as true on that node
                 and use onNodeExpand event to load children when a node is expanded only.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1392,14 +1392,14 @@ onNodeExpand(event) &#125;
             <p>See the <a [routerLink]="['/treetable/lazy']">live example.</a></p>
 
             <h3>Responsive</h3>
-            <p>TreeTable does not provide a built-in responsive feature as it is easy to implement as you have full control over the presentation, here is an 
+            <p>TreeTable does not provide a built-in responsive feature as it is easy to implement as you have full control over the presentation, here is an
                 example with media queries.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
     templateUrl: './treetableresponsivedemo.html',
     styles: [`
-        :host ::ng-deep .priority-2, 
+        :host ::ng-deep .priority-2,
         :host ::ng-deep .priority-3,
         :host ::ng-deep .visibility-sm &#123;
             display: none;
@@ -1443,7 +1443,7 @@ export class TreeTableResponsiveDemo &#123;
     &#125;
 &#125;
 </code>
-</pre> 
+</pre>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1466,7 +1466,7 @@ export class TreeTableResponsiveDemo &#123;
             &lt;/td&gt;
             &lt;td class="priority-2"&gt;&#123;&#123;rowData.size&#125;&#125;&lt;/td&gt;
             &lt;td class="priority-3"&gt;&#123;&#123;rowData.type&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1493,7 +1493,7 @@ export class TreeTableResponsiveDemo &#123;
             &lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.size&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.type&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="emptymessage" let-columns&gt;
         &lt;tr&gt;
@@ -1525,7 +1525,7 @@ export class TreeTableResponsiveDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1549,7 +1549,7 @@ export class TreeTableDemo implements OnInit &#123;
             this.files = files;
             this.loading = false;
         &#123;);
-        
+
         this.cols = [
             &#123; field: 'name', header: 'Name' &#125;,
             &#123; field: 'size', header: 'Size' &#125;,
@@ -1580,7 +1580,7 @@ export class TreeTableDemo implements OnInit &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1738,7 +1738,7 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of SortMeta objects to sort the data by default in multiple sort mode.</td>
-                        </tr>                       
+                        </tr>
                         <tr>
                             <td>sortFunction</td>
                             <td>function</td>
@@ -2052,7 +2052,7 @@ export class TreeTableDemo implements OnInit &#123;
                     </tbody>
                 </table>
             </div>
-            
+
             <h3>Dependencies</h3>
             <p>None.</p>
         </p-tabPanel>
@@ -2064,7 +2064,7 @@ export class TreeTableDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;  
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-treeTable [value]="files1"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -2081,7 +2081,7 @@ export class TreeTableDemo implements OnInit &#123;
             &lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.size&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.type&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 
@@ -2100,7 +2100,7 @@ export class TreeTableDemo implements OnInit &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;            
+        &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>

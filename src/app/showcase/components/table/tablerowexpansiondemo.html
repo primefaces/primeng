@@ -11,7 +11,7 @@
     <p-table [columns]="cols" [value]="cars" dataKey="vin">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th style="width: 2.25em"></th>
+                <th style="width: 3em"></th>
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
@@ -21,7 +21,7 @@
             <tr>
                 <td>
                     <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'pi pi-chevron-circle-down' : 'pi pi-chevron-circle-right'" style="font-size: 1.25em"></i>
+                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
                     </a>
                 </td>
                 <td *ngFor="let col of columns">
@@ -101,7 +101,7 @@ export class TableRowExpansionDemo implements OnInit &#123;
 &lt;p-table [columns]="cols" [value]="cars" dataKey="vin"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th style="width: 2.25em"&gt;&lt;/th&gt;
+            &lt;th style="width: 3em"&gt;&lt;/th&gt;
             &lt;th *ngFor="let col of columns"&gt;
                 &#123;&#123;col.header&#125;&#125;
             &lt;/th&gt;
@@ -111,7 +111,7 @@ export class TableRowExpansionDemo implements OnInit &#123;
         &lt;tr&gt;
             &lt;td&gt;
                 &lt;a href="#" [pRowToggler]="rowData"&gt;
-                    &lt;i [ngClass]="expanded ? 'pi pi-chevron-circle-down' : 'pi pi-chevron-circle-right'" style="font-size: 1.25em"&gt;&lt;/i&gt;
+                    &lt;i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/i&gt;
                 &lt;/a&gt;
             &lt;/td&gt;
             &lt;td *ngFor="let col of columns"&gt;

@@ -11,7 +11,7 @@
     <p-table [columns]="cols" [value]="cars" [reorderableColumns]="true">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th style="width:2em"></th>
+                <th style="width:2.5em"></th>
                 <th *ngFor="let col of columns" pReorderableColumn>
                     {{col.header}}
                 </th>
@@ -72,7 +72,7 @@ export class TableColReorderDemo implements OnInit &#123;
 &lt;p-table [columns]="cols" [value]="cars" [reorderableColumns]="true"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th style="width:2em"&gt;&lt;/th&gt;
+            &lt;th style="width:2.5em"&gt;&lt;/th&gt;
             &lt;th *ngFor="let col of columns" pReorderableColumn&gt;
                 &#123;&#123;col.header&#125;&#125;
             &lt;/th&gt;

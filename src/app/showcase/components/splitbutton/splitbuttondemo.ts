@@ -1,9 +1,10 @@
 import {Component,OnInit} from '@angular/core';
-import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
     templateUrl: './splitbuttondemo.html',
+    providers: [MessageService],
     styles: [`
         :host ::ng-deep .ui-splitbutton {
             margin-right: .25em;
@@ -11,10 +12,10 @@ import {MenuItem} from '../../../components/common/api';
     `]
 })
 export class SplitButtonDemo implements OnInit {
-
-    msgs: Message[] = [];
     
     items: MenuItem[];
+    
+    constructor(private messageService: MessageService) {}
     
     ngOnInit() {
         this.items = [
@@ -29,18 +30,15 @@ export class SplitButtonDemo implements OnInit {
         ];
     }
 
-    save() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Saved'});
+    save(severity: string) {
+        this.messageService.add({severity: severity, summary:'Success', detail:'Data Saved'});
     }
     
     update() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Updated'});
+        this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
     }
     
     delete() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Deleted'});
+        this.messageService.add({severity:'success', summary:'Success', detail:'Data Deleted'});
     }
 }

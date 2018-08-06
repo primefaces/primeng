@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {PanelDemo} from './paneldemo';
 import {PanelDemoRoutingModule} from './paneldemo-routing.module';
 import {PanelModule} from '../../../components/panel/panel';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {SplitButtonModule} from '../../../components/splitbutton/splitbutton';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
@@ -13,7 +13,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		CommonModule,
 		PanelDemoRoutingModule,
         PanelModule,
-        GrowlModule,
+        ToastModule,
         SplitButtonModule,
         TabViewModule,
         CodeHighlighterModule

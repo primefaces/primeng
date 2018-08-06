@@ -15,7 +15,7 @@ import {DomHandler} from '../dom/domhandler';
 })
 export class Password implements OnDestroy,DoCheck {
 
-    @Input() promptLabel: string = 'Please enter a password';
+    @Input() promptLabel: string = 'Enter a password';
 
     @Input() weakLabel: string = 'Weak';
 
@@ -59,6 +59,7 @@ export class Password implements OnDestroy,DoCheck {
         this.info.textContent = this.promptLabel;
         this.panel.appendChild(this.meter);
         this.panel.appendChild(this.info);
+        this.panel.style.minWidth = this.domHandler.getOuterWidth(this.el.nativeElement) + 'px';
         document.body.appendChild(this.panel);
     }
         

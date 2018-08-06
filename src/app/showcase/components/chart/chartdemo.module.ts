@@ -9,7 +9,7 @@ import {LineChartDemo} from './linechart/linechartdemo';
 import {PolarAreaChartDemo} from './polarareachart/polarareachartdemo';
 import {RadarChartDemo} from './radarchart/radarchartdemo';
 import {ChartModule} from '../../../components/chart/chart';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -18,7 +18,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		CommonModule,
 		ChartDemoRoutingModule,
         ChartModule,
-        GrowlModule,
+        ToastModule,
         TabViewModule,
         CodeHighlighterModule
 	],

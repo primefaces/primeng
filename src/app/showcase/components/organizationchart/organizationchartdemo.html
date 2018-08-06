@@ -6,8 +6,8 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [(value)]="messages"></p-growl>
-    
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
     <h3 class="first">Advanced</h3>
     <p>Organization with advanced customization.</p>
     <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
@@ -23,7 +23,7 @@
             {{node.label}}
         </ng-template>
     </p-organizationChart>
-    
+
     <h3>Basic</h3>
     <p>Hierarchical data with zero configuration.</p>
     <p-organizationChart [value]="data2"></p-organizationChart>
@@ -59,7 +59,7 @@ import &#123;TreeNode&#125; from 'primeng/api';
 export class MyComponents implements OnInit &#123;
 
     data: TreeNode[];
-    
+
     ngOnInit() &#123;
         this.data = [&#123;
             label: 'Root',
@@ -115,7 +115,7 @@ export class MyComponents implements OnInit &#123;
 export class MyComponents implements OnInit &#123;
 
     data: TreeNode[];
-    
+
     ngOnInit() &#123;
         this.data = [&#123;
             label: 'Root',
@@ -166,7 +166,7 @@ export class MyComponents implements OnInit &#123;
 export class MyComponents implements OnInit &#123;
 
     data: TreeNode[];
-    
+
     ngOnInit() &#123;
         this.data = [&#123;
             label: 'Root',
@@ -198,7 +198,7 @@ export class MyComponents implements OnInit &#123;
 &#125;
 </code>
 </pre>
-    
+
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -327,7 +327,7 @@ export class MyComponents implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [(value)]="messages"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;h3 class="first"&gt;Advanced&lt;/h3&gt;
 &lt;p&gt;Organization with advanced customization.&lt;/p&gt;
@@ -355,49 +355,50 @@ export class MyComponents implements OnInit &#123;
 <code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
     templateUrl: './organizationchartdemo.html',
+    providers: [MessageService],
     styles: [`
         .company.ui-organizationchart .ui-organizationchart-node-content.ui-person &#123;
             padding: 0;
             border: 0 none;
         &#125;
-        
+
         .node-header,.node-content &#123;
             padding: .5em .7em;
         &#125;
-        
+
         .node-header &#123;
             background-color: #495ebb;
             color: #ffffff;
         &#125;
-        
+
         .node-content &#123;
             text-align: center;
             border: 1px solid #495ebb;
         &#125;
-        
+
         .node-content img &#123;
             border-radius: 50%;
         &#125;
-        
+
         .department-cfo &#123;
             background-color: #7247bc;
             color: #ffffff;
         &#125;
-        
+
         .department-coo &#123;
             background-color: #a534b6;
             color: #ffffff;
         &#125;
-        
+
         .department-cto &#123;
             background-color: #e9286f;
             color: #ffffff;
         &#125;
-        
+
         .ui-person .ui-node-toggler &#123;
             color: #495ebb !important;
         &#125;
-        
+
         .department-cto .ui-node-toggler &#123;
             color: #8a0a39 !important;
         &#125;
@@ -407,13 +408,13 @@ export class MyComponents implements OnInit &#123;
 export class OrganizationChartDemo implements OnInit &#123;
 
     data1: TreeNode[];
-    
+
     data2: TreeNode[];
-    
+
     selectedNode: TreeNode;
-    
-    messages: Message[];
-    
+
+    constructor(private messageService: MessageService) &#123;&#125;
+
     ngOnInit() &#123;
         this.data1 = [&#123;
             label: 'CEO',
@@ -482,7 +483,7 @@ export class OrganizationChartDemo implements OnInit &#123;
                 &#125;
             ]
         &#125;];
-        
+
         this.data2 = [&#123;
             label: 'F.C Barcelona',
             expanded: true,
@@ -514,9 +515,9 @@ export class OrganizationChartDemo implements OnInit &#123;
             ]
         &#125;];
     &#125;
-    
+
     onNodeSelect(event) &#123;
-        this.messages = [&#123;severity: 'success', summary: 'Node Selected', detail: event.node.label&#125;];
+        this.messageService.add(&#123;severity: 'success', summary: 'Node Selected', detail: event.node.label&#125;);
     &#125;
 &#125;
 </code>

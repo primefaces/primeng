@@ -70,7 +70,7 @@ export interface LocaleSettings {
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let week of month.dates">
-                                        <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
+                                        <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month': date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                             <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                 <a class="ui-state-default" href="#" *ngIf="date.selectable" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}"
@@ -566,13 +566,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
                     week.push({day: j, month: prev.month, year: prev.year, otherMonth: true,
-                            today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year)});
+                            today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year, true)});
                 }
                 
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
                     week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
-                            selectable: this.isSelectable(dayNo, month, year)});
+                            selectable: this.isSelectable(dayNo, month, year, false)});
                     dayNo++;
                 }
             }
@@ -580,13 +580,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 for (let j = 0; j < 7; j++) {
                     if(dayNo > daysLength) {
                         let next = this.getNextMonthAndYear(month, year);
-                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true,
+                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth: true,
                                     today: this.isToday(today, dayNo - daysLength, next.month, next.year),
-                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
+                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year, true)});
                     }
                     else {
                         week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
-                            selectable: this.isSelectable(dayNo, month, year)});
+                            selectable: this.isSelectable(dayNo, month, year, false)});
                     }
                     
                     dayNo++;
@@ -703,12 +703,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else {
             if(this.shouldSelectDate(dateMeta)) {
                 if(dateMeta.otherMonth) {
-                    if(this.selectOtherMonths) {
-                        this.currentMonth = dateMeta.month;
-                        this.currentYear = dateMeta.year;
-                        this.createMonths(this.currentMonth, this.currentYear);
-                        this.selectDate(dateMeta);
-                    }
+                    this.currentMonth = dateMeta.month;
+                    this.currentYear = dateMeta.year;
+                    this.createMonths(this.currentMonth, this.currentYear);
+                    this.selectDate(dateMeta);
                 }
                 else {
                      this.selectDate(dateMeta);
@@ -993,11 +991,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
     
-    isSelectable(day, month, year): boolean {
+    isSelectable(day, month, year, otherMonth): boolean {
         let validMin = true;
         let validMax = true;
         let validDate = true;
         let validDay = true;
+
+        if (otherMonth && !this.selectOtherMonths) {
+            return false;
+        }
         
         if(this.minDate) {
              if(this.minDate.getFullYear() > year) {

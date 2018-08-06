@@ -9,10 +9,9 @@
     position: absolute;
     right: 2em;
     top: 50%;
-    font-size: .75em;
+    font-size: 1em;
     height: 1em;
     margin-top: -.5em;
-    right: 2.5em;
 }
 
 .ui-dropdown .ui-dropdown-trigger {

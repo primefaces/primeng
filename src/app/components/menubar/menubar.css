@@ -42,6 +42,11 @@
     padding: .5em;
 }
 
+.ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link > .ui-submenu-icon {
+    vertical-align: middle;
+    margin-left: .25em;
+}
+
 .ui-menubar .ui-menubar-root-list > li ul {
     display: none;
 }
@@ -56,6 +61,15 @@
 .ui-menubar .ui-submenu-list .ui-menuitem {
     margin: .125em 0;
     position: relative;
+}
+
+.ui-menubar .ui-menuitem-icon {
+    margin-right: .25em;
+    vertical-align: middle;
+}
+
+.ui-menubar .ui-menuitem-text {
+    vertical-align: middle;
 }
 
 .ui-menubar .ui-submenu-list .ui-menuitem-link .ui-submenu-icon {

@@ -4,7 +4,7 @@ import { FormsModule }    from '@angular/forms';
 import { TreeTableDemo } from './treetabledemo';
 import { TreeTableDemoRoutingModule } from './treetabledemo-routing.module';
 import { TreeTableModule } from '../../../components/treetable/treetable';
-import { GrowlModule } from '../../../components/growl/growl';
+import { ToastModule } from '../../../components/toast/toast';
 import { TabViewModule } from '../../../components/tabview/tabview';
 import { MultiSelectModule } from '../../../components/multiselect/multiselect';
 import { ContextMenuModule } from '../../../components/contextmenu/contextmenu';
@@ -31,7 +31,7 @@ import { TreeTableEditDemo } from './treetableeditdemo';
         FormsModule,
 		TreeTableDemoRoutingModule,
         TreeTableModule,
-        GrowlModule,
+        ToastModule,
         TabViewModule,
         MultiSelectModule,
         ContextMenuModule,
