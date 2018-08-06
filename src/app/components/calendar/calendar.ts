@@ -73,7 +73,7 @@ export interface LocaleSettings {
                                         <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month': date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                             <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                                <a class="ui-state-default" href="#" *ngIf="date.selectable" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}"
+                                                <a class="ui-state-default" *ngIf="date.selectable" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}"
                                                     (click)="onDateSelect($event,date)" draggable="false">
                                                     <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                                     <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
@@ -716,6 +716,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         
         if(this.isSingleSelection() && (!this.showTime || this.hideOnDateTimeSelect)) {
             setTimeout(() => {
+                event.preventDefault();
                 this.overlayVisible = false;
 
                 if(this.mask) {

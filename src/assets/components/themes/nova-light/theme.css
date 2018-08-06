@@ -724,12 +724,14 @@ body {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px; }
-      body .ui-datepicker table td > a.ui-state-active {
-        color: #ffffff;
-        background-color: #007ad9; }
-      body .ui-datepicker table td > a.ui-state-highlight {
-        color: #333333;
-        background-color: #d0d0d0; }
+      body .ui-datepicker table td > a {
+        cursor: pointer; }
+        body .ui-datepicker table td > a.ui-state-active {
+          color: #ffffff;
+          background-color: #007ad9; }
+        body .ui-datepicker table td > a.ui-state-highlight {
+          color: #333333;
+          background-color: #d0d0d0; }
       body .ui-datepicker table td.ui-datepicker-today a {
         background-color: #d0d0d0;
         color: #333333; }
