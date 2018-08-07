@@ -422,6 +422,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.filterInputChild.nativeElement.value = null;
         }
         this.onPanelHide.emit();
+        this.visibleOptions=this.options;
     }
     
     close(event) {
