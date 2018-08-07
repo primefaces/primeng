@@ -198,6 +198,27 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         });
     }
 
+    _sortItems(items) {
+        items.sort((data1, data2) => {
+            let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
+            let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
+            let result = null;
+            
+            if (value1 == null && value2 != null)
+            result = -1;
+            else if (value1 != null && value2 == null)
+            result = 1;
+            else if (value1 == null && value2 == null)
+            result = 0;
+            else if (typeof value1 === 'string' && typeof value2 === 'string')
+            result = value1.localeCompare(value2);
+            else
+            result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+            
+            return (this.sortOrder * result);
+        });
+    }
+
     sort() {
         this.first = 0;
 
@@ -205,26 +226,13 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else if (this.value) {
-            this.value.sort((data1, data2) => {
-                let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
-                let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
-                let result = null;
-
-                if (value1 == null && value2 != null)
-                    result = -1;
-                else if (value1 != null && value2 == null)
-                    result = 1;
-                else if (value1 == null && value2 == null)
-                    result = 0;
-                else if (typeof value1 === 'string' && typeof value2 === 'string')
-                    result = value1.localeCompare(value2);
-                else
-                    result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-
-                return (this.sortOrder * result);
-            });
+            this._sortItems(this.value);
         }
 
+        if (this.filteredValue) {
+            this._sortItems(this.filteredValue);
+        }
+        
         this.onSort.emit({
             sortField: this.sortField,
             sortOrder: this.sortOrder
