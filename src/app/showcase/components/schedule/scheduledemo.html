@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Schedule</span>
-        <span>Schedule is an event calendar based on FullCalendar. This sample demonstrates a crud scenario using a Dialog.</span>
+        <span>Schedule is an event calendar based on FullCalendar.</span>
     </div>
 </div>
 
@@ -20,8 +20,8 @@ import &#123;ScheduleModule&#125; from 'primeng/schedule';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Schedule is based on <a href="http://fullcalendar.io/">FullCalendar</a>. For a complete documentation and samples please refer to the fullcalendar website.
-            Events of schedule should be an array and defined using the events property.</p>
+            <p>Schedule is based on <a href="http://fullcalendar.io/">FullCalendar 4.0.0</a> so fullcalendar and moment needs to be included in your project. For a complete documentation and samples please refer to the fullcalendar website.
+            <p>Events of schedule should be an array and defined using the events property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events"&gt;&lt;/p-schedule&gt;
@@ -589,7 +589,7 @@ export class ScheduleDemo implements OnInit &#123;
         this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
         
         this.header = &#123;
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         &#125;;

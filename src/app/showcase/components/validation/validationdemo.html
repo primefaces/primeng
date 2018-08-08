@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [value]="msgs" sticky="sticky"></p-growl>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
     <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
         <p-panel header="Validate">
@@ -19,10 +19,7 @@
                         <input pInputText type="text" formControlName="firstname" placeholder="Required"/>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
-                            <i class="fa fa-close"></i>
-                            Firstname is required
-                        </div>
+                        <p-message severity="error" text="Firstname is required" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -33,10 +30,7 @@
                         <input pInputText type="text" formControlName="lastname" placeholder="Required"/>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
-                            <i class="fa fa-close"></i>
-                            Lastname is required
-                        </div>
+                        <p-message severity="error" text="Lastname is required" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -47,11 +41,8 @@
                         <input pInputText type="password" formControlName="password" placeholder="Required - Min(6)"/>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty">
-                            <i class="fa fa-close"></i>
-                            <span *ngIf="userform.controls['password'].errors['required']">Password is required</span>
-                            <span *ngIf="userform.controls['password'].errors['minlength']">Must be longer than 6 characters</span>
-                        </div>
+                        <p-message severity="error" [text]="userform.controls['password'].errors['required'] ? 'Password is required' : userform.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
+                            *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -71,10 +62,7 @@
                         <p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"></p-dropdown>
                     </div>
                     <div class="ui-grid-col-4">
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty">
-                            <i class="fa fa-close"></i>
-                            Gender is required
-                        </div>
+                        <p-message severity="error" text="Gender is required" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"></p-message>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -106,14 +94,14 @@
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component,OnInit&#125; from '@angular/core';
 import &#123;Validators,FormControl,FormGroup,FormBuilder&#125; from '@angular/forms';
-import &#123;Message,SelectItem&#125; from '../../../components/common/api';
+import &#123;SelectItem&#125; from '../../../components/common/api';
+import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
-    templateUrl: 'showcase/demo/validation/validationdemo.html'
+    templateUrl: 'showcase/demo/validation/validationdemo.html',
+    providers: [MessageService]
 &#125;)
 export class ValidationDemo implements OnInit &#123;
-
-    msgs: Message[] = [];
 
     userform: FormGroup;
 
@@ -123,7 +111,7 @@ export class ValidationDemo implements OnInit &#123;
 
     description: string;
 
-    constructor(private fb: FormBuilder) &#123;&#125;
+    constructor(private fb: FormBuilder, private messageService: MessageService) &#123;&#125;
 
     ngOnInit() &#123;
         this.userform = this.fb.group(&#123;
@@ -142,8 +130,7 @@ export class ValidationDemo implements OnInit &#123;
 
     onSubmit(value: string) &#123;
         this.submitted = true;
-        this.msgs = [];
-        this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Form Submitted'&#125;);
+        this.messageService.add(&#123;severity:'info', summary:'Success', detail:'Form Submitted'&#125;);
     &#125;
 
     get diagnostic() &#123; return JSON.stringify(this.userform.value); &#125;
@@ -156,7 +143,7 @@ export class ValidationDemo implements OnInit &#123;
         <p-tabPanel header="validationdemo.html">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs" sticky="sticky"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)"&gt;
     &lt;p-panel header="Validate"&gt;
@@ -169,10 +156,7 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;input pInputText type="text" formControlName="firstname" placeholder="Required"/&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        Firstname is required
-                    &lt;/div&gt;
+                    &lt;p-message severity="error" text="Firstname is required" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;
@@ -183,10 +167,7 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;input pInputText type="text" formControlName="lastname" placeholder="Required"/&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        Lastname is required
-                    &lt;/div&gt;
+                    &lt;p-message severity="error" text="Lastname is required" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;
@@ -197,11 +178,8 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;input pInputText type="password" formControlName="password" placeholder="Required - Min(6)"/&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        &lt;span *ngIf="userform.controls['password'].errors['required']"&gt;Password is required&lt;/span&gt;
-                        &lt;span *ngIf="userform.controls['password'].errors['minlength']"&gt;Must be longer than 6 characters&lt;/span&gt;
-                    &lt;/div&gt;
+                &lt;p-message severity="error" [text]="userform.controls['password'].errors['required'] ? 'Password is required' : userform.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
+                        *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;
@@ -221,10 +199,7 @@ export class ValidationDemo implements OnInit &#123;
                     &lt;p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
-                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"&gt;
-                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
-                        Gender is required
-                    &lt;/div&gt;
+                    &lt;p-message severity="error" text="Gender is required" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"&gt;&lt;/p-message&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;

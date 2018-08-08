@@ -18,6 +18,10 @@
     cursor: pointer;
 }
 
+.ui-table .ui-table-sort-icon {
+    vertical-align: middle;
+}
+
 .ui-table-auto-layout > .ui-table-wrapper {
     overflow-x: auto;
 }
@@ -129,9 +133,9 @@
 }
 
 /* Edit */
-.ui-table .ui-table-tbody > tr > td.ui-editing-cell {
-    padding-top: 0;
-    padding-bottom: 0;
+.ui-table .ui-table-tbody > tr > td.ui-editing-cell input{
+    padding: 0;
+    border: 0 none;
 }
 
 .ui-table .ui-table-tbody > tr > td.ui-editing-cell p-celleditor >  * {
@@ -196,6 +200,6 @@
     margin-left: -1em;
 }
 
-.ui-table-loading-icon {
+.ui-table .ui-table-loading-icon {
     font-size: 2em;
 }

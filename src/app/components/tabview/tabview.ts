@@ -1,6 +1,7 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,HostListener,AfterContentInit,
         ContentChildren,ContentChild,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {TooltipModule} from '../tooltip/tooltip';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
 
@@ -20,10 +21,10 @@ let idx: number = 0;
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="presentation"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
                 (click)="clickTab($event,tab)" *ngIf="!tab.closed">
-                <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id">
-                    <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
+                <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="orientation">
+                    <span class="ui-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                     <span class="ui-tabview-title">{{tab.header}}</span>
-                    <span class="ui-tabview-right-icon fa" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
+                    <span class="ui-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
                 </a>
                 <span *ngIf="tab.closable" class="ui-tabview-close pi pi-times" (click)="clickClose($event,tab)"></span>
             </li>
@@ -92,6 +93,8 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     @Input() rightIcon: string;
     
     @Input() cache: boolean = true;
+
+    @Input() tooltip: any;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -175,21 +178,10 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     _activeIndex: number;
     
-    _lazy: boolean;
-
     preventActiveIndexPropagation: boolean;
 
     constructor(public el: ElementRef) {}
-    
-    @Input() get lazy(): boolean {
-        return this._lazy;
-    }
-
-    set lazy(val: boolean) {
-        this._lazy = val;
-        console.log('Lazy property of TabView is deprecated, use an ngTemplate inside a TabPanel instead for Lazy Loading');
-    }
-    
+      
     ngAfterContentInit() {
         this.initTabs();
         
@@ -318,7 +310,7 @@ export class TabView implements AfterContentInit,BlockableUI {
 
 
 @NgModule({
-    imports: [CommonModule,SharedModule],
+    imports: [CommonModule,SharedModule,TooltipModule],
     exports: [TabView,TabPanel,TabViewNav,SharedModule],
     declarations: [TabView,TabPanel,TabViewNav]
 })

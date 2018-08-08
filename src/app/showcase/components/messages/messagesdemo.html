@@ -91,15 +91,15 @@ hide() &#123;
             
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+import &#123;MessageService&#125; from 'primeng/api';
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
-import &#123;Message&#125; from 'primeng/components/common/api';
-import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+import &#123;Message&#125; from 'primeng//api';
+import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
     templateUrl: './messagesdemo.html'
@@ -319,6 +319,16 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
 
 @Component(&#123;
     templateUrl: './messagesdemo.html',
+    styles: [`
+        :host ::ng-deep button &#123;
+            margin-right: .25em;
+        &#125;
+
+        :host ::ng-deep .ui-message,
+        :host ::ng-deep .ui-inputtext &#123;
+            margin-right: .25em;
+        &#125;
+    `],
     providers: [MessageService]
 &#125;)
 export class GrowlDemo &#123;

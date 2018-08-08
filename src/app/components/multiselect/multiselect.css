@@ -53,7 +53,6 @@
 
 .ui-multiselect .ui-multiselect-panel {
     min-width: 100%;
-    display: none;
 }
 
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
@@ -129,7 +128,6 @@
     right: .375em;
     top: .375em;
     display: block;
-    font-size: 1em;
     border: 0 none;
 }
 

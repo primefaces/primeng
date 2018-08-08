@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: './inputswitch.html'
+    templateUrl: './inputswitchdemo.html'
 })
 export class InputSwitchDemo {
 

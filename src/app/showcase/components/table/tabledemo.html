@@ -75,9 +75,10 @@ export interface Car &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;Injectable&#125; from 'angular2/core';
-import &#123;Http, Response&#125; from 'angular2/http';
-import &#123;Car&#125; from '../domain/car';
+import &#123; HttpClient &#125; from '@angular/common/http';
+import &#123; Injectable &#125; from '@angular/core';
+
+import &#123; Car &#125; from '../domain/car';
 
 @Injectable()
 export class CarService &#123;
@@ -213,7 +214,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
 
             <h3>Table Layout</h3>
             <p>For performance reasons, default table-layout is fixed meaning the cell widths do not depend on their content. If you require cells to scale based on their contents
-                set <i>autoLayout</i> property to true.
+                set <i>autoLayout</i> property to true. Note that Scrollable and/or Resizable tables do not support auto layout due to technical reasons.
             </p>
 
             <h3>Templates</h3>
@@ -317,7 +318,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                                 state.first: Index of the first records<br />
                                 state.totalRecords: Number of total records<br />
                             </td>
-                            <td>Content to display when there is no value to display.</td>
+                            <td>Custom content for the left section of the paginator.</td>
                         </tr>
                         <tr>
                             <td>paginatorright</td>
@@ -327,7 +328,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                                 state.first: Index of the first records<br />
                                 state.totalRecords: Number of total records<br />
                             </td>
-                            <td>Content to display when there is no value to display.</td>
+                            <td>Custom content for the right section of the paginator.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -819,14 +820,14 @@ export class CustomTableSortDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>For screen reader support of sortable headers, use ariaLabelDesc and ariaLabelAsc properties
-                on p-sortIcon directive.</p>
+            <p>For screen reader support of sortable headers, use ariaLabel, ariaLabelDesc and ariaLabelAsc properties
+                on p-sortIcon component to define aria labels for unsorted, descending and ascending states respectively.</p>
 
             <p>See the <a [routerLink]="['/table/sort']">live example.</a></p>
 
             <h3>Filtering</h3>
             <p>Filtering is enabled by defining the filter and calling filter method on the local template variable of the table with value, column field and match mode parameters. Available match modes are
-            "startsWith", "contains", "endsWith", "equals" and "in". Following is an example that utilizes various PrimeNG form components as filters.</p>
+            "startsWith", "contains", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte". Following is an example that utilizes various PrimeNG form components as filters.</p>
 
             <p>An optional global filter feature is available to search all fields with the same query, to enable this place an input component and call the filterGlobal function with value and match mode properties on your event of choice.</p>
 <pre>
@@ -949,8 +950,8 @@ export class TableFilterDemo implements OnInit &#123;
             <h3>Selection</h3>
             <p>Table provides built-in single and multiple selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a selectionMode, bind a selection reference and add pSelectableRow directive
-            whose value is the rowData to the rows that can be selected. Additionally if you prefer double click use ttSelectableRowDblClick directive instead and
-            to disable selection events on a particular row use ttSelectableRowDisabled. In both cases optional
+            whose value is the rowData to the rows that can be selected. Additionally if you prefer double click use pSelectableRowDblClick directive instead and
+            to disable selection events on a particular row use pSelectableRowDisabled. In both cases optional
             pSelectableRowIndex property is avaiable to access the row index. By default each row click adds or removes the row from the selection, if you prefer a classic
             metaKey based selection approach enable metaKeySelection true so that multiple selection or unselection of a row requires metaKey to be pressed. Note that, on touch enabled
             devices, metaKey based selection is turned off automatically as there is no metaKey in devices such as mobile phones.</p>
@@ -1105,6 +1106,7 @@ export class DataTableDemo implements OnInit &#123;
             <p>DataTable has exclusive integration with contextmenu component. In order to attach a menu to a datatable, add pContextMenuRow directive to the rows that can be selected with context menu, define a local template
             variable for the menu and bind it to the contextMenu property of the datatable. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection
             property is used to get a hold of the right clicked row. For dynamic columns, setting pContextMenuRowDisabled property as true disables context menu for that particular row.</p>
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm"&gt;
@@ -1117,6 +1119,33 @@ export class DataTableDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr [pContextMenuRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
+
+            <p>By default context menu uses a different property called contextMenuSelection as above, this means when row selection mode is also enabled, the two properties, both selection and contextMenuSelection need to be maintained. 
+                In case you prefer to configure Table to manage the same selection property both on row click and context menu, set contextMenuSelectionMode as "joint". Table below has both selectionMode and contextMenu enabled where
+                both of these features update the same selection object.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm" contextMenuSelectionMode="joint"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData" [pContextMenuRow]="rowData"&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
@@ -1406,7 +1435,7 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
-            <p>See the <a [routerLink]="['/table/colreorder']">live example.</a></p>
+            <p>See the <a [routerLink]="['/table/reorder']">live example.</a></p>
 
             <h3>Data Export</h3>
             <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
@@ -1877,7 +1906,7 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>See the <a [routerLink]="['/table/responsive']">live example.</a></p>
+            <p>See the <a [routerLink]="['/table/style']">live example.</a></p>
 
             <h3>Performance Tips</h3>
             <ul>
@@ -1933,6 +1962,18 @@ export class DataTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>tableStyle</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Inline style of the table.</td>
+                        </tr>
+                        <tr>
+                            <td>tableStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the table.</td>
                         </tr>
                         <tr>
                             <td>paginator</td>
@@ -2047,6 +2088,13 @@ export class DataTableDemo implements OnInit &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Selected row with a context menu.</td>
+                        </tr>
+                        <tr>
+                            <td>contextMenuSelectionMode</td>
+                            <td>string</td>
+                            <td>separate</td>
+                            <td>Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection propertty whereas in joint mode
+                                selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property.</td>
                         </tr>
                         <tr>
                             <td>dataKey</td>
@@ -2379,6 +2427,11 @@ export class DataTableDemo implements OnInit &#123;
                             <td>exportCSV</td>
                             <td>config?.selectionOnly: Exports only the selection.</td>
                             <td>Exports the data in csv format.</td>
+                        </tr>
+                        <tr>
+                            <td>closeCellEdit</td>
+                            <td>-</td>
+                            <td>Closes the editing cell.</td>
                         </tr>
                     </tbody>
                 </table>

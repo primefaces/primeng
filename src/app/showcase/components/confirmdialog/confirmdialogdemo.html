@@ -6,14 +6,14 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-growl [value]="msgs"></p-growl>
-    
+<div class="content-section implementation">    
     <p-confirmDialog></p-confirmDialog>
 
     <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
     
     <button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"></button>
+
+    <p-messages [value]="msgs"></p-messages>
 </div>
 
 <div class="content-section documentation">
@@ -335,14 +335,14 @@ export class ConfirmDialogDemo &#123;
                 <span>View on GitHub</span>
             </a>
 <pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
-    
+<code class="language-markup" pCode ngNonBindable>    
 &lt;p-confirmDialog&gt;&lt;/p-confirmDialog&gt;
 
 &lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 
 &lt;button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"&gt;&lt;/button&gt;
+
+&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
 

@@ -13,9 +13,9 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton',
     template: `
-        <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + (options ? options.length : 0)" [ngStyle]="style" [class]="styleClass">
             <div *ngFor="let option of options; let i = index" class="ui-button ui-widget ui-state-default ui-button-text-only {{option.styleClass}}"
-                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled, 'ui-state-focus': cbox == focusedItem, 
+                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled': disabled || option.disabled, 'ui-state-focus': cbox == focusedItem, 
                 'ui-button-text-icon-left': (option.icon != null), 'ui-button-icon-only': (option.icon && !option.label)}" (click)="onItemClick($event,option,cbox,i)" [attr.title]="option.title">
                 <ng-container *ngIf="!itemTemplate else customcontent">
                     <span [ngClass]="['ui-clickable', 'ui-button-icon-left']" [class]="option.icon" *ngIf="option.icon"></span>
@@ -25,7 +25,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option.value, index: i}"></ng-container>
                 </ng-template>
                 <div class="ui-helper-hidden-accessible">
-                    <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled">
+                    <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled || option.disabled">
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@ export class SelectButton implements ControlValueAccessor {
     }
     
     onItemClick(event, option: SelectItem, checkbox: HTMLInputElement, index: number) {
-        if(this.disabled) {
+        if(this.disabled || option.disabled) {
             return;
         }
         

@@ -25,7 +25,7 @@ export class ScheduleDemo implements OnInit {
         this.eventService.getEvents().then(events => {this.events = events;});
         
         this.header = {
-			left: 'prev,next today',
+			left: 'prev,next',
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
 		};

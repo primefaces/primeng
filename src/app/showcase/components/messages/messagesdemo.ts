@@ -8,6 +8,11 @@ import {MessageService} from '../../../components/common/messageservice';
         :host ::ng-deep button {
             margin-right: .25em;
         }
+
+        :host ::ng-deep .ui-message,
+        :host ::ng-deep .ui-inputtext {
+            margin-right: .25em;
+        }
     `],
     providers: [MessageService]
 })

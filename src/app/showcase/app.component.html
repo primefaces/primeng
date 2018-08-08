@@ -16,41 +16,28 @@
                 <a href="#">THEMES</a>
                 <ul>
                     <li class="topbar-submenu-header">THEMING</li>
-                    <li><a [routerLink]="['./theming']">Guide</a></li>
-                    <li><a href="https://www.primefaces.org/designer/primeng">Designer <span class="menuitem-badge">NEW</span></a></li>
-                    <li><a [routerLink]="['./icons']">Icons <span class="menuitem-badge">NEW</span></a></li>
+                    <li><a [routerLink]="['./theming']"><span class="topbar-submenu-icon fa fa-book"></span>Guide</a></li>
+                    <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon fa fa-paint-brush"></span>Designer <span class="menuitem-badge">NEW</span></a></li>
+                    <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon fa fa-info-circle"></span>Icons <span class="menuitem-badge">NEW</span></a></li>
                     <li class="topbar-submenu-header">PREMIUM</li>
+                    <li><a href="http://www.primefaces.org/layouts/avalon-ng"><img src="assets/showcase/images/themeswitcher-avalon.png" alt="Avalon (Bootstrap)"><span class="ui-text">Avalon <span class="theme-badge bootstrap">bootstrap</span></span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/serenity-ng"><img src="assets/showcase/images/themeswitcher-serenity.png" alt="Serenity (Material)"><span class="ui-text">Serenity <span class="theme-badge material">material</span></span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima (Material)"><span class="ui-text">Ultima <span class="theme-badge material">material</span></span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="assets/showcase/images/themeswitcher-barcelona.png" alt="Barcelona (Material)"><span class="ui-text">Barcelona <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ecuador-ng"><img src="assets/showcase/images/themeswitcher-ecuador.png" alt="Ecuador"><span class="ui-text">Ecuador</span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/harmony-ng"><img src="assets/showcase/images/themeswitcher-harmony.png" alt="Harmony"><span class="ui-text">Harmony</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/apollo-ng"><img src="assets/showcase/images/themeswitcher-apollo.png" alt="Apollo"><span class="ui-text">Apollo</span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/serenity-ng"><img src="assets/showcase/images/themeswitcher-serenity.png" alt="Serenity (Material)"><span class="ui-text">Serenity</span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/avalon-ng"><img src="assets/showcase/images/themeswitcher-avalon.png" alt="Avalon (Bootstrap)"><span class="ui-text">Avalon</span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima (Material)"><span class="ui-text">Ultima</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/manhattan-ng"><img src="assets/showcase/images/themeswitcher-manhattan.png" alt="Manhattan"><span class="ui-text">Manhattan</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/harmony-ng"><img src="assets/showcase/images/themeswitcher-harmony.png" alt="Harmony"><span class="ui-text">Harmony</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/verona-ng"><img src="assets/showcase/images/themeswitcher-verona.png" alt="Verona"><span class="ui-text">Verona</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise"><span class="ui-text">Paradise</span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="assets/showcase/images/themeswitcher-barcelona.png" alt="Barcelona (Material)"><span class="ui-text">Barcelona</span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/manhattan-ng"><img src="assets/showcase/images/themeswitcher-manhattan.png" alt="Manhattan"><span class="ui-text">Manhattan</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/morpheus-ng"><img src="assets/showcase/images/themeswitcher-morpheus.png" alt="Morpheus"><span class="ui-text">Morpheus</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/atlantis-ng"><img src="assets/showcase/images/themeswitcher-atlantis.png" alt="Atlantis"><span class="ui-text">Atlantis</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/poseidon-ng"><img src="assets/showcase/images/themeswitcher-poseidon.png" alt="Poseidon"><span class="ui-text">Poseidon</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/omega-ng"><img src="assets/showcase/images/themeswitcher-omega.png" alt="Omega"><span class="ui-text">Omega</span></a></li>
                     <li class="topbar-submenu-header" style="margin-top:16px">FREE</li>
-                    <li><a href="#" (click)="changeTheme($event, 'omega')"><span class="ui-text">Omega</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'cupertino')"><span class="ui-text">Cupertino</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'cruze')"><span class="ui-text">Cruze</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'darkness')"><span class="ui-text">Darkness</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'flick')"><span class="ui-text">Flick</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'home')"><span class="ui-text">Home</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'kasper')"><span class="ui-text">Kasper</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'lightness')"><span class="ui-text">Lightness</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'ludvig')"><span class="ui-text">Ludvig</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'pepper-grinder')"><span class="ui-text">Pepper-Grinder</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'redmond')"><span class="ui-text">Redmond</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'rocket')"><span class="ui-text">Rocket</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'south-street')"><span class="ui-text">South-Street</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'start')"><span class="ui-text">Start</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'trontastic')"><span class="ui-text">Trontastic</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'voclain')"><span class="ui-text">Voclain</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-light')"><img src="assets/showcase/images/themeswitcher-nova-light.png" alt="Nova Light"><span class="ui-text">Nova Light</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-dark')"><img src="assets/showcase/images/themeswitcher-nova-dark.png" alt="Nova Dark"><span class="ui-text">Nova Dark</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-colored')"><img src="assets/showcase/images/themeswitcher-nova-colored.png" alt="Nova Colored"><span class="ui-text">Nova Colored</span></a></li>
                 </ul>
             </li>
             <li>
@@ -109,8 +96,6 @@
             </a>
             <div [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/carousel']" (click)="menuActive = false">&#9679; Carousel</a>
-                <a [routerLink]="['/datagrid']" (click)="menuActive = false">&#9679; DataGrid</a>
-                <a [routerLink]="['/datalist']" (click)="menuActive = false">&#9679; DataList</a>
                 <a [routerLink]="['/dataview']" (click)="menuActive = false">&#9679; DataView</a>
                 <a [routerLink]="['/datascroller']" (click)="menuActive = false">&#9679; DataScroller</a>
                 <a [routerLink]="['/organizationchart']" (click)="menuActive = false">&#9679; Org Chart</a>
@@ -204,6 +189,7 @@
             </a>
             <div [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/messages']" (click)="menuActive = false">&#9679; Messages</a>
+                <a [routerLink]="['/toast']" (click)="menuActive = false">&#9679; Toast <span class="menuitem-badge">NEW</span></a>
                 <a [routerLink]="['/growl']" (click)="menuActive = false">&#9679; Growl</a>
             </div>
 
@@ -258,7 +244,7 @@
         </div>
 
         <div class="content-section layout-footer clearfix">
-            <span>PrimeNG 6.0.0-beta.1</span>
+            <span>PrimeNG 6.1.0</span>
             <div class="footer-links">
                 <a href="https://github.com/primefaces/primeng"><i class="fa fa-github"></i></a>
                 <a href="https://twitter.com/prime_ng"><i class="fa fa-twitter"></i></a>
