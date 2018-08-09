@@ -65,7 +65,7 @@ export class Password implements OnDestroy,DoCheck {
         
     @HostListener('focus', ['$event']) 
     onFocus(e) {
-        if (!this.panel) {
+        if (!this.panel&&this.feedback) {
             this.createPanel();
         }
         if(this.feedback){
