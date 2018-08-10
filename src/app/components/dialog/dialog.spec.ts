@@ -46,7 +46,7 @@ describe('Dialog', () => {
 
     it('should be hidden by default', () => {
         fixture.detectChanges();
-        expect(fixture.debugElement.children[0].styles.display).toEqual('none');
+        expect(fixture.debugElement.nativeElement.childElementCount).toEqual(0);
         expect(dialog.visible).toEqual(undefined);
     });
     
