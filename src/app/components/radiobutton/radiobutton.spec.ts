@@ -24,9 +24,10 @@ describe('RadioButton', () => {
 
     it('should display active state initially when checked by default', () => {
         radiobutton.checked = true;
+        radiobutton.inputViewChild.nativeElement.checked=true;
         fixture.detectChanges();
 
         const boxEl = fixture.nativeElement.querySelector('.ui-radiobutton-box');
-        expect(boxEl.class).toContain('ui-state-active');
+        expect(boxEl.className).toContain('ui-state-active');
     });
 });
