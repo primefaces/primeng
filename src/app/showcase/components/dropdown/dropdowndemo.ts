@@ -11,6 +11,7 @@ interface City {
     templateUrl: './dropdowndemo.html',
 })
 export class DropdownDemo {
+    selectedCodeCity: string = 'LDN';
 
     cities: City[];
 

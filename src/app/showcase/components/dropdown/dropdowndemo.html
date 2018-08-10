@@ -9,7 +9,7 @@
     <h3 class="first">Single</h3>
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
-    
+
     <h3>Editable</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" [style]="{'width':'150px'}" editable="true" placeholder="Select a Brand"></p-dropdown>
     <p>Selected Car: {{selectedCar1 || 'none'}}</p>
@@ -37,6 +37,10 @@
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
+
+    <h3 class="first">Using field as selected value</h3>
+    <p-dropdown [options]="cities" [ngModel]="selectedCodeCity" (ngModelChange)="selectedCodeCity = $event.code" placeholder="Select a City" optionLabel="name" dataKey="code" [showClear]="true"></p-dropdown>
+    <p>Selected City: {{selectedCodeCity ? selectedCodeCity : 'none'}}</p>
 </div>
 
 <div class="content-section documentation">
