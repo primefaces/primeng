@@ -103,6 +103,10 @@ export class OverlayPanel implements OnDestroy {
 
     show(event, target?) {
         this.target = target||event.currentTarget||event.target;
+        if (this.visible && this.container) {
+            this.domHandler.absolutePosition(this.container, this.target);
+        }
+
         this.visible = true;
         
         if (event.type === 'click') {
