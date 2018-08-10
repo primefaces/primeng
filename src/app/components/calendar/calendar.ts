@@ -1418,6 +1418,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             val = val[0];
         }
 
+        this.currentMonth = val.getMonth();
+        this.currentYear = val.getFullYear();
         this.createMonths(val.getMonth(), val.getFullYear());
         
         if(this.showTime||this.timeOnly) {
