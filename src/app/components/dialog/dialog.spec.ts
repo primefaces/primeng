@@ -44,7 +44,7 @@ describe('Dialog', () => {
         expect(resizeEl).not.toBeNull();
     });
 
-    it('should be hidden by default', () => {
+    it('should not create the container element by default', () => {
         fixture.detectChanges();
         expect(fixture.debugElement.nativeElement.childElementCount).toEqual(0);
         expect(dialog.visible).toEqual(undefined);
