@@ -465,7 +465,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -826,12 +826,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateEditableLabel();
         this.updateFilledState();
     }
-    
-    ngOnDestroy() {
+
+    onOverlayHide() {
         this.unbindDocumentClickListener();
-        this.restoreOverlayAppend();
         this.overlay = null;
         this.itemsWrapper = null;
+    }
+    
+    ngOnDestroy() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 }
 

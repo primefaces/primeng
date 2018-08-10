@@ -1466,7 +1466,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -1917,12 +1917,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.documentClickListener = null;
         }
     }
-    
-    ngOnDestroy() {
+
+    onOverlayHide() {
         this.unbindDocumentClickListener();
         this.unbindMaskClickListener();
-        this.restoreOverlayAppend();
         this.overlay = null;
+    }
+    
+    ngOnDestroy() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 }
 

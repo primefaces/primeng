@@ -385,7 +385,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -580,10 +580,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
-    ngOnDestroy() {
+    onOverlayHide() {
         this.unbindDocumentClickListener();
-        this.restoreOverlayAppend();
         this.overlay = null;
+    }
+
+    ngOnDestroy() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 
 }

@@ -150,7 +150,7 @@ export class ConfirmDialog implements OnDestroy {
             break;
 
             case 'void':
-                this.onDestroyElement();
+                this.onOverlayHide();
             break;
         }
     }
@@ -256,15 +256,15 @@ export class ConfirmDialog implements OnDestroy {
         }
     }
 
-    onDestroyElement() {
+    onOverlayHide() {
         this.disableModality();
-        this.restoreAppend();
         this.unbindGlobalListeners();
         this.container = null;
     }
                 
     ngOnDestroy() {
-        this.onDestroyElement();
+        this.restoreAppend();
+        this.onOverlayHide();
         this.subscription.unsubscribe();
     }
     

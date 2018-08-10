@@ -580,14 +580,13 @@ export class Dialog implements OnDestroy {
             break;
 
             case 'void':
-                this.onHide.emit({});
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
-    
-    ngOnDestroy() {
-        this.restoreAppend();
+
+    onOverlayHide() {
+        this.onHide.emit({});
         this.unbindGlobalListeners();
         this.dragging = false;
 
@@ -600,6 +599,11 @@ export class Dialog implements OnDestroy {
         }
 
         this.container = null;
+    }
+    
+    ngOnDestroy() {
+        this.restoreAppend();
+        this.onOverlayHide();
     }
 
 }

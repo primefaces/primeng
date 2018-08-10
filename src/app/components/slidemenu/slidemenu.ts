@@ -225,7 +225,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -297,15 +297,19 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             this.documentResizeListener = null;
         }
     }
+
+    onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
+        this.preventDocumentDefault = false;
+        this.target = null;
+        this.left = 0;
+    }
         
     ngOnDestroy() {
         if (this.popup) {
-            this.unbindDocumentClickListener();
-            this.unbindDocumentResizeListener();
             this.restoreOverlayAppend();
-            this.preventDocumentDefault = false;
-            this.target = null;
-            this.left = 0;
+            this.onOverlayHide();
         }
     }
 

@@ -136,7 +136,7 @@ export class SplitButton implements OnDestroy {
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -191,12 +191,16 @@ export class SplitButton implements OnDestroy {
             this.documentClickListener();
             this.documentClickListener = null;
         }
-    }   
+    }
+
+    onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.overlay = null;
+    }
          
     ngOnDestroy() {
-        this.unbindDocumentClickListener();
         this.restoreOverlayAppend();
-        this.overlay = null;
+        this.onOverlayHide();
     }
 }
 

@@ -274,7 +274,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -530,11 +530,15 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     HSBtoHEX(hsb) {
         return this.RGBtoHEX(this.HSBtoRGB(hsb));
     }
+
+    onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.overlay = null;
+    }
     
     ngOnDestroy() {
-        this.unbindDocumentClickListener();
         this.restoreOverlayAppend();
-        this.overlay = null;
+        this.onOverlayHide();
     }
 }
 

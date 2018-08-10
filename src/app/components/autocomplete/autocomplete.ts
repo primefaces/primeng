@@ -394,7 +394,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -669,10 +669,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         }
     }
 
-    ngOnDestroy() {
+    onOverlayHide() {
         this.unbindDocumentClickListener();
-        this.restoreOverlayAppend();
         this.overlay = null;
+    }
+
+    ngOnDestroy() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 }
 
