@@ -8,7 +8,7 @@ import { SortMeta } from '../common/sortmeta';
 import { FilterMetadata } from '../common/filtermetadata';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Injectable } from '@angular/core';
-import { Subject, Subscription, Observable } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Injectable()
 export class TableService {
@@ -68,7 +68,7 @@ export class TableService {
                 <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="ui-table-thead">
-                        <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns, allExpanded: _allExpanded}"></ng-container>
                     </thead>
                     <tfoot class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
@@ -237,6 +237,8 @@ export class Table implements OnInit, AfterContentInit {
 
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
 
+    @Output() onAllRowToggle: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -328,6 +330,8 @@ export class Table implements OnInit, AfterContentInit {
     initialized: boolean;
 
     rowTouched: boolean;
+
+    _allExpanded: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
@@ -1383,12 +1387,25 @@ export class Table implements OnInit, AfterContentInit {
         this.editingCell = null;
     }
 
-    toggleRow(rowData: any, event?: Event) {
-        if(!this.dataKey) {
-            throw new Error('dataKey must be defined to use row expansion');
+    toggleAllRows() {
+        if (this.rowExpandMode === 'single') {
+            throw new Error('Cannot toggle all rows when rowExpandMode is set to single');
         }
+        this._allExpanded = !this._allExpanded;
+        if(this._allExpanded) {
+            const value = this.filteredValue || this.value;
+            value.forEach(rowData => {
+                let dataKeyValue = this._getDataKeyValue(rowData);
+                this.expandedRowKeys[dataKeyValue] = 1;
+            });
+        } else {
+            this.expandedRowKeys = {};
+        }
+        this.onAllRowToggle.emit({allExpanded: this._allExpanded});
+    }
 
-        let dataKeyValue = String(this.objectUtils.resolveFieldData(rowData, this.dataKey));
+    toggleRow(rowData: any, event?: Event) {
+        let dataKeyValue = this._getDataKeyValue(rowData);
 
         if (this.expandedRowKeys[dataKeyValue] != null) {
             delete this.expandedRowKeys[dataKeyValue];
@@ -1408,10 +1425,23 @@ export class Table implements OnInit, AfterContentInit {
                 data: rowData
             });
         }
+        
+        let numberOfExpandedRows = Object.keys(this.expandedRowKeys)
+            .map(k => this.expandedRowKeys[k])
+            .filter(v => !!v)
+            .length;
+        this._allExpanded = numberOfExpandedRows === (this.filteredValue || this.value).length;
 
         if (event) {
             event.preventDefault();
         }
+    }
+
+    _getDataKeyValue(rowData: any){
+        if(!this.dataKey) {
+            throw new Error('dataKey must be defined to use row expansion');
+        }
+        return String(this.objectUtils.resolveFieldData(rowData, this.dataKey));
     }
 
     isRowExpanded(rowData: any): boolean {
@@ -1726,9 +1756,9 @@ export class Table implements OnInit, AfterContentInit {
         </ng-container>
         <ng-container *ngIf="dt.expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.paginator ? ((dt.filteredValue||dt.value) | slice:(dt.lazy ? 0 : dt.first):((dt.lazy ? 0 : dt.first) + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData)}"></ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), allExpanded: _allExpanded}"></ng-container>
                 <ng-container *ngIf="dt.isRowExpanded(rowData)">
-                    <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
+                    <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, allExpanded: _allExpanded}"></ng-container>
                 </ng-container>
             </ng-template>
         </ng-container>
@@ -2339,12 +2369,18 @@ export class RowToggler {
 
     @Input() pRowTogglerDisabled: boolean;
 
+    @Input() pRowTogglerAll: boolean
+
     constructor(public dt: Table) { }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
         if (this.isEnabled()) {
-            this.dt.toggleRow(this.data, event);
+            if(this.pRowTogglerAll) {
+                this.dt.toggleAllRows();
+            } else{
+                this.dt.toggleRow(this.data, event);
+            }
             event.preventDefault();
         }
     }
