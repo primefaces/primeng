@@ -65,10 +65,10 @@ export class Password implements OnDestroy,DoCheck {
         
     @HostListener('focus', ['$event']) 
     onFocus(e) {
-        if (!this.panel) {
+        if (!this.panel&&this.feedback) {
             this.createPanel();
         }
-
+        if(this.feedback){
         this.panel.style.zIndex = String(++DomHandler.zindex);
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
@@ -77,6 +77,7 @@ export class Password implements OnDestroy,DoCheck {
             }, 1);
             this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
         });
+    }
     }
     
     @HostListener('blur', ['$event']) 
@@ -95,6 +96,7 @@ export class Password implements OnDestroy,DoCheck {
     
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
+        if(this.feedback){
         let value = e.target.value,
         label = null,
         meterPos = null;
@@ -122,6 +124,7 @@ export class Password implements OnDestroy,DoCheck {
 
         this.meter.style.backgroundPosition = meterPos;
         this.info.textContent = label;
+    }
     }
     
     testStrength(str: string) {
