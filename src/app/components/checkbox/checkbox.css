@@ -3,6 +3,7 @@
     cursor: pointer;
     vertical-align: middle;
     margin-right: .25em;
+    user-select: none;
 }
 
 .ui-chkbox .ui-chkbox-box {
