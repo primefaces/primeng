@@ -19,12 +19,14 @@ export class TableService {
     private contextMenuSource = new Subject<any>();
     private valueSource = new Subject<any>();
     private totalRecordsSource = new Subject<any>();
+    private columnsSource = new Subject();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     valueSource$ = this.valueSource.asObservable();
     totalRecordsSource$ = this.totalRecordsSource.asObservable();
+    columnsSource$ = this.columnsSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -44,6 +46,10 @@ export class TableService {
 
     onTotalRecordsChange(value: number) {
         this.totalRecordsSource.next(value);
+    }
+
+    onColumnsChange(columns: any[]) {
+        this.columnsSource.next(columns);
     }
 }
 
@@ -100,8 +106,6 @@ export class TableService {
 })
 export class Table implements OnInit, AfterContentInit, BlockableUI {
     
-    @Input() columns: any[];
-
     @Input() frozenColumns: any[];
 
     @Input() frozenValue: any[];
@@ -251,6 +255,8 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     _value: any[] = [];
+
+    _columns: any[];
 
     _totalRecords: number = 0;
 
@@ -427,6 +433,14 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         }
 
         this.tableService.onValueChange(val);
+    }
+
+    @Input() get columns(): any[] {
+        return this._columns;
+    }
+    set columns(cols: any[]) {
+        this._columns = cols;
+        this.tableService.onColumnsChange(cols);
     }
 
     @Input() get totalRecords(): number {
@@ -1823,6 +1837,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     subscription: Subscription;
 
     totalRecordsSubscription: Subscription;
+
+    columnsSubscription: Subscription;
     
     initialized: boolean;
 
@@ -1831,7 +1847,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.alignScrollBar();
-                    this.setScrollHeight();
                 }, 50);
             });
         });
@@ -1841,6 +1856,16 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 this.zone.runOutsideAngular(() => {
                     setTimeout(() => {
                         this.setVirtualScrollerHeight();
+                    }, 50);
+                });
+            });
+        }
+
+        if (this.frozen) {
+            this.columnsSubscription = this.dt.tableService.columnsSource$.subscribe(() => {
+                this.zone.runOutsideAngular(() => {
+                    setTimeout(() => {
+                        this.setScrollHeight();
                     }, 50);
                 });
             });
@@ -2037,6 +2062,11 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         if(this.totalRecordsSubscription) {
             this.totalRecordsSubscription.unsubscribe();
         }
+
+        if(this.columnsSubscription) {
+            this.columnsSubscription.unsubscribe();
+        }
+
         this.initialized = false;
     }
 }
