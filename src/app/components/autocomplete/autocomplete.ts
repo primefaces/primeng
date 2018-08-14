@@ -206,6 +206,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         this._suggestions = val;
         
         if(this.immutable) {
+            if (this._suggestions && this._suggestions.length) {
+                this.loading = true;
+            }
             this.handleSuggestionsChange();
         }
     }
