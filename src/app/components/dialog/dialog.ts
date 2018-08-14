@@ -294,7 +294,10 @@ export class Dialog implements OnDestroy {
         this.container.style.left = '0px';
         this.container.style.width = '100vw';
         this.container.style.height = '100vh';
+        const diffHeight = this.domHandler.getOuterHeight(this.headerViewChild.nativeElement) + parseFloat(this.container.style.top);
+        if(this.footerViewChild){
         const diffHeight = this.domHandler.getOuterHeight(this.headerViewChild.nativeElement) + this.domHandler.getOuterHeight(this.footerViewChild.nativeElement) + parseFloat(this.container.style.top);
+        }
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
         this.domHandler.addClass(document.body, 'ui-overflow-hidden');
