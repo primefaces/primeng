@@ -8,6 +8,7 @@ import { SortMeta } from '../common/sortmeta';
 import { FilterMetadata } from '../common/filtermetadata';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Injectable } from '@angular/core';
+import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription, Observable } from 'rxjs';
 
 @Injectable()
@@ -97,7 +98,7 @@ export class TableService {
     `,
     providers: [DomHandler, ObjectUtils, TableService]
 })
-export class Table implements OnInit, AfterContentInit {
+export class Table implements OnInit, AfterContentInit, BlockableUI {
     
     @Input() columns: any[];
 
@@ -1708,6 +1709,10 @@ export class Table implements OnInit, AfterContentInit {
     isEmpty() {
         let data = this.filteredValue||this.value;
         return data == null || data.length == 0;
+    }
+
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 
     ngOnDestroy() {
