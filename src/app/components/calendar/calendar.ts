@@ -1780,6 +1780,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             iValue++;
         };
 
+        if(this.view === 'month') {
+            day = 1;
+        }
+        
         for (iFormat = 0; iFormat < format.length; iFormat++) {
             if(literal) {
                 if(format.charAt(iFormat) === "'" && !lookAhead("'")) {
