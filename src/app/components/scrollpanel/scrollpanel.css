@@ -10,7 +10,7 @@
 .ui-scrollpanel-content {
     height: calc(100% + 18px);
     width: calc(100% + 18px);
-    padding: 0 0 0 0;
+    padding: 0 18px 18px 0;
     position: relative;
     overflow: auto;
     box-sizing: border-box;
