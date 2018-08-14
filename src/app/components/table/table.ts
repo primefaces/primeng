@@ -1208,7 +1208,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return false;
             }
 
-            return value.toString().toLowerCase() == filter.toString().toLowerCase();
+            if (value.getTime && filter.getTime)
+                return value.getTime() === filter.getTime();
+            else
+                return value.toString().toLowerCase() == filter.toString().toLowerCase();
         },
 
         notEquals(value, filter): boolean {
@@ -1220,7 +1223,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return true;
             }
 
-            return value.toString().toLowerCase() != filter.toString().toLowerCase();
+            if (value.getTime && filter.getTime)
+                return value.getTime() !== filter.getTime();
+            else
+                return value.toString().toLowerCase() != filter.toString().toLowerCase();
         },
 
         in(value, filter: any[]): boolean {
@@ -1233,8 +1239,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             }
 
             for (let i = 0; i < filter.length; i++) {
-                if (filter[i] === value)
+                if (filter[i] === value || (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime())) {
                     return true;
+                }
             }
 
             return false;
@@ -1249,7 +1256,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return false;
             }
 
-            return value < filter;
+            if (value.getTime && filter.getTime)
+                return value.getTime() < filter.getTime();
+            else
+                return value < filter;
         },
         
         lte(value, filter): boolean {
@@ -1261,7 +1271,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return false;
             }
 
-            return value <= filter;
+            if (value.getTime && filter.getTime)
+                return value.getTime() <= filter.getTime();
+            else
+                return value <= filter;
         },
 
         gt(value, filter): boolean {
@@ -1273,7 +1286,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return false;
             }
 
-            return value > filter;
+            if (value.getTime && filter.getTime)
+                return value.getTime() > filter.getTime();
+            else
+                return value > filter;
         },
         
         gte(value, filter): boolean {
@@ -1285,7 +1301,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return false;
             }
 
-            return value >= filter;
+            if (value.getTime && filter.getTime)
+                return value.getTime() >= filter.getTime();
+            else
+                return value >= filter;
         }
     }
 
