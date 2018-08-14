@@ -158,6 +158,8 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Input() lazy: boolean = false;
 
+    @Input() initialLazyLoad: boolean = true;
+
     @Input() compareSelectionBy: string = 'deepEquals';
 
     @Input() csvSeparator: string = ',';
@@ -339,7 +341,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
-        if (this.lazy) {
+        if (this.lazy && this.initialLazyLoad) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         this.initialized = true;
