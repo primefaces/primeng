@@ -175,14 +175,6 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             case 'grid':
                 this.itemTemplate = this.gridItemTemplate;
             break;
-
-            case 'paginatorleft':
-                this.itemTemplate = this.paginatorLeftTemplate;
-            break;
-
-            case 'paginatorright':
-                this.itemTemplate = this.paginatorRightTemplate;
-            break;
         }
     }
     
