@@ -158,7 +158,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Input() lazy: boolean = false;
 
-    @Input() initialLazyLoad: boolean = true;
+    @Input() lazyLoadOnInit: boolean = true;
 
     @Input() compareSelectionBy: string = 'deepEquals';
 
@@ -341,7 +341,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
-        if (this.lazy && this.initialLazyLoad) {
+        if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         this.initialized = true;
