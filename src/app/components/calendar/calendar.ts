@@ -35,7 +35,7 @@ export interface LocaleSettings {
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button"
                     [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
             </ng-template>
-            <div [class]="panelStyleClass" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
+            <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
                 (click)="onDatePickerClick($event)" [@overlayAnimation]="touchUI ? 'visibleTouchUI': 'visible'" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
                 <ng-container *ngIf="!timeOnly">
@@ -281,6 +281,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() baseZIndex: number = 0;
 
     @Input() panelStyleClass: string;
+    
+    @Input() panelStyle: any;
   
     @Input() keepInvalid: boolean = false;
 
