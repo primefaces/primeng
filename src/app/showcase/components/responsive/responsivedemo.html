@@ -3,7 +3,7 @@
         <div>
             <span class="feature-title">Responsive</span>
             <span>.ui-fluid style class provides fluid width to components for efficient use of space in screen.
-                This example demonstrates ui-fluid in combination with Grid CSS and the components having built-in responsive modes like datatable. Note that Grid CSS is not mandatory, any grid system 
+                This example demonstrates ui-fluid in combination with Grid CSS and the components having built-in responsive modes like turbo table. Note that Grid CSS is not mandatory, any grid system 
                 can be used with ui-fluid.</span>
         </div>
     </div>
@@ -121,13 +121,39 @@
             but given to ruthless violence whenever anything stands against the good of the family.
         </p-panel>
 
-        <p-dataTable [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
-            <p-header>Cars</p-header>
-            <p-column field="vin" header="Vin"></p-column>
-            <p-column field="year" header="Year"></p-column>
-            <p-column field="brand" header="Brand"></p-column>
-            <p-column field="color" header="Color"></p-column>
-        </p-dataTable>
+        <p-table [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true" [style]="{'margin-top':'20px'}">
+            <ng-template pTemplate="caption">
+                List of Cars
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>Vin</th>
+                    <th>Year</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>
+                        <span class="ui-column-title">Vin</span>
+                        {{car.vin}}
+                    </td>
+                    <td>
+                        <span class="ui-column-title">Year</span>
+                        {{car.year}}
+                    </td>
+                    <td>
+                        <span class="ui-column-title">Brand</span>
+                        {{car.brand}}
+                    </td>
+                    <td>
+                        <span class="ui-column-title">Color</span>
+                        {{car.color}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
 
         <p-dataGrid [style]="{'margin-top':'20px','margin-bottom':'20px'}" [value]="cars" [paginator]="true" [rows]="20">
             <p-header>
@@ -308,13 +334,39 @@
     but given to ruthless violence whenever anything stands against the good of the family.
 &lt;/p-panel&gt;
 
-&lt;p-dataTable [style]="&#123;'margin-top':'20px'&#125;" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true"&gt;
-    &lt;p-header&gt;Cars&lt;/p-header&gt;
-    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
-    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-&lt;/p-dataTable&gt;
+&lt;p-table [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true" [style]="&#123;'margin-top':'20px'&#125;"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        List of Cars
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Vin&lt;/th&gt;
+            &lt;th&gt;Year&lt;/th&gt;
+            &lt;th&gt;Brand&lt;/th&gt;
+            &lt;th&gt;Color&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-car&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Vin&lt;/span&gt;
+                &#123;&#123;car.vin&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Year&lt;/span&gt;
+                &#123;&#123;car.year&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Brand&lt;/span&gt;
+                &#123;&#123;car.brand&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Color&lt;/span&gt;
+                &#123;&#123;car.color&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
 
 &lt;p-dataGrid [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [value]="cars" [paginator]="true" [rows]="20"&gt;
     &lt;p-header&gt;
