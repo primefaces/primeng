@@ -1411,7 +1411,7 @@ body .ui-table .ui-table-thead > tr > th {
   border: 1px solid #c8c8c8;
   font-weight: 700;
   color: #333333;
-  background-color: #ffffff; }
+  background-color: #eaeaea; }
 body .ui-table .ui-table-tbody > tr > td {
   padding: 0.429em 0.857em; }
 body .ui-table .ui-table-tfoot > tr > td {
@@ -1423,7 +1423,7 @@ body .ui-table .ui-table-tfoot > tr > td {
 body .ui-table .ui-sortable-column a, body .ui-table .ui-sortable-column a:hover {
   color: #333333; }
 body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
-  background-color: #eaeaea;
+  background-color: #d2d2d2;
   color: #333333; }
   body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover a, body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover a:hover {
     color: #333333; }
@@ -1822,7 +1822,7 @@ body .ui-treetable .ui-treetable-thead > tr > th {
   border: 1px solid #c8c8c8;
   font-weight: 700;
   color: #333333;
-  background-color: #ffffff; }
+  background-color: #eaeaea; }
 body .ui-treetable .ui-treetable-tbody > tr > td {
   padding: 0.429em 0.857em; }
 body .ui-treetable .ui-treetable-tfoot > tr > td {
@@ -1834,7 +1834,7 @@ body .ui-treetable .ui-treetable-tfoot > tr > td {
 body .ui-treetable .ui-sortable-column a, body .ui-treetable .ui-sortable-column a:hover {
   color: #333333; }
 body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover {
-  background-color: #eaeaea;
+  background-color: #d2d2d2;
   color: #333333; }
   body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover a, body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover a:hover {
     color: #333333; }
