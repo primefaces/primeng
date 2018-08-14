@@ -19,7 +19,7 @@ import {SelectItem} from '../common/selectitem';
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
+                [dropdownAppendTo]="paginatorDropdownAppendTo" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
             <div class="ui-dataview-content ui-widget-content">
                 <div class="ui-g">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
@@ -30,7 +30,7 @@ import {SelectItem} from '../common/selectitem';
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
+                [dropdownAppendTo]="paginatorDropdownAppendTo" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
             <div class="ui-dataview-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -94,6 +94,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     itemTemplate: TemplateRef<any>;
 
+    paginatorLeftTemplate: TemplateRef<any>;
+
+    paginatorRightTemplate: TemplateRef<any>;
+
     first: number = 0;
     
     filteredValue: any[];
@@ -148,6 +152,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
                 case 'gridItem':
                     this.gridItemTemplate = item.template;
                 break;
+
+                case 'paginatorleft':
+                    this.paginatorLeftTemplate = item.template;
+                break;
+
+                case 'paginatorright':
+                    this.paginatorRightTemplate = item.template;
+                break;
             }
         });
 
@@ -162,6 +174,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             
             case 'grid':
                 this.itemTemplate = this.gridItemTemplate;
+            break;
+
+            case 'paginatorleft':
+                this.itemTemplate = this.paginatorLeftTemplate;
+            break;
+
+            case 'paginatorright':
+                this.itemTemplate = this.paginatorRightTemplate;
             break;
         }
     }
