@@ -268,20 +268,18 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     filter(filter: string) {
         this.filterValue = filter;
 
-        if (this.hasFilter()) {
-            if (this.value && this.value.length) {
-                let searchFields = this.filterBy.split(',');
-                this.filteredValue = this.objectUtils.filter(this.value, searchFields, filter);
-        
-                if (this.filteredValue.length === this.value.length ) {
-                    this.filteredValue = null;
-                }
-        
-                if (this.paginator) {
-                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
-                }
+        if (this.value && this.value.length) {
+            let searchFields = this.filterBy.split(',');
+            this.filteredValue = this.objectUtils.filter(this.value, searchFields, filter);
+    
+            if (this.filteredValue.length === this.value.length ) {
+                this.filteredValue = null;
             }
-        }        
+    
+            if (this.paginator) {
+                this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+            }
+        }       
     }
 
     hasFilter() {
