@@ -1816,6 +1816,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     frozenSiblingBody: Element;
 
+    scrollableSiblingBody: Element;
+
     _scrollHeight: string;
 
     subscription: Subscription;
@@ -1829,6 +1831,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.alignScrollBar();
+                    this.setScrollHeight();
                 }, 50);
             });
         });
@@ -1857,15 +1860,12 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     ngAfterViewChecked() {
         if(!this.initialized && this.el.nativeElement.offsetParent) {
             this.alignScrollBar();
+            this.setScrollHeight();
             this.initialized = true;
         }
     }
 
     ngAfterViewInit() {
-        this.bindEvents();
-        this.setScrollHeight();
-        this.alignScrollBar();
-
         if(!this.frozen) {
             if (this.dt.frozenColumns || this.dt.frozenBodyTemplate) {
                 this.domHandler.addClass(this.el.nativeElement, 'ui-table-unfrozen-view');
@@ -1883,7 +1883,15 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
         else {
             this.scrollBodyViewChild.nativeElement.style.marginBottom = this.domHandler.calculateScrollbarWidth() + 'px';
+            let scrollableView = this.el.nativeElement.nextElementSibling;
+            if (scrollableView) {
+                this.scrollableSiblingBody = this.domHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
+            }
         }
+
+        this.bindEvents();
+        this.setScrollHeight();
+        this.alignScrollBar();
 
         if(this.dt.virtualScroll) {
             this.setVirtualScrollerHeight();
@@ -1986,8 +1994,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
             }
-            else {
-                if(this.frozen)
+            else {                
+                if(this.frozen && this.scrollableSiblingBody && this.domHandler.getOuterWidth(this.scrollableSiblingBody) < this.domHandler.getOuterWidth(this.scrollableSiblingBody.children[0]))
                     this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - this.domHandler.calculateScrollbarWidth()) + 'px';
                 else
                     this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
