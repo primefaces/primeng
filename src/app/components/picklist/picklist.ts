@@ -567,7 +567,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     onDrop(event: DragEvent, index: number, listType: number) {
         if(this.onListItemDroppoint) {
             if(listType === this.SOURCE_LIST) {
-                if(this.fromListType === this.TARGET_LIST) {
+                if(this.fromListType === this.TARGET_LIST)
                     this.insert(this.draggedItemIndexTarget, this.target, index, this.source, this.onMoveToSource);
                 else
                     this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
@@ -575,7 +575,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 this.dragOverItemIndexSource = null;
             }
             else {
-                if(this.fromListType === this.SOURCE_LIST) {
+                if(this.fromListType === this.SOURCE_LIST)
                     this.insert(this.draggedItemIndexSource, this.source, index, this.target, this.onMoveToTarget);
                 else
                     this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
