@@ -54,16 +54,16 @@ export class InputSwitch implements ControlValueAccessor {
 
     onInputChange(event: Event) {
         const inputChecked = (<HTMLInputElement> event.target).checked;
-        this.updateModel(inputChecked);
+        this.updateModel(event, inputChecked);
     }
 
     toggle(event: Event) {
         if (!this.disabled) {  
-            this.updateModel(!this.checked);
+            this.updateModel(event, !this.checked);
         }
     }
 
-    updateModel(value: boolean) {
+    updateModel(event: Event, value: boolean) {
         this.checked = value;
         this.onModelChange(this.checked);
         this.onChange.emit({
