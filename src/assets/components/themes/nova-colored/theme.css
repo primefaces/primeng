@@ -2610,8 +2610,8 @@ body .ui-inplace {
     body .ui-inplace .ui-inplace-display:not(.ui-state-disabled):hover {
       background-color: #eaeaea;
       color: #333333; }
-  body .ui-inplace.ui-inplace-closable .ui-inplace-content > :first-child {
-    display: inline-block;
-    width: calc(100% - 2.357em); }
+body .ui-fluid .ui-inplace.ui-inplace-closable .ui-inplace-content > :first-child {
+  display: inline-block;
+  width: calc(100% - 2.357em); }
 
 /* Add your customizations of theme here */
