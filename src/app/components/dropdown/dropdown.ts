@@ -499,6 +499,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
+
+        this.cd.markForCheck();
     }
     
     alignOverlay() {
