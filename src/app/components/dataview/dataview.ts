@@ -238,7 +238,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
                 return (this.sortOrder * result);
             });
 
-            if(this.filterValue) {
+            if (this.hasFilter()) {
                 this.filter(this.filterValue);
             }
         }
@@ -266,20 +266,26 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     }
 
     filter(filter: string) {
-        if (this.value && this.value.length) {
-            this.filterValue = filter;
-            let searchFields = this.filterBy.split(',');
-            this.filteredValue = this.objectUtils.filter(this.value, searchFields, filter);
-    
-            if (this.filteredValue.length === this.value.length ) {
-                this.filteredValue = null;
-            }
-    
-            if (this.paginator) {
-                this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
-            }
-        }
+        this.filterValue = filter;
+
+        if (this.hasFilter()) {
+            if (this.value && this.value.length) {
+                let searchFields = this.filterBy.split(',');
+                this.filteredValue = this.objectUtils.filter(this.value, searchFields, filter);
         
+                if (this.filteredValue.length === this.value.length ) {
+                    this.filteredValue = null;
+                }
+        
+                if (this.paginator) {
+                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+                }
+            }
+        }        
+    }
+
+    hasFilter() {
+        return this.filterValue && this.filterValue.trim().length > 0;
     }
 }
 
