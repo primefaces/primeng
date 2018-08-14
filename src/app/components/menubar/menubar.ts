@@ -50,13 +50,13 @@ export class MenubarSub implements OnDestroy {
     documentClickListener: any;
 
     menuClick: boolean;
-  
+
     menuHoverActive: boolean = false;
 
     activeItem: any;
 
     hideTimeout: any;
-    
+
     activeMenu: any;
 
     constructor(public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef) { }
@@ -67,7 +67,7 @@ export class MenubarSub implements OnDestroy {
             if (menuitem.disabled) {
                 return;
             }
-            
+
             this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
@@ -116,7 +116,7 @@ export class MenubarSub implements OnDestroy {
                 this.hideTimeout = null;
             }
 
-            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item)? null: item) : item;
+            this.activeItem = item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
@@ -131,8 +131,6 @@ export class MenubarSub implements OnDestroy {
                     sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
                 }
             }
-  
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
         }
     }
 
