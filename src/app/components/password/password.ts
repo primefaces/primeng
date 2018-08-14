@@ -65,18 +65,20 @@ export class Password implements OnDestroy,DoCheck {
         
     @HostListener('focus', ['$event']) 
     onFocus(e) {
-        if (!this.panel) {
-            this.createPanel();
+        if (this.feedback) {
+            if (!this.panel) {
+                this.createPanel();
+            }
+    
+            this.panel.style.zIndex = String(++DomHandler.zindex);
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.domHandler.addClass(this.panel, 'ui-password-panel-visible');
+                    this.domHandler.removeClass(this.panel, 'ui-password-panel-hidden');
+                }, 1);
+                this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
+            });
         }
-
-        this.panel.style.zIndex = String(++DomHandler.zindex);
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.domHandler.addClass(this.panel, 'ui-password-panel-visible');
-                this.domHandler.removeClass(this.panel, 'ui-password-panel-hidden');
-            }, 1);
-            this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
-        });
     }
     
     @HostListener('blur', ['$event']) 
