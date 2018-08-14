@@ -102,6 +102,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     
     filteredValue: any[];
 
+    filterValue: string;
+
     _sortField: string;
 
     _sortOrder: number = 1;
@@ -235,6 +237,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
                 return (this.sortOrder * result);
             });
+
+            if(this.filterValue) {
+                this.filter(this.filterValue);
+            }
         }
 
         this.onSort.emit({
@@ -259,10 +265,11 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    filter(value: string) {
+    filter(filter: string) {
         if (this.value && this.value.length) {
+            this.filterValue = filter;
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = this.objectUtils.filter(this.value, searchFields, value);
+            this.filteredValue = this.objectUtils.filter(this.value, searchFields, filter);
     
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;
