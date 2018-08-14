@@ -50,6 +50,10 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     @Input() easing: 'ease-out';
     
     @Input() effectDuration: any = '500ms';
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
                 
     public visible: boolean;
     
@@ -119,11 +123,13 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     show() {
         this.mask = document.createElement('div');
-        this.mask.style.zIndex = ++DomHandler.zindex;
+        
         this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
         document.body.appendChild(this.mask);
-        
-        this.zindex = ++DomHandler.zindex;
+        if (this.autoZIndex) {
+            this.zindex = this.baseZIndex + (++DomHandler.zindex);
+        }
+        this.mask.style.zIndex = this.zindex - 1;
         this.center();
         this.visible = true;
     }

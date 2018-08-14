@@ -146,6 +146,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() optionLabel: string;
 
     @Input() showHeader: boolean = true;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -378,7 +382,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             case 'visible':
                 this.overlay = event.element;
                 this.appendOverlay();
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                if (this.autoZIndex) {
+                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
                 this.onPanelShow.emit();

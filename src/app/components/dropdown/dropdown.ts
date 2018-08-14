@@ -159,6 +159,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() showClear: boolean;
 
     @Input() emptyFilterMessage: string = 'No results found';
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -452,7 +456,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.overlay = event.element;
                 this.itemsWrapper = this.domHandler.findSingle(this.overlay, '.ui-dropdown-items-wrapper');
                 this.appendOverlay();
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                if (this.autoZIndex) {
+                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
 

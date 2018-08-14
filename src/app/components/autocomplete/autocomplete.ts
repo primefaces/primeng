@@ -104,6 +104,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     @Input() type: string = 'text';
 
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
+
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -388,7 +392,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
             case 'visible':
                 this.overlay = event.element;
                 this.appendOverlay();
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                if (this.autoZIndex) {
+                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
             break;

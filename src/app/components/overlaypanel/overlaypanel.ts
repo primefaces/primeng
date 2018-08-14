@@ -44,6 +44,10 @@ export class OverlayPanel implements OnDestroy {
     
     @Input() appendTo: any;
 
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
+
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
@@ -135,7 +139,9 @@ export class OverlayPanel implements OnDestroy {
                 this.container = event.element;
                 this.onShow.emit(null);
                 this.appendContainer();
-                this.container.style.zIndex = String(++DomHandler.zindex);
+                if (this.autoZIndex) {
+                    this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
                 this.domHandler.absolutePosition(this.container, this.target);
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
