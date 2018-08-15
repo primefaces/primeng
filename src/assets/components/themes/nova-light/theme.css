@@ -1333,7 +1333,7 @@ body .ui-card {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }
 
 body .ui-paginator {
-  background-color: #ffffff;
+  background-color: #f4f4f4;
   border: 1px solid #c8c8c8;
   padding: 0; }
   body .ui-paginator .ui-paginator-first,
@@ -1347,12 +1347,15 @@ body .ui-paginator {
     line-height: 2.286em;
     padding: 0;
     margin: 0;
-    vertical-align: top; }
+    vertical-align: top;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0; }
     body .ui-paginator .ui-paginator-first:not(.ui-state-disabled):not(.ui-state-active):hover,
     body .ui-paginator .ui-paginator-prev:not(.ui-state-disabled):not(.ui-state-active):hover,
     body .ui-paginator .ui-paginator-next:not(.ui-state-disabled):not(.ui-state-active):hover,
     body .ui-paginator .ui-paginator-last:not(.ui-state-disabled):not(.ui-state-active):hover {
-      background-color: #eaeaea;
+      background-color: #e0e0e0;
       color: #333333; }
   body .ui-paginator .ui-dropdown {
     border: 0 none; }
@@ -1383,12 +1386,15 @@ body .ui-paginator {
       line-height: 2.286em;
       padding: 0;
       margin: 0;
-      vertical-align: top; }
+      vertical-align: top;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border-radius: 0; }
       body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
         background-color: #007ad9;
         color: #ffffff; }
       body .ui-paginator .ui-paginator-pages .ui-paginator-page:not(.ui-state-active):hover {
-        background-color: #eaeaea;
+        background-color: #e0e0e0;
         color: #333333; }
   body .ui-paginator .ui-dropdown {
     margin-left: 0.5em;
@@ -1409,9 +1415,9 @@ body .ui-table .ui-table-summary {
 body .ui-table .ui-table-thead > tr > th {
   padding: 0.571em 0.857em;
   border: 1px solid #c8c8c8;
-  font-weight: 700;
+  font-weight: 400;
   color: #333333;
-  background-color: #eaeaea; }
+  background-color: #f4f4f4; }
 body .ui-table .ui-table-tbody > tr > td {
   padding: 0.429em 0.857em; }
 body .ui-table .ui-table-tfoot > tr > td {
@@ -1421,9 +1427,9 @@ body .ui-table .ui-table-tfoot > tr > td {
   color: #333333;
   background-color: #ffffff; }
 body .ui-table .ui-sortable-column a, body .ui-table .ui-sortable-column a:hover {
-  color: #333333; }
+  color: #848484; }
 body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
-  background-color: #d2d2d2;
+  background-color: #e0e0e0;
   color: #333333; }
   body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover a, body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover a:hover {
     color: #333333; }
@@ -1820,9 +1826,9 @@ body .ui-treetable .ui-treetable-summary {
 body .ui-treetable .ui-treetable-thead > tr > th {
   padding: 0.571em 0.857em;
   border: 1px solid #c8c8c8;
-  font-weight: 700;
+  font-weight: 400;
   color: #333333;
-  background-color: #eaeaea; }
+  background-color: #f4f4f4; }
 body .ui-treetable .ui-treetable-tbody > tr > td {
   padding: 0.429em 0.857em; }
 body .ui-treetable .ui-treetable-tfoot > tr > td {
@@ -1832,9 +1838,9 @@ body .ui-treetable .ui-treetable-tfoot > tr > td {
   color: #333333;
   background-color: #ffffff; }
 body .ui-treetable .ui-sortable-column a, body .ui-treetable .ui-sortable-column a:hover {
-  color: #333333; }
+  color: #848484; }
 body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover {
-  background-color: #d2d2d2;
+  background-color: #e0e0e0;
   color: #333333; }
   body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover a, body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover a:hover {
     color: #333333; }
