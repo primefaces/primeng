@@ -65,6 +65,10 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     @Input() tabindex: string;
     
     @Input() inputId: string;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -264,7 +268,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
                 if (!this.inline) {
                     this.overlay = event.element;
                     this.appendOverlay();
-                    this.overlay.style.zIndex = String(++DomHandler.zindex);
+                    if (this.autoZIndex) {
+                        this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                    }
                     this.alignOverlay();
                     this.bindDocumentClickListener();
 
@@ -274,7 +280,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -530,11 +536,15 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     HSBtoHEX(hsb) {
         return this.RGBtoHEX(this.HSBtoRGB(hsb));
     }
+
+    onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.overlay = null;
+    }
     
     ngOnDestroy() {
-        this.unbindDocumentClickListener();
         this.restoreOverlayAppend();
-        this.overlay = null;
+        this.onOverlayHide();
     }
 }
 

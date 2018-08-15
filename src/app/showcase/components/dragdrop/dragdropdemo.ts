@@ -5,10 +5,21 @@ import {CarService} from '../../service/carservice';
 @Component({
     templateUrl: './dragdropdemo.html',
     styles: [`
-        .ui-grid li {
+        :host ::ng-deep .drag-column {
+            padding-right: .5em;
+        }
+
+        :host ::ng-deep .drop-column {
+            border: 1px solid #c8c8c8;
+            background-color: #ffffff;
+        }
+
+        .ui-g li {
             list-style-type: none;
             padding: 10px;
             margin-bottom: 5px;
+            border: 1px solid #c8c8c8;
+            background-color: #ffffff;
         }
     `]
 })

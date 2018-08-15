@@ -89,6 +89,10 @@ export class ConfirmDialog implements OnDestroy {
     @Input() appendTo: any;
     
     @Input() key: string;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
         
     @ContentChild(Footer) footer;
     
@@ -150,7 +154,7 @@ export class ConfirmDialog implements OnDestroy {
             break;
 
             case 'void':
-                this.onDestroyElement();
+                this.onOverlayHide();
             break;
         }
     }
@@ -222,7 +226,9 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     moveOnTop() {
-        this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+        if (this.autoZIndex) {
+            this.el.nativeElement.children[0].style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
     }
     
     bindGlobalListeners() {
@@ -256,15 +262,15 @@ export class ConfirmDialog implements OnDestroy {
         }
     }
 
-    onDestroyElement() {
+    onOverlayHide() {
         this.disableModality();
-        this.restoreAppend();
         this.unbindGlobalListeners();
         this.container = null;
     }
                 
     ngOnDestroy() {
-        this.onDestroyElement();
+        this.restoreAppend();
+        this.onOverlayHide();
         this.subscription.unsubscribe();
     }
     

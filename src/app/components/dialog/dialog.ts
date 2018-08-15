@@ -294,7 +294,13 @@ export class Dialog implements OnDestroy {
         this.container.style.left = '0px';
         this.container.style.width = '100vw';
         this.container.style.height = '100vh';
-        const diffHeight = this.domHandler.getOuterHeight(this.headerViewChild.nativeElement) + this.domHandler.getOuterHeight(this.footerViewChild.nativeElement) + parseFloat(this.container.style.top);
+        let diffHeight = parseFloat(this.container.style.top);
+        if(this.headerViewChild && this.headerViewChild.nativeElement) {
+            diffHeight += this.domHandler.getOuterHeight(this.headerViewChild.nativeElement);
+        }
+        if(this.footerViewChild && this.footerViewChild.nativeElement) {
+            diffHeight += this.domHandler.getOuterHeight(this.footerViewChild.nativeElement);
+        }
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
         this.domHandler.addClass(document.body, 'ui-overflow-hidden');
@@ -580,14 +586,13 @@ export class Dialog implements OnDestroy {
             break;
 
             case 'void':
-                this.onHide.emit({});
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
-    
-    ngOnDestroy() {
-        this.restoreAppend();
+
+    onOverlayHide() {
+        this.onHide.emit({});
         this.unbindGlobalListeners();
         this.dragging = false;
 
@@ -600,6 +605,11 @@ export class Dialog implements OnDestroy {
         }
 
         this.container = null;
+    }
+    
+    ngOnDestroy() {
+        this.restoreAppend();
+        this.onOverlayHide();
     }
 
 }
