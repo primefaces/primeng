@@ -39,9 +39,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
         <ul class="ui-listbox-list">
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
-              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
-              (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
-            <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
+              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}"
+              (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
+            <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
               <div class="ui-helper-hidden-accessible">
                 <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
               </div>
@@ -111,8 +111,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public onModelTouched: Function = () => { };
 
-    public checkboxClick: boolean;
-
     public optionTouched: boolean;
 
     public focus: boolean;
@@ -162,29 +160,40 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     onOptionClick(event, option) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || option.disabled || this.readonly) {
             return;
         }
 
-        if (!this.checkboxClick) {
-            if (this.multiple)
-                this.onOptionClickMultiple(event, option);
+        if (this.multiple) {
+            if (this.checkbox)
+                this.onOptionClickCheckbox(event, option);
             else
-                this.onOptionClickSingle(event, option);
+                this.onOptionClickMultiple(event, option);
         }
         else {
-            this.checkboxClick = false;
+            this.onOptionClickSingle(event, option);
         }
 
         this.optionTouched = false;
     }
 
     onOptionTouchEnd(event, option) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || option.disabled || this.readonly) {
             return;
         }
 
         this.optionTouched = true;
+    }
+
+    onOptionDoubleClick(event: Event, option: SelectItem): any {
+        if (this.disabled || option.disabled || this.readonly) {
+            return;
+        }
+
+        this.onDblClick.emit({
+            originalEvent: event,
+            value: this.value
+        })
     }
 
     onOptionClickSingle(event, option) {
@@ -263,6 +272,28 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         }
     }
 
+    onOptionClickCheckbox(event, option) {
+        if (this.disabled || this.readonly) {
+            return;
+        }
+
+        let selected = this.isSelected(option);
+
+        if (selected) {
+            this.removeOption(option);
+        }
+        else {
+            this.value = this.value ? this.value : [];
+            this.value = [...this.value, option.value];
+        }
+
+        this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
+    }
+
     removeOption(option: any): void {
         this.value = this.value.filter(val => !this.objectUtils.equals(val, option.value, this.dataKey));
     }
@@ -288,10 +319,31 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     get allChecked(): boolean {
-        if (this.filterValue)
+        if (this.filterValue) {
             return this.allFilteredSelected();
-        else
-            return this.value && this.options && (this.value.length === this.options.length);
+        }
+            
+        else {
+            let optionCount = this.getEnabledOptionCount();
+
+            return this.value && this.options && (this.value.length > 0 && this.value.length === optionCount);
+        }
+    }
+
+    getEnabledOptionCount(): number {
+        if (this.options) {
+            let count = 0;
+            for (let opt of this.options) {
+                if (!opt.disabled) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+        else {
+            return 0;
+        }
     }
 
     allFilteredSelected(): boolean {
@@ -329,7 +381,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 this.value = [];
                 for (let i = 0; i < this.options.length; i++) {
                     let opt = this.options[i];
-                    if (this.isItemVisible(opt)) {
+                    if (this.isItemVisible(opt) && !opt.disabled) {
                         this.value.push(opt.value);
                     }
                 }
@@ -362,40 +414,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             return true;
         }
-    }
-
-    onDoubleClick(event: Event, option: SelectItem): any {
-        if (this.disabled || this.readonly) {
-            return;
-        }
-
-        this.onDblClick.emit({
-            originalEvent: event,
-            value: this.value
-        })
-    }
-
-    onCheckboxClick(event: Event, option: SelectItem) {
-        if (this.disabled || this.readonly) {
-            return;
-        }
-
-        this.checkboxClick = true;
-        let selected = this.isSelected(option);
-
-        if (selected) {
-            this.removeOption(option);
-        }
-        else {
-            this.value = this.value ? this.value : [];
-            this.value = [...this.value, option.value];
-        }
-
-        this.onModelChange(this.value);
-        this.onChange.emit({
-            originalEvent: event,
-            value: this.value
-        });
     }
 
     onInputFocus(event) {

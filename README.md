@@ -35,17 +35,18 @@ PrimeNG is available at NPM, if you have an existing application run the followi
 
 ```
 npm install primeng --save
+npm install primeicons --save
 ```
 
 #### Angular CLI Integration
 
-Add PrimeNG and FontAwesome as a dependencies.
+Add PrimeNG and PrimeIcons as a dependencies.
 
 ```
 "dependencies": {
   //...
-  "primeng": "^5.2.5",
-  "font-awesome": "^4.7.0"
+  "primeng": "^6.0.0.beta.1",
+  "primeicons": "^1.0.0-beta.6"
 },
 ```
 
@@ -53,9 +54,9 @@ Configure required styles at the styles section, example below uses the Omega th
 
 ```
 "styles": [
-  "../node_modules/font-awesome/css/font-awesome.min.css",
-  "../node_modules/primeng/resources/themes/omega/theme.css",
-  "../node_modules/primeng/resources/primeng.min.css",
+  "node_modules/primeng/resources/themes/omega/theme.css",
+  "node_modules/primeng/resources/primeng.min.css",
+  "node_modules/primeicons/primeicons.css",
   //...
 ],
 ```

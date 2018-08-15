@@ -10,9 +10,17 @@
 
 .ui-overlaypanel-close {
     position: absolute;
-    top: -.5em;
-    right: -.5em;
+    top: -1em;
+    right: -1em;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
     -moz-border-radius: 100%;
     -webkit-border-radius: 100%;
     border-radius: 100%;
+}
+
+.ui-overlaypanel-close-icon {
+    line-height: inherit;
 }

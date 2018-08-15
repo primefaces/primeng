@@ -9,6 +9,7 @@ export { FilterMetadata } from './filtermetadata';
 export { LazyLoadEvent } from './lazyloadevent';
 export { MenuItem } from './menuitem';
 export { Message } from './message';
+export { MessageService } from './messageservice';
 export { SelectItem } from './selectitem';
 export { SelectItemGroup } from './selectitemgroup';
 export { SortMeta } from './sortmeta';

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { TreeNode, Message, MenuItem } from '../../../components/common/api';
+import { TreeNode, MenuItem } from '../../../components/common/api';
 import { NodeService } from '../../service/nodeservice';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './treetablecontextmenudemo.html'
+    templateUrl: './treetablecontextmenudemo.html',
+    providers: [MessageService]
 })
 export class TreeTableContextMenuDemo {
 
@@ -13,11 +15,9 @@ export class TreeTableContextMenuDemo {
 
     cols: any[];
 
-    msgs: Message[];
-
     items: MenuItem[];
 
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.nodeService.getFilesystem().then(files => this.files = files);
@@ -29,14 +29,13 @@ export class TreeTableContextMenuDemo {
         ];
 
         this.items = [
-            { label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedNode) },
-            { label: 'Toggle', icon: 'fa-toggle-on', command: (event) => this.toggleFile(this.selectedNode) }
+            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedNode) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: (event) => this.toggleFile(this.selectedNode) }
         ];
     }
 
     viewFile(node) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'File Selected', detail: node.data.name + ' - ' + node.data.size });
+        this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.data.name + ' - ' + node.data.size });
     }
 
     toggleFile(node) {

@@ -28,17 +28,15 @@
 }
 
 .ui-dialog .ui-dialog-titlebar-icon {
-    text-decoration: none
-}
-
-.ui-dialog .ui-dialog-titlebar-close {
+    text-decoration: none;
+    float: right;
     float: right;
     padding: .125em;
     cursor: pointer;
     border: 1px solid transparent;
 }
 
-.ui-dialog .ui-dialog-titlebar-close span {
+.ui-dialog .ui-dialog-titlebar-icon span {
     display: block;
     margin: 0;
 }
@@ -53,6 +51,11 @@
     position: fixed;
     width: 100%;
     height: 100%;
+}
+
+.ui-dialog-maximized {
+    -webkit-transition: left .3s, top .3s, width .3s,height .3s;
+    transition: left .3s, top .3s, width .3s,height .3s;
 }
 
 /* ConfirmDialog */

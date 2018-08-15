@@ -2,7 +2,7 @@ import {NgModule}     from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TabViewDemo} from './tabviewdemo';
 import {TabViewDemoRoutingModule} from './tabviewdemo-routing.module';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -10,7 +10,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 	imports: [
 		CommonModule,
 		TabViewDemoRoutingModule,
-        GrowlModule,
+        ToastModule,
         TabViewModule,
         CodeHighlighterModule
 	],

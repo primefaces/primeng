@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [value]="msgs"></p-growl>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
     
     <h3 class="first">Default</h3>
     <p-accordion>
@@ -385,7 +385,7 @@ onTabOpen(e) &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-accordion&gt;
@@ -455,25 +455,24 @@ onTabOpen(e) &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
-import &#123;Message&#125; from '/components/common/api';
+import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
-    templateUrl: './accordiondemo.html'
+    templateUrl: './accordiondemo.html',
+    providers: [MessageService]
 &#125;)
 export class AccordionDemo &#123;
 
-    msgs: Message[];
-    
     index: number = -1;
 
+    constructor(private messageService: MessageService) &#123;&#125;
+
     onTabClose(event) &#123;
-        this.msgs = [];
-        this.msgs.push(&#123;severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index&#125;);
+        this.messageService.add(&#123;severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index&#125;)
     &#125;
     
     onTabOpen(event) &#123;
-        this.msgs = [];
-        this.msgs.push(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
+        this.messageService.add(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
     &#125;
     
     openNext() &#123;
@@ -481,8 +480,9 @@ export class AccordionDemo &#123;
     &#125;
     
     openPrev() &#123;
-        this.index = (this.index &lt;=0 ) ? 3 : this.index - 1;
+        this.index = (this.index &lt;= 0) ? 3 : this.index - 1;
     &#125;
+
 &#125;
 </code>
 </pre>

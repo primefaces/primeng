@@ -10,7 +10,7 @@
     <p-menu [model]="items"></p-menu>
 
     <h3>Popup</h3>
-    <p-menu #menu popup="popup" [model]="items"></p-menu>
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
     <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
 </div>
 
@@ -44,10 +44,10 @@ export class MenuDemo &#123;
 
     ngOnInit() &#123;
         this.items = [
-                    &#123;label: 'New', icon: 'fa fa-fw fa-plus'&#125;,
-                    &#123;label: 'Open', icon: 'fa fa-fw fa-download'&#125;,
-                    &#123;label: 'Undo', icon: 'fa fa-fw fa-refresh'&#125;
-                ];
+            &#123;label: 'New', icon: 'pi pi-fw pi-plus'&#125;,
+            &#123;label: 'Open', icon: 'pi pi-fw pi-download'&#125;,
+            &#123;label: 'Undo', icon: 'pi pi-fw pi-refresh'&#125;
+        ];
     &#125;
 &#125;
 </code>
@@ -65,15 +65,15 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa fa-fw fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa fa-fw fa-download'&#125;
+                &#123;label: 'New', icon: 'pi pi-fw pi-plus'&#125;,
+                &#123;label: 'Download', icon: 'pi pi-fw pi-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa fa-fw fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa fa-fw fa-repeat'&#125;
+                &#123;label: 'Add User', icon: 'pi pi-fw pi-user-plus'&#125;,
+                &#123;label: 'Remove User', icon: 'pi pi-fw pi-user-minus'&#125;
             ]
         &#125;];
     &#125;
@@ -86,7 +86,7 @@ export class MenuDemo &#123;
                     from the anchor element.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-menu #menu popup="popup" [model]="items"&gt;&lt;/p-menu&gt;
+&lt;p-menu #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
 &lt;button type="button" pButton icon="fa fa-fw fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
@@ -229,7 +229,7 @@ export class MenuDemo &#123;
 &lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
 
 &lt;h3&gt;Popup&lt;/h3&gt;
-&lt;p-menu #menu popup="popup" [model]="items"&gt;&lt;/p-menu&gt;
+&lt;p-menu #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
 &lt;button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
@@ -244,15 +244,15 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa fa-fw fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa fa-fw fa-download'&#125;
+                &#123;label: 'New', icon: 'pi pi-fw pi-plus'&#125;,
+                &#123;label: 'Download', icon: 'pi pi-fw pi-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa fa-fw fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa fa-fw fa-repeat'&#125;
+                &#123;label: 'Add User', icon: 'pi pi-fw pi-user-plus'&#125;,
+                &#123;label: 'Remove User', icon: 'pi pi-fw pi-user-minus'&#125;
             ]
         &#125;];
     &#125;

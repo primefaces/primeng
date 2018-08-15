@@ -2,7 +2,12 @@ import {Component} from '@angular/core';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: './slidemenudemo.html'
+    templateUrl: './slidemenudemo.html',
+    styles: [`
+        :host ::ng-deep .ui-slidemenu {
+            width: 13.5em
+        }
+    `]
 })
 export class SlideMenuDemo {
 
@@ -12,38 +17,38 @@ export class SlideMenuDemo {
         this.items = [
             {
                 label: 'File',
-                icon: 'fa fa-fw fa-file-o',
+                icon: 'pi pi-fw pi-file',
                 items: [{
                         label: 'New', 
-                        icon: 'fa fa-fw fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
                             {label: 'Project'},
                             {label: 'Other'},
                         ]
                     },
                     {label: 'Open'},
-                    {separator: true},
+                    {separator:true},
                     {label: 'Quit'}
                 ]
             },
             {
                 label: 'Edit',
-                icon: 'fa fa-fw fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    {label: 'Undo', icon: 'fa fa-fw fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa fa-fw fa-mail-reply'}
+                    {label: 'Delete', icon: 'pi pi-fw pi-trash'},
+                    {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
                 ]
             },
             {
                 label: 'Help',
-                icon: 'fa fa-fw fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     {
                         label: 'Contents'
                     },
                     {
                         label: 'Search', 
-                        icon: 'fa fa-fw fa-search', 
+                        icon: 'pi pi-fw pi-search', 
                         items: [
                             {
                                 label: 'Text', 
@@ -61,28 +66,28 @@ export class SlideMenuDemo {
             },
             {
                 label: 'Actions',
-                icon: 'fa fa-fw fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     {
                         label: 'Edit',
-                        icon: 'fa fa-fw fa-refresh',
+                        icon: 'pi pi-fw pi-pencil',
                         items: [
-                            {label: 'Save', icon: 'fa fa-fw fa-save'},
-                            {label: 'Update', icon: 'fa fa-fw fa-save'},
+                            {label: 'Save', icon: 'pi pi-fw pi-save'},
+                            {label: 'Update', icon: 'pi pi-fw pi-save'},
                         ]
                     },
                     {
                         label: 'Other',
-                        icon: 'fa fa-fw fa-phone',
+                        icon: 'pi pi-fw pi-tags',
                         items: [
-                            {label: 'Delete', icon: 'fa fa-fw fa-minus'}
+                            {label: 'Delete', icon: 'pi pi-fw pi-minus'}
                         ]
                     }
                 ]
             },
-            {separator: true},
+            {separator:true},
             {
-                label: 'Quit', icon: 'fa fa-fw fa-minus'
+                label: 'Quit', icon: 'pi pi-fw pi-times'
             }
         ];
     }

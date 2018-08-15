@@ -8,7 +8,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [(value)]="msgs"></p-growl>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
     <h3 class="first">Single</h3>
     <p-treeTable [value]="files1" [columns]="cols" selectionMode="single" [(selection)]="selectedNode1" dataKey="name">
@@ -182,9 +182,7 @@ export class TreeTableSelectionDemo &#123;
 
     cols: any[];
 
-    msgs: Message[];
-
-    constructor(private nodeService: NodeService) &#123; &#125;
+    constructor(private nodeService: NodeService, private messageService: MessageService) &#123; &#125;
 
     ngOnInit() &#123;
         this.nodeService.getFilesystem().then(files => this.files1 = files);
@@ -201,13 +199,11 @@ export class TreeTableSelectionDemo &#123;
     &#125;
 
     nodeSelect(event) &#123;
-        this.msgs = [];
-        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.data.name&#125;);
+        this.messageService.add(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.data.name&#125;);
     &#125;
 
     nodeUnselect(event) &#123;
-        this.msgs = [];
-        this.msgs.push(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.data.name&#125;);
+        this.messageService.add(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.data.name&#125;);
     &#125;
 &#125;
 </code>
@@ -221,7 +217,7 @@ export class TreeTableSelectionDemo &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-treeTable [value]="files1" [columns]="cols" selectionMode="single" [(selection)]="selectedNode1" dataKey="name"&gt;

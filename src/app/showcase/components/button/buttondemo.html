@@ -7,29 +7,42 @@
 
 <div class="content-section implementation">
     <h3 class="first">Button Component</h3>
-    <p-button (onClick)="count()" label="Click"></p-button>
-    <p-button (onClick)="count()" icon="pi pi-check" label="Click"></p-button>
-    <p-button (onClick)="count()" icon="pi pi-check" iconPos="right" label="Click"></p-button>
-    <p-button (onClick)="count()" icon="pi pi-check"></p-button>
-    <p-button (onClick)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"></p-button>
+    <p-button label="Click"></p-button>
+    <p-button icon="pi pi-check" label="Click"></p-button>
+    <p-button icon="pi pi-check" iconPos="right" label="Click"></p-button>
+    <p-button icon="pi pi-check"></p-button>
+    <p-button icon="pi pi-check" [disabled]="true" label="Disabled"></p-button>
 
     <h3>Button Directive</h3>
-    <button pButton type="button" (click)="count()" label="Click"></button>
-    <button pButton type="button" (click)="count()" icon="pi pi-check" label="Click"></button>
-    <button pButton type="button" (click)="count()" icon="pi pi-check" iconPos="right" label="Click"></button>
-    <button pButton type="button" (click)="count()" icon="pi pi-check"></button>
-    <button pButton type="button" (click)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
+    <button pButton type="button"label="Click"></button>
+    <button pButton type="button" icon="pi pi-check" label="Click"></button>
+    <button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"></button>
+    <button pButton type="button" icon="pi pi-check"></button>
+    <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
 
     <h3>Severity Buttons</h3>
-    <button pButton type="button" (click)="count()" label="Primary"></button>
-    <button pButton type="button" (click)="count()" label="Secondary" class="ui-button-secondary"></button>
-    <button pButton type="button" (click)="count()" label="Success" class="ui-button-success"></button>
-    <button pButton type="button" (click)="count()" label="Info"  class="ui-button-info"></button>
-    <button pButton type="button" (click)="count()" label="Warning"  class="ui-button-warning"></button>
-    <button pButton type="button" (click)="count()" label="Danger"  class="ui-button-danger"></button>
+    <button pButton type="button" label="Primary"></button>
+    <button pButton type="button" label="Secondary" class="ui-button-secondary"></button>
+    <button pButton type="button" label="Success" class="ui-button-success"></button>
+    <button pButton type="button" label="Info" class="ui-button-info"></button>
+    <button pButton type="button" label="Warning" class="ui-button-warning"></button>
+    <button pButton type="button" label="Danger" class="ui-button-danger"></button>
 
-    <br /><br />
-    Number of clicks: {{clicks}}
+    <h3>Raised Buttons</h3>
+    <button pButton type="button" label="Primary" class="ui-button-raised"></button>
+    <button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"></button>
+    <button pButton type="button" label="Success" class="ui-button-raised ui-button-success"></button>
+    <button pButton type="button" label="Info" class="ui-button-raised ui-button-info"></button>
+    <button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"></button>
+    <button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"></button>
+
+    <h3>Rounded Buttons</h3>
+    <button pButton type="button" label="Primary" class="ui-button-rounded"></button>
+    <button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"></button>
+    <button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"></button>
+    <button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"></button>
+    <button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"></button>
+    <button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"></button>
 </div>
 
 <div class="content-section documentation">
@@ -95,10 +108,19 @@ export class Model &#123;
                 <li>.ui-button-warning</li>
                 <li>.ui-button-danger</li>
             </ul>
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" class="ui-button-info"&gt;&lt;/button&gt;
 &lt;p-button label="Click" styleClass="ui-button-info"&gt;&lt;/p-button&gt;
+</code>
+</pre>
+
+            <h3>Raised and Rounded Buttons</h3>
+            <p>A button can be raised by having "ui-button-raised" style class and similarly borders can be made rounded using "ui-button-rounded" class.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button pButton type="button" class="ui-button-raised ui-button-rounded"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -255,30 +277,43 @@ export class Model &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3&gt;Button Component&lt;/h3&gt;
-&lt;p-button (onClick)="count()" label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button (onClick)="count()" icon="pi pi-check" label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button (onClick)="count()" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button (onClick)="count()" icon="pi pi-check"&gt;&lt;/p-button&gt;
-&lt;p-button (onClick)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
+&lt;h3 class="first"&gt;Button Component&lt;/h3&gt;
+&lt;p-button label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check" label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
 
 &lt;h3&gt;Button Directive&lt;/h3&gt;
-&lt;button pButton type="button" (click)="count()" label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" icon="pi pi-check" label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" icon="pi pi-check"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+&lt;button pButton type="button"label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
 
 &lt;h3&gt;Severity Buttons&lt;/h3&gt;
-&lt;button pButton type="button" (click)="count()" label="Primary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" label="Info"  class="ui-button-info"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" label="Warning"  class="ui-button-warning"&gt;&lt;/button&gt;
-&lt;button pButton type="button" (click)="count()" label="Danger"  class="ui-button-danger"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Primary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Warning" class="ui-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Danger" class="ui-button-danger"&gt;&lt;/button&gt;
 
-&lt;br /&gt;&lt;br /&gt;
-Number of clicks: &#123;&#123;clicks&#125;&#125;
+&lt;h3&gt;Raised Buttons&lt;/h3&gt;
+&lt;button pButton type="button" label="Primary" class="ui-button-raised"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Success" class="ui-button-raised ui-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Info" class="ui-button-raised ui-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Rounded Buttons&lt;/h3&gt;
+&lt;button pButton type="button" label="Primary" class="ui-button-rounded"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"&gt;&lt;/button&gt;
 </code>
 </pre>
 <pre>

@@ -16,7 +16,7 @@ import { TableModule } from '../../../components/table/table';
 import { SliderModule } from '../../../components/slider/slider';
 import { MultiSelectModule } from '../../../components/multiselect/multiselect';
 import { ContextMenuModule } from '../../../components/contextmenu/contextmenu';
-import { GrowlModule } from '../../../components/growl/growl';
+import { ToastModule } from '../../../components/toast/toast';
 import { ButtonModule } from '../../../components/button/button';
 import { DialogModule } from '../../../components/dialog/dialog';
 import { DropdownModule } from '../../../components/dropdown/dropdown';
@@ -47,7 +47,7 @@ import { CodeHighlighterModule } from '../../../components/codehighlighter/codeh
 		ContextMenuModule,
 		DropdownModule,
 		ButtonModule,
-		GrowlModule,
+		ToastModule,
 		InputTextModule,
 		TabViewModule,
 		CodeHighlighterModule
