@@ -47,84 +47,94 @@ describe('Accordion', () => {
     fixture.detectChanges();
   })
 
-  it('should have a two accordionTab', () => {
-    fixture.detectChanges();
+    it('should have a two accordionTab', () => {
+      fixture.detectChanges();
 
-    expect(accordion.tabs.length).toBe(2)
-  });
+      expect(accordion.tabs.length).toBe(2)
+    });
 
-  it('should be change header', () => {
-    firstAccordionTab.header = "Primeng ROCKS";
-    fixture.detectChanges();
+    it('should be change header', () => {
+      firstAccordionTab.header = "Primeng ROCKS";
+      fixture.detectChanges();
 
-    const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header-text'));
-    expect(accordionTabHeaderEl.nativeElement.textContent).toContain("Primeng ROCKS")
-  });
+      const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header-text'));
+      expect(accordionTabHeaderEl.nativeElement.textContent).toContain("Primeng ROCKS")
+    });
 
-  it('should have selected first accordionTab and second accordionTab should be unselected', () => {
-    firstAccordionTab.selected = true;
-    fixture.detectChanges();
+    it('should have selected first accordionTab and second accordionTab should be unselected', () => {
+      firstAccordionTab.selected = true;
+      fixture.detectChanges();
 
-    const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header')).nativeElement;
-    const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.ui-accordion-header')).nativeElement;
-    expect(firstAccordionTabHeaderEl.className).toContain('ui-state-active');
-    expect(secondAccordionTabHeaderEl.className).not.toContain('ui-state-active');
-  });
+      const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header')).nativeElement;
+      const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.ui-accordion-header')).nativeElement;
+      expect(firstAccordionTabHeaderEl.className).toContain('ui-state-active');
+      expect(secondAccordionTabHeaderEl.className).not.toContain('ui-state-active');
+    });
 
-  it('should have a multiple select and all accordionTabs should be selected', () => {
-    accordion.multiple = true;
-    fixture.detectChanges();
+    it('should have a multiple select and all accordionTabs should be selected', () => {
+      accordion.multiple = true;
+      fixture.detectChanges();
 
-    const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
-    const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
-    secondAccordionTabOpenEl.click();
-    firstAccordionTabOpenEl.click();
-    fixture.detectChanges();
+      const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
+      const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
+      secondAccordionTabOpenEl.click();
+      firstAccordionTabOpenEl.click();
+      fixture.detectChanges();
 
-    const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header')).nativeElement;
-    const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.ui-accordion-header')).nativeElement;
-    expect(firstAccordionTabHeaderEl.className).toContain('ui-state-active');
-    expect(secondAccordionTabHeaderEl.className).toContain('ui-state-active');
-  });
+      const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header')).nativeElement;
+      const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.ui-accordion-header')).nativeElement;
+      expect(firstAccordionTabHeaderEl.className).toContain('ui-state-active');
+      expect(secondAccordionTabHeaderEl.className).toContain('ui-state-active');
+    });
 
-  it('should be disabled', () => {
-    firstAccordionTab.disabled = true;
-    fixture.detectChanges();
+    it('should be disabled', () => {
+      firstAccordionTab.disabled = true;
+      fixture.detectChanges();
 
-    const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
-    const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header')).nativeElement;
-    firstAccordionTabOpenEl.click();
-    expect(accordionTabHeaderEl.className).toContain('ui-state-disabled');
-    expect(accordionTabHeaderEl.className).not.toContain("ui-state-active")
-  });
+      const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
+      const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-header')).nativeElement;
+      firstAccordionTabOpenEl.click();
+      expect(accordionTabHeaderEl.className).toContain('ui-state-disabled');
+      expect(accordionTabHeaderEl.className).not.toContain("ui-state-active")
+    });
 
-  it('should be change expandIcon and collapseIcon', () => {
-    accordion.collapseIcon = "pi pi-fw pi-caret-left";
-    accordion.expandIcon = "pi pi-fw pi-caret-up";
-    fixture.detectChanges();
+    it('should be change expandIcon and collapseIcon', () => {
+      accordion.collapseIcon = "pi pi-fw pi-caret-left";
+      accordion.expandIcon = "pi pi-fw pi-caret-up";
+      fixture.detectChanges();
 
-    const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-toggle-icon')).nativeElement;
-    expect(firstAccordionTabOpenEl.className).toContain('pi pi-fw pi-caret-up');
-    firstAccordionTab.selected = true;
-    fixture.detectChanges();
+      const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-toggle-icon')).nativeElement;
+      expect(firstAccordionTabOpenEl.className).toContain('pi pi-fw pi-caret-up');
+      firstAccordionTab.selected = true;
+      fixture.detectChanges();
 
-    expect(firstAccordionTabOpenEl.className).toContain('pi pi-fw pi-caret-left');
-  });
+      expect(firstAccordionTabOpenEl.className).toContain('pi pi-fw pi-caret-left');
+    });
 
-  it('should be get styleClass', () => {
-    accordion.styleClass = "alwaysbetonprime"
-    fixture.detectChanges();
+    it('should be get styleClass', () => {
+      accordion.styleClass = "alwaysbetonprime"
+      fixture.detectChanges();
 
-    const accordionEl = fixture.debugElement.children[0].query(By.css('.ui-accordion')).nativeElement;
-    expect(accordionEl.className).toContain('alwaysbetonprime');
-  });
+      const accordionEl = fixture.debugElement.children[0].query(By.css('.ui-accordion')).nativeElement;
+      expect(accordionEl.className).toContain('alwaysbetonprime');
+    });
 
-  it('should be get style', () => {
-    accordion.style = { "prime": 'Rocks' }
-    fixture.detectChanges();
+    it('should be get style', () => {
+      accordion.style = { "prime": 'Rocks' }
+      fixture.detectChanges();
 
-    const accordionEl = fixture.debugElement.children[0].query(By.css('.ui-accordion')).nativeElement;
-    expect(accordionEl.style.prime).toContain('Rocks');
-  });
+      const accordionEl = fixture.debugElement.children[0].query(By.css('.ui-accordion')).nativeElement;
+      expect(accordionEl.style.prime).toContain('Rocks');
+    });
+
+    it('should active index change', () => {
+      fixture.detectChanges();
+
+      let activeIndex;
+      const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
+      accordion.onOpen.subscribe(value => activeIndex=value.index);    
+      secondAccordionTabOpenEl.click();
+      expect(activeIndex).toEqual(1)
+    });
 
 });
