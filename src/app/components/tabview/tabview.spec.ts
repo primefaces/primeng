@@ -151,4 +151,27 @@ describe('TabView', () => {
       expect(thirdTabPanel.cache).toEqual(true);
     });
 
+    it('should be open by activeIndex', () => {
+      tabview.activeIndex=1;
+      fixture.detectChanges();
+
+      const firstTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+      const secondTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
+      const thirdTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
+      expect(firstTabViewNavEl.className).not.toContain('ui-tabview-selected ui-state-active');
+      expect(secondTabViewNavEl.className).toContain('ui-tabview-selected ui-state-active');
+      expect(thirdTabViewNavEl.className).not.toContain('ui-tabview-selected ui-state-active');
+    });
+
+    it('should be change activeIndex', () => {
+      tabview.activeIndex=1;
+      fixture.detectChanges();
+
+      let activeIndex;
+      const firstTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
+      tabview.activeIndexChange.subscribe(value => activeIndex=value);      
+      firstTabViewNavEl.click();
+      expect(activeIndex).toEqual(0);
+    });
+
 });
