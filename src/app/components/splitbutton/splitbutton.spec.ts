@@ -27,7 +27,7 @@ describe('SplitButton', () => {
     });
     
     it('should be opens dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
-      const dropDownEl= fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
+      const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
       const showSpy = spyOn(splitbutton, 'show').and.callThrough();
       dropDownEl.click();
@@ -42,7 +42,7 @@ describe('SplitButton', () => {
     });
 
     it('should be close dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
-      const dropDownEl= fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
+      const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
       const showSpy = spyOn(splitbutton, 'show').and.callThrough();
       dropDownEl.click();
@@ -58,8 +58,8 @@ describe('SplitButton', () => {
     });
 
     it('should be close dropdown menu when click dropdown menu item and call itemClick', () => {
-      splitbutton.model=[{label: 'Update', icon: 'fa fa-refresh', command: () => {}}];
-      const dropDownEl= fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
+      splitbutton.model = [{label: 'Update', icon: 'fa fa-refresh', command: () => {}}];
+      const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const itemClickSpy = spyOn(splitbutton, 'itemClick').and.callThrough();
       dropDownEl.click();
       fixture.detectChanges();
@@ -68,36 +68,36 @@ describe('SplitButton', () => {
       menuEl.click();
       fixture.detectChanges();
 
-      const dropdownMenuEl=fixture.debugElement.query(By.css('.ui-menu-dynamic'));
+      const dropdownMenuEl = fixture.debugElement.query(By.css('.ui-menu-dynamic'));
       expect (itemClickSpy).toHaveBeenCalled();
       expect(splitbutton.overlayVisible).toEqual(false);
       expect(dropdownMenuEl).toBeFalsy();
     });
 
     it('should be disabled and dont called onDropdownButtonClick & show', () => {
-    splitbutton.disabled=true;
-    const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
-    const showSpy = spyOn(splitbutton, 'show').and.callThrough();
-    fixture.detectChanges();
-    
-    const defaultButtonEl=fixture.debugElement.query(By.css('button')).nativeElement;
-    const dropdownEl=fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
-    const containerEl=fixture.debugElement.query(By.css('.ui-splitbutton')).nativeElement;
-    defaultButtonEl.click();
-    dropdownEl.click();
-    fixture.detectChanges();
+      splitbutton.disabled = true;
+      const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
+      const showSpy = spyOn(splitbutton, 'show').and.callThrough();
+      fixture.detectChanges();
+      
+      const defaultButtonEl=fixture.debugElement.query(By.css('button')).nativeElement;
+      const dropdownEl=fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
+      const containerEl=fixture.debugElement.query(By.css('.ui-splitbutton')).nativeElement;
+      defaultButtonEl.click();
+      dropdownEl.click();
+      fixture.detectChanges();
 
-    expect(containerEl.className).toContain("ui-state-disabled");
-    expect(dropdownEl.disabled).toBeTruthy();
-    expect(defaultButtonEl.disabled).toBeTruthy();
-    expect (dropdownClickSpy).not.toHaveBeenCalled();
-    expect (showSpy).not.toHaveBeenCalled();
+      expect(containerEl.className).toContain("ui-state-disabled");
+      expect(dropdownEl.disabled).toBeTruthy();
+      expect(defaultButtonEl.disabled).toBeTruthy();
+      expect (dropdownClickSpy).not.toHaveBeenCalled();
+      expect (showSpy).not.toHaveBeenCalled();
     });
 
     it('should be add label and change icon and iconPosition', () => {
-      splitbutton.label="Primeng ROCKS!";
-      splitbutton.icon="Primeng ROCKS!";
-      splitbutton.iconPos="right";
+      splitbutton.label = "Primeng ROCKS!";
+      splitbutton.icon = "Primeng ROCKS!";
+      splitbutton.iconPos = "right";
       fixture.detectChanges();
 
       const defaultButton=fixture.debugElement.query(By.css('button'));
@@ -107,8 +107,8 @@ describe('SplitButton', () => {
     });
 
     it('should be change style and styleClass', () => {
-      splitbutton.style={'primeng':'rock'};
-      splitbutton.styleClass="Primeng ROCKS!";
+      splitbutton.style = {'primeng':'rock'};
+      splitbutton.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const containerEl=fixture.debugElement.query(By.css('.ui-splitbutton')).nativeElement;
@@ -117,7 +117,7 @@ describe('SplitButton', () => {
     });
 
     it('should be change menuStyle and stylemenuStyleClassClass', () => {
-      splitbutton.menuStyle={'primeng':'rock'};
+      splitbutton.menuStyle = {'primeng':'rock'};
       splitbutton.menuStyleClass="Primeng ROCKS!";
       fixture.detectChanges();
 
@@ -134,14 +134,14 @@ describe('SplitButton', () => {
       splitbutton.dir="ltr"
       fixture.detectChanges();
 
-      const dropdownButton=fixture.debugElement.query(By.css('.ui-splitbutton-menubutton'));
-      const defaultButton=fixture.debugElement.query(By.css('button'));
+      const dropdownButton = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton'));
+      const defaultButton = fixture.debugElement.query(By.css('button'));
       expect(defaultButton.attributes["ng-reflect-corner-style-class"]).toEqual("ui-corner-left");
       expect(dropdownButton.attributes["ng-reflect-corner-style-class"]).toEqual("ui-corner-right");
     });
 
     it('should have a tabindex', () => {
-      splitbutton.tabindex=1
+      splitbutton.tabindex = 1
       fixture.detectChanges();
 
       const defaultButton=fixture.debugElement.query(By.css('button'));
