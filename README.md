@@ -45,16 +45,16 @@ Add PrimeNG and PrimeIcons as a dependencies.
 ```
 "dependencies": {
   //...
-  "primeng": "^6.0.0.beta.1",
-  "primeicons": "^1.0.0-beta.6"
+  "primeng": "^6.1.2",
+  "primeicons": "^1.0.0-beta.10"
 },
 ```
 
-Configure required styles at the styles section, example below uses the Omega theme.
+Configure required styles at the styles section, example below uses the Nova Light theme.
 
 ```
 "styles": [
-  "node_modules/primeng/resources/themes/omega/theme.css",
+  "node_modules/primeng/resources/themes/nova-light/theme.css",
   "node_modules/primeng/resources/primeng.min.css",
   "node_modules/primeicons/primeicons.css",
   //...
