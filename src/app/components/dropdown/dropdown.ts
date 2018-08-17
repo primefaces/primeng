@@ -504,10 +504,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     alignOverlay() {
-        if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
-        else
-            this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+        if (this.overlay) {
+            if(this.appendTo)
+                this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+            else
+                this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+        }        
     }
     
     onInputFocus(event) {
