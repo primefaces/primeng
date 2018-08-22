@@ -93,12 +93,21 @@ export class OverlayPanel implements OnDestroy {
         }
     }
     
-    toggle(event, target?) {                          
-        if (!this.target || this.target === (target||event.currentTarget||event.target)) {
-            if (this.visible)
-                this.hide();
-            else
-                this.show(event, target);
+    toggle(event, target?) {
+        if (event.type === 'click') {
+            this.targetClickEvent = true;
+        }
+
+        if (this.visible) {
+            this.visible = false;
+
+            if (this.hasTargetChanged(event, target)) {
+                this.target = target||event.currentTarget||event.target;
+
+                setTimeout(() => {
+                    this.visible = true;
+                }, 200);
+            }
         }
         else {
             this.show(event, target);
@@ -107,15 +116,11 @@ export class OverlayPanel implements OnDestroy {
 
     show(event, target?) {
         this.target = target||event.currentTarget||event.target;
-        if (this.visible && this.container) {
-            this.domHandler.absolutePosition(this.container, this.target);
-        }
-
         this.visible = true;
-        
-        if (event.type === 'click') {
-            this.targetClickEvent = true;
-        }
+    }
+
+    hasTargetChanged(event, target) {
+        return this.target != null && this.target !== (target||event.currentTarget||event.target);
     }
 
     appendContainer() {
@@ -192,12 +197,12 @@ export class OverlayPanel implements OnDestroy {
         this.onHide.emit(null);
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
-        this.target = null;
         this.selfClick = false;
         this.targetClickEvent = false;
     }
 
     ngOnDestroy() {
+        this.target = null;
         this.restoreAppend();
         this.onOverlayHide();
     }
