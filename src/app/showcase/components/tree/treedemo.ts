@@ -17,130 +17,69 @@ import {MessageService} from '../../../components/common/messageservice';
 })
 export class TreeDemo implements OnInit {
 
-    @ViewChild('expandingTree')
-    expandingTree: Tree;
+  public tree: TreeNode[] = [];
+  public selection: TreeNode[] = [];
+  public items: any[] = [];
 
-    filesTree0: TreeNode[];
-    filesTree1: TreeNode[];
-    filesTree2: TreeNode[];
-    filesTree3: TreeNode[];
-    filesTree4: TreeNode[];
-    filesTree5: TreeNode[];
-    filesTree6: TreeNode[];
-    filesTree7: TreeNode[];
-    filesTree8: TreeNode[];
-    filesTree9: TreeNode[];
-    filesTree10: TreeNode[];
-    filesTree11: TreeNode[];
-    
-    lazyFiles: TreeNode[];
-    
-    selectedFile: TreeNode;
-    
-    selectedFile2: TreeNode;
-    
-    selectedFile3: TreeNode;
-    
-    selectedFiles: TreeNode[];
-    
-    selectedFiles2: TreeNode[];
-    
-    items: MenuItem[];
-    
-    loading: boolean;
-    
-    constructor(private nodeService: NodeService, private messageService: MessageService) { }
+  public msg = '';
 
-    ngOnInit() {
-        this.loading = true;
-        this.nodeService.getFiles().then(files => this.filesTree0 = files);
-        setTimeout(() => {
-            this.nodeService.getFiles().then(files => this.filesTree1 = files);
-            this.loading = false;
-        }, 3000);
-        this.nodeService.getFiles().then(files => this.filesTree2 = files);
-        this.nodeService.getFiles().then(files => this.filesTree3 = files);
-        this.nodeService.getFiles().then(files => this.filesTree4 = files);
-        this.nodeService.getFiles().then(files => this.filesTree5 = files);
-        this.nodeService.getFiles().then(files => this.filesTree6 = files);
-        this.nodeService.getFiles().then(files => this.filesTree7 = files);
-        this.filesTree8 = [
-            {
-                label: "Backup",
-                data: "Backup Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
-            }
-        ];
-        this.filesTree9 = [
-            {
-                label: "Storage",
-                data: "Storage Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
-            }
-        ];
-        this.nodeService.getFiles().then(files => this.filesTree10 = files);
-        this.nodeService.getFiles().then(files => {
-            this.filesTree11 = [{
-                label: 'Root',
-                children: files
-            }];
-        });
+  ngOnInit() {
+    this.loadMockData();
+    this.filter(null);
+  }
 
-        this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
-        
-        this.items = [
-            {label: 'View', icon: 'fa fa-search', command: (event) => this.viewFile(this.selectedFile2)},
-            {label: 'Unselect', icon: 'fa fa-close', command: (event) => this.unselectFile()}
-        ];
+  loadMockData() {
+    const items = []
+    for (let i = 0; i < 2000; i++) {
+      items.push({ id: i, name: `Item X-${i}`, category: 'X' })
     }
-    
-    nodeSelect(event) {
-        this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.label});
+    for (let i = 0; i < 2000; i++) {
+      items.push({ id: i, name: `Item Y-${i}`, category: 'Y' })
     }
-    
-    nodeUnselect(event) {
-        this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
+    for (let i = 0; i < 2000; i++) {
+      items.push({ id: i, name: `Item Z-${i}`, category: 'Z' })
     }
+    this.items = items;
+  }
 
-    nodeExpandMessage(event) {
-        this.messageService.add({severity: 'info', summary: 'Node Expanded', detail: event.node.label});
+  filter(filter: string) {
+    if (filter === 'A') {
+      this.buildTree(it => it.id % 2 == 1)
+    } else if (filter === 'B') {
+      this.buildTree(it => it.id > 800)
+    } else {
+      this.buildTree(it => true);
     }
-    
-    nodeExpand(event) {
-        if(event.node) {
-            //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
-            this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
-        }
-    }
-    
-    viewFile(file: TreeNode) {
-        this.messageService.add({severity: 'info', summary: 'Node Selected with Right Click', detail: file.label});
-    }
-    
-    unselectFile() {
-        this.selectedFile2 = null;
-    }
+  }
 
-    expandAll(){
-        this.filesTree10.forEach( node => {
-            this.expandRecursive(node, true);
-        } );
-    }
-
-    collapseAll(){
-        this.filesTree10.forEach( node => {
-            this.expandRecursive(node, false);
-        } );
-    }
-    
-    private expandRecursive(node:TreeNode, isExpand:boolean){
-        node.expanded = isExpand;
-        if(node.children){
-            node.children.forEach( childNode => {
-                this.expandRecursive(childNode, isExpand);
-            } );
-        }
-    }
+  buildTree(extraFilter: (any) => boolean) {
+    this.msg = '';
+    const startTime = new Date().getTime();
+    const root: TreeNode[] = [];
+    ['X', 'Y', 'Z'].forEach(category => {
+      root.push({
+        label: category,
+        data: null,
+        expanded: true,
+        children: this.items.filter(it => it.category === category).filter(extraFilter).map(it => {
+          return {
+            label: it.name,
+            data: it,
+            expanded: true,
+            selectable: true
+          };
+        }),
+        selectable: true
+      })
+    });
+    this.tree = root;
+    // reselect sample data
+    const selection = [];
+    this.tree.forEach(node => {
+      selection.push(...node.children.filter(it => it.data && it.data.id % 3 == 0));
+    });
+    this.selection = selection;
+    const rebuildTime = new Date().getTime() - startTime;
+    this.msg =`(${new Date().toUTCString()}): Rebuild takes only ${rebuildTime} ms`;
+  }
 }
