@@ -9,7 +9,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
   <p-overlayPanel #op1>
       <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
   </p-overlayPanel>
-  <a href="#" (click)="outSideClick()"></a>
+  <a (click)="outSideClick()"></a>
   `
 })
 class TestOverlayPanelComponent {
@@ -86,6 +86,22 @@ describe('OverlayPanel', () => {
       fixture.detectChanges();
 
       expect(closeSpy).toHaveBeenCalled();
+      expect(overlaypanelEl).toBeFalsy();
+    });
+
+    it('should be close when outside click', () => {
+      overlaypanel.showCloseIcon = true;
+      const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
+      const hide = spyOn(overlaypanel, 'hide').and.callThrough();
+      const overlaypanelEl = fixture.debugElement.query(By.css('div'));
+      buttonEl.click();
+      fixture.detectChanges();
+
+      const outsideEl = fixture.debugElement.query(By.css('a')).nativeElement;
+      outsideEl.click();
+      fixture.detectChanges();
+
+      expect(hide).toHaveBeenCalled();
       expect(overlaypanelEl).toBeFalsy();
     });
 
