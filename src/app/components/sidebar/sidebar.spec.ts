@@ -116,7 +116,6 @@ describe('Sidebar', () => {
       fixture.detectChanges();
 
       const buttonEl = fixture.debugElement.children[1].nativeElement;
-      const sidebarCloseSpy = spyOn(sidebar, 'close').and.callThrough();
       let visibleChangeCount = 0;
       let visibleOption;
       sidebar.onShow.subscribe(value => visibleOption = "visible");
