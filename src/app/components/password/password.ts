@@ -121,9 +121,11 @@ export class Password implements OnDestroy,DoCheck {
                 meterPos = '0px -30px';
             }
         }
-
-        this.meter.style.backgroundPosition = meterPos;
-        this.info.textContent = label;
+        
+        if (this.feedback) {
+            this.meter.style.backgroundPosition = meterPos;
+            this.info.textContent = label;
+        }
     }
     
     testStrength(str: string) {
