@@ -1,8 +1,9 @@
 import {Component,OnInit,ViewChild} from '@angular/core';
 import {NodeService} from '../../service/nodeservice';
-import {Message,MenuItem,TreeNode} from '../../../components/common/api';
+import {MenuItem,TreeNode} from '../../../components/common/api';
 import {Tree} from '../../../components/tree/tree';
 import {TreeDragDropService} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './treedemo.html',
@@ -12,11 +13,9 @@ import {TreeDragDropService} from '../../../components/common/api';
             margin: 0 0 8px 0;
         }
     `],
-    providers: [TreeDragDropService]
+    providers: [TreeDragDropService,MessageService]
 })
 export class TreeDemo implements OnInit {
-    
-    msgs: Message[];
 
     @ViewChild('expandingTree')
     expandingTree: Tree;
@@ -49,8 +48,8 @@ export class TreeDemo implements OnInit {
     items: MenuItem[];
     
     loading: boolean;
-        
-    constructor(private nodeService: NodeService) { }
+    
+    constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.loading = true;
@@ -69,16 +68,16 @@ export class TreeDemo implements OnInit {
             {
                 label: "Backup",
                 data: "Backup Folder",
-                expandedIcon: "fa-folder-open",
-                collapsedIcon: "fa-folder"
+                expandedIcon: "fa fa-folder-open",
+                collapsedIcon: "fa fa-folder"
             }
         ];
         this.filesTree9 = [
             {
                 label: "Storage",
                 data: "Storage Folder",
-                expandedIcon: "fa-folder-open",
-                collapsedIcon: "fa-folder"
+                expandedIcon: "fa fa-folder-open",
+                collapsedIcon: "fa fa-folder"
             }
         ];
         this.nodeService.getFiles().then(files => this.filesTree10 = files);
@@ -92,24 +91,21 @@ export class TreeDemo implements OnInit {
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         
         this.items = [
-            {label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedFile2)},
-            {label: 'Unselect', icon: 'fa-close', command: (event) => this.unselectFile()}
+            {label: 'View', icon: 'fa fa-search', command: (event) => this.viewFile(this.selectedFile2)},
+            {label: 'Unselect', icon: 'fa fa-close', command: (event) => this.unselectFile()}
         ];
     }
     
     nodeSelect(event) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Selected', detail: event.node.label});
+        this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.label});
     }
     
     nodeUnselect(event) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
+        this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
     }
 
     nodeExpandMessage(event) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Expanded', detail: event.node.label});
+        this.messageService.add({severity: 'info', summary: 'Node Expanded', detail: event.node.label});
     }
     
     nodeExpand(event) {
@@ -120,8 +116,7 @@ export class TreeDemo implements OnInit {
     }
     
     viewFile(file: TreeNode) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Selected with Right Click', detail: file.label});
+        this.messageService.add({severity: 'info', summary: 'Node Selected with Right Click', detail: file.label});
     }
     
     unselectFile() {

@@ -17,7 +17,7 @@ let idx: number = 0;
                     </a>
                 </ng-container>
                 <ng-template #legendContent>
-                    <span class="ui-fieldset-toggler fa fa-w" *ngIf="toggleable" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
+                    <span class="ui-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{'pi-minus': !collapsed,'pi-plus':collapsed}"></span>
                     <span class="ui-fieldset-legend-text">{{legend}}</span>
                     <ng-content select="p-header"></ng-content>
                 </ng-template>

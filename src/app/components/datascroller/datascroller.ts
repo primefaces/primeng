@@ -64,8 +64,6 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
     first: number = 0;
         
-    contentElement: HTMLDivElement;
-
     inlineScrollListener: any;
 
     windowScrollListener: any;

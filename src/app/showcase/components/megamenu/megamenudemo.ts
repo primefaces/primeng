@@ -11,7 +11,7 @@ export class MegaMenuDemo {
     ngOnInit() {
         this.items = [
             {
-                label: 'TV', icon: 'fa-check',
+                label: 'TV', icon: 'fa fa-fw fa-check',
                 items: [
                     [
                         {
@@ -36,7 +36,7 @@ export class MegaMenuDemo {
                 ]
             },
             {
-                label: 'Sports', icon: 'fa-soccer-ball-o',
+                label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
                 items: [
                     [
                         {
@@ -72,7 +72,7 @@ export class MegaMenuDemo {
                 ]
             },
             {
-                label: 'Entertainment', icon: 'fa-child',
+                label: 'Entertainment', icon: 'fa fa-fw fa-child',
                 items: [
                     [
                         {
@@ -97,7 +97,7 @@ export class MegaMenuDemo {
                 ]
             },
             {
-                label: 'Technology', icon: 'fa-gears',
+                label: 'Technology', icon: 'fa fa-fw fa-gears',
                 items: [
                     [
                         {

@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="content-section documentation">    
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="datascrollerinfinitedemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datascroller/datascrollerinfinitedemo.ts" class="btn-viewsource" target="_blank">
@@ -20,11 +20,9 @@
 export class DataScrollerInfiniteDemo &#123;
 
     cars: Car[];
-    
-    msgs: Message[] = [];
-    
-    constructor(private carService: CarService) &#123; &#125;
-    
+
+    constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
+
     loadData(event) &#123;
         //initialize
         if(!this.cars) &#123;
@@ -36,13 +34,12 @@ export class DataScrollerInfiniteDemo &#123;
             for(let i = 0; i < newArray.length; i++) &#123;
                 this.cars.push(newArray[i]);
             &#125;
-            this.msgs = [];
-            this.msgs.push(&#123;severity:'info', summary:'Data Loaded', detail:'Between ' + event.first + ' and ' + (event.first + event.rows)&#125;);
-        &#125;        
+            this.messageService.add(&#123;severity:'info', summary:'Data Loaded', detail:'Between ' + event.first + ' and ' + (event.first + event.rows)&#125;);
+        &#125;
     &#125;
 &#125;
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="datascrollerinfinitedemo.html">
@@ -52,7 +49,7 @@ export class DataScrollerInfiniteDemo &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;p-dataScroller [value]="cars" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true"&gt;
     &lt;p-header&gt;
@@ -88,8 +85,8 @@ export class DataScrollerInfiniteDemo &#123;
 </div>
 
 <div class="content-section implementation">
-    <p-growl [value]="msgs"></p-growl>
-    
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
     <p-dataScroller [value]="cars" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true" [totalRecords]="totalRecords">
         <p-header>
             Scroll Down to to Load More
@@ -103,13 +100,13 @@ export class DataScrollerInfiniteDemo &#123;
                     <div class="ui-g">
                         <div class="ui-g-2 ui-sm-6">Vin: </div>
                         <div class="ui-g-10 ui-sm-6">{{car.vin}}</div>
-            
+
                         <div class="ui-g-2 ui-sm-6">Year: </div>
                         <div class="ui-g-10 ui-sm-6">{{car.year}}</div>
-            
+
                         <div class="ui-g-2 ui-sm-6">Brand: </div>
                         <div class="ui-g-10 ui-sm-6">{{car.brand}}</div>
-            
+
                         <div class="ui-g-2 ui-sm-6">Color: </div>
                         <div class="ui-g-10 ui-sm-6">{{car.color}}</div>
                     </div>

@@ -14,6 +14,11 @@
     padding: .5em;
 }
 
+.ui-accordion .ui-accordion-toggle-icon,
+.ui-accordion .ui-accordion-header-text {
+    vertical-align: middle;   
+}
+
 .ui-accordion .ui-accordion-content { 
     padding: 1em;
     border-top: 0; 
@@ -39,6 +44,6 @@
     right: .5em;
 }
 
-.ui-rtl .ui-accordion .ui-accordion-toggle-icon.fa-caret-right:before {
-    content: '\f0d9';
+.ui-rtl .ui-accordion .ui-accordion-toggle-icon.pi-caret-right:before {
+    content: '\e904';
 }

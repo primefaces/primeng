@@ -40,8 +40,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     hideTimeout: any;
 
-    lifeTimeout: any;
-
     active: boolean;
 
     _text: string;
@@ -80,18 +78,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     onMouseEnter(e: Event) {
-        if (!this.container) {
-            if (this.hideTimeout) {
-                clearTimeout(this.hideTimeout);
-                this.remove();
-            }
-
+        if (!this.container && !this.showTimeout) {
             this.activate();
         }
     }
     
     onMouseLeave(e: Event) {
-        this.deactivate(true);
+        this.deactivate();
     }
     
     onFocus(e: Event) {
@@ -99,18 +92,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
     
     onBlur(e: Event) {
-        this.deactivate(true);
+        this.deactivate();
     }
   
     onClick(e: Event) {
-        this.deactivate(true);
+        this.deactivate();
     }
 
     activate() {
         this.active = true;
-        if (this.hideTimeout) {
-            clearTimeout(this.hideTimeout);
-        }
+        this.clearHideTimeout();
 
         if (this.showDelay)
             this.showTimeout = setTimeout(() => { this.show() }, this.showDelay);
@@ -118,24 +109,22 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.show();
 
         if (this.life) {
-            this.lifeTimeout = setTimeout(() => { this.deactivate(false) }, this.life);
+            let duration = this.showDelay ? this.life + this.showDelay : this.life;
+            this.hideTimeout = setTimeout(() => { this.hide() }, duration);
         }
     }
 
-    deactivate(useDelay) {
+    deactivate() {
         this.active = false;
-        if (this.showTimeout) {
-            clearTimeout(this.showTimeout);
-        }
+        this.clearShowTimeout();
 
-        if (this.lifeTimeout) {
-            clearTimeout(this.lifeTimeout);
-        }
-
-        if (this.hideDelay && useDelay)
+        if (this.hideDelay) {
+            this.clearHideTimeout();    //life timeout
             this.hideTimeout = setTimeout(() => { this.hide() }, this.hideDelay);
-        else
+        }
+        else {
             this.hide();
+        }
     }
 
     get text(): string {
@@ -372,11 +361,32 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 document.body.removeChild(this.container);
             else if (this.appendTo === 'target')
                 this.el.nativeElement.removeChild(this.container);
-            else 
+            else
                 this.domHandler.removeChild(this.container, this.appendTo);
         }
-        
+
+        this.unbindDocumentResizeListener();
+        this.clearTimeouts();
         this.container = null;
+    }
+
+    clearShowTimeout() {
+        if (this.showTimeout) {
+            clearTimeout(this.showTimeout);
+            this.showTimeout = null;
+        }
+    }
+
+    clearHideTimeout() {
+        if (this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+            this.hideTimeout = null;
+        }
+    }
+
+    clearTimeouts() {
+        this.clearShowTimeout();
+        this.clearHideTimeout();
     }
 
     ngOnDestroy() {

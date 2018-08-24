@@ -56,7 +56,7 @@
                     SplitButton
                 </div>
                 <div class="ui-g-8">
-                    <p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"></p-splitButton>
+                    <p-splitButton label="Save" icon="pi pi-check" [model]="splitMenuItems"></p-splitButton>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-6">
@@ -101,7 +101,7 @@
                 Dialog
             </div>
             <div class="ui-g-10">
-                <button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"></button>
+                <button pButton label="Show" type="button" icon="pi pi-plus" (click)="showDialog()"></button>
             </div>
         </div>
 
@@ -121,28 +121,24 @@
             but given to ruthless violence whenever anything stands against the good of the family.
         </p-panel>
 
-        <p-dataTable [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
-            <p-header>Cars</p-header>
-            <p-column field="vin" header="Vin"></p-column>
-            <p-column field="year" header="Year"></p-column>
-            <p-column field="brand" header="Brand"></p-column>
-            <p-column field="color" header="Color"></p-column>
-        </p-dataTable>
-
-        <p-dataGrid [style]="{'margin-top':'20px','margin-bottom':'20px'}" [value]="cars" [paginator]="true" [rows]="20">
-            <p-header>
-                Datagrid
-            </p-header>
-            <ng-template let-car pTemplate="item">
-                <div style="padding:3px" class="ui-g-12 ui-md-3">
-                    <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
-                        <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
-                        <div class="car-detail">{{car.year}} - {{car.color}}</div>
-                        <hr class="ui-widget-content" style="border-top:0">
-                    </p-panel>
-                </div>
+        <p-table [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Vin</th>
+                    <th>Year</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                </tr>
             </ng-template>
-        </p-dataGrid>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>{{car.vin}}</td>
+                    <td>{{car.year}}</td>
+                    <td>{{car.brand}}</td>
+                    <td>{{car.color}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
 
         <p-tree [value]="files" [style]="{'margin-top':'20px','margin-bottom':'20px'}"></p-tree>
 
@@ -243,7 +239,7 @@
             SplitButton
         &lt;/div&gt;
         &lt;div class="ui-g-8"&gt;
-            &lt;p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"&gt;&lt;/p-splitButton&gt;
+            &lt;p-splitButton label="Save" icon="pi pi-check" [model]="splitMenuItems"&gt;&lt;/p-splitButton&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="ui-g-12 ui-md-6"&gt;
@@ -288,7 +284,7 @@
         Dialog
     &lt;/div&gt;
     &lt;div class="ui-g-10"&gt;
-        &lt;button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"&gt;&lt;/button&gt;
+        &lt;button pButton label="Show" type="button" icon="pi pi-plus" (click)="showDialog()"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
@@ -308,28 +304,24 @@
     but given to ruthless violence whenever anything stands against the good of the family.
 &lt;/p-panel&gt;
 
-&lt;p-dataTable [style]="&#123;'margin-top':'20px'&#125;" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true"&gt;
-    &lt;p-header&gt;Cars&lt;/p-header&gt;
-    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
-    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-&lt;/p-dataTable&gt;
-
-&lt;p-dataGrid [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [value]="cars" [paginator]="true" [rows]="20"&gt;
-    &lt;p-header&gt;
-        Datagrid
-    &lt;/p-header&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
-            &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.gif"&gt;
-                &lt;div class="car-detail"&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
-                &lt;hr class="ui-widget-content" style="border-top:0"&gt;
-            &lt;/p-panel&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-dataGrid&gt;
+&lt;p-table [value]="cars" [style]="&#123;'margin-top':'20px'&#125;" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true"&gt;
+&lt;ng-template pTemplate="header"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Vin&lt;/th&gt;
+        &lt;th&gt;Year&lt;/th&gt;
+        &lt;th&gt;Brand&lt;/th&gt;
+        &lt;th&gt;Color&lt;/th&gt;
+    &lt;/tr&gt;
+&lt;/ng-template&gt;
+&lt;ng-template pTemplate="body" let-car&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
+        &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
+        &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
+        &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/ng-template&gt;
+&lt;/p-table&gt;
 
 &lt;p-tree [value]="files" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;"&gt;&lt;/p-tree&gt;
 
@@ -489,25 +481,25 @@ export class ResponsiveDemo implements OnInit &#123;
         this.items1 = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa-download'&#125;
+                &#123;label: 'New', icon: 'fa fa-fw fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-fw fa-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'fa fa-fw fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa fa-fw fa-repeat'&#125;
             ]
         &#125;];
         
         this.items2 = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -519,22 +511,22 @@ export class ResponsiveDemo implements OnInit &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -552,21 +544,21 @@ export class ResponsiveDemo implements OnInit &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'fa fa-fw fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa fa-fw fa-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'fa fa-fw fa-minus'&#125;
                         ]
                     &#125;
                 ]
@@ -574,10 +566,10 @@ export class ResponsiveDemo implements OnInit &#123;
         ];
         
         this.splitMenuItems = [
-            &#123;label: 'Update', icon: 'fa-refresh'&#125;,
-            &#123;label: 'Delete', icon: 'fa-close'&#125;,
-            &#123;label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'&#125;,
-            &#123;label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']&#125;
+            &#123;label: 'Update', icon: 'fa fa-fw fa-refresh'&#125;,
+            &#123;label: 'Delete', icon: 'fa fa-fw fa-close'&#125;,
+            &#123;label: 'Angular.io', icon: 'fa fa-fw fa-link', url: 'http://angular.io'&#125;,
+            &#123;label: 'Theming', icon: 'fa fa-fw fa-paint-brush', routerLink: ['/theming']&#125;
         ];
     &#125;
 

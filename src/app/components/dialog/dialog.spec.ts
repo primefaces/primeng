@@ -23,6 +23,7 @@ describe('Dialog', () => {
     });
     
     it('should display the header', () => {
+        dialog.visible=true;
         dialog.header = 'PrimeNG Dialog Header';
         fixture.detectChanges();
         const headerEl = fixture.debugElement.query(By.css('.ui-dialog-title'));
@@ -30,53 +31,38 @@ describe('Dialog', () => {
     });
     
     it('should display close icon when closable', () => {
+        dialog.visible=true;
         fixture.detectChanges();
         const closeEl = fixture.debugElement.query(By.css('.ui-dialog-titlebar-close'));
         expect(closeEl).not.toBeNull();
     });
     
     it('should display resizer when resizable', () => {
+        dialog.visible=true;
         fixture.detectChanges();
         const resizeEl = fixture.debugElement.query(By.css('.ui-resizable-handle'));
         expect(resizeEl).not.toBeNull();
     });
 
-    it('should be hidden by default', () => {
+    it('should not create the container element by default', () => {
         fixture.detectChanges();
-        expect(fixture.debugElement.children[0].styles.display).toEqual('none');
+        expect(fixture.debugElement.nativeElement.childElementCount).toEqual(0);
+        expect(dialog.visible).toEqual(undefined);
     });
     
     it('should add rtl class when rtl is enabled', () => {
+        dialog.visible=true;
         dialog.rtl = true;
         fixture.detectChanges();
         expect(fixture.debugElement.children[0].classes['ui-dialog-rtl']).toEqual(true);
     });
     
     it('should add draggable class when dragging is enabled', () => {
+        dialog.visible=true;
         fixture.detectChanges();
         expect(fixture.debugElement.children[0].classes['ui-dialog-draggable']).toEqual(true);
     });
-    
-    it('should show the dialog when visible is true', () => {
-        spyOn(dialog, 'show');
-        dialog.visible = true;
-        fixture.detectChanges();
-        expect(fixture.debugElement.children[0].styles.display).toEqual('block');
-        expect(dialog.show).toHaveBeenCalled();
-    });
-    
-    it('should call hide if visible is true and dialog gets hidden', () => {
-        dialog.visible = true;
-        fixture.detectChanges();
-        
-        spyOn(dialog, 'hide');
-        dialog.visible = false;
-        fixture.detectChanges();
-        
-        expect(fixture.debugElement.children[0].styles.display).toEqual('none');
-        expect(dialog.hide).toHaveBeenCalled();
-    });
-        
+            
     it('should update visible as false binding when close icon is clicked', () => {
         let show = true;
         dialog.visible = show;

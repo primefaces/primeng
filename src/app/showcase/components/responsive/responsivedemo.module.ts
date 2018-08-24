@@ -15,7 +15,7 @@ import {ListboxModule} from '../../../components/listbox/listbox';
 import {RadioButtonModule} from '../../../components/radiobutton/radiobutton';
 import {DialogModule} from '../../../components/dialog/dialog';
 import {PanelModule} from '../../../components/panel/panel';
-import {DataTableModule} from '../../../components/datatable/datatable';
+import {TableModule} from '../../../components/table/table';
 import {DataGridModule} from '../../../components/datagrid/datagrid';
 import {CarouselModule} from '../../../components/carousel/carousel';
 import {OrderListModule} from '../../../components/orderlist/orderlist';
@@ -36,13 +36,14 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         CalendarModule,
         AutoCompleteModule,
         SplitButtonModule,
+        ButtonModule,
         PasswordModule,
         DropdownModule,
         ListboxModule,
         RadioButtonModule,
         DialogModule,
         PanelModule,
-        DataTableModule,
+        TableModule,
         DataGridModule,
         CarouselModule,
         OrderListModule,

@@ -1,8 +1,9 @@
 import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message} from '../common/message';
 import {MessageService} from '../common/messageservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'p-messages',
@@ -12,11 +13,11 @@ import {Subscription}   from 'rxjs/Subscription';
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
                     'ui-messages-success':(value[0].severity === 'success')}"
-                    [ngStyle]="style" [class]="styleClass">
+                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="'visible'">
             <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
-                <i class="fa fa-close"></i>
+                <i class="pi pi-times"></i>
             </a>
-            <span class="ui-messages-icon fa fa-fw fa-2x" [ngClass]="icon"></span>
+            <span class="ui-messages-icon pi" [ngClass]="icon"></span>
             <ul>
                 <li *ngFor="let msg of value">
                     <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
@@ -24,7 +25,25 @@ import {Subscription}   from 'rxjs/Subscription';
                 </li>
             </ul>
         </div>
-    `
+    `,
+    animations: [
+        trigger('messageAnimation', [
+            state('visible', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
+            transition('void => *', [
+                style({transform: 'translateY(-25%)', opacity: 0}),
+                animate('300ms ease-out')
+            ]),
+            transition('* => void', [
+                animate(('250ms ease-in'), style({
+                    opacity: 0,
+                    transform: 'translateY(-25%)'
+                }))
+            ])
+        ])
+    ]
 })
 export class Messages implements OnInit, OnDestroy {
 
@@ -41,14 +60,16 @@ export class Messages implements OnInit, OnDestroy {
     @Input() key: string;
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
+    
+    messageSubscription: Subscription;
 
-    subscription: Subscription;
+    clearSubscription: Subscription;
 
     constructor(@Optional() public messageService: MessageService) {}
 
     ngOnInit() {
         if(this.messageService && this.enableService) {
-            this.subscription = this.messageService.messageObserver.subscribe((messages: any) => {
+            this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
                 if(messages) {
                     if(messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
@@ -56,6 +77,14 @@ export class Messages implements OnInit, OnDestroy {
                     }
                     else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
+                    }
+                }
+            });
+
+            this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
+                if (key) {
+                    if (this.key === key) {
+                        this.value = null;
                     }
                 }
                 else {
@@ -86,23 +115,23 @@ export class Messages implements OnInit, OnDestroy {
             let msg = this.value[0];
             switch(msg.severity) {
                 case 'success':
-                    icon = 'fa-check';
+                    icon = 'pi-check';
                 break;
 
                 case 'info':
-                    icon = 'fa-info-circle';
+                    icon = 'pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'fa-close';
+                    icon = 'pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'fa-warning';
+                    icon = 'pi-exclamation-triangle';
                 break;
 
                 default:
-                    icon = 'fa-info-circle';
+                    icon = 'pi-info-circle';
                 break;
             }
         }
@@ -111,8 +140,12 @@ export class Messages implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.subscription) {
-            this.subscription.unsubscribe();
+        if (this.messageSubscription) {
+            this.messageSubscription.unsubscribe();
+        }
+        
+        if (this.clearSubscription) {
+            this.clearSubscription.unsubscribe();
         }
     }
 }

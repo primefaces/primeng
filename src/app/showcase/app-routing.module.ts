@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: '', component: HomeComponent},
             {path: 'setup', loadChildren: './components/setup/setup.module#SetupModule'},
             {path: 'theming', loadChildren: './components/theming/theming.module#ThemingModule'},
+            {path: 'icons', loadChildren: './components/icons/icons.module#IconsModule'},
             {path: 'accordion', loadChildren: './components/accordion/accordiondemo.module#AccordionDemoModule'},
             {path: 'autocomplete', loadChildren: './components/autocomplete/autocompletedemo.module#AutoCompleteDemoModule'},
             {path: 'blockui', loadChildren: './components/blockui/blockuidemo.module#BlockUIDemoModule'},
@@ -84,6 +85,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'tabview', loadChildren: './components/tabview/tabviewdemo.module#TabViewDemoModule'},
             {path: 'terminal', loadChildren: './components/terminal/terminaldemo.module#TerminalDemoModule'},
             {path: 'tieredmenu', loadChildren: './components/tieredmenu/tieredmenudemo.module#TieredMenuDemoModule'},
+            {path: 'toast', loadChildren: './components/toast/toastdemo.module#ToastDemoModule'},
             {path: 'togglebutton', loadChildren: './components/togglebutton/togglebuttondemo.module#ToggleButtonDemoModule'},
             {path: 'toolbar', loadChildren: './components/toolbar/toolbardemo.module#ToolbarDemoModule'},
             {path: 'tooltip', loadChildren: './components/tooltip/tooltipdemo.module#TooltipDemoModule'},
@@ -93,6 +95,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
         ])    
     ],
-    exports: [RouterModule]
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -56,7 +56,7 @@
     width: calc(100% - 2em);
 }
 
-.ui-listbox-header .ui-listbox-filter-container .fa {
+.ui-listbox-header .ui-listbox-filter-container .ui-listbox-filter-icon {
     position: absolute;
     top: .25em;
     left: .25em;

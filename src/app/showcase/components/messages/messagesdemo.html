@@ -15,7 +15,7 @@
         <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
         <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
         <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
-        <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"></button>
+        <button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"></button>
     </div>
     
     <h3>Message Service</h3>
@@ -91,15 +91,15 @@ hide() &#123;
             
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+import &#123;MessageService&#125; from 'primeng/api';
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
-import &#123;Message&#125; from 'primeng/components/common/api';
-import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+import &#123;Message&#125; from 'primeng//api';
+import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
     templateUrl: './messagesdemo.html'
@@ -285,7 +285,7 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
     &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Message Service&lt;/h3&gt;
@@ -319,6 +319,16 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
 
 @Component(&#123;
     templateUrl: './messagesdemo.html',
+    styles: [`
+        :host ::ng-deep button &#123;
+            margin-right: .25em;
+        &#125;
+
+        :host ::ng-deep .ui-message,
+        :host ::ng-deep .ui-inputtext &#123;
+            margin-right: .25em;
+        &#125;
+    `],
     providers: [MessageService]
 &#125;)
 export class GrowlDemo &#123;

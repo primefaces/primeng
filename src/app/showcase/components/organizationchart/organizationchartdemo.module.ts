@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {OrganizationChartDemo} from './organizationchartdemo';
 import {OrganizationChartDemoRoutingModule} from './organizationchartdemo-routing.module';
 import {OrganizationChartModule} from '../../../components/organizationchart/organizationchart';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {PanelModule} from '../../../components/panel/panel';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
@@ -13,7 +13,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		CommonModule,
 		OrganizationChartDemoRoutingModule,
         OrganizationChartModule,
-        GrowlModule,
+        ToastModule,
         PanelModule,
         TabViewModule,
         CodeHighlighterModule

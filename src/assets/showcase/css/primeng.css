@@ -46,6 +46,7 @@
 @import '../../../app/components/progressbar/progressbar.css';
 @import '../../../app/components/progressspinner/progressspinner.css';
 @import '../../../app/components/radiobutton/radiobutton.css';
+@import '../../../app/components/rating/rating.css';
 @import '../../../app/components/schedule/schedule.css';
 @import '../../../app/components/scrollpanel/scrollpanel.css';
 @import '../../../app/components/selectbutton/selectbutton.css';
@@ -60,6 +61,7 @@
 @import '../../../app/components/table/table.css';
 @import '../../../app/components/terminal/terminal.css';
 @import '../../../app/components/tieredmenu/tieredmenu.css';
+@import '../../../app/components/toast/toast.css';
 @import '../../../app/components/toolbar/toolbar.css';
 @import '../../../app/components/tooltip/tooltip.css';
 @import '../../../app/components/tree/tree.css';

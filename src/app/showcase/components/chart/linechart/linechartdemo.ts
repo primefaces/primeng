@@ -1,16 +1,15 @@
 import {Component} from '@angular/core';
-import {Message} from '../../../../components/common/api';
+import {MessageService} from '../../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './linechartdemo.html'
+    templateUrl: './linechartdemo.html',
+    providers: [MessageService]
 })
 export class LineChartDemo {
 
     data: any;
-    
-    msgs: Message[];
 
-    constructor() {
+    constructor(private messageService: MessageService) {
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
@@ -31,7 +30,6 @@ export class LineChartDemo {
     }
 
     selectData(event) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
+        this.messageService.add({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
     }
 }

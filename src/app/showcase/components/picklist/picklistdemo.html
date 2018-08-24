@@ -141,13 +141,33 @@ This dragdrop property also supports cross list actions.</p>
                             <td>When specified displays an input field to filter the items on keyup and decides which field to search (Accepts multiple fields with a comma).</td>
                         </tr>
                         <tr>
+                            <td>trackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity. Use sourceTrackBy or targetTrackBy in 
+                                case different algorithms are needed per list.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>sourceTrackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy in source list, default algoritm checks for object identity.</td>
+                        </tr>
+                        <tr>
+                            <td>targetTrackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy in target list, default algoritm checks for object identity.</td>
+                        </tr>
+                        <tr>
                             <td>showSourceFilter</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show filter input for source list when filterBy is enabled.</td>
                         </tr>
                         <tr>
-                            <td>targetSourceFilter</td>
+                            <td>showTargetFilter</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show filter input for target list when filterBy is enabled.</td>

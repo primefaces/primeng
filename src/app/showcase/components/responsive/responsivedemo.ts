@@ -131,25 +131,25 @@ export class ResponsiveDemo implements OnInit {
         this.items1 = [{
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download'}
+                {label: 'New', icon: 'fa fa-fw fa-plus'},
+                {label: 'Open', icon: 'fa fa-fw fa-download'}
             ]
         },
         {
             label: 'Edit',
             items: [
-                {label: 'Undo', icon: 'fa-refresh'},
-                {label: 'Redo', icon: 'fa-repeat'}
+                {label: 'Undo', icon: 'fa fa-fw fa-refresh'},
+                {label: 'Redo', icon: 'fa fa-fw fa-repeat'}
             ]
         }];
         
         this.items2 = [
             {
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'fa fa-fw fa-file-o',
                 items: [{
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'fa fa-fw fa-plus',
                         items: [
                             {label: 'Project'},
                             {label: 'Other'},
@@ -161,22 +161,22 @@ export class ResponsiveDemo implements OnInit {
             },
             {
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'fa fa-fw fa-edit',
                 items: [
-                    {label: 'Undo', icon: 'fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa-mail-reply'}
+                    {label: 'Undo', icon: 'fa fa-fw fa-mail-forward'},
+                    {label: 'Redo', icon: 'fa fa-fw fa-mail-reply'}
                 ]
             },
             {
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'fa fa-fw fa-question',
                 items: [
                     {
                         label: 'Contents'
                     },
                     {
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'fa fa-fw fa-search', 
                         items: [
                             {
                                 label: 'Text', 
@@ -194,21 +194,21 @@ export class ResponsiveDemo implements OnInit {
             },
             {
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'fa fa-fw fa-gear',
                 items: [
                     {
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'fa fa-fw fa-refresh',
                         items: [
-                            {label: 'Save', icon: 'fa-save'},
-                            {label: 'Update', icon: 'fa-save'},
+                            {label: 'Save', icon: 'fa fa-fw fa-save'},
+                            {label: 'Update', icon: 'fa fa-fw fa-save'},
                         ]
                     },
                     {
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'fa fa-fw fa-phone',
                         items: [
-                            {label: 'Delete', icon: 'fa-minus'}
+                            {label: 'Delete', icon: 'fa fa-fw fa-minus'}
                         ]
                     }
                 ]
@@ -216,10 +216,10 @@ export class ResponsiveDemo implements OnInit {
         ];
         
         this.splitMenuItems = [
-            {label: 'Update', icon: 'fa-refresh'},
-            {label: 'Delete', icon: 'fa-close'},
-            {label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'},
-            {label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']}
+            {label: 'Update', icon: 'fa fa-fw fa-refresh'},
+            {label: 'Delete', icon: 'fa fa-fw fa-close'},
+            {label: 'Angular.io', icon: 'fa fa-fw fa-link', url: 'http://angular.io'},
+            {label: 'Theming', icon: 'fa fa-fw fa-paint-brush', routerLink: ['/theming']}
         ];
     }
 

@@ -63,8 +63,30 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
             this.contentViewChild.nativeElement.addEventListener('mouseenter', this.moveBar);
             this.xBarViewChild.nativeElement.addEventListener('mousedown', this.onXBarMouseDown);
             this.yBarViewChild.nativeElement.addEventListener('mousedown', this.onYBarMouseDown);
+
+            this.calculateContainerHeight();
+
             this.initialized = true;
         });
+    }
+
+    calculateContainerHeight() {
+        let container = this.containerViewChild.nativeElement;
+        let content = this.contentViewChild.nativeElement;
+        let xBar = this.xBarViewChild.nativeElement;
+
+        let containerStyles = getComputedStyle(container),
+        xBarStyles = getComputedStyle(xBar),
+        pureContainerHeight = this.domHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
+
+        if (containerStyles['max-height'] != "none" && pureContainerHeight == 0) {
+            if(content.offsetHeight + parseInt(xBarStyles['height'], 10) > parseInt(containerStyles['max-height'], 10)) {
+                container.style.height = containerStyles['max-height'];
+            }
+            else {
+                container.style.height = content.offsetHeight + parseFloat(containerStyles.paddingTop) + parseFloat(containerStyles.paddingBottom) + parseFloat(containerStyles.borderTopWidth) + parseFloat(containerStyles.borderBottomWidth) + "px";
+            }
+        }
     }
 
     moveBar() {

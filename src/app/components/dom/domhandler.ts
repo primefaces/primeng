@@ -53,7 +53,7 @@ export class DomHandler {
     }
 
     public find(element: any, selector: string): any[] {
-        return element.querySelectorAll(selector);
+        return Array.from(element.querySelectorAll(selector));
     }
 
     public findSingle(element: any, selector: string): any {
@@ -340,6 +340,13 @@ export class DomHandler {
         };
     }
 
+    public replaceElementWith(element: any, replacementElement: any): any {
+        let parentNode = element.parentNode;
+        if(!parentNode) 
+            throw `Can't replace element`;
+        return parentNode.replaceChild(replacementElement, element);
+    }
+
     getUserAgent(): string {
         return navigator.userAgent;
     }
@@ -464,5 +471,14 @@ export class DomHandler {
             browser: match[1] || "",
             version: match[2] || "0"
         };
+    }
+
+    isInteger(value): boolean {
+        if(Number.isInteger) {
+            return Number.isInteger(value);
+        }
+        else {
+            return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+        }
     }
 }

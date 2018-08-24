@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 import {FormsModule,ReactiveFormsModule}    from '@angular/forms';
 import {ValidationDemo} from './validationdemo';
 import {ValidationDemoRoutingModule} from './validationdemo-routing.module';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
+import {MessageModule} from '../../../components/message/message';
 import {PanelModule} from '../../../components/panel/panel';
 import {DropdownModule} from '../../../components/dropdown/dropdown';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
@@ -18,7 +19,8 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         FormsModule,
         ReactiveFormsModule,
 		ValidationDemoRoutingModule,
-        GrowlModule,
+        ToastModule,
+        MessageModule,
         PanelModule,
         DropdownModule,
         InputTextModule,

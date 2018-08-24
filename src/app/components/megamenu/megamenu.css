@@ -18,6 +18,15 @@
     text-decoration: none;
 }
 
+.ui-megamenu .ui-menuitem-icon {
+    margin-right: .25em;
+    vertical-align: middle;
+}
+
+.ui-megamenu .ui-menuitem-text {
+    vertical-align: middle;
+}
+
 .ui-megamenu-panel {
     display: none;
     position: absolute;
@@ -46,6 +55,11 @@
 /* Horizontal */
 .ui-megamenu-horizontal .ui-megamenu-root-list > .ui-menuitem {
     display: inline-block;
+}
+
+.ui-megamenu-horizontal .ui-megamenu-root-list > .ui-menuitem > .ui-menuitem-link > .ui-submenu-icon {
+    vertical-align: middle;
+    margin-left: .25em;    
 }
 
 /* Vertical */
