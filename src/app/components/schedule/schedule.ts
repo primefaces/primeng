@@ -318,6 +318,9 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         this.calendar = new FullCalendar.Calendar(this.el.nativeElement.children[0], this.config);
         this.calendar.render();
         this.initialized = true;
+        if(this.events) {
+            this.calendar.addEventSource(this.events);
+        }
     }
      
     ngDoCheck() {
