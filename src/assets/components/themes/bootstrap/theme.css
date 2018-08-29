@@ -1698,6 +1698,45 @@ body .fc .fc-toolbar .fc-next-button .ui-icon {
     background-color: #f2dede;
     color: #a94442;
 }
+.ui-toast .ui-toast-message {
+    -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    margin: 0 0 1em 0;
+}
+.ui-toast .ui-toast-message.ui-toast-message-info {
+    background-color: #7fbcec;
+    border: 0 none;
+    color: #212121;
+}
+.ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon {
+    color: #212121;
+}
+.ui-toast .ui-toast-message.ui-toast-message-success {
+    background-color: #b7d8b7;
+    border: 0 none;
+    color: #212121;
+}
+.ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-close-icon {
+    color: #212121;
+}
+.ui-toast .ui-toast-message.ui-toast-message-warn {
+    background-color: #ffe399;
+    border: 0 none;
+    color: #212121;
+}
+.ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-close-icon {
+    color: #212121;
+}
+.ui-toast .ui-toast-message.ui-toast-message-error {
+    background-color: #f8b7bd;
+    border: 0 none;
+    color: #212121;
+}
+.ui-toast .ui-toast-message.ui-toast-message-error .ui-toast-close-icon {
+    color: #212121;
+}
+
 body .ui-overlaypanel {
     -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
