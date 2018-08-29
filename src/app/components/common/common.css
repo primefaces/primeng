@@ -155,8 +155,11 @@
     top: -9999px;
 }
 .ui-overflow-hidden {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     height: 100%;
 }
 
