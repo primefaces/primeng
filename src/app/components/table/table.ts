@@ -2499,6 +2499,20 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
+    selector: '[pReorderableColumnHandle]'
+})
+export class ReorderableColumnHandle {
+    
+    @Input("pReorderableColumnHandle") index: number;
+    
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+
+    ngAfterViewInit() {
+        this.domHandler.addClass(this.el.nativeElement, 'ui-table-reorderablecolumn-handle');
+    }
+}
+
+@Directive({
     selector: '[pReorderableColumn]'
 })
 export class ReorderableColumn implements AfterViewInit, OnDestroy {
@@ -2570,10 +2584,20 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     onMouseDown(event) {
-        if (event.target.nodeName === 'INPUT' || this.domHandler.hasClass(event.target, 'ui-column-resizer'))
+        const targetIsInput = event.target.nodeName === 'INPUT';
+        const targetIsTextarea = event.target.nodeName === 'TEXTAREA';
+        const targetIsResizer = this.domHandler.hasClass(event.target, 'ui-column-resizer');
+
+        const handleExists = !!this.domHandler.findSingle(event.target, '.ui-table-reorderablecolumn-handle');
+        const targetIsHandle = this.domHandler.hasClass(event.target, 'ui-table-reorderablecolumn-handle');
+
+        if (targetIsInput || targetIsTextarea || targetIsResizer) {
             this.el.nativeElement.draggable = false;
-        else
+        } else if (handleExists) {
+            this.el.nativeElement.draggable = targetIsHandle;
+        } else {
             this.el.nativeElement.draggable = true;
+        }
     }
 
     onDragStart(event) {
@@ -3152,7 +3176,7 @@ export class ReorderableRow implements AfterViewInit {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableColumnHandle,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableColumnHandle,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick]
 })
 export class TableModule { }
