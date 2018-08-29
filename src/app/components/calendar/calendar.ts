@@ -639,6 +639,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.decrementYear();
         }
         else {
+            debugger;
             if(this.currentMonth === 0) {
                 this.currentMonth = 11;
                 this.decrementYear();
@@ -1428,8 +1429,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (Array.isArray(val)){
             val = val[0];
         }
-
-        this.createMonths(val.getMonth(), val.getFullYear());
+        this.currentMonth = val.getMonth();
+        this.currentYear = val.getFullYear();
+        this.createMonths(this.currentMonth, this.currentYear);
         
         if(this.showTime||this.timeOnly) {
             let hours = val.getHours();
