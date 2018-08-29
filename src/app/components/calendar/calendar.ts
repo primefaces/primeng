@@ -490,15 +490,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
 
-        if(this.yearNavigator && this.yearRange) {
-            this.yearOptions = [];
+        if(this.yearNavigator && this.yearRange) {            
             let years = this.yearRange.split(':'),
             yearStart = parseInt(years[0]),
             yearEnd = parseInt(years[1]);
             
-            for(let i = yearStart; i <= yearEnd; i++) {
-                this.yearOptions.push(i);
-            }
+            this.populateYearOptions(yearStart, yearEnd);
         }
 
         if(this.view === 'date') {
@@ -527,6 +524,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 break;
             }
         });
+    }
+
+    populateYearOptions(start, end) {
+        this.yearOptions = [];
+
+        for(let i = start; i <= end; i++) {
+            this.yearOptions.push(i);
+        }
     }
 
     createWeekDays() {
@@ -678,7 +683,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.currentYear--;
         
         if(this.yearNavigator && this.currentYear < this.yearOptions[0]) {
-            this.currentYear = this.yearOptions[this.yearOptions.length - 1];
+            let difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
+            this.populateYearOptions(this.yearOptions[0] - difference, this.yearOptions[this.yearOptions.length - 1] - difference);
         }
     }
 
@@ -686,7 +692,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.currentYear++;
         
         if(this.yearNavigator && this.currentYear > this.yearOptions[this.yearOptions.length - 1]) {
-            this.currentYear = this.yearOptions[0];
+            let difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
+            this.populateYearOptions(this.yearOptions[0] + difference, this.yearOptions[this.yearOptions.length - 1] + difference);
         }
     }
     
