@@ -22,14 +22,14 @@ describe('TriStateCheckbox', () => {
       tristate = fixture.componentInstance;
     });
 
-    it('should be created by default', () => {
+    it('should created by default', () => {
       fixture.detectChanges();
 
       const tristatecheckboxEl = fixture.debugElement.query(By.css('div'));
       expect(tristatecheckboxEl).toBeTruthy();
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       tristate.disabled = true;
       tristate.label = "Primeng!";
       fixture.detectChanges();
@@ -47,7 +47,7 @@ describe('TriStateCheckbox', () => {
       expect(toggleSpy).not.toHaveBeenCalled();
     });
 
-    it('should be get a label', () => {
+    it('should get a label', () => {
       tristate.label = "Primeng!";
       fixture.detectChanges();
 
@@ -55,7 +55,7 @@ describe('TriStateCheckbox', () => {
       expect(labelEl.textContent).toContain("Primeng!");
     });
 
-    it('should be change stlye and styleClass', () => {
+    it('should change stlye and styleClass', () => {
       tristate.styleClass = "Primeng ROCKS!";
       tristate.style = {'primeng':'rocks!'};
       fixture.detectChanges();
@@ -65,7 +65,7 @@ describe('TriStateCheckbox', () => {
       expect(tristatecheckboxEl.style.primeng).toContain("rocks!");
     });
 
-    it('should be get a name inputId and tabIndex', () => {
+    it('should get a name inputId and tabIndex', () => {
       tristate.label = "Primeng!";
       tristate.tabindex = 5;
       tristate.inputId = "Primeng";
@@ -80,7 +80,7 @@ describe('TriStateCheckbox', () => {
       expect(labelEl.htmlFor).toEqual("Primeng");
     });
 
-    it('should be value is true when click', () => {
+    it('should value is true when click', () => {
       tristate.label = "Primeng";
       fixture.detectChanges();
 
@@ -98,7 +98,7 @@ describe('TriStateCheckbox', () => {
       expect(onClickSpy).toHaveBeenCalled();
     });
 
-    it('should be value is true when click to label', () => {
+    it('should value is true when click to label', () => {
       tristate.label = "Primeng";
       fixture.detectChanges();
 
@@ -116,7 +116,7 @@ describe('TriStateCheckbox', () => {
       expect(onClickSpy).toHaveBeenCalled();
     });
 
-    it('should be value is false when click twice', () => {
+    it('should value is false when click twice', () => {
       tristate.label = "Primeng";
       fixture.detectChanges();
 
@@ -135,7 +135,7 @@ describe('TriStateCheckbox', () => {
       expect(onClickSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should be value is false when click three time', () => {
+    it('should value is false when click three time', () => {
       tristate.label = "Primeng";
       fixture.detectChanges();
 

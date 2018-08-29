@@ -26,7 +26,7 @@ describe('SplitButton', () => {
       splitbutton = fixture.componentInstance;
     });
     
-    it('should be opens dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
+    it('should opens dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
       const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
       const showSpy = spyOn(splitbutton, 'show').and.callThrough();
@@ -41,7 +41,7 @@ describe('SplitButton', () => {
       expect(dropdownMenuEl).toBeTruthy();
     });
 
-    it('should be close dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
+    it('should close dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
       const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
       const showSpy = spyOn(splitbutton, 'show').and.callThrough();
@@ -57,7 +57,7 @@ describe('SplitButton', () => {
       expect(dropdownMenuEl).toBeFalsy();
     });
 
-    it('should be close dropdown menu when click dropdown menu item and call itemClick', () => {
+    it('should close dropdown menu when click dropdown menu item and call itemClick', () => {
       splitbutton.model = [{label: 'Update', icon: 'fa fa-refresh', command: () => {}}];
       const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const itemClickSpy = spyOn(splitbutton, 'itemClick').and.callThrough();
@@ -74,7 +74,7 @@ describe('SplitButton', () => {
       expect(dropdownMenuEl).toBeFalsy();
     });
 
-    it('should be disabled and dont called onDropdownButtonClick & show', () => {
+    it('should disabled and dont called onDropdownButtonClick & show', () => {
       splitbutton.disabled = true;
       const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
       const showSpy = spyOn(splitbutton, 'show').and.callThrough();
@@ -94,7 +94,7 @@ describe('SplitButton', () => {
       expect (showSpy).not.toHaveBeenCalled();
     });
 
-    it('should be add label and change icon and iconPosition', () => {
+    it('should add label and change icon and iconPosition', () => {
       splitbutton.label = "Primeng ROCKS!";
       splitbutton.icon = "Primeng ROCKS!";
       splitbutton.iconPos = "right";
@@ -106,7 +106,7 @@ describe('SplitButton', () => {
       expect(defaultButton.attributes["ng-reflect-icon-pos"]).toEqual("right");
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       splitbutton.style = {'primeng':'rock'};
       splitbutton.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
@@ -116,7 +116,7 @@ describe('SplitButton', () => {
       expect(containerEl.style.primeng).toContain("rock");
     });
 
-    it('should be change menuStyle and stylemenuStyleClassClass', () => {
+    it('should change menuStyle and stylemenuStyleClassClass', () => {
       splitbutton.menuStyle = {'primeng':'rock'};
       splitbutton.menuStyleClass="Primeng ROCKS!";
       fixture.detectChanges();
@@ -130,7 +130,7 @@ describe('SplitButton', () => {
       expect(containerEl.style.primeng).toContain("rock");
     });
 
-    it('should be change directon of elements', () => {
+    it('should change directon of elements', () => {
       splitbutton.dir="ltr"
       fixture.detectChanges();
 

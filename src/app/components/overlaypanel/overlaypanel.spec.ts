@@ -39,7 +39,7 @@ describe('OverlayPanel', () => {
       overlaypanel = fixture.debugElement.query(By.css('p-overlayPanel')).componentInstance;
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       overlaypanel.style = {'primeng':'rocks!'};
       overlaypanel.styleClass = "Primeng rocks!";
       const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
@@ -61,7 +61,7 @@ describe('OverlayPanel', () => {
       expect(closeEl).toBeTruthy();
     });
 
-    it('should be open', () => {
+    it('should open', () => {
       overlaypanel.showCloseIcon = true;
       const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
       const toggleSpy = spyOn(overlaypanel, 'toggle').and.callThrough();
@@ -73,7 +73,7 @@ describe('OverlayPanel', () => {
       expect(overlaypanelEl).toBeTruthy();
     });
 
-    it('should be close', () => {
+    it('should close', () => {
       overlaypanel.showCloseIcon = true;
       const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
       const closeSpy = spyOn(overlaypanel, 'onCloseClick').and.callThrough();
@@ -89,7 +89,7 @@ describe('OverlayPanel', () => {
       expect(overlaypanelEl).toBeFalsy();
     });
 
-    it('should be close when outside click', () => {
+    it('should close when outside click', () => {
       overlaypanel.showCloseIcon = true;
       const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
       const hide = spyOn(overlaypanel, 'hide').and.callThrough();

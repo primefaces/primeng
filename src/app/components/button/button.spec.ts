@@ -72,7 +72,7 @@ describe('Button', () => {
         expect(buttonEl.nativeElement.className).toContain('ui-button-icon-only');
         expect(buttonEl.nativeElement.children[0].className).toContain('ui-button-icon-right');
       });
-      it('should be enabled by default', () => {
+      it('should enabled by default', () => {
         fixture.detectChanges();
         const buttonEl = fixture.debugElement.query(By.css('.ui-button'));
         expect(buttonEl.nativeElement.className).not.toContain('ui-state-disabled');

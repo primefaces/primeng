@@ -26,14 +26,14 @@ describe('Breadcrumb', () => {
       breadcrumb = fixture.componentInstance;
     });
 
-    it('should be display by default', () => {
+    it('should display by default', () => {
       fixture.detectChanges();
       
       const breadcrumbEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(breadcrumbEl).toBeTruthy();
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       breadcrumb.style = {'primeng' : 'rocks!'};
       breadcrumb.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
@@ -43,7 +43,7 @@ describe('Breadcrumb', () => {
       expect(breadcrumbEl.styles.primeng).toEqual("rocks!")
     });
 
-    it('should be display home', () => {
+    it('should display home', () => {
       breadcrumb.home = {icon: 'pi pi-home'};
       fixture.detectChanges();
       
@@ -51,7 +51,7 @@ describe('Breadcrumb', () => {
       expect(homeEl).toBeTruthy();
     });
 
-    it('should be change home icon', () => {
+    it('should change home icon', () => {
       breadcrumb.home = {icon: 'primeng'};
       fixture.detectChanges();
       
@@ -59,7 +59,7 @@ describe('Breadcrumb', () => {
       expect(homeEl.className).toContain('primeng');
     });
 
-    it('should be display items', () => {
+    it('should display items', () => {
       breadcrumb.home = {icon: 'pi pi-home'};
       breadcrumb.model = [
         {label:'Squad'},
@@ -73,7 +73,7 @@ describe('Breadcrumb', () => {
       expect(itemsEl.children.length).toEqual(5);
     });
 
-    it('should be call itemClick when click home ', () => {
+    it('should call itemClick when click home ', () => {
       breadcrumb.home = {icon: 'pi pi-home'};
       breadcrumb.model = [
         {label:'Squad'},
@@ -88,7 +88,7 @@ describe('Breadcrumb', () => {
       expect(itemClickSpy).toHaveBeenCalled();
     });
 
-    it('should be call itemClick when click item ', () => {
+    it('should call itemClick when click item ', () => {
       breadcrumb.home = {icon: 'pi pi-home'};
       breadcrumb.model = [
         {label:'Squad'},
@@ -103,7 +103,7 @@ describe('Breadcrumb', () => {
       expect(itemClickSpy).toHaveBeenCalled();
     });
 
-    it('should be call itemClick(routerLink) when click item ', () => {
+    it('should call itemClick(routerLink) when click item ', () => {
       breadcrumb.home = {icon: 'pi pi-home'};
       breadcrumb.model = [
         {label:'Squad'},

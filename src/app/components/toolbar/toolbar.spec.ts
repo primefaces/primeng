@@ -41,7 +41,7 @@ describe('Toolbar', () => {
       toolbar = fixture.debugElement.children[0].componentInstance;
     });
 
-    it('should be display by default', () => {
+    it('should display by default', () => {
       fixture.detectChanges();
 
       const toolbarEl = fixture.debugElement.query(By.css('p-toolbar'));
@@ -49,7 +49,7 @@ describe('Toolbar', () => {
       expect(toolbarEl.nativeElement.children[0].children.length).toEqual(2);
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       toolbar.style = {'primeng' : 'rocks!'};
       toolbar.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
@@ -59,7 +59,7 @@ describe('Toolbar', () => {
       expect(toolbarEl.style.primeng).toEqual("rocks!");
     });
 
-    it('should be show ng-content', () => {
+    it('should show ng-content', () => {
       fixture.detectChanges();
 
       const contentEl = fixture.debugElement.query(By.css('.ui-toolbar-group-left')).nativeElement;

@@ -29,7 +29,7 @@ describe('InputSwitch', () => {
       expect(inputSwitchEl).toBeTruthy();
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       inputswitch.disabled = true;
       fixture.detectChanges();
 
@@ -44,7 +44,7 @@ describe('InputSwitch', () => {
       expect(updateModelSpy).not.toHaveBeenCalled();
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       inputswitch.style = {'primeng' : 'rocks!'};
       inputswitch.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
@@ -54,7 +54,7 @@ describe('InputSwitch', () => {
       expect(inputSwitchEl.style.primeng).toContain("rocks!")
     });
 
-    it('should be get a name inputId and tabindex', () => {
+    it('should get a name inputId and tabindex', () => {
       inputswitch.tabindex = 5;
       inputswitch.inputId = "Primeng!";
       inputswitch.name = "Primeng ROCKS!";
@@ -66,7 +66,7 @@ describe('InputSwitch', () => {
       expect(inputSwitchEl.id).toEqual("Primeng!");
     });
 
-    it('should be checked when click', () => {
+    it('should checked when click', () => {
       fixture.detectChanges();
 
       const toggleSpy = spyOn(inputswitch, 'toggle').and.callThrough();
@@ -78,7 +78,7 @@ describe('InputSwitch', () => {
       expect(toggleSpy).toHaveBeenCalled();
     });
 
-    it('should be listen event emitter', () => {
+    it('should listen event emitter', () => {
       fixture.detectChanges();
 
       let data;

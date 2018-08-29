@@ -22,14 +22,14 @@ describe('Slider', () => {
       slider = fixture.componentInstance;
     });
 
-    it('should be created by default', () => {
+    it('should created by default', () => {
       fixture.detectChanges();
 
       const sliderEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(sliderEl).toBeTruthy();
     });
 
-    it('should be disable', () => {
+    it('should disable', () => {
       slider.disabled = true;
       fixture.detectChanges();
 
@@ -40,7 +40,7 @@ describe('Slider', () => {
       expect(clickSpy).not.toHaveBeenCalled();
     });
 
-    it('should be animate', () => {
+    it('should animate', () => {
       slider.animate = true;
       fixture.detectChanges();
 
@@ -49,7 +49,7 @@ describe('Slider', () => {
       expect(sliderEl.className).toContain('ui-slider-animate');
     });
 
-    it('should be change styles', () => {
+    it('should change styles', () => {
       slider.style = {'primeng':'rocks!'};
       slider.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
@@ -59,7 +59,7 @@ describe('Slider', () => {
       expect(sliderEl.style.primeng).toEqual("rocks!");
     });
 
-    it('should be change orientation', () => {
+    it('should change orientation', () => {
       slider.orientation = "vertical"
       fixture.detectChanges();
 
@@ -67,7 +67,7 @@ describe('Slider', () => {
       expect(sliderEl.className).toContain("ui-slider-vertical");
     });
 
-    it('should be have a range', () => {
+    it('should have a range', () => {
       slider.range = true;
       fixture.detectChanges();
 
@@ -75,7 +75,7 @@ describe('Slider', () => {
       expect(sliderEl.children.length).toEqual(3);
     });
 
-    it('should be set min', () => {
+    it('should set min', () => {
       slider.min = 20;
       fixture.detectChanges();
 
@@ -87,7 +87,7 @@ describe('Slider', () => {
       expect(spanEl.style.width).toEqual('0%');
     });
 
-    it('should be set max', () => {
+    it('should set max', () => {
       slider.max = 90;
       fixture.detectChanges();
 
