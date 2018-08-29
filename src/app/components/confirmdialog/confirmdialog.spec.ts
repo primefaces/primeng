@@ -73,7 +73,7 @@ describe('ConfirmDialog', () => {
       expect(confirmDialogEl.textContent).toContain('PrimengRocks!');
     });
 
-    it('should display close icon when closable', () => {
+    it('should display the close icon when closable is true', () => {
         confirmDialog.visible = true;
         fixture.detectChanges();
 

@@ -43,7 +43,7 @@ describe('Breadcrumb', () => {
       expect(breadcrumbEl.styles.primeng).toEqual("rocks!")
     });
 
-    it('should display home', () => {
+    it('should display the home', () => {
       breadcrumb.home = {icon: 'pi pi-home'};
       fixture.detectChanges();
       

@@ -54,7 +54,7 @@ describe('Accordion', () => {
       expect(cardEl.nativeElement).toBeTruthy();
     });
 
-    it('should display title', () => {
+    it('should display the title', () => {
       card.title = "Primeng ROCKS!";
       fixture.detectChanges();
 
@@ -62,7 +62,7 @@ describe('Accordion', () => {
       expect(cardEl.textContent).toEqual("Primeng ROCKS!");
     });
 
-    it('should display subtitle', () => {
+    it('should display the subtitle', () => {
       card.subtitle = "Primeng ROCKS!";
       fixture.detectChanges();
 
@@ -100,7 +100,7 @@ describe('Accordion', () => {
       expect(cardFooterEl.children[0].children.length).toEqual(2);
     });
 
-    it('should dont have a header', () => {
+    it('should not have a header', () => {
       card.headerFacet = null;
       fixture.detectChanges();
 
@@ -108,7 +108,7 @@ describe('Accordion', () => {
       expect(cardHeaderEl).toBeFalsy();
     });
 
-    it('should dont have a  footer', () => {
+    it('should not have a  footer', () => {
       card.footerFacet = null;
       fixture.detectChanges();
 

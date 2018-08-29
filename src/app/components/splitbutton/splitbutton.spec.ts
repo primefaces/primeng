@@ -26,7 +26,7 @@ describe('SplitButton', () => {
       splitbutton = fixture.componentInstance;
     });
     
-    it('should opens dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
+    it('should open dropdown menu when click dropdown button and call onDropdownButtonClick', () => {
       const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
       const showSpy = spyOn(splitbutton, 'show').and.callThrough();
@@ -74,7 +74,7 @@ describe('SplitButton', () => {
       expect(dropdownMenuEl).toBeFalsy();
     });
 
-    it('should disabled and dont called onDropdownButtonClick & show', () => {
+    it('should disabled and not called onDropdownButtonClick & show', () => {
       splitbutton.disabled = true;
       const dropdownClickSpy = spyOn(splitbutton, 'onDropdownButtonClick').and.callThrough();
       const showSpy = spyOn(splitbutton, 'show').and.callThrough();
