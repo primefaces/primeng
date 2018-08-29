@@ -68,7 +68,6 @@ describe('Breadcrumb', () => {
       fixture.detectChanges();
       
       const itemsEl = fixture.debugElement.query(By.css('ul'));
-      console.log(itemsEl)
       expect(itemsEl.children[2].children[0]).toBeTruthy();
       expect(itemsEl.children[2].children[0].nativeElement.textContent).toEqual("Squad");
       expect(itemsEl.children.length).toEqual(5);
