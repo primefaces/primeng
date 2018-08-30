@@ -492,6 +492,12 @@ body {
         body .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
           color: #333333;
           background-color: #eaeaea; }
+        body .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item.ui-state-disabled .ui-chkbox-box {
+          cursor: auto; }
+          body .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item.ui-state-disabled .ui-chkbox-box:hover {
+            border: 1px solid #a6a6a6; }
+          body .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item.ui-state-disabled .ui-chkbox-box.ui-state-active:hover {
+            border-color: #007ad9; }
         body .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item .ui-chkbox {
           position: static;
           display: inline-block;
