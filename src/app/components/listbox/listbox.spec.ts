@@ -22,14 +22,14 @@ describe('Listbox', () => {
       listbox = fixture.componentInstance;
     });
 
-    it('should be created by default', () => {
+    it('should created by default', () => {
       fixture.detectChanges();
       
       const listboxEl = fixture.debugElement.query(By.css('div'));
       expect(listboxEl).toBeTruthy();
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       listbox.checkbox = true;
       listbox.multiple = true;
       listbox.disabled = true;
@@ -62,7 +62,7 @@ describe('Listbox', () => {
       expect(clickSingleSpy).not.toHaveBeenCalled();
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       listbox.style = {'primeng' : 'rocks!'};
       listbox.styleClass = "Primeng ROCKS!"
       fixture.detectChanges();
@@ -72,7 +72,7 @@ describe('Listbox', () => {
       expect(listboxEl.style.primeng).toEqual("rocks!");
     });
 
-    it('should be select two item with multiple checkbox option', () => {
+    it('should select two item with multiple checkbox option', () => {
       listbox.listStyle = {'primeng' : 'rocks!'};
       listbox.options = [
         {label: 'Audi', value: 'Audi'},
@@ -92,7 +92,7 @@ describe('Listbox', () => {
       expect(wrapperEl.style.primeng).toEqual('rocks!');
     });
 
-    it('should be select item when click', () => {
+    it('should select item when click', () => {
       listbox.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -117,7 +117,7 @@ describe('Listbox', () => {
       expect(clickSingleSpy).toHaveBeenCalled();
     });
 
-    it('should be select two item with multiple option', () => {
+    it('should select two item with multiple option', () => {
       listbox.multiple = true;
       listbox.metaKeySelection = false;
       listbox.options = [
@@ -150,7 +150,7 @@ describe('Listbox', () => {
       expect(clickMultipleSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should be drop two item when double click', () => {
+    it('should drop two item when double click', () => {
       listbox.multiple = true;
       listbox.metaKeySelection = false;
       listbox.options = [
@@ -183,7 +183,7 @@ describe('Listbox', () => {
       expect(clickMultipleSpy).toHaveBeenCalledTimes(4);
     });
 
-    it('should be select two item with multiple checkbox option', () => {
+    it('should select two item with multiple checkbox option', () => {
       listbox.multiple = true;
       listbox.checkbox = true;
       listbox.options = [
@@ -216,7 +216,7 @@ describe('Listbox', () => {
       expect(clickCheckboxSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should be drop two item when double click (checkbox)', () => {
+    it('should drop two item when double click (checkbox)', () => {
       listbox.multiple = true;
       listbox.checkbox = true;
       listbox.options = [
@@ -251,7 +251,7 @@ describe('Listbox', () => {
       expect(clickCheckboxSpy).toHaveBeenCalledTimes(4);
     });
 
-    it('should be select all', () => {
+    it('should select all', () => {
       listbox.multiple = true;
       listbox.checkbox = true;
       listbox.options = [
@@ -279,7 +279,7 @@ describe('Listbox', () => {
       expect(toggleAllSpy).toHaveBeenCalled();
     });
 
-    it('should be show filtered items', () => {
+    it('should show filtered items', () => {
       listbox.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -310,7 +310,7 @@ describe('Listbox', () => {
       }
     });
 
-    it('should be listen onChange', () => {
+    it('should listen onChange', () => {
       listbox.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -334,7 +334,7 @@ describe('Listbox', () => {
       expect(data.value).toEqual("BMW");
     });
 
-    it('should be listen dbClick', () => {
+    it('should listen dbClick', () => {
       listbox.multiple = true;
       listbox.checkbox = true;
       listbox.options = [

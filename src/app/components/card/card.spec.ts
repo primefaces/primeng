@@ -47,14 +47,14 @@ describe('Accordion', () => {
       fixture.detectChanges();
     });
 
-    it('should be display by default', () => {
+    it('should display by default', () => {
       fixture.detectChanges();
 
       const cardEl = fixture.debugElement.query(By.css('div'));
       expect(cardEl.nativeElement).toBeTruthy();
     });
 
-    it('should be display title', () => {
+    it('should display the title', () => {
       card.title = "Primeng ROCKS!";
       fixture.detectChanges();
 
@@ -62,7 +62,7 @@ describe('Accordion', () => {
       expect(cardEl.textContent).toEqual("Primeng ROCKS!");
     });
 
-    it('should be display subtitle', () => {
+    it('should display the subtitle', () => {
       card.subtitle = "Primeng ROCKS!";
       fixture.detectChanges();
 
@@ -70,7 +70,7 @@ describe('Accordion', () => {
       expect(cardEl.textContent).toEqual("Primeng ROCKS!");
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       card.styleClass = "Primeng ROCKS!";
       card.style = {'primeng' : 'rocks!'};
       fixture.detectChanges();
@@ -80,7 +80,7 @@ describe('Accordion', () => {
       expect(cardEl.style.primeng).toEqual("rocks!");
     });
 
-    it('should be have a header', () => {
+    it('should have a header', () => {
       fixture.detectChanges();
 
       const headerEl = fixture.debugElement.query(By.css('p-header')).nativeElement;
@@ -90,7 +90,7 @@ describe('Accordion', () => {
       expect(cardHeaderEl.children[0].children.length).toEqual(1);
     });
 
-    it('should be have a  footer', () => {
+    it('should have a  footer', () => {
       fixture.detectChanges();
 
       const footerEl = fixture.debugElement.query(By.css('p-footer')).nativeElement;
@@ -100,7 +100,7 @@ describe('Accordion', () => {
       expect(cardFooterEl.children[0].children.length).toEqual(2);
     });
 
-    it('should be dont have a header', () => {
+    it('should not have a header', () => {
       card.headerFacet = null;
       fixture.detectChanges();
 
@@ -108,7 +108,7 @@ describe('Accordion', () => {
       expect(cardHeaderEl).toBeFalsy();
     });
 
-    it('should be dont have a  footer', () => {
+    it('should not have a  footer', () => {
       card.footerFacet = null;
       fixture.detectChanges();
 

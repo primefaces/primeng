@@ -22,14 +22,14 @@ describe('Rating', () => {
       rating = fixture.componentInstance;
     });
 
-    it('should be display 5 stars by default', () => {
+    it('should display 5 stars by default', () => {
       fixture.detectChanges();
 
       const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(starEl.children.length).toEqual(6);
     });
 
-    it('should be display 10 stars ', () => {
+    it('should display 10 stars ', () => {
       rating.stars = 10;
       fixture.detectChanges();
 
@@ -37,7 +37,7 @@ describe('Rating', () => {
       expect(starEl.children.length).toEqual(11);
     });
 
-    it('should be ignore cancel ', () => {
+    it('should ignore cancel ', () => {
       rating.cancel = false;
       fixture.detectChanges();
 
@@ -45,7 +45,7 @@ describe('Rating', () => {
       expect(starEl.children.length).toEqual(5);
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       rating.disabled = true;
       fixture.detectChanges();
 
@@ -53,7 +53,7 @@ describe('Rating', () => {
       expect(starEl.className).toContain('ui-state-disabled');
     });
 
-    it('should be change styles and icons', () => {
+    it('should change styles and icons', () => {
       rating.value = 2;
       rating.iconOnClass = "icon on";
       rating.iconOffClass = "icon off";
@@ -72,7 +72,7 @@ describe('Rating', () => {
       expect(starElements[3].nativeElement.style.icon).toContain('off');
     });
 
-    it('should be value 3', () => {
+    it('should value 3', () => {
       fixture.detectChanges();
 
       const thirdStarEl = fixture.debugElement.queryAll(By.css('a'))[3].nativeElement;
@@ -82,7 +82,7 @@ describe('Rating', () => {
       expect(rating.value).toEqual(3);
     });
 
-    it('should be get value from event emitters', () => {
+    it('should get value from event emitters', () => {
       fixture.detectChanges();
 
       let onRateValue;
@@ -99,7 +99,7 @@ describe('Rating', () => {
       expect(onCancelRate).toBeTruthy();
     });
 
-    it('should be clear value', () => {
+    it('should clear value', () => {
       fixture.detectChanges();
 
       const thirdStarEl = fixture.debugElement.queryAll(By.css('a'))[3].nativeElement;

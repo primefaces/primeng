@@ -73,7 +73,7 @@ describe('ConfirmDialog', () => {
       expect(confirmDialogEl.textContent).toContain('PrimengRocks!');
     });
 
-    it('should display close icon when closable', () => {
+    it('should display the close icon when closable is true', () => {
         confirmDialog.visible = true;
         fixture.detectChanges();
 
@@ -96,7 +96,7 @@ describe('ConfirmDialog', () => {
       expect(fixture.debugElement.query(By.css('div')).classes['ui-dialog-rtl']).toEqual(true);
     });
 
-    it('should be not have a close icon', () => {
+    it('should not have a close icon', () => {
       confirmDialog.visible = true;
       confirmDialog.closable = false;
       fixture.detectChanges();
@@ -104,7 +104,7 @@ describe('ConfirmDialog', () => {
       expect(fixture.debugElement.query(By.css('a'))).toBeFalsy();
     });
 
-    it('should be change buttonStyles', () => {
+    it('should change buttonStyles', () => {
       confirmDialog.visible = true;
       confirmDialog.rejectButtonStyleClass = "Primeng ROCKS!";
       confirmDialog.acceptButtonStyleClass = "Primeng ROCKS!";
@@ -114,7 +114,7 @@ describe('ConfirmDialog', () => {
       expect(fixture.debugElement.query(By.css('.ui-dialog-footer')).children[1].nativeElement.className).toContain("Primeng ROCKS!");
     });
 
-    it('should be change icons', () => {
+    it('should change icons', () => {
       confirmDialog.visible = true;
       confirmDialog.icon = "Primeng ROCKS!";
       confirmDialog.acceptIcon = "Primeng ROCKS!";
@@ -126,7 +126,7 @@ describe('ConfirmDialog', () => {
       expect(fixture.debugElement.query(By.css('.ui-dialog-footer')).children[1].nativeElement.icon).toContain("Primeng ROCKS!");
     });
 
-    it('should be not show accept button', () => {
+    it('should not show accept button', () => {
       confirmDialog.visible = true;
       confirmDialog.acceptVisible = false;
       fixture.detectChanges();
@@ -134,7 +134,7 @@ describe('ConfirmDialog', () => {
       expect(fixture.debugElement.query(By.css('.ui-dialog-footer')).children[1]).toBeFalsy();
     });
 
-    it('should be not show reject button', () => {
+    it('should not show reject button', () => {
       confirmDialog.visible = true;
       confirmDialog.rejectVisible = false;
       fixture.detectChanges();
@@ -142,7 +142,7 @@ describe('ConfirmDialog', () => {
       expect(fixture.debugElement.query(By.css('.ui-dialog-footer')).children[1]).toBeFalsy();
     });
 
-    it('should be run accept', () => {
+    it('should run accept', () => {
       const messagesEl = fixture.debugElement.query(By.css('p-messages'));
       const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
       confirmEl.click();
@@ -156,7 +156,7 @@ describe('ConfirmDialog', () => {
       expect(messagesEl.nativeElement.value[0].detail).toContain("You have accepted");
     });
 
-    it('should be run reject', () => {
+    it('should run reject', () => {
       const messagesEl = fixture.debugElement.query(By.css('p-messages'));
       const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
       confirmEl.click();

@@ -76,7 +76,7 @@ describe('Spinner', () => {
         expect(spinner.valueAsString).toEqual('1,234.1234');
     });
     
-    it('Should be disabled', () => {
+    it('Should disabled', () => {
         spinner.disabled = true;
         fixture.detectChanges();
         

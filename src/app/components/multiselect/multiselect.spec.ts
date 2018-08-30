@@ -22,7 +22,7 @@ describe('MultiSelect', () => {
       multiselect = fixture.componentInstance;
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       multiselect.disabled = true;
       const showSpy = spyOn(multiselect, 'onMouseclick').and.callThrough();
       fixture.detectChanges();
@@ -38,7 +38,7 @@ describe('MultiSelect', () => {
       expect(multiselect.overlayVisible).toEqual(undefined);
     });
 
-    it('should be get a name', () => {
+    it('should get a name', () => {
       multiselect.name = "PrimeNG";
       fixture.detectChanges();
 
@@ -46,7 +46,7 @@ describe('MultiSelect', () => {
       expect(inputReadOnlyEl.name).toContain("PrimeNG");
     });
 
-    it('should be set dropdown icon by default and able to change', () => {
+    it('should set dropdown icon by default and able to change', () => {
       fixture.detectChanges();
 
       const dropdownIcon = fixture.debugElement.query(By.css('.ui-multiselect-trigger-icon')).nativeElement;
@@ -59,7 +59,7 @@ describe('MultiSelect', () => {
       expect(dropdownIcon.className).toContain("Primeng Rocks!");
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       fixture.detectChanges();
 
       multiselect.style = {'primeng':'rocks'};
@@ -71,7 +71,7 @@ describe('MultiSelect', () => {
       expect(multiselectEl.style.primeng).toContain('rocks');
     });
 
-    it('should be change panelstyle and panelStyleClass', () => {
+    it('should change panelstyle and panelStyleClass', () => {
       fixture.detectChanges();
 
       multiselect.panelStyle = {'primeng':'rocks'};
@@ -84,7 +84,7 @@ describe('MultiSelect', () => {
       expect(multiselectPanelEl.style.primeng).toContain('rocks');
     });
 
-    it('should be open when click', () => {
+    it('should open when click', () => {
       const multiselectEl = fixture.debugElement.children[0].nativeElement;
       const clickSpy = spyOn(multiselect, 'onMouseclick').and.callThrough();
       multiselectEl.click();
@@ -97,7 +97,7 @@ describe('MultiSelect', () => {
       expect(clickSpy).toHaveBeenCalled();
     });
 
-    it('should be close when double click', () => {
+    it('should close when double click', () => {
       const multiselectEl = fixture.debugElement.children[0].nativeElement;
       const clickSpy = spyOn(multiselect, 'onMouseclick').and.callThrough();
       const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
@@ -112,7 +112,7 @@ describe('MultiSelect', () => {
       expect(clickSpy).toHaveBeenCalled();
       expect(hideSpy).toHaveBeenCalled();
     });
-    it('should be item selected', () => {
+    it('should item selected', () => {
       multiselect.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -140,7 +140,7 @@ describe('MultiSelect', () => {
       expect(itemClickSpy).toBeTruthy();
     });
 
-    it('should be select multiple', () => {
+    it('should select multiple', () => {
       multiselect.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -172,7 +172,7 @@ describe('MultiSelect', () => {
       expect(itemClickSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should be select multiple with selection limit', () => {
+    it('should select multiple with selection limit', () => {
       multiselect.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -212,7 +212,7 @@ describe('MultiSelect', () => {
       expect(itemClickSpy).toHaveBeenCalledTimes(3);
     });
 
-    it('should be select all', () => {
+    it('should select all', () => {
       multiselect.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -238,7 +238,7 @@ describe('MultiSelect', () => {
       expect(itemClickSpy).toHaveBeenCalled();
     });
 
-    it('should be filtered', () => {
+    it('should filtered', () => {
       multiselect.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
