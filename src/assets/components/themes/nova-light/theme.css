@@ -1633,8 +1633,6 @@ body .ui-picklist .ui-picklist-list {
 @media (max-width: 40em) {
   body .ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
     padding: 0.571em 1em; } }
-body .ui-orderlist .ui-orderlist-controls {
-  padding: 0.571em 1em; }
   body .ui-orderlist .ui-orderlist-controls button {
     font-size: 16px; }
 body .ui-orderlist .ui-orderlist-caption {
