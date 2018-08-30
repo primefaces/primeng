@@ -1909,9 +1909,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     onTodayButtonClick(event) {
         let date: Date = new Date();
-        let dateMeta = {day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), today: true, selectable: true};
+        let dateMeta = {day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true};
         
-        this.createMonths(dateMeta.month, dateMeta.year);
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
     }
