@@ -10,8 +10,8 @@ import {ObjectUtils} from '../utils/objectutils';
     template: `
         <div [ngClass]="{'ui-orderlist ui-widget':true,'ui-orderlist-responsive':responsive}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-orderlist-controls">
-                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event,listelement)"></button>
                 <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event,listelement)"></button>
+                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event,listelement)"></button>
                 <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event,listelement)"></button>
                 <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event,listelement)"></button>
             </div>
