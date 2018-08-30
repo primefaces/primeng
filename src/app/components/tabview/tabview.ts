@@ -22,9 +22,14 @@ let idx: number = 0;
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
                 (click)="clickTab($event,tab)" *ngIf="!tab.closed">
                 <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="orientation">
-                    <span class="ui-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
-                    <span class="ui-tabview-title">{{tab.header}}</span>
-                    <span class="ui-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
+                    <ng-container *ngIf="!tab.headerTemplate">
+                        <span class="ui-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
+                        <span class="ui-tabview-title">{{tab.header}}</span>
+                        <span class="ui-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
+                    </ng-container>
+                    <ng-container *ngIf="tab.headerTemplate">
+                        <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
+                    </ng-container>
                 </a>
                 <span *ngIf="tab.closable" class="ui-tabview-close pi pi-times" (click)="clickClose($event,tab)"></span>
             </li>
@@ -111,10 +116,16 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     id: string = `ui-tabpanel-${idx++}`;
     
     contentTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
                 case 'content':
                     this.contentTemplate = item.template;
                 break;
