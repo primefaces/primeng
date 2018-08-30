@@ -37,6 +37,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'editor', loadChildren: './components/editor/editordemo.module#EditorDemoModule'},
             {path: 'fieldset', loadChildren: './components/fieldset/fieldsetdemo.module#FieldsetDemoModule'},
             {path: 'fileupload', loadChildren: './components/fileupload/fileuploaddemo.module#FileUploadDemoModule'},
+            {path: 'flexgrid', loadChildren: './components/flexgrid/flexgriddemo.module#FlexGridDemoModule'},
             {path: 'galleria', loadChildren: './components/galleria/galleriademo.module#GalleriaDemoModule'},
             {path: 'gmap', loadChildren: './components/gmap/gmapdemo.module#GMapDemoModule'},
             {path: 'grid', loadChildren: './components/grid/griddemo.module#GridDemoModule'},
