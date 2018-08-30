@@ -95,6 +95,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
         ])    
     ],
-    exports: [RouterModule]
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}

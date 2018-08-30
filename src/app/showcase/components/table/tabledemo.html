@@ -647,7 +647,7 @@ export class DataTablePageDemo implements OnInit &#123;
 &lt;/ng-template&gt;
 &lt;ng-template pTemplate="paginatorright"&gt;
     &lt;button type="button" pButton icon="fa-cloud-upload"&gt;&lt;/button&gt;
-    &lt;/ng-template&gt;
+&lt;/ng-template&gt;
 &lt;/p-table&gt;
 </code>
 </pre>
@@ -2119,6 +2119,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
+                            <td>lazyLoadOnInit</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to call lazy loading on initialization.</td>
                         </tr>
                         <tr>
                             <td>compareSelectionBy</td>

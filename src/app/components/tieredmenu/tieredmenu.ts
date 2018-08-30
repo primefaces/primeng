@@ -196,7 +196,7 @@ export class TieredMenu implements OnDestroy {
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -260,14 +260,18 @@ export class TieredMenu implements OnDestroy {
             this.documentResizeListener = null;
         }
     }
+
+    onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
+        this.preventDocumentDefault = false;
+        this.target = null;
+    }
     
     ngOnDestroy() {
         if (this.popup) {
-            this.unbindDocumentClickListener();
-            this.unbindDocumentResizeListener();
             this.restoreOverlayAppend();
-            this.preventDocumentDefault = false;
-            this.target = null;
+            this.onOverlayHide();
         }
     }
 

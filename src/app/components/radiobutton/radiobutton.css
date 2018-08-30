@@ -3,6 +3,9 @@
     cursor: pointer;
     vertical-align: middle;
     margin-right: .25em;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 .ui-radiobutton-box {

@@ -20,6 +20,10 @@ module.exports = function (config) {
         reports: ['html', 'lcovonly'],
         fixWebpackSourcePaths: true
       },
+      files: [
+        '../node_modules/moment/moment.js',
+        '../node_modules/fullcalendar/dist/fullcalendar.js'
+      ],
       reporters: ['progress', 'kjhtml'],
       port: 9876,
       colors: true,

@@ -89,6 +89,10 @@ export class ConfirmDialog implements OnDestroy {
     @Input() appendTo: any;
     
     @Input() key: string;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
         
     @ContentChild(Footer) footer;
     
@@ -140,7 +144,7 @@ export class ConfirmDialog implements OnDestroy {
         switch(event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.contentContainer = this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog-content');
+                this.contentContainer = this.domHandler.findSingle(this.container, '.ui-dialog-content');
                 this.domHandler.findSingle(this.container, 'button').focus();
                 this.appendContainer();
                 this.moveOnTop();
@@ -150,7 +154,7 @@ export class ConfirmDialog implements OnDestroy {
             break;
 
             case 'void':
-                this.onDestroyElement();
+                this.onOverlayHide();
             break;
         }
     }
@@ -171,29 +175,28 @@ export class ConfirmDialog implements OnDestroy {
     }
       
     center() {
-        let container = this.el.nativeElement.children[0];
-        let elementWidth = this.domHandler.getOuterWidth(container);
-        let elementHeight = this.domHandler.getOuterHeight(container);
+        let elementWidth = this.domHandler.getOuterWidth(this.container);
+        let elementHeight = this.domHandler.getOuterHeight(this.container);
         if(elementWidth == 0 && elementHeight == 0) {
-            container.style.visibility = 'hidden';
-            container.style.display = 'block';
-            elementWidth = this.domHandler.getOuterWidth(container);
-            elementHeight = this.domHandler.getOuterHeight(container);
-            container.style.display = 'none';
-            container.style.visibility = 'visible';
+            this.container.style.visibility = 'hidden';
+            this.container.style.display = 'block';
+            elementWidth = this.domHandler.getOuterWidth(this.container);
+            elementHeight = this.domHandler.getOuterHeight(this.container);
+            this.container.style.display = 'none';
+            this.container.style.visibility = 'visible';
         }
         let viewport = this.domHandler.getViewport();
         let x = (viewport.width - elementWidth) / 2;
         let y = (viewport.height - elementHeight) / 2;
 
-        container.style.left = x + 'px';
-        container.style.top = y + 'px';
+        this.container.style.left = x + 'px';
+        this.container.style.top = y + 'px';
     }
     
     enableModality() {
         if(!this.mask) {
             this.mask = document.createElement('div');
-            this.mask.style.zIndex = this.el.nativeElement.children[0].style.zIndex - 1;
+            this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
             document.body.appendChild(this.mask);
             this.domHandler.addClass(document.body, 'ui-overflow-hidden');
@@ -222,14 +225,16 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     moveOnTop() {
-        this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+        if (this.autoZIndex) {
+            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
     }
     
     bindGlobalListeners() {
         if(this.closeOnEscape && this.closable && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
                 if(event.which == 27) {
-                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex && this.visible) {
+                    if(parseInt(this.container.style.zIndex) === DomHandler.zindex && this.visible) {
                         this.close(event);
                     }
                 }
@@ -256,15 +261,15 @@ export class ConfirmDialog implements OnDestroy {
         }
     }
 
-    onDestroyElement() {
+    onOverlayHide() {
         this.disableModality();
-        this.restoreAppend();
         this.unbindGlobalListeners();
         this.container = null;
     }
                 
     ngOnDestroy() {
-        this.onDestroyElement();
+        this.restoreAppend();
+        this.onOverlayHide();
         this.subscription.unsubscribe();
     }
     

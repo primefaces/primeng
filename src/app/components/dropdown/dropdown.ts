@@ -48,7 +48,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="ui-dropdown-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
-            <div *ngIf="overlayVisible" [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-shadow'" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
+            <div *ngIf="overlayVisible" [ngClass]="'ui-dropdown-panel  ui-widget ui-widget-content ui-corner-all ui-shadow'" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event)">
@@ -159,6 +159,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() showClear: boolean;
 
     @Input() emptyFilterMessage: string = 'No results found';
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -294,9 +298,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onItemClick(event, option) {
         this.itemClick = true;
-        this.selectItem(event, option);
-        this.focusViewChild.nativeElement.focus();
-        this.filled = true;
+        
+        if (!option.disabled) {
+            this.selectItem(event, option);
+            this.focusViewChild.nativeElement.focus();
+            this.filled = true;
+        }
 
         setTimeout(() => {
             this.hide();
@@ -452,7 +459,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.overlay = event.element;
                 this.itemsWrapper = this.domHandler.findSingle(this.overlay, '.ui-dropdown-items-wrapper');
                 this.appendOverlay();
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                if (this.autoZIndex) {
+                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
 
@@ -465,7 +474,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -493,13 +502,17 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
+
+        this.cd.markForCheck();
     }
     
     alignOverlay() {
-        if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
-        else
-            this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+        if (this.overlay) {
+            if(this.appendTo)
+                this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+            else
+                this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+        }        
     }
     
     onInputFocus(event) {
@@ -826,12 +839,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateEditableLabel();
         this.updateFilledState();
     }
-    
-    ngOnDestroy() {
+
+    onOverlayHide() {
         this.unbindDocumentClickListener();
-        this.restoreOverlayAppend();
         this.overlay = null;
         this.itemsWrapper = null;
+    }
+    
+    ngOnDestroy() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 }
 

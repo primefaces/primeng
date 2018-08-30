@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {DeferDemo} from './deferdemo';
 import {DeferDemoRoutingModule} from './deferdemo-routing.module';
 import {DeferModule} from '../../../components/defer/defer';
-import {DataTableModule} from '../../../components/datatable/datatable';
+import {TableModule} from '../../../components/table/table';
 import {ToastModule} from '../../../components/toast/toast';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
@@ -15,7 +15,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         DeferModule,
         ToastModule,
         TabViewModule,
-        DataTableModule,
+        TableModule,
         CodeHighlighterModule
 	],
 	declarations: [

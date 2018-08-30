@@ -6,6 +6,7 @@ import { DomHandler } from '../dom/domhandler';
 import { PaginatorModule } from '../paginator/paginator';
 import { PrimeTemplate, SharedModule } from '../common/shared';
 import { SortMeta } from '../common/sortmeta';
+import { BlockableUI } from '../common/blockableui';
 import { ObjectUtils } from '../utils/objectutils';
 
 @Injectable()
@@ -88,7 +89,7 @@ export class TreeTableService {
     `,
     providers: [DomHandler,ObjectUtils,TreeTableService]
 })
-export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
+export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI {
 
     @Input() columns: any[];
 
@@ -687,6 +688,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy {
 
     isEmpty() {
         return this.value == null || this.value.length == 0;
+    }
+
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
     
     onColumnResizeBegin(event) {

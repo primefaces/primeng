@@ -230,7 +230,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Paginator</h3>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
-                of page links to display.</p>
+                of page links to display. To customize the left and right side of the paginators, use "paginatorLeftTemplate" and "paginatorRightTemplate" templates.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView [value]="cars" [paginator="true" [rows]="10"&gt;
@@ -243,6 +243,13 @@ export class DataViewDemo implements OnInit &#123;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="paginatorleft" let-state&gt;
+        &#123;&#123;state.first&#125;&#125;
+        &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="paginatorright"&gt;
+        &lt;button type="button" pButton icon="fa-cloud-upload"&gt;&lt;/button&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 </code>

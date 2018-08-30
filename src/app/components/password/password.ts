@@ -65,18 +65,20 @@ export class Password implements OnDestroy,DoCheck {
         
     @HostListener('focus', ['$event']) 
     onFocus(e) {
-        if (!this.panel) {
-            this.createPanel();
+        if (this.feedback) {
+            if (!this.panel) {
+                this.createPanel();
+            }
+    
+            this.panel.style.zIndex = String(++DomHandler.zindex);
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.domHandler.addClass(this.panel, 'ui-password-panel-visible');
+                    this.domHandler.removeClass(this.panel, 'ui-password-panel-hidden');
+                }, 1);
+                this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
+            });
         }
-
-        this.panel.style.zIndex = String(++DomHandler.zindex);
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.domHandler.addClass(this.panel, 'ui-password-panel-visible');
-                this.domHandler.removeClass(this.panel, 'ui-password-panel-hidden');
-            }, 1);
-            this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
-        });
     }
     
     @HostListener('blur', ['$event']) 
@@ -95,33 +97,35 @@ export class Password implements OnDestroy,DoCheck {
     
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
-        let value = e.target.value,
-        label = null,
-        meterPos = null;
+        if (this.feedback) {
+            let value = e.target.value,
+            label = null,
+            meterPos = null;
 
-        if(value.length === 0) {
-            label = this.promptLabel;
-            meterPos = '0px 0px';
-        }
-        else {
-            var score = this.testStrength(value);
-
-            if(score < 30) {
-                label = this.weakLabel;
-                meterPos = '0px -10px';
+            if(value.length === 0) {
+                label = this.promptLabel;
+                meterPos = '0px 0px';
             }
-            else if(score >= 30 && score < 80) {
-                label = this.mediumLabel;
-                meterPos = '0px -20px';
-            } 
-            else if(score >= 80) {
-                label = this.strongLabel;
-                meterPos = '0px -30px';
-            }
-        }
+            else {
+                var score = this.testStrength(value);
 
-        this.meter.style.backgroundPosition = meterPos;
-        this.info.textContent = label;
+                if(score < 30) {
+                    label = this.weakLabel;
+                    meterPos = '0px -10px';
+                }
+                else if(score >= 30 && score < 80) {
+                    label = this.mediumLabel;
+                    meterPos = '0px -20px';
+                } 
+                else if(score >= 80) {
+                    label = this.strongLabel;
+                    meterPos = '0px -30px';
+                }
+            }
+
+            this.meter.style.backgroundPosition = meterPos;
+            this.info.textContent = label;
+        }
     }
     
     testStrength(str: string) {

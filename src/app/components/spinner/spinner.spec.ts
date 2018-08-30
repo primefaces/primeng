@@ -75,4 +75,31 @@ describe('Spinner', () => {
 
         expect(spinner.valueAsString).toEqual('1,234.1234');
     });
+    
+    it('Should disabled', () => {
+        spinner.disabled = true;
+        fixture.detectChanges();
+        
+        const spinnerInputField = fixture.nativeElement.querySelector('.ui-spinner-input');
+        const spinnerUp = fixture.nativeElement.querySelector('.ui-spinner-up');
+        const spinnerDown = fixture.nativeElement.querySelector('.ui-spinner-down');
+
+        expect(spinnerInputField.disabled).toEqual(true);
+        expect(spinnerUp.disabled).toEqual(true);
+        expect(spinnerDown.disabled).toEqual(true);
+    });
+
+    it('s value should not change.', () => {
+        spinner.disabled=true;
+        const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
+        spinnerInput.value = '1';
+        triggerEvent(spinnerInput, 'keyup');
+        fixture.detectChanges();
+
+        const spinnerUp = fixture.nativeElement.querySelector('.ui-spinner-up');
+        triggerEvent(spinnerUp, 'mousedown');
+
+        expect(spinner.valueAsString).toEqual('1');
+    });
+
 });

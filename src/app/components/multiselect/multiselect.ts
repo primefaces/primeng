@@ -146,6 +146,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() optionLabel: string;
 
     @Input() showHeader: boolean = true;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -378,14 +382,16 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             case 'visible':
                 this.overlay = event.element;
                 this.appendOverlay();
-                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                if (this.autoZIndex) {
+                    this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
                 this.onPanelShow.emit();
             break;
 
             case 'void':
-                this.ngOnDestroy();
+                this.onOverlayHide();
             break;
         }
     }
@@ -408,10 +414,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     alignOverlay() {
-        if (this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
-        else
-            this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+        if (this.overlay) {
+            if (this.appendTo)
+                this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+            else
+                this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+        }
     }
     
     hide() {
@@ -544,15 +552,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     getVisibleOptions(): SelectItem[] {
-        if (this.filterValue && this.filterValue.trim().length) {
-            let items = [];
-            for (let i = 0; i < this.options.length; i++) {
-                let option = this.options[i];
-                if (option.label.toLowerCase().includes(this.filterValue.toLowerCase())) {
-                    items.push(option);
-                }
-            }
-            return items;
+        if (this.visibleOptions && this.visibleOptions.length) {
+            return this.visibleOptions;
         }
         else {
             return this.options;
@@ -580,10 +581,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
-    ngOnDestroy() {
+    onOverlayHide() {
         this.unbindDocumentClickListener();
-        this.restoreOverlayAppend();
         this.overlay = null;
+    }
+
+    ngOnDestroy() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 
 }
