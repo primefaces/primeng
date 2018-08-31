@@ -3,6 +3,11 @@
     flex-wrap: wrap;
 }
 
+.p-nogutter > .p-col,
+.p-nogutter > [class*="p-col-"] {
+    padding: 0;
+}
+
 .p-dir-rev {
     flex-direction: row-reverse;
 }

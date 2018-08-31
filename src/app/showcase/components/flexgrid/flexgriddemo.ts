@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,ViewEncapsulation} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Component ({
@@ -36,6 +36,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             ])
         ])
     ],
+    encapsulation: ViewEncapsulation.None
 })
 export class FlexGridDemo {
 
