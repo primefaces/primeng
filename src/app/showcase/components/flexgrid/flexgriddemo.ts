@@ -3,17 +3,36 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 
 @Component ({
     styles:[`
-        .p-grid > div {
+        .box,
+        .sample-layout > div {
             background-color: #cce4f7;
             text-align: center;
             padding-top: 1em;
             padding-bottom: 1em;
+            border-radius: 4px;
+        }
+
+        .box-stretched {
+            height: 100%;
+        }
+
+        .sample-layout {
+            margin: 0;
+        }
+
+        .sample-layout > div {
             border: 1px solid #ffffff;
         }
 
         .vertical-container {
+            margin: 0;
             height: 200px;
-            background: #8e9fac;
+            background: #efefef;
+            border-radius: 4px;
+        }
+
+        .nested-grid .p-col-4 {
+            padding-bottom: 1em;
         }
     `],
     templateUrl: './flexgriddemo.html',

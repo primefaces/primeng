@@ -1,6 +1,15 @@
 .p-grid {
     display: flex;
     flex-wrap: wrap;
+    margin-right: -.5em;
+    margin-left: -.5em;
+    margin-top: -.5em;
+}
+
+.p-nogutter {
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
 }
 
 .p-nogutter > .p-col,
@@ -211,6 +220,17 @@
     margin-left: 0%;
 }
 
+.p-sm-1, .p-sm-2, .p-sm-3, .p-sm-4, .p-sm-5, .p-sm-6, .p-sm-7, .p-sm-8, .p-sm-9, .p-sm-10, .p-sm-11, .p-sm-12,
+.p-md-1, .p-md-2, .p-md-3, .p-md-4, .p-md-5, .p-md-6, .p-md-7, .p-md-8, .p-md-9, .p-md-10, .p-md-11, .p-md-12,
+.p-lg-1, .p-lg-2, .p-lg-3, .p-lg-4, .p-lg-5, .p-lg-6, .p-lg-7, .p-lg-8, .p-lg-9, .p-lg-10, .p-lg-11, .p-lg-12,
+.p-xl-1, .p-xl-2, .p-xl-3, .p-xl-4, .p-xl-5, .p-xl-6, .p-xl-7, .p-xl-8, .p-xl-9, .p-xl-10, .p-xl-11, .p-xl-12 {
+    padding: .5em;
+}
+
+.p-col-nogutter {
+    padding: 0;
+}
+
 @media screen and (min-width: 576px) {
     .p-sm-1,
     .p-sm-2,
@@ -225,7 +245,6 @@
     .p-sm-11,
     .p-sm-12 {
         flex: 0 0 auto;
-        padding: 0.5em;
     }
 
     .p-sm-1 {
@@ -343,7 +362,6 @@
     .p-md-11,
     .p-md-12 {
         flex: 0 0 auto;
-        padding: 0.5em;
     }
 
     .p-md-1 {
@@ -461,7 +479,6 @@
     .p-lg-11,
     .p-lg-12 {
         flex: 0 0 auto;
-        padding: 0.5em;
     }
 
     .p-lg-1 {
@@ -579,7 +596,6 @@
     .p-xl-11,
     .p-xl-12 {
         flex: 0 0 auto;
-        padding: 0.5em;
     }
 
     .p-xl-1 {
