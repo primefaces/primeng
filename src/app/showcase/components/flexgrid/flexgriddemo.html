@@ -645,28 +645,28 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>ui-sm-*</td>
+                        <td>p-sm-*</td>
                         <td>Small devices</td>
                         <td>min-width: 576px</td>
-                        <td>ui-sm-6, ui-sm-4</td>
+                        <td>p-sm-6, p-sm-4</td>
                     </tr>
                     <tr>
-                        <td>ui-md-*</td>
+                        <td>p-md-*</td>
                         <td>Medium sized devices such as tablets</td>
                         <td>min-width: 768px</td>
-                        <td>ui-md-2, ui-sm-8</td>
+                        <td>p-md-2, p-md-8</td>
                     </tr>
                     <tr>
-                        <td>ui-lg-*</td>
+                        <td>p-lg-*</td>
                         <td>Devices with large screen like desktops</td>
                         <td>min-width: 992px</td>
-                        <td>ui-lg-6, ui-sm-12</td>
+                        <td>p-lg-6, p-lg-12</td>
                     </tr>
                     <tr>
-                        <td>ui-xl-*</td>
+                        <td>p-xl-*</td>
                         <td>Big screen monitors</td>
                         <td>min-width: 1200px</td>
-                        <td>ui-xl-2, ui-sm-10</td>
+                        <td>p-xl-2, p-xl-10</td>
                     </tr>
                 </tbody>
             </table>
@@ -677,18 +677,10 @@
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="p-grid"&gt;
-    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;
-        &lt;div class="box"&gt;p-col-12 p-md-6 p-lg-3&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;
-        &lt;div class="box"&gt;p-col-12 p-md-6 p-lg-3&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;
-        &lt;div class="box"&gt;p-col-12 p-md-6 p-lg-3&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;
-        &lt;div class="box"&gt;p-col-12 p-md-6 p-lg-3&lt;/div&gt;
-    &lt;/div&gt;
+    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;A&lt;/div&gt;
+    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;B&lt;/div&gt;
+    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;C&lt;/div&gt;
+    &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;D&lt;/div&gt;
 &lt;/div&gt;
 </code>
 </pre>
@@ -751,15 +743,9 @@
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="p-grid p-justify-between"&gt;
-    &lt;div class="p-col-2"&gt;
-        &lt;div class="box"&gt;2&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-1"&gt;
-        &lt;div class="box"&gt;1&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-4"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
-    &lt;/div&gt;
+    &lt;div class="p-col-2"&gt;2&lt;/div&gt;
+    &lt;div class="p-col-1"&gt;1&lt;/div&gt;
+    &lt;div class="p-col-4"&gt;4&lt;/div&gt;
 &lt;/div&gt;
 </code>
 </pre>
@@ -814,15 +800,9 @@
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="p-grid p-align-center"&gt;
-    &lt;div class="p-col"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
-    &lt;/div&gt;
+    &lt;div class="p-col"&gt;4&lt;/div&gt;
+    &lt;div class="p-col"&gt;4&lt;/div&gt;
+    &lt;div class="p-col"&gt;4&lt;/div&gt;
 &lt;/div&gt;
 </code>
 </pre>
@@ -874,15 +854,9 @@
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="p-grid"&gt;
-    &lt;div class="p-col p-col-align-start"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col p-col-align-center"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col p-col-align-end"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
-    &lt;/div&gt;
+    &lt;div class="p-col p-col-align-start"&gt;4&lt;/div&gt;
+    &lt;div class="p-col p-col-align-center"&gt;4&lt;/div&gt;
+    &lt;div class="p-col p-col-align-end"&gt;4&lt;/div&gt;
 &lt;/div&gt;
 </code>
 </pre>
@@ -983,18 +957,18 @@
     &lt;div class="p-col-8"&gt;
         &lt;div class="p-grid"&gt;
             &lt;div class="p-col-6"&gt;
-                &lt;div class="box"&gt;6&lt;/div&gt;
+                6
             &lt;/div&gt;
             &lt;div class="p-col-6"&gt;
-                &lt;div class="box"&gt;6&lt;/div&gt;
+                6
             &lt;/div&gt;
             &lt;div class="p-col-12"&gt;
-                &lt;div class="box"&gt;12&lt;/div&gt;
+                12
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="p-col-4"&gt;
-        &lt;div class="box"&gt;4&lt;/div&gt;
+        4
     &lt;/div&gt;
 &lt;/div&gt;
 </code>
