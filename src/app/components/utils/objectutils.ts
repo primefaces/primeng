@@ -23,6 +23,10 @@ export class ObjectUtils {
             return true;
         }
 
+        if (obj1 instanceof Date && obj2 instanceof Date) {
+            return obj1.getTime() == obj2.getTime();
+        }
+
         if (typeof obj1 == 'object' && typeof obj2 == 'object') {
             if (visited) {
                 if (visited.indexOf(obj1) !== -1) return false;
