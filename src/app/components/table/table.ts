@@ -2403,6 +2403,8 @@ export class RowToggler {
 
     @Input() pRowTogglerDisabled: boolean;
 
+    @Input('pStopPropagation') stopPropagation: boolean = false;
+
     constructor(public dt: Table) { }
 
     @HostListener('click', ['$event'])
@@ -2410,6 +2412,10 @@ export class RowToggler {
         if (this.isEnabled()) {
             this.dt.toggleRow(this.data, event);
             event.preventDefault();
+
+            if(this.stopPropagation) {
+                event.stopPropagation();
+            }
         }
     }
 
