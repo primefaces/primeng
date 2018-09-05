@@ -208,11 +208,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() defaultDate: Date;
     
-    @Input() style: string;
+    @Input() style: any;
     
     @Input() styleClass: string;
     
-    @Input() inputStyle: string;
+    @Input() inputStyle: any;
 
     @Input() inputId: string;
     
