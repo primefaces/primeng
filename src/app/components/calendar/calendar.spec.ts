@@ -308,7 +308,7 @@ describe('Calendar', () => {
       expect(unselectableEls.length).toBeGreaterThan(30);
     });
 
-    it('should use disabledates', () => {
+    it('should use invalidDates', () => {
       
       let invalidDates: Array<Date>;
       let invalidDate = new Date();
