@@ -1,16 +1,37 @@
 .ui-orderlist {
-    display: flex;
-    flex-direction: row;
+    display: inline-flex;
     align-items: center;
 }
 
-.ui-orderlist .ui-orderlist-controls {
-    padding: 0 .25em;
+.ui-orderlist-left {
+    flex-direction: row;
 }
 
-.ui-orderlist .ui-orderlist-controls .ui-button {
+.ui-orderlist-right {
+    flex-direction: row-reverse;
+}
+
+.ui-orderlist-top {
+    flex-direction: column;
+}
+
+.ui-orderlist-bottom {
+    flex-direction: column-reverse;
+}
+
+.ui-orderlist .ui-orderlist-controls-left .ui-button, .ui-orderlist .ui-orderlist-controls-right .ui-button {
     display: block;
     margin-bottom: 0.25em;
+}
+
+.ui-orderlist .ui-orderlist-controls-top .ui-button, .ui-orderlist .ui-orderlist-controls-bottom .ui-button {
+    display: inline-block;
+    width: 20%;
+    margin-right: .25em;
+}
+
+.ui-orderlist .ui-orderlist-controls {
+    padding: .25em;
 }
 
 .ui-orderlist .ui-orderlist-list {
@@ -18,8 +39,6 @@
     margin: 0;
     padding: 0;
     overflow: auto;
-    height: 12.5em;
-    width: 12.5em;
 }
 
 .ui-orderlist .ui-orderlist-caption {
@@ -64,13 +83,14 @@
     overflow:hidden;
 }
 
+.ui-orderlist .ui-orderlist-droppoint {
+    height: 6px;
+    list-style-type: none;
+}
+
 /* Responsive */
 .ui-orderlist.ui-orderlist-responsive {
     width: 100%;
-}
-
-.ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls {
-    width: 4em;
 }
 
 .ui-orderlist.ui-orderlist-responsive .ui-orderlist-list-container {
@@ -80,15 +100,6 @@
 .ui-orderlist.ui-orderlist-responsive .ui-orderlist-list,
 .ui-orderlist.ui-orderlist-responsive .ui-orderlist-caption {
     width: 100%;
-}  
-
-.ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls > .ui-button {
-    width: 100%;
-}
-
-.ui-orderlist .ui-orderlist-droppoint {
-    height: 6px;
-    list-style-type: none;
 }
 
 @media (max-width: 40em) {
