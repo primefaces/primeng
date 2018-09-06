@@ -402,6 +402,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     dateTemplate: TemplateRef<any>;
     
     _disabledDates: Array<Date>;
+
+    _enabledDates: Array<Date>;
     
     _disabledDays: Array<number>;
     
@@ -441,6 +443,19 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
+        if (this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
+
+            this.createMonths(this.currentMonth, this.currentYear);
+        }
+    }
+
+
+    @Input() get enabledDates(): Date[] {
+        return this._enabledDates;
+    }
+    
+    set enabledDates(enabledDates: Date[]) {
+        this._enabledDates = enabledDates;
         if (this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
 
             this.createMonths(this.currentMonth, this.currentYear);
@@ -1055,12 +1070,17 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
              }
         }
         
-        if (this.disabledDates) {
-           validDate = !this.isDateDisabled(day,month,year);
+        if (this.enabledDates) {
+            validDate = this.isDateEnabled(day,month,year);
         }
-       
-        if (this.disabledDays) {
-           validDay = !this.isDayDisabled(day,month,year)
+        else {
+            if (this.disabledDates) {
+               validDate = !this.isDateDisabled(day,month,year);
+            }
+           
+            if (this.disabledDays) {
+               validDay = !this.isDayDisabled(day,month,year)
+            }
         }
         
         return validMin && validMax && validDate && validDay;
@@ -1070,6 +1090,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.disabledDates) {
             for (let disabledDate of this.disabledDates) {
                 if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    isDateEnabled(day:number, month:number, year:number):boolean {
+        if (this.enabledDates) {
+            for (let enabledDate of this.enabledDates) {
+                if (enabledDate.getFullYear() === year && enabledDate.getMonth() === month && enabledDate.getDate() === day) {
                     return true;
                 }
             }
