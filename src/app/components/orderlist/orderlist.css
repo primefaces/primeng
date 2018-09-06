@@ -1,12 +1,11 @@
 .ui-orderlist {
-    display: table;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .ui-orderlist .ui-orderlist-controls {
-    height: 12.5em;
     padding: 0 .25em;
-    vertical-align: middle;
-    display: table-cell;
 }
 
 .ui-orderlist .ui-orderlist-controls .ui-button {
@@ -14,16 +13,11 @@
     margin-bottom: 0.25em;
 }
 
-.ui-orderlist .ui-orderlist-container {
-    display: table-cell;
-    vertical-align: top;
-}
-
 .ui-orderlist .ui-orderlist-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow:auto;
+    overflow: auto;
     height: 12.5em;
     width: 12.5em;
 }
@@ -98,11 +92,13 @@
 }
 
 @media (max-width: 40em) {
+    .ui-orderlist.ui-orderlist-responsive {
+        flex-direction: column;
+    }
+
     .ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls {
         text-align: center;
         width: 100%;
-        display: inline-block;
-        height: auto;
     }
     
     .ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls .ui-button {
