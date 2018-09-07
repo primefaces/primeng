@@ -82,6 +82,14 @@
     <h3>Horizontal Tree</h3>
     <p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
+
+    <h3>Custom classes for icons</h3>
+    <p-tree 
+    [value]="filesTree12"
+    [classEndNodeIcon]="'pi pi-file'"  
+    [classExpandedIcon]="'pi pi-chevron-circle-down'" 
+    [classCollapsedIcon]="'pi pi-chevron-circle-right'" 
+    ></p-tree>
 </div>
 
 <div class="content-section documentation">
@@ -403,7 +411,7 @@ export class TreeDemoComponent implements OnInit &#123;
 
             <h3>Icons</h3>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
-                expandedIcon and collapsedIcon instead.</p>
+                expandedIcon and collapsedIcon instead. In addition, you can use the classEndNodeIcon classExpandedIcon and classCollapsedIcon properties to customize the classes of icons.</p>
 
             <h3>Templating</h3>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets
@@ -597,6 +605,24 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>classEndNodeIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of end node.</td>
+                        </tr>
+                        <tr>
+                            <td>classExpandedIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of node expanded.</td>
+                        </tr>
+                        <tr>
+                            <td>classCollapsedIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of node collapsed.</td>
                         </tr>
                         <tr>
                             <td>contextMenu</td>
@@ -840,9 +866,12 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
 &lt;p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
 &lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&lt;/div&gt;
+
+
+&lt;h3&gt;Custom classes for icons&lt;/h3&gt;
+&lt;p-tree [value]="filesTree12" [classEndNodeIcon]="&#39;pi pi-file&#39;" [classExpandedIcon]="&#39;pi pi-chevron-circle-down&#39;" [classCollapsedIcon]="&#39;pi pi-chevron-circle-right&#39;" &gt;&lt;/p-tree&gt;
 </code>
 </pre>
-
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeDemo implements OnInit &#123;
