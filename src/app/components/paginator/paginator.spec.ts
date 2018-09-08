@@ -251,7 +251,6 @@ describe('Paginator', () => {
       const pageEls = fixture.debugElement.queryAll(By.css('.ui-paginator-page'));
       pageEls[3].nativeElement.click();
       fixture.detectChanges();
-      console.log(data)
       expect(data).toBeTruthy();
       expect(data.page).toEqual(3);
       expect(data.rows).toEqual(10);
