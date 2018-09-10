@@ -9,15 +9,12 @@ import { Button } from '../button/button';
 @Component({
   template: `<p-menu #menu></p-menu>
   <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
-  <button (click)="outsideClick()"></button>`
+  `
 })
 class TestMenuComponent {
-  outsideClick(){
-
-  }
 }
 
-fdescribe('Menu', () => {
+describe('Menu', () => {
   
     let menu: Menu;
     let fixture: ComponentFixture<TestMenuComponent>;
