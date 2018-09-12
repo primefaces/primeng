@@ -420,7 +420,8 @@ body {
       box-shadow: none; }
     body .ui-multiselect .ui-multiselect-label {
       padding: 0.429em;
-      padding-right: 2em; }
+      padding-right: 2em;
+      color: #333333; }
     body .ui-multiselect .ui-multiselect-trigger {
       background-color: #ffffff;
       width: 2em;

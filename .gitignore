@@ -43,6 +43,7 @@ testem.log
 !/src/assets/components/themes/nova-light/theme.css
 !/src/assets/components/themes/nova-dark/theme.css
 !/src/assets/components/themes/nova-colored/theme.css
+!/src/assets/components/themes/luna-*/theme.css
 
 # e2e
 /e2e/*.js
