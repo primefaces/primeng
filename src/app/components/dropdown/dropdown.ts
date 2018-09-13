@@ -35,7 +35,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             </div>
             <div class="ui-helper-hidden-accessible">
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" role="listbox"
-                    (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
+                    (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label == null || label.length === 0)}" *ngIf="!editable && (label != null)">
                 <ng-container *ngIf="!selectedItemTemplate">{{label||'empty'}}</ng-container>
@@ -51,7 +51,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div *ngIf="overlayVisible" [ngClass]="'ui-dropdown-panel  ui-widget ui-widget-content ui-corner-all ui-shadow'" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event)">
+                    (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)">
                     <span class="ui-dropdown-filter-icon pi pi-search"></span>
                 </div>
                 <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
@@ -186,11 +186,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     itemsWrapper: HTMLDivElement;
     
-    public itemTemplate: TemplateRef<any>;
+    itemTemplate: TemplateRef<any>;
 
-    public groupTemplate: TemplateRef<any>;
+    groupTemplate: TemplateRef<any>;
 
-    public selectedItemTemplate: TemplateRef<any>;
+    selectedItemTemplate: TemplateRef<any>;
     
     selectedOption: any;
     
@@ -210,27 +210,37 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     filled: boolean;
     
-    public overlayVisible: boolean;
+    overlayVisible: boolean;
     
-    public documentClickListener: any;
+    documentClickListener: any;
     
-    public optionsChanged: boolean;
+    optionsChanged: boolean;
     
-    public panel: HTMLDivElement;
+    panel: HTMLDivElement;
     
-    public dimensionsUpdated: boolean;
+    dimensionsUpdated: boolean;
     
-    public selfClick: boolean;
+    selfClick: boolean;
     
-    public itemClick: boolean;
+    itemClick: boolean;
 
-    public clearClick: boolean;
+    clearClick: boolean;
     
-    public hoveredItem: any;
+    hoveredItem: any;
     
-    public selectedOptionUpdated: boolean;
+    selectedOptionUpdated: boolean;
     
-    public filterValue: string;
+    filterValue: string;
+
+    searchValue: string;
+
+    searchIndex: number;
+    
+    searchTimeout: any;
+
+    previousSearchChar: string;
+
+    currentSearchChar: string;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef,
                 public objectUtils: ObjectUtils, public zone: NgZone) {}
@@ -590,7 +600,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return nextEnabledOption;
     }
     
-    onKeydown(event) {
+    onKeydown(event: KeyboardEvent, search: boolean) {
         if(this.readonly || !this.optionsToDisplay || this.optionsToDisplay.length === null) {
             return;
         }
@@ -688,9 +698,103 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             case 9:
                 this.hide();
             break;
+
+            //search item based on keyboard input
+            default:
+                if (search) {
+                    this.search(event);
+                }
+            break;
         }
     }
-    
+
+    search(event) {
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+
+        const char = String.fromCharCode(event.keyCode);
+        this.previousSearchChar = this.currentSearchChar;
+        this.currentSearchChar = char;
+
+        if (this.previousSearchChar === this.currentSearchChar) 
+            this.searchValue = this.currentSearchChar;
+        else
+            this.searchValue = this.searchValue ? this.searchValue + char : char;
+
+        let newOption;
+        if (this.group) {
+            let searchIndex = this.selectedOption ? this.findOptionGroupIndex(this.selectedOption.value, this.optionsToDisplay) : {groupIndex: 0, itemIndex: 0};
+            newOption = this.searchOptionWithinGroup(searchIndex);
+        }
+        else {
+            let searchIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
+            newOption = this.searchOption(++searchIndex);
+        }
+        
+        if (newOption) {
+            this.selectItem(event, newOption);
+            this.selectedOptionUpdated = true;
+        }
+
+        this.searchTimeout = setTimeout(() => {
+            this.searchValue = null;
+        }, 250);
+    }
+
+    searchOption(index) {
+        let option;
+
+        if (this.searchValue) {
+            option = this.searchOptionInRange(index, this.optionsToDisplay.length);
+
+            if (!option) {
+                option = this.searchOptionInRange(0, index);
+            }
+        }
+
+        return option;
+    }
+
+    searchOptionInRange(start, end) {
+        for (let i = start; i < end; i++) {
+            let opt = this.optionsToDisplay[i];
+            if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase())) {
+                return opt;
+            }
+        }
+
+        return null;
+    }
+
+    searchOptionWithinGroup(index) {
+        let option;
+
+        if (this.searchValue) {
+            for (let i = index.groupIndex; i < this.optionsToDisplay.length; i++) {
+                for (let j = (index.groupIndex === i) ? (index.itemIndex + 1) : 0; j < this.optionsToDisplay[i].items.length; j++) {
+                    let opt = this.optionsToDisplay[i].items[j];
+                    if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase())) {
+                        return opt;
+                    }
+                }
+            }
+
+            if (!option) {
+                for (let i = 0; i <= index.groupIndex; i++) {
+                    for (let j = 0; j < ((index.groupIndex === i) ? index.itemIndex : this.optionsToDisplay[i].items.length); j++) {
+                        let opt = this.optionsToDisplay[i].items[j];
+                        if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase())) {
+                            return opt;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+   
     findOptionIndex(val: any, opts: any[]): number {
         let index: number = -1;
         if(opts) {
