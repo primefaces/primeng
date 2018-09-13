@@ -18,7 +18,7 @@
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="true">
         <ng-template let-item pTemplate="selectedItem">
             <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
-            <span style="vertical-align:middle">{{item.label}}</span>
+            <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
         </ng-template>
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
@@ -33,7 +33,7 @@
     <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="{'width':'150px'}" placeholder="Select a Car" [group]="true">
         <ng-template let-group pTemplate="group">
             <img src="assets/showcase/images/demo/flag/{{group.value}}" style="width:20px;vertical-align:middle" />
-            <span style="vertical-align:middle;margin-left:.25em">{{group.label}}</span>
+            <span style="margin-left:.25em">{{group.label}}</span>
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
@@ -576,7 +576,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="true"&gt;
     &lt;ng-template let-item pTemplate="selectedItem"&gt;
         &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
-        &lt;span style="vertical-align:middle"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
+        &lt;span style="vertical-align:middle; margin-left: .5em"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
@@ -591,7 +591,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
         &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;group.value&#125;&#125;" style="width:20px;vertical-align:middle" /&gt;
-        &lt;span style="vertical-align:middle;margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+        &lt;span style="margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 </code>
