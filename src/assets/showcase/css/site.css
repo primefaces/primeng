@@ -404,7 +404,8 @@ body {
 }
 
 /* Demos */
-.implementation {
+.implementation,
+.implementation-charts {
     background-color: #FFFFFF;
     overflow: visible;
 }
