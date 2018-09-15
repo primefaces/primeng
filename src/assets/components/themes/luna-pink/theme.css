@@ -1226,11 +1226,11 @@ body .ui-fieldset {
     body .ui-fieldset .ui-fieldset-legend a .ui-fieldset-legend-text {
       padding: 0; }
   body .ui-fieldset.ui-fieldset-toggleable .ui-fieldset-legend a:hover {
-    background-color: #3c3c3c;
-    border: 1px solid #3c3c3c;
-    color: #dedede; }
+    background-color: #191919;
+    border: 1px solid #191919;
+    color: #cc285c; }
     body .ui-fieldset.ui-fieldset-toggleable .ui-fieldset-legend a:hover .ui-fieldset-toggler {
-      color: #dedede; }
+      color: #cc285c; }
   body .ui-fieldset .ui-fieldset-content {
     padding: 0; }
 body .ui-accordion .ui-accordion-header {
@@ -1253,11 +1253,11 @@ body .ui-accordion .ui-accordion-header {
       body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon.pi-caret-down:before {
         content: ""; }
   body .ui-accordion .ui-accordion-header:not(.ui-state-active):not(.ui-state-disabled):hover a {
-    background-color: #3c3c3c;
-    border: 1px solid #3c3c3c;
-    color: #dedede; }
+    background-color: #191919;
+    border: 1px solid #191919;
+    color: #cc285c; }
     body .ui-accordion .ui-accordion-header:not(.ui-state-active):not(.ui-state-disabled):hover a .ui-accordion-toggle-icon {
-      color: #dedede; }
+      color: #cc285c; }
   body .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
     background-color: #cc285c;
     border: 1px solid #cc285c;
@@ -1304,12 +1304,12 @@ body .ui-tabview.ui-tabview-top, body .ui-tabview.ui-tabview-bottom, body .ui-ta
         margin: 0 0.5em 0 0;
         vertical-align: middle; }
       body .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-left .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-right .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover {
-        background-color: #3c3c3c;
-        border: 1px solid #3c3c3c; }
+        background-color: #191919;
+        border: 1px solid #191919; }
         body .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover a, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover a, body .ui-tabview.ui-tabview-left .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover a, body .ui-tabview.ui-tabview-right .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover a {
-          color: #dedede; }
+          color: #cc285c; }
         body .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .ui-tabview-close, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .ui-tabview-close, body .ui-tabview.ui-tabview-left .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .ui-tabview-close, body .ui-tabview.ui-tabview-right .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .ui-tabview-close {
-          color: #dedede; }
+          color: #cc285c; }
       body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-left .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-right .ui-tabview-nav li.ui-state-active {
         background-color: #cc285c;
         border: 1px solid #cc285c; }
@@ -2478,7 +2478,7 @@ body .ui-slidemenu {
     font-weight: 400;
     border: 0 none; }
     body .ui-slidemenu .ui-slidemenu-backward:hover {
-      background-color: #3c3c3c;
+      background-color: #191919;
       color: #dedede; }
   body .ui-slidemenu .ui-menu-separator {
     border: 1px solid #191919;
@@ -2509,10 +2509,10 @@ body .ui-tabmenu {
           color: #888888;
           margin-right: 0.5em; }
       body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem:not(.ui-state-active):not(.ui-state-disabled):hover {
-        background-color: #3c3c3c;
-        border: 1px solid #3c3c3c; }
+        background-color: #191919;
+        border: 1px solid #191919; }
         body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem:not(.ui-state-active):not(.ui-state-disabled):hover .ui-menuitem-link .ui-menuitem-text {
-          color: #dedede; }
+          color: #cc285c; }
         body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem:not(.ui-state-active):not(.ui-state-disabled):hover .ui-menuitem-link .ui-menuitem-icon {
           color: #dedede; }
       body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
@@ -2576,11 +2576,11 @@ body .ui-panelmenu .ui-panelmenu-header {
         content: ""; }
   body .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover {
     outline: 0 none;
-    border: 1px solid #3c3c3c;
-    background-color: #3c3c3c;
-    color: #dedede; }
+    border: 1px solid #191919;
+    background-color: #191919;
+    color: #cc285c; }
     body .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover .ui-panelmenu-icon {
-      color: #dedede; }
+      color: #cc285c; }
   body .ui-panelmenu .ui-panelmenu-header.ui-state-active > a {
     border: 1px solid #cc285c;
     background-color: #cc285c;
