@@ -21,17 +21,14 @@
 
 .ui-orderlist .ui-orderlist-controls-left .ui-button, .ui-orderlist .ui-orderlist-controls-right .ui-button {
     display: block;
-    margin-bottom: 0.25em;
 }
 
 .ui-orderlist .ui-orderlist-controls-top .ui-button, .ui-orderlist .ui-orderlist-controls-bottom .ui-button {
     display: inline-block;
-    width: 20%;
-    margin-right: .25em;
 }
 
-.ui-orderlist .ui-orderlist-controls {
-    padding: .25em;
+.ui-orderlist .ui-orderlist-controls .ui-button {
+    margin: .25em;
 }
 
 .ui-orderlist .ui-orderlist-list {
@@ -80,7 +77,7 @@
 }
 
 .ui-orderlist.ui-state-disabled .ui-orderlist-list {
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .ui-orderlist .ui-orderlist-droppoint {
@@ -103,22 +100,27 @@
 }
 
 @media (max-width: 40em) {
-    .ui-orderlist.ui-orderlist-responsive {
+    .ui-orderlist-responsive-left {
+        flex-direction: row;
+    }
+    
+    .ui-orderlist-responsive-right {
+        flex-direction: row-reverse;
+    }
+    
+    .ui-orderlist-responsive-top {
         flex-direction: column;
     }
+    
+    .ui-orderlist-responsive-bottom {
+        flex-direction: column-reverse;
+    }
 
-    .ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls {
-        text-align: center;
-        width: 100%;
+    .ui-orderlist .ui-orderlist-controls-responsive-left .ui-button, .ui-orderlist .ui-orderlist-controls-responsive-right .ui-button {
+        display: block;
     }
     
-    .ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls .ui-button {
+    .ui-orderlist .ui-orderlist-controls-responsive-top .ui-button, .ui-orderlist .ui-orderlist-controls-responsive-bottom .ui-button {
         display: inline-block;
-        width: 20%;
-        margin-right: .25em;
-    }
-    
-    .ui-orderlist.ui-orderlist-responsive .ui-orderlist-list-container {
-        width: 100%;
     }
 }

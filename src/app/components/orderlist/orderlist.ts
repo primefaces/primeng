@@ -359,6 +359,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 classes += ' ui-orderlist-responsive-' + this.controlsPositionResponsive;
             }
         }
+        
         if (this.controlsPosition) {
             classes += ' ui-orderlist-' + this.controlsPosition;
         }
