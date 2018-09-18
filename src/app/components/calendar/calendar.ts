@@ -656,10 +656,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             else {
                 this.currentMonth--;
             }
-            
-            this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
-            this.createMonths(this.currentMonth, this.currentYear);
         }
+            
+        this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
+        this.createMonths(this.currentMonth, this.currentYear);
         
         event.preventDefault();
     }
@@ -681,10 +681,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             else {
                 this.currentMonth++;
             }
-            
-            this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
-            this.createMonths(this.currentMonth, this.currentYear);
         }
+            
+        this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
+        this.createMonths(this.currentMonth, this.currentYear);
 
         event.preventDefault();
     }
