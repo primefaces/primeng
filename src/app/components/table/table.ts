@@ -1481,10 +1481,15 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     onColumnResizeEnd(event, column) {
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
         let columnWidth = column.offsetWidth;
-        let newColumnWidth = columnWidth + delta;
-        let minWidth = column.style.minWidth || 15;
-
-        if (columnWidth + delta > parseInt(minWidth)) {
+        let minWidth = parseInt(column.style.minWidth || 15);
+        
+        if (columnWidth + delta < minWidth) {
+            delta = minWidth - columnWidth;
+        }
+    
+        const newColumnWidth = columnWidth + delta;
+    
+        if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
                 let nextColumn = column.nextElementSibling;
                 while (!nextColumn.offsetParent) {
