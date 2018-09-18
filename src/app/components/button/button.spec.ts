@@ -38,7 +38,7 @@ describe('Button', () => {
         expect(buttonEl.nativeElement.children.length).toEqual(1);
       });
 
-      it('should display icon and icon to be on left by default ', () => {
+      it('should display the icon and icon to be on the left by default ', () => {
         button.label = 'PrimeNG';
         button.icon = 'pi pi-times';
         fixture.detectChanges();
@@ -47,14 +47,14 @@ describe('Button', () => {
         expect(buttonEl.nativeElement.children[0].className).toContain('ui-button-icon-left');
       });
 
-      it('should display icon', () => {
+      it('should display the icon', () => {
         button.icon = 'pi pi-times';
         fixture.detectChanges();
         const buttonEl = fixture.debugElement.query(By.css('.ui-button'));
         expect(buttonEl.nativeElement.className).toContain('ui-button-icon-only');
       });
 
-      it('should display icon on right and have a label', () => {
+      it('should display the icon on the right and have a label', () => {
         button.label = 'PrimeNG';
         button.icon = 'pi pi-times';
         button.iconPos = 'right';
@@ -64,7 +64,7 @@ describe('Button', () => {
         expect(buttonEl.nativeElement.children[0].className).toContain('ui-button-icon-right');
         expect(buttonEl.nativeElement.children[1].textContent).toContain('PrimeNG');
       });
-      it('should display icon on right', () => {
+      it('should display the icon on the right', () => {
         button.icon = 'pi pi-times';
         button.iconPos = 'right';
         fixture.detectChanges();
@@ -72,7 +72,7 @@ describe('Button', () => {
         expect(buttonEl.nativeElement.className).toContain('ui-button-icon-only');
         expect(buttonEl.nativeElement.children[0].className).toContain('ui-button-icon-right');
       });
-      it('should be enabled by default', () => {
+      it('should enabled by default', () => {
         fixture.detectChanges();
         const buttonEl = fixture.debugElement.query(By.css('.ui-button'));
         expect(buttonEl.nativeElement.className).not.toContain('ui-state-disabled');

@@ -80,7 +80,7 @@ describe('TabView', () => {
       expect(secondTabViewNavEl.textContent).toContain("Primeng ROCKS!");
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       fixture.detectChanges();
 
       firstTabPanel.disabled = true;
@@ -90,7 +90,7 @@ describe('TabView', () => {
       expect(firstTabViewNavEl.className).toContain("ui-state-disabled");
     });
 
-    it('should be closable and element count should be 2', () => {
+    it('should closable and element count should be 2', () => {
       fixture.detectChanges();
 
       firstTabPanel.closable = true;
@@ -106,7 +106,7 @@ describe('TabView', () => {
       expect(tabviewElCount).toEqual(2);
     });
 
-    it('should be change left and right icon', () => {
+    it('should change left and right icon', () => {
       fixture.detectChanges();
 
       firstTabPanel.leftIcon = "PrimeNg ROCKS!";
@@ -119,7 +119,7 @@ describe('TabView', () => {
       expect(firstTabViewRightIconEl.className).toContain("ALWAYS BET ON PRIME");
     });
 
-    it('should be change headerStyle and headerStyleClass', () => {
+    it('should change headerStyle and headerStyleClass', () => {
       fixture.detectChanges();
 
       firstTabPanel.headerStyle = {"prime":"rock"};
@@ -131,7 +131,7 @@ describe('TabView', () => {
       expect(firstTabViewNavEl.style.prime).toContain("rock");
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       fixture.detectChanges();
 
       tabview.style = {"prime":"rock"};
@@ -143,7 +143,7 @@ describe('TabView', () => {
       expect(firstTabViewNavEl.style.prime).toContain("rock");
     });
 
-    it('should be cache true by default', () => {
+    it('should cache true by default', () => {
       fixture.detectChanges();
 
       expect(firstTabPanel.cache).toEqual(true);
@@ -151,7 +151,7 @@ describe('TabView', () => {
       expect(thirdTabPanel.cache).toEqual(true);
     });
 
-    it('should be open by activeIndex', () => {
+    it('should open by activeIndex', () => {
       tabview.activeIndex=1;
       fixture.detectChanges();
 
@@ -163,7 +163,7 @@ describe('TabView', () => {
       expect(thirdTabViewNavEl.className).not.toContain('ui-tabview-selected ui-state-active');
     });
 
-    it('should be change activeIndex', () => {
+    it('should change activeIndex', () => {
       tabview.activeIndex=1;
       fixture.detectChanges();
 

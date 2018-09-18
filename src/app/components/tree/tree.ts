@@ -34,7 +34,7 @@ import {BlockableUI} from '../common/blockableui';
                     </span>
                 </div>
                 <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'">
-                    <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index" [node]="childNode" [parentNode]="node"
+                    <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index; trackBy: tree.nodeTrackBy" [node]="childNode" [parentNode]="node"
                         [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
                 </ul>
             </li>
@@ -72,7 +72,7 @@ import {BlockableUI} from '../common/blockableui';
                         </td>
                         <td class="ui-treenode-children-container" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
                             <div class="ui-treenode-children">
-                                <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last;" [node]="childNode"
+                                <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; trackBy: tree.nodeTrackBy" [node]="childNode"
                                         [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
                             </div>
                         </td>
@@ -299,7 +299,7 @@ export class UITreeNode implements OnInit {
                 <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <ul class="ui-tree-container" *ngIf="value">
-                <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index" [node]="node"
+                <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
             <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
@@ -365,6 +365,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() loadingIcon: string = 'pi pi-spinner';
 
     @Input() emptyMessage: string = 'No records found';
+
+    @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

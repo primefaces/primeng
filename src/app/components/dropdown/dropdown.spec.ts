@@ -24,7 +24,7 @@ describe('Dropdown', () => {
       dropdown = fixture.componentInstance;
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       dropdown.disabled=true;
       dropdown.editable=true;
       fixture.detectChanges();
@@ -37,7 +37,7 @@ describe('Dropdown', () => {
       expect(editableInputEl.disabled).toEqual(true);
     });
 
-    it('should be get a name', () => {
+    it('should get a name', () => {
       dropdown.name = "Primeng";
       fixture.detectChanges();
 
@@ -53,7 +53,7 @@ describe('Dropdown', () => {
       expect(dropdownSpanEl.className).toContain("Primeng")
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       dropdown.styleClass = "Primeng";
       dropdown.style = {'primeng':'rocks'}
       fixture.detectChanges();
@@ -63,7 +63,7 @@ describe('Dropdown', () => {
       expect(containerEl.nativeElement.style.primeng).toEqual("rocks");
     });
 
-    it('should be change panelStyleClass', () => {
+    it('should change panelStyleClass', () => {
       dropdown.panelStyleClass = "Primeng";
       dropdown.options = [
         {name: 'New York', code: 'NY'},
@@ -170,7 +170,7 @@ describe('Dropdown', () => {
       expect(items.children[2].nativeElement.className).not.toContain('ui-state-highlight')
     });
 
-    it('should be filtered', async(() => {
+    it('should filtered', async(() => {
       dropdown.options = [
         {label: 'New York', code: 'NY'},
         {label: 'Rome', code: 'RM'},
@@ -198,7 +198,7 @@ describe('Dropdown', () => {
       expect(items.nativeElement.children.length).toEqual(3);
     }));
 
-    it('should be filtered and display not found warning', async(() => {
+    it('should filtered and display not found warning', async(() => {
       dropdown.options = [
         {label: 'New York', code: 'NY'},
         {label: 'Rome', code: 'RM'},

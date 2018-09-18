@@ -53,7 +53,7 @@ describe('Accordion', () => {
       expect(accordion.tabs.length).toBe(2)
     });
 
-    it('should be change header', () => {
+    it('should change header', () => {
       firstAccordionTab.header = "Primeng ROCKS";
       fixture.detectChanges();
 
@@ -87,7 +87,7 @@ describe('Accordion', () => {
       expect(secondAccordionTabHeaderEl.className).toContain('ui-state-active');
     });
 
-    it('should be disabled', () => {
+    it('should disabled', () => {
       firstAccordionTab.disabled = true;
       fixture.detectChanges();
 
@@ -98,7 +98,7 @@ describe('Accordion', () => {
       expect(accordionTabHeaderEl.className).not.toContain("ui-state-active")
     });
 
-    it('should be change expandIcon and collapseIcon', () => {
+    it('should change expandIcon and collapseIcon', () => {
       accordion.collapseIcon = "pi pi-fw pi-caret-left";
       accordion.expandIcon = "pi pi-fw pi-caret-up";
       fixture.detectChanges();
@@ -111,7 +111,7 @@ describe('Accordion', () => {
       expect(firstAccordionTabOpenEl.className).toContain('pi pi-fw pi-caret-left');
     });
 
-    it('should be get styleClass', () => {
+    it('should get styleClass', () => {
       accordion.styleClass = "alwaysbetonprime"
       fixture.detectChanges();
 
@@ -119,7 +119,7 @@ describe('Accordion', () => {
       expect(accordionEl.className).toContain('alwaysbetonprime');
     });
 
-    it('should be get style', () => {
+    it('should get style', () => {
       accordion.style = { "prime": 'Rocks' }
       fixture.detectChanges();
 

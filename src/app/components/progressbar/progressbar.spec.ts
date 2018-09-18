@@ -22,7 +22,7 @@ describe('ProgressBar', () => {
       progressbar = fixture.componentInstance;
     });
 
-    it('should be fill %50', () => {
+    it('should fill %50', () => {
       progressbar.value=50;
       fixture.detectChanges();
       
@@ -43,7 +43,7 @@ describe('ProgressBar', () => {
       expect(progressbarLabelEl).toBeFalsy();
     });
 
-    it('should be change style and styleClass', () => {
+    it('should change style and styleClass', () => {
       progressbar.value = 50;
       progressbar.style = {'primeng':'rocks'};
       progressbar.styleClass = "Primeng";
@@ -54,7 +54,7 @@ describe('ProgressBar', () => {
       expect(progressbarEl.className).toContain('Primeng');
     });
 
-    it('should be change unit', () => {
+    it('should change unit', () => {
       progressbar.value = 50;
       progressbar.unit = '&';
       fixture.detectChanges();
@@ -63,7 +63,7 @@ describe('ProgressBar', () => {
       expect(progressbarLabelEl.textContent).toEqual('50&');
     });
 
-    it('should be change mode', () => {
+    it('should change mode', () => {
       progressbar.value = 50;
       progressbar.mode = 'indeterminate';
       fixture.detectChanges();

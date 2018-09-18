@@ -188,6 +188,12 @@ export class Dialog implements OnDestroy {
         let viewport = this.domHandler.getViewport();
         if (this.domHandler.getOuterHeight(this.container) > viewport.height) {
              this.contentViewChild.nativeElement.style.height = (viewport.height * .75) + 'px';
+             this.container.style.height = 'auto';
+        } else {
+            this.contentViewChild.nativeElement.style.height = null;
+            if (this.height) {
+                this.container.style.height = this.height + 'px';
+            }
         }
         
         if (this.positionLeft >= 0 && this.positionTop >= 0) {
@@ -592,7 +598,9 @@ export class Dialog implements OnDestroy {
     }
 
     onOverlayHide() {
-        this.onHide.emit({});
+        if (this.visible) {
+            this.onHide.emit({});
+        }
         this.unbindGlobalListeners();
         this.dragging = false;
 

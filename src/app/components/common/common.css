@@ -156,8 +156,6 @@
 }
 .ui-overflow-hidden {
     overflow: hidden;
-    position: fixed;
-    height: 100%;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */

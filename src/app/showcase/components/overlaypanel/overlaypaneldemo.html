@@ -22,10 +22,10 @@
         <p-table [value]="cars1" [style]="{width: '500px'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Vin</th>
-                    <th>Year</th>
-                    <th>Brand</th>
-                    <th>Color</th>
+                    <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
+                    <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
+                    <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
+                    <th pSortableColumn="color">Color <p-sortIcon field="color"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-car>
@@ -287,10 +287,10 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
     &lt;p-table [value]="cars1" [style]="&#123;width: '500px'&#125;"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
-                &lt;th&gt;Vin&lt;/th&gt;
-                &lt;th&gt;Year&lt;/th&gt;
-                &lt;th&gt;Brand&lt;/th&gt;
-                &lt;th&gt;Color&lt;/th&gt;
+                &lt;th pSortableColumn="vin"&gt;Vin &lt;p-sortIcon field="vin"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="year"&gt;Year &lt;p-sortIcon field="year"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="brand"&gt;Brand &lt;p-sortIcon field="brand"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;th pSortableColumn="color"&gt;Color &lt;p-sortIcon field="color"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-car&gt;

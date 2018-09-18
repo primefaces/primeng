@@ -30,14 +30,14 @@ describe('Dialog', () => {
         expect(headerEl.nativeElement.textContent).toContain('PrimeNG Dialog Header')
     });
     
-    it('should display close icon when closable', () => {
+    it('should display the close icon when closable', () => {
         dialog.visible=true;
         fixture.detectChanges();
         const closeEl = fixture.debugElement.query(By.css('.ui-dialog-titlebar-close'));
         expect(closeEl).not.toBeNull();
     });
     
-    it('should display resizer when resizable', () => {
+    it('should display the resizer when resizable is true', () => {
         dialog.visible=true;
         fixture.detectChanges();
         const resizeEl = fixture.debugElement.query(By.css('.ui-resizable-handle'));
