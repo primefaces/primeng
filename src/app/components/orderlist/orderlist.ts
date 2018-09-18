@@ -8,8 +8,8 @@ import {ObjectUtils} from '../utils/objectutils';
 @Component({
     selector: 'p-orderList',
     template: `
-        <div [ngClass]="orderListClasses()" [ngStyle]="style" [class]="styleClass">
-            <div [ngClass]="orderControlClasses()">
+        <div [ngClass]="{'ui-orderlist ui-widget':true,'ui-orderlist-responsive':responsive}" [ngStyle]="style" [class]="styleClass">
+            <div [ngClass]="{'ui-orderlist-controls':true,'ui-orderlist-controls-responsive':responsive}">
                 <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event,listelement)"></button>
                 <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event,listelement)"></button>
                 <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event,listelement)"></button>
@@ -52,10 +52,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() listStyle: any;
     
     @Input() responsive: boolean;
-
-    @Input() controlsPosition: 'left'|'right'|'top'|'bottom' = 'left';
-
-    @Input() controlsPositionResponsive: 'left'|'right'|'top'|'bottom' = 'top';
     
     @Input() filterBy: string;
     
@@ -349,37 +345,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             else if(topDiff < 25 && topDiff > 0)
                 this.listViewChild.nativeElement.scrollTop -= 15;
         }
-    }
-
-    orderListClasses(): string {
-        let classes = 'ui-orderlist ui-widget';
-        if (this.responsive) {
-            classes += ' ui-orderlist-responsive';
-            if (this.controlsPositionResponsive) {
-                classes += ' ui-orderlist-responsive-' + this.controlsPositionResponsive;
-            }
-        }
-        
-        if (this.controlsPosition) {
-            classes += ' ui-orderlist-' + this.controlsPosition;
-        }
-
-        return classes;
-    }
-
-    orderControlClasses(): string {
-        let classes = 'ui-orderlist-controls';
-        if (this.responsive) {
-            if (this.controlsPositionResponsive) {
-                classes += ' ui-orderlist-controls-responsive-' + this.controlsPositionResponsive;
-            }
-        }
-
-        if (this.controlsPosition) {
-            classes += ' ui-orderlist-controls-' + this.controlsPosition;
-        }
-
-        return classes;
     }
 }
 

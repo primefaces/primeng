@@ -1,34 +1,12 @@
 .ui-orderlist {
     display: inline-flex;
     align-items: center;
-}
-
-.ui-orderlist-left {
     flex-direction: row;
 }
 
-.ui-orderlist-right {
-    flex-direction: row-reverse;
-}
-
-.ui-orderlist-top {
-    flex-direction: column;
-}
-
-.ui-orderlist-bottom {
-    flex-direction: column-reverse;
-}
-
-.ui-orderlist .ui-orderlist-controls-left .ui-button, .ui-orderlist .ui-orderlist-controls-right .ui-button {
-    display: block;
-}
-
-.ui-orderlist .ui-orderlist-controls-top .ui-button, .ui-orderlist .ui-orderlist-controls-bottom .ui-button {
-    display: inline-block;
-}
-
 .ui-orderlist .ui-orderlist-controls .ui-button {
-    margin: .25em;
+    display: block;
+    margin: 0.25em;
 }
 
 .ui-orderlist .ui-orderlist-list {
@@ -100,27 +78,11 @@
 }
 
 @media (max-width: 40em) {
-    .ui-orderlist-responsive-left {
-        flex-direction: row;
-    }
-    
-    .ui-orderlist-responsive-right {
-        flex-direction: row-reverse;
-    }
-    
-    .ui-orderlist-responsive-top {
+    .ui-orderlist-responsive {
         flex-direction: column;
     }
     
-    .ui-orderlist-responsive-bottom {
-        flex-direction: column-reverse;
-    }
-
-    .ui-orderlist .ui-orderlist-controls-responsive-left .ui-button, .ui-orderlist .ui-orderlist-controls-responsive-right .ui-button {
-        display: block;
-    }
-    
-    .ui-orderlist .ui-orderlist-controls-responsive-top .ui-button, .ui-orderlist .ui-orderlist-controls-responsive-bottom .ui-button {
+    .ui-orderlist .ui-orderlist-controls-responsive .ui-button {
         display: inline-block;
     }
 }
