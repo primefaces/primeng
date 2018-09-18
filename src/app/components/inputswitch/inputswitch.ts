@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,forwardRef,EventEmitter,Output} from '@angular/core';
+import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
@@ -47,6 +47,8 @@ export class InputSwitch implements ControlValueAccessor {
 
     onModelTouched: Function = () => {};
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     onClick(event: Event, cb: HTMLInputElement) {
         this.toggle(event);
         cb.focus();
@@ -83,6 +85,7 @@ export class InputSwitch implements ControlValueAccessor {
 
     writeValue(checked: any) : void {
         this.checked = checked;
+        this.cd.markForCheck();
     }
 
     registerOnChange(fn: Function): void {
