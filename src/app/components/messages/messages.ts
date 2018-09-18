@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message} from '../common/message';
@@ -65,7 +65,7 @@ export class Messages implements OnInit, OnDestroy {
 
     clearSubscription: Subscription;
 
-    constructor(@Optional() public messageService: MessageService) {}
+    constructor(@Optional() public messageService: MessageService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         if(this.messageService && this.enableService) {
@@ -79,6 +79,7 @@ export class Messages implements OnInit, OnDestroy {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
                     }
                 }
+				this.cdr.detectChanges();
             });
 
             this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
@@ -107,6 +108,7 @@ export class Messages implements OnInit, OnDestroy {
         this.valueChange.emit(this.value);
 
         event.preventDefault();
+        this.cdr.detectChanges();
     }
 
     get icon(): string {

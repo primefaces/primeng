@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
@@ -64,6 +64,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
+    constructor(private cdr: ChangeDetectorRef) { }
+
     ngAfterViewInit() {
         this.initTimeout();
     }
@@ -93,16 +95,17 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     onMouseLeave() {
         this.initTimeout();
     }
- 
+
     onCloseIconClick(event) {
         this.clearTimeout();
-        
+
         this.onClose.emit({
             index: this.index,
             message: this.message
         });
 
         event.preventDefault();
+        this.cdr.detectChanges();
     }
 
     ngOnDestroy() {
@@ -165,8 +168,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     template: TemplateRef<any>;
 
     mask: HTMLDivElement;
-    
-    constructor(public messageService: MessageService, public domHandler: DomHandler) {}
+
+    constructor(public messageService: MessageService, public domHandler: DomHandler, private cdr: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
@@ -182,7 +185,9 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
                 if (this.modal && this.messages && this.messages.length) {
                     this.enableModality();
                 }
+
             }
+            this.cdr.detectChanges();
         });
 
         this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
