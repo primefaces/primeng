@@ -1367,7 +1367,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 if (column.exportable !== false && column.field) {
                     let data = record;
                     let field = column.field;
-                    if (typeof record[field] == 'object' ) {
+                    if (typeof record[field] == 'object') {
                         data = record[field];
                         field = column.subfield;
                     }
