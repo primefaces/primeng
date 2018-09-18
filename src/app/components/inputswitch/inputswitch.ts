@@ -81,8 +81,9 @@ export class InputSwitch implements ControlValueAccessor {
         this.onModelTouched();
     }
 
-    writeValue(checked: any) : void {
+    writeValue(checked: any): void {
         this.checked = checked;
+        this.onModelChange(this.checked);
     }
 
     registerOnChange(fn: Function): void {
