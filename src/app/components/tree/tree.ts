@@ -24,7 +24,7 @@ import {BlockableUI} from '../common/blockableui';
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox' && node.selectable !== false"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
                         <span class="ui-chkbox-icon ui-clickable pi"
                             [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span></div></div
-                    ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
+                    ><span [class]="getIcon()" *ngIf="isIconShow(node)"></span
                     ><span class="ui-treenode-label ui-corner-all"
                         [ngClass]="{'ui-state-highlight':isSelected()}">
                             <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
@@ -61,7 +61,7 @@ import {BlockableUI} from '../common/blockableui';
                                 (touchend)="onNodeTouchEnd()">
                                 <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
-                                ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
+                                ><span [class]="getIcon()" *ngIf="isIconShow(node)"></span
                                 ><span class="ui-treenode-label ui-corner-all">
                                         <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                                         <span *ngIf="tree.getTemplateForNode(node)">
@@ -113,12 +113,27 @@ export class UITreeNode implements OnInit {
     getIcon() {
         let icon: string;
 
-        if(this.node.icon)
-            icon = this.node.icon;
-        else
-            icon = this.node.expanded && this.node.children && this.node.children.length ? this.node.expandedIcon : this.node.collapsedIcon;
+        if(!this.node.children)
+            icon = this.tree.classEndNodeIcon || this.node.icon;
+        else {
+            icon = this.node.expanded 
+                    && this.node.children 
+                    && this.node.children.length 
+                    ? (this.tree.classExpandedIcon || this.node.expandedIcon) 
+                    : (this.tree.classCollapsedIcon || this.node.collapsedIcon);
+        }
 
         return UITreeNode.ICON_CLASS + ' ' + icon;
+    }
+
+    /**
+     * Returns true if you want to display the icon for the node
+     * @param node tree node
+     */
+    isIconShow(node: any): boolean {
+        return (this.tree.classEndNodeIcon || this.node.icon) 
+            || (this.tree.classExpandedIcon || this.node.expandedIcon) 
+            || (this.tree.classCollapsedIcon || this.node.collapsedIcon);
     }
 
     isLeaf() {
@@ -367,6 +382,21 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() emptyMessage: string = 'No records found';
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
+
+    /**
+     * Class 0f node expanded 
+     */
+    @Input() classExpandedIcon: string;
+
+    /**
+     * Class of node collapsed  
+     */
+    @Input() classCollapsedIcon: string;
+
+    /**
+     * Class of end node
+     */
+    @Input() classEndNodeIcon: string;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

@@ -38,6 +38,7 @@ export class TreeDemo implements OnInit {
     filesTree9: TreeNode[];
     filesTree10: TreeNode[];
     filesTree11: TreeNode[];
+    filesTree12: TreeNode[];
     
     lazyFiles: TreeNode[];
     
@@ -95,6 +96,8 @@ export class TreeDemo implements OnInit {
         });
 
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
+
+        this.nodeService.getFiles().then(files => this.filesTree12 = files);
         
         this.items = [
             {label: 'View', icon: 'fa fa-search', command: (event) => this.viewFile(this.selectedFile2)},
