@@ -424,16 +424,17 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(!this.itemClick && !this.clearClick) {
             this.focusViewChild.nativeElement.focus();
             
-            if(this.overlayVisible)
+            if(this.overlayVisible) {
                 this.hide();
+            }
             else {
                 this.show();
 
-                if (this.filterViewChild != undefined) {
-                    setTimeout(() => {
+                setTimeout(() => {
+                    if (this.filterViewChild != undefined) {
                         this.filterViewChild.nativeElement.focus();
-                    }, 200);
-                }
+                    }
+                }, 200);
             }
         }
     }
