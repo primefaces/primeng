@@ -1234,7 +1234,7 @@ body .ui-fieldset {
   body .ui-fieldset .ui-fieldset-content {
     padding: 0; }
 body .ui-accordion .ui-accordion-header {
-  margin-bottom: 0; }
+  margin-bottom: 2px; }
   body .ui-accordion .ui-accordion-header a {
     padding: 0.571em 1em;
     border: 1px solid #191919;
@@ -2595,7 +2595,7 @@ body .ui-panelmenu .ui-panelmenu-header {
       body .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {
         color: #212121; }
 body .ui-panelmenu .ui-panelmenu-panel {
-  margin-top: 0; }
+  margin-top: 2px; }
   body .ui-panelmenu .ui-panelmenu-panel:first-child {
     margin-top: 0; }
 body .ui-panelmenu .ui-panelmenu-content {
