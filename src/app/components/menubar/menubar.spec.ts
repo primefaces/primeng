@@ -420,7 +420,6 @@ describe('Menubar', () => {
       const firstSubmenuList = firstParentEl.query(By.css('ul'));
       const firstSubItem = firstSubmenuList.children[0].query(By.css('a'));
       const itemClickSpy = spyOn(firstSubItem.componentInstance, 'itemClick').and.callThrough();
-      console.log(firstSubItem)
       firstSubItem.nativeElement.click();
       fixture.detectChanges();
       
