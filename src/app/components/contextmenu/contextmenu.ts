@@ -151,25 +151,27 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @Input() baseZIndex: number = 0;
 
+    @Input() triggerEvent: string = 'contextmenu';
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     documentClickListener: any;
 
     windowResizeListener: any;
 
-    rightClickListener: any;
+    triggerEventListener: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.global) {
-            this.rightClickListener = this.renderer.listen('document', 'contextmenu', (event) => {
+            this.triggerEventListener = this.renderer.listen('document', this.triggerEvent, (event) => {
                 this.show(event);
                 event.preventDefault();
             });
         }
         else if (this.target) {
-            this.rightClickListener = this.renderer.listen(this.target, 'contextmenu', (event) => {
+            this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
                 this.show(event);
                 event.preventDefault();
                 event.stopPropagation();
@@ -285,8 +287,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.unbindGlobalListeners();
 
-        if (this.rightClickListener) {
-            this.rightClickListener();
+        if (this.triggerEventListener) {
+            this.triggerEventListener();
         }
 
         if (this.appendTo) {
