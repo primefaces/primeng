@@ -33,6 +33,11 @@
         </div>
 
         <div class="ui-g-12 ui-md-4">
+            <h3>Enable Days</h3>
+            <p-calendar [(ngModel)]="date55" tabindex="0" [enabledDates]="validDates" [readonlyInput]="true"></p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-4">
             <h3>Navigators</h3>
             <p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
         </div>

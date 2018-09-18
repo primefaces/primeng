@@ -15,6 +15,8 @@ export class CalendarDemo {
 
     date5: Date;
 
+    date55: Date;
+
     date6: Date;
     
     date7: Date;
@@ -42,6 +44,8 @@ export class CalendarDemo {
     maxDate: Date;
     
     invalidDates: Array<Date>;
+
+    validDates: Array<Date>;
     
     es: any;
 
@@ -74,5 +78,9 @@ export class CalendarDemo {
         let invalidDate = new Date();
         invalidDate.setDate(today.getDate() - 1);
         this.invalidDates = [today,invalidDate];
+
+        let validDate = new Date();
+        validDate.setDate(today.getDate() + 1);
+        this.validDates = [today, validDate]
     }
  }
