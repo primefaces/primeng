@@ -1435,7 +1435,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     updateUI() {
         let val = this.value||this.defaultDate||new Date();
         if (Array.isArray(val)){
-            val = val[0];
+            val = val[val.length -1];
         }
 
         this.currentMonth = val.getMonth();
