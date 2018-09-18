@@ -82,7 +82,8 @@
         flex-direction: column;
     }
     
-    .ui-orderlist .ui-orderlist-controls-responsive .ui-button {
+    .ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls .ui-button {
         display: inline-block;
+        width: 15vw;
     }
 }
