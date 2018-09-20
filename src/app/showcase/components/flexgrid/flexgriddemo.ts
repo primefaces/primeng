@@ -10,6 +10,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             padding-top: 1em;
             padding-bottom: 1em;
             border-radius: 4px;
+            color: #333333;
         }
 
         .box-stretched {

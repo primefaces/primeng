@@ -76,6 +76,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
+    @Input() first: number = 0;
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
@@ -97,8 +99,6 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     paginatorLeftTemplate: TemplateRef<any>;
 
     paginatorRightTemplate: TemplateRef<any>;
-
-    first: number = 0;
     
     filteredValue: any[];
 

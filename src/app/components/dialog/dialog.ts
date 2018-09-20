@@ -615,7 +615,9 @@ export class Dialog implements OnDestroy {
     
     ngOnDestroy() {
         this.restoreAppend();
-        this.onOverlayHide();
+        if (this.visible) {
+            this.onOverlayHide();
+        }
     }
 
 }

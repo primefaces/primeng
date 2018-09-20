@@ -458,12 +458,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if(this.dataKey && this._selection) {
             this.selectionKeys = {};
             if(Array.isArray(this._selection)) {
-                for(let data of this._selection) {
-                    this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                for(let node of this._selection) {
+                    this.selectionKeys[String(this.objectUtils.resolveFieldData(node.data, this.dataKey))] = 1;
                 }
             }
             else {
-                this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+                this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection.data, this.dataKey))] = 1;
             }
         }
     }

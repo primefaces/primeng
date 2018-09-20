@@ -12,6 +12,12 @@ import {MessageService} from '../../../components/common/messageservice';
             text-align: center;
             margin: 0 0 8px 0;
         }
+
+        .ui-inputtext {
+            padding-top: 0;
+            padding-bottom: 0;
+            font-size: 12px;
+        }
     `],
     providers: [TreeDragDropService,MessageService]
 })

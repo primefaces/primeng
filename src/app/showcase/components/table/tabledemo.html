@@ -83,12 +83,12 @@ import &#123; Car &#125; from '../domain/car';
 @Injectable()
 export class CarService &#123;
 
-    constructor(private http: Http) &#123;&#125;
+    constructor(private http: HttpClient) &#123;&#125;
 
     getCarsSmall() &#123;
         return this.http.get('/showcase/resources/data/cars-small.json')
                     .toPromise()
-                    .then(res => &lt;Car[]&gt; res.json().data)
+                    .then(res => &lt;Car[]&gt; res.data)
                     .then(data => &#123; return data; &#125;);
     &#125;
 &#125;
