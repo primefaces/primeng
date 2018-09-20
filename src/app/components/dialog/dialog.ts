@@ -598,9 +598,7 @@ export class Dialog implements OnDestroy {
     }
 
     onOverlayHide() {
-        if (this.visible) {
-            this.onHide.emit({});
-        }
+        this.onHide.emit({});
         this.unbindGlobalListeners();
         this.dragging = false;
 
@@ -617,7 +615,9 @@ export class Dialog implements OnDestroy {
     
     ngOnDestroy() {
         this.restoreAppend();
-        this.onOverlayHide();
+        if (this.visible) {
+            this.onOverlayHide();
+        }
     }
 
 }
