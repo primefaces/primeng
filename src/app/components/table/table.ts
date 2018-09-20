@@ -1009,16 +1009,18 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
-        if(!this.lazy || !this._selection)
+        if (!this.lazy || !this._selection) {
             this._selection = check ? this.filteredValue ? this.filteredValue.slice(): this.value.slice() : [];
-        
-        else{
-            for(let data of this.value){
-            let index = this.findIndexInSelection(data);
-                if(check && index == -1)
+        }
+        else {
+            for (let data of this.value) {
+                let index = this.findIndexInSelection(data);
+                if (check && index == -1){
                     this._selection = this.filteredValue ? this.filteredValue.slice(): [... this._selection, data];
-                else if(!check)
+                }
+                else if (!check){
                     this._selection.splice(index,1);
+                }
             }
         }
 
@@ -3033,19 +3035,20 @@ export class TableHeaderCheckbox  {
 
     updateCheckedState() {
         const val = this.dt.filteredValue||this.dt.value;
-        if(this.dt.lazy){
-            if(val && this.dt.selection){
-            for(let data of val){
-                if(!this.dt.isSelected(data)){
-                    return false;
+        if (this.dt.lazy) {
+            if (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0) {
+                for (let data of val) {
+                    if (!this.dt.isSelected(data)) {
+                        return false;
+                    }
                 }
-            }
-            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0);
+                return true;
             }
             return false;
         }
-        else
+        else {
             return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
+        }
     }
    
 }
