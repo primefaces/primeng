@@ -115,10 +115,6 @@ export class OverlayPanel implements OnDestroy {
     }
 
     show(event, target?) {
-        if (event.type === 'click') {
-            this.targetClickEvent = true;
-        }
-
         this.target = target||event.currentTarget||event.target;
         this.visible = true;
     }
@@ -198,7 +194,7 @@ export class OverlayPanel implements OnDestroy {
     }
 
     onOverlayHide() {
-        if (!this.visible) {
+        if (this.visible) {
             this.onHide.emit(null);
         }
         this.unbindDocumentClickListener();
