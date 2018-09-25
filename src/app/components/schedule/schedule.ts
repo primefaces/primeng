@@ -322,7 +322,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             }
             if (this.calendar) {
                 this.calendar.option(propName, val);
-                }
+            }
             if (this.config) {
                 this.config[propName] = val;
             }
