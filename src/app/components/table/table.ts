@@ -1,6 +1,6 @@
 import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Column, PrimeTemplate, SharedModule } from '../common/shared';
+import { PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
 import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
@@ -11,15 +11,110 @@ import { Injectable } from '@angular/core';
 import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription, Observable } from 'rxjs';
 
+export interface Column {
+    header: string;
+    field: string;
+    exportable: boolean;
+}
+export interface FilterEventData {
+    filters: {[s: string]: FilterMetadata};
+    filteredValue: any[];
+}
+export interface RowClickEvent {
+    originalEvent: MouseEvent;
+    rowData: any;
+    rowIndex: number;
+}
+export interface RowEvent {
+    originalEvent: Event;
+    data: any;
+}
+export type RowEventType = 'row' | 'checkbox' | 'radiobutton';
+export interface RowSelectEvent extends RowEvent {
+    type: RowEventType;
+    index?: number; // Sometimes provided, sometimes not. Intentional?
+}
+export interface RowUnselectEvent extends RowEvent {
+    type: RowEventType;
+}
+export interface LazyLoadMetaData {
+    first: number;
+    rows: number;
+    sortField: string;
+    sortOrder: number;
+    filters: {[s: string]: FilterMetadata};
+    globalFilter: any;
+    multiSortMeta: SortMeta[];
+}
+export interface MultiSortMeta {
+    multisortmeta: SortMeta[];
+}
+export interface PageChangeEvent {
+    first: number;
+    rows: number;
+}
+export interface ColumnResizeEvent {
+    element: any;
+    delta: number;
+}
+export interface ReorderEvent {
+    dragIndex: number;
+    dropIndex: number;
+}
+export interface ColumnReorderEvent extends ReorderEvent {
+    columns: Column[];
+}
+export interface EditEvent {
+    field: any;
+    data: any;
+}
+export interface HeaderCheckboxEvent {
+    originalEvent: Event;
+    checked: boolean;
+}
+export interface SortFunctionEvent {
+    data: any[];
+    mode: SortMode;
+    multiSortMeta?: SortMeta[];
+    field?: string;
+    order?: number;
+}
+export interface ExportOptions {
+    selectionOnly?: boolean;
+}
+export type ColumnResizeMode = 'fit' | 'expand';
+export type CompareSelectionMode = 'equals' | 'deepEquals';
+export type ContextMenuSelectionMode = 'joint' | 'separate';
+
+export type RowExpandMode = 'single' | 'multiple';
+export type SelectionMode = 'single' | 'multiple';
+export type SortMode = 'single' | 'multiple';
+
+// This would be nice for providing intellisense, but support for custom match modes is allowed by modifying the filterConstraints object.
+// export type MatchMode = 'startsWith' | 'contains' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
+export interface FilterConstraints { 
+    startsWith(value: any, filter: string): boolean;
+    contains(value: any, filter: string): boolean;
+    endsWith(value: any, filter: string): boolean;
+    equals(value: any, filter: any): boolean;
+    notEquals(value: any, filter: any): boolean;
+    in(value: any, filter: any[]): boolean;
+    lt(value: any, filter: any): boolean;
+    lte(value: any, filter: any): boolean;
+    gt(value: any, filter: any): boolean;
+    gte(value: any, filter: any): boolean;
+    [matchMode: string]: (value: any, filter: any) => boolean;
+ }
+
 @Injectable()
 export class TableService {
 
     private sortSource = new Subject<SortMeta|SortMeta[]>();
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
-    private valueSource = new Subject<any>();
-    private totalRecordsSource = new Subject<any>();
-    private columnsSource = new Subject();
+    private valueSource = new Subject<any[]>();
+    private totalRecordsSource = new Subject<number>();
+    private columnsSource = new Subject<Column[]>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
@@ -40,7 +135,7 @@ export class TableService {
         this.contextMenuSource.next(data);
     }
 
-    onValueChange(value: any) {
+    onValueChange(value: any[]) {
         this.valueSource.next(value);
     }
 
@@ -48,7 +143,7 @@ export class TableService {
         this.totalRecordsSource.next(value);
     }
 
-    onColumnsChange(columns: any[]) {
+    onColumnsChange(columns: Column[]) {
         this.columnsSource.next(columns);
     }
 }
@@ -70,7 +165,7 @@ export class TableService {
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
-            
+
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -88,7 +183,7 @@ export class TableService {
                <div class="ui-table-scrollable-view ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
                <div class="ui-table-scrollable-view" [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
             </div>
-            
+
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
@@ -105,17 +200,17 @@ export class TableService {
     providers: [DomHandler, ObjectUtils, TableService]
 })
 export class Table implements OnInit, AfterContentInit, BlockableUI {
-    
-    @Input() frozenColumns: any[];
+
+    @Input() frozenColumns: Column[];
 
     @Input() frozenValue: any[];
 
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() tableStyle: any;
-    
+
     @Input() tableStyleClass: string;
 
     @Input() paginator: boolean;
@@ -136,11 +231,11 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Input() defaultSortOrder: number = 1;
 
-    @Input() sortMode: string = 'single';
-    
+    @Input() sortMode: SortMode = 'single';
+
     @Input() resetPageOnSort: boolean = true;
 
-    @Input() selectionMode: string;
+    @Input() selectionMode: SelectionMode;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
@@ -148,7 +243,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
 
-    @Input() contextMenuSelectionMode: string = "separate";
+    @Input() contextMenuSelectionMode: ContextMenuSelectionMode = 'separate';
 
     @Input() dataKey: string;
 
@@ -160,7 +255,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Input() lazyLoadOnInit: boolean = true;
 
-    @Input() compareSelectionBy: string = 'deepEquals';
+    @Input() compareSelectionBy: CompareSelectionMode = 'deepEquals';
 
     @Input() csvSeparator: string = ',';
 
@@ -174,7 +269,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Input() expandedRowKeys: { [s: string]: number; } = {};
 
-    @Input() rowExpandMode: string = 'multiple';
+    @Input() rowExpandMode: RowExpandMode = 'multiple';
 
     @Input() scrollable: boolean;
 
@@ -190,11 +285,11 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Input() responsive: boolean;
 
-    @Input() contextMenu: any;
-    
+    @Input() contextMenu: {show: (data: any) => void};
+
     @Input() resizableColumns: boolean;
 
-    @Input() columnResizeMode: string = 'fit';
+    @Input() columnResizeMode: ColumnResizeMode = 'fit';
 
     @Input() reorderableColumns: boolean;
 
@@ -207,42 +302,42 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     @Input() customSort: boolean;
 
     @Input() autoLayout: boolean;
-    
+
     @Input() exportFunction;
 
-    @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
+    @Output() onRowSelect: EventEmitter<RowSelectEvent> = new EventEmitter();
 
-    @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
+    @Output() onRowUnselect: EventEmitter<RowUnselectEvent> = new EventEmitter();
 
-    @Output() onPage: EventEmitter<any> = new EventEmitter();
+    @Output() onPage: EventEmitter<PageChangeEvent> = new EventEmitter();
 
-    @Output() onSort: EventEmitter<any> = new EventEmitter();
+    @Output() onSort: EventEmitter<SortMeta|MultiSortMeta> = new EventEmitter();
 
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    @Output() onFilter: EventEmitter<FilterEventData> = new EventEmitter();
 
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
+    @Output() onLazyLoad: EventEmitter<LazyLoadMetaData> = new EventEmitter();
 
-    @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
+    @Output() onRowExpand: EventEmitter<RowEvent> = new EventEmitter();
 
-    @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
+    @Output() onRowCollapse: EventEmitter<RowEvent> = new EventEmitter();
 
-    @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
+    @Output() onContextMenuSelect: EventEmitter<RowEvent> = new EventEmitter();
 
-    @Output() onColResize: EventEmitter<any> = new EventEmitter();
+    @Output() onColResize: EventEmitter<ColumnResizeEvent> = new EventEmitter();
 
-    @Output() onColReorder: EventEmitter<any> = new EventEmitter();
+    @Output() onColReorder: EventEmitter<ColumnReorderEvent> = new EventEmitter();
 
-    @Output() onRowReorder: EventEmitter<any> = new EventEmitter();
+    @Output() onRowReorder: EventEmitter<ReorderEvent> = new EventEmitter();
 
-    @Output() onEditInit: EventEmitter<any> = new EventEmitter();
+    @Output() onEditInit: EventEmitter<EditEvent> = new EventEmitter();
 
-    @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
+    @Output() onEditComplete: EventEmitter<EditEvent> = new EventEmitter();
 
-    @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+    @Output() onEditCancel: EventEmitter<EditEvent> = new EventEmitter();
 
-    @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
+    @Output() onHeaderCheckboxToggle: EventEmitter<HeaderCheckboxEvent> = new EventEmitter();
 
-    @Output() sortFunction: EventEmitter<any> = new EventEmitter();
+    @Output() sortFunction: EventEmitter<SortFunctionEvent> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -258,7 +353,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     _value: any[] = [];
 
-    _columns: any[];
+    _columns: Column[];
 
     _totalRecords: number = 0;
 
@@ -294,7 +389,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     paginatorRightTemplate: TemplateRef<any>;
 
-    selectionKeys: any = {};
+    selectionKeys: {[s: string]: 1} = {};
 
     lastResizerHelperX: number;
 
@@ -321,7 +416,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     _sortOrder: number = 1;
 
     virtualScrollTimer: any;
-    
+
     virtualScrollCallback: Function;
 
     preventSelectionSetterPropagation: boolean;
@@ -329,7 +424,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     _selection: any;
 
     anchorRowIndex: number;
-    
+
     rangeRowIndex: number;
 
     filterTimeout: any;
@@ -346,7 +441,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         }
         this.initialized = true;
     }
- 
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
@@ -418,7 +513,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     }
     set value(val: any[]) {
         this._value = val;
-        
+
         if (!this.lazy) {
             this.totalRecords = (this._value ? this._value.length : 0);
 
@@ -437,10 +532,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         this.tableService.onValueChange(val);
     }
 
-    @Input() get columns(): any[] {
+    @Input() get columns(): Column[] {
         return this._columns;
     }
-    set columns(cols: any[]) {
+    set columns(cols: Column[]) {
         this._columns = cols;
         this.tableService.onColumnsChange(cols);
     }
@@ -551,7 +646,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
             if (sortMeta) {
                 if (!metaKey) {
-                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
+                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }];
                 }
                 else {
                     sortMeta.order = sortMeta.order * -1;
@@ -563,7 +658,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 }
                 this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
-            
+
             this.sortMultiple();
         }
     }
@@ -591,7 +686,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                         let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
                         let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
                         let result = null;
-        
+
                         if (value1 == null && value2 != null)
                             result = -1;
                         else if (value1 != null && value2 == null)
@@ -602,21 +697,21 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                             result = value1.localeCompare(value2);
                         else
                             result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-        
+
                         return (this.sortOrder * result);
                     });
                 }
-                
+
                 if(this.hasFilter()) {
                     this._filter();
                 }
             }
-    
+
             let sortMeta: SortMeta = {
                 field: this.sortField,
                 order: this.sortOrder
             };
-    
+
             this.onSort.emit(sortMeta);
             this.tableService.onSort(sortMeta);
         }
@@ -645,7 +740,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                     this._filter();
                 }
             }
-            
+
             this.onSort.emit({
                 multisortmeta: this.multiSortMeta
             });
@@ -698,9 +793,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         }
         else if(this.sortMode === 'multiple') {
             let sorted = false;
-            if(this.multiSortMeta) {
+            if(this.multiSortMeta) {
                 for(let i = 0; i < this.multiSortMeta.length; i++) {
-                    if(this.multiSortMeta[i].field == field) {
+                    if(this.multiSortMeta[i].field == field) {
                         sorted = true;
                         break;
                     }
@@ -710,7 +805,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         }
     }
 
-    handleRowClick(event) {
+    handleRowClick(event: RowClickEvent) {
         let targetNode = (<HTMLElement> event.originalEvent.target).nodeName;
         if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
             return;
@@ -959,7 +1054,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         return index;
     }
 
-    toggleRowWithRadio(event: Event, rowData:any) {
+    toggleRowWithRadio(event: MouseEvent, rowData:any) {
         this.preventSelectionSetterPropagation = true;
 
         if(this.selection != rowData) {
@@ -981,7 +1076,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         this.tableService.onSelectionChange();
     }
 
-    toggleRowWithCheckbox(event, rowData: any) {
+    toggleRowWithCheckbox(event, rowData: MouseEvent) {
         this.selection = this.selection||[];
         let selected = this.isSelected(rowData);
         let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
@@ -1021,7 +1116,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
     }
 
-    filter(value, field, matchMode) {
+    filter(value, field: string, matchMode: string) {
         if(this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
@@ -1038,7 +1133,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         }, this.filterDelay);
     }
 
-    filterGlobal(value, matchMode) {
+    filterGlobal(value, matchMode: string) {
         this.filter(value, 'global', matchMode);
     }
 
@@ -1159,9 +1254,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         return !empty;
     }
 
-    filterConstraints = {
+    filterConstraints: FilterConstraints = {
 
-        startsWith(value, filter): boolean {
+        startsWith(value: any, filter: string): boolean {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
@@ -1174,7 +1269,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             return value.toString().toLowerCase().slice(0, filterValue.length) === filterValue;
         },
 
-        contains(value, filter): boolean {
+        contains(value: any, filter: string): boolean {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
@@ -1186,7 +1281,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
         },
 
-        endsWith(value, filter): boolean {
+        endsWith(value: any, filter: string): boolean {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
@@ -1199,7 +1294,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             return value.toString().toLowerCase().indexOf(filterValue, value.toString().length - filterValue.length) !== -1;
         },
 
-        equals(value, filter): boolean {
+        equals(value: any, filter: any): boolean {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
@@ -1214,7 +1309,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return value.toString().toLowerCase() == filter.toString().toLowerCase();
         },
 
-        notEquals(value, filter): boolean {
+        notEquals(value: any, filter: any): boolean {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return false;
             }
@@ -1229,7 +1324,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return value.toString().toLowerCase() != filter.toString().toLowerCase();
         },
 
-        in(value, filter: any[]): boolean {
+        in(value: any, filter: any[]): boolean {
             if (filter === undefined || filter === null || filter.length === 0) {
                 return true;
             }
@@ -1247,7 +1342,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             return false;
         },
 
-        lt(value, filter): boolean {
+        lt(value: any, filter: any): boolean {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -1262,7 +1357,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return value < filter;
         },
         
-        lte(value, filter): boolean {
+        lte(value: any, filter: any): boolean {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -1277,7 +1372,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return value <= filter;
         },
 
-        gt(value, filter): boolean {
+        gt(value: any, filter: any): boolean {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -1292,7 +1387,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 return value > filter;
         },
         
-        gte(value, filter): boolean {
+        gte(value: any, filter: any): boolean {
             if (filter === undefined || filter === null) {
                 return true;
             }
@@ -1306,9 +1401,9 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             else
                 return value >= filter;
         }
-    }
+    };
 
-    createLazyLoadMetadata(): any {
+    createLazyLoadMetadata(): LazyLoadMetaData {
         return {
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2: this.rows,
@@ -1339,7 +1434,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         }
     }
 
-    public exportCSV(options?: any) {
+    public exportCSV(options?: ExportOptions) {
         let data = this.filteredValue || this.value;
         let csv = '\ufeff';
 
@@ -1746,7 +1841,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         return data == null || data.length == 0;
     }
 
-    getBlockableElement(): HTMLElement {
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
@@ -2006,7 +2101,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             let pageCount = (virtualTableHeight / pageHeight)||1;
             let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
 
-            if((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
+            if((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
                 let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
                 this.dt.handleVirtualScroll({
                     page: page,
@@ -2084,7 +2179,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             this.totalRecordsSubscription.unsubscribe();
         }
 
-        if(this.columnsSubscription) {
+        if(this.columnsSubscription) {
             this.columnsSubscription.unsubscribe();
         }
 
@@ -2261,7 +2356,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     @HostListener('click', ['$event'])
-    onClick(event: Event) {
+    onClick(event: MouseEvent) {
         if (this.isEnabled()) {
             this.dt.handleRowClick({
                 originalEvent: event,
@@ -2324,7 +2419,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
     }
 
     @HostListener('dblclick', ['$event'])
-    onClick(event: Event) {
+    onClick(event: MouseEvent) {
         if (this.isEnabled()) {
             this.dt.handleRowClick({
                 originalEvent: event,
@@ -2862,7 +2957,7 @@ export class TableRadioButton  {
         this.checked = this.dt.isSelected(this.value);
     }
 
-    onClick(event: Event) {
+    onClick(event: MouseEvent) {
         if(!this.disabled) {
             this.dt.toggleRowWithRadio(event, this.value);
         }
@@ -2921,7 +3016,7 @@ export class TableCheckbox  {
         this.checked = this.dt.isSelected(this.value);
     }
 
-    onClick(event: Event) {
+    onClick(event: MouseEvent) {
         if(!this.disabled) {
             this.dt.toggleRowWithCheckbox(event, this.value);
         }
