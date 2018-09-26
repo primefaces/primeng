@@ -34,7 +34,7 @@
     <h3>Template</h3>
     <p-tree [value]="filesTree5">
         <ng-template let-node pTemplate="default">
-            <input [(ngModel)]="node.label" type="text" style="width:100%">
+            <input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext">
         </ng-template>
     </p-tree>
 
@@ -792,7 +792,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="filesTree5"&gt;
     &lt;ng-template let-node pTemplate="default"&gt;
-        &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
+        &lt;input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext"&gt;
     &lt;/ng-template&gt;
 &lt;/p-tree&gt;
 

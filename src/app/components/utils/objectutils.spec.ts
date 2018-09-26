@@ -111,4 +111,11 @@ describe('ObjectUtils Suite', () => {
       expect(objectUtils.equals(obj1, obj2)).toBe(true);
     });
 
+    it('Should be able to compare dates', () => {
+        const obj1 = new Date(2018, 0, 1);
+        const obj2 = new Date(2018, 0, 1);
+        const obj3 = new Date(2020, 0, 1);
+        expect(objectUtils.equals(obj1, obj2)).toBe(true);
+        expect(objectUtils.equals(obj1, obj3)).toBe(false);
+    });
 });

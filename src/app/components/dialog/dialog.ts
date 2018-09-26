@@ -598,7 +598,9 @@ export class Dialog implements OnDestroy {
     }
 
     onOverlayHide() {
-        this.onHide.emit({});
+        if (this.visible) {
+            this.onHide.emit({});
+        }
         this.unbindGlobalListeners();
         this.dragging = false;
 

@@ -243,7 +243,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     moveTop(event,listElement) {
         if(this.selectedItems) {
-            for(let i = 0; i < this.selectedItems.length; i++) {
+            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
@@ -286,7 +286,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     moveBottom(event,listElement) {
         if(this.selectedItems) {
-            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
+            for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
