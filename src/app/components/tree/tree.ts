@@ -19,13 +19,13 @@ import {BlockableUI} from '../common/blockableui';
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)">
-                    <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
+                    <span tabindex="0" (keyup.enter)="toggle($event)" class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox' && node.selectable !== false"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
                         <span class="ui-chkbox-icon ui-clickable pi"
                             [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
-                    ><span class="ui-treenode-label ui-corner-all"
+                    ><span tabindex="0" (keyup.enter)="onNodeClick($event)" class="ui-treenode-label ui-corner-all"
                         [ngClass]="{'ui-state-highlight':isSelected()}">
                             <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                             <span *ngIf="tree.getTemplateForNode(node)">
@@ -59,10 +59,10 @@ import {BlockableUI} from '../common/blockableui';
                             <div class="ui-treenode-content ui-state-default ui-corner-all"
                                 [ngClass]="{'ui-treenode-selectable':tree.selectionMode,'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
                                 (touchend)="onNodeTouchEnd()">
-                                <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()"
+                                <span tabindex="0" (keyup.enter)="toggle($event)" class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
-                                ><span class="ui-treenode-label ui-corner-all">
+                                ><span tabindex="0" (keyup.enter)="onNodeClick($event)" class="ui-treenode-label ui-corner-all">
                                         <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                                         <span *ngIf="tree.getTemplateForNode(node)">
                                         <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
