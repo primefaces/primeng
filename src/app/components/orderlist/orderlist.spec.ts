@@ -35,7 +35,7 @@ class TestOrderListComponent {
     }
 }
 
-describe('OrderList', () => {
+fdescribe('OrderList', () => {
     
     let orderlist: OrderList;
     let fixture: ComponentFixture<TestOrderListComponent>;
@@ -120,10 +120,52 @@ describe('OrderList', () => {
       const itemListEl = fixture.debugElement.query(By.css('ul'));
 
       expect(itemListEl).toBeTruthy();
+      expect(orderlist.itemTouched).toEqual(undefined);
       expect(itemListEl.children.length).toEqual(10);
     });
 
     it('should call onItem click and select a item', () => {
+      const onItemClickSpy = spyOn(orderlist, 'onItemClick').and.callThrough();
+      const onItemTouchEndSpy = spyOn(orderlist, 'onItemTouchEnd').and.callThrough();
+      fixture.detectChanges();
+
+      const itemListEl = fixture.debugElement.query(By.css('ul'));
+      const bmwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[3];
+      bmwEl.nativeElement.dispatchEvent(new Event('touchend'));
+      fixture.detectChanges();
+      expect(orderlist.itemTouched).toEqual(true);
+
+      bmwEl.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(onItemClickSpy).toHaveBeenCalled();
+      expect(onItemTouchEndSpy).toHaveBeenCalled();
+      expect(orderlist.itemTouched).toEqual(false);
+      expect(orderlist.selectedItems.length).toEqual(1);
+      expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
+    });
+
+    it('should call onItem click and unselect a item', () => {
+      const onItemClickSpy = spyOn(orderlist, 'onItemClick').and.callThrough();
+      fixture.detectChanges();
+
+      const itemListEl = fixture.debugElement.query(By.css('ul'));
+      const bmwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[3];
+      bmwEl.nativeElement.click();
+      fixture.detectChanges();
+      
+      const ctrlClickEvent = {'ctrlKey':true};
+      orderlist.onItemClick(ctrlClickEvent,orderlist.selectedItems[0],3);
+      fixture.detectChanges();
+
+      expect(onItemClickSpy).toHaveBeenCalledTimes(2);
+      expect(orderlist.selectedItems.length).toEqual(0);
+      expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
+    });
+
+    it('should call onItem click and select a item with metaKeySelection false', () => {
+      orderlist.metaKeySelection = false;
       const onItemClickSpy = spyOn(orderlist, 'onItemClick').and.callThrough();
       fixture.detectChanges();
 
@@ -136,6 +178,25 @@ describe('OrderList', () => {
       expect(orderlist.selectedItems.length).toEqual(1);
       expect(orderlist.selectedItems[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
+    });
+
+    it('should call onItem click and unselect a item with metaKeySelection', () => {
+      orderlist.metaKeySelection = false;
+      const onItemClickSpy = spyOn(orderlist, 'onItemClick').and.callThrough();
+      fixture.detectChanges();
+
+      const itemListEl = fixture.debugElement.query(By.css('ul'));
+      const bmwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[3];
+      bmwEl.nativeElement.click();
+      fixture.detectChanges();
+      
+      const ctrlClickEvent = {'ctrlKey':true};
+      orderlist.onItemClick(ctrlClickEvent,orderlist.selectedItems[0],3);
+      fixture.detectChanges();
+
+      expect(onItemClickSpy).toHaveBeenCalledTimes(2);
+      expect(orderlist.selectedItems.length).toEqual(0);
+      expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
     });
 
     it('should call moveUp', () => {
