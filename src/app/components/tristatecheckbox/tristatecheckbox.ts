@@ -69,7 +69,6 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
 
     onKeyup(event: KeyboardEvent) {
-        console.log(event);
         if(event.keyCode == 32) {
             this.toggle(event);
             event.preventDefault();
