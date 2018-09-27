@@ -1886,4 +1886,42 @@ describe('Calendar', () => {
       expect(populateYearOptionsSpy).toHaveBeenCalled();
     });
     
+    it('should call onUserInput and return nothing', () => {
+      const onUserInputSpy = spyOn(calendar,'onUserInput');
+      fixture.detectChanges();
+      
+      calendar.onUserInput(event);
+      fixture.detectChanges();
+
+      expect(onUserInputSpy).toHaveBeenCalled();
+      expect(calendar.isKeydown).toBeUndefined();
+      expect(calendar.filled).toBeUndefined();
+    });
+
+    it('should select time with keyboardEvent', () => {
+      calendar.timeOnly = true;
+      calendar.hourFormat = '12';
+      fixture.detectChanges();
+
+      const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+      const focusEvent = new Event('focus');
+      inputEl.click();
+      inputEl.dispatchEvent(focusEvent);
+      fixture.detectChanges();
+
+      const parseValueFromStringSpy = spyOn(calendar, 'parseValueFromString').and.callThrough();
+      const onUserInputSpy = spyOn(calendar, 'onUserInput').and.callThrough();
+      const event = {'target':{'value':'10:10 AM'}};
+      calendar.onInputKeydown(event);
+      fixture.detectChanges();
+
+      calendar.onUserInput(event);
+      fixture.detectChanges();
+
+      expect(parseValueFromStringSpy).toHaveBeenCalled();
+      expect(onUserInputSpy).toHaveBeenCalled();
+      expect(calendar.currentHour).toEqual(10);
+      expect(calendar.currentMinute).toEqual(10);
+      expect(calendar.pm).toEqual(false);
+    });
 });
