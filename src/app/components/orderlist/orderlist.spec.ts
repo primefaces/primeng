@@ -35,7 +35,7 @@ class TestOrderListComponent {
     }
 }
 
-fdescribe('OrderList', () => {
+describe('OrderList', () => {
     
     let orderlist: OrderList;
     let fixture: ComponentFixture<TestOrderListComponent>;
