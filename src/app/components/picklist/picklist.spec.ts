@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { PickList } from './picklist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { Button } from '../button/button';
 
 @Component({
@@ -115,7 +115,7 @@ describe('PickList', () => {
       expect(filterContainers[1]).toBeTruthy();
     });
     
-    it('should filtered', () => {
+    it('should filtered source', () => {
       picklist.filterBy = "brand";
       fixture.detectChanges();
 
@@ -133,6 +133,32 @@ describe('PickList', () => {
           expect(sourceListItems[i].nativeElement.style.display).toEqual("block");
         else
           expect(sourceListItems[i].nativeElement.style.display).not.toEqual("block");
+      }
+      
+    });
+
+    it('should filtered target', () => {
+      picklist.filterBy = "brand";
+      fixture.detectChanges();
+
+      const controlAllRightButton = fixture.debugElement.queryAll(By.css('.ui-picklist-buttons-cell'))[1].queryAll(By.css('button'))[1];
+      controlAllRightButton.nativeElement.click();
+      fixture.detectChanges();
+
+      const targetFilterEl = fixture.debugElement.queryAll(By.css('input'))[1];
+      targetFilterEl.nativeElement.value = "v";
+      targetFilterEl.nativeElement.dispatchEvent(new Event('keyup'));
+      fixture.detectChanges();
+
+      const targetListItems = fixture.debugElement.query(By.css('.ui-picklist-target-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      expect(picklist.visibleOptionsTarget.length).toEqual(2);
+      expect(picklist.visibleOptionsTarget[0].brand).toEqual("VW");
+      expect(picklist.visibleOptionsTarget[1].brand).toEqual("Volvo");
+      for(let i =0; i<targetListItems.length;i++){
+        if(i==0 || i==5)
+          expect(targetListItems[i].nativeElement.style.display).toEqual("block");
+        else
+          expect(targetListItems[i].nativeElement.style.display).not.toEqual("block");
       }
       
     });
@@ -230,6 +256,71 @@ describe('PickList', () => {
       expect(picklist.selectedItemsSource[0].brand).toEqual("VW");
     });
 
+    it('should not select item', () => {
+      picklist.disabled = true;
+      fixture.detectChanges();
+
+      const onItemClickSpy = spyOn(picklist, 'onItemClick').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.click();
+      fixture.detectChanges();
+
+      expect(onItemClickSpy).toHaveBeenCalled();
+      expect(sourceListItems[0].nativeElement.className).not.toContain("ui-state-highlight");
+      expect(picklist.selectedItemsSource.length).toEqual(0);
+      expect(picklist.selectedItemsSource[0]).toBeUndefined();
+    });
+
+    it('should unselect item', () => {
+      fixture.detectChanges();
+
+      const onItemClickSpy = spyOn(picklist, 'onItemClick').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.click();
+      fixture.detectChanges();
+
+      let event = {'ctrlKey': true};
+      let callback = new EventEmitter();
+      picklist.onItemClick(event,picklist.source[0],picklist.selectedItemsSource,callback);
+      fixture.detectChanges();
+
+      expect(onItemClickSpy).toHaveBeenCalled();
+      expect(sourceListItems[0].nativeElement.className).not.toContain("ui-state-highlight");
+      expect(picklist.selectedItemsSource.length).toEqual(0);
+    });
+
+    it('should select item without metakey', () => {
+      picklist.metaKeySelection = false;
+      fixture.detectChanges();
+
+      const onItemClickSpy = spyOn(picklist, 'onItemClick').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.click();
+      fixture.detectChanges();
+
+      expect(onItemClickSpy).toHaveBeenCalled();
+      expect(sourceListItems[0].nativeElement.className).toContain("ui-state-highlight");
+      expect(picklist.selectedItemsSource.length).toEqual(1);
+      expect(picklist.selectedItemsSource[0].brand).toEqual("VW");
+    });
+
+    it('should unselect item without metakey', () => {
+      picklist.metaKeySelection = false;
+      fixture.detectChanges();
+
+      const onItemClickSpy = spyOn(picklist, 'onItemClick').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.click();
+      fixture.detectChanges();
+
+      sourceListItems[0].nativeElement.click();
+      fixture.detectChanges();
+
+      expect(onItemClickSpy).toHaveBeenCalled();
+      expect(sourceListItems[0].nativeElement.className).not.toContain("ui-state-highlight");
+      expect(picklist.selectedItemsSource.length).toEqual(0);
+    });
+
     it('should call moveUp', () => {
       fixture.detectChanges();
 
@@ -247,6 +338,23 @@ describe('PickList', () => {
       expect(sourceListItemsAfterChange[2].nativeElement.className).toContain("ui-state-highlight");
       expect(sourceListItemsAfterChange[2].context.$implicit.brand).toEqual("BMW");
       expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Renault");
+    });
+
+    it('should call moveUp and do nothing', () => {
+      fixture.detectChanges();
+
+      const moveUpSpy = spyOn(picklist, 'moveUp').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      const sourceControlUpButton = fixture.debugElement.query(By.css('.ui-picklist-source-controls')).queryAll(By.css('button'))[0];
+      sourceListItems[0].nativeElement.click();
+      fixture.detectChanges();
+
+      sourceControlUpButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(moveUpSpy).toHaveBeenCalled();
+      let callback = new EventEmitter();
+      expect(picklist.moveBottom(picklist.source[0],picklist.source,picklist.selectedItemsSource,callback)).toBeUndefined();
     });
 
     it('should call moveDown', () => {
@@ -268,6 +376,23 @@ describe('PickList', () => {
       expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
     });
 
+    it('should call moveDown and do nothing', () => {
+      fixture.detectChanges();
+
+      const moveDownSpy = spyOn(picklist, 'moveDown').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      const sourceControlDownButton = fixture.debugElement.query(By.css('.ui-picklist-source-controls')).queryAll(By.css('button'))[2];
+      sourceListItems[9].nativeElement.click();
+      fixture.detectChanges();
+
+      sourceControlDownButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(moveDownSpy).toHaveBeenCalled();
+      let callback = new EventEmitter();
+      expect(picklist.moveDown(picklist.source[9],picklist.source,picklist.selectedItemsSource,callback)).toBeUndefined();
+    });
+
     it('should call movetop', () => {
       fixture.detectChanges();
 
@@ -287,6 +412,23 @@ describe('PickList', () => {
       expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Renault");
     });
 
+    it('should call movetop and do nothing', () => {
+      fixture.detectChanges();
+
+      const moveTopSpy = spyOn(picklist, 'moveTop').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      const sourceControlTopButton = fixture.debugElement.query(By.css('.ui-picklist-source-controls')).queryAll(By.css('button'))[1];
+      sourceListItems[0].nativeElement.click();
+      fixture.detectChanges();
+
+      sourceControlTopButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(moveTopSpy).toHaveBeenCalled();
+      let callback = new EventEmitter();
+      expect(picklist.moveTop(picklist.source[0],picklist.source,picklist.selectedItemsSource,callback)).toBeUndefined();
+    });
+
     it('should call moveBottom', () => {
       fixture.detectChanges();
 
@@ -304,6 +446,23 @@ describe('PickList', () => {
       expect(sourceListItemsAfterChange[9].nativeElement.className).toContain("ui-state-highlight");
       expect(sourceListItemsAfterChange[9].context.$implicit.brand).toEqual("BMW");
       expect(sourceListItemsAfterChange[3].context.$implicit.brand).toEqual("Mercedes");
+    });
+
+    it('should call moveBottom and do nothing', () => {
+      fixture.detectChanges();
+
+      const moveBottomSpy = spyOn(picklist, 'moveBottom').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      const sourceControlBottomButton = fixture.debugElement.query(By.css('.ui-picklist-source-controls')).queryAll(By.css('button'))[3];
+      sourceListItems[9].nativeElement.click();
+      fixture.detectChanges();
+
+      sourceControlBottomButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(moveBottomSpy).toHaveBeenCalled();
+      let callback = new EventEmitter();
+      expect(picklist.moveBottom(picklist.source[9],picklist.source,picklist.selectedItemsSource,callback)).toBeUndefined();
     });
 
     it('should call moveRight', () => {
@@ -548,4 +707,79 @@ describe('PickList', () => {
       expect(data.items.length).toEqual(10);
     });
 
+    it('should send item to right and after send item to left', () => {
+      fixture.detectChanges();
+
+      const onSourceItemDblClickSpy = spyOn(picklist,'onSourceItemDblClick').and.callThrough();
+      const onTargetItemDblClickSpy = spyOn(picklist,'onTargetItemDblClick').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.click();
+      sourceListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+      fixture.detectChanges();
+
+      const targetListItems = fixture.debugElement.query(By.css('.ui-picklist-target-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      expect(picklist.target.length).toEqual(1);
+      expect(picklist.source.length).toEqual(9);
+      targetListItems[0].nativeElement.click();
+      targetListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+      fixture.detectChanges();
+
+      expect(picklist.target.length).toEqual(0);
+      expect(picklist.source.length).toEqual(10);
+      expect(onSourceItemDblClickSpy).toHaveBeenCalled();
+      expect(onTargetItemDblClickSpy).toHaveBeenCalled();
+    });
+
+    it('should not send item to right', () => {
+      picklist.disabled = true;
+      fixture.detectChanges();
+
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.click();
+      sourceListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+      fixture.detectChanges();
+
+      expect(picklist.target.length).toEqual(0);
+      expect(picklist.source.length).toEqual(10);
+    });
+
+    it('should not send item to left', () => {
+      fixture.detectChanges();
+
+      const onItemTouchEndSpy = spyOn(picklist,'onItemTouchEnd').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.click();
+      sourceListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+      fixture.detectChanges();
+
+      picklist.disabled = true;
+      fixture.detectChanges();
+
+      const targetListItems = fixture.debugElement.query(By.css('.ui-picklist-target-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      targetListItems[0].nativeElement.click();
+      targetListItems[0].nativeElement.dispatchEvent(new Event('dblclick'));
+      fixture.detectChanges();
+
+      expect(picklist.target.length).toEqual(1);
+      expect(picklist.source.length).toEqual(9);
+    });
+
+    it('should call onItemTouchEnd', () => {
+      fixture.detectChanges();
+
+      const onItemTouchEndSpy = spyOn(picklist,'onItemTouchEnd').and.callThrough();
+      const sourceListItems = fixture.debugElement.query(By.css('.ui-picklist-source-wrapper')).queryAll(By.css('.ui-picklist-item'));
+      sourceListItems[0].nativeElement.dispatchEvent(new Event('touchend'));
+      fixture.detectChanges();
+
+      expect(picklist.itemTouched).toEqual(true);
+      expect(onItemTouchEndSpy).toHaveBeenCalled();
+      picklist.disabled = true;
+      picklist.itemTouched = false;
+      fixture.detectChanges();
+
+      sourceListItems[0].nativeElement.dispatchEvent(new Event('touchend'));
+      expect(picklist.itemTouched).toEqual(false);
+      expect(onItemTouchEndSpy).toHaveBeenCalled();
+    });
 });
