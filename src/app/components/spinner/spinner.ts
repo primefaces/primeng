@@ -68,7 +68,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
 
     @Input() name: string;
 
-    @Input() inputStyle: string;
+    @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
     
