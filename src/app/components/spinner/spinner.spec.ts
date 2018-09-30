@@ -30,24 +30,38 @@ describe('Spinner', () => {
 
     it('should have value as 3 when up clicked 3 times', () => {
         fixture.detectChanges();
+        
         const spinnerUp = fixture.nativeElement.querySelector('.ui-spinner-up');
+        const clearTimerSpy = spyOn(spinner,'clearTimer').and.callThrough();
         triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mouseup');
         triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mouseup');
         triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mouseup');
+        triggerEvent(spinnerUp, 'mouseleave');
         fixture.detectChanges();
 
         expect(spinner.value).toBe(3);
+        expect(clearTimerSpy).toHaveBeenCalledTimes(7);
     });
 
     it('should have value as -3 when down clicked 3 times', () => {
         fixture.detectChanges();
+        
         const spinnerDown = fixture.nativeElement.querySelector('.ui-spinner-down');
+        const clearTimerSpy = spyOn(spinner,'clearTimer').and.callThrough();
         triggerEvent(spinnerDown, 'mousedown');
+        triggerEvent(spinnerDown, 'mouseup');
         triggerEvent(spinnerDown, 'mousedown');
+        triggerEvent(spinnerDown, 'mouseup');
         triggerEvent(spinnerDown, 'mousedown');
+        triggerEvent(spinnerDown, 'mouseup');
+        triggerEvent(spinnerDown, 'mouseleave');
         fixture.detectChanges();
 
         expect(spinner.value).toBe(-3);
+        expect(clearTimerSpy).toHaveBeenCalledTimes(7);
     });
 
     it('Should display the spinner value 0.75  ', () => {
@@ -66,9 +80,10 @@ describe('Spinner', () => {
         spinner.precision = 4;
         const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
         spinnerInput.value = '1234.1234';
-        triggerEvent(spinnerInput, 'keyup');
+        triggerEvent(spinnerInput, 'input');
 
         fixture.detectChanges();
+        expect(spinner.value).toEqual('1234.1234')
     });
     
     it('Should disabled', () => {
@@ -84,7 +99,7 @@ describe('Spinner', () => {
         expect(spinnerDown.disabled).toEqual(true);
     });
 
-    it('s value should not change.', () => {
+    it('should value should not change.', () => {
         spinner.disabled=true;
         const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
         spinnerInput.value = '1';
@@ -95,6 +110,76 @@ describe('Spinner', () => {
         triggerEvent(spinnerUp, 'mousedown');
 
         expect(spinner.value).toBeUndefined();
+    });
+
+    it('should have a maxlength', () => {
+        spinner.maxlength = 1;
+        fixture.detectChanges();
+        const spinnerUp = fixture.nativeElement.querySelector('.ui-spinner-up');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        fixture.detectChanges();
+
+        expect(spinner.value).toBe(9);
+    });
+
+    it('should have a max', () => {
+        spinner.max = 1;
+        fixture.detectChanges();
+        const spinnerUp = fixture.nativeElement.querySelector('.ui-spinner-up');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        fixture.detectChanges();
+
+        expect(spinner.value).toBe(1);
+    });
+
+    it('should have a min', () => {
+        spinner.min = -1;
+        fixture.detectChanges();
+        const spinnerUp = fixture.nativeElement.querySelector('.ui-spinner-down');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        triggerEvent(spinnerUp, 'mousedown');
+        fixture.detectChanges();
+
+        expect(spinner.value).toBe(-1);
+    });
+
+    it('should select with up and down arrows', () => {
+        let upArrowEvent = {'which': 38,preventDefault(){}};
+        let downArrowEvent = {'which': 40,preventDefault(){}};
+        spinner.onInputKeydown(upArrowEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(spinner.value).toEqual(1);
+        spinner.onInputKeydown(downArrowEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(spinner.value).toEqual(0);
     });
 
 });
