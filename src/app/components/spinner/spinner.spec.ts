@@ -182,4 +182,53 @@ describe('Spinner', () => {
         expect(spinner.value).toEqual(0);
     });
 
+    it('should change inputStyle and inputStyleClass', () => {
+        spinner.inputStyle = {'primeng': 'rocks!'};
+        spinner.inputStyleClass = "Primeng ROCKS!";
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input'));
+        expect(inputEl.nativeElement.className).toContain("Primeng ROCKS!");
+        expect(inputEl.nativeElement.style.primeng).toEqual("rocks!");
+    });
+
+    it('should change inputId placeholder readonly tabindex and required', () => {
+        spinner.inputId = "primeng";
+        spinner.placeholder = "Primeng ROCKS!";
+        spinner.readonly = true;
+        spinner.tabindex = 13;
+        spinner.required = true;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input'));
+        expect(inputEl.nativeElement.id).toEqual("primeng");
+        expect(inputEl.nativeElement.placeholder).toEqual("Primeng ROCKS!");
+        expect(inputEl.nativeElement.tabIndex).toEqual(13);
+        expect(inputEl.nativeElement.required).toEqual(true);
+        expect(inputEl.nativeElement.readOnly).toEqual(true);
+    });
+
+    it('should listen onChange onFocus and onBlur', () => {
+        fixture.detectChanges();
+        let onChangeData;
+        spinner.onChange.subscribe(value => onChangeData = value);
+        let onFocusData;
+        spinner.onFocus.subscribe(value => onFocusData = value);
+        let onBlurData;
+        spinner.onChange.subscribe(value => onBlurData = value);     
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        inputEl.dispatchEvent(new Event('focus'));
+        fixture.detectChanges();
+
+        inputEl.dispatchEvent(new Event('blur'));
+        fixture.detectChanges();
+
+        const spinnerUp = fixture.nativeElement.querySelector('.ui-spinner-up');      
+        triggerEvent(spinnerUp, 'mousedown');
+        fixture.detectChanges();
+
+        expect(onChangeData).toBeTruthy();
+        expect(onFocusData).toBeTruthy();
+        expect(onBlurData).toBeTruthy();
+    });
 });
