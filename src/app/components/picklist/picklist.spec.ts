@@ -782,4 +782,72 @@ describe('PickList', () => {
       expect(picklist.itemTouched).toEqual(false);
       expect(onItemTouchEndSpy).toHaveBeenCalled();
     });
+
+    it('should move items(source) with dragging with reorder', () => {
+      fixture.detectChanges();
+
+      let dragEvent = new DragEvent('drag');
+      picklist.onDragStart(dragEvent,0,-1);
+      picklist.onDragOver(dragEvent,0,-1);
+      picklist.onDrop(dragEvent,2,-1);
+      picklist.onDragEnd(dragEvent);
+      fixture.detectChanges();
+
+      expect(picklist.source[0].brand).toEqual("Audi");
+      expect(picklist.source[1].brand).toEqual("VW");
+    });
+
+    it('should move items(target) with dragging with', () => {
+      fixture.detectChanges();
+
+      const controlAllRightButton = fixture.debugElement.queryAll(By.css('.ui-picklist-buttons-cell'))[1].queryAll(By.css('button'))[1];
+      controlAllRightButton.nativeElement.click();
+      fixture.detectChanges();
+
+      let dragEvent = new DragEvent('drag');
+      picklist.onDragStart(dragEvent,0,1);
+      picklist.onDragOver(dragEvent,0,1);
+      picklist.onDrop(dragEvent,2,1);
+      picklist.onDragEnd(dragEvent);
+      fixture.detectChanges();
+
+      expect(picklist.target[0].brand).toEqual("Audi");
+      expect(picklist.target[1].brand).toEqual("VW");
+    });
+
+    it('should move item to right with dragging', () => {
+      fixture.detectChanges();
+
+      let dragEvent = new DragEvent('drag');
+      picklist.onDragStart(dragEvent,0,-1);
+      picklist.onDragOver(dragEvent,0,-1);
+      picklist.onDragLeave(dragEvent,1);
+      picklist.onListDrop(dragEvent,1);
+      picklist.onDragEnd(dragEvent);
+      fixture.detectChanges();
+
+      expect(picklist.source.length).toEqual(9);
+      expect(picklist.target.length).toEqual(1);
+      expect(picklist.target[0].brand).toEqual("VW");
+    });
+
+    it('should move item to left with dragging', () => {
+      fixture.detectChanges();
+
+      const controlAllRightButton = fixture.debugElement.queryAll(By.css('.ui-picklist-buttons-cell'))[1].queryAll(By.css('button'))[1];
+      controlAllRightButton.nativeElement.click();
+      fixture.detectChanges();
+
+      let dragEvent = new DragEvent('drag');
+      picklist.onDragStart(dragEvent,0,1);
+      picklist.onDragOver(dragEvent,0,1);
+      picklist.onDragLeave(dragEvent,-1);
+      picklist.onListDrop(dragEvent,-1);
+      picklist.onDragEnd(dragEvent);
+      fixture.detectChanges();
+
+      expect(picklist.target.length).toEqual(9);
+      expect(picklist.source.length).toEqual(1);
+      expect(picklist.source[0].brand).toEqual("VW");
+    });
 });
