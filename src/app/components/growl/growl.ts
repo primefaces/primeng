@@ -32,46 +32,48 @@ import {Subscription}   from 'rxjs';
 export class Growl implements AfterViewInit,DoCheck,OnDestroy {
 
     @Input() life: number = 3000;
-        
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Input() immutable: boolean = true;
-    
+
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() key: string;
-    
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onHover: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     _sticky: boolean;
-    
+
     _value: Message[];
-                        
+
     timeout: any;
-    
+
     preventRerender: boolean;
-    
+
     differ: any;
-    
+
     subscription: Subscription;
-    
+
+    clearMsgSubscription: Subscription;
+
     closeIconClick: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, @Optional() public messageService: MessageService, private zone: NgZone) {
         this.differ = differs.find([]).create(null);
-        
+
         if(messageService) {
             this.subscription = messageService.messageObserver.subscribe(messages => {
                 if(messages) {
@@ -87,6 +89,16 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
                     this.value = null;
                 }
             });
+            this.clearMsgSubscription = messageService.clearObserver.subscribe(key => {
+                if (key) {
+                    if (this.key === key) {
+                        this.value = null;
+                    }
+                }
+                else {
+                    this.value = null;
+                }
+            });
         }
     }
 
@@ -95,7 +107,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             this.initTimeout();
         }
     }
-    
+
     @Input() get value(): Message[] {
         return this._value;
     }
@@ -106,7 +118,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             this.handleValueChange();
         }
     }
-    
+
     @Input() get sticky(): boolean {
         return this._sticky;
     }
@@ -126,23 +138,23 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             }
         }
     }
-    
+
     handleValueChange() {
         if(this.preventRerender) {
             this.preventRerender = false;
             return;
         }
-        
+
         if(this.autoZIndex) {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
         this.domHandler.fadeIn(this.containerViewChild.nativeElement, 250);
-        
+
         if(!this.sticky) {
             this.initTimeout();
         }
     }
-    
+
     initTimeout() {
         if(this.timeout) {
             clearTimeout(this.timeout);
@@ -155,15 +167,15 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             }, this.life);
         });
     }
-        
-    remove(index: number, msgel: any) {      
-        this.closeIconClick = true;  
+
+    remove(index: number, msgel: any) {
+        this.closeIconClick = true;
         this.domHandler.fadeOut(msgel, 250);
-        
+
         setTimeout(() => {
             this.preventRerender = true;
             this.onClose.emit({message:this.value[index]});
-            
+
             if(this.immutable) {
                 this._value = this.value.filter((val,i) => i!=index);
                 this.valueChange.emit(this._value);
@@ -171,14 +183,14 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             else {
                 this._value.splice(index, 1);
             }
-        }, 250);        
+        }, 250);
     }
-    
+
     removeAll() {
-        if(this.value && this.value.length) {            
+        if(this.value && this.value.length) {
             this.domHandler.fadeOut(this.containerViewChild.nativeElement, 250);
-            
-            setTimeout(() => {                
+
+            setTimeout(() => {
                 this.value.forEach((msg,index) => this.onClose.emit({message:this.value[index]}));
                 if(this.immutable) {
                     this.value = [];
@@ -190,25 +202,28 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             }, 250);
         }
     }
-    
+
     onMessageClick(i: number) {
         if(this.closeIconClick)
             this.closeIconClick = false;
         else
             this.onClick.emit({message: this.value[i]});
     }
-    
+
     onMessageHover(i: number) {
         this.onHover.emit({message: this.value[i]});
     }
-    
+
     ngOnDestroy() {
         if(!this.sticky) {
             clearTimeout(this.timeout);
         }
-        
-        if(this.subscription) {
+
+        if (this.subscription) {
             this.subscription.unsubscribe();
+        }
+        if (this.clearMsgSubscription) {
+            this.clearMsgSubscription.unsubscribe();
         }
     }
 
