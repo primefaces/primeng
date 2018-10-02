@@ -355,7 +355,6 @@ body {
 
 .content-section {
     display: block;
-    border-bottom: solid 1px #dde3e6;
     padding: 30px;
     overflow: hidden;
     background-color: #f5f7f8;
@@ -405,7 +404,8 @@ body {
 }
 
 /* Demos */
-.implementation {
+.implementation,
+.implementation-charts {
     background-color: #FFFFFF;
     overflow: visible;
 }
@@ -1003,11 +1003,11 @@ a {
 }
 
 .templates .ui-g > div a:hover img {
-    -webkit-transform: scale(1.05);
-    -moz-transform: scale(1.05);
-    -o-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    transform: scale(1.05);
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.2);
+    transform: scale(1.02);
 }
 
 .home .why-templates {

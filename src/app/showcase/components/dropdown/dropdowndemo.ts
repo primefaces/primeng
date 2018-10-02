@@ -54,7 +54,8 @@ export class DropdownDemo {
                 items: [
                     {label: 'Audi', value: 'Audi'},
                     {label: 'BMW', value: 'BMW'},
-                    {label: 'Mercedes', value: 'Mercedes'}
+                    {label: 'Mercedes', value: 'Mercedes'},
+                    {label: 'Murcia', value: 'Murcia'}
                 ]
             },
             {
@@ -69,6 +70,7 @@ export class DropdownDemo {
                 label: 'Japan', value: 'japan.png', 
                 items: [
                     {label: 'Honda', value: 'Honda'},
+                    {label: 'Mazda', value: 'Mazda'},
                     {label: 'Toyota', value: 'Toyota'}
                 ]
             }

@@ -52,4 +52,45 @@ describe('SelectButton', () => {
     const active = fixture.nativeElement.querySelector('.ui-state-active').children[0];
     expect(active.textContent).toContain('Apartment');
   }));
+
+  it('should disabled', () => {
+    selectButton.disabled = true;
+    selectButton.options = [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}];
+    fixture.detectChanges();
+
+    const onItemClickSpy = spyOn(selectButton,'onItemClick').and.callThrough();
+    const buttonEls = fixture.debugElement.queryAll(By.css('.ui-button'));
+    expect(buttonEls.length).toEqual(3);
+    buttonEls[1].nativeElement.click();
+    fixture.detectChanges();
+
+    expect(onItemClickSpy).toHaveBeenCalled();
+    expect(selectButton.value).toEqual(undefined);
+  });
+
+  it('should select multiple', () => {
+    selectButton.multiple = true;
+    selectButton.options = [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}];
+    fixture.detectChanges();
+
+    let valueOptionClick;
+    let valueChange;
+    selectButton.onOptionClick.subscribe(data => valueOptionClick = data);
+    selectButton.onChange.subscribe(data => valueChange = data);
+    const onItemClickSpy = spyOn(selectButton,'onItemClick').and.callThrough();
+    const buttonEls = fixture.debugElement.queryAll(By.css('.ui-button'));
+    expect(buttonEls.length).toEqual(3);
+    buttonEls[0].nativeElement.click();
+    buttonEls[1].nativeElement.click();
+    buttonEls[2].nativeElement.click();
+    fixture.detectChanges();
+
+    buttonEls[2].nativeElement.click();
+    fixture.detectChanges();
+
+    expect(onItemClickSpy).toHaveBeenCalled();
+    expect(selectButton.value.length).toEqual(2);
+    expect(valueOptionClick.option).toBeTruthy();
+    expect(valueChange.value).toBeTruthy();
+  });
 });

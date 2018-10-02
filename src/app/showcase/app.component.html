@@ -24,11 +24,12 @@
                     <li><a href="http://www.primefaces.org/layouts/serenity-ng"><img src="assets/showcase/images/themeswitcher-serenity.png" alt="Serenity (Material)"><span class="ui-text">Serenity <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima (Material)"><span class="ui-text">Ultima <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="assets/showcase/images/themeswitcher-barcelona.png" alt="Barcelona (Material)"><span class="ui-text">Barcelona <span class="theme-badge material">material</span></span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/ecuador-ng"><img src="assets/showcase/images/themeswitcher-ecuador.png" alt="Ecuador"><span class="ui-text">Ecuador</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/olympia-ng"><img src="assets/showcase/images/themeswitcher-olympia.png" alt="Olympia"><span class="ui-text">Olympia </span><span class="menuitem-badge">NEW</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/california-ng"><img src="assets/showcase/images/themeswitcher-california.png" alt="Harmony"><span class="ui-text">California </span><span class="menuitem-badge">NEW</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/ecuador-ng"><img src="assets/showcase/images/themeswitcher-ecuador.png" alt="Ecuador"><span class="ui-text">Ecuador </span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/apollo-ng"><img src="assets/showcase/images/themeswitcher-apollo.png" alt="Apollo"><span class="ui-text">Apollo</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/manhattan-ng"><img src="assets/showcase/images/themeswitcher-manhattan.png" alt="Manhattan"><span class="ui-text">Manhattan</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/harmony-ng"><img src="assets/showcase/images/themeswitcher-harmony.png" alt="Harmony"><span class="ui-text">Harmony</span></a></li>
-                    <li><a href="http://www.primefaces.org/layouts/california-ng"><img src="assets/showcase/images/themeswitcher-california.png" alt="Harmony"><span class="ui-text">California</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/verona-ng"><img src="assets/showcase/images/themeswitcher-verona.png" alt="Verona"><span class="ui-text">Verona</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise"><span class="ui-text">Paradise</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/morpheus-ng"><img src="assets/showcase/images/themeswitcher-morpheus.png" alt="Morpheus"><span class="ui-text">Morpheus</span></a></li>
@@ -36,9 +37,13 @@
                     <li><a href="http://www.primefaces.org/layouts/poseidon-ng"><img src="assets/showcase/images/themeswitcher-poseidon.png" alt="Poseidon"><span class="ui-text">Poseidon</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/omega-ng"><img src="assets/showcase/images/themeswitcher-omega.png" alt="Omega"><span class="ui-text">Omega</span></a></li>
                     <li class="topbar-submenu-header" style="margin-top:16px">FREE</li>
-                    <li><a href="#" (click)="changeTheme($event, 'nova-light')"><img src="assets/showcase/images/themeswitcher-nova-light.png" alt="Nova Light"><span class="ui-text">Nova Light</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'nova-dark')"><img src="assets/showcase/images/themeswitcher-nova-dark.png" alt="Nova Dark"><span class="ui-text">Nova Dark</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'nova-colored')"><img src="assets/showcase/images/themeswitcher-nova-colored.png" alt="Nova Colored"><span class="ui-text">Nova Colored</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-light', false)"><img src="assets/showcase/images/themeswitcher-nova-light.png" alt="Nova Light"><span class="ui-text">Nova Light</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-dark', false)"><img src="assets/showcase/images/themeswitcher-nova-dark.png" alt="Nova Dark"><span class="ui-text">Nova Dark</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-colored', false)"><img src="assets/showcase/images/themeswitcher-nova-colored.png" alt="Nova Colored"><span class="ui-text">Nova Colored</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-amber', true)"><img src="assets/showcase/images/themeswitcher-luna-amber.png" alt="Luna Amber"><span class="ui-text">Luna Amber</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-blue', true)"><img src="assets/showcase/images/themeswitcher-luna-blue.png" alt="Luna Blue"><span class="ui-text">Luna Blue</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-green', true)"><img src="assets/showcase/images/themeswitcher-luna-green.png" alt="Luna Green"><span class="ui-text">Luna Green</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-pink', true)"><img src="assets/showcase/images/themeswitcher-luna-pink.png" alt="Luna Pink"><span class="ui-text">Luna Pink</span></a></li>
                 </ul>
             </li>
             <li>
@@ -121,6 +126,7 @@
                 <a [routerLink]="['/fieldset']" (click)="menuActive = false">&#9679; Fieldset</a>
                 <a [routerLink]="['/panel']" (click)="menuActive = false">&#9679; Panel</a>
                 <a [routerLink]="['/scrollpanel']" (click)="menuActive = false">&#9679; ScrollPanel</a>
+                <a [routerLink]="['/flexgrid']" (click)="menuActive = false">&#9679; FlexGrid <span class="menuitem-badge">NEW</span></a>
                 <a [routerLink]="['/grid']" (click)="menuActive = false">&#9679; Grid</a>
                 <a [routerLink]="['/tabview']" (click)="menuActive = false">&#9679; TabView</a>
                 <a [routerLink]="['/toolbar']" (click)="menuActive = false">&#9679; Toolbar</a>
@@ -245,7 +251,7 @@
         </div>
 
         <div class="content-section layout-footer clearfix">
-            <span>PrimeNG 6.1.0</span>
+            <span>PrimeNG 6.1.4</span>
             <div class="footer-links">
                 <a href="https://github.com/primefaces/primeng"><i class="fa fa-github"></i></a>
                 <a href="https://twitter.com/prime_ng"><i class="fa fa-twitter"></i></a>

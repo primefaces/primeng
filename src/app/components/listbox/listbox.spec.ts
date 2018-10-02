@@ -62,18 +62,7 @@ describe('Listbox', () => {
       expect(clickSingleSpy).not.toHaveBeenCalled();
     });
 
-    it('should change style and styleClass', () => {
-      listbox.style = {'primeng' : 'rocks!'};
-      listbox.styleClass = "Primeng ROCKS!"
-      fixture.detectChanges();
-      
-      const listboxEl = fixture.debugElement.query(By.css('div')).nativeElement;
-      expect(listboxEl.className).toContain("Primeng ROCKS!");
-      expect(listboxEl.style.primeng).toEqual("rocks!");
-    });
-
-    it('should select two item with multiple checkbox option', () => {
-      listbox.listStyle = {'primeng' : 'rocks!'};
+    it('should call onOptionTouchEnd', () => {
       listbox.options = [
         {label: 'Audi', value: 'Audi'},
         {label: 'BMW', value: 'BMW'},
@@ -87,9 +76,50 @@ describe('Listbox', () => {
         {label: 'Volvo', value: 'Volvo'}
       ];
       fixture.detectChanges();
+      
+      const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
+      const onOptionTouchEndSpy = spyOn(listbox,'onOptionTouchEnd').and.callThrough();
+      bmwEl.dispatchEvent(new Event('touchend'));
+      fixture.detectChanges();
 
-      const wrapperEl = fixture.debugElement.query(By.css('.ui-listbox-list-wrapper')).nativeElement;
-      expect(wrapperEl.style.primeng).toEqual('rocks!');
+      expect(onOptionTouchEndSpy).toHaveBeenCalled();
+      expect(listbox.optionTouched).toEqual(true);
+    });
+
+    it('should call onOptionTouchEnd with readonly', () => {
+      listbox.options = [
+        {label: 'Audi', value: 'Audi'},
+        {label: 'BMW', value: 'BMW'},
+        {label: 'Fiat', value: 'Fiat'},
+        {label: 'Ford', value: 'Ford'},
+        {label: 'Honda', value: 'Honda'},
+        {label: 'Jaguar', value: 'Jaguar'},
+        {label: 'Mercedes', value: 'Mercedes'},
+        {label: 'Renault', value: 'Renault'},
+        {label: 'VW', value: 'VW'},
+        {label: 'Volvo', value: 'Volvo'}
+      ];
+      listbox.readonly = true;
+      fixture.detectChanges();
+      
+      const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
+      const onOptionTouchEndSpy = spyOn(listbox,'onOptionTouchEnd').and.callThrough();
+      bmwEl.dispatchEvent(new Event('touchend'));
+      fixture.detectChanges();
+
+      expect(onOptionTouchEndSpy).toHaveBeenCalled();
+      expect(listbox.optionTouched).toEqual(undefined);
+    });
+
+
+    it('should change style and styleClass', () => {
+      listbox.style = {'primeng' : 'rocks!'};
+      listbox.styleClass = "Primeng ROCKS!"
+      fixture.detectChanges();
+      
+      const listboxEl = fixture.debugElement.query(By.css('div')).nativeElement;
+      expect(listboxEl.className).toContain("Primeng ROCKS!");
+      expect(listboxEl.style.primeng).toEqual("rocks!");
     });
 
     it('should select item when click', () => {
@@ -106,6 +136,7 @@ describe('Listbox', () => {
         {label: 'Volvo', value: 'Volvo'}
       ];
       const clickSingleSpy = spyOn(listbox, 'onOptionClickSingle').and.callThrough();
+      const onOptionClick = spyOn(listbox, 'onOptionClick').and.callThrough();
       fixture.detectChanges();
       
       const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
@@ -115,6 +146,8 @@ describe('Listbox', () => {
       expect(listbox.value).toEqual("BMW");
       expect(bmwEl.className).toContain("ui-state-highlight");
       expect(clickSingleSpy).toHaveBeenCalled();
+      expect(onOptionClick).toHaveBeenCalled();
+      expect(listbox.optionTouched).toEqual(false);
     });
 
     it('should select two item with multiple option', () => {
@@ -351,6 +384,7 @@ describe('Listbox', () => {
       ];
       let data;
       listbox.onDblClick.subscribe(value => data = value);
+      const onOptionDoubleClickSpy = spyOn(listbox,"onOptionDoubleClick").and.callThrough();
       fixture.detectChanges();
       
       const bmwEl = fixture.debugElement.query(By.css('ul')).children[1];
@@ -359,5 +393,197 @@ describe('Listbox', () => {
       fixture.detectChanges();
 
       expect(data.value[0]).toEqual("BMW");
+      expect(onOptionDoubleClickSpy).toHaveBeenCalled();
+      expect(data.value[0]).toEqual("BMW");
+    });
+
+    it('should listen dbClick with readonly', () => {
+      listbox.readonly = true;
+      listbox.options = [
+        {label: 'Audi', value: 'Audi'},
+        {label: 'BMW', value: 'BMW'},
+        {label: 'Fiat', value: 'Fiat'},
+        {label: 'Ford', value: 'Ford'},
+        {label: 'Honda', value: 'Honda'},
+        {label: 'Jaguar', value: 'Jaguar'},
+        {label: 'Mercedes', value: 'Mercedes'},
+        {label: 'Renault', value: 'Renault'},
+        {label: 'VW', value: 'VW'},
+        {label: 'Volvo', value: 'Volvo'}
+      ];
+      let data;
+      listbox.onDblClick.subscribe(value => data = value);
+      const onOptionDoubleClickSpy = spyOn(listbox,"onOptionDoubleClick").and.callThrough();
+      fixture.detectChanges();
+      
+      const bmwEl = fixture.debugElement.query(By.css('ul')).children[1];
+      bmwEl.triggerEventHandler("dblclick", new MouseEvent("dblclick"));
+      fixture.detectChanges();
+
+      expect(onOptionDoubleClickSpy).toHaveBeenCalled();
+      expect(data).toBeUndefined();
+    });
+
+    it('should select item when click and drop item when ctrl click', () => {
+      listbox.options = [
+        {label: 'Audi', value: 'Audi'},
+        {label: 'BMW', value: 'BMW'},
+        {label: 'Fiat', value: 'Fiat'},
+        {label: 'Ford', value: 'Ford'},
+        {label: 'Honda', value: 'Honda'},
+        {label: 'Jaguar', value: 'Jaguar'},
+        {label: 'Mercedes', value: 'Mercedes'},
+        {label: 'Renault', value: 'Renault'},
+        {label: 'VW', value: 'VW'},
+        {label: 'Volvo', value: 'Volvo'}
+      ];
+      listbox.metaKeySelection = true;
+      const onOptionClick = spyOn(listbox, 'onOptionClick').and.callThrough();
+      fixture.detectChanges();
+      
+      let data;
+      listbox.onChange.subscribe(value => data=value);
+      const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
+      const ctrlClickEvent = {'ctrlKey':true};
+      bmwEl.click();
+      fixture.detectChanges();
+
+      listbox.onOptionClick(ctrlClickEvent,listbox.options[1]);
+      fixture.detectChanges();
+      
+      expect(listbox.value).toEqual(null);
+      expect(bmwEl.className).not.toContain("ui-state-highlight");
+      expect(onOptionClick).toHaveBeenCalled();
+      expect(data.value).toEqual(null);
+    });
+
+    it('should select item when click and drop item when ctrl click', () => {
+      listbox.options = [
+        {label: 'Audi', value: 'Audi'},
+        {label: 'BMW', value: 'BMW'},
+        {label: 'Fiat', value: 'Fiat'},
+        {label: 'Ford', value: 'Ford'},
+        {label: 'Honda', value: 'Honda'},
+        {label: 'Jaguar', value: 'Jaguar'},
+        {label: 'Mercedes', value: 'Mercedes'},
+        {label: 'Renault', value: 'Renault'},
+        {label: 'VW', value: 'VW'},
+        {label: 'Volvo', value: 'Volvo'}
+      ];
+      listbox.metaKeySelection = true;
+      listbox.multiple = true;
+      const onOptionClick = spyOn(listbox, 'onOptionClick').and.callThrough();
+      fixture.detectChanges();
+      
+      let data;
+      listbox.onChange.subscribe(value => data=value);
+      const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
+      const ctrlClickEvent = {'ctrlKey':true};
+      bmwEl.click();
+      fixture.detectChanges();
+
+      listbox.onOptionClick(ctrlClickEvent,listbox.options[1]);
+      fixture.detectChanges();
+      
+      expect(listbox.value).toEqual([]);
+      expect(bmwEl.className).not.toContain("ui-state-highlight");
+      expect(onOptionClick).toHaveBeenCalled();
+      expect(data.value).toEqual([]);
+    });
+
+    it('should select two item and drop one', () => {
+      listbox.multiple = true;
+      listbox.checkbox = true;
+      listbox.options = [
+        {label: 'Audi', value: 'Audi'},
+        {label: 'BMW', value: 'BMW'},
+        {label: 'Fiat', value: 'Fiat'},
+        {label: 'Ford', value: 'Ford'},
+        {label: 'Honda', value: 'Honda'},
+        {label: 'Jaguar', value: 'Jaguar'},
+        {label: 'Mercedes', value: 'Mercedes'},
+        {label: 'Renault', value: 'Renault'},
+        {label: 'VW', value: 'VW'},
+        {label: 'Volvo', value: 'Volvo'}
+      ];
+      const clickCheckboxSpy = spyOn(listbox, 'onOptionClickCheckbox').and.callThrough();
+      fixture.detectChanges();
+      
+      const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
+      const audiEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
+      const bmwCheckBoxEl = fixture.debugElement.query(By.css('ul')).children[1].query(By.css('input')).nativeElement;
+      const audiCheckBoxEl = fixture.debugElement.query(By.css('ul')).children[0].query(By.css('input')).nativeElement;
+      bmwCheckBoxEl.click();
+      audiCheckBoxEl.click();
+      fixture.detectChanges();
+
+      audiCheckBoxEl.click();
+      fixture.detectChanges();
+
+      expect(listbox.value[0]).toEqual("BMW");
+      expect(listbox.value.length).toEqual(1);
+      expect(listbox.value[1]).not.toEqual("Audi");
+      expect(bmwEl.className).toContain("ui-state-highlight");
+      expect(clickCheckboxSpy).toHaveBeenCalledTimes(3);
+    });
+
+    it('should unselect all', () => {
+      listbox.multiple = true;
+      listbox.checkbox = true;
+      listbox.options = [
+        {label: 'Audi', value: 'Audi'},
+        {label: 'BMW', value: 'BMW'},
+        {label: 'Fiat', value: 'Fiat'},
+        {label: 'Ford', value: 'Ford'},
+        {label: 'Honda', value: 'Honda'},
+        {label: 'Jaguar', value: 'Jaguar'},
+        {label: 'Mercedes', value: 'Mercedes'},
+        {label: 'Renault', value: 'Renault'},
+        {label: 'VW', value: 'VW'},
+        {label: 'Volvo', value: 'Volvo'}
+      ];
+      const toggleAllSpy = spyOn(listbox, 'toggleAll').and.callThrough();
+      fixture.detectChanges();
+      
+      const selectAllEl = fixture.debugElement.query(By.css('.ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default')).nativeElement;
+      selectAllEl.click();
+      fixture.detectChanges();
+
+      selectAllEl.click();
+      fixture.detectChanges();
+
+      expect(listbox.value.length).toEqual(0);
+      expect(listbox.allChecked).toEqual(false);
+      expect(selectAllEl.className).not.toContain('ui-state-active');
+      expect(toggleAllSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it('should toggleAll click with readonly true', () => {
+      listbox.multiple = true;
+      listbox.checkbox = true;
+      listbox.readonly = true;
+      listbox.options = [
+        {label: 'Audi', value: 'Audi'},
+        {label: 'BMW', value: 'BMW'},
+        {label: 'Fiat', value: 'Fiat'},
+        {label: 'Ford', value: 'Ford'},
+        {label: 'Honda', value: 'Honda'},
+        {label: 'Jaguar', value: 'Jaguar'},
+        {label: 'Mercedes', value: 'Mercedes'},
+        {label: 'Renault', value: 'Renault'},
+        {label: 'VW', value: 'VW'},
+        {label: 'Volvo', value: 'Volvo'}
+      ];
+      const toggleAllSpy = spyOn(listbox, 'toggleAll').and.callThrough();
+      fixture.detectChanges();
+      
+      const selectAllEl = fixture.debugElement.query(By.css('.ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default')).nativeElement;
+      selectAllEl.click();
+      fixture.detectChanges();
+
+      expect(listbox.value).toEqual(undefined);
+      expect(listbox.allChecked).toEqual(undefined);
+      expect(selectAllEl.className).not.toContain('ui-state-active');
+      expect(toggleAllSpy).toHaveBeenCalledTimes(1);
     });
 });

@@ -52,7 +52,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                        <li *ngFor="let option of options; let i = index" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)"
+                        <li *ngFor="let option of options; let i = index" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option)"
                             [style.display]="isItemVisible(option) ? 'block' : 'none'"
                             [ngClass]="{'ui-state-highlight': isSelected(option.value), 'ui-state-disabled': option.disabled || (maxSelectionLimitReached && !isSelected(option.value))}">
                             <div class="ui-chkbox ui-widget">
@@ -276,7 +276,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.disabled = val;
     }
     
-    onItemClick(event, value) {
+    onItemClick(event, option) {
+        if (option.disabled) {
+            return;
+        }
+        
+        const value = option.value;
         let selectionIndex = this.findSelectionIndex(value);
         if (selectionIndex != -1) {
             this.value = this.value.filter((val,i) => i != selectionIndex);

@@ -194,7 +194,9 @@ export class OverlayPanel implements OnDestroy {
     }
 
     onOverlayHide() {
-        this.onHide.emit(null);
+        if (this.visible) {
+            this.onHide.emit(null);
+        }
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.selfClick = false;
