@@ -1886,16 +1886,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 });
             });
         }
-
-        if (this.frozen) {
-            this.columnsSubscription = this.dt.tableService.columnsSource$.subscribe(() => {
-                this.zone.runOutsideAngular(() => {
-                    setTimeout(() => {
-                        this.setScrollHeight();
-                    }, 50);
-                });
-            });
-        }
         
         this.initialized = false;
      }
@@ -1943,6 +1933,16 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         this.bindEvents();
         this.setScrollHeight();
         this.alignScrollBar();
+
+        if (this.frozen) {
+            this.columnsSubscription = this.dt.tableService.columnsSource$.subscribe(() => {
+                this.zone.runOutsideAngular(() => {
+                    setTimeout(() => {
+                        this.setScrollHeight();
+                    }, 50);
+                });
+            });
+        }
 
         if(this.dt.virtualScroll) {
             this.setVirtualScrollerHeight();
