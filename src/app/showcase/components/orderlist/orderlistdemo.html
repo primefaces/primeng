@@ -6,7 +6,6 @@
 </div>
 
 <div class="content-section implementation">
-    
     <p-orderList [value]="cars" [listStyle]="{'height':'350px'}" responsive="true" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand"
         dragdrop="true" dragdropScope="cars">
         <ng-template let-car pTemplate="item">
@@ -16,7 +15,6 @@
             </div>
         </ng-template>
     </p-orderList>
-    
 </div>
 
 <div class="content-section documentation">
@@ -110,6 +108,12 @@ export class MyComponent &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of objects to reorder.</td>
+                        </tr>
+                        <tr>
+                            <td>selection</td>
+                            <td>any[]</td>
+                            <td>null</td>
+                            <td>Selected array of values.</td>
                         </tr>
                         <tr>
                             <td>header</td>
