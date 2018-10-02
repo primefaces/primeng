@@ -2927,6 +2927,7 @@ export class TableCheckbox  {
     }
 
     onClick(event: Event) {
+        event.stopPropagation();
         if(!this.disabled) {
             this.dt.toggleRowWithCheckbox(event, this.value);
         }
