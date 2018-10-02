@@ -29,12 +29,21 @@ export class InputTextarea implements OnInit,DoCheck {
     colsDefault: number;
     
     filled: boolean;
-    
+
+    cachedScrollHeight:number;
+
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
     
     ngOnInit() {
         this.rowsDefault = this.rows;
         this.colsDefault = this.cols;
+        var style = window.getComputedStyle(this.el.nativeElement, null);
+        if (style.resize === 'vertical') {
+            this.el.nativeElement.style.resize = 'none';
+        } 
+        else if (style.resize === 'both') {
+            this.el.nativeElement.style.resize = 'horizontal';
+        }
     }
     
     ngDoCheck() {
@@ -45,6 +54,9 @@ export class InputTextarea implements OnInit,DoCheck {
     @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();
+        if(this.autoResize) {
+            this.resize(e);
+        }
     }
     
     updateFilledState() {
@@ -66,22 +78,29 @@ export class InputTextarea implements OnInit,DoCheck {
         }
     }
     
-    @HostListener('keyup', ['$event'])
-    onKeyup(e) {
-        if(this.autoResize) {
-            this.resize(e);
-        }
-    }
-    
     resize(event?: Event) {
-        let linesCount = 0,
-        lines = this.el.nativeElement.value.split('\n');
+        var style = window.getComputedStyle(this.el.nativeElement, null);
 
-        for(let i = lines.length-1; i >= 0 ; --i) {
-            linesCount += Math.floor((lines[i].length / this.colsDefault) + 1);
+        if(!this.cachedScrollHeight) {
+            this.cachedScrollHeight = this.el.nativeElement.scrollHeight;
+            this.el.nativeElement.style.overflow = "hidden";
         }
 
-        this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
+        if(this.cachedScrollHeight != this.el.nativeElement.scrollHeight) {
+            this.el.nativeElement.style.height = ''
+            this.el.nativeElement.style.height = this.el.nativeElement.scrollHeight + 'px';
+
+            if(parseFloat(this.el.nativeElement.style.height) >= parseFloat(this.el.nativeElement.style.maxHeight)) {
+                this.el.nativeElement.style.overflowY = "scroll";
+                this.el.nativeElement.style.height = this.el.nativeElement.style.maxHeight;
+            }
+            else{
+                this.el.nativeElement.style.overflow = "hidden";
+            }
+
+            this.cachedScrollHeight = this.el.nativeElement.scrollHeight;
+        }
+
         this.onResize.emit(event||{});
     }
 }
