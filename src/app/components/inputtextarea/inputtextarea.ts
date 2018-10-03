@@ -53,12 +53,12 @@ export class InputTextarea implements OnInit, DoCheck {
     updateFilledState(event?: Event) {
         if ((this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model)) {
             this.filled = true;
-            if (this.autoResize) {
-                this.resize(event);
-            }
-        }
-        else {
+        } else {
             this.filled = false;
+        }
+
+        if (this.autoResize) {
+            this.resize(event);
         }
     }
 
