@@ -74,7 +74,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         
     public items: any;
     
-    public columns: any;
+    public columns: number = 0;
         
     public page: number;
                     
