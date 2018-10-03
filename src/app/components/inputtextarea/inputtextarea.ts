@@ -14,75 +14,67 @@ import {CommonModule} from '@angular/common';
         '[attr.cols]': 'cols'
     }
 })
-export class InputTextarea implements OnInit,DoCheck {
-    
+export class InputTextarea implements OnInit, DoCheck {
+
     @Input() autoResize: boolean;
-    
+
     @Input() rows: number = 2;
-    
+
     @Input() cols: number = 20;
-    
+
     @Output() onResize: EventEmitter<any> = new EventEmitter();
-    
+
     rowsDefault: number;
-    
+
     colsDefault: number;
-    
+
+    prevRows: number;
+
     filled: boolean;
-    
+
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
-    
+
     ngOnInit() {
         this.rowsDefault = this.rows;
         this.colsDefault = this.cols;
+        this.prevRows = this.rowsDefault;
     }
-    
+
     ngDoCheck() {
         this.updateFilledState();
     }
-    
-    //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
+
+    // To trigger change detection to manage ui-state-filled for material labels when there is no value binding
     @HostListener('input', ['$event'])
     onInput(e) {
-        this.updateFilledState();
+        this.updateFilledState(e);
     }
-    
-    updateFilledState() {
-        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) ||
-                        (this.ngModel && this.ngModel.model);
-    }
-    
-    @HostListener('focus', ['$event'])
-    onFocus(e) {
-        if(this.autoResize) {
-            this.resize(e);
-        }
-    }
-    
-    @HostListener('blur', ['$event'])
-    onBlur(e) {
-        if(this.autoResize) {
-            this.resize(e);
-        }
-    }
-    
-    @HostListener('keyup', ['$event'])
-    onKeyup(e) {
-        if(this.autoResize) {
-            this.resize(e);
-        }
-    }
-    
-    resize(event?: Event) {
-        let linesCount = 0,
-        lines = this.el.nativeElement.value.split('\n');
 
-        for(let i = lines.length-1; i >= 0 ; --i) {
+    updateFilledState(event?: Event) {
+        if ((this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model)) {
+            this.filled = true;
+            if (this.autoResize) {
+                this.resize(event);
+            }
+        }
+        else {
+            this.filled = false;
+        }
+    }
+
+    resize(event?: Event) {
+        let linesCount = 0;
+        const lines = this.el.nativeElement.value.split('\n');
+
+        for (let i = lines.length - 1; i >= 0; --i) {
             linesCount += Math.floor((lines[i].length / this.colsDefault) + 1);
         }
 
-        this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
-        this.onResize.emit(event||{});
+        this.rows = (linesCount >= this.rowsDefault) ? linesCount + 1 : this.rowsDefault;
+        if (this.prevRows !== this.rows) {
+            this.prevRows = this.rows;
+            this.onResize.emit(event || {});
+        }
     }
 }
 
