@@ -2868,6 +2868,7 @@ export class TableRadioButton  {
     }
 
     onClick(event: Event) {
+        event.stopPropagation();
         if(!this.disabled) {
             this.dt.toggleRowWithRadio(event, this.value);
         }
