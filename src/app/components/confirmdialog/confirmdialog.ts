@@ -136,7 +136,6 @@ export class ConfirmDialog implements OnDestroy {
                 }
 
                 this.visible = true;
-                this.acceptLabel = 'yes';
             }
         });         
     }
