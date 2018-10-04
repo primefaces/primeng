@@ -991,7 +991,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             let selectionIndex = this.findIndexInSelection(rowData);
             this._selection = this.selection.filter((val, i) => i != selectionIndex);
             this.selectionChange.emit(this.selection);
-            this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'checkbox' });
+            this.onRowUnselect.emit({ originalEvent: event.originalEvent, index :event.rowIndex, data: rowData, type: 'checkbox' });
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
@@ -999,12 +999,12 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         else {
             this._selection = this.selection ? [...this.selection, rowData] : [rowData];
             this.selectionChange.emit(this.selection);
-            this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'checkbox' });
+            this.onRowSelect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'checkbox' });
             if (dataKeyValue) {
                 this.selectionKeys[dataKeyValue] = 1;
             }
         }
-        
+
         this.tableService.onSelectionChange();
     }
 
@@ -2910,6 +2910,8 @@ export class TableCheckbox  {
 
     @Input() value: any;
 
+    @Input("pCheckboxRowIndex") index: number;
+
     @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
@@ -2928,7 +2930,10 @@ export class TableCheckbox  {
 
     onClick(event: Event) {
         if(!this.disabled) {
-            this.dt.toggleRowWithCheckbox(event, this.value);
+            this.dt.toggleRowWithCheckbox({
+                originalEvent: event,
+                rowIndex: this.index
+            }, this.value);
         }
         this.domHandler.clearSelection();
     }
