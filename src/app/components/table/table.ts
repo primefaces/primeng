@@ -959,13 +959,13 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         return index;
     }
 
-    toggleRowWithRadio(event: Event, rowData:any) {
+    toggleRowWithRadio(event: any, rowData:any) {
         this.preventSelectionSetterPropagation = true;
 
         if(this.selection != rowData) {
             this._selection = rowData;
             this.selectionChange.emit(this.selection);
-            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
+            this.onRowSelect.emit({originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton'});
             
             if(this.dataKey) {
                 this.selectionKeys = {};
@@ -975,7 +975,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         else {
             this._selection = null;
             this.selectionChange.emit(this.selection);
-            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
+            this.onRowUnselect.emit({originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton'});
         }
 
         this.tableService.onSelectionChange();
@@ -2851,6 +2851,8 @@ export class TableRadioButton  {
 
     @Input() value: any;
 
+    @Input("pRadioButtonRowIndex") index: number;
+
     @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
@@ -2869,7 +2871,10 @@ export class TableRadioButton  {
 
     onClick(event: Event) {
         if(!this.disabled) {
-            this.dt.toggleRowWithRadio(event, this.value);
+            this.dt.toggleRowWithRadio({
+                originalEvent: event,
+                rowIndex: this.index
+            }, this.value);
         }
         this.domHandler.clearSelection();
     }
