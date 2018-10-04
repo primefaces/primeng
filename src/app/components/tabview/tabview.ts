@@ -167,7 +167,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 })
 export class TabView implements AfterContentInit,BlockableUI {
 
-    @Input() orientation: string = 'top';
+    @Input() orientation: string = 'left';
     
     @Input() style: any;
     
