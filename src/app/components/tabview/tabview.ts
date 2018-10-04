@@ -249,6 +249,7 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
         
         if(!tab.selected) {
+            this.preventActiveIndexPropagation = false;
             this.activeIndex = this.findTabIndex(tab);
             this.preventActiveIndexPropagation = true;
             this.activeIndexChange.emit(this.activeIndex);
