@@ -99,7 +99,7 @@ export class OverlayPanel implements OnDestroy {
         }
 
         if (this.visible) {
-            this.visible = false;
+            this.hide();
 
             if (this.hasTargetChanged(event, target)) {
                 this.target = target||event.currentTarget||event.target;
@@ -116,7 +116,8 @@ export class OverlayPanel implements OnDestroy {
 
     show(event, target?) {
         this.target = target||event.currentTarget||event.target;
-        this.visible = true;
+        this.visible = true;        
+        this.onShow.emit(null);
     }
 
     hasTargetChanged(event, target) {
@@ -160,6 +161,7 @@ export class OverlayPanel implements OnDestroy {
 
     hide() {
         this.visible = false;
+        this.onHide.emit(null);
     }
     
     onPanelClick(event) {
