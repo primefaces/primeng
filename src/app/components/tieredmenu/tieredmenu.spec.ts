@@ -7,7 +7,6 @@ import { RouterTestingModule } from '../../../../node_modules/@angular/router/te
 describe('TieredMenu', () => {
   
     let tieredmenu: TieredMenu;
-    let tieredmenuSub : TieredMenuSub;
     let fixture: ComponentFixture<TieredMenu>;
     
     beforeEach(() => {
@@ -24,7 +23,6 @@ describe('TieredMenu', () => {
       
       fixture = TestBed.createComponent(TieredMenu);
       tieredmenu = fixture.componentInstance;
-      // tieredmenuSub = fixture.debugElement.query(By.css("p-tieredMenuSub")).componentInstance;
     });
 
     it('should created by default', () => {
@@ -41,6 +39,7 @@ describe('TieredMenu', () => {
       const tieredmenuEl = fixture.debugElement.query(By.css('div'));
       expect(tieredmenuEl).toBeFalsy();
     });
+
 
     it('should change style and styleClass', () => {
       tieredmenu.styleClass = "Primeng ROCKS!";
@@ -189,7 +188,8 @@ describe('TieredMenu', () => {
                     items: [
                         {label: 'Project'},
                         {label: 'Other'},
-                    ]
+                    ],
+                    command:()=>{}
                 },
                 {label: 'Open'},
                 {label: 'Quit'}
@@ -201,7 +201,8 @@ describe('TieredMenu', () => {
             items: [
                 {label: 'Delete', icon: 'pi pi-fw pi-trash'},
                 {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
-            ]
+            ],
+            disabled:true
         }
       ];
       fixture.detectChanges();
@@ -210,13 +211,112 @@ describe('TieredMenu', () => {
       const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
       const items = fixture.debugElement.query(By.css('ul'));
       const fileItemEl = items.children[0].query(By.css('a')).nativeElement;
+      const editItemEl = items.children[1].query(By.css('a')).nativeElement;
+      const newItemEl = items.children[0].queryAll(By.css('a'))[1].nativeElement;
       fileItemEl.click();
+      fixture.detectChanges();
+
+      newItemEl.click();
+      fixture.detectChanges();
+
+      editItemEl.click();
       fixture.detectChanges();
 
       expect(itemClickSpy).toHaveBeenCalled();
     });
 
+    it('should select with popup', () => {
+        tieredmenu.model = [
+            {
+                label: 'File',
+                items: [{
+                        label: 'New', 
+                        icon: 'pi pi-fw pi-plus',
+                        items: [
+                            {label: 'Project'},
+                            {label: 'Other'},
+                        ]
+                    },
+                    {label: 'Open'},
+                    {label: 'Quit'}
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-fw pi-pencil',
+            }
+          ];
+        tieredmenu.popup = true;
+        tieredmenu.appendTo = "body";
+        fixture.detectChanges();
+  
+        const showSpy = spyOn(tieredmenu, 'show').and.callThrough();
+        const hideSpy = spyOn(tieredmenu, 'hide').and.callThrough();
+        let event = {'currentTarget':document.body};
+        tieredmenu.toggle(event);
+        fixture.detectChanges();
+        
+        const tieredmenuEl = fixture.debugElement.query(By.css('div'));
+        expect(tieredmenuEl).toBeTruthy();
+        const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
+        const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+        const items = fixture.debugElement.query(By.css('ul'));
+        const editItemEl = items.children[1].query(By.css('a')).nativeElement;
+        editItemEl.click();
+        fixture.detectChanges();
+
+        expect(itemClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(hideSpy).toHaveBeenCalled();
+      });
+
+      it('should use popup with diffrent appendTo', () => {
+        tieredmenu.model = [
+            {
+                label: 'File',
+                items: [{
+                        label: 'New', 
+                        icon: 'pi pi-fw pi-plus',
+                        items: [
+                            {label: 'Project'},
+                            {label: 'Other'},
+                        ]
+                    },
+                    {label: 'Open'},
+                    {label: 'Quit'}
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-fw pi-pencil',
+            }
+          ];
+        tieredmenu.popup = true;
+        tieredmenu.appendTo = document.body;
+        fixture.detectChanges();
+  
+        const showSpy = spyOn(tieredmenu, 'show').and.callThrough();
+        const hideSpy = spyOn(tieredmenu, 'hide').and.callThrough();
+        let event = {'currentTarget':document.body};
+        tieredmenu.toggle(event);
+        fixture.detectChanges();
+        
+        const tieredmenuEl = fixture.debugElement.query(By.css('div'));
+        expect(tieredmenuEl).toBeTruthy();
+        const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
+        const itemClickSpy = spyOn(subMenuComponent, 'itemClick').and.callThrough();
+        const items = fixture.debugElement.query(By.css('ul'));
+        const editItemEl = items.children[1].query(By.css('a')).nativeElement;
+        editItemEl.click();
+        fixture.detectChanges();
+
+        expect(itemClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(hideSpy).toHaveBeenCalled();
+      });
+
     it('should call onItemMouseEnter when mouseenter', () => {
+        tieredmenu.hideDelay
       tieredmenu.model = [
         {
             label: 'File',
@@ -258,6 +358,48 @@ describe('TieredMenu', () => {
       expect(subMenuComponent.activeItem).toBeTruthy();
     });
 
+    it('should call onItemMouseEnter and do nothing', () => {
+        tieredmenu.hideDelay
+      tieredmenu.model = [
+        {
+            label: 'File',
+            items: [{
+                    label: 'New', 
+                    icon: 'pi pi-fw pi-plus',
+                    items: [
+                        {label: 'Project'},
+                        {label: 'Other'},
+                    ]
+                },
+                {label: 'Open'},
+                {label: 'Quit'}
+            ],
+            disabled:true
+        },
+        {
+            label: 'Edit',
+            icon: 'pi pi-fw pi-pencil',
+            items: [
+                {label: 'Delete', icon: 'pi pi-fw pi-trash'},
+                {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
+            ]
+        }
+      ];
+      fixture.detectChanges();
+
+      const subMenuComponent = fixture.debugElement.query(By.css('p-tieredMenuSub')).componentInstance as TieredMenuSub;
+      const onItemMouseEnter = spyOn(subMenuComponent, 'onItemMouseEnter').and.callThrough();
+      const items = fixture.debugElement.query(By.css('ul'));
+      const fileItemEl = items.children[0].nativeElement;
+      const event = new Event('mouseenter');
+      fileItemEl.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(onItemMouseEnter).toHaveBeenCalled();
+      expect(fileItemEl.className).not.toContain("ui-menuitem-active");
+      expect(subMenuComponent.activeItem).toBeUndefined();
+    });
+
     it('should call onItemMouseLeave when mouseleave', fakeAsync(() => {
       tieredmenu.model = [
         {
@@ -280,7 +422,8 @@ describe('TieredMenu', () => {
             items: [
                 {label: 'Delete', icon: 'pi pi-fw pi-trash'},
                 {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
-            ]
+            ],
+            disabled:true
         }
       ];
       fixture.detectChanges();
@@ -289,7 +432,6 @@ describe('TieredMenu', () => {
       const onItemMouseLeave = spyOn(subMenuComponent, 'onItemMouseLeave').and.callThrough();
       const items = fixture.debugElement.query(By.css('ul'));
       const fileItemEl = items.children[0].nativeElement;
-      const secondSubMenu = items.children[0].query(By.css("p-tieredMenuSub")).query(By.css('ul'));
       const mouseenter = new Event('mouseenter');
       fileItemEl.dispatchEvent(mouseenter);
       fixture.detectChanges();
@@ -302,6 +444,11 @@ describe('TieredMenu', () => {
       expect(onItemMouseLeave).toHaveBeenCalled();
       expect(fileItemEl.className).not.toContain("ui-menuitem-active");
       expect(subMenuComponent.activeItem).toEqual(null);
+      fileItemEl.dispatchEvent(mouseenter);
+      fixture.detectChanges();
+
+      expect(fileItemEl.className).toContain("ui-menuitem-active");
+      expect(subMenuComponent.activeItem).toBeTruthy();
     }));
 
 });
