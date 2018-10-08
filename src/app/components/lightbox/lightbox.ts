@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,Renderer2,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,Renderer2,AfterViewInit,OnDestroy,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -75,7 +75,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     public documentClickListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
                 
     onImageClick(event,image,i,content) {
         this.index = i;
@@ -118,6 +118,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.currentImage = image;
             this.captionText = image.title;
             this.center();
+            this.changeDetector.markForCheck();
         }, 1000);
     }
     
@@ -147,6 +148,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.mask = null;
         }
         
+        this.changeDetector.markForCheck();
         event.preventDefault();
     }
     
