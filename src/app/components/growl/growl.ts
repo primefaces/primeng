@@ -209,7 +209,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         
         if(this.subscription) {
             this.subscription.unsubscribe();
-        }
+        } 
     }
 
 }
