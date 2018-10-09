@@ -37,7 +37,9 @@ export interface LocaleSettings {
             </ng-template>
             <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
-                (click)="onDatePickerClick($event)" [@overlayAnimation]="touchUI ? 'visibleTouchUI': 'visible'" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
+                (click)="onDatePickerClick($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}: 
+                                            {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" 
+                                            [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
                 <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
@@ -176,10 +178,10 @@ export interface LocaleSettings {
             })),
             transition('void => visible', [
                 style({transform: 'translateY(5%)', opacity: 0}),
-                animate('225ms ease-out')
+                animate('{{showTransitionParams}}')
             ]),
             transition('visible => void', [
-                animate(('195ms ease-in'), 
+                animate(('{{hideTransitionParams}}'), 
                 style({
                     opacity: 0,
                     transform: 'translateY(5%)'
@@ -187,10 +189,10 @@ export interface LocaleSettings {
             ]),
             transition('void => visibleTouchUI', [
                 style({opacity: 0, transform: 'translate3d(-50%, -40%, 0) scale(0.9)'}),
-                animate('225ms ease-out')
+                animate('{{showTransitionParams}}')
             ]),
             transition('visibleTouchUI => void', [
-                animate(('195ms ease-in'), 
+                animate(('{{hideTransitionParams}}'), 
                 style({
                     opacity: 0,
                     transform: 'translate3d(-50%, -40%, 0) scale(0.9)'
@@ -293,6 +295,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() view: string = 'date';
 
     @Input() touchUI: boolean;
+
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     

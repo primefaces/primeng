@@ -12,7 +12,7 @@ let idx: number = 0;
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}"
             [ngStyle]="style" [class]="styleClass" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" [style.minHeight.px]="minHeight" (mousedown)="moveOnTop()" 
-            [@animation]="'visible'" (@animation.start)="onAnimationStart($event)" role="dialog" [attr.aria-labelledby]="id + '-label'" *ngIf="visible">
+            [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" role="dialog" [attr.aria-labelledby]="id + '-label'" *ngIf="visible">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
@@ -44,7 +44,7 @@ let idx: number = 0;
                 transform: 'none',
                 opacity: 1
             })),
-            transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+            transition('* => *', animate('{{transitionParams}}'))
         ])
     ],
     providers: [DomHandler]
@@ -108,6 +108,8 @@ export class Dialog implements OnDestroy {
     @Input() focusOnShow: boolean = true;
 
     @Input() maximizable: boolean;
+
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
     
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
