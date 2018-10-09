@@ -32,7 +32,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           </div>
         </div>
         <div class="ui-listbox-filter-container" *ngIf="filter">
-          <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+          <input type="text" role="textbox" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
           <span class="ui-listbox-filter-icon pi pi-search"></span>
         </div>
       </div>
@@ -101,7 +101,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public itemTemplate: TemplateRef<any>;
 
-    public filterValue: string;
+    public _filterValue: string;
 
     public filtered: boolean;
 
@@ -126,6 +126,14 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     set options(val: any[]) {
         let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
+    }
+    
+    @Input() get filterValue(): string {
+        return this._filterValue;
+    }
+    
+    set filterValue(val: string) {
+        this._filterValue = val;
     }
 
     ngAfterContentInit() {
@@ -319,7 +327,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     get allChecked(): boolean {
-        if (this.filterValue) {
+        if (this._filterValue) {
             return this.allFilteredSelected();
         }
             
@@ -365,7 +373,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     onFilter(event) {
         let query = event.target.value.trim().toLowerCase();
-        this.filterValue = query.length ? query : null;
+        this._filterValue = query.length ? query : null;
     }
 
     toggleAll(event, checkbox) {
@@ -393,16 +401,16 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     isItemVisible(option: SelectItem): boolean {
-        if (this.filterValue) {
+        if (this._filterValue) {
             let visible;
 
             switch (this.filterMode) {
                 case 'startsWith':
-                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) === 0;
+                    visible = option.label.toLowerCase().indexOf(this._filterValue.toLowerCase()) === 0;
                     break;
 
                 case 'contains':
-                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1;
+                    visible = option.label.toLowerCase().indexOf(this._filterValue.toLowerCase()) > -1;
                     break;
 
                 default:
