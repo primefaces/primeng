@@ -48,7 +48,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="ui-dropdown-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
-            <div *ngIf="overlayVisible" [ngClass]="'ui-dropdown-panel  ui-widget ui-widget-content ui-corner-all ui-shadow'" [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
+            <div *ngIf="overlayVisible" [ngClass]="'ui-dropdown-panel  ui-widget ui-widget-content ui-corner-all ui-shadow'" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)">
@@ -94,8 +94,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('void => visible', animate('225ms ease-out')),
-            transition('visible => void', animate('195ms ease-in'))
+            transition('void => visible', animate('{{showTransitionParams}}')),
+            transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
     host: {
@@ -165,6 +165,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
