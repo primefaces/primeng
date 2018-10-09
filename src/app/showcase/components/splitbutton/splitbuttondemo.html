@@ -41,6 +41,14 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
 </code>
 </pre>
 
+            <h3>Animation Configuration</h3>
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+                example below disables the animations altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-splitButton [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
+</code>
+</pre>
             <h3>MenuModel API</h3>
             <p>SplitButton uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
@@ -121,6 +129,18 @@ import &#123;SplitButtonModule&#125; from 'primeng/splitbutton';
                             <td>string</td>
                             <td>null</td>
                             <td>Indicates the direction of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>showTransitionOptions</td>
+                            <td>string</td>
+                            <td>225ms ease-out</td>
+                            <td>Transition options of the show animation.</td>
+                        </tr>
+                        <tr>
+                            <td>hideTransitionOptions</td>
+                            <td>string</td>
+                            <td>195ms ease-in</td>
+                            <td>Transition options of the hide animation.</td>
                         </tr>
                     </tbody>
                 </table>
