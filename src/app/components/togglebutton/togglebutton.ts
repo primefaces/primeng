@@ -12,13 +12,15 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-toggleButton',
     template: `
         <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon && !offIcon), 
-                'ui-button-text-icon-left': (onIcon && offIcon && hasOnLabel && hasOffLabel), 'ui-button-icon-only': (onIcon && offIcon && !hasOnLabel && !hasOffLabel),
+                'ui-button-text-icon-left': (onIcon && offIcon && hasOnLabel && hasOffLabel && iconPos === 'left'), 
+                'ui-button-text-icon-right': (onIcon && offIcon && hasOnLabel && hasOffLabel && iconPos === 'right'),'ui-button-icon-only': (onIcon && offIcon && !hasOnLabel && !hasOffLabel),
                 'ui-state-active': checked,'ui-state-focus':focus,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass" 
                 (click)="toggle($event)">
             <div class="ui-helper-hidden-accessible">
                 <input #checkbox type="checkbox" [attr.id]="inputId" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex">
             </div>
-            <span *ngIf="onIcon||offIcon" class="ui-button-icon-left" [ngClass]="checked ? this.onIcon : this.offIcon"></span>
+            <span *ngIf="onIcon||offIcon" class="ui-button-icon-left" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'ui-button-icon-left': (iconPos === 'left'), 
+            'ui-button-icon-right': (iconPos === 'right')}"></span>
             <span class="ui-button-text ui-unselectable-text">{{checked ? hasOnLabel ? onLabel : 'ui-btn' : hasOffLabel ? offLabel : 'ui-btn'}}</span>
         </div>
     `,
@@ -43,6 +45,8 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     @Input() inputId: string;
 
     @Input() tabindex: number;
+
+    @Input() iconPos: string = 'left';
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
