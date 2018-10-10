@@ -10,7 +10,7 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container class="ui-toast-message ui-shadow" [@messageState]="'visible'"
+        <div #container class="ui-toast-message ui-shadow" [@messageState]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
             [ngClass]="{'ui-toast-message-info': message.severity == 'info','ui-toast-message-warn': message.severity == 'warn',
                 'ui-toast-message-error': message.severity == 'error','ui-toast-message-success': message.severity == 'success'}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
@@ -37,10 +37,10 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
             })),
             transition('void => *', [
                 style({transform: 'translateY(100%)', opacity: 0}),
-                animate('300ms ease-out')
+                animate('{{showTransitionParams}}')
             ]),
             transition('* => void', [
-                animate(('250ms ease-in'), style({
+                animate(('{{hideTransitionParams}}'), style({
                     height: 0,
                     opacity: 0,
                     transform: 'translateY(-100%)'
@@ -57,6 +57,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     @Input() index: number;
 
     @Input() template: TemplateRef<any>;
+
+    @Input() showTransitionOptions: string;
+
+    @Input() hideTransitionOptions: string;
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
@@ -122,7 +126,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                 'ui-toast-bottom-center': position === 'bottom-center',
                 'ui-toast-center': position === 'center'}" 
                 [ngStyle]="style" [class]="styleClass">
-            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)" [template]="template" @toastAnimation></p-toastItem>
+            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)" [template]="template" @toastAnimation [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
         </div>
     `,
     animations: [
@@ -149,6 +153,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     @Input() position: string = 'top-right';
 
     @Input() modal: boolean;
+    
+    @Input() showTransitionOptions: string = '300ms ease-out';
+
+    @Input() hideTransitionOptions: string = '250ms ease-in';
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
