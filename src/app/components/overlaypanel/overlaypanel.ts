@@ -157,7 +157,8 @@ export class OverlayPanel implements OnDestroy {
             break;
 
             case 'void':
-                this.onOverlayHide();
+                this.onContainerDestroy();
+                this.onHide.emit({});
             break;
         }
     }
@@ -197,10 +198,7 @@ export class OverlayPanel implements OnDestroy {
         }
     }
 
-    onOverlayHide() {
-        if (this.visible) {
-            this.onHide.emit(null);
-        }
+    onContainerDestroy() {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.selfClick = false;
@@ -209,8 +207,10 @@ export class OverlayPanel implements OnDestroy {
 
     ngOnDestroy() {
         this.target = null;
-        this.restoreAppend();
-        this.onOverlayHide();
+        if (this.container) {
+            this.restoreAppend();
+            this.onContainerDestroy();
+        }
     }
 }
 
