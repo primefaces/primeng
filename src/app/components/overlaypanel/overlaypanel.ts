@@ -7,7 +7,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
     selector: 'p-overlayPanel',
     template: `
         <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass" (click)="onPanelClick($event)"
-            [@animation]="'visible'" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
+            [@animation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-overlaypanel-content">
                 <ng-content></ng-content>
             </div>
@@ -26,8 +26,8 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
                 transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('void => visible', animate('225ms ease-out')),
-            transition('visible => void', animate('195ms ease-in'))
+            transition('void => visible', animate('{{showTransitionParams}}')),
+            transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
     providers: [DomHandler]
@@ -47,6 +47,10 @@ export class OverlayPanel implements OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+    
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 

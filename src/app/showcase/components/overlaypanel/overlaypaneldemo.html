@@ -116,6 +116,17 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 </code>
 </pre>
 
+            <h3>Animation Configuration</h3>
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+                example below disables the animations altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true"&gt;
+    Content
+&lt;/p-overlayPanel&gt;
+</code>
+</pre>
+
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -169,6 +180,18 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to automatically manage layering.</td>
+                        </tr>
+                        <tr>
+                            <td>showTransitionOptions</td>
+                            <td>string</td>
+                            <td>225ms ease-out</td>
+                            <td>Transition options of the show animation.</td>
+                        </tr>
+                        <tr>
+                            <td>hideTransitionOptions</td>
+                            <td>string</td>
+                            <td>195ms ease-in</td>
+                            <td>Transition options of the hide animation.</td>
                         </tr>
                     </tbody>
                 </table>
