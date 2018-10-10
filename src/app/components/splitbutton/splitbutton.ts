@@ -15,7 +15,7 @@ import {RouterModule} from '@angular/router';
             </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="pi pi-caret-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
             <div #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" *ngIf="overlayVisible"
                     [ngStyle]="menuStyle" [class]="menuStyleClass"
-                    [@overlayAnimation]="'visible'" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+                    [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ul class="ui-menu-list ui-helper-reset">
                     <ng-template ngFor let-item [ngForOf]="model">
                         <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngIf="item.visible !== false">
@@ -45,8 +45,8 @@ import {RouterModule} from '@angular/router';
                 transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('void => visible', animate('225ms ease-out')),
-            transition('visible => void', animate('195ms ease-in'))
+            transition('void => visible', animate('{{showTransitionParams}}')),
+            transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
     providers: [DomHandler]
@@ -80,6 +80,10 @@ export class SplitButton implements OnDestroy {
     @Input() appendTo: any;
     
     @Input() dir: string;
+
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @ViewChild('container') containerViewChild: ElementRef;
     

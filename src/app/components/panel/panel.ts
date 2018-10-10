@@ -18,7 +18,7 @@ let idx: number = 0;
                     <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                 </a>
             </div>
-            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
+            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions}} : {value: 'visible', params: {transitionParams: transitionOptions}}" (@panelContent.done)="onToggleDone($event)"
                 [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}"
                 role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-label'">
                 <div class="ui-panel-content ui-widget-content">
@@ -41,7 +41,7 @@ let idx: number = 0;
                 height: '*',
                 opacity: 1
             })),
-            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible <=> hidden', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -69,6 +69,8 @@ export class Panel implements BlockableUI {
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
     
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
     @ContentChild(Footer) footerFacet;
     
     animating: boolean;

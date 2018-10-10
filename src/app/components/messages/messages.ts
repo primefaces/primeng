@@ -13,7 +13,7 @@ import {Subscription} from 'rxjs';
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
                     'ui-messages-success':(value[0].severity === 'success')}"
-                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="'visible'">
+                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
             <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
                 <i class="pi pi-times"></i>
             </a>
@@ -34,10 +34,10 @@ import {Subscription} from 'rxjs';
             })),
             transition('void => *', [
                 style({transform: 'translateY(-25%)', opacity: 0}),
-                animate('300ms ease-out')
+                animate('{{showTransitionParams}}')
             ]),
             transition('* => void', [
-                animate(('250ms ease-in'), style({
+                animate(('{{hideTransitionParams}}'), style({
                     opacity: 0,
                     transform: 'translateY(-25%)'
                 }))
@@ -58,6 +58,10 @@ export class Messages implements OnInit, OnDestroy {
     @Input() enableService: boolean = true;
 
     @Input() key: string;
+
+    @Input() showTransitionOptions: string = '300ms ease-out';
+
+    @Input() hideTransitionOptions: string = '250ms ease-in';
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
     

@@ -18,7 +18,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)" [attr.id]="inputId" [attr.tabindex]="tabindex" [disabled]="disabled"
                 [style.backgroundColor]="inputBgColor">
             <div *ngIf="inline || overlayVisible" [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay-panel ui-shadow':!inline, 'ui-state-disabled': disabled}" (click)="onPanelClick()"
-                [@overlayAnimation]="'visible'" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <div class="ui-colorpicker-content">
                     <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
                         <div class="ui-colorpicker-color">
@@ -42,8 +42,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('void => visible', animate('225ms ease-out')),
-            transition('visible => void', animate('195ms ease-in'))
+            transition('void => visible', animate('{{showTransitionParams}}')),
+            transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
     providers: [DomHandler,COLORPICKER_VALUE_ACCESSOR]
@@ -69,6 +69,10 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     

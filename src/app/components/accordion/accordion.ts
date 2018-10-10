@@ -20,7 +20,7 @@ let idx: number = 0;
                 <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
             </a>
         </div>
-        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
+        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
             role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
             <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
@@ -36,7 +36,7 @@ let idx: number = 0;
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible <=> hidden', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -49,6 +49,8 @@ export class AccordionTab implements OnDestroy {
     @Input() disabled: boolean;
 
     @Output() selectedChange: EventEmitter<any> = new EventEmitter();
+
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
 
