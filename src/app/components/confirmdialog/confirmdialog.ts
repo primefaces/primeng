@@ -223,18 +223,6 @@ export class ConfirmDialog implements OnDestroy {
     
     hide() {
         this.visible = false;
-        this.reset();
-    }
-    
-    reset() {
-        this.confirmation = undefined;
-        this.message = undefined;
-        this.icon = undefined;
-        this.header = undefined;
-        this.rejectVisible = true;
-        this.acceptVisible = true;
-        this.acceptLabel = 'Yes';
-        this.rejectLabel = 'No';
     }
     
     moveOnTop() {
