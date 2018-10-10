@@ -1735,12 +1735,13 @@ body .ui-tree {
   color: #333333;
   padding: 0.571em 1em; }
   body .ui-tree .ui-tree-container {
-    padding: 0;
+    padding: 0.286em;
     margin: 0; }
     body .ui-tree .ui-tree-container .ui-treenode {
       padding: 0.143em 0; }
       body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content {
-        padding: 0; }
+        padding: 0;
+        border: 1px solid transparent; }
         body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
           vertical-align: middle;
           display: inline-block;

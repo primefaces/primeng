@@ -8,6 +8,7 @@ import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
+import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-treeNode',
@@ -16,9 +17,11 @@ import {BlockableUI} from '../common/blockableui';
             <li *ngIf="tree.droppableNodes" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
             <li *ngIf="!tree.horizontal" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '']">
-                <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
+                <div class="ui-treenode-content" role="treeitem" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
-                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)">
+                    [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" tabIndex="0"
+                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" 
+                    (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()">
                     <span class="ui-tree-toggler pi pi-fw" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox' && node.selectable !== false"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
@@ -33,7 +36,7 @@ import {BlockableUI} from '../common/blockableui';
                             </span>
                     </span>
                 </div>
-                <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'">
+                <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
                     <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index; trackBy: tree.nodeTrackBy" [node]="childNode" [parentNode]="node"
                         [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
                 </ul>
@@ -80,7 +83,8 @@ import {BlockableUI} from '../common/blockableui';
                 </tbody>
             </table>
         </ng-template>
-    `
+    `,
+    providers: [DomHandler]
 })
 export class UITreeNode implements OnInit {
 
@@ -98,7 +102,7 @@ export class UITreeNode implements OnInit {
 
     @Input() lastChild: boolean;
 
-    constructor(@Inject(forwardRef(() => Tree)) public tree:Tree) {}
+    constructor(@Inject(forwardRef(() => Tree)) public tree:Tree, public domHandler: DomHandler) {}
 
     draghoverPrev: boolean;
 
@@ -127,11 +131,19 @@ export class UITreeNode implements OnInit {
 
     toggle(event: Event) {
         if(this.node.expanded)
-            this.tree.onNodeCollapse.emit({originalEvent: event, node: this.node});
+            this.collapse(event);
         else
-            this.tree.onNodeExpand.emit({originalEvent: event, node: this.node});
+            this.expand(event);
+    }
 
-        this.node.expanded = !this.node.expanded
+    expand(event: Event) {
+        this.node.expanded = true;
+        this.tree.onNodeExpand.emit({originalEvent: event, node: this.node});
+    }
+
+    collapse(event: Event) {
+        this.node.expanded = false;
+        this.tree.onNodeCollapse.emit({originalEvent: event, node: this.node});
     }
 
     onNodeClick(event: MouseEvent) {
@@ -287,6 +299,106 @@ export class UITreeNode implements OnInit {
             }
         }
     }
+
+    onKeyDown(event: KeyboardEvent) {
+        const nodeElement = (<HTMLDivElement> event.target).parentElement.parentElement;
+
+        switch (event.which) {
+            //down arrow
+            case 40:
+                const listElement = nodeElement.children[0].children[1];
+                if (listElement) {
+                    this.focusNode(listElement.children[0]);
+                }
+                else {
+                    const nextNodeElement = nodeElement.nextElementSibling;
+                    if (nextNodeElement) {
+                        this.focusNode(nextNodeElement);
+                    }
+                    else {
+                        let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement);
+                        if (nextSiblingAncestor) {
+                            this.focusNode(nextSiblingAncestor);
+                        }
+                    }
+                }
+
+                event.preventDefault();
+            break;
+
+            //up arrow
+            case 38:
+                if (nodeElement.previousElementSibling) {
+                    this.focusNode(this.findLastVisibleDescendant(nodeElement.previousElementSibling));
+                }
+                else {
+                    let parentNodeElement = this.getParentNodeElement(nodeElement);
+                    if (parentNodeElement) {
+                        this.focusNode(parentNodeElement);
+                    }
+                }
+
+                event.preventDefault();
+            break;
+
+            //right arrow
+            case 39:
+                if (!this.node.expanded) {
+                    this.expand(event);
+                }
+
+                event.preventDefault();
+            break;
+
+            //left arrow
+            case 37:
+                if (this.node.expanded) {
+                    this.collapse(event);
+                }
+
+                event.preventDefault();
+            break;
+
+            default:
+                //no op
+            break;
+        }
+    }
+
+    findNextSiblingOfAncestor(nodeElement) {
+        let parentNodeElement = this.getParentNodeElement(nodeElement);
+        if (parentNodeElement) {
+            if (parentNodeElement.nextElementSibling)
+                return parentNodeElement.nextElementSibling;
+            else
+                return this.findNextSiblingOfAncestor(parentNodeElement);
+        }
+        else {
+            return null;
+        }
+    }
+
+    findLastVisibleDescendant(nodeElement) {
+        const childrenListElement = nodeElement.children[0].children[1];
+        if (childrenListElement) {
+            const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
+
+            return this.findLastVisibleDescendant(lastChildElement);
+        }
+        else {
+            return nodeElement;
+        }
+    }
+
+    getParentNodeElement(nodeElement) {
+        const parentNodeElement = nodeElement.parentElement.parentElement.parentElement;
+
+        return parentNodeElement.tagName === 'P-TREENODE' ? parentNodeElement : null;
+    }
+
+    focusNode(element) {
+        element.children[0].children[0].focus();
+    }
 }
 
 @Component({
@@ -298,7 +410,7 @@ export class UITreeNode implements OnInit {
             <div class="ui-tree-loading-content" *ngIf="loading">
                 <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
-            <ul class="ui-tree-container" *ngIf="value">
+            <ul class="ui-tree-container" *ngIf="value" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                 <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
@@ -365,6 +477,10 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() loadingIcon: string = 'pi pi-spinner';
 
     @Input() emptyMessage: string = 'No records found';
+
+    @Input() ariaLabel: string;
+
+    @Input() ariaLabelledBy: string;
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
