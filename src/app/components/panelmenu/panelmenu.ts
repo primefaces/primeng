@@ -30,7 +30,7 @@ export class BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenuSub',
     template: `
-        <ul class="ui-submenu-list" [@submenu]="expanded ? 'visible' : 'hidden'">
+        <ul class="ui-submenu-list" [@submenu]="expanded ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}">
             <ng-template ngFor let-child [ngForOf]="item.items">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="child.styleClass" [class.ui-helper-hidden]="child.visible === false" [ngStyle]="child.style">
@@ -48,7 +48,7 @@ export class BasePanelMenuItem {
                         ><span class="ui-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <p-panelMenuSub [item]="child" [expanded]="child.expanded" *ngIf="child.items"></p-panelMenuSub>
+                    <p-panelMenuSub [item]="child" [expanded]="child.expanded" [transitionOptions]="transitionOptions" *ngIf="child.items"></p-panelMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -61,8 +61,8 @@ export class BasePanelMenuItem {
             state('visible', style({
                 height: '*'
             })),
-            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible => hidden', animate('{{transitionParams}}')),
+            transition('hidden => visible', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -71,6 +71,8 @@ export class PanelMenuSub extends BasePanelMenuItem {
     @Input() item: MenuItem;
     
     @Input() expanded: boolean;
+
+    @Input() transitionOptions: string;
 }
 
 @Component({
@@ -94,10 +96,10 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </div>
-                    <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'"  (@rootItem.done)="onToggleDone()"
+                    <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}"  (@rootItem.done)="onToggleDone()"
                          [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
                         <div class="ui-panelmenu-content ui-widget-content">
-                            <p-panelMenuSub [item]="item" [expanded]="true" class="ui-panelmenu-root-submenu"></p-panelMenuSub>
+                            <p-panelMenuSub [item]="item" [expanded]="true" [transitionOptions]="transitionOptions" class="ui-panelmenu-root-submenu"></p-panelMenuSub>
                         </div>
                     </div>
                 </div>
@@ -112,8 +114,8 @@ export class PanelMenuSub extends BasePanelMenuItem {
             state('visible', style({
                 height: '*'
             })),
-            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible => hidden', animate('{{transitionParams}}')),
+            transition('hidden => visible', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -126,6 +128,8 @@ export class PanelMenu extends BasePanelMenuItem {
     @Input() styleClass: string;
 
     @Input() multiple: boolean = true;
+
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     
     public animating: boolean;
                 
