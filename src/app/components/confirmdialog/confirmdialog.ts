@@ -13,7 +13,7 @@ import {Subscription}   from 'rxjs';
     template: `
         <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" 
             [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()"
-            [@animation]="'visible'" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
+            [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
@@ -43,7 +43,7 @@ import {Subscription}   from 'rxjs';
                 transform: 'none',
                 opacity: 1
             })),
-            transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+            transition('* => *', animate('{{transitionParams}}'))
         ])
     ],
     providers: [DomHandler]
@@ -93,7 +93,9 @@ export class ConfirmDialog implements OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
-        
+    
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
+
     @ContentChild(Footer) footer;
     
     confirmation: Confirmation;
