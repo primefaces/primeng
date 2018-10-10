@@ -65,7 +65,9 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     
     differ: any;
     
-    subscription: Subscription;
+    messageSubscription: Subscription;
+
+    clearSubscription: Subscription;
     
     closeIconClick: boolean;
 
@@ -73,7 +75,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         this.differ = differs.find([]).create(null);
         
         if(messageService) {
-            this.subscription = messageService.messageObserver.subscribe(messages => {
+            this.messageSubscription = messageService.messageObserver.subscribe(messages => {
                 if(messages) {
                     if(messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
@@ -81,6 +83,17 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
                     }
                     else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
+                    }
+                }
+                else {
+                    this.value = null;
+                }
+            });
+
+            this.clearSubscription = this.messageService.clearObserver.subscribe(key => {
+                if (key) {
+                    if (this.key === key) {
+                        this.value = null;
                     }
                 }
                 else {
@@ -207,8 +220,12 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             clearTimeout(this.timeout);
         }
         
-        if(this.subscription) {
-            this.subscription.unsubscribe();
+        if(this.messageSubscription) {
+            this.messageSubscription.unsubscribe();
+        }
+
+        if(this.clearSubscription) {
+            this.clearSubscription.unsubscribe();
         }
     }
 
