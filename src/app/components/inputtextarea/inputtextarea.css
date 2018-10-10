@@ -1,10 +1,10 @@
 .ui-inputtextarea-resizable {
-    overflow: hidden;
+    overflow:hidden;
     resize:none;
 }
 
 .ui-fluid .ui-inputtextarea {
-    width: 100%;
+    width:100%;
 }
 
 .ui-float-label textarea:focus ~ label,
