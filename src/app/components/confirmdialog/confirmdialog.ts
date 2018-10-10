@@ -114,10 +114,9 @@ export class ConfirmDialog implements OnDestroy {
       
     subscription: Subscription;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, 
-            public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
-        this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
-            if(confirmation.key === this.key) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
+        this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
+            if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
                 this.message = this.confirmation.message||this.message;
                 this.icon = this.confirmation.icon||this.icon;
@@ -127,12 +126,12 @@ export class ConfirmDialog implements OnDestroy {
                 this.acceptLabel = this.confirmation.acceptLabel||this.acceptLabel;
                 this.rejectLabel = this.confirmation.rejectLabel||this.rejectLabel;
 
-                if(this.confirmation.accept) {
+                if (this.confirmation.accept) {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
                 
-                if(this.confirmation.reject) {
+                if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
                 }
@@ -162,8 +161,8 @@ export class ConfirmDialog implements OnDestroy {
     }
 
     appendContainer() {
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
                 this.domHandler.appendChild(this.container, this.appendTo);
@@ -179,7 +178,7 @@ export class ConfirmDialog implements OnDestroy {
     center() {
         let elementWidth = this.domHandler.getOuterWidth(this.container);
         let elementHeight = this.domHandler.getOuterHeight(this.container);
-        if(elementWidth == 0 && elementHeight == 0) {
+        if (elementWidth == 0 && elementHeight == 0) {
             this.container.style.visibility = 'hidden';
             this.container.style.display = 'block';
             elementWidth = this.domHandler.getOuterWidth(this.container);
@@ -196,7 +195,7 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     enableModality() {
-        if(!this.mask) {
+        if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
@@ -206,7 +205,7 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     disableModality() {
-        if(this.mask) {
+        if (this.mask) {
             document.body.removeChild(this.mask);
             this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.mask = null;
@@ -214,7 +213,7 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     close(event: Event) {
-        if(this.confirmation.rejectEvent) {
+        if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
         
@@ -227,7 +226,7 @@ export class ConfirmDialog implements OnDestroy {
         this.reset();
     }
     
-    reset(){
+    reset() {
         this.confirmation = undefined;
         this.message = undefined;
         this.icon = undefined;
@@ -245,17 +244,17 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     bindGlobalListeners() {
-        if(this.closeOnEscape && this.closable && !this.documentEscapeListener) {
+        if (this.closeOnEscape && this.closable && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
-                if(event.which == 27) {
-                    if(parseInt(this.container.style.zIndex) === DomHandler.zindex && this.visible) {
+                if (event.which == 27) {
+                    if (parseInt(this.container.style.zIndex) === DomHandler.zindex && this.visible) {
                         this.close(event);
                     }
                 }
             });
         }
         
-        if(this.responsive) {
+        if (this.responsive) {
             this.zone.runOutsideAngular(() => {
                 this.documentResponsiveListener = this.center.bind(this);
                 window.addEventListener('resize', this.documentResponsiveListener);
@@ -264,12 +263,12 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     unbindGlobalListeners() {
-        if(this.documentEscapeListener) {
+        if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
         
-        if(this.documentResponsiveListener) {
+        if (this.documentResponsiveListener) {
             window.removeEventListener('resize', this.documentResponsiveListener);
             this.documentResponsiveListener = null;
         }
@@ -288,7 +287,7 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     accept() {
-        if(this.confirmation.acceptEvent) {
+        if (this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
         
@@ -297,7 +296,7 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     reject() {
-        if(this.confirmation.rejectEvent) {
+        if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
         
