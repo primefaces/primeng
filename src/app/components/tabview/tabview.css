@@ -4,21 +4,21 @@
 
 .ui-tabview .ui-tabview-nav { 
     margin: 0;
+    white-space: nowrap;
 }
 
 .ui-tabview .ui-tabview-nav li { 
     list-style: none; 
-    float: left; 
     position: relative; 
-    margin: 0 .125em 1px 0;  
     padding: 0; 
     white-space: nowrap; 
+    padding: 0.571em 1em;
+    overflow: hidden;
 }
 
 .ui-tabview .ui-tabview-nav li a { 
     float: left; 
-    padding: .5em 1em; 
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .ui-tabview .ui-tabview-nav li.ui-tabview-selected a, 
@@ -39,7 +39,8 @@
 }
 
 .ui-tabview .ui-tabview-nav li { 
-    display: block; 
+    display: inline-block;
+    vertical-align: top;
 }
 
 .ui-tabview .ui-tabview-nav li .ui-tabview-left-icon {
@@ -57,23 +58,24 @@
 }
 
 .ui-tabview .ui-tabview-nav li .ui-tabview-close { 
-    margin: 0.5em 0.3em 0 0; 
+    margin: 0 0 0 0.5em !important;  
     cursor: pointer; 
 }
 
 /* per orientation settings */
 /* top and bottom */
-.ui-tabview.ui-tabview-top > .ui-tabview-nav li { 
-    border-bottom: 0;
-    top: 1px; 
-}
-
 .ui-tabview.ui-tabview-top > .ui-tabview-nav { 
     padding: .2em .2em 0; 
+    overflow-x: auto;
+}
+
+.ui-tabview.ui-tabview-top > .ui-tabview-nav li { 
+    border-bottom: 0;
 }
 
 .ui-tabview.ui-tabview-bottom > .ui-tabview-nav { 
     padding: 0 .2em .2em; 
+    overflow-x: auto;
 }
 
 .ui-tabview.ui-tabview-bottom > .ui-tabview-nav li { 
@@ -93,8 +95,9 @@
 .ui-tabview-left > .ui-tabview-nav {
     float:left;
     width: 25%;
-    height: 300px;
+    height: 100%;
     background-image: none;
+    overflow-y: auto;
     padding-top: 1px;
 }
 
@@ -104,11 +107,9 @@
 }
 
 .ui-tabview.ui-tabview-left > .ui-tabview-nav li,
-.ui-tabview.ui-tabview-right > .ui-tabview-nav li{
+.ui-tabview.ui-tabview-right > .ui-tabview-nav li {
     display: block;
-    float: right;
     white-space: normal;
-    width: 99%;
 }
 
 .ui-tabview.ui-tabview-left > .ui-tabview-nav li {
@@ -117,10 +118,11 @@
 }
 
 .ui-tabview.ui-tabview-right > .ui-tabview-nav {
-    float:right;
+    float: right;
     width: 25%;
-    height: 300px;
+    height: 100%;
     background-image: none;
+    overflow-y: auto;
     padding-top: 1px;
 }
 

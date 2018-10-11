@@ -527,9 +527,6 @@ body {
     border-top-right-radius: 4px !important;
     border-top-left-radius: 4px !important;
 }
-.documentation .ui-tabview .ui-tabview-nav li a {
-    padding: .5em 1em !important;
-}
 .documentation .ui-tabview .ui-tabview-nav li.tab-doc {
     margin-right: 0;
 }
@@ -707,9 +704,6 @@ pre {
     background-color: #CFD8DC;
     color: #404C51;
     margin: 10px 0px;
-}
-.ui-tabview-left > .ui-tabview-nav {
-    height: 150px;
 }
 .col-button {
     width: 10%;

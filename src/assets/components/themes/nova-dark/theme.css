@@ -1293,7 +1293,6 @@ body .ui-tabview.ui-tabview-top, body .ui-tabview.ui-tabview-bottom, body .ui-ta
         float: none;
         display: inline-block;
         color: #ffffff;
-        padding: 0.571em 1em;
         font-weight: 400; }
         body .ui-tabview.ui-tabview-top .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-left .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-right .ui-tabview-nav li a .ui-tabview-left-icon {
           margin-right: 0.5em; }
@@ -1330,16 +1329,10 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav {
   margin-bottom: -1px; }
   body .ui-tabview.ui-tabview-top .ui-tabview-nav li {
     margin-right: 2px; }
-body .ui-tabview.ui-tabview-bottom .ui-tabview-nav {
-  margin-top: -1px; }
   body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li {
     margin-right: 2px; }
-body .ui-tabview.ui-tabview-left .ui-tabview-nav {
-  margin-right: -px; }
   body .ui-tabview.ui-tabview-left .ui-tabview-nav li {
     margin-bottom: 2px; }
-body .ui-tabview.ui-tabview-right .ui-tabview-nav {
-  margin-right: -1px; }
   body .ui-tabview.ui-tabview-right .ui-tabview-nav li {
     margin-bottom: 2px; }
 body .ui-tabview .ui-tabview-panels {
