@@ -187,6 +187,11 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     set value(val:any[]) {
         this._value = val;
         this.updateTotalRecords();
+        if (!this.lazy) {
+            if(this.hasFilter())  {     // already filters
+                this.filter(this.filterValue);
+            }
+        }
     }
 
     changeLayout(layout: string) {
