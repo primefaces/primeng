@@ -327,15 +327,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     get allChecked(): boolean {
-        if (this._filterValue) {
+        if (this.filterValue)
             return this.allFilteredSelected();
-        }
-            
-        else {
-            let optionCount = this.getEnabledOptionCount();
-
-            return this.value && this.options && (this.value.length > 0 && this.value.length === optionCount);
-        }
+        else
+            return this.value && this.options && (this.value.length > 0 && this.value.length === this.getEnabledOptionCount());
     }
 
     getEnabledOptionCount(): number {
@@ -401,16 +396,16 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     isItemVisible(option: SelectItem): boolean {
-        if (this._filterValue) {
+        if (this.filterValue) {
             let visible;
 
             switch (this.filterMode) {
                 case 'startsWith':
-                    visible = option.label.toLowerCase().indexOf(this._filterValue.toLowerCase()) === 0;
+                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) === 0;
                     break;
 
                 case 'contains':
-                    visible = option.label.toLowerCase().indexOf(this._filterValue.toLowerCase()) > -1;
+                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1;
                     break;
 
                 default:
