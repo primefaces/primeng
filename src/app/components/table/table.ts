@@ -991,7 +991,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             let selectionIndex = this.findIndexInSelection(rowData);
             this._selection = this.selection.filter((val, i) => i != selectionIndex);
             this.selectionChange.emit(this.selection);
-            this.onRowUnselect.emit({ originalEvent: event.originalEvent, index :event.rowIndex, data: rowData, type: 'checkbox' });
+            this.onRowUnselect.emit({ originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'checkbox' });
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
@@ -2851,7 +2851,7 @@ export class TableRadioButton  {
 
     @Input() value: any;
 
-    @Input("pRadioButtonRowIndex") index: number;
+    @Input() index: number;
 
     @ViewChild('box') boxViewChild: ElementRef;
 
@@ -2915,7 +2915,7 @@ export class TableCheckbox  {
 
     @Input() value: any;
 
-    @Input("pCheckboxRowIndex") index: number;
+    @Input() index: number;
 
     @ViewChild('box') boxViewChild: ElementRef;
 

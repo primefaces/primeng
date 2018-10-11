@@ -1100,6 +1100,24 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p>Both p-tableCheckbox and p-tableRadioButton components can be disabled using their property with the same name to prevent selection of a particular row. In addition, index of the row
+                needs to be provided to the checkbox/radiobutton components so that they can be available at the onRowSelect or onRowUnselect events of the Table.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns"&gt;
+    &lt;tr [pSelectableRow]="rowData"&gt;
+        &lt;td&gt;
+            &lt;p-tableCheckbox [value]="rowData" [disabled]="rowData.year > 2010" [index]="rowIndex"&gt;&lt;/p-tableCheckbox&gt;
+        &lt;/td&gt;
+        &lt;td *ngFor="let col of columns"&gt;
+            &#123;&#123;rowData[col.field]&#125;&#125;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/ng-template&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/table/selection']">live example.</a></p>
 
             <h3>ContextMenu</h3>
