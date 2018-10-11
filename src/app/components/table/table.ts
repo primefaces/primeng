@@ -3000,13 +3000,13 @@ export class TableHeaderCheckbox  {
     }
 
     onClick(event: Event, checked) {
-        if(!this.disabled) {
-            if(this.dt.value && this.dt.value.length > 0) {
+        if (!this.disabled) {
+            if (this.dt.value && this.dt.value.length > 0) {
                 this.dt.toggleRowsWithCheckbox(event, !checked);
             }
-            
-            this.domHandler.clearSelection();
         }
+
+        this.domHandler.clearSelection();
     }
 
     onFocus() {
