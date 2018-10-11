@@ -100,8 +100,17 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
     @Input() scrollHeight: string = '200px';
-    
-    @Input() defaultLabel: string = 'Choose';
+
+    _defaultLabel: string = 'Choose';
+
+    @Input() set defaultLabel(val: string) {
+        this._defaultLabel = val;
+        this.updateLabel();
+    }
+
+    get defaultLabel(): string {
+        return this._defaultLabel;
+    }
 
     @Input() style: any;
 

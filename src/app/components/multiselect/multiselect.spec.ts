@@ -262,4 +262,14 @@ describe('MultiSelect', () => {
 
       expect(multiselect.visibleOptions.length).toEqual(2);
     });
+
+    it('should detect changes of defaultLabel', () => {
+        multiselect.defaultLabel = 'Initial Value';
+        fixture.detectChanges();
+        expect(multiselect.valuesAsString).toBe(multiselect.defaultLabel);
+
+        multiselect.defaultLabel = 'Second Value';
+        fixture.detectChanges();
+        expect(multiselect.valuesAsString).toBe(multiselect.defaultLabel);
+      });
 });
