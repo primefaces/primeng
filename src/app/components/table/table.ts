@@ -1492,11 +1492,11 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
                 let nextColumn = column.nextElementSibling;
-                while (!nextColumn.offsetParent) {
-                    nextColumn = nextColumn.nextElementSibling;
-                }
                 if(this.el.nativeElement.attributes['dir'] && this.el.nativeElement.attributes['dir'].value === 'rtl'){
                     nextColumn = column.previousElementSibling;
+                }
+                while (!nextColumn.offsetParent) {
+                    nextColumn = nextColumn.nextElementSibling;
                 }
                 if (nextColumn) {
                     let nextColumnWidth = nextColumn.offsetWidth - delta;
