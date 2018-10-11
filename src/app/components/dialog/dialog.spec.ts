@@ -266,7 +266,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         const restoreAppendSpy = spyOn(dialog,'restoreAppend').and.callThrough();
-        const onOverlayHideSpy = spyOn(dialog,'onOverlayHide').and.callThrough();
+        const onOverlayHideSpy = spyOn(dialog,'onContainerDestroy').and.callThrough();
         const disableModalitySpy = spyOn(dialog,'disableModality').and.callThrough();
         const buttonEl = fixture.debugElement.query(By.css('button'));
         buttonEl.nativeElement.click();
