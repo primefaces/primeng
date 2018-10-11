@@ -83,7 +83,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
 
     @Input() timezone: boolean | string = false;
     
-    @Input() timeFormat:string | null = null;
+    @Input() timeFormat: string | null = null;
 
     @Input() eventRender: Function;
     
@@ -291,8 +291,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             }
         };
                 
-        if(this.options) {
-            for(let prop in this.options) {
+        if (this.options) {
+            for (let prop in this.options) {
                 this.config[prop] = this.options[prop];
             }
         }
@@ -305,11 +305,26 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     }
     
     ngOnChanges(changes: SimpleChanges) {
-        if(this.calendar) {
-            for(let propName in changes) {
-                if(propName !== 'events') {
-                    this.calendar.option(propName, changes[propName].currentValue);
-                }
+        this.copyToCalendarAndConfig(changes);
+        if (changes.options) {
+            this.copyToCalendarAndConfig(changes.options.currentValue);
+        }
+    }
+
+    private copyToCalendarAndConfig(settings: SimpleChanges | any) {
+        for (let propName in settings) {
+            if (propName === 'events' || propName == 'options') {
+                continue;
+            }
+            let val = settings[propName];
+            if (val && val.currentValue) {
+                val = val.currentValue;
+            }
+            if (this.calendar) {
+                this.calendar.option(propName, val);
+            }
+            if (this.config) {
+                this.config[propName] = val;
             }
         }
     }
@@ -326,10 +341,10 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     ngDoCheck() {
         let changes = this.differ.diff(this.events);
         
-        if(this.calendar && changes) {
+        if (this.calendar && changes) {
             this.calendar.removeEventSources();
             
-            if(this.events) {
+            if (this.events) {
                 this.calendar.addEventSource(this.events);
             }
         }
