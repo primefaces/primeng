@@ -249,14 +249,14 @@ export class SplitButtonDemo implements OnInit &#123;
 
     ngOnInit() &#123;
         this.items = [
-            &#123;label: 'Update', icon: 'fa fa-refresh', command: () => &#123;
+            &#123;label: 'Update', icon: 'pi pi-refresh', command: () => &#123;
                 this.update();
             &#125;&#125;,
-            &#123;label: 'Delete', icon: 'fa fa-close', command: () => &#123;
+            &#123;label: 'Delete', icon: 'pi pi-times', command: () => &#123;
                 this.delete();
             &#125;&#125;,
-            &#123;label: 'Angular.io', icon: 'fa fa-link', url: 'http://angular.io'&#125;,
-            &#123;label: 'Theming', icon: 'fa fa-paint-brush', routerLink: ['/theming']&#125;
+            &#123;label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io'&#125;,
+            &#123;label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']&#125;
         ];
     &#125;
 

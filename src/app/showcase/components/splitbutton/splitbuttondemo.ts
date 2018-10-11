@@ -26,7 +26,7 @@ export class SplitButtonDemo implements OnInit {
                 this.delete();
             }},
             {label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io'},
-            {label: 'Theming', icon: 'pi pi-images', routerLink: ['/theming']}
+            {label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']}
         ];
     }
 
