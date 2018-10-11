@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
+import { NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers,NgZone } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -124,6 +124,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
 
+    @Output() onScroll: EventEmitter<any> = new EventEmitter();
+
+    @Output() onScrollEnd: EventEmitter<any> = new EventEmitter();
+
     @Input() field: string;
 
     @Input() scrollHeight: string = '200px';
@@ -154,6 +158,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     @ViewChild('ddBtn') dropdownButton: ElementRef;
 
+    @ViewChild('panel') suggestionsEL: ElementRef;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     overlay: HTMLDivElement;
@@ -176,6 +182,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     documentClickListener: any;
 
+    scrollListener: any;
+
     suggestionsUpdated: boolean;
 
     highlightOption: any;
@@ -197,8 +205,12 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     inputFieldValue: string = null;
 
     loading: boolean;
+    
+    scrollDownDetector;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
+    duplicatedScrollEndChecker;
+
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers, public zone: NgZone) {
         this.differ = differs.find([]).create(null);
     }
 
@@ -401,6 +413,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
                 }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
+                this.bindScrollListener();
             break;
 
             case 'void':
@@ -664,6 +677,44 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
                 this.cd.markForCheck();
             });
         }
+    }
+
+    bindScrollListener() {
+        this.scrollDownDetector = this.duplicatedScrollEndChecker = 0;
+        this.zone.runOutsideAngular(() => {
+            this.scrollListener = this._onScroll.bind(this);
+            this.suggestionsEL.nativeElement.addEventListener('scroll', this.scrollListener);
+        });
+    }
+
+    private _onScroll() {
+        this.onScroll.emit();
+        if (this.scrollEnd()) {
+            this.emitScrollEndIfNotDuplicated();
+        }
+        this.scrollDownDetector = this.suggestionsEL.nativeElement.scrollTop;
+    }
+
+    private emitScrollEndIfNotDuplicated() {
+        const isScrollDown = this.scrollDownDetector < this.suggestionsEL.nativeElement.scrollTop;
+        if (isScrollDown) {
+            if (!this.isDuplicatedScrollEnd(this.duplicatedScrollEndChecker)) {
+                this.duplicatedScrollEndChecker = this.suggestionsEL.nativeElement.scrollTop;
+                this.zone.run(() => this.onScrollEnd.emit());
+            }
+        }
+        else {
+            this.duplicatedScrollEndChecker = 0;
+        }
+    }
+
+    private isDuplicatedScrollEnd(lastEndEmitScrollTop: number) {
+        return this.suggestionsEL.nativeElement.scrollTop < lastEndEmitScrollTop + 5;
+    }
+
+    private scrollEnd() {
+        const suggestionsNativeEl = this.suggestionsEL.nativeElement;
+        return (suggestionsNativeEl.scrollHeight - suggestionsNativeEl.offsetHeight) <= suggestionsNativeEl.scrollTop;
     }
 
     isDropdownClick(event) {
