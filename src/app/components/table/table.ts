@@ -2870,6 +2870,7 @@ export class TableRadioButton  {
     }
 
     onClick(event: Event) {
+        event.stopPropagation();
         if(!this.disabled) {
             this.dt.toggleRowWithRadio({
                 originalEvent: event,
@@ -2934,6 +2935,7 @@ export class TableCheckbox  {
     }
 
     onClick(event: Event) {
+        event.stopPropagation();
         if(!this.disabled) {
             this.dt.toggleRowWithCheckbox({
                 originalEvent: event,
