@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,Renderer2,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,Renderer2,AfterViewInit,OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -75,7 +75,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     public documentClickListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
                 
     onImageClick(event,image,i,content) {
         this.index = i;
@@ -84,7 +84,6 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         content.style.height = 32 + 'px';
         this.show();
         this.displayImage(image);
-        
         this.preventDocumentClickListener = true;
         event.preventDefault();
     }
@@ -104,6 +103,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
                 this.hide(event);
             }
             this.preventDocumentClickListener = false;
+            this.cd.markForCheck();
         });
     }
     
@@ -115,6 +115,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     displayImage(image) {
         setTimeout(() => {
+            this.cd.markForCheck();
             this.currentImage = image;
             this.captionText = image.title;
             this.center();
@@ -184,6 +185,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.panel.style.top = parseInt(this.panel.style.top) + (this.domHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
 
         setTimeout(() => {
+            this.cd.markForCheck();
             this.domHandler.fadeIn(image, 500);
             image.style.display = 'block';
             //this.captionText = this.currentImage.title;
