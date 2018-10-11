@@ -22,7 +22,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="headerFacet">
         <ng-content select="p-header"></ng-content>
       </div>
-      <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
+      <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple && showToggleAll) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
         <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple && showToggleAll">
           <div class="ui-helper-hidden-accessible">
             <input #cb type="checkbox" readonly="readonly" [checked]="allChecked">
