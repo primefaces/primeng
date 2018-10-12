@@ -1112,26 +1112,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.focus = false;
         this.onBlur.emit(event);
         if (!this.keepInvalid) {
-            if (this.value) {
-                if (this.minDate || this.maxDate) {
-                    if (this.minDate > this.value) {
-                        this.value = null;
-                    }
-                    if (this.maxDate < this.value) {
-                        this.value = null;
-                    }
-                }
-                if (this.disabledDates) {
-                    if (this.isDateDisabled(this.value.getDate(),this.value.getMonth(),this.value.getFullYear())) {
-                        this.value = null;
-                    }
-                }
-                if (this.disabledDays) {
-                    if (this.isDayDisabled(this.value.getDay(),this.value.getMonth(),this.value.getFullYear())) {
-                        this.value = null;
-                    }
-                }
-            }
             this.updateInputfield();
         }
         this.onModelTouched();
@@ -1385,8 +1365,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let val = event.target.value;
         try {
             let value = this.parseValueFromString(val);
-            this.updateModel(value);
-            this.updateUI();
+            if (this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
+                this.updateModel(value);
+                this.updateUI();
+            }
         }
         catch(err) {
             //invalid date
