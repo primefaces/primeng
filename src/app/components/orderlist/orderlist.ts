@@ -8,7 +8,8 @@ import {ObjectUtils} from '../utils/objectutils';
 @Component({
     selector: 'p-orderList',
     template: `
-        <div [ngClass]="{'ui-orderlist ui-widget':true,'ui-orderlist-responsive':responsive}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'ui-orderlist ui-widget': true, 'ui-orderlist-controls-left': controlsPosition === 'left',
+                    'ui-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-orderlist-controls">
                 <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event)"></button>
                 <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
@@ -62,6 +63,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() dragdrop: boolean;
     
     @Input() dragdropScope: string;
+
+    @Input() controlsPosition: string = 'left';
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
