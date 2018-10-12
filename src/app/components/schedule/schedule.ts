@@ -83,7 +83,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
 
     @Input() timezone: boolean | string = false;
     
-    @Input() timeFormat:string | null = null;
+    @Input() timeFormat: string | null = null;
 
     @Input() eventRender: Function;
     
@@ -291,8 +291,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             }
         };
                 
-        if(this.options) {
-            for(let prop in this.options) {
+        if (this.options) {
+            for (let prop in this.options) {
                 this.config[prop] = this.options[prop];
             }
         }
@@ -305,9 +305,9 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     }
     
     ngOnChanges(changes: SimpleChanges) {
-        if(this.calendar) {
-            for(let propName in changes) {
-                if(propName !== 'events') {
+        if (this.calendar) {
+            for (let propName in changes) {
+                if (propName !== 'events') {
                     this.calendar.option(propName, changes[propName].currentValue);
                 }
             }
@@ -326,10 +326,10 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     ngDoCheck() {
         let changes = this.differ.diff(this.events);
         
-        if(this.calendar && changes) {
+        if (this.calendar && changes) {
             this.calendar.removeEventSources();
             
-            if(this.events) {
+            if (this.events) {
                 this.calendar.addEventSource(this.events);
             }
         }
