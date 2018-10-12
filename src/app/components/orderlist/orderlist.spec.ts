@@ -86,14 +86,6 @@ describe('OrderList', () => {
       expect(headerEl.nativeElement.textContent).toEqual("Primeng ROCKS!");
     });
 
-    it('should responsive', () => {
-      orderlist.responsive = true;
-      fixture.detectChanges();
-
-      const orderListEl = fixture.debugElement.query(By.css('div'));
-      expect(orderListEl.nativeElement.className).toContain('ui-orderlist-responsive');
-    });
-
     it('should show filter input', () => {
       orderlist.filterBy = "brand";
       orderlist.filterPlaceholder = "Primeng ROCKS!";
@@ -141,8 +133,8 @@ describe('OrderList', () => {
       expect(onItemClickSpy).toHaveBeenCalled();
       expect(onItemTouchEndSpy).toHaveBeenCalled();
       expect(orderlist.itemTouched).toEqual(false);
-      expect(orderlist.selectedItems.length).toEqual(1);
-      expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(orderlist.selection.length).toEqual(1);
+      expect(orderlist.selection[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
     });
 
@@ -156,11 +148,11 @@ describe('OrderList', () => {
       fixture.detectChanges();
       
       const ctrlClickEvent = {'ctrlKey':true};
-      orderlist.onItemClick(ctrlClickEvent,orderlist.selectedItems[0],3);
+      orderlist.onItemClick(ctrlClickEvent,orderlist.selection[0],3);
       fixture.detectChanges();
 
       expect(onItemClickSpy).toHaveBeenCalledTimes(2);
-      expect(orderlist.selectedItems.length).toEqual(0);
+      expect(orderlist.selection.length).toEqual(0);
       expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
     });
 
@@ -175,8 +167,8 @@ describe('OrderList', () => {
       fixture.detectChanges();
 
       expect(onItemClickSpy).toHaveBeenCalled();
-      expect(orderlist.selectedItems.length).toEqual(1);
-      expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(orderlist.selection.length).toEqual(1);
+      expect(orderlist.selection[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
     });
 
@@ -191,11 +183,11 @@ describe('OrderList', () => {
       fixture.detectChanges();
       
       const ctrlClickEvent = {'ctrlKey':true};
-      orderlist.onItemClick(ctrlClickEvent,orderlist.selectedItems[0],3);
+      orderlist.onItemClick(ctrlClickEvent,orderlist.selection[0],3);
       fixture.detectChanges();
 
       expect(onItemClickSpy).toHaveBeenCalledTimes(2);
-      expect(orderlist.selectedItems.length).toEqual(0);
+      expect(orderlist.selection.length).toEqual(0);
       expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
     });
 
@@ -212,8 +204,8 @@ describe('OrderList', () => {
       fixture.detectChanges();
 
       expect(moveUpSpy).toHaveBeenCalled();
-      expect(orderlist.selectedItems.length).toEqual(1);
-      expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(orderlist.selection.length).toEqual(1);
+      expect(orderlist.selection[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[2].context.$implicit.brand).toEqual("BMW");
@@ -232,8 +224,8 @@ describe('OrderList', () => {
       fixture.detectChanges();
 
       expect(moveUpSpy).toHaveBeenCalled();
-      expect(orderlist.selectedItems.length).toEqual(1);
-      expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(orderlist.selection.length).toEqual(1);
+      expect(orderlist.selection[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[4].context.$implicit.brand).toEqual("BMW");
@@ -252,8 +244,8 @@ describe('OrderList', () => {
       fixture.detectChanges();
 
       expect(moveTopSpy).toHaveBeenCalled();
-      expect(orderlist.selectedItems.length).toEqual(1);
-      expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(orderlist.selection.length).toEqual(1);
+      expect(orderlist.selection[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[0].context.$implicit.brand).toEqual("BMW");
@@ -272,8 +264,8 @@ describe('OrderList', () => {
       fixture.detectChanges();
 
       expect(moveBottomSpy).toHaveBeenCalled();
-      expect(orderlist.selectedItems.length).toEqual(1);
-      expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(orderlist.selection.length).toEqual(1);
+      expect(orderlist.selection[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[9].context.$implicit.brand).toEqual("BMW");
