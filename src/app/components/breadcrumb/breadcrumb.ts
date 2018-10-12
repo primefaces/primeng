@@ -50,16 +50,16 @@ export class Breadcrumb {
     @Input() home: MenuItem;
         
     itemClick(event, item: MenuItem) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
         
-        if(item.command) {            
+        if (item.command) {            
             item.command({
                 originalEvent: event,
                 item: item
@@ -68,7 +68,7 @@ export class Breadcrumb {
     }
     
     onHomeClick(event) {
-        if(this.home) {
+        if (this.home) {
             this.itemClick(event, this.home);
         }
     }
