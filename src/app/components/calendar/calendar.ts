@@ -1112,12 +1112,24 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.focus = false;
         this.onBlur.emit(event);
         if (!this.keepInvalid) {
-            if (this.minDate || this.maxDate) {
-                if (this.minDate > this.value) {
-                    this.value = null;
+            if (this.value) {
+                if (this.minDate || this.maxDate) {
+                    if (this.minDate > this.value) {
+                        this.value = null;
+                    }
+                    if (this.maxDate < this.value) {
+                        this.value = null;
+                    }
                 }
-                if (this.maxDate < this.value) {
-                    this.value = null;
+                if (this.disabledDates) {
+                    if (this.isDateDisabled(this.value.getDate(),this.value.getMonth(),this.value.getFullYear())) {
+                        this.value = null;
+                    }
+                }
+                if (this.disabledDays) {
+                    if (this.isDayDisabled(this.value.getDay(),this.value.getMonth(),this.value.getFullYear())) {
+                        this.value = null;
+                    }
                 }
             }
             this.updateInputfield();
