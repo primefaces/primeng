@@ -110,8 +110,6 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     @Input() frozenValue: any[];
 
-    @Input() frozenRowsPos: string = "top";
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -1803,7 +1801,7 @@ export class TableBody {
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenHeaderTemplate||dt.headerTemplate : dt.headerTemplate; context {$implicit: columns}"></ng-container>
                     </thead>
-                    <tbody *ngIf="dt.frozenRowsPos === 'top' || dt.frozenRowsPos === 'both'" class="ui-table-tbody">
+                    <tbody class="ui-table-tbody">
                         <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
                             <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
                         </ng-template>
@@ -1818,16 +1816,11 @@ export class TableBody {
             </table>
             <div #virtualScroller class="ui-table-virtual-scroller"></div>
         </div>
-        <div #scrollFooter class="ui-table-scrollable-footer ui-widget-header">
+        <div #scrollFooter *ngIf="dt.footerTemplate" class="ui-table-scrollable-footer ui-widget-header">
             <div #scrollFooterBox class="ui-table-scrollable-footer-box">
                 <table class="ui-table-scrollable-footer-table" [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <tbody *ngIf="dt.frozenRowsPos === 'bottom' || dt.frozenRowsPos === 'both'" class="ui-table-tbody">
-                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
-                            <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                        </ng-template>
-                    </tbody>
-                    <tfoot *ngIf="dt.frozenFooterTemplate||dt.footerTemplate" class="ui-table-tfoot">
+                    <tfoot class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenFooterTemplate||dt.footerTemplate : dt.footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                 </table>
