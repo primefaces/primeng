@@ -197,7 +197,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.tabListSubscription) {
+        if (this.tabListSubscription) {
             this.tabListSubscription.unsubscribe();
         }
     }
