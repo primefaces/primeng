@@ -1,9 +1,22 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,HostListener,AfterContentInit,
-        ContentChildren,ContentChild,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TooltipModule} from '../tooltip/tooltip';
-import {SharedModule,PrimeTemplate} from '../common/shared';
-import {BlockableUI} from '../common/blockableui';
+import { CommonModule } from '@angular/common';
+import {
+    AfterContentInit,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EmbeddedViewRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewContainerRef
+} from '@angular/core';
+import { BlockableUI } from '../common/blockableui';
+import { PrimeTemplate, SharedModule } from '../common/shared';
+import { TooltipModule } from '../tooltip/tooltip';
 
 let idx: number = 0;
 
@@ -203,12 +216,27 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     initTabs(): void {
         this.tabs = this.tabPanels.toArray();
-        let selectedTab: TabPanel = this.findSelectedTab();
-        if(!selectedTab && this.tabs.length) {
-            if(this.activeIndex != null && this.tabs.length > this.activeIndex)
-                this.tabs[this.activeIndex].selected = true;
-            else
-                this.tabs[0].selected = true;
+        if (!this.tabs.length) {
+            this.activeIndex = null;
+            this.activeIndexChange.emit(this.activeIndex);
+            return;
+        }
+        const selectedIndexes = this.tabs
+            .map((tab, index) => tab.selected ? index : null)
+            .filter(index => index !== null);
+
+        if(selectedIndexes.length !== 1) {
+            // we have multiple selected tabs or none, consult activeIndex
+            if(this.activeIndex == null || this.tabs.length <= this.activeIndex)
+                this.activeIndex = 0;
+
+            selectedIndexes.forEach(index => {
+                // wrap in timeout to avoid hitting the ExpressionHasChanged... error
+                if(index !== this.activeIndex)
+                    setTimeout(() => this.tabs[index].selected = false);
+                else
+                    setTimeout(() => this.tabs[index].selected = true);
+            });
         }
     }
     
@@ -221,16 +249,11 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
         
         if(!tab.selected) {
-            let selectedTab: TabPanel = this.findSelectedTab();
-            if(selectedTab) {
-                selectedTab.selected = false
-            }
-            
-            tab.selected = true;
-            let selectedTabIndex = this.findTabIndex(tab);
+            this.preventActiveIndexPropagation = false;
+            this.activeIndex = this.findTabIndex(tab);
             this.preventActiveIndexPropagation = true;
-            this.activeIndexChange.emit(selectedTabIndex);
-            this.onChange.emit({originalEvent: event, index: selectedTabIndex});
+            this.activeIndexChange.emit(this.activeIndex);
+            this.onChange.emit({originalEvent: event, index: this.activeIndex});
         }
         
         if(event) {
@@ -313,7 +336,9 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
 
         if(this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
-            this.findSelectedTab().selected = false;
+            const selectedTab = this.findSelectedTab();
+            if(selectedTab)
+                selectedTab.selected = false;
             this.tabs[this._activeIndex].selected = true;
         }
     }
