@@ -19,10 +19,10 @@ export class TableColToggleDemo implements OnInit {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+            { field: "vin", header: "Vin", index: 0 },
+            { field: "year", header: "Year", index: 1 },
+            { field: "brand", header: "Brand", index: 2 },
+            { field: "color", header: "Color", index: 3 }
         ];
 
         this.selectedColumns = this.cols;
