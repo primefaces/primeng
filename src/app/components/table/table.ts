@@ -48,7 +48,12 @@ export class TableService {
         this.totalRecordsSource.next(value);
     }
 
+
     onColumnsChange(columns: any[]) {
+        columns.sort((a, b) => {
+            return (a.index ? a.index : 0) <= (b.index ? b.index : 0) ? -1 : 1;
+        });
+
         this.columnsSource.next(columns);
     }
 }
