@@ -90,9 +90,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     @Input() dayRender: Function;
     
     @Input() navLinks: boolean;
-    
-    @Input() options: any;
-    
+        
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
@@ -132,6 +130,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     calendar: any;
     
     config: any;
+
+    _options: any;
 
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -307,9 +307,25 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     ngOnChanges(changes: SimpleChanges) {
         if (this.calendar) {
             for (let propName in changes) {
-                if (propName !== 'events') {
+                if (propName !== 'options' && propName !== 'events') {
                     this.calendar.option(propName, changes[propName].currentValue);
-                }
+                }                
+            }
+        }
+    }
+
+    @Input() get options(): any {
+        return this._options;
+    }
+
+    set options(value: any) {
+        this._options = value;
+
+        if (this._options && this.calendar) {
+            for (let prop in this._options) {
+                let optionValue = this._options[prop];
+                this.config[prop] = optionValue;
+                this.calendar.option(prop, optionValue);
             }
         }
     }
