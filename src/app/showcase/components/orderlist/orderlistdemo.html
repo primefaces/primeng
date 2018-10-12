@@ -61,6 +61,36 @@ export class MyComponent &#123;
             <h3>Multiple Selection</h3>
             <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
             devices metaKeySelection is turned off automatically.</p>
+
+            <h3>Selection Binding</h3>
+            <p>The optional <b>selection</b> property is provided in case you'd like to a two-way binding to the selections.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-orderList&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MyComponent &#123;
+
+    cars: Car[];
+
+    selectedCars: Car[];
+    
+    ngOnInit() &#123;
+        this.cars = //initialize cars
+    &#125;
+&#125;
+</code>
+</pre>
             
             <h3>Filtering</h3>
             <p>Items can be filtered using an input field by enabling the filterBy property that specifies the fields to use in filtering.</p>
@@ -110,6 +140,12 @@ export class MyComponent &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of objects to reorder.</td>
+                        </tr>
+                        <tr>
+                            <td>selection</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to bind the selections.</td>
                         </tr>
                         <tr>
                             <td>header</td>
