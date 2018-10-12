@@ -67,6 +67,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
     
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFilterEvent: EventEmitter<any> = new EventEmitter();
@@ -76,8 +78,17 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
-        
+     
     selectedItems: any[];
+
+    get selection(): any[] {
+        return this.selectedItems;
+    }
+
+    @Input() set selection(val: any[]) {
+        this.selectedItems = val;
+        this.selectionChange.emit(this.selection);
+    }
         
     movedUp: boolean;
     
@@ -149,7 +160,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
                 
     onItemClick(event, item, index) {
-        let selectedIndex = this.objectUtils.findIndexInList(item, this.selectedItems);
+        let selectedIndex = this.objectUtils.findIndexInList(item, this.selection);
         let selected = (selectedIndex != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
@@ -157,30 +168,30 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             let metaKey = (event.metaKey||event.ctrlKey);
             
             if(selected && metaKey) {
-                this.selectedItems.splice(selectedIndex, 1);
+                this.selection.splice(selectedIndex, 1);
             }
             else {
-                this.selectedItems = (metaKey) ? this.selectedItems||[] : [];            
+                this.selection = (metaKey) ? this.selection||[] : [];            
                 this.selectItem(item, index);
             }
         }
         else {
             if(selected) {
-                this.selectedItems.splice(selectedIndex, 1);
+                this.selection.splice(selectedIndex, 1);
             }
             else {
-                this.selectedItems = this.selectedItems||[];
+                this.selection = this.selection||[];
                 this.selectItem(item, index);
             }
         }
         
-        this.onSelectionChange.emit({originalEvent:event, value:this.selectedItems});
+        this.onSelectionChange.emit({originalEvent: event, value: this.selectedItems});
         this.itemTouched = false;
     }
     
     selectItem(item, index) {
-        this.selectedItems = this.selectedItems||[];
-        this.objectUtils.insertIntoOrderedArray(item, index, this.selectedItems, this.value);        
+        this.selection = this.selection||[];
+        this.objectUtils.insertIntoOrderedArray(item, index, this.selection, this.value);
     }
         
     onFilterKeyup(event) {
@@ -216,13 +227,13 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     isSelected(item: any) {
-        return this.objectUtils.findIndexInList(item, this.selectedItems) != -1;
+        return this.objectUtils.findIndexInList(item, this.selection) != -1;
     }
         
     moveUp(event,listElement) {
-        if(this.selectedItems) {
-            for(let i = 0; i < this.selectedItems.length; i++) {
-                let selectedItem = this.selectedItems[i];
+        if(this.selection) {
+            for(let i = 0; i < this.selection.length; i++) {
+                let selectedItem = this.selection[i];
                 let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != 0) {
@@ -242,9 +253,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     moveTop(event,listElement) {
-        if(this.selectedItems) {
-            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
-                let selectedItem = this.selectedItems[i];
+        if(this.selection) {
+            for(let i = this.selection.length - 1; i >= 0; i--) {
+                let selectedItem = this.selection[i];
                 let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != 0) {
@@ -263,9 +274,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     moveDown(event,listElement) {
-        if(this.selectedItems) {
-            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
-                let selectedItem = this.selectedItems[i];
+        if(this.selection) {
+            for(let i = this.selection.length - 1; i >= 0; i--) {
+                let selectedItem = this.selection[i];
                 let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != (this.value.length - 1)) {
@@ -285,9 +296,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     moveBottom(event,listElement) {
-        if(this.selectedItems) {
-            for(let i = 0; i < this.selectedItems.length; i++) {
-                let selectedItem = this.selectedItems[i];
+        if(this.selection) {
+            for(let i = 0; i < this.selection.length; i++) {
+                let selectedItem = this.selection[i];
                 let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != (this.value.length - 1)) {

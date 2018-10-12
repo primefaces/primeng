@@ -6,7 +6,7 @@ import { Button } from '../button/button';
 import { Component } from '@angular/core';
 
 @Component({
-  template: `<p-orderList [value]="cars">
+  template: `<p-orderList [value]="cars" [(selection)]="selectedCars">
   <ng-template let-car pTemplate="item">
       <div class="ui-helper-clearfix">
           <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
@@ -16,8 +16,8 @@ import { Component } from '@angular/core';
 </p-orderList>`
 })
 class TestOrderListComponent {
-  cars: any[];
-    
+    cars: any[];
+    selectedCars: any[];
 
     ngOnInit() {
       this.cars = [
@@ -143,6 +143,8 @@ describe('OrderList', () => {
       expect(orderlist.itemTouched).toEqual(false);
       expect(orderlist.selectedItems.length).toEqual(1);
       expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(fixture.componentInstance.selectedCars.length).toEqual(1);
+      expect(fixture.componentInstance.selectedCars[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
     });
 
@@ -161,6 +163,7 @@ describe('OrderList', () => {
 
       expect(onItemClickSpy).toHaveBeenCalledTimes(2);
       expect(orderlist.selectedItems.length).toEqual(0);
+      expect(fixture.componentInstance.selectedCars.length).toEqual(0);
       expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
     });
 
@@ -177,6 +180,8 @@ describe('OrderList', () => {
       expect(onItemClickSpy).toHaveBeenCalled();
       expect(orderlist.selectedItems.length).toEqual(1);
       expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(fixture.componentInstance.selectedCars.length).toEqual(1);
+      expect(fixture.componentInstance.selectedCars[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
     });
 
@@ -196,6 +201,7 @@ describe('OrderList', () => {
 
       expect(onItemClickSpy).toHaveBeenCalledTimes(2);
       expect(orderlist.selectedItems.length).toEqual(0);
+      expect(fixture.componentInstance.selectedCars.length).toEqual(0);
       expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
     });
 
@@ -214,6 +220,8 @@ describe('OrderList', () => {
       expect(moveUpSpy).toHaveBeenCalled();
       expect(orderlist.selectedItems.length).toEqual(1);
       expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(fixture.componentInstance.selectedCars.length).toEqual(1);
+      expect(fixture.componentInstance.selectedCars[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[2].context.$implicit.brand).toEqual("BMW");
@@ -234,6 +242,8 @@ describe('OrderList', () => {
       expect(moveUpSpy).toHaveBeenCalled();
       expect(orderlist.selectedItems.length).toEqual(1);
       expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(fixture.componentInstance.selectedCars.length).toEqual(1);
+      expect(fixture.componentInstance.selectedCars[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[4].context.$implicit.brand).toEqual("BMW");
@@ -254,6 +264,8 @@ describe('OrderList', () => {
       expect(moveTopSpy).toHaveBeenCalled();
       expect(orderlist.selectedItems.length).toEqual(1);
       expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(fixture.componentInstance.selectedCars.length).toEqual(1);
+      expect(fixture.componentInstance.selectedCars[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Renault");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[0].context.$implicit.brand).toEqual("BMW");
@@ -274,6 +286,8 @@ describe('OrderList', () => {
       expect(moveBottomSpy).toHaveBeenCalled();
       expect(orderlist.selectedItems.length).toEqual(1);
       expect(orderlist.selectedItems[0].brand).toEqual("BMW");
+      expect(fixture.componentInstance.selectedCars.length).toEqual(1);
+      expect(fixture.componentInstance.selectedCars[0].brand).toEqual("BMW");
       expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].context.$implicit.brand).toEqual("Mercedes");
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[9].context.$implicit.brand).toEqual("BMW");
