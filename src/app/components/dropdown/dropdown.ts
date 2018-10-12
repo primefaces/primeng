@@ -177,6 +177,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -488,9 +492,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                         this.domHandler.scrollInView(this.itemsWrapper, selectedListItem);
                     }
                 }
+
+                this.onShow.emit(event);
             break;
 
             case 'void':
+                this.onHide.emit(event);
                 this.onOverlayHide();
             break;
         }
