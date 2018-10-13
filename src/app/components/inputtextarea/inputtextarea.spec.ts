@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, DebugElement } from '@angular/core';
 
 @Component({
-  template: `<textarea (onResize)="onResize($event)" [autoResize]="autoResize" pInputTextarea></textarea>
+  template: `<textarea rows="1" cols="1" (onResize)="onResize($event)" [autoResize]="autoResize" pInputTextarea></textarea>
   `
 })
 class TestInputTextArea {
@@ -54,5 +54,35 @@ describe('InputTextarea', () => {
       fixture.detectChanges();
 
       expect(onResizeSpy).toHaveBeenCalledTimes(4);
+    });
+
+    it('should increment height', () => {
+      component.autoResize = true;
+      fixture.detectChanges();
+
+      const inputTextEl = fixture.debugElement.query(By.css('textarea'));
+      let cachedHeight = inputTextEl.nativeElement.style.height;
+      inputTextEl.nativeElement.value = "primeng";
+      inputTextEl.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      expect(inputTextEl.nativeElement.style.height).toBeGreaterThan(cachedHeight);
+      expect(inputTextEl.nativeElement.style.overflow).toEqual("hidden");
+    });
+
+    it('should use resize with maxHeight', () => {
+      component.autoResize = true;
+      fixture.detectChanges();
+
+      const inputTextEl = fixture.debugElement.query(By.css('textarea'));
+      inputTextEl.nativeElement.style.maxHeight = 70+'px';
+      fixture.detectChanges();
+
+      inputTextEl.nativeElement.value = "primeng rocks!";
+      inputTextEl.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      expect(inputTextEl.nativeElement.style.height).toEqual(inputTextEl.nativeElement.style.maxHeight);
+      expect(inputTextEl.nativeElement.style.overflowY).toEqual("scroll");
     });
 });
