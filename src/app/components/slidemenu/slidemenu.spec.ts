@@ -14,7 +14,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 class SlideMenuTestComponent {
 }
 
-describe('SlideMenu', () => {
+fdescribe('SlideMenu', () => {
   
     let slidemenu: SlideMenu;
     let slidemenuSub: SlideMenuSub;
@@ -201,6 +201,36 @@ describe('SlideMenu', () => {
     });
 
     it('should open popup', fakeAsync(() => {
+      fixture.detectChanges();
+
+      const toggleButton = fixture.debugElement.children[1].nativeElement;
+      slidemenu.popup = true;
+      slidemenu.target = toggleButton;
+      slidemenu.visible = true;
+      fixture.detectChanges();
+
+      const slideMenuEl = fixture.debugElement.query(By.css('.ui-slidemenu'));
+      expect(slidemenu.visible).toEqual(true);
+      expect(slideMenuEl).toBeTruthy();
+    }));
+
+    it('should use appendTo', fakeAsync(() => {
+      slidemenu.appendTo = "body";
+      fixture.detectChanges();
+
+      const toggleButton = fixture.debugElement.children[1].nativeElement;
+      slidemenu.popup = true;
+      slidemenu.target = toggleButton;
+      slidemenu.visible = true;
+      fixture.detectChanges();
+
+      const slideMenuEl = fixture.debugElement.query(By.css('.ui-slidemenu'));
+      expect(slidemenu.visible).toEqual(true);
+      expect(slideMenuEl).toBeTruthy();
+    }));
+
+    it('should use appendTo with elemntRef', fakeAsync(() => {
+      slidemenu.appendTo = document.body;
       fixture.detectChanges();
 
       const toggleButton = fixture.debugElement.children[1].nativeElement;
