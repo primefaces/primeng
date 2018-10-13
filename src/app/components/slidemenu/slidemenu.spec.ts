@@ -14,7 +14,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 class SlideMenuTestComponent {
 }
 
-fdescribe('SlideMenu', () => {
+describe('SlideMenu', () => {
   
     let slidemenu: SlideMenu;
     let slidemenuSub: SlideMenuSub;
