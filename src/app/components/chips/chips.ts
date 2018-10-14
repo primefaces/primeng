@@ -16,7 +16,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-chips ui-widget'" [ngStyle]="style" [class]="styleClass" (click)="onClick($event)">
             <ul [ngClass]="{'ui-inputtext ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled':disabled}">
-                <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
+                <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all" (click)="onItemClick($event, item)">
                     <span *ngIf="!disabled" class="ui-chips-token-icon pi pi-fw pi-times" (click)="removeItem($event,i)"></span>
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
@@ -37,10 +37,6 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() styleClass: string;
     
     @Input() disabled: boolean;
-
-    @Output() onAdd: EventEmitter<any> = new EventEmitter();
-    
-    @Output() onRemove: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
@@ -62,9 +58,15 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() addOnBlur: boolean;
 
+    @Output() onAdd: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRemove: EventEmitter<any> = new EventEmitter();
+
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onChipClick: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('inputtext') inputViewChild: ElementRef;
     
@@ -100,6 +102,13 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     onClick(event) {
         this.inputViewChild.nativeElement.focus();
+    }
+
+    onItemClick(event: Event, item: any) {
+        this.onChipClick.emit({
+            originalEvent: event,
+            value: item
+        });
     }
 
     writeValue(value: any) : void {
