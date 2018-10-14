@@ -21,8 +21,9 @@ let idx: number = 0;
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="presentation"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
                 (click)="clickTab($event,tab)" *ngIf="!tab.closed">
-                <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="orientation">
-                    <ng-container *ngIf="!tab.headerTemplate">
+                <a [attr.id]="tab.id + '-label'" tabindex="1" role="tab" (keydown.enter)="clickTab($event,tab)"
+                    [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="orientation">
+                    <ng-container *ngIf="!tab.headerTemplate" >
                         <span class="ui-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                         <span class="ui-tabview-title">{{tab.header}}</span>
                         <span class="ui-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
