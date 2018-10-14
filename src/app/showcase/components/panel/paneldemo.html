@@ -8,7 +8,7 @@
 <div class="content-section implementation">
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
-    <p-panel header="Godfather I" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
+    <p-panel header="Godfather I" [toggleable]="true" [style]="{'margin-bottom':'20px'}" toggler="header">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
@@ -54,7 +54,9 @@ import &#123;PanelModule&#125; from 'primeng/panel';
 </code>
 </pre>
             <h3>Toggleable</h3>
-            <p>Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option.</p>
+            <p>Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option. By default, toggle icon
+                is used to toggle the contents whereas setting toggler to "header" enables clicking anywhere in the header to trigger a toggle.
+            </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-panel header="Title" [toggleable]="true"&gt;
@@ -143,16 +145,22 @@ import &#123;PanelModule&#125; from 'primeng/panel';
                             <td>Collapsed icon of the toggle button.</td>
                         </tr>
                         <tr>
-                          <td>showHeader</td>
-                          <td>boolean</td>
-                          <td>true</td>
-                          <td>Specifies if header of panel cannot be displayed.</td>
+                            <td>showHeader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Specifies if header of panel cannot be displayed.</td>
                         </tr>
                         <tr>
                             <td>transitionOptions</td>
                             <td>string</td>
                             <td>400ms cubic-bezier(0.86, 0, 0.07, 1)</td>
                             <td>Transition options of the animation.</td>
+                        </tr>
+                        <tr>
+                            <td>toggler</td>
+                            <td>string</td>
+                            <td>icon</td>
+                            <td>Specifies the toggler element to toggle the panel content, valid values are "icon" and "header".</td>
                         </tr>
                     </tbody>
                 </table>

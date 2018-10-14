@@ -10,11 +10,12 @@ let idx: number = 0;
     selector: 'p-panel',
     template: `
         <div [attr.id]="id" [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="showHeader">
+            <div [ngClass]="{'ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all': true, 'ui-panel-titlebar-clickable': (toggleable && toggler === 'header')}" 
+                *ngIf="showHeader" (click)="onHeaderClick($event)">
                 <span class="ui-panel-title" *ngIf="header">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
                 <a *ngIf="toggleable" [attr.id]="id + '-label'" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
-                    (click)="toggle($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
+                    (click)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
                     <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                 </a>
             </div>
@@ -62,6 +63,8 @@ export class Panel implements BlockableUI {
     @Input() collapseIcon: string = 'pi pi-minus';
   
     @Input() showHeader: boolean = true;
+
+    @Input() toggler: string = "icon";
     
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
@@ -78,8 +81,20 @@ export class Panel implements BlockableUI {
     id: string = `ui-panel-${idx++}`;
     
     constructor(private el: ElementRef) {}
+
+    onHeaderClick(event: Event) {
+        if (this.toggler === 'header') {
+            this.toggle(event);
+        }
+    }
+
+    onIconClick(event: Event) {
+        if (this.toggler === 'icon') {
+            this.toggle(event);
+        }
+    }
     
-    toggle(event) {
+    toggle(event: Event) {
         if(this.animating) {
             return false;
         }
