@@ -978,12 +978,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isMonthSelected(month: number): boolean {
-        if (this.value) {
-            return this.value.getDate() === 1 && this.value.getMonth() === month && this.value.getFullYear() === this.currentYear;
-        }
-        else {
-            return false;
-        }
+        return this.value ? (this.value.getMonth() === month && this.value.getFullYear() === this.currentYear) : false;
     }
     
     isDateEquals(value, dateMeta) {
