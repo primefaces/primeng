@@ -78,6 +78,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     @Input() styleClass: string;
     
     @Input() placeholder: string;
+
+    @Input() theme: string = 'snow';
     
     @Input() formats: string[];
     
@@ -105,7 +107,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
           },
           placeholder: this.placeholder,
           readOnly: this.readonly,
-          theme: 'snow',
+          theme: this.theme,
           formats: this.formats
         });
                 
