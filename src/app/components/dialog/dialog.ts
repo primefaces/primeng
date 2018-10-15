@@ -606,6 +606,7 @@ export class Dialog implements OnDestroy {
 
         if (this.maximized) {
             this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            this.maximized = false;
         }
         
         if (this.modal) {
