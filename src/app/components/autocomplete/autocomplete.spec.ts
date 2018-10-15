@@ -300,7 +300,15 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.click();
       fixture.detectChanges();
 
-      inputEl.nativeElement.value = "vxc";
+      inputEl.nativeElement.value = "v";
+      inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+      inputEl.nativeElement.dispatchEvent(new Event('input'));
+      inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+      inputEl.nativeElement.value = "x";
+      inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+      inputEl.nativeElement.dispatchEvent(new Event('input'));
+      inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+      inputEl.nativeElement.value = "c";
       inputEl.nativeElement.dispatchEvent(new Event('keydown'));
       inputEl.nativeElement.dispatchEvent(new Event('input'));
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
