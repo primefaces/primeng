@@ -1,6 +1,6 @@
 # Change Log
 
-## [6_1_6-Unreleased:](https://github.com/primefaces/primeng/tree/HEAD)
+## [6.1.6-Unreleased:](https://github.com/primefaces/primeng/tree/HEAD)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.5...HEAD)
 
