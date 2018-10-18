@@ -742,7 +742,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.isSingleSelection() && (!this.showTime || this.hideOnDateTimeSelect)) {
             setTimeout(() => {
                 event.preventDefault();
-                this.overlayVisible = false;
+                this.hideOverlay(event);
 
                 if (this.mask) {
                     this.disableModality();
@@ -1118,7 +1118,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.showOverlay();
         }
         else {
-            this.overlayVisible = false;
+            this.hideOverlay(event);
         }
         
         this.datepickerClick = true;
@@ -1127,7 +1127,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onInputKeydown(event) {
         this.isKeydown = true;
         if (event.keyCode === 9) {
-            this.overlayVisible = false;
+            this.hideOverlay(event);
         }
     }
     
@@ -1473,6 +1473,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     showOverlay() {
         this.overlayVisible = true;
+    }
+
+    hideOverlay(event){
+        this.overlayVisible = false;
+        this.onClose.emit(event);
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -1921,7 +1926,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onClearButtonClick(event) {
         this.updateModel(null);
         this.updateInputfield();
-        this.overlayVisible = false;
+        this.hideOverlay(event);
         this.onClearClick.emit(event);
     }
     
@@ -1929,8 +1934,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
                 if (!this.datepickerClick&&this.overlayVisible) {
-                    this.overlayVisible = false;
-                    this.onClose.emit(event);
+                    this.hideOverlay(event);
                 }
                 
                 this.datepickerClick = false;
