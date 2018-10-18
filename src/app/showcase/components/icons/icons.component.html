@@ -55,12 +55,14 @@ npm install primeicons --save
 
     <h3>List of Icons</h3>
     <p>Here is the current list of PrimeIcons, more icons will be added periodically. You may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
-    <input (input)="onFilter($event)">    
+    <div>
+        <input class="icon-filter" (input)="onFilter($event)" pInputText [ngStyle]="{width: '100%', padding: '1em', margin: '16px 0 26px 0'}" placeholder="Search an icon"> 
+    </div>
+
     <div class="ui-g icons-list">
         <div class="ui-g-12 ui-md-2" *ngFor="let icon of filteredIcons">
             <i class="pi pi-{{icon.properties.name}}"></i>
             <div>pi-{{icon.properties.name}}</div>
         </div>
-        
     </div>
 </div>
