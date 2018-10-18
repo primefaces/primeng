@@ -40,8 +40,6 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     @Input() numVisible: number = 3;
 
-    @Input() firstVisible: number = 0;
-
     @Input() headerText: string;
 
     @Input() circular: boolean = false;
@@ -67,6 +65,8 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public _value: any[];
+
+    public _firstVisible: number = 0;
     
     public itemTemplate: TemplateRef<any>;
             
@@ -123,6 +123,17 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     set value(val:any[]) {
         this._value = val;
         this.handleDataChange();
+    }
+    
+    @Input() get firstVisible(): number {
+        return this._firstVisible;
+    }
+
+    set firstVisible(val:number) {
+        this._firstVisible = val;
+        if(this.page){
+            this.setPage(this._firstVisible);
+        }
     }
     
     handleDataChange() {
@@ -185,6 +196,10 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         this.calculateColumns();
         this.calculateItemWidths();
         
+        if(this.firstVisible) {
+            this.setPage(this.page,true);
+        }
+
         if(!this.responsive) {
             this.containerViewChild.nativeElement.style.width = (this.domHandler.width(this.containerViewChild.nativeElement)) + 'px';
         }
