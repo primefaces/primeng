@@ -4,17 +4,24 @@
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.5...HEAD)
 
+**Implemented New Features and Enhancements:**
+
+- Create CHANGELOG.md [\#1675](https://github.com/primefaces/primeng/issues/1675)
+
 **Fixed bugs:**
 
 - Table: blur event not called from an editable cell [\#6701](https://github.com/primefaces/primeng/issues/6701)
 
+**Unit Tests:**
+
+- Message Unit Test [\#6698](https://github.com/primefaces/primeng/issues/6698)
+
 ## [6.1.5](https://github.com/primefaces/primeng/tree/6.1.5) (2018-10-15)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.4...6.1.5)
 
 **Implemented New Features and Enhancements:**
 
-- Keyboard navigation support for Tree [\#4091](https://github.com/primefaces/primeng/issues/4091)
-- Optgroup for Dropdown [\#1221](https://github.com/primefaces/primeng/issues/1221)
 - Accordion tab should be toggled with enter key as well [\#6685](https://github.com/primefaces/primeng/issues/6685)
 - Use Flex for OrderList layout [\#6670](https://github.com/primefaces/primeng/issues/6670)
 - onClickClick event for Chips component [\#6668](https://github.com/primefaces/primeng/issues/6668)
@@ -23,7 +30,6 @@
 - Reimplement Textarea AutoSize [\#6626](https://github.com/primefaces/primeng/issues/6626)
 - TurboTable: provide rowIndex property in event when  toggleRowWithCheckbox and toggleRowWithRadio triggered [\#6617](https://github.com/primefaces/primeng/issues/6617)
 - Add a property "inputId" in p-dropdown [\#6602](https://github.com/primefaces/primeng/issues/6602)
-- Issue with p-table pTemplate="frozenfooter" not displaying at all and frozenrow show bottom [\#6592](https://github.com/primefaces/primeng/issues/6592)
 - Aria properties for AutoComplete [\#6565](https://github.com/primefaces/primeng/issues/6565)
 - Add support of "iconPos" to p-toggleButton [\#6526](https://github.com/primefaces/primeng/issues/6526)
 - SlideMenu ignores MenuItem.visible flag [\#6330](https://github.com/primefaces/primeng/issues/6330)
@@ -34,10 +40,10 @@
 - onShow and onHide events for Dropdown [\#2172](https://github.com/primefaces/primeng/issues/2172)
 - Keyboard and Screen Reader support for Vertical Tree component [\#1861](https://github.com/primefaces/primeng/issues/1861)
 - Selected Items binding to OrderList [\#1797](https://github.com/primefaces/primeng/issues/1797)
+- Optgroup for Dropdown [\#1221](https://github.com/primefaces/primeng/issues/1221)
 
 **Fixed bugs:**
 
-- Global confirmDialog should reset service provided options [\#6628](https://github.com/primefaces/primeng/issues/6628)
 - Dialog may not get maximized [\#6697](https://github.com/primefaces/primeng/issues/6697)
 - Multiselect defaultLabel model binding does not work [\#6665](https://github.com/primefaces/primeng/issues/6665)
 - p-chips disabled issue [\#6661](https://github.com/primefaces/primeng/issues/6661)
@@ -54,20 +60,47 @@
 - OverlayPanel show method not working [\#6467](https://github.com/primefaces/primeng/issues/6467)
 - Changing p-schedule option causes no refresh [\#6386](https://github.com/primefaces/primeng/issues/6386)
 
+**Unit Tests:**
+
+- Messages Unit Test [\#6696](https://github.com/primefaces/primeng/issues/6696)
+- Terminal Unit Test [\#6691](https://github.com/primefaces/primeng/issues/6691)
+- BlockUI unit test [\#6684](https://github.com/primefaces/primeng/issues/6684)
+- Inplace unit test [\#6683](https://github.com/primefaces/primeng/issues/6683)
+- InputTextArea Unit Test  [\#6679](https://github.com/primefaces/primeng/issues/6679)
+- InputTextArea unit test [\#6678](https://github.com/primefaces/primeng/issues/6678)
+- slidemenu unit test need improvement [\#6677](https://github.com/primefaces/primeng/issues/6677)
+- Dialog unit test [\#6648](https://github.com/primefaces/primeng/issues/6648)
+- Slidemenu unit test [\#6644](https://github.com/primefaces/primeng/issues/6644)
+- Radiobutton unit test [\#6641](https://github.com/primefaces/primeng/issues/6641)
+- Tieredmenu unit test [\#6640](https://github.com/primefaces/primeng/issues/6640)
+- Autocomplete unit test [\#6638](https://github.com/primefaces/primeng/issues/6638)
+- Chips unit test [\#6620](https://github.com/primefaces/primeng/issues/6620)
+- Picklist unit test [\#6600](https://github.com/primefaces/primeng/issues/6600)
+- picklist unit test [\#6599](https://github.com/primefaces/primeng/issues/6599)
+- Spinner unit test [\#6598](https://github.com/primefaces/primeng/issues/6598)
+- Spinner unit test [\#6595](https://github.com/primefaces/primeng/issues/6595)
+- Checkbox unit test [\#6589](https://github.com/primefaces/primeng/issues/6589)
+- Selectbutton unit test [\#6588](https://github.com/primefaces/primeng/issues/6588)
+- Calendar unit test [\#6586](https://github.com/primefaces/primeng/issues/6586)
+- Listbox unit test [\#6585](https://github.com/primefaces/primeng/issues/6585)
+- Megamenu unit test [\#6581](https://github.com/primefaces/primeng/issues/6581)
+- Tristatecheckbox unit test [\#6580](https://github.com/primefaces/primeng/issues/6580)
+- Orderlist unit test [\#6578](https://github.com/primefaces/primeng/issues/6578)
+- calendar unit test [\#6571](https://github.com/primefaces/primeng/issues/6571)
+- menubar unit test [\#6515](https://github.com/primefaces/primeng/issues/6515)
+
 ## [6.1.4](https://github.com/primefaces/primeng/tree/6.1.4) (2018-09-18)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.3...6.1.4)
 
 **Implemented New Features and Enhancements:**
 
-- p-dataView do not have property first like p-table [\#6210](https://github.com/primefaces/primeng/issues/6210)
-- Clear icon for AutoComplete [\#4526](https://github.com/primefaces/primeng/issues/4526)
-- ContextMenu - enable left click listener [\#3215](https://github.com/primefaces/primeng/issues/3215)
-- ContextMenu support for iOS [\#1563](https://github.com/primefaces/primeng/issues/1563)
 - Rewrite Spinner [\#6496](https://github.com/primefaces/primeng/issues/6496)
 - New Luna Free Dark Theme Family [\#6491](https://github.com/primefaces/primeng/issues/6491)
 - Improving accessibility for input mask [\#6465](https://github.com/primefaces/primeng/issues/6465)
 - Keyboard search for Dropdown [\#3342](https://github.com/primefaces/primeng/issues/3342)
 - New grid system based on flex [\#3298](https://github.com/primefaces/primeng/issues/3298)
+- ContextMenu - enable left click listener [\#3215](https://github.com/primefaces/primeng/issues/3215)
 
 **Fixed bugs:**
 
@@ -82,12 +115,24 @@
 - p-dropdown input filter does not get focus anymore [\#6388](https://github.com/primefaces/primeng/issues/6388)
 - problem with p-spinner and decimal \(5.2.4\) [\#5490](https://github.com/primefaces/primeng/issues/5490)
 
+**Unit Tests:**
+
+- spinner unit test not working [\#6500](https://github.com/primefaces/primeng/issues/6500)
+- panel menu unit test [\#6484](https://github.com/primefaces/primeng/issues/6484)
+- menu unit test [\#6483](https://github.com/primefaces/primeng/issues/6483)
+- paginator unit test [\#6480](https://github.com/primefaces/primeng/issues/6480)
+- slidemenu unit test [\#6475](https://github.com/primefaces/primeng/issues/6475)
+- picklist unit test [\#6468](https://github.com/primefaces/primeng/issues/6468)
+- orderlist unit test [\#6452](https://github.com/primefaces/primeng/issues/6452)
+- calendar unit test [\#6437](https://github.com/primefaces/primeng/issues/6437)
+- tieredmenu unit test [\#6428](https://github.com/primefaces/primeng/issues/6428)
+
 ## [6.1.3](https://github.com/primefaces/primeng/tree/6.1.3) (2018-08-30)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.2...6.1.3)
 
 **Implemented New Features and Enhancements:**
 
-- New Component: Wizard [\#6285](https://github.com/primefaces/primeng/issues/6285)
 - Dynamic year range for Calendar [\#6415](https://github.com/primefaces/primeng/issues/6415)
 - Bold font weight for Table headers [\#6409](https://github.com/primefaces/primeng/issues/6409)
 - Add nodeTrackBy to Tree [\#6378](https://github.com/primefaces/primeng/issues/6378)
@@ -96,8 +141,8 @@
 
 **Fixed bugs:**
 
-- MultiSelect display broken if an option is selected and removed [\#6413](https://github.com/primefaces/primeng/issues/6413)
 - p-multiSelect disabled option still possible to select [\#6422](https://github.com/primefaces/primeng/issues/6422)
+- MultiSelect display broken if an option is selected and removed [\#6413](https://github.com/primefaces/primeng/issues/6413)
 - p-calendar's navigation \(left/right\) is not in sync with selected date, if date is not in current year [\#6393](https://github.com/primefaces/primeng/issues/6393)
 - Disabled option\(s\) in p-dropdown are selectable [\#6368](https://github.com/primefaces/primeng/issues/6368)
 - ConfirmDialog `appendTo` is broken [\#6362](https://github.com/primefaces/primeng/issues/6362)
@@ -109,7 +154,32 @@
 - p-dialog with height has invalid behavior while resizing [\#5974](https://github.com/primefaces/primeng/issues/5974)
 - p-dialog - Size of dialog gets stuck on window zoom or resize [\#5336](https://github.com/primefaces/primeng/issues/5336)
 
+**Unit Tests:**
+
+- sidebar unit test update [\#6375](https://github.com/primefaces/primeng/issues/6375)
+- steps unit test [\#6424](https://github.com/primefaces/primeng/issues/6424)
+- tabmenu unit test [\#6423](https://github.com/primefaces/primeng/issues/6423)
+- megamenu unit test [\#6417](https://github.com/primefaces/primeng/issues/6417)
+- breadcrumb unit test [\#6405](https://github.com/primefaces/primeng/issues/6405)
+- toolbar unit test [\#6403](https://github.com/primefaces/primeng/issues/6403)
+- card unit test [\#6402](https://github.com/primefaces/primeng/issues/6402)
+- listbox unit test [\#6399](https://github.com/primefaces/primeng/issues/6399)
+- tristatecheckbox unit test [\#6398](https://github.com/primefaces/primeng/issues/6398)
+- inputswitch unit test [\#6397](https://github.com/primefaces/primeng/issues/6397)
+- slider unit test [\#6382](https://github.com/primefaces/primeng/issues/6382)
+- confirmDialog unit test [\#6381](https://github.com/primefaces/primeng/issues/6381)
+- overlaypanel unit test [\#6374](https://github.com/primefaces/primeng/issues/6374)
+- sidebar unit test [\#6373](https://github.com/primefaces/primeng/issues/6373)
+- rating unit test [\#6359](https://github.com/primefaces/primeng/issues/6359)
+- multiselect unit test [\#6353](https://github.com/primefaces/primeng/issues/6353)
+- Progressbar unit test  [\#6348](https://github.com/primefaces/primeng/issues/6348)
+- dropdown unit test [\#6347](https://github.com/primefaces/primeng/issues/6347)
+- Split button unit test notation is not smooth [\#6337](https://github.com/primefaces/primeng/issues/6337)
+- Splitbutton test [\#6335](https://github.com/primefaces/primeng/issues/6335)
+- Tabview unit test [\#6325](https://github.com/primefaces/primeng/issues/6325)
+
 ## [6.1.2](https://github.com/primefaces/primeng/tree/6.1.2) (2018-08-15)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.1...6.1.2)
 
 **Implemented New Features and Enhancements:**
@@ -117,13 +187,11 @@
 - Improve Table and TreeTable Styling in Nova [\#6324](https://github.com/primefaces/primeng/issues/6324)
 
 ## [6.1.1](https://github.com/primefaces/primeng/tree/6.1.1) (2018-08-14)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.0...6.1.1)
 
 **Implemented New Features and Enhancements:**
 
-- tri-state checkbox for tree [\#5492](https://github.com/primefaces/primeng/issues/5492)
-- Sticky and Life per Growl message [\#3452](https://github.com/primefaces/primeng/issues/3452)
-- Test for Button Component [\#6299](https://github.com/primefaces/primeng/issues/6299)
 - baseZIndex and autoZindex for all overlay components [\#6298](https://github.com/primefaces/primeng/issues/6298)
 - Reimplement restore of appendTo logic of overlays [\#6286](https://github.com/primefaces/primeng/issues/6286)
 - Get-started guide uses wrong css file [\#6247](https://github.com/primefaces/primeng/issues/6247)
@@ -134,10 +202,6 @@
 
 **Fixed bugs:**
 
-- Month and Year dropdown sync issue in calendar [\#6258](https://github.com/primefaces/primeng/issues/6258)
-- Dialog in IOS Devices Bug When Scroll Screen [\#5828](https://github.com/primefaces/primeng/issues/5828)
-- p-table Frozen column group does not align in 6.0.2 \(works fine in 5.2.3\) [\#5578](https://github.com/primefaces/primeng/issues/5578)
-- Missing padding for ui-inputgroup-addon in overlayPanel [\#5428](https://github.com/primefaces/primeng/issues/5428)
 - Event is not defined in InputSwitch [\#6314](https://github.com/primefaces/primeng/issues/6314)
 - Dropdown/AutoComplete items with appendTo might have different styling [\#6313](https://github.com/primefaces/primeng/issues/6313)
 - inplace editor button is misaligned [\#6310](https://github.com/primefaces/primeng/issues/6310)
@@ -160,7 +224,12 @@
 - ScrollPanel has incorrect height setting in .ui-scrollpanel-content. [\#5396](https://github.com/primefaces/primeng/issues/5396)
 - Autocomplete - paste via mouse doesn't work [\#4397](https://github.com/primefaces/primeng/issues/4397)
 
+**Unit Tests:**
+
+- Test for Button Component [\#6299](https://github.com/primefaces/primeng/issues/6299)
+
 ## [6.1.0](https://github.com/primefaces/primeng/tree/6.1.0) (2018-08-06)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.0-rc.1...6.1.0)
 
 **Implemented New Features and Enhancements:**
@@ -177,6 +246,7 @@
 - Double clicking on a calendar date causes the page to reload [\#6195](https://github.com/primefaces/primeng/issues/6195)
 
 ## [6.1.0-rc.1](https://github.com/primefaces/primeng/tree/6.1.0-rc.1) (2018-08-01)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.0.2...6.1.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -194,6 +264,7 @@
 - Dialog/OverlayPanel error when using appendTo [\#6168](https://github.com/primefaces/primeng/issues/6168)
 
 ## [6.0.2](https://github.com/primefaces/primeng/tree/6.0.2) (2018-07-26)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.0.1...6.0.2)
 
 **Implemented New Features and Enhancements:**
@@ -224,7 +295,6 @@
 
 **Fixed bugs:**
 
--  Dialog modal not accessible when open it, with tab key access. [\#6095](https://github.com/primefaces/primeng/issues/6095)
 - TreeTable editable column directive name is wrong [\#6164](https://github.com/primefaces/primeng/issues/6164)
 - Month Picker Year Cutoff - CSS Adjustment - Simple [\#6152](https://github.com/primefaces/primeng/issues/6152)
 - MultiSelect ScrollHeight is ignored [\#6136](https://github.com/primefaces/primeng/issues/6136)
@@ -232,18 +302,18 @@
 - Decrementing year on month view doesn't display the correct year on the navigator [\#6110](https://github.com/primefaces/primeng/issues/6110)
 - OverlayPanel close icon misaligned on free themes [\#6109](https://github.com/primefaces/primeng/issues/6109)
 - Table: Virtual scroll broken [\#6098](https://github.com/primefaces/primeng/issues/6098)
+-  Dialog modal not accessible when open it, with tab key access. [\#6095](https://github.com/primefaces/primeng/issues/6095)
 - TreeTable must export SharedModule [\#6034](https://github.com/primefaces/primeng/issues/6034)
 - Resize column on TreeTable with scrollable and frozen feature doesnt work [\#5924](https://github.com/primefaces/primeng/issues/5924)
 - p-message severity "warn" shows no icon \(primeicons\) [\#5894](https://github.com/primefaces/primeng/issues/5894)
 - Color picker background color is dependent on the currently selected color not the current hue [\#4441](https://github.com/primefaces/primeng/issues/4441)
 
 ## [6.0.1](https://github.com/primefaces/primeng/tree/6.0.1) (2018-07-12)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.0.0...6.0.1)
 
 **Implemented New Features and Enhancements:**
 
-- TurboTable edit: cell should exit edit mode when clicked away [\#5352](https://github.com/primefaces/primeng/issues/5352)
-- style default null value item on p-dropdown [\#3099](https://github.com/primefaces/primeng/issues/3099)
 - Add ariaLabel to sortIcon [\#6040](https://github.com/primefaces/primeng/issues/6040)
 - Add dismissable and showCloseIcon properties to Sidebar [\#6027](https://github.com/primefaces/primeng/issues/6027)
 - Update to FullCalendar 4.0 [\#6022](https://github.com/primefaces/primeng/issues/6022)
@@ -262,7 +332,6 @@
 
 **Fixed bugs:**
 
-- pTooltip adds multiple elements on Body element [\#4275](https://github.com/primefaces/primeng/issues/4275)
 - disabled table checkbox/radio still gets focus [\#6041](https://github.com/primefaces/primeng/issues/6041)
 - Home icon of breadcrumb is ignored [\#6039](https://github.com/primefaces/primeng/issues/6039)
 - ContextMenu selection style issues with row selection \(Table/TreeTable\) [\#6036](https://github.com/primefaces/primeng/issues/6036)
@@ -278,11 +347,8 @@
 - Dropdown autowidth doesn't auto-size in some cases [\#2973](https://github.com/primefaces/primeng/issues/2973)
 
 ## [6.0.0](https://github.com/primefaces/primeng/tree/6.0.0) (2018-06-20)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.0.0-rc.1...6.0.0)
-
-**Implemented New Features and Enhancements:**
-
-- z-index of growl should be higher [\#2626](https://github.com/primefaces/primeng/issues/2626)
 
 **Fixed bugs:**
 
@@ -292,6 +358,7 @@
 - Missing pi CSS class in org chart. [\#5871](https://github.com/primefaces/primeng/issues/5871)
 
 ## [6.0.0-rc.1](https://github.com/primefaces/primeng/tree/6.0.0-rc.1) (2018-06-13)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.0.0-beta.1...6.0.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -304,18 +371,16 @@
 
 **Fixed bugs:**
 
-- Missing contentElement of DataScroller [\#5388](https://github.com/primefaces/primeng/issues/5388)
-- p-growl shows null if details are not used in IE11 [\#5360](https://github.com/primefaces/primeng/issues/5360)
-- Calendar: selecting date requires doubleclick if minDate or maxDate are assigned a new Date object [\#5355](https://github.com/primefaces/primeng/issues/5355)
-- slideMenu keeps overflow scrollbar even on item lists smaller than viewportHeight [\#5211](https://github.com/primefaces/primeng/issues/5211)
 - am-pm formatting is wrong in Calendar [\#5882](https://github.com/primefaces/primeng/issues/5882)
 - Frozen columns resize fails with new TreeTable [\#5867](https://github.com/primefaces/primeng/issues/5867)
 - Jumping p-dialog [\#5855](https://github.com/primefaces/primeng/issues/5855)
 - Dialog may cause flicker due to repositioning [\#5387](https://github.com/primefaces/primeng/issues/5387)
 - Tree: checkbox selection, items where 'selectable:false' still have a check box [\#5359](https://github.com/primefaces/primeng/issues/5359)
 - p-autocomplete - ExpressionChangedAfterItHasBeenCheckedError [\#5348](https://github.com/primefaces/primeng/issues/5348)
+- slideMenu keeps overflow scrollbar even on item lists smaller than viewportHeight [\#5211](https://github.com/primefaces/primeng/issues/5211)
 
 ## [6.0.0-beta.1](https://github.com/primefaces/primeng/tree/6.0.0-beta.1) (2018-06-06)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.0.0-alpha.2...6.0.0-beta.1)
 
 **Implemented New Features and Enhancements:**
@@ -326,7 +391,6 @@
 
 **Fixed bugs:**
 
-- Autocomplete getting cleared on reselection of the same suggestion [\#3799](https://github.com/primefaces/primeng/issues/3799)
 - Spinner min-max problem [\#5847](https://github.com/primefaces/primeng/issues/5847)
 - TurboTable border is not showing in FF, Edge browser [\#5829](https://github.com/primefaces/primeng/issues/5829)
 -  p-table \(turbo table\) frozenColumns + resize not working [\#5751](https://github.com/primefaces/primeng/issues/5751)
@@ -335,6 +399,7 @@
 - p-dropdown doesn't fire focus/blur when editable=true [\#3746](https://github.com/primefaces/primeng/issues/3746)
 
 ## [6.0.0-alpha.2](https://github.com/primefaces/primeng/tree/6.0.0-alpha.2) (2018-05-31)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.0.0-alpha.1...6.0.0-alpha.2)
 
 **Implemented New Features and Enhancements:**
@@ -344,7 +409,6 @@
 
 **Fixed bugs:**
 
-- Tree Not Updating Selection State on Parent Node [\#3665](https://github.com/primefaces/primeng/issues/3665)
 - ng-template "emptymessage" not working anymore in data-table [\#5804](https://github.com/primefaces/primeng/issues/5804)
 - p-calendar timepicker UTC 12 hour wrong AM/PM  [\#5772](https://github.com/primefaces/primeng/issues/5772)
 - SplitButton's overlay not being removed [\#5706](https://github.com/primefaces/primeng/issues/5706)
@@ -354,6 +418,7 @@
 - TurboTable IE and Edge Resizable Columns Highlight [\#5446](https://github.com/primefaces/primeng/issues/5446)
 
 ## [6.0.0-alpha.1](https://github.com/primefaces/primeng/tree/6.0.0-alpha.1) (2018-05-18)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.7...6.0.0-alpha.1)
 
 **Implemented New Features and Enhancements:**
@@ -362,6 +427,7 @@
 - Rxjs 6 support [\#5462](https://github.com/primefaces/primeng/issues/5462)
 
 ## [5.2.7](https://github.com/primefaces/primeng/tree/5.2.7) (2018-05-17)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.6...5.2.7)
 
 **Fixed bugs:**
@@ -372,6 +438,7 @@
 - Table should apply filter if value changes [\#5664](https://github.com/primefaces/primeng/issues/5664)
 
 ## [5.2.6](https://github.com/primefaces/primeng/tree/5.2.6) (2018-05-08)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.5...5.2.6)
 
 **Implemented New Features and Enhancements:**
@@ -380,7 +447,6 @@
 
 **Fixed bugs:**
 
-- Dropdown preselection might fail if options initialized later [\#4023](https://github.com/primefaces/primeng/issues/4023)
 - Tooltip is not cleared on Safari [\#5699](https://github.com/primefaces/primeng/issues/5699)
 - screen reader support of sortable headers [\#5697](https://github.com/primefaces/primeng/issues/5697)
 -  Tooltip with delay stick on screen when navigating [\#5693](https://github.com/primefaces/primeng/issues/5693)
@@ -389,14 +455,13 @@
 - ValueChanged is executed when onFocus/unFocus in inputmask component [\#5672](https://github.com/primefaces/primeng/issues/5672)
 
 ## [5.2.5](https://github.com/primefaces/primeng/tree/5.2.5) (2018-04-26)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.4...5.2.5)
 
 **Implemented New Features and Enhancements:**
 
-- 100% compatible tslint checks [\#5598](https://github.com/primefaces/primeng/issues/5598)
-- Add panelStyle and panelStyleClass to p-splitbutton [\#5136](https://github.com/primefaces/primeng/issues/5136)
-- TurboTable refresh data resets current page  [\#5130](https://github.com/primefaces/primeng/issues/5130)
 - Add modal property to Sidebar [\#5634](https://github.com/primefaces/primeng/issues/5634)
+- 100% compatible tslint checks [\#5598](https://github.com/primefaces/primeng/issues/5598)
 - Spinner should keep focus on input [\#5555](https://github.com/primefaces/primeng/issues/5555)
 - Add trackBy to PickList [\#5536](https://github.com/primefaces/primeng/issues/5536)
 - Custom export for TurboTable  [\#5493](https://github.com/primefaces/primeng/issues/5493)
@@ -416,12 +481,6 @@
 
 **Fixed bugs:**
 
-- panel component animation 'collapsed model' driven bug [\#5274](https://github.com/primefaces/primeng/issues/5274)
-- Multiselect : UpdateLabel is not called when a selected item is removed programatically [\#5267](https://github.com/primefaces/primeng/issues/5267)
-- grouped p-dropdown value setting is not working using \[\(ngModel\)\] [\#5246](https://github.com/primefaces/primeng/issues/5246)
-- ng-invalid keeps set in calendar when manually inserted date [\#5152](https://github.com/primefaces/primeng/issues/5152)
-- filterGlobal on TurboTable not including all possible rows [\#5149](https://github.com/primefaces/primeng/issues/5149)
-- Time picker displays 00 for hours for 12 hour time \(Resubmission for 5.0.0\) [\#4486](https://github.com/primefaces/primeng/issues/4486)
 - Spinner field have problems with min negative values [\#5656](https://github.com/primefaces/primeng/issues/5656)
 - TableHeaderCheckbox not synced with filtering [\#5637](https://github.com/primefaces/primeng/issues/5637)
 - Disabled radio button is still editable [\#5633](https://github.com/primefaces/primeng/issues/5633)
@@ -437,6 +496,7 @@
 - Table frozen column and caption position  [\#5491](https://github.com/primefaces/primeng/issues/5491)
 -  Scrollable-header does not show when p-table is on tabView [\#5451](https://github.com/primefaces/primeng/issues/5451)
 - TurboTable -  tabbing from an edited cell doesn´t emit onEditComplete [\#5282](https://github.com/primefaces/primeng/issues/5282)
+- panel component animation 'collapsed model' driven bug [\#5274](https://github.com/primefaces/primeng/issues/5274)
 - Calendar dates display URL when dragged [\#5263](https://github.com/primefaces/primeng/issues/5263)
 - Sub-menu incorrectly align with Primeng 5.2 [\#5218](https://github.com/primefaces/primeng/issues/5218)
 - Navigation buttons in gallery component embedded in an overlay panel is not clickable [\#5207](https://github.com/primefaces/primeng/issues/5207)
@@ -457,13 +517,12 @@
 - Bug with overlaypanel in 4.3.0 [\#4327](https://github.com/primefaces/primeng/issues/4327)
 
 ## [5.2.4](https://github.com/primefaces/primeng/tree/5.2.4) (2018-03-28)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.3...5.2.4)
 
 **Implemented New Features and Enhancements:**
 
 - New mode to keyfilter to validate whole value [\#5433](https://github.com/primefaces/primeng/issues/5433)
-- Customizable Table selection behavior [\#5023](https://github.com/primefaces/primeng/issues/5023)
-- Support composite icon inside a button with no label [\#4719](https://github.com/primefaces/primeng/issues/4719)
 - Add name property to MultiSelect [\#4991](https://github.com/primefaces/primeng/issues/4991)
 - Responsive FileUpload [\#4981](https://github.com/primefaces/primeng/issues/4981)
 - labelStyleClass for Checkbox and RadioButton [\#4847](https://github.com/primefaces/primeng/issues/4847)
@@ -471,14 +530,12 @@
 - showHeader property for MultiSelect [\#4787](https://github.com/primefaces/primeng/issues/4787)
 - Add focus\(\) method to Dropdown [\#4752](https://github.com/primefaces/primeng/issues/4752)
 - Add \[autofocus\]="value" in input \(inputMask\) [\#4722](https://github.com/primefaces/primeng/issues/4722)
+- Support composite icon inside a button with no label [\#4719](https://github.com/primefaces/primeng/issues/4719)
 - Add hideOnDateTimeSelect property to Calendar [\#4710](https://github.com/primefaces/primeng/issues/4710)
 - Add onClick event to Dropdown [\#4702](https://github.com/primefaces/primeng/issues/4702)
 
 **Fixed bugs:**
 
-- Error during p-dialog autoAlign when NgAfterViewChecked [\#5391](https://github.com/primefaces/primeng/issues/5391)
-- InputTextarea does not resize initial value [\#4980](https://github.com/primefaces/primeng/issues/4980)
-- Progress Bar with indeterminate mode not work correctly on Ultima template. [\#4784](https://github.com/primefaces/primeng/issues/4784)
 - SplitButton alignment issues with inline content [\#5443](https://github.com/primefaces/primeng/issues/5443)
 - rowIndex broken in TurboTable Paginator [\#5442](https://github.com/primefaces/primeng/issues/5442)
 - p-growl show 'null' in IE, if without detail [\#5420](https://github.com/primefaces/primeng/issues/5420)
@@ -517,6 +574,7 @@
 - Spinner: decimals are separated by the thousand separator [\#2993](https://github.com/primefaces/primeng/issues/2993)
 
 ## [5.2.3](https://github.com/primefaces/primeng/tree/5.2.3) (2018-03-09)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.2...5.2.3)
 
 **Implemented New Features and Enhancements:**
@@ -524,6 +582,7 @@
 - Dialog positioning improvement [\#2795](https://github.com/primefaces/primeng/issues/2795)
 
 ## [5.2.2](https://github.com/primefaces/primeng/tree/5.2.2) (2018-03-09)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.1...5.2.2)
 
 **Implemented New Features and Enhancements:**
@@ -548,14 +607,11 @@
 - class .ui-inputwrapper-filled is not removed on p-autocomplete with multipe=true [\#4753](https://github.com/primefaces/primeng/issues/4753)
 
 ## [5.2.1](https://github.com/primefaces/primeng/tree/5.2.1) (2018-03-06)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.0...5.2.1)
 
 **Implemented New Features and Enhancements:**
 
-- TurboTable Keyboard Support [\#5209](https://github.com/primefaces/primeng/issues/5209)
-- TurboTable: make pResizableColumn a boolean operator [\#5127](https://github.com/primefaces/primeng/issues/5127)
-- TurboTable edit events lack documentation [\#4962](https://github.com/primefaces/primeng/issues/4962)
-- Support for Both Font Awesome 4 and 5 [\#4488](https://github.com/primefaces/primeng/issues/4488)
 - Add key property to Message API and Messages-Growl Components [\#5260](https://github.com/primefaces/primeng/issues/5260)
 - Add enableService property to Messages [\#5259](https://github.com/primefaces/primeng/issues/5259)
 - Selecting a row with double click using TurboTable [\#5256](https://github.com/primefaces/primeng/issues/5256)
@@ -571,7 +627,6 @@
 
 **Fixed bugs:**
 
-- TabView: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. [\#4530](https://github.com/primefaces/primeng/issues/4530)
 - slideMenu ignores styleClass on MenuItem model properties [\#5253](https://github.com/primefaces/primeng/issues/5253)
 - SplitButton buttons misaligned on Firefox [\#5215](https://github.com/primefaces/primeng/issues/5215)
 - DataGrid p-footer display glitch [\#5156](https://github.com/primefaces/primeng/issues/5156)
@@ -588,6 +643,7 @@
 - Prevent fileUpload messages to display services messages [\#4572](https://github.com/primefaces/primeng/issues/4572)
 
 ## [5.2.0](https://github.com/primefaces/primeng/tree/5.2.0) (2018-02-01)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.0-rc.2...5.2.0)
 
 **Implemented New Features and Enhancements:**
@@ -598,8 +654,6 @@
 - style and styleClass for Panel [\#5006](https://github.com/primefaces/primeng/issues/5006)
 - Icons for p-selectButton [\#4924](https://github.com/primefaces/primeng/issues/4924)
 - scrollHeight not dynamically on new Turbo Table [\#4884](https://github.com/primefaces/primeng/issues/4884)
-- Multi Row Grouping for DataTable [\#4505](https://github.com/primefaces/primeng/issues/4505)
-- Add method to reset sizes of manually resized data table columns [\#4149](https://github.com/primefaces/primeng/issues/4149)
 - Refactor DataScroller for Performance and Fix Lazy Loading [\#3906](https://github.com/primefaces/primeng/issues/3906)
 - SelectItemGroup support for Dropdown [\#3548](https://github.com/primefaces/primeng/issues/3548)
 
@@ -616,12 +670,9 @@
 - TurboTable Frozen columns and Virtual scroll [\#4868](https://github.com/primefaces/primeng/issues/4868)
 - LazyLoading fails for TabView [\#4839](https://github.com/primefaces/primeng/issues/4839)
 - Calendar UI doesn't update when showTime is changed [\#4632](https://github.com/primefaces/primeng/issues/4632)
-- "initColumnReordering" envoked only once at the ngAfterViewChecked and not envoked if change "reorderableColumns" dynamiclly [\#4352](https://github.com/primefaces/primeng/issues/4352)
-- MultiSelect or Dropdown as a filter triggers sort  [\#3859](https://github.com/primefaces/primeng/issues/3859)
-- Default sorting - sort direction doesn't change on first click [\#3200](https://github.com/primefaces/primeng/issues/3200)
-- Nested Data Source Updates Not Reflected In Displayed Table [\#3091](https://github.com/primefaces/primeng/issues/3091)
 
 ## [5.2.0-rc.2](https://github.com/primefaces/primeng/tree/5.2.0-rc.2) (2018-01-23)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.2.0-rc.1...5.2.0-rc.2)
 
 **Implemented New Features and Enhancements:**
@@ -658,18 +709,19 @@
 - Sorting a TurboTable calls the onLazyLoad function twice [\#4889](https://github.com/primefaces/primeng/issues/4889)
 - Set lazy as false in TurboTable [\#4885](https://github.com/primefaces/primeng/issues/4885)
 - Autocomplete forceSelection bug with dropdown [\#4874](https://github.com/primefaces/primeng/issues/4874)
-- New Import system is not working [\#4870](https://github.com/primefaces/primeng/issues/4870)
 - TurboTable lazy filtering fails when a text is cleared [\#4863](https://github.com/primefaces/primeng/issues/4863)
 - Card import fails [\#4862](https://github.com/primefaces/primeng/issues/4862)
 - Bad character at Table [\#4861](https://github.com/primefaces/primeng/issues/4861)
 - New import system fails under AOT [\#4841](https://github.com/primefaces/primeng/issues/4841)
 - Calendar UI does not update in some cases [\#4775](https://github.com/primefaces/primeng/issues/4775)
+- file upload doesnt work in IE after the first upload event or clear event  [\#4733](https://github.com/primefaces/primeng/issues/4733)
 - The UTC time format still does not work in the calendar. [\#4359](https://github.com/primefaces/primeng/issues/4359)
 - autocomplete with forceSelection bug [\#4332](https://github.com/primefaces/primeng/issues/4332)
-- Vertical Trees can be forests, but horizontal Trees can't [\#4301](https://github.com/primefaces/primeng/issues/4301)
 - Multiselet calendar don't update ngModel on unselect date [\#3876](https://github.com/primefaces/primeng/issues/3876)
+- autocomplete ngModel not updated before onUnselect event callback is called, but is before onSelect [\#3188](https://github.com/primefaces/primeng/issues/3188)
 
 ## [5.2.0-rc.1](https://github.com/primefaces/primeng/tree/5.2.0-rc.1) (2018-01-17)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.0.2...5.2.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -682,21 +734,13 @@
 - Keep incorrect value in calendar [\#4785](https://github.com/primefaces/primeng/issues/4785)
 - New Table Component aka TurboTable [\#4743](https://github.com/primefaces/primeng/issues/4743)
 - Built-in Radio and Checkbox of DataTable performance issue [\#4723](https://github.com/primefaces/primeng/issues/4723)
-- DataTable performance improvements [\#4688](https://github.com/primefaces/primeng/issues/4688)
 - New Component: Button [\#4687](https://github.com/primefaces/primeng/issues/4687)
 - Dialog should focus first element on open [\#4686](https://github.com/primefaces/primeng/issues/4686)
-- Frozen Columns support for Virtual Scroll [\#4672](https://github.com/primefaces/primeng/issues/4672)
 - New Directive: KeyFilter [\#4670](https://github.com/primefaces/primeng/issues/4670)
 - BlockUI for Tree component [\#4669](https://github.com/primefaces/primeng/issues/4669)
 - autocomplete onModelChange should be be triggered onInput if forceSelection is true [\#4668](https://github.com/primefaces/primeng/issues/4668)
-- Dropdown should keep scroll position [\#4666](https://github.com/primefaces/primeng/issues/4666)
-- Custom content support for DataTable Loader [\#4662](https://github.com/primefaces/primeng/issues/4662)
 - Document rowStyleMap usage in DataTable [\#4658](https://github.com/primefaces/primeng/issues/4658)
-- Bootstrap 4 Compatibility [\#4653](https://github.com/primefaces/primeng/issues/4653)
-- Enhancement: include columns IDs when exporting via exportCSV in datatable [\#4637](https://github.com/primefaces/primeng/issues/4637)
 - Feature request: Add emptyMessage for Dropdown with filter enabled [\#4635](https://github.com/primefaces/primeng/issues/4635)
-- Autosize treetable columns [\#4630](https://github.com/primefaces/primeng/issues/4630)
-- Replace NanoScroller with p-scrollPanel in premium templates [\#4626](https://github.com/primefaces/primeng/issues/4626)
 - Distribute individual component CSS in npm [\#4623](https://github.com/primefaces/primeng/issues/4623)
 - FilterPlaceHolder property for MultiSelect [\#4607](https://github.com/primefaces/primeng/issues/4607)
 - DragDrop component performance improvements [\#4590](https://github.com/primefaces/primeng/issues/4590)
@@ -704,103 +748,20 @@
 - MultiSelect: expose the currently selected option item [\#4582](https://github.com/primefaces/primeng/issues/4582)
 - Add showSourceFilter and showTargetFilter to PickList [\#4581](https://github.com/primefaces/primeng/issues/4581)
 - Improve charts responsiveness [\#4577](https://github.com/primefaces/primeng/issues/4577)
-- Edit callback support for custom editors [\#4575](https://github.com/primefaces/primeng/issues/4575)
-- Reactive form support inside DataTable [\#4564](https://github.com/primefaces/primeng/issues/4564)
 - Empty records Tree message [\#4554](https://github.com/primefaces/primeng/issues/4554)
-- Add style to Panel Header [\#4539](https://github.com/primefaces/primeng/issues/4539)
 - New Component - Card [\#4535](https://github.com/primefaces/primeng/issues/4535)
 - Toolbar BlockableUI [\#4518](https://github.com/primefaces/primeng/issues/4518)
 - Better OnPush support for DataTable [\#4501](https://github.com/primefaces/primeng/issues/4501)
-- DataTable -move alignScrollBar call in updateDataToRender instead of in ngAfterViewChecked to improve performance [\#4499](https://github.com/primefaces/primeng/issues/4499)
 - Template support for selected item in Dropdown [\#4497](https://github.com/primefaces/primeng/issues/4497)
-- Ability to unsort Data [\#4493](https://github.com/primefaces/primeng/issues/4493)
-- Ability to lock DataTable Selection [\#4482](https://github.com/primefaces/primeng/issues/4482)
-- Datatable should scroll horizontally as needed when reordering columns [\#4445](https://github.com/primefaces/primeng/issues/4445)
-- \[datatable\]: number of records with/without paginator and filtering [\#4414](https://github.com/primefaces/primeng/issues/4414)
-- RTL support for DataTable [\#4402](https://github.com/primefaces/primeng/issues/4402)
-- Add headerCheckboxMode to DataTable [\#4396](https://github.com/primefaces/primeng/issues/4396)
-- Global filter only with displayed data [\#4381](https://github.com/primefaces/primeng/issues/4381)
-- filter with rangeDate - DataTable \(feature request\) [\#4354](https://github.com/primefaces/primeng/issues/4354)
-- Reset method support for Scroll [\#4331](https://github.com/primefaces/primeng/issues/4331)
-- Dynamic height support to Chart [\#4324](https://github.com/primefaces/primeng/issues/4324)
-- Expand rowgroups by clicking anywhere in the subheader [\#4250](https://github.com/primefaces/primeng/issues/4250)
-- Datatable defaultSortOrder - This should be available per column [\#4199](https://github.com/primefaces/primeng/issues/4199)
-- DataTable - Allow show/hide columns selection from component template column implementation [\#4153](https://github.com/primefaces/primeng/issues/4153)
-- Datatable sort icons / classes [\#4147](https://github.com/primefaces/primeng/issues/4147)
-- Datatable before select events to cancel selections [\#4118](https://github.com/primefaces/primeng/issues/4118)
-- Calling functions during runtime in TreeTable & Expandable DataTable [\#4075](https://github.com/primefaces/primeng/issues/4075)
 - Blockable FileUpload [\#4057](https://github.com/primefaces/primeng/issues/4057)
 - Performance improvements for Tooltip [\#4053](https://github.com/primefaces/primeng/issues/4053)
-- 508 compatibility for DataTable sort [\#4046](https://github.com/primefaces/primeng/issues/4046)
-- 508 compatibility for DataTable checkbox [\#4044](https://github.com/primefaces/primeng/issues/4044)
-- Scrollable TreeTable [\#4020](https://github.com/primefaces/primeng/issues/4020)
-- Filtering for TreeTable [\#3922](https://github.com/primefaces/primeng/issues/3922)
 - New Component: ScrollPanel [\#3917](https://github.com/primefaces/primeng/issues/3917)
-- Double click event for Tree [\#3807](https://github.com/primefaces/primeng/issues/3807)
-- Multi level row grouping in datatable [\#3805](https://github.com/primefaces/primeng/issues/3805)
-- There should be a master button for expanding and collapsing all row groups of PrimeNg table [\#3670](https://github.com/primefaces/primeng/issues/3670)
-- Add tooltip attribute to p-column [\#3655](https://github.com/primefaces/primeng/issues/3655)
-- Export support for column group [\#3626](https://github.com/primefaces/primeng/issues/3626)
-- Resize and Scroll support for ColumnGroup [\#3591](https://github.com/primefaces/primeng/issues/3591)
-- reset should scroll the scrollable table to top [\#3585](https://github.com/primefaces/primeng/issues/3585)
-- Template support for DataTable CSV Export [\#3552](https://github.com/primefaces/primeng/issues/3552)
-- Custom filterFunction for datatable filters similar to sortFunction [\#3521](https://github.com/primefaces/primeng/issues/3521)
-- Datatable header improve styling options [\#3469](https://github.com/primefaces/primeng/issues/3469)
-- \[Demo\] Column toggler put the columns in a wrong order [\#3401](https://github.com/primefaces/primeng/issues/3401)
-- Allow to disable a single row selection on DataTable [\#3369](https://github.com/primefaces/primeng/issues/3369)
-- Multi Row Grouping Feature for DataTable [\#3290](https://github.com/primefaces/primeng/issues/3290)
-- Responsive TreeTable [\#3249](https://github.com/primefaces/primeng/issues/3249)
-- DragDrop based reorder support for TreeTable [\#3248](https://github.com/primefaces/primeng/issues/3248)
-- Resize support for frozen columns [\#3224](https://github.com/primefaces/primeng/issues/3224)
-- DataTable toggle column sort 'off' state [\#3217](https://github.com/primefaces/primeng/issues/3217)
-- Add filtering in TreeTable [\#3193](https://github.com/primefaces/primeng/issues/3193)
-- Row hover support to row groups [\#3184](https://github.com/primefaces/primeng/issues/3184)
-- ColumnToggler support with ResizableColumns [\#3069](https://github.com/primefaces/primeng/issues/3069)
-- DataTable onEdit\(Complete\) access to previous cell value [\#2997](https://github.com/primefaces/primeng/issues/2997)
-- VirtualScroll with lazy load async: data flickers on new data arrival [\#2950](https://github.com/primefaces/primeng/issues/2950)
-- Allow Cancellation of DataTable OnEditComplete Event [\#2926](https://github.com/primefaces/primeng/issues/2926)
-- Row expansion support for Responsive DataTable [\#2893](https://github.com/primefaces/primeng/issues/2893)
-- Allow editor template access rowIndex in datatable [\#2744](https://github.com/primefaces/primeng/issues/2744)
-- Allow header column group on tree table [\#2715](https://github.com/primefaces/primeng/issues/2715)
-- Display loader while virtual scroller is fetching data [\#2678](https://github.com/primefaces/primeng/issues/2678)
-- emptyMessage template for DataTable [\#2677](https://github.com/primefaces/primeng/issues/2677)
-- Add a new datatable filter mode : in range [\#2671](https://github.com/primefaces/primeng/issues/2671)
-- New resetOnSort method to DataTable [\#2667](https://github.com/primefaces/primeng/issues/2667)
-- Selection propagation for TreeTable [\#2654](https://github.com/primefaces/primeng/issues/2654)
-- Add spinner / loading image into autocomplete component [\#2621](https://github.com/primefaces/primeng/issues/2621)
-- Pass index of the row to onRowDblclick event [\#2518](https://github.com/primefaces/primeng/issues/2518)
-- Paginator for TreeTable [\#2500](https://github.com/primefaces/primeng/issues/2500)
-- Feature Request: Debounce on Datatable filter [\#2489](https://github.com/primefaces/primeng/issues/2489)
-- Ability to cancel/revert value in editable datatable cells [\#2485](https://github.com/primefaces/primeng/issues/2485)
 - AutoDisplay mode to menubar [\#2449](https://github.com/primefaces/primeng/issues/2449)
-- Custom filter function method to DataTable [\#2403](https://github.com/primefaces/primeng/issues/2403)
-- Column reordering support for Scrollable DataTable [\#2399](https://github.com/primefaces/primeng/issues/2399)
-- Numeric filter modes for DataTable [\#2276](https://github.com/primefaces/primeng/issues/2276)
-- Changing rows should trigger pagination in Data components [\#2202](https://github.com/primefaces/primeng/issues/2202)
-- Check all nodes in treetable [\#2158](https://github.com/primefaces/primeng/issues/2158)
-- TreeTable - group nodes with types different from leaves type [\#2109](https://github.com/primefaces/primeng/issues/2109)
-- Datatable row editing [\#2048](https://github.com/primefaces/primeng/issues/2048)
-- Reimplement equals check without manipulating objects [\#1937](https://github.com/primefaces/primeng/issues/1937)
-- ControlValueAccessor interface support for DataTable [\#1771](https://github.com/primefaces/primeng/issues/1771)
-- TreeTable - child nodes may not be accessible [\#1731](https://github.com/primefaces/primeng/issues/1731)
-- DataTable disabledSelection property for multi selection [\#1681](https://github.com/primefaces/primeng/issues/1681)
-- Enable edit based on row data [\#1622](https://github.com/primefaces/primeng/issues/1622)
-- RTL support for datatable component [\#1608](https://github.com/primefaces/primeng/issues/1608)
-- Add reload method to DataTable [\#1589](https://github.com/primefaces/primeng/issues/1589)
-- Enable row expansion based on row data [\#1586](https://github.com/primefaces/primeng/issues/1586)
-- DataTable : rowStyleClass doesn't play well with Angular architecture. [\#1416](https://github.com/primefaces/primeng/issues/1416)
-- scroll to selection in DataTable, Tree and TreeTable [\#1278](https://github.com/primefaces/primeng/issues/1278)
-- Add onCellClick to DataTable [\#1074](https://github.com/primefaces/primeng/issues/1074)
-- Datatable: disableSelection property for checkboxes [\#902](https://github.com/primefaces/primeng/issues/902)
-- Filtering support for templated columns [\#815](https://github.com/primefaces/primeng/issues/815)
-- Keyboard support for DataTable Selection [\#713](https://github.com/primefaces/primeng/issues/713)
-- Datatable runtime grouping [\#501](https://github.com/primefaces/primeng/issues/501)
 
 **Fixed bugs:**
 
 - InputMask caret moving on Android 4.x Chrome  [\#4799](https://github.com/primefaces/primeng/issues/4799)
 - Calendar zIndex problem [\#4758](https://github.com/primefaces/primeng/issues/4758)
-- file upload doesnt work in IE after the first upload event or clear event  [\#4733](https://github.com/primefaces/primeng/issues/4733)
 - AutoComplete field does not work for nested fields [\#4720](https://github.com/primefaces/primeng/issues/4720)
 - TemplateWrapper does not refresh itself [\#4693](https://github.com/primefaces/primeng/issues/4693)
 - p-dialog dynamic styleClass attribution after opening, result to make the popup disappear [\#4685](https://github.com/primefaces/primeng/issues/4685)
@@ -811,50 +772,20 @@
 - DataList/DataGrid paginator is displayed when it should not be [\#4655](https://github.com/primefaces/primeng/issues/4655)
 - Calendar needs double click when minDate/ MaxDate property is set. [\#4641](https://github.com/primefaces/primeng/issues/4641)
 - Select event triggered when autocomplete loses focus [\#4634](https://github.com/primefaces/primeng/issues/4634)
-- Lightbox content behind the overlay mask when opened from a Dialog [\#4633](https://github.com/primefaces/primeng/issues/4633)
 - Tree: Dragging-and-dropping anything other than tree nodes throws error [\#4631](https://github.com/primefaces/primeng/issues/4631)
 - DataTable column resizing does not consider next column minWith [\#4624](https://github.com/primefaces/primeng/issues/4624)
 - Accordion activeIndex doesn't work initially [\#4610](https://github.com/primefaces/primeng/issues/4610)
-- Datatable virtual scroll can sometimes lead to blank entry lists [\#4608](https://github.com/primefaces/primeng/issues/4608)
 - Problem of Object equality checks with frozen objects [\#4600](https://github.com/primefaces/primeng/issues/4600)
-- Scrollable DataTable does not change height after its container resize. [\#4585](https://github.com/primefaces/primeng/issues/4585)
-- DataTable - Column Toggler , Throws undefined error while selecting columns  [\#4553](https://github.com/primefaces/primeng/issues/4553)
-- Lisbox bug [\#4552](https://github.com/primefaces/primeng/issues/4552)
 - DataTable: textarea as custom editor does not receive focus [\#4550](https://github.com/primefaces/primeng/issues/4550)
 - Button of label is not updated properly [\#4548](https://github.com/primefaces/primeng/issues/4548)
-- Datatable resizableColumns does not work correctly with checkbox selection and columnResizeMode="expand" [\#4545](https://github.com/primefaces/primeng/issues/4545)
 - Fieldset is always toggleable [\#4527](https://github.com/primefaces/primeng/issues/4527)
 - SelectButton does not support OnPush ChangeDetection [\#4520](https://github.com/primefaces/primeng/issues/4520)
 - Errors for scrollable table with both resizable and frozen columns  [\#4512](https://github.com/primefaces/primeng/issues/4512)
 - Cannot use resizableColumns together with dynamic visibility [\#4510](https://github.com/primefaces/primeng/issues/4510)
 - handleAndroidInput not updating model [\#4495](https://github.com/primefaces/primeng/issues/4495)
-- Headers missalignment [\#4494](https://github.com/primefaces/primeng/issues/4494)
-- Datatable scrollHeight can't be changed [\#4461](https://github.com/primefaces/primeng/issues/4461)
-- DataTable.reset\(\) shouldn't reset the sortOrder to 1 [\#4451](https://github.com/primefaces/primeng/issues/4451)
-- DataTable - Filter - Piping values breaks filter  [\#4447](https://github.com/primefaces/primeng/issues/4447)
-- Incompatibility between ResizableColumns and RowsPerPageOptions [\#4328](https://github.com/primefaces/primeng/issues/4328)
-- DataTable Race Condition Crash in Chrome 62 \(\#4233 did not fix\) [\#4306](https://github.com/primefaces/primeng/issues/4306)
-- Cell navigation fails when a column is hidden [\#4270](https://github.com/primefaces/primeng/issues/4270)
-- Datatable GlobalFilter OnPush support [\#4262](https://github.com/primefaces/primeng/issues/4262)
-- DataTable resizableColumns creates scrollbar when resizing window from higher to lower. [\#4223](https://github.com/primefaces/primeng/issues/4223)
-- Datatable: scrolling+frozen+resizeColumns -\>console error/distorted view [\#4212](https://github.com/primefaces/primeng/issues/4212)
-- DataTable shift click selection does not work with lazy load [\#4127](https://github.com/primefaces/primeng/issues/4127)
-- Datatable's scrollHeight does not change on a binding anymore \(broken since 4.2.2\) [\#4114](https://github.com/primefaces/primeng/issues/4114)
-- PrimeNG: Multiselect Template not working within a P-Column [\#4097](https://github.com/primefaces/primeng/issues/4097)
-- frozen and expandableRowGroups mode in datatable. [\#4028](https://github.com/primefaces/primeng/issues/4028)
-- DataTable displays Emptymessage twice when using frozen columns [\#3966](https://github.com/primefaces/primeng/issues/3966)
-- FileUpload in auto and basic modes doesn't work when adding KML MIME type in accept [\#3804](https://github.com/primefaces/primeng/issues/3804)
-- \[p-dataTable\] hard-coded initial global filter value causes exception [\#3680](https://github.com/primefaces/primeng/issues/3680)
-- \[p-dataTable\] interpolated initial global filter value not applied [\#3679](https://github.com/primefaces/primeng/issues/3679)
-- Row Group with Row expansion. Colspan for row expansion template [\#3651](https://github.com/primefaces/primeng/issues/3651)
-- autocomplete ngModel not updated before onUnselect event callback is called, but is before onSelect [\#3188](https://github.com/primefaces/primeng/issues/3188)
--  HeaderCheckboxToggleAllPages does not work with \[lazy\] = "true" [\#3039](https://github.com/primefaces/primeng/issues/3039)
-- DataTable incorrectly highlights selected row when rows differ only in Date field [\#2989](https://github.com/primefaces/primeng/issues/2989)
-- datatable with custom sort function on the default softField isn't working properly [\#2985](https://github.com/primefaces/primeng/issues/2985)
-- DataTable expanded rows collapse when source updated [\#2975](https://github.com/primefaces/primeng/issues/2975)
-- \[Bug\] in editable DataTable with nested object as data source \(w added plnkr\) [\#2932](https://github.com/primefaces/primeng/issues/2932)
 
 ## [5.0.2](https://github.com/primefaces/primeng/tree/5.0.2) (2017-11-23)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.0.1...5.0.2)
 
 **Implemented New Features and Enhancements:**
@@ -862,6 +793,7 @@
 - Add a span for accordion header text [\#4522](https://github.com/primefaces/primeng/issues/4522)
 
 ## [5.0.1](https://github.com/primefaces/primeng/tree/5.0.1) (2017-11-23)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.0.0...5.0.1)
 
 **Implemented New Features and Enhancements:**
@@ -878,6 +810,7 @@
 - Button with empty label and text shows "ui-button" [\#1657](https://github.com/primefaces/primeng/issues/1657)
 
 ## [5.0.0](https://github.com/primefaces/primeng/tree/5.0.0) (2017-11-20)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/5.0.0-rc.0...5.0.0)
 
 **Implemented New Features and Enhancements:**
@@ -886,7 +819,6 @@
 - Update Chart.js dependency [\#4391](https://github.com/primefaces/primeng/issues/4391)
 - Datatable paginator add template feature [\#4329](https://github.com/primefaces/primeng/issues/4329)
 - Ability to customize Dialog visible style property [\#4320](https://github.com/primefaces/primeng/issues/4320)
-- Chinese support for AutoComplete [\#2495](https://github.com/primefaces/primeng/issues/2495)
 - Double Click event for TreeTable [\#2468](https://github.com/primefaces/primeng/issues/2468)
 
 **Fixed bugs:**
@@ -895,16 +827,15 @@
 - Remove placeholder in non-empty Chips component [\#4438](https://github.com/primefaces/primeng/issues/4438)
 - Accordion with \*ngIf directive - tabs in wrong order [\#4437](https://github.com/primefaces/primeng/issues/4437)
 - Chips component `onFocus` & `onBlur` events do not pass arguments to callback function [\#4436](https://github.com/primefaces/primeng/issues/4436)
-- DataTable virtual scrolling should fetch last partial page \[@4.3.0\] [\#4432](https://github.com/primefaces/primeng/issues/4432)
 - Color picker appendTo="body" property is not working [\#4423](https://github.com/primefaces/primeng/issues/4423)
 - split button panel right aligns to the button, not the trigger [\#4417](https://github.com/primefaces/primeng/issues/4417)
 - DataTable - Minor CSS Issue with borders when \[scrollable\]="true" [\#4407](https://github.com/primefaces/primeng/issues/4407)
 - When clicking on AutoComplete dropdown button it does not close other list [\#4405](https://github.com/primefaces/primeng/issues/4405)
 - 5.0.0-rc.0 generated css error [\#4386](https://github.com/primefaces/primeng/issues/4386)
 - Floating-label on p-autocomplete unfloating after selection [\#4319](https://github.com/primefaces/primeng/issues/4319)
-- RadioButton onClick doesn't work when user clicks on label  [\#3873](https://github.com/primefaces/primeng/issues/3873)
 
 ## [5.0.0-rc.0](https://github.com/primefaces/primeng/tree/5.0.0-rc.0) (2017-11-07)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.3.0...5.0.0-rc.0)
 
 **Implemented New Features and Enhancements:**
@@ -917,7 +848,6 @@
 - Keyboard enhancements for MultiSelect [\#4364](https://github.com/primefaces/primeng/issues/4364)
 - trackBy and immutable properties to DataScroller [\#4361](https://github.com/primefaces/primeng/issues/4361)
 - RTL Support for SplitButton [\#4305](https://github.com/primefaces/primeng/issues/4305)
-- Stacked Charts [\#4304](https://github.com/primefaces/primeng/issues/4304)
 - Datatable resize column support at column level enable/disable [\#4292](https://github.com/primefaces/primeng/issues/4292)
 - id property to menuitem api [\#2559](https://github.com/primefaces/primeng/issues/2559)
 
@@ -930,15 +860,13 @@
 - p-multiSelect - CSS Issue with showToggleAll [\#4350](https://github.com/primefaces/primeng/issues/4350)
 - orderList is not able to re-order multiple items [\#4348](https://github.com/primefaces/primeng/issues/4348)
 - p-datatable w/ metaSelectionKey="false" does not emit row data on selection [\#4335](https://github.com/primefaces/primeng/issues/4335)
-- fix 4122  datatable isSelected missing from 4.3.0 [\#4330](https://github.com/primefaces/primeng/issues/4330)
-- VirtualScroll does not show last page [\#4321](https://github.com/primefaces/primeng/issues/4321)
 - Time picker displays 00 for hours for 12 hour time [\#4312](https://github.com/primefaces/primeng/issues/4312)
 - Autocomplete remains in focus with forceSelection [\#4298](https://github.com/primefaces/primeng/issues/4298)
 - Internal span of file upload component remains disabled  [\#4293](https://github.com/primefaces/primeng/issues/4293)
-- p-calendar Hour does not display correctly when the hour is set to 12 for 12 hour time [\#4289](https://github.com/primefaces/primeng/issues/4289)
 - Double quotes fail in DataTable export [\#4280](https://github.com/primefaces/primeng/issues/4280)
 
 ## [4.3.0](https://github.com/primefaces/primeng/tree/4.3.0) (2017-10-30)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.3.0-rc.2...4.3.0)
 
 **Implemented New Features and Enhancements:**
@@ -951,6 +879,7 @@
 - Use p-dropdown in Paginator rows per page [\#4242](https://github.com/primefaces/primeng/issues/4242)
 - Add autoZIndex to Sidebar [\#4234](https://github.com/primefaces/primeng/issues/4234)
 - Customize icon of MultiSelect [\#4232](https://github.com/primefaces/primeng/issues/4232)
+- Multiselect should have onFocus event. [\#4224](https://github.com/primefaces/primeng/issues/4224)
 - Chips input - ability to auto create chip when focus is left [\#4218](https://github.com/primefaces/primeng/issues/4218)
 - Remove obselete property on .ui-datatable-scrollable-wrapper [\#4213](https://github.com/primefaces/primeng/issues/4213)
 - label template for MultiSelect [\#4209](https://github.com/primefaces/primeng/issues/4209)
@@ -960,6 +889,7 @@
 - Add headerStyle/Class, bodyStyle/Class, footerStyle/Class to column [\#4165](https://github.com/primefaces/primeng/issues/4165)
 - Improve Dialog Accessibility [\#4161](https://github.com/primefaces/primeng/issues/4161)
 - Ability to exclude columns from global filtering [\#4157](https://github.com/primefaces/primeng/issues/4157)
+- Expand mode in data table rowgroup [\#4141](https://github.com/primefaces/primeng/issues/4141)
 - New Message component [\#4136](https://github.com/primefaces/primeng/issues/4136)
 - Property for header display in panel component [\#4131](https://github.com/primefaces/primeng/issues/4131)
 - DataTable isSelected check performance improvement [\#4122](https://github.com/primefaces/primeng/issues/4122)
@@ -1031,41 +961,19 @@
 - Overlaypanel need a double click on the body to close it, if the event that call show\(\) is not a click event [\#2380](https://github.com/primefaces/primeng/issues/2380)
 
 ## [4.3.0-rc.2](https://github.com/primefaces/primeng/tree/4.3.0-rc.2) (2017-10-26)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.3.0-rc.1...4.3.0-rc.2)
 
 ## [4.3.0-rc.1](https://github.com/primefaces/primeng/tree/4.3.0-rc.1) (2017-10-26)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.2.2...4.3.0-rc.1)
 
-**Implemented New Features and Enhancements:**
-
-- Multiselect should have onFocus event. [\#4224](https://github.com/primefaces/primeng/issues/4224)
-- Expand mode in data table rowgroup [\#4141](https://github.com/primefaces/primeng/issues/4141)
-- Better documentation for AutoComplete immutable [\#4103](https://github.com/primefaces/primeng/issues/4103)
-- highlightFirst property to AutoComplete [\#4031](https://github.com/primefaces/primeng/issues/4031)
-- Floating labels for calendar, dropdown, multiselect, etc. [\#4011](https://github.com/primefaces/primeng/issues/4011)
-- Primeng Button hover animation only available before you click button [\#3886](https://github.com/primefaces/primeng/issues/3886)
-- File Upload component clean the selected file when user click on "Choose" button and then click on "Cancel" on the file choose window in IE11 [\#2381](https://github.com/primefaces/primeng/issues/2381)
-- Range selection in Calendar [\#1621](https://github.com/primefaces/primeng/issues/1621)
-
-**Fixed bugs:**
-
-- The UTC time format still does not work in the calendar. [\#4188](https://github.com/primefaces/primeng/issues/4188)
-- menuStyleClass of splitButton is not working [\#4117](https://github.com/primefaces/primeng/issues/4117)
-- Sidebar component styleClassand ngStyle dont work [\#4111](https://github.com/primefaces/primeng/issues/4111)
-- Tree leaf is expandable in horizontal mode [\#4062](https://github.com/primefaces/primeng/issues/4062)
-- TabView Lazy Loading does not respect cache proprty [\#4036](https://github.com/primefaces/primeng/issues/4036)
-- Uncaught \(in promise\): Extra/unparsed characters found in date [\#4030](https://github.com/primefaces/primeng/issues/4030)
-- Tree - Treetable default selection is not updating the checkboxes [\#3579](https://github.com/primefaces/primeng/issues/3579)
-- Partial preselection in Tree fails  [\#3498](https://github.com/primefaces/primeng/issues/3498)
-- Datatable resizableColumns and selectionMode="multiple" incompatibility. Datatable resizableColumns make selectionMode multiple checkbox column width equal to page width [\#2987](https://github.com/primefaces/primeng/issues/2987)
-
 ## [4.2.2](https://github.com/primefaces/primeng/tree/4.2.2) (2017-10-05)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.2.1...4.2.2)
 
 **Implemented New Features and Enhancements:**
 
-- Callout -New Component. [\#4078](https://github.com/primefaces/primeng/issues/4078)
-- Panel afterToggle should be called when the panel open animation is complete [\#3543](https://github.com/primefaces/primeng/issues/3543)
 - StartsWith filtering option for Listbox [\#4088](https://github.com/primefaces/primeng/issues/4088)
 - Improve Confirm Dialog event performance [\#4085](https://github.com/primefaces/primeng/issues/4085)
 - Picklist/OrderList: expose index of element in ng-template [\#4084](https://github.com/primefaces/primeng/issues/4084)
@@ -1090,9 +998,6 @@
 
 **Fixed bugs:**
 
-- Checkbox / Reactive Form / Multiple Value  [\#3734](https://github.com/primefaces/primeng/issues/3734)
-- Tooltip on button stays visible if button gets disabled [\#3537](https://github.com/primefaces/primeng/issues/3537)
-- Growl sticky input is not taken into account [\#3522](https://github.com/primefaces/primeng/issues/3522)
 - Move events do not called on dragdrop for PickList [\#4086](https://github.com/primefaces/primeng/issues/4086)
 - Autocomplete with minLength fires completeMethod after onClear [\#4071](https://github.com/primefaces/primeng/issues/4071)
 - Dropdown filter has incorrect width under fluid mode [\#4067](https://github.com/primefaces/primeng/issues/4067)
@@ -1116,6 +1021,7 @@
 - Slider fails with big values [\#2145](https://github.com/primefaces/primeng/issues/2145)
 
 ## [4.2.1](https://github.com/primefaces/primeng/tree/4.2.1) (2017-09-15)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.2.0...4.2.1)
 
 **Implemented New Features and Enhancements:**
@@ -1132,6 +1038,7 @@
 - autoComplete dropdown button doesn't work  [\#3829](https://github.com/primefaces/primeng/issues/3829)
 
 ## [4.2.0](https://github.com/primefaces/primeng/tree/4.2.0) (2017-09-13)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.2.0-rc.1...4.2.0)
 
 **Implemented New Features and Enhancements:**
@@ -1146,7 +1053,6 @@
 - SelectButton onClick event [\#3387](https://github.com/primefaces/primeng/issues/3387)
 - Footer for Listbox and Add Fixed Header [\#3379](https://github.com/primefaces/primeng/issues/3379)
 - Add life property to Tooltip [\#3370](https://github.com/primefaces/primeng/issues/3370)
-- Append sep={csvSeparator} to allow for seemless integration when the csvSeparator is not ',' for a datatable [\#3358](https://github.com/primefaces/primeng/issues/3358)
 
 **Fixed bugs:**
 
@@ -1164,6 +1070,7 @@
 - TreeNode styleClass update sets ui-tree-toggler visibility to hidden [\#2675](https://github.com/primefaces/primeng/issues/2675)
 
 ## [4.2.0-rc.1](https://github.com/primefaces/primeng/tree/4.2.0-rc.1) (2017-08-29)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.1.3...4.2.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -1179,19 +1086,16 @@
 - Display HTML content in p-messages [\#3486](https://github.com/primefaces/primeng/issues/3486)
 - Calendar: Inner input element misses the name attribute [\#3461](https://github.com/primefaces/primeng/issues/3461)
 - ScreenReader role support for dropdown [\#3446](https://github.com/primefaces/primeng/issues/3446)
-- Add id property to DataTable [\#3434](https://github.com/primefaces/primeng/issues/3434)
 - Tree add loading status [\#3381](https://github.com/primefaces/primeng/issues/3381)
 - Radiobutton's linefeed behavior is different to Checkbox [\#3363](https://github.com/primefaces/primeng/issues/3363)
 - Offsets for Grid CSS [\#3362](https://github.com/primefaces/primeng/issues/3362)
 - Floating labels for Inputs [\#3334](https://github.com/primefaces/primeng/issues/3334)
 - Add filterField to Column [\#3333](https://github.com/primefaces/primeng/issues/3333)
 - Date template for Calendar [\#3321](https://github.com/primefaces/primeng/issues/3321)
-- Add required property to InputMask [\#3317](https://github.com/primefaces/primeng/issues/3317)
 - appendTo for SlideMenu [\#3313](https://github.com/primefaces/primeng/issues/3313)
 - Reimplement TabView Lazy Loading [\#3295](https://github.com/primefaces/primeng/issues/3295)
 - Add tooltipZIndex property [\#3294](https://github.com/primefaces/primeng/issues/3294)
 - OnFocus for Spinner [\#3291](https://github.com/primefaces/primeng/issues/3291)
-- Demo: Lazy data table with a loading status [\#3266](https://github.com/primefaces/primeng/issues/3266)
 - Visible flag support for Menu [\#3072](https://github.com/primefaces/primeng/issues/3072)
 - Templating support for Multiselect component [\#2165](https://github.com/primefaces/primeng/issues/2165)
 - Today Button for Calendar [\#1859](https://github.com/primefaces/primeng/issues/1859)
@@ -1210,25 +1114,18 @@
 - Spaces are not accepted in p-dropdown filters [\#3657](https://github.com/primefaces/primeng/issues/3657)
 - Chips with addOnTab does not move focus after empty input tab [\#3654](https://github.com/primefaces/primeng/issues/3654)
 - Add required property to AutoComplete, Spinner and InputMask [\#3503](https://github.com/primefaces/primeng/issues/3503)
-- Autocomplete input field not cleared or reset [\#3479](https://github.com/primefaces/primeng/issues/3479)
 - Scrollable datatable layout breaks when column hidden=true is used [\#3471](https://github.com/primefaces/primeng/issues/3471)
 - OrderList: Backend array remains unchanged when elements are ordered in component frontend [\#3466](https://github.com/primefaces/primeng/issues/3466)
 - Datatable column misalignment issue on page change [\#3465](https://github.com/primefaces/primeng/issues/3465)
-- Datatables with a context menu can show the wrong selection [\#3433](https://github.com/primefaces/primeng/issues/3433)
 - p-autocomplete selects wrong/old option on enter [\#3431](https://github.com/primefaces/primeng/issues/3431)
 - Not continuously input the same commands [\#3424](https://github.com/primefaces/primeng/issues/3424)
-- Virtual Scroll Data Table doesn't work at all in IE or Edge [\#3418](https://github.com/primefaces/primeng/issues/3418)
-- Paginator - 'first' property not working [\#3415](https://github.com/primefaces/primeng/issues/3415)
 - BlockUI is not properly destroyed [\#3410](https://github.com/primefaces/primeng/issues/3410)
 - Sorting a single column emits an 'onPage' event [\#3408](https://github.com/primefaces/primeng/issues/3408)
 - Datatable : onLazyLoad event fire twice when "first" property is different from 0 [\#3399](https://github.com/primefaces/primeng/issues/3399)
 - The p-calendar shows  NaN when changing showTime at runtime [\#3396](https://github.com/primefaces/primeng/issues/3396)
-- Drowpdown doesn't fire the onChange event with keydown if selectedOptions is null [\#3392](https://github.com/primefaces/primeng/issues/3392)
 - Spinner onChange fires undefined [\#3390](https://github.com/primefaces/primeng/issues/3390)
 - AutoComplete not updated  [\#3360](https://github.com/primefaces/primeng/issues/3360)
-- DataTable -  columns get misaligned when there are hidden columns   [\#3356](https://github.com/primefaces/primeng/issues/3356)
 - Context Menu problems with Firefox [\#3353](https://github.com/primefaces/primeng/issues/3353)
-- Don't working autoResize without specify cols and rows [\#3349](https://github.com/primefaces/primeng/issues/3349)
 - Frozen columns not synced after visibility changes [\#3345](https://github.com/primefaces/primeng/issues/3345)
 - Paginator rendering issues with some themes [\#3319](https://github.com/primefaces/primeng/issues/3319)
 - Incorrect rowHeight calculation when using virtual scrolling [\#3301](https://github.com/primefaces/primeng/issues/3301)
@@ -1237,11 +1134,10 @@
 - emptyMessage appears before minLength is reached in autoComplete [\#3284](https://github.com/primefaces/primeng/issues/3284)
 - disabledDates in calendar are not updating [\#3283](https://github.com/primefaces/primeng/issues/3283)
 - dataTable default styleClass is undefined [\#3279](https://github.com/primefaces/primeng/issues/3279)
-- Horizontal scrollbar disappears primeng when no records found [\#3257](https://github.com/primefaces/primeng/issues/3257)
 - Error when selecting a day on a p-calendar inside an editor column [\#3256](https://github.com/primefaces/primeng/issues/3256)
-- Fix: Dropdown's dimension is not synchronous when 'options' is set in lazy. [\#3038](https://github.com/primefaces/primeng/issues/3038)
 
 ## [4.1.3](https://github.com/primefaces/primeng/tree/4.1.3) (2017-08-11)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.1.2...4.1.3)
 
 **Implemented New Features and Enhancements:**
@@ -1261,7 +1157,6 @@
 
 **Fixed bugs:**
 
-- No change detection \(if Dropdown value is changed with keyboard down arrow key\) [\#2845](https://github.com/primefaces/primeng/issues/2845)
 - Dropdown should update width when options change [\#3639](https://github.com/primefaces/primeng/issues/3639)
 - Schedule default active button style missing from Omega [\#3638](https://github.com/primefaces/primeng/issues/3638)
 - Panel onAfterToggle is called early. [\#3607](https://github.com/primefaces/primeng/issues/3607)
@@ -1278,6 +1173,7 @@
 - dataTable\#rowStyleClass mess up with row styles [\#1827](https://github.com/primefaces/primeng/issues/1827)
 
 ## [4.1.2](https://github.com/primefaces/primeng/tree/4.1.2) (2017-07-27)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.1.1...4.1.2)
 
 **Implemented New Features and Enhancements:**
@@ -1288,7 +1184,6 @@
 
 **Fixed bugs:**
 
-- Duplicate property declaration in Calendar CSS [\#3501](https://github.com/primefaces/primeng/issues/3501)
 - Popup TieredMenu overlay positioning may fail [\#3518](https://github.com/primefaces/primeng/issues/3518)
 - TabView activeIndex throws exception if bigger than length [\#3517](https://github.com/primefaces/primeng/issues/3517)
 - IE - 'null' shown before tooltip's text [\#3490](https://github.com/primefaces/primeng/issues/3490)
@@ -1299,6 +1194,7 @@
 - Dropdown selected value not working properly if Editable is true [\#3297](https://github.com/primefaces/primeng/issues/3297)
 
 ## [4.1.1](https://github.com/primefaces/primeng/tree/4.1.1) (2017-07-19)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.1.0...4.1.1)
 
 **Implemented New Features and Enhancements:**
@@ -1316,7 +1212,6 @@
 
 **Fixed bugs:**
 
-- p-dialog - \[minWidth\] property does not work [\#3324](https://github.com/primefaces/primeng/issues/3324)
 - Dropdown fails when opened with space [\#3449](https://github.com/primefaces/primeng/issues/3449)
 - disabled buttons can receive hover visuals [\#3448](https://github.com/primefaces/primeng/issues/3448)
 - confirmDialog fa missing from dom [\#3444](https://github.com/primefaces/primeng/issues/3444)
@@ -1325,6 +1220,7 @@
 - Filtering by notEquals raises "TypeError: Cannot read property 'equals' of undefined" [\#3388](https://github.com/primefaces/primeng/issues/3388)
 - \[bug report\] Picklist: Drag and Drop not working properly [\#3367](https://github.com/primefaces/primeng/issues/3367)
 - Button.ts class name typo [\#3365](https://github.com/primefaces/primeng/issues/3365)
+- p-dialog - \[minWidth\] property does not work [\#3324](https://github.com/primefaces/primeng/issues/3324)
 - Spinner does not set model to null when a min value is specified [\#3318](https://github.com/primefaces/primeng/issues/3318)
 - AutoComplete - Suggestions display issue when suggestions above [\#3312](https://github.com/primefaces/primeng/issues/3312)
 - Remove extra styleClass attribute from DataTable with paginator [\#3288](https://github.com/primefaces/primeng/issues/3288)
@@ -1334,13 +1230,17 @@
 - Lightbox positioning issue [\#2292](https://github.com/primefaces/primeng/issues/2292)
 
 ## [4.1.0](https://github.com/primefaces/primeng/tree/4.1.0) (2017-07-12)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.1.0-rc.3...4.1.0)
 
 **Implemented New Features and Enhancements:**
 
 - badge and badgeStyleClass for MenuItem [\#3328](https://github.com/primefaces/primeng/issues/3328)
 - InputMask misses an onFocus output event [\#3216](https://github.com/primefaces/primeng/issues/3216)
+- Filtering for orderlist [\#3007](https://github.com/primefaces/primeng/issues/3007)
+- InputSwitch accessibility [\#2951](https://github.com/primefaces/primeng/issues/2951)
 - Shift key support for DataTable row selection [\#1283](https://github.com/primefaces/primeng/issues/1283)
+- ColorPicker Component [\#50](https://github.com/primefaces/primeng/issues/50)
 
 **Fixed bugs:**
 
@@ -1351,6 +1251,7 @@
 - onHide is shown when a dialog is created [\#3051](https://github.com/primefaces/primeng/issues/3051)
 
 ## [4.1.0-rc.3](https://github.com/primefaces/primeng/tree/4.1.0-rc.3) (2017-06-30)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.1.0-rc.2...4.1.0-rc.3)
 
 **Implemented New Features and Enhancements:**
@@ -1367,27 +1268,19 @@
 - Compatibility for Scrollable and Responsive datatable [\#2980](https://github.com/primefaces/primeng/issues/2980)
 - MenuItem style and styleClass properties [\#2901](https://github.com/primefaces/primeng/issues/2901)
 - appendTo property to TieredMenu component [\#2773](https://github.com/primefaces/primeng/issues/2773)
-- Support sortFunction for custom sort in case of lazy loading in DataTable. [\#2748](https://github.com/primefaces/primeng/issues/2748)
-- Add centerOnShow property to Dialog [\#2735](https://github.com/primefaces/primeng/issues/2735)
-- \[Dropdown\] \[appendTo body\] Calculated width doesn't take border and padding into consideration [\#2723](https://github.com/primefaces/primeng/issues/2723)
 - Make use of direct child selection in CSS where possible/reasonable [\#2700](https://github.com/primefaces/primeng/issues/2700)
 - Accordion component padding issues in bootstrap theme [\#2672](https://github.com/primefaces/primeng/issues/2672)
-- Rename SharedModule [\#2508](https://github.com/primefaces/primeng/issues/2508)
 - Improve overflow hidden on DataTable [\#2447](https://github.com/primefaces/primeng/issues/2447)
 - Remove placehoder in non-empty multiple autocomplete [\#2197](https://github.com/primefaces/primeng/issues/2197)
-- Tooltip usability problem with appendTo set to "target" [\#2125](https://github.com/primefaces/primeng/issues/2125)
 - ConfirmDialog focus button when it opens [\#2119](https://github.com/primefaces/primeng/issues/2119)
 - Add type property to Spinner [\#2107](https://github.com/primefaces/primeng/issues/2107)
 - inputStyle and inputStyleClass for Chips [\#2065](https://github.com/primefaces/primeng/issues/2065)
 - Custom content for menubar [\#1997](https://github.com/primefaces/primeng/issues/1997)
-- Pass the column information to onRowClick [\#1986](https://github.com/primefaces/primeng/issues/1986)
 - Pass rowIndex to column template \(pTemplate="rowexpansion"\) [\#1910](https://github.com/primefaces/primeng/issues/1910)
 - Calendar needs "onClose" event [\#1874](https://github.com/primefaces/primeng/issues/1874)
 - Chip duplicate handling [\#1630](https://github.com/primefaces/primeng/issues/1630)
 - modal dialogs should prevent the background from being scrolleable [\#1625](https://github.com/primefaces/primeng/issues/1625)
-- Column Grouping Support for Scrollable DataTable [\#1570](https://github.com/primefaces/primeng/issues/1570)
 - Simplify menuitem command handling [\#1354](https://github.com/primefaces/primeng/issues/1354)
-- Separator for MenuModel [\#1087](https://github.com/primefaces/primeng/issues/1087)
 
 **Fixed bugs:**
 
@@ -1396,7 +1289,6 @@
 - Left tooltip position fails [\#3252](https://github.com/primefaces/primeng/issues/3252)
 - InputSwitch throws expression was checked error with Angular 4.2.x [\#3247](https://github.com/primefaces/primeng/issues/3247)
 - Bootstrap theme calendar [\#3243](https://github.com/primefaces/primeng/issues/3243)
-- Memory Leak in Dialog [\#3213](https://github.com/primefaces/primeng/issues/3213)
 - Autocomplete inputtext content not shown [\#3199](https://github.com/primefaces/primeng/issues/3199)
 - p-dialog Bootstrap footer style issue with PrimeNG 4.0 [\#3183](https://github.com/primefaces/primeng/issues/3183)
 - color picker in reactive forms doesn't select color [\#3179](https://github.com/primefaces/primeng/issues/3179)
@@ -1413,22 +1305,17 @@
 - PanelMenu animation broken on fast click [\#3052](https://github.com/primefaces/primeng/issues/3052)
 - DataTable - ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'NaNpx'. Current value: '352px' [\#3041](https://github.com/primefaces/primeng/issues/3041)
 - Focused dropdown reveals blinking cursor iOS [\#3027](https://github.com/primefaces/primeng/issues/3027)
-- VirtualScroll with lazy load, Calling reset does nothing. [\#2955](https://github.com/primefaces/primeng/issues/2955)
 - Datatable totalRecords is not updated after calling the resetMethod [\#2948](https://github.com/primefaces/primeng/issues/2948)
 - Data table with filter and sort does not work with headerColumnGroup [\#2900](https://github.com/primefaces/primeng/issues/2900)
 - Footer Group not displayed on scrollable datatable [\#2894](https://github.com/primefaces/primeng/issues/2894)
 - Calendar displayed value not updated on blur [\#2826](https://github.com/primefaces/primeng/issues/2826)
 - ExpressionChangedAfterItHasBeenCheckedError in radioButton on reactive form [\#2761](https://github.com/primefaces/primeng/issues/2761)
 - Dropdown onChange fires on re-selection of same item [\#2760](https://github.com/primefaces/primeng/issues/2760)
-- Autocomplete shows \[object Object\] for objects field if it contains empty string [\#2698](https://github.com/primefaces/primeng/issues/2698)
 - Memory leak in accordion [\#2696](https://github.com/primefaces/primeng/issues/2696)
 - Custom sorting breaks pagination [\#2687](https://github.com/primefaces/primeng/issues/2687)
 - Tree - DragDrop makes mistakes when dragging downwards in between other nodes [\#2569](https://github.com/primefaces/primeng/issues/2569)
-- PanelMenu child items should follow their own routerLink rather than their parent's [\#2533](https://github.com/primefaces/primeng/issues/2533)
-- Multiselect component with reactive forms [\#2498](https://github.com/primefaces/primeng/issues/2498)
 - Calendar should allow valid blank/null value [\#2471](https://github.com/primefaces/primeng/issues/2471)
 - Error in DataTable with ContextMenu [\#2431](https://github.com/primefaces/primeng/issues/2431)
-- RadioButton is not supported in dynamic forms [\#2238](https://github.com/primefaces/primeng/issues/2238)
 - Calendar clicking on button icon not opening calendar IE9/IE10 [\#2213](https://github.com/primefaces/primeng/issues/2213)
 - DataTable filter is not cleared when ::-ms-clear is clicked [\#2179](https://github.com/primefaces/primeng/issues/2179)
 - p-confirmdialog is not centered to browser [\#2146](https://github.com/primefaces/primeng/issues/2146)
@@ -1440,24 +1327,22 @@
 - Styleclass for TreeNode fails for Horizontal Tree [\#1963](https://github.com/primefaces/primeng/issues/1963)
 - MultiSelect value support objects [\#1962](https://github.com/primefaces/primeng/issues/1962)
 - \[iOS only\] Dropdown Autocmoplete doesn't show suggestions by clicking on dropdown button  [\#1948](https://github.com/primefaces/primeng/issues/1948)
-- getNextMonthAndYear return undefined as year when month is \< 11 [\#1935](https://github.com/primefaces/primeng/issues/1935)
-- DataTable header checkbox should not be checked when filter is applied [\#1909](https://github.com/primefaces/primeng/issues/1909)
 - Editable dropdown caret jumps [\#1897](https://github.com/primefaces/primeng/issues/1897)
 - Custom filter selection apply sort [\#1873](https://github.com/primefaces/primeng/issues/1873)
-- DataTable - Single selection selects multiple with same row entries [\#1856](https://github.com/primefaces/primeng/issues/1856)
 - DataTable filter input deletes characters during typing [\#1813](https://github.com/primefaces/primeng/issues/1813)
 - p-gmap in hidden containers fails [\#1806](https://github.com/primefaces/primeng/issues/1806)
 - Data-table scroll disappears when filtering in a field shown by width scroll [\#1805](https://github.com/primefaces/primeng/issues/1805)
 - Datatable is not updated inside an expansiontemplate [\#1775](https://github.com/primefaces/primeng/issues/1775)
-- Compatibility with row expansion and selection [\#1620](https://github.com/primefaces/primeng/issues/1620)
 - AutoComplete box-shadow issue while nested in Panel [\#1561](https://github.com/primefaces/primeng/issues/1561)
 - DataTable Column with Template onRowClick/onRowSelect not firing [\#1485](https://github.com/primefaces/primeng/issues/1485)
 - Menubar event emmiter broken after hide and show [\#857](https://github.com/primefaces/primeng/issues/857)
 
 ## [4.1.0-rc.2](https://github.com/primefaces/primeng/tree/4.1.0-rc.2) (2017-06-16)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.1.0-rc.1...4.1.0-rc.2)
 
 ## [4.1.0-rc.1](https://github.com/primefaces/primeng/tree/4.1.0-rc.1) (2017-06-16)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.3...4.1.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -1477,27 +1362,20 @@
 - Filter for Picklist [\#3036](https://github.com/primefaces/primeng/issues/3036)
 - Multi Filter Support for Picklist [\#3035](https://github.com/primefaces/primeng/issues/3035)
 - Animation for panelmenu submenus [\#3025](https://github.com/primefaces/primeng/issues/3025)
-- Reorder support for Scrollable Table [\#3012](https://github.com/primefaces/primeng/issues/3012)
 - Multifilter function for ObjectUtils [\#3011](https://github.com/primefaces/primeng/issues/3011)
 - Filter event for Orderlist [\#3010](https://github.com/primefaces/primeng/issues/3010)
 - Multi filter support for Orderlist [\#3009](https://github.com/primefaces/primeng/issues/3009)
 - Orderlist set get methods [\#3008](https://github.com/primefaces/primeng/issues/3008)
-- Filtering for orderlist [\#3007](https://github.com/primefaces/primeng/issues/3007)
 - New Component: Organization Chart [\#2992](https://github.com/primefaces/primeng/issues/2992)
 - Dropdown accessiblity [\#2966](https://github.com/primefaces/primeng/issues/2966)
 - Inputswitch accessibility screen reader [\#2953](https://github.com/primefaces/primeng/issues/2953)
-- InputSwitch accessibility [\#2951](https://github.com/primefaces/primeng/issues/2951)
 - Footer for Panel [\#2591](https://github.com/primefaces/primeng/issues/2591)
 - PickList: move all items from target to source issue [\#2573](https://github.com/primefaces/primeng/issues/2573)
 - Severity support for SplitButton [\#2482](https://github.com/primefaces/primeng/issues/2482)
 - Multi filter support for Dropdown [\#2454](https://github.com/primefaces/primeng/issues/2454)
-- Collision detection for SplitButton [\#2439](https://github.com/primefaces/primeng/issues/2439)
-- Add money/currency mask [\#1334](https://github.com/primefaces/primeng/issues/1334)
 - Tooltip delay feature [\#1244](https://github.com/primefaces/primeng/issues/1244)
 - Refactor OrderList CSS design [\#1240](https://github.com/primefaces/primeng/issues/1240)
-- New Component: InputTag [\#1149](https://github.com/primefaces/primeng/issues/1149)
 - New component: TimePicker [\#1102](https://github.com/primefaces/primeng/issues/1102)
-- Resize on TreeTable [\#984](https://github.com/primefaces/primeng/issues/984)
 - Add compareSelectionBy property to DataTable. [\#981](https://github.com/primefaces/primeng/issues/981)
 - onResize callback for InputTextarea [\#957](https://github.com/primefaces/primeng/issues/957)
 - Basic UI mode for FileUpload [\#923](https://github.com/primefaces/primeng/issues/923)
@@ -1520,19 +1398,16 @@
 - Listbox custom style [\#3077](https://github.com/primefaces/primeng/issues/3077)
 - SlideMenu routerLink doesn't work because of a bug in the template [\#3074](https://github.com/primefaces/primeng/issues/3074)
 - Binding to first property has no effect on DataTable [\#3044](https://github.com/primefaces/primeng/issues/3044)
-- Colorpicker unreachable code [\#3028](https://github.com/primefaces/primeng/issues/3028)
 - Tooltip text update on change [\#3019](https://github.com/primefaces/primeng/issues/3019)
-- Tooltip goes off screen [\#2994](https://github.com/primefaces/primeng/issues/2994)
 - Dialog global event handlers are not cleared [\#2976](https://github.com/primefaces/primeng/issues/2976)
-- DataTable rowStyleClass causes webpage to become unresponsive if mouse over DataTable [\#2962](https://github.com/primefaces/primeng/issues/2962)
 - Dropdown panel is disconnected on filtering [\#2936](https://github.com/primefaces/primeng/issues/2936)
 - Autocomplete inputStyle/inputStyleClass doesn't work for multiple mode [\#1257](https://github.com/primefaces/primeng/issues/1257)
-- Upload progress bar extending past control [\#1068](https://github.com/primefaces/primeng/issues/1068)
 - p-splitButton: menu not closed when clicked on other splitButton menubutton [\#1008](https://github.com/primefaces/primeng/issues/1008)
 - Dropdown should scroll to selected item when overlay gets opened [\#952](https://github.com/primefaces/primeng/issues/952)
 - p-autocomplete bug in field based object mapping [\#910](https://github.com/primefaces/primeng/issues/910)
 
 ## [4.0.3](https://github.com/primefaces/primeng/tree/4.0.3) (2017-05-31)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.2...4.0.3)
 
 **Fixed bugs:**
@@ -1540,19 +1415,18 @@
 - Breadcrumb home item throws exception [\#2935](https://github.com/primefaces/primeng/issues/2935)
 
 ## [4.0.2](https://github.com/primefaces/primeng/tree/4.0.2) (2017-05-30)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.1...4.0.2)
 
 **Implemented New Features and Enhancements:**
 
-- FlyIn animation for Growl [\#2909](https://github.com/primefaces/primeng/issues/2909)
-- eventDataTransform callback for Schedule [\#780](https://github.com/primefaces/primeng/issues/780)
-- Eye icon to multiselect to hide all unselected items in list [\#490](https://github.com/primefaces/primeng/issues/490)
 - Dedicated footer section for Dialog [\#2920](https://github.com/primefaces/primeng/issues/2920)
 - Optimize dialog global event listeners [\#2918](https://github.com/primefaces/primeng/issues/2918)
 - Dialog should be responsive by default [\#2917](https://github.com/primefaces/primeng/issues/2917)
 - Add breakpoint property to Dialog [\#2916](https://github.com/primefaces/primeng/issues/2916)
 - Optimize AutoComplete global document click handler [\#2914](https://github.com/primefaces/primeng/issues/2914)
 - Apply box-sizing:border-box to all widgets [\#2912](https://github.com/primefaces/primeng/issues/2912)
+- FlyIn animation for Growl [\#2909](https://github.com/primefaces/primeng/issues/2909)
 - RTL support for Accordion [\#2899](https://github.com/primefaces/primeng/issues/2899)
 - RTL support for Dialog [\#2883](https://github.com/primefaces/primeng/issues/2883)
 - Add style and styleClass to RadioButton [\#2881](https://github.com/primefaces/primeng/issues/2881)
@@ -1582,9 +1456,6 @@
 
 **Fixed bugs:**
 
-- Range slider does not work [\#2922](https://github.com/primefaces/primeng/issues/2922)
-- Resizable Columns issue with fixed width columns [\#2891](https://github.com/primefaces/primeng/issues/2891)
-- \[BUG\] overlayVisible = true not working on p-multiSelect [\#250](https://github.com/primefaces/primeng/issues/250)
 - Slider handles are slightly offset [\#2925](https://github.com/primefaces/primeng/issues/2925)
 - Vertical slider handle is behind the bar [\#2924](https://github.com/primefaces/primeng/issues/2924)
 - Listbox header checkbox not synced with filtering [\#2923](https://github.com/primefaces/primeng/issues/2923)
@@ -1616,11 +1487,11 @@
 - Selected values in multiselect label are \(null\) when list of options loaded \*after\* bound selectedValue [\#725](https://github.com/primefaces/primeng/issues/725)
 
 ## [4.0.1](https://github.com/primefaces/primeng/tree/4.0.1) (2017-05-16)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.0...4.0.1)
 
 **Implemented New Features and Enhancements:**
 
-- Reorder support for Grouped DataTable Headers [\#176](https://github.com/primefaces/primeng/issues/176)
 - Add positionLeft and positionTop to Dialog [\#2781](https://github.com/primefaces/primeng/issues/2781)
 - Add onInput event to calendar. [\#2780](https://github.com/primefaces/primeng/issues/2780)
 - Two-Way binding support for Messages [\#2779](https://github.com/primefaces/primeng/issues/2779)
@@ -1654,6 +1525,7 @@
 - CSV export fails with comma values [\#2460](https://github.com/primefaces/primeng/issues/2460)
 
 ## [4.0.0](https://github.com/primefaces/primeng/tree/4.0.0) (2017-04-30)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.0-rc.5...4.0.0)
 
 **Fixed bugs:**
@@ -1662,6 +1534,7 @@
 - Autocomplete gives error if suggestions are initialized on load  [\#2647](https://github.com/primefaces/primeng/issues/2647)
 
 ## [4.0.0-rc.5](https://github.com/primefaces/primeng/tree/4.0.0-rc.5) (2017-04-28)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.0-rc.4...4.0.0-rc.5)
 
 **Implemented New Features and Enhancements:**
@@ -1679,6 +1552,7 @@
 - touched class not set when touching p-editor [\#2614](https://github.com/primefaces/primeng/issues/2614)
 
 ## [4.0.0-rc.4](https://github.com/primefaces/primeng/tree/4.0.0-rc.4) (2017-04-27)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.0-rc.3...4.0.0-rc.4)
 
 **Implemented New Features and Enhancements:**
@@ -1706,16 +1580,15 @@
 - AppendTo body closes MultiSelect [\#2345](https://github.com/primefaces/primeng/issues/2345)
 
 ## [4.0.0-rc.3](https://github.com/primefaces/primeng/tree/4.0.0-rc.3) (2017-04-14)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.6...4.0.0-rc.3)
 
 **Implemented New Features and Enhancements:**
 
 - Tab based cell navigation support for non-editable columns [\#2520](https://github.com/primefaces/primeng/issues/2520)
-- After selecting a date, calendar should reapply focus. [\#2514](https://github.com/primefaces/primeng/issues/2514)
 - Apply focus after dropdown item select [\#2513](https://github.com/primefaces/primeng/issues/2513)
 - Add closeCell method to DataTable [\#2511](https://github.com/primefaces/primeng/issues/2511)
 - Refactor AutoComplete to use ViewChild [\#2499](https://github.com/primefaces/primeng/issues/2499)
-- Add clearFilter\(\) method to dropdown [\#2497](https://github.com/primefaces/primeng/issues/2497)
 - Collision detection to Dropdown overlay [\#2496](https://github.com/primefaces/primeng/issues/2496)
 - Add onMapReady event to GMap [\#2435](https://github.com/primefaces/primeng/issues/2435)
 - Add loading property to DataTable [\#2395](https://github.com/primefaces/primeng/issues/2395)
@@ -1735,6 +1608,7 @@
 - Calendar selected date is off a day [\#2426](https://github.com/primefaces/primeng/issues/2426)
 
 ## [2.0.6](https://github.com/primefaces/primeng/tree/2.0.6) (2017-04-12)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.0-rc.2...2.0.6)
 
 **Fixed bugs:**
@@ -1744,6 +1618,7 @@
 - Listbox checkbox gets selected automatically if no search results are found [\#2417](https://github.com/primefaces/primeng/issues/2417)
 
 ## [4.0.0-rc.2](https://github.com/primefaces/primeng/tree/4.0.0-rc.2) (2017-03-29)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.5...4.0.0-rc.2)
 
 **Implemented New Features and Enhancements:**
@@ -1768,7 +1643,6 @@
 
 **Fixed bugs:**
 
-- InputMask does not display initial value with Reactive Forms [\#2394](https://github.com/primefaces/primeng/issues/2394)
 - AutoComplete Dropdown UI Flicker on Hover [\#2392](https://github.com/primefaces/primeng/issues/2392)
 - AutoComplete Dropdown click throws error [\#2391](https://github.com/primefaces/primeng/issues/2391)
 - dt.filter\(\) method in dataTable causes ExpressionChangedAfterItHasBeenCheckedError [\#2384](https://github.com/primefaces/primeng/issues/2384)
@@ -1784,9 +1658,11 @@
 - Dropdown does not hide on Push ChangeDetection [\#1754](https://github.com/primefaces/primeng/issues/1754)
 - SlideMenu breaks initial app load: Expression has changed after it was checked [\#1677](https://github.com/primefaces/primeng/issues/1677)
 - Lazy loaded data tables never set multiSortMeta [\#1476](https://github.com/primefaces/primeng/issues/1476)
+- Calendar issue UTC - beta19 [\#1113](https://github.com/primefaces/primeng/issues/1113)
 - Dialog visible attr change not triggers any hide events [\#956](https://github.com/primefaces/primeng/issues/956)
 
 ## [2.0.5](https://github.com/primefaces/primeng/tree/2.0.5) (2017-03-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.4...2.0.5)
 
 **Fixed bugs:**
@@ -1795,6 +1671,7 @@
 - ContextMenu onDestroy may cause reference error [\#2349](https://github.com/primefaces/primeng/issues/2349)
 
 ## [2.0.4](https://github.com/primefaces/primeng/tree/2.0.4) (2017-03-17)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/4.0.0-rc.1...2.0.4)
 
 **Implemented New Features and Enhancements:**
@@ -1814,6 +1691,7 @@
 - Filter of a disabled listbox still functions [\#2323](https://github.com/primefaces/primeng/issues/2323)
 
 ## [4.0.0-rc.1](https://github.com/primefaces/primeng/tree/4.0.0-rc.1) (2017-03-15)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.3...4.0.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -1839,13 +1717,10 @@
 - Paginators not in sync for DataTable, DataList and DataGrid [\#2263](https://github.com/primefaces/primeng/issues/2263)
 - class .ui-inputwrapper-filled is not removed on Calendar [\#2246](https://github.com/primefaces/primeng/issues/2246)
 - Ensure that document functions exist before calling in ngOnDestroy\(\) [\#2149](https://github.com/primefaces/primeng/issues/2149)
-- Calendar issue UTC - beta19 [\#1113](https://github.com/primefaces/primeng/issues/1113)
-- PrimeNG Showcase menulinks new window error [\#446](https://github.com/primefaces/primeng/issues/446)
-- Wrong Index in $event.index on onOpen in Accordion [\#386](https://github.com/primefaces/primeng/issues/386)
 - Footers are not displayed in Scrollable Table [\#273](https://github.com/primefaces/primeng/issues/273)
-- DataScroller: Lazy loading event 'first' property  [\#153](https://github.com/primefaces/primeng/issues/153)
 
 ## [2.0.3](https://github.com/primefaces/primeng/tree/2.0.3) (2017-03-08)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.2...2.0.3)
 
 **Implemented New Features and Enhancements:**
@@ -1860,11 +1735,11 @@
 - SplitButton panel is not shown on top [\#2228](https://github.com/primefaces/primeng/issues/2228)
 
 ## [2.0.2](https://github.com/primefaces/primeng/tree/2.0.2) (2017-03-03)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.1...2.0.2)
 
 **Implemented New Features and Enhancements:**
 
-- New Component: Inplace [\#970](https://github.com/primefaces/primeng/issues/970)
 - onPage event for DataGrid [\#2211](https://github.com/primefaces/primeng/issues/2211)
 - target support for menu items [\#2210](https://github.com/primefaces/primeng/issues/2210)
 - reinit\(\) method to Chart [\#2204](https://github.com/primefaces/primeng/issues/2204)
@@ -1876,6 +1751,7 @@
 - Option to disable formatting in Spinner [\#2161](https://github.com/primefaces/primeng/issues/2161)
 - onFocus support for autocomplete [\#2136](https://github.com/primefaces/primeng/issues/2136)
 - DataTable expandableRows single mode [\#995](https://github.com/primefaces/primeng/issues/995)
+- New Component: Inplace [\#970](https://github.com/primefaces/primeng/issues/970)
 - onPage event for DataList [\#412](https://github.com/primefaces/primeng/issues/412)
 - Dropdown Placeholder Capability [\#234](https://github.com/primefaces/primeng/issues/234)
 
@@ -1890,6 +1766,7 @@
 - Files not removed correctly in file upload [\#1707](https://github.com/primefaces/primeng/issues/1707)
 
 ## [2.0.1](https://github.com/primefaces/primeng/tree/2.0.1) (2017-02-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.0...2.0.1)
 
 **Implemented New Features and Enhancements:**
@@ -1921,6 +1798,7 @@
 - \[Bug\] Memory leak in DataTable with column template [\#1780](https://github.com/primefaces/primeng/issues/1780)
 
 ## [2.0.0](https://github.com/primefaces/primeng/tree/2.0.0) (2017-02-07)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.0-rc.3...2.0.0)
 
 **Implemented New Features and Enhancements:**
@@ -1937,6 +1815,7 @@
 - p-inputMask not updating [\#1868](https://github.com/primefaces/primeng/issues/1868)
 
 ## [2.0.0-rc.3](https://github.com/primefaces/primeng/tree/2.0.0-rc.3) (2017-02-02)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.0-rc.2...2.0.0-rc.3)
 
 **Implemented New Features and Enhancements:**
@@ -1967,13 +1846,13 @@
 - XSS vulnerability on p-tooltip [\#1558](https://github.com/primefaces/primeng/issues/1558)
 
 ## [2.0.0-rc.2](https://github.com/primefaces/primeng/tree/2.0.0-rc.2) (2017-01-27)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/2.0.0-rc.1...2.0.0-rc.2)
 
 **Implemented New Features and Enhancements:**
 
 - Enhance DataTable Scrolling [\#1921](https://github.com/primefaces/primeng/issues/1921)
 - Push change detection for RadioButton and Checkbox [\#1920](https://github.com/primefaces/primeng/issues/1920)
-- Frozen Columns for DataTable [\#627](https://github.com/primefaces/primeng/issues/627)
 
 **Fixed bugs:**
 
@@ -1984,6 +1863,7 @@
 - Offset when opening up menu  [\#1854](https://github.com/primefaces/primeng/issues/1854)
 
 ## [2.0.0-rc.1](https://github.com/primefaces/primeng/tree/2.0.0-rc.1) (2017-01-20)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.1.4...2.0.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -2003,7 +1883,6 @@
 - Editor Toolbar Accessibility [\#1769](https://github.com/primefaces/primeng/issues/1769)
 - Dropdown should open using the space key [\#1767](https://github.com/primefaces/primeng/issues/1767)
 - Enhance Dropdown event binding for performance [\#1757](https://github.com/primefaces/primeng/issues/1757)
-- Enhance Dropdown event binding for performance [\#1755](https://github.com/primefaces/primeng/issues/1755)
 - Add sortField to column [\#1743](https://github.com/primefaces/primeng/issues/1743)
 - Frozen Columns for DataTable [\#1742](https://github.com/primefaces/primeng/issues/1742)
 - Calendar control validity state [\#1676](https://github.com/primefaces/primeng/issues/1676)
@@ -2023,7 +1902,6 @@
 - Single FileUpload still behaves as multiple [\#1759](https://github.com/primefaces/primeng/issues/1759)
 - Memory leak in calendar [\#1758](https://github.com/primefaces/primeng/issues/1758)
 - p-InputMask does not update its 'filled' property when use within a FormGroup [\#1734](https://github.com/primefaces/primeng/issues/1734)
-- Unhandled tooltip exception after \#705 [\#1722](https://github.com/primefaces/primeng/issues/1722)
 - Button with Icon: the label is not updated when used with a pipe [\#1719](https://github.com/primefaces/primeng/issues/1719)
 - p-multiselect label is not updated when ngModel changes [\#1696](https://github.com/primefaces/primeng/issues/1696)
 - Button label updates icon instead of label. [\#1685](https://github.com/primefaces/primeng/issues/1685)
@@ -2032,6 +1910,7 @@
 - DataTable still propagating endless onLazyLoad events - previous case \#1434 [\#1502](https://github.com/primefaces/primeng/issues/1502)
 
 ## [1.1.4](https://github.com/primefaces/primeng/tree/1.1.4) (2017-01-05)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.1.3...1.1.4)
 
 **Implemented New Features and Enhancements:**
@@ -2047,23 +1926,24 @@
 - DataTable scrollable doesn't show the header of the sorted field [\#1600](https://github.com/primefaces/primeng/issues/1600)
 
 ## [1.1.3](https://github.com/primefaces/primeng/tree/1.1.3) (2017-01-03)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.1.2...1.1.3)
 
 **Implemented New Features and Enhancements:**
 
-- Bootstrap theme 2.0 migration [\#1716](https://github.com/primefaces/primeng/issues/1716)
 - Replace Header and Footer with p-header and p-footer [\#1710](https://github.com/primefaces/primeng/issues/1710)
 - \[ Feature Request \] Dialogs to have option to hide header  [\#1709](https://github.com/primefaces/primeng/issues/1709)
 - Use font icons in rating [\#1686](https://github.com/primefaces/primeng/issues/1686)
 - Contextmenu submenu appears out of view area [\#1596](https://github.com/primefaces/primeng/issues/1596)
 - Replace JS based hover and focus with pseudo classes [\#1536](https://github.com/primefaces/primeng/issues/1536)
+- Bootstrap theme 2.0 migration [\#1716](https://github.com/primefaces/primeng/issues/1716)
 
 **Fixed bugs:**
 
-- Multiple autocomplete does not receive focus [\#1656](https://github.com/primefaces/primeng/issues/1656)
 - DataTable cells with templating are not updated [\#1711](https://github.com/primefaces/primeng/issues/1711)
 
 ## [1.1.2](https://github.com/primefaces/primeng/tree/1.1.2) (2016-12-23)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.1.1...1.1.2)
 
 **Fixed bugs:**
@@ -2072,6 +1952,7 @@
 - Data Table 'trackBy must be a function, but received undefined' [\#1652](https://github.com/primefaces/primeng/issues/1652)
 
 ## [1.1.1](https://github.com/primefaces/primeng/tree/1.1.1) (2016-12-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.1.0...1.1.1)
 
 **Implemented New Features and Enhancements:**
@@ -2099,6 +1980,7 @@
 - Datatable column sorting does not work with global filter [\#654](https://github.com/primefaces/primeng/issues/654)
 
 ## [1.1.0](https://github.com/primefaces/primeng/tree/1.1.0) (2016-12-15)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.1...1.1.0)
 
 **Implemented New Features and Enhancements:**
@@ -2142,6 +2024,7 @@
 - Bootstrap theme. .ui-growl-item-container.ui-state-highlight.ui-growl-message-... is not defined [\#1143](https://github.com/primefaces/primeng/issues/1143)
 
 ## [1.0.1](https://github.com/primefaces/primeng/tree/1.0.1) (2016-12-02)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0...1.0.1)
 
 **Implemented New Features and Enhancements:**
@@ -2167,14 +2050,19 @@
 - Drag and Drop not working in IE11 [\#632](https://github.com/primefaces/primeng/issues/632)
 
 ## [1.0.0](https://github.com/primefaces/primeng/tree/1.0.0) (2016-11-23)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0-rc.7...1.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Keyboard accessibility for Checkbox [\#836](https://github.com/primefaces/primeng/issues/836)
 
 **Fixed bugs:**
 
-- Angular 2.0.1 breaks p-dataTable expandableRows [\#966](https://github.com/primefaces/primeng/issues/966)
 - Datatable column template and expandable rows [\#1396](https://github.com/primefaces/primeng/issues/1396)
 
 ## [1.0.0-rc.7](https://github.com/primefaces/primeng/tree/1.0.0-rc.7) (2016-11-22)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0-rc.6...1.0.0-rc.7)
 
 **Fixed bugs:**
@@ -2183,20 +2071,20 @@
 - Tooltip Positioning Issues [\#1383](https://github.com/primefaces/primeng/issues/1383)
 - onContextMenuSelect in datatable is not documented in showcase [\#1377](https://github.com/primefaces/primeng/issues/1377)
 - Omega theme: Gradient has outdated direction syntax [\#1376](https://github.com/primefaces/primeng/issues/1376)
+- Datatable error with selection \(on firefox\) [\#1084](https://github.com/primefaces/primeng/issues/1084)
 - Empty tooltips are still displayed [\#705](https://github.com/primefaces/primeng/issues/705)
 
 ## [1.0.0-rc.6](https://github.com/primefaces/primeng/tree/1.0.0-rc.6) (2016-11-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0-rc.5...1.0.0-rc.6)
 
 **Implemented New Features and Enhancements:**
 
 - Compatibility with 2.2.0 [\#1369](https://github.com/primefaces/primeng/issues/1369)
-- schedule set firstDay for weeks [\#1309](https://github.com/primefaces/primeng/issues/1309)
 
 **Fixed bugs:**
 
 - AccordionTab header collapsing with datatable headerFacet [\#1375](https://github.com/primefaces/primeng/issues/1375)
-- Datatable filter and draggable issue [\#1365](https://github.com/primefaces/primeng/issues/1365)
 - Datatable draggable=true when filtering [\#1364](https://github.com/primefaces/primeng/issues/1364)
 - Charts keep reloading [\#1363](https://github.com/primefaces/primeng/issues/1363)
 - RC5: Updating data does not reflect changes when filtered  [\#1362](https://github.com/primefaces/primeng/issues/1362)
@@ -2209,6 +2097,7 @@
 - Placeholder text isn't displayed correctly on InputMask [\#1345](https://github.com/primefaces/primeng/issues/1345)
 
 ## [1.0.0-rc.5](https://github.com/primefaces/primeng/tree/1.0.0-rc.5) (2016-11-17)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0-rc.4...1.0.0-rc.5)
 
 **Implemented New Features and Enhancements:**
@@ -2228,13 +2117,6 @@
 - multiselect filter logic should be contains [\#1131](https://github.com/primefaces/primeng/issues/1131)
 - Add trackBy to DataTable [\#1057](https://github.com/primefaces/primeng/issues/1057)
 - Improve TreeTable performance [\#1032](https://github.com/primefaces/primeng/issues/1032)
-- \[Enhancement\] DataTable.expandableRows enhancements [\#294](https://github.com/primefaces/primeng/issues/294)
-- Column Reorder and Resize support for Scrollable DataTable [\#238](https://github.com/primefaces/primeng/issues/238)
-- Scales for Slider [\#118](https://github.com/primefaces/primeng/issues/118)
-- Cell selection for datatable [\#107](https://github.com/primefaces/primeng/issues/107)
-- Notify Component [\#53](https://github.com/primefaces/primeng/issues/53)
-- ColorPicker Component [\#50](https://github.com/primefaces/primeng/issues/50)
-- MultiSelectListbox Component [\#49](https://github.com/primefaces/primeng/issues/49)
 
 **Fixed bugs:**
 
@@ -2243,7 +2125,6 @@
 - Growl : TypeError when adding to message array before the component is initialised. [\#1324](https://github.com/primefaces/primeng/issues/1324)
 - AutoComplete shows list even input doesn't have focus [\#1321](https://github.com/primefaces/primeng/issues/1321)
 - DataTable resizing fails when inside invisible container [\#1320](https://github.com/primefaces/primeng/issues/1320)
-- DataTable Column Reorder Throws Error in IE and Edge [\#1305](https://github.com/primefaces/primeng/issues/1305)
 - Toolbardemo not working in IE according to wrong html [\#1302](https://github.com/primefaces/primeng/issues/1302)
 - Treetable borders are not visible in IE [\#1300](https://github.com/primefaces/primeng/issues/1300)
 - Editable dropdown is not in sync with model [\#1298](https://github.com/primefaces/primeng/issues/1298)
@@ -2260,13 +2141,13 @@
 - DataTable export does not work in IE [\#1212](https://github.com/primefaces/primeng/issues/1212)
 - Slider not working correctly with min value [\#1193](https://github.com/primefaces/primeng/issues/1193)
 - PickList: onMoveToSource\(\) event only works when you use onMovetoSource \(note the small 't'\) [\#1115](https://github.com/primefaces/primeng/issues/1115)
-- Datatable error with selection \(on firefox\) [\#1084](https://github.com/primefaces/primeng/issues/1084)
 - DataTable - Column reordering errors in IE 11 [\#1018](https://github.com/primefaces/primeng/issues/1018)
 - Tooltips are positioned incorrectly on FF and IE [\#666](https://github.com/primefaces/primeng/issues/666)
 - Charts do not update [\#568](https://github.com/primefaces/primeng/issues/568)
 - p-schedule inside p-tabPanel does not render calendar view  [\#497](https://github.com/primefaces/primeng/issues/497)
 
 ## [1.0.0-rc.4](https://github.com/primefaces/primeng/tree/1.0.0-rc.4) (2016-11-10)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0-rc.3...1.0.0-rc.4)
 
 **Implemented New Features and Enhancements:**
@@ -2292,15 +2173,16 @@
 - Scrollable DataTable fails with percentage height and header [\#1222](https://github.com/primefaces/primeng/issues/1222)
 - Datatable ContextMenu Inside of Tabpanel not working correctly [\#1219](https://github.com/primefaces/primeng/issues/1219)
 - Scrollable table header misaligned if data changes [\#1217](https://github.com/primefaces/primeng/issues/1217)
-- Live Examples not working for DataTable [\#1203](https://github.com/primefaces/primeng/issues/1203)
 - Spinner size attribute throws exception [\#1197](https://github.com/primefaces/primeng/issues/1197)
 - Calendar 'onSelect' not fired on time change [\#1192](https://github.com/primefaces/primeng/issues/1192)
 - Dialog may not be centered [\#1176](https://github.com/primefaces/primeng/issues/1176)
 
 ## [1.0.0-rc.3](https://github.com/primefaces/primeng/tree/1.0.0-rc.3) (2016-11-02)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0-rc.2...1.0.0-rc.3)
 
 ## [1.0.0-rc.2](https://github.com/primefaces/primeng/tree/1.0.0-rc.2) (2016-11-02)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/1.0.0-rc.1...1.0.0-rc.2)
 
 **Implemented New Features and Enhancements:**
@@ -2312,6 +2194,7 @@
 - Cannot find type definition file for 'core-js' [\#1186](https://github.com/primefaces/primeng/issues/1186)
 
 ## [1.0.0-rc.1](https://github.com/primefaces/primeng/tree/1.0.0-rc.1) (2016-11-02)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.20...1.0.0-rc.1)
 
 **Implemented New Features and Enhancements:**
@@ -2336,7 +2219,6 @@
 - InputMask onComplete bug [\#1151](https://github.com/primefaces/primeng/issues/1151)
 - Calendar Input Box Display [\#1140](https://github.com/primefaces/primeng/issues/1140)
 - Tree should export SharedModule [\#1135](https://github.com/primefaces/primeng/issues/1135)
-- New Calendar in beta20 doesn't take default-value [\#1127](https://github.com/primefaces/primeng/issues/1127)
 - Disabled attribute on multiselect does not work [\#1047](https://github.com/primefaces/primeng/issues/1047)
 - Datatable w/ scrollable and scrollHeight=100% miscomputes scrollHeight [\#973](https://github.com/primefaces/primeng/issues/973)
 - DataTable with scroll and few data causes headers and table cells to misalign [\#917](https://github.com/primefaces/primeng/issues/917)
@@ -2349,6 +2231,7 @@
 - DataTable with explicit widths causes headers and table cells to misalign [\#487](https://github.com/primefaces/primeng/issues/487)
 
 ## [v1.0.0-beta.20](https://github.com/primefaces/primeng/tree/v1.0.0-beta.20) (2016-10-25)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.19...v1.0.0-beta.20)
 
 **Implemented New Features and Enhancements:**
@@ -2369,9 +2252,11 @@
 - Disabled radio still clickable via label [\#983](https://github.com/primefaces/primeng/issues/983)
 
 ## [v1.0.0-beta.19](https://github.com/primefaces/primeng/tree/v1.0.0-beta.19) (2016-10-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.18...v1.0.0-beta.19)
 
 ## [v1.0.0-beta.18](https://github.com/primefaces/primeng/tree/v1.0.0-beta.18) (2016-10-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.17...v1.0.0-beta.18)
 
 **Implemented New Features and Enhancements:**
@@ -2379,7 +2264,6 @@
 - Control method for tab close  [\#1075](https://github.com/primefaces/primeng/issues/1075)
 - New component: BlockUI [\#1069](https://github.com/primefaces/primeng/issues/1069)
 - Transfer events for PickList [\#1053](https://github.com/primefaces/primeng/issues/1053)
-- Reimplement calendar as native without jquery [\#975](https://github.com/primefaces/primeng/issues/975)
 - Native calendar without jQuery UI [\#885](https://github.com/primefaces/primeng/issues/885)
 - showSourceControls and showTargetControls for PickList [\#395](https://github.com/primefaces/primeng/issues/395)
 
@@ -2391,6 +2275,7 @@
 - Picklist cannot add all on first render [\#1001](https://github.com/primefaces/primeng/issues/1001)
 
 ## [v1.0.0-beta.17](https://github.com/primefaces/primeng/tree/v1.0.0-beta.17) (2016-10-03)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.16...v1.0.0-beta.17)
 
 **Implemented New Features and Enhancements:**
@@ -2398,13 +2283,11 @@
 - Configurable visibility of confirm dialog buttons [\#994](https://github.com/primefaces/primeng/issues/994)
 - Row click event should not be triggered if target is clickable [\#971](https://github.com/primefaces/primeng/issues/971)
 - Remove columns from DataGrid [\#969](https://github.com/primefaces/primeng/issues/969)
-- Consider to decouple Router from Menu components [\#954](https://github.com/primefaces/primeng/issues/954)
 - Add ui-state-filled to pInputText [\#950](https://github.com/primefaces/primeng/issues/950)
 - p-splitButton \[disabled\] @Input [\#947](https://github.com/primefaces/primeng/issues/947)
 - Add ui-inputswitch-checked to p-inputswitch [\#944](https://github.com/primefaces/primeng/issues/944)
 - DataGrid should use Grid CSS [\#943](https://github.com/primefaces/primeng/issues/943)
 - Reimplement mask component as native [\#927](https://github.com/primefaces/primeng/issues/927)
-- Three state \(indeterminate\) checkbox - true, false or null [\#875](https://github.com/primefaces/primeng/issues/875)
 - New component: TriStateCheckbox [\#756](https://github.com/primefaces/primeng/issues/756)
 - \[Request\] Double click handler for ListBox Control [\#755](https://github.com/primefaces/primeng/issues/755)
 - \[Request\] Add ui-messages-success [\#473](https://github.com/primefaces/primeng/issues/473)
@@ -2425,6 +2308,7 @@
 - Multiple selection fails on windows for Tree and TreeTable [\#720](https://github.com/primefaces/primeng/issues/720)
 
 ## [v1.0.0-beta.16](https://github.com/primefaces/primeng/tree/v1.0.0-beta.16) (2016-09-19)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.15...v1.0.0-beta.16)
 
 **Implemented New Features and Enhancements:**
@@ -2444,9 +2328,9 @@
 - Keyboard support for DataTable sort headers [\#839](https://github.com/primefaces/primeng/issues/839)
 - Keyboard and Screen reader support for TabView [\#838](https://github.com/primefaces/primeng/issues/838)
 - Keyboard and Screen reader support for Accordion [\#837](https://github.com/primefaces/primeng/issues/837)
-- Keyboard accessibility for Checkbox [\#836](https://github.com/primefaces/primeng/issues/836)
 
 ## [v1.0.0-beta.15](https://github.com/primefaces/primeng/tree/v1.0.0-beta.15) (2016-09-07)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.14...v1.0.0-beta.15)
 
 **Implemented New Features and Enhancements:**
@@ -2471,6 +2355,7 @@
 - DataTableModule should import InputTextModule [\#768](https://github.com/primefaces/primeng/issues/768)
 
 ## [v1.0.0-beta.14](https://github.com/primefaces/primeng/tree/v1.0.0-beta.14) (2016-08-31)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.13...v1.0.0-beta.14)
 
 **Implemented New Features and Enhancements:**
@@ -2498,6 +2383,7 @@
 - Can't bind to 'rows' since it isn't a known property of 'p-paginator'. [\#771](https://github.com/primefaces/primeng/issues/771)
 
 ## [v1.0.0-beta.13](https://github.com/primefaces/primeng/tree/v1.0.0-beta.13) (2016-08-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.12...v1.0.0-beta.13)
 
 **Implemented New Features and Enhancements:**
@@ -2505,7 +2391,6 @@
 - Add expanded to menuitem [\#758](https://github.com/primefaces/primeng/issues/758)
 - Replace SplitButtonItem with MenuItem [\#752](https://github.com/primefaces/primeng/issues/752)
 - RC5 Support [\#739](https://github.com/primefaces/primeng/issues/739)
-- CurrentPageReport for Paginator [\#167](https://github.com/primefaces/primeng/issues/167)
 
 **Fixed bugs:**
 
@@ -2516,6 +2401,7 @@
 - Add allDayText to schedule, Fix allDaySlot typo [\#717](https://github.com/primefaces/primeng/issues/717)
 
 ## [v1.0.0-beta.12](https://github.com/primefaces/primeng/tree/v1.0.0-beta.12) (2016-08-09)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.11...v1.0.0-beta.12)
 
 **Implemented New Features and Enhancements:**
@@ -2534,12 +2420,12 @@
 - OverlayPanel - cannot use inside divs with position: relative [\#676](https://github.com/primefaces/primeng/issues/676)
 - OverlayPanel - always opens to the left of the element [\#675](https://github.com/primefaces/primeng/issues/675)
 - Tooltip fails on some elements [\#673](https://github.com/primefaces/primeng/issues/673)
-- Datatable pageLinks not in sync when using both top & bottom paginators [\#671](https://github.com/primefaces/primeng/issues/671)
 - Selecting item from dropdown by using firefox [\#667](https://github.com/primefaces/primeng/issues/667)
 - Carousel page links redirect to \# [\#554](https://github.com/primefaces/primeng/issues/554)
 - ContextMenu tied to DataTable always opens no matter where you right click on the page [\#414](https://github.com/primefaces/primeng/issues/414)
 
 ## [v1.0.0-beta.11](https://github.com/primefaces/primeng/tree/v1.0.0-beta.11) (2016-07-26)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.10...v1.0.0-beta.11)
 
 **Implemented New Features and Enhancements:**
@@ -2564,6 +2450,7 @@
 - modal dialog freezes the whole page [\#276](https://github.com/primefaces/primeng/issues/276)
 
 ## [v1.0.0-beta.10](https://github.com/primefaces/primeng/tree/v1.0.0-beta.10) (2016-07-22)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.9...v1.0.0-beta.10)
 
 **Implemented New Features and Enhancements:**
@@ -2577,10 +2464,10 @@
 **Fixed bugs:**
 
 - Dropdown fails when items are loaded async [\#610](https://github.com/primefaces/primeng/issues/610)
-- Dropdown breaks if selectItem value is an object [\#481](https://github.com/primefaces/primeng/issues/481)
 - custom list of objects to dropdown  [\#364](https://github.com/primefaces/primeng/issues/364)
 
 ## [v1.0.0-beta.9](https://github.com/primefaces/primeng/tree/v1.0.0-beta.9) (2016-06-29)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.8...v1.0.0-beta.9)
 
 **Implemented New Features and Enhancements:**
@@ -2605,6 +2492,7 @@
 - Updating sorted data causes shuffle behavior [\#396](https://github.com/primefaces/primeng/issues/396)
 
 ## [v1.0.0-beta.8](https://github.com/primefaces/primeng/tree/v1.0.0-beta.8) (2016-05-31)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.7...v1.0.0-beta.8)
 
 **Implemented New Features and Enhancements:**
@@ -2617,6 +2505,7 @@
 - Datatable Column Reorder - Order fails [\#432](https://github.com/primefaces/primeng/issues/432)
 
 ## [v1.0.0-beta.7](https://github.com/primefaces/primeng/tree/v1.0.0-beta.7) (2016-05-30)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.6...v1.0.0-beta.7)
 
 **Implemented New Features and Enhancements:**
@@ -2649,6 +2538,7 @@
 - MegaMenu: click doesn't work [\#390](https://github.com/primefaces/primeng/issues/390)
 
 ## [v1.0.0-beta.6](https://github.com/primefaces/primeng/tree/v1.0.0-beta.6) (2016-05-17)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.5...v1.0.0-beta.6)
 
 **Implemented New Features and Enhancements:**
@@ -2662,7 +2552,6 @@
 - Reimplement ContextMenu as native [\#353](https://github.com/primefaces/primeng/issues/353)
 - Reimplement Menubar as a native component [\#352](https://github.com/primefaces/primeng/issues/352)
 - Reimplement TieredMenu as native [\#351](https://github.com/primefaces/primeng/issues/351)
-- Dialog Component - Setting Resizeable False doesn't remove resize handle  [\#347](https://github.com/primefaces/primeng/issues/347)
 - Reimplement menu component as native [\#341](https://github.com/primefaces/primeng/issues/341)
 - Reimplement breadcrumb as a native component [\#340](https://github.com/primefaces/primeng/issues/340)
 - Reimplement Lightbox as a native component [\#330](https://github.com/primefaces/primeng/issues/330)
@@ -2677,6 +2566,7 @@
 - Schedule onEventDrop event does not work [\#335](https://github.com/primefaces/primeng/issues/335)
 
 ## [v1.0.0-beta.5](https://github.com/primefaces/primeng/tree/v1.0.0-beta.5) (2016-05-09)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.4...v1.0.0-beta.5)
 
 **Implemented New Features and Enhancements:**
@@ -2708,12 +2598,12 @@
 - DataTable - expandableRows with some hidden columns [\#293](https://github.com/primefaces/primeng/issues/293)
 
 ## [v1.0.0-beta.4](https://github.com/primefaces/primeng/tree/v1.0.0-beta.4) (2016-05-02)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.3...v1.0.0-beta.4)
 
 **Implemented New Features and Enhancements:**
 
 - Reimplement Password as a native component [\#282](https://github.com/primefaces/primeng/issues/282)
-- Reimplement Password as a native component [\#278](https://github.com/primefaces/primeng/issues/278)
 - Reimplement Growl as a native component [\#275](https://github.com/primefaces/primeng/issues/275)
 - Add onBlur event to calendar [\#269](https://github.com/primefaces/primeng/issues/269)
 - Pass rowIndex to column template [\#268](https://github.com/primefaces/primeng/issues/268)
@@ -2745,6 +2635,7 @@
 - beta3 - DataTable default sortField causes crash [\#227](https://github.com/primefaces/primeng/issues/227)
 
 ## [v1.0.0-beta.3](https://github.com/primefaces/primeng/tree/v1.0.0-beta.3) (2016-04-20)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.2...v1.0.0-beta.3)
 
 **Implemented New Features and Enhancements:**
@@ -2771,6 +2662,7 @@
 - Missing to pass the parameter 'legendTemplate' into Chart js [\#186](https://github.com/primefaces/primeng/issues/186)
 
 ## [v1.0.0-beta.2](https://github.com/primefaces/primeng/tree/v1.0.0-beta.2) (2016-04-14)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v1.0.0-beta.1...v1.0.0-beta.2)
 
 **Implemented New Features and Enhancements:**
@@ -2787,13 +2679,13 @@
 - Events do not work any longer with Dropdown v1.0 [\#187](https://github.com/primefaces/primeng/issues/187)
 
 ## [v1.0.0-beta.1](https://github.com/primefaces/primeng/tree/v1.0.0-beta.1) (2016-04-10)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.9.1...v1.0.0-beta.1)
 
 **Implemented New Features and Enhancements:**
 
 - Add getBase64Image\(\) method to charts [\#179](https://github.com/primefaces/primeng/issues/179)
 - Add getCanvas\(\) method to charts [\#178](https://github.com/primefaces/primeng/issues/178)
-- ContextMenu Integration for DataTable [\#173](https://github.com/primefaces/primeng/issues/173)
 - onReorder event for OrderList [\#166](https://github.com/primefaces/primeng/issues/166)
 - TimePicker Component [\#165](https://github.com/primefaces/primeng/issues/165)
 - Replace p-radio with p-radioButton [\#164](https://github.com/primefaces/primeng/issues/164)
@@ -2822,6 +2714,7 @@
 - PickList target buttons fail [\#152](https://github.com/primefaces/primeng/issues/152)
 
 ## [v0.9.1](https://github.com/primefaces/primeng/tree/v0.9.1) (2016-03-28)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.9.0...v0.9.1)
 
 **Fixed bugs:**
@@ -2829,6 +2722,7 @@
 - Responsive Charts Fail [\#148](https://github.com/primefaces/primeng/issues/148)
 
 ## [v0.9.0](https://github.com/primefaces/primeng/tree/v0.9.0) (2016-03-25)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.8.2...v0.9.0)
 
 **Implemented New Features and Enhancements:**
@@ -2846,6 +2740,7 @@
 - DataTable should not default sort a lazy table [\#133](https://github.com/primefaces/primeng/issues/133)
 
 ## [v0.8.2](https://github.com/primefaces/primeng/tree/v0.8.2) (2016-03-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.8.1...v0.8.2)
 
 **Implemented New Features and Enhancements:**
@@ -2859,9 +2754,11 @@
 - primeng.d.ts misses export of TreeNode [\#127](https://github.com/primefaces/primeng/issues/127)
 
 ## [v0.8.1](https://github.com/primefaces/primeng/tree/v0.8.1) (2016-03-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.8.0...v0.8.1)
 
 ## [v0.8.0](https://github.com/primefaces/primeng/tree/v0.8.0) (2016-03-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.7.0...v0.8.0)
 
 **Implemented New Features and Enhancements:**
@@ -2892,6 +2789,7 @@
 - Multiple selection for datatable fails on windows [\#109](https://github.com/primefaces/primeng/issues/109)
 
 ## [v0.7.0](https://github.com/primefaces/primeng/tree/v0.7.0) (2016-03-13)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.6.0...v0.7.0)
 
 **Implemented New Features and Enhancements:**
@@ -2916,6 +2814,7 @@
 - Dropdown is not exported [\#80](https://github.com/primefaces/primeng/issues/80)
 
 ## [v0.6.0](https://github.com/primefaces/primeng/tree/v0.6.0) (2016-03-07)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.5.0...v0.6.0)
 
 **Implemented New Features and Enhancements:**
@@ -2936,6 +2835,7 @@
 - Calendar is not exported [\#71](https://github.com/primefaces/primeng/issues/71)
 
 ## [v0.5.0](https://github.com/primefaces/primeng/tree/v0.5.0) (2016-02-28)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.4.0...v0.5.0)
 
 **Implemented New Features and Enhancements:**
@@ -2945,6 +2845,7 @@
 - DataTable Component [\#31](https://github.com/primefaces/primeng/issues/31)
 
 ## [v0.4.0](https://github.com/primefaces/primeng/tree/v0.4.0) (2016-02-21)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.3.0...v0.4.0)
 
 **Implemented New Features and Enhancements:**
@@ -2962,6 +2863,7 @@
 - Menu Component [\#32](https://github.com/primefaces/primeng/issues/32)
 
 ## [v0.3.0](https://github.com/primefaces/primeng/tree/v0.3.0) (2016-02-15)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.2.0...v0.3.0)
 
 **Implemented New Features and Enhancements:**
@@ -2971,6 +2873,7 @@
 - Chart Components [\#29](https://github.com/primefaces/primeng/issues/29)
 
 ## [v0.2.0](https://github.com/primefaces/primeng/tree/v0.2.0) (2016-02-07)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/v0.1.0...v0.2.0)
 
 **Implemented New Features and Enhancements:**
@@ -2986,6 +2889,9 @@
 - Listbox Component [\#19](https://github.com/primefaces/primeng/issues/19)
 
 ## [v0.1.0](https://github.com/primefaces/primeng/tree/v0.1.0) (2016-01-31)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14cfdd41a1904baf648ecab24b2cf027cb00d05e...v0.1.0)
+
 **Implemented New Features and Enhancements:**
 
 - Galleria Component [\#18](https://github.com/primefaces/primeng/issues/18)
