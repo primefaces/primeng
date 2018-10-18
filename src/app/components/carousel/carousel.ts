@@ -184,6 +184,9 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         this.items = this.domHandler.find(this.itemsViewChild.nativeElement, 'li');
         this.calculateColumns();
         this.calculateItemWidths();
+        if(this.firstVisible) {
+            this.setPage(this.page,true);
+        }
         
         if(!this.responsive) {
             this.containerViewChild.nativeElement.style.width = (this.domHandler.width(this.containerViewChild.nativeElement)) + 'px';
