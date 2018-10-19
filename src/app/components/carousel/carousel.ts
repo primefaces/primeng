@@ -8,7 +8,12 @@ import {CommonModule} from '@angular/common';
     template: `
         <div #container [ngClass]="{'ui-carousel ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-carousel-header ui-widget-header ui-corner-all">
-                <span class="ui-carousel-header-title">{{headerText}}</span>
+                <ng-container *ngIf="!headerTemplate">
+                    <span class="ui-carousel-header-title">{{headerText}}</span>
+                </ng-container>
+                <ng-container *ngIf="headerTemplate">
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                </ng-container>
                 <span class="ui-carousel-button ui-carousel-next-button pi pi-arrow-circle-right" (click)="onNextNav()" 
                         [ngClass]="{'ui-state-disabled':(page === (totalPages-1)) && !circular}" *ngIf="value&&value.length"></span>
                 <span class="ui-carousel-button ui-carousel-prev-button pi pi-arrow-circle-left" (click)="onPrevNav()" 
@@ -40,6 +45,8 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     @Input() numVisible: number = 3;
 
+    @Input() firstVisible: number = 0;
+
     @Input() headerText: string;
 
     @Input() circular: boolean = false;
@@ -65,10 +72,10 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public _value: any[];
-
-    public _firstVisible: number = 0;
     
     public itemTemplate: TemplateRef<any>;
+
+    public headerTemplate: TemplateRef<any>;
             
     public left: any = 0;
         
@@ -109,6 +116,10 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
                     this.itemTemplate = item.template;
                 break;
                 
+                case 'header':
+                   this.headerTemplate = item.template;
+                break;
+
                 default:
                     this.itemTemplate = item.template;
                 break;
@@ -123,17 +134,6 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     set value(val:any[]) {
         this._value = val;
         this.handleDataChange();
-    }
-    
-    @Input() get firstVisible(): number {
-        return this._firstVisible;
-    }
-
-    set firstVisible(val:number) {
-        this._firstVisible = val;
-        if(this.page){
-            this.setPage(this._firstVisible);
-        }
     }
     
     handleDataChange() {
@@ -196,10 +196,6 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         this.calculateColumns();
         this.calculateItemWidths();
         
-        if(this.firstVisible) {
-            this.setPage(this.page,true);
-        }
-
         if(!this.responsive) {
             this.containerViewChild.nativeElement.style.width = (this.domHandler.width(this.containerViewChild.nativeElement)) + 'px';
         }
