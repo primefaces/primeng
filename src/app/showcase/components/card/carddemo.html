@@ -6,14 +6,14 @@
 </div>
 
 <div class="content-section implementation">
-    <p-card title="Simple Card" [style]="{width: '360px'}">
+    <p-card pTitle="Simple Card" [style]="{width: '360px'}">
         <div style="line-height:1.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
     </p-card>
 
     <br><br>
 
-    <p-card title="Advanced Card" subtitle="Subtitle" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+    <p-card pTitle="Advanced Card" pSubtitle="Subtitle" [style]="{width: '360px'}" styleClass="ui-card-shadow">
         <p-header>
             <img src="Card" src="assets/showcase/images/usercard.png">
         </p-header>
@@ -46,10 +46,10 @@ import &#123;CardModule&#125; from 'primeng/card';
 </code>
 </pre>
             <h3>Title</h3>
-            <p>Title text of the card is provided using the <strong>title</strong> property, optionally <strong>subtitle</strong> property is available for additional information about the card.</p>
+            <p>Title text of the card is provided using the <strong>pTitle</strong> property, optionally <strong>pSubtitle</strong> property is available for additional information about the card.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-card title="Title"&gt;
+&lt;p-card pTitle="Title"&gt;
     Content
 &lt;/p-card&gt;
 </code>
@@ -84,13 +84,13 @@ import &#123;CardModule&#125; from 'primeng/card';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>title</td>
+                            <td>pTitle</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Title of the card.</td>
                         </tr>
                         <tr>
-                            <td>subtitle</td>
+                            <td>pSubtitle</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Secondary title of the card.</td>
@@ -158,7 +158,7 @@ import &#123;CardModule&#125; from 'primeng/card';
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-card title="Simple Card" [style]="&#123;width: '360px'&#125;"&gt;
+&lt;p-card pTitle="Simple Card" [style]="&#123;width: '360px'&#125;"&gt;
     &lt;div&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/div&gt;
 &lt;/p-card&gt;
@@ -166,7 +166,7 @@ import &#123;CardModule&#125; from 'primeng/card';
 &lt;br&gt;
 &lt;br&gt;
 
-&lt;p-card title="Advanced Card" subtitle="Subtitle" [style]="&#123;width: '360px'&#125;" styleClass="ui-card-shadow"&gt;
+&lt;p-card pTitle="Advanced Card" pSubtitle="Subtitle" [style]="&#123;width: '360px'&#125;" styleClass="ui-card-shadow"&gt;
     &lt;p-header&gt;
         &lt;img src="Card" src="assets/showcase/images/usercard.png"&gt;
     &lt;/p-header&gt;

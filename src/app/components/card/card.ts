@@ -11,8 +11,8 @@ import { BlockableUI } from '../common/blockableui';
                <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-card-body">
-                <div class="ui-card-title" *ngIf="title">{{title}}</div>
-                <div class="ui-card-subtitle" *ngIf="subtitle">{{subtitle}}</div>
+                <div class="ui-card-title" *ngIf="pTitle || title">{{pTitle || title}}</div>
+                <div class="ui-card-subtitle" *ngIf="pSubtitle || subtitle">{{pSubtitle || subtitle}}</div>
                 <div class="ui-card-content">
                     <ng-content></ng-content>
                 </div>
@@ -25,8 +25,18 @@ import { BlockableUI } from '../common/blockableui';
 })
 export class Card implements BlockableUI {
 
+    @Input() pTitle: string;
+
+    @Input() pSubtitle: string;
+
+    /**
+     * @deprecated in favor of pTitle
+     */
     @Input() title: string;
 
+    /**
+     * @deprecated in favor of pSubtitle
+     */
     @Input() subtitle: string;
 
     @Input() style: any;

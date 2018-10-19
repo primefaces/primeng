@@ -54,16 +54,16 @@ describe('Accordion', () => {
       expect(cardEl.nativeElement).toBeTruthy();
     });
 
-    it('should display the title', () => {
-      card.title = "Primeng ROCKS!";
+    it('should display the pTitle', () => {
+      card.pTitle = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const cardEl = fixture.debugElement.query(By.css('.ui-card-title')).nativeElement;
       expect(cardEl.textContent).toEqual("Primeng ROCKS!");
     });
 
-    it('should display the subtitle', () => {
-      card.subtitle = "Primeng ROCKS!";
+    it('should display the pSubtitle', () => {
+      card.pSubtitle = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const cardEl = fixture.debugElement.query(By.css('.ui-card-subtitle')).nativeElement;
