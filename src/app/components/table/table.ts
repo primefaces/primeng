@@ -2625,6 +2625,8 @@ export class EditableColumn implements AfterViewInit {
 
     @Input() pEditableColumnDisabled: boolean;
 
+    insideClick:boolean = true;
+
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
 
     ngAfterViewInit() {
@@ -2653,7 +2655,19 @@ export class EditableColumn implements AfterViewInit {
             else {
                 this.openCell();
             }
+            this.insideClick = true;
         }
+    }
+
+    @HostListener('document:click', ['$event'])
+    clickOutSide() {
+        if (this.isValid() && !this.insideClick) {
+            if (this.el.nativeElement.classList.contains("ui-editing-cell")) {
+                this.closeEditingCell();
+            }
+        }
+        
+        this.insideClick = false;
     }
 
     openCell() {
