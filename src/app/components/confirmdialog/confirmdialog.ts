@@ -131,6 +131,11 @@ export class ConfirmDialog implements OnDestroy {
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
                 
+                if (this.confirmation.close) {
+                    this.confirmation.closeEvent = new EventEmitter();
+                    this.confirmation.closeEvent.subscribe(this.confirmation.close);
+                }
+
                 if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
@@ -213,8 +218,8 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     close(event: Event) {
-        if (this.confirmation.rejectEvent) {
-            this.confirmation.rejectEvent.emit();
+        if (this.confirmation.closeEvent) {
+            this.confirmation.closeEvent.emit();
         }
         
         this.hide();

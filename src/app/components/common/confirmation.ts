@@ -7,10 +7,12 @@ export interface Confirmation {
     header?: string;
     accept?: Function;
     reject?: Function;
+    close?: Function;
     acceptLabel?: string;
     rejectLabel?: string;
     acceptVisible?: boolean;
     rejectVisible?: boolean;
     acceptEvent?: EventEmitter<any>;
     rejectEvent?: EventEmitter<any>;
+    closeEvent?: EventEmitter<any>;
 }
