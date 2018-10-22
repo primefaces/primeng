@@ -40,6 +40,8 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     @Input() numVisible: number = 3;
 
+    @Input() firstVisible: number = 0;
+
     @Input() headerText: string;
 
     @Input() circular: boolean = false;
@@ -66,8 +68,6 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     public _value: any[];
     
-    public _firstVisible: number = 0;
-
     public itemTemplate: TemplateRef<any>;
             
     public left: any = 0;
@@ -124,21 +124,10 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         this._value = val;
         this.handleDataChange();
     }
-
-    @Input() get firstVisible(): number {
-        return this._firstVisible;
-    }
-        
-    set firstVisible(val:number) {
-        this._firstVisible = val;
-        if(this.page) {
-            this.setPage(this._firstVisible);
-        }
-    }
     
     handleDataChange() {
         if(this.value && this.value.length) {
-            if(this.value.length && this._firstVisible >= this.value.length) {
+            if(this.value.length && this.firstVisible >= this.value.length) {
                 this.setPage(this.totalPages - 1);
             }
         }
@@ -195,10 +184,8 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         this.items = this.domHandler.find(this.itemsViewChild.nativeElement, 'li');
         this.calculateColumns();
         this.calculateItemWidths();
-        
-        if(this._firstVisible) {
-            this.setPage(this._firstVisible,true);
-        }
+
+        this.setPage(Math.floor(this.firstVisible / this.columns), true);
 
         if(!this.responsive) {
             this.containerViewChild.nativeElement.style.width = (this.domHandler.width(this.containerViewChild.nativeElement)) + 'px';
@@ -233,7 +220,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
             this.shrinked = false;
             this.columns = this.numVisible;
         }
-        this.page = Math.floor(this._firstVisible / this.columns);
+        this.page = Math.floor(this.firstVisible / this.columns);
     }
     
     onNextNav() {
@@ -261,7 +248,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         if(p !== this.page || enforce) {
             this.page = p;
             this.left = (-1 * (this.domHandler.innerWidth(this.viewportViewChild.nativeElement) * this.page));
-            this._firstVisible = this.page * this.columns;
+            this.firstVisible = this.page * this.columns;
             this.onPage.emit({
                 page: this.page
             });
@@ -306,7 +293,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         }
         
         this.calculateItemWidths();
-        this.setPage(Math.floor(this._firstVisible / this.columns), true);
+        this.setPage(Math.floor(this.firstVisible / this.columns), true);
     }
     
     startAutoplay() {
