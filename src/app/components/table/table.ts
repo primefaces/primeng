@@ -1482,14 +1482,17 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
         let columnWidth = column.offsetWidth;
         let minWidth = parseInt(column.style.minWidth || 15);
-        
+        let maxWidth = parseInt(column.style.maxWidth || null);
         if (columnWidth + delta < minWidth) {
             delta = minWidth - columnWidth;
         }
+
+        if (columnWidth + delta > maxWidth) {
+            delta = maxWidth - columnWidth;
+        }
     
         const newColumnWidth = columnWidth + delta;
-    
-        if (newColumnWidth >= minWidth) {
+        if (newColumnWidth >= minWidth && maxWidth ? newColumnWidth <= maxWidth : true) {
             if (this.columnResizeMode === 'fit') {
                 let nextColumn = column.nextElementSibling;
                 while (!nextColumn.offsetParent) {
@@ -1499,6 +1502,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 if (nextColumn) {
                     let nextColumnWidth = nextColumn.offsetWidth - delta;
                     let nextColumnMinWidth = nextColumn.style.minWidth || 15;
+                    let nextColumnMaxWidth = nextColumn.style.maxWidth || null;
 
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
@@ -1508,14 +1512,30 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                             let scrollableFooterTable = this.domHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
                             let resizeColumnIndex = this.domHandler.index(column);
 
-                            this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
-                            this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
-                            this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            if (parseInt(nextColumnMaxWidth) && parseInt(nextColumnMaxWidth) < nextColumnWidth) {
+                                let totalWidth = nextColumn.offsetWidth + columnWidth;
+                                let resizedColumnWidth = totalWidth - parseInt(nextColumnMaxWidth);
+                                this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, resizedColumnWidth, parseInt(nextColumnMaxWidth));
+                                this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, resizedColumnWidth, parseInt(nextColumnMaxWidth));
+                                this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, resizedColumnWidth, parseInt(nextColumnMaxWidth));
+                            }
+                            else {
+                                this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                                this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                                this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
+                            }
                         }
                         else {
-                            column.style.width = newColumnWidth + 'px';
                             if (nextColumn) {
-                                nextColumn.style.width = nextColumnWidth + 'px';
+                                if(parseInt(nextColumnMaxWidth) && parseInt(nextColumnMaxWidth) < nextColumnWidth) {
+                                    let totalWidth = nextColumn.offsetWidth + columnWidth;
+                                    nextColumn.style.width = nextColumnMaxWidth;
+                                    column.style.width = totalWidth - parseInt(nextColumnMaxWidth) + 'px';
+                                }
+                                else {
+                                    nextColumn.style.width = nextColumnWidth + 'px';
+                                    column.style.width = newColumnWidth + 'px';
+                                }
                             }
                         }
                     }
@@ -1533,14 +1553,25 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                         scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     }
                     let resizeColumnIndex = this.domHandler.index(column);
-
-                    this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
-                    this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
-                    this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+                    if (maxWidth && maxWidth < newColumnWidth) {
+                        this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, maxWidth, null);
+                        this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, maxWidth, null);
+                        this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, maxWidth, null);
+                    }
+                    else {
+                        this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
+                        this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
+                        this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+                    }
                 }
                 else {
                     this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
-                    column.style.width = newColumnWidth + 'px';
+                    if (maxWidth && maxWidth < newColumnWidth) {
+                        column.style.width = maxWidth + 'px';
+                    }
+                    else {
+                        column.style.width = newColumnWidth + 'px';
+                    }
                     let containerWidth = this.tableViewChild.nativeElement.style.width;
                     this.containerViewChild.nativeElement.style.width = containerWidth + 'px';
                 }
@@ -2446,7 +2477,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
             this.resizer = document.createElement('span');
             this.resizer.className = 'ui-column-resizer ui-clickable';
             this.el.nativeElement.appendChild(this.resizer);
-    
+            
             this.zone.runOutsideAngular(() => {
                 this.resizerMouseDownListener = this.onMouseDown.bind(this);
                 this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
