@@ -123,6 +123,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() inputId: string;
 
     @Input() disabled: boolean;
+
+    @Input() readonly: boolean;
     
     @Input() filter: boolean = true;
 
@@ -457,7 +459,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     onMouseclick(event,input) {
-        if (this.disabled) {
+        if (this.disabled || this.readonly) {
             return;
         }
         
@@ -486,6 +488,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     onInputKeydown(event) {
+        if (this.readonly) {
+            return;
+        }
         switch(event.which) {
             //down
             case 40:
