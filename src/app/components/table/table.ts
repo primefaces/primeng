@@ -1322,7 +1322,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     public reset() {
         this._sortField = null;
-        this._sortOrder = 1;
+        this._sortOrder = this.defaultSortOrder;
         this._multiSortMeta = null;
         this.tableService.onSort(null);
         
