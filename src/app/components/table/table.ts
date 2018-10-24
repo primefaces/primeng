@@ -2236,7 +2236,9 @@ export class SortIcon implements OnInit, OnDestroy {
     selector: '[pSelectableRow]',
     providers: [DomHandler],
     host: {
-        '[class.ui-state-highlight]': 'selected'
+        '[class.ui-selectable-row]': 'isEnabled()',
+        '[class.ui-state-highlight]': 'selected',
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
     }
 })
 export class SelectableRow implements OnInit, OnDestroy {
@@ -2280,6 +2282,74 @@ export class SelectableRow implements OnInit, OnDestroy {
     onTouchEnd(event: Event) {
         if (this.isEnabled()) {
             this.dt.handleRowTouchEnd(event);
+        }
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            const row = <HTMLTableRowElement> event.target;
+
+            switch (event.which) {
+                //down arrow
+                case 40:
+                    let nextRow = this.findNextSelectableRow(row);
+                    if (nextRow) {
+                        nextRow.focus();
+                    }
+
+                    event.preventDefault();
+                break;
+    
+                //up arrow
+                case 38:
+                    let prevRow = this.findPrevSelectableRow(row);
+                    if (prevRow) {
+                        prevRow.focus();
+                    }
+
+                    event.preventDefault();
+                break;
+    
+                //enter
+                case 13:
+                    this.dt.handleRowClick({
+                        originalEvent: event,
+                        rowData: this.data,
+                        rowIndex: this.index
+                    });
+                break;
+    
+                default:
+                //no op
+                break;
+            }
+        }
+    }
+
+    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let nextRow = <HTMLTableRowElement> row.nextElementSibling;
+        if (nextRow) {
+            if (this.domHandler.hasClass(nextRow, 'ui-selectable-row'))
+                return nextRow;
+            else
+                return this.findNextSelectableRow(nextRow);
+        }
+        else {
+            return null;
+        }
+    }
+
+    findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let prevRow = <HTMLTableRowElement> row.previousElementSibling;
+        if (prevRow) {
+            if (this.domHandler.hasClass(prevRow, 'ui-selectable-row'))
+                return prevRow;
+            else
+                return this.findPrevSelectableRow(prevRow);
+        }
+        else {
+            return null;
         }
     }
     
