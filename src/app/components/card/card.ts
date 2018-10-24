@@ -11,8 +11,8 @@ import { BlockableUI } from '../common/blockableui';
                <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-card-body">
-                <div class="ui-card-title" *ngIf="title">{{title}}</div>
-                <div class="ui-card-subtitle" *ngIf="subtitle">{{subtitle}}</div>
+                <div class="ui-card-title" *ngIf="header">{{header}}</div>
+                <div class="ui-card-subtitle" *ngIf="subheader">{{subheader}}</div>
                 <div class="ui-card-content">
                     <ng-content></ng-content>
                 </div>
@@ -25,9 +25,9 @@ import { BlockableUI } from '../common/blockableui';
 })
 export class Card implements BlockableUI {
 
-    @Input() title: string;
+    @Input() header: string;
 
-    @Input() subtitle: string;
+    @Input() subheader: string;
 
     @Input() style: any;
 
