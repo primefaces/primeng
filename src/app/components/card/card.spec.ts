@@ -21,7 +21,7 @@ import { Footer, Header } from '../common/shared';
 class TestCardComponent {
 }
 
-describe('Accordion', () => {
+describe('Card', () => {
 
     let card: Card;
     let fixture : ComponentFixture<TestCardComponent>;
@@ -55,7 +55,7 @@ describe('Accordion', () => {
     });
 
     it('should display the title', () => {
-      card.title = "Primeng ROCKS!";
+      card.header = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const cardEl = fixture.debugElement.query(By.css('.ui-card-title')).nativeElement;
@@ -63,7 +63,7 @@ describe('Accordion', () => {
     });
 
     it('should display the subtitle', () => {
-      card.subtitle = "Primeng ROCKS!";
+      card.subheader = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const cardEl = fixture.debugElement.query(By.css('.ui-card-subtitle')).nativeElement;
