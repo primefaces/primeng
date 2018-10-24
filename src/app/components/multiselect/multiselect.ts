@@ -491,6 +491,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.readonly) {
             return;
         }
+        
         switch(event.which) {
             //down
             case 40:
