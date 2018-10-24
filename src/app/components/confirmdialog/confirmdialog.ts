@@ -81,6 +81,8 @@ export class ConfirmDialog implements OnDestroy {
     @Input() positionLeft: number;
 
     @Input() positionTop: number;
+
+    @Input() breakpoint: number = 640;
     
     @Input() closeOnEscape: boolean = true;
 
@@ -119,6 +121,8 @@ export class ConfirmDialog implements OnDestroy {
     contentContainer: HTMLDivElement;
       
     subscription: Subscription;
+
+    preWidth: number;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
@@ -166,12 +170,29 @@ export class ConfirmDialog implements OnDestroy {
         }
     }
 
+    onWindowResize(event) {        
+        let viewport = this.domHandler.getViewport();
+        let width = this.domHandler.getOuterWidth(this.container);
+        if (viewport.width <= this.breakpoint) {
+            if (!this.preWidth) {
+                this.preWidth = width;
+            }
+            this.container.style.left = '0px';
+            this.container.style.width = '100%';
+        }
+        else {
+            this.container.style.width = this.preWidth + 'px';
+            this.positionOverlay();
+        }
+    }
+
     positionOverlay() {
         let viewport = this.domHandler.getViewport();
         if (this.domHandler.getOuterHeight(this.container) > viewport.height) {
              this.contentViewChild.nativeElement.style.height = (viewport.height * .75) + 'px';
              this.container.style.height = 'auto';
-        } else {
+        } 
+        else {
             this.contentViewChild.nativeElement.style.height = null;
             if (this.height) {
                 this.container.style.height = this.height + 'px';
@@ -183,8 +204,8 @@ export class ConfirmDialog implements OnDestroy {
             this.container.style.top = this.positionTop + 'px';
         }
         else if (this.positionTop >= 0) {
-          this.center();
-          this.container.style.top = this.positionTop + 'px';
+            this.center();
+            this.container.style.top = this.positionTop + 'px';
         }
         else {
             this.center();
@@ -275,7 +296,7 @@ export class ConfirmDialog implements OnDestroy {
         
         if (this.responsive) {
             this.zone.runOutsideAngular(() => {
-                this.documentResponsiveListener = this.center.bind(this);
+                this.documentResponsiveListener = this.onWindowResize.bind(this);
                 window.addEventListener('resize', this.documentResponsiveListener);
             });
         }
