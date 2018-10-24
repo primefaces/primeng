@@ -22,7 +22,7 @@
                 <td pEditableColumn>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input type="text" [(ngModel)]="rowData.vin">
+                            <input pInputText type="text" [(ngModel)]="rowData.vin">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{rowData.vin}}
@@ -32,7 +32,7 @@
                 <td pEditableColumn>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input type="text" [(ngModel)]="rowData.year" required>
+                            <input pInputText type="text" [(ngModel)]="rowData.year" required>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{rowData.year}}
@@ -42,7 +42,7 @@
                 <td pEditableColumn>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input type="text" [(ngModel)]="rowData.brand">
+                            <p-dropdown [options]="brands" [(ngModel)]="rowData.brand" [style]="{'width':'100%'}"></p-dropdown>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{rowData.brand}}
@@ -52,7 +52,7 @@
                 <td pEditableColumn>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input type="text" [(ngModel)]="rowData.color">
+                            <input pInputText type="text" [(ngModel)]="rowData.color">
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{rowData.color}}
@@ -77,10 +77,25 @@ export class TableEditDemo implements OnInit &#123;
 
     cars: Car[];
 
+    brands: SelectItem[];
+
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
+
+        this.brands = [
+            &#123;label: 'Audi', value: 'Audi'&#125;,
+            &#123;label: 'BMW', value: 'BMW'&#125;,
+            &#123;label: 'Fiat', value: 'Fiat'&#125;,
+            &#123;label: 'Ford', value: 'Ford'&#125;,
+            &#123;label: 'Honda', value: 'Honda'&#125;,
+            &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
+            &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
+            &#123;label: 'Renault', value: 'Renault'&#125;,
+            &#123;label: 'VW', value: 'VW'&#125;,
+            &#123;label: 'Volvo', value: 'Volvo'&#125;
+        ];
     &#125;
 &#125;
 </code>
@@ -108,40 +123,40 @@ export class TableEditDemo implements OnInit &#123;
             &lt;td pEditableColumn&gt;
                 &lt;p-cellEditor&gt;
                     &lt;ng-template pTemplate="input"&gt;
-                        &lt;input type="text" [(ngModel)]="rowData.vin"&gt;
+                        &lt;input pInputText type="text" [(ngModel)]="rowData.vin"&gt;
                     &lt;/ng-template&gt;
                     &lt;ng-template pTemplate="output"&gt;
-                        {{rowData.vin}}
+                        &#123;&#123;rowData.vin&#125;&#125;
                     &lt;/ng-template&gt;
                 &lt;/p-cellEditor&gt;
             &lt;/td&gt;
             &lt;td pEditableColumn&gt;
                 &lt;p-cellEditor&gt;
                     &lt;ng-template pTemplate="input"&gt;
-                        &lt;input type="text" [(ngModel)]="rowData.year" required&gt;
+                        &lt;input pInputText type="text" [(ngModel)]="rowData.year" required&gt;
                     &lt;/ng-template&gt;
                     &lt;ng-template pTemplate="output"&gt;
-                        {{rowData.year}}
+                        &#123;&#123;rowData.year&#125;&#125;
                     &lt;/ng-template&gt;
                 &lt;/p-cellEditor&gt;
             &lt;/td&gt;
             &lt;td pEditableColumn&gt;
                 &lt;p-cellEditor&gt;
                     &lt;ng-template pTemplate="input"&gt;
-                        &lt;input type="text" [(ngModel)]="rowData.brand"&gt;
+                        &lt;p-dropdown [options]="brands" [(ngModel)]="rowData.brand" [style]="&#123;'width':'100%'&#125;"&gt;&lt;/p-dropdown&gt;
                     &lt;/ng-template&gt;
                     &lt;ng-template pTemplate="output"&gt;
-                        {{rowData.brand}}
+                        &#123;&#123;rowData.brand&#125;&#125;
                     &lt;/ng-template&gt;
                 &lt;/p-cellEditor&gt;
             &lt;/td&gt;
             &lt;td pEditableColumn&gt;
                 &lt;p-cellEditor&gt;
                     &lt;ng-template pTemplate="input"&gt;
-                        &lt;input type="text" [(ngModel)]="rowData.color"&gt;
+                        &lt;input pInputText type="text" [(ngModel)]="rowData.color"&gt;
                     &lt;/ng-template&gt;
                     &lt;ng-template pTemplate="output"&gt;
-                        {{rowData.color}}
+                        &#123;&#123;rowData.color&#125;&#125;
                     &lt;/ng-template&gt;
                 &lt;/p-cellEditor&gt;
             &lt;/td&gt;
