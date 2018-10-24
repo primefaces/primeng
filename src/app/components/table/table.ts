@@ -2625,6 +2625,10 @@ export class EditableColumn implements AfterViewInit {
 
     @Input() pEditableColumnDisabled: boolean;
 
+    documentEditListener:any;
+
+    cellClick:boolean;
+
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
 
     ngAfterViewInit() {
@@ -2645,14 +2649,36 @@ export class EditableColumn implements AfterViewInit {
                     if (!this.isValid()) {
                         return;
                     }
-        
-                    this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
-                    this.openCell();
+                    this.closeEditingCell();
                 }
             }
             else {
-                this.openCell();
+                this.bindDocumentEditListener();
             }
+        }
+        this.cellClick = true;
+    }
+
+    bindDocumentEditListener() {
+        if(!this.documentEditListener) {
+            this.documentEditListener = (event) => {
+                if (!this.cellClick) {
+                    this.closeEditingCell();
+                }
+                else{
+                    this.openCell();
+                }
+                this.cellClick = false;
+            };
+            
+            document.addEventListener('click', this.documentEditListener);
+        }
+    }
+
+    unbindDocumentEditListener() {
+        if(this.documentEditListener) {
+            document.removeEventListener('click', this.documentEditListener);
+            this.documentEditListener = null;
         }
     }
 
@@ -2673,6 +2699,7 @@ export class EditableColumn implements AfterViewInit {
     closeEditingCell() {
         this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
+        this.unbindDocumentEditListener();
     }
 
     @HostListener('keydown', ['$event'])
