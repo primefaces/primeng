@@ -16,6 +16,9 @@
 
 .ui-treetable .ui-treetable-toggler {
     vertical-align: middle;
+    display: inline-block;
+    top: 50%;
+    margin-top: -.5em;
 }
 
 .ui-treetable .ui-sortable-column {
