@@ -2,20 +2,13 @@ import {Component,OnInit} from '@angular/core';
 import {EventService} from '../../service/eventservice';
 
 @Component({
-    templateUrl: './scheduledemo.html',
-    styles: [`
-        .ui-grid-row div {
-          padding: 4px 10px
-        }
-        
-        .ui-grid-row div label {
-          font-weight: bold;
-        }
-  `]
+    templateUrl: './scheduledemo.html'
 })
 export class ScheduleDemo implements OnInit {
 
     events: any[];
+
+    options: any;
     
     header: any;
             
@@ -24,18 +17,13 @@ export class ScheduleDemo implements OnInit {
     ngOnInit() {
         this.eventService.getEvents().then(events => {this.events = events;});
         
-        this.header = {
-			left: 'prev,next',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		};
+        this.options = {
+            defaultDate: '2017-02-01',
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            }
+        };
     }
-}
-
-export class MyEvent {
-    id: number;
-    title: string;
-    start: string;
-    end: string;
-    allDay: boolean = true;
 }
