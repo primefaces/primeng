@@ -1454,7 +1454,7 @@ body .ui-table .ui-table-thead > tr > th {
   color: #333333;
   background-color: #f4f4f4; }
 body .ui-table .ui-table-tbody > tr > td {
-  padding: 0.429em 0.857em; }
+  padding: 0.571em 0.857em; }
 body .ui-table .ui-table-tfoot > tr > td {
   padding: 0.571em 0.857em;
   border: 1px solid #c8c8c8;
@@ -1503,7 +1503,7 @@ body .ui-table .ui-table-tbody > tr:nth-child(even) {
   body .ui-table .ui-table-tbody > tr:nth-child(even).ui-contextmenu-selected {
     background-color: #007ad9;
     color: #ffffff; }
-body .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+body .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
   cursor: pointer;
   background-color: #eaeaea;
   color: #333333; }
@@ -1885,7 +1885,7 @@ body .ui-treetable .ui-treetable-thead > tr > th {
   color: #333333;
   background-color: #f4f4f4; }
 body .ui-treetable .ui-treetable-tbody > tr > td {
-  padding: 0.429em 0.857em; }
+  padding: 0.571em 0.857em; }
 body .ui-treetable .ui-treetable-tfoot > tr > td {
   padding: 0.571em 0.857em;
   border: 1px solid #c8c8c8;
