@@ -39,7 +39,7 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class TreeTableLazyDemo &#125;
+export class TreeTableLazyDemo &#123;
 
     files: TreeNode[];
 
@@ -49,13 +49,13 @@ export class TreeTableLazyDemo &#125;
 
     loading: boolean;
 
-    constructor(private nodeService: NodeService) &#125; &#125;
+    constructor(private nodeService: NodeService) &#123; &#125;
 
-    ngOnInit() &#125;
+    ngOnInit() &#123;
         this.cols = [
-            &#125; field: 'name', header: 'Name' &#125;,
-            &#125; field: 'size', header: 'Size' &#125;,
-            &#125; field: 'type', header: 'Type' &#125;
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'size', header: 'Size' &#125;,
+            &#123; field: 'type', header: 'Type' &#125;
         ];
 
         //in a production application, retrieve the logical number of rows from a remote datasource
@@ -64,7 +64,7 @@ export class TreeTableLazyDemo &#125;
         this.loading = true;
     &#125;
 
-    loadNodes(event) &#125;
+    loadNodes(event) &#123;
         this.loading = true;
 
         //in a production application, make a remote request to load data using state metadata from event
@@ -75,13 +75,13 @@ export class TreeTableLazyDemo &#125;
         //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
 
         //imitate db connection over a network
-        setTimeout(() => &#125;
+        setTimeout(() => &#123;
             this.loading = false;
             this.files = [];
 
-            for(let i = 0; i &lt; event.rows; i++) &#125;
-                let node = &#125;
-                    data: &#125;  
+            for(let i = 0; i &lt; event.rows; i++) &#123;
+                let node = &#123;
+                    data: &#123;  
                         name: 'Item ' + (event.first + i),
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'Type ' + (event.first + i)
@@ -94,23 +94,23 @@ export class TreeTableLazyDemo &#125;
         &#125;, 1000);
     &#125;
 
-    onNodeExpand(event) &#125;
+    onNodeExpand(event) &#123;
         this.loading = true;
 
-        setTimeout(() => &#125;
+        setTimeout(() => &#123;
             this.loading = false;
             const node = event.node;
 
             node.children = [
-                &#125;
-                    data: &#125;  
+                &#123;
+                    data: &#123;  
                         name: node.data.name + ' - 0',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'File'
                     &#125;,
                 &#125;,
-                &#125;
-                    data: &#125;  
+                &#123;
+                    data: &#123;  
                         name: node.data.name + ' - 1',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                         type: 'File'
