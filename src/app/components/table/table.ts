@@ -314,6 +314,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     editingCell: Element;
 
+    editingCellClick: boolean;
+
+    documentEditListener: any;
+
     _multiSortMeta: SortMeta[];
 
     _sortField: string;
@@ -1414,9 +1418,36 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         }
     }
 
-    public closeCellEdit() {
-        this.domHandler.removeClass(this.editingCell, 'ui-editing-cell');
-        this.editingCell = null;
+    updateEditingCell(cell) {
+        this.editingCell = cell;
+        this.bindDocumentEditListener();
+    }
+
+    isEditingCellValid() {
+        return (this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length === 0);
+    }
+
+    bindDocumentEditListener() {
+        if (!this.documentEditListener) {
+            this.documentEditListener = (event) => {
+                if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
+                    this.domHandler.removeClass(this.editingCell, 'ui-editing-cell');
+                    this.editingCell = null;
+                    this.unbindDocumentEditListener();
+                }
+
+                this.editingCellClick = false;
+            };
+            
+            document.addEventListener('click', this.documentEditListener);
+        }
+    }
+     
+    unbindDocumentEditListener() {
+        if (this.documentEditListener) {
+            document.removeEventListener('click', this.documentEditListener);
+            this.documentEditListener = null;
+        }
     }
 
     toggleRow(rowData: any, event?: Event) {
@@ -1756,6 +1787,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     }
 
     ngOnDestroy() {
+        this.unbindDocumentEditListener();
         this.editingCell = null;
         this.initialized = null;
     }
@@ -2703,16 +2735,14 @@ export class EditableColumn implements AfterViewInit {
         }
     }
 
-    isValid() {
-        return (this.dt.editingCell && this.domHandler.find(this.dt.editingCell, '.ng-invalid.ng-dirty').length === 0);
-    }
-
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
+            this.dt.editingCellClick = true;
+
             if (this.dt.editingCell) {
                 if (this.dt.editingCell !== this.el.nativeElement) {
-                    if (!this.isValid()) {
+                    if (!this.dt.isEditingCellValid()) {
                         return;
                     }
         
@@ -2727,7 +2757,7 @@ export class EditableColumn implements AfterViewInit {
     }
 
     openCell() {
-        this.dt.editingCell = this.el.nativeElement;
+        this.dt.updateEditingCell(this.el.nativeElement);
         this.domHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.dt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
@@ -2743,6 +2773,7 @@ export class EditableColumn implements AfterViewInit {
     closeEditingCell() {
         this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
+        this.dt.unbindDocumentEditListener();
     }
 
     @HostListener('keydown', ['$event'])
@@ -2750,7 +2781,7 @@ export class EditableColumn implements AfterViewInit {
         if (this.isEnabled()) {
             //enter
             if (event.keyCode == 13) {
-                if (this.isValid()) {
+                if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell();
                     this.dt.onEditComplete.emit({ field: this.field, data: this.data });
                 }
@@ -2760,7 +2791,7 @@ export class EditableColumn implements AfterViewInit {
     
             //escape
             else if (event.keyCode == 27) {
-                if (this.isValid()) {
+                if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell();
                     this.dt.onEditCancel.emit({ field: this.field, data: this.data });
                 }
@@ -2869,7 +2900,7 @@ export class EditableColumn implements AfterViewInit {
 @Component({
     selector: 'p-cellEditor',
     template: `
-        <ng-container *ngIf="dt.editingCell === editableColumn.el.nativeElement">
+        <ng-container *ngIf="dt.editingCell && dt.editingCell === editableColumn.el.nativeElement">
             <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
         </ng-container>
         <ng-container *ngIf="!dt.editingCell || dt.editingCell !== editableColumn.el.nativeElement">
