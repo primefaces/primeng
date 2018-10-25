@@ -2135,7 +2135,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     host: {
         '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted',
-        '[attr.tabindex]': 'isEnabled() ? 0 : null'
+        '[attr.tabindex]': 'isEnabled() ? "0" : null'
     }
 })
 export class SortableColumn implements OnInit, OnDestroy {
