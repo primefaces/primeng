@@ -931,10 +931,10 @@ body .ui-button {
   background-color: #FFB300;
   border: 1px solid #FFB300;
   font-size: 14px;
-  -moz-transition: background-color 0.2s;
-  -o-transition: background-color 0.2s;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s; }
+  -moz-transition: background-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s; }
   body .ui-button:enabled:hover {
     background-color: #FFA000;
     color: #212121;
@@ -942,7 +942,9 @@ body .ui-button {
   body .ui-button:enabled:focus {
     outline: 0 none;
     outline-offset: 0px;
-    background-color: #ffbb1a; }
+    -webkit-box-shadow: 0 0 0 0.2em #ffe8b3;
+    -moz-box-shadow: 0 0 0 0.2em #ffe8b3;
+    box-shadow: 0 0 0 0.2em #ffe8b3; }
   body .ui-button:enabled:active {
     background-color: #FF8F00;
     color: #212121;
@@ -971,10 +973,10 @@ body .ui-togglebutton {
   background-color: #252525;
   border: 1px solid #252525;
   color: #dedede;
-  -moz-transition: background-color 0.2s;
-  -o-transition: background-color 0.2s;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s; }
+  -moz-transition: background-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s; }
   body .ui-togglebutton .ui-button-icon-left {
     color: #888888; }
   body .ui-togglebutton:not(.ui-state-disabled):not(.ui-state-active):hover {
@@ -1012,10 +1014,10 @@ body .ui-selectbutton .ui-button {
   background-color: #252525;
   border: 1px solid #252525;
   color: #dedede;
-  -moz-transition: background-color 0.2s;
-  -o-transition: background-color 0.2s;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s; }
+  -moz-transition: background-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s; }
   body .ui-selectbutton .ui-button .ui-button-icon-left {
     color: #888888; }
   body .ui-selectbutton .ui-button:not(.ui-state-disabled):not(.ui-state-active):hover {
@@ -1084,7 +1086,9 @@ body .ui-button.ui-state-default.ui-button-secondary, body .ui-buttonset.ui-butt
     color: #333333;
     border-color: #c8c8c8; }
   body .ui-button.ui-state-default.ui-button-secondary:enabled:focus, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {
-    background-color: white; }
+    -webkit-box-shadow: 0 0 0 0.2em #ffe8b3;
+    -moz-box-shadow: 0 0 0 0.2em #ffe8b3;
+    box-shadow: 0 0 0 0.2em #ffe8b3; }
   body .ui-button.ui-state-default.ui-button-secondary:enabled:active, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {
     background-color: #a0a0a0;
     color: #333333;
@@ -1098,7 +1102,9 @@ body .ui-button.ui-state-default.ui-button-info, body .ui-buttonset.ui-button-in
     color: #ffffff;
     border-color: #116fbf; }
   body .ui-button.ui-state-default.ui-button-info:enabled:focus, body .ui-buttonset.ui-button-info > .ui-button.ui-state-default:enabled:focus {
-    background-color: #0088f3; }
+    -webkit-box-shadow: 0 0 0 0.2em #8dcdff;
+    -moz-box-shadow: 0 0 0 0.2em #8dcdff;
+    box-shadow: 0 0 0 0.2em #8dcdff; }
   body .ui-button.ui-state-default.ui-button-info:enabled:active, body .ui-buttonset.ui-button-info > .ui-button.ui-state-default:enabled:active {
     background-color: #005b9f;
     color: #ffffff;
@@ -1112,7 +1118,9 @@ body .ui-button.ui-state-default.ui-button-success, body .ui-buttonset.ui-button
     color: #ffffff;
     border-color: #107D11; }
   body .ui-button.ui-state-default.ui-button-success:enabled:focus, body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:focus {
-    background-color: #3abb3b; }
+    -webkit-box-shadow: 0 0 0 0.2em #aae5aa;
+    -moz-box-shadow: 0 0 0 0.2em #aae5aa;
+    box-shadow: 0 0 0 0.2em #aae5aa; }
   body .ui-button.ui-state-default.ui-button-success:enabled:active, body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:active {
     background-color: #0C6B0D;
     color: #ffffff;
@@ -1126,7 +1134,9 @@ body .ui-button.ui-state-default.ui-button-warning, body .ui-buttonset.ui-button
     color: #333333;
     border-color: #ED990B; }
   body .ui-button.ui-state-default.ui-button-warning:enabled:focus, body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default:enabled:focus {
-    background-color: #ffc834; }
+    -webkit-box-shadow: 0 0 0 0.2em #ffeab4;
+    -moz-box-shadow: 0 0 0 0.2em #ffeab4;
+    box-shadow: 0 0 0 0.2em #ffeab4; }
   body .ui-button.ui-state-default.ui-button-warning:enabled:active, body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default:enabled:active {
     background-color: #D38B10;
     color: #333333;
@@ -1140,7 +1150,9 @@ body .ui-button.ui-state-default.ui-button-danger, body .ui-buttonset.ui-button-
     color: #ffffff;
     border-color: #c01120; }
   body .ui-button.ui-state-default.ui-button-danger:enabled:focus, body .ui-buttonset.ui-button-danger > .ui-button.ui-state-default:enabled:focus {
-    background-color: #f25663; }
+    -webkit-box-shadow: 0 0 0 0.2em #f9b4ba;
+    -moz-box-shadow: 0 0 0 0.2em #f9b4ba;
+    box-shadow: 0 0 0 0.2em #f9b4ba; }
   body .ui-button.ui-state-default.ui-button-danger:enabled:active, body .ui-buttonset.ui-button-danger > .ui-button.ui-state-default:enabled:active {
     background-color: #a90000;
     color: #ffffff;

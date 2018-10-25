@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
     templateUrl: './buttondemo.html',
     styles: [`
         :host ::ng-deep button {
-            margin-right: .25em;
+            margin-right: .5em;
         }
     `]
 })
