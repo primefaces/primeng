@@ -1511,7 +1511,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     host: {
         '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted',
-        '[attr.tabindex]': 'isEnabled() ? 0 : null'
+        '[attr.tabindex]': 'isEnabled() ? "0" : null'
     }
 })
 export class TTSortableColumn implements OnInit, OnDestroy {
@@ -1850,6 +1850,11 @@ export class TTSelectableRow implements OnInit, OnDestroy {
                 rowNode: this.rowNode
             });
         }
+    }
+
+    @HostListener('keydown.enter', ['$event'])
+    onEnterKey(event: Event) {
+        this.onClick(event);
     }
 
     @HostListener('touchend', ['$event'])
@@ -2338,14 +2343,89 @@ export class TreeTableCellEditor implements AfterContentInit {
             }
         });
     }
-    
+}
+
+@Directive({
+    selector: '[ttRow]',
+    host: {
+        '[attr.tabindex]': '"0"'
+    }
+
+})
+export class TTRow {
+
+    @Input('ttRow') rowNode: any;
+
+    constructor(public tt: TreeTable, public el: ElementRef) {}
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        switch (event.which) {
+            //down arrow
+            case 40:
+                let nextRow = this.el.nativeElement.nextElementSibling;
+                if (nextRow) {
+                    nextRow.focus();
+                }
+
+                event.preventDefault();
+            break;
+
+            //down arrow
+            case 38:
+                let prevRow = this.el.nativeElement.previousElementSibling;
+                if (prevRow) {
+                    prevRow.focus();
+                }
+
+                event.preventDefault();
+            break;
+
+            //left arrow
+            case 37:
+                if (this.rowNode.node.expanded) {
+                    this.rowNode.node.expanded = false;
+
+                    this.tt.onNodeCollapse.emit({
+                        originalEvent: event,
+                        node: this.rowNode.node
+                    });
+
+                    this.tt.updateSerializedValue();
+                    this.tt.tableService.onUIUpdate(this.tt.value);
+
+                    setTimeout(() => {
+                        this.el.nativeElement.focus();
+                    }, 100);
+                }
+            break;
+
+            //right arrow
+            case 39:
+                if (!this.rowNode.node.expanded) {
+                    this.rowNode.node.expanded = true;
+
+                    this.tt.onNodeExpand.emit({
+                        originalEvent: event,
+                        node: this.rowNode.node
+                    });
+
+                    this.tt.updateSerializedValue();
+                    this.tt.tableService.onUIUpdate(this.tt.value);
+
+                    setTimeout(() => {-
+                        this.el.nativeElement.focus();
+                    }, 1000);
+                }
+            break;
+        }
+    }
 }
 
 @Component({
     selector: 'p-treeTableToggler',
     template: `
-        <a tabindex="0" class="ui-treetable-toggler" *ngIf="rowNode.node.leaf === false || rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" 
-            (click)="onClick($event)" (keydown.enter)="onClick($event)" 
+        <a class="ui-treetable-toggler" *ngIf="rowNode.node.leaf === false || rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" (click)="onClick($event)"
             [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
             <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
         </a>
@@ -2382,7 +2462,7 @@ export class TreeTableToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
-    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
+    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
+    declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
 })
 export class TreeTableModule { }
