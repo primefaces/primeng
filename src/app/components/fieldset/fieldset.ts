@@ -12,7 +12,7 @@ let idx: number = 0;
         <fieldset [attr.id]="id" [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
             <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text">
                 <ng-container *ngIf="toggleable; else legendContent">
-                    <a href="#" (click)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" [attr.tabindex]="toggleable ? null : -1">
+                    <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed">
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </a>
                 </ng-container>

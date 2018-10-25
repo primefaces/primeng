@@ -15,11 +15,11 @@
     </p-overlayPanel>
     
     <h3>Customized</h3>
-    <p>This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.</p>
+    <p>This OverlayPanel gets displayed on hover of the icon and displays a close icon.</p>
     <i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
-        <p-table [value]="cars1" [style]="{width: '500px'}">
+        <p-table [value]="cars1" [style]="{width: '500px'}" [paginator]="true" [rows]="5">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
@@ -307,7 +307,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 &lt;i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
 
 &lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
-    &lt;p-table [value]="cars1" [style]="&#123;width: '500px'&#125;"&gt;
+    &lt;p-table [value]="cars1" [style]="&#123;width: '500px'&#125; [paginator]="true" [rows]="5""&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
                 &lt;th pSortableColumn="vin"&gt;Vin &lt;p-sortIcon field="vin"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;

@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs';
                     'ui-messages-error':(value[0].severity === 'error'),
                     'ui-messages-success':(value[0].severity === 'success')}"
                     [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
-            <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
+            <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
                 <i class="pi pi-times"></i>
             </a>
             <span class="ui-messages-icon pi" [ngClass]="icon"></span>

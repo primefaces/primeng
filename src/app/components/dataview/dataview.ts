@@ -296,11 +296,11 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     selector: 'p-dataViewLayoutOptions',
     template: `
         <div [ngClass]="'ui-dataview-layout-options ui-selectbutton ui-buttonset'" [ngStyle]="style" [class]="styleClass">
-            <a href="#" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'list')"
+            <a tabindex="0" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'list')" (keydown.enter)="changeLayout($event, 'list')"
                 [ngClass]="{'ui-state-active': dv.layout === 'list'}">
                 <i class="pi pi-bars ui-button-icon-left"></i>
                 <span class="ui-button-text ui-clickable">ui-btn</span>
-            </a><a href="#" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'grid')"
+            </a><a tabindex="0" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')"
                 [ngClass]="{'ui-state-active': dv.layout === 'grid'}">
                 <i class="pi pi-th-large ui-button-icon-left"></i>
                 <span class="ui-button-text ui-clickable">ui-btn</span>

@@ -475,9 +475,6 @@ body {
         transition: color 0.2s; }
         body .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-close:hover {
           color: #333333; }
-        body .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-close:focus {
-          outline: 0 none;
-          color: #333333; }
     body .ui-multiselect-panel .ui-multiselect-items {
       padding: 0; }
       body .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item {

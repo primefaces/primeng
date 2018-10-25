@@ -15,7 +15,7 @@ import {trigger,state,style,transition,animate,query,animateChild} from '@angula
                 'ui-toast-message-error': message.severity == 'error','ui-toast-message-success': message.severity == 'success'}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="ui-toast-message-content">
-                <a href="#" class="ui-toast-close-icon pi pi-times" (click)="onCloseIconClick($event)" *ngIf="message.closable !== false"></a>
+                <a tabindex="0" class="ui-toast-close-icon pi pi-times" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false"></a>
                 <ng-container *ngIf="!template">
                     <span class="ui-toast-icon pi"
                         [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',

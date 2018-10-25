@@ -129,6 +129,7 @@
     top: .375em;
     display: block;
     border: 0 none;
+    cursor: pointer;
 }
 
 .ui-multiselect-header a.ui-multiselect-all,
@@ -136,10 +137,6 @@
     float:left;
     margin-right: 10px;
     display: block;
-}
-
-.ui-multiselect-header .ui-multiselect-close.ui-state-hover {
-    padding:0px;
 }
 
 .ui-multiselect-footer {

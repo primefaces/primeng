@@ -12,10 +12,10 @@ export const RATING_VALUE_ACCESSOR: any = {
     selector: 'p-rating',
     template: `
         <div class="ui-rating" [ngClass]="{'ui-state-disabled': disabled}">
-            <a href="#" *ngIf="cancel" (click)="clear($event)" class="ui-rating-cancel">
+            <a [attr.tabindex]="disabled ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)"  class="ui-rating-cancel">
                 <span class="ui-rating-icon" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
             </a>
-            <a href="#" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)">
+            <a [attr.tabindex]="disabled ? null : '0'" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)" (keydown.enter)="rate($event,i)">
                 <span class="ui-rating-icon" 
                     [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
                     [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"

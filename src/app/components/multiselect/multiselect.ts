@@ -46,7 +46,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                         <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
                         <span class="ui-multiselect-filter-icon pi pi-search"></span>
                     </div>
-                    <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
+                    <a class="ui-multiselect-close ui-corner-all" tabindex="0" (click)="close($event)" (keydown.enter)="close($event)">
                         <span class="pi pi-times"></span>
                     </a>
                 </div>
