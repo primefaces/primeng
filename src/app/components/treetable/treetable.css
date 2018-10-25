@@ -146,16 +146,6 @@
     display: none;
 }
 
-/* Edit */
-.ui-treetable .ui-treetable-tbody > tr > td.ui-editing-cell input {
-    padding: 0;
-    border: 0 none;
-}
-
-.ui-treetable .ui-treetable-tbody > tr > td.ui-editing-cell p-treetablecelleditor >  * {
-    width: 100%;
-}
-
 /* Reorder */
 .ui-treetable-reorder-indicator-up,
 .ui-treetable-reorder-indicator-down {

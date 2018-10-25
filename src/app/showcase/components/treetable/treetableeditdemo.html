@@ -18,11 +18,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns; let i = index" ttEditableColumn>
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'ui-toggler-column': i === 0}">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     <p-treeTableCellEditor>
                         <ng-template pTemplate="input">
-                            <input type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': i == 0 ? 'auto': '100%'}">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
                         </ng-template>
                         <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
                     </p-treeTableCellEditor>
@@ -41,6 +41,18 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './treetableeditdemo.html',
+    styles: [`
+        :host ::ng-deep .ui-editing-cell &#123;
+            padding: 0 !important;
+            &#125;
+
+        :host ::ng-deep .ui-toggler-column.ui-editing-cell &#123;
+            padding-left: 0.857em !important;
+            &#125;
+    `]
+&#125;)
 export class TreeTableEditDemo &#123;
 
     files: TreeNode[];
@@ -80,11 +92,11 @@ export class TreeTableEditDemo &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index" ttEditableColumn&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+            &lt;td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'ui-toggler-column': i === 0}"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"&gt;&lt;/p-treeTableToggler&gt;
                 &lt;p-treeTableCellEditor&gt;
                     &lt;ng-template pTemplate="input"&gt;
-                        &lt;input type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="&#123;'width': i == 0 ? 'auto': '100%'&#125;"&gt;
+                        &lt;input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="&#123;'width': i == 0 ? '90%': '100%'&#125;"&gt;
                     &lt;/ng-template&gt;
                     &lt;ng-template pTemplate="output"&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/ng-template&gt;
                 &lt;/p-treeTableCellEditor&gt;

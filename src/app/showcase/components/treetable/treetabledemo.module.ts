@@ -7,6 +7,7 @@ import { TreeTableModule } from '../../../components/treetable/treetable';
 import { ToastModule } from '../../../components/toast/toast';
 import { TabViewModule } from '../../../components/tabview/tabview';
 import { MultiSelectModule } from '../../../components/multiselect/multiselect';
+import { InputTextModule } from '../../../components/inputtext/inputtext';
 import { ContextMenuModule } from '../../../components/contextmenu/contextmenu';
 import { CodeHighlighterModule } from '../../../components/codehighlighter/codehighlighter';
 import { TreeTableSubmenu } from './treetablesubmenu';
@@ -34,6 +35,7 @@ import { TreeTableEditDemo } from './treetableeditdemo';
         ToastModule,
         TabViewModule,
         MultiSelectModule,
+        InputTextModule,
         ContextMenuModule,
         CodeHighlighterModule
 	],
