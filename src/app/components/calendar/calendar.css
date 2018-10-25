@@ -205,6 +205,7 @@
     display: block;
     opacity: 0.7;
     filter:Alpha(Opacity=70);
+    cursor: pointer;
 }
 
 .ui-timepicker > div a:last-child {
