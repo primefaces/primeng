@@ -15,8 +15,10 @@
 }
 
 .ui-treetable .ui-treetable-toggler {
-    vertical-align: middle;
+    cursor: pointer;
     display: inline-block;
+    height: 1em;
+    position: relative;
     top: 50%;
     margin-top: -.5em;
 }
