@@ -1458,17 +1458,17 @@ body .ui-table .ui-table-tfoot > tr > td {
   font-weight: 700;
   color: #333333;
   background-color: #ffffff; }
-body .ui-table .ui-sortable-column a, body .ui-table .ui-sortable-column a:hover {
+body .ui-table .ui-sortable-column .ui-sortable-column-icon {
   color: #737373; }
 body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
   background-color: #e0e0e0;
   color: #333333; }
-  body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover a, body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover a:hover {
+  body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon {
     color: #333333; }
 body .ui-table .ui-sortable-column.ui-state-highlight {
   background-color: #e02365;
   color: #ffffff; }
-  body .ui-table .ui-sortable-column.ui-state-highlight a, body .ui-table .ui-sortable-column.ui-state-highlight a:hover {
+  body .ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
     color: #ffffff; }
 body .ui-table .ui-editable-column input {
   font-size: 14px;
@@ -1889,17 +1889,17 @@ body .ui-treetable .ui-treetable-tfoot > tr > td {
   font-weight: 700;
   color: #333333;
   background-color: #ffffff; }
-body .ui-treetable .ui-sortable-column a, body .ui-treetable .ui-sortable-column a:hover {
+body .ui-treetable .ui-sortable-column .ui-sortable-column-icon {
   color: #737373; }
 body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover {
   background-color: #e0e0e0;
   color: #333333; }
-  body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover a, body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover a:hover {
+  body .ui-treetable .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon {
     color: #333333; }
 body .ui-treetable .ui-sortable-column.ui-state-highlight {
   background-color: #e02365;
   color: #ffffff; }
-  body .ui-treetable .ui-sortable-column.ui-state-highlight a, body .ui-treetable .ui-sortable-column.ui-state-highlight a:hover {
+  body .ui-treetable .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
     color: #ffffff; }
 body .ui-treetable .ui-editable-column input {
   font-size: 14px;
