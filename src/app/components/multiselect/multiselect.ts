@@ -43,7 +43,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
-                        <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
+                        <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter()" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
                         <span class="ui-multiselect-filter-icon pi pi-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" tabindex="0" (click)="close($event)" (keydown.enter)="close($event)">
@@ -446,8 +446,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.overlayVisible = false;
         this.unbindDocumentClickListener();
         if (this.resetFilterOnHide){
-            this.filterValue = null;
-            this.filterInputChild.nativeElement.value = null;
+            this.filterInputChild.nativeElement.value = '';
+            this.onFilter();
         }
         this.onPanelHide.emit();
     }
@@ -550,8 +550,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return label;
     }
     
-    onFilter(event) {
-        this.filterValue = event.target.value.trim().toLowerCase();
+    onFilter() {
+        this.filterValue = this.filterInputChild.nativeElement.value.trim().toLowerCase();
         this.visibleOptions = [];
         for (let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
