@@ -362,8 +362,8 @@ export class UITreeNode implements OnInit {
             //enter
             case 13:
                 this.tree.onNodeClick(event, this.node);
-    
                 event.preventDefault();
+            break;
 
             default:
                 //no op
