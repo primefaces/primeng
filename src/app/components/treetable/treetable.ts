@@ -1473,7 +1473,8 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     providers: [DomHandler],
     host: {
         '[class.ui-sortable-column]': 'isEnabled()',
-        '[class.ui-state-highlight]': 'sorted'
+        '[class.ui-state-highlight]': 'sorted',
+        '[attr.tabindex]': 'isEnabled() ? 0 : null'
     }
 })
 export class TTSortableColumn implements OnInit, OnDestroy {
@@ -1517,6 +1518,11 @@ export class TTSortableColumn implements OnInit, OnDestroy {
         }
     }
 
+    @HostListener('keydown.enter', ['$event'])
+    onEnterKey(event: MouseEvent) {
+        this.onClick(event);
+    }
+
     isEnabled() {
         return this.ttSortableColumnDisabled !== true;
     }
@@ -1531,9 +1537,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-treeTableSortIcon',
     template: `
-        <a tabindex="0" (click)="onClick($event)" (keydown.enter)="onClick($event)" class="ui-treetable-sort-icon" [attr.aria-label]=" sortOrder === 1 ? ariaLabelAsc : sortOrder === -1 ? ariaLabelDesc : '' ">
-            <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-up': sortOrder === 1, 'pi-sort-down': sortOrder === -1, 'pi-sort': sortOrder === 0}"></i>
-        </a>
+        <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-up': sortOrder === 1, 'pi-sort-down': sortOrder === -1, 'pi-sort': sortOrder === 0}"></i>
     `
 })
 export class TTSortIcon implements OnInit, OnDestroy {
