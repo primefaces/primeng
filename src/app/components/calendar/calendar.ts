@@ -1091,7 +1091,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onInputFocus(event: Event) {
         this.focus = true;
         if (this.showOnFocus) {
-          this.showOverlay();
+            this.showOverlay();
         }
         this.onFocus.emit(event);
     }
@@ -1472,6 +1472,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     showOverlay() {
+        this.updateUI();
         this.overlayVisible = true;
     }
 
