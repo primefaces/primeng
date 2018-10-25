@@ -70,7 +70,7 @@
     position: relative;
 }
 
-.ui-table-scrollable-body > table > .ui-table-tbody > tr:first-child > td {
+.ui-table-scrollable-vertical > .ui-table-tbody > tr:first-child > td {
     border-top: 0 none;
 }
 
