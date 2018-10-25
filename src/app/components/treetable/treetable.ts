@@ -265,6 +265,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     editingCell: Element;
 
+    editingCellClick: boolean;
+
+    documentEditListener: any;
+
     initialized: boolean;
 
     ngOnInit() {
@@ -1213,7 +1217,40 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
+    updateEditingCell(cell) {
+        this.editingCell = cell;
+        this.bindDocumentEditListener();
+    }
+
+    isEditingCellValid() {
+        return (this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length === 0);
+    }
+
+    bindDocumentEditListener() {
+        if (!this.documentEditListener) {
+            this.documentEditListener = (event) => {
+                if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
+                    this.domHandler.removeClass(this.editingCell, 'ui-editing-cell');
+                    this.editingCell = null;
+                    this.unbindDocumentEditListener();
+                }
+
+                this.editingCellClick = false;
+            };
+            
+            document.addEventListener('click', this.documentEditListener);
+        }
+    }
+     
+    unbindDocumentEditListener() {
+        if (this.documentEditListener) {
+            document.removeEventListener('click', this.documentEditListener);
+            this.documentEditListener = null;
+        }
+    }
+
     ngOnDestroy() {
+        this.unbindDocumentEditListener();
         this.editingCell = null;
         this.initialized = null;
     }
@@ -2105,16 +2142,14 @@ export class TTEditableColumn implements AfterViewInit {
         }
     }
 
-    isValid() {
-        return (this.tt.editingCell && this.domHandler.find(this.tt.editingCell, '.ng-invalid.ng-dirty').length === 0);
-    }
-
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
+            this.tt.editingCellClick = true;
+
             if (this.tt.editingCell) {
                 if (this.tt.editingCell !== this.el.nativeElement) {
-                    if (!this.isValid()) {
+                    if (!this.tt.isEditingCellValid()) {
                         return;
                     }
         
@@ -2129,7 +2164,7 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     openCell() {
-        this.tt.editingCell = this.el.nativeElement;
+        this.tt.updateEditingCell(this.el.nativeElement);
         this.domHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.tt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
@@ -2142,14 +2177,20 @@ export class TTEditableColumn implements AfterViewInit {
         });
     }
 
+    closeEditingCell() {
+        this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+        this.tt.editingCell = null;
+        this.tt.unbindDocumentEditListener();
+    }
+
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             //enter
             if (event.keyCode == 13) {
-                if (this.isValid()) {
+                if (this.tt.isEditingCellValid()) {
                     this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
-                    this.tt.editingCell = null;
+                    this.closeEditingCell();
                     this.tt.onEditComplete.emit({ field: this.field, data: this.data });
                 }
     
@@ -2158,9 +2199,9 @@ export class TTEditableColumn implements AfterViewInit {
     
             //escape
             else if (event.keyCode == 27) {
-                if (this.isValid()) {
+                if (this.tt.isEditingCellValid()) {
                     this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
-                    this.tt.editingCell = null;
+                    this.closeEditingCell();
                     this.tt.onEditCancel.emit({ field: this.field, data: this.data });
                 }
     
