@@ -22,10 +22,7 @@ describe('Schedule', () => {
   });
 
   it('should render events on component init', async(() => {
-    schedule.options = {
-        defaultDate: '2016-01-01'
-    };
-
+    schedule.defaultDate = '2016-01-01';
     schedule.events = [
       {
         "title": "All Day Event",

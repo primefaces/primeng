@@ -1,12 +1,12 @@
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Schedule</span>
-        <span>Schedule is an event calendar based on FullCalendar.</span>
+        <span class="feature-title">FullCalendar</span>
+        <span>An event calendar based on the FullCalendar library.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-schedule [events]="events" [options]="options"></p-schedule>
+    <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
 </div>
 
 <div class="content-section documentation">
@@ -15,22 +15,22 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;ScheduleModule&#125; from 'primeng/schedule';
+import &#123;FullCalendarModule&#125; from 'primeng/fullcalendar';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Schedule is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.0.0.alpha.2+</a> so fullcalendar needs to be included in your project. For a complete documentation and samples please refer to the fullcalendar website.
+            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.0.0.alpha.2+</a> so fullcalendar needs to be included in your project. For a complete documentation and samples please refer to the fullcalendar website.
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 npm install fullcalendar@4.0.0-alpha.2 --save
 </code>
 </pre>
             
-            <p>Events of schedule should be an array and defined using the events property.</p>
+            <p>Events should be an array and defined using the events property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-schedule [events]="events"&gt;&lt;/p-schedule&gt;
+&lt;p-fullCalendar [events]="events"&gt;&lt;/p-fullCalendar&gt;
 </code>
 </pre>
 
@@ -70,7 +70,7 @@ export class MyModel &#123;
 &#125;
 </code>
 </pre>
-            <p>In a real application, it is likely to populate the events by making a service call, when the events are updated, schedule component will detect the change and render them.</p>
+            <p>In a real application, it is likely to populate the events by making a service call, when the events are updated, the component will detect the change and render them.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 @Injectable()
@@ -79,7 +79,7 @@ export class EventService &#123;
     constructor(private http: Http) &#123;&#125;
 
     getEvents() &#123;
-        return this.http.get('showcase/resources/data/scheduleevents.json')
+        return this.http.get('showcase/resources/data/calendarevents.json')
                     .toPromise()
                     .then(res =&gt; &lt;any[]&gt; res.json().data)
                     .then(data =&gt; &#123; return data; &#125;);
@@ -103,10 +103,10 @@ export class MyModel &#123;
 </pre>
 
             <h3>Options</h3>
-            <p>FullCalendar has a long list of customization parameters that are defined with the options property of the Schedule. Example below customizes the header property.</p>
+            <p>FullCalendar has a long list of customization parameters that are defined with the options property. Example below customizes the header property.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class ScheduleDemo implements OnInit &#123;
+export class FullCalendarDemo implements OnInit &#123;
 
     events: any[];
 
@@ -133,12 +133,12 @@ export class ScheduleDemo implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-schedule [events]="events" [options]="options"&gt;&lt;/p-schedule&gt;
+&lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
 </code>
 </pre>
 
             <h3>Change Detection</h3>
-            <p>Schedule reflects the updates to the events or options whenever a change occurs. An important note here is that UI update only happens whenever a new instance is created
+            <p>Updates to the events or options are reflected to the UI whenever a change occurs. An important note here is that UI update only happens whenever a new instance is created
                 on these twp properties. Simply changing the events array without creating a new instance of the array or updating a property inside options will have no effect.
             </p>
 <pre>
@@ -185,19 +185,19 @@ this.options = &#123;
 </pre>
 
             <h3>Methods</h3>
-            <p>Methods of the underlying calendar instance is accessible using the reference of the Schedule component's getCalendar() API.</p>
+            <p>Methods of the underlying calendar instance is accessible using the reference of the components getCalendar() API.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-schedule #schedule [events]="events" [options]="options"&gt;&lt;/p-schedule&gt;
+&lt;p-fullCalendar #fc [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-@ViewChild('schedule') schedule: Schedule;
+@ViewChild('fc') fc: FullCalendar;
 
 gotoDate(date: Date) &#123;
-    this.schedule.getCalendar().gotoDate(date);
+    this.fc.getCalendar().gotoDate(date);
 &#125;
 </code>
 </pre>
@@ -232,19 +232,19 @@ gotoDate(date: Date) &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/schedule" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fullcalendar" class="btn-viewsource" target="_blank">
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-schedule [events]="events" [options]="options"&gt;&lt;/p-schedule&gt;
+&lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class ScheduleDemo implements OnInit &#123;
+export class FullCalendarDemo implements OnInit &#123;
 
     events: any[];
 
@@ -261,7 +261,8 @@ export class ScheduleDemo implements OnInit &#123;
                 left: 'prev,next',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
-            &#125;
+            &#125;,
+            editable: true
         &#123;;
     &#125;
 
@@ -277,7 +278,7 @@ export class EventService &#123;
     constructor(private http: Http) &#123;&#125;
 
     getEvents() &#123;
-        return this.http.get('showcase/resources/data/scheduleevents.json')
+        return this.http.get('showcase/resources/data/calendarevents.json')
                     .toPromise()
                     .then(res =&gt; &lt;any[]&gt; res.json().data)
                     .then(data =&gt; &#123; return data; &#125;);

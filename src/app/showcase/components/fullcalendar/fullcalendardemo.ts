@@ -2,9 +2,9 @@ import {Component,OnInit} from '@angular/core';
 import {EventService} from '../../service/eventservice';
 
 @Component({
-    templateUrl: './scheduledemo.html'
+    templateUrl: './fullcalendardemo.html'
 })
-export class ScheduleDemo implements OnInit {
+export class FullCalendarDemo implements OnInit {
 
     events: any[];
 
@@ -23,7 +23,8 @@ export class ScheduleDemo implements OnInit {
                 left: 'prev,next',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
-            }
+            },
+            editable: true
         };
     }
 }

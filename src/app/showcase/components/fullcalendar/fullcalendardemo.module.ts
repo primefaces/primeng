@@ -1,9 +1,9 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule}    from '@angular/forms';
-import {ScheduleDemo} from './scheduledemo';
-import {ScheduleDemoRoutingModule} from './scheduledemo-routing.module';
-import {ScheduleModule} from '../../../components/schedule/schedule';
+import {FormsModule} from '@angular/forms';
+import {FullCalendarDemo} from './fullcalendardemo';
+import {FullCalendarDemoRoutingModule} from './fullcalendardemo-routing.module';
+import {FullCalendarModule} from '../../../components/fullcalendar/fullcalendar';
 import {DialogModule} from '../../../components/dialog/dialog';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
 import {CalendarModule} from '../../../components/calendar/calendar';
@@ -16,8 +16,8 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 	imports: [
 		CommonModule,
         FormsModule,
-		ScheduleDemoRoutingModule,
-        ScheduleModule,
+		FullCalendarDemoRoutingModule,
+        FullCalendarModule,
         DialogModule,
         InputTextModule,
         CalendarModule,
@@ -27,7 +27,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         CodeHighlighterModule
 	],
 	declarations: [
-		ScheduleDemo
+		FullCalendarDemo
 	]
 })
-export class ScheduleDemoModule {}
+export class FullCalendarDemoModule {}
