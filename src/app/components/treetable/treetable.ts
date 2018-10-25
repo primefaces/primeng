@@ -271,6 +271,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     initialized: boolean;
 
+    toggleRowIndex: number;
+
     ngOnInit() {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -2349,14 +2351,15 @@ export class TreeTableCellEditor implements AfterContentInit {
     selector: '[ttRow]',
     host: {
         '[attr.tabindex]': '"0"'
-    }
+    },
+    providers: [DomHandler]
 
 })
 export class TTRow {
 
     @Input('ttRow') rowNode: any;
 
-    constructor(public tt: TreeTable, public el: ElementRef) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
@@ -2384,6 +2387,7 @@ export class TTRow {
             //left arrow
             case 37:
                 if (this.rowNode.node.expanded) {
+                    this.tt.toggleRowIndex = this.domHandler.index(this.el.nativeElement);
                     this.rowNode.node.expanded = false;
 
                     this.tt.onNodeCollapse.emit({
@@ -2393,16 +2397,14 @@ export class TTRow {
 
                     this.tt.updateSerializedValue();
                     this.tt.tableService.onUIUpdate(this.tt.value);
-
-                    setTimeout(() => {
-                        this.el.nativeElement.focus();
-                    }, 100);
+                    this.restoreFocus();
                 }
             break;
 
             //right arrow
             case 39:
                 if (!this.rowNode.node.expanded) {
+                    this.tt.toggleRowIndex = this.domHandler.index(this.el.nativeElement);
                     this.rowNode.node.expanded = true;
 
                     this.tt.onNodeExpand.emit({
@@ -2412,13 +2414,21 @@ export class TTRow {
 
                     this.tt.updateSerializedValue();
                     this.tt.tableService.onUIUpdate(this.tt.value);
-
-                    setTimeout(() => {-
-                        this.el.nativeElement.focus();
-                    }, 1000);
+                    this.restoreFocus();
                 }
             break;
         }
+    }
+
+    restoreFocus() {
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => {
+                let row = this.domHandler.findSingle(this.tt.containerViewChild.nativeElement, '.ui-treetable-tbody').children[this.tt.toggleRowIndex];
+                if (row) {
+                    row.focus();
+                }
+            }, 25);
+        });
     }
 }
 
