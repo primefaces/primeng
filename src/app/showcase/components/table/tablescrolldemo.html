@@ -171,42 +171,44 @@
         </ng-template>
     </p-table>
 
-    <h3>Frozen Column Groups</h3>
-    <p-table [value]="sales" [scrollable]="true" scrollHeight="150px" frozenWidth="200px">
-        <ng-template pTemplate="frozenheader">
-            <tr>
-                <th style="width:200px;height:102px">Brand</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="frozenbody" let-sale>
-            <tr>
-                <td>{{sale.brand}}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th colspan="4">Sale Rate</th>
-            </tr>
-            <tr>
-                <th colspan="2">Sales</th>
-                <th colspan="2">Profits</th>
-            </tr>
-            <tr>
-                <th>Last Year</th>
-                <th>This Year</th>
-                <th>Last Year</th>
-                <th>This Year</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-sale>
-            <tr>
-                <td>{{sale.lastYearSale}}</td>
-                <td>{{sale.thisYearSale}}</td>
-                <td>{{sale.lastYearProfit}}</td>
-                <td>{{sale.thisYearProfit}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <ng-container *ngIf="false">
+        <h3>Frozen Column Groups</h3>
+        <p-table [value]="sales" [scrollable]="true" scrollHeight="150px" frozenWidth="200px">
+            <ng-template pTemplate="frozenheader">
+                <tr>
+                    <th style="width:200px;height:102px">Brand</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenbody" let-sale>
+                <tr>
+                    <td>{{sale.brand}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="4">Sale Rate</th>
+                </tr>
+                <tr>
+                    <th colspan="2">Sales</th>
+                    <th colspan="2">Profits</th>
+                </tr>
+                <tr>
+                    <th>Last Year</th>
+                    <th>This Year</th>
+                    <th>Last Year</th>
+                    <th>This Year</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-sale>
+                <tr>
+                    <td>{{sale.lastYearSale}}</td>
+                    <td>{{sale.thisYearSale}}</td>
+                    <td>{{sale.lastYearProfit}}</td>
+                    <td>{{sale.thisYearProfit}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-container>
 </div>
 
 <div class="content-section documentation">
@@ -518,43 +520,6 @@ export class TableScrollDemo implements OnInit &#123;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Frozen Column Groups&lt;/h3&gt;
-&lt;p-table [value]="sales" [scrollable]="true" scrollHeight="150px" frozenWidth="200px"&gt;
-    &lt;ng-template pTemplate="frozenheader"&gt;
-        &lt;tr&gt;
-            &lt;th style="width:200px;height:102px"&gt;Brand&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenbody" let-sale&gt;
-        &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;sale.brand&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;tr&gt;
-            &lt;th colspan="4"&gt;Sale Rate&lt;/th&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;th colspan="2"&gt;Sales&lt;/th&gt;
-            &lt;th colspan="2"&gt;Profits&lt;/th&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Last Year&lt;/th&gt;
-            &lt;th&gt;This Year&lt;/th&gt;
-            &lt;th&gt;Last Year&lt;/th&gt;
-            &lt;th&gt;This Year&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-sale&gt;
-        &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;sale.lastYearSale&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.thisYearSale&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.lastYearProfit&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;sale.thisYearProfit&#125;&#125;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
