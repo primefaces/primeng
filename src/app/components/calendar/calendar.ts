@@ -98,11 +98,11 @@ export interface LocaleSettings {
                 </ng-container>
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
-                        <a tabindex="0" (click)="incrementHour($event)">
+                        <a tabindex="0" (mousedown)="mousedownForIncrement($event)" (mouseup)="mouseupForTimePicker($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
-                        <a tabindex="0" (click)="decrementHour($event)">
+                        <a tabindex="0" (mousedown)="mousedownForDecrement($event)" (mouseup)="mouseupForTimePicker($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -116,11 +116,11 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-minute-picker">
-                        <a tabindex="0" (click)="incrementMinute($event)">
+                        <a tabindex="0" (mousedown)="mousedownForIncrement($event)" (mouseup)="mouseupForTimePicker($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
-                        <a tabindex="0" (click)="decrementMinute($event)">
+                        <a tabindex="0" (mousedown)="mousedownForDecrement($event)" (mouseup)="mouseupForTimePicker($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -134,11 +134,11 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-second-picker" *ngIf="showSeconds">
-                        <a tabindex="0" (click)="incrementSecond($event)">
+                        <a tabindex="0" (mousedown)="mousedownForIncrement($event)" (mouseup)="mouseupForTimePicker($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
-                        <a tabindex="0" (click)="decrementSecond($event)">
+                        <a tabindex="0" (mousedown)="mousedownForDecrement($event)" (mouseup)="mouseupForTimePicker($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -382,6 +382,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onModelTouched: Function = () => {};
     
     calendarElement: any;
+    
+    timer:any;
     
     documentClickListener: any;
     
@@ -1158,11 +1160,64 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
                 this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
             }
-            
+        }
+        event.preventDefault();
+    }
+
+    mousedownForIncrement(event) {
+        if (!this.disabled) {
+            this.repeat(event, null, 1);
+            event.preventDefault();
+        }
+    }
+
+    mouseupForTimePicker(event) {
+        if (!this.disabled) {
+            this.clearTimer();
             this.updateTime();
         }
-    
-        event.preventDefault();
+    }
+
+    mousedownForDecrement(event) {
+        if (!this.disabled) {
+            this.repeat(event, null, -1);
+            event.preventDefault();
+        }
+    }
+
+    repeat(event: Event, interval: number, dir: number) {
+        let i = interval||500;
+
+        this.clearTimer();
+        this.timer = setTimeout(() => {
+            this.repeat(event, 100, dir);
+        }, i);
+
+        if (event.srcElement.parentElement.parentElement.classList.contains("ui-hour-picker")) { 
+            if (dir === 1)
+                this.incrementHour(event);
+            else
+                this.decrementHour(event);
+        }
+        else if (event.srcElement.parentElement.parentElement.classList.contains("ui-minute-picker")) { 
+            if (dir === 1)
+                this.incrementMinute(event);
+            else
+                this.decrementMinute(event);
+        }
+        else if (event.srcElement.parentElement.parentElement.classList.contains("ui-second-picker")) { 
+            if (dir === 1)
+                this.incrementSecond(event);
+            else
+                this.decrementSecond(event);
+        }
+        this.updateInputfield();
+    }
+
+    clearTimer() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
     }
     
     decrementHour(event) {
@@ -1178,8 +1233,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 }
                 this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
             }
-            
-            this.updateTime();
         }
 
         event.preventDefault();
@@ -1215,7 +1268,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let newMinute = this.currentMinute + this.stepMinute;
         if (this.validateMinute(newMinute)) {
             this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
-            this.updateTime();
         }
         
         event.preventDefault();
@@ -1225,7 +1277,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let newMinute = this.currentMinute - this.stepMinute;
         if (this.validateMinute(newMinute)) {
             this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
-            this.updateTime();
         }
         
         event.preventDefault();
@@ -1264,7 +1315,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let newSecond = this.currentSecond + this.stepSecond;
         if (this.validateSecond(newSecond)) {
             this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
-            this.updateTime();
         }
     
         event.preventDefault();
@@ -1274,7 +1324,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let newSecond = this.currentSecond - this.stepSecond;
         if (this.validateSecond(newSecond)) {
             this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
-            this.updateTime();
         }
         
         event.preventDefault();
