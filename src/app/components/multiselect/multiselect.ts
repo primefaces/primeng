@@ -5,7 +5,7 @@ import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
-import {SharedModule,PrimeTemplate,Footer} from '../common/shared';
+import {SharedModule,PrimeTemplate,Footer, Header} from '../common/shared';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
@@ -49,6 +49,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     <a class="ui-multiselect-close ui-corner-all" tabindex="0" (click)="close($event)" (keydown.enter)="close($event)">
                         <span class="pi pi-times"></span>
                     </a>
+                    <ng-content select="p-header" *ngIf="headerFacet"></ng-content>
                 </div>
                 <div class="ui-multiselect-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
@@ -169,6 +170,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('filterInput') filterInputChild: ElementRef;
+
+    @ContentChild(Header) headerFacet;
 
     @ContentChild(Footer) footerFacet;
     
