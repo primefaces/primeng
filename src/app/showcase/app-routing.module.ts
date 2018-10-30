@@ -94,7 +94,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'treetable', loadChildren: './components/treetable/treetabledemo.module#TreeTableDemoModule'},
             {path: 'tristatecheckbox', loadChildren: './components/tristatecheckbox/tristatecheckboxdemo.module#TriStateCheckboxDemoModule'},
             {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
-        ])    
+        ], {scrollPositionRestoration: 'enabled'})    
     ],
     exports: [RouterModule]
 })
