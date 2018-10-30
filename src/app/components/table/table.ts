@@ -2065,7 +2065,38 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
                 this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
                 let containerHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
+                let relativeHeight;
+
+                if (this.scrollHeight.includes("calc")) {
+                    let percentHeight = this.scrollHeight.slice(this.scrollHeight.indexOf("(")+1, this.scrollHeight.indexOf("%"));
+
+                    if (this.scrollHeight.indexOf('+') !== -1 && percentHeight) {
+                        let calcValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf('+')+1));
+                        relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(percentHeight) / 100;                        
+                        relativeHeight = relativeHeight + calcValue;
+                    }
+                    else if (this.scrollHeight.indexOf('-') !== -1 && percentHeight) {
+                        let calcValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf('-')+1));
+                        relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(percentHeight) / 100;
+                        relativeHeight = relativeHeight - calcValue;
+                    }
+                    else if (this.scrollHeight.indexOf('*') !== -1 && percentHeight) {
+                        let calcValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf('*')+1));
+                        relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(percentHeight) / 100;
+                        relativeHeight = relativeHeight * calcValue;
+                    }
+                    else if (this.scrollHeight.indexOf('/') !== -1 && percentHeight) {
+                        let calcValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf('/')+1));
+                        relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(percentHeight) / 100;
+                        relativeHeight = relativeHeight / calcValue;
+                    }
+                    else {
+                        relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement);
+                    }
+                }
+                else {
+                    relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
+                }
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
 
