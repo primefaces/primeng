@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck,Optional} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck,Optional, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import {NgModel} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
@@ -12,11 +12,11 @@ import {CommonModule} from '@angular/common';
         '[class.ui-state-filled]': 'filled'
     }
 })
-export class InputText implements DoCheck {
+export class InputText implements DoCheck, AfterViewInit {
 
     filled: boolean;
 
-    constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
+    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, private cd: ChangeDetectorRef) {}
         
     ngDoCheck() {
         this.updateFilledState();
@@ -31,6 +31,13 @@ export class InputText implements DoCheck {
     updateFilledState() {
         this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) ||
                         (this.ngModel && this.ngModel.model);
+    }
+
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.updateFilledState();
+            this.cd.markForCheck();
+        });
     }
 }
 
