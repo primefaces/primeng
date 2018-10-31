@@ -36,6 +36,8 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() name: string;
 
     @Input() disabled: boolean;
+
+    @Input() readonly: boolean;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -50,6 +52,9 @@ export class InputSwitch implements ControlValueAccessor {
     constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event: Event, cb: HTMLInputElement) {
+        if (this.readonly) {
+            return;
+        }
         this.toggle(event);
         cb.focus();
     }
