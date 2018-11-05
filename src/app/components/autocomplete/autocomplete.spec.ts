@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, async, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
+import { TestBed, ComponentFixture,fakeAsync,tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AutoComplete } from './autocomplete';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -52,7 +52,7 @@ describe('AutoComplete', () => {
   
     beforeEach(() => {
     TestBed.configureTestingModule({
-      
+
       imports: [
         NoopAnimationsModule,
         FormsModule
@@ -481,16 +481,6 @@ describe('AutoComplete', () => {
       expect(listEl.nativeElement.className).toContain('ui-autocomplete-multiple-container');
     });
 
-    it('should multiple', () => {
-      autocomplete.multiple = true;
-      fixture.detectChanges();
-
-      const spanEl = fixture.debugElement.query(By.css('span'));
-      const listEl = fixture.debugElement.query(By.css('ul'));
-      expect(spanEl.nativeElement.className).toContain('ui-autocomplete-multiple');
-      expect(listEl.nativeElement.className).toContain('ui-autocomplete-multiple-container');
-    });
-
     it('should select item with multiSelect', fakeAsync(() => {
       autocomplete.multiple = true;
       autocomplete.forceSelection = true;
@@ -626,7 +616,6 @@ describe('AutoComplete', () => {
       autocomplete.overlayVisible = true;
       let event = {'which':40,preventDefault(){}};
       autocomplete.onKeydown(event);
-      autocomplete.highlightOption = 'VW';
       fixture.detectChanges();
 
       event.which = 38;
@@ -669,7 +658,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('focus'));  
       inputEl.nativeElement.click();
       fixture.detectChanges();
-
+     
       const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
       const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
       autocomplete.suggestions = ["Volvo","VW"]
