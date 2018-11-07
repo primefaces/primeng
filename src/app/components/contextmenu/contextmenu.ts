@@ -19,9 +19,9 @@ import { RouterModule } from '@angular/router';
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" 
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                        (click)="itemClick($event, child)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" 
+                        (click)="itemClick($event, child)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}"
                         [ngStyle]="child.style" [class]="child.styleClass">
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -44,7 +44,7 @@ export class ContextMenuSub {
 
     activeItem: any;
 
-    containerLeft: any;
+    containerOffset: any;
 
     hideTimeout: any;
 
@@ -96,14 +96,21 @@ export class ContextMenuSub {
     }
 
     position(sublist, item) {
-        this.containerLeft = this.domHandler.getOffset(item.parentElement)
+        this.containerOffset = this.domHandler.getOffset(item.parentElement)
         let viewport = this.domHandler.getViewport();
         let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : this.domHandler.getHiddenElementOuterWidth(sublist);
         let itemOuterWidth = this.domHandler.getOuterWidth(item.children[0]);
+        let itemOuterHeight = this.domHandler.getOuterHeight(item.children[0]);
+        let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : this.domHandler.getHiddenElementOuterHeight(sublist);
 
-        sublist.style.top = '0px';
+        if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - this.calculateScrollbarHeight())) {
+            sublist.style.bottom = '0px';
+        }
+        else {
+            sublist.style.top = '0px';
+        }
 
-        if ((parseInt(this.containerLeft.left) + itemOuterWidth + sublistWidth) > (viewport.width - this.calculateScrollbarWidth())) {
+        if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - this.calculateScrollbarWidth())) {
             sublist.style.left = -sublistWidth + 'px';
         }
         else {
@@ -121,12 +128,23 @@ export class ContextMenuSub {
 
         return scrollbarWidth;
     }
+
+    calculateScrollbarHeight(): number {
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "ui-scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
+        document.body.removeChild(scrollDiv);
+
+        return scrollbarHeight;
+    }
 }
 
 @Component({
     selector: 'p-contextMenu',
     template: `
-        <div #container [ngClass]="'ui-contextmenu ui-widget ui-widget-content ui-corner-all ui-shadow'" 
+        <div #container [ngClass]="'ui-contextmenu ui-widget ui-widget-content ui-corner-all ui-shadow'"
             [class]="styleClass" [ngStyle]="style">
             <p-contextMenuSub [item]="model" root="root"></p-contextMenuSub>
         </div>
