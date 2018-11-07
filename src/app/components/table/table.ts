@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -342,7 +342,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     rowTouched: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -1149,6 +1149,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         });
 
         this.tableService.onValueChange(this.value);
+        this.cd.markForCheck();
     }
 
     hasFilter() {
@@ -2160,6 +2161,7 @@ export class SortableColumn implements OnInit, OnDestroy {
         if (this.isEnabled()) {
             this.updateSortState();
         }
+        this.cd.markForCheck();
     }
 
     updateSortState() {
