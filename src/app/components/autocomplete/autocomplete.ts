@@ -449,7 +449,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     }
 
     handleDropdownClick(event) {
-        this.focusInput();
+        if (this.overlayVisible) {
+            this.hide();
+            event.srcElement.parentElement.blur();
+            return;
+        }
+        else {
+            this.focusInput();
+        }
         let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
 
         if (this.dropdownMode === 'blank')
