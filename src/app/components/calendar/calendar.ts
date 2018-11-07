@@ -417,6 +417,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     focusElement: any;
 
+    documentResizeListener: any;
+
     @Input() get minDate(): Date {
         return this._minDate;
     }
@@ -1488,6 +1490,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     }
                     this.alignOverlay();
                     this.bindDocumentClickListener();
+                    this.bindDocumentResizeListener();
                 }
             break;
 
@@ -1947,9 +1950,38 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        this.inputfieldViewChild.nativeElement.blur();
+        if (this.overlayVisible) {
+            if (this.touchUI) {
+                this.disableModality();
+            }
+            else {
+                this.overlayVisible = false;
+            }
+            this.onClose.emit(event);
+        }
+        
+        this.datepickerClick = false;
+        this.cd.detectChanges();
+    }
+
     onOverlayHide() {
         this.unbindDocumentClickListener();
         this.unbindMaskClickListener();
+        this.unbindDocumentResizeListener();
         this.overlay = null;
     }
     
