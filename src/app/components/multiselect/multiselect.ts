@@ -392,7 +392,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     show() {
-        this.overlayVisible = true;
+        if(!this.overlayVisible){
+            this.overlayVisible = true;
+        }
         this.bindDocumentClickListener();
         
     }
