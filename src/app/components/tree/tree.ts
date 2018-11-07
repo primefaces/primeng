@@ -359,6 +359,11 @@ export class UITreeNode implements OnInit {
                 event.preventDefault();
             break;
 
+            case 13:
+                this.tree.onNodeClick(event, this.node);
+                event.preventDefault();
+            break;
+
             default:
                 //no op
             break;
@@ -545,7 +550,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         });
     }
 
-    onNodeClick(event: MouseEvent, node: TreeNode) {
+    onNodeClick(event, node: TreeNode) {
         let eventTarget = (<Element> event.target);
 
         if(eventTarget.className && eventTarget.className.indexOf('ui-tree-toggler') === 0) {

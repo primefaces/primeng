@@ -2730,6 +2730,7 @@ export class EditableColumn implements AfterViewInit {
         let targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {
+            this.domHandler.invokeElementMethod(event.target, 'blur');
             this.domHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
@@ -2741,6 +2742,7 @@ export class EditableColumn implements AfterViewInit {
         let targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {
+            this.domHandler.invokeElementMethod(event.target, 'blur');
             this.domHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
