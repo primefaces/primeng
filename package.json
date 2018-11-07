@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "6.1.5",
+    "version": "6.1.6-SNAPSHOT",
     "license": "MIT",
     "scripts": {
         "ng": "ng",
@@ -31,7 +31,7 @@
         "@angular/cli": "~6.1.1",
         "@angular/compiler-cli": "^6.1.0",
         "@angular/language-service": "^6.1.0",
-        "@types/jasmine": "~2.8.6",
+        "@types/jasmine": "2.8.8",
         "@types/jasminewd2": "~2.0.3",
         "@types/node": "~8.9.4",
         "codelyzer": "~4.2.1",
