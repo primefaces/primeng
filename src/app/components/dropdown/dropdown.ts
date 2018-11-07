@@ -251,6 +251,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     previousSearchChar: string;
 
     currentSearchChar: string;
+
+    documentResizeListener: any;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef,
                 public objectUtils: ObjectUtils, public zone: NgZone) {}
@@ -485,6 +487,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
 
                 if (this.options && this.options.length) {
                     let selectedListItem = this.domHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
@@ -941,6 +944,22 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        this.hide();
+    }
+
     updateFilledState() {
         this.filled = (this.selectedOption != null);
     }
@@ -960,6 +979,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     onOverlayHide() {
         this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
         this.overlay = null;
         this.itemsWrapper = null;
     }
