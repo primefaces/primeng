@@ -118,5 +118,50 @@ describe('Breadcrumb', () => {
       expect(itemClickSpy).toHaveBeenCalled();
     });
 
+    it('should call itemClick and do nothing (item disabled) ', () => {
+      breadcrumb.home = {icon: 'pi pi-home'};
+      breadcrumb.model = [
+        {label:'Squad', disabled: true},
+        {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'}
+    ];
+      fixture.detectChanges();
+      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+      const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
+      squadEl.click();
+      fixture.detectChanges();
 
+      expect(itemClickSpy).toHaveBeenCalled();
+    });
+
+    it('should run command', () => {
+      breadcrumb.home = {icon: 'pi pi-home'};
+      breadcrumb.model = [
+        {label:'Squad', command: ()=>{breadcrumb.styleClass = "primengRocks!"}},
+        {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'}
+    ];
+      fixture.detectChanges();
+      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+      const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
+      squadEl.click();
+      fixture.detectChanges();
+
+      expect(itemClickSpy).toHaveBeenCalled();
+      expect(breadcrumb.styleClass).toEqual("primengRocks!");
+    });
+
+    it('should call itemClick with home item', () => {
+      breadcrumb.home = {icon: 'pi pi-home'};
+      breadcrumb.model = [
+        {label:'Squad', command: ()=>{breadcrumb.styleClass = "primengRocks!"}},
+        {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'}
+    ];
+      fixture.detectChanges();
+      const itemClickSpy = spyOn(breadcrumb, 'itemClick').and.callThrough()
+      const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
+      let event = new Event("click");
+      breadcrumb.onHomeClick(event);
+      fixture.detectChanges();
+
+      expect(itemClickSpy).toHaveBeenCalled();
+    });
 });
