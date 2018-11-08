@@ -71,10 +71,13 @@ describe('InputSwitch', () => {
 
       const toggleSpy = spyOn(inputswitch, 'toggle').and.callThrough();
       const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
+      let data;
+      inputswitch.onChange.subscribe(value => data = value);
       inputSwitchEl.click();
       fixture.detectChanges();
 
       expect(inputswitch.checked).toEqual(true);
+      expect(data.checked).toEqual(true);
       expect(toggleSpy).toHaveBeenCalled();
     });
 
@@ -91,5 +94,59 @@ describe('InputSwitch', () => {
       inputSwitchEl.click();
       expect(data.checked).toEqual(false);
     });
+
+    it('should change focused', () => {
+      fixture.detectChanges();
+
+      const onFocusSpy = spyOn(inputswitch,"onFocus").and.callThrough();
+      const onBlurSpy = spyOn(inputswitch,"onBlur").and.callThrough();
+      const onModelTouchedSpy = spyOn(inputswitch,"onModelTouched").and.callThrough();
+      const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+      const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
+      inputEl.dispatchEvent(new Event('focus'));
+      fixture.detectChanges();
+
+      expect(inputSwitchEl.className).toContain("ui-inputswitch-focus");
+      expect(inputswitch.focused).toEqual(true);
+      expect(onFocusSpy).toHaveBeenCalled();
+      inputEl.dispatchEvent(new Event('blur'));
+      fixture.detectChanges();
+
+      expect(inputswitch.focused).toEqual(false);
+      expect(inputSwitchEl.className).not.toContain("ui-inputswitch-focus");
+      expect(onBlurSpy).toHaveBeenCalled();
+      expect(onModelTouchedSpy).toHaveBeenCalled();
+    });
     
+    it('should call onInputChange', () => {
+        fixture.detectChanges();
+  
+        const updateModelSpy = spyOn(inputswitch, "updateModel").and.callThrough();
+        const onInputChangeSpy = spyOn(inputswitch, "onInputChange").and.callThrough();
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        inputEl.checked = true;
+        inputEl.dispatchEvent(new Event('change'));
+        fixture.detectChanges();
+
+        expect(updateModelSpy).toHaveBeenCalled();
+        expect(onInputChangeSpy).toHaveBeenCalled();
+        expect(inputswitch.checked).toEqual(true);
+    });
+
+    it('should change disabled', () => {
+        fixture.detectChanges();
+  
+        inputswitch.setDisabledState(true);
+        fixture.detectChanges();
+
+        const updateModelSpy = spyOn(inputswitch, 'updateModel').and.callThrough();
+        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        inputSwitchEl.click();
+        fixture.detectChanges();
+
+        expect(inputSwitchEl.className).toContain('ui-state-disabled');
+        expect(inputEl.disabled).toEqual(true);
+        expect(updateModelSpy).not.toHaveBeenCalled();
+    });
   });
