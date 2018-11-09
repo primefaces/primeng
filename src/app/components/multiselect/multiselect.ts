@@ -219,6 +219,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     _options: any[];
     
     maxSelectionLimitReached: boolean;
+
+    documentResizeListener: any;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
     
@@ -409,6 +411,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
                 this.alignOverlay();
                 this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
                 this.onPanelShow.emit();
             break;
 
@@ -607,8 +610,25 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        this.hide();
+    }
+
     onOverlayHide() {
         this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
         this.overlay = null;
     }
 
