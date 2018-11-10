@@ -14,6 +14,7 @@ import { CountryService } from './service/countryservice';
 import { EventService } from './service/eventservice';
 import { NodeService } from './service/nodeservice';
 import { IconService } from './service/iconservice';
+import { AutoCompleteModule } from '../components/autocomplete/autocomplete';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { IconService } from './service/iconservice';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AutoCompleteModule
   ],
   providers: [
       { provide: LocationStrategy, useClass: HashLocationStrategy },

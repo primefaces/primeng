@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -41,8 +42,38 @@ export class AppComponent implements OnInit{
 
     darkDemoStyle: HTMLStyleElement;
 
+    routes: Array<string> = [];
+
+    filteredRoutes: Array<string> = [];
+
+    searchText:string;
+
+    constructor(private router:Router){}
+
+    getRoutes() {
+        let routes = this.router.config;
+        for (let route of routes) {
+            if (route.path && route.path !== "datatable" && route.path !== "datagrid" && route.path !== "datalist" && route.path !== "growl")
+                this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1));
+        }
+    }
+
+    selectRoute(routeName) {
+        this.router.navigate(['/'+routeName.toLowerCase()]);
+        this.filteredRoutes = [];
+        this.searchText = "";
+    }
+
+    filterRoutes(event) {
+        let query = event.query;
+        this.filteredRoutes = this.routes.filter(route => {
+            return route.toLowerCase().includes(query.toLowerCase());
+        });
+    }
+
     ngOnInit() {
-      setTimeout(()=>this.notification = true , 1000)
+        setTimeout(()=>this.notification = true , 1000);
+        this.getRoutes();
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
