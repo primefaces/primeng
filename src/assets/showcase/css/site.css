@@ -166,6 +166,49 @@ body {
     display: block;
 }
 
+.topbar-menu > li.topbar-menu-versions {
+    position: relative;
+}
+
+.topbar-menu > li.topbar-menu-versions > a{
+    min-width: 40px;
+}
+
+.topbar-menu > li.topbar-menu-versions:hover > ul {
+    display: block;
+}
+
+.topbar-menu > li.topbar-menu-versions > ul {
+    position: absolute;
+    top: 65px;
+    width: 40px;
+    max-height: 300px;
+    background-color: #ffffff;
+    -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    list-style-type: none;
+    padding: 15px 0;
+    margin: 0;
+    border-radius: 3px;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    animation-duration: .5s;
+}
+
+.topbar-menu > li.topbar-menu-versions > ul a {
+    text-decoration: none;
+    color: #404C51;
+    padding: 6px 12px;
+    display: block;
+    transition: all 0.5s ease;
+}
+
+.topbar-menu > li.topbar-menu-versions > ul a:hover {
+    background-color: #eeeeee;
+}
+
 /* Sidebar */
 #layout-sidebar {
     position: fixed;
@@ -615,6 +658,10 @@ body {
     }
 
     .topbar-menu > li.topbar-menu-themes > ul {
+        top: 40px;
+    }
+
+    .topbar-menu > li.topbar-menu-versions > ul {
         top: 40px;
     }
 
