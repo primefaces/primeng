@@ -1,5 +1,40 @@
 # Change Log
 
+## [7.0.0-beta.2-Unreleased:](https://github.com/primefaces/primeng/tree/HEAD)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/6.1.6...HEAD)
+
+**Unit Tests:**
+
+- Slider Unit Test Need Improvement [\#6848](https://github.com/primefaces/primeng/issues/6848)
+
+## [6.1.6](https://github.com/primefaces/primeng/tree/6.1.6) (2018-11-09)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.0.0-beta.1...6.1.6)
+
+**Implemented New Features and Enhancements:**
+
+- Select a tree node with enter key [\#6836](https://github.com/primefaces/primeng/issues/6836)
+
+**Fixed bugs:**
+
+- Fileupload style not working [\#6817](https://github.com/primefaces/primeng/issues/6817)
+- ng-template not working then p-tree data has "type" property [\#3759](https://github.com/primefaces/primeng/issues/3759)
+- Date selection needs double click on IE when placeholder property is used [\#3751](https://github.com/primefaces/primeng/issues/3751)
+- Multiselect error fix [\#6838](https://github.com/primefaces/primeng/issues/6838)
+
+**Unit Tests:**
+
+- InputText Unit Test Need Improvement [\#6847](https://github.com/primefaces/primeng/issues/6847)
+- CodeHighlighter Unit Test Need Improvement  [\#6845](https://github.com/primefaces/primeng/issues/6845)
+- Breadcrumb Unit Test Need Improvement  [\#6844](https://github.com/primefaces/primeng/issues/6844)
+- Dialog Unit Test Need Improvement [\#6843](https://github.com/primefaces/primeng/issues/6843)
+- InputSwitch Unit Test  Need Improvement [\#6842](https://github.com/primefaces/primeng/issues/6842)
+- Autocomplete Unit Test is Crashing [\#6821](https://github.com/primefaces/primeng/issues/6821)
+- ConfrimDialog Unit Test is Crashing [\#6820](https://github.com/primefaces/primeng/issues/6820)
+- Calendar Unit Test is Crashing [\#6818](https://github.com/primefaces/primeng/issues/6818)
+- Fileupload Unit Test [\#6816](https://github.com/primefaces/primeng/issues/6816)
+
 ## [7.0.0-beta.1](https://github.com/primefaces/primeng/tree/7.0.0-beta.1) (2018-10-25)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.5...7.0.0-beta.1)
