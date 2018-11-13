@@ -11,4 +11,5 @@ export interface TableState {
     columnWidths?: string;
     tableWidth?: string;
     selection?: any;
+    columnOrder?: string[];
 }

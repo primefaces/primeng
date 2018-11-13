@@ -1747,6 +1747,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     dropIndex: dropIndex,
                     columns: this.columns
                 });
+
+                if (this.isStateful()) {
+                    this.saveState();
+                }
             }
 
             this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
@@ -1889,6 +1893,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.saveColumnWidths(state);
         }
 
+        if (this.reorderableColumns) {
+            this.saveColumnOrder(state);
+        }
+
         if (this.selection) {
             state.selection = this.selection;
         }
@@ -1929,6 +1937,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.resizableColumns) {
                 this.columnWidthsState = state.columnWidths;
                 this.tableWidthState = state.tableWidth;
+            }
+
+            if (this.reorderableColumns) {
+                this.restoreColumnOrder(state.columnOrder);
             }
 
             if (state.selection) {
@@ -1983,6 +1995,38 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 headers.map((header, index) => header.style.width = widths[index] + 'px');
             }
         } 
+    }
+
+    saveColumnOrder(state) {
+        if (this.columns) {
+            let columnOrder: string[] = [];
+            this.columns.map(column => columnOrder.push(column.field||column.key));
+
+            state.columnOrder = columnOrder;
+        }
+    }
+
+    restoreColumnOrder(columnOrder: string[]) {
+        let reorderedColumns = [];
+        if (columnOrder) {
+            columnOrder.map(key => reorderedColumns.push(this.findColumnByKey(key)));
+        }
+
+        this.columns = reorderedColumns;
+    }
+
+    findColumnByKey(key) {
+        if (this.columns) {
+            for (let col of this.columns) {
+                if (col.key === key || col.field === key) 
+                    return col;
+                else
+                    continue;
+            }
+        }
+        else {
+            return null;
+        }
     }
 
     ngOnDestroy() {

@@ -1461,7 +1461,7 @@ export class DataTableDemo implements OnInit &#123;
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table #tt[columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+&lt;p-table #tt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data" (click)="tt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
