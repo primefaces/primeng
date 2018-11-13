@@ -5,6 +5,7 @@ import { PaginatorModule } from '../paginator/paginator';
 import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
 import { SortMeta } from '../common/sortmeta';
+import { TableState } from '../common/tablestate';
 import { FilterMetadata } from '../common/filtermetadata';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Injectable } from '@angular/core';
@@ -210,6 +211,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     
     @Input() exportFunction;
 
+    @Input() stateKey: string;
+
+    @Input() stateStorage: string = 'session';
+
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -342,12 +347,21 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     rowTouched: boolean;
 
+    restoringSort: boolean;
+
+    restoringFilter: boolean;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
+
+        if (this.isStateful()) {
+            this.restoreState();
+        }
+
         this.initialized = true;
     }
  
@@ -539,6 +553,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         });
 
         this.tableService.onValueChange(this.value);
+
+        if (this.isStateful()) {
+            this.saveState();
+        }
     }
 
     sort(event) {
@@ -570,13 +588,18 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
             
             this.sortMultiple();
         }
+
+        if (this.isStateful()) {
+            this.saveState();
+        }
     }
 
     sortSingle() {
         if(this.sortField && this.sortOrder) {
-            if(this.resetPageOnSort) {
+            if (this.restoringSort)
+                this.restoringSort = false;
+            else if(this.resetPageOnSort)
                 this.first = 0;
-            }
 
             if(this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -1057,7 +1080,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     }
 
     _filter() {
-        this.first = 0;
+        if (this.restoringFilter)
+            this.restoringFilter = false;
+        else
+            this.first = 0;
 
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -1149,6 +1175,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
         });
 
         this.tableService.onValueChange(this.value);
+
+        if (this.isStateful()) {
+            this.saveState();
+        }
     }
 
     hasFilter() {
@@ -1784,6 +1814,79 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+
+    getStorage() {
+        switch(this.stateStorage) {
+            case 'local':
+                return window.localStorage;
+
+            case 'session':
+                return window.sessionStorage;
+
+            default:
+                throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
+        }
+    }
+
+    isStateful() {
+        return this.stateKey != null;
+    }
+
+    saveState() {
+        const storage = this.getStorage();
+        let state: TableState = {};
+        if (this.paginator) {
+            state.first = this.first;
+            state.rows = this.rows;
+        }
+
+        if (this.sortField) {
+            state.sortField = this.sortField;
+            state.sortOrder = this.sortOrder;
+        }
+
+        if (this.multiSortMeta) {
+            state.multiSortMeta = this.multiSortMeta;
+        }
+
+        if (this.hasFilter()) {
+            state.filters = this.filters;
+        }
+
+        if (Object.keys(state).length) {
+            storage.setItem(this.stateKey, JSON.stringify(state));
+        }
+    }
+
+    restoreState() {
+        const storage = this.getStorage();
+        const stateString = storage.getItem(this.stateKey);
+        
+        if (stateString) {
+            let state: TableState = JSON.parse(stateString);
+
+            if (this.paginator) {
+                this.first = state.first;
+                this.rows = state.rows;
+            }
+
+            if (state.sortField) {
+                this.restoringSort = true;
+                this._sortField = state.sortField;
+                this._sortOrder = state.sortOrder;
+            }
+
+            if (state.multiSortMeta) {
+                this.restoringSort = true;
+                this._multiSortMeta = state.multiSortMeta;
+            }
+
+            if (state.filters) {
+                this.restoringFilter = true;
+                this.filters = state.filters;
+            }
+        }
     }
 
     ngOnDestroy() {
