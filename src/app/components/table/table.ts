@@ -1535,6 +1535,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (event) {
             event.preventDefault();
         }
+
+        if (this.isStateful()) {
+            this.saveState();
+        }
     }
 
     isRowExpanded(rowData: any): boolean {
@@ -1901,6 +1905,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             state.selection = this.selection;
         }
 
+        if (Object.keys(this.expandedRowKeys).length) {
+            state.expandedRowKeys = this.expandedRowKeys;
+        }
+
         if (Object.keys(state).length) {
             storage.setItem(this.stateKey, JSON.stringify(state));
         }
@@ -1941,6 +1949,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (this.reorderableColumns) {
                 this.restoreColumnOrder(state.columnOrder);
+            }
+
+            if (state.expandedRowKeys) {
+                this.expandedRowKeys = state.expandedRowKeys;
             }
 
             if (state.selection) {
