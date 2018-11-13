@@ -84,7 +84,6 @@ export class Paginator implements OnInit {
     set totalRecords(val:number) {
         this._totalRecords = val;
         this.updatePageLinks();
-        this.updatePaginatorState();
     }
 
     @Input() get first(): number {
@@ -94,7 +93,6 @@ export class Paginator implements OnInit {
     set first(val:number) {
         this._first = val;
         this.updatePageLinks();
-        this.updatePaginatorState();
     }
 
     @Input() get rows(): number {
@@ -104,7 +102,6 @@ export class Paginator implements OnInit {
     set rows(val:number) {
         this._rows = val;
         this.updatePageLinks();
-        this.updatePaginatorState();
     }
     
     @Input() get rowsPerPageOptions(): number[] {
@@ -157,6 +154,7 @@ export class Paginator implements OnInit {
         for(let i = start; i <= end; i++) {
             this.pageLinks.push(i + 1);
         }
+        this.updatePaginatorState();
     }
 
     changePage(p :number) {
@@ -173,7 +171,6 @@ export class Paginator implements OnInit {
             this.updatePageLinks();
 
             this.onPageChange.emit(state);
-            this.updatePaginatorState();
         }
     }
 
