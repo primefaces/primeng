@@ -1956,7 +1956,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             if (state.selection) {
-                this.selectionChange.emit(state.selection);
+                this.selection = state.selection;
             }
         }
     }
