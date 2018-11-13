@@ -105,7 +105,7 @@ export class TableService {
     `,
     providers: [DomHandler, ObjectUtils, TableService]
 })
-export class Table implements OnInit, AfterContentInit, BlockableUI {
+export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI {
     
     @Input() frozenColumns: any[];
 
@@ -351,6 +351,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
     restoringFilter: boolean;
 
+    columnWidthsState: string;
+
+    tableWidthState: string;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
@@ -429,6 +433,12 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 break;
             }
         });
+    }
+
+    ngAfterViewInit() {
+        if (this.isStateful() && this.resizableColumns) {
+            this.restoreColumnWidths();
+        }
     }
 
     @Input() get value(): any[] {
@@ -1611,6 +1621,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 element: column,
                 delta: delta
             });
+
+            if (this.isStateful()) {
+                this.saveState();
+            }
         }
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
@@ -1836,6 +1850,7 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
     saveState() {
         const storage = this.getStorage();
         let state: TableState = {};
+        
         if (this.paginator) {
             state.first = this.first;
             state.rows = this.rows;
@@ -1852,6 +1867,10 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
 
         if (this.hasFilter()) {
             state.filters = this.filters;
+        }
+
+        if (this.resizableColumns) {
+            this.saveColumnWidths(state);
         }
 
         if (Object.keys(state).length) {
@@ -1886,7 +1905,60 @@ export class Table implements OnInit, AfterContentInit, BlockableUI {
                 this.restoringFilter = true;
                 this.filters = state.filters;
             }
+
+            if (this.resizableColumns) {
+                this.columnWidthsState = state.columnWidths;
+                this.tableWidthState = state.tableWidth;
+            }
         }
+    }
+
+    saveColumnWidths(state) {
+        let widths = [];
+        let headers = this.domHandler.find(this.containerViewChild.nativeElement, '.ui-table-thead > tr:first-child > th');
+        headers.map(header => widths.push(this.domHandler.getOuterWidth(header)));
+        state.columnWidths = widths.join(',');
+
+        if (this.columnResizeMode === 'expand') {
+            state.tableWidth = this.scrollable ? this.domHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-header-table').style.width :
+                                                this.domHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
+        }
+    }
+
+    restoreColumnWidths() {
+        if (this.columnWidthsState) {
+            let widths = this.columnWidthsState.split(',');
+
+            if (this.columnResizeMode === 'expand' && this.tableWidthState) {
+                if (this.scrollable) {
+                    let scrollableBodyTable = this.domHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-body-table');
+                    let scrollableHeaderTable = this.domHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-header-table');
+                    let scrollableFooterTable = this.domHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-footer-table');
+                    scrollableBodyTable.style.width = this.tableWidthState;
+                    scrollableHeaderTable.style.width = this.tableWidthState;
+
+                    if (scrollableFooterTable) {
+                        scrollableFooterTable.style.width = this.tableWidthState;
+                    }
+                }
+                else {
+                    this.tableViewChild.nativeElement.style.width = this.tableWidthState;
+                    this.containerViewChild.nativeElement.style.width = this.tableWidthState;
+                }
+            }
+
+            if (this.scrollable) {
+                let headerCols = this.domHandler.find(this.containerViewChild.nativeElement, '.ui-table-scrollable-header-table > colgroup > col');
+                let bodyCols = this.domHandler.find(this.containerViewChild.nativeElement, '.ui-table-scrollable-body-table > colgroup > col');
+
+                headerCols.map((col, index) => col.style.width = widths[index] + 'px');
+                bodyCols.map((col, index) => col.style.width = widths[index] + 'px');
+            }
+            else {
+                let headers = this.domHandler.find(this.tableViewChild.nativeElement, '.ui-table-thead > tr:first-child > th');
+                headers.map((header, index) => header.style.width = widths[index] + 'px');
+            }
+        } 
     }
 
     ngOnDestroy() {

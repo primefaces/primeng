@@ -10,10 +10,16 @@
 
 <div class="content-section implementation">
     <h3 class="first">Session Storage</h3>
-    <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" stateStorage="session" stateKey="statedemo-session">
+    <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [resizableColumns]="true"
+        stateStorage="session" stateKey="statedemo-session">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" >
+            </colgroup>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
                     {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>

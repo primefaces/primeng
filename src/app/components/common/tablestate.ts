@@ -8,4 +8,6 @@ export interface TableState {
     sortOrder?: number;
     multiSortMeta?: SortMeta[];
     filters?: {[s: string]: FilterMetadata;};
+    columnWidths?: string;
+    tableWidth?: string;
 }
