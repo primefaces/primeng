@@ -11,7 +11,7 @@
 <div class="content-section implementation">
     <h3 class="first">Session Storage</h3>
     <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [resizableColumns]="true"
-        stateStorage="session" stateKey="statedemo-session">
+        selectionMode="single" [(selection)]="selectedCar" stateStorage="session" stateKey="statedemo-session">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" >
@@ -31,7 +31,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
+            <tr [pSelectableRow]="rowData">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                 </td>

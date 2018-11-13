@@ -861,6 +861,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             this.tableService.onSelectionChange();
+
+            if (this.isStateful()) {
+                this.saveState();
+            }
         }
 
         this.rowTouched = false;
@@ -1016,6 +1020,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.tableService.onSelectionChange();
+
+        if (this.isStateful()) {
+            this.saveState();
+        }
     }
 
     toggleRowWithCheckbox(event, rowData: any) {
@@ -1043,6 +1051,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.tableService.onSelectionChange();
+
+        if (this.isStateful()) {
+            this.saveState();
+        }
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
@@ -1052,6 +1064,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.selectionChange.emit(this._selection);
         this.tableService.onSelectionChange();
         this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
+
+        if (this.isStateful()) {
+            this.saveState();
+        }
     }
 
     equals(data1, data2) {
@@ -1873,6 +1889,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.saveColumnWidths(state);
         }
 
+        if (this.selection) {
+            state.selection = this.selection;
+        }
+
         if (Object.keys(state).length) {
             storage.setItem(this.stateKey, JSON.stringify(state));
         }
@@ -1909,6 +1929,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.resizableColumns) {
                 this.columnWidthsState = state.columnWidths;
                 this.tableWidthState = state.tableWidth;
+            }
+
+            if (state.selection) {
+                this.selectionChange.emit(state.selection);
             }
         }
     }

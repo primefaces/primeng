@@ -10,4 +10,5 @@ export interface TableState {
     filters?: {[s: string]: FilterMetadata;};
     columnWidths?: string;
     tableWidth?: string;
+    selection?: any;
 }
