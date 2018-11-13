@@ -104,6 +104,7 @@ export class Paginator implements OnInit {
     set rows(val:number) {
         this._rows = val;
         this.updatePageLinks();
+        this.updatePaginatorState();
     }
     
     @Input() get rowsPerPageOptions(): number[] {
