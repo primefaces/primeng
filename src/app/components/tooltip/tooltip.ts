@@ -54,25 +54,30 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     blurListener: Function;
 
+    toggleListener: Function;
+
     resizeListener: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
-            if (this.tooltipEvent === 'hover') {
-                this.mouseEnterListener = this.onMouseEnter.bind(this);
-                this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                this.clickListener = this.onClick.bind(this);
-                this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
-                this.el.nativeElement.addEventListener('click', this.clickListener);
-            }
-            else if (this.tooltipEvent === 'focus') {
-                this.focusListener = this.onFocus.bind(this);
-                this.blurListener = this.onBlur.bind(this);
-                this.el.nativeElement.addEventListener('focus', this.focusListener);
-                this.el.nativeElement.addEventListener('blur', this.blurListener);
+            switch (this.tooltipEvent) {
+                case 'touchstart':
+                case 'click':
+                    this.registerClickEvents();
+                    break;
+
+                case 'hover':
+                    this.registerHoverEvents();
+                    break;
+
+                case 'focus':
+                    this.registerFocusEvents();
+                    break;
+
+                default :
+                    throw Error(`tooltipEvent="${this.tooltipEvent}" - \{${this.tooltipEvent}\} is not a valid event.`);
             }
         });
     }
@@ -82,21 +87,51 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.activate();
         }
     }
-    
+
     onMouseLeave(e: Event) {
         this.deactivate();
     }
-    
+
     onFocus(e: Event) {
         this.activate();
     }
-    
+
     onBlur(e: Event) {
         this.deactivate();
     }
-  
+
     onClick(e: Event) {
         this.deactivate();
+    }
+
+    onToggle(e: Event) {
+        e.stopPropagation();
+
+        this.active ? this.deactivate() : this.activate();
+    }
+
+    registerClickEvents() {
+        this.clickListener = this.onClick.bind(this);
+        this.toggleListener = this.onToggle.bind(this);
+        this.el.nativeElement.ownerDocument.body.addEventListener('click', this.clickListener);
+        this.el.nativeElement.addEventListener('touchstart', this.toggleListener);
+        this.el.nativeElement.addEventListener('click', this.toggleListener);
+    }
+
+    registerHoverEvents() {
+        this.mouseEnterListener = this.onMouseEnter.bind(this);
+        this.mouseLeaveListener = this.onMouseLeave.bind(this);
+        this.clickListener = this.onClick.bind(this);
+        this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
+        this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+        this.el.nativeElement.addEventListener('click', this.clickListener);
+    }
+
+    registerFocusEvents() {
+        this.focusListener = this.onFocus.bind(this);
+        this.blurListener = this.onBlur.bind(this);
+        this.el.nativeElement.addEventListener('focus', this.focusListener);
+        this.el.nativeElement.addEventListener('blur', this.blurListener);
     }
 
     activate() {
@@ -260,7 +295,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             let offset = this.el.nativeElement.getBoundingClientRect();
             let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
             let targetTop = offset.top + this.domHandler.getWindowScrollTop();
-    
+
             return { left: targetLeft, top: targetTop };
         }
         else {
