@@ -1497,6 +1497,8 @@ body .ui-table .ui-table-tbody > tr {
   body .ui-table .ui-table-tbody > tr.ui-state-highlight {
     background-color: #e02365;
     color: #ffffff; }
+    body .ui-table .ui-table-tbody > tr.ui-state-highlight a {
+      color: #ffffff; }
   body .ui-table .ui-table-tbody > tr.ui-contextmenu-selected {
     background-color: #e02365;
     color: #ffffff; }
@@ -1509,6 +1511,8 @@ body .ui-table .ui-table-tbody > tr:nth-child(even) {
   body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight {
     background-color: #e02365;
     color: #ffffff; }
+    body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight a {
+      color: #ffffff; }
   body .ui-table .ui-table-tbody > tr:nth-child(even).ui-contextmenu-selected {
     background-color: #e02365;
     color: #ffffff; }
