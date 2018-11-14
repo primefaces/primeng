@@ -84,6 +84,7 @@ export class Paginator implements OnInit {
     set totalRecords(val:number) {
         this._totalRecords = val;
         this.updatePageLinks();
+        this.updatePaginatorState();
     }
 
     @Input() get first(): number {
