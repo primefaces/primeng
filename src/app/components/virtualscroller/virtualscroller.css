@@ -10,10 +10,6 @@
     border-top: 0px none;
 }
 
-.ui-virtualscroller .ui-virtualscroller-content {
-    padding: .25em .625em;
-}
-
 .ui-virtualscroller .ui-virtualscroller-list {
     list-style-type: none;
     margin: 0;

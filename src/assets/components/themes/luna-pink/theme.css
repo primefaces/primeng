@@ -1586,6 +1586,23 @@ body .ui-datascroller .ui-datascroller-footer {
   border: 1px solid #191919;
   padding: 0.571em 1em;
   border-top: 0 none; }
+body .ui-virtualscroller .ui-virtualscroller-header {
+  background-color: #191919;
+  color: #dedede;
+  border: 1px solid #191919;
+  padding: 0.571em 1em;
+  font-weight: 400;
+  border-bottom: 0 none; }
+body .ui-virtualscroller .ui-virtualscroller-content {
+  border: 1px solid #191919;
+  background-color: #323232;
+  color: #dedede; }
+body .ui-virtualscroller .ui-datascroller-footer {
+  background-color: #323232;
+  color: #dedede;
+  border: 1px solid #191919;
+  padding: 0.571em 1em;
+  border-top: 0 none; }
 body .ui-dataview .ui-dataview-header {
   background-color: #191919;
   color: #dedede;

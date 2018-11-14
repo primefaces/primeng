@@ -1586,6 +1586,23 @@ body .ui-datascroller .ui-datascroller-footer {
   border: 1px solid #c8c8c8;
   padding: 0.571em 1em;
   border-top: 0 none; }
+body .ui-virtualscroller .ui-virtualscroller-header {
+  background-color: #007ad9;
+  color: #ffffff;
+  border: 1px solid #007ad9;
+  padding: 0.571em 1em;
+  font-weight: 400;
+  border-bottom: 0 none; }
+body .ui-virtualscroller .ui-virtualscroller-content {
+  border: 1px solid #c8c8c8;
+  background-color: #ffffff;
+  color: #333333; }
+body .ui-virtualscroller .ui-datascroller-footer {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #c8c8c8;
+  padding: 0.571em 1em;
+  border-top: 0 none; }
 body .ui-dataview .ui-dataview-header {
   background-color: #007ad9;
   color: #ffffff;
