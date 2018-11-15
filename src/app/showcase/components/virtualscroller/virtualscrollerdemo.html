@@ -6,28 +6,83 @@
 </div>
 
 <div class="content-section implementation">
-    <p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150">
+    <h3 class="first">Lazy Loading</h3>
+    <p-virtualScroller [value]="lazyCars" scrollHeight="500px" [itemSize]="150" [rows]="100" [cache]="false" 
+            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalLazyCarsLength">
         <p-header>
-            Scroll Down to Load More
+            List of Cars
         </p-header>
         <ng-template let-car pTemplate="item" let-i="index">
             <div class="ui-g car-item">
-                <div class="ui-g-12 ui-md-3">
-                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
+                <div class="ui-g-12 ui-md-2">
+                    <div style="font-size: 24px; text-align: center; padding-top: 48px">{{i}}</div>
                 </div>
-                <div class="ui-g-12 ui-md-9">
+                <div class="ui-g-12 ui-md-2">
+                    <img src="assets/showcase/images/demo/car/{{car?.brand}}.png">
+                </div>
+                <div class="ui-g-12 ui-md-8">
                     <div class="ui-g">
                         <div class="ui-g-2 ui-sm-6">Vin: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car.vin}}</div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.vin}}</div>
             
                         <div class="ui-g-2 ui-sm-6">Year: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car.year}}</div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.year}}</div>
             
                         <div class="ui-g-2 ui-sm-6">Brand: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car.brand}}</div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.brand}}</div>
             
                         <div class="ui-g-2 ui-sm-6">Color: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car.color}}</div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.color}}</div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-car pTemplate="loadingItem">
+            <div class="ui-g car-item empty-car-item">
+                <div class="ui-g-12 ui-md-2">
+                    <div class="empty-car-item-index"></div>
+                </div>
+                <div class="ui-g-12 ui-md-2">
+                    <div class="empty-car-item-image"></div>
+                </div>
+                <div class="ui-g-12 ui-md-8">
+                    <div class="ui-g">
+                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-virtualScroller>
+
+    <h3>Prepopulated List</h3>
+    <p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150">
+        <p-header>
+            List of Cars
+        </p-header>
+        <ng-template let-car pTemplate="item" let-i="index">
+            <div class="ui-g car-item">
+                <div class="ui-g-12 ui-md-2">
+                    <div style="font-size: 24px; text-align: center; padding-top: 48px">{{i}}</div>
+                </div>
+                <div class="ui-g-12 ui-md-2">
+                    <img src="assets/showcase/images/demo/car/{{car?.brand}}.png">
+                </div>
+                <div class="ui-g-12 ui-md-8">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">Vin: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.vin}}</div>
+            
+                        <div class="ui-g-2 ui-sm-6">Year: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.year}}</div>
+            
+                        <div class="ui-g-2 ui-sm-6">Brand: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.brand}}</div>
+            
+                        <div class="ui-g-2 ui-sm-6">Color: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car?.color}}</div>
                     </div>
                 </div>
             </div>
