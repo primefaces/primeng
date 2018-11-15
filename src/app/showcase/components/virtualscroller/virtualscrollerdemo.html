@@ -58,9 +58,16 @@
     </p-virtualScroller>
 
     <h3>Prepopulated List</h3>
-    <p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150">
+    <p-virtualScroller #vs [value]="cars" scrollHeight="500px" [itemSize]="150">
         <p-header>
-            List of Cars
+            <div class="ui-g">
+                <div class="ui-g-6 sort-container">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [autoWidth]="false" [style]="{'min-width':'140px'}"></p-dropdown>
+                </div>
+                <div class="ui-g-6 title-container">
+                    List of Cars
+                </div>
+            </div>
         </p-header>
         <ng-template let-car pTemplate="item" let-i="index">
             <div class="ui-g car-item">

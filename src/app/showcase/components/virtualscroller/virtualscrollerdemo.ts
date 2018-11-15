@@ -1,7 +1,7 @@
 import {Component,OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
-import {LazyLoadEvent} from '../../../components/common/api';
+import {LazyLoadEvent,SelectItem} from '../../../components/common/api';
 
 @Component({
     templateUrl: './virtualscrollerdemo.html',
@@ -39,6 +39,15 @@ import {LazyLoadEvent} from '../../../components/common/api';
             animation: pulse 1s infinite ease-in-out;
         }
 
+        .title-container {
+            padding: 1em;
+            text-align: right;
+        }
+
+        .sort-container {
+            text-align: left;
+        }
+
         @media (max-width: 40em) {
             .car-item {
                 text-align: center;
@@ -60,6 +69,10 @@ export class VirtualScrollerDemo implements OnInit {
 
     timeout: any;
 
+    sortKey: string;
+
+    sortOptions: SelectItem[];
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
@@ -77,6 +90,11 @@ export class VirtualScrollerDemo implements OnInit {
 
         //in a real application, make a remote request to retrieve the number of records only, not the actual records
         this.totalLazyCarsLength = 10000;
+
+        this.sortOptions = [
+            {label: 'Newest First', value: '!year'},
+            {label: 'Oldest First', value: 'year'}
+        ];
     }
 
     generateCar(): Car {
@@ -104,7 +122,7 @@ export class VirtualScrollerDemo implements OnInit {
     }
 
     generateColor() {
-        return this.brands[Math.floor(Math.random() * Math.floor(7))];
+        return this.colors[Math.floor(Math.random() * Math.floor(7))];
     }
 
     generateYear() {
@@ -112,7 +130,6 @@ export class VirtualScrollerDemo implements OnInit {
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        console.log('loading lazy ' + event.first); 
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -128,5 +145,25 @@ export class VirtualScrollerDemo implements OnInit {
                 this.lazyCars = this.cars.slice(event.first, (event.first + event.rows));
             }
         }, 1000);
+    }
+
+    onSortChange() {
+        if (this.sortKey.indexOf('!') === 0)
+            this.sort(-1);
+        else
+            this.sort(1);
+    }
+
+    sort(order: number): void {
+        let cars = [...this.cars];
+        cars.sort((data1, data2) => {
+            let value1 = data1.year;
+            let value2 = data2.year;
+            let result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+            return (order * result);
+        });
+
+        this.cars = cars;
     }
 }

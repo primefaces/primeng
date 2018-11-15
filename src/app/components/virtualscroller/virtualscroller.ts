@@ -2,6 +2,8 @@ import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,Ev
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {ObjectUtils} from '../utils/objectutils';
+import {BlockableUI} from '../common/blockableui';
 
 @Component({
     selector: 'p-virtualScroller',
@@ -12,7 +14,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
             </div>
             <div #content class="ui-virtualscroller-content ui-widget-content">
                 <ul class="ui-virtualscroller-list">
-                    <cdk-virtual-scroll-viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" (scrolledIndexChange)="onScrollIndexChange($event)">
+                    <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" (scrolledIndexChange)="onScrollIndexChange($event)">
                         <ng-container *cdkVirtualFor="let item of value; trackBy: trackBy; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd; ">
                             <li [ngStyle]="{'height': itemSize + 'px'}">
                                 <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: {$implicit: item, index: i, count: c, first: f, last: l, even: e, odd: o}"></ng-container>
@@ -25,9 +27,10 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `
+    `,
+    providers: [ObjectUtils]
 })
-export class VirtualScroller implements AfterContentInit {
+export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     @Input() itemSize: number; 
 
@@ -42,6 +45,8 @@ export class VirtualScroller implements AfterContentInit {
     @Input() cache: boolean = true;
 
     @Input() rows: number;
+
+    @Input() first: number = 0;
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
@@ -51,10 +56,10 @@ export class VirtualScroller implements AfterContentInit {
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('viewport') viewPortViewChild: ElementRef;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-        
+
     itemTemplate: TemplateRef<any>;
 
     loadingItemTemplate: TemplateRef<any>;
@@ -65,11 +70,9 @@ export class VirtualScroller implements AfterContentInit {
 
     lazyValue: any[] = [];
 
-    first: number = 0;
-
     page: number = 0;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public objectUtils: ObjectUtils) {}
 
     @Input() get totalRecords(): number {
         return this._totalRecords;
@@ -78,6 +81,8 @@ export class VirtualScroller implements AfterContentInit {
         this._totalRecords = val;
         this.lazyValue = Array.from({length: this._totalRecords});
         this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        this.first = 0;
+        this.scrollTo(0);
     }
 
     @Input() get value(): any[] {
@@ -130,6 +135,16 @@ export class VirtualScroller implements AfterContentInit {
             first: this.first,
             rows: this.rows
         };
+    }
+
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
+    }
+
+    scrollTo(value: number): void {
+        if (this.viewPortViewChild && this.viewPortViewChild['elementRef'] && this.viewPortViewChild['elementRef'].nativeElement) {
+            this.viewPortViewChild['elementRef'].nativeElement.scrollTop = value;
+        }
     }
     
 }
