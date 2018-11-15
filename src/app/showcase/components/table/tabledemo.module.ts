@@ -31,6 +31,7 @@ import { TableContextMenuDemo } from './tablecontextmenudemo';
 import { TableColResizeDemo } from './tablecolresizedemo';
 import { TableReorderDemo } from './tablereorderdemo';
 import { TableEditDemo } from './tableeditdemo';
+import { TableStateDemo } from './tablestatedemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
 import { TabViewModule } from '../../../components/tabview/tabview';
 import { CodeHighlighterModule } from '../../../components/codehighlighter/codehighlighter';
@@ -73,7 +74,8 @@ import { CodeHighlighterModule } from '../../../components/codehighlighter/codeh
 		TableColResizeDemo,
 		TableReorderDemo,
 		TableEditDemo,
-		TableRowGroupDemo
+        TableRowGroupDemo,
+        TableStateDemo
 	]
 })
 export class TableDemoModule { }

@@ -294,4 +294,87 @@ describe('Dialog', () => {
         expect(disableModalitySpy).toHaveBeenCalled();
         expect(dialog.container).toEqual(null);
     }));
+    
+    it('should change location with drag actions', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const buttonEl = fixture.debugElement.query(By.css('button'));
+        buttonEl.nativeElement.click();
+        fixture.detectChanges();
+
+        tick(300);
+        let firstLeft = dialog.container.style.left;
+        let firstTop = dialog.container.style.top;
+        let event = {
+            'pageX':500,
+            'pageY':500
+        };
+        dialog.initDrag(event as MouseEvent);
+        expect(dialog.dragging).toEqual(true);        
+        event.pageX = 505;
+        event.pageY = 505;
+        dialog.onDrag(event as MouseEvent);
+        dialog.endDrag(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(dialog.container.style.left).not.toEqual(firstLeft);
+        expect(dialog.container.style.top).not.toEqual(firstTop);
+        expect(parseInt(dialog.container.style.top) - parseInt(firstTop)).toEqual(5);
+        expect(parseInt(dialog.container.style.left) - parseInt(firstLeft)).toEqual(5);
+        expect(dialog.dragging).toEqual(false);
+        let mousedown;
+        dialog.onCloseMouseDown(mousedown as Event);
+        dialog.initDrag(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(dialog.dragging).toEqual(false);
+    }));
+
+    it('should change location with resize actions', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const buttonEl = fixture.debugElement.query(By.css('button'));
+        buttonEl.nativeElement.click();
+        fixture.detectChanges();
+
+        tick(300);
+        let firstWidth = dialog.container.offsetWidth;
+        let firstHeight = dialog.container.offsetHeight;
+        let event = {
+            'pageX':500,
+            'pageY':500
+        };
+        dialog.initResize(event as MouseEvent);
+        expect(dialog.resizing).toEqual(true);        
+        event.pageX = 505;
+        event.pageY = 505;
+        dialog.onResize(event as MouseEvent);
+        dialog.onResizeEnd(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(parseInt(dialog.container.style.width)).not.toEqual(firstWidth);
+        expect(parseInt(dialog.container.style.height)).not.toEqual(firstHeight);
+        expect(parseInt(dialog.container.style.height) - firstHeight).toEqual(5);
+        expect(parseInt(dialog.container.style.width) - firstWidth).toEqual(5);
+        expect(dialog.resizing).toEqual(false);
+    }));
+
+    it('should close when press esc key', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const buttonEl = fixture.debugElement.query(By.css('button'));
+        buttonEl.nativeElement.click();
+        const closeSpy = spyOn(dialog,"close").and.callThrough();
+        fixture.detectChanges();
+
+        tick(300);
+        const escapeEvent: any = document.createEvent('CustomEvent');
+        escapeEvent.which = 27;
+        escapeEvent.initEvent('keydown', true, true);
+        document.dispatchEvent(escapeEvent);
+        document.dispatchEvent(escapeEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(closeSpy).toHaveBeenCalled();
+    }));
 });

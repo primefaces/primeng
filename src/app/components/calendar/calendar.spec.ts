@@ -1762,15 +1762,19 @@ describe('Calendar', () => {
 
     it('should timeonly with touchUI', () => {
       calendar.timeOnly = true;
-      calendar.touchUI = true;
+	  calendar.touchUI = true;
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-      const focusEvent = new Event('focus');
+	  const focusEvent = new Event('focus');
+	  fixture.detectChanges();
+	  
       inputEl.click();
       inputEl.dispatchEvent(focusEvent);
+	  calendar.currentHour = 0;
+	  calendar.currentMinute = 0;
       fixture.detectChanges();
-
+	  
       let defaultHour = calendar.currentHour;
       let defaultMinute = calendar.currentMinute;
       const timers = fixture.debugElement.query(By.css('.ui-timepicker')).queryAll(By.css('div'));
@@ -1828,7 +1832,6 @@ describe('Calendar', () => {
       fixture.detectChanges();
 
       calendar.view = "month";
-      calendar.currentYear = 2018;
       calendar.yearRange = (calendar.currentYear-1).toString()+":"+(calendar.currentYear+1).toString();
       calendar.yearNavigator = true;
       calendar.yearOptions = [2017,2018];
@@ -1839,12 +1842,11 @@ describe('Calendar', () => {
       inputEl.click();
       inputEl.dispatchEvent(focusEvent);
       const incrementYearSpy = spyOn(calendar,'incrementYear').and.callThrough();
-      const decrementYearSpy = spyOn(calendar,'decrementYear').and.callThrough();
-      const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+	  const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+      calendar.currentYear = 2018;	  
       fixture.detectChanges();
 
       const navForwardEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
-      const navBackwardEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       navForwardEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -1860,7 +1862,6 @@ describe('Calendar', () => {
       fixture.detectChanges();
 
       calendar.view = "month";
-      calendar.currentYear = 2017;
       calendar.yearRange = (calendar.currentYear-1).toString()+":"+(calendar.currentYear+1).toString();
       calendar.yearNavigator = true;
       calendar.yearOptions = [2017,2018];
@@ -1871,7 +1872,8 @@ describe('Calendar', () => {
       inputEl.click();
       inputEl.dispatchEvent(focusEvent);
       const decrementYearSpy = spyOn(calendar,'decrementYear').and.callThrough();
-      const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+	  const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+      calendar.currentYear = 2017;	  
       fixture.detectChanges();
 
       const navBackwardEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));

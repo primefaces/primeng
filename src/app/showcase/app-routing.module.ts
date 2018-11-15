@@ -1,4 +1,4 @@
-import { Routes,RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 
@@ -93,8 +93,9 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'tree', loadChildren: './components/tree/treedemo.module#TreeDemoModule'},
             {path: 'treetable', loadChildren: './components/treetable/treetabledemo.module#TreeTableDemoModule'},
             {path: 'tristatecheckbox', loadChildren: './components/tristatecheckbox/tristatecheckboxdemo.module#TriStateCheckboxDemoModule'},
-            {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
-        ])    
+            {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'},
+            {path: 'virtualscroller', loadChildren: './components/virtualscroller/virtualscrollerdemo.module#VirtualScrollerDemoModule'}
+        ], {scrollPositionRestoration: 'enabled'})    
     ],
     exports: [RouterModule]
 })

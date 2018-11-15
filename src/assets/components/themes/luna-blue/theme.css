@@ -1497,6 +1497,8 @@ body .ui-table .ui-table-tbody > tr {
   body .ui-table .ui-table-tbody > tr.ui-state-highlight {
     background-color: #1f7ed0;
     color: #ffffff; }
+    body .ui-table .ui-table-tbody > tr.ui-state-highlight a {
+      color: #ffffff; }
   body .ui-table .ui-table-tbody > tr.ui-contextmenu-selected {
     background-color: #1f7ed0;
     color: #ffffff; }
@@ -1509,6 +1511,8 @@ body .ui-table .ui-table-tbody > tr:nth-child(even) {
   body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight {
     background-color: #1f7ed0;
     color: #ffffff; }
+    body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight a {
+      color: #ffffff; }
   body .ui-table .ui-table-tbody > tr:nth-child(even).ui-contextmenu-selected {
     background-color: #1f7ed0;
     color: #ffffff; }
@@ -1577,6 +1581,23 @@ body .ui-datascroller .ui-datascroller-content {
   color: #dedede;
   padding: 0.571em 1em; }
 body .ui-datascroller .ui-datascroller-footer {
+  background-color: #323232;
+  color: #dedede;
+  border: 1px solid #191919;
+  padding: 0.571em 1em;
+  border-top: 0 none; }
+body .ui-virtualscroller .ui-virtualscroller-header {
+  background-color: #191919;
+  color: #dedede;
+  border: 1px solid #191919;
+  padding: 0.571em 1em;
+  font-weight: 400;
+  border-bottom: 0 none; }
+body .ui-virtualscroller .ui-virtualscroller-content {
+  border: 1px solid #191919;
+  background-color: #323232;
+  color: #dedede; }
+body .ui-virtualscroller .ui-datascroller-footer {
   background-color: #323232;
   color: #dedede;
   border: 1px solid #191919;

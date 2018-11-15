@@ -13,8 +13,11 @@
     border: 0;
     padding: .5em .75em;
     background: none;
-    overflow: auto;
     zoom: 1;
+}
+
+.ui-dialog-resizable .ui-dialog-content {
+    overflow: auto;
 }
 
 .ui-dialog .ui-resizable-se {

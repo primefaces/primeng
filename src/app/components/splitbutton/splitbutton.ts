@@ -99,6 +99,8 @@ export class SplitButton implements OnDestroy {
     
     public shown: boolean;
 
+    documentResizeListener: any;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
                 
     onDefaultButtonClick(event: Event) {
@@ -137,6 +139,7 @@ export class SplitButton implements OnDestroy {
                 this.overlay.style.zIndex = String(++DomHandler.zindex);
                 this.alignOverlay();
                 this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
             break;
 
             case 'void':
@@ -196,9 +199,26 @@ export class SplitButton implements OnDestroy {
             this.documentClickListener = null;
         }
     }
+    
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        this.overlayVisible = false;
+    }
 
     onOverlayHide() {
         this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
         this.overlay = null;
     }
          

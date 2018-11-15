@@ -85,7 +85,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

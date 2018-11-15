@@ -3,22 +3,17 @@ import { By } from '@angular/platform-browser';
 import { ConfirmDialog } from './confirmdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ButtonModule } from '../button/button';
-import { ConfirmationService, Message } from '../common/api';
-import { Dialog } from '../dialog/dialog';
+import { ConfirmationService} from '../common/api';
 
 @Component({
   template: `<p-confirmDialog></p-confirmDialog>
 
-  <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
-    
-  <p-messages [value]="msgs"></p-messages>`
+  <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>`
 })
 class TestConfirmDialogComponent {
 
   constructor(private confirmationService: ConfirmationService) {}
 
-  msgs: Message[] = [];
   header:string;
 
   confirm1() {
@@ -27,10 +22,10 @@ class TestConfirmDialogComponent {
     header: 'Confirmation',
     icon: 'pi pi-exclamation-triangle',
     accept: () => {
-       this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
+       this.header = "accept";
       },
      reject: () => {
-       this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+       this.header = "reject";
       }
     });
   }
@@ -40,7 +35,6 @@ class TestConfirmDialogComponent {
 describe('ConfirmDialog', () => {
   
   let confirmDialog: ConfirmDialog;
-  let testComponent : TestConfirmDialogComponent;
   let fixture: ComponentFixture<TestConfirmDialogComponent>;
   
   beforeEach(() => {
@@ -60,7 +54,6 @@ describe('ConfirmDialog', () => {
       
       fixture = TestBed.createComponent(TestConfirmDialogComponent);
       confirmDialog = fixture.debugElement.query(By.css('p-confirmDialog')).componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
     });
 
     it('should display the header', () => {
@@ -143,32 +136,23 @@ describe('ConfirmDialog', () => {
     });
 
     it('should run accept', () => {
-      const messagesEl = fixture.debugElement.query(By.css('p-messages'));
       const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
       confirmEl.click();
       fixture.detectChanges();
       
       const acceptButtonEl = fixture.debugElement.query(By.css('.ui-dialog-footer')).children[0].nativeElement;
       acceptButtonEl.click();
-      fixture.detectChanges();
-      expect(messagesEl.nativeElement.value[0]).toBeTruthy();
-      expect(messagesEl.nativeElement.value[0].summary).toContain("Confirmed");
-      expect(messagesEl.nativeElement.value[0].detail).toContain("You have accepted");
+      expect(fixture.componentInstance.header).toEqual("accept");      
     });
 
     it('should run reject', () => {
-      const messagesEl = fixture.debugElement.query(By.css('p-messages'));
       const confirmEl = fixture.debugElement.query(By.css('button')).nativeElement;
       confirmEl.click();
       fixture.detectChanges();
       
-      const acceptButtonEl = fixture.debugElement.query(By.css('.ui-dialog-footer')).children[1].nativeElement;
-      acceptButtonEl.click();
-      fixture.detectChanges();
-
-      expect(messagesEl.nativeElement.value[0]).toBeTruthy();
-      expect(messagesEl.nativeElement.value[0].summary).toContain("Rejected");
-      expect(messagesEl.nativeElement.value[0].detail).toContain("You have rejected");
+      const rejectButtonEl = fixture.debugElement.query(By.css('.ui-dialog-footer')).children[1].nativeElement;
+      rejectButtonEl.click();
+      expect(fixture.componentInstance.header).toEqual("reject");
     });
     
 });
