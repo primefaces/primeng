@@ -137,6 +137,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() appendTo: any;
     
     @Input() dataKey: string;
+
+    @Input() filterBy: string = 'label';
     
     @Input() name: string;
     
@@ -551,15 +553,24 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     onFilter() {
-        this.filterValue = this.filterInputChild.nativeElement.value.trim().toLowerCase();
-        this.visibleOptions = [];
-        for (let i = 0; i < this.options.length; i++) {
-            let option = this.options[i];
-            if (option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
-                this.visibleOptions.push(option);
-            }
+        let inputValue = this.filterInputChild.nativeElement.value.trim().toLowerCase();
+        if (inputValue && inputValue.length) {
+            this.filterValue = inputValue;
+            this.visibleOptions = [];
+            this.activateFilter();
         }
-        this.filtered = true;
+        else {
+            this.filterValue = null;
+            this.visibleOptions = this.options;
+        }
+    }
+
+    activateFilter() {
+        if (this.options && this.options.length) {
+            let searchFields: string[] = this.filterBy.split(',');
+            this.visibleOptions = this.objectUtils.filter(this.options,searchFields, this.filterValue);
+            this.filtered = true;
+        }        
     }
     
     isItemVisible(option: SelectItem): boolean {
