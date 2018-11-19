@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,
-            forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,ContentChild} from '@angular/core';
+import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter,
+    forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, HostListener } from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
@@ -20,7 +20,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-multiselect-open':overlayVisible,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onInputKeydown($event)">
+                <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
+                       [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">
@@ -53,7 +54,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <div class="ui-multiselect-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <li *ngFor="let option of options; let i = index" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option)"
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'"
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="0"
                             [ngClass]="{'ui-state-highlight': isSelected(option.value), 'ui-state-disabled': option.disabled || (maxSelectionLimitReached && !isSelected(option.value))}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
@@ -222,6 +223,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     documentResizeListener: any;
     
+    focusedOption: any;
+    
+    focusedIndex: number;
+    
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
     
     @Input() get options(): any[] {
@@ -316,7 +321,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.maxSelectionLimitReached = true;
             }
         }
-
+    
+        this.focusedOption = option;
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value, itemValue: value});
         this.updateLabel();
@@ -333,6 +339,22 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.value) {
             for (let i = 0; i < this.value.length; i++) {
                 if (this.objectUtils.equals(this.value[i], val, this.dataKey)) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+    
+        return index;
+    }
+    
+    findOptionIndex(opt: any): number {
+        let index = -1;
+        let opts = this.getVisibleOptions();
+        
+        if (opts) {
+            for (let i = 0; i < opts.length; i++) {
+                if (this.objectUtils.equals(opts[i], opt)) {
                     index = i;
                     break;
                 }
@@ -396,6 +418,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     show() {
         if(!this.overlayVisible){
             this.overlayVisible = true;
+        }
+    
+        if(this.filter) {
+            setTimeout(() => {
+                if (this.filterInputChild != undefined) {
+                    this.filterInputChild.nativeElement.focus();
+                }
+            }, 200);
         }
         this.bindDocumentClickListener();
         
@@ -492,9 +522,18 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.onModelTouched();
     }
     
-    onInputKeydown(event) {
+    @HostListener('keydown',['$event'])
+    onKeyDown(event:KeyboardEvent){
+        let row, opts;
+        
         if (this.readonly) {
             return;
+        }
+        
+        if(this.overlayVisible) {
+            this.focusedIndex = this.focusedOption ? this.findOptionIndex(this.focusedOption) : -1;
+            row = this.focusedIndex != -1 ? event.target : this.domHandler.findSingle(this.overlay, 'li.ui-multiselect-item');
+            opts = this.getVisibleOptions();
         }
         
         switch(event.which) {
@@ -503,15 +542,90 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 if (!this.overlayVisible && event.altKey) {
                     this.show();
                 }
+                if(this.overlayVisible) {
+                    let nextRow = this.findNextRow(row);
+                    if (this.focusedIndex != -1) {
+                        this.focusedIndex = this.focusedIndex + 1;
+                        if (this.focusedIndex != (opts.length)) {
+                            this.focusedOption = opts[this.focusedIndex];
+                        }
+                        if(nextRow) {
+                            nextRow.focus();
+                        }
+                    }
+                    else {
+                        this.focusedOption = opts[0];
+                        this.focusedIndex = 0;
+                        row.focus();
+                    }
+                }
                 
                 event.preventDefault();
-            break;
-            
-            //escape and tab
+                break;
+        
+            //up
+            case 38:
+                if(this.overlayVisible ){
+                    let prevRow = this.findPrevRow(row);
+                    if (this.focusedIndex > 0) {
+                        this.focusedIndex = this.focusedIndex - 1;
+                        this.focusedOption = opts[this.focusedIndex];
+                        if (prevRow) {
+                            prevRow.focus();
+                        }
+                    }
+                }
+    
+                event.preventDefault();
+                break;
+    
+            //enter
+            case 13:
+                if(this.overlayVisible) {
+                    if (this.focusedOption) {
+                        this.onItemClick(event,this.focusedOption);
+                    }
+                }
+                event.preventDefault();
+                break;
+    
+            //space
+            case 32:
+                if (!this.overlayVisible){
+                    this.show();
+                    event.preventDefault();
+                }
+                break;
+    
+            //escape
             case 27:
-            case 9:
                 this.hide();
-            break;
+        }
+    }
+    
+    findNextRow(row) {
+        let nextRow = row.nextElementSibling;
+        if (nextRow) {
+            if (this.domHandler.hasClass(nextRow, 'ui-multiselect-item'))
+                return nextRow;
+            else
+                return this.findNextRow(nextRow);
+        }
+        else {
+            return null;
+        }
+    }
+    
+    findPrevRow(row) {
+        let prevRow = row.previousElementSibling;
+        if (prevRow) {
+            if (this.domHandler.hasClass(prevRow, 'ui-multiselect-item'))
+                return prevRow;
+            else
+                return this.findPrevRow(prevRow);
+        }
+        else {
+            return null;
         }
     }
     
