@@ -141,9 +141,9 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    scrollTo(value: number): void {
+    scrollTo(index: number): void {
         if (this.viewPortViewChild && this.viewPortViewChild['elementRef'] && this.viewPortViewChild['elementRef'].nativeElement) {
-            this.viewPortViewChild['elementRef'].nativeElement.scrollTop = value;
+            this.viewPortViewChild['elementRef'].nativeElement.scrollTop = index * this.itemSize;
         }
     }
     
