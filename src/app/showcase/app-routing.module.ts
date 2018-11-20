@@ -32,6 +32,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'dataview', loadChildren: './components/dataview/dataviewdemo.module#DataViewDemoModule'},
             {path: 'defer', loadChildren: './components/defer/deferdemo.module#DeferDemoModule'},
             {path: 'dialog', loadChildren: './components/dialog/dialogdemo.module#DialogDemoModule'},
+            {path: 'dynamicdialog', loadChildren: './components/dynamicdialog/dynamicdialogdemo.module#DynamicDialogDemoModule'},
             {path: 'dragdrop', loadChildren: './components/dragdrop/dragdropdemo.module#DragDropDemoModule'},
             {path: 'dropdown', loadChildren: './components/dropdown/dropdowndemo.module#DropdownDemoModule'},
             {path: 'editor', loadChildren: './components/editor/editordemo.module#EditorDemoModule'},
