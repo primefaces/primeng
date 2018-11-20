@@ -1,4 +1,5 @@
-import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef, IterableDiffers, forwardRef, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,
+    forwardRef, ChangeDetectorRef, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectItem } from '../common/selectitem';
 import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
@@ -38,7 +39,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       </div>
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
         <ul class="ui-listbox-list">
-          <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
+          <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="0"
               [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}"
               (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
             <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
@@ -116,6 +117,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     public focus: boolean;
 
     public _options: any[];
+    
+    focusedIndex: number;
+    
+    focusedOption: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) { }
 
@@ -181,7 +186,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             this.onOptionClickSingle(event, option);
         }
-
         this.optionTouched = false;
     }
 
@@ -202,6 +206,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             originalEvent: event,
             value: this.value
         })
+    
+        this.focusedOption = option;
     }
 
     onOptionClickSingle(event, option) {
@@ -235,6 +241,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 value: this.value
             });
         }
+    
+        this.focusedOption = option;
     }
 
     onOptionClickMultiple(event, option) {
@@ -278,6 +286,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 value: this.value
             });
         }
+    
+        this.focusedOption = option;
     }
 
     onOptionClickCheckbox(event, option) {
@@ -300,6 +310,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             originalEvent: event,
             value: this.value
         });
+    
+        this.focusedOption = option;
     }
 
     removeOption(option: any): void {
@@ -425,6 +437,125 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     onInputBlur(event) {
         this.focus = false;
+    }
+    
+    @HostListener('keydown',['$event'])
+    onKeyDown(event:KeyboardEvent){
+        if (this.readonly) {
+            return;
+        }
+        
+        this.focusedIndex = this.focusedOption ? this.findOptionIndex(this.focusedOption) : -1;
+        let currentOption = this.focusedIndex != -1 ? event.target : this.domHandler.findSingle(this.el.nativeElement, 'li.ui-listbox-item');
+        let opts = this.getFilteredOptions();
+        
+        switch(event.which) {
+            //down
+            case 40:
+                if (this.focusedIndex != -1) {
+                    this.focusedIndex = this.focusedIndex + 1;
+                    if (this.focusedIndex != (opts.length)) {
+                        this.focusedOption = opts[this.focusedIndex];
+                    }
+                    let nextOption = this.findNextOption(currentOption);
+                    if(nextOption) {
+                        nextOption.focus();
+                    }
+                }
+                else {
+                    this.focusedOption = opts[0];
+                    this.focusedIndex = 0;
+                    currentOption.focus();
+                }
+                
+                event.preventDefault();
+                break;
+            
+            //up
+            case 38:
+                if (this.focusedIndex > 0) {
+                    this.focusedIndex = this.focusedIndex - 1;
+                    this.focusedOption = opts[this.focusedIndex];
+                    let prevOption = this.findPrevOption(currentOption);
+                    if (prevOption) {
+                        prevOption.focus();
+                    }
+                }
+                
+                event.preventDefault();
+                break;
+            
+            //enter
+            case 13:
+                if (this.focusedOption) {
+                    this.onOptionClick(event,this.focusedOption);
+                }
+                event.preventDefault();
+                break;
+        }
+    }
+    
+    findPrevOption(row)  {
+        let prevOption = row.previousElementSibling;
+        if (prevOption) {
+            if (this.domHandler.hasClass(prevOption, 'ui-listbox-item') && prevOption.style.display == 'block')
+                return prevOption;
+            else
+                return this.findPrevOption(prevOption);
+        }
+        else {
+            return null;
+        }
+    }
+    
+    findNextOption(row) {
+        let nextOption = row.nextElementSibling;
+        if (nextOption) {
+            if (this.domHandler.hasClass(nextOption, 'ui-listbox-item') && nextOption.style.display == 'block')
+                return nextOption;
+            else
+                return this.findNextOption(nextOption);
+        }
+        else {
+            return null;
+        }
+    }
+    
+    findOptionIndex(opt: any): number {
+        let index = -1;
+    
+        if (this.readonly) {
+            return;
+        }
+        
+        let opts = this.getFilteredOptions();
+        
+        if (opts) {
+            for (let i = 0; i < opts.length; i++) {
+                if (this.objectUtils.equals(opts[i], opt)) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        
+        return index;
+    }
+    
+    getFilteredOptions() {
+        let filteredOptions = [];
+        if(this.filterValue) {
+            for (let i = 0; i < this.options.length; i++) {
+                let opt = this.options[i];
+                if (this.isItemVisible(opt) && !opt.disabled) {
+                    filteredOptions.push(opt);
+                }
+            }
+            return filteredOptions;
+        }
+        else {
+            return this.options;
+        }
     }
 }
 
