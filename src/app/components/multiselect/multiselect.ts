@@ -524,7 +524,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @HostListener('keydown',['$event'])
     onKeyDown(event:KeyboardEvent){
-        let row, opts;
+        let currentOption, opts;
         
         if (this.readonly) {
             return;
@@ -532,7 +532,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         
         if(this.overlayVisible) {
             this.focusedIndex = this.focusedOption ? this.findOptionIndex(this.focusedOption) : -1;
-            row = this.focusedIndex != -1 ? event.target : this.domHandler.findSingle(this.overlay, 'li.ui-multiselect-item');
+            currentOption = this.focusedIndex != -1 ? event.target : this.domHandler.findSingle(this.overlay, 'li.ui-multiselect-item');
             opts = this.getVisibleOptions();
         }
         
@@ -543,20 +543,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                     this.show();
                 }
                 if(this.overlayVisible) {
-                    let nextRow = this.findNextRow(row);
+                    let nextOption = this.findNextOption(currentOption);
                     if (this.focusedIndex != -1) {
                         this.focusedIndex = this.focusedIndex + 1;
                         if (this.focusedIndex != (opts.length)) {
                             this.focusedOption = opts[this.focusedIndex];
                         }
-                        if(nextRow) {
-                            nextRow.focus();
+                        if(nextOption) {
+                            nextOption.focus();
                         }
                     }
                     else {
                         this.focusedOption = opts[0];
                         this.focusedIndex = 0;
-                        row.focus();
+                        currentOption.focus();
                     }
                 }
                 
@@ -566,12 +566,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             //up
             case 38:
                 if(this.overlayVisible ){
-                    let prevRow = this.findPrevRow(row);
+                    let prevOption = this.findPrevOption(currentOption);
                     if (this.focusedIndex > 0) {
                         this.focusedIndex = this.focusedIndex - 1;
                         this.focusedOption = opts[this.focusedIndex];
-                        if (prevRow) {
-                            prevRow.focus();
+                        if (prevOption) {
+                            prevOption.focus();
                         }
                     }
                 }
@@ -603,26 +603,26 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
     
-    findNextRow(row) {
-        let nextRow = row.nextElementSibling;
-        if (nextRow) {
-            if (this.domHandler.hasClass(nextRow, 'ui-multiselect-item'))
-                return nextRow;
+    findNextOption(row) {
+        let nextOption = row.nextElementSibling;
+        if (nextOption) {
+            if (this.domHandler.hasClass(nextOption, 'ui-multiselect-item')  && nextOption.style.display == 'block')
+                return nextOption;
             else
-                return this.findNextRow(nextRow);
+                return this.findNextOption(nextOption);
         }
         else {
             return null;
         }
     }
     
-    findPrevRow(row) {
-        let prevRow = row.previousElementSibling;
-        if (prevRow) {
-            if (this.domHandler.hasClass(prevRow, 'ui-multiselect-item'))
-                return prevRow;
+    findPrevOption(row) {
+        let prevOption = row.previousElementSibling;
+        if (prevOption) {
+            if (this.domHandler.hasClass(prevOption, 'ui-multiselect-item')  && prevOption.style.display == 'block')
+                return prevOption;
             else
-                return this.findPrevRow(prevRow);
+                return this.findPrevOption(prevOption);
         }
         else {
             return null;
