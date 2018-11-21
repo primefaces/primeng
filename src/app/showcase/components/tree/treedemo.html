@@ -194,6 +194,12 @@ import &#123;TreeNode&#125; from 'primeng/api';
                             <td>Whether to disable dropping for a particular node even if droppableNodes is enabled.</td>
                         </tr>
                         <tr>
+                            <td>dropValidator</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to disable dropping for a particular drop point.</td>
+                        </tr>
+                        <tr>
                             <td>selectable</td>
                             <td>boolean</td>
                             <td>null</td>
@@ -688,6 +694,14 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
                         </tr>
                         <tr>
                             <td>onNodeDrop</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.dragNode: Dragged node instance <br>
+                                event.dropNode: Dropped node instance.
+                                event.index: Index of the dropped node within siblings.</td>
+                            <td>Callback to invoke after node is dropped.</td>
+                        </tr>
+                        <tr>
+                            <td>onDropPoint</td>
                             <td>event.originalEvent: browser event <br>
                                 event.dragNode: Dragged node instance <br>
                                 event.dropNode: Dropped node instance.

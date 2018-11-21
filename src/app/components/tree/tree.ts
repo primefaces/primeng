@@ -164,6 +164,13 @@ export class UITreeNode implements OnInit {
 
     onDropPoint(event: Event, position: number) {
         event.preventDefault();
+
+        if (!this.tree.dropValidator) {
+            this.draghoverPrev = false;
+            this.draghoverNext = false;
+            return;
+        }
+
         let dragNode = this.tree.dragNode;
         let dragNodeIndex = this.tree.dragNodeIndex;
         let dragNodeScope = this.tree.dragNodeScope;
@@ -207,6 +214,13 @@ export class UITreeNode implements OnInit {
     }
 
     onDropPointDragEnter(event: Event, position: number) {
+        this.tree.onDropPoint.emit({
+            originalEvent: event,
+            dragNode: this.tree.dragNode,
+            dropNode: this.node,
+            dropIndex: this.index,
+        });
+
         if(this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
             if(position < 0)
                 this.draghoverPrev = true;
@@ -254,6 +268,11 @@ export class UITreeNode implements OnInit {
     }
 
     onDropNode(event) {
+        if (!this.tree.dropValidator) {
+            this.draghoverNode = false;
+            return;
+        }
+
         if(this.tree.droppableNodes && this.node.droppable !== false) {
             event.preventDefault();
             event.stopPropagation();
@@ -287,6 +306,12 @@ export class UITreeNode implements OnInit {
 
     onDropNodeDragEnter(event) {
         if(this.tree.droppableNodes && this.node.droppable !== false && this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
+            this.tree.onDropPoint.emit({
+                originalEvent: event,
+                dragNode: this.tree.dragNode,
+                dropNode: this.node,
+                dropIndex: this.index,
+            });
             this.draghoverNode = true;
         }
     }
@@ -456,6 +481,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Output() onNodeDrop: EventEmitter<any> = new EventEmitter();
 
+    @Output() onDropPoint: EventEmitter<any> = new EventEmitter();
+
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -487,6 +514,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() ariaLabel: string;
 
     @Input() ariaLabelledBy: string;
+
+    @Input() dropValidator: boolean = true;
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
@@ -789,6 +818,9 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 
     onDrop(event) {
+        if (!this.dropValidator) {
+            return;
+        }
         if(this.droppableNodes && (!this.value || this.value.length === 0)) {
             event.preventDefault();
             let dragNode = this.dragNode;
