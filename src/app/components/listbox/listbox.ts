@@ -447,9 +447,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             return;
         }
         
-        this.focusedIndex = this.focusedOption ? this.findOptionIndex(this.focusedOption) : -1;
-        let currentOption = this.focusedIndex != -1 ? event.target : this.domHandler.findSingle(this.el.nativeElement, 'li.ui-listbox-item');
         let opts = this.getFilteredOptions();
+        let currentOption = event.target;
+        this.focusedIndex = this.domHandler.indexWithDisplay(currentOption);
+        this.focusedOption = opts[this.focusedIndex]
         
         switch(event.which) {
             //down

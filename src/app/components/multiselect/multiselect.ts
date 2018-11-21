@@ -531,9 +531,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
         
         if(this.overlayVisible) {
-            this.focusedIndex = this.focusedOption ? this.findOptionIndex(this.focusedOption) : -1;
-            currentOption = this.focusedIndex != -1 ? event.target : this.domHandler.findSingle(this.overlay, 'li.ui-multiselect-item');
             opts = this.getVisibleOptions();
+            currentOption = event.target;
+            this.focusedIndex = this.domHandler.indexWithDisplay(currentOption);
+            this.focusedOption = opts[this.focusedIndex]
         }
         
         switch(event.which) {

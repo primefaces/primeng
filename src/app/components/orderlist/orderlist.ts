@@ -365,8 +365,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     onKeyDown(event:KeyboardEvent){
         
         let opts = this.filterValue ? this.visibleOptions : this.value;
-        this.focusedIndex = this.focusedOption ? this.objectUtils.findIndexInList(this.focusedOption,opts) : -1;
-        let currentOption = this.focusedIndex != -1 ? event.target : this.domHandler.findSingle(this.listViewChild.nativeElement, 'li.ui-orderlist-item');
+        let currentOption = event.target;
+        this.focusedIndex = this.domHandler.indexWithDisplay(currentOption);
+        this.focusedOption = opts[this.focusedIndex]
         
         switch(event.which) {
             //down

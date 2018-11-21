@@ -69,6 +69,16 @@ export class DomHandler {
         }
         return -1;
     }
+    
+    public indexWithDisplay(element: any): number {
+        let children = element.parentNode.childNodes;
+        let num = 0;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] == element && children[i].style.display == 'block') return num;
+            if (children[i].nodeType == 1 && children[i].style.display == 'block') num++;
+        }
+        return -1;
+    }
 
     public indexWithinGroup(element: any, attributeName: string): number {
         let children = element.parentNode.childNodes;
