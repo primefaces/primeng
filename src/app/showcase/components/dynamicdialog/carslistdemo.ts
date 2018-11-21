@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
 import {DynamicDialogRef} from '../../../components/common/api';
+import {DynamicDialogConfig} from '../../../components/common/api';
 
 @Component({
     template: `
@@ -33,7 +34,7 @@ export class CarsListDemo {
 
     cars: Car[];
             
-    constructor(private carService: CarService, public ref: DynamicDialogRef) { }
+    constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);

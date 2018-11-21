@@ -13,7 +13,6 @@ export class DynamicDialogConfig {
 	contentStyle?: any;
 	styleClass?: string;
 	transitionOptions?: string;
-	maximizable?: boolean;
 	closable?: boolean;
 	showHeader?: boolean;
 }
