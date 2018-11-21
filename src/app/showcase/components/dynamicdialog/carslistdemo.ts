@@ -5,7 +5,7 @@ import {DynamicDialogRef} from '../../../components/common/api';
 
 @Component({
     template: `
-        <p-table [value]="cars" [paginator]="true" [rows]="5">
+        <p-table [value]="cars" [paginator]="true" [rows]="5" [responsive]="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
@@ -17,12 +17,12 @@ import {DynamicDialogRef} from '../../../components/common/api';
             </ng-template>
             <ng-template pTemplate="body" let-car>
                 <tr>
-                    <td>{{car.vin}}</td>
-                    <td>{{car.year}}</td>
-                    <td>{{car.brand}}</td>
-                    <td>{{car.color}}</td>
+                    <td><span class="ui-column-title">Vin</span>{{car.vin}}</td>
+                    <td><span class="ui-column-title">Year</span>{{car.year}}</td>
+                    <td><span class="ui-column-title">Brand</span>{{car.brand}}</td>
+                    <td><span class="ui-column-title">Color</span>{{car.color}}</td>
                     <td>
-                        <button pButton icon="pi pi-check" (click)="selectCar(car)"></button>
+                        <button pButton icon="pi pi-search" (click)="selectCar(car)"></button>
                     </td>
                 </tr>
             </ng-template>

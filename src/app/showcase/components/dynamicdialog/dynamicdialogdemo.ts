@@ -15,12 +15,15 @@ export class DynamicDialogDemo {
     show() {
         const ref = this.dialogService.open(CarsListDemo, {
             header: 'Choose a Car',
-            width: '640px'
+            width: '70%',
+            contentStyle: {"max-height": "350px", "overflow": "auto"}
         });
 
         ref.onClose.subscribe((car: Car) =>{
-            this.messageService.add({severity:'info', summary: 'Car Selected', detail:'Vin:' + car.vin});
-        })
+            if (car) {
+                this.messageService.add({severity:'info', summary: 'Car Selected', detail:'Vin:' + car.vin});
+            }
+        });
     }
 
 }

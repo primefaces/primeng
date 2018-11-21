@@ -2,6 +2,12 @@
     position: fixed;
     padding: 0;
 }
+
+.ui-dynamicdialog {
+    top: 50%;
+    left: 50%;
+}
+
 .ui-dialog .ui-dialog-titlebar {
 	padding: .5em .75em;
     position: relative;
