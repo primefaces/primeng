@@ -381,6 +381,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     onFilter(event) {
         let query = event.target.value.trim().toLowerCase();
         this._filterValue = query.length ? query : null;
+        this.focusedOption = null;
+        this.focusedIndex = null;
     }
 
     toggleAll(event, checkbox) {

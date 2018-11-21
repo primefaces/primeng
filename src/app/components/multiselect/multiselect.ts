@@ -678,6 +678,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.visibleOptions.push(option);
             }
         }
+        this.focusedOption = null;
+        this.focusedIndex = null;
         this.filtered = true;
     }
     
