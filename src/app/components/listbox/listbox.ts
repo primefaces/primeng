@@ -448,7 +448,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         }
         
         let opts = this.getFilteredOptions();
-        let currentOption = event.target;
+        let currentOption = <HTMLLIElement>event.target;
         this.focusedIndex = this.domHandler.indexWithDisplay(currentOption);
         this.focusedOption = opts[this.focusedIndex]
         
@@ -522,27 +522,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             return null;
         }
-    }
-    
-    findOptionIndex(opt: any): number {
-        let index = -1;
-    
-        if (this.readonly) {
-            return;
-        }
-        
-        let opts = this.getFilteredOptions();
-        
-        if (opts) {
-            for (let i = 0; i < opts.length; i++) {
-                if (this.objectUtils.equals(opts[i], opt)) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-        
-        return index;
     }
     
     getFilteredOptions() {

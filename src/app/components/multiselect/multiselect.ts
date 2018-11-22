@@ -348,22 +348,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return index;
     }
     
-    findOptionIndex(opt: any): number {
-        let index = -1;
-        let opts = this.getVisibleOptions();
-        
-        if (opts) {
-            for (let i = 0; i < opts.length; i++) {
-                if (this.objectUtils.equals(opts[i], opt)) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-        
-        return index;
-    }
-    
     toggleAll(event, checkbox) {
         if (checkbox.checked) {
             this.value = [];
