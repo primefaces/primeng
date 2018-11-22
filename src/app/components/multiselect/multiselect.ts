@@ -37,9 +37,9 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix" [ngClass]="{'ui-multiselect-header-no-toggleall': !showToggleAll}" *ngIf="showHeader">
                     <div class="ui-chkbox ui-widget" *ngIf="showToggleAll && !selectionLimit">
                         <div class="ui-helper-hidden-accessible">
-                            <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
+                            <input type="checkbox" readonly="readonly" [checked]="isAllChecked()" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
                         </div>
-                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
+                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked(), 'ui-state-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
                             <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isAllChecked()}"></span>
                         </div>
                     </div>
@@ -57,13 +57,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="0"
                             [ngClass]="{'ui-state-highlight': isSelected(option.value), 'ui-state-disabled': option.disabled || (maxSelectionLimitReached && !isSelected(option.value))}">
                             <div class="ui-chkbox ui-widget">
-                                <div class="ui-helper-hidden-accessible">
-                                    <input #itemcb type="checkbox" readonly="readonly" [checked]="isSelected(option.value)" (focus)="focusedItemCheckbox=itemcb" (blur)="focusedItemCheckbox=null"
-                                        [attr.aria-label]="option.label" [disabled]="option.disabled || (maxSelectionLimitReached && !isSelected(option.value))">
-                                </div>
                                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"
-                                    [ngClass]="{'ui-state-active': isSelected(option.value),
-                                                'ui-state-focus': (focusedItemCheckbox === itemcb)}">
+                                    [ngClass]="{'ui-state-active': isSelected(option.value)}">
                                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
@@ -215,7 +210,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     public selectedItemsTemplate: TemplateRef<any>;
     
-    public focusedItemCheckbox: HTMLInputElement | null;
+    public headerCheckboxFocus: boolean;
     
     _options: any[];
     
@@ -349,7 +344,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     toggleAll(event, checkbox) {
-        if (checkbox.checked) {
+    
+        if (this.isAllChecked()) {
             this.value = [];
         }
         else {
@@ -366,7 +362,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             }
         }
         
-        checkbox.checked = !checkbox.checked;
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
         this.updateLabel();
@@ -679,6 +674,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         else {
             return this.options;
         }
+    }
+    
+    onHeaderCheckboxFocus() {
+        this.headerCheckboxFocus = true;
+    }
+    
+    onHeaderCheckboxBlur() {
+        this.headerCheckboxFocus = false;
     }
     
     bindDocumentClickListener() {
