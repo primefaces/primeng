@@ -529,19 +529,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
                 if(this.overlayVisible) {
                     let nextOption = this.findNextOption(currentOption);
-                    if (this.focusedIndex != -1) {
-                        this.focusedIndex = this.focusedIndex + 1;
-                        if (this.focusedIndex != (opts.length)) {
-                            this.focusedOption = opts[this.focusedIndex];
-                        }
-                        if(nextOption) {
-                            nextOption.focus();
-                        }
+                    this.focusedIndex = this.focusedIndex + 1;
+                    if (this.focusedIndex != (opts.length)) {
+                        this.focusedOption = opts[this.focusedIndex];
                     }
-                    else {
-                        this.focusedOption = opts[0];
-                        this.focusedIndex = 0;
-                        currentOption.focus();
+                    if(nextOption) {
+                        nextOption.focus();
                     }
                 }
                 
@@ -552,12 +545,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             case 38:
                 if(this.overlayVisible ){
                     let prevOption = this.findPrevOption(currentOption);
-                    if (this.focusedIndex > 0) {
-                        this.focusedIndex = this.focusedIndex - 1;
-                        this.focusedOption = opts[this.focusedIndex];
-                        if (prevOption) {
-                            prevOption.focus();
-                        }
+                    this.focusedIndex = this.focusedIndex - 1;
+                    this.focusedOption = opts[this.focusedIndex];
+                    if (prevOption) {
+                        prevOption.focus();
                     }
                 }
     

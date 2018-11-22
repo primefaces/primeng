@@ -455,20 +455,13 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         switch(event.which) {
             //down
             case 40:
-                if (this.focusedIndex != -1) {
-                    this.focusedIndex = this.focusedIndex + 1;
-                    if (this.focusedIndex != (opts.length)) {
-                        this.focusedOption = opts[this.focusedIndex];
-                    }
-                    let nextOption = this.findNextOption(currentOption);
-                    if(nextOption) {
-                        nextOption.focus();
-                    }
+                this.focusedIndex = this.focusedIndex + 1;
+                if (this.focusedIndex != (opts.length)) {
+                    this.focusedOption = opts[this.focusedIndex];
                 }
-                else {
-                    this.focusedOption = opts[0];
-                    this.focusedIndex = 0;
-                    currentOption.focus();
+                let nextOption = this.findNextOption(currentOption);
+                if(nextOption) {
+                    nextOption.focus();
                 }
                 
                 event.preventDefault();
@@ -476,13 +469,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             
             //up
             case 38:
-                if (this.focusedIndex > 0) {
-                    this.focusedIndex = this.focusedIndex - 1;
-                    this.focusedOption = opts[this.focusedIndex];
-                    let prevOption = this.findPrevOption(currentOption);
-                    if (prevOption) {
-                        prevOption.focus();
-                    }
+                this.focusedIndex = this.focusedIndex - 1;
+                this.focusedOption = opts[this.focusedIndex];
+                let prevOption = this.findPrevOption(currentOption);
+                if (prevOption) {
+                    prevOption.focus();
                 }
                 
                 event.preventDefault();
