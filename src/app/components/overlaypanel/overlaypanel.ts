@@ -156,6 +156,9 @@ export class OverlayPanel implements OnDestroy {
                     this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                 }
                 this.domHandler.absolutePosition(this.container, this.target);
+                if (this.domHandler.getOffset(this.container).top < this.domHandler.getOffset(this.target).top) {
+                    this.domHandler.addClass(this.container, 'ui-overlaypanel-flipped');
+                }
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
             break;
