@@ -26,9 +26,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple && showToggleAll) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
         <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple && showToggleAll">
           <div class="ui-helper-hidden-accessible">
-            <input #cb type="checkbox" readonly="readonly" [checked]="allChecked">
+            <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
           </div>
-          <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':allChecked}" (click)="toggleAll($event,cb)">
+          <div #headerchkbox class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active': allChecked, 'ui-state-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
             <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':allChecked}"></span>
           </div>
         </div>
@@ -43,9 +43,6 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
               [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}"
               (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
             <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
-              <div class="ui-helper-hidden-accessible">
-                <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
-              </div>
               <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
               </div>
@@ -94,6 +91,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
+    @ViewChild('headerchkbox') headerCheckboxViewChild: ElementRef;
+
     @ContentChild(Header) headerFacet;
 
     @ContentChild(Footer) footerFacet;
@@ -117,6 +116,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     public focus: boolean;
 
     public _options: any[];
+
+    public headerCheckboxFocus: boolean;
     
     focusedIndex: number;
     
@@ -385,12 +386,12 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         this.focusedIndex = null;
     }
 
-    toggleAll(event, checkbox) {
+    toggleAll(event) {
         if (this.disabled || this.readonly || !this.options || this.options.length === 0) {
             return;
         }
 
-        if (checkbox.checked) {
+        if (this.allChecked) {
             this.value = [];
         }
         else {
@@ -404,9 +405,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 }
             }
         }
-        checkbox.checked = !checkbox.checked;
+
         this.onModelChange(this.value);
         this.onChange.emit({ originalEvent: event, value: this.value });
+        event.preventDefault();
     }
 
     isItemVisible(option: SelectItem): boolean {
@@ -529,6 +531,14 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             return this.options;
         }
+    }
+
+    onHeaderCheckboxFocus() {
+        this.headerCheckboxFocus = true;
+    }
+
+    onHeaderCheckboxBlur() {
+        this.headerCheckboxFocus = false;
     }
 }
 
