@@ -364,7 +364,9 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     allFilteredSelected(): boolean {
         let allSelected: boolean;
-        if (this.value && this.options && this.options.length)  {
+        let options = this.filterValue ? this.getFilteredOptions() : this.options;
+
+        if (this.value && options && options.length)  {
             allSelected = true;
             for (let opt of this.options) {
                 if (this.isItemVisible(opt)) {
