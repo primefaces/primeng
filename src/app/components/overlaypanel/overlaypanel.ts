@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -74,18 +74,22 @@ export class OverlayPanel implements OnDestroy {
 
     documentResizeListener: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
         
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if (!this.selfClick && !this.targetClickEvent) {
-                    this.hide();
-                }
-                
-                this.selfClick = false;
-                this.targetClickEvent = false;
-                this.cd.markForCheck();
+         this.zone.runOutsideAngular(() => {
+                this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                    if (!this.selfClick && !this.targetClickEvent) {
+                        this.zone.run(() => {
+                            this.hide();
+                        });
+                    }
+ 
+                    this.selfClick = false;
+                    this.targetClickEvent = false;
+                    this.cd.markForCheck();
+                });
             });
         }
     }
