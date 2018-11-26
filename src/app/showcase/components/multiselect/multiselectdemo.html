@@ -121,22 +121,14 @@ export class MyModel &#123;
             <p>MultiSelect detects changes to options and selected values using setters so when changing your model,
                 prefer creating a new array reference instead of manipulating an existing array.</p>
 
-            <h3>Header</h3>
-            <p>MultiSelect uses p-header element to display custom content inside the header.</p>
+            <h3>Header and Footer</h3>
+            <p>p-header and p-footer elements can be used display custom content inside the header and footer sections.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
     &lt;p-header&gt;
         //Header content
     &lt;/p-header&gt;
-&lt;/p-multiSelect&gt;
-</code>
-</pre>
-            <h3>Footer</h3>
-            <p>MultiSelect uses p-footer element to display custom content inside the footer.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
     &lt;p-footer&gt;
         //Footer content
     &lt;/p-footer&gt;
