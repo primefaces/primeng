@@ -159,6 +159,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @Input() baseZIndex: number = 0;
 
+    @Input() filterBy: string = 'label';
+
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
@@ -640,19 +642,30 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
         return label;
     }
-    
+
     onFilter() {
-        this.filterValue = this.filterInputChild.nativeElement.value.trim().toLowerCase();
-        this.visibleOptions = [];
-        for (let i = 0; i < this.options.length; i++) {
-            let option = this.options[i];
-            if (option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
-                this.visibleOptions.push(option);
-            }
+        let inputValue = this.filterInputChild.nativeElement.value.trim().toLowerCase();
+        if (inputValue && inputValue.length) {
+            this.filterValue = inputValue;
+            this.visibleOptions = [];
+            this.activateFilter();
         }
+        else {
+            this.filterValue = null;
+            this.visibleOptions = this.options;
+            this.filtered = false;
+        }
+
         this.focusedOption = null;
         this.focusedIndex = null;
-        this.filtered = true;
+    }
+    
+    activateFilter() {
+        if (this.options && this.options.length) {
+            let searchFields: string[] = this.filterBy.split(',');
+            this.visibleOptions = this.objectUtils.filter(this.options, searchFields, this.filterValue);
+            this.filtered = true;
+        }        
     }
     
     isItemVisible(option: SelectItem): boolean {

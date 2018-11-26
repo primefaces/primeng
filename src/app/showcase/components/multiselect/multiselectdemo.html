@@ -117,6 +117,16 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Filtering</h3>
+            <p>Options can be filtered using an input field in the overlay by enabling the filter property. By default filtering is done against
+                label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" filterBy="label,value.name"&gt;&lt;/p-multiSelect&gt;
+</code>
+</pre>
+
             <h3>Change Detection</h3>
             <p>MultiSelect detects changes to options and selected values using setters so when changing your model,
                 prefer creating a new array reference instead of manipulating an existing array.</p>
@@ -186,6 +196,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>When specified, displays an input field to filter the items on keyup.</td>
+                        </tr>
+                        <tr>
+                            <td>filterBy</td>
+                            <td>string</td>
+                            <td>label</td>
+                            <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
                         </tr>
                         <tr>
                             <td>filterPlaceHolder</td>
