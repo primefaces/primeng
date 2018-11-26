@@ -1987,7 +1987,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (!this.datepickerClick&&this.overlayVisible) {
+                if (!this.datepickerClick && this.overlayVisible) {
                     this.hideOverlay();
                 }
 
@@ -2005,8 +2005,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if (!this.documentResizeListener && !this.touchUI) {
+            this.documentResizeListener = this.onWindowResize.bind(this);
+            window.addEventListener('resize', this.documentResizeListener);
+        }
     }
     
     unbindDocumentResizeListener() {
@@ -2018,15 +2020,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     onWindowResize() {
         if (this.overlayVisible) {
-            if (this.touchUI) {
-                this.disableModality();
-            }
-            else {
-                this.hideOverlay();
-            }
+            this.hideOverlay();
         }
-        
-        this.cd.detectChanges();
     }
 
     onOverlayHide() {
