@@ -170,35 +170,51 @@ export class UITreeNode implements OnInit {
         let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? (position === 1 || dragNodeIndex !== this.index - 1) : true;
 
         if(this.tree.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
-            let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
-            this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
-            let dropIndex = this.index;
-
-            if(position < 0) {
-                dropIndex = (this.tree.dragNodeSubNodes === newNodeList) ? ((this.tree.dragNodeIndex > this.index) ? this.index : this.index - 1) : this.index;
-                newNodeList.splice(dropIndex, 0, dragNode);
+            if (this.tree.validateDrop) {
+                this.tree.onNodeDrop.emit({
+                    originalEvent: event,
+                    dragNode: dragNode,
+                    dropNode: this.node,
+                    dropIndex: this.index,
+                    accept: () => {
+                        this.processPointDrop(dragNode, dragNodeIndex, position);
+                    }
+                });
             }
             else {
-				dropIndex = newNodeList.length;
-                newNodeList.push(dragNode);
+                this.processPointDrop(dragNode, dragNodeIndex, position);
+                this.tree.onNodeDrop.emit({
+                    originalEvent: event,
+                    dragNode: dragNode,
+                    dropNode: this.node,
+                    dropIndex: this.index
+                });
             }
-
-            this.tree.dragDropService.stopDrag({
-                node: dragNode,
-                subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
-                index: dragNodeIndex
-            });
-
-            this.tree.onNodeDrop.emit({
-                originalEvent: event,
-                dragNode: dragNode,
-                dropNode: this.node,
-                dropIndex: dropIndex
-            });
         }
 
         this.draghoverPrev = false;
         this.draghoverNext = false;
+    }
+
+    processPointDrop(dragNode, dragNodeIndex, position) {
+        let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
+        this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
+        let dropIndex = this.index;
+
+        if(position < 0) {
+            dropIndex = (this.tree.dragNodeSubNodes === newNodeList) ? ((this.tree.dragNodeIndex > this.index) ? this.index : this.index - 1) : this.index;
+            newNodeList.splice(dropIndex, 0, dragNode);
+        }
+        else {
+            dropIndex = newNodeList.length;
+            newNodeList.push(dragNode);
+        }
+
+        this.tree.dragDropService.stopDrag({
+            node: dragNode,
+            subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
+            index: dragNodeIndex
+        });
     }
 
     onDropPointDragOver(event) {
@@ -259,30 +275,48 @@ export class UITreeNode implements OnInit {
             event.stopPropagation();
             let dragNode = this.tree.dragNode;
             if(this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
-                let dragNodeIndex = this.tree.dragNodeIndex;
-                this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
-
-                if(this.node.children)
-                    this.node.children.push(dragNode);
-                else
-                    this.node.children = [dragNode];
-
-                this.tree.dragDropService.stopDrag({
-                    node: dragNode,
-                    subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
-                    index: this.tree.dragNodeIndex
-                });
-
-                this.tree.onNodeDrop.emit({
-                    originalEvent: event,
-                    dragNode: dragNode,
-                    dropNode: this.node,
-                    index: this.index
-                });
+                if(this.tree.validateDrop) {
+                    this.tree.onNodeDrop.emit({
+                        originalEvent: event,
+                        dragNode: dragNode,
+                        dropNode: this.node,
+                        index: this.index,
+                        accept: () => {
+                            this.processNodeDrop(dragNode);
+                        }
+                    });
+                }   
+                else {
+                    this.processNodeDrop(dragNode);
+                    this.tree.onNodeDrop.emit({
+                        originalEvent: event,
+                        dragNode: dragNode,
+                        dropNode: this.node,
+                        index: this.index
+                    });
+                } 
             }
         }
 
         this.draghoverNode = false;
+    }
+
+    processNodeDrop(dragNode) {
+        let dragNodeIndex = this.tree.dragNodeIndex;
+        this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
+
+        if(this.node.children)
+            this.node.children.push(dragNode);
+        else
+            this.node.children = [dragNode];
+
+        this.tree.dragDropService.stopDrag({
+            node: dragNode,
+            subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
+            index: this.tree.dragNodeIndex
+        });
+
+        
     }
 
     onDropNodeDragEnter(event) {
@@ -487,6 +521,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() ariaLabel: string;
 
     @Input() ariaLabelledBy: string;
+
+    @Input() validateDrop: boolean;
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 

@@ -538,6 +538,25 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 </code>
 </pre>
 
+            <p>In case, a drop should be accepted based on a condition, enable validateDrop property, define an event handler for onNodeDrop where the passed event and call the accept callback of the event
+                to accept a drop. Simply omitting the call of accept() will reject the drop.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" [validateDrop]="true" (onNodeDrop)="onDrop($event)"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+onDrop(event) {
+    if (condition) {
+        event.accept();
+    }
+}
+</code>
+</pre>
+
             <h3>Loading Status</h3>
             <p>Tree has a loading property, when enabled a spinner icon is displayed to indicate data load.</p>
             <p>An optional loadingIcon property can be passed in case you prefer a different icon.</p>
@@ -640,6 +659,12 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
                             <td>string</td>
                             <td>fa-circle-o-notch</td>
                             <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>validateDrop</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop.</td>
                         </tr>
                     </tbody>
                 </table>
