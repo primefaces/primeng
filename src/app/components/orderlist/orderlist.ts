@@ -26,7 +26,7 @@ import {ObjectUtils} from '../utils/objectutils';
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
-                            [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
+                            [ngClass]="{'ui-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item" [attr.tabindex]="0"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)"
@@ -35,7 +35,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
-                            [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndex)}"></li>
+                            [ngClass]="{'ui-orderlist-droppoint-highlight': (i + 1 === dragOverItemIndex)}"></li>
                     </ng-template>
                 </ul>
             </div>
@@ -319,6 +319,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragStart(event: DragEvent, index: number) {
+        (<HTMLLIElement> event.target).blur();
         this.dragging = true;
         this.draggedItemIndex = index;
         if (this.dragdropScope) {

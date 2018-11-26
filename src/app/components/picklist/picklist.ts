@@ -534,6 +534,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragStart(event: DragEvent, index: number, listType: number) {
+        (<HTMLLIElement> event.target).blur();
         this.dragging = true;
         this.fromListType = listType;
         if(listType === this.SOURCE_LIST)

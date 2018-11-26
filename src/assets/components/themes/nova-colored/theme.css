@@ -417,7 +417,7 @@ body .ui-dropdown {
 body .ui-dropdown:not(.ui-state-disabled):hover {
   border-color: #212121;
 }
-body .ui-dropdown:not(.ui-state-disabled):focus {
+body .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
   border-color: #007ad9;
   outline: 0 none;
   -webkit-box-shadow: none;
@@ -440,13 +440,6 @@ body .ui-dropdown .ui-dropdown-trigger .ui-dropdown-trigger-icon:before {
 }
 body .ui-dropdown .ui-dropdown-clear-icon {
   color: #737373;
-}
-body .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
-  border-color: #007ad9;
-  outline: 0 none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
 }
 body .ui-dropdown-panel {
   padding: 0;
@@ -505,7 +498,7 @@ body .ui-multiselect {
 body .ui-multiselect:not(.ui-state-disabled):hover {
   border-color: #212121;
 }
-body .ui-multiselect:not(.ui-state-disabled):focus {
+body .ui-multiselect:not(.ui-state-disabled).ui-state-focus {
   border-color: #007ad9;
   outline: 0 none;
   -webkit-box-shadow: none;
@@ -2121,6 +2114,9 @@ body .ui-picklist .ui-picklist-list .ui-picklist-item.ui-state-highlight {
   background-color: #e02365;
   color: #ffffff;
 }
+body .ui-picklist .ui-picklist-list .ui-picklist-droppoint-highlight {
+  background-color: #e02365;
+}
 @media (max-width: 40em) {
   body .ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
     padding: 0.571em 1em;
@@ -2186,6 +2182,9 @@ body .ui-orderlist .ui-orderlist-list .ui-orderlist-item:not(.ui-state-highlight
 body .ui-orderlist .ui-orderlist-list .ui-orderlist-item.ui-state-highlight {
   background-color: #e02365;
   color: #ffffff;
+}
+body .ui-orderlist .ui-orderlist-list .ui-orderlist-droppoint-highlight {
+  background-color: #e02365;
 }
 body .ui-tree {
   border: 1px solid #c8c8c8;
@@ -3414,5 +3413,3 @@ body .ui-fluid .ui-inplace.ui-inplace-closable .ui-inplace-content > :first-chil
 }
 
 /* Add your customizations of theme here */
-
-/*# sourceMappingURL=theme.css.map */
