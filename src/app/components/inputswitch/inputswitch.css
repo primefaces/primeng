@@ -34,3 +34,8 @@
     -ms-transform: translateX(1.250em);
     transform: translateX(1.250em);
 }
+
+.ui-inputswitch.ui-state-disabled .ui-inputswitch-slider, 
+.ui-inputswitch-readonly .ui-inputswitch-slider {
+    cursor: default;
+}

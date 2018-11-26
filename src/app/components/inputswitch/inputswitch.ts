@@ -12,7 +12,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{'ui-inputswitch ui-widget': true, 'ui-inputswitch-checked': checked, 'ui-state-disabled': disabled, 'ui-inputswitch-focus': focused}" 
+        <div [ngClass]="{'ui-inputswitch ui-widget': true, 'ui-inputswitch-checked': checked, 'ui-state-disabled': disabled, 'ui-inputswitch-readonly': readonly, 'ui-inputswitch-focus': focused}" 
             [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)" role="checkbox" [attr.aria-checked]="checked">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
@@ -36,6 +36,8 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() name: string;
 
     @Input() disabled: boolean;
+
+    @Input() readonly: boolean;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -50,19 +52,21 @@ export class InputSwitch implements ControlValueAccessor {
     constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event: Event, cb: HTMLInputElement) {
-        this.toggle(event);
-        cb.focus();
+        if (!this.disabled && !this.readonly) {  
+            this.toggle(event);
+            cb.focus();
+        }
     }
 
     onInputChange(event: Event) {
-        const inputChecked = (<HTMLInputElement> event.target).checked;
-        this.updateModel(event, inputChecked);
+        if (!this.readonly) {
+            const inputChecked = (<HTMLInputElement> event.target).checked;
+            this.updateModel(event, inputChecked);
+        }
     }
 
     toggle(event: Event) {
-        if (!this.disabled) {  
-            this.updateModel(event, !this.checked);
-        }
+        this.updateModel(event, !this.checked);
     }
 
     updateModel(event: Event, value: boolean) {
