@@ -64,6 +64,11 @@
 
     <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
+            <div class="layout-menu-search ui-fluid">
+                    <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)" 
+                    (onSelect)="selectRoute($event)" placeholder="Search"></p-autoComplete>
+                    <i class="pi pi-search"></i>
+            </div>
             <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
                 <img src="assets/showcase/images/icons/input-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/input.svg" class="layout-menu-icon-inactive"/>

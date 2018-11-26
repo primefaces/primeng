@@ -234,6 +234,22 @@ body {
     box-sizing: border-box;
 }
 
+#layout-sidebar .layout-menu-search {
+    padding: 1em;
+    overflow: visible !important;
+    position: relative;
+}
+
+#layout-sidebar .layout-menu-search i {
+    position: absolute;
+    left: 1.5em;
+    top: 1.6em;
+}
+
+#layout-sidebar .layout-menu-search input {
+    text-indent: 2em;
+}
+
 #layout-sidebar .layout-menu > a.active-menuitem {
     background-color: #ffffff !important;
     -webkit-transition: all 0.5s ease;
