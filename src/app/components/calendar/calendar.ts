@@ -98,11 +98,11 @@ export interface LocaleSettings {
                 </ng-container>
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
-                        <a tabindex="0" (mousedown)="mousedownForIncrement($event)" (mouseup)="mouseupForTimePicker($event)">
+                        <a tabindex="0" (mousedown)="onTimePickerElementMouseDown($event, 0, 1)" (mouseup)="onTimePickerElementMouseUp($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
-                        <a tabindex="0" (mousedown)="mousedownForDecrement($event)" (mouseup)="mouseupForTimePicker($event)">
+                        <a tabindex="0" (mousedown)="onTimePickerElementMouseDown($event, 0, -1)" (mouseup)="onTimePickerElementMouseUp($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -116,11 +116,11 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-minute-picker">
-                        <a tabindex="0" (mousedown)="mousedownForIncrement($event)" (mouseup)="mouseupForTimePicker($event)">
+                        <a tabindex="0" (mousedown)="onTimePickerElementMouseDown($event, 1, 1)" (mouseup)="onTimePickerElementMouseUp($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
-                        <a tabindex="0" (mousedown)="mousedownForDecrement($event)" (mouseup)="mouseupForTimePicker($event)">
+                        <a tabindex="0" (mousedown)="onTimePickerElementMouseDown($event, 1, -1)" (mouseup)="onTimePickerElementMouseUp($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -134,11 +134,11 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-second-picker" *ngIf="showSeconds">
-                        <a tabindex="0" (mousedown)="mousedownForIncrement($event)" (mouseup)="mouseupForTimePicker($event)">
+                        <a tabindex="0" (mousedown)="onTimePickerElementMouseDown($event, 2, 1)" (mouseup)="onTimePickerElementMouseUp($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
-                        <a tabindex="0" (mousedown)="mousedownForDecrement($event)" (mouseup)="mouseupForTimePicker($event)">
+                        <a tabindex="0" (mousedown)="onTimePickerElementMouseDown($event, 2, -1)" (mouseup)="onTimePickerElementMouseUp($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -383,7 +383,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     calendarElement: any;
     
-    timer:any;
+    timePickerTimer:any;
     
     documentClickListener: any;
     
@@ -1164,59 +1164,57 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         event.preventDefault();
     }
 
-    mousedownForIncrement(event) {
+    onTimePickerElementMouseDown(event: Event, type: number, direction: number) {
         if (!this.disabled) {
-            this.repeat(event, null, 1);
+            this.repeat(event, null, type, direction);
             event.preventDefault();
         }
     }
 
-    mouseupForTimePicker(event) {
+    onTimePickerElementMouseUp(event: Event) {
         if (!this.disabled) {
-            this.clearTimer();
+            this.clearTimePickerTimer();
             this.updateTime();
         }
     }
 
-    mousedownForDecrement(event) {
-        if (!this.disabled) {
-            this.repeat(event, null, -1);
-            event.preventDefault();
-        }
-    }
-
-    repeat(event: Event, interval: number, dir: number) {
+    repeat(event: Event, interval: number, type: number, direction: number) {
         let i = interval||500;
 
-        this.clearTimer();
-        this.timer = setTimeout(() => {
-            this.repeat(event, 100, dir);
+        this.clearTimePickerTimer();
+        this.timePickerTimer = setTimeout(() => {
+            this.repeat(event, 100, type, direction);
         }, i);
 
-        if (event.srcElement.parentElement.parentElement.classList.contains("ui-hour-picker")) { 
-            if (dir === 1)
-                this.incrementHour(event);
-            else
-                this.decrementHour(event);
+        switch(type) {
+            case 0:
+                if (direction === 1)
+                    this.incrementHour(event);
+                else
+                    this.decrementHour(event);
+            break;
+
+            case 1:
+                if (direction === 1)
+                    this.incrementMinute(event);
+                else
+                    this.decrementMinute(event);
+            break;
+
+            case 2:
+                if (direction === 1)
+                    this.incrementSecond(event);
+                else
+                    this.decrementSecond(event);
+            break;
         }
-        else if (event.srcElement.parentElement.parentElement.classList.contains("ui-minute-picker")) { 
-            if (dir === 1)
-                this.incrementMinute(event);
-            else
-                this.decrementMinute(event);
-        }
-        else if (event.srcElement.parentElement.parentElement.classList.contains("ui-second-picker")) { 
-            if (dir === 1)
-                this.incrementSecond(event);
-            else
-                this.decrementSecond(event);
-        }
+
         this.updateInputfield();
     }
 
-    clearTimer() {
-        if (this.timer) {
-            clearInterval(this.timer);
+    clearTimePickerTimer() {
+        if (this.timePickerTimer) {
+            clearInterval(this.timePickerTimer);
         }
     }
     
