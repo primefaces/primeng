@@ -22,6 +22,14 @@
 - Calendar Unit Test is Crashing [\#6818](https://github.com/primefaces/primeng/issues/6818)
 - Fileupload Unit Test [\#6816](https://github.com/primefaces/primeng/issues/6816)
 
+## [6.1.7](https://github.com/primefaces/primeng/tree/6.1.7) (2018-11-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/6.1.6...6.1.7)
+
+**Fixed bugs:**
+
+- OverlayPanel issues with components with overlays as children [\#6907](https://github.com/primefaces/primeng/issues/6907)
+
 ## [6.1.6](https://github.com/primefaces/primeng/tree/6.1.6) (2018-11-09)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.0-beta.1...6.1.6)
