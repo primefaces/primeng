@@ -234,20 +234,20 @@ body {
     box-sizing: border-box;
 }
 
-#layout-sidebar .layout-menu-search {
-    padding: 1em;
-    overflow: visible !important;
+#layout-sidebar .layout-menu >  div.layout-menu-search {
+    padding: 1.5em;
+    overflow: visible;
     position: relative;
 }
 
 #layout-sidebar .layout-menu-search i {
     position: absolute;
-    left: 1.5em;
-    top: 1.6em;
+    left: 1.6em;
+    top: 1.65em;
 }
 
 #layout-sidebar .layout-menu-search input {
-    text-indent: 2em;
+    text-indent: 1.7em;
 }
 
 #layout-sidebar .layout-menu > a.active-menuitem {
