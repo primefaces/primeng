@@ -419,6 +419,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     focusElement: any;
 
+    documentResizeListener: any;
+
     @Input() get minDate(): Date {
         return this._minDate;
     }
@@ -744,7 +746,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.isSingleSelection() && (!this.showTime || this.hideOnDateTimeSelect)) {
             setTimeout(() => {
                 event.preventDefault();
-                this.overlayVisible = false;
+                this.hideOverlay();
 
                 if (this.mask) {
                     this.disableModality();
@@ -1103,6 +1105,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.overlay && this.autoZIndex) {
             this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
+        if (this.showOnFocus && !this.overlayVisible) {
+            this.showOverlay();
+        }
     }
     
     onInputBlur(event: Event) {
@@ -1120,7 +1125,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.showOverlay();
         }
         else {
-            this.overlayVisible = false;
+            this.hideOverlay();
         }
         
         this.datepickerClick = true;
@@ -1129,7 +1134,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onInputKeydown(event) {
         this.isKeydown = true;
         if (event.keyCode === 9) {
-            this.overlayVisible = false;
+            this.hideOverlay();
         }
     }
     
@@ -1523,6 +1528,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.overlayVisible = true;
     }
 
+    hideOverlay() {
+        this.overlayVisible = false;
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
@@ -1535,11 +1544,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     }
                     this.alignOverlay();
                     this.bindDocumentClickListener();
+                    this.bindDocumentResizeListener();
                 }
             break;
 
             case 'void':
                 this.onOverlayHide();
+                this.onClose.emit(event);
             break;
         }
     }
@@ -1603,7 +1614,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
 
-            this.overlayVisible = false;
+            this.hideOverlay();
             this.unbindMaskClickListener();
 
             this.mask = null;
@@ -1969,7 +1980,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onClearButtonClick(event) {
         this.updateModel(null);
         this.updateInputfield();
-        this.overlayVisible = false;
+        this.hideOverlay();
         this.onClearClick.emit(event);
     }
     
@@ -1977,10 +1988,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
                 if (!this.datepickerClick&&this.overlayVisible) {
-                    this.overlayVisible = false;
-                    this.onClose.emit(event);
+                    this.hideOverlay();
                 }
-                
+
                 this.datepickerClick = false;
                 this.cd.detectChanges();
             });
@@ -1994,9 +2004,35 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        if (this.overlayVisible) {
+            if (this.touchUI) {
+                this.disableModality();
+            }
+            else {
+                this.hideOverlay();
+            }
+        }
+        
+        this.cd.detectChanges();
+    }
+
     onOverlayHide() {
         this.unbindDocumentClickListener();
         this.unbindMaskClickListener();
+        this.unbindDocumentResizeListener();
         this.overlay = null;
     }
     
