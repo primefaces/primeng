@@ -7,6 +7,8 @@ export class DomHandler {
 
     private calculatedScrollbarWidth: number = null;
 
+    private calculatedScrollbarHeight: number = null;
+
     private browser: any;
 
     public addClass(element: any, className: string): void {
@@ -424,6 +426,22 @@ export class DomHandler {
         this.calculatedScrollbarWidth = scrollbarWidth;
         
         return scrollbarWidth;
+    }
+
+    calculateScrollbarHeight(): number {
+        if(this.calculatedScrollbarHeight !== null)
+            return this.calculatedScrollbarHeight;
+        
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "ui-scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
+        document.body.removeChild(scrollDiv);
+
+        this.calculatedScrollbarWidth = scrollbarHeight;
+        
+        return scrollbarHeight;
     }
     
     invokeElementMethod(element: any, methodName: string, args?: any[]): void {
