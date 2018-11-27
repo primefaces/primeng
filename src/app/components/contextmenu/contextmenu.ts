@@ -103,14 +103,14 @@ export class ContextMenuSub {
         let itemOuterHeight = this.domHandler.getOuterHeight(item.children[0]);
         let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : this.domHandler.getHiddenElementOuterHeight(sublist);
 
-        if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - this.calculateScrollbarHeight())) {
+        if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - this.domHandler.calculateScrollbarHeight())) {
             sublist.style.bottom = '0px';
         }
         else {
             sublist.style.top = '0px';
         }
 
-        if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - this.calculateScrollbarWidth())) {
+        if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - this.domHandler.calculateScrollbarWidth())) {
             sublist.style.left = -sublistWidth + 'px';
         }
         else {
@@ -118,27 +118,6 @@ export class ContextMenuSub {
         }
     }
 
-    calculateScrollbarWidth(): number {
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "ui-scrollbar-measure";
-        document.body.appendChild(scrollDiv);
-
-        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-        document.body.removeChild(scrollDiv);
-
-        return scrollbarWidth;
-    }
-
-    calculateScrollbarHeight(): number {
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "ui-scrollbar-measure";
-        document.body.appendChild(scrollDiv);
-
-        let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
-        document.body.removeChild(scrollDiv);
-
-        return scrollbarHeight;
-    }
 }
 
 @Component({
