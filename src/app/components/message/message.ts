@@ -10,7 +10,7 @@ import {CommonModule} from '@angular/common';
                 'ui-message-error': (severity === 'error'),
                 'ui-message-success': (severity === 'success')}">
             <span class="ui-message-icon" [ngClass]="icon"></span>
-            <span class="ui-message-text">{{text}}</span>
+            <span class="ui-message-text" [innerHTML]="text"></span>
         </div>
     `
 })
