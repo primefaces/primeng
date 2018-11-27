@@ -1,13 +1,51 @@
 # Change Log
 
-## [7.0.0-beta.2-Unreleased:](https://github.com/primefaces/primeng/tree/HEAD)
+## [7.0.0-rc.1](https://github.com/primefaces/primeng/tree/7.0.0-rc.1) (2018-11-27)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/6.1.6...HEAD)
+[Full Changelog](https://github.com/primefaces/primeng/compare/6.1.7...7.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Keyboard support for PickList component  [\#6897](https://github.com/primefaces/primeng/issues/6897)
+- Keyboard support for OrderList component [\#6892](https://github.com/primefaces/primeng/issues/6892)
+- Keyboard support for Listbox component [\#6883](https://github.com/primefaces/primeng/issues/6883)
+- New Component: p-virtualScroll [\#6869](https://github.com/primefaces/primeng/issues/6869)
+- Hide overlays on window resize [\#6834](https://github.com/primefaces/primeng/issues/6834)
+- Holding down the up/down arrows should continue to scroll the numbers in timepicker [\#6783](https://github.com/primefaces/primeng/issues/6783)
+- CSS calc support for Table ScrollHeight [\#6756](https://github.com/primefaces/primeng/issues/6756)
+- Add search box to the sidebar of Showcase [\#6637](https://github.com/primefaces/primeng/issues/6637)
+- p-inputSwitch: readonly support request [\#6332](https://github.com/primefaces/primeng/issues/6332)
+- Keyboard support for MultiSelect component [\#6025](https://github.com/primefaces/primeng/issues/6025)
+- Header/Footer template for MultiSelect [\#5950](https://github.com/primefaces/primeng/issues/5950)
+- Add filtering / FilterBy into MultiSelect component [\#5172](https://github.com/primefaces/primeng/issues/5172)
+- Ability to cancel dropping node from p-tree [\#3544](https://github.com/primefaces/primeng/issues/3544)
+- Improve ContextMenu collision detection [\#3261](https://github.com/primefaces/primeng/issues/3261)
+- DialogService for Dynamic Dialogs [\#1940](https://github.com/primefaces/primeng/issues/1940)
+- Arrow for OverlayPanel [\#1474](https://github.com/primefaces/primeng/issues/1474)
+- TableState for Table [\#304](https://github.com/primefaces/primeng/issues/304)
 
 **Fixed bugs:**
 
-- Fileupload style not working [\#6817](https://github.com/primefaces/primeng/issues/6817)
+- PickList - OrderList does not highlight drop points [\#6915](https://github.com/primefaces/primeng/issues/6915)
+- OverlayPanel issues with components with overlays as children [\#6907](https://github.com/primefaces/primeng/issues/6907)
+- p-listbox toggle-all checkbox is autochecked when filter matches no items [\#6903](https://github.com/primefaces/primeng/issues/6903)
+- When custom template is provided; select button will unnecesarily manipulate options [\#6876](https://github.com/primefaces/primeng/issues/6876)
+- Calendar touchui doesn't close correctly with tab key [\#6863](https://github.com/primefaces/primeng/issues/6863)
+- Expandable rows compatibility issues with row selection [\#6861](https://github.com/primefaces/primeng/issues/6861)
+- Pagination values mismatch after filtering [\#6859](https://github.com/primefaces/primeng/issues/6859)
+- Remove moveOnTop from Dialog mousedown [\#6857](https://github.com/primefaces/primeng/issues/6857)
 - Multiselect error fix [\#6838](https://github.com/primefaces/primeng/issues/6838)
+- Toast autoZIndex not working correctly [\#6825](https://github.com/primefaces/primeng/issues/6825)
+- Fileupload style not working [\#6817](https://github.com/primefaces/primeng/issues/6817)
+- Radiobutton onClick is emitted before the form value is changed [\#6780](https://github.com/primefaces/primeng/issues/6780)
+- Horizontal scrollable table header borders missing on IE [\#6768](https://github.com/primefaces/primeng/issues/6768)
+- Pagination Page Numbers Wrapping After 100 Pages [\#6153](https://github.com/primefaces/primeng/issues/6153)
+- Progress Spinner does not work in IE [\#4313](https://github.com/primefaces/primeng/issues/4313)
+- Calendars inline with icons overlapping [\#3684](https://github.com/primefaces/primeng/issues/3684)
+
+**Deprecated:**
+
+- Deprecate DataScroller [\#6870](https://github.com/primefaces/primeng/issues/6870)
 
 **Unit Tests:**
 
