@@ -4,6 +4,7 @@ import { TabView, TabPanel, TabViewNav } from './tabview';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '../../../../node_modules/@angular/core';
 import { Tooltip } from '../tooltip/tooltip';
+import { PrimeTemplate } from '../common/shared';
 
 @Component({
     template: `<p-tabView>
@@ -13,8 +14,11 @@ import { Tooltip } from '../tooltip/tooltip';
         <p-tabPanel header="Godfather II" leftIcon="pi pi-inbox">
             Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
         </p-tabPanel>
-        <p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        <p-tabPanel>
+            <ng-template pTemplate="header">Godfather III</ng-template>
+            <ng-template pTemplate="content">
+                After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+            </ng-template>
         </p-tabPanel>
     </p-tabView>`
   })
@@ -39,7 +43,8 @@ describe('TabView', () => {
         TabPanel,
         TabViewNav,
         Tooltip,
-        TestTabViewComponent
+        TestTabViewComponent,
+        PrimeTemplate
       ]
     }).compileComponents();
     
@@ -172,6 +177,14 @@ describe('TabView', () => {
       tabview.activeIndexChange.subscribe(value => activeIndex=value);      
       firstTabViewNavEl.click();
       expect(activeIndex).toEqual(0);
+    });
+
+    it('should display header template', () => {
+        tabview.activeIndex=2;
+        fixture.detectChanges();
+
+        const thirdTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
+        expect(thirdTabViewNavEl.textContent).toContain("Godfather III");
     });
 
 });
