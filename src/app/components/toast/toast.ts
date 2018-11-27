@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 import {PrimeTemplate,SharedModule} from '../common/shared';
 import {MessageService} from '../common/messageservice';
 import {Subscription} from 'rxjs';
-import {trigger,state,style,transition,animate,query,animateChild} from '@angular/animations';
+import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
 
 @Component({
     selector: 'p-toastItem',
@@ -126,7 +126,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                 'ui-toast-bottom-center': position === 'bottom-center',
                 'ui-toast-center': position === 'center'}" 
                 [ngStyle]="style" [class]="styleClass">
-            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)" [template]="template" @toastAnimation [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
+            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
+                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
         </div>
     `,
     animations: [
@@ -223,12 +224,6 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         });
     }
 
-    ngAfterViewInit() {
-        if (this.autoZIndex) {
-            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-        }
-    }
-
     onMessageClose(event) {
         this.messages.splice(event.index, 1);
 
@@ -255,6 +250,12 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         if (this.mask) {
             document.body.removeChild(this.mask);
             this.mask = null;
+        }
+    }
+
+    onAnimationStart(event: AnimationEvent) {
+        if (event.fromState === 'void' && this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
 
