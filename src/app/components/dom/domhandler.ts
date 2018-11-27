@@ -93,12 +93,10 @@ export class DomHandler {
     public relativePosition(element: any, target: any): void {
         let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         let targetHeight = target.offsetHeight;
-        let targetWidth = target.offsetWidth;
         let targetOffset = target.getBoundingClientRect();
-        let windowScrollTop = this.getWindowScrollTop();
         let viewport = this.getViewport();
         let top, left;
-        
+
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
             if(targetOffset.top + top < 0) {
@@ -108,12 +106,13 @@ export class DomHandler {
         else {
             top = targetHeight;
         }
-            
-            
-        if ((targetOffset.left + elementDimensions.width) > viewport.width)
-            left = targetWidth - elementDimensions.width;
-        else
+
+        if ((targetOffset.left + elementDimensions.width) > viewport.width) {
+            left = (targetOffset.left * -1) / 2;
+        }
+        else {
             left = 0;
+        }
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
