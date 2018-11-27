@@ -787,7 +787,10 @@ describe('PickList', () => {
       fixture.detectChanges();
 
       let dragEvent = new DragEvent('drag');
-      picklist.onDragStart(dragEvent,0,-1);
+      picklist.dragging= true;
+      picklist.fromListType = -1;
+      fixture.detectChanges();
+      
       picklist.onDragOver(dragEvent,0,-1);
       picklist.onDrop(dragEvent,2,-1);
       picklist.onDragEnd(dragEvent);
@@ -797,7 +800,7 @@ describe('PickList', () => {
       expect(picklist.source[1].brand).toEqual("VW");
     });
 
-    it('should move items(target) with dragging with', () => {
+    it('should move items(target) with dragging', () => {
       fixture.detectChanges();
 
       const controlAllRightButton = fixture.debugElement.queryAll(By.css('.ui-picklist-buttons-cell'))[1].queryAll(By.css('button'))[1];
@@ -805,7 +808,10 @@ describe('PickList', () => {
       fixture.detectChanges();
 
       let dragEvent = new DragEvent('drag');
-      picklist.onDragStart(dragEvent,0,1);
+      picklist.dragging = true;
+      picklist.fromListType = 1;
+      fixture.detectChanges();
+
       picklist.onDragOver(dragEvent,0,1);
       picklist.onDrop(dragEvent,2,1);
       picklist.onDragEnd(dragEvent);
@@ -819,7 +825,10 @@ describe('PickList', () => {
       fixture.detectChanges();
 
       let dragEvent = new DragEvent('drag');
-      picklist.onDragStart(dragEvent,0,-1);
+      picklist.dragging = true;
+      picklist.fromListType = -1;
+      fixture.detectChanges();
+
       picklist.onDragOver(dragEvent,0,-1);
       picklist.onDragLeave(dragEvent,1);
       picklist.onListDrop(dragEvent,1);
@@ -839,7 +848,10 @@ describe('PickList', () => {
       fixture.detectChanges();
 
       let dragEvent = new DragEvent('drag');
-      picklist.onDragStart(dragEvent,0,1);
+      picklist.dragging = true;
+      picklist.fromListType = 1;
+      fixture.detectChanges();
+
       picklist.onDragOver(dragEvent,0,1);
       picklist.onDragLeave(dragEvent,-1);
       picklist.onListDrop(dragEvent,-1);
