@@ -28,7 +28,7 @@
 .ui-paginator .ui-paginator-prev,
 .ui-paginator .ui-paginator-current {
     display: inline-block;
-    width: 1.5em;
+    min-width: 1.5em;
     height: 1.5em;
     line-height: 1.5em;
 	zoom: 1;
