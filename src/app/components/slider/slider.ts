@@ -55,7 +55,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     public value: number;
     
-    public values: number;
+    public values: number[];
     
     public handleValue: number;
     

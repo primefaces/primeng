@@ -285,7 +285,6 @@ describe('Slider', () => {
 
         const sliderHandlers = fixture.debugElement.queryAll(By.css(".ui-slider-handle"));
         const firstSliderHandler = sliderHandlers[0];
-        const secondSliderHandler = sliderHandlers[1];
         firstSliderHandler.nativeElement.dispatchEvent(new Event("mousedown"));
         expect(slider.dragging).toEqual(true);
         const mousemoveEvent: any = document.createEvent('CustomEvent');
@@ -308,7 +307,6 @@ describe('Slider', () => {
 
         const sliderHandlers = fixture.debugElement.queryAll(By.css(".ui-slider-handle"));
         const firstSliderHandler = sliderHandlers[0];
-        const secondSliderHandler = sliderHandlers[1];
         firstSliderHandler.nativeElement.dispatchEvent(new Event("mousedown"));
         expect(slider.dragging).toEqual(true);
         const mousemoveEvent: any = document.createEvent('CustomEvent');
