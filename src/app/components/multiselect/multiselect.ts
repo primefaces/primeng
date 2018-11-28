@@ -346,8 +346,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return index;
     }
     
-    toggleAll(event, checkbox) {
-    
+    toggleAll(event) {
         if (this.isAllChecked()) {
             this.value = [];
         }
