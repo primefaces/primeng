@@ -868,9 +868,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onFilter(event): void {
-        let inputValue = event.target.value.toLowerCase();
-        if (inputValue && inputValue.length) {
-            this.filterValue = inputValue;
+        if ( event.target.value &&  event.target.value.length) {
+            this.filterValue =  event.target.value;
             this.activateFilter();
         }
         else {
