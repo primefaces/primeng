@@ -77,9 +77,9 @@ import &#123;MenuItem&#125; from 'primeng/api';                 //api
         </table>
     </div>
 
-    <h3>Animations with Angular 4+</h3>
+    <h3>Animations</h3>
     <p>Various components utilize angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need
-    to import <i>BrowserAnimationsModule</i> to your application. If you prefer not to use <i>NoopAnimationsModule</i> instead.</p>
+    to import <i>BrowserAnimationsModule</i> to your application. If you prefer to disable animations globally, import <i>NoopAnimationsModule</i> instead.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -108,13 +108,13 @@ export class YourAppModule &#123; &#125;
     <p>Angular CLI is the official CLI tool for Angular. We strongly suggest using Angular CLI when starting an Angular project.</p>
 
     <h4>Dependencies</h4>
-    <p>Add PrimeNG and FontAwesome as a dependency</p>
+    <p>Add PrimeNG and PrimeIcons as dependencies.</p>
 <pre>
 <code class="language-js" pCode ngNonBindable>
 "dependencies": &#123;
   //...
-  "primeng": "^6.0.0",
-  "primeicons": "^1.0.0-beta.9"
+  "primeng": "^7.0.0",
+  "primeicons": "^1.0.0"
 &#125;,
 </code>
 </pre>
@@ -134,13 +134,4 @@ export class YourAppModule &#123; &#125;
 
     <p>That is all, you may now import PrimeNG components, for a working example visit the <a href="https://github.com/primefaces/primeng-quickstart-cli">PrimeNG CLI QuickStart</a> sample at GitHub.</p>
 
-    <h4>External Articles</h4>
-    <ul>
-        <li><a href="https://yakovfain.com/2016/10/06/primeng-ui-components-for-angular-2/">PrimeNG - UI Components for Angular 2</a> - Yakov Fain's Blog</li>
-        <li><a href="https://yakovfain.com/2016/10/28/adding-primeng-ui-components-to-angular-cli-project/">Adding PrimeNG UI components to Angular CLI projects</a> - Yakov Fain's Blog</li>
-        <li><a href="https://blog.davincisoftware.sk/primeng-web-component-framework-based-on-angularjs-2">PRIMENG - WEB COMPONENT FRAMEWORK BASED ON ANGULARJS 2</a> - DaVinci IT Blog</li>
-        <li><a href="http://blogs.bytecode.com.au/glen/2016/10/27/primeng-with-angular-cli.html">PrimeNG with CLI</a> - Glen Smith</li>
-        <li><a href="http://lightswitchhelpwebsite.com/Blog/tabid/61/EntryId/3304/Hello-World-Angular-2-Data-Sample-Using-JavaScriptServices-Net-Core-and-PrimeNg.aspx">Hello World Angular 2+ Data Sample Using JavaScriptServices .Net Core and PrimeNg</a></li>
-        <li><a href="http://lightswitchhelpwebsite.com/Blog/tabid/61/EntryId/3298/An-Angular-2-Tree-With-CRUD-Functionality.aspx">An Angular 2 Tree With CRUD Functionality</a></li>
-    </ul>
 </div>
