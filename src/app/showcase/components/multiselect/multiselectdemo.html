@@ -10,10 +10,17 @@
     <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
     <p>Selected Cars: {{selectedCars1}}</p>
 
-    <h3>Template</h3>
+    <h3>Templating</h3>
     <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+        <ng-template let-value pTemplate="selectedItems">
+            <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
+                <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" />
+                <span>{{val}}</span>
+            </div>
+            <span *ngIf="!value || value.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+        </ng-template>
         <ng-template let-car pTemplate="item">
-            <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;display:inline-block;vertical-align:middle"/>
+            <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;vertical-align:middle" />
             <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
         </ng-template>
     </p-multiSelect>
@@ -468,6 +475,13 @@ export class MyModel &#123;
 
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="&#123;minWidth:'12em'}"&gt;
+    &lt;ng-template let-value pTemplate="selectedItems"&gt;
+        &lt;div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all"&gt;
+            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;val&#125;&#125;.png" style="width:20px;vertical-align:middle;margin-right:.5em" /&gt;
+            &lt;span&gt;&#123;&#123;val&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;span *ngIf="!value || value.length === 0" class="ui-multiselected-empty-token ui-corner-all"&gt;Choose&lt;/span&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;display:inline-block;vertical-align:middle"/&gt;
         &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
@@ -479,12 +493,35 @@ export class MyModel &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './multiselectdemo.html',
+    styles: [`
+        :host ::ng-deep .ui-multiselected-item-token,
+        :host ::ng-deep .ui-multiselected-empty-token &#123;
+            padding: 2px 4px;
+            margin: 0 0.286em 0 0;
+            display: inline-block;
+            vertical-align:middle;
+            height: 1.857em;
+        &#125;
+
+        :host ::ng-deep .ui-multiselected-item-token &#123;
+            background: #007ad9;
+            color: #ffffff;
+        &#125;
+
+        :host ::ng-deep .ui-multiselected-empty-token &#123;
+            background: #d95f00;
+            color: #ffffff;
+        &#125;
+    `]
+&#125;)
 export class MultiSelectDemo &#123;
 
     cars: SelectItem[];
 
     selectedCars1: string[] = [];
-
+    
     selectedCars2: string[] = [];
 
     constructor() &#123;
@@ -498,7 +535,7 @@ export class MultiSelectDemo &#123;
             &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
             &#123;label: 'Renault', value: 'Renault'&#125;,
             &#123;label: 'VW', value: 'VW'&#125;,
-            &#123;label: 'Volvo', value: 'Volvo'&#125;
+            &#123;label: 'Volvo', value: 'Volvo'&#125;,
         ];
     &#125;
 &#125;
