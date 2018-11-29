@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsPrimengShell",
+  "title": "Primeng Shell Options Schema",
+  "type": "object",
+  "properties": {
+    "skipPackageJson": {
+      "type": "boolean",
+      "default": false,
+      "description": "Do not add primeng dependencies to package.json (e.g., --skipPackageJson)"
+    },
+    "theme": {
+      "type":"string",
+      "description": "The theme to apply",
+      "x-prompt": {
+        "message":
+          "Which theme would you like to use for your workspace?",
+        "type": "list",
+        "items": [
+          { "value": "nova-dark", "label": "Nova Dark" },
+          { "value": "nova-light", "label": "Nova Light" },
+          { "value": "nova-colored", "label": "Nova Colored" },
+          { "value": "luna-amber", "label": "Luna Amber" },
+          { "value": "luna-blue", "label": "Luna Blue" },
+          { "value": "luna-green", "label": "Luna Green" },
+          { "value": "luna-pink", "label": "Luna Pink" },
+          { "value": "rhea", "label": "Rhea" }
+        ]
+      }
+    }
+  },
+  "required": []
+}

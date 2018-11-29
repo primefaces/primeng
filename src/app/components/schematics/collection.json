@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Adds PrimeNG imports",
+      "factory": "./shell",
+      "schema": "./shell/schema.json",
+      "aliases": [ "primeng-shell" ]
+    }
+  }
+}

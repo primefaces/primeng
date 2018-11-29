@@ -64,5 +64,6 @@
     "web-animations-js": "2.3.1",
     "primeicons": "1.0.0",
     "primeflex": "1.0.0-rc.1"
-  }
+  },
+  "schematics": "./src/app/components/schematics/collection.json"
 }
