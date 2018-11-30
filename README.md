@@ -45,8 +45,8 @@ Add PrimeNG and PrimeIcons as a dependencies.
 ```
 "dependencies": {
   //...
-  "primeng": "^6.1.2",
-  "primeicons": "^1.0.0-beta.10"
+  "primeng": "^7.0.0",
+  "primeicons": "^1.0.0"
 },
 ```
 
