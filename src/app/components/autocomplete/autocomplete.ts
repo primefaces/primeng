@@ -330,6 +330,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         if (value.length === 0) {
            this.hide();
            this.onClear.emit(event);
+	   this.onModelChange(value);
         }
 
         if (value.length >= this.minLength) {
