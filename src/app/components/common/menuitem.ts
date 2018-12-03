@@ -21,4 +21,5 @@ export interface MenuItem {
     title?: string;
     id?: string;
     automationId?: any;
+    closable?: boolean;
 }

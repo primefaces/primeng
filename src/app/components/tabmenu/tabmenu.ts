@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output} from '@angular/core';
+import {NgModule, Component, ElementRef, Input, Output, EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -24,6 +24,7 @@ import {RouterModule} from '@angular/router';
                         <span class="ui-menuitem-icon " [ngClass]="item.icon" *ngIf="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
+                    <span *ngIf="item.closable" class="ui-tabmenu-close pi pi-times" (click)="clickClose($event,item)"></span>
                 </li>
             </ul>
         </div>
@@ -41,6 +42,10 @@ export class TabMenu {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() closable: boolean;
+
+    @Output() onTabCloseClick: EventEmitter<any> = new EventEmitter();
 
     itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
@@ -60,6 +65,13 @@ export class TabMenu {
         }
 
         this.activeItem = item;
+    }
+
+    clickClose(event, tab: MenuItem) {
+        this.onTabCloseClick.emit({
+            originalEvent: event,
+            tab: tab
+        })
     }
 }
 
