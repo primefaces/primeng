@@ -1,4 +1,4 @@
-import {NgModule, Component, ElementRef, Input, Output, EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
