@@ -235,16 +235,19 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     parseValue(val: string): number {
         let value: number;
-                
+
         if (val.trim() === '') {
             value = this.min != null ? this.min : null;
         }
         else {
-            if (this.precision)
+            if (this.precision) {
                 value = parseFloat(val.replace(',', '.'));
-            else
+                let inv = 1.0 / this.step;
+                value = Math.floor(value*inv)/inv;
+            }
+            else {
                 value = parseInt(val, 10);
-            
+            }
             if (!isNaN(value)) {
                 if (this.max !== null && value > this.max) {
                     value = this.max;
