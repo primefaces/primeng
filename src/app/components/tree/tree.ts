@@ -18,7 +18,7 @@ import {DomHandler} from '../dom/domhandler';
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
             <li *ngIf="!tree.horizontal" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '']">
                 <div class="ui-treenode-content" role="treeitem" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
-                    (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
+                    (drop)="onDropNode($event,-1)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event,-1)" (dragleave)="onDropNodeDragLeave($event)"
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" tabIndex="0"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" 
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()">
@@ -269,35 +269,38 @@ export class UITreeNode implements OnInit {
         }
     }
 
-    onDropNode(event) {
-        if(this.tree.droppableNodes && this.node.droppable !== false) {
-            event.preventDefault();
-            event.stopPropagation();
-            let dragNode = this.tree.dragNode;
-            if(this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
-                if(this.tree.validateDrop) {
-                    this.tree.onNodeDrop.emit({
-                        originalEvent: event,
-                        dragNode: dragNode,
-                        dropNode: this.node,
-                        index: this.index,
-                        accept: () => {
-                            this.processNodeDrop(dragNode);
-                        }
-                    });
-                }   
-                else {
-                    this.processNodeDrop(dragNode);
-                    this.tree.onNodeDrop.emit({
-                        originalEvent: event,
-                        dragNode: dragNode,
-                        dropNode: this.node,
-                        index: this.index
-                    });
-                } 
+    onDropNode(event, position: number) {
+        if (this.tree.dropOnOver) {
+            this.onDropPoint(event, position);
+        } else {
+            if (this.tree.droppableNodes && this.node.droppable !== false) {
+                event.preventDefault();
+                event.stopPropagation();
+                let dragNode = this.tree.dragNode;
+                if (this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
+                    if (this.tree.validateDrop) {
+                        this.tree.onNodeDrop.emit({
+                            originalEvent: event,
+                            dragNode: dragNode,
+                            dropNode: this.node,
+                            index: this.index,
+                            accept: () => {
+                                this.processNodeDrop(dragNode);
+                            }
+                        });
+                    }
+                    else {
+                        this.processNodeDrop(dragNode);
+                        this.tree.onNodeDrop.emit({
+                            originalEvent: event,
+                            dragNode: dragNode,
+                            dropNode: this.node,
+                            index: this.index
+                        });
+                    }
+                }
             }
         }
-
         this.draghoverNode = false;
     }
 
@@ -523,6 +526,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() ariaLabelledBy: string;
 
     @Input() validateDrop: boolean;
+
+    @Input() dropOnOver: boolean;
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
