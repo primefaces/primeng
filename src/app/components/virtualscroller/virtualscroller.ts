@@ -92,10 +92,14 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
         if (this.lazy) {
             if (val) {
                 let arr = this.cache ? [...this.lazyValue] : Array.from({length: this._totalRecords});
-                for (let i = this.first, j = 0; i < (this.first + this.rows); i++, j++) {
+                let lastIndex = Math.min(this._totalRecords, this.first + this.rows);
+                for (let i = this.first, j = 0; i < lastIndex; i++, j++) {
                     arr[i] = val[j];
                 }
                 this.lazyValue = arr;
+                if ((lastIndex === this._totalRecords) && (this._totalRecords % this.rows)) {
+                    setTimeout(() => this.scrollTo(lastIndex));
+                }
             }
         }
         else {
@@ -127,6 +131,15 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
             this.page = p;
             this.first = this.page * this.rows;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        } else if (this.viewPortViewChild && this.viewPortViewChild['elementRef'] && this.viewPortViewChild['elementRef'].nativeElement) {
+            let viewportHeight = this.viewPortViewChild['elementRef'].nativeElement.offsetHeight;
+            let maxScrollIndex = this._totalRecords - Math.ceil(viewportHeight / this.itemSize);
+            let lastLoadedItem = (this.rows * (this.page + 1));
+            if ((index === maxScrollIndex) && (lastLoadedItem < this._totalRecords))
+                p = Math.floor(this._totalRecords / this.rows);
+                this.page = p;
+                this.first = this.page * this.rows;
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
     }
 
