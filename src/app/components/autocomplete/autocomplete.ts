@@ -20,7 +20,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [attr.required]="required"
             [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="inputFieldValue"
-            (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
+            (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (paste)="onInputPaste($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
             ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
@@ -30,7 +30,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" autocomplete="off" 
+                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (paste)="onInputPaste($event)" autocomplete="off" 
                             [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required">
                 </li>
             </ul
@@ -40,7 +40,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                     <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
-                        (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
+                        (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="onClick(option)">
                         <span *ngIf="!itemTemplate">{{field ? objectUtils.resolveFieldData(option, field) : option}}</span>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
                     </li>
@@ -205,6 +205,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     documentResizeListener: any;
 
+    itemClick: boolean = false;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
@@ -365,6 +367,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
        });
     }
 
+    onClick(option:any) {
+        this.itemClick = true;
+        this.selectItem(option);
+    }
+
     selectItem(option: any, focus: boolean = true) {
         if (this.multiple) {
             this.multiInputEL.nativeElement.value = '';
@@ -372,17 +379,17 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
             if (!this.isSelected(option)) {
                 this.value = [...this.value,option];
                 this.onModelChange(this.value);
+                this.onSelect.emit(option);
+                this.updateFilledState();
             }
         }
         else {
             this.inputEL.nativeElement.value = this.field ? this.objectUtils.resolveFieldData(option, this.field)||'': option;
             this.value = option;
             this.onModelChange(this.value);
+            this.onSelect.emit(option);
+            this.updateFilledState();
         }
-
-        this.onSelect.emit(option);
-        this.updateFilledState();
-
         if (focus) {
             this.focusInput();
         }
@@ -577,10 +584,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         this.onBlur.emit(event);
     }
 
-    onInputChange(event) {
-        if (this.forceSelection && this.suggestions) {
+    onForceSelection() {
+        if (this.suggestions) {
             let valid = false;
-            let inputValue = event.target.value.trim();
+            let inputValue = this.multiple ? this.multiInputEL.nativeElement.value.trim() : this.inputEL.nativeElement.value.trim();
 
             if (this.suggestions)  {
                 for (let suggestion of this.suggestions) {
@@ -614,11 +621,16 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     isSelected(val: any): boolean {
         let selected: boolean = false;
-        if (this.value && this.value.length) {
-            for (let i = 0; i < this.value.length; i++) {
-                if (this.objectUtils.equals(this.value[i], val, this.dataKey)) {
-                    selected = true;
-                    break;
+        if (!this.multiple) {
+            selected = this.value === val;            
+        }
+        else {
+            if (this.value && this.value.length) {
+                for (let i = 0; i < this.value.length; i++) {
+                    if (this.objectUtils.equals(this.value[i], val, this.dataKey)) {
+                        selected = true;
+                        break;
+                    }
                 }
             }
         }
@@ -708,9 +720,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     }
 
     onOverlayHide() {
+        if (!this.itemClick && this.forceSelection) {
+            this.onForceSelection();
+        }
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.overlay = null;
+        this.itemClick = false;
     }
 
     ngOnDestroy() {
