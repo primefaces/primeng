@@ -448,6 +448,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._value = val;
         
         if (!this.lazy) {
+            if (this.isStateful()) {
+                this.restoreState();
+            }
+            
             this.totalRecords = (this._value ? this._value.length : 0);
 
             if (this.sortMode == 'single' && this.sortField)
