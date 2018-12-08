@@ -1,4 +1,4 @@
-import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, HostBinding, HostListener, Input, NgZone } from '@angular/core';
+import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, Input, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
 
@@ -53,6 +53,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     focusListener: Function;
 
     blurListener: Function;
+
+    intervalFn: NodeJS.Timeout;
 
     resizeListener: any;
 
@@ -172,6 +174,17 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.domHandler.appendChild(this.container, this.appendTo);
 
         this.container.style.display = 'inline-block';
+
+        this.zone.runOutsideAngular(() => {
+            if (this.intervalFn) {
+                clearInterval(this.intervalFn);
+            }
+            this.intervalFn = setInterval(() => {
+                if (!document.body.contains(this.el.nativeElement)) {
+                    this.remove();
+                }
+            }, 50);
+        });
     }
 
     show() {
@@ -365,6 +378,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 this.domHandler.removeChild(this.container, this.appendTo);
         }
 
+        if (this.intervalFn) {
+            clearInterval(this.intervalFn);
+        }
+        
         this.unbindDocumentResizeListener();
         this.clearTimeouts();
         this.container = null;

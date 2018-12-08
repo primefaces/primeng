@@ -9,21 +9,13 @@
     <h3 class="first">Positions</h3>
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-3">
-            <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">                
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top">
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom">
-        </div>
-        <div class="ui-g-12 ui-md-3">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left">
+            <p-overlayPanel #op1 [appendTo]="'body'" [dismissable]="true">
+                <button type="text" pButton label="Button" pTooltip="Tooltip in overlay on a button"
+                        tooltipPosition="top" (click)="op1.hide($event)"></button>
+            </p-overlayPanel>
+            <button type="text" pButton label="Basic" (click)="op1.show($event)"></button>
         </div>
     </div>
-    
-    <h3>Focus and Blur</h3>
-    <input type="text" pInputText pTooltip="Enter your username" placeholder="Right" tooltipEvent="focus" style="margin-left:.5em">
 </div>
 
 <div class="content-section documentation">

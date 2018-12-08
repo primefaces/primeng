@@ -6,6 +6,8 @@ import {TooltipModule} from '../../../components/tooltip/tooltip';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import { OverlayPanelModule } from 'src/app/components/overlaypanel/overlaypanel';
+import { ButtonModule } from 'src/app/components/button/button';
 
 @NgModule({
 	imports: [
@@ -14,7 +16,9 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         TooltipModule,
         InputTextModule,
         TabViewModule,
-        CodeHighlighterModule
+		CodeHighlighterModule,
+		OverlayPanelModule,
+		ButtonModule
 	],
 	declarations: [
 		TooltipDemo
