@@ -450,8 +450,11 @@ export class UITreeNode implements OnInit {
             <div class="ui-tree-loading-content" *ngIf="loading">
                 <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
+            <div class="ui-tree-filter-container" *ngIf="filter">
+                <input type="text" (input)="onFilter($event.target.value)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
+            </div>
             <ul class="ui-tree-container" *ngIf="value" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
+                <p-treeNode *ngFor="let node of getNodes();let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
             <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
@@ -471,6 +474,12 @@ export class UITreeNode implements OnInit {
 export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() value: TreeNode[];
+
+    @Input() filteredValue: TreeNode[];
+
+    @Input() filter: boolean = true;
+
+    @Input() filterPlaceHolder: string;
 
     @Input() selectionMode: string;
 
@@ -815,6 +824,63 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else
             return null;
+    }
+
+    onFilter(filterValue) {
+        let filteredArray = [];
+        let array = this.value.map(x => Object.assign({}, x));
+        if (filterValue) {
+            for (let node of array) {
+                let filteredChild = false;
+                if (node.children) {
+                let children = this.filterNode(node.children,filterValue);
+                    if (children.length > 0) {
+                        node.children = children;
+                        filteredChild = true;
+                    }
+                    else {
+                        node.children = [];
+                    }
+                }
+    
+                if (node.label.toLowerCase().indexOf(filterValue.toLowerCase()) > -1 || filteredChild) {
+                    filteredArray.push(node);
+                }
+            }
+        }
+        else {
+            filteredArray = this.value;
+        }
+        this.filteredValue = filteredArray;
+        return filteredArray;
+    }
+        
+    filterNode(value,filterValue) {
+        let array = value.map(x => Object.assign({}, x));
+        for (let node of array) {
+            let filteredChild = false;
+            if (node.children) {
+                let children = this.filterNode(node.children,filterValue);
+                if (children.length > 0) {
+                    node.children = children;
+                    filteredChild = true;
+                }
+                else {
+                    node.children = [];
+                }
+            }
+            if (!(node.label.toLowerCase().indexOf(filterValue.toLowerCase()) > -1) && !filteredChild) {
+                array = array.filter(item => item !== node);
+            }
+        }
+        return array;
+    }
+
+    getNodes() {
+        if (this.filteredValue)
+            return this.filteredValue;
+        else 
+            return this.value;
     }
 
     onDragOver(event) {
