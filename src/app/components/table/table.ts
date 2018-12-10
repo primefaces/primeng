@@ -1118,11 +1118,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     _filter() {
-        if (this.restoringFilter)
-            this.restoringFilter = false;
-        else
-            this.first = 0;
-
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -1214,9 +1209,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         this.tableService.onValueChange(this.value);
 
-        if (this.isStateful()) {
+        if (this.isStateful() && !this.restoringFilter) {
             this.saveState();
         }
+
+        if (this.restoringFilter)
+            this.restoringFilter = false;
+        else
+            this.first = 0;
+
     }
 
     hasFilter() {
