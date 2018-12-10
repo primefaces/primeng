@@ -351,6 +351,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     restoringFilter: boolean;
 
+    stateRestored: boolean;
+
+    columnOrderStateRestored: boolean;
+
     columnWidthsState: string;
 
     tableWidthState: string;
@@ -360,10 +364,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-
-        if (this.isStateful()) {
-            this.restoreState();
         }
 
         this.initialized = true;
@@ -445,6 +445,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return this._value;
     }
     set value(val: any[]) {
+        if (this.isStateful() && !this.stateRestored) {
+            this.restoreState();
+        }
+
         this._value = val;
         
         if (!this.lazy) {
@@ -471,6 +475,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     set columns(cols: any[]) {
         this._columns = cols;
         this.tableService.onColumnsChange(cols);
+
+        if (this._columns && this.isStateful() && !this.columnOrderStateRestored) {
+            this.restoreColumnOrder();
+        }
     }
 
     @Input() get totalRecords(): number {
@@ -1951,10 +1959,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.tableWidthState = state.tableWidth;
             }
 
-            if (this.reorderableColumns) {
-                this.restoreColumnOrder(state.columnOrder);
-            }
-
             if (state.expandedRowKeys) {
                 this.expandedRowKeys = state.expandedRowKeys;
             }
@@ -1962,6 +1966,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (state.selection) {
                 this.selection = state.selection;
             }
+
+            this.stateRestored = true;
         }
     }
 
@@ -2016,19 +2022,29 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     saveColumnOrder(state) {
         if (this.columns) {
             let columnOrder: string[] = [];
-            this.columns.map(column => columnOrder.push(column.field||column.key));
+            this.columns.map(column => {
+                columnOrder.push(column.field||column.key)
+            });
 
             state.columnOrder = columnOrder;
         }
     }
 
-    restoreColumnOrder(columnOrder: string[]) {
-        let reorderedColumns = [];
-        if (columnOrder) {
-            columnOrder.map(key => reorderedColumns.push(this.findColumnByKey(key)));
-        }
+    restoreColumnOrder() {
+        const storage = this.getStorage();
+        const stateString = storage.getItem(this.stateKey);
+        if (stateString) {
+            let state: TableState = JSON.parse(stateString);
+            let columnOrder = state.columnOrder;
+            let reorderedColumns = [];
 
-        this.columns = reorderedColumns;
+            if (columnOrder) {
+                columnOrder.map(key => reorderedColumns.push(this.findColumnByKey(key)));
+            }
+
+            this.columnOrderStateRestored = true;
+            this.columns = reorderedColumns;
+        }
     }
 
     findColumnByKey(key) {
