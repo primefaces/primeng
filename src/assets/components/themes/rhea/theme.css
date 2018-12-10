@@ -1,32 +1,32 @@
 @charset "UTF-8";
-/* lato-300 - latin-ext_latin */
+/* open-sans-300 - latin */
 @font-face {
-  font-family: "Lato";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 300;
-  src: url("./fonts/lato-v14-latin-ext_latin-300.eot");
+  src: url("./fonts/open-sans-v15-latin-300.eot");
   /* IE9 Compat Modes */
-  src: local("Lato Light"), local("Lato-Light"), url("./fonts/lato-v14-latin-ext_latin-300.eot") format("embedded-opentype"), url("./fonts/lato-v14-latin-ext_latin-300.woff2") format("woff2"), url("./fonts/lato-v14-latin-ext_latin-300.woff") format("woff"), url("./fonts/lato-v14-latin-ext_latin-300.ttf") format("truetype"), url("./fonts/lato-v14-latin-ext_latin-300.svg") format("svg");
+  src: local("Open Sans Light"), local("OpenSans-Light"), url("./fonts/open-sans-v15-latin-300.eot?#iefix") format("embedded-opentype"), url("./fonts/open-sans-v15-latin-300.woff2") format("woff2"), url("./fonts/open-sans-v15-latin-300.woff") format("woff"), url("./fonts/open-sans-v15-latin-300.ttf") format("truetype"), url("./fonts/open-sans-v15-latin-300.svg#OpenSans") format("svg");
   /* Legacy iOS */
 }
-/* lato-regular - latin-ext_latin */
+/* open-sans-regular - latin */
 @font-face {
-  font-family: "Lato";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/lato-v14-latin-ext_latin-regular.eot");
+  src: url("./fonts/open-sans-v15-latin-regular.eot");
   /* IE9 Compat Modes */
-  src: local("Lato Regular"), local("Lato-Regular"), url("./fonts/lato-v14-latin-ext_latin-regular.eot") format("embedded-opentype"), url("./fonts/lato-v14-latin-ext_latin-regular.woff2") format("woff2"), url("./fonts/lato-v14-latin-ext_latin-regular.woff") format("woff"), url("./fonts/lato-v14-latin-ext_latin-regular.ttf") format("truetype"), url("./fonts/lato-v14-latin-ext_latin-regular.svg") format("svg");
+  src: local("Open Sans Regular"), local("OpenSans-Regular"), url("./fonts/open-sans-v15-latin-regular.eot?#iefix") format("embedded-opentype"), url("./fonts/open-sans-v15-latin-regular.woff2") format("woff2"), url("./fonts/open-sans-v15-latin-regular.woff") format("woff"), url("./fonts/open-sans-v15-latin-regular.ttf") format("truetype"), url("./fonts/open-sans-v15-latin-regular.svg#OpenSans") format("svg");
   /* Legacy iOS */
 }
-/* lato-700 - latin-ext_latin */
+/* open-sans-700 - latin */
 @font-face {
-  font-family: "Lato";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 700;
-  src: url("./fonts/lato-v14-latin-ext_latin-700.eot");
+  src: url("./fonts/open-sans-v15-latin-700.eot");
   /* IE9 Compat Modes */
-  src: local("Lato Bold"), local("Lato-Bold"), url("./fonts/lato-v14-latin-ext_latin-700.eot") format("embedded-opentype"), url("./fonts/lato-v14-latin-ext_latin-700.woff2") format("woff2"), url("./fonts/lato-v14-latin-ext_latin-700.woff") format("woff"), url("./fonts/lato-v14-latin-ext_latin-700.ttf") format("truetype"), url("./fonts/lato-v14-latin-ext_latin-700.svg") format("svg");
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("./fonts/open-sans-v15-latin-700.eot?#iefix") format("embedded-opentype"), url("./fonts/open-sans-v15-latin-700.woff2") format("woff2"), url("./fonts/open-sans-v15-latin-700.woff") format("woff"), url("./fonts/open-sans-v15-latin-700.ttf") format("truetype"), url("./fonts/open-sans-v15-latin-700.svg#OpenSans") format("svg");
   /* Legacy iOS */
 }
 * {
@@ -36,7 +36,7 @@
 }
 
 body .ui-widget {
-  font-family: "Lato", sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
   text-decoration: none;
 }
@@ -316,7 +316,7 @@ body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-contain
   color: #666666;
 }
 body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container .ui-autocomplete-input-token input {
-  font-family: "Lato", sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
   padding: 0;
   margin: 0;
@@ -387,7 +387,7 @@ body .ui-chips > ul.ui-inputtext .ui-chips-input-token {
   padding: 0.2145em 0;
 }
 body .ui-chips > ul.ui-inputtext .ui-chips-input-token input {
-  font-family: "Lato", sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
   padding: 0;
   margin: 0;
@@ -1839,7 +1839,7 @@ body .ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
 }
 body .ui-table .ui-editable-column input {
   font-size: 14px;
-  font-family: "Lato", sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
 body .ui-table .ui-editable-column input:focus {
   outline: 1px solid #7B95A3;
@@ -2415,7 +2415,7 @@ body .ui-treetable .ui-sortable-column.ui-state-highlight .ui-sortable-column-ic
 }
 body .ui-treetable .ui-editable-column input {
   font-size: 14px;
-  font-family: "Lato", sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
 body .ui-treetable .ui-editable-column input:focus {
   outline: 1px solid #7B95A3;
@@ -3384,7 +3384,7 @@ body .ui-terminal {
 }
 body .ui-terminal .ui-terminal-input {
   font-size: 14px;
-  font-family: "Lato", sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
   height: 16px;
 }
 body .ui-terminal .ui-terminal-command {
