@@ -852,7 +852,6 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
             filteredArray = this.value;
         }
         this.filteredValue = filteredArray;
-        return filteredArray;
     }
         
     filterNode(value,filterValue) {
