@@ -86,21 +86,16 @@ describe('ObjectUtils Suite', () => {
 
     it('Should check if nested objects are equal', () => {
       const arr = [1, 2, [3, 4]];
-      expect(objectUtils.equals(arr, Object.assign({}, arr))).toBe(true);
+      expect(objectUtils.equals(arr, [1, 2, [3, 4]])).toBe(true);
+
       const arr2 = [1, 2, [3, 4, 5]];
       expect(objectUtils.equals(arr, arr2)).toBe(false);
+
       const obj = {a: 1, b: {c: 3, d: 4}};
       expect(objectUtils.equals(obj, Object.assign({}, obj))).toBe(true);
+
       const obj2 = {a: 1, b: {c: 3, d: 5}};
       expect(objectUtils.equals(obj, obj2)).toBe(false);
-    });
-
-    it('Should not cause stack overflow comparing recursive objects', () => {
-      const obj1 = {p: null};
-      const obj2 = {p: null};
-      obj1['p'] = obj1;
-      obj2['p'] = obj2;
-      expect(objectUtils.equals(obj1, obj2)).toBe(false);
     });
 
     it('Should be able to compare frozen nested objects', () => {

@@ -11,59 +11,54 @@ export class ObjectUtils {
             return this.equalsByValue(obj1, obj2);
     }
 
-    public equalsByValue(obj1: any, obj2: any, visited?: any[]): boolean {
-        if (obj1 == null && obj2 == null) {
-            return true;
-        }
-        if (obj1 == null || obj2 == null) {
-            return false;
-        }
+    public equalsByValue(obj1: any, obj2: any): boolean {
+        if (obj1 === obj2) return true;
 
-        if (obj1 == obj2) {
-            return true;
-        }
+        if (obj1 && obj2 && typeof obj1 == 'object' && typeof obj2 == 'object') {
+            var arrA = Array.isArray(obj1)
+                , arrB = Array.isArray(obj2)
+                , i
+                , length
+                , key;
 
-        if (obj1 instanceof Date && obj2 instanceof Date) {
-            return obj1.getTime() == obj2.getTime();
-        }
-
-        if (typeof obj1 == 'object' && typeof obj2 == 'object') {
-            if (visited) {
-                if (visited.indexOf(obj1) !== -1) return false;
-            } else {
-                visited = [];
-            }
-            visited.push(obj1);
-
-            for (var p in obj1) {
-                if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) {
-                    return false;
-                }
-
-                switch (typeof (obj1[p])) {
-                    case 'object':
-                        if (!this.equalsByValue(obj1[p], obj2[p], visited)) return false;
-                        break;
-
-                    case 'function':
-                        if (typeof (obj2[p]) == 'undefined' || (p != 'compare' && obj1[p].toString() != obj2[p].toString())) return false;
-                        break;
-
-                    default:
-                        if (obj1[p] != obj2[p]) return false;
-                        break;
-                }
+            if (arrA && arrB) {
+                length = obj1.length;
+                if (length != obj2.length) return false;
+                for (i = length; i-- !== 0;)
+                    if (!this.equalsByValue(obj1[i], obj2[i])) return false;
+                return true;
             }
 
-            for (var p in obj2) {
-                if (typeof (obj1[p]) == 'undefined') return false;
+            if (arrA != arrB) return false;
+
+            var dateA = obj1 instanceof Date
+                , dateB = obj2 instanceof Date;
+            if (dateA != dateB) return false;
+            if (dateA && dateB) return obj1.getTime() == obj2.getTime();
+
+            var regexpA = obj1 instanceof RegExp
+                , regexpB = obj2 instanceof RegExp;
+            if (regexpA != regexpB) return false;
+            if (regexpA && regexpB) return obj1.toString() == obj2.toString();
+
+            var keys = Object.keys(obj1);
+            length = keys.length;
+
+            if (length !== Object.keys(obj2).length)
+                return false;
+
+            for (i = length; i-- !== 0;)
+                if (!Object.prototype.hasOwnProperty.call(obj2, keys[i])) return false;
+
+            for (i = length; i-- !== 0;) {
+                key = keys[i];
+                if (!this.equalsByValue(obj1[key], obj2[key])) return false;
             }
 
-            delete obj1._$visited;
             return true;
         }
 
-        return false;
+        return obj1 !== obj1 && obj2 !== obj2;
     }
 
     public resolveFieldData(data: any, field: any): any {
