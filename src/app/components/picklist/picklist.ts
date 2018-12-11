@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, HostListener} from '@angular/core';
+import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
@@ -28,8 +28,8 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, SOURCE_LIST)" (drop)="onDrop($event, i, SOURCE_LIST)" (dragleave)="onDragLeave($event, SOURCE_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource), 'ui-state-disabled': disabled}"
-                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
-                            [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'" [attr.tabindex]="0"
+                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsSource,onSourceSelect)"
+                            [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'" tabindex="0"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, SOURCE_LIST)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
@@ -57,8 +57,8 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, TARGET_LIST)" (drop)="onDrop($event, i, TARGET_LIST)" (dragleave)="onDragLeave($event, TARGET_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget), 'ui-state-disabled': disabled}"
-                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
-                            [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'" [attr.tabindex]="0"
+                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsTarget,onTargetSelect)"
+                            [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'" tabindex="0"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, TARGET_LIST)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
@@ -194,10 +194,6 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     listHighlightTarget: boolean;
     
     listHighlightSource: boolean;
-    
-    focusedIndex: number;
-    
-    focusedOption: any;
 
     readonly SOURCE_LIST = -1;
 
@@ -674,101 +670,55 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         (<HTMLInputElement> this.targetFilterViewChild.nativeElement).value = '';
     }
     
-    @HostListener('keydown',['$event'])
-    onKeyDown(event:KeyboardEvent){
-        let opts = [];
-        let listType;
-        let currentOption = <HTMLLIElement>event.target;
-        
-        if(this.domHandler.hasClass(currentOption.parentElement,'ui-picklist-source')) {
-            opts = this.filterValueSource ? this.visibleOptionsSource : this.source;
-            listType = -1;
-        }
-        else if(this.domHandler.hasClass(currentOption.parentElement,'ui-picklist-target')) {
-            opts = this.filterValueTarget ? this.visibleOptionsTarget : this.target;
-            listType = 1;
-        }
-    
-        this.focusedIndex = this.indexWithDisplay(currentOption);
-        this.focusedOption = opts[this.focusedIndex]
+    onItemKeydown(event: KeyboardEvent, item: any, selectedItems: any[], callback: EventEmitter<any>) {
+        let listItem = <HTMLLIElement> event.currentTarget;
         
         switch(event.which) {
             //down
             case 40:
-                this.focusedIndex = this.focusedIndex + 1;
-                if (this.focusedIndex != (opts.length)) {
-                    this.focusedOption = opts[this.focusedIndex];
-                }
-                let nextOption = this.findNextOption(currentOption);
-                if(nextOption) {
-                    nextOption.focus();
+                var nextItem = this.findNextItem(listItem);
+                if (nextItem) {
+                    nextItem.focus();
                 }
                 
                 event.preventDefault();
-                break;
+            break;
             
             //up
             case 38:
-                this.focusedIndex = this.focusedIndex - 1;
-                this.focusedOption = opts[this.focusedIndex];
-                let prevOption = this.findPrevOption(currentOption);
-                if (prevOption) {
-                    prevOption.focus();
+                var prevItem = this.findPrevItem(listItem);
+                if (prevItem) {
+                    prevItem.focus();
                 }
                 
                 event.preventDefault();
-                break;
+            break;
             
             //enter
             case 13:
-                if (this.focusedOption) {
-                    if(listType === this.SOURCE_LIST) {
-                        this.onItemClick(event, this.focusedOption, this.selectedItemsSource, this.onSourceSelect);
-                    }
-                    else if( listType === this.TARGET_LIST) {
-                        this.onItemClick(event, this.focusedOption, this.selectedItemsTarget, this.onTargetSelect);
-                    }
-                }
+                this.onItemClick(event, item, selectedItems, callback);
                 event.preventDefault();
-                break;
+            break;
         }
     }
-    
-    indexWithDisplay(element: any): number {
-        let children = element.parentNode.childNodes;
-        let num = 0;
-        for (var i = 0; i < children.length; i++) {
-            if (children[i] == element && children[i].style.display == 'block' && this.domHandler.hasClass(children[i],'ui-picklist-item')) return num;
-            if (children[i].nodeType == 1 && children[i].style.display == 'block' && this.domHandler.hasClass(children[i],'ui-picklist-item')) num++;
-        }
-        return -1;
-    }
-    
-    findPrevOption(row)  {
-        let prevOption = row.previousElementSibling;
-        if (prevOption) {
-            if (this.domHandler.hasClass(prevOption, 'ui-picklist-item') && prevOption.style.display == 'block')
-                return prevOption;
-            else
-                return this.findPrevOption(prevOption);
-        }
-        else {
+        
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return !this.domHandler.hasClass(nextItem, 'ui-picklist-item') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        else
             return null;
-        }
     }
-    
-    findNextOption(row) {
-        let nextOption = row.nextElementSibling;
-        if (nextOption) {
-            if (this.domHandler.hasClass(nextOption, 'ui-picklist-item') && nextOption.style.display == 'block')
-                return nextOption;
-            else
-                return this.findNextOption(nextOption);
-        }
-        else {
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+        
+        if (prevItem)
+            return !this.domHandler.hasClass(prevItem, 'ui-picklist-item') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        else
             return null;
-        }
-    }
+    } 
 }
 
 @NgModule({
