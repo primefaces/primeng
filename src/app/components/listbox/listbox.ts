@@ -119,10 +119,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerCheckboxFocus: boolean;
     
-    focusedIndex: number;
-    
-    focusedOption: any;
-
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) { }
 
     @Input() get options(): any[] {
@@ -207,8 +203,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             originalEvent: event,
             value: this.value
         })
-    
-        this.focusedOption = option;
     }
 
     onOptionClickSingle(event, option) {
@@ -242,8 +236,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 value: this.value
             });
         }
-    
-        this.focusedOption = option;
     }
 
     onOptionClickMultiple(event, option) {
@@ -287,8 +279,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 value: this.value
             });
         }
-    
-        this.focusedOption = option;
     }
 
     onOptionClickCheckbox(event, option) {
@@ -311,8 +301,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             originalEvent: event,
             value: this.value
         });
-    
-        this.focusedOption = option;
     }
 
     removeOption(option: any): void {
@@ -384,8 +372,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     onFilter(event) {
         let query = event.target.value.trim().toLowerCase();
         this._filterValue = query.length ? query : null;
-        this.focusedOption = null;
-        this.focusedIndex = null;
     }
 
     toggleAll(event) {
