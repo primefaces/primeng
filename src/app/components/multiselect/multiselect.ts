@@ -1,12 +1,12 @@
 import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter,
-    forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, HostListener } from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {SelectItem} from '../common/selectitem';
-import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/objectutils';
-import {SharedModule,PrimeTemplate,Footer} from '../common/shared';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+    forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild } from '@angular/core';
+import { trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { SelectItem } from '../common/selectitem';
+import { DomHandler } from '../dom/domhandler';
+import { ObjectUtils } from '../utils/objectutils';
+import { SharedModule, PrimeTemplate, Footer } from '../common/shared';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -21,7 +21,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
-                       [disabled]="disabled" [attr.tabindex]="tabindex">
+                       [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">
@@ -54,8 +54,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                        <li *ngFor="let option of options; let i = index" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option)"
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="0"
+                        <li *ngFor="let option of options; let i = index" class="ui-multiselect-item ui-corner-all" (click)="onOptionClick($event,option)" (keydown)="onOptionKeydown($event,option)"
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'"
                             [ngClass]="{'ui-state-highlight': isSelected(option.value), 'ui-state-disabled': option.disabled || (maxSelectionLimitReached && !isSelected(option.value))}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"
@@ -221,10 +221,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     documentResizeListener: any;
     
-    focusedOption: any;
-    
-    focusedIndex: number;
-    
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
     
     @Input() get options(): any[] {
@@ -296,7 +292,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.disabled = val;
     }
     
-    onItemClick(event, option) {
+    onOptionClick(event, option) {
         if (option.disabled) {
             return;
         }
@@ -320,7 +316,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             }
         }
     
-        this.focusedOption = option;
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value, itemValue: value});
         this.updateLabel();
@@ -397,11 +392,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     show() {
-        if(!this.overlayVisible){
+        if (!this.overlayVisible){
             this.overlayVisible = true;
         }
     
-        if(this.filter) {
+        if (this.filter) {
             setTimeout(() => {
                 if (this.filterInputChild != undefined) {
                     this.filterInputChild.nativeElement.focus();
@@ -502,65 +497,69 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.onBlur.emit({originalEvent: event});
         this.onModelTouched();
     }
-    
-    @HostListener('keydown',['$event'])
-    onKeyDown(event:KeyboardEvent){
-        let currentOption, opts;
-        
+
+    onOptionKeydown(event:KeyboardEvent, option) {
         if (this.readonly) {
             return;
         }
         
-        if(this.overlayVisible) {
-            opts = this.getVisibleOptions();
-            currentOption = event.target;
-            this.focusedIndex = this.domHandler.indexWithDisplay(currentOption);
-            this.focusedOption = opts[this.focusedIndex]
-        }
+        let item = <HTMLLIElement> event.currentTarget;
         
+        switch(event.which) {
+            //down
+            case 40:
+                var nextItem = this.findNextItem(item);
+                if(nextItem) {
+                    nextItem.focus();
+                }
+                
+                event.preventDefault();
+            break;
+            
+            //up
+            case 38:
+                var prevItem = this.findPrevItem(item);
+                if(prevItem) {
+                    prevItem.focus();
+                }
+                
+                event.preventDefault();
+            break;
+            
+            //enter
+            case 13:
+                this.onOptionClick(event, option);
+                event.preventDefault();
+            break;
+        }
+    }
+    
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return this.domHandler.hasClass(nextItem, 'ui-state-disabled') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        else
+            return null;
+    }
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+        
+        if (prevItem)
+            return this.domHandler.hasClass(prevItem, 'ui-state-disabled') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        else
+            return null;
+    } 
+    
+    onKeydown(event: KeyboardEvent){
         switch(event.which) {
             //down
             case 40:
                 if (!this.overlayVisible && event.altKey) {
                     this.show();
                 }
-                if(this.overlayVisible) {
-                    let nextOption = this.findNextOption(currentOption);
-                    this.focusedIndex = this.focusedIndex + 1;
-                    if (this.focusedIndex != (opts.length)) {
-                        this.focusedOption = opts[this.focusedIndex];
-                    }
-                    if(nextOption) {
-                        nextOption.focus();
-                    }
-                }
-                
-                event.preventDefault();
-                break;
-        
-            //up
-            case 38:
-                if(this.overlayVisible ){
-                    let prevOption = this.findPrevOption(currentOption);
-                    this.focusedIndex = this.focusedIndex - 1;
-                    this.focusedOption = opts[this.focusedIndex];
-                    if (prevOption) {
-                        prevOption.focus();
-                    }
-                }
-    
-                event.preventDefault();
-                break;
-    
-            //enter
-            case 13:
-                if(this.overlayVisible) {
-                    if (this.focusedOption) {
-                        this.onItemClick(event,this.focusedOption);
-                    }
-                }
-                event.preventDefault();
-                break;
+            break;
     
             //space
             case 32:
@@ -573,35 +572,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             //escape
             case 27:
                 this.hide();
+            break;
         }
     }
-    
-    findNextOption(row) {
-        let nextOption = row.nextElementSibling;
-        if (nextOption) {
-            if (this.domHandler.hasClass(nextOption, 'ui-multiselect-item')  && nextOption.style.display == 'block')
-                return nextOption;
-            else
-                return this.findNextOption(nextOption);
-        }
-        else {
-            return null;
-        }
-    }
-    
-    findPrevOption(row) {
-        let prevOption = row.previousElementSibling;
-        if (prevOption) {
-            if (this.domHandler.hasClass(prevOption, 'ui-multiselect-item')  && prevOption.style.display == 'block')
-                return prevOption;
-            else
-                return this.findPrevOption(prevOption);
-        }
-        else {
-            return null;
-        }
-    }
-    
+        
     updateLabel() {
         if (this.value && this.options && this.value.length && this.displaySelectedLabel) {
             let label = '';
@@ -654,9 +628,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.visibleOptions = this.options;
             this.filtered = false;
         }
-
-        this.focusedOption = null;
-        this.focusedIndex = null;
     }
     
     activateFilter() {
