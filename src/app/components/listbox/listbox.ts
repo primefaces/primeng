@@ -369,8 +369,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     onFilter(event) {
-        let query = event.target.value.trim().toLowerCase();
-        this._filterValue = query.length ? query : null;
+        this._filterValue = event.target.value;
     }
 
     toggleAll(event) {
@@ -401,14 +400,15 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     isItemVisible(option: SelectItem): boolean {
         if (this.filterValue) {
             let visible;
+            let filterText = this.objectUtils.removeAccents(this.filterValue).toLowerCase();
 
             switch (this.filterMode) {
                 case 'startsWith':
-                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) === 0;
+                    visible = this.objectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) === 0;
                     break;
 
                 case 'contains':
-                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1;
+                    visible = this.objectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) > -1;
                     break;
 
                 default:
