@@ -1,5 +1,4 @@
-import { NgModule, Component, ElementRef, AfterViewChecked, AfterContentInit, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter,
-    ViewChild, HostListener } from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,AfterContentInit,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
@@ -27,9 +26,9 @@ import {ObjectUtils} from '../utils/objectutils';
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
-                        <li class="ui-orderlist-item" [attr.tabindex]="0"
+                        <li class="ui-orderlist-item" tabindex="0"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
-                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
@@ -96,10 +95,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     dragOverItemIndex: number;
     
     dragging: boolean;
-    
-    focusedIndex: number;
-    
-    focusedOption: any;
     
     public filterValue: string;
     
@@ -186,9 +181,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 this.objectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
             }
         }
-        
-        this.focusedOption = item;
-        
+                
         //binding
         this.selectionChange.emit(this._selection);
 
@@ -209,8 +202,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
         this.visibleOptions = this.objectUtils.filter(this.value, searchFields, this.filterValue);
-        this.focusedOption = null;
-        this.focusedIndex = null;
     }
     
     isItemVisible(item: any): boolean {
@@ -362,76 +353,55 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         }
     }
     
-    @HostListener('keydown',['$event'])
-    onKeyDown(event:KeyboardEvent){
-        
-        let opts = this.filterValue ? this.visibleOptions : this.value;
-        let currentOption = <HTMLLIElement>event.target;
-        this.focusedIndex = this.domHandler.indexWithDisplay(currentOption);
-        this.focusedOption = opts[this.focusedIndex]
+    onItemKeydown(event: KeyboardEvent, item, index: Number) {
+        let listItem = <HTMLLIElement> event.currentTarget;
         
         switch(event.which) {
             //down
             case 40:
-                this.focusedIndex = this.focusedIndex + 1;
-                if (this.focusedIndex != (opts.length)) {
-                    this.focusedOption = opts[this.focusedIndex];
-                }
-                let nextOption = this.findNextOption(currentOption);
-                if(nextOption) {
-                    nextOption.focus();
+                var nextItem = this.findNextItem(listItem);
+                if (nextItem) {
+                    nextItem.focus();
                 }
                 
                 event.preventDefault();
-                break;
+            break;
             
             //up
             case 38:
-                this.focusedIndex = this.focusedIndex - 1;
-                this.focusedOption = opts[this.focusedIndex];
-                let prevOption = this.findPrevOption(currentOption);
-                if (prevOption) {
-                    prevOption.focus();
+                var prevItem = this.findPrevItem(listItem);
+                if (prevItem) {
+                    prevItem.focus();
                 }
                 
                 event.preventDefault();
-                break;
+            break;
             
             //enter
             case 13:
-                if (this.focusedOption) {
-                    this.onItemClick(event, this.focusedOption, this.focusedIndex);
-                }
+                this.onItemClick(event, item, index);
                 event.preventDefault();
-                break;
+            break;
         }
     }
     
-    findPrevOption(row)  {
-        let prevOption = row.previousElementSibling;
-        if (prevOption) {
-            if (this.domHandler.hasClass(prevOption, 'ui-orderlist-item') && prevOption.style.display == 'block')
-                return prevOption;
-            else
-                return this.findPrevOption(prevOption);
-        }
-        else {
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return !this.domHandler.hasClass(nextItem, 'ui-orderlist-item') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        else
             return null;
-        }
     }
-    
-    findNextOption(row) {
-        let nextOption = row.nextElementSibling;
-        if (nextOption) {
-            if (this.domHandler.hasClass(nextOption, 'ui-orderlist-item') && nextOption.style.display == 'block')
-                return nextOption;
-            else
-                return this.findNextOption(nextOption);
-        }
-        else {
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+        
+        if (prevItem)
+            return !this.domHandler.hasClass(prevItem, 'ui-orderlist-item') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        else
             return null;
-        }
-    }
+    } 
 }
 
 @NgModule({
