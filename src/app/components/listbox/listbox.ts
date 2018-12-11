@@ -39,9 +39,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       </div>
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
         <ul class="ui-listbox-list">
-          <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="0"
+          <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'"
               [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}"
-              (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
+              (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)" (keydown)="onOptionKeyDown($event,option)">
             <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
               <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
@@ -445,79 +445,59 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         this.focus = false;
     }
     
-    @HostListener('keydown',['$event'])
-    onKeyDown(event:KeyboardEvent){
+    onOptionKeyDown(event:KeyboardEvent, option) {
         if (this.readonly) {
             return;
         }
         
-        let opts = this.getFilteredOptions();
-        let currentOption = <HTMLLIElement>event.target;
-        this.focusedIndex = this.domHandler.indexWithDisplay(currentOption);
-        this.focusedOption = opts[this.focusedIndex]
+        let item = <HTMLLIElement> event.currentTarget;
         
         switch(event.which) {
             //down
             case 40:
-                this.focusedIndex = this.focusedIndex + 1;
-                if (this.focusedIndex != (opts.length)) {
-                    this.focusedOption = opts[this.focusedIndex];
-                }
-                let nextOption = this.findNextOption(currentOption);
-                if(nextOption) {
-                    nextOption.focus();
+                var nextItem = this.findNextItem(item);
+                if(nextItem) {
+                    nextItem.focus();
                 }
                 
                 event.preventDefault();
-                break;
+            break;
             
             //up
             case 38:
-                this.focusedIndex = this.focusedIndex - 1;
-                this.focusedOption = opts[this.focusedIndex];
-                let prevOption = this.findPrevOption(currentOption);
-                if (prevOption) {
-                    prevOption.focus();
+                var prevItem = this.findPrevItem(item);
+                if(prevItem) {
+                    prevItem.focus();
                 }
                 
                 event.preventDefault();
-                break;
+            break;
             
             //enter
             case 13:
-                if (this.focusedOption) {
-                    this.onOptionClick(event,this.focusedOption);
-                }
+                this.onOptionClick(event, option);
                 event.preventDefault();
-                break;
+            break;
         }
     }
     
-    findPrevOption(row)  {
-        let prevOption = row.previousElementSibling;
-        if (prevOption) {
-            if (this.domHandler.hasClass(prevOption, 'ui-listbox-item') && prevOption.style.display == 'block')
-                return prevOption;
-            else
-                return this.findPrevOption(prevOption);
-        }
-        else {
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return this.domHandler.hasClass(nextItem, 'ui-state-disabled') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        else
             return null;
-        }
     }
-    
-    findNextOption(row) {
-        let nextOption = row.nextElementSibling;
-        if (nextOption) {
-            if (this.domHandler.hasClass(nextOption, 'ui-listbox-item') && nextOption.style.display == 'block')
-                return nextOption;
-            else
-                return this.findNextOption(nextOption);
-        }
-        else {
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+        
+        if (prevItem)
+            return this.domHandler.hasClass(prevItem, 'ui-state-disabled') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        else
             return null;
-        }
-    }
+    } 
     
     getFilteredOptions() {
         let filteredOptions = [];

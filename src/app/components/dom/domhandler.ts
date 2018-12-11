@@ -509,4 +509,8 @@ export class DomHandler {
             return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
         }
     }
+
+    isHidden(element: HTMLElement): boolean {
+        return element.offsetParent === null;
+    }
 }
