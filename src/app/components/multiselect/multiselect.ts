@@ -19,7 +19,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     selector: 'p-multiSelectItem',
     template: `
         <li class="ui-multiselect-item ui-corner-all" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)"
-            [style.display]="visible ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'" [ngStyle]="{'height': parent.itemSize + 'px'}"
+            [style.display]="visible ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'ui-state-highlight': selected, 'ui-state-disabled': (option.disabled || (maxSelectionLimitReached && !selected))}">
             <div class="ui-chkbox ui-widget">
                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"
@@ -41,6 +41,8 @@ export class MultiSelectItem {
     @Input() disabled: boolean;
 
     @Input() visible: boolean;
+
+    @Input() itemSize: number;
 
     @Input() template: TemplateRef<any>;
 
@@ -64,7 +66,6 @@ export class MultiSelectItem {
         });
     }
 }
-
 
 @Component({
     selector: 'p-multiSelect',
@@ -116,7 +117,7 @@ export class MultiSelectItem {
                             <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll">
                                 <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
                                     <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" 
-                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate"></p-multiSelectItem>
+                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate" [itemSize]="itemSize"></p-multiSelectItem>
                                 </ng-container>
                             </cdk-virtual-scroll-viewport>
                         </ng-template>
