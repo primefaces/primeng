@@ -86,6 +86,10 @@
     text-align: left;
 }
 
+.ui-dropdown-panel .ui-dropdown-empty-message {
+    padding: .5em;
+} 
+
 .ui-dropdown-panel .ui-dropdown-item-group {
     font-weight: bold;
     cursor: default;
