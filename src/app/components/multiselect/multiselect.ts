@@ -617,7 +617,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     onFilter() {
-        let inputValue = this.filterInputChild.nativeElement.value.trim().toLowerCase();
+        let inputValue = this.filterInputChild.nativeElement.value;
         if (inputValue && inputValue.length) {
             this.filterValue = inputValue;
             this.visibleOptions = [];
