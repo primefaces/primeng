@@ -25,6 +25,9 @@
         </ng-template>
     </p-multiSelect>
     <p>Selected Cars: {{selectedCars2}}</p>
+
+    <h3>Virtual Scroll (10000 Items)</h3>
+    <p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="34" [filter]="false"></p-multiSelect>
 </div>
 
 <div class="content-section documentation">
@@ -150,6 +153,15 @@ export class MyModel &#123;
         //Footer content
     &lt;/p-footer&gt;
 &lt;/p-multiSelect&gt;
+</code>
+</pre>
+
+            <h3>Virtual Scrolling</h3>
+            <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
+                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. Notice that filtering is not support when virtual scrolling is enabled. </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
@@ -360,6 +372,18 @@ export class MyModel &#123;
                             <td>195ms ease-in</td>
                             <td>Transition options of the hide animation.</td>
                         </tr>
+                        <tr>
+                            <td>itemSize</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of an item in the list for VirtualScrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -488,6 +512,9 @@ export class MyModel &#123;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
+
+&lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
+&lt;p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
@@ -537,6 +564,11 @@ export class MultiSelectDemo &#123;
             &#123;label: 'VW', value: 'VW'&#125;,
             &#123;label: 'Volvo', value: 'Volvo'&#125;,
         ];
+
+        this.items = [];
+        for (let i = 0; i &lt; 10000; i++) &#123;
+            this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
+        &#125;
     &#125;
 &#125;
 </code>

@@ -7,12 +7,64 @@ import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
 import { SharedModule, PrimeTemplate, Footer } from '../common/shared';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MultiSelect),
   multi: true
 };
+
+@Component({
+    selector: 'p-multiSelectItem',
+    template: `
+        <li class="ui-multiselect-item ui-corner-all" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)"
+            [style.display]="visible ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'" [ngStyle]="{'height': parent.itemSize + 'px'}"
+            [ngClass]="{'ui-state-highlight': selected, 'ui-state-disabled': (option.disabled || (maxSelectionLimitReached && !selected))}">
+            <div class="ui-chkbox ui-widget">
+                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"
+                    [ngClass]="{'ui-state-active': selected}">
+                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check': selected}"></span>
+                </div>
+            </div>
+            <label *ngIf="!itemTemplate">{{option.label}}</label>
+            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
+        </li>
+    `
+})
+export class MultiSelectItem {
+
+    @Input() option: SelectItem;
+
+    @Input() selected: boolean;
+
+    @Input() disabled: boolean;
+
+    @Input() visible: boolean;
+
+    @Input() template: TemplateRef<any>;
+
+    @Input() maxSelectionLimitReached: boolean;
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onKeydown: EventEmitter<any> = new EventEmitter();
+
+    onOptionClick(event: Event) {
+        this.onClick.emit({
+            originalEvent: event,
+            option: this.option
+        });
+    }
+
+    onOptionKeydown(event: Event) {
+        this.onKeydown.emit({
+            originalEvent: event,
+            option: this.option
+        });
+    }
+}
+
 
 @Component({
     selector: 'p-multiSelect',
@@ -52,20 +104,22 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     </a>
                     <ng-content select="p-header"></ng-content>
                 </div>
-                <div class="ui-multiselect-items-wrapper" [style.max-height]="scrollHeight||'auto'">
+                <div class="ui-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                        <li *ngFor="let option of options; let i = index" class="ui-multiselect-item ui-corner-all" (click)="onOptionClick($event,option)" (keydown)="onOptionKeydown($event,option)"
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'"
-                            [ngClass]="{'ui-state-highlight': isSelected(option.value), 'ui-state-disabled': option.disabled || (maxSelectionLimitReached && !isSelected(option.value))}">
-                            <div class="ui-chkbox ui-widget">
-                                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"
-                                    [ngClass]="{'ui-state-active': isSelected(option.value)}">
-                                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option.value)}"></span>
-                                </div>
-                            </div>
-                            <label *ngIf="!itemTemplate">{{option.label}}</label>
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
-                        </li>
+                        <ng-container *ngIf="!virtualScroll; else virtualScrollList">
+                            <ng-template ngFor let-option let-i="index" [ngForOf]="options">
+                                <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" 
+                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate"></p-multiSelectItem>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #virtualScrollList>
+                            <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll">
+                                <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
+                                    <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" 
+                                        [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate"></p-multiSelectItem>
+                                </ng-container>
+                            </cdk-virtual-scroll-viewport>
+                        </ng-template>
                     </ul>
                 </div>
                 <div class="ui-multiselect-footer ui-widget-content" *ngIf="footerFacet">
@@ -160,6 +214,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() baseZIndex: number = 0;
 
     @Input() filterBy: string = 'label';
+
+    @Input() virtualScroll: boolean;
+
+    @Input() itemSize: number; 
 
     @Input() showTransitionOptions: string = '225ms ease-out';
 
@@ -292,7 +350,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.disabled = val;
     }
     
-    onOptionClick(event, option) {
+    onOptionClick(event) {
+        let option = event.option;
         if (option.disabled) {
             return;
         }
@@ -317,7 +376,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     
         this.onModelChange(this.value);
-        this.onChange.emit({originalEvent: event, value: this.value, itemValue: value});
+        this.onChange.emit({originalEvent: event.originalEvent, value: this.value, itemValue: value});
         this.updateLabel();
         this.updateFilledState();
     }
@@ -498,12 +557,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.onModelTouched();
     }
 
-    onOptionKeydown(event:KeyboardEvent, option) {
+    onOptionKeydown(event) {
         if (this.readonly) {
             return;
         }
         
-        let item = <HTMLLIElement> event.currentTarget;
+        let item = <HTMLLIElement> event.originalEvent.currentTarget;
         
         switch(event.which) {
             //down
@@ -528,7 +587,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             
             //enter
             case 13:
-                this.onOptionClick(event, option);
+                this.onOptionClick(event);
                 event.preventDefault();
             break;
         }
@@ -719,8 +778,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule],
-    exports: [MultiSelect,SharedModule],
-    declarations: [MultiSelect]
+    imports: [CommonModule,SharedModule,ScrollingModule],
+    exports: [MultiSelect,SharedModule,ScrollingModule],
+    declarations: [MultiSelect,MultiSelectItem]
 })
 export class MultiSelectModule { }
