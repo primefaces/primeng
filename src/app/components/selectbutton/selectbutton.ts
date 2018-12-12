@@ -1,13 +1,13 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ContentChild, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SelectItem } from '../common/selectitem';
-import { ObjectUtils } from '../utils/objectutils';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ContentChild,TemplateRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SelectItem} from '../common/selectitem';
+import {ObjectUtils} from '../utils/objectutils';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SelectButton),
-    multi: true
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SelectButton),
+  multi: true
 };
 
 @Component({
@@ -30,61 +30,56 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [ObjectUtils, SELECTBUTTON_VALUE_ACCESSOR]
+    providers: [ObjectUtils,SELECTBUTTON_VALUE_ACCESSOR]
 })
 export class SelectButton implements ControlValueAccessor {
 
     @Input() tabindex: number;
 
     @Input() multiple: boolean;
-
+    
     @Input() style: any;
-
+        
     @Input() styleClass: string;
 
     @Input() disabled: boolean;
 
     @Input() dataKey: string
-
+    
     @Input() optionLabel: string;
-
+    
     @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(TemplateRef) itemTemplate;
-
+    
     value: any;
-
+    
     focusedItem: HTMLInputElement;
-
+    
     _options: any[];
-
-    onModelChange: Function = () => { };
-
-    onModelTouched: Function = () => { };
-
-    constructor(public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) { }
-
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
+    
+    constructor(public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
+    
     @Input() get options(): any[] {
         return this._options;
     }
 
     set options(val: any[]) {
-        let opts
-        if (this.itemTemplate) {
-            opts = this.objectUtils.generateSelectItems(val, this.optionLabel);
-        } else if (this.isSelectItems(val)) {
-            opts = val;
-        }
+        let opts = this.isSelectItems(val) ? val : this.objectUtils.generateSelectItems(val, this.optionLabel);
         this._options = opts;
     }
-
-    writeValue(value: any): void {
+    
+    writeValue(value: any) : void {
         this.value = value;
         this.cd.markForCheck();
     }
-
+    
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -92,7 +87,7 @@ export class SelectButton implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-
+    
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
@@ -109,60 +104,60 @@ export class SelectButton implements ControlValueAccessor {
             return false;
         }
     }
-
+    
     onItemClick(event, option: SelectItem, checkbox: HTMLInputElement, index: number) {
-        if (this.disabled || option.disabled) {
+        if(this.disabled || option.disabled) {
             return;
         }
-
+        
         checkbox.focus();
-
-        if (this.multiple) {
+        
+        if(this.multiple) {
             let itemIndex = this.findItemIndex(option);
-            if (itemIndex != -1)
-                this.value = this.value.filter((val, i) => i != itemIndex);
+            if(itemIndex != -1)
+                this.value = this.value.filter((val,i) => i!=itemIndex);
             else
-                this.value = [...this.value || [], option.value];
+                this.value = [...this.value||[], option.value];
         }
         else {
             this.value = option.value;
         }
-
+        
         this.onOptionClick.emit({
             originalEvent: event,
             option: option,
             index: index
         });
-
+        
         this.onModelChange(this.value);
-
+        
         this.onChange.emit({
             originalEvent: event,
             value: this.value
         });
     }
-
+    
     onFocus(event: Event) {
         this.focusedItem = <HTMLInputElement>event.target;
     }
-
+    
     onBlur(event) {
         this.focusedItem = null;
         this.onModelTouched();
     }
-
+    
     isSelected(option: SelectItem) {
-        if (this.multiple)
+        if(this.multiple)
             return this.findItemIndex(option) != -1;
         else
             return this.objectUtils.equals(option.value, this.value, this.dataKey);
     }
-
+    
     findItemIndex(option: SelectItem) {
         let index = -1;
-        if (this.value) {
-            for (let i = 0; i < this.value.length; i++) {
-                if (this.value[i] == option.value) {
+        if(this.value) {
+            for(let i = 0; i < this.value.length; i++) {
+                if(this.value[i] == option.value) {
                     index = i;
                     break;
                 }
