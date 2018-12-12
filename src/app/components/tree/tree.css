@@ -23,13 +23,6 @@
     padding: 0 0 0 1em;
 }
 
-.ui-tree-filter-container {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    width: 65%;
-}
-
 .ui-tree .ui-treenode {
     background-attachment: scroll;
     background-color: transparent;
