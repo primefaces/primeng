@@ -514,7 +514,7 @@ export class MyModel &#123;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
-&lt;p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="&#123;minWidth:'12em'&#125;" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
@@ -550,6 +550,10 @@ export class MultiSelectDemo &#123;
     selectedCars1: string[] = [];
     
     selectedCars2: string[] = [];
+
+    items: SelectItem[];
+
+    item: string;
 
     constructor() &#123;
         this.cars = [
