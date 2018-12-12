@@ -71,7 +71,12 @@ export class SelectButton implements ControlValueAccessor {
     }
 
     set options(val: any[]) {
-        let opts = this.isSelectItems(val) ? val : this.objectUtils.generateSelectItems(val, this.optionLabel);
+        let opts
+        if (this.itemTemplate) {
+            opts = this.objectUtils.generateSelectItems(val, this.optionLabel);
+        } else if (this.isSelectItems(val)) {
+            opts = val;
+        }
         this._options = opts;
     }
     
