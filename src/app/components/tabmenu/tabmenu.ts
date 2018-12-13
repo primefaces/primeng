@@ -2,7 +2,6 @@ import {NgModule,Component,ElementRef,Input,Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
-import {Location} from '@angular/common';
 import {RouterModule} from '@angular/router';
 
 @Component({
