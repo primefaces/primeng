@@ -62,7 +62,7 @@
         </ng-template>
     </p-dataView>
 
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '225px'}" (onAfterHide)="onDialogHide()">
         <div class="ui-g" *ngIf="selectedCar">
             <div class="ui-g-12" style="text-align:center">
                 <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
@@ -663,7 +663,7 @@ export class DataViewSortDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
+&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="&#123;width: '225px'&#125;"  (onAfterHide)="onDialogHide()"&gt;
     &lt;div class="ui-g" *ngIf="selectedCar"&gt;
         &lt;div class="ui-g-12" style="text-align:center"&gt;
             &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png"&gt;

@@ -22,7 +22,7 @@
         </ng-template>
     </p-dataGrid>
 
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [minY]="70" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [minY]="70" [modal]="true" [style]="{width: '225px'}" (onAfterHide)="onDialogHide()">
         <div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-12" style="text-align:center"><img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"></div>
@@ -396,7 +396,7 @@ loadData(event) &#123;
     &lt;/ng-template&gt;
 &lt;/p-dataGrid&gt;
 
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
+&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="&#123;width: '225px'&#125;"  (onAfterHide)="onDialogHide()"&gt;
     &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-12" style="text-align:center"&gt;&lt;img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"&gt;&lt;/div&gt;
