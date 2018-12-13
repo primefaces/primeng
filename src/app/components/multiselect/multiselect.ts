@@ -27,8 +27,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check': selected}"></span>
                 </div>
             </div>
-            <label *ngIf="!itemTemplate">{{option.label}}</label>
-            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
+            <label *ngIf="!template">{{option.label}}</label>
+            <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
     `
 })
