@@ -141,12 +141,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     onTouchEnd(event, index?:number) {
         this.dragging = false;
         
-        if (this.range) {
+        if (this.range)
             this.onSlideEnd.emit({originalEvent: event, values: this.values});
-        } 
-        else {
+        else
             this.onSlideEnd.emit({originalEvent: event, value: this.value});
-        }
         
         event.preventDefault();
     }
