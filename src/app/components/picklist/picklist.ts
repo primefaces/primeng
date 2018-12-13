@@ -20,7 +20,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showSourceFilter !== false">
-                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
+                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST,onSourceFilter)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
                     <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightSource}" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,SOURCE_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, SOURCE_LIST)">
@@ -49,7 +49,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showTargetFilter !== false">
-                    <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder">
+                    <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST,onTargetFilter)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder">
                     <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightTarget}" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,TARGET_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event,TARGET_LIST)">
@@ -142,6 +142,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Output() onSourceSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onTargetSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onSourceFilter: EventEmitter<any> = new EventEmitter();
+
+    @Output() onTargetFilter: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('sourcelist') listViewSourceChild: ElementRef;
     
@@ -282,15 +286,17 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.moveLeft();
     }
     
-    onFilter(event: KeyboardEvent, data: any[], listType: number) {
+    onFilter(event: KeyboardEvent, data: any[], listType: number, callback: EventEmitter<any>) {
         let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
-        
+
         if(listType === this.SOURCE_LIST)
             this.filterValueSource = query;
         else
             this.filterValueTarget = query;
-                
+
         this.activateFilter(data, listType);
+        
+        callback.emit(query);
     }
     
     activateFilter(data: any[], listType: number) {
