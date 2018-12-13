@@ -6,7 +6,6 @@
 
 **Implemented New Features and Enhancements:**
 
-- \[Feat Req\] Paginator - rowsPerPageOptions [\#3835](https://github.com/primefaces/primeng/issues/3835)
 - Tree and TreeTable toggle icon selects text [\#6983](https://github.com/primefaces/primeng/issues/6983)
 - Refactor OrderList/PickList keyboard navigation [\#6980](https://github.com/primefaces/primeng/issues/6980)
 - Refactor MultiSelect keyboard navigation [\#6979](https://github.com/primefaces/primeng/issues/6979)
