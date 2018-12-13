@@ -11,8 +11,7 @@ import {Subscription}   from 'rxjs';
 @Component({
     selector: 'p-confirmDialog',
     template: `
-        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" 
-            [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()"
+        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" (mousedown)="moveOnTop()"
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -73,10 +72,6 @@ export class ConfirmDialog implements OnDestroy {
     @Input() acceptButtonStyleClass: string;
     
     @Input() rejectButtonStyleClass: string;
-        
-    @Input() width: any;
-
-    @Input() height: any;
 
     @Input() positionLeft: number;
 
@@ -123,6 +118,10 @@ export class ConfirmDialog implements OnDestroy {
     subscription: Subscription;
 
     preWidth: number;
+
+    _width: any;
+
+    _height: any;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
@@ -151,10 +150,29 @@ export class ConfirmDialog implements OnDestroy {
         });         
     }
 
+    @Input() get width(): any {
+        return this._width;
+    }
+
+    set width(val:any) {
+        this._width = val;
+        console.warn("width property is deprecated, use style to define the width of the Dialog.");
+    }
+
+    @Input() get height(): any {
+        return this._height;
+    }
+
+    set height(val:any) {
+        this._height = val;
+        console.warn("height property is deprecated, use style to define the height of the Dialog.");
+    }
+
     onAnimationStart(event: AnimationEvent) {
         switch(event.toState) {
             case 'visible':
                 this.container = event.element;
+                this.setDimensions();
                 this.contentContainer = this.domHandler.findSingle(this.container, '.ui-dialog-content');
                 this.domHandler.findSingle(this.container, 'button').focus();
                 this.appendContainer();
@@ -167,6 +185,16 @@ export class ConfirmDialog implements OnDestroy {
             case 'void':
                 this.onOverlayHide();
             break;
+        }
+    }
+
+    setDimensions() {
+        if (this.width) {
+            this.container.style.width = this.width + 'px';
+        }
+
+        if (this.height) {
+            this.container.style.height = this.height + 'px';
         }
     }
 

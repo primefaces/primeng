@@ -11,7 +11,7 @@ let idx: number = 0;
     selector: 'p-dialog',
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable}"
-            [ngStyle]="style" [class]="styleClass" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" [style.minHeight.px]="minHeight"
+            [ngStyle]="style" [class]="styleClass"
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" role="dialog" [attr.aria-labelledby]="id + '-label'" *ngIf="visible">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -59,14 +59,6 @@ export class Dialog implements OnDestroy {
 
     @Input() resizable: boolean = true;
     
-    @Input() minWidth: number = 150;
-
-    @Input() minHeight: number = 150;
-
-    @Input() width: any;
-
-    @Input() height: any;
-
     @Input() positionLeft: number;
 
     @Input() positionTop: number;
@@ -172,11 +164,55 @@ export class Dialog implements OnDestroy {
     preMaximizePageX: number;
 
     preMaximizePageY: number;
+
+    _width: any;
+
+    _height: any;
+
+    _minWidth: any;
+
+    _minHeight: any;
     
     id: string = `ui-dialog-${idx++}`;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) {}
     
+    @Input() get width(): any {
+        return this._width;
+    }
+
+    set width(val:any) {
+        this._width = val;
+        console.warn("width property is deprecated, use style to define the width of the Dialog.");
+    }
+
+    @Input() get height(): any {
+        return this._height;
+    }
+
+    set height(val:any) {
+        this._height = val;
+        console.warn("height property is deprecated, use style to define the height of the Dialog.");
+    }
+
+    @Input() get minWidth(): any {
+        return this._minWidth;
+    }
+
+    set minWidth(val:any) {
+        this._minWidth = val;
+        console.warn("minWidth property is deprecated, use style to define the minWidth of the Dialog.");
+    }
+
+    @Input() get minHeight(): any {
+        return this._minHeight;
+    }
+
+    set minHeight(val:any) {
+        this._minHeight = val;
+        console.warn("minHeight property is deprecated, use style to define the minHeight of the Dialog.");
+    }
+
     focus() {
         let focusable = this.domHandler.findSingle(this.container, 'button');
         if(focusable) {
@@ -410,12 +446,14 @@ export class Dialog implements OnDestroy {
             let contentHeight = this.domHandler.getOuterHeight(this.contentViewChild.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
+            let minWidth = this.container.style.minWidth;
+            let minHeight = this.container.style.minHeight;
 
-            if (newWidth > this.minWidth) {
+            if (!minWidth || newWidth > parseInt(minWidth)) {
                 this.container.style.width = newWidth + 'px';
             }
             
-            if (newHeight > this.minHeight) {
+            if (!minHeight || newHeight > parseInt(minHeight)) {
                 this.container.style.height = newHeight + 'px';
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
             }
@@ -556,6 +594,24 @@ export class Dialog implements OnDestroy {
         }
     }
 
+    setDimensions() {
+        if (this.width) {
+            this.container.style.width = this.width + 'px';
+        }
+
+        if (this.height) {
+            this.container.style.height = this.height + 'px';
+        }
+
+        if (this.minWidth) {
+            this.container.style.minWidth = this.minWidth + 'px';
+        }
+
+        if (this.minHeight) {
+            this.container.style.minHeight = this.minHeight + 'px';
+        }
+    }
+
     appendContainer() {
         if(this.appendTo) {
             if(this.appendTo === 'body')
@@ -575,6 +631,7 @@ export class Dialog implements OnDestroy {
         switch(event.toState) {
             case 'visible':
                 this.container = event.element;
+                this.setDimensions();
                 this.onShow.emit({});
                 this.appendContainer();
                 this.moveOnTop();

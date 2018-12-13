@@ -6,8 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70" 
-        [maximizable]="true" [baseZIndex]="10000">
+    <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
         <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -62,12 +61,11 @@ export class ModelComponent &#123;
             <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
             
-            <h3>Width</h3>
-            <p>When the content of the dialog is fluid, dialog width may grow unexpectedly, in this case define a fixed width to the dialog
-                or the content.</p>
+            <h3>Dimensions</h3>
+            <p>Use style property to define the dimensions of the Dialog.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog header="Title" [(visible)]="display" [width]="300"&gt;
+&lt;p-dialog header="Title" [(visible)]="display" [style]="&#123;width: '300px', height: '200px'&#125;"&gt;
     Content
 &lt;/p-dialog&gt;
 </code>
@@ -181,25 +179,25 @@ export class ModelComponent &#123;
                             <td>Enables resizing of the content.</td>
                         </tr>
                         <tr>
-                            <td>minWidth</td>
+                            <td>minWidth (deprecated, use style property)</td>
                             <td>number</td>
-                            <td>150</td>
+                            <td>auto</td>
                             <td>Minimum width of a resizable dialog.</td>
                         </tr>
                         <tr>
-                            <td>minHeight</td>
+                            <td>minHeight (deprecated, use style property)</td>
                             <td>number</td>
-                            <td>150</td>
+                            <td>auto</td>
                             <td>Minimum height of a resizable dialog.</td>
                         </tr>
                         <tr>
-                            <td>width</td>
+                            <td>width (deprecated, use style property)</td>
                             <td>int</td>
-                            <td>300</td>
+                            <td>auto</td>
                             <td>Width of the dialog.</td>
                         </tr>
                         <tr>
-                            <td>height</td>
+                            <td>height (deprecated, use style property)</td>
                             <td>int</td>
                             <td>auto</td>
                             <td>Height of the dialog.</td>
@@ -425,7 +423,7 @@ export class ModelComponent &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70" 
+&lt;p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="&#123;width: '350px', minWidth: '200px'&#125;" [minY]="70" 
         [maximizable]="true" [baseZIndex]="10000"&gt;
     &lt;span&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 

@@ -7,7 +7,7 @@
 </div>
 
 <div class="content-section implementation">    
-    <p-confirmDialog></p-confirmDialog>
+    <p-confirmDialog [style]="{width: '425px'}"></p-confirmDialog>
 
     <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
     
@@ -33,7 +33,7 @@ import &#123;ConfirmationService&#125; from 'primeng/api';
                     
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"&gt;&lt;/p-confirmDialog&gt;
 
 &lt;button type="text" (click)="confirm()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 </code>
@@ -161,7 +161,7 @@ export class ConfirmDialogDemo &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" #cd&gt;
+&lt;p-confirmDialog #cd header="Confirmation" icon="pi pi-exclamation-triangle"&gt;
     &lt;p-footer&gt;
         &lt;button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
         &lt;button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
@@ -252,14 +252,14 @@ export class ConfirmDialogDemo &#123;
                           <td>Visibility of the reject button.</td>
                         </tr>
                         <tr>
-                            <td>width</td>
-                            <td>int</td>
-                            <td>300</td>
+                            <td>width (deprecated, use style property)</td>
+                            <td>Number</td>
+                            <td>auto</td>
                             <td>Width of the dialog.</td>
                         </tr>
                         <tr>
-                            <td>height</td>
-                            <td>int</td>
+                            <td>height (deprecated, use style property)</td>
+                            <td>Number</td>
                             <td>auto</td>
                             <td>Height of the dialog.</td>
                         </tr>
@@ -381,7 +381,7 @@ export class ConfirmDialogDemo &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>    
-&lt;p-confirmDialog&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog [style]="&#123;width: '425px'&#125;"&gt;&lt;/p-confirmDialog&gt;
 
 &lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 
