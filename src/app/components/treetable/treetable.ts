@@ -1,7 +1,7 @@
 import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from '../common/treenode';
-import { Subject, Subscription, Observable } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { DomHandler } from '../dom/domhandler';
 import { PaginatorModule } from '../paginator/paginator';
 import { PrimeTemplate, SharedModule } from '../common/shared';
