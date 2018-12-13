@@ -1,5 +1,34 @@
 # Change Log
 
+## [7.0.1](https://github.com/primefaces/primeng/tree/7.0.1) (2018-12-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.0.0...7.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- \[Feat Req\] Paginator - rowsPerPageOptions [\#3835](https://github.com/primefaces/primeng/issues/3835)
+- Tree and TreeTable toggle icon selects text [\#6983](https://github.com/primefaces/primeng/issues/6983)
+- Refactor OrderList/PickList keyboard navigation [\#6980](https://github.com/primefaces/primeng/issues/6980)
+- Refactor MultiSelect keyboard navigation [\#6979](https://github.com/primefaces/primeng/issues/6979)
+- Refactor Listbox keyboard navigation [\#6978](https://github.com/primefaces/primeng/issues/6978)
+- Refactor deepEquals implementation of ObjectUtils [\#6977](https://github.com/primefaces/primeng/issues/6977)
+- Unnecessary save state at filtering during state restore [\#6969](https://github.com/primefaces/primeng/issues/6969)
+- Acentuation insensitive filtering for componens having filters [\#6966](https://github.com/primefaces/primeng/issues/6966)
+- Clear State Method [\#6950](https://github.com/primefaces/primeng/issues/6950)
+- Autofocus on Autocomplete [\#6942](https://github.com/primefaces/primeng/issues/6942)
+- VirtualScroller for MultiSelect [\#3952](https://github.com/primefaces/primeng/issues/3952)
+- Unitless Dialog Width-Height [\#1990](https://github.com/primefaces/primeng/issues/1990)
+
+**Fixed bugs:**
+
+- Listbox filter does not allow upper case [\#6981](https://github.com/primefaces/primeng/issues/6981)
+- SelectButton templating is not aligned with other Select components [\#6974](https://github.com/primefaces/primeng/issues/6974)
+- TableState may fail if data gets initialized before state restore [\#6968](https://github.com/primefaces/primeng/issues/6968)
+- DynamicDialogModule Could not find a declaration file for module [\#6954](https://github.com/primefaces/primeng/issues/6954)
+- Dialog without footer has extra space at the bottom [\#6850](https://github.com/primefaces/primeng/issues/6850)
+- Dropdown and MultiSelect converts filter value to lowercase [\#6779](https://github.com/primefaces/primeng/issues/6779)
+- Slider onSlideEnd does not fire on touch end [\#4173](https://github.com/primefaces/primeng/issues/4173)
+
 ## [7.0.0-rc.1](https://github.com/primefaces/primeng/tree/7.0.0-rc.1) (2018-11-27)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/6.1.7...7.0.0-rc.1)
