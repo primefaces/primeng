@@ -20,7 +20,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showSourceFilter !== false">
-                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST,onSourceFilter)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
+                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
                     <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightSource}" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,SOURCE_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, SOURCE_LIST)">
@@ -286,28 +286,22 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.moveLeft();
     }
     
-    onFilter(event: KeyboardEvent, data: any[], listType: number, callback: EventEmitter<any>) {
+    onFilter(event: KeyboardEvent, data: any[], listType: number) {
         let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
-
-        if(listType === this.SOURCE_LIST)
-            this.filterValueSource = query;
-        else
-            this.filterValueTarget = query;
-
-        this.activateFilter(data, listType);
-        
-        callback.emit(query);
-    }
-    
-    activateFilter(data: any[], listType: number) {
         let searchFields = this.filterBy.split(',');
-        
-        if(listType === this.SOURCE_LIST)
+
+        if(listType === this.SOURCE_LIST) {
+            this.filterValueSource = query;
             this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
-        else
+            this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
+        }
+        else if(listType === this.TARGET_LIST) {
+            this.filterValueTarget = query;
             this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);
+            this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
+        }
     }
-    
+        
     isItemVisible(item: any, listType: number): boolean {
         if(listType == this.SOURCE_LIST)
             return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);
