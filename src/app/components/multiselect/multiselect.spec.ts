@@ -145,6 +145,47 @@ describe('MultiSelect', () => {
 		expect(onOptionClickSpy).toBeTruthy();
 	});
 
+	it('should unselect item', () => {
+		multiselect.options = [
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
+		];
+		multiselect.selectionLimit = 3;
+		multiselect.value = [];
+		fixture.detectChanges();
+
+		const multiselectEl = fixture.debugElement.children[0].nativeElement;
+		multiselectEl.click();
+		fixture.detectChanges();
+
+		const multiselectItemEl = fixture.debugElement.queryAll(By.css('.ui-multiselect-item'));
+		expect(multiselectItemEl.length).toEqual(10);
+		const audiEl = multiselectItemEl[0];
+		const bmwEl = multiselectItemEl[1];
+		const onOptionClickSpy = spyOn(multiselect,'onOptionClick').and.callThrough();
+		bmwEl.nativeElement.click();
+		audiEl.nativeElement.click();
+		fixture.detectChanges();
+
+		expect(multiselect.value[0]).toEqual('BMW');
+		expect(multiselect.value[1]).toEqual('Audi');
+		expect(multiselect.value.length).toEqual(2);
+		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
+		expect(onOptionClickSpy).toBeTruthy();
+		audiEl.nativeElement.click();
+		fixture.detectChanges();
+
+		expect(multiselect.value.length).toEqual(1);
+	});
+
 	it('should not select disabled item', () => {
 		multiselect.options = [
 		{label: 'Audi', value: 'Audi'},
@@ -299,10 +340,15 @@ describe('MultiSelect', () => {
 		{label: 'VW', value: 'VW'},
 		{label: 'Volvo', value: 'Volvo'}
 		];
+		const onInputFocusSpy = spyOn(multiselect,"onInputFocus").and.callThrough();
+		const onInputBlur = spyOn(multiselect,"onInputBlur").and.callThrough();
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
+		const readOnlyEl = fixture.debugElement.query(By.css("input")).nativeElement;
+		readOnlyEl.dispatchEvent(new Event('focus'));
 		multiselectEl.click();
 		fixture.detectChanges();
 
+		readOnlyEl.dispatchEvent(new Event('blur'));
 		const filterInputEl = fixture.debugElement.query(By.css('.ui-inputtext')).nativeElement;
 		filterInputEl.value = "v";
 		filterInputEl.dispatchEvent(new Event('input'));
@@ -313,6 +359,8 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 		
 		expect(multiselect.value.length).toEqual(2);
+		expect(onInputFocusSpy).toHaveBeenCalled();
+		expect(onInputBlur).toHaveBeenCalled();
 	});
 
 	it('should unselect all', () => {
@@ -400,15 +448,5 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		expect(fixture.debugElement.query(By.css("div")).nativeElement.className).not.toContain("ui-multiselect-open");
-	});
-
-	it('should detect changes of defaultLabel', () => {
-		multiselect.defaultLabel = 'Initial Value';
-		fixture.detectChanges();
-		expect(multiselect.valuesAsString).toBe(multiselect.defaultLabel);
-
-		multiselect.defaultLabel = 'Second Value';
-		fixture.detectChanges();
-		expect(multiselect.valuesAsString).toBe(multiselect.defaultLabel);
 	});
 });
