@@ -20,10 +20,10 @@
     <p>Selected Modes: <span style="font-weight: bold" *ngFor="let mode of selectedModes">{{mode}} </span></p>
 
     <h3>Custom Template</h3>
-    <p-selectButton [options]="countries" [(ngModel)]="selectedCountry">
+    <p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name">
         <ng-template let-item>
             <div style="padding: .5em 1em">
-                <img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/{{item.flag}}" height="20px"/>
+                <img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/{{item.value.flag}}" height="20px"/>
                 <span>{{item.name}}</span>
             </div>
         </ng-template>
@@ -165,12 +165,15 @@ export class SelectButtonDemo &#123;
             <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
 
             <h3>Templating</h3>
-            <p>Items support templating to display custom content inside the buttons using an ng-template that receives the option as the implicit variable.</p>
+            <p>Items support templating to display custom content inside the buttons using an ng-template that receives the option as the implicit variable. Note that
+                if an arbitrary object is used as the option instead of the SelectItem API, internally they are converted to SelectItems which means in the template
+                the arbitrary object can be access using the value property.
+            </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry"&gt;
+&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
     &lt;ng-template let-item&gt;
-        &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;item.flag&#125;&#125;" /&gt;
+        &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" /&gt;
         &lt;span&gt;&#123;&#123;item.name&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-selectButton&gt;
@@ -317,10 +320,10 @@ export class SelectButtonDemo &#123;
 &lt;p&gt;Selected Modes: &lt;span style="font-weight: bold" *ngFor="let mode of selectedModes"&gt;&#123;&#123;mode&#125;&#125; &lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Custom Template&lt;/h3&gt;
-&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry"&gt;
+&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
     &lt;ng-template let-item&gt;
         &lt;div style="padding: .5em 1em"&gt;
-            &lt;img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/&#123;&#123;item.flag&#125;&#125;" height="20px"/&gt;
+            &lt;img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" height="20px"/&gt;
             &lt;span&gt;&#123;&#123;item.name&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;

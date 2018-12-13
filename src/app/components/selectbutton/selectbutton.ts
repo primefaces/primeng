@@ -22,7 +22,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                     <span class="ui-button-text ui-clickable">{{option.label||'ui-btn'}}</span>
                 </ng-container>
                 <ng-template #customcontent>
-                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option.value, index: i}"></ng-container>
+                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                 </ng-template>
                 <div class="ui-helper-hidden-accessible">
                     <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled || option.disabled">
@@ -71,7 +71,7 @@ export class SelectButton implements ControlValueAccessor {
     }
 
     set options(val: any[]) {
-        let opts = this.isSelectItems(val) ? val : this.objectUtils.generateSelectItems(val, this.optionLabel);
+        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
     }
     
@@ -90,19 +90,6 @@ export class SelectButton implements ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
-    }
-
-    isSelectItems(options) {
-        if (this.optionLabel) {
-            return false;
-        }
-        else if (options && options.length) {
-            let option = options[0];
-            return (option.hasOwnProperty('label') || option.hasOwnProperty('icon')) && option.hasOwnProperty('value');
-        }
-        else {
-            return false;
-        }
     }
     
     onItemClick(event, option: SelectItem, checkbox: HTMLInputElement, index: number) {
