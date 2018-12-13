@@ -81,6 +81,37 @@ export class TabMenuDemo &#123;
 </code>
 </pre>
 
+            <h3>Closeable Item</h3>
+            <p>TabMenu allows items to be closed, removing them from the menu. To allow specific MenuItems to be closable set the `closeable` property to true within the the menu item and then listen for the `onTabCloseClick` output on the TabMenu.</p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabMenu [model]="items" (onTabCloseClick)="tabClosed($event)"&gt;&lt;/p-tabMenu&gt;
+</code>
+</pre>
+
+            <pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TabMenuDemo &#123;
+
+    items: MenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
+            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar', closable="true"&#125;,
+            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book', closable="true"&#125;,
+            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
+            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+        ];
+    &#125;
+
+    tabClosed(event) &#123;
+        // Tab Closed Logic
+    &#125;
+&#125;
+</code>
+</pre>
+
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
