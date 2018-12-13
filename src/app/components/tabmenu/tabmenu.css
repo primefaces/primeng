@@ -35,13 +35,6 @@
     vertical-align: middle;
 }
 
-.ui-tabmenu .ui-tabmenu-close {
-    color: #848484;
-    cursor: pointer;
-    margin: 0.5em 0.5em 0 0;
-    vertical-align: -webkit-baseline-middle;
-}
-
 .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-disabled a {
      cursor: default;
-}
+} 
