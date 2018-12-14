@@ -231,8 +231,11 @@ describe('Dialog', () => {
         expect(dialog.visible).toEqual(true);
     });
 
-    it('should open with change height positionLeft and positionTop', fakeAsync(() => {
+    it('should open with change height width minWidth minHeight (deprecated)  positionLeft and positionTop', fakeAsync(() => {
         dialog.height = 250;
+        dialog.width = 250;
+        dialog.minWidth = 200;
+        dialog.minHeight = 200;
         dialog.positionLeft = 25;
         dialog.positionTop = 25;
         fixture.detectChanges();
@@ -243,6 +246,9 @@ describe('Dialog', () => {
 
         tick(300);
         expect(dialog.container.style.height).toEqual('250px');
+        expect(dialog.container.style.width).toEqual('250px');
+        expect(dialog.container.style.minWidth).toEqual('200px');
+        expect(dialog.container.style.minHeight).toEqual('200px');
         expect(dialog.container.style.left).toEqual('25px');
         expect(dialog.container.style.top).toEqual('25px');
     }));
@@ -377,4 +383,34 @@ describe('Dialog', () => {
 
         expect(closeSpy).toHaveBeenCalled();
     }));
+
+    it('should call onWindowResize when resize', fakeAsync(() => {
+		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
+		buttonEl.click();
+		const onWindowResizeSpy = spyOn(dialog,"onWindowResize").and.callThrough();
+		fixture.detectChanges();
+		
+		tick(300);
+		window.dispatchEvent(new Event('resize'));
+		fixture.detectChanges();
+		
+		expect(onWindowResizeSpy).toHaveBeenCalled();
+	}));
+
+	it('should set container height %100 with breakpoint', fakeAsync(() => {
+		dialog.breakpoint = 100000000;
+		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
+		buttonEl.click();
+		const onWindowResizeSpy = spyOn(dialog,"onWindowResize").and.callThrough();
+		fixture.detectChanges();
+
+		tick(300);
+		window.dispatchEvent(new Event('resize'));
+		fixture.detectChanges();
+		
+		const container = fixture.debugElement.query(By.css("div"));
+		expect(onWindowResizeSpy).toHaveBeenCalled();
+		expect(container.nativeElement.style.width).toEqual('100%');
+		expect(container.nativeElement.style.left).toEqual('0px');
+	}));
 });
