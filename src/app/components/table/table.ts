@@ -1153,9 +1153,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             localFiltered = true;
                             let filterMeta = this.filters[prop];
                             let filterField = prop;
-                            let filterValue = this.objectUtils.removeAccents(filterMeta.value);
+                            let filterValue = filterMeta.value;
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
-                            let dataFieldValue = this.objectUtils.removeAccents(this.objectUtils.resolveFieldData(this.value[i], filterField));
+                            let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
                             let filterConstraint = this.filterConstraints[filterMatchMode];
     
                             if (!filterConstraint(dataFieldValue, filterValue)) {
@@ -1171,7 +1171,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.removeAccents(this.objectUtils.resolveFieldData(this.value[i], globalFilterField)), this.objectUtils.removeAccents(this.filters['global'].value));
+                            globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
                             
                             if(globalMatch) {
                                 break;
