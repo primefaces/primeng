@@ -100,6 +100,14 @@
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
+            <h3>CDK</h3>
+            <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install @angular/cdk --save
+</code>
+</pre>
+
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -128,19 +136,20 @@ export interface Car &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;Injectable&#125; from 'angular2/core';
-import &#123;Http, Response&#125; from 'angular2/http';
-import &#123;Car&#125; from '../domain/car';
+import &#123; HttpClient &#125; from '@angular/common/http';
+import &#123; Injectable &#125; from '@angular/core';
+
+import &#123; Car &#125; from '../domain/car';
 
 @Injectable()
 export class CarService &#123;
 
-    constructor(private http: Http) &#123;&#125;
+    constructor(private http: HttpClient) &#123;&#125;
 
-    getCarsLarge() &#123;
-        return this.http.get('/showcase/resources/data/cars-large.json')
+    getCarsSmall() &#123;
+        return this.http.get('/showcase/resources/data/cars-small.json')
                     .toPromise()
-                    .then(res => &lt;Car[]&gt; res.json().data)
+                    .then(res => &lt;Car[]&gt; res.data)
                     .then(data => &#123; return data; &#125;);
     &#125;
 &#125;
@@ -369,7 +378,7 @@ loadData(event) &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>None.</p>
+            <p>Angular CDK.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
