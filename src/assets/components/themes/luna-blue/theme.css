@@ -141,10 +141,10 @@ body .ui-chkbox .ui-chkbox-box {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  -moz-transition: background-color 0.2s, border-color 0.2s;
-  -o-transition: background-color 0.2s, border-color 0.2s;
-  -webkit-transition: background-color 0.2s, border-color 0.2s;
-  transition: background-color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 body .ui-chkbox .ui-chkbox-box:not(.ui-state-disabled):hover {
   border-color: #1f7ed0;
@@ -153,6 +153,9 @@ body .ui-chkbox .ui-chkbox-box.ui-state-focus {
   border-color: #1f7ed0;
   background-color: #585858;
   color: #1f7ed0;
+  -webkit-box-shadow: 0 0 0 0.2em #aed3f3;
+  -moz-box-shadow: 0 0 0 0.2em #aed3f3;
+  box-shadow: 0 0 0 0.2em #aed3f3;
 }
 body .ui-chkbox .ui-chkbox-box.ui-state-active {
   border-color: #1f7ed0;
@@ -165,8 +168,8 @@ body .ui-chkbox .ui-chkbox-box.ui-state-active:not(.ui-state-disabled):hover {
   color: #ffffff;
 }
 body .ui-chkbox .ui-chkbox-box.ui-state-active.ui-state-focus {
-  border-color: #1864a6;
-  background-color: #1864a6;
+  border-color: #1f7ed0;
+  background-color: #1f7ed0;
   color: #ffffff;
 }
 body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
@@ -191,10 +194,10 @@ body .ui-radiobutton .ui-radiobutton-box {
   height: 20px;
   text-align: center;
   position: relative;
-  -moz-transition: background-color 0.2s, border-color 0.2s;
-  -o-transition: background-color 0.2s, border-color 0.2s;
-  -webkit-transition: background-color 0.2s, border-color 0.2s;
-  transition: background-color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -206,6 +209,9 @@ body .ui-radiobutton .ui-radiobutton-box.ui-state-focus {
   border-color: #1f7ed0;
   background-color: #585858;
   color: #1f7ed0;
+  -webkit-box-shadow: 0 0 0 0.2em #aed3f3;
+  -moz-box-shadow: 0 0 0 0.2em #aed3f3;
+  box-shadow: 0 0 0 0.2em #aed3f3;
 }
 body .ui-radiobutton .ui-radiobutton-box.ui-state-active {
   border-color: #1f7ed0;
@@ -221,8 +227,8 @@ body .ui-radiobutton .ui-radiobutton-box.ui-state-active:not(.ui-state-disabled)
   color: #ffffff;
 }
 body .ui-radiobutton .ui-radiobutton-box.ui-state-active.ui-state-focus {
-  border-color: #1864a6;
-  background-color: #1864a6;
+  border-color: #1f7ed0;
+  background-color: #1f7ed0;
   color: #ffffff;
 }
 body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon {
@@ -920,13 +926,13 @@ body .ui-datepicker table td > a.ui-state-active {
   color: #ffffff;
   background-color: #1f7ed0;
 }
-body .ui-datepicker table td > a.ui-state-highlight {
-  color: #ffffff;
-  background-color: #1864a6;
-}
 body .ui-datepicker table td.ui-datepicker-today a {
   background-color: #1864a6;
   color: #ffffff;
+}
+body .ui-datepicker table td.ui-datepicker-today a.ui-state-active {
+  color: #ffffff;
+  background-color: #1f7ed0;
 }
 body .ui-datepicker .ui-datepicker-buttonbar {
   border-top: 1px solid #3f3f3f;
@@ -1980,6 +1986,9 @@ body .ui-virtualscroller .ui-virtualscroller-content {
   border: 1px solid #191919;
   background-color: #323232;
   color: #dedede;
+}
+body .ui-virtualscroller .ui-virtualscroller-content .ui-virtualscroller-list li {
+  border-bottom: 1px solid #191919;
 }
 body .ui-virtualscroller .ui-virtualscroller-footer {
   background-color: #323232;
