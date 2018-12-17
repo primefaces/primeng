@@ -284,7 +284,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             if (this.paginator) {
                 this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
             }
-        }       
+            this.first = 0;
+        }
     }
 
     hasFilter() {
