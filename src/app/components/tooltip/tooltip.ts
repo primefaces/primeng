@@ -59,8 +59,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
 
     ngAfterViewInit() {
+        let isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|BlackBerry/i.test(window.navigator.userAgent)
         this.zone.runOutsideAngular(() => {
-            if (this.tooltipEvent === 'hover') {
+            if (this.tooltipEvent === 'hover' && !isMobile) {
                 this.mouseEnterListener = this.onMouseEnter.bind(this);
                 this.mouseLeaveListener = this.onMouseLeave.bind(this);
                 this.clickListener = this.onClick.bind(this);
@@ -68,7 +69,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
                 this.el.nativeElement.addEventListener('click', this.clickListener);
             }
-            else if (this.tooltipEvent === 'focus') {
+            else if (this.tooltipEvent === 'focus' || isMobile) {
                 this.focusListener = this.onFocus.bind(this);
                 this.blurListener = this.onBlur.bind(this);
                 this.el.nativeElement.addEventListener('focus', this.focusListener);
