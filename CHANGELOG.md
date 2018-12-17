@@ -1,5 +1,25 @@
 # Change Log
 
+## [7.0.3](https://github.com/primefaces/primeng/tree/7.0.3) (2018-12-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.0.2...7.0.3)
+
+**Fixed bugs:**
+
+- Global Filtering Broken in Table [\#7004](https://github.com/primefaces/primeng/issues/7004)
+
+## [7.0.2](https://github.com/primefaces/primeng/tree/7.0.2) (2018-12-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.0.1...7.0.2)
+
+**Implemented New Features and Enhancements:**
+
+- Improve Radio/Checkbox focus visuals on free themes [\#6999](https://github.com/primefaces/primeng/issues/6999)
+
+**Fixed bugs:**
+
+- Aot build not working with fullTemplateTypeCheck option [\#7001](https://github.com/primefaces/primeng/issues/7001)
+
 ## [7.0.1](https://github.com/primefaces/primeng/tree/7.0.1) (2018-12-13)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.0...7.0.1)
