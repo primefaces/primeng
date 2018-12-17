@@ -116,6 +116,18 @@ describe('OrderList', () => {
       expect(itemListEl.children.length).toEqual(10);
     });
 
+    it('should have selections by default', () => {
+      orderlist.selection = [{"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"}];
+      fixture.detectChanges();
+
+      const itemListEl = fixture.debugElement.query(By.css('ul'));
+      const bmwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[3];
+      fixture.detectChanges();
+
+      expect(orderlist.selection.length).toEqual(1);
+      expect(orderlist.selection[0].brand).toEqual("BMW");
+    });
+
     it('should call onItem click and select a item', () => {
       const onItemClickSpy = spyOn(orderlist, 'onItemClick').and.callThrough();
       const onItemTouchEndSpy = spyOn(orderlist, 'onItemTouchEnd').and.callThrough();
@@ -271,7 +283,27 @@ describe('OrderList', () => {
       expect(itemListEl.queryAll(By.css('.ui-orderlist-item'))[9].context.$implicit.brand).toEqual("BMW");
     });
 
-    it('should filter items', () => {
+    it('should show filter items by default', () => {
+      orderlist.filterBy = "brand";
+      orderlist.filterValue = "v";
+      fixture.detectChanges();
+
+      const filterEl = fixture.debugElement.query(By.css('input'));
+      fixture.detectChanges();
+
+      const itemsEl = fixture.debugElement.queryAll(By.css(".ui-orderlist-item"));
+      expect(orderlist.visibleOptions.length).toEqual(2);
+      expect(orderlist.visibleOptions[0].brand).toEqual("VW");
+      expect(orderlist.visibleOptions[1].brand).toEqual("Volvo");
+      for(let i =0; i<itemsEl.length;i++){
+        if(i==0 || i==5)
+          expect(itemsEl[i].nativeElement.style.display).toEqual("block");
+        else
+          expect(itemsEl[i].nativeElement.style.display).not.toEqual("block");
+      }
+    });
+
+    it('should show filter items', () => {
       orderlist.filterBy = "brand";
       fixture.detectChanges();
 
@@ -342,7 +374,41 @@ describe('OrderList', () => {
       fixture.detectChanges();
 
       expect(data).toBeTruthy();
-    });
+	});
+	
+	it('should not onReorder first item to top', () => {
+		fixture.detectChanges();
+
+		let data;
+		orderlist.onReorder.subscribe(value => data = value);
+		const itemListEl = fixture.debugElement.query(By.css('ul'));
+		const vwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[0];
+		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
+		const moveTopButtonEl = buttonsEl[1];
+		vwEl.nativeElement.click();
+		moveTopButtonEl.nativeElement.click();
+		fixture.detectChanges();
+  
+		expect(data).toBeTruthy();
+		expect(orderlist.value).toBeTruthy();
+	  });
+
+	  it('should not onReorder first item to up', () => {
+		fixture.detectChanges();
+
+		let data;
+		orderlist.onReorder.subscribe(value => data = value);
+		const itemListEl = fixture.debugElement.query(By.css('ul'));
+		const vwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[0];
+		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
+		const moveTopButtonEl = buttonsEl[0];
+		vwEl.nativeElement.click();
+		moveTopButtonEl.nativeElement.click();
+		fixture.detectChanges();
+  
+		expect(data).toBeTruthy();
+		expect(orderlist.value).toBeTruthy();
+	  });
 
     it('should listen onReorder in moveBottom', () => {
       const moveBottomSpy = spyOn(orderlist, 'moveBottom').and.callThrough();
@@ -359,7 +425,41 @@ describe('OrderList', () => {
       fixture.detectChanges();
 
       expect(data).toBeTruthy();
-    });
+	});
+	
+	it('should not onReorder first item to bottom', () => {
+		fixture.detectChanges();
+  
+		let data;
+		orderlist.onReorder.subscribe(value => data = value);
+		const itemListEl = fixture.debugElement.query(By.css('ul'));
+		const bmwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[9];
+		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
+		const moveBottomButtonEl = buttonsEl[3];
+		bmwEl.nativeElement.click();
+		moveBottomButtonEl.nativeElement.click();
+		fixture.detectChanges();
+  
+		expect(data).toBeTruthy();
+		expect(orderlist.value).toBeTruthy();
+	  });
+
+	  it('should not onReorder first item to down', () => {
+		fixture.detectChanges();
+  
+		let data;
+		orderlist.onReorder.subscribe(value => data = value);
+		const itemListEl = fixture.debugElement.query(By.css('ul'));
+		const bmwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[9];
+		const buttonsEl = fixture.debugElement.queryAll(By.css('button'));
+		const moveBottomButtonEl = buttonsEl[2];
+		bmwEl.nativeElement.click();
+		moveBottomButtonEl.nativeElement.click();
+		fixture.detectChanges();
+  
+		expect(data).toBeTruthy();
+		expect(orderlist.value).toBeTruthy();
+	  });
 
     it('should listen onSelectionChange in onItem', () => {
       fixture.detectChanges();
@@ -393,4 +493,31 @@ describe('OrderList', () => {
       expect(data.value[1].brand).toEqual("Volvo");
     });
 
+	it('should select item with keyboard navigation', () => {
+		const findNextItemSpy = spyOn(orderlist,"findNextItem").and.callThrough();
+		const findPrevItemSpy = spyOn(orderlist,"findPrevItem").and.callThrough();
+		fixture.detectChanges();
+
+		const itemListEl = fixture.debugElement.query(By.css('ul'));
+		const bmwEl = itemListEl.queryAll(By.css('.ui-orderlist-item'))[3].nativeElement;
+		const event: any = document.createEvent('CustomEvent');
+        event.which = 40;
+        event.initEvent('keydown');
+        bmwEl.dispatchEvent(event);
+        fixture.detectChanges();
+
+        event.which = 38;
+        bmwEl.dispatchEvent(event);
+        fixture.detectChanges();
+
+        event.which = 13;
+        bmwEl.dispatchEvent(event);
+        fixture.detectChanges();
+  
+		expect(orderlist.selection.length).toEqual(1);
+		expect(orderlist.selection[0].brand).toEqual("BMW");
+		expect(findNextItemSpy).toHaveBeenCalled();
+        expect(findPrevItemSpy).toHaveBeenCalled();
+		expect(bmwEl.className).toContain('ui-state-highlight');
+	});
 });
