@@ -641,7 +641,7 @@ describe('Listbox', () => {
     });
 
 
-    it('should select all filtered items', () => {
+    it('should select item with keyboard navigation', () => {
         listbox.options = [
             {label: 'Audi', value: 'Audi'},
             {label: 'BMW', value: 'BMW'},
