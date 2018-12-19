@@ -885,6 +885,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         
         if (this.dataType == 'date') {
             this.onModelChange(this.value);
+        } else if (this.dataType == 'timestamp') {
+            let dateValue = new Date(this.value);
+            this.onModelChange(dateValue);
         }
         else if (this.dataType == 'string') {
             if (this.isSingleSelection()) {
