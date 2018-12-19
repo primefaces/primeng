@@ -3,10 +3,19 @@
     padding: 0;
 }
 
-.ui-dynamicdialog {
-    top: 50%;
-    left: 50%;
+.ui-dynamicdialog-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.ui-dynamicdialog {}
 
 .ui-dialog .ui-dialog-titlebar {
 	padding: .5em .75em;
