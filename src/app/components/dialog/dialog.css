@@ -15,7 +15,10 @@
     align-items: center;
 }
 
-.ui-dynamicdialog {}
+
+.ui-dynamicdialog {
+    position: static;
+}
 
 .ui-dialog .ui-dialog-titlebar {
 	padding: .5em .75em;

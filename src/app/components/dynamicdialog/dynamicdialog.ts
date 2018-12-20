@@ -9,8 +9,8 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 @Component({
 	selector: 'p-dynamicDialog',
 	template: `
-		<div #mask class="ui-widget-overlay ui-dialog-mask ui-dialog-mask-scrollblocker" *ngIf="visible" (click)="onMaskClick()"></div>
-		<div class="ui-dynamicdialog-wrapper">
+        <div #mask class="ui-widget-overlay ui-dialog-mask ui-dialog-mask-scrollblocker" *ngIf="visible" (click)="onMaskClick()"></div>
+        <div class="ui-dynamicdialog-wrapper">
             <div [ngClass]="{'ui-dialog ui-dynamicdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transitionParams: config.transitionOptions || '400ms cubic-bezier(0.25, 0.8, 0.25, 1)'}}" 
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
