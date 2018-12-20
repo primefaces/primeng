@@ -60,7 +60,7 @@ import { SharedModule } from '../common/shared';
 })
 class TestBasicTableComponent {
 }
-fdescribe('Table', () => {
+describe('Table', () => {
   
     let table: Table;
     let filterTable: Table;
