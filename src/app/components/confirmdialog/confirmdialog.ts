@@ -11,7 +11,7 @@ import {Subscription}   from 'rxjs';
 @Component({
     selector: 'p-confirmDialog',
     template: `
-        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" (mousedown)="moveOnTop()"
+        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -56,6 +56,10 @@ export class ConfirmDialog implements OnDestroy {
     @Input() icon: string;
     
     @Input() message: string;
+
+    @Input() style: any;
+    
+    @Input() styleClass: string;
     
     @Input() acceptIcon: string = 'pi pi-check';
     
