@@ -27,6 +27,8 @@
     list-style-type: none;
     display: inline-block;
     vertical-align: middle;
+    display: flex;
+    align-items: center;
 }
 
 .ui-messages ul > li {
