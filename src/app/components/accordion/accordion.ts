@@ -1,8 +1,8 @@
 import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
-    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef} from '@angular/core';
+    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef, TemplateRef} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header } from '../common/shared';
+import { SharedModule, Header, PrimeTemplate } from '../common/shared';
 import { BlockableUI } from '../common/blockableui';
 import { Subscription } from 'rxjs';
 
@@ -24,8 +24,11 @@ let idx: number = 0;
         <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
             role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
-            <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
+            <div class="ui-accordion-content ui-widget-content">
                 <ng-content></ng-content>
+                <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </ng-container>
             </div>
         </div>
     `,
@@ -49,17 +52,39 @@ export class AccordionTab implements OnDestroy {
 
     @Input() disabled: boolean;
 
+    @Input() cache: boolean = true;
+
     @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     animating: boolean;
+
+    contentTemplate: TemplateRef<any>;
 
     id: string = `ui-accordiontab-${idx++}`;
 
+    loaded: boolean;
+
     constructor( @Inject(forwardRef(() => Accordion)) public accordion: Accordion) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+                
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+    }
 
     toggle(event) {
         if (this.disabled || this.animating) {
@@ -82,6 +107,7 @@ export class AccordionTab implements OnDestroy {
             }
 
             this.selected = true;
+            this.loaded = true;
             this.accordion.onOpen.emit({ originalEvent: event, index: index });
         }
 
@@ -99,10 +125,6 @@ export class AccordionTab implements OnDestroy {
             }
         }
         return index;
-    }
-
-    get lazy(): boolean {
-        return this.accordion.lazy;
     }
 
     get hasHeaderFacet(): boolean {
@@ -142,8 +164,6 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     @Input() collapseIcon: string = 'pi pi-fw pi-caret-down';
     
-    @Input() lazy: boolean;
-
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
     tabListSubscription: Subscription;
