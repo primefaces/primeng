@@ -563,51 +563,50 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             return;
         }
         
-        let item = <HTMLLIElement> event.originalEvent.currentTarget;
+        switch(event.originalEvent.which) {
         
-        switch(event.which) {
             //down
             case 40:
-                var nextItem = this.findNextItem(item);
+                var nextItem = this.findNextItem(event.originalEvent);
                 if(nextItem) {
                     nextItem.focus();
                 }
                 
-                event.preventDefault();
+                event.originalEvent.preventDefault();
             break;
             
             //up
             case 38:
-                var prevItem = this.findPrevItem(item);
+                var prevItem = this.findPrevItem(event.originalEvent);
                 if(prevItem) {
                     prevItem.focus();
                 }
                 
-                event.preventDefault();
+                event.originalEvent.preventDefault();
             break;
             
             //enter
             case 13:
                 this.onOptionClick(event);
-                event.preventDefault();
+                event.originalEvent.preventDefault();
             break;
         }
     }
     
-    findNextItem(item) {
-        let nextItem = item.nextElementSibling;
-
+    findNextItem(event) {
+        let nextItem = event.target.parentElement.nextElementSibling;
+        
         if (nextItem)
-            return this.domHandler.hasClass(nextItem, 'ui-state-disabled') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+            return this.domHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || this.domHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem.children[0]) : nextItem.children[0];
         else
             return null;
     }
 
-    findPrevItem(item) {
-        let prevItem = item.previousElementSibling;
+    findPrevItem(event) {
+        let prevItem = event.target.parentElement.previousElementSibling;
         
         if (prevItem)
-            return this.domHandler.hasClass(prevItem, 'ui-state-disabled') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+            return this.domHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem.children[0]) : prevItem.children[0];
         else
             return null;
     } 
