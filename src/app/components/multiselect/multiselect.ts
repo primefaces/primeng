@@ -237,6 +237,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
     
@@ -533,6 +535,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.disabled || this.readonly) {
             return;
         }
+
+        this.onClick.emit(event);
         
         if (!this.panelClick) {
             if (this.overlayVisible) {
