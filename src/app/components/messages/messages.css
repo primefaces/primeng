@@ -3,6 +3,7 @@
     margin: .5em 0;
     padding: 1em 1em 1em .5em;
     position: relative;
+    display: flex;
 }
 
 .ui-messages .ui-messages-icon {
@@ -27,10 +28,12 @@
     list-style-type: none;
     display: inline-block;
     vertical-align: middle;
+    display: flex;
+    align-items: center;
 }
 
 .ui-messages ul > li {
-    padding: .25em 0;
+    padding: .25em;
 }
 
 .ui-messages.ui-messages-noicon ul {
