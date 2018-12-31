@@ -403,7 +403,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return index;
     }
     
-    toggleAll(event) {
+    toggleAll(event: Event) {
         if (this.isAllChecked()) {
             this.value = [];
         }
@@ -428,7 +428,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     isAllChecked() {
         if (this.filterValue && this.filterValue.trim().length) {
-            return this.value && this.visibleOptions&&this.visibleOptions.length && this.isVisibleOptionsAllChecked();
+            return this.value && this.visibleOptions && this.visibleOptions.length && this.isAllVisibleOptionsChecked();
         }
         else {
             let optionCount = this.getEnabledOptionCount();
@@ -437,13 +437,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
 
-    isVisibleOptionsAllChecked() {
+    isAllVisibleOptionsChecked() {
         if (!this.visibleOptions) {
             return false;
         }
         else {
             for (let option of this.visibleOptions) {
-                if (!this.value.find(value => value == option.value)) {
+                if (!this.isSelected(option.value)) {
                     return false;
                 }
             }
