@@ -379,6 +379,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     visible: visible && (parent ? parent.expanded : true)
                 };
                 this.serializedValue.push(rowNode);
+                
                 if (rowNode.visible && node.expanded) {
                     this.serializeNodes(node, node.children, level + 1, rowNode.visible);
                 }
