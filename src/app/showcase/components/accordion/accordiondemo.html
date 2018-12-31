@@ -192,6 +192,30 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
 </code>
 </pre>
 
+            <h3>Lazy Loading</h3>
+            <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy
+            loaded accordionTab contents are cached by default so that upon reselection, they are not created again. You may use cache property on AccordionTab to
+            configure this behavior. A AccordionTab is specified as lazy when there is a ngTemplate with pTemplate="content" in it.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header 1"&gt;
+        Content 1
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 2"&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            Complex Content to Lazy Load
+        &lt;/ng-template&gt;
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 3"&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            Complex Content to Lazy Load
+        &lt;/ng-template&gt;
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</code>
+</pre>
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class AccordionDemo &#123;
@@ -252,12 +276,6 @@ export class AccordionDemo &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
-                            <td>lazy</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines whether the elements of an inactive panel are created on load or on demand when the panel gets selected.</td>
-                        </tr>
-                        <tr>
                             <td>activeIndex</td>
                             <td>any</td>
                             <td>null</td>
@@ -314,6 +332,12 @@ export class AccordionDemo &#123;
                             <td>string</td>
                             <td>400ms cubic-bezier(0.86, 0, 0.07, 1)</td>
                             <td>Transition options of the animation.</td>
+                        </tr>
+                        <tr>
+                            <td>cache</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether a lazy loaded panel should avoid getting loaded again on reselection.</td>
                         </tr>
                     </tbody>
                 </table>
