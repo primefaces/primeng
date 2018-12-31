@@ -121,13 +121,14 @@ export class KeyFilter implements Validator {
         }
     }
 
-
     @HostListener('paste', ['$event'])
-    onPaste(e) {
-        let clipboardData = e.clipboardData;
-        let pastedText = clipboardData.getData('text');
-        if (!this.regex.test(pastedText)) {
-            e.preventDefault();
+    onPaste(e: ClipboardEvent) {
+        const clipboardData = e.clipboardData || window['clipboardData'];
+        if (clipboardData) {
+            const pastedText = clipboardData.getData('text');
+            if (!this.regex.test(pastedText)) {
+                e.preventDefault();
+            }
         }
     }
 
