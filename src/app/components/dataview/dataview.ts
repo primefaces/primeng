@@ -187,10 +187,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     set value(val:any[]) {
         this._value = val;
         this.updateTotalRecords();
-        if (!this.lazy) {
-            if(this.hasFilter())  {     // already filters
-                this.filter(this.filterValue);
-            }
+        if (!this.lazy && this.hasFilter()) {
+            this.filter(this.filterValue);
         }
     }
 
@@ -282,6 +280,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             }
     
             if (this.paginator) {
+                this.first = 0;
                 this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
             }
         }       
