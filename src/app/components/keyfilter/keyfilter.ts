@@ -121,6 +121,16 @@ export class KeyFilter implements Validator {
         }
     }
 
+
+    @HostListener('paste', ['$event'])
+    onPaste(e) {
+        let clipboardData = e.clipboardData;
+        let pastedText = clipboardData.getData('text');
+        if (!this.regex.test(pastedText)) {
+            e.preventDefault();
+        }
+    }
+
     validate(c: AbstractControl): { [key: string]: any } {
         if(this.pValidateOnly) {
             let value = this.el.nativeElement.value;
