@@ -476,7 +476,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._columns = cols;
         this.tableService.onColumnsChange(cols);
 
-        if (this._columns && this.isStateful() && !this.columnOrderStateRestored) {
+        if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
             this.restoreColumnOrder();
         }
     }
@@ -2038,14 +2038,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (stateString) {
             let state: TableState = JSON.parse(stateString);
             let columnOrder = state.columnOrder;
-            let reorderedColumns = [];
-
             if (columnOrder) {
+                let reorderedColumns = [];
                 columnOrder.map(key => reorderedColumns.push(this.findColumnByKey(key)));
+                this.columnOrderStateRestored = true;
+                this.columns = reorderedColumns;
             }
-
-            this.columnOrderStateRestored = true;
-            this.columns = reorderedColumns;
         }
     }
 
