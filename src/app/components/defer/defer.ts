@@ -5,8 +5,6 @@ import {DomHandler} from '../dom/domhandler';
 
 @Directive({
     selector: '[pDefer]',
-    host: {
-    },
     providers: [DomHandler]
 })
 export class DeferredLoader implements AfterViewInit,OnDestroy {
@@ -22,37 +20,47 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public viewContainer: ViewContainerRef) {}
     
     ngAfterViewInit() {
-        if(this.shouldLoad()) {
+        if (this.shouldLoad()) {
             this.load();
         }
         
-        this.documentScrollListener = this.renderer.listen('window', 'scroll', () => {
-            if(this.shouldLoad()) {
-                this.load();
-                this.documentScrollListener();
-                this.documentScrollListener = null;
-            }
-        });
+        if (!this.isLoaded()) {
+            this.documentScrollListener = this.renderer.listen('window', 'scroll', () => {
+                if (this.shouldLoad()) {
+                    this.load();
+                    this.documentScrollListener();
+                    this.documentScrollListener = null;
+                }
+            });
+        }
     }
     
     shouldLoad(): boolean {
-        let rect = this.el.nativeElement.getBoundingClientRect();
-        let docElement = document.documentElement;
-        let scrollTop = (window.pageYOffset||document.documentElement.scrollTop);
-        let winHeight = docElement.clientHeight;
-        
-        return (winHeight >= rect.top);
+        if (this.isLoaded()) {
+            return false;
+        }
+        else {
+            let rect = this.el.nativeElement.getBoundingClientRect();
+            let docElement = document.documentElement;
+            let winHeight = docElement.clientHeight;
+            
+            return (winHeight >= rect.top);
+        }
     }
     
-    load(): void {     
+    load(): void { 
         this.view = this.viewContainer.createEmbeddedView(this.template);
         this.onLoad.emit();
+    }
+    
+    isLoaded() {
+        return this.view != null;
     }
             
     ngOnDestroy() {
         this.view = null;
         
-        if(this.documentScrollListener) {
+        if (this.documentScrollListener) {
             this.documentScrollListener();
         }
     }
