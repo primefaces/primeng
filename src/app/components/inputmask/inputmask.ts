@@ -45,7 +45,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         (input)="onInput($event)" (paste)="handleInputChange($event)">`,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
-        '[class.ui-inputwrapper-focus]': 'focus'
+        '[class.ui-inputwrapper-focus]': 'focus',
+        '[class.ui-inputmask]': 'true'
     },
     providers: [INPUTMASK_VALUE_ACCESSOR,DomHandler]
 })
