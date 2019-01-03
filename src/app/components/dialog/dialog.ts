@@ -563,7 +563,7 @@ export class Dialog implements OnDestroy {
         }
     }
     
-    onWindowResize(event) {
+    onWindowResize() {
         if (this.maximized) {
             return;
         }
@@ -654,6 +654,10 @@ export class Dialog implements OnDestroy {
         
                 if (this.focusOnShow) {
                     this.focus();
+                }
+
+                if (this.responsive) {
+                    this.onWindowResize();
                 }
             break;
 
