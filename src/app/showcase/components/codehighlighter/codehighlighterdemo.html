@@ -78,6 +78,27 @@ export class CodeHighlighter implements OnInit &#123;
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
+                <h3>PrismJS</h3>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install prismjs --save
+</code>
+</pre>
+
+                <p>Include the javascript and a theme css from Prism. Example for angular.json configuration of a CLI project would be as follows. Refer to the PrismJS <a href="https://prismjs.com/#basic-usage">documentation</a> for the list of available languages.</p>
+<pre>
+<code class="language-javascript" pCode ngNonBindable>
+"styles": [
+    "./node_modules/prism/themes/prism.css",
+    //...
+],
+"scripts": [
+    "node_modules/prismjs/prism.js",
+    //...
+]
+</code>
+</pre>
+
                     <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -94,7 +115,7 @@ import &#123;CodeHighlighterModule&#125; from 'primeng/codehighlighter';
 <code class="language-markup" pCode ngNonBindable>
 &lt;pre&gt;
 &lt;code class="language-css" pCode&gt;
-    .ui-datatable table &#123;
+.ui-datatable table &#123;
     border-collapse:collapse;
     width: 100%;
     table-layout: fixed;
