@@ -402,16 +402,20 @@ export class Dialog implements OnDestroy {
     
     onDrag(event: MouseEvent) {
         if (this.dragging) {
+            let containerWidth = this.domHandler.getOuterWidth(this.container);
+            let containerHeight = this.domHandler.getOuterHeight(this.container);
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
-            let leftPos = parseInt(this.container.style.left) + deltaX;
-            let topPos = parseInt(this.container.style.top) + deltaY;
+            let offset = this.domHandler.getOffset(this.container);
+            let leftPos = offset.left + deltaX;
+            let topPos = offset.top + deltaY;
+            let viewport = this.domHandler.getViewport();
 
-            if(leftPos >= this.minX) {
+            if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
                 this.container.style.left = leftPos + 'px';
             }
 
-            if(topPos >= this.minY) {
+            if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
                 this.container.style.top = topPos + 'px';
             }
 
@@ -448,12 +452,14 @@ export class Dialog implements OnDestroy {
             let newHeight = containerHeight + deltaY;
             let minWidth = this.container.style.minWidth;
             let minHeight = this.container.style.minHeight;
+            let offset = this.domHandler.getOffset(this.container);
+            let viewport = this.domHandler.getViewport();
 
-            if (!minWidth || newWidth > parseInt(minWidth)) {
+            if ((!minWidth || newWidth > parseInt(minWidth)) && (offset.left + newWidth) < viewport.width) {
                 this.container.style.width = newWidth + 'px';
             }
             
-            if (!minHeight || newHeight > parseInt(minHeight)) {
+            if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
                 this.container.style.height = newHeight + 'px';
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
             }
@@ -463,7 +469,7 @@ export class Dialog implements OnDestroy {
         }
     }
     
-    onResizeEnd(event: MouseEvent) {
+    onResizeEnd() {
         if (this.resizing) {
             this.resizing = false;
             this.domHandler.removeClass(document.body, 'ui-unselectable-text');
