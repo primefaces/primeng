@@ -20,7 +20,7 @@ import {BlockableUI} from '../common/blockableui';
                 </span>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
-                <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" pButton (click)="clear()" [disabled]="!hasFiles() || uploading"></button>
             
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -36,7 +36,9 @@ import {BlockableUI} from '../common/blockableui';
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
                             <div>{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
-                            <div><button type="button" icon="pi pi-times" pButton (click)="remove($event,i)"></button></div>
+                            <div>
+                                <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading"></button>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="fileTemplate">
@@ -146,6 +148,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     public toolbarTemplate: TemplateRef<any>;
 
     focus: boolean;
+
+    uploading: boolean;
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
@@ -301,6 +305,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
             });
         }
         else {
+            this.uploading = true;
             this.msgs = [];
             let xhr = new XMLHttpRequest(),
             formData = new FormData();
@@ -332,6 +337,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
                         this.onError.emit({xhr: xhr, files: this.files});
 
                     this.clear();
+                    this.uploading = false;
                 }
             };
 
