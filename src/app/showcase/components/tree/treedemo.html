@@ -46,7 +46,7 @@
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-3">
             <h4>Files</h4>
-            <p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" dragdropScope="files"></p-tree>
+            <p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2" ></p-tree>
         </div>
 
         <div class="ui-g-12 ui-md-1" style="text-align:center">
@@ -55,7 +55,7 @@
 
         <div class="ui-g-12 ui-md-3">
             <h4>Server 1</h4>
-            <p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" dragdropScope="files"></p-tree>
+            <p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true"  droppableScope="server1" draggableScope="files"></p-tree>
         </div>
 
         <div class="ui-g-12 ui-md-1" style="text-align:center">
@@ -64,7 +64,7 @@
 
         <div class="ui-g-12 ui-md-3">
             <h4>Server 2</h4>
-            <p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" dragdropScope="other"></p-tree>
+            <p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true"  droppableScope="server2" draggableScope="server1"></p-tree>
         </div>
 
         <div class="ui-g-12 ui-md-1">
@@ -829,7 +829,7 @@ onDrop(event) {
 &lt;div class="ui-g ui-fluid"&gt;
     &lt;div class="ui-g-12 ui-md-3"&gt;
         &lt;h4&gt;Files&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" dragdropScope="files"&gt;&lt;/p-tree&gt;
+        &lt;p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
@@ -838,7 +838,7 @@ onDrop(event) {
 
     &lt;div class="ui-g-12 ui-md-3"&gt;
         &lt;h4&gt;Server 1&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" dragdropScope="files"&gt;&lt;/p-tree&gt;
+        &lt;p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
@@ -847,7 +847,7 @@ onDrop(event) {
 
     &lt;div class="ui-g-12 ui-md-3"&gt;
         &lt;h4&gt;Server 2&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" dragdropScope="other"&gt;&lt;/p-tree&gt;
+        &lt;p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
     &lt;div class="ui-g-12 ui-md-1"&gt;
