@@ -32,7 +32,7 @@
         <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
             <tr>
                 <td [attr.colspan]="columns.length + 1">
-                    <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                    <div class="ui-g ui-fluid" style="font-size:16px;padding:20px" [@rowExpansionTrigger]="'active'">
                         <div class="ui-g-12 ui-md-3" style="text-align:center">
                             <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
                         </div>
@@ -68,6 +68,22 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './tablerowexpansiondemo.html',
+    animations: [
+        trigger('rowExpansionTrigger', [
+            state('void', style(&#123;
+                transform: 'translateX(-10%)',
+                opacity: 0
+            &#125;)),
+            state('active', style(&#123;
+                transform: 'translateX(0)',
+                opacity: 1
+            &#125;)),
+            transition('* &lt;=&gt; *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        ])
+    ]
+&#125;)
 export class TableRowExpansionDemo implements OnInit &#123;
 
     cars: Car[];
