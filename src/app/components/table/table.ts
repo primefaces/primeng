@@ -3409,7 +3409,24 @@ export class TableHeaderCheckbox  {
 
     updateCheckedState() {
         const val = this.dt.filteredValue||this.dt.value;
-        return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
+        if (!this.dt.filteredValue) 
+            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
+        else 
+            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.isAllFilteredValuesChecked())
+    }
+
+    isAllFilteredValuesChecked() {
+        if (!this.dt.filteredValue) {
+            return false;
+        }
+        else {
+            for (let rowData of this.dt.filteredValue) {
+                if (!this.dt.isSelected(rowData)) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
    
 }
