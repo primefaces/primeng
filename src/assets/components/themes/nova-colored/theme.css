@@ -3037,6 +3037,10 @@ body .ui-menubar {
 body .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
   padding: 0.714em 0.857em;
 }
+body .ui-menubar .ui-menubar-root-list > .ui-menu-separator {
+  border: 1px solid #c8c8c8;
+  border-width: 0 0 0 1px;
+}
 body .ui-menubar .ui-submenu-list {
   padding: 0;
   background-color: #ffffff;
