@@ -719,7 +719,7 @@ body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item:hover,
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item:hover,
 body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-  color: #dedede;
+  color: #1f7ed0;
 }
 body .ui-editor-container .ql-snow.ql-toolbar button:hover .ql-stroke,
 body .ui-editor-container .ql-snow .ql-toolbar button:hover .ql-stroke,
@@ -745,7 +745,7 @@ body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-m
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
 body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
-  stroke: #dedede;
+  stroke: #1f7ed0;
 }
 body .ui-rating a {
   text-align: center;
