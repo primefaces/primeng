@@ -62,8 +62,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Input() dragdrop: boolean;
     
-    @Input() dragdropScope: string;
-
     @Input() controlsPosition: string = 'left';
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
@@ -313,13 +311,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         (<HTMLLIElement> event.target).blur();
         this.dragging = true;
         this.draggedItemIndex = index;
-        if (this.dragdropScope) {
-            event.dataTransfer.setData("text", this.dragdropScope);
-        }
     }
     
     onDragOver(event: DragEvent, index: number) {
-        if (this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
+        if (this.dragging && this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
             this.dragOverItemIndex = index;
             event.preventDefault();
         }
