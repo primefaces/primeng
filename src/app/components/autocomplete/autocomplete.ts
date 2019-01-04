@@ -207,6 +207,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     documentResizeListener: any;
 
+    forceSelectionUpdateModelTimeout: any;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
@@ -368,6 +370,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     }
 
     selectItem(option: any, focus: boolean = true) {
+        if (this.forceSelectionUpdateModelTimeout) {
+            clearTimeout(this.forceSelectionUpdateModelTimeout);
+            this.forceSelectionUpdateModelTimeout = null;
+        }
+
         if (this.multiple) {
             this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
@@ -593,7 +600,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
                     let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if (itemValue && inputValue === itemValue.trim()) {
                         valid = true;
-                        this.selectItem(suggestion, false);
+                        this.forceSelectionUpdateModelTimeout = setTimeout(() => {
+                            this.selectItem(suggestion, false);
+                        }, 250);
                         break;
                     }
                 }
