@@ -1243,8 +1243,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 return false;
             }
 
-            let filterValue = filter.toLowerCase();
-            return value.toString().toLowerCase().slice(0, filterValue.length) === filterValue;
+            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
+
+            return stringValue.slice(0, filterValue.length) === filterValue;
         },
 
         contains(value, filter): boolean {
@@ -1256,7 +1258,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 return false;
             }
 
-            return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
+
+            return stringValue.indexOf(filterValue) !== -1;
         },
 
         endsWith(value, filter): boolean {
@@ -1268,8 +1273,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 return false;
             }
 
-            let filterValue = filter.toString().toLowerCase();
-            return value.toString().toLowerCase().indexOf(filterValue, value.toString().length - filterValue.length) !== -1;
+            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
+
+            return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
         },
 
         equals(value, filter): boolean {
@@ -1284,7 +1291,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (value.getTime && filter.getTime)
                 return value.getTime() === filter.getTime();
             else
-                return value.toString().toLowerCase() == filter.toString().toLowerCase();
+                return ObjectUtils.removeAccents(value.toString()).toLowerCase() == ObjectUtils.removeAccents(filter.toString()).toLowerCase();
         },
 
         notEquals(value, filter): boolean {
@@ -1299,7 +1306,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (value.getTime && filter.getTime)
                 return value.getTime() !== filter.getTime();
             else
-                return value.toString().toLowerCase() != filter.toString().toLowerCase();
+                return ObjectUtils.removeAccents(value.toString()).toLowerCase() != ObjectUtils.removeAccents(filter.toString()).toLowerCase();
         },
 
         in(value, filter: any[]): boolean {
