@@ -22,6 +22,7 @@ export interface LocaleSettings {
     monthNamesShort: string[];
     today: string;
     clear: string;
+    dateFormat?: string;
 }
 
 @Component({
@@ -328,7 +329,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
         today: 'Today',
-        clear: 'Clear'
+        clear: 'Clear',
+        dateFormat: 'mm/dd/yy'
     };
     
     @Input() tabindex: number;
@@ -814,7 +816,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 formattedValue = this.formatTime(date);
             }
             else {
-                formattedValue = this.formatDate(date, this.dateFormat);
+                formattedValue = this.formatDate(date, this.getDateFormat());
                 if (this.showTime) {
                     formattedValue += ' ' + this.formatTime(date);
                 }
@@ -1466,12 +1468,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.populateTime(date, parts[0], parts[1]);
         }
         else {
+            const dateFormat = this.getDateFormat();
             if (this.showTime) {
-                date = this.parseDate(parts[0], this.dateFormat);
+                date = this.parseDate(parts[0], dateFormat);
                 this.populateTime(date, parts[1], parts[2]);
             }
             else {
-                 date = this.parseDate(text, this.dateFormat);
+                 date = this.parseDate(text, dateFormat);
             }
         }
         
@@ -1651,6 +1654,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+
+    getDateFormat() {
+        return this.dateFormat || this.locale.dateFormat;
     }
     
     // Ported from jquery-ui datepicker formatDate
