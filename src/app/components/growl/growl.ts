@@ -26,8 +26,7 @@ import {Subscription}   from 'rxjs';
                 </div>
             </div>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class Growl implements AfterViewInit,DoCheck,OnDestroy {
 
@@ -69,7 +68,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     
     closeIconClick: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, @Optional() public messageService: MessageService, private zone: NgZone) {
+    constructor(public el: ElementRef, public differs: IterableDiffers, @Optional() public messageService: MessageService, private zone: NgZone) {
         this.differ = differs.find([]).create(null);
         
         if(messageService) {
@@ -136,7 +135,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         if(this.autoZIndex) {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
-        this.domHandler.fadeIn(this.containerViewChild.nativeElement, 250);
+        DomHandler.fadeIn(this.containerViewChild.nativeElement, 250);
         
         if(!this.sticky) {
             this.initTimeout();
@@ -158,7 +157,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         
     remove(index: number, msgel: any) {      
         this.closeIconClick = true;  
-        this.domHandler.fadeOut(msgel, 250);
+        DomHandler.fadeOut(msgel, 250);
         
         setTimeout(() => {
             this.preventRerender = true;
@@ -176,7 +175,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     
     removeAll() {
         if(this.value && this.value.length) {            
-            this.domHandler.fadeOut(this.containerViewChild.nativeElement, 250);
+            DomHandler.fadeOut(this.containerViewChild.nativeElement, 250);
             
             setTimeout(() => {                
                 this.value.forEach((msg,index) => this.onClose.emit({message:this.value[index]}));

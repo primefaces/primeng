@@ -29,8 +29,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class OverlayPanel implements OnDestroy {
 
@@ -74,7 +73,7 @@ export class OverlayPanel implements OnDestroy {
 
     documentResizeListener: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
         
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {
@@ -140,7 +139,7 @@ export class OverlayPanel implements OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
-                this.domHandler.appendChild(this.container, this.appendTo);
+                DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -159,9 +158,9 @@ export class OverlayPanel implements OnDestroy {
                 if (this.autoZIndex) {
                     this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                 }
-                this.domHandler.absolutePosition(this.container, this.target);
-                if (this.domHandler.getOffset(this.container).top < this.domHandler.getOffset(this.target).top) {
-                    this.domHandler.addClass(this.container, 'ui-overlaypanel-flipped');
+                DomHandler.absolutePosition(this.container, this.target);
+                if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.target).top) {
+                    DomHandler.addClass(this.container, 'ui-overlaypanel-flipped');
                 }
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();

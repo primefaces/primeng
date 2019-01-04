@@ -39,8 +39,7 @@ import {ObjectUtils} from '../utils/objectutils';
                 </ul>
             </div>
         </div>
-    `,
-    providers: [DomHandler,ObjectUtils]
+    `
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
     
@@ -100,7 +99,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     public _value: any[];
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef) {}
 
     get selection(): any[] {
         return this._selection;
@@ -126,7 +125,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
          
     ngAfterViewChecked() {
         if (this.movedUp||this.movedDown) {
-            let listItems = this.domHandler.find(this.listViewChild.nativeElement, 'li.ui-state-highlight');
+            let listItems = DomHandler.find(this.listViewChild.nativeElement, 'li.ui-state-highlight');
             let listItem;
             
             if (listItems.length > 0) {
@@ -135,7 +134,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 else
                     listItem = listItems[listItems.length - 1];
                 
-                this.domHandler.scrollInView(this.listViewChild.nativeElement, listItem);
+                DomHandler.scrollInView(this.listViewChild.nativeElement, listItem);
             }
             this.movedUp = false;
             this.movedDown = false;
@@ -155,7 +154,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 
     onItemClick(event, item, index) {
         this.itemTouched = false;
-        let selectedIndex = this.objectUtils.findIndexInList(item, this.selection);
+        let selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
         let selected = (selectedIndex != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
@@ -167,7 +166,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             }
             else {
                 this._selection = (metaKey) ? this._selection ? [...this._selection] : [] : [];            
-                this.objectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
+                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
             }
         }
         else {
@@ -176,7 +175,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             }
             else {
                 this._selection = this._selection ? [...this._selection] : [];
-                this.objectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
+                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
             }
         }
                 
@@ -199,7 +198,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
-        this.visibleOptions = this.objectUtils.filter(this.value, searchFields, this.filterValue);
+        this.visibleOptions = ObjectUtils.filter(this.value, searchFields, this.filterValue);
     }
     
     isItemVisible(item: any): boolean {
@@ -220,14 +219,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     isSelected(item: any) {
-        return this.objectUtils.findIndexInList(item, this.selection) != -1;
+        return ObjectUtils.findIndexInList(item, this.selection) != -1;
     }
         
     moveUp(event) {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = this.value[selectedItemIndex];
@@ -249,7 +248,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];
@@ -269,7 +268,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value[selectedItemIndex];
@@ -291,7 +290,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];
@@ -326,7 +325,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     onDrop(event: DragEvent, index: number) {
         let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
-        this.objectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
+        ObjectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
         this.dragOverItemIndex = null;
         this.onReorder.emit(event);
         event.preventDefault();
@@ -384,7 +383,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         let nextItem = item.nextElementSibling;
 
         if (nextItem)
-            return !this.domHandler.hasClass(nextItem, 'ui-orderlist-item') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+            return !DomHandler.hasClass(nextItem, 'ui-orderlist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else
             return null;
     }
@@ -393,7 +392,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         let prevItem = item.previousElementSibling;
         
         if (prevItem)
-            return !this.domHandler.hasClass(prevItem, 'ui-orderlist-item') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+            return !DomHandler.hasClass(prevItem, 'ui-orderlist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else
             return null;
     } 

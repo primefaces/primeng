@@ -1,6 +1,5 @@
 import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
 import {PrimeTemplate} from '../common/shared';
 import {RouterModule} from '@angular/router';
@@ -33,8 +32,7 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ul>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class TabMenu implements AfterContentInit {
 

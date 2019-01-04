@@ -2,7 +2,6 @@ import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,Ev
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {ObjectUtils} from '../utils/objectutils';
 import {BlockableUI} from '../common/blockableui';
 
 @Component({
@@ -27,8 +26,7 @@ import {BlockableUI} from '../common/blockableui';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `,
-    providers: [ObjectUtils]
+    `
 })
 export class VirtualScroller implements AfterContentInit,BlockableUI {
 
@@ -72,7 +70,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     page: number = 0;
 
-    constructor(public el: ElementRef, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef) {}
 
     @Input() get totalRecords(): number {
         return this._totalRecords;

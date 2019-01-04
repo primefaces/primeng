@@ -63,7 +63,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
             <div class="ui-editor-content" [ngStyle]="style"></div>
         </div>
     `,
-    providers: [DomHandler,EDITOR_VALUE_ACCESSOR]
+    providers: [EDITOR_VALUE_ACCESSOR]
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
         
@@ -101,11 +101,11 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     quill: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
-        let editorElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
-        let toolbarElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
+        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
+        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
         let defaultModule  = {toolbar: toolbarElement};
         let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
 

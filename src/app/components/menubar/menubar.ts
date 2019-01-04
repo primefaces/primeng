@@ -2,7 +2,6 @@ import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDete
 import { CommonModule } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
 import { MenuItem } from '../common/menuitem';
-import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -32,8 +31,7 @@ import { RouterModule } from '@angular/router';
                 </li>
             </ng-template>
         </ul>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class MenubarSub implements OnDestroy {
 
@@ -59,7 +57,7 @@ export class MenubarSub implements OnDestroy {
     
     activeMenu: any;
 
-    constructor(public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef) { }
+    constructor(public renderer: Renderer2, private cd: ChangeDetectorRef) { }
 
     onItemMenuClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (!this.autoDisplay) {
@@ -77,12 +75,12 @@ export class MenubarSub implements OnDestroy {
                 }
 
                 if (this.root) {
-                    sublist.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
+                    sublist.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
                     sublist.style.left = '0px'
                 }
                 else {
                     sublist.style.top = '0px';
-                    sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+                    sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
                 }
             }
 
@@ -123,12 +121,12 @@ export class MenubarSub implements OnDestroy {
                 sublist.style.zIndex = String(++DomHandler.zindex);
 
                 if (this.root) {
-                    sublist.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
+                    sublist.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
                     sublist.style.left = '0px'
                 }
                 else {
                     sublist.style.top = '0px';
-                    sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+                    sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
                 }
             }
   
@@ -192,8 +190,7 @@ export class MenubarSub implements OnDestroy {
                 <ng-content></ng-content>
             </div>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class Menubar {
 
@@ -209,7 +206,7 @@ export class Menubar {
 
     @Input() baseZIndex: number = 0;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) { }
+    constructor(public el: ElementRef, public renderer: Renderer2) { }
 }
 
 @NgModule({

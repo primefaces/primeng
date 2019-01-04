@@ -10,8 +10,7 @@ import {DomHandler} from '../dom/domhandler';
         '[class.ui-state-default]': 'true',
         '[class.ui-widget]': 'true',
         '[class.ui-state-filled]': 'filled'
-    },
-    providers: [DomHandler]
+    }
 })
 export class Password implements OnDestroy,DoCheck {
 
@@ -33,7 +32,7 @@ export class Password implements OnDestroy,DoCheck {
     
     filled: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public el: ElementRef, public zone: NgZone) {}
     
     ngDoCheck() {
         this.updateFilledState();
@@ -59,7 +58,7 @@ export class Password implements OnDestroy,DoCheck {
         this.info.textContent = this.promptLabel;
         this.panel.appendChild(this.meter);
         this.panel.appendChild(this.info);
-        this.panel.style.minWidth = this.domHandler.getOuterWidth(this.el.nativeElement) + 'px';
+        this.panel.style.minWidth = DomHandler.getOuterWidth(this.el.nativeElement) + 'px';
         document.body.appendChild(this.panel);
     }
         
@@ -73,10 +72,10 @@ export class Password implements OnDestroy,DoCheck {
             this.panel.style.zIndex = String(++DomHandler.zindex);
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    this.domHandler.addClass(this.panel, 'ui-password-panel-visible');
-                    this.domHandler.removeClass(this.panel, 'ui-password-panel-hidden');
+                    DomHandler.addClass(this.panel, 'ui-password-panel-visible');
+                    DomHandler.removeClass(this.panel, 'ui-password-panel-hidden');
                 }, 1);
-                this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
+                DomHandler.absolutePosition(this.panel, this.el.nativeElement);
             });
         }
     }
@@ -84,8 +83,8 @@ export class Password implements OnDestroy,DoCheck {
     @HostListener('blur', ['$event']) 
     onBlur(e) {   
         if (this.feedback) {
-            this.domHandler.addClass(this.panel, 'ui-password-panel-hidden');
-            this.domHandler.removeClass(this.panel, 'ui-password-panel-visible');
+            DomHandler.addClass(this.panel, 'ui-password-panel-hidden');
+            DomHandler.removeClass(this.panel, 'ui-password-panel-visible');
 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {

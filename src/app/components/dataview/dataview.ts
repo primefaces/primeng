@@ -4,7 +4,6 @@ import {ObjectUtils} from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/blockableui';
-import {SelectItem} from '../common/selectitem';
 
 @Component({
     selector: 'p-dataView',
@@ -35,8 +34,7 @@ import {SelectItem} from '../common/selectitem';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `,
-    providers: [ObjectUtils]
+    `
 })
 export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
@@ -110,7 +108,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     initialized: boolean;
     
-    constructor(public el: ElementRef, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef) {}
 
     ngOnInit() {
         if(this.lazy) {
@@ -223,8 +221,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         }
         else if (this.value) {
             this.value.sort((data1, data2) => {
-                let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
-                let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
+                let value1 = ObjectUtils.resolveFieldData(data1, this.sortField);
+                let value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
                 let result = null;
 
                 if (value1 == null && value2 != null)
@@ -273,7 +271,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = this.objectUtils.filter(this.value, searchFields, filter);
+            this.filteredValue = ObjectUtils.filter(this.value, searchFields, filter);
     
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;

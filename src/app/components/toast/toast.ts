@@ -47,8 +47,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                 }))
             ])
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
 
@@ -136,8 +135,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                 query('@*', animateChild())
             ])
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
@@ -175,7 +173,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     mask: HTMLDivElement;
     
-    constructor(public messageService: MessageService, public domHandler: DomHandler) {}
+    constructor(public messageService: MessageService) {}
 
     ngOnInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
@@ -241,7 +239,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
             let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
-            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
+            DomHandler.addMultipleClasses(this.mask, maskStyleClass);
             document.body.appendChild(this.mask);
         }
     }

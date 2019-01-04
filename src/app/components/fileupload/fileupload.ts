@@ -56,8 +56,7 @@ import {BlockableUI} from '../common/blockableui';
             <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                 (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
 
@@ -153,7 +152,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
-    constructor(private el: ElementRef, public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
+    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone){}
 
     ngOnInit() {
         this.files = [];
@@ -396,7 +395,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     onDragOver(e) {
         if(!this.disabled) {
-            this.domHandler.addClass(this.content.nativeElement, 'ui-fileupload-highlight');
+            DomHandler.addClass(this.content.nativeElement, 'ui-fileupload-highlight');
             this.dragHighlight = true;
             e.stopPropagation();
             e.preventDefault();
@@ -405,13 +404,13 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     onDragLeave(event) {
         if(!this.disabled) {
-            this.domHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
+            DomHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
         }
     }
 
     onDrop(event) {
         if(!this.disabled) {
-            this.domHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
+            DomHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
             event.stopPropagation();
             event.preventDefault();
 

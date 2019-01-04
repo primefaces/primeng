@@ -76,8 +76,7 @@ import {ObjectUtils} from '../utils/objectutils';
                 </div>
             </div>
         </div>
-    `,
-    providers: [DomHandler,ObjectUtils]
+    `
 })
 export class PickList implements AfterViewChecked,AfterContentInit {
 
@@ -201,7 +200,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -219,7 +218,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         
     ngAfterViewChecked() {
         if(this.movedUp||this.movedDown) {
-            let listItems = this.domHandler.find(this.reorderedListElement, 'li.ui-state-highlight');
+            let listItems = DomHandler.find(this.reorderedListElement, 'li.ui-state-highlight');
             let listItem;
             
             if(this.movedUp)
@@ -227,7 +226,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             else
                 listItem = listItems[listItems.length - 1];
             
-            this.domHandler.scrollInView(this.reorderedListElement, listItem);
+            DomHandler.scrollInView(this.reorderedListElement, listItem);
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
@@ -290,12 +289,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
         if(listType === this.SOURCE_LIST) {
             this.filterValueSource = query;
-            this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
+            this.visibleOptionsSource = ObjectUtils.filter(data, searchFields, this.filterValueSource);
             this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
         }
         else if(listType === this.TARGET_LIST) {
             this.filterValueTarget = query;
-            this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);
+            this.visibleOptionsTarget = ObjectUtils.filter(data, searchFields, this.filterValueTarget);
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
     }
@@ -569,7 +568,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.insert(this.draggedItemIndexTarget, this.target, index, this.source, this.onMoveToSource);
                 }
                 else {
-                    this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
+                    ObjectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
                     this.onSourceReorder.emit({items: this.source[this.draggedItemIndexSource]});
                 }
 
@@ -580,7 +579,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.insert(this.draggedItemIndexSource, this.source, index, this.target, this.onMoveToTarget);
                 }
                 else {
-                    this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
+                    ObjectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
                     this.onTargetReorder.emit({items: this.target[this.draggedItemIndexTarget]});
                 }
                     
@@ -705,7 +704,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         let nextItem = item.nextElementSibling;
 
         if (nextItem)
-            return !this.domHandler.hasClass(nextItem, 'ui-picklist-item') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+            return !DomHandler.hasClass(nextItem, 'ui-picklist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else
             return null;
     }
@@ -714,7 +713,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         let prevItem = item.previousElementSibling;
         
         if (prevItem)
-            return !this.domHandler.hasClass(prevItem, 'ui-picklist-item') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+            return !DomHandler.hasClass(prevItem, 'ui-picklist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else
             return null;
     } 

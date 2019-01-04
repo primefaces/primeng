@@ -1,11 +1,9 @@
 import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,Input,TemplateRef,EmbeddedViewRef,
         ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
 
 @Directive({
-    selector: '[pDefer]',
-    providers: [DomHandler]
+    selector: '[pDefer]'
 })
 export class DeferredLoader implements AfterViewInit,OnDestroy {
         
@@ -17,7 +15,7 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
     
     view: EmbeddedViewRef<any>;
             
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public viewContainer: ViewContainerRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef) {}
     
     ngAfterViewInit() {
         if (this.shouldLoad()) {

@@ -56,7 +56,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       </div>
     </div>
   `,
-    providers: [DomHandler, ObjectUtils, LISTBOX_VALUE_ACCESSOR]
+    providers: [LISTBOX_VALUE_ACCESSOR]
 })
 export class Listbox implements AfterContentInit, ControlValueAccessor {
 
@@ -118,14 +118,14 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerCheckboxFocus: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     @Input() get options(): any[] {
         return this._options;
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
     }
     
@@ -303,7 +303,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     }
 
     removeOption(option: any): void {
-        this.value = this.value.filter(val => !this.objectUtils.equals(val, option.value, this.dataKey));
+        this.value = this.value.filter(val => !ObjectUtils.equals(val, option.value, this.dataKey));
     }
 
     isSelected(option: SelectItem) {
@@ -312,7 +312,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         if (this.multiple) {
             if (this.value) {
                 for (let val of this.value) {
-                    if (this.objectUtils.equals(val, option.value, this.dataKey)) {
+                    if (ObjectUtils.equals(val, option.value, this.dataKey)) {
                         selected = true;
                         break;
                     }
@@ -320,7 +320,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             }
         }
         else {
-            selected = this.objectUtils.equals(this.value, option.value, this.dataKey);
+            selected = ObjectUtils.equals(this.value, option.value, this.dataKey);
         }
 
         return selected;
@@ -400,15 +400,15 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     isItemVisible(option: SelectItem): boolean {
         if (this.filterValue) {
             let visible;
-            let filterText = this.objectUtils.removeAccents(this.filterValue).toLowerCase();
+            let filterText = ObjectUtils.removeAccents(this.filterValue).toLowerCase();
 
             switch (this.filterMode) {
                 case 'startsWith':
-                    visible = this.objectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) === 0;
+                    visible = ObjectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) === 0;
                     break;
 
                 case 'contains':
-                    visible = this.objectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) > -1;
+                    visible = ObjectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) > -1;
                     break;
 
                 default:
@@ -470,7 +470,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let nextItem = item.nextElementSibling;
 
         if (nextItem)
-            return this.domHandler.hasClass(nextItem, 'ui-state-disabled') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+            return DomHandler.hasClass(nextItem, 'ui-state-disabled') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else
             return null;
     }
@@ -479,7 +479,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let prevItem = item.previousElementSibling;
         
         if (prevItem)
-            return this.domHandler.hasClass(prevItem, 'ui-state-disabled') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+            return DomHandler.hasClass(prevItem, 'ui-state-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else
             return null;
     } 

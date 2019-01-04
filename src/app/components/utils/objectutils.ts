@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
 import {SelectItem} from '../common/selectitem';
 
-@Injectable()
 export class ObjectUtils {
 
-    public equals(obj1: any, obj2: any, field?: string): boolean {
+    public static equals(obj1: any, obj2: any, field?: string): boolean {
         if (field)
             return (this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field));
         else
             return this.equalsByValue(obj1, obj2);
     }
 
-    public equalsByValue(obj1: any, obj2: any): boolean {
+    public static equalsByValue(obj1: any, obj2: any): boolean {
         if (obj1 === obj2) return true;
 
         if (obj1 && obj2 && typeof obj1 == 'object' && typeof obj2 == 'object') {
@@ -61,7 +59,7 @@ export class ObjectUtils {
         return obj1 !== obj1 && obj2 !== obj2;
     }
 
-    public resolveFieldData(data: any, field: any): any {
+    public static resolveFieldData(data: any, field: any): any {
         if(data && field) {
             if (this.isFunction(field)) {
                 return field(data);
@@ -86,9 +84,11 @@ export class ObjectUtils {
         }
     }
 
-    private isFunction = (obj: any) => !!(obj && obj.constructor && obj.call && obj.apply);
+    public static isFunction(obj: any) {
+        return !!(obj && obj.constructor && obj.call && obj.apply);
+    }
 
-    public filter(value: any[], fields: any[], filterValue: string) {
+    public static filter(value: any[], fields: any[], filterValue: string) {
         let filteredItems: any[] = [];
         let filterText = this.removeAccents(filterValue).toLowerCase();
 
@@ -107,7 +107,7 @@ export class ObjectUtils {
         return filteredItems;
     }
 
-    public reorderArray(value: any[], from: number, to: number) {
+    public static reorderArray(value: any[], from: number, to: number) {
         let target: number;
         if(value && (from !== to)) {
             if(to >= value.length) {
@@ -120,7 +120,7 @@ export class ObjectUtils {
         }
     }
 
-    public generateSelectItems(val: any[], field: string): SelectItem[] {
+    public static generateSelectItems(val: any[], field: string): SelectItem[] {
         let selectItems: SelectItem[];
         if(val && val.length) {
             selectItems = [];
@@ -132,7 +132,7 @@ export class ObjectUtils {
         return selectItems;
     }
 
-    public insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
+    public static insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
         if(arr.length > 0) {
             let injected = false;
             for(let i = 0; i < arr.length; i++) {
@@ -153,7 +153,7 @@ export class ObjectUtils {
         }
     }
 
-    public findIndexInList(item: any, list: any): number {
+    public static findIndexInList(item: any, list: any): number {
         let index: number = -1;
 
         if(list) {
@@ -168,7 +168,7 @@ export class ObjectUtils {
         return index;
     }
 
-    public removeAccents(str) {
+    public static removeAccents(str) {
         if (str && str.search(/[\xC0-\xFF]/g) > -1) {
             str = str
                     .replace(/[\xC0-\xC5]/g, "A")

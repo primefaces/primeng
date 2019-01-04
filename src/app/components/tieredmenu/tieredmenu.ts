@@ -33,8 +33,7 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ng-template>
         </ul>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class TieredMenuSub {
 
@@ -48,7 +47,7 @@ export class TieredMenuSub {
 
     @Input() hideDelay: number = 250;
 
-    constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu, public domHandler: DomHandler) {}
+    constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
     
     activeItem: HTMLLIElement;
 
@@ -74,7 +73,7 @@ export class TieredMenuSub {
             sublist.style.zIndex = String(++DomHandler.zindex);
                         
             sublist.style.top = '0px';
-            sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+            sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
         }
     }
     
@@ -132,8 +131,7 @@ export class TieredMenuSub {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class TieredMenu implements OnDestroy {
 
@@ -169,7 +167,7 @@ export class TieredMenu implements OnDestroy {
 
     visible: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2) {}
     
     toggle(event) {
         if (this.visible)
@@ -193,7 +191,7 @@ export class TieredMenu implements OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.appendOverlay();
-                    this.domHandler.absolutePosition(this.container, this.target);
+                    DomHandler.absolutePosition(this.container, this.target);
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                 }
@@ -210,7 +208,7 @@ export class TieredMenu implements OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
-                this.domHandler.appendChild(this.container, this.appendTo);
+                DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 

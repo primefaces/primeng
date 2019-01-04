@@ -33,8 +33,7 @@ import {CommonModule} from '@angular/common';
                 </ul>
             </div>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
@@ -100,7 +99,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     differ: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -181,14 +180,14 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
             this.stopAutoplay();
         }
         
-        this.items = this.domHandler.find(this.itemsViewChild.nativeElement, 'li');
+        this.items = DomHandler.find(this.itemsViewChild.nativeElement, 'li');
         this.calculateColumns();
         this.calculateItemWidths();
 
         this.setPage(Math.floor(this.firstVisible / this.columns), true);
 
         if(!this.responsive) {
-            this.containerViewChild.nativeElement.style.width = (this.domHandler.width(this.containerViewChild.nativeElement)) + 'px';
+            this.containerViewChild.nativeElement.style.width = (DomHandler.width(this.containerViewChild.nativeElement)) + 'px';
         }
         
         if(this.autoplayInterval) {
@@ -206,7 +205,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         let firstItem = (this.items && this.items.length) ? this.items[0] : null;
         if(firstItem) {
             for (let i = 0; i < this.items.length; i++) {
-                this.items[i].style.width = ((this.domHandler.innerWidth(this.viewportViewChild.nativeElement) - (this.domHandler.getHorizontalMargin(firstItem) * this.columns)) / this.columns) + 'px';
+                this.items[i].style.width = ((DomHandler.innerWidth(this.viewportViewChild.nativeElement) - (DomHandler.getHorizontalMargin(firstItem) * this.columns)) / this.columns) + 'px';
             }
         }
     }
@@ -247,7 +246,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     setPage(p, enforce?: boolean) {
         if(p !== this.page || enforce) {
             this.page = p;
-            this.left = (-1 * (this.domHandler.innerWidth(this.viewportViewChild.nativeElement) * this.page));
+            this.left = (-1 * (DomHandler.innerWidth(this.viewportViewChild.nativeElement) * this.page));
             this.firstVisible = this.page * this.columns;
             this.onPage.emit({
                 page: this.page

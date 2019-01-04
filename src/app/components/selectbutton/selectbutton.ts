@@ -31,7 +31,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [ObjectUtils,SELECTBUTTON_VALUE_ACCESSOR]
+    providers: [SELECTBUTTON_VALUE_ACCESSOR]
 })
 export class SelectButton implements ControlValueAccessor {
 
@@ -65,14 +65,14 @@ export class SelectButton implements ControlValueAccessor {
     
     onModelTouched: Function = () => {};
     
-    constructor(public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef) {}
     
     @Input() get options(): any[] {
         return this._options;
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
     }
     
@@ -138,7 +138,7 @@ export class SelectButton implements ControlValueAccessor {
         if(this.multiple)
             return this.findItemIndex(option) != -1;
         else
-            return this.objectUtils.equals(option.value, this.value, this.dataKey);
+            return ObjectUtils.equals(option.value, this.value, this.dataKey);
     }
     
     findItemIndex(option: SelectItem) {
