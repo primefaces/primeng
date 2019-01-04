@@ -107,8 +107,6 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     @Input() dragdrop: boolean;
     
-    @Input() dragdropScope: string;
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -533,30 +531,29 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         (<HTMLLIElement> event.target).blur();
         this.dragging = true;
         this.fromListType = listType;
+
         if(listType === this.SOURCE_LIST)
             this.draggedItemIndexSource = index;
         else
             this.draggedItemIndexTarget = index;
-                        
-        if(this.dragdropScope) {
-            event.dataTransfer.setData("text", this.dragdropScope);
-        }
     }
     
     onDragOver(event: DragEvent, index: number, listType: number) {
-        if(listType == this.SOURCE_LIST) {
-            if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === this.TARGET_LIST)) {
-                this.dragOverItemIndexSource = index;
-                event.preventDefault();
+        if (this.dragging) {
+            if(listType == this.SOURCE_LIST) {
+                if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === this.TARGET_LIST)) {
+                    this.dragOverItemIndexSource = index;
+                    event.preventDefault();
+                }
             }
-        }
-        else {
-            if(this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index || (this.fromListType === this.SOURCE_LIST)) {
-                this.dragOverItemIndexTarget = index;
-                event.preventDefault();
+            else {
+                if(this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index || (this.fromListType === this.SOURCE_LIST)) {
+                    this.dragOverItemIndexTarget = index;
+                    event.preventDefault();
+                }
             }
+            this.onListItemDroppoint = true;
         }
-        this.onListItemDroppoint = true;
     }
     
     onDragLeave(event: DragEvent, listType: number) {
@@ -638,21 +635,23 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             let offsetY = moveListType.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
             let bottomDiff = (offsetY + moveListType.nativeElement.clientHeight) - event.pageY;
             let topDiff = (event.pageY - offsetY);
+
             if(bottomDiff < 25 && bottomDiff > 0)
                 moveListType.nativeElement.scrollTop += 15;
             else if(topDiff < 25 && topDiff > 0)
                 moveListType.nativeElement.scrollTop -= 15;
+
+            if(listType === this.SOURCE_LIST) {
+                if(this.fromListType === this.TARGET_LIST)
+                    this.listHighlightSource = true;
+            }
+            else {
+                if(this.fromListType === this.SOURCE_LIST)
+                    this.listHighlightTarget = true;
+            }
+            
+            event.preventDefault();
         }
-        
-        if(listType === this.SOURCE_LIST) {
-            if(this.fromListType === this.TARGET_LIST)
-                this.listHighlightSource = true;
-        }
-        else {
-            if(this.fromListType === this.SOURCE_LIST)
-                this.listHighlightTarget = true;
-        }
-        event.preventDefault();
     }
     
     onListDragLeave() {
