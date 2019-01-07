@@ -36,6 +36,9 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, SOURCE_LIST)" (drop)="onDrop($event, i + 1, SOURCE_LIST)" (dragleave)="onDragLeave($event, SOURCE_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
                     </ng-template>
+                    <ng-container *ngIf="source == null || source.length === 0">
+                        <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate"></ng-container>
+                    </ng-container>
                 </ul>
             </div>
             <div class="ui-picklist-buttons">
@@ -65,6 +68,9 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, TARGET_LIST)" (drop)="onDrop($event, i + 1, TARGET_LIST)" (dragleave)="onDragLeave($event, TARGET_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
                     </ng-template>
+                    <ng-container *ngIf="target == null || target.length === 0">
+                        <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate"></ng-container>
+                    </ng-container>
                 </ul>
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
@@ -196,6 +202,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     listHighlightSource: boolean;
 
+    emptyMessageSourceTemplate: TemplateRef<any>;
+
+    emptyMessageTargetTemplate: TemplateRef<any>;
+
     readonly SOURCE_LIST = -1;
 
     readonly TARGET_LIST = 1;
@@ -208,6 +218,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
+
+                case 'emptymessagesource':
+                    this.emptyMessageSourceTemplate = item.template;
+                break;
+
+                case 'emptymessagetarget':
+                    this.emptyMessageTargetTemplate = item.template;
+                    break;
                 
                 default:
                     this.itemTemplate = item.template;
