@@ -61,7 +61,6 @@ export class MenubarSub implements OnDestroy {
 
     onItemMenuClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (!this.autoDisplay) {
-            debugger;
             if (menuitem.disabled) {
                 return;
             }
