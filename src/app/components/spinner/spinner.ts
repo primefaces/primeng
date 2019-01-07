@@ -1,7 +1,6 @@
 import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
-import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SPINNER_VALUE_ACCESSOR: any = {
@@ -32,7 +31,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
+    providers: [SPINNER_VALUE_ACCESSOR]
 })
 export class Spinner implements OnInit,ControlValueAccessor {
     
@@ -92,7 +91,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
 
     @Input() set decimalSeparator(value: string) {
         console.warn("decimalSeparator property is removed Spinner as Spinner does not format the value anymore.");

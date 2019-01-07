@@ -29,8 +29,7 @@ import {DomHandler} from '../dom/domhandler';
                 <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
             </div>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         
@@ -88,7 +87,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     public initialized: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
     
     ngAfterViewChecked() {
         if(this.imagesChanged) {
@@ -110,12 +109,12 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
-        this.panelWrapper = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-galleria-panel-wrapper');
+        this.panelWrapper = DomHandler.findSingle(this.el.nativeElement, 'ul.ui-galleria-panel-wrapper');
         this.initialized = true;
         
         if(this.showFilmstrip) {
-            this.stripWrapper = this.domHandler.findSingle(this.container,'div.ui-galleria-filmstrip-wrapper');
-            this.strip = this.domHandler.findSingle(this.stripWrapper,'ul.ui-galleria-filmstrip');
+            this.stripWrapper = DomHandler.findSingle(this.container,'div.ui-galleria-filmstrip-wrapper');
+            this.strip = DomHandler.findSingle(this.stripWrapper,'ul.ui-galleria-filmstrip');
         }
         
         if(this.images && this.images.length) {
@@ -124,18 +123,18 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
     
     render() {
-        this.panels = this.domHandler.find(this.panelWrapper, 'li.ui-galleria-panel'); 
+        this.panels = DomHandler.find(this.panelWrapper, 'li.ui-galleria-panel'); 
         
         if(this.showFilmstrip) {
-            this.frames = this.domHandler.find(this.strip,'li.ui-galleria-frame');
-            this.stripWrapper.style.width = this.domHandler.width(this.panelWrapper) - 50 + 'px';
+            this.frames = DomHandler.find(this.strip,'li.ui-galleria-frame');
+            this.stripWrapper.style.width = DomHandler.width(this.panelWrapper) - 50 + 'px';
             this.stripWrapper.style.height = this.frameHeight + 'px';
         }
         
         if(this.showCaption) {
-            this.caption = this.domHandler.findSingle(this.container,'div.ui-galleria-caption');
-            this.caption.style.bottom = this.showFilmstrip ? this.domHandler.getOuterHeight(this.stripWrapper,true) + 'px' : 0 + 'px';
-            this.caption.style.width = this.domHandler.width(this.panelWrapper) + 'px';
+            this.caption = DomHandler.findSingle(this.container,'div.ui-galleria-caption');
+            this.caption.style.bottom = this.showFilmstrip ? DomHandler.getOuterHeight(this.stripWrapper,true) + 'px' : 0 + 'px';
+            this.caption.style.width = DomHandler.width(this.panelWrapper) + 'px';
         }
    
         if(this.autoPlay) {
@@ -180,7 +179,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             this.stopSlideshow();
         }
         
-        this.select(this.domHandler.index(frame), false);
+        this.select(DomHandler.index(frame), false);
     }
     
     prev() {
@@ -204,7 +203,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             let oldPanel = this.panels[this.activeIndex],
             newPanel = this.panels[index];
             
-            this.domHandler.fadeIn(newPanel, this.effectDuration);
+            DomHandler.fadeIn(newPanel, this.effectDuration);
             
             if(this.showFilmstrip) {
                 let oldFrame = this.frames[this.activeIndex],
@@ -217,7 +216,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
                     frameViewportLeft = frameLeft + stripLeft,
                     frameViewportRight = frameViewportLeft + this.frameWidth;
                     
-                    if(frameViewportRight > this.domHandler.width(this.stripWrapper))
+                    if(frameViewportRight > DomHandler.width(this.stripWrapper))
                         this.stripLeft -= stepFactor;
                     else if(frameViewportLeft < 0)
                         this.stripLeft += stepFactor;

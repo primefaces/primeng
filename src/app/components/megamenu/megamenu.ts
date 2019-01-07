@@ -2,7 +2,6 @@ import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,Renderer2} from
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
-import {Location} from '@angular/common';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -66,8 +65,7 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ul>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class MegaMenu {
 
@@ -87,7 +85,7 @@ export class MegaMenu {
 
     hideTimeout: any;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2) {}
     
     onItemMouseEnter(event, item, menuitem: MenuItem) {
         if(menuitem.disabled) {
@@ -109,12 +107,12 @@ export class MegaMenu {
                 }
 
                 if (this.orientation === 'horizontal') {
-                    submenu.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
+                    submenu.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
                     submenu.style.left = '0px';
                 }
                 else if (this.orientation === 'vertical') {
                     submenu.style.top = '0px';
-                    submenu.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+                    submenu.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
                 }
             }
         }

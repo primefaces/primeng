@@ -25,7 +25,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon pi pi-fw pi-times" (click)="removeItem(token)" *ngIf="!disabled"></span>
-                    <span *ngIf="!selectedItemTemplate" class="ui-autocomplete-token-label">{{field ? objectUtils.resolveFieldData(val, field): val}}</span>
+                    <span *ngIf="!selectedItemTemplate" class="ui-autocomplete-token-label">{{resolveFieldData(val)}}</span>
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: val}"></ng-container>
                 </li>
                 <li class="ui-autocomplete-input-token">
@@ -41,7 +41,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                     <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
-                        <span *ngIf="!itemTemplate">{{field ? objectUtils.resolveFieldData(option, field) : option}}</span>
+                        <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
                     </li>
                     <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
@@ -67,7 +67,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus && !disabled'
     },
-    providers: [DomHandler,ObjectUtils,AUTOCOMPLETE_VALUE_ACCESSOR]
+    providers: [AUTOCOMPLETE_VALUE_ACCESSOR]
 })
 export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,ControlValueAccessor {
 
@@ -207,7 +207,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     documentResizeListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
+    forceSelectionUpdateModelTimeout: any;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
 
@@ -242,9 +244,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
         if (this.highlightOptionChanged) {
             setTimeout(() => {
-                let listItem = this.domHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+                let listItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
                 if (listItem) {
-                    this.domHandler.scrollInView(this.overlay, listItem);
+                    DomHandler.scrollInView(this.overlay, listItem);
                 }
             }, 1);
             this.highlightOptionChanged = false;
@@ -332,6 +334,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         if (value.length === 0) {
            this.hide();
            this.onClear.emit(event);
+	   this.onModelChange(value);
         }
 
         if (value.length >= this.minLength) {
@@ -368,6 +371,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     }
 
     selectItem(option: any, focus: boolean = true) {
+        if (this.forceSelectionUpdateModelTimeout) {
+            clearTimeout(this.forceSelectionUpdateModelTimeout);
+            this.forceSelectionUpdateModelTimeout = null;
+        }
+
         if (this.multiple) {
             this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
@@ -377,7 +385,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
             }
         }
         else {
-            this.inputEL.nativeElement.value = this.field ? this.objectUtils.resolveFieldData(option, this.field)||'': option;
+            this.inputEL.nativeElement.value = this.field ? ObjectUtils.resolveFieldData(option, this.field)||'': option;
             this.value = option;
             this.onModelChange(this.value);
         }
@@ -430,10 +438,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
             if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                DomHandler.appendChild(this.overlay, this.appendTo);
 
-            this.overlay.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+            this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
         }
+    }
+
+    resolveFieldData(value) {
+        return this.field ? ObjectUtils.resolveFieldData(value, this.field): value;
     }
 
     restoreOverlayAppend() {
@@ -444,9 +456,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     alignOverlay() {
         if (this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
+            DomHandler.absolutePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
         else
-            this.domHandler.relativePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
+            DomHandler.relativePosition(this.overlay, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
     }
 
     hide() {
@@ -476,7 +488,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     }
 
     removeItem(item: any) {
-        let itemIndex = this.domHandler.index(item);
+        let itemIndex = DomHandler.index(item);
         let removedValue = this.value[itemIndex];
         this.value = this.value.filter((val, i) => i!=itemIndex);
         this.onModelChange(this.value);
@@ -586,10 +598,12 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
             if (this.suggestions)  {
                 for (let suggestion of this.suggestions) {
-                    let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
+                    let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if (itemValue && inputValue === itemValue.trim()) {
                         valid = true;
-                        this.selectItem(suggestion, false);
+                        this.forceSelectionUpdateModelTimeout = setTimeout(() => {
+                            this.selectItem(suggestion, false);
+                        }, 250);
                         break;
                     }
                 }
@@ -618,7 +632,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         let selected: boolean = false;
         if (this.value && this.value.length) {
             for (let i = 0; i < this.value.length; i++) {
-                if (this.objectUtils.equals(this.value[i], val, this.dataKey)) {
+                if (ObjectUtils.equals(this.value[i], val, this.dataKey)) {
                     selected = true;
                     break;
                 }
@@ -631,7 +645,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         let index: number = -1;
         if (this.suggestions) {
             for (let i = 0; i < this.suggestions.length; i++) {
-                if (this.objectUtils.equals(option, this.suggestions[i])) {
+                if (ObjectUtils.equals(option, this.suggestions[i])) {
                     index = i;
                     break;
                 }
@@ -649,7 +663,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     }
 
     updateInputField() {
-        let formattedValue = this.value ? (this.field ? this.objectUtils.resolveFieldData(this.value, this.field)||'' : this.value) : '';
+        let formattedValue = this.value ? (this.field ? ObjectUtils.resolveFieldData(this.value, this.field)||'' : this.value) : '';
         this.inputFieldValue = formattedValue;
 
         if (this.inputEL && this.inputEL.nativeElement) {

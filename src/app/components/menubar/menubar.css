@@ -2,10 +2,6 @@
     padding: .25em;
 }
 
-.ui-menubar .ui-menu-separator {
-    border-width: 1px 0 0 0;
-}
-
 .ui-menubar:after {
     content: "";
     clear: both;
@@ -49,6 +45,12 @@
 
 .ui-menubar .ui-menubar-root-list > li ul {
     display: none;
+}
+
+.ui-menubar .ui-menubar-root-list > .ui-menu-separator {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.5em;
 }
 
 .ui-menubar .ui-submenu-list {

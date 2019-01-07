@@ -8,7 +8,6 @@ import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
-import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-treeNode',
@@ -83,8 +82,7 @@ import {DomHandler} from '../dom/domhandler';
                 </tbody>
             </table>
         </ng-template>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class UITreeNode implements OnInit {
 
@@ -102,7 +100,7 @@ export class UITreeNode implements OnInit {
 
     @Input() lastChild: boolean;
 
-    constructor(@Inject(forwardRef(() => Tree)) public tree:Tree, public domHandler: DomHandler) {}
+    constructor(@Inject(forwardRef(() => Tree)) public tree:Tree) {}
 
     draghoverPrev: boolean;
 

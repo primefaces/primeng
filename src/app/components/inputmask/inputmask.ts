@@ -47,7 +47,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [INPUTMASK_VALUE_ACCESSOR,DomHandler]
+    providers: [INPUTMASK_VALUE_ACCESSOR]
 })
 export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
@@ -135,10 +135,10 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     focus: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
 
     ngOnInit() {
-        let ua = this.domHandler.getUserAgent();
+        let ua = DomHandler.getUserAgent();
         this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
 
         this.initMask();
@@ -392,7 +392,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             pos,
             begin,
             end;
-        let iPhone = /iphone/i.test(this.domHandler.getUserAgent());
+        let iPhone = /iphone/i.test(DomHandler.getUserAgent());
         this.oldVal = this.inputViewChild.nativeElement.value;
 
         //backspace, delete, and escape get special treatment
@@ -452,7 +452,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                     this.writeBuffer();
                     next = this.seekNext(p);
 
-                    if(/android/i.test(this.domHandler.getUserAgent())){
+                    if(/android/i.test(DomHandler.getUserAgent())){
                         //Path for CSP Violation on FireFox OS 1.1
                         let proxy = () => {
                             this.caret(next);

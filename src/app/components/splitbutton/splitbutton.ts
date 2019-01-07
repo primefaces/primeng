@@ -48,8 +48,7 @@ import {RouterModule} from '@angular/router';
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class SplitButton implements OnDestroy {
 
@@ -101,7 +100,7 @@ export class SplitButton implements OnDestroy {
 
     documentResizeListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
                 
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
@@ -156,9 +155,9 @@ export class SplitButton implements OnDestroy {
 
     alignOverlay() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+            DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
         else
-            this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+            DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
     }
 
     appendOverlay() {
@@ -166,9 +165,9 @@ export class SplitButton implements OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                DomHandler.appendChild(this.overlay, this.appendTo);
 
-            this.overlay.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+            this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
         }
     }
 

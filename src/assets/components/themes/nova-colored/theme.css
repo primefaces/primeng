@@ -719,7 +719,7 @@ body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item:hover,
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item:hover,
 body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-  color: #5ab7ff;
+  color: #e02365;
 }
 body .ui-editor-container .ql-snow.ql-toolbar button:hover .ql-stroke,
 body .ui-editor-container .ql-snow .ql-toolbar button:hover .ql-stroke,
@@ -745,7 +745,7 @@ body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-m
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
 body .ui-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
 body .ui-editor-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
-  stroke: #5ab7ff;
+  stroke: #e02365;
 }
 body .ui-rating a {
   text-align: center;
@@ -3036,6 +3036,10 @@ body .ui-menubar {
 }
 body .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
   padding: 0.714em 0.857em;
+}
+body .ui-menubar .ui-menubar-root-list > .ui-menu-separator {
+  border: 1px solid #c8c8c8;
+  border-width: 0 0 0 1px;
 }
 body .ui-menubar .ui-submenu-list {
   padding: 0;

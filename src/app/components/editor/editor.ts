@@ -63,7 +63,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
             <div class="ui-editor-content" [ngStyle]="style"></div>
         </div>
     `,
-    providers: [DomHandler,EDITOR_VALUE_ACCESSOR]
+    providers: [EDITOR_VALUE_ACCESSOR]
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
         
@@ -80,6 +80,14 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     @Input() placeholder: string;
     
     @Input() formats: string[];
+
+    @Input() modules: any;
+
+    @Input() bounds: Element;
+
+    @Input() scrollingContainer: Element;
+
+    @Input() debug: string;
     
     @Output() onInit: EventEmitter<any> = new EventEmitter();
     
@@ -93,20 +101,23 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     quill: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
-        let editorElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
-        let toolbarElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
-        
+        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
+        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
+        let defaultModule  = {toolbar: toolbarElement};
+        let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
+
         this.quill = new Quill(editorElement, {
-          modules: {
-              toolbar: toolbarElement
-          },
+          modules: modules,
           placeholder: this.placeholder,
           readOnly: this.readonly,
           theme: 'snow',
-          formats: this.formats
+          formats: this.formats,
+          bounds: this.bounds,
+          debug: this.debug,
+          scrollingContainer: this.scrollingContainer
         });
                 
         if(this.value) {

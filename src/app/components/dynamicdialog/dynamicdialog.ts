@@ -40,8 +40,7 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
             })),
             transition('* => *', animate('{{transitionParams}}'))
         ])
-	],
-	providers: [DomHandler]
+	]
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
@@ -62,7 +61,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	documentEscapeListener: Function;
 
 	constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, private domHandler: DomHandler, public zone: NgZone) { }
+			public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone) { }
 
 	ngAfterViewInit() {
 		this.loadChildComponent(this.childComponentType);
@@ -85,29 +84,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 		this.componentRef = viewContainerRef.createComponent(componentFactory);
 	}
-
-	positionOverlay() {		
-		//this.center();
-    }
-    
-    center() {
-        let elementWidth = this.domHandler.getOuterWidth(this.container);
-        let elementHeight = this.domHandler.getOuterHeight(this.container);
-        if(elementWidth == 0 && elementHeight == 0) {
-            this.container.style.visibility = 'hidden';
-            this.container.style.display = 'block';
-            elementWidth = this.domHandler.getOuterWidth(this.container);
-            elementHeight = this.domHandler.getOuterHeight(this.container);
-            this.container.style.display = 'none';
-            this.container.style.visibility = 'visible';
-        }
-        let viewport = this.domHandler.getViewport();
-        let x = Math.max(Math.floor((viewport.width - elementWidth) / 2), 0);
-        let y = Math.max(Math.floor((viewport.height - elementHeight) / 2), 0);
-
-        this.container.style.left = x + 'px';
-        this.container.style.top = y + 'px';
-	}
 	
 	moveOnTop() {
         if (this.config.autoZIndex !== false) {
@@ -122,9 +98,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 			case 'visible':
 				this.container = event.element;
 				this.moveOnTop();
-				this.positionOverlay();
 				this.bindGlobalListeners();
-				this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+				DomHandler.addClass(document.body, 'ui-overflow-hidden');
 			break;
 
 			case 'void':
@@ -140,7 +115,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	}
 
 	onContainerDestroy() {
-		this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+		DomHandler.removeClass(document.body, 'ui-overflow-hidden');
 		this.unbindGlobalListeners();
 		this.container = null;
 	}

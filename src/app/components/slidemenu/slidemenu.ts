@@ -120,8 +120,7 @@ export class SlideMenuSub implements OnDestroy {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class SlideMenu implements AfterViewChecked, OnDestroy {
 
@@ -175,7 +174,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     viewportUpdated: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2) {}
 
     ngAfterViewChecked() {
         if (!this.viewportUpdated && !this.popup && this.containerViewChild) {
@@ -197,7 +196,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     updateViewPort() {
-        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
+        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
     }
     
     toggle(event) {
@@ -222,7 +221,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
                     this.updateViewPort();
                     this.moveOnTop();
                     this.appendOverlay();
-                    this.domHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
+                    DomHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                 }
@@ -239,7 +238,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
             else
-                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+                DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
 

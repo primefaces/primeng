@@ -1,5 +1,56 @@
 # Change Log
 
+## [7.0.4](https://github.com/primefaces/primeng/tree/7.0.4) (2018-1-7)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.0.3...7.0.4)
+
+**Implemented New Features and Enhancements:**
+
+- Make DomHandler and ObjectUtils Static Utilities rather than Services [\#7073](https://github.com/primefaces/primeng/issues/7073)
+- Table HeaderCheckBox not working when Filtered row count equal to the selected row count [\#7062](https://github.com/primefaces/primeng/issues/7062)
+- Accent support in Table Filtering [\#7005](https://github.com/primefaces/primeng/issues/7005)
+- Empty message for PickList [\#6967](https://github.com/primefaces/primeng/issues/6967)
+- Performance improvements on TreeTable [\#6898](https://github.com/primefaces/primeng/issues/6898)
+- InputGroup support for InputMask [\#5783](https://github.com/primefaces/primeng/issues/5783)
+- Improve keyboard accessibility for SelectButton and ToggleButton [\#5739](https://github.com/primefaces/primeng/issues/5739)
+- MultiSelect dropdown click event [\#5701](https://github.com/primefaces/primeng/issues/5701)
+- More options for Editor [\#5695](https://github.com/primefaces/primeng/issues/5695)
+- add support for 3rd party modules to quill editor \(image drop and resize\) [\#5622](https://github.com/primefaces/primeng/issues/5622)
+- Lazy loading doesn't work on the Accordion [\#5621](https://github.com/primefaces/primeng/issues/5621)
+- using multiple lines in p-message\(s\) breaks layout [\#5614](https://github.com/primefaces/primeng/issues/5614)
+- p-calendar dateFormat into locale [\#5585](https://github.com/primefaces/primeng/issues/5585)
+- Floating label support for textarea [\#5560](https://github.com/primefaces/primeng/issues/5560)
+- Custom content support for TabMenu [\#3018](https://github.com/primefaces/primeng/issues/3018)
+- Growl should support Message's with arbitrary timeouts [\#2590](https://github.com/primefaces/primeng/issues/2590)
+
+**Fixed bugs:**
+
+- TurboTable is not properly unbinding the body scroll listener [\#7074](https://github.com/primefaces/primeng/issues/7074)
+- PickList dragdrop may conflict with other PickLists [\#7072](https://github.com/primefaces/primeng/issues/7072)
+- OrderList dragdrop may conflict with other OrderLists [\#7071](https://github.com/primefaces/primeng/issues/7071)
+- Table state not working when reorderableColumns being false [\#7057](https://github.com/primefaces/primeng/issues/7057)
+- Multiselect Header Checkbox is not working correctly [\#7047](https://github.com/primefaces/primeng/issues/7047)
+- Editor active item is not highlighted in toolbar [\#7041](https://github.com/primefaces/primeng/issues/7041)
+- Multiselect Keyboard Support Not Working [\#7039](https://github.com/primefaces/primeng/issues/7039)
+- style and styleClass for ConfirmDialog [\#7017](https://github.com/primefaces/primeng/issues/7017)
+- p-textarea resize bug when used in an overlay + tabs [\#7000](https://github.com/primefaces/primeng/issues/7000)
+- AutoComplete onSelect bug with forceSelection [\#6943](https://github.com/primefaces/primeng/issues/6943)
+- Autocomplete control does not validate properly when you empty the control [\#6934](https://github.com/primefaces/primeng/issues/6934)
+- MenuItem\#styleClass suppport for Steps [\#5805](https://github.com/primefaces/primeng/issues/5805)
+- Improve Docs for CodeHighlighter [\#5792](https://github.com/primefaces/primeng/issues/5792)
+- Advanced File Upload Defect with cancel buttons [\#5765](https://github.com/primefaces/primeng/issues/5765)
+- Primeng KeyFilter does not working well when user do Cut, Copy and Paste [\#5752](https://github.com/primefaces/primeng/issues/5752)
+- Separator causes menubar to break to new line [\#5741](https://github.com/primefaces/primeng/issues/5741)
+- "in" doesn't properly filter value of null for Table [\#5735](https://github.com/primefaces/primeng/issues/5735)
+- pDefer creates duplicate content [\#5730](https://github.com/primefaces/primeng/issues/5730)
+- Dialog can be resized/dragged outside the viewport [\#5713](https://github.com/primefaces/primeng/issues/5713)
+- Dialog doesn't render in Responsive when loaded from mobile view [\#5662](https://github.com/primefaces/primeng/issues/5662)
+- Dataview doesn't reset to first page after filtering [\#5599](https://github.com/primefaces/primeng/issues/5599)
+
+**Unit Tests:**
+
+- Table Unit Test [\#7032](https://github.com/primefaces/primeng/issues/7032)
+
 ## [7.0.3](https://github.com/primefaces/primeng/tree/7.0.3) (2018-12-14)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.2...7.0.3)

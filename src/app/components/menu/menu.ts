@@ -63,8 +63,7 @@ export class MenuItemContent {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class Menu implements OnDestroy {
 
@@ -100,7 +99,7 @@ export class Menu implements OnDestroy {
 
     visible: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2) {}
 
     toggle(event) {
         if (this.visible)
@@ -124,7 +123,7 @@ export class Menu implements OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.appendOverlay();
-                    this.domHandler.absolutePosition(this.container, this.target);
+                    DomHandler.absolutePosition(this.container, this.target);
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                 }
@@ -141,7 +140,7 @@ export class Menu implements OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
-                this.domHandler.appendChild(this.container, this.appendTo);
+                DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 

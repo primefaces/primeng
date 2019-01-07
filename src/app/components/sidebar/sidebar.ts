@@ -28,8 +28,7 @@ import {DomHandler} from '../dom/domhandler';
             transition('visible => hidden', animate('300ms ease-in')),
             transition('hidden => visible', animate('300ms ease-out'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
@@ -75,7 +74,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     executePostDisplayActions: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
         this.initialized = true;
@@ -84,7 +83,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
             else
-                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+                DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
 
         if(this.visible) {
@@ -148,7 +147,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
         if(!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
-            this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-sidebar-mask');
+            DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-sidebar-mask');
             
             if(this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -158,7 +157,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
             document.body.appendChild(this.mask);
             if(this.blockScroll) {
-                this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+                DomHandler.addClass(document.body, 'ui-overflow-hidden');
             }
         }
     }
@@ -168,7 +167,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             this.unbindMaskClickListener();
             document.body.removeChild(this.mask);
             if(this.blockScroll) {
-                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
             this.mask = null;
         }

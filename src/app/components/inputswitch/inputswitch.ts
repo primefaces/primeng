@@ -1,7 +1,6 @@
 import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
-import {DomHandler} from '../dom/domhandler';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -21,7 +20,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
             <span class="ui-inputswitch-slider"></span>
         </div>
     `,
-    providers: [INPUTSWITCH_VALUE_ACCESSOR,DomHandler]
+    providers: [INPUTSWITCH_VALUE_ACCESSOR]
 })
 export class InputSwitch implements ControlValueAccessor {
 

@@ -27,7 +27,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [ngStyle]="{'left': rangeEndLeft, 'bottom': rangeEndBottom}" [ngClass]="{'ui-slider-handle-active':handleIndex==1}"></span>
         </div>
     `,
-    providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
+    providers: [SLIDER_VALUE_ACCESSOR]
 })
 export class Slider implements OnDestroy,ControlValueAccessor {
 
@@ -89,7 +89,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     public starty: number;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
     
     onMouseDown(event:Event, index?:number) {
         if(this.disabled) {
@@ -288,8 +288,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     updateDomData(): void {
         let rect = this.el.nativeElement.children[0].getBoundingClientRect();
-        this.initX = rect.left + this.domHandler.getWindowScrollLeft();
-        this.initY = rect.top + this.domHandler.getWindowScrollTop();
+        this.initX = rect.left + DomHandler.getWindowScrollLeft();
+        this.initY = rect.top + DomHandler.getWindowScrollTop();
         this.barWidth = this.el.nativeElement.children[0].offsetWidth;
         this.barHeight = this.el.nativeElement.children[0].offsetHeight;
     }

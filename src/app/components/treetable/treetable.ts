@@ -87,7 +87,7 @@ export class TreeTableService {
             <span #reorderIndicatorDown class="pi pi-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
         </div>
     `,
-    providers: [DomHandler,ObjectUtils,TreeTableService]
+    providers: [TreeTableService]
 })
 export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI {
 
@@ -338,7 +338,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TreeTableService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
 
     @Input() get value(): any[] {
         return this._value;
@@ -379,8 +379,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     visible: visible && (parent ? parent.expanded : true)
                 };
                 this.serializedValue.push(rowNode);
-
-                this.serializeNodes(node, node.children, level + 1, rowNode.visible);
+                
+                if (rowNode.visible && node.expanded) {
+                    this.serializeNodes(node, node.children, level + 1, rowNode.visible);
+                }
             }
         }
     }
@@ -465,11 +467,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             this.selectionKeys = {};
             if(Array.isArray(this._selection)) {
                 for(let node of this._selection) {
-                    this.selectionKeys[String(this.objectUtils.resolveFieldData(node.data, this.dataKey))] = 1;
+                    this.selectionKeys[String(ObjectUtils.resolveFieldData(node.data, this.dataKey))] = 1;
                 }
             }
             else {
-                this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection.data, this.dataKey))] = 1;
+                this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection.data, this.dataKey))] = 1;
             }
         }
     }
@@ -561,8 +563,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
         else {
             nodes.sort((node1, node2) => {
-                let value1 = this.objectUtils.resolveFieldData(node1.data, this.sortField);
-                let value2 = this.objectUtils.resolveFieldData(node2.data, this.sortField);
+                let value1 = ObjectUtils.resolveFieldData(node1.data, this.sortField);
+                let value2 = ObjectUtils.resolveFieldData(node2.data, this.sortField);
                 let result = null;
 
                 if (value1 == null && value2 != null)
@@ -626,8 +628,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     multisortField(node1, node2, multiSortMeta, index) {
-        let value1 = this.objectUtils.resolveFieldData(node1.data, multiSortMeta[index].field);
-        let value2 = this.objectUtils.resolveFieldData(node2.data, multiSortMeta[index].field);
+        let value1 = ObjectUtils.resolveFieldData(node1.data, multiSortMeta[index].field);
+        let value2 = ObjectUtils.resolveFieldData(node2.data, multiSortMeta[index].field);
         let result = null;
 
         if (value1 == null && value2 != null)
@@ -701,14 +703,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     
     onColumnResizeBegin(event) {
-        let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
         event.preventDefault();
     }
 
     onColumnResize(event) {
-        let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
-        this.domHandler.addClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+        let containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
+        DomHandler.addClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
         this.resizeHelperViewChild.nativeElement.style.height = this.containerViewChild.nativeElement.offsetHeight + 'px';
         this.resizeHelperViewChild.nativeElement.style.top = 0 + 'px';
         this.resizeHelperViewChild.nativeElement.style.left = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft) + 'px';
@@ -736,10 +738,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
-                            let scrollableHeaderTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
-                            let scrollableFooterTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
-                            let resizeColumnIndex = this.domHandler.index(column);
+                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
+                            let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
+                            let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
+                            let resizeColumnIndex = DomHandler.index(column);
 
                             this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
                             this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
@@ -757,15 +759,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
                     let scrollableView = this.findParentScrollableView(column);
-                    let scrollableBodyTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
-                    let scrollableHeaderTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
-                    let scrollableFooterTable = this.domHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
+                    let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
+                    let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
+                    let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
                     scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     if(scrollableFooterTable) {
                         scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     }
-                    let resizeColumnIndex = this.domHandler.index(column);
+                    let resizeColumnIndex = DomHandler.index(column);
 
                     this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
                     this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
@@ -786,13 +788,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
-        this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+        DomHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
     }
 
     findParentScrollableView(column) {
         if (column) {
             let parent = column.parentElement;
-            while (parent && !this.domHandler.hasClass(parent, 'ui-treetable-scrollable-view')) {
+            while (parent && !DomHandler.hasClass(parent, 'ui-treetable-scrollable-view')) {
                 parent = parent.parentElement;
             }
 
@@ -823,8 +825,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     onColumnDragStart(event, columnElement) {
-        this.reorderIconWidth = this.domHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild.nativeElement);
-        this.reorderIconHeight = this.domHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild.nativeElement);
+        this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild.nativeElement);
+        this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild.nativeElement);
         this.draggedColumn = columnElement;
         event.dataTransfer.setData('text', 'b');    // For firefox
     }
@@ -832,8 +834,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     onColumnDragEnter(event, dropHeader) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
-            let containerOffset = this.domHandler.getOffset(this.containerViewChild.nativeElement);
-            let dropHeaderOffset = this.domHandler.getOffset(dropHeader);
+            let containerOffset = DomHandler.getOffset(this.containerViewChild.nativeElement);
+            let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
@@ -874,15 +876,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     onColumnDrop(event, dropColumn) {
         event.preventDefault();
         if (this.draggedColumn) {
-            let dragIndex = this.domHandler.indexWithinGroup(this.draggedColumn, 'ttreorderablecolumn');
-            let dropIndex = this.domHandler.indexWithinGroup(dropColumn, 'ttreorderablecolumn');
+            let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'ttreorderablecolumn');
+            let dropIndex = DomHandler.indexWithinGroup(dropColumn, 'ttreorderablecolumn');
             let allowDrop = (dragIndex != dropIndex);
             if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
                 allowDrop = false;
             }
 
             if (allowDrop) {
-                this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
+                ObjectUtils.reorderArray(this.columns, dragIndex, dropIndex);
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
@@ -901,7 +903,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     handleRowClick(event) {
         let targetNode = (<HTMLElement> event.originalEvent.target).nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (DomHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
             return;
         }
 
@@ -910,7 +912,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             let rowNode = event.rowNode;
             let selected = this.isSelected(rowNode.node);
             let metaSelection = this.rowTouched ? false : this.metaKeySelection;
-            let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowNode.node.data, this.dataKey)) : null;
+            let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowNode.node.data, this.dataKey)) : null;
 
             if(metaSelection) {
                 let metaKey = event.originalEvent.metaKey||event.originalEvent.ctrlKey;
@@ -1023,7 +1025,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             else if (this.contextMenuSelectionMode === 'joint') {
                 this.preventSelectionSetterPropagation = true;
                 let selected = this.isSelected(node);
-                let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
 
                 if (!selected) {
                     if (this.isSingleSelectionMode()) {
@@ -1094,7 +1096,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if (node.children && node.children.length) {
             let selectedChildCount: number = 0;
             let childPartialSelected: boolean = false;
-            let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+            let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
 
             for (let child of node.children) {
                 if (this.isSelected(child))
@@ -1137,7 +1139,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     
     propagateSelectionDown(node: TreeNode, select: boolean) {
         let index = this.findIndexInSelection(node);
-        let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(node.data, this.dataKey)) : null;
+        let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
         
         if (select && index == -1) {
             this._selection =  [...this.selection||[],node]
@@ -1164,7 +1166,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     isSelected(node) {
         if (node && this.selection) {
             if (this.dataKey) {
-                return this.selectionKeys[this.objectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
+                return this.selectionKeys[ObjectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
             }
             else {
                 if (this.selection instanceof Array)
@@ -1200,7 +1202,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     equals(node1, node2) {
-        return this.compareSelectionBy === 'equals' ? (node1 === node2) : this.objectUtils.equals(node1.data, node2.data, this.dataKey);
+        return this.compareSelectionBy === 'equals' ? (node1 === node2) : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
     public reset() {
@@ -1225,14 +1227,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     isEditingCellValid() {
-        return (this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length === 0);
+        return (this.editingCell && DomHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length === 0);
     }
 
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
             this.documentEditListener = (event) => {
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
-                    this.domHandler.removeClass(this.editingCell, 'ui-editing-cell');
+                    DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
                     this.unbindDocumentEditListener();
                 }
@@ -1344,7 +1346,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     
     initialized: boolean;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {
         this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
@@ -1378,7 +1380,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
         if(!this.frozen) {
             if (this.tt.frozenColumns || this.tt.frozenBodyTemplate) {
-                this.domHandler.addClass(this.el.nativeElement, 'ui-treetable-unfrozen-view');
+                DomHandler.addClass(this.el.nativeElement, 'ui-treetable-unfrozen-view');
             }
 
             if(this.tt.frozenWidth) {
@@ -1388,17 +1390,17 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
             let frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
-                this.frozenSiblingBody = this.domHandler.findSingle(frozenView, '.ui-treetable-scrollable-body');
+                this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-treetable-scrollable-body');
             }
         }
         else {
-            this.scrollBodyViewChild.nativeElement.style.paddingBottom = this.domHandler.calculateScrollbarWidth() + 'px';
+            this.scrollBodyViewChild.nativeElement.style.paddingBottom = DomHandler.calculateScrollbarWidth() + 'px';
         }
     }
 
     bindEvents() {
         this.zone.runOutsideAngular(() => {
-            let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
+            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
 
             if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
@@ -1457,22 +1459,22 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
                 let relativeHeight;
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
                 this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
-                let containerHeight = this.domHandler.getOuterHeight(this.tt.el.nativeElement.children[0]);
+                let containerHeight = DomHandler.getOuterHeight(this.tt.el.nativeElement.children[0]);
                 
                 if (this.scrollHeight.includes("calc")) {
                     let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
                     let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
-                    relativeHeight = (this.domHandler.getOuterHeight(this.tt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
+                    relativeHeight = (DomHandler.getOuterHeight(this.tt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
                 }
                 else {
-                    relativeHeight = this.domHandler.getOuterHeight(this.tt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
+                    relativeHeight = DomHandler.getOuterHeight(this.tt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
                 }
                 
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
 
                 if(this.frozen) {
-                    scrollBodyHeight -= this.domHandler.calculateScrollbarWidth();
+                    scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
                 }
                 
                 this.scrollBodyViewChild.nativeElement.style.height = 'auto';
@@ -1481,7 +1483,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
             }
             else {
                 if(this.frozen)
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - this.domHandler.calculateScrollbarWidth()) + 'px';
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - DomHandler.calculateScrollbarWidth()) + 'px';
                 else
                     this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
             }
@@ -1489,12 +1491,12 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     }
 
     hasVerticalOverflow() {
-        return this.domHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > this.domHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+        return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
     }
 
     alignScrollBar() {
         if(!this.frozen) {
-            let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
+            let scrollBarWidth = this.hasVerticalOverflow() ? DomHandler.calculateScrollbarWidth() : 0;
             this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
             
             if(this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
@@ -1519,7 +1521,6 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
 @Directive({
     selector: '[ttSortableColumn]',
-    providers: [DomHandler],
     host: {
         '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted',
@@ -1536,7 +1537,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     
     subscription: Subscription;
 
-    constructor(public tt: TreeTable, public domHandler: DomHandler) {
+    constructor(public tt: TreeTable) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.sortSource$.subscribe(sortMeta => {
                 this.updateSortState();
@@ -1563,7 +1564,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
                 field: this.field
             });
 
-            this.domHandler.clearSelection();
+            DomHandler.clearSelection();
         }
     }
 
@@ -1647,11 +1648,11 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     documentMouseUpListener: any;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
-            this.domHandler.addClass(this.el.nativeElement, 'ui-resizable-column');
+            DomHandler.addClass(this.el.nativeElement, 'ui-resizable-column');
             this.resizer = document.createElement('span');
             this.resizer.className = 'ui-column-resizer ui-clickable';
             this.el.nativeElement.appendChild(this.resizer);
@@ -1729,7 +1730,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: any;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) { }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -1784,7 +1785,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     onMouseDown(event) {
-        if (event.target.nodeName === 'INPUT' || this.domHandler.hasClass(event.target, 'ui-column-resizer'))
+        if (event.target.nodeName === 'INPUT' || DomHandler.hasClass(event.target, 'ui-column-resizer'))
             this.el.nativeElement.draggable = false;
         else
             this.el.nativeElement.draggable = true;
@@ -1825,7 +1826,6 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
 @Directive({
     selector: '[ttSelectableRow]',
-    providers: [DomHandler],
     host: {
         '[class.ui-state-highlight]': 'selected'
     }
@@ -1840,7 +1840,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription;
 
-    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.tt.isSelected(this.rowNode.node);
@@ -1890,7 +1890,6 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[ttSelectableRowDblClick]',
-    providers: [DomHandler],
     host: {
         '[class.ui-state-highlight]': 'selected'
     }
@@ -1905,7 +1904,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 
     subscription: Subscription;
 
-    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.tt.isSelected(this.rowNode.node);
@@ -2015,7 +2014,7 @@ export class TTCheckbox  {
 
     subscription: Subscription;
 
-    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService) {
         this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.tt.isSelected(this.rowNode.node);
         });
@@ -2032,15 +2031,15 @@ export class TTCheckbox  {
                 rowNode: this.rowNode
             });
         }
-        this.domHandler.clearSelection();
+        DomHandler.clearSelection();
     }
 
     onFocus() {
-        this.domHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
     }
 
     onBlur() {
-        this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
     }
 
     ngOnDestroy() {
@@ -2077,7 +2076,7 @@ export class TTHeaderCheckbox  {
 
     valueChangeSubscription: Subscription;
 
-    constructor(public tt: TreeTable, public domHandler: DomHandler, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService) {
         this.valueChangeSubscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
         });
@@ -2096,15 +2095,15 @@ export class TTHeaderCheckbox  {
             this.tt.toggleNodesWithCheckbox(event, !checked);
         }
         
-        this.domHandler.clearSelection();
+        DomHandler.clearSelection();
     }
 
     onFocus() {
-        this.domHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
     }
 
     onBlur() {
-        this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
     }
 
     ngOnDestroy() {
@@ -2151,11 +2150,11 @@ export class TTEditableColumn implements AfterViewInit {
 
     @Input() ttEditableColumnDisabled: boolean;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
-            this.domHandler.addClass(this.el.nativeElement, 'ui-editable-column');
+            DomHandler.addClass(this.el.nativeElement, 'ui-editable-column');
         }
     }
 
@@ -2170,7 +2169,7 @@ export class TTEditableColumn implements AfterViewInit {
                         return;
                     }
         
-                    this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+                    DomHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
                     this.openCell();
                 }
             }
@@ -2182,11 +2181,11 @@ export class TTEditableColumn implements AfterViewInit {
 
     openCell() {
         this.tt.updateEditingCell(this.el.nativeElement);
-        this.domHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
+        DomHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.tt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                let focusable = this.domHandler.findSingle(this.el.nativeElement, 'input, textarea');
+                let focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea');
                 if (focusable) {
                     focusable.focus();
                 }
@@ -2195,7 +2194,7 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     closeEditingCell() {
-        this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+        DomHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
         this.tt.editingCell = null;
         this.tt.unbindDocumentEditListener();
     }
@@ -2206,7 +2205,7 @@ export class TTEditableColumn implements AfterViewInit {
             //enter
             if (event.keyCode == 13) {
                 if (this.tt.isEditingCellValid()) {
-                    this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+                    DomHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
                     this.closeEditingCell();
                     this.tt.onEditComplete.emit({ field: this.field, data: this.data });
                 }
@@ -2217,7 +2216,7 @@ export class TTEditableColumn implements AfterViewInit {
             //escape
             else if (event.keyCode == 27) {
                 if (this.tt.isEditingCellValid()) {
-                    this.domHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
+                    DomHandler.removeClass(this.tt.editingCell, 'ui-editing-cell');
                     this.closeEditingCell();
                     this.tt.onEditCancel.emit({ field: this.field, data: this.data });
                 }
@@ -2240,7 +2239,7 @@ export class TTEditableColumn implements AfterViewInit {
     findCell(element) {
         if (element) {
             let cell = element;
-            while (cell && !this.domHandler.hasClass(cell, 'ui-editing-cell')) {
+            while (cell && !DomHandler.hasClass(cell, 'ui-editing-cell')) {
                 cell = cell.parentElement;
             }
 
@@ -2257,7 +2256,7 @@ export class TTEditableColumn implements AfterViewInit {
         let targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {
-            this.domHandler.invokeElementMethod(targetCell, 'click');
+            DomHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
     }
@@ -2268,7 +2267,7 @@ export class TTEditableColumn implements AfterViewInit {
         let targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {
-            this.domHandler.invokeElementMethod(targetCell, 'click');
+            DomHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
     }
@@ -2284,7 +2283,7 @@ export class TTEditableColumn implements AfterViewInit {
         }
 
         if (prevCell) {
-            if (this.domHandler.hasClass(prevCell, 'ui-editable-column'))
+            if (DomHandler.hasClass(prevCell, 'ui-editable-column'))
                 return prevCell;
             else
                 return this.findPreviousEditableColumn(prevCell);
@@ -2305,7 +2304,7 @@ export class TTEditableColumn implements AfterViewInit {
         }
 
         if (nextCell) {
-            if (this.domHandler.hasClass(nextCell, 'ui-editable-column'))
+            if (DomHandler.hasClass(nextCell, 'ui-editable-column'))
                 return nextCell;
             else
                 return this.findNextEditableColumn(nextCell);
@@ -2361,15 +2360,13 @@ export class TreeTableCellEditor implements AfterContentInit {
     selector: '[ttRow]',
     host: {
         '[attr.tabindex]': '"0"'
-    },
-    providers: [DomHandler]
-
+    }
 })
 export class TTRow {
 
     @Input('ttRow') rowNode: any;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
@@ -2397,7 +2394,7 @@ export class TTRow {
             //left arrow
             case 37:
                 if (this.rowNode.node.expanded) {
-                    this.tt.toggleRowIndex = this.domHandler.index(this.el.nativeElement);
+                    this.tt.toggleRowIndex = DomHandler.index(this.el.nativeElement);
                     this.rowNode.node.expanded = false;
 
                     this.tt.onNodeCollapse.emit({
@@ -2414,7 +2411,7 @@ export class TTRow {
             //right arrow
             case 39:
                 if (!this.rowNode.node.expanded) {
-                    this.tt.toggleRowIndex = this.domHandler.index(this.el.nativeElement);
+                    this.tt.toggleRowIndex = DomHandler.index(this.el.nativeElement);
                     this.rowNode.node.expanded = true;
 
                     this.tt.onNodeExpand.emit({
@@ -2433,7 +2430,7 @@ export class TTRow {
     restoreFocus() {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                let row = this.domHandler.findSingle(this.tt.containerViewChild.nativeElement, '.ui-treetable-tbody').children[this.tt.toggleRowIndex];
+                let row = DomHandler.findSingle(this.tt.containerViewChild.nativeElement, '.ui-treetable-tbody').children[this.tt.toggleRowIndex];
                 if (row) {
                     row.focus();
                 }

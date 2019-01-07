@@ -32,8 +32,7 @@ import {DomHandler} from '../dom/domhandler';
               <div style="clear:both"></div>
            </div>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class Lightbox implements AfterViewInit,OnDestroy {
 
@@ -75,7 +74,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     public documentClickListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
                 
     onImageClick(event,image,i,content) {
         this.index = i;
@@ -89,13 +88,13 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     }
     
     ngAfterViewInit() {
-        this.panel = this.domHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
+        this.panel = DomHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
         
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.panel);
             else
-                this.domHandler.appendChild(this.panel, this.appendTo);
+                DomHandler.appendChild(this.panel, this.appendTo);
         }
         
         this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
@@ -125,7 +124,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     show() {
         this.mask = document.createElement('div');
         
-        this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+        DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
         document.body.appendChild(this.mask);
         if (this.autoZIndex) {
             this.zindex = this.baseZIndex + (++DomHandler.zindex);
@@ -152,17 +151,17 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     }
     
     center() {
-        let elementWidth = this.domHandler.getOuterWidth(this.panel);
-        let elementHeight = this.domHandler.getOuterHeight(this.panel);
+        let elementWidth = DomHandler.getOuterWidth(this.panel);
+        let elementHeight = DomHandler.getOuterHeight(this.panel);
         if(elementWidth == 0 && elementHeight == 0) {
             this.panel.style.visibility = 'hidden';
             this.panel.style.display = 'block';
-            elementWidth = this.domHandler.getOuterWidth(this.panel);
-            elementHeight = this.domHandler.getOuterHeight(this.panel);
+            elementWidth = DomHandler.getOuterWidth(this.panel);
+            elementHeight = DomHandler.getOuterHeight(this.panel);
             this.panel.style.display = 'none';
             this.panel.style.visibility = 'visible';
         }
-        let viewport = this.domHandler.getViewport();
+        let viewport = DomHandler.getViewport();
         let x = (viewport.width - elementWidth) / 2;
         let y = (viewport.height - elementHeight) / 2;
 
@@ -174,19 +173,19 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         let image = event.target;
         image.style.visibility = 'hidden';
         image.style.display = 'block';
-        let imageWidth = this.domHandler.getOuterWidth(image);
-        let imageHeight = this.domHandler.getOuterHeight(image);
+        let imageWidth = DomHandler.getOuterWidth(image);
+        let imageHeight = DomHandler.getOuterHeight(image);
         image.style.display = 'none';
         image.style.visibility = 'visible';
 
         content.style.width = imageWidth + 'px';
         content.style.height = imageHeight + 'px';
-        this.panel.style.left = parseInt(this.panel.style.left) + (this.domHandler.getOuterWidth(this.panel) - imageWidth) / 2 + 'px';
-        this.panel.style.top = parseInt(this.panel.style.top) + (this.domHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
+        this.panel.style.left = parseInt(this.panel.style.left) + (DomHandler.getOuterWidth(this.panel) - imageWidth) / 2 + 'px';
+        this.panel.style.top = parseInt(this.panel.style.top) + (DomHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
 
         setTimeout(() => {
             this.cd.markForCheck();
-            this.domHandler.fadeIn(image, 500);
+            DomHandler.fadeIn(image, 500);
             image.style.display = 'block';
             //this.captionText = this.currentImage.title;
             this.loading = false;

@@ -102,7 +102,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focused'
     },
-    providers: [DomHandler,ObjectUtils,DROPDOWN_VALUE_ACCESSOR]
+    providers: [DROPDOWN_VALUE_ACCESSOR]
 })
 export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
@@ -254,8 +254,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     documentResizeListener: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef,
-                public objectUtils: ObjectUtils, public zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public zone: NgZone) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -289,7 +288,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
@@ -364,9 +363,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         
         if (this.selectedOptionUpdated && this.itemsWrapper) {
             this.updateDimensions();
-            let selectedItem = this.domHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+            let selectedItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
             if (selectedItem) {
-                this.domHandler.scrollInView(this.itemsWrapper, this.domHandler.findSingle(this.overlay, 'li.ui-state-highlight'));
+                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.ui-state-highlight'));
             }
             this.selectedOptionUpdated = false;
         }
@@ -415,7 +414,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     updateDimensions() {
         if (this.autoWidth && this.el.nativeElement && this.el.nativeElement.children[0] && this.el.nativeElement.offsetParent) {
-            let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
+            let select = DomHandler.findSingle(this.el.nativeElement, 'select');
             if (select && !this.style||(this.style && (!this.style['width']&&!this.style['min-width']))) {
                 this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
             }
@@ -431,7 +430,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.onClick.emit(event);
         
         this.selfClick = true;
-        this.clearClick = this.domHandler.hasClass(event.target, 'ui-dropdown-clear-icon');
+        this.clearClick = DomHandler.hasClass(event.target, 'ui-dropdown-clear-icon');
         
         if (!this.itemClick && !this.clearClick) {
             this.focusViewChild.nativeElement.focus();
@@ -480,7 +479,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                this.itemsWrapper = this.domHandler.findSingle(this.overlay, '.ui-dropdown-items-wrapper');
+                this.itemsWrapper = DomHandler.findSingle(this.overlay, '.ui-dropdown-items-wrapper');
                 this.appendOverlay();
                 if (this.autoZIndex) {
                     this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
@@ -490,9 +489,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.bindDocumentResizeListener();
 
                 if (this.options && this.options.length) {
-                    let selectedListItem = this.domHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
+                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
                     if (selectedListItem) {
-                        this.domHandler.scrollInView(this.itemsWrapper, selectedListItem);
+                        DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
                     }
                 }
 
@@ -511,9 +510,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                DomHandler.appendChild(this.overlay, this.appendTo);
 
-            this.overlay.style.minWidth = this.domHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
+            this.overlay.style.minWidth = DomHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
         }
     }
 
@@ -536,9 +535,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     alignOverlay() {
         if (this.overlay) {
             if (this.appendTo)
-                this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+                DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
             else
-                this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+                DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
         }        
     }
     
@@ -816,7 +815,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let index: number = -1;
         if (opts) {
             for (let i = 0; i < opts.length; i++) {
-                if ((val == null && opts[i].value == null) || this.objectUtils.equals(val, opts[i].value, this.dataKey)) {
+                if ((val == null && opts[i].value == null) || ObjectUtils.equals(val, opts[i].value, this.dataKey)) {
                     index = i;
                     break;
                 }
@@ -888,7 +887,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             if (this.group) {
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
-                    let filteredSubOptions = this.objectUtils.filter(optgroup.items, searchFields, this.filterValue);
+                    let filteredSubOptions = ObjectUtils.filter(optgroup.items, searchFields, this.filterValue);
                     if (filteredSubOptions && filteredSubOptions.length) {
                         filteredGroups.push({
                             label: optgroup.label,
@@ -901,7 +900,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.optionsToDisplay = filteredGroups;
             }
             else {
-                this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue);
+                this.optionsToDisplay = ObjectUtils.filter(this.options, searchFields, this.filterValue);
             }
 
             this.optionsChanged = true;
@@ -910,9 +909,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     applyFocus(): void {
         if (this.editable)
-            this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-label.ui-inputtext').focus();
+            DomHandler.findSingle(this.el.nativeElement, '.ui-dropdown-label.ui-inputtext').focus();
         else
-            this.domHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
+            DomHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
     }
 
     focus(): void {

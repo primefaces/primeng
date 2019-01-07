@@ -22,6 +22,7 @@ export interface LocaleSettings {
     monthNamesShort: string[];
     today: string;
     clear: string;
+    dateFormat?: string;
 }
 
 @Component({
@@ -204,7 +205,7 @@ export interface LocaleSettings {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
+    providers: [CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
@@ -328,7 +329,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
         today: 'Today',
-        clear: 'Clear'
+        clear: 'Clear',
+        dateFormat: 'mm/dd/yy'
     };
     
     @Input() tabindex: number;
@@ -499,7 +501,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
        }
     }
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         const date = this.defaultDate||new Date();
@@ -814,7 +816,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 formattedValue = this.formatTime(date);
             }
             else {
-                formattedValue = this.formatDate(date, this.dateFormat);
+                formattedValue = this.formatDate(date, this.getDateFormat());
                 if (this.showTime) {
                     formattedValue += ' ' + this.formatTime(date);
                 }
@@ -1466,12 +1468,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.populateTime(date, parts[0], parts[1]);
         }
         else {
+            const dateFormat = this.getDateFormat();
             if (this.showTime) {
-                date = this.parseDate(parts[0], this.dateFormat);
+                date = this.parseDate(parts[0], dateFormat);
                 this.populateTime(date, parts[1], parts[2]);
             }
             else {
-                 date = this.parseDate(text, this.dateFormat);
+                 date = this.parseDate(text, dateFormat);
             }
         }
         
@@ -1563,7 +1566,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                DomHandler.appendChild(this.overlay, this.appendTo);
         }
     }
 
@@ -1579,9 +1582,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         else {
             if (this.appendTo)
-                this.domHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+                DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
             else
-                this.domHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+                DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
         }
     }
 
@@ -1590,13 +1593,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
             let maskStyleClass = 'ui-widget-overlay ui-datepicker-mask ui-datepicker-mask-scrollblocker';
-            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
+            DomHandler.addMultipleClasses(this.mask, maskStyleClass);
             
 			this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
             document.body.appendChild(this.mask);
-            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+            DomHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
     
@@ -1607,14 +1610,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             let hasBlockerMasks: boolean;
             for (let i = 0; i < bodyChildren.length; i++) {
                 let bodyChild = bodyChildren[i];
-                if (this.domHandler.hasClass(bodyChild, 'ui-datepicker-mask-scrollblocker')) {
+                if (DomHandler.hasClass(bodyChild, 'ui-datepicker-mask-scrollblocker')) {
                     hasBlockerMasks = true;
                     break;
                 }
             }
             
             if (!hasBlockerMasks) {
-                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
 
             this.hideOverlay();
@@ -1651,6 +1654,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+
+    getDateFormat() {
+        return this.dateFormat || this.locale.dateFormat;
     }
     
     // Ported from jquery-ui datepicker formatDate

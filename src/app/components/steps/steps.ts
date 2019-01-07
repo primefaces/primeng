@@ -8,7 +8,7 @@ import {RouterModule} from '@angular/router';
     template: `
         <div [ngClass]="{'ui-steps ui-widget ui-helper-clearfix':true,'ui-steps-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
             <ul role="tablist">
-                <li *ngFor="let item of model; let i = index" class="ui-steps-item" #menuitem
+                <li *ngFor="let item of model; let i = index" class="ui-steps-item" #menuitem [ngStyle]="item.style" [class]="item.styleClass"
                     [ngClass]="{'ui-state-highlight ui-steps-current':(i === activeIndex),
                         'ui-state-default':(i !== activeIndex),
                         'ui-state-complete':(i < activeIndex),

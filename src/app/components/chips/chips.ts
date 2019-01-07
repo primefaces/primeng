@@ -28,7 +28,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
             </ul>
         </div>
     `,
-    providers: [DomHandler,CHIPS_VALUE_ACCESSOR]
+    providers: [CHIPS_VALUE_ACCESSOR]
 })
 export class Chips implements AfterContentInit,ControlValueAccessor {
 
@@ -84,7 +84,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     focus: boolean;
             
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {

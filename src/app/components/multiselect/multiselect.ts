@@ -147,7 +147,7 @@ export class MultiSelectItem {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,ObjectUtils,MULTISELECT_VALUE_ACCESSOR]
+    providers: [MULTISELECT_VALUE_ACCESSOR]
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
@@ -237,6 +237,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
     
@@ -280,14 +282,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     documentResizeListener: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
     
     @Input() get options(): any[] {
         return this._options;
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
         this.updateLabel();
     }
@@ -391,7 +393,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         
         if (this.value) {
             for (let i = 0; i < this.value.length; i++) {
-                if (this.objectUtils.equals(this.value[i], val, this.dataKey)) {
+                if (ObjectUtils.equals(this.value[i], val, this.dataKey)) {
                     index = i;
                     break;
                 }
@@ -401,7 +403,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         return index;
     }
     
-    toggleAll(event) {
+    toggleAll(event: Event) {
         if (this.isAllChecked()) {
             this.value = [];
         }
@@ -426,12 +428,26 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     isAllChecked() {
         if (this.filterValue && this.filterValue.trim().length) {
-            return this.value && this.visibleOptions&&this.visibleOptions.length && (this.value.length == this.visibleOptions.length);
+            return this.value && this.visibleOptions && this.visibleOptions.length && this.isAllVisibleOptionsChecked();
         }
         else {
             let optionCount = this.getEnabledOptionCount();
 
             return this.value && this.options && (this.value.length > 0 && this.value.length == optionCount);
+        }
+    }
+
+    isAllVisibleOptionsChecked() {
+        if (!this.visibleOptions) {
+            return false;
+        }
+        else {
+            for (let option of this.visibleOptions) {
+                if (!this.isSelected(option.value)) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
@@ -492,9 +508,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                DomHandler.appendChild(this.overlay, this.appendTo);
 
-            this.overlay.style.minWidth = this.domHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
+            this.overlay.style.minWidth = DomHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
         }
     }
 
@@ -507,9 +523,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     alignOverlay() {
         if (this.overlay) {
             if (this.appendTo)
-                this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+                DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
             else
-                this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+                DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
         }
     }
     
@@ -533,6 +549,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.disabled || this.readonly) {
             return;
         }
+
+        this.onClick.emit(event);
         
         if (!this.panelClick) {
             if (this.overlayVisible) {
@@ -563,51 +581,50 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             return;
         }
         
-        let item = <HTMLLIElement> event.originalEvent.currentTarget;
+        switch(event.originalEvent.which) {
         
-        switch(event.which) {
             //down
             case 40:
-                var nextItem = this.findNextItem(item);
+                var nextItem = this.findNextItem(event.originalEvent);
                 if(nextItem) {
                     nextItem.focus();
                 }
                 
-                event.preventDefault();
+                event.originalEvent.preventDefault();
             break;
             
             //up
             case 38:
-                var prevItem = this.findPrevItem(item);
+                var prevItem = this.findPrevItem(event.originalEvent);
                 if(prevItem) {
                     prevItem.focus();
                 }
                 
-                event.preventDefault();
+                event.originalEvent.preventDefault();
             break;
             
             //enter
             case 13:
                 this.onOptionClick(event);
-                event.preventDefault();
+                event.originalEvent.preventDefault();
             break;
         }
     }
     
-    findNextItem(item) {
-        let nextItem = item.nextElementSibling;
-
+    findNextItem(event) {
+        let nextItem = event.target.parentElement.nextElementSibling;
+        
         if (nextItem)
-            return this.domHandler.hasClass(nextItem, 'ui-state-disabled') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+            return DomHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem.children[0]) : nextItem.children[0];
         else
             return null;
     }
 
-    findPrevItem(item) {
-        let prevItem = item.previousElementSibling;
+    findPrevItem(event) {
+        let prevItem = event.target.parentElement.previousElementSibling;
         
         if (prevItem)
-            return this.domHandler.hasClass(prevItem, 'ui-state-disabled') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem.children[0]) : prevItem.children[0];
         else
             return null;
     } 
@@ -668,7 +685,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let label = null;
         for (let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
-            if (val == null && option.value == null || this.objectUtils.equals(val, option.value, this.dataKey)) {
+            if (val == null && option.value == null || ObjectUtils.equals(val, option.value, this.dataKey)) {
                 label = option.label;
                 break;
             }
@@ -693,7 +710,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     activateFilter() {
         if (this.options && this.options.length) {
             let searchFields: string[] = this.filterBy.split(',');
-            this.visibleOptions = this.objectUtils.filter(this.options, searchFields, this.filterValue);
+            this.visibleOptions = ObjectUtils.filter(this.options, searchFields, this.filterValue);
             this.filtered = true;
         }        
     }

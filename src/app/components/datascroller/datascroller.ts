@@ -21,8 +21,7 @@ import {DomHandler} from '../dom/domhandler';
             <ng-content select="p-footer"></ng-content>
         </div>
     </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
@@ -72,7 +71,7 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
     page: number = 0;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
 
     ngOnInit() {
         this.load();
