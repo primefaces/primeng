@@ -61,24 +61,15 @@ export class InputTextarea implements DoCheck {
     }
     
     resize(event?: Event) {
-        if (!this.cachedScrollHeight) {
-            this.cachedScrollHeight = this.el.nativeElement.scrollHeight;
-            this.el.nativeElement.style.overflow = "hidden";
+        this.el.nativeElement.style.height = ''
+        this.el.nativeElement.style.height = this.el.nativeElement.scrollHeight + 'px';
+
+        if (parseFloat(this.el.nativeElement.style.height) >= parseFloat(this.el.nativeElement.style.maxHeight)) {
+            this.el.nativeElement.style.overflowY = "scroll";
+            this.el.nativeElement.style.height = this.el.nativeElement.style.maxHeight;
         }
-
-        if (this.cachedScrollHeight != this.el.nativeElement.scrollHeight) {
-            this.el.nativeElement.style.height = ''
-            this.el.nativeElement.style.height = this.el.nativeElement.scrollHeight + 'px';
-
-            if (parseFloat(this.el.nativeElement.style.height) >= parseFloat(this.el.nativeElement.style.maxHeight)) {
-                this.el.nativeElement.style.overflowY = "scroll";
-                this.el.nativeElement.style.height = this.el.nativeElement.style.maxHeight;
-            }
-            else {
-                this.el.nativeElement.style.overflow = "hidden";
-            }
-
-            this.cachedScrollHeight = this.el.nativeElement.scrollHeight;
+        else {
+            this.el.nativeElement.style.overflow = "hidden";
         }
 
         this.onResize.emit(event||{});
