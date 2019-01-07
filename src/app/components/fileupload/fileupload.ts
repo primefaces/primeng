@@ -9,6 +9,7 @@ import {DomHandler} from '../dom/domhandler';
 import {Message} from '../common/message';
 import {PrimeTemplate,SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
+import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
 
 @Component({
     selector: 'p-fileUpload',
@@ -149,7 +150,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
-    constructor(private el: ElementRef, public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
+    constructor(private el: ElementRef, public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient){}
 
     ngOnInit() {
         this.files = [];
@@ -302,11 +303,9 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         }
         else {
             this.msgs = [];
-            let xhr = new XMLHttpRequest(),
-            formData = new FormData();
+            let formData = new FormData();
 
             this.onBeforeUpload.emit({
-                'xhr': xhr,
                 'formData': formData
             });
 
@@ -314,37 +313,39 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
                 formData.append(this.name, this.files[i], this.files[i].name);
             }
 
-            xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
-                if(e.lengthComputable) {
-                  this.progress = Math.round((e.loaded * 100) / e.total);
-                }
+            this.http.post(this.url, formData, {
+                reportProgress: true, observe: 'events'
+            }).subscribe( (event: HttpEvent<any>) => {
+                    switch (event.type) {
+                        case HttpEventType.Sent:
+                            this.onBeforeSend.emit({
+                                'formData': formData
+                            });
+                            break;
+                        case HttpEventType.Response:
+                            this.progress = 0;
 
-                this.onProgress.emit({originalEvent: e, progress: this.progress});
-              }, false);
+                            if (event['status'] >= 200 && event['status'] < 300) {
+                                this.onUpload.emit({files: this.files});
+                            } else {
+                                this.onError.emit({files: this.files});
+                            }
 
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4) {
-                    this.progress = 0;
+                            this.clear();
+                            break;
+                        case 1: {
+                            if (event['loaded']) {
+                                this.progress = Math.round((event['loaded'] * 100) / event['total']);
+                            }
 
-                    if(xhr.status >= 200 && xhr.status < 300)
-                        this.onUpload.emit({xhr: xhr, files: this.files});
-                    else
-                        this.onError.emit({xhr: xhr, files: this.files});
-
-                    this.clear();
-                }
-            };
-
-            xhr.open(this.method, this.url, true);
-
-            this.onBeforeSend.emit({
-                'xhr': xhr,
-                'formData': formData
-            });
-
-            xhr.withCredentials = this.withCredentials;
-
-            xhr.send(formData);
+                            this.onProgress.emit({originalEvent: event, progress: this.progress});
+                            break;
+                        }
+                    }
+                },
+                error => {
+                    this.onError.emit({files: this.files, error: error});
+                });
         }
     }
 
