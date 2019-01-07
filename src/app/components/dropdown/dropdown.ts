@@ -171,6 +171,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() hideTransitionOptions: string = '195ms ease-in';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onItemSelect: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -319,6 +321,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onItemClick(event, option) {
+        this.onItemSelect.emit({
+            originalEvent: event,
+            value: option
+        });
+
         this.itemClick = true;
         
         if (!option.disabled) {
