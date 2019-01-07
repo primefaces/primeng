@@ -27,7 +27,7 @@
             </div>
         </ng-template>
     </p-dropdown>
-    <p>Selected Car: {{selectedCar2||'none'}}</p>
+    <p>Selected Car: {{selectedCar2 || 'none'}}</p>
 
     <h3>Group</h3>
     <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="{'width':'150px'}" placeholder="Select a Car" [group]="true">
@@ -627,7 +627,7 @@ clearFilter(dropdown: Dropdown) &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: &#123;&#123;selectedCar2||'none'&#125;&#125;&lt;/p&gt;
+&lt;p&gt;Selected Car: &#123;&#123;selectedCar2 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Group&lt;/h3&gt;
 &lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"&gt;
@@ -636,6 +636,7 @@ clearFilter(dropdown: Dropdown) &#123;
         &lt;span style="margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
+&lt;p&gt;Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;&lt;/p&gt;
 </code>
 </pre>
 
