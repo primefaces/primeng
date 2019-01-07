@@ -56,20 +56,21 @@ export class MultiSelectItem {
 
     onOptionCheckClick(event: Event): void {
         if (this.clickInCheck) {
-            this.onClick.emit({
-                originalEvent: event,
-                option: this.option
-            });
+            this.emitClick(event);
         }
     }
 
     onOptionClick(event: Event) {
         if (!this.clickInCheck) {
-            this.onClick.emit({
-                originalEvent: event,
-                option: this.option
-            });
+            this.emitClick(event);
         }
+    }
+
+    private emitClick(event: Event): void {
+        this.onClick.emit({
+            originalEvent: event,
+            option: this.option
+        });
     }
 
     onOptionKeydown(event: Event) {
