@@ -282,4 +282,22 @@ describe('FileUpload', () => {
         expect(uploadSpy).toHaveBeenCalled();
         expect(onSimpleUploaderClickSpy).toHaveBeenCalled();
     });
+
+    it('should accept all of multiple given MIME types', () => {
+      const mockFile1 = {type: "application/pdf", name: "test.pdf"}
+      const mockFile2 = {type: "image/png", name: "test.png"}
+
+      fileupload.accept = "application/pdf, image/png"
+      expect((fileupload as any).isFileTypeValid(mockFile1)).toBe(true);
+      expect((fileupload as any).isFileTypeValid(mockFile2)).toBe(true);
+    });
+
+    it('should handle wildcards in MIME subtypes', () => {
+      const mockFile1 = {type: "application/pdf", name: "test.pdf"}
+      const mockFile2 = {type: "image/png", name: "test.png"}
+
+      fileupload.accept = "image/*"
+      expect((fileupload as any).isFileTypeValid(mockFile1)).toBe(false)
+      expect((fileupload as any).isFileTypeValid(mockFile2)).toBe(true);
+    });
 });
