@@ -21,7 +21,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <li class="ui-multiselect-item ui-corner-all" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)"
             [style.display]="visible ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'ui-state-highlight': selected, 'ui-state-disabled': (option.disabled || (maxSelectionLimitReached && !selected))}">
-            <div class="ui-chkbox ui-widget">
+            <div class="ui-chkbox ui-widget" (click)="onOptionCheckClick($event)">
                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"
                     [ngClass]="{'ui-state-active': selected}">
                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check': selected}"></span>
@@ -44,6 +44,8 @@ export class MultiSelectItem {
 
     @Input() itemSize: number;
 
+    @Input() clickInCheck: boolean;
+
     @Input() template: TemplateRef<any>;
 
     @Input() maxSelectionLimitReached: boolean;
@@ -52,11 +54,22 @@ export class MultiSelectItem {
 
     @Output() onKeydown: EventEmitter<any> = new EventEmitter();
 
+    onOptionCheckClick(event: Event): void {
+        if (this.clickInCheck) {
+            this.onClick.emit({
+                originalEvent: event,
+                option: this.option
+            });
+        }
+    }
+
     onOptionClick(event: Event) {
-        this.onClick.emit({
-            originalEvent: event,
-            option: this.option
-        });
+        if (!this.clickInCheck) {
+            this.onClick.emit({
+                originalEvent: event,
+                option: this.option
+            });
+        }
     }
 
     onOptionKeydown(event: Event) {
@@ -109,14 +122,14 @@ export class MultiSelectItem {
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                             <ng-template ngFor let-option let-i="index" [ngForOf]="options">
-                                <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" 
+                                <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" [clickInCheck]="clickInCheck" 
                                         [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate"></p-multiSelectItem>
                             </ng-template>
                         </ng-container>
                         <ng-template #virtualScrollList>
                             <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll">
                                 <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
-                                    <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" 
+                                    <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" [clickInCheck]="clickInCheck" 
                                         [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate" [itemSize]="itemSize"></p-multiSelectItem>
                                 </ng-container>
                             </cdk-virtual-scroll-viewport>
@@ -163,6 +176,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     get defaultLabel(): string {
         return this._defaultLabel;
     }
+
+    @Input() clickInCheck: boolean = false;
 
     @Input() style: any;
 

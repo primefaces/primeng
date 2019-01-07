@@ -11,7 +11,7 @@
     <p>Selected Cars: {{selectedCars1}}</p>
 
     <h3>Templating</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}" [clickInCheck]="true">
         <ng-template let-value pTemplate="selectedItems">
             <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
                 <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" />
@@ -391,6 +391,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>clickInCheck</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Selects the item only when marking the checkbox.</td>
                         </tr>
                     </tbody>
                 </table>
