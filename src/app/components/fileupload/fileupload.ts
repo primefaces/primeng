@@ -153,7 +153,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
-    constructor(private el: ElementRef, public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient){}
+    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient){}
 
     ngOnInit() {
         this.files = [];
