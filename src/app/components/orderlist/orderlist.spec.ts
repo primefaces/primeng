@@ -96,9 +96,8 @@ describe('OrderList', () => {
       expect(filterInputEl.nativeElement.placeholder).toEqual("Primeng ROCKS!");
     });
 
-    it('should use dragdrop and dragdropScope', () => {
+    it('should add droppoints when dragdrop is enabled', () => {
       orderlist.dragdrop = true;
-      orderlist.dragdropScope = "cars";
       fixture.detectChanges();
 
       const dragdropEl = fixture.debugElement.query(By.css('.ui-orderlist-droppoint'));

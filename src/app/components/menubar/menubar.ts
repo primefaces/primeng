@@ -85,6 +85,7 @@ export class MenubarSub implements OnDestroy {
 
             this.menuClick = true;
             this.menuHoverActive = this.activeMenu ? (!this.activeMenu.isEqualNode(item)) : true;
+            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
             this.bindEventListener();
         }
     }

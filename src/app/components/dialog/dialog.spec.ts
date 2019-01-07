@@ -355,7 +355,7 @@ describe('Dialog', () => {
         event.pageX = 505;
         event.pageY = 505;
         dialog.onResize(event as MouseEvent);
-        dialog.onResizeEnd(event as MouseEvent);
+        dialog.onResizeEnd();
         fixture.detectChanges();
 
         expect(parseInt(dialog.container.style.width)).not.toEqual(firstWidth);
