@@ -1,6 +1,6 @@
 # Change Log
 
-## [7.0.4](https://github.com/primefaces/primeng/tree/7.0.4) (2018-12-14)
+## [7.0.4](https://github.com/primefaces/primeng/tree/7.0.4) (2018-1-7)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.3...7.0.4)
 
