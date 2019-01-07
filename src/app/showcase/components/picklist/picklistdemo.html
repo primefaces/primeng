@@ -16,16 +16,6 @@
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
             </div>
         </ng-template>
-        <ng-template pTemplate="emptymessagesource">
-            <div class="ui-helper-clearfix">
-                <div style="font-size:14px; margin:15px 0 0 5px">No items available</div>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="emptymessagetarget">
-            <div class="ui-helper-clearfix">
-                <div style="font-size:14px; margin:15px 0 0 5px">No items selected</div>
-            </div>
-        </ng-template>
     </p-pickList>
 
 </div>
@@ -120,16 +110,22 @@ This dragdrop property also supports cross list actions.</p>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>emptymessagesource</td>
-                        <td>-</td>
-                        <td>Content to display when there is no item available for selection.</td>
-                    </tr>
-                    <tr>
-                        <td>emptymessagetarget</td>
-                        <td>-</td>
-                        <td>Content to display when there is no element selected.</td>
-                    </tr>
+                        <tr>
+                            <td>item</td>
+                            <td>item: List item <br />
+                                index: Index of the item</td>
+                            <td>Content of an item in the list.</td>
+                        </tr>
+                        <tr>
+                            <td>emptymessagesource</td>
+                            <td>-</td>
+                            <td>Content to display when there is no item available for selection.</td>
+                        </tr>
+                        <tr>
+                            <td>emptymessagetarget</td>
+                            <td>-</td>
+                            <td>Content to display when there is no element selected.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -36,8 +36,10 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, SOURCE_LIST)" (drop)="onDrop($event, i + 1, SOURCE_LIST)" (dragleave)="onDragLeave($event, SOURCE_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
                     </ng-template>
-                    <ng-container *ngIf="source == null || source.length === 0">
-                        <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate"></ng-container>
+                    <ng-container *ngIf="(source == null || source.length === 0) && emptyMessageSourceTemplate">
+                        <li class="ui-picklist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate"></ng-container>
+                        </li>
                     </ng-container>
                 </ul>
             </div>
@@ -68,8 +70,10 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, TARGET_LIST)" (drop)="onDrop($event, i + 1, TARGET_LIST)" (dragleave)="onDragLeave($event, TARGET_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
                     </ng-template>
-                    <ng-container *ngIf="target == null || target.length === 0">
-                        <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate"></ng-container>
+                    <ng-container *ngIf="(target == null || target.length === 0) && emptyMessageTargetTemplate">
+                        <li class="ui-picklist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate"></ng-container>
+                        </li>
                     </ng-container>
                 </ul>
             </div>
