@@ -2288,7 +2288,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
         }
 
-        this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+        this.scrollBodyViewChild.nativeElement.removeEventListener('scroll', this.bodyScrollListener);
     }
 
     onHeaderScroll(event) {
