@@ -19,10 +19,10 @@ let idx: number = 0;
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)" (mousedown)="onCloseMouseDown($event)">
-                    <span class="pi pi-times"></span>
+                    <span class="{{iconClose}}"></span>
                 </a>
                 <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" tabindex="0" role="button" (click)="toggleMaximize($event)" (keydown.enter)="toggleMaximize($event)">
-                    <span [ngClass]="maximized ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></span>
+                    <span [ngClass]="maximized ? iconMinimize : iconMaximize"></span>
                 </a>
             </div>
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
@@ -101,6 +101,12 @@ export class Dialog implements OnDestroy {
     @Input() maximizable: boolean;
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
+
+    @Input() iconClose: string = 'pi pi-times';
+
+    @Input() iconMinimize: string = 'pi pi-window-minimize';
+
+    @Input() iconMaximize: string = 'pi pi-window-maximize';
     
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
