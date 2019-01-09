@@ -34,7 +34,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
-                <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" role="listbox"
+                <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox"
                     (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label == null || label.length === 0)}" *ngIf="!editable && (label != null)">
@@ -55,7 +55,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                     <span class="ui-dropdown-filter-icon pi pi-search"></span>
                 </div>
                 <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
-                    <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                    <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox">
                         <ng-container *ngIf="group">
                             <ng-template ngFor let-optgroup [ngForOf]="optionsToDisplay">
                                 <li class="ui-dropdown-item-group">
@@ -69,7 +69,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToDisplay, selectedOption: selectedOption}"></ng-container>
                         </ng-container>
                         <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                            <li *ngFor="let option of options;let i=index"  (click)="onItemClick($event, option)"
+                            <li *ngFor="let option of options;let i=index"  (click)="onItemClick($event, option)" role="option"
                                     [ngClass]="{'ui-dropdown-item ui-corner-all':true,
                                                 'ui-state-highlight':(selectedOption == option),
                                                 'ui-state-disabled':(option.disabled),
