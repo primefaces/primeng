@@ -104,9 +104,10 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() set formatInput(value: boolean) {
         console.warn("formatInput property is removed Spinner as Spinner does not format the value anymore.");
     }
-    
+
     ngOnInit() {
-        if (Math.floor(this.step) === 0) {
+        if (this.step % 1 !== 0) {
+            // If step is not an integer then extract the length of the decimal part
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
     }
