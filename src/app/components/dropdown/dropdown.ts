@@ -43,7 +43,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             </label>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true,'ui-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</label>
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
-                        (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
+                        (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onEditableInputBlur($event)">
             <i class="ui-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="ui-dropdown-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
@@ -470,6 +470,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             value: this.value
         });
     }
+
+    onEditableInputBlur(event) {
+        this.focused = false;
+        this.onModelTouched();
+        this.onBlur.emit(event);
+    }
     
     show() {
         this.overlayVisible = true;
@@ -524,11 +530,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     hide() {
         this.overlayVisible = false;
-        
+
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
 
+        if (!this.editable) {
+            this.onModelTouched();
+        }
+        
         this.cd.markForCheck();
     }
     
@@ -548,7 +558,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onInputBlur(event) {
         this.focused = false;
-        this.onModelTouched();
         this.onBlur.emit(event);
     }
 
