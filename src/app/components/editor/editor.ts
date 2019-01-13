@@ -129,7 +129,9 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                 let html = editorElement.children[0].innerHTML;
                 let text = this.quill.getText().trim();
                 if (text.length === 0) {
-                    html = null;
+                    if (!html.includes("img")){
+                        html = null;
+                    }
                 }
 
                 this.onTextChange.emit({
