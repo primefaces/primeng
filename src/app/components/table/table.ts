@@ -1932,7 +1932,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     clearState() {
         const stroage = this.getStorage();
-        stroage.clear();
+        
+        if (this.stateKey) {
+            stroage.removeItem(this.stateKey);
+        }
     }
 
     restoreState() {
