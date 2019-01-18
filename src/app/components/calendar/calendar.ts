@@ -111,7 +111,7 @@ export interface LocaleSettings {
                         <a tabindex="0">
                             <span class="pi pi-chevron-up"></span>
                         </a>
-                        <span>:</span>
+                        <span>{{timeSeparator}}</span>
                         <a tabindex="0">
                             <span class="pi pi-chevron-down"></span>
                         </a>
@@ -129,7 +129,7 @@ export interface LocaleSettings {
                         <a tabindex="0">
                             <span class="pi pi-chevron-up"></span>
                         </a>
-                        <span>:</span>
+                        <span>{{timeSeparator}}</span>
                         <a tabindex="0">
                             <span class="pi pi-chevron-down"></span>
                         </a>
@@ -296,6 +296,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() view: string = 'date';
 
     @Input() touchUI: boolean;
+
+    @Input() timeSeparator: string = ":";
 
     @Input() showTransitionOptions: string = '225ms ease-out';
 
