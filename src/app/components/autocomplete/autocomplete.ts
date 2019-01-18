@@ -470,10 +470,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
 
         if (this.dropdownMode === 'blank')
-            this.search(event, '');
-        else if (this.dropdownMode === 'current')
-            this.search(event, queryValue);
+            queryValue = '';
 
+        this.loading = true;
         this.onDropdownClick.emit({
             originalEvent: event,
             query: queryValue
