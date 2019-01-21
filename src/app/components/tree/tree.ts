@@ -435,7 +435,10 @@ export class UITreeNode implements OnInit {
     }
 
     focusNode(element) {
-        element.children[0].children[0].focus();
+        if (this.tree.droppableNodes)
+            element.children[1].children[0].focus();
+        else
+            element.children[0].children[0].focus();
     }
 }
 
