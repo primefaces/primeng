@@ -9,12 +9,15 @@ export class DialogService {
     
     dialogComponentRef: ComponentRef<DynamicDialogComponent>;
 
+    dialogComponentRefs: ComponentRef<DynamicDialogComponent>[] = [];
+
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) { }
 
     public open(componentType: Type<any>, config: DynamicDialogConfig) {
         const dialogRef = this.appendDialogComponentToBody(config);
 
         this.dialogComponentRef.instance.childComponentType = componentType;
+        this.dialogComponentRefs.push(this.dialogComponentRef);
 
         return dialogRef;
     }
@@ -45,7 +48,8 @@ export class DialogService {
     }
 
     private removeDialogComponentFromBody() {
-        this.appRef.detachView(this.dialogComponentRef.hostView);
+        this.appRef.detachView(this.dialogComponentRefs[this.dialogComponentRefs.length - 1].hostView);
         this.dialogComponentRef.destroy();
+        this.dialogComponentRefs.splice(this.dialogComponentRefs.length - 1,1);
     }
 }
