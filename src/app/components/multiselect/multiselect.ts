@@ -204,6 +204,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @Input() resetFilterOnHide: boolean = false;
     
+    @Input() clearInputOnCross: boolean = false;
+    
     @Input() dropdownIcon: string = 'pi pi-caret-down';
     
     @Input() optionLabel: string;
@@ -540,7 +542,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     close(event) {
-        this.hide();
+        this.clearInputOnCross ? this.filterInputChild.nativeElement.value = '' : this.hide();
         event.preventDefault();
         event.stopPropagation();
     }
