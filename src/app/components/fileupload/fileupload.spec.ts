@@ -6,6 +6,7 @@ import { ProgressBarModule} from '../progressbar/progressbar';
 import { ButtonModule } from '../button/button';
 import { PrimeTemplate} from '../common/shared';
 import { MessagesModule } from '../messages/messages';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('FileUpload', () => {
 
@@ -18,7 +19,8 @@ describe('FileUpload', () => {
         NoopAnimationsModule,
         ProgressBarModule,
         MessagesModule,
-        ButtonModule
+        ButtonModule,
+        HttpClientModule
         ],
         declarations: [
         FileUpload,
