@@ -27,7 +27,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check': selected}"></span>
                 </div>
             </div>
-            <label *ngIf="!template">{{option.label}}</label>
+            <span *ngIf="!template">{{option.label}}</span>
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
     `
@@ -77,10 +77,10 @@ export class MultiSelectItem {
                        [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
-                <label class="ui-multiselect-label ui-corner-all">
+                <span class="ui-multiselect-label ui-corner-all">
                     <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString}}</ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
-                </label>
+                </span>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
                 <span class="ui-multiselect-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
