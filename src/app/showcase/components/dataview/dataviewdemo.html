@@ -233,7 +233,7 @@ export class DataViewDemo implements OnInit &#123;
                 of page links to display. To customize the left and right side of the paginators, use "paginatorLeftTemplate" and "paginatorRightTemplate" templates.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataView [value]="cars" [paginator="true" [rows]="10"&gt;
+&lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
             &#123;&#123;car.id&#125;&#125;
@@ -262,7 +262,7 @@ export class DataViewDemo implements OnInit &#123;
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataView [value]="cars" [paginator="true" [rows]="10"
+&lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
