@@ -133,7 +133,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     androidChrome: boolean;
 
-    focus: boolean;
+    focused: boolean;
 
     constructor(public el: ElementRef) {}
 
@@ -369,7 +369,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onInputBlur(e) {
-        this.focus = false;
+        this.focused = false;
         this.onModelTouched();
         this.checkVal();
         this.updateFilledState();
@@ -549,7 +549,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             return;
         }
 
-        this.focus = true;
+        this.focused = true;
 
         clearTimeout(this.caretTimeoutId);
         let pos;
@@ -617,6 +617,10 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     updateFilledState() {
         this.filled = this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '';
+    }
+
+    focus() {
+        this.inputViewChild.nativeElement.focus();
     }
 
     ngOnDestroy() {
