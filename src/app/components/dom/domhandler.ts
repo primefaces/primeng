@@ -380,6 +380,10 @@ export class DomHandler {
         // other browser
         return false;
     }
+
+    public static isIOS() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window['MSStream'];
+    }
     
     public static appendChild(element: any, target: any) {
         if(this.isElement(target))
