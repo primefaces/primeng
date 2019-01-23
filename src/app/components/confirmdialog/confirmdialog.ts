@@ -35,11 +35,11 @@ import {Subscription}   from 'rxjs';
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translate3d(0, 25%, 0) scale(0.9)',
+                transform: 'translate3d(-50%, -25%, 0) scale(0.9)',
                 opacity: 0
             })),
             state('visible', style({
-                transform: 'none',
+                transform: 'translateX(-50%) translateY(-50%)',
                 opacity: 1
             })),
             transition('* => *', animate('{{transitionParams}}'))
@@ -76,19 +76,12 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() rejectButtonStyleClass: string;
 
-    @Input() positionLeft: number;
-
-    @Input() positionTop: number;
-
-    @Input() breakpoint: number = 640;
-    
+   
     @Input() closeOnEscape: boolean = true;
 
     @Input() rtl: boolean;
 
     @Input() closable: boolean = true;
-
-    @Input() responsive: boolean = true;
     
     @Input() appendTo: any;
     
@@ -109,9 +102,7 @@ export class ConfirmDialog implements OnDestroy {
     _visible: boolean;
     
     documentEscapeListener: any;
-    
-    documentResponsiveListener: any;
-    
+        
     mask: any;
 
     container: HTMLDivElement;
@@ -180,7 +171,6 @@ export class ConfirmDialog implements OnDestroy {
                 DomHandler.findSingle(this.container, 'button').focus();
                 this.appendContainer();
                 this.moveOnTop();
-                this.positionOverlay();
                 this.bindGlobalListeners();
                 this.enableModality();
             break;
@@ -201,48 +191,6 @@ export class ConfirmDialog implements OnDestroy {
         }
     }
 
-    onWindowResize(event) {        
-        let viewport = DomHandler.getViewport();
-        let width = DomHandler.getOuterWidth(this.container);
-        if (viewport.width <= this.breakpoint) {
-            if (!this.preWidth) {
-                this.preWidth = width;
-            }
-            this.container.style.left = '0px';
-            this.container.style.width = '100%';
-        }
-        else {
-            this.container.style.width = this.preWidth + 'px';
-            this.positionOverlay();
-        }
-    }
-
-    positionOverlay() {
-        let viewport = DomHandler.getViewport();
-        if (DomHandler.getOuterHeight(this.container) > viewport.height) {
-             this.contentViewChild.nativeElement.style.height = (viewport.height * .75) + 'px';
-             this.container.style.height = 'auto';
-        } 
-        else {
-            this.contentViewChild.nativeElement.style.height = null;
-            if (this.height) {
-                this.container.style.height = this.height + 'px';
-            }
-        }
-        
-        if (this.positionLeft >= 0 && this.positionTop >= 0) {
-            this.container.style.left = this.positionLeft + 'px';
-            this.container.style.top = this.positionTop + 'px';
-        }
-        else if (this.positionTop >= 0) {
-            this.center();
-            this.container.style.top = this.positionTop + 'px';
-        }
-        else {
-            this.center();
-        }
-    }
-
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
@@ -257,26 +205,7 @@ export class ConfirmDialog implements OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
     }
-      
-    center() {
-        let elementWidth = DomHandler.getOuterWidth(this.container);
-        let elementHeight = DomHandler.getOuterHeight(this.container);
-        if (elementWidth == 0 && elementHeight == 0) {
-            this.container.style.visibility = 'hidden';
-            this.container.style.display = 'block';
-            elementWidth = DomHandler.getOuterWidth(this.container);
-            elementHeight = DomHandler.getOuterHeight(this.container);
-            this.container.style.display = 'none';
-            this.container.style.visibility = 'visible';
-        }
-        let viewport = DomHandler.getViewport();
-        let x = (viewport.width - elementWidth) / 2;
-        let y = (viewport.height - elementHeight) / 2;
-
-        this.container.style.left = x + 'px';
-        this.container.style.top = y + 'px';
-    }
-    
+        
     enableModality() {
         if (!this.mask) {
             this.mask = document.createElement('div');
@@ -324,24 +253,12 @@ export class ConfirmDialog implements OnDestroy {
                 }
             });
         }
-        
-        if (this.responsive) {
-            this.zone.runOutsideAngular(() => {
-                this.documentResponsiveListener = this.onWindowResize.bind(this);
-                window.addEventListener('resize', this.documentResponsiveListener);
-            });
-        }
     }
     
     unbindGlobalListeners() {
         if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
-        }
-        
-        if (this.documentResponsiveListener) {
-            window.removeEventListener('resize', this.documentResponsiveListener);
-            this.documentResponsiveListener = null;
         }
     }
 
