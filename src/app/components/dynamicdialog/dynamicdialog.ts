@@ -121,7 +121,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	}
 	    
 	close() {
-		DomHandler.zindex--;
 		this.visible = false;
 	}
 

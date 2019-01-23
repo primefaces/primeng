@@ -248,7 +248,6 @@ export class Dialog implements OnDestroy {
     }
 
     close(event: Event) {
-        DomHandler.zindex--;
         this.visibleChange.emit(false);
         event.preventDefault();
     }
@@ -586,7 +585,7 @@ export class Dialog implements OnDestroy {
     bindDocumentEscapeListener() {
         this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + this.baseZIndex)) {
+                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);
                 }
             }
