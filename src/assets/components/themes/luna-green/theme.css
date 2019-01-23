@@ -1318,7 +1318,7 @@ body .ui-selectbutton .ui-button:last-child {
   border-bottom-right-radius: 3px;
 }
 @media (max-width: 640px) {
-  body .ui-buttonset .ui-button {
+  body .ui-buttonset:not(.ui-splitbutton) .ui-button {
     margin-bottom: 1px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
