@@ -1762,6 +1762,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 allowDrop = false;
             }
 
+            if (allowDrop && ((dropIndex < dragIndex && this.dropPosition === 1))) {
+                dropIndex = dropIndex + 1;
+            }
+
+            if (allowDrop && ((dropIndex > dragIndex && this.dropPosition === -1))) {
+                dropIndex = dropIndex - 1;
+            }
+
             if (allowDrop) {
                 ObjectUtils.reorderArray(this.columns, dragIndex, dropIndex);
 
