@@ -180,10 +180,8 @@ export class Lightbox implements AfterViewInit,OnDestroy {
 
         content.style.width = imageWidth + 'px';
         content.style.height = imageHeight + 'px';
-        this.panel.style.marginLeft = `-${imageWidth / 2}px`;
-        this.panel.style.marginTop = `-${imageHeight / 2}px`;
-        this.panel.style.left = '50%';
-        this.panel.style.top = '50%';
+        this.panel.style.left = parseInt(this.panel.style.left) + (DomHandler.getOuterWidth(this.panel) - imageWidth) / 2 + 'px';
+        this.panel.style.top = parseInt(this.panel.style.top) + (DomHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
 
         setTimeout(() => {
             this.cd.markForCheck();
