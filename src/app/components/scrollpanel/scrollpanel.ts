@@ -183,7 +183,7 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
         });
     }
 
-    scrollTo (scrollTop: number) {
+    scrollTop(scrollTop: number) {
         let scrollableHeight = this.contentViewChild.nativeElement.scrollHeight - this.contentViewChild.nativeElement.clientHeight;
         scrollTop = scrollTop > scrollableHeight ? scrollableHeight : scrollTop > 0 ? scrollTop : 0;
         this.contentViewChild.nativeElement.scrollTop = scrollTop;
