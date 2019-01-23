@@ -151,7 +151,9 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             
             if(this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
-                    this.close(event);
+                    if (this.dismissible) {
+                        this.close(event);
+                    }
                 });
             }
 
