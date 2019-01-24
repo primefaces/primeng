@@ -183,7 +183,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() virtualScroll: boolean;
 
-    @Input() virtualScrollDelay: number = 500;
+    @Input() virtualScrollDelay: number = 150;
 
     @Input() virtualRowHeight: number = 28;
 
@@ -2142,7 +2142,7 @@ export class TableBody {
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
             </table>
-            <div #virtualScroller class="ui-table-virtual-scroller"></div>
+            <div #virtualScroller class="ui-table-virtual-scroller" *ngIf="dt.virtualScroll"></div>
         </div>
         <div #scrollFooter *ngIf="dt.footerTemplate" class="ui-table-scrollable-footer ui-widget-header">
             <div #scrollFooterBox class="ui-table-scrollable-footer-box">
