@@ -42,7 +42,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     template: `<input #input pInputText [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder"
         [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
         (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
-        (input)="onInput($event)" (paste)="handleInputChange($event)">`,
+        (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
@@ -96,6 +96,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onInput: EventEmitter<any> = new EventEmitter();
 
     value: any;
 
@@ -573,11 +575,13 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         this.onFocus.emit(event);
     }
 
-    onInput(event) {
+    onInputChange(event) {
         if (this.androidChrome)
             this.handleAndroidInput(event);
         else
             this.handleInputChange(event);
+
+        this.onInput.emit(event);
     }
 
     handleInputChange(event) {
