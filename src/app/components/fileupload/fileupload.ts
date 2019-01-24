@@ -133,7 +133,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     @ViewChild('content') content: ElementRef;
 
-    @Input() files: File[];
+    @Input() files: File[] = [];
 
     public progress: number = 0;
 
@@ -154,10 +154,6 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
     constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient){}
-
-    ngOnInit() {
-        this.files = [];
-    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
