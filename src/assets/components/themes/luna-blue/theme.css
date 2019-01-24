@@ -297,9 +297,6 @@ body .ui-inputswitch.ui-inputswitch-checked:not(.ui-state-disabled):hover .ui-in
 body .ui-inputswitch.ui-inputswitch-checked.ui-inputswitch-focus .ui-inputswitch-slider {
   background: #1864a6;
 }
-body .ui-autocomplete .ui-autocomplete-dropdown .ui-button-icon-left:before {
-  content: "";
-}
 body .ui-autocomplete .ui-autocomplete-input {
   padding: 0.429em;
 }
@@ -441,9 +438,6 @@ body .ui-dropdown .ui-dropdown-trigger {
   padding: 0;
   color: #dedede;
 }
-body .ui-dropdown .ui-dropdown-trigger .ui-dropdown-trigger-icon:before {
-  content: "";
-}
 body .ui-dropdown .ui-dropdown-clear-icon {
   color: #dedede;
 }
@@ -523,9 +517,6 @@ body .ui-multiselect .ui-multiselect-trigger {
   text-align: center;
   padding: 0;
   color: #dedede;
-}
-body .ui-multiselect .ui-multiselect-trigger .ui-multiselect-trigger-icon:before {
-  content: "";
 }
 body .ui-multiselect-panel {
   padding: 0;
@@ -884,12 +875,6 @@ body .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
   -o-transition: color 0.2s;
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
-}
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-next span:before {
-  content: "";
-}
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev span:before {
-  content: "";
 }
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-title {
   margin: 0;
@@ -1331,9 +1316,6 @@ body .ui-splitbutton.ui-buttonset .ui-button {
 body .ui-splitbutton.ui-buttonset .ui-menu {
   min-width: 100%;
 }
-body .ui-splitbutton.ui-buttonset .ui-splitbutton-menubutton .ui-button-icon-left:before {
-  content: "";
-}
 body .ui-button.ui-state-default.ui-button-secondary, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {
   color: #333333;
   background-color: #f4f4f4;
@@ -1551,12 +1533,6 @@ body .ui-accordion .ui-accordion-header a {
 }
 body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
   color: #888888;
-}
-body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon.pi-caret-right:before {
-  content: "";
-}
-body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon.pi-caret-down:before {
-  content: "";
 }
 body .ui-accordion .ui-accordion-header:not(.ui-state-active):not(.ui-state-disabled):hover a {
   background-color: #191919;
@@ -1852,11 +1828,11 @@ body .ui-table .ui-editable-column input:focus {
   outline-offset: 2px;
 }
 body .ui-table .ui-table-tbody > tr {
-  background: #323232;
+  background-color: #323232;
   color: #dedede;
 }
 body .ui-table .ui-table-tbody > tr > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #191919;
 }
 body .ui-table .ui-table-tbody > tr.ui-state-highlight {
@@ -2431,11 +2407,11 @@ body .ui-treetable .ui-editable-column input:focus {
   outline-offset: 2px;
 }
 body .ui-treetable .ui-treetable-tbody > tr {
-  background: #323232;
+  background-color: #323232;
   color: #dedede;
 }
 body .ui-treetable .ui-treetable-tbody > tr > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #191919;
 }
 body .ui-treetable .ui-treetable-tbody > tr > td .ui-treetable-toggler {
@@ -2451,7 +2427,7 @@ body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight {
   color: #ffffff;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #191919;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td .ui-treetable-toggler {
@@ -2462,7 +2438,7 @@ body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected {
   color: #ffffff;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #191919;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td .ui-treetable-toggler {
@@ -3287,12 +3263,6 @@ body .ui-panelmenu .ui-panelmenu-header > a {
 }
 body .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon {
   color: #888888;
-}
-body .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon.pi-caret-right:before {
-  content: "";
-}
-body .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon.pi-caret-down:before {
-  content: "";
 }
 body .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover {
   outline: 0 none;

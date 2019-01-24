@@ -150,7 +150,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() resetFilterOnHide: boolean = false;
     
-    @Input() dropdownIcon: string = 'pi pi-caret-down';
+    @Input() dropdownIcon: string = 'pi pi-chevron-down';
     
     @Input() optionLabel: string;
 

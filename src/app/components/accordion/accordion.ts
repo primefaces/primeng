@@ -167,9 +167,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'pi pi-fw pi-caret-right';
+    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
 
-    @Input() collapseIcon: string = 'pi pi-fw pi-caret-down';
+    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
     
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
