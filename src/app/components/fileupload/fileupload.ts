@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
+import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
             ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -59,7 +59,7 @@ import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
         </span>
     `
 })
-export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
+export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() name: string;
 
