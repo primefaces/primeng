@@ -1856,7 +1856,7 @@ body .ui-table .ui-table-tbody > tr {
   color: #dedede;
 }
 body .ui-table .ui-table-tbody > tr > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #191919;
 }
 body .ui-table .ui-table-tbody > tr.ui-state-highlight {
