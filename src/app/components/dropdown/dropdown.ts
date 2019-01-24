@@ -51,7 +51,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div *ngIf="overlayVisible" [ngClass]="'ui-dropdown-panel  ui-widget ui-widget-content ui-corner-all ui-shadow'" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" [value]="filterValue||''" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilter($event)">
+                    (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilter($event)" [attr.aria-label]="ariaFilterLabel">
                     <span class="ui-dropdown-filter-icon pi pi-search"></span>
                 </div>
                 <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
@@ -169,6 +169,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
+
+    @Input() ariaFilterLabel: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     

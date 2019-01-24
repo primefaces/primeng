@@ -97,7 +97,7 @@ export class MultiSelectItem {
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
-                        <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter()" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder">
+                        <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter()" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
                         <span class="ui-multiselect-filter-icon pi pi-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" tabindex="0" (click)="close($event)" (keydown.enter)="close($event)">
@@ -223,6 +223,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
+
+    @Input() ariaFilterLabel: string;
     
     @ViewChild('container') containerViewChild: ElementRef;
     
