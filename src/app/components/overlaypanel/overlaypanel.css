@@ -58,10 +58,10 @@
     top: 100%;
 }
 
-.ui-overlaypanel-flipped:after {
+.ui-overlaypanel.ui-overlaypanel-flipped:after {
     border-bottom-color: transparent;
 }
 
-.ui-overlaypanel-flipped:before {
+.ui-overlaypanel.ui-overlaypanel-flipped:before {
     border-bottom-color: transparent
 }
