@@ -78,7 +78,7 @@ export class TableService {
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
-                    <tfoot class="ui-table-tfoot">
+                    <tfoot *ngIf="footerTemplate" class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
