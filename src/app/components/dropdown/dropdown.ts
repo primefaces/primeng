@@ -69,7 +69,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToDisplay, selectedOption: selectedOption}"></ng-container>
                         </ng-container>
                         <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                            <li *ngFor="let option of options;let i=index"  (click)="onItemClick($event, option)" role="option"
+                            <li *ngFor="let option of options;let i=index"  (click)="onItemClick($event, option)" role="option" [attr.aria-label]="option.label"
                                     [ngClass]="{'ui-dropdown-item ui-corner-all':true,
                                                 'ui-state-highlight':(selectedOption == option),
                                                 'ui-state-disabled':(option.disabled),

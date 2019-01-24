@@ -39,7 +39,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
         <ul class="ui-listbox-list">
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'"
-              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}"
+              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}" [attr.aria-label]="option.label"
               (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)" (keydown)="onOptionKeyDown($event,option)">
             <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
               <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
