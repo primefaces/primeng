@@ -8,12 +8,13 @@ import { CarService } from '../../service/carservice';
         :host ::ng-deep .ui-table .ui-table-thead > tr > th {
             position: -webkit-sticky;
             position: sticky;
-            top: 70px;
+            top: 69px;
+            box-shadow: 1px 3px 6px 0 rgba(32,33,36,0.10);
         }
 
         @media screen and (max-width: 64em) {
             :host ::ng-deep .ui-table .ui-table-thead > tr > th {
-                top: 100px;
+                top: 99px;
             }
         }
 `]
