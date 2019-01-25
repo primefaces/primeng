@@ -1129,7 +1129,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.showOverlay();
         }
         else {
-            this.hideOverlay();
+            if (this.touchUI) {
+                this.disableModality();
+            } else {
+                this.hideOverlay();
+            }
         }
         
         this.datepickerClick = true;
