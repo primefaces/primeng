@@ -1992,7 +1992,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onClearButtonClick(event) {
         this.updateModel(null);
         this.updateInputfield();
-        this.hideOverlay();
+        if (this.touchUI) {
+            this.disableModality();
+        } else {
+            this.hideOverlay();
+        }
         this.onClearClick.emit(event);
     }
     
@@ -2000,7 +2004,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
                 if (!this.datepickerClick && this.overlayVisible) {
-                    this.hideOverlay();
+                    if (this.touchUI) {
+                        this.disableModality();
+                    } else {
+                        this.hideOverlay();
+                    }
                 }
 
                 this.datepickerClick = false;
