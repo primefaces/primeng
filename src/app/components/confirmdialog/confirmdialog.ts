@@ -84,6 +84,8 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() closeOnEscape: boolean = true;
 
+    @Input() blockScroll: boolean = true;
+
     @Input() rtl: boolean;
 
     @Input() closable: boolean = true;
@@ -146,6 +148,10 @@ export class ConfirmDialog implements OnDestroy {
                 if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
+                }
+
+                if (this.confirmation.blockScroll === false) {
+                    this.blockScroll = this.confirmation.blockScroll;
                 }
 
                 this.visible = true;
@@ -284,6 +290,10 @@ export class ConfirmDialog implements OnDestroy {
             DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
             document.body.appendChild(this.mask);
             DomHandler.addClass(document.body, 'ui-overflow-hidden');
+
+            if(this.blockScroll) {
+                DomHandler.addClass(document.body, 'ui-overflow-hidden');
+            }
         }
     }
     
@@ -291,6 +301,11 @@ export class ConfirmDialog implements OnDestroy {
         if (this.mask) {
             document.body.removeChild(this.mask);
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+
+            if(this.blockScroll) {            
+                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+            }
+            
             this.mask = null;
         }
     }
