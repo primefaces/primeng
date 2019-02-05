@@ -1171,8 +1171,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = this.filterConstraints[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
-                            
+                            let fieldData = ObjectUtils.resolveFieldData(this.value[i], globalFilterField);
+                            if (globalFilterFieldsArray[j].subfield ) {
+                                fieldData = ObjectUtils.resolveFieldData(fieldData, globalFilterFieldsArray[j].subfield);
+                            }
+                            globalMatch = this.filterConstraints[this.filters['global'].matchMode](
+                                fieldData, this.filters['global'].value);
                             if(globalMatch) {
                                 break;
                             }
