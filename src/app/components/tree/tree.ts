@@ -8,6 +8,7 @@ import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
+import { ObjectUtils } from '../utils/objectutils';
 
 @Component({
     selector: 'p-treeNode',
@@ -124,7 +125,7 @@ export class UITreeNode implements OnInit {
     }
 
     isLeaf() {
-        return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
+        return this.tree.isNodeLeaf(this.node);
     }
 
     toggle(event: Event) {
@@ -451,8 +452,13 @@ export class UITreeNode implements OnInit {
             <div class="ui-tree-loading-content" *ngIf="loading">
                 <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
-            <ul class="ui-tree-container" *ngIf="value" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                <p-treeNode *ngFor="let node of value; let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
+            <div *ngIf="filter" class="ui-tree-filter-container">
+                <input #filter type="text" autocomplete="off" class="ui-tree-filter ui-inputtext ui-widget ui-state-default ui-corner-all"
+                    (keydown.enter)="$event.preventDefault()" (input)="onFilter($event)">
+                    <span class="ui-tree-filter-icon pi pi-search"></span>
+            </div>
+            <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
             <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
@@ -525,6 +531,12 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() validateDrop: boolean;
 
+    @Input() filter: boolean;
+
+    @Input() filterBy: string = 'label';
+
+    @Input() filterMode: string = 'lenient';
+
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
@@ -548,6 +560,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     public dragStartSubscription: Subscription;
 
     public dragStopSubscription: Subscription;
+
+    public filteredNodes: TreeNode[];
 
     constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
 
@@ -811,14 +825,20 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         return this.selectionMode && this.selectionMode == 'checkbox';
     }
 
+    isNodeLeaf(node) {
+        return node.leaf == false ? false : !(node.children&&node.children.length);
+    }
+
+    getRootNode() {
+        return this.filteredNodes ? this.filteredNodes : this.value;
+    }
+    
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
         if(this.templateMap)
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else
             return null;
-    }
-
-    
+    }    
 
     onDragOver(event) {
         if(this.droppableNodes && (!this.value || this.value.length === 0)) {
@@ -918,6 +938,64 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         else {
             return true;
         }
+    }
+
+    onFilter(event) {
+        let filterValue = event.target.value;
+        if (filterValue === '') {
+            this.filteredNodes = this.value;
+        }
+        else {
+            this.filteredNodes = [];
+            const searchFields: string[] = this.filterBy.split(',');
+            const filterText = ObjectUtils.removeAccents(filterValue).toLowerCase();
+            const isStrictMode = this.filterMode === 'strict';
+            for(let node of this.value) {
+                let copyNode = {...node};
+                let paramsWithoutNode = {searchFields, filterText, isStrictMode};
+                if ((isStrictMode && (this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
+                    (!isStrictMode && (this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
+                    this.filteredNodes.push(copyNode);
+                }
+            }
+        }  
+    }
+
+    findFilteredNodes(node, paramsWithoutNode) {
+        if (node) {
+            let matched = false;
+            if (node.children) {
+                let childNodes = [...node.children];
+                node.children = [];
+                for (let childNode of childNodes) {
+                    let copyChildNode = {...childNode};
+                    if (this.isFilterMatched(copyChildNode, paramsWithoutNode)) {
+                        matched = true;
+                        node.children.push(copyChildNode);
+                    }
+                }
+            }
+            
+            if (matched) {
+                return true;
+            }
+        }
+    }
+
+    isFilterMatched(node, {searchFields, filterText, isStrictMode}) {
+        let matched = false;
+        for(let field of searchFields) {
+            let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLowerCase();
+            if(fieldValue.indexOf(filterText) > -1) {
+                matched = true;
+            }
+        }
+
+        if (!matched || (isStrictMode && !this.isNodeLeaf(node))) {
+            matched = this.findFilteredNodes(node, {searchFields, filterText, isStrictMode}) || matched;
+        }
+
+        return matched;
     }
 
     getBlockableElement(): HTMLElement {
