@@ -498,7 +498,6 @@
 
     &.ui-menuitem-active {
         > .ui-menuitem-link {
-            cursor: pointer;
             @include hover-element();
             border-color: transparent;
         }
