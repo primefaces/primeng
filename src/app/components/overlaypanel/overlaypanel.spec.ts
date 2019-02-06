@@ -108,10 +108,10 @@ describe('OverlayPanel', () => {
     it('should not close on container click', () => {
       const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
       const hide = spyOn(overlaypanel, 'hide').and.callThrough();
-      const overlaypanelEl = fixture.debugElement.query(By.css('div'));
       buttonEl.click();
       fixture.detectChanges();
 
+      const overlaypanelEl = fixture.debugElement.query(By.css('div'));
       const containerChildEl = fixture.debugElement.query(By.css('img')).nativeElement;
       containerChildEl.click();
       fixture.detectChanges();
