@@ -38,21 +38,21 @@ import {RouterModule} from '@angular/router';
 export class TieredMenuSub {
 
     @Input() item: MenuItem;
-
+    
     @Input() root: boolean;
 
     @Input() autoZIndex: boolean = true;
-
+    
     @Input() baseZIndex: number = 0;
 
     @Input() hideDelay: number = 250;
 
     constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
-
+    
     activeItem: HTMLLIElement;
 
     hideTimeout: any;
-
+                
     onItemMouseEnter(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (menuitem.disabled) {
             return;
@@ -62,7 +62,7 @@ export class TieredMenuSub {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
-
+        
         this.activeItem = item;
         let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
         if (nextElement) {
@@ -71,29 +71,29 @@ export class TieredMenuSub {
                 sublist.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
             }
             sublist.style.zIndex = String(++DomHandler.zindex);
-
+                        
             sublist.style.top = '0px';
             sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
         }
     }
-
+    
     onItemMouseLeave(event: Event) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
         }, this.hideDelay);
     }
-
+    
     itemClick(event: Event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return true;
         }
-
+        
         if (!item.url) {
             event.preventDefault();
         }
-
-        if (item.command) {
+        
+        if (item.command) {            
             item.command({
                 originalEvent: event,
                 item: item
@@ -104,7 +104,7 @@ export class TieredMenuSub {
             this.tieredMenu.hide();
         }
     }
-
+    
     listClick(event: Event) {
         this.activeItem = null;
     }
@@ -142,33 +142,33 @@ export class TieredMenu implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-
+    
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
-
+    
     @Input() baseZIndex: number = 0;
 
     @Input() hideDelay: number = 250
-
+    
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     container: HTMLDivElement;
-
+    
     documentClickListener: any;
 
     documentResizeListener: any;
-
+    
     preventDocumentDefault: boolean;
 
     target: any;
 
     visible: boolean;
-
+    
     constructor(public el: ElementRef, public renderer: Renderer2) {}
-
+    
     toggle(event) {
         if (this.visible)
             this.hide();
@@ -177,7 +177,7 @@ export class TieredMenu implements OnDestroy {
 
         this.preventDocumentDefault = true;
     }
-
+    
     show(event) {
         this.target = event.currentTarget;
         this.visible = true;
@@ -202,7 +202,7 @@ export class TieredMenu implements OnDestroy {
             break;
         }
     }
-
+    
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
@@ -217,7 +217,7 @@ export class TieredMenu implements OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
     }
-
+    
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
@@ -231,7 +231,7 @@ export class TieredMenu implements OnDestroy {
     onWindowResize() {
         this.hide();
     }
-
+    
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
@@ -255,7 +255,7 @@ export class TieredMenu implements OnDestroy {
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-
+    
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
@@ -269,7 +269,7 @@ export class TieredMenu implements OnDestroy {
         this.preventDocumentDefault = false;
         this.target = null;
     }
-
+    
     ngOnDestroy() {
         if (this.popup) {
             this.restoreOverlayAppend();
