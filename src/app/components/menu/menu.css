@@ -27,6 +27,7 @@
 }
 
 .ui-menu .ui-menuitem-link {
+    cursor: pointer;
     padding: .25em;
     display: block;
     text-decoration: none;
