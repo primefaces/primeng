@@ -40,13 +40,13 @@ export class OverlayPanel implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
@@ -54,27 +54,32 @@ export class OverlayPanel implements OnDestroy {
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
-    
+
     container: HTMLDivElement;
 
     visible: boolean = false;
 
     documentClickListener: any;
-            
+
     target: any;
-    
+
     willHide: boolean;
-        
+
     documentResizeListener: any;
-    
+
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
-        
+
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {
             this.zone.runOutsideAngular(() => {
                 let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
                 this.documentClickListener = this.renderer.listen('document', documentEvent, (event) => {
-                    if (!this.el.nativeElement.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                    if (
+                        !this.el.nativeElement.contains(event.target) &&
+                        !this.container.contains(event.target) &&
+                        this.target !== event.target &&
+                        !this.target.contains(event.target)
+                    ) {
                         this.zone.run(() => {
                             this.hide();
                         });
@@ -85,14 +90,14 @@ export class OverlayPanel implements OnDestroy {
             });
         }
     }
-    
+
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
     }
-    
+
     toggle(event, target?) {
         if (this.visible) {
             this.visible = false;
@@ -175,7 +180,7 @@ export class OverlayPanel implements OnDestroy {
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);

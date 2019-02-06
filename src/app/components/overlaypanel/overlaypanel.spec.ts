@@ -19,10 +19,10 @@ class TestOverlayPanelComponent {
 }
 
 describe('OverlayPanel', () => {
-  
+
     let overlaypanel: OverlayPanel;
     let fixture: ComponentFixture<TestOverlayPanelComponent>;
-    
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         schemas: [NO_ERRORS_SCHEMA],
@@ -34,7 +34,7 @@ describe('OverlayPanel', () => {
         TestOverlayPanelComponent
       ],
       });
-      
+
       fixture = TestBed.createComponent(TestOverlayPanelComponent);
       overlaypanel = fixture.debugElement.query(By.css('p-overlayPanel')).componentInstance;
     });
@@ -103,6 +103,21 @@ describe('OverlayPanel', () => {
 
       expect(hide).toHaveBeenCalled();
       expect(overlaypanelEl).toBeFalsy();
+    });
+
+    it('should not close on container click', () => {
+      const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
+      const hide = spyOn(overlaypanel, 'hide').and.callThrough();
+      const overlaypanelEl = fixture.debugElement.query(By.css('div'));
+      buttonEl.click();
+      fixture.detectChanges();
+
+      const containerChildEl = fixture.debugElement.query(By.css('img')).nativeElement;
+      containerChildEl.click();
+      fixture.detectChanges();
+
+      expect(hide).not.toHaveBeenCalled();
+      expect(overlaypanelEl).toBeTruthy();
     });
 
 });
