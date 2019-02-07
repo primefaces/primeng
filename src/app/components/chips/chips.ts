@@ -56,6 +56,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     @Input() addOnTab: boolean;
 
+    @Input() addOnComma: boolean;
+
     @Input() addOnBlur: boolean;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
@@ -217,6 +219,16 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             
             case 9:
                 if(this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
+                    this.addItem(event, this.inputViewChild.nativeElement.value);
+                    this.inputViewChild.nativeElement.value = '';
+
+                    event.preventDefault();
+                }
+            break;
+
+            // comma
+            case 188:
+                if (this.addOnComma && this.inputViewChild.nativeElement.value !== '') {
                     this.addItem(event, this.inputViewChild.nativeElement.value);
                     this.inputViewChild.nativeElement.value = '';
 

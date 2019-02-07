@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <p-chips [(ngModel)]="values1"></p-chips>
+    <p-chips [(ngModel)]="values1" addOnComma="true"></p-chips>
     
     <h3>Template</h3>
     <p-chips [(ngModel)]="values2">
@@ -146,6 +146,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether to add an item on tab key press.</td>
+                        </tr>
+                        <tr>
+                          <td>addOnComma</td>
+                          <td>boolean</td>
+                          <td>false</td>
+                          <td>Whether to add an item on comma key press (comma won't be included).</td>
                         </tr>
                         <tr>
                             <td>addOnBlur</td>
