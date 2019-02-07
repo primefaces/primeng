@@ -453,7 +453,7 @@ export class UITreeNode implements OnInit {
                 <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="filter" class="ui-tree-filter-container">
-                <input #filter type="text" autocomplete="off" class="ui-tree-filter ui-inputtext ui-widget ui-state-default ui-corner-all"
+                <input #filter type="text" autocomplete="off" class="ui-tree-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()" (input)="onFilter($event)">
                     <span class="ui-tree-filter-icon pi pi-search"></span>
             </div>
@@ -536,6 +536,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() filterBy: string = 'label';
 
     @Input() filterMode: string = 'lenient';
+
+    @Input() filterPlaceholder: string;
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
