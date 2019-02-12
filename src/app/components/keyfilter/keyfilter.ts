@@ -102,6 +102,11 @@ export class KeyFilter implements Validator {
         }
 
         let k = this.getKey(e);
+        
+        if (k == 13) {
+            return;
+        }
+
         if (browser.mozilla && (this.isNavKeyPress(e) || k == KeyFilter.KEYS.BACKSPACE || (k == KeyFilter.KEYS.DELETE && e.charCode == 0))) {
             return;
         }
