@@ -26,7 +26,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                 </ng-template>
                 <div class="ui-helper-hidden-accessible">
-                    <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled || option.disabled">
+                    <input #cbox type="checkbox" (click)="onInputClick($event,option)" [attr.aria-label]="option.label" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled || option.disabled">
                 </div>
             </div>
         </div>
@@ -152,6 +152,12 @@ export class SelectButton implements ControlValueAccessor {
             }
         }
         return index;
+    }
+
+    onInputClick(event,option) {
+        if (!this.multiple && this.isSelected(option)) {
+            event.preventDefault();
+        }
     }
 }
 
