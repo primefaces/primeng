@@ -991,7 +991,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     onFilter(event) {
         let filterValue = event.target.value;
         if (filterValue === '') {
-            this.filteredNodes = this.value;
+            this.filteredNodes = null;
         }
         else {
             this.filteredNodes = [];
