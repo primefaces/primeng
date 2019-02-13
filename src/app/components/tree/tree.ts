@@ -621,6 +621,10 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
             if (this.hasFilteredNodes()) {
                 node = this.getNodeWithKey(node.key, this.value);
+
+                if (!node) {
+                    return;
+                }
             }
 
             let index = this.findIndexInSelection(node);
@@ -784,11 +788,12 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
             }
 
             if (node.children) {
-                return this.getNodeWithKey(key, node.children);
+                let matchedNode = this.getNodeWithKey(key, node.children);
+                if (matchedNode) {
+                    return matchedNode;
+                }
             }
         }
-
-        return null;
     }
 
     propagateUp(node: TreeNode, select: boolean) {
