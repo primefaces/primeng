@@ -111,6 +111,10 @@ export class UITreeNode implements OnInit {
 
     ngOnInit() {
         this.node.parent = this.parentNode;
+
+        if (this.parentNode) {
+            this.tree.syncNodeOption(this.node, this.tree.value, 'parent', this.tree.getNodeWithKey(this.parentNode.key, this.tree.value));
+        }
     }
 
     getIcon() {
@@ -615,6 +619,10 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
                 return;
             }
 
+            if (this.hasFilteredNodes()) {
+                node = this.getNodeWithKey(node.key, this.value);
+            }
+
             let index = this.findIndexInSelection(node);
             let selected = (index >= 0);
 
@@ -739,11 +747,14 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
         if(this.selectionMode && this.selection) {
             if(this.isSingleSelectionMode()) {
-                index = (this.selection == node) ? 0 : - 1;
+                let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
+                index = areNodesEqual ? 0 : - 1;
             }
             else {
                 for(let i = 0; i  < this.selection.length; i++) {
-                    if(this.selection[i] == node) {
+                    let selectedNode = this.selection[i];
+                    let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
+                    if(areNodesEqual) {
                         index = i;
                         break;
                     }
@@ -752,6 +763,32 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         }
 
         return index;
+    }
+
+    syncNodeOption(node, parentNodes, option, value?: any) {
+        // to synchronize the node option between the filtered nodes and the original nodes(this.value) 
+        const _node = this.hasFilteredNodes() ? this.getNodeWithKey(node.key, parentNodes) : null;
+        if (_node) {
+            _node[option] = value||node[option];
+        }
+    }
+
+    hasFilteredNodes() {
+        return this.filter && this.filteredNodes && this.filteredNodes.length;
+    }
+
+    getNodeWithKey(key: string, nodes: TreeNode[]) {
+        for (let node of nodes) {
+            if (node.key === key) {
+                return node;
+            }
+
+            if (node.children) {
+                return this.getNodeWithKey(key, node.children);
+            }
+        }
+
+        return null;
     }
 
     propagateUp(node: TreeNode, select: boolean) {
@@ -784,6 +821,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
                 else
                     node.partialSelected = false;
             }
+
+            this.syncNodeOption(node, this.filteredNodes, 'partialSelected');
         }
 
         let parent = node.parent;
@@ -803,6 +842,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         }
 
         node.partialSelected = false;
+
+        this.syncNodeOption(node, this.filteredNodes, 'partialSelected');
 
         if(node.children && node.children.length) {
             for(let child of node.children) {
