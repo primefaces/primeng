@@ -8,6 +8,10 @@
 <div class="content-section implementation">
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
+    <p-toast [preventOpenDuplicates]="true" key="pod" [style]="{marginTop: '80px'}"></p-toast>
+
+    <p-toast [preventDuplicates]="true" key="pd" [style]="{marginTop: '80px'}"></p-toast>
+
     <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
 
     <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
@@ -52,6 +56,12 @@
 
     <h3>Template</h3>
     <button type="button" pButton (click)="showConfirm()" label="Confirm" class="ui-button-warning"></button>
+
+    <h3>Prevent Open Duplicates</h3>
+    <button type="button" pButton (click)="showWarn('pod')" label="Show" class="ui-button-warning"></button>
+
+    <h3>Prevent Duplicates</h3>
+    <button type="button" pButton (click)="showWarn('pd')" label="Show" class="ui-button-warning"></button>
 </div>
 
 <div class="content-section documentation">
@@ -320,6 +330,18 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                             <td>string</td>
                             <td>250ms ease-in</td>
                             <td>Transition options of the hide animation.</td>
+                        </tr>
+                        <tr>
+                            <td>preventOpenDuplicates</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>It does not add the new message if there is already a toast displayed with the same detail.</td>
+                        </tr>
+                        <tr>
+                            <td>preventDuplicates</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Displays only once a message with the same detail.</td>
                         </tr>
                     </tbody>
                 </table>

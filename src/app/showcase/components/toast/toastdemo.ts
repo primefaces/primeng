@@ -33,8 +33,8 @@ export class ToastDemo {
         this.messageService.add({severity:'info', summary: 'Info Message', detail:'PrimeNG rocks'});
     }
 
-    showWarn() {
-        this.messageService.add({severity:'warn', summary: 'Warn Message', detail:'There are unsaved changes'});
+    showWarn(key?: string) {
+        this.messageService.add({key: key, severity:'warn', summary: 'Warn Message', detail:'There are unsaved changes'});
     }
 
     showError() {
@@ -56,6 +56,11 @@ export class ToastDemo {
     showConfirm() {
         this.messageService.clear();
         this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
+    }
+
+    showConfirmPreventOpenDuplicate() {
+        this.messageService.clear();
+        this.messageService.add({key: 'pod', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
     }
 
     showMultiple() {

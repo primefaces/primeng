@@ -157,6 +157,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
+    @Input() preventOpenDuplicates: boolean = false;
+
+    @Input() preventDuplicates: boolean = false;
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
@@ -169,6 +173,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     messages: Message[];
 
+    oldMessages: Message[];
+
     template: TemplateRef<any>;
 
     mask: HTMLDivElement;
@@ -179,11 +185,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
             if (messages) {
                 if (messages instanceof Array) {
-                    let filteredMessages = messages.filter(m => this.key === m.key);
-                    this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
+                    let filteredMessages = messages.filter(m => this.canAdd(m));
+                    this.add(filteredMessages);
                 }
-                else if (this.key === messages.key) {
-                    this.messages = this.messages ? [...this.messages, ...[messages]] : [messages];
+                else if (this.canAdd(messages)) {
+                    this.add([messages]);
                 }
 
                 if (this.modal && this.messages && this.messages.length) {
@@ -206,6 +212,34 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
                 this.disableModality();
             }
         });       
+    }
+
+    private add(messages: Message[]): void {
+        this.messages = this.messages ? [...this.messages, ...messages] : [...messages];
+        if (this.preventDuplicates) {
+            this.oldMessages = this.oldMessages ? [...this.oldMessages, ...messages] : [...messages];
+        }
+    }
+
+    private canAdd(message: Message): boolean {
+        let allow = this.key === message.key;
+
+        if (allow && this.preventOpenDuplicates) {
+            allow = !this.containsMessageWithDetail(this.messages, message.detail);
+        }
+
+        if (allow && this.preventDuplicates) {
+            allow = !this.containsMessageWithDetail(this.oldMessages, message.detail);
+        }
+
+        return allow;
+    }
+
+    private containsMessageWithDetail(messages: Message[], detail: string): boolean {
+        if (!messages) {
+            return false;
+        }
+        return messages.findIndex(m => m.detail === detail) > -1;
     }
 
     ngAfterContentInit() {
