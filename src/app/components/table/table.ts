@@ -2187,6 +2187,13 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.alignScrollBar();
+                    if (this.scrollBodyViewChild.nativeElement.clientHeight === 0 && this.scrollHeaderBoxViewChild.nativeElement.style.overflowX != "scroll") {
+                        this.scrollHeaderBoxViewChild.nativeElement.style.overflowX = "scroll";
+                    }
+                    else if(this.scrollBodyViewChild.nativeElement.clientHeight > 0 && this.scrollHeaderBoxViewChild.nativeElement.style.overflowX === "scroll") {
+                        this.scrollHeaderBoxViewChild.nativeElement.scrollLeft = 0;                        
+                        this.scrollHeaderBoxViewChild.nativeElement.style.overflowX = "";
+                    }
                 }, 50);
             });
         });
