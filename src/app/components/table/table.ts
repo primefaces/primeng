@@ -926,6 +926,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     selectRange(event: MouseEvent, rowIndex: number) {
         let rangeStart, rangeEnd;
         
+        if (this.lazy && this.first >= this.rows) {
+            rowIndex = rowIndex - this.rows;
+            if(this.anchorRowIndex >= this.rows)
+                this.anchorRowIndex = this.anchorRowIndex - this.rows;
+        }
+        
         if(this.anchorRowIndex > rowIndex) {
             rangeStart = rowIndex;
             rangeEnd = this.anchorRowIndex;
@@ -956,6 +962,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     clearSelectionRange(event: MouseEvent) {
         let rangeStart, rangeEnd;
+        
+        if (this.lazy && this.first >= this.rows) {
+            this.rangeRowIndex = this.rangeRowIndex - this.rows;
+            if(this.anchorRowIndex >= this.rows)
+                this.anchorRowIndex = this.anchorRowIndex - this.rows;
+        }
 
         if(this.rangeRowIndex > this.anchorRowIndex) {
             rangeStart = this.anchorRowIndex;
