@@ -764,6 +764,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             (DomHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
             return;
         }
+        
+        if (this.lazy && this.first >= this.rows) {
+            event.rowIndex = event.rowIndex - this.rows;
+        }
+
 
         if(this.selectionMode) {
             this.preventSelectionSetterPropagation = true;
