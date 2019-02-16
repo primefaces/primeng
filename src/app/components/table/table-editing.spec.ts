@@ -20,7 +20,7 @@ class CarColumn {
     header: string;
     field: string;
     isDisabled: boolean;
-    editType?: 'input' | 'textarea';
+    editType?: 'input' | 'textarea' | 'select';
 }
 
 class EditInitEvent {
@@ -54,6 +54,7 @@ class EditCancelledEvent {
                             <ng-container [ngSwitch]="col.editType">
                                 <input type="text" class="cell-value-input" [(ngModel)]="car[col.field]" *ngSwitchCase="'input'" />
                                 <textarea class="cell-value-textarea" [(ngModel)]="car[col.field]" *ngSwitchCase="'textarea'"></textarea>
+                                <select class="cell-value-select" [(ngModel)]="car[col.field]" *ngSwitchCase="'select'"></select>
                             </ng-container>
                         </ng-template>
                         <ng-template pTemplate="output">
@@ -78,7 +79,7 @@ class TestTableEditComponent {
     ];
 
     columns: CarColumn[] = [
-        { header: 'Brand', field: 'brand', isDisabled: false, editType: 'input' },
+        { header: 'Brand', field: 'brand', isDisabled: false, editType: 'select' },
         { header: 'Vin', field: 'vin', isDisabled: true },
         { header: 'Year', field: 'year', isDisabled: false, editType: 'input' },
         { header: 'Color', field: 'color', isDisabled: false, editType: 'input' },
@@ -270,6 +271,38 @@ describe('Table editing', () => {
                 expect(cellTextAreaInstance.value).toBe(expectedCellValue);
                 expect(cellDebugElement.nativeElement.classList).toContain(editingCellClass);
                 expect(activeElement).toBe(cellTextAreaDebugElement.nativeElement);
+            }));
+        });
+
+        describe('when the cell "input" template contains a "select" element', () => {
+
+            it('should display the cell "input" template and focus the "select" element', fakeAsync(() => {
+                // Arrange
+                const car = testTableEditComponent.cars[2];
+                const field = 'brand';
+                const expectedCellValue = car[field];
+
+                testComponentFixture.detectChanges();
+                const cellEditorSelector = `#car-${car.id} .car-column-${field} p-cellEditor`;
+                const cellEditorDebugElement = testComponentFixture.debugElement.query(By.css(cellEditorSelector));
+
+                // Act
+                cellEditorDebugElement.nativeElement.click();
+                testComponentFixture.detectChanges();
+
+                const cellSelector = `#car-${car.id} .car-column-${field}`;
+                const cellDebugElement = testComponentFixture.debugElement.query(By.css(cellSelector));
+                const cellSelectDebugElement = cellDebugElement.query(By.css('.cell-value-select'));
+                const cellSelectInstance = cellSelectDebugElement.injector.get(NgModel);
+
+                tick(inputFocusTimeout);
+                const activeElement = document.activeElement;
+
+                // Assert
+                expect(cellSelectDebugElement).toBeTruthy();
+                expect(cellSelectInstance.value).toBe(expectedCellValue);
+                expect(cellDebugElement.nativeElement.classList).toContain(editingCellClass);
+                expect(activeElement).toBe(cellSelectDebugElement.nativeElement);
             }));
         });
     });
@@ -464,18 +497,18 @@ describe('Table editing', () => {
 
                         const expectedCellSelector = `#car-${expectedCar.id} .car-column-${expectedField}`;
                         const expectedCellDebugElement = testComponentFixture.debugElement.query(By.css(expectedCellSelector));
-                        const expectedCellInputDebugElement = expectedCellDebugElement.query(By.css('.cell-value-input'));
-                        const expectedCellInputInstance = expectedCellInputDebugElement.injector.get(NgModel);
+                        const expectedCellSelectDebugElement = expectedCellDebugElement.query(By.css('.cell-value-select'));
+                        const expectedCellSelectInstance = expectedCellSelectDebugElement.injector.get(NgModel);
                         const originalCellDebugElement = testComponentFixture.debugElement.query(By.css(originalCellSelector));
 
                         tick(inputFocusTimeout);
                         const activeElement = document.activeElement;
 
                         // Assert
-                        expect(expectedCellInputDebugElement).toBeTruthy();
-                        expect(expectedCellInputInstance.value).toBe(expectedCellValue);
+                        expect(expectedCellSelectDebugElement).toBeTruthy();
+                        expect(expectedCellSelectInstance.value).toBe(expectedCellValue);
                         expect(expectedCellDebugElement.nativeElement.classList).toContain(editingCellClass);
-                        expect(activeElement).toBe(expectedCellInputDebugElement.nativeElement);
+                        expect(activeElement).toBe(expectedCellSelectDebugElement.nativeElement);
                         expect(originalCellDebugElement.nativeElement.classList).not.toContain(editingCellClass);
                     }));
                 });
@@ -511,18 +544,18 @@ describe('Table editing', () => {
 
                         const expectedCellSelector = `#car-${car.id} .car-column-${expectedField}`;
                         const expectedCellDebugElement = testComponentFixture.debugElement.query(By.css(expectedCellSelector));
-                        const expectedCellInputDebugElement = expectedCellDebugElement.query(By.css('.cell-value-input'));
-                        const expectedCellInputInstance = expectedCellInputDebugElement.injector.get(NgModel);
+                        const expectedCellSelectDebugElement = expectedCellDebugElement.query(By.css('.cell-value-select'));
+                        const expectedCellSelectInstance = expectedCellSelectDebugElement.injector.get(NgModel);
                         const originalCellDebugElement = testComponentFixture.debugElement.query(By.css(originalCellSelector));
 
                         tick(inputFocusTimeout);
                         const activeElement = document.activeElement;
 
                         // Assert
-                        expect(expectedCellInputDebugElement).toBeTruthy();
-                        expect(expectedCellInputInstance.value).toBe(expectedCellValue);
+                        expect(expectedCellSelectDebugElement).toBeTruthy();
+                        expect(expectedCellSelectInstance.value).toBe(expectedCellValue);
                         expect(expectedCellDebugElement.nativeElement.classList).toContain(editingCellClass);
-                        expect(activeElement).toBe(expectedCellInputDebugElement.nativeElement);
+                        expect(activeElement).toBe(expectedCellSelectDebugElement.nativeElement);
                         expect(originalCellDebugElement.nativeElement.classList).not.toContain(editingCellClass);
                     }));
                 });

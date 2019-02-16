@@ -3067,7 +3067,7 @@ export class EditableColumn implements AfterViewInit {
         this.dt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                let focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea');
+                let focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea, select');
                 if (focusable) {
                     focusable.focus();
                 }
