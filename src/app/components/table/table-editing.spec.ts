@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { PrimeTemplate } from '../common/shared';
 import { Dropdown } from '../dropdown/dropdown';
@@ -20,7 +20,7 @@ class CarColumn {
     header: string;
     field: string;
     isDisabled: boolean;
-    editType?: 'input' | 'textarea' | 'select';
+    editType?: 'input' | 'textarea' | 'select' | 'custom';
 }
 
 class EditInitEvent {
@@ -40,7 +40,8 @@ class EditCancelledEvent {
 
 @Component({
     template: `
-    <p-table [value]="cars" [columns]="columns" (onEditInit)="onEditInit($event)" (onEditComplete)="onEditComplete($event)" (onEditCancel)="onEditCancel($event)">
+    <p-table [value]="cars" [columns]="columns" (onEditInit)="onEditInit($event)" (onEditComplete)="onEditComplete($event)"
+            (onEditCancel)="onEditCancel($event)">
         <ng-template pTemplate="header" let-cols>
             <tr>
                 <th *ngFor="let col of cols">{{col.header}}</th>
@@ -48,13 +49,16 @@ class EditCancelledEvent {
         </ng-template>
         <ng-template pTemplate="body" let-car let-cols="columns">
             <tr [attr.id]="'car-' + car.id">
-                <td [class]="'car-column-' + col.field" [pEditableColumn]="car" [pEditableColumnField]="col.field" [pEditableColumnDisabled]="col.isDisabled" *ngFor="let col of cols">
+                <td [class]="'car-column-' + col.field" [pEditableColumn]="car" [pEditableColumnField]="col.field"
+                        [pEditableColumnDisabled]="col.isDisabled"
+                        [pFocusCellSelector]="col.editType === 'custom' ? '.cell-value-custom-editor' : ''" *ngFor="let col of cols">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
                             <ng-container [ngSwitch]="col.editType">
                                 <input type="text" class="cell-value-input" [(ngModel)]="car[col.field]" *ngSwitchCase="'input'" />
                                 <textarea class="cell-value-textarea" [(ngModel)]="car[col.field]" *ngSwitchCase="'textarea'"></textarea>
                                 <select class="cell-value-select" [(ngModel)]="car[col.field]" *ngSwitchCase="'select'"></select>
+                                <div class="cell-value-custom-editor" tabindex="1" *ngSwitchCase="'custom'">{{car[col.field]}}</div>
                             </ng-container>
                         </ng-template>
                         <ng-template pTemplate="output">
@@ -81,7 +85,7 @@ class TestTableEditComponent {
     columns: CarColumn[] = [
         { header: 'Brand', field: 'brand', isDisabled: false, editType: 'select' },
         { header: 'Vin', field: 'vin', isDisabled: true },
-        { header: 'Year', field: 'year', isDisabled: false, editType: 'input' },
+        { header: 'Year', field: 'year', isDisabled: false, editType: 'custom' },
         { header: 'Color', field: 'color', isDisabled: false, editType: 'input' },
         { header: 'Notes', field: 'notes', isDisabled: false, editType: 'textarea' }
     ];
@@ -215,7 +219,7 @@ describe('Table editing', () => {
             it('should display the cell "input" template and focus the "input" element', fakeAsync(() => {
                 // Arrange
                 const car = testTableEditComponent.cars[0];
-                const field = 'year';
+                const field = 'color';
                 const expectedCellValue = car[field];
 
                 testComponentFixture.detectChanges();
@@ -303,6 +307,35 @@ describe('Table editing', () => {
                 expect(cellSelectInstance.value).toBe(expectedCellValue);
                 expect(cellDebugElement.nativeElement.classList).toContain(editingCellClass);
                 expect(activeElement).toBe(cellSelectDebugElement.nativeElement);
+            }));
+        });
+
+        describe('when the cell "input" template contains a user-defined element', () => {
+
+            it('should display the cell "input" template and focus the user-defined element', fakeAsync(() => {
+                // Arrange
+                const car = testTableEditComponent.cars[2];
+                const field = 'year';
+
+                testComponentFixture.detectChanges();
+                const cellEditorSelector = `#car-${car.id} .car-column-${field} p-cellEditor`;
+                const cellEditorDebugElement = testComponentFixture.debugElement.query(By.css(cellEditorSelector));
+
+                // Act
+                cellEditorDebugElement.nativeElement.click();
+                testComponentFixture.detectChanges();
+
+                const cellSelector = `#car-${car.id} .car-column-${field}`;
+                const cellDebugElement = testComponentFixture.debugElement.query(By.css(cellSelector));
+                const cellCustomEditorDebugElement = cellDebugElement.query(By.css('.cell-value-custom-editor'));
+
+                tick(inputFocusTimeout);
+                const activeElement = document.activeElement;
+
+                // Assert
+                expect(cellCustomEditorDebugElement).toBeTruthy();
+                expect(cellDebugElement.nativeElement.classList).toContain(editingCellClass);
+                expect(activeElement).toBe(cellCustomEditorDebugElement.nativeElement);
             }));
         });
     });
