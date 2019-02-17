@@ -293,6 +293,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
         this.optionsToDisplay = this._options;
+
+        if (this.autoDisplayFirst && this.optionsToDisplay && this.optionsToDisplay.length) {
+            this.value = this.optionsToDisplay[0];
+        }
+
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
         

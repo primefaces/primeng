@@ -229,4 +229,12 @@ describe('Dropdown', () => {
       expect(emptyMesage.nativeElement.textContent).toEqual("No results found");
     }));
 
+    it('should change the value to the first option by default if autoDisplayFirst = true', () => {
+      dropdown.autoDisplayFirst = true;
+      dropdown.options = ['1', '2'];
+      fixture.detectChanges();
+      expect(dropdown.selectedOption).toEqual('1');
+      expect(dropdown.value).toEqual('1');
+    });
+
 });
