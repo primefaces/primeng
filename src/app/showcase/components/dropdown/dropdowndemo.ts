@@ -14,7 +14,7 @@ export class DropdownDemo {
 
     cities: City[];
 
-    selectedCity: City;
+    selectedCity: string;
 
     cars: SelectItem[];
 
