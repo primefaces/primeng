@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
