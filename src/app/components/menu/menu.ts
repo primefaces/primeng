@@ -87,6 +87,8 @@ export class Menu implements OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef;
     
+    @Output() visibleChanged: EventEmitter<boolean> = new EventEmitter();
+    
     container: HTMLDivElement;
     
     documentClickListener: any;
@@ -107,12 +109,14 @@ export class Menu implements OnDestroy {
         else
             this.show(event);
 
+        this.visibleChanged.emit(this.visible);
         this.preventDocumentDefault = true;
     }
 
     show(event) {
         this.target = event.currentTarget;
         this.visible = true;
+        this.visibleChanged.emit(this.visible);
         this.preventDocumentDefault = true;
     }
 
@@ -158,6 +162,7 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
+        this.visibleChanged.emit(this.visible);
     }
 
     onWindowResize() {
