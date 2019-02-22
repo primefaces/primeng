@@ -208,6 +208,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @Input() optionLabel: string;
 
+    @Input() optionValue: string;
+
     @Input() showHeader: boolean = true;
 
     @Input() autoZIndex: boolean = true;
@@ -291,7 +293,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
+        let opts = (this.optionLabel || this.optionValue) ? ObjectUtils.generateSelectItems(val, this.optionLabel, this.optionValue) : val;
         this._options = opts;
         this.updateLabel();
     }

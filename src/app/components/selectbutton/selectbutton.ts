@@ -48,6 +48,8 @@ export class SelectButton implements ControlValueAccessor {
     @Input() dataKey: string
     
     @Input() optionLabel: string;
+
+    @Input() optionValue: string;
     
     @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
 
@@ -72,7 +74,7 @@ export class SelectButton implements ControlValueAccessor {
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
+        let opts = (this.optionLabel || this.optionValue) ? ObjectUtils.generateSelectItems(val, this.optionLabel, this.optionValue) : val;
         this._options = opts;
     }
     
