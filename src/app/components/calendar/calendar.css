@@ -162,6 +162,11 @@
     border-bottom-right-radius: 0px;
 }
 
+.ui-datepicker-current-day .ui-state-active{
+    color: #ffffff;
+    background-color: #007ad9;
+}
+
 /* Month Picker */
 .ui-monthpicker .ui-monthpicker-month {
     width: 33.3%;
