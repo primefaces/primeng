@@ -109,7 +109,6 @@ export class Menu implements OnDestroy {
         else
             this.show(event);
 
-        this.visibleChanged.emit(this.visible);
         this.preventDocumentDefault = true;
     }
 
