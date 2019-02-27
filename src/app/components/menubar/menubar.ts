@@ -130,8 +130,6 @@ export class MenubarSub implements OnDestroy {
             }
   
             this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) && this.autoDisplay ? null: item) : item;
-            console.log(this.autoDisplay);
-            console.log(this.activeMenu);
         }
     }
 
