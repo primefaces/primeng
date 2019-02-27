@@ -3378,7 +3378,7 @@ export class TableCheckbox  {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <div class="ui-chkbox ui-widget" (click)="onClick($event, cb.checked)">
+        <div class="ui-chkbox ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()">
             </div>
@@ -3415,10 +3415,10 @@ export class TableHeaderCheckbox  {
         this.checked = this.updateCheckedState();
     }
 
-    onClick(event: Event, checked) {
+    onClick(event: Event) {
         if (!this.disabled) {
             if (this.dt.value && this.dt.value.length > 0) {
-                this.dt.toggleRowsWithCheckbox(event, !checked);
+                this.dt.toggleRowsWithCheckbox(event, !this.checked);
             }
         }
 
