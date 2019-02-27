@@ -65,7 +65,7 @@ export class MenubarSub implements OnDestroy {
                 return;
             }
             
-            this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item) && this.autoDisplay ? null : item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
@@ -85,7 +85,7 @@ export class MenubarSub implements OnDestroy {
 
             this.menuClick = true;
             this.menuHoverActive = this.activeMenu ? (!this.activeMenu.isEqualNode(item)) : true;
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) && this.autoDisplay ? null: item) : item;
             this.bindEventListener();
         }
     }
@@ -113,7 +113,7 @@ export class MenubarSub implements OnDestroy {
                 this.hideTimeout = null;
             }
 
-            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item)? null: item) : item;
+            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item) && this.autoDisplay ? null: item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
@@ -129,7 +129,9 @@ export class MenubarSub implements OnDestroy {
                 }
             }
   
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) && this.autoDisplay ? null: item) : item;
+            console.log(this.autoDisplay);
+            console.log(this.activeMenu);
         }
     }
 
