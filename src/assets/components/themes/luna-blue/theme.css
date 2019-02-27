@@ -904,18 +904,18 @@ body .ui-datepicker table td > a, body .ui-datepicker table td > span {
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
-body .ui-datepicker table td > a {
-  cursor: pointer;
-}
-body .ui-datepicker table td > a.ui-state-active {
+body .ui-datepicker table td > a.ui-state-active, body .ui-datepicker table td > span.ui-state-active {
   color: #ffffff;
   background-color: #1f7ed0;
 }
-body .ui-datepicker table td.ui-datepicker-today a {
+body .ui-datepicker table td > a {
+  cursor: pointer;
+}
+body .ui-datepicker table td.ui-datepicker-today > a, body .ui-datepicker table td.ui-datepicker-today > span {
   background-color: #1864a6;
   color: #ffffff;
 }
-body .ui-datepicker table td.ui-datepicker-today a.ui-state-active {
+body .ui-datepicker table td.ui-datepicker-today > a.ui-state-active, body .ui-datepicker table td.ui-datepicker-today > span.ui-state-active {
   color: #ffffff;
   background-color: #1f7ed0;
 }
