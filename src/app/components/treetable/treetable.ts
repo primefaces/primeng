@@ -7,6 +7,7 @@ import { PaginatorModule } from '../paginator/paginator';
 import { PrimeTemplate, SharedModule } from '../common/shared';
 import { SortMeta } from '../common/sortmeta';
 import { BlockableUI } from '../common/blockableui';
+import { FilterMetadata } from '../common/filtermetadata';
 import { ObjectUtils } from '../utils/objectutils';
 
 @Injectable()
@@ -167,6 +168,16 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
+    @Input() filters: { [s: string]: FilterMetadata; } = {};
+
+    @Input() globalFilterFields: string[];
+
+    @Input() filterDelay: number = 300;
+
+    @Input() filterMode: string = 'lenient';
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
@@ -218,6 +229,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     _sortField: string;
 
     _sortOrder: number = 1;
+
+    filteredNodes: any[];
+
+    filterTimeout: any;
 
     colGroupTemplate: TemplateRef<any>;
 
@@ -353,6 +368,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 this.sortSingle();
             else if (this.sortMode == 'multiple' && this.multiSortMeta)
                 this.sortMultiple();
+            else if(this.hasFilter())       //sort already filters
+                this._filter();
         }
 
         this.updateSerializedValue();
@@ -365,7 +382,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         if(this.paginator)
             this.serializePageNodes();
         else
-            this.serializeNodes(null, this.value, 0, true);
+            this.serializeNodes(null, this.filteredNodes||this.value, 0, true);
     }
 
     serializeNodes(parent, nodes, level, visible) {
@@ -388,12 +405,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     serializePageNodes() {
+        let data = this.filteredNodes || this.value;
         this.serializedValue = [];
-        if(this.value && this.value.length) {
+        if(data && data.length) {
             const first = this.lazy ? 0 : this.first;
 
             for(let i = first; i < (first + this.rows); i++) {
-                let node = this.value[i];
+                let node = data[i];
                 if(node) {
                     this.serializedValue.push({
                         node: node,
@@ -535,6 +553,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             }
             else if (this.value) {
                 this.sortNodes(this.value);
+
+                if(this.hasFilter()) {
+                    this._filter();
+                }
             }
     
             let sortMeta: SortMeta = {
@@ -594,6 +616,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             }
             else if (this.value) {
                this.sortMultipleNodes(this.value);
+
+                if(this.hasFilter()) {
+                    this._filter();
+                }
             }
             
             this.onSort.emit({
@@ -690,12 +716,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             rows: this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
+            filters: this.filters,
+            globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
             multiSortMeta: this.multiSortMeta
         };
     }
 
     isEmpty() {
-        return this.value == null || this.value.length == 0;
+        let data = this.filteredNodes||this.value;
+        return data == null || data.length == 0;
     }
 
     getBlockableElement(): HTMLElement {
@@ -1049,6 +1078,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     toggleNodeWithCheckbox(event) {
+        this.selection = this.selection||[];
         this.preventSelectionSetterPropagation = true;
         let node = event.rowNode.node;
         let selected = this.isSelected(node);
@@ -1074,9 +1104,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     toggleNodesWithCheckbox(event: Event, check: boolean) {
+        let data = this.filteredNodes || this.value;
+        this._selection = check && data ? data.slice() : [];
         if (check) {
-            if (this.value && this.value.length) {
-                for (let node of this.value) {
+            if (data && data.length) {
+                for (let node of data) {
                     this.propagateSelectionDown(node, true);
                 }
             }
@@ -1205,11 +1237,353 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         return this.compareSelectionBy === 'equals' ? (node1 === node2) : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
+    filter(value, field, matchMode) {
+        if(this.filterTimeout) {
+            clearTimeout(this.filterTimeout);
+        }
+        
+        if (!this.isFilterBlank(value)) {
+            this.filters[field] = { value: value, matchMode: matchMode };
+        } else if (this.filters[field]) {
+            delete this.filters[field];
+        }
+        
+        this.filterTimeout = setTimeout(() => {
+            this._filter();
+            this.filterTimeout = null;
+        }, this.filterDelay);
+    }
+
+    filterGlobal(value, matchMode) {
+        this.filter(value, 'global', matchMode);
+    }
+
+    isFilterBlank(filter: any): boolean {
+        if (filter !== null && filter !== undefined) {
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
+                return true;
+            else
+                return false;
+        }
+        return true;
+    }
+
+    _filter() {
+        if (this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        else {
+            if (!this.value) {
+                return;
+            }
+
+            if(!this.hasFilter()) {
+                this.filteredNodes = null;
+                if (this.paginator) {
+                    this.totalRecords = this.value ? this.value.length : 0;
+                }
+            }
+            else {
+                let globalFilterFieldsArray;
+                if (this.filters['global']) {
+                    if (!this.columns && !this.globalFilterFields)
+                        throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
+                    else
+                        globalFilterFieldsArray = this.globalFilterFields||this.columns;
+                }
+                
+                this.filteredNodes = [];
+                const isStrictMode = this.filterMode === 'strict';
+                let isValueChanged = false;
+
+                for (let node of this.value) {
+                    let copyNode = {...node};
+                    let localMatch = true;
+                    let globalMatch = false;
+                    let paramsWithoutNode;
+    
+                    for (let prop in this.filters) {
+                        if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
+                            let filterMeta = this.filters[prop];
+                            let filterField = prop;
+                            let filterValue = filterMeta.value;
+                            let filterMatchMode = filterMeta.matchMode || 'startsWith';
+                            let filterConstraint = this.filterConstraints[filterMatchMode];
+                            paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
+                            if ((isStrictMode && !(this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
+                                (!isStrictMode && !(this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
+                                    localMatch = false;
+                            }
+    
+                            if (!localMatch) {
+                                break;
+                            }
+                        }
+                    }
+    
+                    if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
+                        for(let j = 0; j < globalFilterFieldsArray.length; j++) {
+                            let copyNodeForGlobal = {...copyNode};
+                            let filterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
+                            let filterValue = this.filters['global'].value;
+                            let filterConstraint = this.filterConstraints[this.filters['global'].matchMode];
+                            paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
+
+                            if ((isStrictMode && (this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode) || this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode))) ||
+                                (!isStrictMode && (this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode) || this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode)))) {
+                                    globalMatch = true;
+                                    copyNode = copyNodeForGlobal;
+                            }
+                        }
+                    }
+    
+                    let matches = localMatch;
+                    if (this.filters['global']) {
+                        matches = localMatch && globalMatch;
+                    }
+
+                    if (matches) {
+                        this.filteredNodes.push(copyNode);
+                    }
+
+                    isValueChanged = isValueChanged || !localMatch || globalMatch;
+                }
+    
+                if (!isValueChanged) {
+                    this.filteredNodes = null;
+                }
+    
+                if (this.paginator) {
+                    this.totalRecords = this.filteredNodes ? this.filteredNodes.length : this.value ? this.value.length : 0;
+                }
+            }
+        }
+
+        this.first = 0;
+
+        const filteredValue = this.filteredNodes || this.value;
+        
+        this.onFilter.emit({
+            filters: this.filters,
+            filteredValue: filteredValue
+        });
+
+        this.tableService.onUIUpdate(filteredValue);
+        this.updateSerializedValue();
+    }
+
+    findFilteredNodes(node, paramsWithoutNode) {
+        if (node) {
+            let matched = false;
+            if (node.children) {
+                let childNodes = [...node.children];
+                node.children = [];
+                for (let childNode of childNodes) {
+                    let copyChildNode = {...childNode};
+                    if (this.isFilterMatched(copyChildNode, paramsWithoutNode)) {
+                        matched = true;
+                        node.children.push(copyChildNode);
+                    }
+                }
+            }
+            
+            if (matched) {
+                return true;
+            }
+        }
+    }
+
+    isFilterMatched(node, {filterField, filterValue, filterConstraint, isStrictMode}) {
+        let matched = false;
+        let dataFieldValue = ObjectUtils.resolveFieldData(node.data, filterField);
+        if (filterConstraint(dataFieldValue, filterValue)) {
+            matched = true;
+        }
+
+        if (!matched || (isStrictMode && !this.isNodeLeaf(node))) {
+            matched = this.findFilteredNodes(node, {filterField, filterValue, filterConstraint, isStrictMode}) || matched;
+        }
+
+        return matched;
+    }
+
+    isNodeLeaf(node) {
+        return node.leaf === false ? false : !(node.children && node.children.length);
+    }
+
+    hasFilter() {
+        let empty = true;
+        for (let prop in this.filters) {
+            if (this.filters.hasOwnProperty(prop)) {
+                empty = false;
+                break;
+            }
+        }
+
+        return !empty;
+    }
+
+    filterConstraints = {
+
+        startsWith(value, filter): boolean {
+            if (filter === undefined || filter === null || filter.trim() === '') {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
+
+            return stringValue.slice(0, filterValue.length) === filterValue;
+        },
+
+        contains(value, filter): boolean {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
+
+            return stringValue.indexOf(filterValue) !== -1;
+        },
+
+        endsWith(value, filter): boolean {
+            if (filter === undefined || filter === null || filter.trim() === '') {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
+
+            return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
+        },
+
+        equals(value, filter): boolean {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            if (value.getTime && filter.getTime)
+                return value.getTime() === filter.getTime();
+            else
+                return ObjectUtils.removeAccents(value.toString()).toLowerCase() == ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+        },
+
+        notEquals(value, filter): boolean {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return false;
+            }
+
+            if (value === undefined || value === null) {
+                return true;
+            }
+
+            if (value.getTime && filter.getTime)
+                return value.getTime() !== filter.getTime();
+            else
+                return ObjectUtils.removeAccents(value.toString()).toLowerCase() != ObjectUtils.removeAccents(filter.toString()).toLowerCase();
+        },
+
+        in(value, filter: any[]): boolean {
+            if (filter === undefined || filter === null || filter.length === 0) {
+                return true;
+            }
+
+            for (let i = 0; i < filter.length; i++) {
+                if (filter[i] === value || ( value != null && (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime()))) {
+
+                    return true;
+                }
+            }
+
+            return false;
+        },
+
+        lt(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            if (value.getTime && filter.getTime)
+                return value.getTime() < filter.getTime();
+            else
+                return value < filter;
+        },
+        
+        lte(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            if (value.getTime && filter.getTime)
+                return value.getTime() <= filter.getTime();
+            else
+                return value <= filter;
+        },
+
+        gt(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            if (value.getTime && filter.getTime)
+                return value.getTime() > filter.getTime();
+            else
+                return value > filter;
+        },
+        
+        gte(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            if (value.getTime && filter.getTime)
+                return value.getTime() >= filter.getTime();
+            else
+                return value >= filter;
+        }
+    }
+
     public reset() {
         this._sortField = null;
         this._sortOrder = 1;
         this._multiSortMeta = null;
         this.tableService.onSort(null);
+
+        this.filteredNodes = null;
+        this.filters = {};
                 
         this.first = 0;
         
@@ -2118,9 +2492,10 @@ export class TTHeaderCheckbox  {
 
     updateCheckedState() {
         let checked: boolean;
+        const data = this.tt.filteredNodes||this.tt.value;
 
-        if (this.tt.value) {
-            for (let node of this.tt.value) {
+        if (data) {
+            for (let node of data) {
                 if (this.tt.isSelected(node)) {
                     checked = true;
                 }   

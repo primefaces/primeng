@@ -2256,6 +2256,17 @@ body .ui-tree.ui-tree-horizontal .ui-treenode .ui-treenode-content.ui-treenode-s
   background-color: #4c4c4c;
   color: #dedede;
 }
+body .ui-tree .ui-tree-filter-container .ui-tree-filter {
+  width: 100%;
+  padding-right: 2em;
+}
+body .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+  top: 50%;
+  left: auto;
+  margin-top: -.5em;
+  right: .8em;
+  color: #cc285c;
+}
 body .ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node:not(.ui-state-highlight):hover {
   background-color: #4c4c4c;
   color: #dedede;

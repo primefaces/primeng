@@ -893,7 +893,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = rowData;
                 this.contextMenuSelectionChange.emit(rowData);
-                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, data: rowData});
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, data: rowData, index: event.rowIndex});
                 this.contextMenu.show(event.originalEvent);
                 this.tableService.onContextMenu(rowData);
             }
@@ -918,7 +918,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
     
                 this.contextMenu.show(event.originalEvent);
-                this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
+                this.onContextMenuSelect.emit({originalEvent: event, data: rowData, index: event.rowIndex});
             }
         }
     }
@@ -1717,6 +1717,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
+                let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
+                let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
@@ -1735,8 +1737,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.dropPosition = -1;
                 }
 
-                this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
-                this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
+                if((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dropIndex - dragIndex === -1 && this.dropPosition === 1)) {
+                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
+                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
+                }
+                else {
+                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
+                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
+                }
             }
             else {
                 event.dataTransfer.dropEffect = 'none';
@@ -2765,6 +2773,8 @@ export class ContextMenuRow {
 
     @Input("pContextMenuRow") data: any;
 
+    @Input("pContextMenuRowIndex") index: number;
+
     @Input() pContextMenuRowDisabled: boolean;
 
     selected: boolean;
@@ -2784,7 +2794,8 @@ export class ContextMenuRow {
         if (this.isEnabled()) {
             this.dt.handleRowRightClick({
                 originalEvent: event,
-                rowData: this.data
+                rowData: this.data,
+                rowIndex: this.index
             });
     
             event.preventDefault();

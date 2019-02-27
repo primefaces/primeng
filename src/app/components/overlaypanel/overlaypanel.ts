@@ -74,7 +74,7 @@ export class OverlayPanel implements OnDestroy {
             this.zone.runOutsideAngular(() => {
                 let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
                 this.documentClickListener = this.renderer.listen('document', documentEvent, (event) => {
-                    if (!this.el.nativeElement.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
                         this.zone.run(() => {
                             this.hide();
                         });

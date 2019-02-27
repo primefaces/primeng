@@ -1122,7 +1122,8 @@ export class DataTableDemo implements OnInit &#123;
 
             <h3>ContextMenu</h3>
             <p>DataTable has exclusive integration with contextmenu component. In order to attach a menu to a datatable, add pContextMenuRow directive to the rows that can be selected with context menu, define a local template
-            variable for the menu and bind it to the contextMenu property of the datatable. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection
+            variable for the menu and bind it to the contextMenu property of the datatable. This enables displaying the menu whenever a row is right clicked. Optional
+            pContextMenuRowIndex property is avaiable to access the row index. A separate contextMenuSelection
             property is used to get a hold of the right clicked row. For dynamic columns, setting pContextMenuRowDisabled property as true disables context menu for that particular row.</p>
 
 <pre>
@@ -1135,8 +1136,8 @@ export class DataTableDemo implements OnInit &#123;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [pContextMenuRow]="rowData"&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex"&gt;
+        &lt;tr [pContextMenuRow]="rowData" [pContextMenuRowIndex]="rowIndex"&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
@@ -1246,7 +1247,7 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>See the <a [routerLink]="['/table/editable']">live example.</a></p>
+            <p>See the <a [routerLink]="['/table/edit']">live example.</a></p>
 
             <h3>Expandable Rows</h3>
             <p>Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and

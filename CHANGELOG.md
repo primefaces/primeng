@@ -1,5 +1,47 @@
 # Change Log
 
+## [7.0.5](https://github.com/primefaces/primeng/tree/7.0.5) (2019-01-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.0.4...7.0.5)
+
+**Implemented New Features and Enhancements:**
+
+- Screen reader support for multiselect, dropdown and listbox options [\#7169](https://github.com/primefaces/primeng/issues/7169)
+- Reimplement ConfirmDialog Positioning [\#7164](https://github.com/primefaces/primeng/issues/7164)
+- Add showPassword prop to Password component [\#7083](https://github.com/primefaces/primeng/issues/7083)
+- DOM Handler causes incorrect offset in components that use "relativePosition" [\#6803](https://github.com/primefaces/primeng/issues/6803)
+- Expose Dialog icons for easier customization [\#6102](https://github.com/primefaces/primeng/issues/6102)
+- Update time separator in Calendar component with timeOnly [\#5917](https://github.com/primefaces/primeng/issues/5917)
+- Focus method for Input Mask component. [\#5874](https://github.com/primefaces/primeng/issues/5874)
+- files property on p-fileUpload fail [\#5817](https://github.com/primefaces/primeng/issues/5817)
+- Filter inputs in component should have aria-label for accessibility [\#5811](https://github.com/primefaces/primeng/issues/5811)
+- Accessibility: p-dropdown does not contain children with role=option [\#5809](https://github.com/primefaces/primeng/issues/5809)
+- InputMask misses an INPUT event [\#5799](https://github.com/primefaces/primeng/issues/5799)
+- Add scrollTop method to ScrollPanel [\#5787](https://github.com/primefaces/primeng/issues/5787)
+- Use HTTPClient in FileUpload [\#4945](https://github.com/primefaces/primeng/issues/4945)
+- Incorrect semantic use of HTML label element in multiselect [\#2306](https://github.com/primefaces/primeng/issues/2306)
+
+**Fixed bugs:**
+
+- Themes should not override icons [\#7168](https://github.com/primefaces/primeng/issues/7168)
+- The borders of table don't appear on IE [\#7167](https://github.com/primefaces/primeng/issues/7167)
+- SplitButton rounded corners broken under 640px [\#7162](https://github.com/primefaces/primeng/issues/7162)
+- p-sidebar dimissable flag is not re-evaluated when its value changes [\#7157](https://github.com/primefaces/primeng/issues/7157)
+- TurboTable resize columns when clicked only [\#7140](https://github.com/primefaces/primeng/issues/7140)
+- Two Null Valued Table Filtering Bugs [\#7134](https://github.com/primefaces/primeng/issues/7134)
+-  ClearState method is cleaning all states. It should clears only stateKey state. [\#7124](https://github.com/primefaces/primeng/issues/7124)
+- closeOnEscape property not working on p-dialog [\#7123](https://github.com/primefaces/primeng/issues/7123)
+- p-spinner truncates decimal part for step bigger than 1 [\#7115](https://github.com/primefaces/primeng/issues/7115)
+- Up/Down arrow press on draggable Tree [\#7080](https://github.com/primefaces/primeng/issues/7080)
+- Accordion space-bar toggle event not working in IE  [\#5898](https://github.com/primefaces/primeng/issues/5898)
+- Error loading captcha with angular 6 [\#5881](https://github.com/primefaces/primeng/issues/5881)
+- p-table column reordering still not working [\#5878](https://github.com/primefaces/primeng/issues/5878)
+- OverlayPanel doesn't close on iPhone [\#5870](https://github.com/primefaces/primeng/issues/5870)
+- Editor insert image does not update value [\#5841](https://github.com/primefaces/primeng/issues/5841)
+- ConfirmDialog doesn't always re-center on browser resize [\#5834](https://github.com/primefaces/primeng/issues/5834)
+- Turbo Table: Shows scrollbars on Edge and IE11 even though \[scrollable\] is disabled [\#5824](https://github.com/primefaces/primeng/issues/5824)
+- MenuItem\#styleClass suppport for Steps [\#5805](https://github.com/primefaces/primeng/issues/5805)
+
 ## [7.0.4](https://github.com/primefaces/primeng/tree/7.0.4) (2018-1-7)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.3...7.0.4)

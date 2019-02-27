@@ -25,6 +25,7 @@ import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
 import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
+import { TreeTableFilterDemo } from './treetablefilterdemo';
 
 @NgModule({
 	imports: [
@@ -55,6 +56,7 @@ import { TreeTableEditDemo } from './treetableeditdemo';
         TreeTableColResizeDemo,
         TreeTableReorderDemo,
         TreeTableEditDemo,
+        TreeTableFilterDemo,
         TreeTableSubmenu
 	]
 })
