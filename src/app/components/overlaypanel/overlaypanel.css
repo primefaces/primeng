@@ -53,6 +53,20 @@
 	margin-left: -10px;
 }
 
+.ui-overlaypanel-shifted:after, .ui-overlaypanel-shifted:before {
+    left: auto;
+    right: 1.25em;
+    margin-left: auto;
+}
+
+.ui-overlaypanel-shifted:after {
+    margin-right: -8px;
+}
+
+.ui-overlaypanel:before {
+    margin-right: -10px;
+}
+
 .ui-overlaypanel-flipped:after, .ui-overlaypanel-flipped:before {
     bottom: auto;
     top: 100%;
