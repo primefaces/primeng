@@ -327,7 +327,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                             this.progress = 0;
 
                             if (event['status'] >= 200 && event['status'] < 300) {
-                                this.onUpload.emit({files: this.files, responseEvent: event});
+                                this.onUpload.emit({files: this.files, originalEvent: event});
                             } else {
                                 this.onError.emit({files: this.files});
                             }
