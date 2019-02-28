@@ -1240,10 +1240,20 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>If you require the edited row data and the field at onEditComplete event, bind the data to the pEditableColumn directive and the field to the pEditableColumnField directive</p>
+            <p>If you require the edited row data or the selected field in the <i>onEditInit</i>, <i>onEditComplete</i>, and <i>onEditCancel</i> events, bind the row data to the pEditableColumn directive and the field to the pEditableColumnField directive.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;td [pEditableColumn]="rowData" [pEditableColumnField]="'year'"&gt;
+</code>
+</pre>
+
+            <p>When opening a cell for editing, the table will automatically focus the first <i>input</i>, <i>textarea</i>, or <i>select</i> element inside the output template.
+               If you want to override this default behavior, you can pass a custom selector for the elements to focus into the pFocusCellSelector directive.
+               This is useful when you would like the Tab and Shift+Tab keyboard navigation to focus on buttons or custom edit controls.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;td [pFocusCellSelector]="'input, .custom-edit-control'"&gt;
 </code>
 </pre>
 
