@@ -86,8 +86,10 @@ export class Menu implements OnDestroy {
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @ViewChild('container') containerViewChild: ElementRef;
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
     
-    @Output() visibleChanged: EventEmitter<boolean> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
     
     container: HTMLDivElement;
     
@@ -115,7 +117,6 @@ export class Menu implements OnDestroy {
     show(event) {
         this.target = event.currentTarget;
         this.visible = true;
-        this.visibleChanged.emit(this.visible);
         this.preventDocumentDefault = true;
     }
 
@@ -125,6 +126,7 @@ export class Menu implements OnDestroy {
                 if (this.popup) {
                     this.container = event.element;
                     this.moveOnTop();
+                    this.onShow.emit({});
                     this.appendOverlay();
                     DomHandler.absolutePosition(this.container, this.target);
                     this.bindDocumentClickListener();
@@ -134,6 +136,7 @@ export class Menu implements OnDestroy {
 
             case 'void':
                 this.onOverlayHide();
+                this.onHide.emit({});
             break;
         }
     }
@@ -161,7 +164,6 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
-        this.visibleChanged.emit(this.visible);
     }
 
     onWindowResize() {
