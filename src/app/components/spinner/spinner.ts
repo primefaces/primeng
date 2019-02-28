@@ -237,7 +237,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         let value: number;
                 
         if (val.trim() === '') {
-            value = this.min != null ? this.min : null;
+            value = null;
         }
         else {
             if (this.precision)
