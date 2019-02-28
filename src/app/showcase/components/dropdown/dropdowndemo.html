@@ -37,6 +37,10 @@
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
+
+
+    <h3>Virtual Scroll (10000 Items)</h3>
+    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item..." [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
 </div>
 
 <div class="content-section documentation">
