@@ -19,7 +19,7 @@ import {RouterModule} from '@angular/router';
                 <ul class="ui-menu-list ui-helper-reset">
                     <ng-template ngFor let-item [ngForOf]="model">
                         <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngIf="item.visible !== false">
-                            <a *ngIf="!item.routerLink" [attr.href]="item.url||null" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                                 [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                 <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
                                 <span class="ui-menuitem-text">{{item.label}}</span>
