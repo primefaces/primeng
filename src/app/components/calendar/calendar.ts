@@ -1285,8 +1285,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     decrementMinute(event) {
         let newMinute = this.currentMinute - this.stepMinute;
+        newMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
         if (this.validateMinute(newMinute)) {
-            this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
+            this.currentMinute = newMinute;
         }
         
         event.preventDefault();
@@ -1332,8 +1333,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     decrementSecond(event) {
         let newSecond = this.currentSecond - this.stepSecond;
+        newSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
         if (this.validateSecond(newSecond)) {
-            this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
+            this.currentSecond = newSecond;
         }
         
         event.preventDefault();
