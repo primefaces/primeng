@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -87,6 +87,8 @@ export class Menu implements OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef;
     
+    @Output() visibleChanged: EventEmitter<boolean> = new EventEmitter();
+    
     container: HTMLDivElement;
     
     documentClickListener: any;
@@ -113,6 +115,7 @@ export class Menu implements OnDestroy {
     show(event) {
         this.target = event.currentTarget;
         this.visible = true;
+        this.visibleChanged.emit(this.visible);
         this.preventDocumentDefault = true;
     }
 
@@ -158,6 +161,7 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
+        this.visibleChanged.emit(this.visible);
     }
 
     onWindowResize() {
