@@ -43,22 +43,23 @@
     <p-table [value]="cars2">
         <ng-template pTemplate="header">
             <tr>
+                <th style="width: 4em"></th>
                 <th>Vin</th>
                 <th>Year</th>
                 <th>Brand</th>
                 <th>Color</th>
-                <th style="width: 4em"></th>
+                
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-car>
             <tr>
+                <td>
+                    <button type="button" pButton (click)="selectCar($event,car,op3)" icon="pi pi-search"></button>
+                </td>
                 <td>{{car.vin}}</td>
                 <td>{{car.year}}</td>
                 <td>{{car.brand}}</td>
                 <td>{{car.color}}</td>
-                <td>
-                    <button type="button" pButton (click)="selectCar($event,car,op3)" icon="pi pi-search"></button>
-                </td>
             </tr>
         </ng-template>
     </p-table>
