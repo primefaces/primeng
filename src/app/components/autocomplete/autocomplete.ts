@@ -240,7 +240,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     ngAfterViewChecked() {
         //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
         if (this.suggestionsUpdated && this.overlay && this.overlay.offsetParent) {
-            setTimeout(() => this.alignOverlay(), 1);
+            setTimeout(() => {
+                if (this.overlay) {
+                    this.alignOverlay();
+                }
+            }, 1);
             this.suggestionsUpdated = false;
         }
 
