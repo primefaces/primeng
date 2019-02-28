@@ -34,7 +34,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>CDK</h3>
-            <p>VirtualScrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+            <p>Virtual Scrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 npm install @angular/cdk --save
@@ -166,7 +166,7 @@ export class MyModel &#123;
 
             <h3>Virtual Scrolling</h3>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
-                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. Notice that filtering is not support when virtual scrolling is enabled. </p>
+                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;

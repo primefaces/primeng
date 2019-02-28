@@ -38,14 +38,21 @@
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
 
-
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item..." [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
+    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
+            <h3>CDK</h3>
+            <p>VirtualScrolling enabled Dropdown depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install @angular/cdk --save
+</code>
+</pre>
+
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -228,6 +235,15 @@ export class MyModel &#123;
         ];
     &#125;
 &#125;
+</code>
+</pre>
+
+            <h3>Virtual Scrolling</h3>
+            <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
+                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. </p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown [options]="cities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -647,6 +663,9 @@ clearFilter(dropdown: Dropdown) &#123;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;&lt;/p&gt;
+
+&lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
+&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -667,6 +686,10 @@ export class DropdownDemo &#123;
     selectedCar3: string;
 
     groupedCars: SelectItemGroup[];
+
+    items: SelectItem[];
+
+    item: string;
 
     constructor() &#123;
         this.cities = [
@@ -716,6 +739,11 @@ export class DropdownDemo &#123;
                 ]
             &#125;
         ];
+
+        this.items = [];
+        for (let i = 0; i &lt; 10000; i++) {
+            this.items.push({label: 'Item ' + i, value: 'Item ' + i});
+        }
     &#125;
 &#125;
 </code>
