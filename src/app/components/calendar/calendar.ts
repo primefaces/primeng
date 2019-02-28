@@ -1540,6 +1540,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     hideOverlay() {
         this.overlayVisible = false;
+
+        if (this.touchUI) {
+            this.disableModality();
+        }
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
