@@ -912,6 +912,12 @@ onDrop(event) {
     &lt;button pButton type="button" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
+&lt;h3&gt;Lenient Filter Mode&lt;/h3&gt;
+&lt;p-tree [value]="filesTree11" [filter]="true"&gt;&lt;/p-tree&gt;
+
+&lt;h3&gt;Strict Filter Mode&lt;/h3&gt;
+&lt;p-tree [value]="filesTree12" [filter]="true" filterMode="strict"&gt;&lt;/p-tree&gt;
+
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
 &lt;p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
 &lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&lt;/div&gt;

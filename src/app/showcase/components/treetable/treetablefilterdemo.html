@@ -11,7 +11,7 @@
     <p-treeTable #tt [value]="files" [columns]="cols">
         <ng-template pTemplate="caption">
             <div style="text-align: right">        
-                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
             </div>
         </ng-template>
@@ -33,6 +33,11 @@
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
                 </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>        
+                <td [attr.colspan]="cols.length">No data found.</td>
             </tr>
         </ng-template>
     </p-treeTable>
@@ -82,7 +87,7 @@ export class TreeTableFilterDemo &#123;
 &lt;p-treeTable #tt [value]="files" [columns]="cols"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div style="text-align: right"&gt;        
-            &lt;i class="fa fa-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
             &lt;input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto"&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -104,6 +109,11 @@ export class TreeTableFilterDemo &#123;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="emptymessage"&gt;
+        &lt;tr&gt;        
+            &lt;td [attr.colspan]="cols.length"&gt;No data found.&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
