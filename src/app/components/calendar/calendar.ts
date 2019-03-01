@@ -1718,7 +1718,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                             output += formatName('M',date.getMonth(), this.locale.monthNamesShort, this.locale.monthNames);
                             break;
                         case 'y':
-                            output += lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
+                            output += lookAhead('y') ? ((date.getFullYear() <1000 && date.getFullYear() > 100) ? ("0" + date.getFullYear()) : (date.getFullYear())) : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
                             break;
                         case '@':
                             output += date.getTime();
