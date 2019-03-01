@@ -8,6 +8,27 @@
 </div>
 
 <div class="content-section implementation">
+    
+    <h3 class="first">VirtualScroll With 250K Rows</h3>
+    <p-treeTable [columns]="cols" [value]="files5" [scrollable]="true" [rows]="10" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
+    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34"  [loading]="loading">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+                </td>
+            </tr>            
+        </ng-template>
+    </p-treeTable>
+
     <h3 class="first">Vertical</h3>
     <p-treeTable [value]="files1" [columns]="cols" [scrollable]="true" scrollHeight="200px">
         <ng-template pTemplate="header" let-columns>
