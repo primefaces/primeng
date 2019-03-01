@@ -424,4 +424,249 @@ describe('MegaMenu', () => {
         const unVisibleItems = fixture.debugElement.queryAll(By.css('.ui-helper-hidden'));
         expect(unVisibleItems.length).toEqual(2);
     });
+
+    it('shouldn\'t  call itemClick ', () => {
+        megamenu.orientation = "vertical"
+        megamenu.model  = [
+        {
+            label: 'TV', icon: 'fa fa-fw fa-check',
+            items: [
+                [
+                    {
+                        label: 'TV 1',
+                        items: [{label: 'TV 1.1', disabled:true},{label: 'TV 1.2'}]
+                    },
+                    {
+                        label: 'TV 2',
+                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
+                    }
+                ]
+            ],
+        },
+        {
+            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            items: [
+                [
+                    {
+                        label: 'Sports 1',
+                        items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
+                    },
+                    {
+                        label: 'Sports 2',
+                        items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
+                    },
+
+                ]
+            ]
+        },
+        ];
+        const itemClickSpy = spyOn(megamenu, 'itemClick').and.callThrough();
+        fixture.detectChanges();
+        
+        const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
+        const submenuEl = fixture.debugElement.query(By.css('.ui-g')).queryAll(By.css('ul'));
+        const event = new Event('mouseenter');
+        tvEl.dispatchEvent(event);
+        fixture.detectChanges();
+
+        const tv1FirstItemEl = submenuEl[0].query(By.css('a')).nativeElement;
+        tv1FirstItemEl.click();
+        fixture.detectChanges();
+
+        expect(itemClickSpy).toHaveBeenCalled();
+        expect(megamenu.activeItem).not.toEqual(null);
+    });
+
+    it('shouldn\'t  call itemClick ', () => {
+        let item;
+        megamenu.model  = [
+        {
+            label: 'TV', icon: 'fa fa-fw fa-check',
+            items: [
+                [
+                    {
+                        label: 'TV 1',
+                        items: [{label: 'TV 1.1', command:(event)=>{
+                            item = event.item;
+                        }},{label: 'TV 1.2'}]
+                    },
+                    {
+                        label: 'TV 2',
+                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
+                    }
+                ]
+            ],
+        },
+        {
+            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            items: [
+                [
+                    {
+                        label: 'Sports 1',
+                        items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
+                    },
+                    {
+                        label: 'Sports 2',
+                        items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
+                    },
+
+                ]
+            ]
+        },
+        ];
+        fixture.detectChanges();
+        
+        const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
+        const submenuEl = fixture.debugElement.query(By.css('.ui-g')).queryAll(By.css('ul'));
+        const event = new Event('mouseenter');
+        tvEl.dispatchEvent(event);
+        fixture.detectChanges();
+
+        const tv1FirstItemEl = submenuEl[0].query(By.css('a')).nativeElement;
+        tv1FirstItemEl.click();
+        fixture.detectChanges();
+
+        expect(item.label).toEqual("TV 1.1")
+    });
+
+    it('should item get ui-g-4', () => {
+        megamenu.model  = [
+        {
+            label: 'TVV', icon: 'fa fa-fw fa-check',
+            items: [
+                [
+                    {
+                        label: 'TV 1',
+                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 2',
+                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 3',
+                        items: [{label: 'TV 3.1'},{label: 'TV 3.2'}]
+                    }
+                ],
+            ],
+        }
+        ];
+        fixture.detectChanges();
+        
+        let tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
+        let event = new Event('mouseenter');
+        tvEl.dispatchEvent(event);
+        fixture.detectChanges();
+
+        let tv1Div = fixture.debugElement.query(By.css('.ui-g')).query(By.css('div')).nativeElement;
+        fixture.detectChanges();
+
+        expect(tv1Div.className).toContain("ui-g-4");
+    });
+
+    it('should item get ui-g-3', () => {
+        megamenu.model  = [
+        {
+            label: 'TVV', icon: 'fa fa-fw fa-check',
+            items: [
+                [
+                    {
+                        label: 'TV 1',
+                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 2',
+                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 3',
+                        items: [{label: 'TV 3.1'},{label: 'TV 3.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 4',
+                        items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
+                    }
+                ]
+            ],
+        }
+        ];
+        fixture.detectChanges();
+        
+        let tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
+        let event = new Event('mouseenter');
+        tvEl.dispatchEvent(event);
+        fixture.detectChanges();
+
+        let tv1Div = fixture.debugElement.query(By.css('.ui-g')).query(By.css('div')).nativeElement;
+        fixture.detectChanges();
+
+        expect(tv1Div.className).toContain("ui-g-3");
+    });
+
+    it('should item get ui-g-2', () => {
+        megamenu.model  = [
+        {
+            label: 'TVV', icon: 'fa fa-fw fa-check',
+            items: [
+                [
+                    {
+                        label: 'TV 1',
+                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 2',
+                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 3',
+                        items: [{label: 'TV 3.1'},{label: 'TV 3.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 4',
+                        items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 5',
+                        items: [{label: 'TV 5.1'},{label: 'TV 5.2'}]
+                    }
+                ],
+                [
+                    {
+                        label: 'TV 6',
+                        items: [{label: 'TV 6.1'},{label: 'TV 6.2'}]
+                    }
+                ]
+            ],
+        }
+        ];
+        fixture.detectChanges();
+        
+        let tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
+        let event = new Event('mouseenter');
+        tvEl.dispatchEvent(event);
+        fixture.detectChanges();
+
+        let tv1Div = fixture.debugElement.query(By.css('.ui-g')).query(By.css('div')).nativeElement;
+        fixture.detectChanges();
+
+        expect(tv1Div.className).toContain("ui-g-2");
+    });
 });
