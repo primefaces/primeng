@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Accordion } from './accordion';
 import { AccordionTab } from './accordion'
@@ -137,4 +137,42 @@ describe('Accordion', () => {
       expect(activeIndex).toEqual(1)
     });
 
+    it('should be closed', fakeAsync(() => {
+      fixture.detectChanges();
+
+      let activeIndex;
+      const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
+      accordion.onOpen.subscribe(value => activeIndex=value.index);    
+      secondAccordionTabOpenEl.click();
+      fixture.detectChanges();
+      tick(150);
+
+      secondAccordionTabOpenEl.click();
+      fixture.detectChanges();
+
+      const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.ui-accordion-header')).nativeElement;
+      expect(secondAccordionTabHeaderEl.className).not.toContain('ui-state-active');
+    }));
+
+    it('should have an activeIndex', () => {
+      fixture.detectChanges();
+
+      accordion.activeIndex = 1;
+      fixture.detectChanges();
+
+      const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.ui-accordion-header')).nativeElement;
+      expect(secondAccordionTabHeaderEl.className).toContain('ui-state-active');
+    });
+
+    it('should be closed', () => {
+      fixture.detectChanges();
+
+      const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
+      let spaceEvent = {'which':32,preventDefault(){}};
+      secondAccordionTab.onKeydown(spaceEvent as KeyboardEvent)
+      fixture.detectChanges();
+
+      const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.ui-accordion-header')).nativeElement;
+      expect(secondAccordionTabHeaderEl.className).toContain('ui-state-active');
+    });
 });
