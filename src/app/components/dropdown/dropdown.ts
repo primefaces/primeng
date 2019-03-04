@@ -1017,7 +1017,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     onWindowResize() {
-        this.hide();
+        if (!DomHandler.isAndroid()) {
+            this.hide();
+        }
     }
 
     updateFilledState() {

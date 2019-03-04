@@ -665,7 +665,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
-&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [panelStyle]="&#123;minWidth:'12em'&#125;" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -741,9 +741,9 @@ export class DropdownDemo &#123;
         ];
 
         this.items = [];
-        for (let i = 0; i &lt; 10000; i++) {
-            this.items.push({label: 'Item ' + i, value: 'Item ' + i});
-        }
+        for (let i = 0; i &lt; 10000; i++) &#123;
+            this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
+        &#125;
     &#125;
 &#125;
 </code>

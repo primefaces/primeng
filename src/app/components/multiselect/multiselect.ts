@@ -781,7 +781,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     onWindowResize() {
-        this.hide();
+        if (!DomHandler.isAndroid()) {
+            this.hide();
+        }
     }
 
     onOverlayHide() {
