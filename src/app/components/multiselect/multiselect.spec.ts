@@ -53,7 +53,7 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		const dropdownIcon = fixture.debugElement.query(By.css('.ui-multiselect-trigger-icon')).nativeElement;
-		expect(dropdownIcon.className).toContain('pi pi-caret-down');
+		expect(dropdownIcon.className).toContain('pi pi-chevron-down');
 		fixture.detectChanges();
 
 		multiselect.dropdownIcon = "Primeng Rocks!";

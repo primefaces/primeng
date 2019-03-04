@@ -1122,7 +1122,8 @@ export class DataTableDemo implements OnInit &#123;
 
             <h3>ContextMenu</h3>
             <p>DataTable has exclusive integration with contextmenu component. In order to attach a menu to a datatable, add pContextMenuRow directive to the rows that can be selected with context menu, define a local template
-            variable for the menu and bind it to the contextMenu property of the datatable. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection
+            variable for the menu and bind it to the contextMenu property of the datatable. This enables displaying the menu whenever a row is right clicked. Optional
+            pContextMenuRowIndex property is avaiable to access the row index. A separate contextMenuSelection
             property is used to get a hold of the right clicked row. For dynamic columns, setting pContextMenuRowDisabled property as true disables context menu for that particular row.</p>
 
 <pre>
@@ -1135,8 +1136,8 @@ export class DataTableDemo implements OnInit &#123;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [pContextMenuRow]="rowData"&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex"&gt;
+        &lt;tr [pContextMenuRow]="rowData" [pContextMenuRowIndex]="rowIndex"&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
@@ -1239,14 +1240,24 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>If you require the edited row data and the field at onEditComplete event, bind the data to the pEditableColumn directive and the field to the pEditableColumnField directive</p>
+            <p>If you require the edited row data or the selected field in the <i>onEditInit</i>, <i>onEditComplete</i>, and <i>onEditCancel</i> events, bind the row data to the pEditableColumn directive and the field to the pEditableColumnField directive.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;td [pEditableColumn]="rowData" [pEditableColumnField]="'year'"&gt;
 </code>
 </pre>
 
-            <p>See the <a [routerLink]="['/table/editable']">live example.</a></p>
+            <p>When opening a cell for editing, the table will automatically focus the first <i>input</i>, <i>textarea</i>, or <i>select</i> element inside the output template.
+               If you want to override this default behavior, you can pass a custom selector for the elements to focus into the pFocusCellSelector directive.
+               This is useful when you would like the Tab and Shift+Tab keyboard navigation to focus on buttons or custom edit controls.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;td [pFocusCellSelector]="'input, .custom-edit-control'"&gt;
+</code>
+</pre>
+
+            <p>See the <a [routerLink]="['/table/edit']">live example.</a></p>
 
             <h3>Expandable Rows</h3>
             <p>Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and
@@ -2247,7 +2258,7 @@ export class DataTableDemo implements OnInit &#123;
                         <tr>
                             <td>virtualScrollDelay</td>
                             <td>number</td>
-                            <td>500</td>
+                            <td>150</td>
                             <td>Delay in virtual scroll before doing a call to lazy load.</td>
                         </tr>
                         <tr>
@@ -2572,8 +2583,8 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Loader content.</td>
                         </tr>
                         <tr>
-                            <td>ui-table-resizer-helper</td>
-                            <td>Vertical resize indicator bar.</td>
+                            <td>ui-column-resizer-helper</td>
+                            <td>Vertical resize indicator bar. To show the resize indicator bar set the "background-color" property.</td>
                         </tr>
                         <tr>
                             <td>ui-table-reorder-indicator-top</td>

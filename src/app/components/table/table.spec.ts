@@ -1,10 +1,11 @@
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Table, TableBody, ScrollableView, SortableColumn, SelectableRow, RowToggler, ContextMenuRow, ResizableColumn, ReorderableColumn, EditableColumn, CellEditor, SortIcon, TableRadioButton, TableCheckbox, TableHeaderCheckbox, ReorderableRowHandle, ReorderableRow, SelectableRowDblClick } from './table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { Paginator } from '../paginator/paginator';
-import { Dropdown } from '../dropdown/dropdown';
+import {Dropdown, DropdownItem} from '../dropdown/dropdown';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../common/shared';
 
@@ -211,7 +212,9 @@ describe('Table', () => {
             imports: [
                 NoopAnimationsModule,
                 FormsModule,
-                SharedModule
+                SharedModule,
+                ScrollingModule
+
             ],
             declarations: [
                 Table,
@@ -234,6 +237,7 @@ describe('Table', () => {
                 SelectableRowDblClick,
                 Paginator,
                 Dropdown,
+                DropdownItem,
                 TestBasicTableComponent,
             ]
         });
@@ -703,4 +707,31 @@ describe('Table', () => {
         fixture.detectChanges();
         expect(checkboxSelectionTable.selection).toEqual([]);
     });
+
+    it('should headerCheckbox changing by filtering', fakeAsync(() => {
+        fixture.detectChanges();
+
+        checkboxSelectionTable.stateKey = "vin";
+        fixture.detectChanges();
+        
+        const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
+        headerCheckbox.nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxSelectionTable.filter("v","brand","contains");
+        tick(300);
+        fixture.detectChanges();
+
+        const rowCheckboxs = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
+        expect(rowCheckboxs.length).toEqual(2);
+        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(true);
+        rowCheckboxs[0].query(By.css("div")).nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxSelectionTable.filter("v","brand","contains");
+        tick(300);
+        fixture.detectChanges();
+
+        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(false);
+    }));
 });

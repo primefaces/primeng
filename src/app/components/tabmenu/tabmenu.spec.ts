@@ -145,5 +145,39 @@ describe('TabMenu', () => {
       expect(tabmenu.activeItem.icon).toContain('fa-calendar');
       expect(itemClickSpy).toHaveBeenCalled();
     });
+
+    it('shouldn\'t show content', () => {
+      tabmenu.model = [
+        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', disabled:true},
+        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', disabled:true}
+      ]; 
+      fixture.detectChanges();
+
+      const itemList = fixture.debugElement.query(By.css('ul'));
+      expect(itemList.children[0].nativeElement.className).toContain("ui-state-disabled");
+      expect(itemList.children[1].nativeElement.className).toContain("ui-state-disabled");
+      const calenderItem = itemList.children[1].children[0].nativeElement;
+      calenderItem.click();
+      fixture.detectChanges();
+
+      expect(itemList.children[1].nativeElement.className).not.toContain("ui-state-active")
+    });
     
+    it('should use command', () => {
+      let x;
+      tabmenu.model = [
+        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', disabled:true},
+        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', command:()=>{
+          x = "PRIMENG!"
+        }}
+      ]; 
+      fixture.detectChanges();
+
+      const itemList = fixture.debugElement.query(By.css('ul'));
+      const calenderItem = itemList.children[1].children[0].nativeElement;
+      calenderItem.click();
+      fixture.detectChanges();
+
+      expect(x).toEqual("PRIMENG!");
+    });
 });

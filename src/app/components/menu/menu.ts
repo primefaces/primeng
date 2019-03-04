@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -86,6 +86,10 @@ export class Menu implements OnDestroy {
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @ViewChild('container') containerViewChild: ElementRef;
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
     
     container: HTMLDivElement;
     
@@ -122,6 +126,7 @@ export class Menu implements OnDestroy {
                 if (this.popup) {
                     this.container = event.element;
                     this.moveOnTop();
+                    this.onShow.emit({});
                     this.appendOverlay();
                     DomHandler.absolutePosition(this.container, this.target);
                     this.bindDocumentClickListener();
@@ -131,6 +136,7 @@ export class Menu implements OnDestroy {
 
             case 'void':
                 this.onOverlayHide();
+                this.onHide.emit({});
             break;
         }
     }

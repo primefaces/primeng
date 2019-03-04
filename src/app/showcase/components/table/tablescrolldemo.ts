@@ -135,6 +135,6 @@ export class TableScrollDemo implements OnInit {
             ]; 
             
             this.loading = false;  
-        }, 1000);   
+        }, 250);   
     }
 }

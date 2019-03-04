@@ -82,7 +82,7 @@
     vertical-align: middle;
 }
 
-.ui-multiselect-panel .ui-multiselect-item label {
+.ui-multiselect-panel .ui-multiselect-item span {
     display: inline-block;
     vertical-align: middle;
 }

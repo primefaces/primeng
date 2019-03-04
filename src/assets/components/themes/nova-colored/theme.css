@@ -297,9 +297,6 @@ body .ui-inputswitch.ui-inputswitch-checked:not(.ui-state-disabled):hover .ui-in
 body .ui-inputswitch.ui-inputswitch-checked.ui-inputswitch-focus .ui-inputswitch-slider {
   background: #005b9f;
 }
-body .ui-autocomplete .ui-autocomplete-dropdown .ui-button-icon-left:before {
-  content: "";
-}
 body .ui-autocomplete .ui-autocomplete-input {
   padding: 0.429em;
 }
@@ -441,9 +438,6 @@ body .ui-dropdown .ui-dropdown-trigger {
   padding: 0;
   color: #737373;
 }
-body .ui-dropdown .ui-dropdown-trigger .ui-dropdown-trigger-icon:before {
-  content: "";
-}
 body .ui-dropdown .ui-dropdown-clear-icon {
   color: #737373;
 }
@@ -523,9 +517,6 @@ body .ui-multiselect .ui-multiselect-trigger {
   text-align: center;
   padding: 0;
   color: #737373;
-}
-body .ui-multiselect .ui-multiselect-trigger .ui-multiselect-trigger-icon:before {
-  content: "";
 }
 body .ui-multiselect-panel {
   padding: 0;
@@ -885,12 +876,6 @@ body .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-next span:before {
-  content: "";
-}
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev span:before {
-  content: "";
-}
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-title {
   margin: 0;
   padding: 0;
@@ -919,18 +904,18 @@ body .ui-datepicker table td > a, body .ui-datepicker table td > span {
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
-body .ui-datepicker table td > a {
-  cursor: pointer;
-}
-body .ui-datepicker table td > a.ui-state-active {
+body .ui-datepicker table td > a.ui-state-active, body .ui-datepicker table td > span.ui-state-active {
   color: #ffffff;
   background-color: #007ad9;
 }
-body .ui-datepicker table td.ui-datepicker-today a {
+body .ui-datepicker table td > a {
+  cursor: pointer;
+}
+body .ui-datepicker table td.ui-datepicker-today > a, body .ui-datepicker table td.ui-datepicker-today > span {
   background-color: #d0d0d0;
   color: #333333;
 }
-body .ui-datepicker table td.ui-datepicker-today a.ui-state-active {
+body .ui-datepicker table td.ui-datepicker-today > a.ui-state-active, body .ui-datepicker table td.ui-datepicker-today > span.ui-state-active {
   color: #ffffff;
   background-color: #007ad9;
 }
@@ -1318,7 +1303,7 @@ body .ui-selectbutton .ui-button:last-child {
   border-bottom-right-radius: 3px;
 }
 @media (max-width: 640px) {
-  body .ui-buttonset .ui-button {
+  body .ui-buttonset:not(.ui-splitbutton) .ui-button {
     margin-bottom: 1px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1330,9 +1315,6 @@ body .ui-splitbutton.ui-buttonset .ui-button {
 }
 body .ui-splitbutton.ui-buttonset .ui-menu {
   min-width: 100%;
-}
-body .ui-splitbutton.ui-buttonset .ui-splitbutton-menubutton .ui-button-icon-left:before {
-  content: "";
 }
 body .ui-button.ui-state-default.ui-button-secondary, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {
   color: #333333;
@@ -1551,12 +1533,6 @@ body .ui-accordion .ui-accordion-header a {
 }
 body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
   color: #ffffff;
-}
-body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon.pi-caret-right:before {
-  content: "";
-}
-body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon.pi-caret-down:before {
-  content: "";
 }
 body .ui-accordion .ui-accordion-header:not(.ui-state-active):not(.ui-state-disabled):hover a {
   background-color: #27a0ff;
@@ -1852,11 +1828,11 @@ body .ui-table .ui-editable-column input:focus {
   outline-offset: 2px;
 }
 body .ui-table .ui-table-tbody > tr {
-  background: #ffffff;
+  background-color: #ffffff;
   color: #333333;
 }
 body .ui-table .ui-table-tbody > tr > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #c8c8c8;
 }
 body .ui-table .ui-table-tbody > tr.ui-state-highlight {
@@ -2280,6 +2256,17 @@ body .ui-tree.ui-tree-horizontal .ui-treenode .ui-treenode-content.ui-treenode-s
   background-color: #eaeaea;
   color: #333333;
 }
+body .ui-tree .ui-tree-filter-container .ui-tree-filter {
+  width: 100%;
+  padding-right: 2em;
+}
+body .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+  top: 50%;
+  left: auto;
+  margin-top: -.5em;
+  right: .8em;
+  color: #007ad9;
+}
 body .ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node:not(.ui-state-highlight):hover {
   background-color: #eaeaea;
   color: #333333;
@@ -2431,11 +2418,11 @@ body .ui-treetable .ui-editable-column input:focus {
   outline-offset: 2px;
 }
 body .ui-treetable .ui-treetable-tbody > tr {
-  background: #ffffff;
+  background-color: #ffffff;
   color: #333333;
 }
 body .ui-treetable .ui-treetable-tbody > tr > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #c8c8c8;
 }
 body .ui-treetable .ui-treetable-tbody > tr > td .ui-treetable-toggler {
@@ -2451,7 +2438,7 @@ body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight {
   color: #ffffff;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #c8c8c8;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td .ui-treetable-toggler {
@@ -2462,7 +2449,7 @@ body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected {
   color: #ffffff;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td {
-  background: inherit;
+  background-color: inherit;
   border: 1px solid #c8c8c8;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td .ui-treetable-toggler {
@@ -3287,12 +3274,6 @@ body .ui-panelmenu .ui-panelmenu-header > a {
 }
 body .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon {
   color: #ffffff;
-}
-body .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon.pi-caret-right:before {
-  content: "";
-}
-body .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon.pi-caret-down:before {
-  content: "";
 }
 body .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover {
   outline: 0 none;

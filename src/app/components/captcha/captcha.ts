@@ -31,7 +31,14 @@ export class Captcha implements AfterViewInit {
     
     ngAfterViewInit() {
         if((<any>window).grecaptcha) {
-            this.init();
+            if (!(<any>window).grecaptcha.render){
+                setTimeout(() =>{
+                    this.init();
+                },100)
+            }
+            else{
+                this.init();
+            }
         }
         else {
             (<any>window)[this.initCallback] = () => {

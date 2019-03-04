@@ -1,9 +1,10 @@
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Paginator } from './paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { Dropdown } from '../dropdown/dropdown';
+import {Dropdown, DropdownItem} from '../dropdown/dropdown';
 
 describe('Paginator', () => {
     
@@ -14,11 +15,13 @@ describe('Paginator', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          FormsModule
+          FormsModule,
+          ScrollingModule
         ],
         declarations: [
           Paginator,
-          Dropdown
+          Dropdown,
+          DropdownItem
         ]
       });
       

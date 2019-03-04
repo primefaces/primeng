@@ -1,6 +1,7 @@
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture, tick, fakeAsync, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Dropdown } from './dropdown';
+import {Dropdown, DropdownItem} from './dropdown';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '../../../../node_modules/@angular/forms';
 
@@ -13,10 +14,12 @@ describe('Dropdown', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          FormsModule
+          FormsModule,
+          ScrollingModule
         ],
         declarations: [
           Dropdown,
+          DropdownItem
         ]
       }).compileComponents();
       
@@ -137,10 +140,10 @@ describe('Dropdown', () => {
       fixture.detectChanges();
 
       const items = fixture.debugElement.query(By.css('.ui-dropdown-items'));
-      items.children[2].nativeElement.click();
+      items.children[2].children[0].nativeElement.click();
       fixture.detectChanges();
       expect(dropdown.selectedOption.name).toEqual('London');
-      expect(items.children[2].nativeElement.className).toContain('ui-state-highlight')
+      expect(items.children[2].children[0].nativeElement.className).toContain('ui-state-highlight')
     });
 
     it('should item clear', () => {
@@ -160,7 +163,7 @@ describe('Dropdown', () => {
       fixture.detectChanges();
 
       const items = fixture.debugElement.query(By.css('.ui-dropdown-items'));
-      items.children[2].nativeElement.click();
+      items.children[2].children[0].nativeElement.click();
       fixture.detectChanges();
       const itemCloseIcon = fixture.debugElement.query(By.css('.ui-dropdown-clear-icon'));
       itemCloseIcon.nativeElement.click();

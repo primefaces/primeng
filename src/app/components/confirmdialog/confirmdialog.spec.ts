@@ -197,34 +197,4 @@ describe('ConfirmDialog', () => {
 		
 		expect(closeSpy).toHaveBeenCalled();
 	}));
-
-	it('should call onWindowResize when resize', fakeAsync(() => {
-		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
-		buttonEl.click();
-		const onWindowResizeSpy = spyOn(confirmDialog,"onWindowResize").and.callThrough();
-		fixture.detectChanges();
-		
-		tick(300);
-		window.dispatchEvent(new Event('resize'));
-		fixture.detectChanges();
-		
-		expect(onWindowResizeSpy).toHaveBeenCalled();
-	}));
-
-	it('should set container height %100 with breakpoint', fakeAsync(() => {
-		confirmDialog.breakpoint = 100000000;
-		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
-		buttonEl.click();
-		const onWindowResizeSpy = spyOn(confirmDialog,"onWindowResize").and.callThrough();
-		fixture.detectChanges();
-
-		tick(300);
-		window.dispatchEvent(new Event('resize'));
-		fixture.detectChanges();
-		
-		const container = fixture.debugElement.query(By.css("div"));
-		expect(onWindowResizeSpy).toHaveBeenCalled();
-		expect(container.nativeElement.style.width).toEqual('100%');
-		expect(container.nativeElement.style.left).toEqual('0px');
-	}));
 });

@@ -19,7 +19,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                 <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder">
+                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
                     <span class="ui-orderlist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
@@ -62,6 +62,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() dragdrop: boolean;
     
     @Input() controlsPosition: string = 'left';
+
+    @Input() ariaFilterLabel: string;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
