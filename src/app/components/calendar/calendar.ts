@@ -1628,7 +1628,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
 
-            this.hideOverlay();
             this.unbindMaskClickListener();
 
             this.mask = null;
