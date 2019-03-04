@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule}    from '@angular/forms';
 import {ResponsiveDemo} from './responsivedemo';
 import {ResponsiveDemoRoutingModule} from './responsivedemo-routing.module';
+import {InputSwitchModule} from '../../../components/inputswitch/inputswitch';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
 import {InputTextareaModule} from '../../../components/inputtextarea/inputtextarea';
 import {CalendarModule} from '../../../components/calendar/calendar';
@@ -31,6 +32,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		CommonModule,
         FormsModule,
 		ResponsiveDemoRoutingModule,
+        InputSwitchModule,
         InputTextModule,
         InputTextareaModule,
         CalendarModule,
