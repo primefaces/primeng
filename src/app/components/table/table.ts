@@ -2254,7 +2254,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             }
         }
         else {
-            this.scrollBodyViewChild.nativeElement.style.marginBottom = DomHandler.calculateScrollbarWidth() + 'px';
+            this.scrollBodyViewChild.nativeElement.style.paddingBottom = DomHandler.calculateScrollbarWidth() + 'px';
             let scrollableView = this.el.nativeElement.nextElementSibling;
             if (scrollableView) {
                 this.scrollableSiblingBody = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
