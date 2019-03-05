@@ -33,19 +33,11 @@ describe('Dropdown', () => {
       fixture.detectChanges();
 
       const containerEl = fixture.debugElement.query(By.css('.ui-dropdown')).nativeElement;
-      const hiddenEl = fixture.debugElement.queryAll(By.css('.ui-helper-hidden-accessible'))[1].children[0].nativeElement;
-      const editableInputEl = fixture.debugElement.query(By.css('.ui-dropdown')).children[2].nativeElement;
+      const hiddenEl = fixture.debugElement.queryAll(By.css('.ui-helper-hidden-accessible'))[0].children[0].nativeElement;
+      const editableInputEl = fixture.debugElement.queryAll(By.css('input'))[1].nativeElement;
       expect(containerEl.className).toContain('ui-state-disabled')
       expect(hiddenEl.disabled).toEqual(true);
       expect(editableInputEl.disabled).toEqual(true);
-    });
-
-    it('should get a name', () => {
-      dropdown.name = "Primeng";
-      fixture.detectChanges();
-
-      const selectEl = fixture.debugElement.query(By.css('.ui-helper-hidden-accessible')).children[0].nativeElement;     
-      expect(selectEl.name).toEqual("Primeng")
     });
 
     it('should change dropdown icon', () => {
