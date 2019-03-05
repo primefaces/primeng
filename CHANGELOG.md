@@ -1,5 +1,54 @@
 # Change Log
 
+## [7.1.0-rc.1](https://github.com/primefaces/primeng/tree/7.1.0-rc.1) (2019-03-05)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.0.5...7.1.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Remove autoWidth from Dropdown [\#7337](https://github.com/primefaces/primeng/issues/7337)
+- loadingBody template for Table VirtualScroll [\#7336](https://github.com/primefaces/primeng/issues/7336)
+- expandedRowKeys map value should be a boolean [\#7333](https://github.com/primefaces/primeng/issues/7333)
+- onShow and onHide events for Menu [\#7307](https://github.com/primefaces/primeng/issues/7307)
+- Turbo table column re-order: The drag and drop should not be possible on the same column [\#7295](https://github.com/primefaces/primeng/issues/7295)
+- dropdownIcon property for AutoComplete [\#7265](https://github.com/primefaces/primeng/issues/7265)
+- Add key option to TreeNode API [\#7237](https://github.com/primefaces/primeng/issues/7237)
+- Filtering for TreeTable [\#7230](https://github.com/primefaces/primeng/issues/7230)
+- Accessibility: Screen Reader for single option p-selectButton reads incorrectly [\#5952](https://github.com/primefaces/primeng/issues/5952)
+- Add Input binding for p-inputMask to set the html attribute "autocomplete" [\#5948](https://github.com/primefaces/primeng/issues/5948)
+- Add row index to ContextMenu for tables [\#5940](https://github.com/primefaces/primeng/issues/5940)
+- TurboTable edit by row [\#5284](https://github.com/primefaces/primeng/issues/5284)
+- Filtering for Tree [\#1683](https://github.com/primefaces/primeng/issues/1683)
+
+**Fixed bugs:**
+
+- p-spinner readonly do not affect buttons [\#7262](https://github.com/primefaces/primeng/issues/7262)
+- p-spinner: readonly attribute value ignored [\#7261](https://github.com/primefaces/primeng/issues/7261)
+- MultiSelect with filtering and virtual scroll enabled doesn't work properly. [\#7251](https://github.com/primefaces/primeng/issues/7251)
+- Class name ui-table-resizer-helper in docs should be ui-column-resizer-helper [\#7246](https://github.com/primefaces/primeng/issues/7246)
+- Spinner Tabindex ignored for Buttons [\#7238](https://github.com/primefaces/primeng/issues/7238)
+- When using Overlaypanel with appendTo property, closing the overlay when clicking the panel. [\#7235](https://github.com/primefaces/primeng/issues/7235)
+- Calendar incorrect minutes validation [\#7232](https://github.com/primefaces/primeng/issues/7232)
+- showOtherMonths styling does not work [\#7222](https://github.com/primefaces/primeng/issues/7222)
+- p-overlay arrow tip is always on left. [\#7220](https://github.com/primefaces/primeng/issues/7220)
+- OverlayPanel arrow appears on the wrong side on PrimeNG 7.0.5 [\#7218](https://github.com/primefaces/primeng/issues/7218)
+- P-slider decimal step not working [\#7202](https://github.com/primefaces/primeng/issues/7202)
+- p-fileUpload: after upgrade to primeng 7 there is no possibility to get response [\#7179](https://github.com/primefaces/primeng/issues/7179)
+- Add blockSroll support to p-confirmDialog [\#7172](https://github.com/primefaces/primeng/issues/7172)
+- Calendar doesn't clean up modality [\#7170](https://github.com/primefaces/primeng/issues/7170)
+- Autocomplete Multiple model become empty string when delete digits [\#7161](https://github.com/primefaces/primeng/issues/7161)
+- Element is not defined in TextEditor Universal build [\#7122](https://github.com/primefaces/primeng/issues/7122)
+- android dropdown and multiselect with filter fails [\#7030](https://github.com/primefaces/primeng/issues/7030)
+- toast bottom-left needs css change [\#6887](https://github.com/primefaces/primeng/issues/6887)
+- SplitButton & TieredMenu - double click on item reloads the page [\#6822](https://github.com/primefaces/primeng/issues/6822)
+- p-spinner with mininum set, on lose focus not setting null if empty value [\#6798](https://github.com/primefaces/primeng/issues/6798)
+- Menubar gets closed immediately after mouse enter on menu-item when AutoDisplay property as false [\#6657](https://github.com/primefaces/primeng/issues/6657)
+- Misalignment with frozen columns [\#6560](https://github.com/primefaces/primeng/issues/6560)
+- "Cannot read property 'offsetParent' of null" when changing the route on autocomplete selection [\#6259](https://github.com/primefaces/primeng/issues/6259)
+- Tree: checkbox selection, items where 'selectable:false' don't have a check box  [\#6144](https://github.com/primefaces/primeng/issues/6144)
+- p-tableHeaderCheckbox check with a single space key press [\#6006](https://github.com/primefaces/primeng/issues/6006)
+- pKeyFilter stops enter from submitting form [\#5931](https://github.com/primefaces/primeng/issues/5931)
+
 ## [7.0.5](https://github.com/primefaces/primeng/tree/7.0.5) (2019-01-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.4...7.0.5)
