@@ -173,9 +173,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() filterDelay: number = 300;
 
-    @Input() expandedRowKeys: { [s: string]: number; } = {};
+    @Input() expandedRowKeys: { [s: string]: boolean; } = {};
 
-    @Input() editingRowKeys: { [s: string]: number; } = {};
+    @Input() editingRowKeys: { [s: string]: boolean; } = {};
 
     @Input() rowExpandMode: string = 'multiple';
 
@@ -1529,7 +1529,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     initRowEdit(rowData: any) {
         let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
-        this.editingRowKeys[dataKeyValue] = 1;
+        this.editingRowKeys[dataKeyValue] = true;
     }
 
     saveRowEdit(rowData: any, rowElement: HTMLTableRowElement) {
@@ -1563,7 +1563,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.expandedRowKeys = {};
             }
 
-            this.expandedRowKeys[dataKeyValue] = 1;
+            this.expandedRowKeys[dataKeyValue] = true;
             this.onRowExpand.emit({
                 originalEvent: event,
                 data: rowData
@@ -1580,11 +1580,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowExpanded(rowData: any): boolean {
-        return this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === 1;
+        return this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isRowEditing(rowData: any): boolean {
-        return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === 1;
+        return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isSingleSelectionMode() {

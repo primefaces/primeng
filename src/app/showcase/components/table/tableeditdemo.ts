@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 import { SelectItem } from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './tableeditdemo.html'
+    templateUrl: './tableeditdemo.html',
+    providers: [MessageService]
 })
 export class TableEditDemo implements OnInit {
 
@@ -16,7 +18,7 @@ export class TableEditDemo implements OnInit {
 
     clonedCars: { [s: string]: Car; } = {};
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars1 = cars);
@@ -41,7 +43,13 @@ export class TableEditDemo implements OnInit {
     }
 
     onRowEditSave(car: Car) {
-        delete this.clonedCars[car.vin];
+        if (car.year > 0) {
+            delete this.clonedCars[car.vin];
+            this.messageService.add({severity:'success', summary: 'Success', detail:'Car is updated'});
+        }  
+        else {
+            this.messageService.add({severity:'error', summary: 'Error', detail:'Year is required'});
+        }
     }
 
     onRowEditCancel(car: Car, index: number) {
