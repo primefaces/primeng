@@ -152,6 +152,61 @@ import { SharedModule } from '../common/shared';
             </tr>
         </ng-template>
     </p-table>
+
+    <p-table class="editableTable" [value]="cars">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Vin</th>
+                <th>Year</th>
+                <th>Brand</th>
+                <th>Color</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData.vin">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.vin}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData.year" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.year}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="brands" [(ngModel)]="rowData.brand" [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.brand}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData.color">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.color}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
     `
 })
 class TestBasicTableComponent {
@@ -204,6 +259,7 @@ describe('Table', () => {
     let basicSelectionTable: Table;
     let radioSelectionTable: Table;
     let checkboxSelectionTable: Table;
+    let editableTable: Table;
     let testComponent: TestBasicTableComponent;
     let fixture: ComponentFixture<TestBasicTableComponent>;
 
@@ -250,6 +306,7 @@ describe('Table', () => {
         basicSelectionTable = fixture.debugElement.children[3].componentInstance;
         radioSelectionTable = fixture.debugElement.children[4].componentInstance;
         checkboxSelectionTable = fixture.debugElement.children[5].componentInstance;
+        editableTable = fixture.debugElement.children[6].componentInstance;
     });
 
     it('should display by default', () => {
@@ -341,7 +398,7 @@ describe('Table', () => {
         fixture.detectChanges();
         
         const globalFilter = fixture.debugElement.query(By.css(".globalFilter"));
-        globalFilter.nativeElement.value = "dsad231ff";
+        globalFilter.nativeElement.value = "dsad231";
         globalFilter.nativeElement.dispatchEvent(new Event("input"));
         tick(300);
         fixture.detectChanges();
@@ -349,6 +406,107 @@ describe('Table', () => {
         const tableEl = fixture.debugElement.query(By.css(".filterTable"));
         const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(0);
+    }));
+
+    it('should use endsWith filter and show 1 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter("231ff","vin","endsWith");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(1);
+    }));
+
+    it('should use equals filter and show 1 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter("dsad231ff","vin","equals");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(1);
+    }));
+
+    it('should use not equals filter and show 9 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter("dsad231ff","vin","notEquals");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(9);
+    }));
+
+    it('should use in filter and show 1 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter(["BMW",null],"brand","in");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(1);
+        filterTable.filter([],"brand","in");
+        tick(300);
+        fixture.detectChanges();
+
+        expect(bodyRows.length).toEqual(1);
+    }));
+
+    it('should use lt filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter("2005","year","lt");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(3);
+    }));
+
+    it('should use lte filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter("2005","year","lte");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(5);
+    }));
+
+    it('should use gt filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter("2005","year","gt");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(5);
+    }));
+
+    it('should use gte filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        filterTable.filter("2005","year","gte");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(7);
     }));
 
     it('should use basic sort', () => {
@@ -734,4 +892,41 @@ describe('Table', () => {
 
         expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(false);
     }));
+
+    it('should headerCheckbox changing by filtering', fakeAsync(() => {
+        fixture.detectChanges();
+
+        checkboxSelectionTable.stateKey = "vin";
+        fixture.detectChanges();
+        
+        const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
+        headerCheckbox.nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxSelectionTable.filter("v","brand","contains");
+        tick(300);
+        fixture.detectChanges();
+
+        const rowCheckboxs = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
+        expect(rowCheckboxs.length).toEqual(2);
+        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(true);
+        rowCheckboxs[0].query(By.css("div")).nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxSelectionTable.filter("v","brand","contains");
+        tick(300);
+        fixture.detectChanges();
+
+        expect(fixture.debugElement.query(By.css(".headerCheckbox")).componentInstance.isAllFilteredValuesChecked()).toEqual(false);
+    }));
+
+    it('should open cell', () => {
+        fixture.detectChanges();
+
+        let cell = fixture.debugElement.query(By.css(".ui-editable-column"));
+        cell.nativeElement.click();
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).toBeTruthy();
+    });
 });
