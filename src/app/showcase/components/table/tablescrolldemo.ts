@@ -4,7 +4,17 @@ import { CarService } from '../../service/carservice';
 import { LazyLoadEvent } from '../../../components/common/api';
 
 @Component({
-    templateUrl: './tablescrolldemo.html'
+    templateUrl: './tablescrolldemo.html',
+    styles: [`
+        .loading-text {
+            display: block;
+            background-color: #f1f1f1;
+            min-height: 19px;
+            animation: pulse 1s infinite ease-in-out;
+            text-indent: -99999px;
+            overflow: hidden;
+        }
+    `]
 })
 export class TableScrollDemo implements OnInit {
 
@@ -36,7 +46,7 @@ export class TableScrollDemo implements OnInit {
 
     inmemoryData: Car[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars1 = cars);

@@ -61,8 +61,8 @@ export class TableService {
             [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns,
                 'ui-table-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
-            <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
-            <div class="ui-table-loading-content" *ngIf="loading">
+            <div class="ui-table-loading ui-widget-overlay" *ngIf="loading && showLoader"></div>
+            <div class="ui-table-loading-content" *ngIf="loading && showLoader">
                 <i [class]="'ui-table-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
@@ -205,6 +205,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
+    @Input() showLoader: boolean = true;
+
     @Input() rowHover: boolean;
 
     @Input() customSort: boolean;
@@ -276,6 +278,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     headerTemplate: TemplateRef<any>;
 
     bodyTemplate: TemplateRef<any>;
+
+    loadingBodyTemplate: TemplateRef<any>;
 
     captionTemplate: TemplateRef<any>;
 
@@ -386,6 +390,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 case 'body':
                     this.bodyTemplate = item.template;
+                break;
+
+                case 'loadingbody':
+                    this.loadingBodyTemplate = item.template;
                 break;
 
                 case 'footer':
@@ -2175,6 +2183,13 @@ export class TableBody {
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
             </table>
+            <table #loadingTable *ngIf="dt.virtualScroll && dt.loadingBodyTemplate != null" [ngClass]="{'ui-table-scrollable-body-table ui-table-loading-virtual-table': true, 'ui-table-virtual-table': dt.virtualScroll}">
+                <tbody class="ui-table-tbody">
+                    <ng-template ngFor [ngForOf]="loadingArray">
+                        <ng-container *ngTemplateOutlet="dt.loadingBodyTemplate; context: {columns: columns}"></ng-container>
+                    </ng-template>
+                </tbody>
+            </table>
             <div #virtualScroller class="ui-table-virtual-scroller" *ngIf="dt.virtualScroll"></div>
         </div>
         <div #scrollFooter *ngIf="dt.footerTemplate" class="ui-table-scrollable-footer ui-widget-header">
@@ -2203,6 +2218,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
 
+    @ViewChild('loadingTable') scrollLoadingTableViewChild: ElementRef;
+
     @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
@@ -2229,11 +2246,17 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     
     initialized: boolean;
 
+    loadingArray: number[] = [];
+
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.alignScrollBar();
+
+                    if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                        this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
+                    }
                 }, 50);
             });
         });
@@ -2247,6 +2270,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 });
             });
         }
+
+        this.loadingArray = Array(this.dt.rows).fill(1);
         
         this.initialized = false;
      }
@@ -2302,6 +2327,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
         if(this.dt.virtualScroll) {
             this.setVirtualScrollerHeight();
+
+            if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
+            }
         }
     }
 
@@ -2368,10 +2397,19 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
 
             if((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
+                if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                    this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
+                    this.scrollLoadingTableViewChild.nativeElement.style.top = this.scrollBodyViewChild.nativeElement.scrollTop + 'px';
+                }
+
                 let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
                 this.dt.handleVirtualScroll({
                     page: page,
                     callback: () => {
+                        if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                            this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
+                        }
+                        
                         this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
 
                         if (this.frozenSiblingBody) {

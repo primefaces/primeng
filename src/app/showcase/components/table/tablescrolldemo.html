@@ -29,8 +29,8 @@
 
     <h3>Virtual Scroll - 250K Rows</h3>
     <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px"
-            [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [virtualRowHeight]="34"
-            [lazy]="true" [totalRecords]="totalRecords" [loading]="loading">
+            [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [virtualRowHeight]="34" [showLoader]="false"
+            [lazy]="true" [totalRecords]="totalRecords">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -42,6 +42,13 @@
             <tr style="height:34px">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="loadingbody" let-columns="columns">
+            <tr style="height:34px">
+                <td *ngFor="let col of columns">
+                    <div class="loading-text"></div>
                 </td>
             </tr>
         </ng-template>
@@ -220,6 +227,19 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './tablescrolldemo.html',
+    styles: [`
+        .loading-text &#123;
+            display: block;
+            background-color: #f1f1f1;
+            min-height: 19px;
+            animation: pulse 1s infinite ease-in-out;
+            text-indent: -99999px;
+            overflow: hidden;
+        &#125;
+    `]
+&#125;)
 export class TableScrollDemo implements OnInit &#123;
 
     cars1: Car[];
@@ -400,7 +420,7 @@ export class TableScrollDemo implements OnInit &#123;
 
 &lt;h3&gt;Virtual Scroll - 250K Rows&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
-    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34"  [loading]="loading"&gt;
+    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34" [showLoader]="false"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -412,6 +432,13 @@ export class TableScrollDemo implements OnInit &#123;
         &lt;tr style="height:34px"&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
+        &lt;tr style="height:34px"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &lt;div class="loading-text"&gt;&lt;/div&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;

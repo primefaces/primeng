@@ -330,6 +330,12 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             </td>
                             <td>Custom content for the right section of the paginator.</td>
                         </tr>
+                        <tr>
+                            <td>loadingbody</td>
+                            <td>columns: Columns collection <br>
+                            </td>
+                            <td>Content of the tbody element to show when data is being loaded in virtual scroll mode.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1807,6 +1813,34 @@ export class TableEditDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p>When column widths need to vary or resizable columns is activated, use colgroup template to avoid misalignment issues and apply percentage values since table width is 100%.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="200px"&gt;
+    &lt;ng-template pTemplate="colgroup" let-columns&gt;
+        &lt;colgroup&gt;
+            &lt;col *ngFor="let col of columns" [style.width]="col.width"&gt;
+        &lt;/colgroup&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+
             <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
                 on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight
                 property which defaults to 28px, in your row template also assign the height of the row with the same value for smooth scrolling.
@@ -1834,16 +1868,14 @@ export class TableEditDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>When column widths need to vary or resizable columns is activated, use colgroup template to avoid misalignment issues and apply percentage values since table width is 100%.</p>
+            <p>Instead of using the built-in loading mask indicator, an special "loadingbody" template is available to provide feedback to the users
+                about the loading status of a scroll event.
+            </p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" [style.width]="col.width"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
+&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
+    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34" [showLoader]="false"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -1852,9 +1884,16 @@ export class TableEditDemo implements OnInit &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
+        &lt;tr style="height:34px"&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
+        &lt;tr style="height:34px"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &lt;div class="loading-text"&gt;&lt;/div&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -2432,6 +2471,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>fa-circle-o-notch</td>
                             <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>showLoader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the loading mask when loading property is true.</td>
                         </tr>
                         <tr>
                             <td>rowHover</td>
