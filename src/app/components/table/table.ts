@@ -1326,9 +1326,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 return true;
             }
 
-            for (let i = 0; i < filter.length; i++) {
-                if (filter[i] === value || ( value != null && (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime()))) {
+            if (value === undefined || value === null) {
+                return false;
+            }
 
+            for (let i = 0; i < filter.length; i++) {
+                if (filter[i] === value || (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime())) {
                     return true;
                 }
             }
