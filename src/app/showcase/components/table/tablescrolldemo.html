@@ -227,7 +227,7 @@ export class TableScrollDemo implements OnInit &#123;
     cars2: Car[];
 
     cars3: Car[];
-
+    
     cars4: Car[];
 
     cars5: Car[];
@@ -247,6 +247,8 @@ export class TableScrollDemo implements OnInit &#123;
     sales: any[];
 
     loading: boolean;
+
+    inmemoryData: Car[];
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -297,59 +299,74 @@ export class TableScrollDemo implements OnInit &#123;
 
         this.totalRecords = 250000;
         this.loading = true;
+
+        this.inmemoryData = [
+            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;,
+            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;,
+            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;,
+            &#123;"brand": "VW", "year": 2012, "color": "Orange"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red"&#125;
+        ];
     &#125;
 
-    loadDataOnScroll(event: LazyLoadEvent) &#123;
-        this.loading = true;
+    loadDataOnScroll(event: LazyLoadEvent) &#123;      
+        this.loading = true;   
 
-        //for demo purposes keep loading the same dataset
-        //in a real production application, this data should come from server by building the query with LazyLoadEvent options
+        //for demo purposes keep loading the same dataset 
+        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         setTimeout(() => &#123;
-            this.virtualCars = [
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 1&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 2&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 3&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 4&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 5&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 6&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 7&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 8&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 9&#125;,
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 10&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 11&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 12&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 13&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 14&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 15&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 16&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 17&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 18&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 19&#125;,
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 20&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 21&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 22&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 23&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 24&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 25&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 26&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 27&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 28&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 29&#125;,
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 30&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 31&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 32&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 33&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 34&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 35&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 36&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 37&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39&#125;
-            ];
+            //last chunk
+            if (event.first === 249980)
+                this.virtualCars = this.loadChunk(event.first, 20);
+            else
+                this.virtualCars = this.loadChunk(event.first, event.rows);        
+            
+            this.loading = false;  
+        &#125;, 250);   
+    &#125;
 
-            this.loading = false;
-        &#125;, 250);
+    loadChunk(index, length): Car[] &#123;
+        let chunk: Car[] = [];
+        for (let i = 0; i &lt; length; i++) &#123;
+            chunk[i] = &#123;...this.inmemoryData[i], ...&#123;vin: (index + i)&#125;&#125;;
+        &#125; 
+
+        return chunk;
     &#125;
 &#125;
 </code>

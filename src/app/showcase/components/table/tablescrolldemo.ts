@@ -34,6 +34,8 @@ export class TableScrollDemo implements OnInit {
 
     loading: boolean;
 
+    inmemoryData: Car[];
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
@@ -83,6 +85,49 @@ export class TableScrollDemo implements OnInit {
 
         this.totalRecords = 250000;
         this.loading = true;
+
+        this.inmemoryData = [
+            {"brand": "VW", "year": 2012, "color": "Orange"},
+            {"brand": "Audi", "year": 2011, "color": "Black"},
+            {"brand": "Renault", "year": 2005, "color": "Gray"},
+            {"brand": "BMW", "year": 2003, "color": "Blue"},
+            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
+            {"brand": "Volvo", "year": 2005, "color": "Black"},
+            {"brand": "Honda", "year": 2012, "color": "Yellow"},
+            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
+            {"brand": "Ford", "year": 2000, "color": "Black"},
+            {"brand": "Fiat", "year": 2013, "color": "Red"},
+            {"brand": "VW", "year": 2012, "color": "Orange"},
+            {"brand": "Audi", "year": 2011, "color": "Black"},
+            {"brand": "Renault", "year": 2005, "color": "Gray"},
+            {"brand": "BMW", "year": 2003, "color": "Blue"},
+            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
+            {"brand": "Volvo", "year": 2005, "color": "Black"},
+            {"brand": "Honda", "year": 2012, "color": "Yellow"},
+            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
+            {"brand": "Ford", "year": 2000, "color": "Black"},
+            {"brand": "Fiat", "year": 2013, "color": "Red"},
+            {"brand": "VW", "year": 2012, "color": "Orange"},
+            {"brand": "Audi", "year": 2011, "color": "Black"},
+            {"brand": "Renault", "year": 2005, "color": "Gray"},
+            {"brand": "BMW", "year": 2003, "color": "Blue"},
+            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
+            {"brand": "Volvo", "year": 2005, "color": "Black"},
+            {"brand": "Honda", "year": 2012, "color": "Yellow"},
+            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
+            {"brand": "Ford", "year": 2000, "color": "Black"},
+            {"brand": "Fiat", "year": 2013, "color": "Red"},
+            {"brand": "VW", "year": 2012, "color": "Orange"},
+            {"brand": "Audi", "year": 2011, "color": "Black"},
+            {"brand": "Renault", "year": 2005, "color": "Gray"},
+            {"brand": "BMW", "year": 2003, "color": "Blue"},
+            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
+            {"brand": "Volvo", "year": 2005, "color": "Black"},
+            {"brand": "Honda", "year": 2012, "color": "Yellow"},
+            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
+            {"brand": "Ford", "year": 2000, "color": "Black"},
+            {"brand": "Fiat", "year": 2013, "color": "Red"}
+        ];
     }
 
     loadDataOnScroll(event: LazyLoadEvent) {      
@@ -91,50 +136,22 @@ export class TableScrollDemo implements OnInit {
         //for demo purposes keep loading the same dataset 
         //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         setTimeout(() => {
-            this.virtualCars = [
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 1},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 2},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 3},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 4},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 5},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 6},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 7},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 8},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 9},
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 10},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 11},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 12},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 13},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 14},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 15},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 16},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 17},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 18},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 19},
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 20},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 21},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 22},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 23},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 24},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 25},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 26},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 27},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 28},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 29},
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 30},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 31},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 32},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 33},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 34},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 35},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 36},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 37},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39}
-            ]; 
+            //last chunk
+            if (event.first === 249980)
+                this.virtualCars = this.loadChunk(event.first, 20);
+            else
+                this.virtualCars = this.loadChunk(event.first, event.rows);        
             
             this.loading = false;  
         }, 250);   
+    }
+
+    loadChunk(index, length): Car[] {
+        let chunk: Car[] = [];
+        for (let i = 0; i < length; i++) {
+            chunk[i] = {...this.inmemoryData[i], ...{vin: (index + i)}};
+        } 
+
+        return chunk;
     }
 }
