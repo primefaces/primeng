@@ -64,19 +64,6 @@ export class DropdownItem {
          <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
             'ui-state-disabled':disabled, 'ui-dropdown-open':overlayVisible, 'ui-state-focus':focused, 'ui-dropdown-clearable': showClear && !disabled}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
-                <select [attr.id]="selectId" [required]="required" [attr.name]="name" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
-                    <option *ngIf="placeholder">{{placeholder}}</option>
-                    <ng-container *ngIf="group">
-                        <optgroup *ngFor="let option of options" [attr.label]="option.label">
-                            <option *ngFor="let option of option.items" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
-                        </optgroup>
-                    </ng-container>
-                    <ng-container *ngIf="!group">
-                        <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
-                    </ng-container>
-                </select>
-            </div>
             <div class="ui-helper-hidden-accessible">
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox"
                     (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
@@ -176,9 +163,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() disabled: boolean;
     
     @Input() readonly: boolean;
-    
-    @Input() autoWidth: boolean = true;
-    
+
     @Input() required: boolean;
     
     @Input() editable: boolean;
@@ -250,6 +235,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('editableInput') editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    private _autoWidth: boolean;
+
+    @Input() get autoWidth(): boolean {
+        return this._autoWidth;
+    }
+    set utc(_autoWidth: boolean) {
+        this._autoWidth = _autoWidth;
+        console.log("Setting autoWidth has no effect as automatic width calculation is removed for better perfomance.");
+    }
 
     overlay: HTMLDivElement;
 
@@ -362,8 +357,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.editable) {
             this.updateEditableLabel();
         }
-        
-        this.updateDimensions();
     }
     
     get label(): string {
@@ -405,24 +398,18 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
     
-    ngAfterViewChecked() {
-        if (this.autoWidth && !this.dimensionsUpdated) {
-            this.updateDimensions();
-        }
-        
+    ngAfterViewChecked() {        
         if (this.optionsChanged && this.overlayVisible) {
             this.optionsChanged = false;
             
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    this.updateDimensions();
                     this.alignOverlay();
                 }, 1);
             });
         }
         
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            this.updateDimensions();
             let selectedItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
             if (selectedItem) {
                 DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.ui-state-highlight'));
@@ -470,16 +457,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
-    }
-    
-    updateDimensions() {
-        if (this.autoWidth && this.el.nativeElement && this.el.nativeElement.children[0] && this.el.nativeElement.offsetParent) {
-            let select = DomHandler.findSingle(this.el.nativeElement, 'select');
-            if (select && !this.style||(this.style && (!this.style['width']&&!this.style['min-width']))) {
-                this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
-            }
-            this.dimensionsUpdated = true;
-        }
     }
     
     onMouseclick(event) {

@@ -11,11 +11,11 @@
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Editable</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" [style]="{'width':'150px'}" editable="true" placeholder="Select a Brand"></p-dropdown>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand"></p-dropdown>
     <p>Selected Car: {{selectedCar1 || 'none'}}</p>
     
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="true">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true">
         <ng-template let-item pTemplate="selectedItem">
             <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
             <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
@@ -30,7 +30,7 @@
     <p>Selected Car: {{selectedCar2 || 'none'}}</p>
 
     <h3>Group</h3>
-    <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="{'width':'150px'}" placeholder="Select a Car" [group]="true">
+    <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car" [group]="true">
         <ng-template let-group pTemplate="group">
             <img src="assets/showcase/images/demo/flag/{{group.value}}" style="width:20px;vertical-align:middle" />
             <span style="margin-left:.25em">{{group.label}}</span>
@@ -39,7 +39,7 @@
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
 
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [style]="{'width':'200px'}" [virtualScroll]="true" [itemSize]="31" [filter]="false" [autoWidth]="false"></p-dropdown>
+    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
 </div>
 
 <div class="content-section documentation">
@@ -332,12 +332,6 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Placeholder text to show when filter input is empty.</td>
-                        </tr>
-                        <tr>
-                            <td>autoWidth</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Calculates the width based on options width, set to false for custom width.</td>
                         </tr>
                         <tr>
                             <td>required</td>
@@ -637,11 +631,11 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Editable&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar1" [style]="&#123;'width':'150px'&#125;" editable="true" placeholder="Select a Brand"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand"&gt;&lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar1 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Content with Filters&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="true"&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true"&gt;
     &lt;ng-template let-item pTemplate="selectedItem"&gt;
         &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
         &lt;span style="vertical-align:middle; margin-left: .5em"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
@@ -656,7 +650,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar2 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Group&lt;/h3&gt;
-&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"&gt;
+&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car" [group]="true"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
         &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;group.value&#125;&#125;" style="width:20px;vertical-align:middle" /&gt;
         &lt;span style="margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
@@ -665,7 +659,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
-&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [style]="&#123;'width':'200px'&#125;" [virtualScroll]="true" [itemSize]="31" [filter]="false" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
