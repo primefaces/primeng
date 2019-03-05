@@ -441,6 +441,9 @@ body .ui-dropdown .ui-dropdown-trigger {
 body .ui-dropdown .ui-dropdown-clear-icon {
   color: #dedede;
 }
+body .ui-dropdown.ui-dropdown-clearable .ui-dropdown-label {
+  padding-right: 4em;
+}
 body .ui-dropdown-panel {
   padding: 0;
   border: 1px solid #191919;
@@ -1445,7 +1448,7 @@ body .ui-panel .ui-panel-titlebar {
 }
 body .ui-panel .ui-panel-titlebar .ui-panel-title {
   vertical-align: middle;
-  font-weight: 400;
+  font-weight: 700;
 }
 body .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon {
   margin: 0;
@@ -1525,7 +1528,7 @@ body .ui-accordion .ui-accordion-header a {
   color: #dedede;
   background-color: #191919;
   color: #dedede;
-  font-weight: 400;
+  font-weight: 700;
   -moz-transition: background-color 0.2s;
   -o-transition: background-color 0.2s;
   -webkit-transition: background-color 0.2s;
@@ -1586,7 +1589,7 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li a, body .ui-tabview.ui-tabvie
   display: inline-block;
   color: #dedede;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-left .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-right .ui-tabview-nav li a .ui-tabview-left-icon {
   margin-right: 0.5em;
@@ -1889,7 +1892,7 @@ body .ui-datagrid .ui-datagrid-header {
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
 }
 body .ui-datagrid .ui-datagrid-content {
@@ -1911,7 +1914,7 @@ body .ui-datalist .ui-datalist-header {
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
 }
 body .ui-datalist .ui-datalist-content {
@@ -1933,7 +1936,7 @@ body .ui-datascroller .ui-datascroller-header {
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
 }
 body .ui-datascroller .ui-datascroller-content {
@@ -1955,7 +1958,7 @@ body .ui-virtualscroller .ui-virtualscroller-header {
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
 }
 body .ui-virtualscroller .ui-virtualscroller-content {
@@ -1978,7 +1981,7 @@ body .ui-dataview .ui-dataview-header {
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
 }
 body .ui-dataview .ui-dataview-content {
@@ -2046,7 +2049,7 @@ body .ui-picklist .ui-picklist-caption {
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
@@ -2118,7 +2121,7 @@ body .ui-orderlist .ui-orderlist-caption {
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
@@ -2256,17 +2259,6 @@ body .ui-tree.ui-tree-horizontal .ui-treenode .ui-treenode-content.ui-treenode-s
   background-color: #4c4c4c;
   color: #dedede;
 }
-body .ui-tree .ui-tree-filter-container .ui-tree-filter {
-  width: 100%;
-  padding-right: 2em;
-}
-body .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
-  top: 50%;
-  left: auto;
-  margin-top: -.5em;
-  right: .8em;
-  color: #1f7ed0;
-}
 body .ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node:not(.ui-state-highlight):hover {
   background-color: #4c4c4c;
   color: #dedede;
@@ -2309,7 +2301,7 @@ body .ui-carousel .ui-carousel-header {
   padding: 0.571em 1em;
   border: 1px solid #191919;
   margin: 0;
-  font-weight: 400;
+  font-weight: 700;
 }
 body .ui-carousel .ui-carousel-header .ui-carousel-header-title {
   padding: 0;
@@ -2715,7 +2707,7 @@ body .ui-dialog .ui-dialog-titlebar {
   background-color: #191919;
   color: #dedede;
   padding: 1em;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 0 none;
 }
 body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
@@ -2814,7 +2806,7 @@ body .ui-lightbox .ui-lightbox-caption {
   background-color: #191919;
   color: #dedede;
   padding: 0.571em 1em;
-  font-weight: 400;
+  font-weight: 700;
 }
 body .ui-lightbox .ui-lightbox-caption .ui-lightbox-caption-text {
   color: #dedede;
@@ -3009,7 +3001,7 @@ body .ui-menu .ui-submenu-header {
   padding: 0.714em 0.857em;
   color: #dedede;
   background-color: #191919;
-  font-weight: 400;
+  font-weight: 700;
   border: 0 none;
 }
 body .ui-menu .ui-menu-separator {
@@ -3152,7 +3144,7 @@ body .ui-slidemenu .ui-slidemenu-backward {
   padding: 0.571em 1em;
   color: #dedede;
   background-color: #191919;
-  font-weight: 400;
+  font-weight: 700;
   border: 0 none;
 }
 body .ui-slidemenu .ui-slidemenu-backward:hover {
@@ -3224,7 +3216,7 @@ body .ui-megamenu .ui-megamenu-submenu-header {
   padding: 0.571em 1em;
   color: #dedede;
   background-color: #191919;
-  font-weight: 400;
+  font-weight: 700;
   border: 0 none;
 }
 body .ui-megamenu .ui-megamenu-panel {
@@ -3264,7 +3256,7 @@ body .ui-panelmenu .ui-panelmenu-header > a {
   background-color: #191919;
   color: #dedede;
   padding: 0.714em 0.857em;
-  font-weight: 400;
+  font-weight: 700;
   position: static;
   font-size: 14px;
   -moz-transition: background-color 0.2s;
