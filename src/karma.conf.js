@@ -22,7 +22,8 @@ module.exports = function (config) {
       },
       files: [
         '../node_modules/moment/moment.js',
-        '../node_modules/fullcalendar/dist/fullcalendar.js'
+        '../node_modules/fullcalendar/dist/fullcalendar.js',
+        '../node_modules/chart.js/dist/Chart.js'
       ],
       reporters: ['progress', 'kjhtml'],
       port: 9876,
