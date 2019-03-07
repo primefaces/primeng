@@ -246,7 +246,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
     
-    public value: any[];
+    public value: any[] = [];
     
     public onModelChange: Function = () => {};
     
