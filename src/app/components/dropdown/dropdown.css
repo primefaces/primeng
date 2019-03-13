@@ -124,4 +124,5 @@
 /** Dropdown **/
 .ui-fluid .ui-dropdown {
     width: 100%;
+    min-width: 100%;
 }
