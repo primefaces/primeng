@@ -7,7 +7,6 @@
 **Fixed bugs:**
 
 - Horizontal scroll may cause misalignment when header elements receive focus [\#7376](https://github.com/primefaces/primeng/issues/7376)
-- Turbo table: Horizontal scrolling not synchronized when adding columns dynamically [\#7375](https://github.com/primefaces/primeng/issues/7375)
 - Dropdown does not have 100% with under .ui-fluid [\#7373](https://github.com/primefaces/primeng/issues/7373)
 - Multiselect with \[selectionLimit\] = "1" throws exception [\#7221](https://github.com/primefaces/primeng/issues/7221)
 
