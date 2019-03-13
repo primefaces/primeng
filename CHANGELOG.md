@@ -1,5 +1,16 @@
 # Change Log
 
+## [7.1.0](https://github.com/primefaces/primeng/tree/7.1.0) (2019-03-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.0-rc.1...7.1.0)
+
+**Fixed bugs:**
+
+- Horizontal scroll may cause misalignment when header elements receive focus [\#7376](https://github.com/primefaces/primeng/issues/7376)
+- Turbo table: Horizontal scrolling not synchronized when adding columns dynamically [\#7375](https://github.com/primefaces/primeng/issues/7375)
+- Dropdown does not have 100% with under .ui-fluid [\#7373](https://github.com/primefaces/primeng/issues/7373)
+- Multiselect with \[selectionLimit\] = "1" throws exception [\#7221](https://github.com/primefaces/primeng/issues/7221)
+
 ## [7.1.0-rc.1](https://github.com/primefaces/primeng/tree/7.1.0-rc.1) (2019-03-05)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.5...7.1.0-rc.1)
