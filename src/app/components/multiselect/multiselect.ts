@@ -115,7 +115,7 @@ export class MultiSelectItem {
                         </ng-container>
                         <ng-template #virtualScrollList>
                             <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll">
-                                <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
+                                <ng-container *cdkVirtualFor="let option of visibleOptions; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">
                                     <p-multiSelectItem [option]="option" [selected]="isSelected(option.value)" (onClick)="onOptionClick($event)" (onKeydown)="onOptionKeydown($event)" 
                                         [maxSelectionLimitReached]="maxSelectionLimitReached" [visible]="isItemVisible(option)" [template]="itemTemplate" [itemSize]="itemSize"></p-multiSelectItem>
                                 </ng-container>
@@ -292,6 +292,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     set options(val: any[]) {
         let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
+        this.visibleOptions = opts;
         this._options = opts;
         this.updateLabel();
     }
@@ -361,8 +362,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             return;
         }
         
-        const value = option.value;
-        let selectionIndex = this.findSelectionIndex(value);
+        const optionValue = option.value;
+        let selectionIndex = this.findSelectionIndex(optionValue);
         if (selectionIndex != -1) {
             this.value = this.value.filter((val,i) => i != selectionIndex);
 
@@ -371,17 +372,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             }
         }
         else {
-            if (!this.selectionLimit || (this.value.length < this.selectionLimit)) {
-                this.value = [...this.value || [], value];
+            if (!this.selectionLimit || (!this.value || this.value.length < this.selectionLimit)) {
+                this.value = [...this.value || [], optionValue];
             }
 
-            if (this.selectionLimit && this.value.length === this.selectionLimit) {
+            if (this.selectionLimit && (!this.value || this.value.length === this.selectionLimit)) {
                 this.maxSelectionLimitReached = true;
             }
         }
     
         this.onModelChange(this.value);
-        this.onChange.emit({originalEvent: event.originalEvent, value: this.value, itemValue: value});
+        this.onChange.emit({originalEvent: event.originalEvent, value: this.value, itemValue: optionValue});
         this.updateLabel();
         this.updateFilledState();
     }
@@ -699,7 +700,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let inputValue = this.filterInputChild.nativeElement.value;
         if (inputValue && inputValue.length) {
             this.filterValue = inputValue;
-            this.visibleOptions = [];
             this.activateFilter();
         }
         else {
@@ -781,7 +781,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     onWindowResize() {
-        this.hide();
+        if (!DomHandler.isAndroid()) {
+            this.hide();
+        }
     }
 
     onOverlayHide() {

@@ -74,7 +74,7 @@ export class OverlayPanel implements OnDestroy {
             this.zone.runOutsideAngular(() => {
                 let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
                 this.documentClickListener = this.renderer.listen('document', documentEvent, (event) => {
-                    if (!this.el.nativeElement.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
                         this.zone.run(() => {
                             this.hide();
                         });
@@ -146,6 +146,10 @@ export class OverlayPanel implements OnDestroy {
                 DomHandler.absolutePosition(this.container, this.target);
                 if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.target).top) {
                     DomHandler.addClass(this.container, 'ui-overlaypanel-flipped');
+                }
+                if (DomHandler.getOffset(this.container).left < DomHandler.getOffset(this.target).left &&
+                    DomHandler.getOffset(this.container).left > 0) {
+                    DomHandler.addClass(this.container, 'ui-overlaypanel-shifted');
                 }
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();

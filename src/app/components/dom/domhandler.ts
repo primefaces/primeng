@@ -136,7 +136,7 @@ export class DomHandler {
         }
 
         if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
-            left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
+            left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
         else
             left = targetOffset.left + windowScrollLeft;
 
@@ -384,7 +384,11 @@ export class DomHandler {
     public static isIOS() {
         return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window['MSStream'];
     }
-    
+
+    public static isAndroid() {
+        return /(android)/i.test(navigator.userAgent);
+    }
+     
     public static appendChild(element: any, target: any) {
         if(this.isElement(target))
             target.appendChild(element);

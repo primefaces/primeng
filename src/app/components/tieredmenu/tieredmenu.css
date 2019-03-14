@@ -25,9 +25,9 @@
 }
 
 .ui-tieredmenu .ui-menuitem-link {
-    cursor: pointer;
     padding: .25em;
     display: block;
+    cursor: pointer;
     position: relative;
     text-decoration: none;
 }

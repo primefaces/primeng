@@ -83,9 +83,9 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
     @Input() modules: any;
 
-    @Input() bounds: Element;
+    @Input() bounds: any;
 
-    @Input() scrollingContainer: Element;
+    @Input() scrollingContainer: any;
 
     @Input() debug: string;
     

@@ -232,6 +232,7 @@ body {
     cursor: pointer;
     border-top: solid 1px #e3e9ea;
     box-sizing: border-box;
+    user-select: none;
 }
 
 #layout-sidebar .layout-menu >  div.layout-menu-search {

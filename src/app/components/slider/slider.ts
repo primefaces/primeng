@@ -341,7 +341,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 }
             }
             
-            this.values[this.handleIndex] = Math.floor(value);
+            this.values[this.handleIndex] = this.getNormalizedValue(value);
             this.onModelChange(this.values);
             this.onChange.emit({event: event, values: this.values});
         }
@@ -355,7 +355,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 this.handleValue = 100;
             }
             
-            this.value = Math.floor(val);
+			this.value = this.getNormalizedValue(val);
+            
             this.onModelChange(this.value);
             this.onChange.emit({event: event, value: this.value});
         }
@@ -364,6 +365,22 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     getValueFromHandle(handleValue: number): number {
         return (this.max - this.min) * (handleValue / 100) + this.min;
     }
+	
+	getDecimalsCount(value: number): number {
+		if (value && Math.floor(value) !== value)
+			return value.toString().split(".")[1].length || 0;
+		return 0;
+	}
+	
+	getNormalizedValue(val: number): number {
+		let decimalsCount = this.getDecimalsCount(this.step);
+		if (decimalsCount > 0) {
+			return +val.toFixed(decimalsCount);
+		} 
+		else {
+			return Math.floor(val);
+		}
+	}
     
     ngOnDestroy() {
         this.unbindDragListeners();

@@ -81,7 +81,7 @@ export interface LocaleSettings {
                                                     <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                                     <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
                                                 </a>
-                                                <span class="ui-state-default ui-state-disabled" *ngIf="!date.selectable">
+                                                <span class="ui-state-default ui-state-disabled" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}" *ngIf="!date.selectable">
                                                     {{date.day}}
                                                 </span>
                                             </ng-container>
@@ -1540,6 +1540,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     hideOverlay() {
         this.overlayVisible = false;
+
+        if (this.touchUI) {
+            this.disableModality();
+        }
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -1624,7 +1628,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
 
-            this.hideOverlay();
             this.unbindMaskClickListener();
 
             this.mask = null;
