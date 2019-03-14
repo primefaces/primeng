@@ -1158,19 +1158,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     incrementHour(event) {
-        const prevHour = this.currentHour;
-        const newHour = this.currentHour + this.stepHour;
-
+        let newHour = (this.hourFormat == '12' ? (this.pm ? (this.currentHour === 12 ? this.currentHour : this.currentHour + 12) : (this.currentHour === 12 ? 0 : this.currentHour)) : this.currentHour) + this.stepHour;
+        newHour = newHour >= 24 ? newHour - 24 : newHour;
         if (this.validateHour(newHour)) {
             if (this.hourFormat == '24')
-                this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;
+                this.currentHour = newHour;
             else if (this.hourFormat == '12') {
-                // Before the AM/PM break, now after
-                if (prevHour < 12 && newHour > 11) {
-                    this.pm = !this.pm;
-                }
-
-                this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
+                this.pm = newHour > 11;
+                this.currentHour = (newHour > 12) ? (newHour - 12) : newHour;
             }
         }
         event.preventDefault();
@@ -1231,17 +1226,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     decrementHour(event) {
-        const newHour = this.currentHour - this.stepHour;
-        
+        let newHour = (this.hourFormat == '12' ? (this.pm ? (this.currentHour === 12 ? this.currentHour : this.currentHour + 12) : (this.currentHour === 12 ? 0 : this.currentHour)) : this.currentHour) - this.stepHour;
+        newHour = newHour < 0 ? newHour + 24 : newHour;
         if (this.validateHour(newHour)) {
             if (this.hourFormat == '24')
-                this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;
+                this.currentHour = newHour;
             else if (this.hourFormat == '12') {
-                // If we were at noon/midnight, then switch
-                if (this.currentHour === 12) {
-                    this.pm = !this.pm;
-                }
-                this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
+                this.pm = newHour > 11;
+                this.currentHour = (newHour > 12) ? (newHour - 12) : newHour;
             }
         }
 
@@ -1406,8 +1398,12 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     toggleAMPM(event) {
-        this.pm = !this.pm;
-        this.updateTime();
+        let tempHour = (this.hourFormat == '12' ? (this.pm ? (this.currentHour === 12 ? this.currentHour : this.currentHour + 12) : (this.currentHour === 12 ? 0 : this.currentHour)) : this.currentHour) + 12;
+        tempHour = tempHour >= 24 ? tempHour - 24 : tempHour;
+        if (this.validateHour(tempHour)) {
+          this.pm = !this.pm;
+          this.updateTime();
+        }
         event.preventDefault();
     }
     
