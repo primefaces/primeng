@@ -1156,12 +1156,56 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.onYearChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonths(this.currentMonth, this.currentYear);
     }
+
+    validateTime(hour, minute, second): boolean {
+        let valid: boolean = true;
+        let value = this.value;
+        if (this.isRangeSelection()) {
+            value = this.value[1] || this.value[0];
+        }
+        if (this.isMultipleSelection()) {
+            value = this.value[this.value.length - 1];
+        }
+        let valueDateString = value ? value.toDateString() : null;
+
+		if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
+			if (this.minDate.getHours() > hour) {
+                valid = false;
+            }
+            if (this.minDate.getHours() === hour) {
+                if (this.minDate.getMinutes() > minute) {
+                    valid = false;
+                }
+				if (this.minDate.getMinutes() === minute) {
+                    if (this.minDate.getSeconds() > second) {
+						valid = false;
+					}
+                }
+            }
+        }
+        if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
+			if (this.maxDate.getHours() < hour) {
+                valid = false;
+            }
+            if (this.maxDate.getHours() === hour) {
+                if (this.maxDate.getMinutes() < minute) {
+                    valid = false;
+                }
+				if (this.maxDate.getMinutes() === minute) {
+                    if (this.maxDate.getSeconds() < second) {
+						valid = false;
+					}
+                }
+            }
+        }
+        return valid;
+    }
     
     incrementHour(event) {
         const prevHour = this.currentHour;
         const newHour = this.currentHour + this.stepHour;
 
-        if (this.validateHour(newHour)) {
+        if (this.validateTime(newHour, this.currentMinute, this.currentSecond)) {
             if (this.hourFormat == '24')
                 this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;
             else if (this.hourFormat == '12') {
@@ -1233,7 +1277,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     decrementHour(event) {
         const newHour = this.currentHour - this.stepHour;
         
-        if (this.validateHour(newHour)) {
+        if (this.validateTime(newHour, this.currentMinute, this.currentSecond)) {
             if (this.hourFormat == '24')
                 this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;
             else if (this.hourFormat == '12') {
@@ -1248,35 +1292,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         event.preventDefault();
     }
     
-    validateHour(hour): boolean {
-        let valid: boolean = true;
-        let value = this.value;
-        if (this.isRangeSelection()) {
-            value = this.value[1] || this.value[0];
-        }
-        if (this.isMultipleSelection()) {
-            value = this.value[this.value.length - 1];
-        }
-        let valueDateString = value ? value.toDateString() : null;
-        
-        if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if (this.minDate.getHours() > hour) {
-                valid = false;
-            }
-        }
-        
-        if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if (this.maxDate.getHours() < hour) {
-                valid = false;
-            }
-        }
-        
-        return valid;
-    }
-    
     incrementMinute(event) {
         let newMinute = this.currentMinute + this.stepMinute;
-        if (this.validateMinute(newMinute)) {
+        if (this.validateTime(this.currentHour, newMinute, this.currentSecond)) {
             this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
         }
         
@@ -1286,45 +1304,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     decrementMinute(event) {
         let newMinute = this.currentMinute - this.stepMinute;
         newMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
-        if (this.validateMinute(newMinute)) {
+        if (this.validateTime(this.currentHour, newMinute, this.currentSecond)) {
             this.currentMinute = newMinute;
         }
         
         event.preventDefault();
     }
     
-    validateMinute(minute): boolean {
-        let valid: boolean = true;
-        let value = this.value;
-        if (this.isRangeSelection()) {
-            value = this.value[1] || this.value[0];
-        }
-        if (this.isMultipleSelection()) {
-            value = this.value[this.value.length - 1];
-        }
-        let valueDateString = value ? value.toDateString() : null;
-        if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if (value.getHours() == this.minDate.getHours()){
-                if (this.minDate.getMinutes() > minute) {
-                    valid = false;
-                }
-            }
-        }
-        
-        if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if (value.getHours() == this.maxDate.getHours()){
-                if (this.maxDate.getMinutes() < minute) {
-                    valid = false;
-                }
-            }
-        }
-        
-        return valid;
-    }
-    
     incrementSecond(event) {
         let newSecond = this.currentSecond + this.stepSecond;
-        if (this.validateSecond(newSecond)) {
+        if (this.validateTime(this.currentHour, this.currentMinute, newSecond)) {
             this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
         }
     
@@ -1334,37 +1323,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     decrementSecond(event) {
         let newSecond = this.currentSecond - this.stepSecond;
         newSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
-        if (this.validateSecond(newSecond)) {
+        if (this.validateTime(this.currentHour, this.currentMinute, newSecond)) {
             this.currentSecond = newSecond;
         }
         
         event.preventDefault();
-    }
-    
-    validateSecond(second): boolean {
-        let valid: boolean = true;
-        let value = this.value;
-        if (this.isRangeSelection()) {
-            value = this.value[1] || this.value[0];
-        }
-        if (this.isMultipleSelection()) {
-            value = this.value[this.value.length - 1];
-        }
-        let valueDateString = value ? value.toDateString() : null;
-        
-        if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if (this.minDate.getSeconds() > second) {
-                valid = false;
-            }
-        }
-        
-        if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if (this.maxDate.getSeconds() < second) {
-                valid = false;
-            }
-        }
-        
-        return valid;
     }
     
     updateTime() {
