@@ -274,4 +274,48 @@ describe('Tree', () => {
 
 		expect(tree.selection).toEqual([]);
 	});
+
+	it('should select with checkbox with propagateDown and propagateUp', () => {
+		tree.selectionMode = 'checkbox';
+		fixture.detectChanges();
+		
+		let toggleEls = fixture.debugElement.queryAll(By.css('.ui-tree-toggler'));
+		const documentsToggleEl = toggleEls[0];
+		documentsToggleEl.nativeElement.click();
+		fixture.detectChanges();
+
+		let contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		const workContentEl = contentEls[1];
+		const homeContentEl = contentEls[2];
+		workContentEl.nativeElement.click();
+		homeContentEl.nativeElement.click();
+		fixture.detectChanges();
+		
+		expect(tree.selection.length).toEqual(6);
+		workContentEl.nativeElement.click();
+		fixture.detectChanges();
+
+		toggleEls = fixture.debugElement.queryAll(By.css('.ui-tree-toggler'));
+		const workToggleEl = toggleEls[1];
+		expect(tree.selection.length).toEqual(2);
+		workToggleEl.nativeElement.click();
+		fixture.detectChanges();
+
+		contentEls = fixture.debugElement.queryAll(By.css(".ui-treenode-content"));
+		const resumeContentEl = contentEls[3];
+		const expensesContentEl = contentEls[2];
+		resumeContentEl.nativeElement.click();
+		fixture.detectChanges();
+
+		expect(tree.selection.length).toEqual(3);
+		expensesContentEl.nativeElement.click();
+		fixture.detectChanges();
+
+		expect(tree.selection.length).toEqual(6);
+		expensesContentEl.nativeElement.click();
+		resumeContentEl.nativeElement.click();
+		fixture.detectChanges();
+
+		expect(tree.selection.length).toEqual(2);
+	});
 });
