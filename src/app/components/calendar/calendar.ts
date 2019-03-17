@@ -2004,10 +2004,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (!this.datepickerClick && this.overlayVisible) {
+                if (!this.datepickerClick && !this.focus && this.overlayVisible) {
                     this.hideOverlay();
                 }
 
+                this.focus = false;
                 this.datepickerClick = false;
                 this.cd.detectChanges();
             });
