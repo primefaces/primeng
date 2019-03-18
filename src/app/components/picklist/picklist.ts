@@ -269,7 +269,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if(metaSelection) {
-            let metaKey = (event.metaKey||event.ctrlKey);
+            let metaKey = (event.metaKey||event.ctrlKey||event.shiftKey);
             
             if(selected && metaKey) {
                 selectedItems.splice(index, 1);
