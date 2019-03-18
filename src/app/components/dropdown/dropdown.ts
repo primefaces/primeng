@@ -241,7 +241,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() get autoWidth(): boolean {
         return this._autoWidth;
     }
-    set utc(_autoWidth: boolean) {
+    set autoWidth(_autoWidth: boolean) {
         this._autoWidth = _autoWidth;
         console.log("Setting autoWidth has no effect as automatic width calculation is removed for better perfomance.");
     }
