@@ -19,7 +19,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     selector: 'p-dropdownItem',
     template: `
         <li (click)="onOptionClick($event)" role="option"
-            [attr.aria-label]="option.label"
+            [attr.aria-label]="ariaLabelCategory ? ariaLabelCategory + ': ' + option.label : option.label"
             [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'ui-dropdown-item ui-corner-all':true,
                                                 'ui-state-highlight': selected,
@@ -41,6 +41,8 @@ export class DropdownItem {
     @Input() visible: boolean;
 
     @Input() itemSize: number;
+    
+    @Input() ariaLabelCategory: string;
 
     @Input() template: TemplateRef<any>;
 
@@ -73,7 +75,7 @@ export class DropdownItem {
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: selectedOption}"></ng-container>
             </label>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true,'ui-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</label>
-            <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
+            <input #editableInput type="text" [attr.aria-label]="selectedOption ? ariaLabelCategory ? ariaLabelCategory + ': ' selectedOption.label : selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <i class="ui-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
@@ -111,7 +113,7 @@ export class DropdownItem {
                             <ng-template #virtualScrollList>
                                 <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
                                     <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">         
-                                        <p-dropdownItem [option]="option" [selected]="selectedOption == option"
+                                        <p-dropdownItem [option]="option" [selected]="selectedOption == option" [ariaLabelCategory]="ariaLabelCategory"
                                                                    (onClick)="onItemClick($event)"
                                                                    [template]="itemTemplate"></p-dropdownItem>
                                     </ng-container>
@@ -213,6 +215,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @Input() ariaFilterLabel: string;
+    
+    @Input() ariaLabelCategory: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
