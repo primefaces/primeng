@@ -22,7 +22,7 @@ import {SharedModule} from '../common/shared';
                 <span class="ui-paginator-icon pi pi-caret-left"></span>
             </a>
             <span class="ui-paginator-pages">
-                <a tabindex="0" *ngFor="let pageLink of pageLinks; let i = index;" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all" [title]="'Go to page ' i + 1"
+                <a tabindex="0" *ngFor="let pageLink of pageLinks; let i = index;" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all" title="Go to page {{i + 1}}"
                     (click)="onPageLinkClick($event, pageLink - 1)" (keydown.enter)="onPageLinkClick($event, pageLink - 1)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
             <a [attr.tabindex]="isLastPage() ? null : '0'" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all" title="Go to next page"
