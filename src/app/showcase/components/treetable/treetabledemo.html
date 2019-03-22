@@ -1268,7 +1268,7 @@ export class TreeTableSelectionDemo &#123;
             <p>See the <a [routerLink]="['/treetable/colreorder']">live example.</a></p>
 
             <h3>Scrolling</h3>
-            <p>TreeTable supports both horizontal and vertical scrolling as well as frozen columns.</p>
+            <p>TreeTable supports both horizontal and vertical scrolling as well as frozen columns. Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>Sample below uses vertical scrolling where headers are fixed and data is scrollable.</p>
 <pre>
@@ -1400,6 +1400,36 @@ export class TreeTableSelectionDemo &#123;
 &#125;
 </code>
 </pre>
+
+            <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
+                on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight
+                property which defaults to 28px, in your row template also assign the height of the row with the same value for smooth scrolling.
+                Note that variable row height is not supported due to the nature of the virtual scrolling behavior.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
+    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
+    [totalRecords]="totalRecords" [loading]="loading" (onNodeExpand)="onNodeExpand($event)"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/treetable/scroll']">live example.</a></p>
 
             <h3>Lazy Loading</h3>
@@ -1929,6 +1959,24 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Height of the scroll viewport in fixed pixels, percentage or a calc expression.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScrollDelay</td>
+                            <td>number</td>
+                            <td>150</td>
+                            <td>Delay in virtual scroll before doing a call to lazy load.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualRowHeight</td>
+                            <td>number</td>
+                            <td>28</td>
+                            <td>Height of a row to use in calculations of virtual scrolling.</td>
                         </tr>
                         <tr>
                             <td>frozenWidth</td>
