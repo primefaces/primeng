@@ -29,8 +29,8 @@
 
     <h3>Virtual Scroll - 250K Root Nodes X 2 Child Nodes</h3>
     <p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
-        [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
-        [totalRecords]="totalRecords" [loading]="loading" (onNodeExpand)="onNodeExpand($event)">
+        [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)"
+        [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -43,6 +43,13 @@
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="loadingbody" let-columns="columns">
+            <tr style="height:34px">
+                <td *ngFor="let col of columns;">
+                    <div class="loading-text"></div>
                 </td>
             </tr>
         </ng-template>
@@ -137,6 +144,19 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './treetablescrolldemo.html',
+    styles: [`
+        .loading-text &#123;
+            display: block;
+            background-color: #f1f1f1;
+            min-height: 19px;
+            animation: pulse 1s infinite ease-in-out;
+            text-indent: -99999px;
+            overflow: hidden;
+        &#125;
+    `]
+5;)
 export class TreeTableScrollDemo &#123;
 
     files1: TreeNode[];
@@ -157,7 +177,7 @@ export class TreeTableScrollDemo &#123;
 
     totalRecords: number;
 
-    loading: boolean;
+    showLoader: boolean;
 
     constructor(private nodeService: NodeService) &#123; &#125;
 
@@ -189,12 +209,10 @@ export class TreeTableScrollDemo &#123;
         //in a production application, retrieve the logical number of rows from a remote datasource
         this.totalRecords = 250000;
 
-        this.loading = true;
+        this.showLoader = false;
     &#125;
 
     loadNodes(event) &#123;
-        this.loading = true;
-
         //in a production application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -211,8 +229,6 @@ export class TreeTableScrollDemo &#123;
                 this.createLazyNodes(event.first, 20);
             else
                 this.createLazyNodes(event.first, event.rows);
-
-            this.loading = false;
         &#125;, 250);
     &#125;
 
@@ -232,10 +248,10 @@ export class TreeTableScrollDemo &#123;
     &#125;
 
     onNodeExpand(event) &#123;
-        this.loading = true;
+        this.showLoader = true;
 
         setTimeout(() => &#123;
-            this.loading = false;
+            this.showLoader = false;
             const node = event.node;
 
             node.children = [
@@ -293,7 +309,7 @@ export class TreeTableScrollDemo &#123;
 &lt;h3&gt;Virtual Scroll - 250K Root Nodes X 2 Child Nodes&lt;/h3&gt;
 &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
     [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
-    [totalRecords]="totalRecords" [loading]="loading" (onNodeExpand)="onNodeExpand($event)"&gt;
+    [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -306,6 +322,13 @@ export class TreeTableScrollDemo &#123;
             &lt;td *ngFor="let col of columns; let i = index"&gt;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
+        &lt;tr style="height:34px"&gt;
+            &lt;td *ngFor="let col of columns;"&gt;
+                &lt;div class="loading-text"&gt;&lt;/div&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;

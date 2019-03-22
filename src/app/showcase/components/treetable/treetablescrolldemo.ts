@@ -3,7 +3,17 @@ import { TreeNode } from '../../../components/common/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    templateUrl: './treetablescrolldemo.html'
+    templateUrl: './treetablescrolldemo.html',
+    styles: [`
+        .loading-text {
+            display: block;
+            background-color: #f1f1f1;
+            min-height: 19px;
+            animation: pulse 1s infinite ease-in-out;
+            text-indent: -99999px;
+            overflow: hidden;
+        }
+    `]
 })
 export class TreeTableScrollDemo {
     
@@ -25,7 +35,7 @@ export class TreeTableScrollDemo {
 
     totalRecords: number;
 
-    loading: boolean;
+    showLoader: boolean;
 
     constructor(private nodeService: NodeService) { }
 
@@ -57,12 +67,10 @@ export class TreeTableScrollDemo {
         //in a production application, retrieve the logical number of rows from a remote datasource
         this.totalRecords = 250000;
 
-        this.loading = true;
+        this.showLoader = false;
     }
 
     loadNodes(event) {
-        this.loading = true;
-
         //in a production application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -79,8 +87,6 @@ export class TreeTableScrollDemo {
                 this.createLazyNodes(event.first, 20);
             else
                 this.createLazyNodes(event.first, event.rows);
-
-            this.loading = false;
         }, 250);
     }
 
@@ -100,10 +106,10 @@ export class TreeTableScrollDemo {
     }
 
     onNodeExpand(event) {
-        this.loading = true;
+        this.showLoader = true;
 
         setTimeout(() => {
-            this.loading = false;
+            this.showLoader = false;
             const node = event.node;
 
             node.children = [
