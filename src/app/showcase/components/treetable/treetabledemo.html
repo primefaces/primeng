@@ -412,6 +412,12 @@ export class TreeTableDemo implements OnInit &#123;
                             </td>
                             <td>Content to display when there is no value to display.</td>
                         </tr>
+                        <tr>
+                            <td>loadingbody</td>
+                            <td>columns: Columns collection <br>
+                            </td>
+                            <td>Content of the tbody element to show when data is being loaded in virtual scroll mode.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -453,7 +459,7 @@ this.value = [...this.value];
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
-                &123;&123;col.header&125;&125;
+                &#123;&#123;col.header&#125;&#125;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -461,19 +467,19 @@ this.value = [...this.value];
         &lt;tr&gt;
             &lt;td *ngFor="let col of columns; let i = index"&gt;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &123;&123;rowData[col.field]&125;&125;
+                &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="footer" let-columns&gt;
         &lt;tr&gt;
             &lt;td *ngFor="let col of columns"&gt;
-                &123;&123;col.header&125;&125;
+                &#123;&#123;col.header&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
-        There are &123;&123;files?.length&125;&125; Root Folders
+        There are &#123;&#123;files?.length&#125;&#125; Root Folders
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -1430,6 +1436,41 @@ export class TreeTableSelectionDemo &#123;
 </code>
 </pre>
 
+            <p>Instead of using the built-in loading mask indicator, an special "loadingbody" template is available to provide feedback to the users
+                about the loading status of a scroll event.
+            </p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
+    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
+    [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
+        &lt;tr style="height:34px"&gt;
+            &lt;td *ngFor="let col of columns;"&gt;
+                &lt;div class="loading-text"&gt;&lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/treetable/scroll']">live example.</a></p>
 
             <h3>Lazy Loading</h3>
@@ -1947,6 +1988,12 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>fa-circle-o-notch</td>
                             <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>showLoader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the loading mask when loading property is true.</td>
                         </tr>
                         <tr>
                             <td>scrollable</td>
