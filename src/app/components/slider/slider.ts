@@ -105,6 +105,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     onTouchStart(event, index?:number) {
+        if(this.disabled) {
+            return;
+        }
+
         var touchobj = event.changedTouches[0];
         this.startHandleValue = (this.range) ? this.handleValues[index] : this.handleValue;
         this.dragging = true;
@@ -123,6 +127,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     onTouchMove(event, index?:number) {
+        if(this.disabled) {
+            return;
+        }
+        
         var touchobj = event.changedTouches[0],
         handleValue = 0;
 
@@ -139,6 +147,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     onTouchEnd(event, index?:number) {
+        if(this.disabled) {
+            return;
+        }
+
         this.dragging = false;
         
         if (this.range)
