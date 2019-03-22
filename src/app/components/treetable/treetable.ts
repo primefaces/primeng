@@ -17,11 +17,13 @@ export class TreeTableService {
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
     private uiUpdateSource = new Subject<any>();
+    private totalRecordsSource = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     uiUpdateSource$ = this.uiUpdateSource.asObservable();
+    totalRecordsSource$ = this.totalRecordsSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -37,6 +39,10 @@ export class TreeTableService {
 
     onUIUpdate(value: any) {
         this.uiUpdateSource.next(value);
+    }
+
+    onTotalRecordsChange(value: number) {
+        this.totalRecordsSource.next(value);
     }
 }
 
@@ -108,8 +114,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() first: number = 0;
 
-    @Input() totalRecords: number = 0;
-
     @Input() pageLinks: number = 5;
 
     @Input() rowsPerPageOptions: number[];
@@ -153,6 +157,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Input() scrollable: boolean;
 
     @Input() scrollHeight: string;
+
+    @Input() virtualScroll: boolean;
+
+    @Input() virtualScrollDelay: number = 150;
+
+    @Input() virtualRowHeight: number = 28;
 
     @Input() frozenWidth: string;
 
@@ -224,11 +234,17 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     serializedValue: any[];
 
+    _totalRecords: number = 0;
+
     _multiSortMeta: SortMeta[];
 
     _sortField: string;
 
     _sortOrder: number = 1;
+
+    virtualScrollTimer: any;
+    
+    virtualScrollCallback: Function;
 
     filteredNodes: any[];
 
@@ -372,6 +388,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 this._filter();
         }
 
+        if(this.virtualScroll && this.virtualScrollCallback) {
+            this.virtualScrollCallback();
+        }
+
         this.updateSerializedValue();
         this.tableService.onUIUpdate(this.value);
     }
@@ -424,6 +444,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 }
             }
         }
+    }
+
+    @Input() get totalRecords(): number {
+        return this._totalRecords;
+    }
+    set totalRecords(val: number) {
+        this._totalRecords = val;
+        this.tableService.onTotalRecordsChange(this._totalRecords);
     }
 
     @Input() get sortField(): string {
@@ -713,13 +741,28 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
-            rows: this.rows,
+            rows: this.virtualScroll ? this.rows * 2 : this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
             globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
             multiSortMeta: this.multiSortMeta
         };
+    }
+
+    handleVirtualScroll(event) {
+        this.first = (event.page - 1) * this.rows;
+        this.virtualScrollCallback = event.callback;
+        
+        this.zone.run(() => {
+            if(this.virtualScrollTimer) {
+                clearTimeout(this.virtualScrollTimer);
+            }
+            
+            this.virtualScrollTimer = setTimeout(() => {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            }, this.virtualScrollDelay);
+        });
     }
 
     isEmpty() {
@@ -1671,10 +1714,11 @@ export class TTBody {
             </div>
         </div>
         <div #scrollBody class="ui-treetable-scrollable-body">
-            <table #scrollTable class="ui-treetable-scrollable-body-table">
+            <table #scrollTable [ngClass]="{'ui-treetable-scrollable-body-table': true, 'ui-treetable-virtual-table': tt.virtualScroll}">
                 <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate"></tbody>
             </table>
+            <div #virtualScroller class="ui-treetable-virtual-scroller" *ngIf="tt.virtualScroll"></div>
         </div>
         <div #scrollFooter *ngIf="tt.footerTemplate" class="ui-treetable-scrollable-footer ui-widget-header">
             <div #scrollFooterBox class="ui-treetable-scrollable-footer-box">
@@ -1706,6 +1750,8 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
+    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
+
     headerScrollListener: Function;
 
     bodyScrollListener: Function;
@@ -1717,6 +1763,8 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     _scrollHeight: string;
 
     subscription: Subscription;
+
+    totalRecordsSubscription: Subscription;
     
     initialized: boolean;
 
@@ -1729,6 +1777,16 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
                 }, 50);
             });
         });
+
+        if (this.tt.virtualScroll) {
+            this.totalRecordsSubscription = this.tt.tableService.totalRecordsSource$.subscribe(() => {
+                this.zone.runOutsideAngular(() => {
+                    setTimeout(() => {
+                        this.setVirtualScrollerHeight();
+                    }, 50);
+                });
+            });
+        }
 
         this.initialized = false;
      }
@@ -1770,6 +1828,10 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         }
         else {
             this.scrollBodyViewChild.nativeElement.style.paddingBottom = DomHandler.calculateScrollbarWidth() + 'px';
+        }
+
+        if(this.tt.virtualScroll) {
+            this.setVirtualScrollerHeight();
         }
     }
 
@@ -1826,6 +1888,29 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         if (this.frozenSiblingBody) {
             this.frozenSiblingBody.scrollTop = this.scrollBodyViewChild.nativeElement.scrollTop;
         }
+
+        if (this.tt.virtualScroll) {
+            let viewport = DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+            let tableHeight = DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement);
+            let pageHeight = this.tt.virtualRowHeight * this.tt.rows;
+            let virtualTableHeight = DomHandler.getOuterHeight(this.virtualScrollerViewChild.nativeElement);
+            let pageCount = (virtualTableHeight / pageHeight)||1;
+            let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
+
+            if ((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
+                let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
+                this.tt.handleVirtualScroll({
+                    page: page,
+                    callback: () => {                       
+                        this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
+
+                        if (this.frozenSiblingBody) {
+                            (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
+                        }
+                    }
+                });
+            }
+        }
     }
 
     setScrollHeight() {
@@ -1865,6 +1950,12 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
         }
     }
 
+    setVirtualScrollerHeight() {
+        if(this.virtualScrollerViewChild.nativeElement) {
+            this.virtualScrollerViewChild.nativeElement.style.height = this.tt.totalRecords * this.tt.virtualRowHeight + 'px';
+        }
+    }
+
     hasVerticalOverflow() {
         return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
     }
@@ -1888,6 +1979,10 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
         if(this.subscription) {
             this.subscription.unsubscribe();
+        }
+
+        if(this.totalRecordsSubscription) {
+            this.totalRecordsSubscription.unsubscribe();
         }
 
         this.initialized = false;
