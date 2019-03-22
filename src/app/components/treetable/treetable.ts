@@ -1725,6 +1725,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.alignScrollBar();
+                    this.initialized = true;
                 }, 50);
             });
         });
