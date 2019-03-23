@@ -125,12 +125,14 @@ export class Dialog implements OnDestroy {
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
 
     container: HTMLDivElement;
-    
+
     _visible: boolean;
     
     dragging: boolean;
 
     documentDragListener: any;
+
+    documentKeydownListener: any;
 
     documentDragEndListener: any;
     
@@ -404,6 +406,42 @@ export class Dialog implements OnDestroy {
             DomHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
+
+    onKeydown(event: KeyboardEvent) {
+        if(event.which === 9){
+            event.preventDefault();
+            
+            let focusableElements = DomHandler.find(this.container,'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            
+            if(focusableElements && focusableElements.length > 0) {
+                if(!document.activeElement) {
+                    focusableElements[0].focus();
+                }
+                else{
+                    let focusedIndex = focusableElements.indexOf(document.activeElement);
+
+                    if(event.shiftKey) {
+                        if(focusedIndex == -1 || focusedIndex === 0) {
+                            focusableElements[focusableElements.length - 1].focus();
+                        }
+                        else {
+                            focusableElements[focusedIndex - 1].focus();
+                            focusableElements[focusedIndex - 1].focus();
+                        }
+                    }
+                    else {
+                        if(focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                            focusableElements[0].focus();
+                        }
+                        else {
+                            focusableElements[focusedIndex + 1].focus();
+                            focusableElements[focusedIndex + 1].focus();
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     onDrag(event: MouseEvent) {
         if (this.dragging) {
@@ -482,6 +520,10 @@ export class Dialog implements OnDestroy {
     }
     
     bindGlobalListeners() {
+        if (this.modal) {
+            this.bindDocumentKeydownListener();
+        }
+
         if (this.draggable) {
             this.bindDocumentDragListener();
             this.bindDocumentDragEndListener();
@@ -502,12 +544,27 @@ export class Dialog implements OnDestroy {
     
     unbindGlobalListeners() {
         this.unbindDocumentDragListener();
+        this.unbindDocumentKeydownListener();
         this.unbindDocumentDragEndListener();
         this.unbindDocumentResizeListeners();
         this.unbindDocumentResponsiveListener();
         this.unbindDocumentEscapeListener();
     }
-    
+
+    bindDocumentKeydownListener() {
+        this.zone.runOutsideAngular(() => {
+            this.documentKeydownListener = this.onKeydown.bind(this);
+            window.document.addEventListener('keydown', this.documentKeydownListener);
+        });
+    }
+
+    unbindDocumentKeydownListener() {
+        if(this.documentKeydownListener) {
+            window.document.removeEventListener('keydown', this.documentKeydownListener);
+            this.documentKeydownListener = null;
+        }
+    }
+
     bindDocumentDragListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragListener = this.onDrag.bind(this);
