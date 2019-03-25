@@ -161,7 +161,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if (metaSelection) {
-            let metaKey = (event.metaKey||event.ctrlKey);
+            let metaKey = (event.metaKey||event.ctrlKey||event.shiftKey);
             
             if (selected && metaKey) {
                 this._selection = this._selection.filter((val, index) => index !== selectedIndex);

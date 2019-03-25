@@ -1,14 +1,27 @@
 # Change Log
 
+## [7.1.0](https://github.com/primefaces/primeng/tree/7.1.0) (2019-03-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.0-rc.1...7.1.0)
+
+**Fixed bugs:**
+
+- Horizontal scroll may cause misalignment when header elements receive focus [\#7376](https://github.com/primefaces/primeng/issues/7376)
+- Dropdown does not have 100% with under .ui-fluid [\#7373](https://github.com/primefaces/primeng/issues/7373)
+- Multiselect with \[selectionLimit\] = "1" throws exception [\#7221](https://github.com/primefaces/primeng/issues/7221)
+
 ## [7.1.0-rc.1](https://github.com/primefaces/primeng/tree/7.1.0-rc.1) (2019-03-05)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.5...7.1.0-rc.1)
 
-**Implemented New Features and Enhancements:**
+**Breaking changes:**
 
 - Remove autoWidth from Dropdown [\#7337](https://github.com/primefaces/primeng/issues/7337)
-- loadingBody template for Table VirtualScroll [\#7336](https://github.com/primefaces/primeng/issues/7336)
 - expandedRowKeys map value should be a boolean [\#7333](https://github.com/primefaces/primeng/issues/7333)
+
+**Implemented New Features and Enhancements:**
+
+- loadingBody template for Table VirtualScroll [\#7336](https://github.com/primefaces/primeng/issues/7336)
 - onShow and onHide events for Menu [\#7307](https://github.com/primefaces/primeng/issues/7307)
 - Turbo table column re-order: The drag and drop should not be possible on the same column [\#7295](https://github.com/primefaces/primeng/issues/7295)
 - dropdownIcon property for AutoComplete [\#7265](https://github.com/primefaces/primeng/issues/7265)
@@ -53,10 +66,13 @@
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.4...7.0.5)
 
+**Breaking changes:**
+
+- Reimplement ConfirmDialog Positioning [\#7164](https://github.com/primefaces/primeng/issues/7164)
+
 **Implemented New Features and Enhancements:**
 
 - Screen reader support for multiselect, dropdown and listbox options [\#7169](https://github.com/primefaces/primeng/issues/7169)
-- Reimplement ConfirmDialog Positioning [\#7164](https://github.com/primefaces/primeng/issues/7164)
 - Add showPassword prop to Password component [\#7083](https://github.com/primefaces/primeng/issues/7083)
 - DOM Handler causes incorrect offset in components that use "relativePosition" [\#6803](https://github.com/primefaces/primeng/issues/6803)
 - Expose Dialog icons for easier customization [\#6102](https://github.com/primefaces/primeng/issues/6102)

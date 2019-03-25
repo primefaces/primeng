@@ -587,6 +587,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful()) {
             this.saveState();
         }
+
+        this.anchorRowIndex = null;
     }
 
     sort(event) {
@@ -622,6 +624,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful()) {
             this.saveState();
         }
+
+        this.anchorRowIndex = null;
     }
 
     sortSingle() {
@@ -951,6 +955,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             rangeEnd = rowIndex;
         }
         
+        if (this.lazy && this.paginator) {
+            rangeStart -= this.first;
+            rangeEnd -= this.first;
+        }
+
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if(!this.isSelected(rangeRowData)) {
@@ -1113,6 +1122,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._filter();
             this.filterTimeout = null;
         }, this.filterDelay);
+
+        this.anchorRowIndex = null;
     }
 
     filterGlobal(value, matchMode) {
@@ -2441,6 +2452,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                         if (this.frozenSiblingBody) {
                             (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
                         }
+
+                        this.dt.anchorRowIndex = null;
                     }
                 });
             }
