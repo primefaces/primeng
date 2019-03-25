@@ -154,6 +154,14 @@ export class Paginator implements OnInit {
         start = boundaries[0],
         end = boundaries[1];
 
+        if (end < this.getPage()) {
+            setTimeout(() => {
+                this.changePage(this.getPage() - 1);
+            }, 1);
+
+            return;
+        }
+
         for(let i = start; i <= end; i++) {
             this.pageLinks.push(i + 1);
         }
