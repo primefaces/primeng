@@ -378,7 +378,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             
             this.movedUp = true;
             this.reorderedListElement = listElement;
-            callback.emit({items: selectedItems, direction: "up"});
+            callback.emit({items: selectedItems});
         }
     }
 
@@ -399,7 +399,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             }
             
             listElement.scrollTop = 0;
-            callback.emit({items: selectedItems, direction: "top"});
+            callback.emit({items: selectedItems});
         }
     }
 
@@ -423,7 +423,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             
             this.movedDown = true;
             this.reorderedListElement = listElement;
-            callback.emit({items: selectedItems, direction: "down"});
+            callback.emit({items: selectedItems});
         }
     }
 
@@ -444,7 +444,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             }
             
             listElement.scrollTop = listElement.scrollHeight;
-            callback.emit({items: selectedItems, direction:"bottom"});
+            callback.emit({items: selectedItems});
         }
     }
 
