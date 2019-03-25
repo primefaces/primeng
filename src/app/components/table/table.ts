@@ -774,7 +774,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     handleRowClick(event) {
         let target = (<HTMLElement> event.originalEvent.target);
         let targetNode = target.nodeName;
-        let parentNode = target.parentElement.nodeName;
+        let parentNode = target.parentElement && target.parentElement.nodeName;
         if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || 
             parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' ||
             (DomHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
