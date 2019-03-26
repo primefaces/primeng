@@ -20,10 +20,13 @@ import &#123;FullCalendarModule&#125; from 'primeng/fullcalendar';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.0.0.alpha.2+</a> so fullcalendar needs to be included in your project. For a complete documentation and samples please refer to the fullcalendar website.
+            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.0.1+</a> so fullcalendar needs to be included in your project. For a complete documentation and samples please refer to the fullcalendar website.
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-npm install fullcalendar@4.0.0-alpha.2 --save
+npm install @fullcalendar/core --save
+npm install @fullcalendar/daygrid --save
+npm install @fullcalendar/timegrid --save
+npm install @fullcalendar/interaction --save
 </code>
 </pre>
             
@@ -118,6 +121,7 @@ export class FullCalendarDemo implements OnInit &#123;
         this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
         
         this.options = &#123;
+            plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin],
             defaultDate: '2017-02-01',
             header: &#123;
                 left: 'prev,next',
@@ -172,6 +176,7 @@ update() &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 this.options = &#123;
+    plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin],
     header: &#123;
         left: 'prev,next',
         center: 'title',
@@ -244,6 +249,11 @@ gotoDate(date: Date) &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
+
 export class FullCalendarDemo implements OnInit &#123;
 
     events: any[];
@@ -256,6 +266,7 @@ export class FullCalendarDemo implements OnInit &#123;
         this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
         
         this.options = &#123;
+            plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin],
             defaultDate: '2017-02-01',
             header: &#123;
                 left: 'prev,next',
