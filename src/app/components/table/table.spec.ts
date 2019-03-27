@@ -363,6 +363,31 @@ describe('Table', () => {
         expect(bodyRows.length).toEqual(5);
     });
 
+    it('should reset page on filter', fakeAsync(() => {
+        fixture.detectChanges();
+
+        filterTable.paginator = true;
+        filterTable.rows = 5;
+        fixture.detectChanges();
+
+        // Select second page
+        const tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(5);
+        const pageTwoEl = fixture.debugElement.query(By.css("p-paginator")).query(By.css(".ui-paginator-pages")).children[1];
+
+        pageTwoEl.nativeElement.click();
+        fixture.detectChanges();
+
+        // Change filter
+        filterTable.filter("dsad231ff","vin","equals");
+        tick(300);
+        fixture.detectChanges();
+
+        expect(filterTable.first).toEqual(0);
+
+    }));
+
     it('should use custom filter and show 2 items', fakeAsync(() => {
         fixture.detectChanges();
 

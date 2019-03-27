@@ -1111,7 +1111,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if(this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
-        
+
+        if (this.paginator) {
+            this.first = 0;
+        }
+
         if (!this.isFilterBlank(value)) {
             this.filters[field] = { value: value, matchMode: matchMode };
         } else if (this.filters[field]) {
@@ -1141,6 +1145,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     _filter() {
+
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
