@@ -3487,7 +3487,7 @@ export class TableRadioButton  {
     template: `
         <div class="ui-chkbox ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
-                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled">
+                <input type="checkbox" [checked]="checked" [attr.id]="inputId" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled':disabled}">
@@ -3503,6 +3503,8 @@ export class TableCheckbox  {
     @Input() value: any;
 
     @Input() index: number;
+    
+    @Input() inputId: string;
 
     @ViewChild('box') boxViewChild: ElementRef;
 
@@ -3551,7 +3553,7 @@ export class TableCheckbox  {
     template: `
         <div class="ui-chkbox ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()">
+                <input #cb type="checkbox" [checked]="checked" [attr.id]="inputId" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
                 'ui-state-active':checked, 'ui-state-disabled': isDisabled()}">
@@ -3565,6 +3567,8 @@ export class TableHeaderCheckbox  {
     @ViewChild('box') boxViewChild: ElementRef;
 
     @Input() disabled: boolean;
+    
+    @Input() inputId: string;
 
     checked: boolean;
 
