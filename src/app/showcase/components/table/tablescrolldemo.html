@@ -29,7 +29,7 @@
 
     <h3>Virtual Scroll - 250K Rows</h3>
     <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px"
-            [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [virtualRowHeight]="34" [showLoader]="false"
+            [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [virtualRowHeight]="34"
             [lazy]="true" [totalRecords]="totalRecords">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -420,7 +420,7 @@ export class TableScrollDemo implements OnInit &#123;
 
 &lt;h3&gt;Virtual Scroll - 250K Rows&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
-    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34" [showLoader]="false"&gt;
+    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
