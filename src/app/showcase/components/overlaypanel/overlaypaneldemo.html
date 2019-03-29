@@ -11,7 +11,9 @@
     <button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>
 
     <p-overlayPanel #op1>
-        <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
+        <ng-template pTemplate="body">
+            <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1">
+        </ng-template>
     </p-overlayPanel>
     
     <h3>Customized</h3>
@@ -19,24 +21,26 @@
     <i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
-        <p-table [value]="cars1" [style]="{width: '500px'}" [paginator]="true" [rows]="5">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
-                    <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
-                    <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
-                    <th pSortableColumn="color">Color <p-sortIcon field="color"></p-sortIcon></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-car>
-                <tr>
-                    <td>{{car.vin}}</td>
-                    <td>{{car.year}}</td>
-                    <td>{{car.brand}}</td>
-                    <td>{{car.color}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+        <ng-template pTemplate="body">
+            <p-table [value]="cars1" [style]="{width: '500px'}" [paginator]="true" [rows]="5">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
+                        <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
+                        <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
+                        <th pSortableColumn="color">Color <p-sortIcon field="color"></p-sortIcon></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-car>
+                    <tr>
+                        <td>{{car.vin}}</td>
+                        <td>{{car.year}}</td>
+                        <td>{{car.brand}}</td>
+                        <td>{{car.color}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </ng-template>
     </p-overlayPanel>
     
     <h3>Table Integration</h3>
@@ -65,8 +69,19 @@
     </p-table>
     
     <p-overlayPanel #op3>
-        <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" width="120" height="120" *ngIf="selectedCar"/>
+        <ng-template pTemplate="body">
+            <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" width="120" height="120" *ngIf="selectedCar"/>
+        </ng-template>
     </p-overlayPanel>
+
+    <p-overlayPanel #op4>
+        <ng-template pTemplate="body">
+            <button type="text" pButton label="Button" pTooltip="Tooltip in overlay on a button"
+                    tooltipPosition="top" (click)="op4.hide($event)"></button>
+        </ng-template>
+    </p-overlayPanel>
+    <br><br>
+    <button type="text" pButton label="Basic" (click)="op4.show($event)"></button>
 </div>
 
 <div class="content-section documentation">

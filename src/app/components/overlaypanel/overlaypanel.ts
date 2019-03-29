@@ -1,15 +1,17 @@
-import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone} from '@angular/core';
+import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,QueryList, TemplateRef, ContentChildren, AfterContentInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import { PrimeTemplate } from '../common/shared';
 
 @Component({
     selector: 'p-overlayPanel',
     template: `
         <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass"
-            [@animation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
+             [@animation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" 
+             (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-overlaypanel-content">
-                <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
             </div>
             <a tabindex="0" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)" (keydown.enter)="hide()">
                 <span class="ui-overlaypanel-close-icon pi pi-times"></span>
@@ -31,7 +33,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
         ])
     ]
 })
-export class OverlayPanel implements OnDestroy {
+export class OverlayPanel implements OnDestroy, AfterContentInit {
 
     @Input() dismissable: boolean = true;
 
@@ -54,7 +56,11 @@ export class OverlayPanel implements OnDestroy {
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
-    
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+
+    bodyTemplate: TemplateRef<any>;
+
     container: HTMLDivElement;
 
     visible: boolean = false;
@@ -68,6 +74,16 @@ export class OverlayPanel implements OnDestroy {
     documentResizeListener: any;
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'body':
+                    this.bodyTemplate = item.template;
+                break;
+            }
+        });
+    }
         
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {

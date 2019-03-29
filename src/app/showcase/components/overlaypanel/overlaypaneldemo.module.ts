@@ -7,6 +7,7 @@ import {ButtonModule} from '../../../components/button/button';
 import {TableModule} from '../../../components/table/table';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import { TooltipModule } from 'src/app/components/tooltip/tooltip';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         ButtonModule,
         TableModule,
         TabViewModule,
-        CodeHighlighterModule
+		CodeHighlighterModule,
+		TooltipModule
 	],
 	declarations: [
 		OverlayPanelDemo
