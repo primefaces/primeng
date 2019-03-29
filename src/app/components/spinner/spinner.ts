@@ -14,14 +14,14 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
             <input #inputfield [attr.type]="type" [attr.id]="inputId" [value]="value === 0 ? '0' : value||null" [attr.name]="name"
-            [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [attr.readonly]="readonly" [attr.required]="required"
+            [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
             (keydown)="onInputKeydown($event)" (blur)="onInputBlur($event)" (input)="onInput($event)" (change)="onInputChange($event)" (focus)="onInputFocus($event)"
             [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
-            <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled" [attr.readonly]="readonly"
+            <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled||readonly" [attr.tabindex]="tabindex" [attr.readonly]="readonly"
                 (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event)" (mouseup)="onUpButtonMouseup($event)">
                 <span class="ui-spinner-button-icon pi pi-caret-up ui-clickable"></span>
             </button>
-            <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled" [attr.readonly]="readonly"
+            <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled||readonly" [attr.tabindex]="tabindex" [attr.readonly]="readonly"
                 (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event)" (mouseup)="onDownButtonMouseup($event)">
                 <span class="ui-spinner-button-icon pi pi-caret-down ui-clickable"></span>
             </button>
@@ -104,9 +104,10 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() set formatInput(value: boolean) {
         console.warn("formatInput property is removed Spinner as Spinner does not format the value anymore.");
     }
-    
+
     ngOnInit() {
-        if (Math.floor(this.step) === 0) {
+        if (this.step % 1 !== 0) {
+            // If step is not an integer then extract the length of the decimal part
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
     }
@@ -236,7 +237,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         let value: number;
                 
         if (val.trim() === '') {
-            value = this.min != null ? this.min : null;
+            value = null;
         }
         else {
             if (this.precision)

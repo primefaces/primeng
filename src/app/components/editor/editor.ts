@@ -83,9 +83,9 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
     @Input() modules: any;
 
-    @Input() bounds: Element;
+    @Input() bounds: any;
 
-    @Input() scrollingContainer: Element;
+    @Input() scrollingContainer: any;
 
     @Input() debug: string;
     
@@ -128,7 +128,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             if (source === 'user') {
                 let html = editorElement.children[0].innerHTML;
                 let text = this.quill.getText().trim();
-                if (text.length === 0) {
+                if (html === '<p><br></p>') {
                     html = null;
                 }
 

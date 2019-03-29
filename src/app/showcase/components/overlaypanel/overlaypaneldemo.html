@@ -48,6 +48,7 @@
                 <th>Year</th>
                 <th>Brand</th>
                 <th>Color</th>
+                
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-car>
@@ -64,7 +65,7 @@
     </p-table>
     
     <p-overlayPanel #op3>
-        <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" *ngIf="selectedCar"/>
+        <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" width="120" height="120" *ngIf="selectedCar"/>
     </p-overlayPanel>
 </div>
 

@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -61,8 +61,8 @@ export class TableService {
             [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns,
                 'ui-table-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
-            <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
-            <div class="ui-table-loading-content" *ngIf="loading">
+            <div class="ui-table-loading ui-widget-overlay" *ngIf="loading && showLoader"></div>
+            <div class="ui-table-loading-content" *ngIf="loading && showLoader">
                 <i [class]="'ui-table-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
@@ -78,7 +78,7 @@ export class TableService {
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
-                    <tfoot class="ui-table-tfoot">
+                    <tfoot *ngIf="footerTemplate" class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
@@ -173,7 +173,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() filterDelay: number = 300;
 
-    @Input() expandedRowKeys: { [s: string]: number; } = {};
+    @Input() expandedRowKeys: { [s: string]: boolean; } = {};
+
+    @Input() editingRowKeys: { [s: string]: boolean; } = {};
 
     @Input() rowExpandMode: string = 'multiple';
 
@@ -183,7 +185,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() virtualScroll: boolean;
 
-    @Input() virtualScrollDelay: number = 500;
+    @Input() virtualScrollDelay: number = 150;
 
     @Input() virtualRowHeight: number = 28;
 
@@ -203,6 +205,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
+    @Input() showLoader: boolean = true;
+
     @Input() rowHover: boolean;
 
     @Input() customSort: boolean;
@@ -214,6 +218,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() stateKey: string;
 
     @Input() stateStorage: string = 'session';
+
+    @Input() editMode: string = 'cell';
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -272,6 +278,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     headerTemplate: TemplateRef<any>;
 
     bodyTemplate: TemplateRef<any>;
+
+    loadingBodyTemplate: TemplateRef<any>;
 
     captionTemplate: TemplateRef<any>;
 
@@ -382,6 +390,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 case 'body':
                     this.bodyTemplate = item.template;
+                break;
+
+                case 'loadingbody':
+                    this.loadingBodyTemplate = item.template;
                 break;
 
                 case 'footer':
@@ -575,6 +587,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful()) {
             this.saveState();
         }
+
+        this.anchorRowIndex = null;
     }
 
     sort(event) {
@@ -610,6 +624,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful()) {
             this.saveState();
         }
+
+        this.anchorRowIndex = null;
     }
 
     sortSingle() {
@@ -893,7 +909,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = rowData;
                 this.contextMenuSelectionChange.emit(rowData);
-                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, data: rowData});
+                this.onContextMenuSelect.emit({originalEvent: event.originalEvent, data: rowData, index: event.rowIndex});
                 this.contextMenu.show(event.originalEvent);
                 this.tableService.onContextMenu(rowData);
             }
@@ -918,7 +934,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
     
                 this.contextMenu.show(event.originalEvent);
-                this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
+                this.onContextMenuSelect.emit({originalEvent: event, data: rowData, index: event.rowIndex});
             }
         }
     }
@@ -939,6 +955,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             rangeEnd = rowIndex;
         }
         
+        if (this.lazy && this.paginator) {
+            rangeStart -= this.first;
+            rangeEnd -= this.first;
+        }
+
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if(!this.isSelected(rangeRowData)) {
@@ -1101,6 +1122,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._filter();
             this.filterTimeout = null;
         }, this.filterDelay);
+
+        this.anchorRowIndex = null;
     }
 
     filterGlobal(value, matchMode) {
@@ -1314,6 +1337,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 return true;
             }
 
+            if (value === undefined || value === null) {
+                return false;
+            }
+
             for (let i = 0; i < filter.length; i++) {
                 if (filter[i] === value || (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime())) {
                     return true;
@@ -1522,6 +1549,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    initRowEdit(rowData: any) {
+        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        this.editingRowKeys[dataKeyValue] = true;
+    }
+
+    saveRowEdit(rowData: any, rowElement: HTMLTableRowElement) {
+        if (DomHandler.find(rowElement, '.ng-invalid.ng-dirty').length === 0) {
+            let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+            delete this.editingRowKeys[dataKeyValue];
+        }
+    }
+
+    cancelRowEdit(rowData: any) {
+        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        delete this.editingRowKeys[dataKeyValue];
+    }
+
     toggleRow(rowData: any, event?: Event) {
         if(!this.dataKey) {
             throw new Error('dataKey must be defined to use row expansion');
@@ -1541,7 +1585,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.expandedRowKeys = {};
             }
 
-            this.expandedRowKeys[dataKeyValue] = 1;
+            this.expandedRowKeys[dataKeyValue] = true;
             this.onRowExpand.emit({
                 originalEvent: event,
                 data: rowData
@@ -1558,7 +1602,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowExpanded(rowData: any): boolean {
-        return this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === 1;
+        return this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+    }
+
+    isRowEditing(rowData: any): boolean {
+        return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isSingleSelectionMode() {
@@ -1629,27 +1677,29 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
             else if (this.columnResizeMode === 'expand') {
-                if (this.scrollable) {
-                    let scrollableView = this.findParentScrollableView(column);
-                    let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-body-table');
-                    let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-header-table');
-                    let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
-                    scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
-                    scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
-                    if(scrollableFooterTable) {
-                        scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
-                    }
-                    let resizeColumnIndex = DomHandler.index(column);
+                if (newColumnWidth > minWidth) {
+                    if (this.scrollable) {
+                        let scrollableView = this.findParentScrollableView(column);
+                        let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-body-table');
+                        let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-header-table');
+                        let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
+                        scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
+                        scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
+                        if(scrollableFooterTable) {
+                            scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
+                        }
+                        let resizeColumnIndex = DomHandler.index(column);
 
-                    this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
-                    this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
-                    this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
-                }
-                else {
-                    this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
-                    column.style.width = newColumnWidth + 'px';
-                    let containerWidth = this.tableViewChild.nativeElement.style.width;
-                    this.containerViewChild.nativeElement.style.width = containerWidth + 'px';
+                        this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
+                        this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
+                        this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+                    }
+                    else {
+                        this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
+                        column.style.width = newColumnWidth + 'px';
+                        let containerWidth = this.tableViewChild.nativeElement.style.width;
+                        this.containerViewChild.nativeElement.style.width = containerWidth + 'px';
+                    }
                 }
             }
 
@@ -1714,6 +1764,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
+                let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
+                let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
@@ -1732,8 +1784,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.dropPosition = -1;
                 }
 
-                this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
-                this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
+                if((dropIndex - dragIndex === 1 && this.dropPosition === -1) || (dropIndex - dragIndex === -1 && this.dropPosition === 1)) {
+                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'none';
+                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'none';
+                }
+                else {
+                    this.reorderIndicatorUpViewChild.nativeElement.style.display = 'block';
+                    this.reorderIndicatorDownViewChild.nativeElement.style.display = 'block';
+                }
             }
             else {
                 event.dataTransfer.dropEffect = 'none';
@@ -1757,6 +1815,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let allowDrop = (dragIndex != dropIndex);
             if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
                 allowDrop = false;
+            }
+
+            if (allowDrop && ((dropIndex < dragIndex && this.dropPosition === 1))) {
+                dropIndex = dropIndex + 1;
+            }
+
+            if (allowDrop && ((dropIndex > dragIndex && this.dropPosition === -1))) {
+                dropIndex = dropIndex - 1;
             }
 
             if (allowDrop) {
@@ -1931,8 +1997,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     clearState() {
-        const stroage = this.getStorage();
-        stroage.clear();
+        const storage = this.getStorage();
+
+        if (this.stateKey) {
+            storage.removeItem(this.stateKey);
+        }
     }
 
     restoreState() {
@@ -2080,12 +2149,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     template: `
         <ng-container *ngIf="!dt.expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
             </ng-template>
         </ng-container>
         <ng-container *ngIf="dt.expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="(dt.paginator && !dt.lazy) ? ((dt.filteredValue||dt.value) | slice:dt.first:(dt.first + dt.rows)) : (dt.filteredValue||dt.value)" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData)}"></ng-container>
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns, expanded: dt.isRowExpanded(rowData), editing: (dt.editMode === 'row' && dt.isRowEditing(rowData))}"></ng-container>
                 <ng-container *ngIf="dt.isRowExpanded(rowData)">
                     <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: dt.paginator ? (dt.first + rowIndex) : rowIndex, columns: columns}"></ng-container>
                 </ng-container>
@@ -2128,7 +2197,14 @@ export class TableBody {
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
             </table>
-            <div #virtualScroller class="ui-table-virtual-scroller"></div>
+            <table #loadingTable *ngIf="dt.virtualScroll && dt.loadingBodyTemplate != null" [ngClass]="{'ui-table-scrollable-body-table ui-table-loading-virtual-table': true, 'ui-table-virtual-table': dt.virtualScroll}">
+                <tbody class="ui-table-tbody">
+                    <ng-template ngFor [ngForOf]="loadingArray">
+                        <ng-container *ngTemplateOutlet="dt.loadingBodyTemplate; context: {columns: columns}"></ng-container>
+                    </ng-template>
+                </tbody>
+            </table>
+            <div #virtualScroller class="ui-table-virtual-scroller" *ngIf="dt.virtualScroll"></div>
         </div>
         <div #scrollFooter *ngIf="dt.footerTemplate" class="ui-table-scrollable-footer ui-widget-header">
             <div #scrollFooterBox class="ui-table-scrollable-footer-box">
@@ -2156,6 +2232,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
 
+    @ViewChild('loadingTable') scrollLoadingTableViewChild: ElementRef;
+
     @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
@@ -2182,11 +2260,19 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     
     initialized: boolean;
 
+    preventBodyScrollPropagation: boolean;
+
+    loadingArray: number[] = [];
+
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     this.alignScrollBar();
+
+                    if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                        this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
+                    }
                 }, 50);
             });
         });
@@ -2200,6 +2286,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 });
             });
         }
+
+        this.loadingArray = Array(this.dt.rows).fill(1);
         
         this.initialized = false;
      }
@@ -2232,7 +2320,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             }
         }
         else {
-            this.scrollBodyViewChild.nativeElement.style.marginBottom = DomHandler.calculateScrollbarWidth() + 'px';
+            this.scrollBodyViewChild.nativeElement.style.paddingBottom = DomHandler.calculateScrollbarWidth() + 'px';
             let scrollableView = this.el.nativeElement.nextElementSibling;
             if (scrollableView) {
                 this.scrollableSiblingBody = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
@@ -2255,6 +2343,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
         if(this.dt.virtualScroll) {
             this.setVirtualScrollerHeight();
+
+            if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
+            }
         }
     }
 
@@ -2264,7 +2356,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
             if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
-                this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
+                this.scrollHeaderViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
             }
 
             if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
@@ -2281,7 +2373,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     unbindEvents() {
         if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderBoxViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
+            this.scrollHeaderViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
         }
 
         if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
@@ -2292,14 +2384,35 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     }
 
     onHeaderScroll(event) {
-        this.scrollHeaderViewChild.nativeElement.scrollLeft = 0;
+        const scrollLeft = this.scrollHeaderViewChild.nativeElement.scrollLeft;
+
+        this.scrollBodyViewChild.nativeElement.scrollLeft = scrollLeft;
+
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+            this.scrollFooterViewChild.nativeElement.scrollLeft = scrollLeft;
+        }
+
+        this.preventBodyScrollPropagation = true;
     }
 
     onFooterScroll(event) {
-        this.scrollFooterViewChild.nativeElement.scrollLeft = 0;
+        const scrollLeft = this.scrollFooterViewChild.nativeElement.scrollLeft;
+
+        this.scrollBodyViewChild.nativeElement.scrollLeft = scrollLeft;
+
+        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+            this.scrollHeaderViewChild.nativeElement.scrollLeft = scrollLeft;
+        }
+
+        this.preventBodyScrollPropagation = true;
     }
 
     onBodyScroll(event) {
+        if (this.preventBodyScrollPropagation) {
+            this.preventBodyScrollPropagation = false;
+            return;
+        }
+
         if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
             this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
         }
@@ -2321,15 +2434,26 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
 
             if((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
+                if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                    this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
+                    this.scrollLoadingTableViewChild.nativeElement.style.top = this.scrollBodyViewChild.nativeElement.scrollTop + 'px';
+                }
+
                 let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
                 this.dt.handleVirtualScroll({
                     page: page,
                     callback: () => {
+                        if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                            this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
+                        }
+                        
                         this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
 
                         if (this.frozenSiblingBody) {
                             (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
                         }
+
+                        this.dt.anchorRowIndex = null;
                     }
                 });
             }
@@ -2751,6 +2875,8 @@ export class ContextMenuRow {
 
     @Input("pContextMenuRow") data: any;
 
+    @Input("pContextMenuRowIndex") index: number;
+
     @Input() pContextMenuRowDisabled: boolean;
 
     selected: boolean;
@@ -2770,7 +2896,8 @@ export class ContextMenuRow {
         if (this.isEnabled()) {
             this.dt.handleRowRightClick({
                 originalEvent: event,
-                rowData: this.data
+                rowData: this.data,
+                rowIndex: this.index
             });
     
             event.preventDefault();
@@ -3015,6 +3142,8 @@ export class EditableColumn implements AfterViewInit {
 
     @Input() pEditableColumnDisabled: boolean;
 
+    @Input() pFocusCellSelector: string;
+
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
@@ -3050,14 +3179,16 @@ export class EditableColumn implements AfterViewInit {
         this.dt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                let focusable = DomHandler.findSingle(this.el.nativeElement, 'input, textarea');
-                if (focusable) {
-                    focusable.focus();
+                let focusCellSelector = this.pFocusCellSelector || 'input, textarea, select';
+                let focusableElement = DomHandler.findSingle(this.el.nativeElement, focusCellSelector);
+
+                if (focusableElement) {
+                    focusableElement.focus();
                 }
             }, 50);
         });
     }
-    
+
     closeEditingCell() {
         DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
@@ -3185,13 +3316,73 @@ export class EditableColumn implements AfterViewInit {
 
 }
 
+@Directive({
+    selector: '[pEditableRow]'
+})
+export class EditableRow {
+
+    @Input("pEditableRow") data: any;
+
+    @Input() pEditableRowDisabled: boolean;
+
+    constructor(public el: ElementRef) {}
+
+    isEnabled() {
+        return this.pEditableRowDisabled !== true;
+    }
+
+}
+
+@Directive({
+    selector: '[pInitEditableRow]'
+})
+export class InitEditableRow {
+
+    constructor(public dt: Table, public editableRow: EditableRow) {}
+
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        this.dt.initRowEdit(this.editableRow.data);
+        event.preventDefault();
+    }
+
+}
+
+@Directive({
+    selector: '[pSaveEditableRow]'
+})
+export class SaveEditableRow {
+
+    constructor(public dt: Table, public editableRow: EditableRow) {}
+
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        this.dt.saveRowEdit(this.editableRow.data, this.editableRow.el.nativeElement);
+        event.preventDefault();
+    }
+}
+
+@Directive({
+    selector: '[pCancelEditableRow]'
+})
+export class CancelEditableRow {
+
+    constructor(public dt: Table, public editableRow: EditableRow) {}
+
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        this.dt.cancelRowEdit(this.editableRow.data);
+        event.preventDefault();
+    }
+}
+
 @Component({
     selector: 'p-cellEditor',
     template: `
-        <ng-container *ngIf="dt.editingCell && dt.editingCell === editableColumn.el.nativeElement">
+        <ng-container *ngIf="editing">
             <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
         </ng-container>
-        <ng-container *ngIf="!dt.editingCell || dt.editingCell !== editableColumn.el.nativeElement">
+        <ng-container *ngIf="!editing">
             <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
     `
@@ -3204,7 +3395,7 @@ export class CellEditor implements AfterContentInit {
 
     outputTemplate: TemplateRef<any>;
 
-    constructor(public dt: Table, public editableColumn: EditableColumn) { }
+    constructor(public dt: Table, @Optional() public editableColumn: EditableColumn, @Optional() public editableRow: EditableRow) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -3219,7 +3410,12 @@ export class CellEditor implements AfterContentInit {
             }
         });
     }
-    
+
+    get editing(): boolean {
+        return (this.dt.editingCell && this.editableColumn && this.dt.editingCell === this.editableColumn.el.nativeElement) ||
+                (this.editableRow && this.dt.editMode === 'row' && this.dt.isRowEditing(this.editableRow.data));
+    }
+
 }
 
 @Component({
@@ -3353,7 +3549,7 @@ export class TableCheckbox  {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <div class="ui-chkbox ui-widget" (click)="onClick($event, cb.checked)">
+        <div class="ui-chkbox ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()">
             </div>
@@ -3390,10 +3586,10 @@ export class TableHeaderCheckbox  {
         this.checked = this.updateCheckedState();
     }
 
-    onClick(event: Event, checked) {
+    onClick(event: Event) {
         if (!this.disabled) {
             if (this.dt.value && this.dt.value.length > 0) {
-                this.dt.toggleRowsWithCheckbox(event, !checked);
+                this.dt.toggleRowsWithCheckbox(event, !this.checked);
             }
         }
 
@@ -3580,7 +3776,7 @@ export class ReorderableRow implements AfterViewInit {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick,EditableRow,InitEditableRow,SaveEditableRow,CancelEditableRow]
 })
 export class TableModule { }

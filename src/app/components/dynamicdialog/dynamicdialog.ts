@@ -143,7 +143,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	bindDocumentEscapeListener() {
         this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
             if (event.which == 27) {
-				this.close();
+                if (parseInt(this.container.style.zIndex) == DomHandler.zindex) {
+					this.close();
+				}
             }
         });
     }

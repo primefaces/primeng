@@ -81,28 +81,33 @@ export class DomHandler {
 
     public static relativePosition(element: any, target: any): void {
         let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
-        let targetHeight = target.offsetHeight;
-        let targetWidth = target.offsetWidth;
-        let targetOffset = target.getBoundingClientRect();
-        let windowScrollTop = this.getWindowScrollTop();
-        let viewport = this.getViewport();
-        let top, left;
-        
+        const targetHeight = target.offsetHeight;
+        const targetOffset = target.getBoundingClientRect();
+        const viewport = this.getViewport();
+        let top: number, left: number;
+
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
-            if(targetOffset.top + top < 0) {
+            if (targetOffset.top + top < 0) {
                 top = 0;
             }
         }
         else {
             top = targetHeight;
         }
-            
-            
-        if ((targetOffset.left + elementDimensions.width) > viewport.width)
-            left = targetWidth - elementDimensions.width;
-        else
+
+        if (elementDimensions.width > viewport.width) {
+            // element wider then viewport and cannot fit on screen (align at left side of viewport)
+            left = targetOffset.left * -1;
+        }
+        else if ((targetOffset.left + elementDimensions.width) > viewport.width) {
+            // element wider then viewport but can be fit on screen (align at right side of viewport)
+            left = (targetOffset.left + elementDimensions.width - viewport.width) * -1;
+        }
+        else {
+            // element fits on screen (align with target)
             left = 0;
+        }
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
@@ -131,7 +136,7 @@ export class DomHandler {
         }
 
         if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
-            left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
+            left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
         else
             left = targetOffset.left + windowScrollLeft;
 
@@ -375,7 +380,15 @@ export class DomHandler {
         // other browser
         return false;
     }
-    
+
+    public static isIOS() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window['MSStream'];
+    }
+
+    public static isAndroid() {
+        return /(android)/i.test(navigator.userAgent);
+    }
+     
     public static appendChild(element: any, target: any) {
         if(this.isElement(target))
             target.appendChild(element);

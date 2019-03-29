@@ -3,6 +3,7 @@
     position: relative;
     cursor: pointer;
     vertical-align: middle;
+    min-width: 12.5em;
 }
 
 .ui-dropdown .ui-dropdown-clear-icon {
@@ -123,4 +124,5 @@
 /** Dropdown **/
 .ui-fluid .ui-dropdown {
     width: 100%;
+    min-width: 100%;
 }

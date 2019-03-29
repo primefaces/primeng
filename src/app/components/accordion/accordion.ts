@@ -13,7 +13,7 @@ let idx: number = 0;
     template: `
         <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}">
             <a tabindex="0" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" 
-                (keydown.space)="toggle($event)" (keydown.enter)="toggle($event)">
+                (keydown)="onKeydown($event)">
                 <span class="ui-accordion-toggle-icon" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
                 <span class="ui-accordion-header-text" *ngIf="!hasHeaderFacet">
                     {{header}}
@@ -135,6 +135,13 @@ export class AccordionTab implements OnDestroy {
         this.animating = false;
     }
 
+    onKeydown(event: KeyboardEvent) {
+        if (event.which === 32 || event.which === 13) {
+            this.toggle(event);
+            event.preventDefault();
+        }
+    }
+
     ngOnDestroy() {
         this.accordion.tabs.splice(this.findTabIndex(), 1);
     }
@@ -160,9 +167,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'pi pi-fw pi-caret-right';
+    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
 
-    @Input() collapseIcon: string = 'pi pi-fw pi-caret-down';
+    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
     
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 

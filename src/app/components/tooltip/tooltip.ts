@@ -212,6 +212,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 this.alignTop();
                 if (this.isOutOfBounds()) {
                     this.alignBottom();
+                    if (this.isOutOfBounds()) {
+                        this.alignRight();
+
+                        if (this.isOutOfBounds()) {
+                            this.alignLeft();
+                        }
+                    }
                 }
                 break;
 
@@ -219,6 +226,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 this.alignBottom();
                 if (this.isOutOfBounds()) {
                     this.alignTop();
+                    if (this.isOutOfBounds()) {
+                        this.alignRight();
+
+                        if (this.isOutOfBounds()) {
+                            this.alignLeft();
+                        }
+                    }
                 }
                 break;
 

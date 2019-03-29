@@ -34,7 +34,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required">
                 </li>
             </ul
-            ><i *ngIf="loading" class="ui-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton icon="pi pi-fw pi-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
+            ><i *ngIf="loading" class="ui-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div #panel *ngIf="overlayVisible" class="ui-autocomplete-panel ui-widget ui-widget-content ui-corner-all ui-shadow" [style.max-height]="scrollHeight"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
@@ -112,6 +112,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     @Input() ariaLabel: string;
 
     @Input() ariaLabelledBy: string;
+
+    @Input() dropdownIcon: string = "pi pi-caret-down";
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 
@@ -238,7 +240,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     ngAfterViewChecked() {
         //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
         if (this.suggestionsUpdated && this.overlay && this.overlay.offsetParent) {
-            setTimeout(() => this.alignOverlay(), 1);
+            setTimeout(() => {
+                if (this.overlay) {
+                    this.alignOverlay();
+                }
+            }, 1);
             this.suggestionsUpdated = false;
         }
 
@@ -331,7 +337,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
             this.onModelChange(value);
         }
 
-        if (value.length === 0) {
+        if (value.length === 0 && !this.multiple) {
            this.hide();
            this.onClear.emit(event);
 	   this.onModelChange(value);

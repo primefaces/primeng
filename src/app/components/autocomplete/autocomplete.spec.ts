@@ -4,6 +4,8 @@ import { AutoComplete } from './autocomplete';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from '../button/button';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 @Component({
   template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
@@ -55,11 +57,13 @@ describe('AutoComplete', () => {
 
       imports: [
         NoopAnimationsModule,
-        FormsModule
+        FormsModule,
+        BrowserDynamicTestingModule,
+        ButtonModule,
       ],
       declarations: [
         AutoComplete,
-        TestAutocompleteComponent,
+        TestAutocompleteComponent
       ]
     });
     

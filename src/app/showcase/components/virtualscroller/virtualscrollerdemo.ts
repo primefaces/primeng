@@ -6,10 +6,6 @@ import {LazyLoadEvent,SelectItem} from '../../../components/common/api';
 @Component({
     templateUrl: './virtualscrollerdemo.html',
     styles: [`
-        .car-item {
-            border-bottom: 1px solid #D5D5D5;
-        }
-
         .car-item .ui-md-3 {
             text-align: center;
         }

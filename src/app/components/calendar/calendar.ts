@@ -81,7 +81,7 @@ export interface LocaleSettings {
                                                     <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                                     <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
                                                 </a>
-                                                <span class="ui-state-default ui-state-disabled" *ngIf="!date.selectable">
+                                                <span class="ui-state-default ui-state-disabled" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}" *ngIf="!date.selectable">
                                                     {{date.day}}
                                                 </span>
                                             </ng-container>
@@ -111,7 +111,7 @@ export interface LocaleSettings {
                         <a tabindex="0">
                             <span class="pi pi-chevron-up"></span>
                         </a>
-                        <span>:</span>
+                        <span>{{timeSeparator}}</span>
                         <a tabindex="0">
                             <span class="pi pi-chevron-down"></span>
                         </a>
@@ -129,7 +129,7 @@ export interface LocaleSettings {
                         <a tabindex="0">
                             <span class="pi pi-chevron-up"></span>
                         </a>
-                        <span>:</span>
+                        <span>{{timeSeparator}}</span>
                         <a tabindex="0">
                             <span class="pi pi-chevron-down"></span>
                         </a>
@@ -296,6 +296,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() view: string = 'date';
 
     @Input() touchUI: boolean;
+
+    @Input() timeSeparator: string = ":";
 
     @Input() showTransitionOptions: string = '225ms ease-out';
 
@@ -1283,8 +1285,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     decrementMinute(event) {
         let newMinute = this.currentMinute - this.stepMinute;
+        newMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
         if (this.validateMinute(newMinute)) {
-            this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
+            this.currentMinute = newMinute;
         }
         
         event.preventDefault();
@@ -1330,8 +1333,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     decrementSecond(event) {
         let newSecond = this.currentSecond - this.stepSecond;
+        newSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
         if (this.validateSecond(newSecond)) {
-            this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
+            this.currentSecond = newSecond;
         }
         
         event.preventDefault();
@@ -1536,6 +1540,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     hideOverlay() {
         this.overlayVisible = false;
+
+        if (this.touchUI) {
+            this.disableModality();
+        }
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -1620,7 +1628,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
 
-            this.hideOverlay();
             this.unbindMaskClickListener();
 
             this.mask = null;
