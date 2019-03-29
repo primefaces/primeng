@@ -1,8 +1,7 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {InputTextModule} from '../inputtext/inputtext';
-import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
@@ -17,20 +16,20 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         <div [ngClass]="'ui-chips ui-widget'" [ngStyle]="style" [class]="styleClass" (click)="onClick($event)">
             <ul [ngClass]="{'ui-inputtext ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled':disabled}">
                 <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all" (click)="onItemClick($event, item)">
-                    <span *ngIf="!disabled" class="ui-chips-token-icon pi pi-fw pi-times" (click)="removeItem($event,i)"></span>
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+                    <span *ngIf="!disabled && !readonly" class="ui-chips-token-icon pi pi-fw pi-times" (click)="removeItem($event,i)"></span>
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)" 
-                        (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                           (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.readonly]="readonly">
                 </li>
             </ul>
         </div>
     `,
     providers: [CHIPS_VALUE_ACCESSOR]
 })
-export class Chips implements AfterContentInit,ControlValueAccessor {
+export class Chips implements AfterContentInit, ControlValueAccessor {
 
     @Input() style: any;
 
@@ -41,6 +40,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() field: string;
     
     @Input() placeholder: string;
+
+    @Input() readonly: boolean;
     
     @Input() max: number;
 
@@ -83,7 +84,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     valueChanged: boolean;
     
     focus: boolean;
-            
+
     constructor(public el: ElementRef) {}
     
     ngAfterContentInit() {
@@ -92,7 +93,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
@@ -111,7 +112,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         });
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
         this.updateMaxedOut();
     }
@@ -163,7 +164,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
     
     removeItem(event: Event, index: number): void {
-        if(this.disabled) {
+        if(this.disabled || this.readonly) {
             return;
         }
         
@@ -193,6 +194,10 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
     
     onKeydown(event: KeyboardEvent): void {
+        if(this.disabled || this.readonly) {
+            return;
+        }
+
         switch(event.which) {
             //backspace
             case 8:
@@ -206,24 +211,22 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                     });
                 }
             break;
-            
+
             //enter
             case 13:
                 this.addItem(event, this.inputViewChild.nativeElement.value);
                 this.inputViewChild.nativeElement.value = '';
-                
                 event.preventDefault();
             break;
-            
+
             case 9:
                 if(this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
                     this.addItem(event, this.inputViewChild.nativeElement.value);
                     this.inputViewChild.nativeElement.value = '';
-
                     event.preventDefault();
                 }
             break;
-            
+
             default:
                 if(this.max && this.value && this.max === this.value.length) {
                     event.preventDefault();

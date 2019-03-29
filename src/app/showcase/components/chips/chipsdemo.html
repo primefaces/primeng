@@ -12,9 +12,12 @@
     <h3>Template</h3>
     <p-chips [(ngModel)]="values2">
         <ng-template let-item pTemplate="item">
-            {{item}} - (active) <i class="fa fa-user" style="margin-right:2em"></i>
+            {{item}} - (active) <i class="fa fa-user" style="margin-right:0.2em"></i>
         </ng-template>
     </p-chips>
+
+    <h3>Readonly</h3>
+    <p-chips [(ngModel)]="readonlyValues" [readonly]="true"></p-chips>
 </div>
 
 <div class="content-section documentation">
@@ -92,6 +95,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>readonly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element should be readonly.</td>
                         </tr>
                         <tr>
                             <td>style</td>

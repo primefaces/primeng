@@ -20,21 +20,14 @@
     font-size: .9em;
 }
 
-.ui-chips-token .ui-chips-token-label {
-    display: block;
-    margin-right: 2em;
-}
-
 .ui-chips > .ui-state-disabled .ui-chips-token-label {
     margin-right: 0;
 }
 
 .ui-chips-token .ui-chips-token-icon {
-    margin-top: -.5em;
-    position: absolute;
-    right: 0.2em;
-    top: 50%;
     cursor: pointer;
+    margin-left: .2em;
+    vertical-align: middle;
 }
 
 .ui-chips-input-token {
