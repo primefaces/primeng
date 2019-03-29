@@ -1,24 +1,27 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {MenuItem} from '../common/menuitem';
-import {RouterModule} from '@angular/router';
+import { NgModule, Component, Input, ChangeDetectorRef } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { MenuItem } from '../common/menuitem';
+import { RouterModule } from '@angular/router';
 
 export class BasePanelMenuItem {
-        
+
+    constructor(private ref: ChangeDetectorRef) {}
+
     handleClick(event, item) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         item.expanded = !item.expanded;
-        
-        if(!item.url) {
+        this.ref.detectChanges();
+
+        if (!item.url) {
             event.preventDefault();
         }
-                   
-        if(item.command) {
+
+        if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item
@@ -35,13 +38,13 @@ export class BasePanelMenuItem {
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="child.styleClass" [class.ui-helper-hidden]="child.visible === false" [ngStyle]="child.style">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.expanded ? null : '-1'" [attr.id]="child.id"
-                        [ngClass]="{'ui-state-disabled':child.disabled}" 
+                        [ngClass]="{'ui-state-disabled':child.disabled}"
                         (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
                         <span class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!child.expanded,'pi-caret-down':child.expanded}" *ngIf="child.items"></span
                         ><span class="ui-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all"
                         [ngClass]="{'ui-state-disabled':child.disabled}" [attr.tabindex]="item.expanded ? null : '-1'" [attr.id]="child.id"
                         (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
                         <span class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!child.expanded,'pi-caret-down':child.expanded}" *ngIf="child.items"></span
@@ -67,9 +70,13 @@ export class BasePanelMenuItem {
     ]
 })
 export class PanelMenuSub extends BasePanelMenuItem {
-    
+
+    constructor(ref: ChangeDetectorRef) {
+        super(ref);
+    }
+
     @Input() item: MenuItem;
-    
+
     @Input() expanded: boolean;
 
     @Input() transitionOptions: string;
@@ -120,7 +127,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
     ]
 })
 export class PanelMenu extends BasePanelMenuItem {
-    
+
     @Input() model: MenuItem[];
 
     @Input() style: any;
@@ -130,30 +137,34 @@ export class PanelMenu extends BasePanelMenuItem {
     @Input() multiple: boolean = true;
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    
+
     public animating: boolean;
-                
+
+    constructor(ref: ChangeDetectorRef) {
+        super(ref);
+    }
+
     collapseAll() {
-    	for(let item of this.model) {
-    		if(item.expanded) {
-    			item.expanded = false;
-    		}
-    	}
+        for (let item of this.model) {
+            if (item.expanded) {
+                item.expanded = false;
+            }
+        }
     }
 
     handleClick(event, item) {
-    	if(!this.multiple) {
-            for(let modelItem of this.model) {
-        		if(item !== modelItem && modelItem.expanded) {
-        			modelItem.expanded = false;
-        		}
-        	}
-    	}
-        
+        if (!this.multiple) {
+            for (let modelItem of this.model) {
+                if (item !== modelItem && modelItem.expanded) {
+                    modelItem.expanded = false;
+                }
+            }
+        }
+
         this.animating = true;
         super.handleClick(event, item);
     }
-    
+
     onToggleDone() {
         this.animating = false;
     }
@@ -161,8 +172,8 @@ export class PanelMenu extends BasePanelMenuItem {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
-    exports: [PanelMenu,RouterModule],
-    declarations: [PanelMenu,PanelMenuSub]
+    imports: [CommonModule, RouterModule],
+    exports: [PanelMenu, RouterModule],
+    declarations: [PanelMenu, PanelMenuSub]
 })
 export class PanelMenuModule { }
