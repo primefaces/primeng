@@ -1,3 +1,14 @@
 .ui-rating {
     font-size: 1.25em;
 }
+
+.empty-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.filled-icon {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+}

@@ -23,6 +23,9 @@
     
     <h3>Custom Icons</h3> 
     <p-rating [ngModel]="val5" iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"></p-rating>
+
+    <h3>Half Rating {{val6}} (Click icon left side)</h3>
+    <p-rating [(ngModel)]="val6" [halfRating]="true"></p-rating>
 </div>
 
 <div class="content-section documentation">
@@ -90,6 +93,12 @@ export class ModelComponent &#123;
                                     <td>number</td>
                                     <td>5</td>
                                     <td>Number of stars.</td>
+                                </tr>
+                                <tr>
+                                    <td>halfRating</td>
+                                    <td>boolean</td>
+                                    <td>false</td>
+                                    <td>Allows half ratings by clicking on the left side of the icon.</td>
                                 </tr>
                                 <tr>
                                     <td>cancel</td>

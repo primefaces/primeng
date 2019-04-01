@@ -63,13 +63,13 @@ describe('Rating', () => {
       rating.iconCancelStyle = {'primeng':'rocks!'};
       fixture.detectChanges();
 
-      const starElements = fixture.debugElement.queryAll(By.css('span'));
+      const starElements = fixture.debugElement.queryAll(By.css('.ui-rating-icon'));
       expect(starElements[0].nativeElement.className).toContain('Primeng Rocks!');
-      expect(starElements[1].nativeElement.className).toContain('icon on');
-      expect(starElements[3].nativeElement.className).toContain('icon off');
+      expect(starElements[1].nativeElement.children[0].children[0].className).toContain('icon on');
+      expect(starElements[3].nativeElement.children[1].className).toContain('icon off');
       expect(starElements[0].nativeElement.style.primeng).toContain('rocks');
-      expect(starElements[1].nativeElement.style.icon).toContain('on');
-      expect(starElements[3].nativeElement.style.icon).toContain('off');
+      expect(starElements[1].nativeElement.children[0].children[0].style.icon).toContain('on');
+      expect(starElements[3].nativeElement.children[1].style.icon).toContain('off');
     });
 
     it('should value 3', () => {

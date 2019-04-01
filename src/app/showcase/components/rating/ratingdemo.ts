@@ -15,6 +15,8 @@ export class RatingDemo {
     
     val5: number;
 
+    val6: number = 0.5;
+
     msg: string;
 
     handleRate(event) {

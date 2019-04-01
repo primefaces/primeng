@@ -15,23 +15,29 @@ export const RATING_VALUE_ACCESSOR: any = {
             <a [attr.tabindex]="disabled ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)"  class="ui-rating-cancel">
                 <span class="ui-rating-icon" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
             </a>
-            <a [attr.tabindex]="disabled ? null : '0'" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)" (keydown.enter)="rate($event,i)">
-                <span class="ui-rating-icon" 
-                    [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
-                    [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"
-                ></span>
+            <a [attr.tabindex]="disabled ? null : '0'" *ngFor="let star of starsArray;let i = index" (click)="rate($event,i)" (keydown.enter)="rate($event,i)">
+                <span class="ui-rating-icon empty-icon">
+                    <span class="filled-icon" [style.width.%]="iconShown(i)">
+                        <i [ngClass]="iconOnClass" [ngStyle]="iconOnStyle" aria-hidden="true"></i>
+                    </span>
+                    <i [ngClass]="iconOffClass" [ngStyle]="iconOffStyle" aria-hidden="true"></i>
+                </span>
             </a>
         </div>
     `,
     providers: [RATING_VALUE_ACCESSOR]
 })
-export class Rating implements ControlValueAccessor {
+export class Rating implements ControlValueAccessor, OnInit {
+
+    public starsArray: number[];
 
     @Input() disabled: boolean;
 
     @Input() readonly: boolean;
 
     @Input() stars: number = 5;
+
+    @Input() halfRating: boolean;
 
     @Input() cancel: boolean = true;
 
@@ -51,38 +57,54 @@ export class Rating implements ControlValueAccessor {
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
-    constructor(private cd: ChangeDetectorRef) {} 
-    
     value: number;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
-    public starsArray: number[];
-    
-    ngOnInit() {
+
+    constructor(private cd: ChangeDetectorRef) { }
+
+    ngOnInit(): void {
         this.starsArray = [];
-        for(let i = 0; i < this.stars; i++) {
+        for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
     }
-    
-    rate(event, i: number): void {
-        if(!this.readonly&&!this.disabled) {
+
+    rate(event: any, i: number): void {
+        if (!this.readonly && !this.disabled) {
             this.value = (i + 1);
+
+            if (this.halfRating && event.offsetX <= (event.target.offsetWidth / 2)) {
+                this.value = (this.value - 0.5);
+            }
+
             this.onModelChange(this.value);
             this.onModelTouched();
             this.onRate.emit({
                 originalEvent: event,
-                value: (i+1)
+                value: (i + 1)
             });
         }
-        event.preventDefault();        
+        event.preventDefault();
     }
-    
-    clear(event): void {
-        if(!this.readonly&&!this.disabled) {
+
+    iconShown(i: number): number {
+        const iconIndex: number = (i + 1);
+        if (this.value >= iconIndex) {
+            return 100;
+        }
+        else if (this.halfRating && (iconIndex - 0.5) === this.value && this.value < iconIndex) {
+            return 50;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    clear(event: any): void {
+        if (!this.readonly && !this.disabled) {
             this.value = null;
             this.onModelChange(this.value);
             this.onModelTouched();
@@ -90,12 +112,12 @@ export class Rating implements ControlValueAccessor {
         }
         event.preventDefault();
     }
-    
-    writeValue(value: any) : void {
+
+    writeValue(value: any): void {
         this.value = value;
         this.cd.detectChanges();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -103,7 +125,7 @@ export class Rating implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
