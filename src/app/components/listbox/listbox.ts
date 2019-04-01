@@ -90,6 +90,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: ElementRef;
@@ -184,6 +186,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             this.onOptionClickSingle(event, option);
         }
+        this.onClick.emit({
+            originalEvent: event,
+            value: this.value
+        });
         this.optionTouched = false;
     }
 
