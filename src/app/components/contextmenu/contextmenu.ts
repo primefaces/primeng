@@ -47,16 +47,17 @@ export class ContextMenuSub {
     hideTimeout: any;
 
     onItemMouseEnter(event, item, menuitem) {
-        if (menuitem.disabled) {
-            return;
-        }
-
         if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
 
         this.activeItem = item;
+
+        if (menuitem.disabled) {
+            return;
+        }        
+        
         let nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
             let sublist = nextElement.children[0];
