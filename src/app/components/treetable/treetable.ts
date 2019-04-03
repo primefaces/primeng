@@ -1,4 +1,4 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from '../common/treenode';
 import { Subject, Subscription } from 'rxjs';
@@ -1697,15 +1697,27 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         <ng-container *ngIf="tt.isEmpty()">
             <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: {$implicit: columns}"></ng-container>
         </ng-container>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TTBody {
+export class TTBody implements OnDestroy {
 
     @Input("pTreeTableBody") columns: any[];
 
     @Input("pTreeTableBodyTemplate") template: TemplateRef<any>;
 
-    constructor(public tt: TreeTable) {}
+    private _uiUpdateSource: Subscription;
+
+    constructor(
+        public tt: TreeTable,
+        private _cdr: ChangeDetectorRef,
+     ) {
+        this._cdr.detach();
+        this._uiUpdateSource = this.tt.tableService.uiUpdateSource$.subscribe(() => this._cdr.detectChanges());
+     }
+     ngOnDestroy() {
+         this._uiUpdateSource.unsubscribe();
+     }
 }
 
 @Component({
