@@ -123,8 +123,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() rows: number;
 
-    @Input() first: number = 0;
-
     @Input() pageLinks: number = 5;
 
     @Input() rowsPerPageOptions: number[];
@@ -255,6 +253,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
 
+    @Output() firstChange: EventEmitter<number> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -272,6 +272,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     _columns: any[];
 
     _totalRecords: number = 0;
+
+    _first: number = 0;
 
     filteredValue: any[];
 
@@ -493,6 +495,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    @Input() get first(): number {
+        return this._first;
+    }
+    set first(val: number) {
+        this._first = val;
+    }
+
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -581,7 +590,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             first: this.first,
             rows: this.rows
         });
-
+        
+        this.firstChange.emit(this.first);
         this.tableService.onValueChange(this.value);
 
         if (this.isStateful()) {
@@ -630,10 +640,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     sortSingle() {
         if(this.sortField && this.sortOrder) {
-            if (this.restoringSort)
+            if (this.restoringSort) {
                 this.restoringSort = false;
-            else if(this.resetPageOnSort)
+            }
+            else if(this.resetPageOnSort) {
                 this.first = 0;
+                this.firstChange.emit(this.first);
+            }
 
             if(this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -1236,11 +1249,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.saveState();
         }
 
-        if (this.restoringFilter)
+        if (this.restoringFilter) {
             this.restoringFilter = false;
-        else
+        }
+        else {
             this.first = 0;
-
+            this.firstChange.emit(this.first);
+        }
     }
 
     hasFilter() {
@@ -1433,6 +1448,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.filters = {};
         
         this.first = 0;
+        this.firstChange.emit(this.first);
         
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -1914,6 +1930,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     handleVirtualScroll(event) {
         this.first = (event.page - 1) * this.rows;
+        this.firstChange.emit(this.first);
         this.virtualScrollCallback = event.callback;
         
         this.zone.run(() => {
@@ -2014,6 +2031,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.paginator) {
                 this.first = state.first;
                 this.rows = state.rows;
+                this.firstChange.emit(this.first);
             }
 
             if (state.sortField) {
