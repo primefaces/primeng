@@ -177,6 +177,8 @@ export class Dialog implements OnDestroy {
     _minWidth: any;
 
     _minHeight: any;
+
+    prevZIndex: string;
     
     id: string = `ui-dialog-${idx++}`;
     
@@ -355,6 +357,7 @@ export class Dialog implements OnDestroy {
 
         DomHandler.addClass(document.body, 'ui-overflow-hidden');
 
+        this.moveOnTop();
         this.maximized = true;
     }
 
@@ -366,6 +369,10 @@ export class Dialog implements OnDestroy {
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
 
         DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+
+        if (this.autoZIndex) {
+            this.container.style.zIndex = this.prevZIndex;
+        }
 
         this.maximized = false;
 
@@ -383,6 +390,7 @@ export class Dialog implements OnDestroy {
     
     moveOnTop() {
         if (this.autoZIndex) {
+            this.prevZIndex = this.container.style.zIndex;
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
     }
