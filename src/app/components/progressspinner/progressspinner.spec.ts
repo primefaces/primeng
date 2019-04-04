@@ -28,7 +28,7 @@ describe('ProgressSpinner', () => {
         expect(progressSpinnerEl.nativeElement).toBeTruthy();
     });
 
-    it('should get stlye and styleClass', () => {
+    it('should get style and styleClass', () => {
         progressspinner.style = {'primeng':'rocks'};
         progressspinner.styleClass = "PrimeNG ROCKS!"
         fixture.detectChanges();
