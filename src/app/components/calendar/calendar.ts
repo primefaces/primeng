@@ -2036,7 +2036,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onWindowResize() {
-        if (this.overlayVisible) {
+        if (this.overlayVisible && !DomHandler.isAndroid()) {
             this.hideOverlay();
         }
     }
