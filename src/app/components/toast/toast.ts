@@ -22,7 +22,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                             'pi-times': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
                     <div class="ui-toast-message-text-content">
                         <div class="ui-toast-summary">{{message.summary}}</div>
-                        <div class="ui-toast-detail">{{message.detail}}</div>
+                        <div class="ui-toast-detail" [innerHtml]="message.detail"></div>
                     </div>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
