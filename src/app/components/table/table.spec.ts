@@ -207,6 +207,75 @@ import { SharedModule } from '../common/shared';
             </tr>
         </ng-template>
     </p-table>
+    <p-table class="rowExpansionTable" [columns]="cols" [value]="cars" dataKey="vin">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3em"></th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+            <tr>
+                <td>
+                    <a href="#" class="rowExpansionToggler" [pRowToggler]="rowData">
+                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                    </a>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+            <tr>
+                <td [attr.colspan]="columns.length + 1">
+                    <div class="ui-g ui-fluid expandedRow" style="font-size:16px;padding:20px">
+                        <div class="ui-g-12 ui-md-3" style="text-align:center">
+                        </div>
+                        <div class="ui-g-12 ui-md-9">
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <b>Vin:</b> {{rowData.vin}}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Year:</b> {{rowData.year}}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Brand:</b> {{rowData.brand}}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Color:</b> {{rowData.color}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-table class="colResizeTable" [columns]="cols" [value]="cars" [resizableColumns]="true">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" >
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" pResizableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns" class="ui-resizable-column">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
     `
 })
 class TestBasicTableComponent {
@@ -260,6 +329,8 @@ describe('Table', () => {
     let radioSelectionTable: Table;
     let checkboxSelectionTable: Table;
     let editableTable: Table;
+    let rowExpansionTable: Table;
+    let colResizeTable: Table;
     let testComponent: TestBasicTableComponent;
     let fixture: ComponentFixture<TestBasicTableComponent>;
 
@@ -307,6 +378,8 @@ describe('Table', () => {
         radioSelectionTable = fixture.debugElement.children[4].componentInstance;
         checkboxSelectionTable = fixture.debugElement.children[5].componentInstance;
         editableTable = fixture.debugElement.children[6].componentInstance;
+        rowExpansionTable = fixture.debugElement.children[7].componentInstance;
+        colResizeTable = fixture.debugElement.children[8].componentInstance;
     });
 
     it('should display by default', () => {
@@ -928,5 +1001,162 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(editableTable.editingCell).toBeTruthy();
+    });
+
+    it('should open expansion', () => {
+        fixture.detectChanges();
+
+        const rowExpansionTableEl = fixture.debugElement.query(By.css(".rowExpansionTable"));
+        let togglerEls = fixture.debugElement.queryAll(By.css(".rowExpansionToggler"));
+        let rowEls = rowExpansionTableEl.queryAll(By.css("tr"));
+        expect(togglerEls.length).toEqual(10);
+        expect(rowEls.length).toEqual(11);
+        togglerEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        rowEls = rowExpansionTableEl.queryAll(By.css("tr"));
+        let expandedRow = fixture.debugElement.query(By.css(".expandedRow"));
+        expect(rowEls.length).toEqual(12);
+        expect(expandedRow.nativeElement).toBeTruthy();
+    });
+
+    it('should call resize (fit)', () => {
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
+        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.initEvent('mousedown');
+        let firstWidth = resizerEls[0].parentElement.clientWidth;
+        resizerEls[0].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
+        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
+        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
+    });
+
+    it('should call resize (expand)', () => {
+        colResizeTable.columnResizeMode = "expand";
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
+        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.initEvent('mousedown');
+        let firstWidth = resizerEls[0].parentElement.clientWidth;
+        resizerEls[0].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
+        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
+        expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
+        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
+    });
+
+    it('should call resize and resizeColGroup with scrollableTable (fit)', () => {
+        colResizeTable.scrollable = true;
+        colResizeTable.scrollHeight = "50px";
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
+        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.initEvent('mousedown');
+        let firstWidth = resizerEls[0].parentElement.clientWidth;
+        resizerEls[0].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
+        const resizeColGroupSpy = spyOn(colResizeTable,"resizeColGroup").and.callThrough();
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        expect(resizeColGroupSpy).toHaveBeenCalled();
+        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
+        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
+        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
+    });
+
+    it('should call resize and resizeColGroup with scrollableTable (expand)', () => {
+        colResizeTable.columnResizeMode = "expand";
+        colResizeTable.scrollable = true;
+        colResizeTable.scrollHeight = "50px";
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
+        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.initEvent('mousedown');
+        let firstWidth = resizerEls[0].parentElement.clientWidth;
+        resizerEls[0].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
+        const resizeColGroupSpy = spyOn(colResizeTable,"resizeColGroup").and.callThrough();
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        expect(resizeColGroupSpy).toHaveBeenCalled();
+        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
+        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
+        expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
+        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
     });
 });
