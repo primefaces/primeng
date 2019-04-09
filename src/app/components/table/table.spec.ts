@@ -8,6 +8,8 @@ import { Paginator } from '../paginator/paginator';
 import {Dropdown, DropdownItem} from '../dropdown/dropdown';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../common/shared';
+import { ContextMenu, ContextMenuSub } from '../contextmenu/contextmenu';
+import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
     template: `
@@ -276,16 +278,99 @@ import { SharedModule } from '../common/shared';
             </tr>
         </ng-template>
     </p-table>
+    <p-table class="reorderableTable" [columns]="cols" [value]="cars" [reorderableColumns]="true">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width:2.5em"></th>
+                <th *ngFor="let col of columns" pReorderableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+            <tr [pReorderableRow]="index">
+                <td>
+                    <i class="fa fa-bars" pReorderableRowHandle></i>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-table class="contextMenuTable" [columns]="cols" [value]="cars" [contextMenu]="cm">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData" [pContextMenuRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    <p-table class="stateTable" #dt1 [columns]="cols2" [value]="cars2" [paginator]="true" [rows]="3" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+        selectionMode="single" stateKey="statedemo">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                    <input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
     `
 })
 class TestBasicTableComponent {
+    items = [
+        { label: 'View', icon: 'pi pi-search', command: (event) => {} },
+        { label: 'Delete', icon: 'pi pi-times', command: (event) => {}}
+    ];
     cols = [
         { field: 'brand', header: 'Brand' },
         { field: 'vin', header: 'Vin' },
         { field: 'year', header: 'Year' },
         { field: 'color', header: 'Color' }
     ];
+    cols2 = [
+        { field: 'brand', header: 'Brand' },
+        { field: 'vin', header: 'Vin' },
+        { field: 'year', header: 'Year' },
+        { field: 'color', header: 'Color' }
+    ];
     cars = [
+        {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
+        {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
+        {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
+        {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
+        {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"},
+        {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
+        {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
+        {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
+        {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
+        {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"}
+    ];
+    cars2 = [
         {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
         {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
         {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
@@ -331,6 +416,9 @@ describe('Table', () => {
     let editableTable: Table;
     let rowExpansionTable: Table;
     let colResizeTable: Table;
+    let reorderableTable: Table;
+    let contextMenuTable: Table;
+    let stateTable: Table;
     let testComponent: TestBasicTableComponent;
     let fixture: ComponentFixture<TestBasicTableComponent>;
 
@@ -340,7 +428,10 @@ describe('Table', () => {
                 NoopAnimationsModule,
                 FormsModule,
                 SharedModule,
-                ScrollingModule
+                ScrollingModule,
+                RouterTestingModule.withRoutes([
+                    { path: 'test', component: ContextMenu }
+                ]),
 
             ],
             declarations: [
@@ -365,6 +456,8 @@ describe('Table', () => {
                 Paginator,
                 Dropdown,
                 DropdownItem,
+                ContextMenu,
+                ContextMenuSub,
                 TestBasicTableComponent,
             ]
         });
@@ -380,6 +473,9 @@ describe('Table', () => {
         editableTable = fixture.debugElement.children[6].componentInstance;
         rowExpansionTable = fixture.debugElement.children[7].componentInstance;
         colResizeTable = fixture.debugElement.children[8].componentInstance;
+        reorderableTable = fixture.debugElement.children[9].componentInstance;
+        contextMenuTable = fixture.debugElement.children[10].componentInstance;
+        stateTable = fixture.debugElement.children[12].componentInstance;
     });
 
     it('should display by default', () => {
@@ -411,9 +507,10 @@ describe('Table', () => {
         table.paginator = true;
         table.rows = 5;
         table.paginatorPosition = "both";
+        const basicTableEl = fixture.debugElement.query(By.css('.basicTable'));
         fixture.detectChanges();
 
-        const paginatorCount = fixture.debugElement.queryAll(By.css("p-paginator"));
+        const paginatorCount = basicTableEl.queryAll(By.css("p-paginator"));
         expect(paginatorCount.length).toEqual(2);
     });
 
@@ -448,6 +545,24 @@ describe('Table', () => {
         const tableEl = fixture.debugElement.query(By.css(".filterTable"));
         const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(2);
+    }));
+
+    it('should use custom filter and show 2 items and after call reset', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const brandFilter = fixture.debugElement.query(By.css(".brandFilter"));
+        brandFilter.nativeElement.value = "v";
+        brandFilter.nativeElement.dispatchEvent(new Event("input"));
+        tick(300);
+        fixture.detectChanges();
+
+        const tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(2);
+        filterTable.reset();
+        fixture.detectChanges();
+
+        expect(filterTable.filteredValue).toBeNull();
     }));
 
     it('should use global filter and show 1 items', fakeAsync(() => {
@@ -1003,6 +1118,64 @@ describe('Table', () => {
         expect(editableTable.editingCell).toBeTruthy();
     });
 
+    it('should close cell', () => {
+        fixture.detectChanges();
+
+        let cell = fixture.debugElement.query(By.css(".ui-editable-column"));
+        cell.nativeElement.click();
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).toBeTruthy();
+        const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.keyCode = 13;
+        keydownEvent.initEvent('keydown', true, true);
+        cell.nativeElement.dispatchEvent(keydownEvent);
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).toBeFalsy();
+        cell.nativeElement.click();
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).toBeTruthy();
+        keydownEvent.keyCode = 27;
+        cell.nativeElement.dispatchEvent(keydownEvent);
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).toBeFalsy();
+    });
+
+    it('should open next cell', () => {
+        fixture.detectChanges();
+
+        let cellEls = fixture.debugElement.queryAll(By.css(".ui-editable-column"));
+        let cell = cellEls[0];
+        cell.nativeElement.click();
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).toBeTruthy();
+        cell.triggerEventHandler("keydown",{target:cell.children[0].children[0].nativeElement,keyCode:9,preventDefault(){}})
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).not.toEqual(cell.nativeElement);
+        expect(editableTable.editingCell).toEqual(cellEls[1].nativeElement);
+    });
+
+    it('should open prev cell', () => {
+        fixture.detectChanges();
+
+        let cellEls = fixture.debugElement.queryAll(By.css(".ui-editable-column"));
+        let cell = cellEls[1];
+        cell.nativeElement.click();
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).toBeTruthy();
+        cell.triggerEventHandler("keydown",{target:cell.children[0].children[0].nativeElement,keyCode:9,shiftKey:true,preventDefault(){}})
+        fixture.detectChanges();
+
+        expect(editableTable.editingCell).not.toEqual(cell.nativeElement);
+        expect(editableTable.editingCell).toEqual(cellEls[0].nativeElement);
+    });
+
     it('should open expansion', () => {
         fixture.detectChanges();
 
@@ -1158,5 +1331,423 @@ describe('Table', () => {
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
+    });
+
+    it('should reorder column (dropPosition -1)', () => {
+        fixture.detectChanges();
+
+        const reorderableTableEl = fixture.debugElement.query(By.css(".reorderableTable"));
+        let reorableHeaderEls = reorderableTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[1].nativeElement.draggable).toBeFalsy();
+        reorableHeaderEls[1].nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(reorableHeaderEls[1].nativeElement.draggable).toBeTruthy();
+        const onColumnDragStartSpy = spyOn(reorderableTable,"onColumnDragStart").and.callThrough();
+        const dragEvent: any = document.createEvent('CustomEvent');
+        dragEvent.initEvent('dragstart', true, true);
+        dragEvent.dataTransfer = {setData(val1,val2){}};
+        reorableHeaderEls[1].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        dragEvent.initEvent('dragenter', true, true);
+        dragEvent.pageX = reorableHeaderEls[3].nativeElement.clientWidth + 1;
+        reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        dragEvent.initEvent('dragleave', true, true);
+        reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onColumnDragStartSpy).toHaveBeenCalled();
+        expect(reorderableTable.draggedColumn.textContent).toEqual(" Brand ");
+        dragEvent.initEvent('dragenter', true, true);
+        dragEvent.pageX = reorableHeaderEls[3].nativeElement.clientWidth * 2 + 1;
+        reorableHeaderEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(reorderableTable.dropPosition).toEqual(-1);
+        dragEvent.initEvent('drop');
+        reorableHeaderEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        reorableHeaderEls = reorderableTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[1].nativeElement.textContent).toEqual(" Vin ");
+        expect(reorableHeaderEls[2].nativeElement.textContent).toEqual(" Brand ");
+    });
+
+    it('should reorder column (dropPosition +1)', () => {
+        fixture.detectChanges();
+
+        const reorderableTableEl = fixture.debugElement.query(By.css(".reorderableTable"));
+        let reorableHeaderEls = reorderableTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[1].nativeElement.draggable).toBeFalsy();
+        reorableHeaderEls[1].nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(reorableHeaderEls[1].nativeElement.draggable).toBeTruthy();
+        const onColumnDragStartSpy = spyOn(reorderableTable,"onColumnDragStart").and.callThrough();
+        const dragEvent: any = document.createEvent('CustomEvent');
+        dragEvent.initEvent('dragstart', true, true);
+        dragEvent.dataTransfer = {setData(val1,val2){}};
+        reorableHeaderEls[1].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onColumnDragStartSpy).toHaveBeenCalled();
+        expect(reorderableTable.draggedColumn.textContent).toEqual(" Brand ");
+        dragEvent.initEvent('dragenter', true, true);
+        dragEvent.pageX = reorableHeaderEls[3].nativeElement.clientWidth * 3 + 1;
+        reorableHeaderEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(reorderableTable.dropPosition).toEqual(1);
+        dragEvent.initEvent('drop');
+        reorableHeaderEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        reorableHeaderEls = reorderableTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[1].nativeElement.textContent).toEqual(" Vin ");
+        expect(reorableHeaderEls[2].nativeElement.textContent).toEqual(" Year ");
+        expect(reorableHeaderEls[3].nativeElement.textContent).toEqual(" Brand ");
+    });
+
+    it('should reorder row (top of the dropped row)', () => {
+        fixture.detectChanges();
+
+        const reorderableTableEl = fixture.debugElement.query(By.css(".reorderableTable"));
+        let reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
+        let handleEls = reorderableTableEl.queryAll(By.css(".ui-table-reorderablerow-handle"));
+        expect(reorderableRowEls[1].nativeElement.draggable).toBeFalsy();
+        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" VW ");
+        reorderableRowEls[1].nativeElement.classList.add("ui-table-reorderablerow-handle");
+        reorderableRowEls[1].nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(reorderableRowEls[1].nativeElement.draggable).toBeTruthy();
+        reorderableRowEls[1].nativeElement.classList.remove("ui-table-reorderablerow-handle");
+        const onRowDragStartSpy = spyOn(reorderableTable,"onRowDragStart").and.callThrough();
+        const dragEvent: any = document.createEvent('CustomEvent');
+        dragEvent.initEvent('dragstart', true, true);
+        dragEvent.dataTransfer = {setData(val1,val2){}};
+        reorderableRowEls[1].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onRowDragStartSpy).toHaveBeenCalled();
+        expect(reorderableTable.rowDragging).toBeTruthy();
+        expect(reorderableTable.draggedRowIndex).toEqual(0);
+        dragEvent.initEvent('dragover', true,true);
+        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth * 3 + 1; 
+        const onRowDragOverSpy = spyOn(reorderableTable,"onRowDragOver").and.callThrough();
+        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onRowDragOverSpy).toHaveBeenCalled();
+        expect(reorderableRowEls[3].nativeElement.classList).toContain("ui-table-dragpoint-bottom");
+        expect(reorderableTable.droppedRowIndex).toEqual(3);
+        const onRowDropSpy = spyOn(reorderableTable,"onRowDrop").and.callThrough();
+        const onRowDragEndSpy = spyOn(reorderableTable,"onRowDragEnd").and.callThrough();
+        const onRowDragLeaveSpy = spyOn(reorderableTable,"onRowDragLeave").and.callThrough();
+        dragEvent.initEvent('drop', true,true);
+        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
+        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" Audi ");
+        expect(reorderableRowEls[2].children[1].nativeElement.textContent).toEqual(" Renault ");
+        expect(reorderableRowEls[3].children[1].nativeElement.textContent).toEqual(" VW ");
+        expect(onRowDropSpy).toHaveBeenCalled();
+        expect(onRowDragEndSpy).toHaveBeenCalled();
+        expect(onRowDragLeaveSpy).toHaveBeenCalled();
+    });
+
+    it('should reorder row (bottom of the dropped row)', () => {
+        fixture.detectChanges();
+
+        const reorderableTableEl = fixture.debugElement.query(By.css(".reorderableTable"));
+        let reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
+        let handleEls = reorderableTableEl.queryAll(By.css(".ui-table-reorderablerow-handle"));
+        expect(reorderableRowEls[1].nativeElement.draggable).toBeFalsy();
+        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" VW ");
+        reorderableRowEls[1].nativeElement.classList.add("ui-table-reorderablerow-handle");
+        reorderableRowEls[1].nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(reorderableRowEls[1].nativeElement.draggable).toBeTruthy();
+        reorderableRowEls[1].nativeElement.classList.remove("ui-table-reorderablerow-handle");
+        const onRowDragStartSpy = spyOn(reorderableTable,"onRowDragStart").and.callThrough();
+        const dragEvent: any = document.createEvent('CustomEvent');
+        dragEvent.initEvent('dragstart', true, true);
+        dragEvent.dataTransfer = {setData(val1,val2){}};
+        reorderableRowEls[1].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onRowDragStartSpy).toHaveBeenCalled();
+        expect(reorderableTable.rowDragging).toBeTruthy();
+        expect(reorderableTable.draggedRowIndex).toEqual(0);
+        dragEvent.initEvent('dragover', true,true);
+        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth + 1; 
+        const onRowDragOverSpy = spyOn(reorderableTable,"onRowDragOver").and.callThrough();
+        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onRowDragOverSpy).toHaveBeenCalled();
+        expect(reorderableTable.droppedRowIndex).toEqual(2);
+        const onRowDropSpy = spyOn(reorderableTable,"onRowDrop").and.callThrough();
+        const onRowDragEndSpy = spyOn(reorderableTable,"onRowDragEnd").and.callThrough();
+        const onRowDragLeaveSpy = spyOn(reorderableTable,"onRowDragLeave").and.callThrough();
+        dragEvent.initEvent('drop', true,true);
+        reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        reorderableRowEls = reorderableTableEl.queryAll(By.css("tr"));
+        expect(reorderableRowEls[1].children[1].nativeElement.textContent).toEqual(" Audi ");
+        expect(reorderableRowEls[2].children[1].nativeElement.textContent).toEqual(" VW ");
+        expect(reorderableRowEls[3].children[1].nativeElement.textContent).toEqual(" Renault ");
+        expect(onRowDropSpy).toHaveBeenCalled();
+        expect(onRowDragEndSpy).toHaveBeenCalled();
+        expect(onRowDragLeaveSpy).toHaveBeenCalled();
+    });
+
+    it('should export csv selection only', () => {
+        fixture.detectChanges();
+
+        basicSelectionTable.selectionMode = "multiple";
+        fixture.detectChanges();
+
+        const selectableRows = fixture.debugElement.queryAll(By.css(".selectableRow"));
+        const vwEl = selectableRows[0];
+        vwEl.nativeElement.click();
+        fixture.detectChanges();
+
+        let value;
+        const spyObj = {
+            style:{
+              display:'block'  
+            }
+        };
+        spyOn(document, 'createElement').and.returnValue(spyObj);
+        spyOn(document.body, 'appendChild').and.returnValue("");
+        spyOn(document.body, 'removeChild').and.returnValue("");
+        window.open = function(csv){
+            value = decodeURI(csv);
+            return null;
+        }
+        basicSelectionTable.exportCSV({selectionOnly:true});
+        expect(document.createElement).toHaveBeenCalledTimes(1);
+        expect(document.createElement).toHaveBeenCalledWith('a');
+        expect(value).toBeTruthy();
+        expect(value).toContain("text/csv;charset=utf-8");
+        expect(value).toContain("VW");
+        expect(value).toContain("dsad231ff");
+        expect(value).not.toContain("Audi");
+        expect(value).not.toContain("gwregre345");
+        expect(spyObj.style.display).toEqual("none");
+    });
+
+    it('should set href and download when using exportCSV function', () => {
+        fixture.detectChanges();
+
+        const spyObj = {
+            click: () => {
+            },
+            style:{
+              display:'block'  
+            },
+            download:'',
+            href:'',
+            setAttribute: (type, value) => {
+                spyObj[type] = value;
+            }
+        };
+        spyOn(spyObj, 'click').and.callThrough();
+        spyOn(document, 'createElement').and.returnValue(spyObj);
+        spyOn(document.body, 'appendChild').and.returnValue("");
+        spyOn(document.body, 'removeChild').and.returnValue("");
+        basicSelectionTable.exportCSV();
+        expect(document.createElement).toHaveBeenCalledTimes(1);
+        expect(document.createElement).toHaveBeenCalledWith('a');
+
+        expect(spyObj.href).toContain('localhost');
+        expect(spyObj.download).toBe('download.csv');
+        expect(spyObj.click).toHaveBeenCalledTimes(1);
+    });
+
+    it('should open contextMenu and select row', () => {
+        fixture.detectChanges();
+
+        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const showSpy = spyOn(contextMenu,"show").and.callThrough();
+        const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTable"));
+        const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
+        const event: any = document.createEvent('CustomEvent');
+        const handleRowRightClickSpy = spyOn(contextMenuTable,"handleRowRightClick").and.callThrough();
+        event.initEvent('contextmenu');
+        rowEls[1].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
+    
+        expect(handleRowRightClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(contextMenuTable.contextMenuSelection.brand).toEqual("VW");
+    });
+
+    it('should open contextMenu and select row (contextMenuSelectionMode is joint and selection mode single)', () => {
+        fixture.detectChanges();
+
+        contextMenuTable.selectionMode = "single";
+        contextMenuTable.contextMenuSelectionMode = "joint";
+        fixture.detectChanges();
+
+        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const showSpy = spyOn(contextMenu,"show").and.callThrough();
+        const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTable"));
+        const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
+        const event: any = document.createEvent('CustomEvent');
+        const handleRowRightClickSpy = spyOn(contextMenuTable,"handleRowRightClick").and.callThrough();
+        event.initEvent('contextmenu');
+        rowEls[1].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
+    
+        expect(handleRowRightClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(contextMenuTable.selection.brand).toEqual("VW");
+    });
+
+    it('should open contextMenu and select row (contextMenuSelectionMode is joint and selection mode multiple)', () => {
+        fixture.detectChanges();
+
+        contextMenuTable.selectionMode = "multiple";
+        contextMenuTable.contextMenuSelectionMode = "joint";
+        fixture.detectChanges();
+
+        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const showSpy = spyOn(contextMenu,"show").and.callThrough();
+        const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTable"));
+        const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
+        const event: any = document.createEvent('CustomEvent');
+        const handleRowRightClickSpy = spyOn(contextMenuTable,"handleRowRightClick").and.callThrough();
+        event.initEvent('contextmenu');
+        rowEls[1].nativeElement.dispatchEvent(event);
+        rowEls[2].nativeElement.click();
+        fixture.detectChanges();
+    
+        expect(handleRowRightClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(contextMenuTable.selection[0].brand).toEqual("VW");
+        expect(contextMenuTable.selection[1].brand).toEqual("Audi");
+        expect(contextMenuTable.selection.length).toEqual(2);
+    });
+
+    it('should call saveState and clearState (session)', () => {
+        stateTable.columnResizeMode = "expand";       
+        fixture.detectChanges();
+        
+        stateTable.selection = null;
+        stateTable.clearState();
+        stateTable.stateStorage = "session";
+        fixture.detectChanges();
+
+        const stateTableEl = fixture.debugElement.query(By.css(".stateTable"))
+        const headerEls = stateTableEl.queryAll(By.css("th"));
+        const brandFilter = stateTableEl.query(By.css("input"));
+        brandFilter.nativeElement.value = "vo";
+        brandFilter.nativeElement.dispatchEvent(new Event("input"));
+        fixture.detectChanges();
+
+        const rowEls = stateTableEl.queryAll(By.css(".ui-selectable-row"));
+        rowEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.initEvent('mousedown');
+        resizerEls[4].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        headerEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        let state = JSON.parse((stateTable.getStorage().getItem(stateTable.stateKey)));
+        expect(state.columnOrder[0]).toEqual("brand");
+        expect(state.columnOrder[1]).toEqual("vin");
+        expect(state.columnOrder[2]).toEqual("year");
+        expect(state.columnOrder[3]).toEqual("color");
+        expect(state.filters.brand.value).toEqual("vo");
+        expect(state.first).toEqual(0);
+        expect(state.rows).toEqual(3);
+        expect(state.selection.brand).toEqual("Volvo");
+        expect(state.sortField).toEqual("brand");
+        expect(state.sortOrder).toBeTruthy();
+        stateTable.clearState();
+        fixture.detectChanges();
+
+        state = JSON.parse((stateTable.getStorage().getItem(stateTable.stateKey)));
+        expect(state).toBeNull();
+    });
+
+    it('should call saveState and clearState (local)', () => {
+        stateTable.columnResizeMode = "expand";       
+        fixture.detectChanges();
+        
+        stateTable.selection = null;
+        stateTable.clearState();
+        stateTable.stateStorage = "local";
+        fixture.detectChanges();
+
+        const stateTableEl = fixture.debugElement.query(By.css(".stateTable"))
+        const headerEls = stateTableEl.queryAll(By.css("th"));
+        const brandFilter = stateTableEl.query(By.css("input"));
+        brandFilter.nativeElement.value = "vo";
+        brandFilter.nativeElement.dispatchEvent(new Event("input"));
+        fixture.detectChanges();
+
+        const rowEls = stateTableEl.queryAll(By.css(".ui-selectable-row"));
+        rowEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.initEvent('mousedown');
+        resizerEls[4].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        headerEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        let state = JSON.parse((stateTable.getStorage().getItem(stateTable.stateKey)));
+        expect(state.columnOrder[0]).toEqual("brand");
+        expect(state.columnOrder[1]).toEqual("vin");
+        expect(state.columnOrder[2]).toEqual("year");
+        expect(state.columnOrder[3]).toEqual("color");
+        expect(state.filters.brand.value).toEqual("vo");
+        expect(state.first).toEqual(0);
+        expect(state.rows).toEqual(3);
+        expect(state.selection).toBeTruthy();
+        expect(state.sortField).toEqual("brand");
+        expect(state.sortOrder).toBeTruthy();
+        stateTable.clearState();
+        fixture.detectChanges();
+
+        state = JSON.parse((stateTable.getStorage().getItem(stateTable.stateKey)));
+        expect(state).toBeNull();
     });
 });
