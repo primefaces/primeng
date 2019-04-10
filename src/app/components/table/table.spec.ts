@@ -1684,7 +1684,7 @@ describe('Table', () => {
         expect(state.filters.brand.value).toEqual("vo");
         expect(state.first).toEqual(0);
         expect(state.rows).toEqual(3);
-        expect(state.selection.brand).toEqual("Volvo");
+        expect(state.selection).toBeTruthy();
         expect(state.sortField).toEqual("brand");
         expect(state.sortOrder).toBeTruthy();
         stateTable.clearState();
