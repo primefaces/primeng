@@ -407,23 +407,28 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     toggleAll(event: Event) {
-        if (this.isAllChecked()) {
+        const allChecked = this.isAllChecked();
+        if (allChecked && this.getDisabledOptionCount() == 0) {
             this.value = [];
         }
         else {
             let opts = this.getVisibleOptions();
             if (opts) {
+                const currentValues = this.value ? this.value.slice(0) : [];
                 this.value = [];
                 for (let i = 0; i < opts.length; i++) {
                     let option = opts[i];
 
-                    if (!option.disabled) {
+                    if (!allChecked && !option.disabled) {
+                        this.value.push(opts[i].value);
+                    }
+
+                    if (option.disabled && currentValues.includes(option.value)) {
                         this.value.push(opts[i].value);
                     }
                 }
             }
         }
-        
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
         this.updateLabel();
@@ -435,8 +440,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
         else {
             let optionCount = this.getEnabledOptionCount();
-
-            return this.value && this.options && (this.value.length > 0 && this.value.length == optionCount);
+            let disabledOptionCount = this.getDisabledOptionCount();
+            
+            return this.value && this.options && (this.value.length > 0 && (this.value.length == (optionCount + disabledOptionCount)));
         }
     }
 
@@ -446,7 +452,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
         else {
             for (let option of this.visibleOptions) {
-                if (!this.isSelected(option.value)) {
+                if (!option.disabled && !this.isSelected(option.value)) {
                     return false;
                 }
             }
@@ -459,6 +465,22 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             let count = 0;
             for (let opt of this.options) {
                 if (!opt.disabled) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    getDisabledOptionCount(): number {
+        if (this.options) {
+            let count = 0;
+            for (let opt of this.options) {
+                if (opt.disabled && this.isSelected(opt.value)) {
                     count++;
                 }
             }
