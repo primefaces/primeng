@@ -40,7 +40,8 @@ import {Subscription}   from 'rxjs';
             })),
             state('visible', style({
                 transform: 'translateX(-50%) translateY(-50%)',
-                opacity: 1
+                '-webkit-transform':'translateX(-50%) translateY(-50%)',
+                opacity: 1,
             })),
             transition('* => *', animate('{{transitionParams}}'))
         ])
