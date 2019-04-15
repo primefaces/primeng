@@ -37,7 +37,7 @@ let idx: number = 0;
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translate3d(0, 25%, 0) scale(0.9)',
+                transform: 'scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
@@ -100,7 +100,7 @@ export class Dialog implements OnDestroy {
 
     @Input() maximizable: boolean;
 
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
+    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() closeIcon: string = 'pi pi-times';
 
