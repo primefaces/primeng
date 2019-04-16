@@ -408,35 +408,29 @@ export class Dialog implements OnDestroy {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if(event.which === 9){
+        if(event.which === 9) {
             event.preventDefault();
             
             let focusableElements = DomHandler.find(this.container,'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
             
-            if(focusableElements && focusableElements.length > 0) {
-                if(!document.activeElement) {
+            if (focusableElements && focusableElements.length > 0) {
+                if (!document.activeElement) {
                     focusableElements[0].focus();
                 }
-                else{
+                else {
                     let focusedIndex = focusableElements.indexOf(document.activeElement);
 
-                    if(event.shiftKey) {
-                        if(focusedIndex == -1 || focusedIndex === 0) {
+                    if (event.shiftKey) {
+                        if (focusedIndex == -1 || focusedIndex === 0)
                             focusableElements[focusableElements.length - 1].focus();
-                        }
-                        else {
+                        else
                             focusableElements[focusedIndex - 1].focus();
-                            focusableElements[focusedIndex - 1].focus();
-                        }
                     }
                     else {
-                        if(focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
                             focusableElements[0].focus();
-                        }
-                        else {
+                        else
                             focusableElements[focusedIndex + 1].focus();
-                            focusableElements[focusedIndex + 1].focus();
-                        }
                     }
                 }
             }
