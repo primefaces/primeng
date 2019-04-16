@@ -115,6 +115,10 @@ export class MyModel &#123;
             <p>FullCalendar has a long list of customization parameters that are defined with the options property. Example below customizes the header property.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
 export class FullCalendarDemo implements OnInit &#123;
 
     events: any[];
@@ -177,8 +181,8 @@ update() &#123;
 </code>
 </pre>
 
-            <h3>Events</h3>
-            <p>Events of the FullCalendar are also defined with the options property.</p>
+            <h3>Callbacks</h3>
+            <p>Callbacks of the FullCalendar are also defined with the options property.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 this.options = &#123;
@@ -191,7 +195,7 @@ this.options = &#123;
     dateClick: (e) =>  &#123;
         //handle date click
     &#125;
-&#123;;
+&#125;
 </code>
 </pre>
 
