@@ -229,6 +229,7 @@ export class Paginator implements OnInit {
     updatePaginatorState() {
         this.paginatorState = {
             page: this.getPage(),
+            pageCount: this.getPageCount(),
             rows: this.rows,
             first: this.first,
             totalRecords: this.totalRecords
