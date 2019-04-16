@@ -83,7 +83,7 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Touch UI</h3>
-            <p-calendar [(ngModel)]="date13" [touchUI]="true"></p-calendar>
+            <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true"></p-calendar>
         </div>
     </div>
 
@@ -279,10 +279,13 @@ export class MyModel &#123;
 </pre>
 
             <h3>Touch UI</h3>
-            <p>Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices.</p>
+            <p>
+                Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices. 
+                When using Touch UI mode you will typically want to set readonlyInput to prevent keyboard popup for mobile users.
+            </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-calendar [(ngModel)]="dateValue" [touchUI]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [touchUI]="true" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
