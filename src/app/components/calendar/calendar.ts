@@ -1536,6 +1536,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     showOverlay() {
         this.updateUI();
         this.overlayVisible = true;
+        if (this.touchUI) {
+            this.inputfieldViewChild.nativeElement.blur();
+        }
     }
 
     hideOverlay() {
