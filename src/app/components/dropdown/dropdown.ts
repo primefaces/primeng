@@ -160,8 +160,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() panelStyleClass: string;
     
-    @Input() disabled: boolean;
-    
     @Input() readonly: boolean;
 
     @Input() required: boolean;
@@ -244,6 +242,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     set utc(_autoWidth: boolean) {
         this._autoWidth = _autoWidth;
         console.log("Setting autoWidth has no effect as automatic width calculation is removed for better perfomance.");
+    }
+
+    private _disabled: boolean;
+
+    @Input() get disabled(): boolean {
+        return this._disabled;
+    };
+
+    set disabled(_disabled: boolean) {
+        if(_disabled)
+            this.focused = false;
+        
+        this._disabled = _disabled;
     }
 
     overlay: HTMLDivElement;
