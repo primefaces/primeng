@@ -129,4 +129,25 @@ describe('Checkbox', () => {
         expect(boxEl.className).not.toContain('ui-state-focus');
         expect(labelEl.className).not.toContain('ui-label-focus');
     });
+
+    it('should have default checkbox icon', () => {
+        const boxEl = fixture.nativeElement.querySelector('.ui-chkbox-box');
+        boxEl.click();
+        fixture.detectChanges();
+
+        const iconEl = fixture.nativeElement.querySelector('.ui-chkbox-box .ui-chkbox-icon');
+
+        expect(iconEl.className).toContain('pi pi-check');
+    });
+
+    it('should have custom checkbox icon', () => {
+        const boxEl = fixture.nativeElement.querySelector('.ui-chkbox-box');
+        boxEl.click();
+        checkbox.checkboxIcon = 'pi pi-new-check';
+        fixture.detectChanges();
+
+        const iconEl = fixture.nativeElement.querySelector('.ui-chkbox-box .ui-chkbox-icon');
+
+        expect(iconEl.className).toContain('pi pi-new-check');
+    });
 });
