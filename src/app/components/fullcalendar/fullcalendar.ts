@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,OnInit,AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Calendar} from 'fullcalendar';
+import {Calendar} from '@fullcalendar/core';
 
 @Component({
     selector: 'p-fullCalendar',
