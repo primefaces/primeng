@@ -24,7 +24,9 @@
                 "src/upload.php"
               ],
               "styles": [
-                "node_modules/fullcalendar/dist/fullcalendar.min.css",
+                "node_modules/@fullcalendar/core/main.min.css",
+                "node_modules/@fullcalendar/daygrid/main.min.css",
+                "node_modules/@fullcalendar/timegrid/main.min.css",
                 "node_modules/quill/dist/quill.snow.css",
                 "node_modules/primeicons/primeicons.css",
                 "node_modules/primeflex/primeflex.css",
@@ -34,7 +36,10 @@
               "scripts": [
                 "./node_modules/moment/moment.js",
                 "./node_modules/chart.js/dist/Chart.js",
-                "./node_modules/fullcalendar/dist/fullcalendar.js",
+                "./node_modules/@fullcalendar/core/main.js",
+                "./node_modules/@fullcalendar/daygrid/main.js",
+                "./node_modules/@fullcalendar/timegrid/main.js",
+                "./node_modules/@fullcalendar/interaction/main.js",
                 "./node_modules/quill/dist/quill.js",
                 "./node_modules/prismjs/prism.js",
                 "./node_modules/prismjs/components/prism-typescript.js"

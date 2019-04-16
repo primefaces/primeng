@@ -22,7 +22,7 @@ module.exports = function (config) {
       },
       files: [
         '../node_modules/moment/moment.js',
-        '../node_modules/fullcalendar/dist/fullcalendar.js',
+        '../node_modules/@fullcalendar/core/main.js',
         '../node_modules/chart.js/dist/Chart.js',
         '../node_modules/quill/dist/quill.js'
       ],
@@ -34,4 +34,4 @@ module.exports = function (config) {
       browsers: ['Chrome'],
       singleRun: false
     });
-  };
+};

@@ -20,13 +20,22 @@ import &#123;FullCalendarModule&#125; from 'primeng/fullcalendar';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.0.0.alpha.2+</a> so fullcalendar needs to be included in your project. For a complete documentation and samples please refer to the fullcalendar website.
+            <p>FullCalendar is a wrapper around on <a href="https://fullcalendar.io/docs/v4">FullCalendar 4.0.1+</a> so fullcalendar core needs to be included in your project. For a complete documentation and samples please refer to the <a href="https://fullcalendar.io/">fullcalendar website</a>.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-npm install fullcalendar@4.0.0-alpha.2 --save
+npm install @fullcalendar/core --save
 </code>
 </pre>
-            
+
+            <p>FullCalendar is plugin based so install the plugins you require and define them with the options property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install @fullcalendar/daygrid --save
+npm install @fullcalendar/timegrid --save
+npm install @fullcalendar/interaction --save
+</code>
+</pre>
+
             <p>Events should be an array and defined using the events property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -118,6 +127,7 @@ export class FullCalendarDemo implements OnInit &#123;
         this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
         
         this.options = &#123;
+            plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
             defaultDate: '2017-02-01',
             header: &#123;
                 left: 'prev,next',
@@ -172,6 +182,7 @@ update() &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 this.options = &#123;
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     header: &#123;
         left: 'prev,next',
         center: 'title',
@@ -244,6 +255,10 @@ gotoDate(date: Date) &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
 export class FullCalendarDemo implements OnInit &#123;
 
     events: any[];
@@ -256,6 +271,7 @@ export class FullCalendarDemo implements OnInit &#123;
         this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
         
         this.options = &#123;
+            plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
             defaultDate: '2017-02-01',
             header: &#123;
                 left: 'prev,next',
