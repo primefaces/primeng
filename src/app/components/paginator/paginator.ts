@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,ElementRef,Input,Output,SimpleChange,EventEmitter,TemplateRef} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from '../dropdown/dropdown';
@@ -72,6 +72,8 @@ export class Paginator implements OnInit {
     rowsPerPageItems: SelectItem[];
     
     paginatorState: any;
+
+    constructor(private cd: ChangeDetectorRef) {}
     
     ngOnInit() {
         this.updatePaginatorState();
@@ -85,6 +87,7 @@ export class Paginator implements OnInit {
         this._totalRecords = val;
         this.updatePageLinks();
         this.updatePaginatorState();
+        this.updateFirst();
     }
 
     @Input() get first(): number {
@@ -174,6 +177,13 @@ export class Paginator implements OnInit {
 
             this.onPageChange.emit(state);
             this.updatePaginatorState();
+        }
+    }
+
+    updateFirst() {
+        const page = this.getPage();
+        if (page > 0 && (this.first >= this.totalRecords)) {
+            Promise.resolve(null).then(() => this.changePage(page - 1));
         }
     }
 
