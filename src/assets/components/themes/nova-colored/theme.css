@@ -1717,6 +1717,12 @@ body .ui-paginator .ui-paginator-last:not(.ui-state-disabled):not(.ui-state-acti
   background-color: #e0e0e0;
   color: #333333;
 }
+body .ui-paginator .ui-paginator-current {
+  color: #737373;
+  height: 2.286em;
+  min-width: 2.286em;
+  line-height: 2.286em;
+}
 body .ui-paginator .ui-dropdown {
   border: 0 none;
 }

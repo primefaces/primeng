@@ -13,6 +13,7 @@ import {SharedModule} from '../common/shared';
             <div class="ui-paginator-left-content" *ngIf="templateLeft">
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>
+            <span class="ui-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
             <a [attr.tabindex]="isFirstPage() ? null : '0'" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToFirst($event)" (keydown.enter)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="ui-paginator-icon pi pi-step-backward"></span>
@@ -58,6 +59,10 @@ export class Paginator implements OnInit {
     @Input() templateRight: TemplateRef<any>;
 
     @Input() dropdownAppendTo: any;
+
+    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+
+    @Input() showCurrentPageReport: boolean;
 
     pageLinks: number[];
 
@@ -234,6 +239,10 @@ export class Paginator implements OnInit {
             first: this.first,
             totalRecords: this.totalRecords
         }
+    }
+
+    get currentPageReport() {
+        return this.currentPageReportTemplate.replace("{currentPage}", this.getPage().toString()).replace("{totalPages}", this.getPageCount().toString());
     }
 }
 
