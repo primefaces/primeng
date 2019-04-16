@@ -2012,33 +2012,79 @@ body .fc td.ui-widget-content {
 body .fc td.fc-head-container {
   border: 1px solid #7B95A3;
 }
+body .fc .fc-row {
+  border-right: 1px solid #7B95A3;
+}
 body .fc .fc-event {
   background-color: #AFD3C8;
   border: 1px solid #6c8999;
   color: #385048;
 }
-body .fc .fc-toolbar .ui-button .ui-icon-circle-triangle-w {
-  font-family: "PrimeIcons";
+body .fc .fc-toolbar .fc-button {
+  color: #ffffff;
+  background-color: #7B95A3;
+  border: 1px solid #617c8a;
+  font-size: 14px;
+  -moz-transition: background-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+body .fc .fc-toolbar .fc-button:enabled:hover {
+  background-color: #6c8999;
+  color: #ffffff;
+  border-color: #6c8999;
+}
+body .fc .fc-toolbar .fc-button .fc-icon-chevron-left {
+  font-family: "PrimeIcons" !important;
   text-indent: 0;
 }
-body .fc .fc-toolbar .ui-button .ui-icon-circle-triangle-w:before {
+body .fc .fc-toolbar .fc-button .fc-icon-chevron-left:before {
   content: "";
 }
-body .fc .fc-toolbar .ui-button .ui-icon-circle-triangle-e {
-  font-family: "PrimeIcons";
+body .fc .fc-toolbar .fc-button .fc-icon-chevron-right {
+  font-family: "PrimeIcons" !important;
   text-indent: 0;
 }
-body .fc .fc-toolbar .ui-button .ui-icon-circle-triangle-e:before {
+body .fc .fc-toolbar .fc-button .fc-icon-chevron-right:before {
   content: "";
 }
-body .fc .fc-toolbar .ui-button:focus {
+body .fc .fc-toolbar .fc-button:focus {
   outline: 0 none;
+  outline-offset: 0px;
+  -webkit-box-shadow: 0 0 0 0.2em #c6d1d7;
+  -moz-box-shadow: 0 0 0 0.2em #c6d1d7;
+  box-shadow: 0 0 0 0.2em #c6d1d7;
+}
+body .fc .fc-toolbar .fc-button-group .fc-button {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+body .fc .fc-toolbar .fc-button-group .fc-button:first-child {
+  -moz-border-radius-topleft: 2px;
+  -webkit-border-top-left-radius: 2px;
+  border-top-left-radius: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+body .fc .fc-toolbar .fc-button-group .fc-button:last-child {
+  -moz-border-radius-topright: 2px;
+  -webkit-border-top-right-radius: 2px;
+  border-top-right-radius: 2px;
+  -moz-border-radius-bottomright: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 body .fc .fc-divider {
   background-color: #7B95A3;
   border: 1px solid #7B95A3;
 }
-body .ui-fluid .fc .fc-toolbar .ui-button {
+body .ui-fluid .fc .fc-toolbar .fc-button {
   width: auto;
 }
 body .ui-picklist .ui-picklist-buttons button {
@@ -2258,6 +2304,17 @@ body .ui-tree.ui-tree-horizontal .ui-treenode .ui-treenode-content .ui-treenode-
 body .ui-tree.ui-tree-horizontal .ui-treenode .ui-treenode-content.ui-treenode-selectable:not(.ui-state-highlight):hover {
   background-color: #f4f4f4;
   color: #666666;
+}
+body .ui-tree .ui-tree-filter-container .ui-tree-filter {
+  width: 100%;
+  padding-right: 2em;
+}
+body .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+  top: 50%;
+  left: auto;
+  margin-top: -0.5em;
+  right: 0.8em;
+  color: #a6a6a6;
 }
 body .ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node:not(.ui-state-highlight):hover {
   background-color: #f4f4f4;
