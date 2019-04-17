@@ -38,9 +38,9 @@ export interface LocaleSettings {
             </ng-template>
             <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
-                (click)="onDatePickerClick($event)" [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}: 
+                [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}:
                                             {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" 
-                                            [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="inline || overlayVisible">
+                                            [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" *ngIf="inline || overlayVisible">
                 <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
@@ -378,8 +378,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     overlay: HTMLDivElement;
     
     overlayVisible: boolean;
-        
-    datepickerClick: boolean;
     
     onModelChange: Function = () => {};
     
@@ -1105,7 +1103,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     onInputClick(event: Event) {
-        this.datepickerClick = true;
         if (this.overlay && this.autoZIndex) {
             this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
@@ -1131,8 +1128,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else {
             this.hideOverlay();
         }
-        
-        this.datepickerClick = true;
     }
     
     onInputKeydown(event) {
@@ -1529,15 +1524,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
     
-    onDatePickerClick(event) {
-        this.datepickerClick = true;
-    }
-    
     showOverlay() {
-        this.updateUI();
-        this.overlayVisible = true;
-        if (this.touchUI) {
-            this.inputfieldViewChild.nativeElement.blur();
+        if (!this.overlayVisible) {
+            this.updateUI();
+            this.overlayVisible = true;
+            if (this.touchUI) {
+                this.inputfieldViewChild.nativeElement.blur();
+            }
         }
     }
 
@@ -1560,14 +1553,25 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                         this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                     }
                     this.alignOverlay();
-                    this.bindDocumentClickListener();
-                    this.bindDocumentResizeListener();
+                    
                 }
             break;
 
             case 'void':
                 this.onOverlayHide();
                 this.onClose.emit(event);
+            break;
+        }
+    }
+
+    onOverlayAnimationDone(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'visible':
+            case 'visibleTouchUI':
+                if (!this.inline) {
+                    this.bindDocumentClickListener();
+                    this.bindDocumentResizeListener();
+                }
             break;
         }
     }
@@ -2007,11 +2011,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (!this.datepickerClick && this.overlayVisible) {
+                if (this.isOutsideClicked(event) && this.overlayVisible) {
                     this.hideOverlay();
                 }
 
-                this.datepickerClick = false;
                 this.cd.detectChanges();
             });
         }
@@ -2038,8 +2041,19 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    isOutsideClicked(event: Event) {
+        let triggerClicked = this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target);
+
+        if (this.appendTo) {
+            return ! triggerClicked && !(this.overlay && this.overlay.contains(<Node> event.target));
+        }
+        else {
+            return !triggerClicked;
+        }
+    }
+
     onWindowResize() {
-        if (this.overlayVisible) {
+        if (this.overlayVisible && !DomHandler.isAndroid()) {
             this.hideOverlay();
         }
     }

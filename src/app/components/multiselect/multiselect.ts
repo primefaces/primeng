@@ -676,6 +676,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 let pattern = /{(.*?)}/;
                 if (pattern.test(this.selectedItemsLabel)) {
                     this.valuesAsString = this.selectedItemsLabel.replace(this.selectedItemsLabel.match(pattern)[0], this.value.length + '');
+                } else {
+                    this.valuesAsString = this.selectedItemsLabel;
                 }
             }
         }
