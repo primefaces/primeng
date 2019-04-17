@@ -22,7 +22,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':rb.checked}"></span>
             </div>
         </div>
-        <label (click)="select()" [class]="labelStyleClass"
+        <label (click)="select($event)" [class]="labelStyleClass"
             [ngClass]="{'ui-radiobutton-label':true, 'ui-label-active':rb.checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
