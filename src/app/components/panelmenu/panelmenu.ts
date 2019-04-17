@@ -1,10 +1,12 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input} from '@angular/core';
+import {NgModule,Component,Input,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/menuitem';
 import {RouterModule} from '@angular/router';
 
 export class BasePanelMenuItem {
+
+    constructor(private ref: ChangeDetectorRef) {}
         
     handleClick(event, item) {
         if(item.disabled) {
@@ -13,6 +15,7 @@ export class BasePanelMenuItem {
         }
         
         item.expanded = !item.expanded;
+        this.ref.detectChanges();
         
         if(!item.url) {
             event.preventDefault();
@@ -73,6 +76,10 @@ export class PanelMenuSub extends BasePanelMenuItem {
     @Input() expanded: boolean;
 
     @Input() transitionOptions: string;
+
+    constructor(ref: ChangeDetectorRef) {
+        super(ref);
+    }
 }
 
 @Component({
@@ -132,6 +139,10 @@ export class PanelMenu extends BasePanelMenuItem {
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     
     public animating: boolean;
+
+    constructor(ref: ChangeDetectorRef) {
+        super(ref);
+    }
                 
     collapseAll() {
     	for(let item of this.model) {
