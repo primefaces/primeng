@@ -1278,7 +1278,7 @@ export class DataTableDemo implements OnInit &#123;
                 in case you need to display rows in edit mode by default use <b>editingRowKeys</b> property which is a map whose key is the dataKey of the record where value is any arbitrary number greater than zero.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [value]="cars" dataKey="vin"&gt;
+&lt;p-table [value]="cars" dataKey="vin" editMode="row"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th&gt;Vin&lt;/th&gt;
@@ -1375,7 +1375,7 @@ export class TableEditDemo implements OnInit &#123;
     &#125;
 
     onRowEditCancel(car: Car, index: number) &#123;
-        this.cars2[index] = this.clonedCars[car.vin];
+        this.cars[index] = this.clonedCars[car.vin];
         delete this.clonedCars[car.vin];
     &#125;
 
