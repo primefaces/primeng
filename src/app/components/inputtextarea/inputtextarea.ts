@@ -61,7 +61,6 @@ export class InputTextarea implements DoCheck {
     }
     
     resize(event?: Event) {
-        this.el.nativeElement.style.height = ''
         this.el.nativeElement.style.height = this.el.nativeElement.scrollHeight + 'px';
 
         if (parseFloat(this.el.nativeElement.style.height) >= parseFloat(this.el.nativeElement.style.maxHeight)) {
