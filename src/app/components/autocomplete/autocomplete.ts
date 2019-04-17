@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -70,7 +70,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,ControlValueAccessor {
+export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() minLength: number = 1;
 
