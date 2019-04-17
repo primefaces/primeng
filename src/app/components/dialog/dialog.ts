@@ -335,7 +335,6 @@ export class Dialog implements OnDestroy {
     }
 
     maximize() {
-        DomHandler.addClass(this.container, 'ui-dialog-maximized');
         this.preMaximizePageX = parseFloat(this.container.style.top);
         this.preMaximizePageY = parseFloat(this.container.style.left);
         this.preMaximizeContainerWidth = DomHandler.getOuterWidth(this.container);
@@ -355,6 +354,7 @@ export class Dialog implements OnDestroy {
         }
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
+        DomHandler.addClass(this.container, 'ui-dialog-maximized');
         DomHandler.addClass(document.body, 'ui-overflow-hidden');
         this.moveOnTop();
 
