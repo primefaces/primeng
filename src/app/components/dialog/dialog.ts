@@ -356,6 +356,7 @@ export class Dialog implements OnDestroy {
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
         DomHandler.addClass(document.body, 'ui-overflow-hidden');
+        this.moveOnTop();
 
         this.maximized = true;
     }
