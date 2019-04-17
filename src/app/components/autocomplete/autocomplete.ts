@@ -251,9 +251,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
         if (this.highlightOptionChanged) {
             setTimeout(() => {
-                let listItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
-                if (listItem) {
-                    DomHandler.scrollInView(this.overlay, listItem);
+                if (this.overlay) {
+                    let listItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+                    if (listItem) {
+                        DomHandler.scrollInView(this.overlay, listItem);
+                    }
                 }
             }, 1);
             this.highlightOptionChanged = false;
