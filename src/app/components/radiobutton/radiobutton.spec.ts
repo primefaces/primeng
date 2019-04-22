@@ -91,7 +91,7 @@ describe('RadioButton', () => {
         radiobutton.onClick.subscribe(event => value = 5);
         const handleClickSpy = spyOn(radiobutton,'handleClick').and.callThrough();
         const selectSpy = spyOn(radiobutton,'select').and.callThrough();
-        const onFocusSpy = spyOn(radiobutton,'onFocus').and.callThrough();
+        const onFocusSpy = spyOn(radiobutton,'onInputFocus').and.callThrough();
         const radiobuttonEl = fixture.debugElement.queryAll(By.css('div'))[2];
         const inputEl = fixture.debugElement.query(By.css('input'));
         const iconEl = fixture.debugElement.query(By.css('span'));
@@ -117,8 +117,8 @@ describe('RadioButton', () => {
         radiobutton.onClick.subscribe(event => value = 5);
         const handleClickSpy = spyOn(radiobutton,'handleClick').and.callThrough();
         const selectSpy = spyOn(radiobutton,'select').and.callThrough();
-        const onFocusSpy = spyOn(radiobutton,'onFocus').and.callThrough();
-        const onBlurSpy = spyOn(radiobutton,'onBlur').and.callThrough();
+        const onFocusSpy = spyOn(radiobutton,'onInputFocus').and.callThrough();
+        const onBlurSpy = spyOn(radiobutton,'onInputBlur').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('input'));
         const labelEl = fixture.debugElement.query(By.css('label'));
         inputEl.nativeElement.dispatchEvent(new Event('focus'));
