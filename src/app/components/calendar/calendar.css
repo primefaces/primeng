@@ -168,6 +168,7 @@
     display: inline-block;
     text-align: center;
     padding: .5em;
+    cursor: pointer;
 }
 
 .ui-datepicker-monthpicker select.ui-datepicker-year {
