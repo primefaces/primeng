@@ -45,11 +45,11 @@ export interface LocaleSettings {
                     <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
                             <ng-content select="p-header"></ng-content>
-                            <a class="ui-datepicker-prev ui-corner-all" tabindex="0" (click)="navBackward($event)" *ngIf="i === 0">
-                                <span class="pi pi-chevron-left"></span>
+                            <a class="ui-datepicker-prev ui-corner-all" (click)="navBackward($event)" *ngIf="i === 0">
+                                <span class="ui-datepicker-prev-icon pi pi-chevron-left"></span>
                             </a>
-                            <a class="ui-datepicker-next ui-corner-all" tabindex="0" (click)="navForward($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)">
-                                <span class="pi pi-chevron-right"></span>
+                            <a class="ui-datepicker-next ui-corner-all" (click)="navForward($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)">
+                                <span class="ui-datepicker-next-icon pi pi-chevron-right"></span>
                             </a>
                             <div class="ui-datepicker-title">
                                 <span class="ui-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
@@ -672,8 +672,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
             this.createMonths(this.currentMonth, this.currentYear);
         }
-        
-        event.preventDefault();
     }
     
     navForward(event) {
@@ -697,8 +695,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
             this.createMonths(this.currentMonth, this.currentYear);
         }
-
-        event.preventDefault();
     }
 
     decrementYear() {
@@ -2039,14 +2035,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isOutsideClicked(event: Event) {
-        let triggerClicked = this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target);
-
-        if (this.appendTo) {
-            return ! triggerClicked && !(this.overlay && this.overlay.contains(<Node> event.target));
-        }
-        else {
-            return !triggerClicked;
-        }
+        return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) || 
+                this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node> event.target)));
+    }
+    
+    isNavIconClicked(event: Event) {
+        return (DomHandler.hasClass(event.target, 'ui-datepicker-prev') || DomHandler.hasClass(event.target, 'ui-datepicker-prev-icon')
+                || DomHandler.hasClass(event.target, 'ui-datepicker-next') || DomHandler.hasClass(event.target, 'ui-datepicker-next-icon'));
     }
 
     onWindowResize() {
