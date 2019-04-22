@@ -83,7 +83,7 @@ describe('Spinner', () => {
         triggerEvent(spinnerInput, 'input');
 
         fixture.detectChanges();
-        expect(spinner.value).toEqual('1234.1234')
+        expect(spinner.value).toEqual(1234.1234);
     });
     
     it('Should disabled', () => {
