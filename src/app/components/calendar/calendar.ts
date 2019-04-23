@@ -1401,7 +1401,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.updateTime();
         event.preventDefault();
     }
-    
+
     onUserInput(event) {
         // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
         if (!this.isKeydown) {
@@ -1412,21 +1412,34 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let val = event.target.value;
         try {
             let value = this.parseValueFromString(val);
-            if (this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
+            if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
             }
         }
         catch(err) {
             //invalid date
-            this.updateModel(null);
         }
         
         this.filled = val != null && val.length;
         this.onInput.emit(event);
     }
+
+    isValidSelection(value): boolean {
+        let isValid = true;
+        if (this.isSingleSelection()) {
+            if (!this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
+                isValid = false;
+            }
+        } else if (value.every(v => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false))) {
+            if (this.isRangeSelection()) {
+                isValid = value.length > 1 && value[1] > value[0] ? true : false;
+            }
+        }
+        return isValid;
+    }
     
-    parseValueFromString(text: string): Date {
+    parseValueFromString(text: string): Date | Date[]{
         if (!text || text.trim().length === 0) {
             return null;
         }
