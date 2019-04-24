@@ -7,11 +7,11 @@
 
 <div class="content-section implementation">
     <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-        <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
            kind and benevolent to those who give respect,
-           but given to ruthless violence whenever anything stands against the good of the family.</span>
+           but given to ruthless violence whenever anything stands against the good of the family.</p>
            <p-footer>
                <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
                <button type="button" pButton icon="pi pi-times" (click)="display=false" label="No" class="ui-button-secondary"></button>
@@ -449,11 +449,11 @@ export class ModelComponent &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="&#123;width: '350px', minWidth: '200px'&#125;" [minY]="70" 
         [maximizable]="true" [baseZIndex]="10000"&gt;
-    &lt;span&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
         kind and benevolent to those who give respect,
-        but given to ruthless violence whenever anything stands against the good of the family.&lt;/span&gt;
+        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;p-footer&gt;
             &lt;button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
