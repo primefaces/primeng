@@ -513,6 +513,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     show() {
         this.overlayVisible = true;
+        this.bindDocumentClickListener();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
