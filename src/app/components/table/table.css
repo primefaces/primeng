@@ -49,10 +49,12 @@
 /* Paginator */
 .ui-table .ui-paginator-top {
     border-bottom: 0 none;
+    margin-top: 1px;
 }
 
 .ui-table .ui-paginator-bottom {
     border-top: 0 none;
+    margin-top: 1px;
 }
 
 /* Scrollable */
