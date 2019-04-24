@@ -100,6 +100,8 @@ export class Dialog implements OnDestroy {
 
     @Input() maximizable: boolean;
 
+    @Input() focusTrap: boolean = true;
+
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() closeIcon: string = 'pi pi-times';
@@ -408,30 +410,48 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    onKeydown(event: KeyboardEvent) {
-        if(event.which === 9) {
-            event.preventDefault();
-            
-            let focusableElements = DomHandler.find(this.container,'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            
-            if (focusableElements && focusableElements.length > 0) {
-                if (!document.activeElement) {
-                    focusableElements[0].focus();
-                }
-                else {
-                    let focusedIndex = focusableElements.indexOf(document.activeElement);
+    getFocusableElements() {
+        let focusableElements = DomHandler.find(this.container,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
+            );
 
-                    if (event.shiftKey) {
-                        if (focusedIndex == -1 || focusedIndex === 0)
-                            focusableElements[focusableElements.length - 1].focus();
-                        else
-                            focusableElements[focusedIndex - 1].focus();
+            let visibleFocusableElements = [];
+            for(let focusableElement of focusableElements) {
+                if(getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
+                    visibleFocusableElements.push(focusableElement);
+            }
+        return visibleFocusableElements;
+    }
+
+    onKeydown(event: KeyboardEvent) {
+        if(this.focusTrap) {
+            if(event.which === 9) {
+                event.preventDefault();
+                
+                let focusableElements = this.getFocusableElements();
+
+                if (focusableElements && focusableElements.length > 0) {
+                    if (!document.activeElement) {
+                        focusableElements[0].focus();
                     }
                     else {
-                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
-                            focusableElements[0].focus();
-                        else
-                            focusableElements[focusedIndex + 1].focus();
+                        let focusedIndex = focusableElements.indexOf(document.activeElement);
+
+                        if (event.shiftKey) {
+                            if (focusedIndex == -1 || focusedIndex === 0)
+                                focusableElements[focusableElements.length - 1].focus();
+                            else
+                                focusableElements[focusedIndex - 1].focus();
+                        }
+                        else {
+                            if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                                focusableElements[0].focus();
+                            else
+                                focusableElements[focusedIndex + 1].focus();
+                        }
                     }
                 }
             }
