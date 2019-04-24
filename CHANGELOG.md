@@ -1,5 +1,16 @@
 # Change Log
 
+## [7.1.2](https://github.com/primefaces/primeng/tree/7.1.2) (2019-04-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.1...7.1.2)
+
+**Fixed bugs:**
+
+- Wrong cursor behavior on Calendar with month view [\#7568](https://github.com/primefaces/primeng/issues/7568)
+- Calendar navigator icons close the overlay [\#7566](https://github.com/primefaces/primeng/issues/7566)
+- With focustrap for dialog you cannot tab past hidden or disabled elements [\#7561](https://github.com/primefaces/primeng/issues/7561)
+- \[Calendar\]\[PrimeIcons\] - Chevrons lack tabindex which interrupts tabbing, empty href [\#6270](https://github.com/primefaces/primeng/issues/6270)
+
 ## [7.1.1](https://github.com/primefaces/primeng/tree/7.1.1) (2019-04-17)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.1.0...7.1.1)
