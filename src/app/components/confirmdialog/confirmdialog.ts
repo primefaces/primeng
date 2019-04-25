@@ -35,13 +35,12 @@ import {Subscription}   from 'rxjs';
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translate3d(-50%, -25%, 0) scale(0.9)',
+                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
-                transform: 'translateX(-50%) translateY(-50%)',
-                '-webkit-transform':'translateX(-50%) translateY(-50%)',
-                opacity: 1,
+                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(1)',
+                opacity: 1
             })),
             transition('* => *', animate('{{transitionParams}}'))
         ])
@@ -77,7 +76,6 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() rejectButtonStyleClass: string;
 
-   
     @Input() closeOnEscape: boolean = true;
 
     @Input() blockScroll: boolean = true;
@@ -94,7 +92,7 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() baseZIndex: number = 0;
     
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
+    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
     @ContentChild(Footer) footer;
 
