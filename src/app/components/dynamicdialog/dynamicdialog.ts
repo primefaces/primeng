@@ -11,7 +11,7 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 	template: `
 		<div #mask class="ui-widget-overlay ui-dialog-mask ui-dialog-mask-scrollblocker" *ngIf="visible" (click)="onMaskClick()"></div>
 		<div [ngClass]="{'ui-dialog ui-dynamicdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
-			[@animation]="{value: 'visible', params: {transitionParams: config.transitionOptions || '400ms cubic-bezier(0.25, 0.8, 0.25, 1)'}}" 
+			[@animation]="{value: 'visible', params: {transitionParams: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}" 
 			(@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
 			[style.width]="config.width" [style.height]="config.height">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" *ngIf="config.showHeader === false ? false: true">
@@ -31,11 +31,11 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 	animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translate3d(-50%, -25%, 0) scale(0.9)',
+                transform: 'translateX(-50%) translateY(-50%) scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
-                transform: 'translateX(-50%) translateY(-50%)',
+                transform: 'translateX(-50%) translateY(-50%) scale(1)',
                 opacity: 1
             })),
             transition('* => *', animate('{{transitionParams}}'))
