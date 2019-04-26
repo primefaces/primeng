@@ -235,6 +235,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() onSort: EventEmitter<any> = new EventEmitter();
 
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onTableStateSaved: EventEmitter<void> = new EventEmitter();
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -2018,6 +2020,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (Object.keys(state).length) {
             storage.setItem(this.stateKey, JSON.stringify(state));
         }
+        
+        this.onTableStateSaved.emit();
     }
 
     clearState() {
