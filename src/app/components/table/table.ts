@@ -1981,6 +1981,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         const storage = this.getStorage();
         let state: TableState = {};
         
+        const restoredStateString = storage.getItem(this.stateKey);
+        if (restoredStateString) {
+            const savedState: TableState = JSON.parse(restoredStateString);
+            if (savedState.custom) {
+                state.custom = savedState.custom;
+            }
+        }
+
         if (this.paginator) {
             state.first = this.first;
             state.rows = this.rows;

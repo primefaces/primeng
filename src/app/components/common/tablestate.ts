@@ -11,6 +11,7 @@ export interface TableState {
     columnWidths?: string;
     tableWidth?: string;
     selection?: any;
+    custom?: {};
     columnOrder?: string[];
     expandedRowKeys?: {[s: string]: boolean;};
 }
