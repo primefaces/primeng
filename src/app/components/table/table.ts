@@ -246,6 +246,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() onColResize: EventEmitter<any> = new EventEmitter();
 
+    @Output() onTableStateSaved: EventEmitter<void> = new EventEmitter();
+
     @Output() onColReorder: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowReorder: EventEmitter<any> = new EventEmitter();
@@ -2026,6 +2028,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (Object.keys(state).length) {
             storage.setItem(this.stateKey, JSON.stringify(state));
         }
+
+        this.onTableStateSaved.emit();
     }
 
     clearState() {
