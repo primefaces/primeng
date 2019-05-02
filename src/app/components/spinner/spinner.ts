@@ -223,6 +223,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     onInput(event: KeyboardEvent) {
         this.value = this.parseValue((<HTMLInputElement> event.target).value);
         this.onModelChange(this.value);
+        this.updateFilledState();
     }
         
     onInputBlur(event) {
