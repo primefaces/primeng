@@ -392,6 +392,12 @@ export class UITreeNode implements OnInit {
                 if (this.node.expanded) {
                     this.collapse(event);
                 }
+                else {
+                    let parentNodeElement = this.getParentNodeElement(nodeElement);
+                    if (parentNodeElement) {
+                        this.focusNode(parentNodeElement);
+                    }
+                }
 
                 event.preventDefault();
             break;
