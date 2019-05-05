@@ -339,8 +339,8 @@ export class DomHandler {
         let rect = el.getBoundingClientRect();
         
         return {
-            top: rect.top + document.body.scrollTop,
-            left: rect.left + document.body.scrollLeft
+            top: rect.top,
+            left: rect.left
         };
     }
 
