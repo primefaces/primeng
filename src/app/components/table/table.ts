@@ -1231,7 +1231,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     }
     
                     if (matches) {
-                        this.filteredValue.push(this.value[i]);
+                        this.filteredValue = [...this.filteredValue, this.value[i]];
                     }
                 }
     
