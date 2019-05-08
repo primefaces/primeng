@@ -89,7 +89,7 @@ export class DomHandler {
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
             if (targetOffset.top + top < 0) {
-                top = 0;
+                top = -1 * targetOffset.top;
             }
         }
         else {
@@ -128,7 +128,7 @@ export class DomHandler {
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
             if(top < 0) {
-                top = 0 + windowScrollTop;
+                top = windowScrollTop;
             }
         } 
         else {
