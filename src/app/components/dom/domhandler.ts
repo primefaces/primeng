@@ -56,7 +56,10 @@ export class DomHandler {
     }
 
     public static findSingle(element: any, selector: string): any {
-        return element.querySelector(selector);
+        if (element) {
+            return element.querySelector(selector);
+        }
+        return null;
     }
 
     public static index(element: any): number {
@@ -413,20 +416,27 @@ export class DomHandler {
         );
     }
     
-    public static calculateScrollbarWidth(): number {
-        if(this.calculatedScrollbarWidth !== null)
-            return this.calculatedScrollbarWidth;
-        
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "ui-scrollbar-measure";
-        document.body.appendChild(scrollDiv);
+    public static calculateScrollbarWidth(el?: HTMLElement): number {
+        if (el) {
+            let style = getComputedStyle(el);
+            let width = (el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth));
+            return width;
+        }
+        else {
+            if(this.calculatedScrollbarWidth !== null)
+                return this.calculatedScrollbarWidth;
+            
+            let scrollDiv = document.createElement("div");
+            scrollDiv.className = "ui-scrollbar-measure";
+            document.body.appendChild(scrollDiv);
 
-        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-        document.body.removeChild(scrollDiv);
+            let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+            document.body.removeChild(scrollDiv);
 
-        this.calculatedScrollbarWidth = scrollbarWidth;
-        
-        return scrollbarWidth;
+            this.calculatedScrollbarWidth = scrollbarWidth;
+            
+            return scrollbarWidth;
+        }
     }
 
     public static calculateScrollbarHeight(): number {
