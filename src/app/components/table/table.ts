@@ -262,6 +262,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() firstChange: EventEmitter<number> = new EventEmitter();
 
+    @Output() onStateSave: EventEmitter<any> = new EventEmitter();
+
+    @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -2049,6 +2053,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (Object.keys(state).length) {
             storage.setItem(this.stateKey, JSON.stringify(state));
         }
+
+        this.onStateSave.emit(state);
     }
 
     clearState() {
@@ -2102,6 +2108,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             this.stateRestored = true;
+
+            this.onStateRestore.emit(state);
         }
     }
 
