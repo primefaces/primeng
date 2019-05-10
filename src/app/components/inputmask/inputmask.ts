@@ -57,7 +57,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() autoClear: boolean = true;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() inputId: string;
 
