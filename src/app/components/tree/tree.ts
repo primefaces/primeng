@@ -343,7 +343,7 @@ export class UITreeNode implements OnInit {
         switch (event.which) {
             //down arrow
             case 40:
-                const listElement = nodeElement.children[0].children[1];
+                const listElement = (this.tree.droppableNodes) ? nodeElement.children[1].children[1] : nodeElement.children[0].children[1];
                 if (listElement) {
                     this.focusNode(listElement.children[0]);
                 }
