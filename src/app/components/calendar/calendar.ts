@@ -257,8 +257,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() monthNavigator: boolean;
 
     @Input() yearNavigator: boolean;
-
-    @Input() yearRange: string;
     
     @Input() hourFormat: string = '24';
     
@@ -418,6 +416,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     _maxDate: Date;
     
     _showTime: boolean;
+
+    _yearRange: string;
     
     preventDocumentListener: boolean;
     
@@ -483,6 +483,20 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
     
+    @Input() get yearRange(): string {
+        return this._yearRange;
+    }
+
+    set yearRange(yearRange: string) {
+        if (this.yearNavigator && yearRange) {
+            const years = yearRange.split(':');
+            const yearStart = parseInt(years[0]);
+            const yearEnd = parseInt(years[1]);
+            
+            this.populateYearOptions(yearStart, yearEnd);
+        }
+    }
+
     @Input() get showTime(): boolean {
         return this._showTime;
     }
@@ -519,14 +533,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         const date = this.defaultDate||new Date();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
-
-        if (this.yearNavigator && this.yearRange) {
-            const years = this.yearRange.split(':');
-            const yearStart = parseInt(years[0]);
-            const yearEnd = parseInt(years[1]);
-            
-            this.populateYearOptions(yearStart, yearEnd);
-        }
 
         if (this.view === 'date') {
             this.createWeekDays();
