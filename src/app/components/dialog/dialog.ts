@@ -233,7 +233,7 @@ export class Dialog implements OnDestroy {
     
     positionOverlay() {
         let viewport = DomHandler.getViewport();
-        if (DomHandler.getOuterHeight(this.container) > viewport.height) {
+        if (DomHandler.getOuterHeight(this.container) + this.contentViewChild.nativeElement.scrollHeight - this.contentViewChild.nativeElement.clientHeight > viewport.height) {
              this.contentViewChild.nativeElement.style.height = (viewport.height * .75) + 'px';
              this.container.style.height = 'auto';
         } 
