@@ -792,7 +792,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     shouldSelectDate(dateMeta) {
         if (this.isMultipleSelection())
-            return !this.maxDateCount || !this.value || this.maxDateCount > this.value.length;
+            return this.maxDate != null ? this.maxDateCount > this.value.length : true;
         else
             return true;
     }
