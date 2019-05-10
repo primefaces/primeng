@@ -596,7 +596,7 @@ describe('Table', () => {
         expect(bodyRows.length).toEqual(0);
     }));
 
-    it('should use endsWith filter and show 1 item', fakeAsync(() => {
+    it('should use endsWith filter and show 1 item. It should clear the filter and show 10 item.', fakeAsync(() => {
         fixture.detectChanges();
         
         filterTable.filter("231ff","vin","endsWith");
@@ -606,6 +606,12 @@ describe('Table', () => {
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
         let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(1);
+        filterTable.filter(null,"vin","endsWith");
+        tick(300);
+        fixture.detectChanges();
+
+        bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(10);
     }));
 
     it('should use equals filter and show 1 item', fakeAsync(() => {

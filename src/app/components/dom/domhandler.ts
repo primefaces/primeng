@@ -56,7 +56,10 @@ export class DomHandler {
     }
 
     public static findSingle(element: any, selector: string): any {
-        return element.querySelector(selector);
+        if (element) {
+            return element.querySelector(selector);
+        }
+        return null;
     }
 
     public static index(element: any): number {
@@ -89,7 +92,7 @@ export class DomHandler {
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
             if (targetOffset.top + top < 0) {
-                top = 0;
+                top = -1 * targetOffset.top;
             }
         }
         else {
@@ -128,7 +131,7 @@ export class DomHandler {
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
             if(top < 0) {
-                top = 0 + windowScrollTop;
+                top = windowScrollTop;
             }
         } 
         else {
@@ -413,20 +416,26 @@ export class DomHandler {
         );
     }
     
-    public static calculateScrollbarWidth(): number {
-        if(this.calculatedScrollbarWidth !== null)
-            return this.calculatedScrollbarWidth;
-        
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "ui-scrollbar-measure";
-        document.body.appendChild(scrollDiv);
+    public static calculateScrollbarWidth(el?: HTMLElement): number {
+        if (el) {
+            let style = getComputedStyle(el);
+            return (el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth));
+        }
+        else {
+            if(this.calculatedScrollbarWidth !== null)
+                return this.calculatedScrollbarWidth;
+            
+            let scrollDiv = document.createElement("div");
+            scrollDiv.className = "ui-scrollbar-measure";
+            document.body.appendChild(scrollDiv);
 
-        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-        document.body.removeChild(scrollDiv);
+            let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+            document.body.removeChild(scrollDiv);
 
-        this.calculatedScrollbarWidth = scrollbarWidth;
-        
-        return scrollbarWidth;
+            this.calculatedScrollbarWidth = scrollbarWidth;
+            
+            return scrollbarWidth;
+        }
     }
 
     public static calculateScrollbarHeight(): number {

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -33,7 +33,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     },
     providers: [SPINNER_VALUE_ACCESSOR]
 })
-export class Spinner implements OnInit,ControlValueAccessor {
+export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -107,8 +107,11 @@ export class Spinner implements OnInit,ControlValueAccessor {
         console.warn("type property is removed as Spinner does not format the value anymore");
     }
 
-    ngOnInit() {
-        if (this.step % 1 !== 0) {
+    ngAfterViewInit() {
+        if(this.value && this.value.toString().indexOf('.') > 0) {
+            this.precision = this.value.toString().split(/[.]/)[1].length;
+        }
+        else if(this.step % 1 !== 0) {
             // If step is not an integer then extract the length of the decimal part
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
@@ -220,6 +223,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onInput(event: KeyboardEvent) {
         this.value = this.parseValue((<HTMLInputElement> event.target).value);
         this.onModelChange(this.value);
+        this.updateFilledState();
     }
         
     onInputBlur(event) {
