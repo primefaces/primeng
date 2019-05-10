@@ -895,6 +895,9 @@ body .ui-datepicker table {
 body .ui-datepicker table th {
   padding: 0.5em;
 }
+body .ui-datepicker table th.ui-datepicker-weekheader {
+  border-right: 1px solid #191919;
+}
 body .ui-datepicker table td {
   padding: 0.5em;
 }
@@ -921,6 +924,9 @@ body .ui-datepicker table td.ui-datepicker-today > a, body .ui-datepicker table 
 body .ui-datepicker table td.ui-datepicker-today > a.ui-state-active, body .ui-datepicker table td.ui-datepicker-today > span.ui-state-active {
   color: #212121;
   background-color: #FFB300;
+}
+body .ui-datepicker table td.ui-datepicker-weeknumber {
+  border-right: 1px solid #191919;
 }
 body .ui-datepicker .ui-datepicker-buttonbar {
   border-top: 1px solid #3f3f3f;

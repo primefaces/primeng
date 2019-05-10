@@ -23,6 +23,7 @@ export interface LocaleSettings {
     today: string;
     clear: string;
     dateFormat?: string;
+    weekHeader?: string;
 }
 
 @Component({
@@ -66,8 +67,8 @@ export interface LocaleSettings {
                             <table class="ui-datepicker-calendar">
                                 <thead>
                                     <tr>
-                                        <th *ngIf="showWeekNumbers">
-                                            <span>WN</span>
+                                        <th *ngIf="showWeek" class="ui-datepicker-weekheader">
+                                            <span>{{locale['weekHeader']}}</span>
                                         </th>
                                         <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
                                             <span>{{weekDay}}</span>
@@ -76,7 +77,7 @@ export interface LocaleSettings {
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let week of month.dates; let i = index;">
-                                        <td *ngIf="showWeekNumbers">
+                                        <td *ngIf="showWeek" class="ui-datepicker-weeknumber ui-state-disabled">
                                             <span>
                                                 {{month.weekNumbers[i]}}
                                             </span>
@@ -275,7 +276,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() showOnFocus: boolean = true;
 
-    @Input() showWeekNumbers: boolean = false;
+    @Input() showWeek: boolean = false;
     
     @Input() dataType: string = 'date';
     
@@ -342,7 +343,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
         today: 'Today',
         clear: 'Clear',
-        dateFormat: 'mm/dd/yy'
+        dateFormat: 'mm/dd/yy',
+        weekHeader: 'Wk'
     };
     
     @Input() tabindex: number;
@@ -589,12 +591,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    getWeekNumber(date:Date) {
-        var d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        var dayNum = d.getDay() || 1; 
-        d.setDate(d.getDate() + 4 - dayNum);
-        var yearStart = new Date(d.getFullYear(),0,1);
-        return (Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1)/7));
+    getWeekNumber(date: Date) {
+        let checkDate = new Date(date.getTime());
+		checkDate.setDate(checkDate.getDate() + 4 - ( checkDate.getDay() || 7 ));
+		let time = checkDate.getTime();
+		checkDate.setMonth( 0 );
+		checkDate.setDate( 1 );
+		return Math.floor( Math.round((time - checkDate.getTime()) / 86400000 ) / 7 ) + 1;
     }
     
     createMonth(month: number, year: number) {
@@ -602,7 +605,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
-        let sundayIndex = this.getSundayIndex();
         let dayNo = 1;
         let today = new Date();
         let weekNumbers = [];
@@ -641,9 +643,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 }
             }
             
-            if(this.showWeekNumbers) {
-                weekNumbers.push(this.getWeekNumber(new Date(week[0].year,week[0].month,week[0].day))); 
+            if (this.showWeek) {
+                weekNumbers.push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day))); 
             }
+
             dates.push(week);
         }
 
