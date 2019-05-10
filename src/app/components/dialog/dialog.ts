@@ -56,6 +56,8 @@ export class Dialog implements OnDestroy {
 
     @Input() draggable: boolean = true;
 
+    @Input() limitedDrag: boolean = true;
+
     @Input() resizable: boolean = true;
     
     @Input() positionLeft: number;
@@ -469,11 +471,11 @@ export class Dialog implements OnDestroy {
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
 
-            if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
+            if (!this.limitedDrag || (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width)) {
                 this.container.style.left = leftPos + 'px';
             }
 
-            if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
+            if (!this.limitedDrag || (topPos >= this.minY && (topPos + containerHeight) < viewport.height)) {
                 this.container.style.top = topPos + 'px';
             }
 
