@@ -35,7 +35,7 @@ describe('KeyFilter', () => {
     });
 
     fixture = TestBed.createComponent(TestKeyFilterComponent);
-    keyfilter = fixture.debugElement.children[0].componentInstance;
+    keyfilter = fixture.debugElement.query(By.directive(KeyFilter)).injector.get(KeyFilter);
     component = fixture.componentInstance;
     });
 
@@ -86,6 +86,26 @@ describe('KeyFilter', () => {
 
         expect(preventDefaultSpy).not.toHaveBeenCalled();
         expect(keydownEvent.returnValue).toBeTruthy();
+    });
+
+    it('should recognize special and nav keys', () => {
+        fixture.detectChanges();
+
+		const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.keyCode = 13;
+        keydownEvent.initEvent('keypress', true, true);
+        fixture.detectChanges();
+
+        let value = keyfilter.isSpecialKey(keydownEvent);
+        expect(value).toBeTruthy();
+        keydownEvent.keyCode = 38;
+        value = keyfilter.isNavKeyPress(keydownEvent);
+        expect(value).toBeTruthy();
+        keydownEvent.keyCode = 49;
+        value = keyfilter.isNavKeyPress(keydownEvent);
+        expect(value).toBeFalsy();
+        value = keyfilter.isSpecialKey(keydownEvent);
+        expect(value).toBeFalsy();
     });
 
     it('should use pValidateOnly', () => {

@@ -314,6 +314,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>paginatorleft</td>
                             <td>state: $implicit
                                 state.page: Current page<br />
+                                state.pageCount: Total page count<br />
                                 state.rows: Rows per page<br />
                                 state.first: Index of the first records<br />
                                 state.totalRecords: Number of total records<br />
@@ -324,6 +325,7 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>paginatorright</td>
                             <td>state: $implicit
                                 state.page: Current page<br />
+                                state.pageCount: Total page count<br />
                                 state.rows: Rows per page<br />
                                 state.first: Index of the first records<br />
                                 state.totalRecords: Number of total records<br />
@@ -1276,7 +1278,7 @@ export class DataTableDemo implements OnInit &#123;
                 in case you need to display rows in edit mode by default use <b>editingRowKeys</b> property which is a map whose key is the dataKey of the record where value is any arbitrary number greater than zero.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [value]="cars" dataKey="vin"&gt;
+&lt;p-table [value]="cars" dataKey="vin" editMode="row"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th&gt;Vin&lt;/th&gt;
@@ -1373,7 +1375,7 @@ export class TableEditDemo implements OnInit &#123;
     &#125;
 
     onRowEditCancel(car: Car, index: number) &#123;
-        this.cars2[index] = this.clonedCars[car.vin];
+        this.cars[index] = this.clonedCars[car.vin];
         delete this.clonedCars[car.vin];
     &#125;
 
@@ -2244,6 +2246,18 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Position of the paginator, options are "top","bottom" or "both".</td>
                         </tr>
                         <tr>
+                            <td>currentPageReportTemplate</td>
+                            <td>string</td>
+                            <td>&#123;currentPage&#125; of &#123;totalPages&#125;</td>
+                            <td>Text to display the current page information.</td>
+                        </tr>
+                        <tr>
+                            <td>showCurrentPageReport</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display current page report.</td>
+                        </tr>
+                        <tr>
                             <td>sortMode</td>
                             <td>string</td>
                             <td>single</td>
@@ -2658,6 +2672,16 @@ export class DataTableDemo implements OnInit &#123;
                             <td>event.originalEvent: Browser event <br>
                                 event.checked: State of the header checkbox</td>
                             <td>Callback to invoke when state of header checkbox changes.</td>
+                        </tr>
+                        <tr>
+                            <td>onStateSave</td>
+                            <td>state: Table state</td>
+                            <td>Callback to invoke table state is saved.</td>
+                        </tr>
+                        <tr>
+                            <td>onStateRestore</td>
+                            <td>state: Table state</td>
+                            <td>Callback to invoke table state is restored.</td>
                         </tr>
                     </tbody>
                 </table>

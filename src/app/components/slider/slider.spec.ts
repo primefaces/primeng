@@ -336,6 +336,7 @@ describe('Slider', () => {
         slider.range = true;
         slider.handleValues = [20,80];
         slider.values = [20,80];
+        slider.style = {'width':'600px'};
         fixture.detectChanges();
 
         const sliderHandlers = fixture.debugElement.queryAll(By.css(".ui-slider-handle"));
@@ -357,6 +358,7 @@ describe('Slider', () => {
         slider.range = true;
         slider.step = 2;
         slider.handleValues = [20,80];
+        slider.style = {'width':'600px'};
         slider.values = [20,80];
         fixture.detectChanges();
 

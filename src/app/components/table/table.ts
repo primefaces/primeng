@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -70,7 +70,8 @@ export class TableService {
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
@@ -92,8 +93,10 @@ export class TableService {
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
-            <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
+            
+                <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
 
@@ -123,8 +126,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() rows: number;
 
-    @Input() first: number = 0;
-
     @Input() pageLinks: number = 5;
 
     @Input() rowsPerPageOptions: number[];
@@ -134,6 +135,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() paginatorPosition: string = 'bottom';
 
     @Input() paginatorDropdownAppendTo: any;
+
+    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+
+    @Input() showCurrentPageReport: boolean;
 
     @Input() defaultSortOrder: number = 1;
 
@@ -255,6 +260,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
 
+    @Output() firstChange: EventEmitter<number> = new EventEmitter();
+
+    @Output() onStateSave: EventEmitter<any> = new EventEmitter();
+
+    @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -272,6 +283,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     _columns: any[];
 
     _totalRecords: number = 0;
+
+    _first: number = 0;
 
     filteredValue: any[];
 
@@ -327,6 +340,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCell: Element;
 
+    editingCellData: any;
+
+    editingCellField: any;
+
     editingCellClick: boolean;
 
     documentEditListener: any;
@@ -367,7 +384,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -493,6 +510,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    @Input() get first(): number {
+        return this._first;
+    }
+    set first(val: number) {
+        this._first = val;
+    }
+
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -581,7 +605,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             first: this.first,
             rows: this.rows
         });
-
+        
+        this.firstChange.emit(this.first);
         this.tableService.onValueChange(this.value);
 
         if (this.isStateful()) {
@@ -630,10 +655,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     sortSingle() {
         if(this.sortField && this.sortOrder) {
-            if (this.restoringSort)
+            if (this.restoringSort) {
                 this.restoringSort = false;
-            else if(this.resetPageOnSort)
+            }
+            else if(this.resetPageOnSort) {
                 this.first = 0;
+                this.firstChange.emit(this.first);
+            }
 
             if(this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -774,7 +802,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     handleRowClick(event) {
         let target = (<HTMLElement> event.originalEvent.target);
         let targetNode = target.nodeName;
-        let parentNode = target.parentElement.nodeName;
+        let parentNode = target.parentElement && target.parentElement.nodeName;
         if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || 
             parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' ||
             (DomHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
@@ -1236,11 +1264,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.saveState();
         }
 
-        if (this.restoringFilter)
+        if (this.restoringFilter) {
             this.restoringFilter = false;
-        else
+        }
+        else {
             this.first = 0;
+            this.firstChange.emit(this.first);
+        }
 
+        this.cd.detectChanges();
     }
 
     hasFilter() {
@@ -1433,6 +1465,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.filters = {};
         
         this.first = 0;
+        this.firstChange.emit(this.first);
         
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -1517,8 +1550,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    updateEditingCell(cell) {
+    updateEditingCell(cell, data, field) {
         this.editingCell = cell;
+        this.editingCellData = data;
+        this.editingCellField = field;
         this.bindDocumentEditListener();
     }
 
@@ -1532,6 +1567,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
+                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
+                    this.editingCellField = null;
+                    this.editingCellData = null;
                     this.unbindDocumentEditListener();
                 }
 
@@ -1679,20 +1717,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             else if (this.columnResizeMode === 'expand') {
                 if (newColumnWidth > minWidth) {
                     if (this.scrollable) {
-                        let scrollableView = this.findParentScrollableView(column);
-                        let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-body-table');
-                        let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-header-table');
-                        let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
-                        scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
-                        scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
-                        if(scrollableFooterTable) {
-                            scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
-                        }
-                        let resizeColumnIndex = DomHandler.index(column);
-
-                        this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
-                        this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
-                        this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+                        this.setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta);
                     }
                     else {
                         this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
@@ -1715,6 +1740,39 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
         DomHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+    }
+
+    setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta) {
+        let scrollableView = column ? this.findParentScrollableView(column) : this.containerViewChild.nativeElement;
+        let scrollableBody = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
+        let scrollableHeader = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-header');
+        let scrollableFooter = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-footer');
+        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, 'table.ui-table-scrollable-body-table');
+        let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.ui-table-scrollable-header-table');
+        let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.ui-table-scrollable-footer-table');
+
+        const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
+        const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
+        const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth >= scrollableBodyTableWidth;
+
+        let setWidth = (container, table, width, isContainerInViewport) => {
+            if (container && table) {
+                container.style.width = isContainerInViewport ? width + DomHandler.calculateScrollbarWidth(scrollableBody) + 'px' : 'auto'
+                table.style.width = width + 'px';
+            }
+        };
+
+        setWidth(scrollableBody, scrollableBodyTable, scrollableBodyTableWidth, isContainerInViewport);
+        setWidth(scrollableHeader, scrollableHeaderTable, scrollableHeaderTableWidth, isContainerInViewport);
+        setWidth(scrollableFooter, scrollableFooterTable, scrollableHeaderTableWidth, isContainerInViewport);
+    
+        if (column) {
+            let resizeColumnIndex = DomHandler.index(column);
+
+            this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
+            this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
+            this.resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+        }
     }
 
     findParentScrollableView(column) {
@@ -1914,6 +1972,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     handleVirtualScroll(event) {
         this.first = (event.page - 1) * this.rows;
+        this.firstChange.emit(this.first);
         this.virtualScrollCallback = event.callback;
         
         this.zone.run(() => {
@@ -1994,6 +2053,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (Object.keys(state).length) {
             storage.setItem(this.stateKey, JSON.stringify(state));
         }
+
+        this.onStateSave.emit(state);
     }
 
     clearState() {
@@ -2014,6 +2075,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.paginator) {
                 this.first = state.first;
                 this.rows = state.rows;
+                this.firstChange.emit(this.first);
             }
 
             if (state.sortField) {
@@ -2046,6 +2108,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             this.stateRestored = true;
+
+            this.onStateRestore.emit(state);
         }
     }
 
@@ -2067,15 +2131,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (this.columnResizeMode === 'expand' && this.tableWidthState) {
                 if (this.scrollable) {
-                    let scrollableBodyTable = DomHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-body-table');
-                    let scrollableHeaderTable = DomHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-header-table');
-                    let scrollableFooterTable = DomHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-footer-table');
-                    scrollableBodyTable.style.width = this.tableWidthState;
-                    scrollableHeaderTable.style.width = this.tableWidthState;
-
-                    if (scrollableFooterTable) {
-                        scrollableFooterTable.style.width = this.tableWidthState;
-                    }
+                    this.setScrollableItemsWidthOnExpandResize(null, this.tableWidthState, 0);
                 }
                 else {
                     this.tableViewChild.nativeElement.style.width = this.tableWidthState;
@@ -3174,7 +3230,7 @@ export class EditableColumn implements AfterViewInit {
     }
 
     openCell() {
-        this.dt.updateEditingCell(this.el.nativeElement);
+        this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field);
         DomHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.dt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
@@ -3192,6 +3248,8 @@ export class EditableColumn implements AfterViewInit {
     closeEditingCell() {
         DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
+        this.dt.editingCellData = null;
+        this.dt.editingCellField = null;
         this.dt.unbindDocumentEditListener();
     }
 

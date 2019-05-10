@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -13,7 +13,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #inputfield [attr.type]="type" [attr.id]="inputId" [value]="value === 0 ? '0' : value||null" [attr.name]="name"
+            <input #inputfield type="number" [attr.id]="inputId" [value]="value === 0 ? '0' : value||null" [attr.name]="name"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
             (keydown)="onInputKeydown($event)" (blur)="onInputBlur($event)" (input)="onInput($event)" (change)="onInputChange($event)" (focus)="onInputFocus($event)"
             [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
@@ -33,7 +33,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     },
     providers: [SPINNER_VALUE_ACCESSOR]
 })
-export class Spinner implements OnInit,ControlValueAccessor {
+export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -60,9 +60,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() readonly: boolean;
 
     @Input() tabindex: number;
-        
-    @Input() type: string = 'text';
-    
+            
     @Input() required: boolean;
 
     @Input() name: string;
@@ -94,19 +92,26 @@ export class Spinner implements OnInit,ControlValueAccessor {
     constructor(public el: ElementRef) {}
 
     @Input() set decimalSeparator(value: string) {
-        console.warn("decimalSeparator property is removed Spinner as Spinner does not format the value anymore.");
+        console.warn("decimalSeparator property is removed as Spinner does not format the value anymore.");
     }
 
     @Input() set thousandSeparator(value: string) {
-        console.warn("thousandSeparator property is removed Spinner as Spinner does not format the value anymore.");
+        console.warn("thousandSeparator property is removed as Spinner does not format the value anymore.");
     }
 
     @Input() set formatInput(value: boolean) {
-        console.warn("formatInput property is removed Spinner as Spinner does not format the value anymore.");
+        console.warn("formatInput property is removed as Spinner does not format the value anymore.");
     }
 
-    ngOnInit() {
-        if (this.step % 1 !== 0) {
+    @Input() set type(value: string) {
+        console.warn("type property is removed as Spinner does not format the value anymore");
+    }
+
+    ngAfterViewInit() {
+        if(this.value && this.value.toString().indexOf('.') > 0) {
+            this.precision = this.value.toString().split(/[.]/)[1].length;
+        }
+        else if(this.step % 1 !== 0) {
             // If step is not an integer then extract the length of the decimal part
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
@@ -216,13 +221,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
 
     onInput(event: KeyboardEvent) {
-        this.value = (<HTMLInputElement> event.target).value;
+        this.value = this.parseValue((<HTMLInputElement> event.target).value);
         this.onModelChange(this.value);
+        this.updateFilledState();
     }
         
     onInputBlur(event) {
-        this.value = this.parseValue((<HTMLInputElement> event.target).value);
-        this.onModelChange(this.value);
         this.focus = false;
         this.onModelTouched();
         this.onBlur.emit(event);

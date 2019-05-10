@@ -96,15 +96,17 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             this.imagesChanged = false;
         }
     }
-    
+
     @Input() get images(): any[] {
         return this._images;
     }
-
     set images(value:any[]) {
         this._images = value;
-        this.activeIndex = 0;
         this.imagesChanged = true;
+
+        if (this.initialized) {
+            this.activeIndex = 0;
+        }
     }
         
     ngAfterViewInit() {

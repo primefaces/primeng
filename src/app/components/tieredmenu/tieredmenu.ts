@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef, ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -47,7 +47,7 @@ export class TieredMenuSub {
 
     @Input() hideDelay: number = 250;
 
-    constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
+    constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu, private cf: ChangeDetectorRef) {}
     
     activeItem: HTMLLIElement;
 
@@ -80,6 +80,7 @@ export class TieredMenuSub {
     onItemMouseLeave(event: Event) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
+            this.cf.markForCheck();
         }, this.hideDelay);
     }
     

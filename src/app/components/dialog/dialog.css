@@ -79,11 +79,9 @@
 }
 .ui-confirmdialog .ui-dialog-content .ui-confirmdialog-icon {
     font-size: 1.5em;
-    vertical-align: middle;
     margin-right: .5em;
-}
-.ui-confirmdialog .ui-dialog-content .ui-confirmdialog-message {
-    vertical-align: middle;
+    position: relative;
+    top: .2em;
 }
 
 .ui-dialog-footer .ui-button {
