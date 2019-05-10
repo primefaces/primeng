@@ -197,21 +197,23 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         }
 
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+        let newFiles = [];
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
 
             if(!this.isFileSelected(file)){
               if(this.validate(file)) {
-                  if(this.isImage(file)) {
-                      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-                  }
+                    if(this.isImage(file)) {
+                        file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                    }
 
-                  this.files.push(files[i]);
-              }
+                    newFiles.push(file);
+                    this.files.push(files[i]);
+                }
             }
         }
 
-        this.onSelect.emit({originalEvent: event, files: files});
+        this.onSelect.emit({originalEvent: event, files: newFiles});
 
         if(this.hasFiles() && this.auto) {
             this.upload();
