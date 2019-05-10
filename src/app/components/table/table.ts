@@ -336,6 +336,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCell: Element;
 
+    editingCellData: any;
+
+    editingCellField: any;
+
     editingCellClick: boolean;
 
     documentEditListener: any;
@@ -1542,8 +1546,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    updateEditingCell(cell) {
+    updateEditingCell(cell, data, field) {
         this.editingCell = cell;
+        this.editingCellData = data;
+        this.editingCellField = field;
         this.bindDocumentEditListener();
     }
 
@@ -1557,6 +1563,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
+                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
+                    this.editingCellField = null;
+                    this.editingCellData = null;
                     this.unbindDocumentEditListener();
                 }
 
@@ -3213,7 +3222,7 @@ export class EditableColumn implements AfterViewInit {
     }
 
     openCell() {
-        this.dt.updateEditingCell(this.el.nativeElement);
+        this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field);
         DomHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.dt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
@@ -3231,6 +3240,8 @@ export class EditableColumn implements AfterViewInit {
     closeEditingCell() {
         DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
+        this.dt.editingCellData = null;
+        this.dt.editingCellField = null;
         this.dt.unbindDocumentEditListener();
     }
 
