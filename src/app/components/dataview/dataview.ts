@@ -264,7 +264,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
-            rows: this.rows
+            rows: this.rows,
+            sortField: this.sortField,
+            sortOrder: this.sortOrder
         };
     }
     
