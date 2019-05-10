@@ -92,7 +92,8 @@ export interface LocaleSettings {
                         </div>
                     </div>
                     <div class="ui-monthpicker" *ngIf="view === 'month'">
-                        <a tabindex="0" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
+                        <a tabindex="0" *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-monthpicker-month" 
+                           [ngClass]="{'ui-state-active': isMonthSelected(i), 'ui-state-disabled': !isSelectable(1, i, this.currentYear, false)}">
                             {{m}}
                         </a>
                     </div>
