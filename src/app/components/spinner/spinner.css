@@ -11,12 +11,6 @@
     padding-right: 1.5em;
 }
 
-.ui-spinner-input::-webkit-inner-spin-button, 
-.ui-spinner-input::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-
 .ui-spinner-button {
     cursor: default;
     display: block;
