@@ -27,7 +27,7 @@ export class TestComponent {
     </div>
     `
   })
-class TestDynamicDialogComponent {
+export class TestDynamicDialogComponent {
     constructor(public dialogService: DialogService) {}
 
     show() {
