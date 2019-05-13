@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
         </h2>
     `
   })
-class TestComponent {
+export class TestComponent {
     constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
 }
