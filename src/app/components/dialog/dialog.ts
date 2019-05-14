@@ -410,28 +410,12 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    getFocusableElements() {
-        let focusableElements = DomHandler.find(this.container,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
-            );
-
-            let visibleFocusableElements = [];
-            for(let focusableElement of focusableElements) {
-                if(getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
-                    visibleFocusableElements.push(focusableElement);
-            }
-        return visibleFocusableElements;
-    }
-
     onKeydown(event: KeyboardEvent) {
         if(this.focusTrap) {
             if(event.which === 9) {
                 event.preventDefault();
                 
-                let focusableElements = this.getFocusableElements();
+                let focusableElements = DomHandler.getFocusableElements(this.container);
 
                 if (focusableElements && focusableElements.length > 0) {
                     if (!document.activeElement) {

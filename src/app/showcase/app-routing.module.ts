@@ -39,6 +39,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'fieldset', loadChildren: './components/fieldset/fieldsetdemo.module#FieldsetDemoModule'},
             {path: 'fileupload', loadChildren: './components/fileupload/fileuploaddemo.module#FileUploadDemoModule'},
             {path: 'flexgrid', loadChildren: './components/flexgrid/flexgriddemo.module#FlexGridDemoModule'},
+            {path: 'focustrap', loadChildren: './components/focustrap/focustrapdemo.module#FocusTrapDemoModule'},
             {path: 'fullcalendar', loadChildren: './components/fullcalendar/fullcalendardemo.module#FullCalendarDemoModule'},
             {path: 'galleria', loadChildren: './components/galleria/galleriademo.module#GalleriaDemoModule'},
             {path: 'gmap', loadChildren: './components/gmap/gmapdemo.module#GMapDemoModule'},
