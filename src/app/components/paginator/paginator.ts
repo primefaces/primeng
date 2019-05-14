@@ -242,7 +242,9 @@ export class Paginator implements OnInit {
     }
 
     get currentPageReport() {
-        return this.currentPageReportTemplate.replace("{currentPage}", this.getPage().toString()).replace("{totalPages}", this.getPageCount().toString());
+        return this.currentPageReportTemplate
+            .replace("{currentPage}", (this.getPage() + 1).toString())
+            .replace("{totalPages}", this.getPageCount().toString());
     }
 }
 
