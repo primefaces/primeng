@@ -12,14 +12,14 @@ import { Subscription } from 'rxjs';
   })
   class TestTerminalComponent {
     subscription: Subscription;
-    
+    systemSubscription: Subscription;
     constructor(private terminalService: TerminalService) {
         this.terminalService.commandHandler.subscribe(command => {
             let response = (command === 'd') ? "Command succeed": 'Unknown command: ' + command;
             this.terminalService.sendResponse(response);
         });
     }
-    
+
     ngOnDestroy() {
         if(this.subscription) {
             this.subscription.unsubscribe();
@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
   }
 
 describe('Terminal', () => {
-  
+
     let terminal: Terminal;
     let fixture: ComponentFixture<TestTerminalComponent>;
 
@@ -51,9 +51,22 @@ describe('Terminal', () => {
 
     it('should display by default', () => {
         fixture.detectChanges();
-  
+
         const terminalEl = fixture.debugElement.query(By.css('div'));
         expect(terminalEl.nativeElement).toBeTruthy();
+    });
+
+    it('should handle clear', ()=>{
+        fixture.detectChanges();
+        terminal.command = 'd';
+        let event = {'keyCode': 13};
+        terminal.handleCommand(event as KeyboardEvent);
+
+        terminal.handleSystemCommands('clear');
+        fixture.detectChanges();
+
+        expect(terminal.commands).toEqual([]);
+        expect(terminal.command).toEqual('');
     });
 
     it('should handle command', () => {

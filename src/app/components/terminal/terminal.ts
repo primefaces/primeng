@@ -29,39 +29,42 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() welcomeMessage: string;
 
     @Input() prompt: string;
-        
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-            
+
     commands: any[] = [];
-    
+
     command: string;
-    
+
     container: Element;
-    
+
     commandProcessed: boolean;
-    
+
     subscription: Subscription;
-    
+    systemSubscription: Subscription;
+
     constructor(public el: ElementRef, public terminalService: TerminalService) {
         this.subscription = terminalService.responseHandler.subscribe(response => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;
         });
+
+        this.systemSubscription = terminalService.systemCommandHandler.subscribe(command => this.handleSystemCommands(command));
     }
-    
+
     ngAfterViewInit() {
         this.container = DomHandler.find(this.el.nativeElement, '.ui-terminal')[0];
     }
-    
+
     ngAfterViewChecked() {
         if(this.commandProcessed) {
             this.container.scrollTop = this.container.scrollHeight;
             this.commandProcessed = false;
         }
     }
-                
+
     @Input()
     set response(value: string) {
         if(value) {
@@ -69,7 +72,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.commandProcessed = true;
         }
     }
-    
+
     handleCommand(event: KeyboardEvent) {
         if(event.keyCode == 13) {
             this.commands.push({text: this.command});
@@ -77,17 +80,26 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.command = '';
         }
     }
-    
+
+    handleSystemCommands(command: string) {
+        switch (command) {
+            case 'clear':
+                this.commands = [];
+                this.command = '';
+                break;
+        }
+    }
+
     focus(element: HTMLElement) {
         element.focus();
     }
-    
+
     ngOnDestroy() {
         if(this.subscription) {
             this.subscription.unsubscribe();
         }
     }
-    
+
 }
 
 @NgModule({
