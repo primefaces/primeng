@@ -513,6 +513,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     show() {
         this.overlayVisible = true;
+        this.bindDocumentClickListener();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -543,7 +544,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             break;
 
             case 'void':
-                this.onHide.emit(event);
                 this.onOverlayHide();
             break;
         }
@@ -574,6 +574,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.cd.markForCheck();
+        this.onHide.emit();
     }
     
     alignOverlay() {
