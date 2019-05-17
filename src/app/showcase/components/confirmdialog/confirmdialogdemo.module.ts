@@ -4,7 +4,7 @@ import {ConfirmDialogDemo} from './confirmdialogdemo';
 import {ConfirmDialogDemoRoutingModule} from './confirmdialogdemo-routing.module';
 import {ConfirmDialogModule} from '../../../components/confirmdialog/confirmdialog';
 import {ButtonModule} from '../../../components/button/button';
-import {GrowlModule} from '../../../components/growl/growl';
+import {MessagesModule} from '../../../components/messages/messages';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -14,7 +14,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		ConfirmDialogDemoRoutingModule,
         ConfirmDialogModule,
         ButtonModule,
-        GrowlModule,
+        MessagesModule,
         TabViewModule,
         CodeHighlighterModule
 	],

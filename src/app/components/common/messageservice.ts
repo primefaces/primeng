@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs';
 import { Message } from './message';
 
 @Injectable()
 export class MessageService {
     
-    private messageSource = new Subject<Message>();
+    private messageSource = new Subject<Message|Message[]>();
+    private clearSource = new Subject<string>();
     
     messageObserver = this.messageSource.asObservable();
+    clearObserver = this.clearSource.asObservable();
     
     add(message: Message) {
         if(message) {
@@ -21,4 +22,9 @@ export class MessageService {
             this.messageSource.next(messages);
         } 
     }
+    
+    clear(key?: string) {
+        this.clearSource.next(key||null);
+    }
+    
 }

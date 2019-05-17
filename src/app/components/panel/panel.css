@@ -6,6 +6,10 @@
 	padding: .5em .75em;
 }
 
+.ui-panel .ui-panel-titlebar.ui-panel-titlebar-clickable {
+    cursor: pointer;
+}
+
 .ui-panel .ui-panel-titlebar-icon {
 	float: right;
     cursor: pointer;

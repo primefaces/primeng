@@ -1,0 +1,429 @@
+<table-submenu></table-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Table - <span class="subitem">Selection</span></span>
+        <span>Single or Multiple rows can be selected depending on the selectionMode property.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+    <h3 class="first">Single Row Selection</h3>
+    <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar1" dataKey="vin">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div style="text-align: left">
+                Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}
+            </div>
+        </ng-template>
+    </p-table>
+
+    <h3>Multiple Row Selection</h3>
+    <p-table [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars1">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <ul>
+                <li *ngFor="let car of selectedCars1" style="text-align: left">
+                    {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
+                </li>
+            </ul>
+        </ng-template>
+    </p-table>
+
+    <h3>Multiple Row Selection with MetaKey</h3>
+    <p-table [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars2" [metaKeySelection]="true">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <ul>
+                <li *ngFor="let car of selectedCars2" style="text-align: left">
+                    {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
+                </li>
+            </ul>
+        </ng-template>
+    </p-table>
+
+    <h3>Column Selection</h3>
+    <p-table [columns]="cols" [value]="cars">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+                <th style="width:4em"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+                <td>
+                    <button pButton icon="fa fa-search" (click)="selectCarWithButton(rowData)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <h3>Events</h3>
+    <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar3" dataKey="vin"
+        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <h3>RadioButton</h3>
+    <p-table [columns]="cols" [value]="cars" [(selection)]="selectedCar4" dataKey="vin">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3em"></th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td>
+                    <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+                <div style="text-align: left">
+                    Selected Car: {{selectedCar4 ? selectedCar4.vin + ' - ' + selectedCar4.brand + ' - ' + selectedCar4.year + ' - ' + selectedCar4.color: 'none'}}
+                </div>
+            </ng-template>
+    </p-table>
+
+    <h3>Checkbox Selection</h3>
+    <p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars3" dataKey="vin">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3em">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <ul>
+                <li *ngFor="let car of selectedCars3" style="text-align: left">
+                    {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
+                </li>
+            </ul>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="tableselectiondemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableselectiondemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableSelectionDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    cols: any[];
+
+    selectedCar1: Car;
+
+    selectedCar2: Car;
+
+    selectedCar3: Car;
+
+    selectedCar4: Car;
+
+    selectedCars1: Car[];
+
+    selectedCars2: Car[];
+
+    selectedCars3: Car[];
+
+    constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+
+        this.cols = [
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
+        ];
+    &#125;
+
+    selectCarWithButton(car: Car) &#123;
+        this.selectedCar2 = car;
+        this.messageService.add(&#123;severity:'info', summary:'Car Selected', detail:'Vin: ' + car.vin&#125;);
+    &#125;
+
+    onRowSelect(event) &#123;
+        this.messageService.add(&#123;severity:'info', summary:'Car Selected', detail:'Vin: ' + event.data.vin&#125;);
+    &#125;
+
+    onRowUnselect(event) &#123;
+        this.messageService.add(&#123;severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+
+        <p-tabPanel header="tableselectiondemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableselectiondemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+
+&lt;h3 class="first"&gt;Single Row Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar1" dataKey="vin"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+        &lt;div style="text-align: left"&gt;
+            Selected Car: &#123;&#123;selectedCar1 ? selectedCar.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Multiple Row Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars1"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex"&gt;
+        &lt;tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+        &lt;ul&gt;
+            &lt;li *ngFor="let car of selectedCars1" style="text-align: left"&gt;
+                &#123;&#123;car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color&#125;&#125;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Multiple Row Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars2" [metaKeySelection]="true"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex"&gt;
+        &lt;tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+        &lt;ul&gt;
+            &lt;li *ngFor="let car of selectedCars2" style="text-align: left"&gt;
+                &#123;&#123;car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color&#125;&#125;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Column Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+            &lt;th style="width:4em"&gt;&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button pButton icon="fa-search" (click)="selectCarWithButton(rowData)"&gt;&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Events&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar3" dataKey="vin"
+    (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;RadioButton&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" [(selection)]="selectedCar4" dataKey="vin"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th style="width: 3em"&gt;&lt;/th&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td&gt;
+                &lt;p-tableRadioButton [value]="rowData"&gt;&lt;/p-tableRadioButton&gt;
+            &lt;/td&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+            &lt;div style="text-align: left"&gt;
+                Selected Car: &#123;&#123;selectedCar4 ? selectedCar4.vin + ' - ' + selectedCar4.brand + ' - ' + selectedCar4.year + ' - ' + selectedCar4.color: 'none'&#125;&#125;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Checkbox Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" [(selection)]="selectedCars3" dataKey="vin"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th style="width: 3em"&gt;
+                &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+            &lt;/th&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td&gt;
+                &lt;p-tableCheckbox [value]="rowData"&gt;&lt;/p-tableCheckbox&gt;
+            &lt;/td&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+        &lt;ul&gt;
+            &lt;li *ngFor="let car of selectedCars3" style="text-align: left"&gt;
+                &#123;&#123;car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color&#125;&#125;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

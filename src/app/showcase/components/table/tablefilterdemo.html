@@ -1,0 +1,167 @@
+<table-submenu></table-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Table - <span class="subitem">Filter</span></span>
+        <span>Filtering reduces the data by running a search using column filters and an optional global filter.</span>
+    </div>
+</div>
+
+<div class="content-section implementation ui-fluid">
+    <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <div *ngSwitchCase="'year'">
+                        Value > {{yearFilter}}
+                        <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                        <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
+                    </div>
+                    <p-dropdown *ngSwitchCase="'brand'" [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                    <p-multiSelect *ngSwitchCase="'color'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="tablefilterdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablefilterdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableFilterDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    cols: any[];
+
+    brands: SelectItem[];
+
+    colors: SelectItem[];
+
+    yearFilter: number;
+
+    yearTimeout: any;
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+
+        this.brands = [
+            &#123; label: 'All Brands', value: null &#125;,
+            &#123; label: 'Audi', value: 'Audi' &#125;,
+            &#123; label: 'BMW', value: 'BMW' &#125;,
+            &#123; label: 'Fiat', value: 'Fiat' &#125;,
+            &#123; label: 'Honda', value: 'Honda' &#125;,
+            &#123; label: 'Jaguar', value: 'Jaguar' &#125;,
+            &#123; label: 'Mercedes', value: 'Mercedes' &#125;,
+            &#123; label: 'Renault', value: 'Renault' &#125;,
+            &#123; label: 'VW', value: 'VW' &#125;,
+            &#123; label: 'Volvo', value: 'Volvo' &#125;
+        ];
+
+        this.colors = [
+            &#123; label: 'White', value: 'White' &#125;,
+            &#123; label: 'Green', value: 'Green' &#125;,
+            &#123; label: 'Silver', value: 'Silver' &#125;,
+            &#123; label: 'Black', value: 'Black' &#125;,
+            &#123; label: 'Red', value: 'Red' &#125;,
+            &#123; label: 'Maroon', value: 'Maroon' &#125;,
+            &#123; label: 'Brown', value: 'Brown' &#125;,
+            &#123; label: 'Orange', value: 'Orange' &#125;,
+            &#123; label: 'Blue', value: 'Blue' &#125;
+        ];
+
+        this.cols = [
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
+        ];
+    &#125;
+
+    onYearChange(event, dt) &#123;
+        if (this.yearTimeout) &#123;
+            clearTimeout(this.yearTimeout);
+        &#125;
+
+        this.yearTimeout = setTimeout(() => &#123;
+            dt.filter(event.value, 'year', 'gt');
+        &#125;, 250);
+    &#125;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="tablefilterdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablefilterdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        &lt;div style="text-align: right"&gt;        
+            &lt;i class="fa fa-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
+            &lt;input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field"&gt;
+                &lt;input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"&gt;
+                &lt;div *ngSwitchCase="'year'"&gt;
+                    Value &lt; &#123;&#123;yearFilter&#125;&#125;
+                    &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"&gt;&lt;/i&gt;
+                    &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"&gt;&lt;/p-slider&gt;
+                &lt;/div&gt;
+                &lt;p-dropdown *ngSwitchCase="'brand'" [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value, col.field, 'equals')"&gt;&lt;/p-dropdown&gt;
+                &lt;p-multiSelect *ngSwitchCase="'color'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"&gt;&lt;/p-multiSelect&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

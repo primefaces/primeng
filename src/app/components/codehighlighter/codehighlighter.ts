@@ -1,17 +1,17 @@
-import {NgModule,Directive,ElementRef,OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-
-declare var Prism: any;
+import { NgModule, Directive, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Directive({
     selector: '[pCode]'
 })
-export class CodeHighlighter implements OnInit {
-        
-    constructor(public el: ElementRef) {}
-    
-    ngOnInit() {
-        Prism.highlightElement(this.el.nativeElement);
+export class CodeHighlighter implements AfterViewInit {
+
+    constructor(public el: ElementRef) { }
+
+    ngAfterViewInit() {
+        if (window['Prism']) {
+            window['Prism'].highlightElement(this.el.nativeElement);
+        }
     }
 }
 

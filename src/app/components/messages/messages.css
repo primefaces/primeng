@@ -2,47 +2,24 @@
     border: 1px solid;
     margin: .5em 0;
     padding: 1em 1em 1em .5em;
-    display: none;
     position: relative;
+    display: flex;
 }
 
-.ui-messages-icon {
+.ui-messages .ui-messages-icon {
     display:inline-block;
     padding: 0;
     vertical-align: middle;
+    font-size: 2em;
 }
 
-.ui-messages-summary {
+.ui-messages .ui-messages-summary {
     font-weight: bold;
     margin-left: .25em;
 }
 
-.ui-messages-detail {
+.ui-messages .ui-messages-detail {
     margin-left: .25em;
-}
-
-.ui-messages-success {
-    color: #ffffff;
-    background-color: #4CAF50;
-    border-color: #4CAF50;
-}
-
-.ui-messages-info {
-    color: #ffffff;
-    background-color: #2196f3;
-    border-color: #2196f3;
-}
-
-.ui-messages-warn {
-    color: #ffffff;
-    background-color: #FFB300;
-    border-color: #FFB300;
-}
-
-.ui-messages-error {
-    color: #ffffff;
-    background-color: #f44336;
-    border-color: #f44336;
 }
 
 .ui-messages ul {
@@ -51,6 +28,12 @@
     list-style-type: none;
     display: inline-block;
     vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+
+.ui-messages ul > li {
+    padding: .25em;
 }
 
 .ui-messages.ui-messages-noicon ul {
@@ -58,16 +41,8 @@
 }
 
 .ui-messages .ui-messages-close {
-    color: #ffffff;
     cursor: pointer;
     position: absolute;
     top: 5px;
     right: 5px;
-}
-
-/* Message */
-.ui-message {
-    border: 1px solid;
-    margin: 0px .25em;
-    padding: .125em .25em;
 }

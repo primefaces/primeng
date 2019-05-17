@@ -4,7 +4,7 @@ import {FormsModule}    from '@angular/forms';
 import {GMapDemo} from './gmapdemo';
 import {GMapDemoRoutingModule} from './gmapdemo-routing.module';
 import {GMapModule} from '../../../components/gmap/gmap';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {CheckboxModule} from '../../../components/checkbox/checkbox';
 import {DialogModule} from '../../../components/dialog/dialog';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
@@ -18,7 +18,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         FormsModule,
 		GMapDemoRoutingModule,
         GMapModule,
-        GrowlModule,
+        ToastModule,
         InputTextModule,
         CheckboxModule,
         DialogModule,

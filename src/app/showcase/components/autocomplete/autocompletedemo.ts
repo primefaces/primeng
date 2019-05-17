@@ -57,13 +57,4 @@ export class AutoCompleteDemo {
             }
         }
     }
-    
-    handleDropdownClick() {
-        this.filteredBrands = [];
-        
-        //mimic remote call
-        setTimeout(() => {
-            this.filteredBrands = this.brands;
-        }, 100)
-    }
 }

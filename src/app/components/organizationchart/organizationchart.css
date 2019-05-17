@@ -1,6 +1,7 @@
 .ui-organizationchart .ui-organizationchart-table {
     border-spacing: 0;
     border-collapse: separate;
+    margin: 0 auto;
 }
 
 .ui-organizationchart .ui-organizationchart-table > tr > td {
@@ -21,6 +22,7 @@
     bottom: -9px;
     margin-left: -8px;
     z-index: 2;
+    left: 50%;
 }
 
 .ui-organizationchart .ui-organizationchart-line-down {

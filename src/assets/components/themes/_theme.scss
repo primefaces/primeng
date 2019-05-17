@@ -1,8 +1,11 @@
+/*
+* Deprecated: Use nova instead
+*/
 @mixin hover-element() {
     border-color: $stateHoverBorderColor;
-    background: $stateHoverBgColor;
+    background-color: $stateHoverBgColor;
     color: $stateHoverTextColor;
-    
+
     a {
         color: $stateHoverTextColor;
     }
@@ -10,66 +13,70 @@
 
 @mixin icon-override($icon) {
     background: none !important;
+    font-family: 'primeicons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
     display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-indent: 0px !important;
     text-align: center;
-    
+
     &:before {
         content: $icon;
     }
 }
 
-.ui-widget { 
-    font-family:  $fontFamily; 
-    font-size: $fontSize; 
-    
+.ui-widget {
+    font-family:  $fontFamily;
+    font-size: $fontSize;
+
     input, select, textarea, button {
-        font-family:  $fontFamily; 
-        font-size: $fontSize; 
+        font-family:  $fontFamily;
+        font-size: $fontSize;
     }
-    
+
     :active {
         outline: none;
     }
 }
 
-.ui-widget-content { 
-    border: $contentBorderWidth solid $contentBorderColor; 
-    background: $contentBgColor; 
+.ui-widget-content {
+    border: $contentBorderWidth solid $contentBorderColor;
+    background-color: $contentBgColor;
     color: $contentTextColor;
-    
+
     a {
         color: $contentTextColor;
     }
 }
 
 .ui-widget-header {
-    border: $headerBorderWidth solid $headerBorderColor; 
-    background: $headerBgColor; 
-    color: $headerTextColor; 
-    font-weight: $headerFontWeight; 
-    
+    border: $headerBorderWidth solid $headerBorderColor;
+    background-color: $headerBgColor;
+    color: $headerTextColor;
+    font-weight: $headerFontWeight;
+
     a {
-        color: $headerTextColor; 
+        color: $headerTextColor;
     }
 }
 
-.ui-widget-overlay { 
-    background: #666666; 
-    opacity: .50; 
-    filter:Alpha(Opacity=50); 
+.ui-widget-overlay {
+    background-color: #666666;
+    opacity: .50;
+    filter:Alpha(Opacity=50);
 }
 
-.ui-state-default { 
-    border: $stateDefaultBorderWidth solid $stateDefaultBorderColor; 
-    background: $stateDefaultBgColor; 
+.ui-state-default {
+    border: $stateDefaultBorderWidth solid $stateDefaultBorderColor;
+    background-color: $stateDefaultBgColor;
     color: $stateDefaultTextColor;
-    
+
     a {
         color: $stateDefaultTextColor ;
     }
@@ -77,9 +84,9 @@
 
 .ui-state-active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor; 
-    color: $stateActiveTextColor; 
-    
+    background-color: $stateActiveBgColor;
+    color: $stateActiveTextColor;
+
     a {
         color: $stateActiveTextColor;
     }
@@ -87,9 +94,9 @@
 
 .ui-state-highlight  {
     border-color: $stateHighlightBorderColor;
-    background: $stateHighlightBgColor;
+    background-color: $stateHighlightBgColor;
     color: $stateHighlightTextColor;
-    
+
     a {
         color: $stateHighlightTextColor;
     }
@@ -97,9 +104,9 @@
 
 .ui-state-focus {
     border-color: $stateFocusBorderColor;
-    background: $stateFocusBgColor;
+    background-color: $stateFocusBgColor;
     color: $stateFocusTextColor;
-    
+
     a {
         color: $stateFocusTextColor;
     }
@@ -107,9 +114,9 @@
 
 .ui-state-error {
     border-color: $stateErrorBorderColor;
-    background: $stateErrorBgColor;
+    background-color: $stateErrorBgColor;
     color: $stateErrorTextColor;
-    
+
     a {
         color: $stateErrorTextColor;
     }
@@ -117,11 +124,11 @@
 
 .ui-state-disabled,
 .ui-widget:disabled {
-    opacity: $disabledOpacity; 
-    filter: Alpha(Opacity= $disabledOpacity * 100); 
-    background-image: none; 
+    opacity: $disabledOpacity;
+    filter: Alpha(Opacity= $disabledOpacity * 100);
+    background-image: none;
     cursor: default !important;
-    
+
     * {
         cursor: default !important;
     }
@@ -129,7 +136,7 @@
 
 /* Forms */
 .ui-inputtext {
-    background: $inputBgColor;
+    background-color: $inputBgColor;
     color: $inputTextColor;
 }
 
@@ -151,24 +158,24 @@
         border-color: $stateDefaultBorderColor;
         background-color: lighten($stateDefaultBorderColor, 10%);
         color: $inputGroupTextColor;
-        
+
         &:first-child {
             border-top-left-radius: $borderRadius;
             border-bottom-left-radius: $borderRadius;
         }
-        
+
         &:last-child {
             border-top-right-radius: $borderRadius;
             border-bottom-right-radius: $borderRadius;
         }
     }
-    
+
     .ui-button {
         &:first-child {
             border-top-left-radius: $borderRadius;
             border-bottom-left-radius: $borderRadius;
         }
-        
+
         &:last-child {
             border-top-right-radius: $borderRadius;
             border-bottom-right-radius: $borderRadius;
@@ -185,10 +192,10 @@
         &:hover {
             border-color: $stateHoverBorderColor;
         }
-        
+
         &.ui-state-focus {
             border-color: $stateFocusBorderColor;
-            
+
         }
     }
 }
@@ -198,7 +205,7 @@
         &:hover {
             border-color: $stateHoverBorderColor;
         }
-        
+
         &.ui-state-focus {
             border-color: $stateFocusBorderColor;
         }
@@ -215,7 +222,7 @@
 .ui-button:enabled:active,
 .ui-fileupload-choose:not(.ui-state-disabled):active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor; 
+    background-color: $stateActiveBgColor;
     color: $stateActiveTextColor;
 }
 
@@ -227,11 +234,15 @@
     @include hover-element();
 }
 
+.ui-dropdown .ui-dropdown-clear-icon {
+    color: lighten($inputTextColor, 40%);
+}
+
 .ui-dropdown:not(.ui-state-disabled):hover {
     @include hover-element();
 }
 
-.ui-dropdown-panel .ui-dropdown-item:not(.ui-state-highlight):hover {
+.ui-dropdown-panel .ui-dropdown-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
     @include hover-element();
 }
 
@@ -243,17 +254,22 @@
             }
         }
     }
-    
+
     &:not(.ui-state-disabled) {
-        .ui-listbox-item:not(.ui-state-highlight):hover {
+        .ui-listbox-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
             @include hover-element();
         }
+
+        .ui-listbox-item.ui-state-disabled .ui-chkbox-box:hover {
+            background-color: $inputBgColor;
+            border-color: $stateDefaultBorderColor;
+        }
     }
-    
+
     &.ui-state-disabled {
         .ui-chkbox-box:not(.ui-state-active):hover {
-            border-color: $stateDefaultBorderColor; 
-            background: $stateDefaultBgColor; 
+            border-color: $stateDefaultBorderColor;
+            background-color: $stateDefaultBgColor;
             color: $stateDefaultTextColor;
         }
     }
@@ -263,8 +279,13 @@
     @include hover-element();
 }
 
-.ui-multiselect-panel .ui-multiselect-item:not(.ui-state-highlight):hover {
+.ui-multiselect-panel .ui-multiselect-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
     @include hover-element();
+}
+
+.ui-multiselect-panel .ui-multiselect-item.ui-state-disabled:hover .ui-chkbox-box {
+    background-color: $inputBgColor;
+    border-color: $stateDefaultBorderColor;
 }
 
 .ui-multiselect-panel .ui-multiselect-close {
@@ -281,7 +302,7 @@
 
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor; 
+    background-color: $stateActiveBgColor;
     color: $stateActiveTextColor;
 }
 
@@ -305,20 +326,20 @@
     .ui-rowgroup-header a {
         color: $headerTextColor;
     }
-    
+
     .ui-sortable-column:not(.ui-state-active):hover {
-        background: $stateHoverBgColor;
+        background-color: $stateHoverBgColor;
         color: $stateHoverTextColor;
     }
-    
+
     .ui-row-toggler {
         color: $contentTextColor;
     }
-    
+
     tbody.ui-datatable-hoverable-rows {
         > tr.ui-widget-content:not(.ui-state-highlight):hover {
             cursor: pointer;
-            background: $stateHoverBgColor;
+            background-color: $stateHoverBgColor;
             color: $stateHoverTextColor;
         }
     }
@@ -331,24 +352,24 @@
 }
 
 .ui-picklist {
-    .ui-picklist-item:not(.ui-state-highlight):hover {
+    .ui-picklist-item:not(.ui-state-disabled):not(.ui-state-highlight):hover {
         @include hover-element();
     }
-    
+
     .ui-picklist-droppoint-highlight {
         border-color: $stateHighlightBorderColor;
-        background: $stateHighlightBgColor;
+        background-color: $stateHighlightBgColor;
         color: darken($contentTextColor,1%);
-        
+
         a {
             color: darken($contentTextColor,1%);
         }
     }
-    
+
     .ui-picklist-highlight {
         border-color: $stateHighlightBorderColor;
         color: darken($contentTextColor,1%);
-        
+
         a {
             color: darken($contentTextColor,1%);
         }
@@ -359,38 +380,31 @@
     &.ui-treenode-dragover {
         border-color: $stateHighlightBorderColor;
     }
-    
+
     .ui-treenode-content {
         &.ui-treenode-selectable {
             .ui-treenode-label:not(.ui-state-highlight):hover {
                 @include hover-element();
             }
         }
-        
+
         &.ui-treenode-dragover {
-            background: $stateActiveBgColor;
+            background-color: $stateActiveBgColor;
             color: $stateActiveTextColor;
         }
     }
-    
+
     &.ui-tree-horizontal {
         .ui-treenode-content.ui-treenode-selectable {
             .ui-treenode-label:not(.ui-state-highlight):hover {
                 background-color: inherit;
                 color: inherit;
             }
-            
+
             &:not(.ui-state-highlight):hover {
                 @include hover-element();
             }
         }
-    }
-}
-
-.ui-treetable {
-    .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
-        background: $stateHoverBgColor;
-        color: $stateHoverTextColor;
     }
 }
 
@@ -425,8 +439,8 @@
 }
 
 .ui-tabview {
-    .ui-tabview-nav {        
-        li {            
+    .ui-tabview-nav {
+        li {
             &:not(.ui-state-active):not(.ui-state-disabled):hover {
                 @include hover-element();
             }
@@ -437,7 +451,17 @@
 .ui-dialog {
     .ui-dialog-titlebar-icon {
         color: $headerTextColor;
-        
+
+        &:hover {
+            @include hover-element();
+        }
+    }
+}
+
+.ui-sidebar {
+    .ui-sidebar-close {
+        color: $headerTextColor;
+
         &:hover {
             @include hover-element();
         }
@@ -462,22 +486,20 @@
     }
 }
 
-.ui-menu {
-    .ui-menuitem {
-        .ui-menuitem-link {
-            color: $contentTextColor;
+.ui-menuitem {
+    .ui-menuitem-link {
+        color: $contentTextColor;
 
-            &:hover {
-                @include hover-element();
-                border-color: transparent;
-            }
+        &:hover {
+            @include hover-element();
+            border-color: transparent;
         }
-        
-        &.ui-menuitem-active {
-            > .ui-menuitem-link {
-                @include hover-element();
-                border-color: transparent;
-            }
+    }
+
+    &.ui-menuitem-active {
+        > .ui-menuitem-link {
+            @include hover-element();
+            border-color: transparent;
         }
     }
 }
@@ -501,23 +523,23 @@
         &:not(.ui-state-active):hover {
             @include hover-element();
             border-color: $stateDefaultBorderColor;
-            
+
             a {
                 color: $stateHoverTextColor;
             }
         }
-        
+
         &.ui-state-active {
             a {
                 color: $stateActiveTextColor;
             }
         }
     }
-    
+
     .ui-panelmenu-content {
         .ui-menuitem-link {
             color: $contentTextColor;
-            
+
             &:hover {
                 @include hover-element();
                 border-color: transparent;
@@ -530,18 +552,24 @@
     .ui-datepicker-header {
         a {
             color: $headerTextColor;
-            
+
             &:hover {
                 @include hover-element();
             }
         }
     }
-    
+
     .ui-datepicker-calendar {
         td:not(.ui-state-disabled) {
             a:hover {
                 @include hover-element();
-            }            
+            }
+        }
+    }
+
+    .ui-monthpicker {
+        .ui-monthpicker-month:hover {
+            @include hover-element();
         }
     }
 }
@@ -551,14 +579,14 @@
         .fc-prev-button {
             .ui-icon-circle-triangle-w {
                 margin-top: .3em;
-                @include icon_override("\f053");
+                @include icon_override("\e900");
             }
         }
-        
+
         .fc-next-button {
             .ui-icon-circle-triangle-e {
                 margin-top: .3em;
-                @include icon_override("\f054");
+                @include icon_override("\e901");
             }
         }
     }
@@ -574,33 +602,236 @@
     .ui-organizationchart-line-down {
         background-color: darken($contentBorderColor, 10%);
     }
-    
+
     .ui-organizationchart-line-left {
         border-right: 1px solid darken($contentBorderColor, 10%);
     }
-    
-    .ui-organizationchart-line-right {
-        
-    }
-    
+
     .ui-organizationchart-line-top {
         border-top: 1px solid darken($contentBorderColor, 10%);
     }
-    
+
     .ui-organizationchart-node-content {
         border-color: darken($contentBorderColor, 10%);
     }
-    
+
     .ui-organizationchart-node-content .ui-node-toggler {
         color: darken($contentBorderColor, 10%);
     }
-} 
+}
+
+/* TurboTable */
+.ui-table {
+    .ui-table-thead > tr > th,
+    .ui-table-tfoot > tr > td {
+        background-color: $headerBgColor;
+        border: 1px solid $headerBorderColor;
+        color: $headerTextColor;
+    }
+
+    .ui-table-tbody > tr {
+        background-color: $contentBgColor;
+        color: $contentTextColor;
+
+        > td {
+            border: 1px solid $contentBorderColor;
+            background-color: inherit;
+        }
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+        }
+
+        &.ui-contextmenu-selected {
+            background-color: lighten($stateHighlightBgColor, 20%);
+            color: $stateHighlightTextColor;
+        }
+    }
+
+    .ui-sortable-column {
+        .ui-sortable-column-icon {
+            color: $headerTextColor;
+        }
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHighlightTextColor;
+            }
+        }
+
+        &:not(.ui-state-highlight):hover {
+            background-color: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHoverTextColor;
+            }
+        }
+    }
+
+    &.ui-table-hoverable-rows {
+        .ui-table-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+            cursor: pointer;
+            background-color: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+        }
+    }
+}
+
+@media ( max-width: 35em ) {
+    .ui-table-responsive .ui-table-tbody > tr {
+        border-top: 1px solid $contentBorderColor;
+        border-bottom: 1px solid $contentBorderColor;
+    }
+}
+
+/* Row Reorder */
+.ui-table .ui-table-tbody > tr.ui-table-dragpoint-top > td {
+    box-shadow: inset 0 2px 0 0 $stateHighlightBgColor;
+}
+
+.ui-table .ui-table-tbody > tr.ui-table-dragpoint-bottom > td {
+    box-shadow: inset 0 -2px 0 0 $stateHighlightBgColor;
+}
+
+/* TurboTable */
+.ui-treetable {
+    .ui-treetable-thead > tr > th,
+    .ui-treetable-tfoot > tr > td {
+        background-color: $headerBgColor;
+        border: 1px solid $headerBorderColor;
+        color: $headerTextColor;
+    }
+
+    .ui-treetable-tbody > tr {
+        background-color: $contentBgColor;
+        color: $contentTextColor;
+
+        > td {
+            border: 1px solid $contentBorderColor;
+            background-color: inherit;
+        }
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+
+            .ui-treetable-toggler {
+                color: $stateHighlightTextColor;
+            }
+        }
+
+        &.ui-contextmenu-selected {
+            background-color: lighten($stateHighlightBgColor, 20%);
+            color: $stateHighlightTextColor;
+
+            .ui-treetable-toggler {
+                color: $stateHighlightTextColor;
+            }
+        }
+
+        .ui-treetable-toggler {
+            color: $contentTextColor;
+        }
+    }
+
+    .ui-sortable-column {
+        .ui-sortable-column-icon {
+            color: $headerTextColor;
+        }
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHighlightTextColor;
+            }
+        }
+
+        &:not(.ui-state-highlight):hover {
+            background-color: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+
+            .ui-sortable-column-icon {
+                color: $stateHoverTextColor;
+            }
+        }
+    }
+
+    &.ui-treetable-hoverable-rows {
+        .ui-treetable-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+            cursor: pointer;
+            background-color: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+        }
+    }
+}
+
+@media ( max-width: 35em ) {
+    .ui-treetable-responsive .ui-treetable-tbody > tr {
+        border-top: 1px solid $contentBorderColor;
+        border-bottom: 1px solid $contentBorderColor;
+    }
+}
+
+/* Row Reorder */
+.ui-treetable .ui-treetable-tbody > tr.ui-treetable-dragpoint-top > td {
+    box-shadow: inset 0 2px 0 0 $stateHighlightBgColor;
+}
+
+.ui-treetable .ui-treetable-tbody > tr.ui-treetable-dragpoint-bottom > td {
+    box-shadow: inset 0 -2px 0 0 $stateHighlightBgColor;
+}
+
+/* InputSwitch */
+.ui-inputswitch {
+    .ui-inputswitch-slider {
+        -webkit-transition: background-color .3s, box-shadow .2s;
+        transition: background-color .3s, box-shadow .2s;
+        background: #cccccc; 
+    
+        &:before {
+            background-color: #ffffff;
+        }
+    }
+
+    &.ui-inputswitch-focus {
+        .ui-inputswitch-slider {
+            -moz-box-shadow: 0px 0px 5px $stateFocusBorderColor;
+            -webkit-box-shadow: 0px 0px 5px $stateFocusBorderColor;
+            box-shadow: 0px 0px 5px $stateFocusBorderColor;
+        } 
+    }
+
+    &:not(.ui-state-disabled):hover {
+        .ui-inputswitch-slider {
+            background-color: #b7b7b7;
+        }
+    }
+
+    &.ui-inputswitch-checked {
+        .ui-inputswitch-slider {
+            background-color: #186ba0;
+        }
+
+        &:not(.ui-state-disabled):hover {
+            .ui-inputswitch-slider {
+                background-color: darken(#186ba0, 10%);
+            }
+        }
+    }
+}
 
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
-p-calendar.ng-dirty.ng-invalid > .ui-inputtext,
+p-calendar.ng-dirty.ng-invalid > .ui-calendar > .ui-inputtext,
 p-chips.ng-dirty.ng-invalid > .ui-inputtext,
 p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
 p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,

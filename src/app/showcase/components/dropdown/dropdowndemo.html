@@ -7,15 +7,19 @@
 
 <div class="content-section implementation">
     <h3 class="first">Single</h3>
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City"></p-dropdown>
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Editable</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" editable="editable" placeholder="Select a Brand"></p-dropdown>
-    <p>Selected Car: {{selectedCar||'none'}}</p>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand"></p-dropdown>
+    <p>Selected Car: {{selectedCar1 || 'none'}}</p>
     
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="filter">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true">
+        <ng-template let-item pTemplate="selectedItem">
+            <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
+            <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+        </ng-template>
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                 <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;position:absolute;top:1px;left:5px"/>
@@ -23,46 +27,89 @@
             </div>
         </ng-template>
     </p-dropdown>
-    <p>Selected Car: {{selectedCar2||'none'}}</p>
+    <p>Selected Car: {{selectedCar2 || 'none'}}</p>
+
+    <h3>Group</h3>
+    <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car" [group]="true">
+        <ng-template let-group pTemplate="group">
+            <img src="assets/showcase/images/demo/flag/{{group.value}}" style="width:20px;vertical-align:middle" />
+            <span style="margin-left:.25em">{{group.label}}</span>
+        </ng-template>
+    </p-dropdown>
+    <p>Selected Car: {{selectedCar3 || 'none'}}</p>
+
+    <h3>Virtual Scroll (10000 Items)</h3>
+    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
+            <h3>CDK</h3>
+            <p>VirtualScrolling enabled Dropdown depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install @angular/cdk --save
+</code>
+</pre>
+
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;DropdownModule&#125; from 'primeng/primeng';
+import &#123;DropdownModule&#125; from 'primeng/dropdown';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using ngModel and dropdown requires a collection of options 
-                where each option should follow the SelectItem interface that defines label-value properties.</p>
+            <p>Dropdown requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
+            instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how 
+            the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-dropdown&gt;
+
+&lt;p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/primeng';
+import &#123;SelectItem&#125; from 'primeng/api';
+
+interface City &#123;
+  name: string;
+  code: string;
+&#125;
 
 export class MyModel &#123;
 
-    cities: SelectItem[];
+    cities1: SelectItem[];
+    
+    cities2: City[];
 
-    selectedCity: string;
+    selectedCity1: City;
+    
+    selectedCity2: City;
 
     constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'Select City', value:null&#125;);
-        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;);
-        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;});
-        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;});
-        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;});
-        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;);
+        //SelectItem API with label-value pairs
+        this.cities1 = [
+            &#123;label:'Select City', value:null&#125;,
+            &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
+            &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
+            &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
+            &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;,
+            &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
+        ];
+        
+        //An array of cities
+        this.cities2 = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
     &#125;
 
 &#125;
@@ -87,16 +134,77 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Grouping</h3>
+            <p>Displaying options as grouped is enabled by providing a collection of SelectItemGroup instances and setting group property to true.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar" placeholder="Select a Car" [group]="true"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;SelectItem&#125; from 'primeng/api';
+import &#123;SelectItemGroup&#125; from 'primeng/api';
+
+export class GroupDemo &#123;
+    
+    selectedCar: string;
+
+    groupedCars: SelectItemGroup[];
+
+    constructor() &#123;
+        this.groupedCars = [
+            &#123;
+                label: 'Germany', 
+                items: [
+                    &#123;label: 'Audi', value: 'Audi'&#125;,
+                    &#123;label: 'BMW', value: 'BMW'&#125;,
+                    &#123;label: 'Mercedes', value: 'Mercedes'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'USA', 
+                items: [
+                    &#123;label: 'Cadillac', value: 'Cadillac'&#125;,
+                    &#123;label: 'Ford', value: 'Ford'&#125;,
+                    &#123;label: 'GMC', value: 'GMC'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Japan', 
+                items: [
+                    &#123;label: 'Honda', value: 'Honda'&#125;,
+                    &#123;label: 'Mazda', value: 'Mazda'&#125;,
+                    &#123;label: 'Toyota', value: 'Toyota'&#125;
+                ]
+            &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Disabled Options</h3>
+            <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
+
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template that gets the SelectItem as the local ng-template variable.</p>
+            <p>Both the selected option and the options list can be templated to provide customization on the default behavior which is displaying label property of an option. Use
+                "selectedItem" template to customize the selected label display and the "item" template to change the content of the options in the dropdown panel. In addition when grouping is enabled, "group" template is available 
+                to customize the option groups. All templates get the option instance as the default local template variable. If the options are custom objects not SelectItem instances, use value property to access the custom object.
+            </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;"&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
-        &lt;/div&gt;
+     &lt;ng-template let-item pTemplate="selectedItem"&gt; 
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt; 
+        &lt;span style="vertical-align:middle"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
+    &lt;/ng-template&gt; 
+    &lt;ng-template let-car pTemplate="item"&gt; 
+        &lt;div class="ui-helper-clearfix" style="position: relative;height:25px;"&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;position:absolute;top:1px;left:5px"/&gt; 
+        &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt; &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 </code>
@@ -104,7 +212,7 @@ export class MyModel &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/primeng'
+import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
 
@@ -113,22 +221,40 @@ export class MyModel &#123;
     selectedCar: string;
 
     constructor() &#123;
-        this.cars = [];
-        this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
-        this.cars.push(&#123;label: 'BMW', value: 'BMW'&#125;);
-        this.cars.push(&#123;label: 'Fiat', value: 'Fiat'&#125;);
-        this.cars.push(&#123;label: 'Ford', value: 'Ford'&#125;);
-        this.cars.push(&#123;label: 'Honda', value: 'Honda'&#125;);
-        this.cars.push(&#123;label: 'Jaguar', value: 'Jaguar'&#125;);
-        this.cars.push(&#123;label: 'Mercedes', value: 'Mercedes'&#125;);
-        this.cars.push(&#123;label: 'Renault', value: 'Renault'&#125;);
-        this.cars.push(&#123;label: 'VW', value: 'VW'&#125;);
-        this.cars.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
+        this.cars = [
+            &#123;label: 'Audi', value: 'Audi'&#125;,
+            &#123;label: 'BMW', value: 'BMW'&#125;,
+            &#123;label: 'Fiat', value: 'Fiat'&#125;,
+            &#123;label: 'Ford', value: 'Ford'&#125;,
+            &#123;label: 'Honda', value: 'Honda'&#125;,
+            &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
+            &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
+            &#123;label: 'Renault', value: 'Renault'&#125;,
+            &#123;label: 'VW', value: 'VW'&#125;,
+            &#123;label: 'Volvo', value: 'Volvo'&#125;,
+        ];
     &#125;
 &#125;
 </code>
 </pre>
 
+            <h3>Virtual Scrolling</h3>
+            <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
+                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. </p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown [options]="cities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
+            <h3>Animation Configuration</h3>
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+                example below disables the animations altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -145,7 +271,19 @@ export class MyModel &#123;
                             <td>options</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>An array of selectitems to display as the available options.</td>
+                            <td>An array of objects to display as the available options.</td>
+                        </tr>
+                        <tr>
+                            <td>optionLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the input element.</td>
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
@@ -186,7 +324,7 @@ export class MyModel &#123;
                         <tr>
                             <td>filterBy</td>
                             <td>string</td>
-                            <td>null</td>
+                            <td>label</td>
                             <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
                         </tr>
                         <tr>
@@ -194,12 +332,6 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Placeholder text to show when filter input is empty.</td>
-                        </tr>
-                        <tr>
-                            <td>autoWidth</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Calculates the width based on options width, set to false for custom width.</td>
                         </tr>
                         <tr>
                             <td>required</td>
@@ -212,6 +344,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the component should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>readonly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component cannot be edited.</td>
                         </tr>
                         <tr>
                             <td>editable</td>
@@ -241,7 +379,13 @@ export class MyModel &#123;
                             <td>inputId</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Identifier of the focus input to match a label defined for the dropdown.</td>
+                            <td>Identifier of the accessible input element.</td>
+                        </tr>
+                        <tr>
+                            <td>selectId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the native element.</td>
                         </tr>
                         <tr>
                             <td>dataKey</td>
@@ -250,16 +394,76 @@ export class MyModel &#123;
                             <td>A property to uniquely identify a value in options.</td>
                         </tr>
                         <tr>
-                            <td>lazy</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>When enabled, creates the dom for options when overlay panel gets visible.</td>
-                        </tr>
-                        <tr>
                             <td>autofocus</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the component should automatically get focus on load.</td>
+                        </tr>
+                        <tr>
+                            <td>resetFilterOnHide</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Clears the filter value when hiding the dropdown.</td>
+                        </tr>
+                        <tr>
+                            <td>dropdownIcon</td>
+                            <td>string</td>
+                            <td>pi pi-chevron-down</td>
+                            <td>Icon class of the dropdown icon.</td>
+                        </tr>
+                        <tr>
+                            <td>emptyFilterMessage</td>
+                            <td>string</td>
+                            <td>No results found</td>
+                            <td>Text to display when filtering does not return any results.</td>
+                        </tr>
+                        <tr>
+                            <td>autoDisplayFirst</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to display the first item as the label if no placeholder is defined and value is null.</td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display options as grouped when nested options are provided.</td>
+                        </tr>
+                        <tr>
+                            <td>showClear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                        </tr>
+                        <tr>
+                            <td>baseZIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Base zIndex value to use in layering.</td>
+                        </tr>
+                        <tr>
+                            <td>autoZIndex</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to automatically manage layering.</td>
+                        </tr>
+                        <tr>
+                            <td>showTransitionOptions</td>
+                            <td>string</td>
+                            <td>225ms ease-out</td>
+                            <td>Transition options of the show animation.</td>
+                        </tr>
+                        <tr>
+                            <td>hideTransitionOptions</td>
+                            <td>string</td>
+                            <td>195ms ease-in</td>
+                            <td>Transition options of the hide animation.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaFilterLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the filter input.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -277,6 +481,11 @@ export class MyModel &#123;
                     </thead>
                     <tbody>
                         <tr>
+                            <td>onClick</td>
+                            <td>event: Click event</td>
+                            <td>Callback to invoke when component is clicked.</td>
+                        </tr>
+                        <tr>
                             <td>onChange</td>
                             <td>event.originalEvent: Browser event<br />
                                 event.value: Selected option value
@@ -292,6 +501,16 @@ export class MyModel &#123;
                             <td>onBlur</td>
                             <td>event: Browser event</td>
                             <td>Callback to invoke when dropdown loses focus.</td>
+                        </tr>
+                        <tr>
+                            <td>onShow</td>
+                            <td>event: Animation event</td>
+                            <td>Callback to invoke when dropdown overlay gets visible.</td>
+                        </tr>
+                        <tr>
+                            <td>onHide</td>
+                            <td>event: Animation event</td>
+                            <td>Callback to invoke when dropdown overlay gets hidden.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -313,9 +532,29 @@ export class MyModel &#123;
                             <td>-</td>
                             <td>Resets filtering.</td>
                         </tr>
+                        <tr>
+                            <td>focus</td>
+                            <td>-</td>
+                            <td>Applies focus.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown #dd [options]="cars" [(ngModel)]="selectedCar" filter="true"&gt;&lt;/p-dropdown&gt;
+&lt;button type="button" pButton label="Clear" (click)="clearFilter(dd)"&gt;&lt;/button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+clearFilter(dropdown: Dropdown) &#123;
+    dropdown.resetFilter();
+&#125;
+</code>
+</pre>
 
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
@@ -331,6 +570,10 @@ export class MyModel &#123;
                         <tr>
                             <td>ui-dropdown</td>
                             <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dropdown-clearable</td>
+                            <td>Container element when showClear is on.</td>
                         </tr>
                         <tr>
                             <td>ui-dropdown-label</td>
@@ -384,23 +627,39 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected City: {{selectedCity ? selectedCity.name : 'none'}}&lt;/p&gt;
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
+&lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Editable&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;" editable="editable" placeholder="Select a Brand"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand"&gt;&lt;/p-dropdown&gt;
+&lt;p&gt;Selected Car: &#123;&#123;selectedCar1 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Content with Filters&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="filter"&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true"&gt;
+    &lt;ng-template let-item pTemplate="selectedItem"&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
+        &lt;span style="vertical-align:middle; margin-left: .5em"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
+            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: {{selectedCar2||'none'}}&lt;/p&gt;
+&lt;p&gt;Selected Car: &#123;&#123;selectedCar2 || 'none'&#125;&#125;&lt;/p&gt;
+
+&lt;h3&gt;Group&lt;/h3&gt;
+&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car" [group]="true"&gt;
+    &lt;ng-template let-group pTemplate="group"&gt;
+        &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;group.value&#125;&#125;" style="width:20px;vertical-align:middle" /&gt;
+        &lt;span style="margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dropdown&gt;
+&lt;p&gt;Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;&lt;/p&gt;
+
+&lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
+&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -408,35 +667,77 @@ export class MyModel &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class DropdownDemo &#123;
 
-    cities: SelectItem[];
+    cities: City[];
 
-    selectedCity: any;
+    selectedCity: City;
 
     cars: SelectItem[];
 
-    selectedCar: string;
-    
+    selectedCar1: string;
+
     selectedCar2: string = 'BMW';
+    
+    selectedCar3: string;
+
+    groupedCars: SelectItemGroup[];
+
+    items: SelectItem[];
+
+    item: string;
 
     constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;);
-        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;);
-        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;);
-        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;);
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
 
-        this.cars = [];
-        this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
-        this.cars.push(&#123;label: 'BMW', value: 'BMW'&#125;);
-        this.cars.push(&#123;label: 'Fiat', value: 'Fiat'&#125;);
-        this.cars.push(&#123;label: 'Ford', value: 'Ford'&#125;);
-        this.cars.push(&#123;label: 'Honda', value: 'Honda'&#125;);
-        this.cars.push(&#123;label: 'Jaguar', value: 'Jaguar'&#125;);
-        this.cars.push(&#123;label: 'Mercedes', value: 'Mercedes'&#125;);
-        this.cars.push(&#123;label: 'Renault', value: 'Renault'&#125;);
-        this.cars.push(&#123;label: 'VW', value: 'VW'&#125;);
-        this.cars.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
+        this.cars = [
+            &#123;label: 'Audi', value: 'Audi'&#125;,
+            &#123;label: 'BMW', value: 'BMW'&#125;,
+            &#123;label: 'Fiat', value: 'Fiat'&#125;,
+            &#123;label: 'Ford', value: 'Ford'&#125;,
+            &#123;label: 'Honda', value: 'Honda'&#125;,
+            &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
+            &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
+            &#123;label: 'Renault', value: 'Renault'&#125;,
+            &#123;label: 'VW', value: 'VW'&#125;,
+            &#123;label: 'Volvo', value: 'Volvo'&#125;
+        ];
+
+        this.groupedCars = [
+            &#123;
+                label: 'Germany', value: 'germany.png', 
+                items: [
+                    &#123;label: 'Audi', value: 'Audi'&#125;,
+                    &#123;label: 'BMW', value: 'BMW'&#125;,
+                    &#123;label: 'Mercedes', value: 'Mercedes'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'USA', value: 'usa.png', 
+                items: [
+                    &#123;label: 'Cadillac', value: 'Cadillac'&#125;,
+                    &#123;label: 'Ford', value: 'Ford'&#125;,
+                    &#123;label: 'GMC', value: 'GMC'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Japan', value: 'japan.png', 
+                items: [
+                    &#123;label: 'Honda', value: 'Honda'&#125;,
+                    &#123;label: 'Mazda', value: 'Mazda'&#125;,
+                    &#123;label: 'Toyota', value: 'Toyota'&#125;
+                ]
+            &#125;
+        ];
+
+        this.items = [];
+        for (let i = 0; i &lt; 10000; i++) &#123;
+            this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
+        &#125;
     &#125;
 &#125;
 </code>

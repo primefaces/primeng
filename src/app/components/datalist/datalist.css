@@ -12,10 +12,6 @@
     border-top: 0 none;
 }
 
-.ui-datalist .ui-paginator {
-    border-top: 0 none;
-}
-
 .ui-datalist .ui-datalist-data {
     margin: 0;
     padding: 0;
@@ -32,4 +28,12 @@
 
 .ui-datalist.ui-datalist-scrollable .ui-datalist-content {
     overflow: auto;
+}
+
+.ui-datalist .ui-paginator-top {
+    border-bottom: 0 none;
+}
+
+.ui-datalist .ui-paginator-bottom {
+    border-top: 0 none;
 }

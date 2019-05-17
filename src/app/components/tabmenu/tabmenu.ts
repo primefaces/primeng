@@ -1,8 +1,7 @@
-import {NgModule,Component,ElementRef,Input,Output} from '@angular/core';
+import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
-import {Location} from '@angular/common';
+import {PrimeTemplate} from '../common/shared';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -10,29 +9,35 @@ import {RouterModule} from '@angular/router';
     template: `
         <div [ngClass]="'ui-tabmenu ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
             <ul class="ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
-                <li *ngFor="let item of model" 
+                <li *ngFor="let item of model; let i = index"
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,'ui-state-disabled':item.disabled,
-                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item}">
+                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item,'ui-helper-hidden': item.visible === false}"
+                        [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
-                        [attr.target]="item.target" [attr.title]="item.title">
-                        <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
-                        <span class="ui-menuitem-text">{{item.label}}</span>
+                        [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id">
+                        <ng-container *ngIf="!itemTemplate">
+                            <span class="ui-menuitem-icon " [ngClass]="item.icon" *ngIf="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </ng-container>
+                        <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                     </a>
-                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'"  [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
-                        [attr.target]="item.target" [attr.title]="item.title">
-                        <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
-                        <span class="ui-menuitem-text">{{item.label}}</span>
+                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
+                        [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id">
+                        <ng-container *ngIf="!itemTemplate">
+                            <span class="ui-menuitem-icon " [ngClass]="item.icon" *ngIf="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </ng-container>
+                        <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                     </a>
                 </li>
             </ul>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
-export class TabMenu {
+export class TabMenu implements AfterContentInit {
 
     @Input() model: MenuItem[];
-    
+
     @Input() activeItem: MenuItem;
 
     @Input() popup: boolean;
@@ -40,30 +45,42 @@ export class TabMenu {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    itemTemplate: TemplateRef<any>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
                 
-    ngOnInit() {
-        if(!this.activeItem && this.model && this.model.length) {
-            this.activeItem = this.model[0];
-        }
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
-    
+
     itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-        
-        if(item.command) {            
+
+        if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         this.activeItem = item;
     }
 }

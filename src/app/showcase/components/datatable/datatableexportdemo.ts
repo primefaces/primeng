@@ -8,6 +8,8 @@ import {CarService} from '../../service/carservice';
 export class DataTableExportDemo implements OnInit {
 
     cars: Car[];
+    
+    selectedCars: Car[];
 
     constructor(private carService: CarService) { }
 

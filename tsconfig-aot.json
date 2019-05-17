@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "./components",
+    "outDir": "components",
+    "rootDir": "src/app/components",
     "target": "es5",
     "module": "es2015",
     "baseUrl": "src",
@@ -18,6 +19,7 @@
   ],
   "angularCompilerOptions": {
    "genDir": "aot",
-   "skipMetadataEmit" : false
+   "skipMetadataEmit" : false,
+   "fullTemplateTypeCheck": true
  }
 }

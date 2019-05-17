@@ -1,84 +1,113 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Theming</span>
-        <span>Create your own PrimeNG experience</span>
+        <span>Choose from a variety of premium themes or develop your own theme using PrimeNG Theme Designer API.</span>
     </div>
 </div>
 
 <div class="content-section documentation">
-    <h3 style="margin-top:0px">Structural CSS</h3>
-    <p>These style classes define the skeleton of the components and include css properties such as margin, padding, display type, dimensions and positioning.
-    Refer to documentation of each component for the list of structural classes per component.</p>
-
-    <h3>Skinning CSS</h3>
-    <p>Skinning defines the look and feel properties like colors, border colors, background images.</p>
-
-    <div class="doc-tablewrapper">
-        <table class="doc-table">
-            <thead>
-                <tr>
-                    <th>Style Class</th>
-                    <th>Applies</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>ui-widget</td>
-                    <td>All PrimeNG components</td>
-                </tr>
-                <tr>
-                    <td>ui-widget-header</td>
-                    <td>Header section of a component</td>
-                </tr>
-                <tr>
-                    <td>ui-widget-content</td>
-                    <td>Content section of a component</td>
-                </tr>
-                <tr>
-                    <td>ui-state-default</td>
-                    <td>Default state of a clickable element</td>
-                </tr>
-                <tr>
-                    <td>ui-state-hover</td>
-                    <td>Hover state of a clickable element like mouse over</td>
-                </tr>
-                <tr>
-                    <td>ui-state-active</td>
-                    <td>Active state of a clickable element like mouse press</td>
-                </tr>
-                <tr>
-                    <td>ui-state-highlight</td>
-                    <td>Highlighed elements</td>
-                </tr>
-                <tr>
-                    <td>ui-state-disabled</td>
-                    <td>Disabled elements</td>
-                </tr>
-                <tr>
-                    <td>fa</td>
-                    <td>Icon elements based on font awesome</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <p>These classes are not aware of structural css like margins and paddings, mostly they only define colors. This clean separation brings great flexibility in theming because you don’t need to know each and every skinning selectors of components to change their style.</p>
-
-    <p>For example Panel component’s header section has the "ui-panel-titlebar" structural class, to change the color of a panel header you don’t need to about this class as "ui-widget-header" defines colors for panel header.</p>
-
-    <h3>Free Themes</h3>
-    <p>16 free themes are available for PrimeNG, these include the themeroller themes, twitter bootstrap theme and our custom themes. ThemeSwitcher on the top right section
-        of the page dynamically changes the theme at demo pages. Themes are distributed along with PrimeNG itself. In addition, <a href="https://jqueryui.com/themeroller/">online ThemeRoller</a> designer allows you to create a PrimeNG theme.</p>
-
-    <p>Font-size of free themes use em to define the font size of the widgets using .ui-widget class. This is 1em by default and it is suggested to define a base font-size at the body element of your application to adjust the size of
-    components.</p>
-
-    <h3>Premium Layouts and Themes</h3>
-    <p>PrimeNG also supports sass based, fully customizable and easy to use <a href="http://www.primefaces.org/themes">premium themes and layouts</a> such as <b>Ultima</b>
-        as Angular CLI projects.</p>
-
-    <a href="http://www.primefaces.org/layouts/ultima">
-        <img alt="Ultima" src="http://www.primefaces.org/images/market/ultima/ultima_layout_biggest.png" style="width:100%"/> 
+    <h3 style="margin-top:0">Theme Designer API</h3>
+    <p><a href="https://www.primefaces.org/designer/primeng">Designer API</a> is the ultimate tool to create your own PrimeNG experience powered by a SASS based theme engine 
+        with 500+ variables and a demo application. In addition, PrimeNG only ships the generated CSS of Nova, Luna and Rhea themes whereas Designer provides
+        full access to the whole SASS structure and the variables of these pre-built themes.</p>
+    <p>Whether you have your own style guide or just need a custom theme, Designer API is the right tool to design and bring them to existence.</p>
+    
+    <p>Visit <a href="https://www.primefaces.org/designer/primeng">Designer API HomePage</a> for more information, live demos and access to a trial version.</p>
+    <a href="http://www.primefaces.org/designer/primeng">
+        <img alt="Why You Should PrimeNG" src="assets/showcase/images/primeng-designer.jpg" style="width:100%">
     </a>
 
+    <h3>Premium Templates</h3>
+    <p>Powered by Angular CLI, create awesome applications in no time using the premium templates of PrimeNG and impress your users.</p>
+    <p>Premium Templates are advanced Angular CLI applications featuring a full application layout with various menu orientations, templates pages such as landing, login and 
+        premium themes that share the same design language of the layout for a unified look.</p>
+    <div class="templates">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/babylon-ng">
+                    <img alt="Babylon" src="assets/showcase/images/layouts/babylon-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/olympia-ng">
+                    <img alt="Olympia" src="assets/showcase/images/layouts/olympia-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/california-ng">
+                    <img alt="California" src="assets/showcase/images/layouts/california-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/ecuador-ng">
+                    <img alt="Ecuador" src="assets/showcase/images/layouts/ecuador-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/harmony-ng">
+                    <img alt="Harmony" src="assets/showcase/images/layouts/harmony-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/apollo-ng">
+                    <img alt="Apollo" src="assets/showcase/images/layouts/apollo-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/serenity-ng">
+                    <img alt="Serenity" src="assets/showcase/images/layouts/serenity-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-6">
+                <a href="https://www.primefaces.org/layouts/avalon-ng">
+                    <img alt="Avalon" src="assets/showcase/images/layouts/avalon-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/verona-ng">
+                    <img alt="Verona" src="assets/showcase/images/layouts/verona-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/manhattan-ng">
+                    <img alt="Manhattan" src="assets/showcase/images/layouts/manhattan-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/paradise-ng">
+                    <img alt="Paradise" src="assets/showcase/images/layouts/paradise-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/ultima-ng">
+                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/barcelona-ng">
+                    <img alt="Barcelona" src="assets/showcase/images/layouts/barcelona-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/morpheus-ng">
+                    <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/atlantis-ng">
+                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/poseidon-ng">
+                    <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-ng.jpg">
+                </a>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <a href="https://www.primefaces.org/layouts/omega-ng">
+                    <img alt="Omega" src="assets/showcase/images/layouts/omega-ng.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

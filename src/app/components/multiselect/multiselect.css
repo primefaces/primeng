@@ -1,4 +1,3 @@
-/** MultiSelect **/
 .ui-multiselect {
     display: inline-block;
     position: relative;
@@ -19,9 +18,12 @@
     padding: 0 .25em;
 }
 
-.ui-multiselect .ui-multiselect-trigger  .fa {
-    margin-top: .4em;
-    margin-left: -.125em;
+.ui-multiselect .ui-multiselect-trigger  .ui-multiselect-trigger-icon {
+    top: 50%;
+    left: 50%;
+    margin-top: -.5em;
+    margin-left: -.5em;
+    position: absolute;
 }
 
 .ui-multiselect .ui-multiselect-label-container  {
@@ -46,7 +48,11 @@
 .ui-multiselect-panel {
     padding: 0.2em;
     position: absolute;
-    min-width: 10em;
+    min-width: 12em;
+}
+
+.ui-multiselect .ui-multiselect-panel {
+    min-width: 100%;
 }
 
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
@@ -76,7 +82,7 @@
     vertical-align: middle;
 }
 
-.ui-multiselect-panel .ui-multiselect-item label {
+.ui-multiselect-panel .ui-multiselect-item span {
     display: inline-block;
     vertical-align: middle;
 }
@@ -86,6 +92,7 @@
     padding: .25em;
     position: relative;
     text-align: left;
+    min-height: 2em;
 }
 
 .ui-multiselect-header .ui-chkbox {
@@ -101,7 +108,11 @@
     width: 65%;
 }
 
-.ui-multiselect-header .ui-multiselect-filter-container .fa {
+.ui-multiselect-header.ui-multiselect-header-no-toggleall .ui-multiselect-filter-container {
+    width: 85%;
+}
+
+.ui-multiselect-header .ui-multiselect-filter-container .ui-multiselect-filter-icon {
     position: absolute;
     top: .25em;
     left: .125em;
@@ -117,8 +128,8 @@
     right: .375em;
     top: .375em;
     display: block;
-    font-size: 1em;
     border: 0 none;
+    cursor: pointer;
 }
 
 .ui-multiselect-header a.ui-multiselect-all,
@@ -128,11 +139,12 @@
     display: block;
 }
 
-.ui-multiselect-header .ui-multiselect-close.ui-state-hover {
-    padding:0px;
+.ui-multiselect-footer {
+    padding: .25em;
 }
 
 .ui-fluid .ui-multiselect {
     width: 100%;
     box-sizing: border-box;
 }
+

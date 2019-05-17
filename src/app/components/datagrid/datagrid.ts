@@ -12,7 +12,8 @@ import {BlockableUI} from '../common/blockableui';
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
+                (onPageChange)="paginate($event)" styleClass="ui-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+                [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
                     <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate" [ngForTrackBy]="trackBy"></ng-template>
@@ -20,8 +21,9 @@ import {BlockableUI} from '../common/blockableui';
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
-            <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
+                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
+                [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
+            <div class="ui-datagrid-footer ui-widget-footer ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
@@ -56,9 +58,11 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() trackBy: Function = (index: number, item: any) => item;
     
     @Input() immutable: boolean = true;
+
+    @Input() paginatorDropdownAppendTo: any;
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
-            
+    
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;

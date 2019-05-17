@@ -2,7 +2,6 @@ import {Component,OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
 
-
 @Component({
     templateUrl: './datatabledemo.html'
 })

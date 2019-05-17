@@ -4,6 +4,11 @@ import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './growldemo.html',
+    styles: [`
+        :host ::ng-deep button {
+            margin-right: .25em;
+        }
+    `],
     providers: [MessageService]
 })
 export class GrowlDemo {
@@ -41,6 +46,10 @@ export class GrowlDemo {
     
     showViaService() {
         this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+    }
+    
+    clearViaService() {
+        this.messageService.clear();
     }
 
     clear() {

@@ -14,6 +14,10 @@
     white-space: nowrap;
 }
 
+.ui-tree-empty-message {
+    padding: .25em;
+}
+
 .ui-tree .ui-treenode-children {
     margin: 0;
     padding: 0 0 0 1em;
@@ -77,6 +81,26 @@
 
 .ui-tree .ui-chkbox .ui-chkbox-icon {
     margin-left: 1px;
+}
+
+.ui-tree .ui-tree-filter {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 1.5em;
+}
+
+.ui-tree .ui-tree-filter-container {
+    position: relative;
+    margin: 0;
+    padding: 0.4em;
+    display: inline-block;
+    width: 100%;
+}
+
+.ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+    position: absolute;
+    top: .8em;
+    right: 1em;
 }
 
 /** Fluid **/
@@ -180,3 +204,7 @@
     margin-top: -1em;
     margin-left: -1em;
 }
+
+.ui-tree .ui-tree-loading-content .ui-tree-loading-icon {
+    font-size: 2em;
+} 

@@ -4,7 +4,7 @@ import {OverlayPanelDemo} from './overlaypaneldemo';
 import {OverlayPanelDemoRoutingModule} from './overlaypaneldemo-routing.module';
 import {OverlayPanelModule} from '../../../components/overlaypanel/overlaypanel';
 import {ButtonModule} from '../../../components/button/button';
-import {DataTableModule} from '../../../components/datatable/datatable';
+import {TableModule} from '../../../components/table/table';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -14,7 +14,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		OverlayPanelDemoRoutingModule,
         OverlayPanelModule,
         ButtonModule,
-        DataTableModule,
+        TableModule,
         TabViewModule,
         CodeHighlighterModule
 	],

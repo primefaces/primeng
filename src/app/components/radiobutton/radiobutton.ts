@@ -14,16 +14,16 @@ export const RADIO_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [ngClass]="'ui-radiobutton ui-widget'" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" 
-                    [checked]="checked" (change)="onChange($event)" (focus)="onFocus($event)" (blur)="onBlur($event)">
+                    [checked]="checked" (change)="onChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled">
             </div>
-            <div (click)="handleClick()"
+            <div (click)="handleClick($event, rb, true)"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
-                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':rb.checked}"></span>
+                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':rb.checked}"></span>
             </div>
         </div>
-        <label class="ui-radiobutton-label" (click)="select()" 
-            [ngClass]="{'ui-label-active':rb.checked,'ui-label-disabled':disabled,'ui-label-focus':focused}"
+        <label (click)="select($event)" [class]="labelStyleClass"
+            [ngClass]="{'ui-radiobutton-label':true, 'ui-label-active':rb.checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR]
@@ -46,7 +46,13 @@ export class RadioButton implements ControlValueAccessor {
 
     @Input() styleClass: string;
 
+    @Input() labelStyleClass: string;
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @ViewChild('rb') inputViewChild: ElementRef;
             
@@ -60,18 +66,26 @@ export class RadioButton implements ControlValueAccessor {
 
     constructor(private cd: ChangeDetectorRef) {}
     
-    handleClick() {
-        if(!this.disabled) {
-            this.select();
+    handleClick(event, radioButton, focus) {
+        event.preventDefault();
+
+        if(this.disabled) {
+            return;
+        }
+
+        this.select(event);
+
+        if(focus) {
+            radioButton.focus();
         }
     }
     
-    select() {
-        if(!this.disabled) {
-            this.onClick.emit(null);
+    select(event) {
+        if (!this.disabled) {
             this.inputViewChild.nativeElement.checked = true;
             this.checked = true;
             this.onModelChange(this.value);
+            this.onClick.emit(event);
         }
     }
             
@@ -97,17 +111,19 @@ export class RadioButton implements ControlValueAccessor {
         this.disabled = val;
     }
     
-    onFocus(event) {
+    onInputFocus(event) {
         this.focused = true;
+        this.onFocus.emit(event);
     }
 
-    onBlur(event) {
+    onInputBlur(event) {
         this.focused = false;
         this.onModelTouched();
+        this.onBlur.emit(event);
     }
     
     onChange(event) {
-        this.select();
+        this.select(event);
     }
 }
 

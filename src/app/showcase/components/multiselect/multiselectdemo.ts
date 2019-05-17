@@ -2,7 +2,27 @@ import {Component} from '@angular/core';
 import {SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: './multiselectdemo.html'
+    templateUrl: './multiselectdemo.html',
+    styles: [`
+        :host ::ng-deep .ui-multiselected-item-token,
+        :host ::ng-deep .ui-multiselected-empty-token {
+            padding: 2px 4px;
+            margin: 0 0.286em 0 0;
+            display: inline-block;
+            vertical-align:middle;
+            height: 1.857em;
+        }
+
+        :host ::ng-deep .ui-multiselected-item-token {
+            background: #007ad9;
+            color: #ffffff;
+        }
+
+        :host ::ng-deep .ui-multiselected-empty-token {
+            background: #d95f00;
+            color: #ffffff;
+        }
+    `]
 })
 export class MultiSelectDemo {
 
@@ -12,17 +32,27 @@ export class MultiSelectDemo {
     
     selectedCars2: string[] = [];
 
+    items: SelectItem[];
+
+    item: string;
+
     constructor() {
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'VW', value: 'VW'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
+        this.cars = [
+            {label: 'Audi', value: 'Audi'},
+            {label: 'BMW', value: 'BMW'},
+            {label: 'Fiat', value: 'Fiat'},
+            {label: 'Ford', value: 'Ford'},
+            {label: 'Honda', value: 'Honda'},
+            {label: 'Jaguar', value: 'Jaguar'},
+            {label: 'Mercedes', value: 'Mercedes'},
+            {label: 'Renault', value: 'Renault'},
+            {label: 'VW', value: 'VW'},
+            {label: 'Volvo', value: 'Volvo'},
+        ];
+        
+        this.items = [];
+        for (let i = 0; i < 10000; i++) {
+            this.items.push({label: 'Item ' + i, value: 'Item ' + i});
+        }
     }
 }

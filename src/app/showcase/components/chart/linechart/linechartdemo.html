@@ -5,8 +5,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-growl [value]="msgs"></p-growl>
+<div class="content-section implementation-charts">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
     <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
 </div>
@@ -16,7 +16,7 @@
         <i class="fa fa-github"></i>
         <span>View on GitHub</span>
     </a>
-    
+
     <p-tabView effect="fade">
         <p-tabPanel header="linechartdemo.ts">
 <pre>
@@ -24,10 +24,8 @@
 export class LineChartDemo &#123;
 
     data: any;
-    
-    msgs: Message[];
 
-    constructor() &#123;
+    constructor(private messageService: MessageService) &#123;
         this.data = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
@@ -48,18 +46,17 @@ export class LineChartDemo &#123;
     &#125;
 
     selectData(event) &#123;
-        this.msgs = [];
-        this.msgs.push(&#123;severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]&#125;);
+        this.messageService.add(&#123;severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]&#125;);
     &#125;
 &#125;
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="linechartdemo.html">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"&gt;&lt;/p-chart&gt;
 </code>

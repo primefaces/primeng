@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,Input,Output,AfterViewChecked,OnDestroy,EventEmitter,forwardRef,Renderer2,ViewChild,ChangeDetectorRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -17,8 +17,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             <input #input type="text" *ngIf="!inline" class="ui-colorpicker-preview ui-inputtext ui-state-default ui-corner-all" readonly="readonly" [ngClass]="{'ui-state-disabled': disabled}"
                 (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)" [attr.id]="inputId" [attr.tabindex]="tabindex" [disabled]="disabled"
                 [style.backgroundColor]="inputBgColor">
-            <div #panel [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay-panel ui-shadow':!inline, 'ui-state-disabled': disabled}" (click)="onPanelClick()"
-                [@panelState]="inline ? 'visible' : (panelVisible ? 'visible' : 'hidden')" [style.display]="inline ? 'block' : (panelVisible ? 'block' : 'none')">
+            <div *ngIf="inline || overlayVisible" [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay-panel ui-shadow':!inline, 'ui-state-disabled': disabled}" (click)="onPanelClick()"
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <div class="ui-colorpicker-content">
                     <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
                         <div class="ui-colorpicker-color">
@@ -33,20 +33,22 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
         </div>
     `,
     animations: [
-        trigger('panelState', [
-            state('hidden', style({
+        trigger('overlayAnimation', [
+            state('void', style({
+                transform: 'translateY(5%)',
                 opacity: 0
             })),
             state('visible', style({
+                transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            transition('void => visible', animate('{{showTransitionParams}}')),
+            transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    providers: [DomHandler,COLORPICKER_VALUE_ACCESSOR]
+    providers: [COLORPICKER_VALUE_ACCESSOR]
 })
-export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDestroy{
+export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @Input() style: any;
 
@@ -63,18 +65,16 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     @Input() tabindex: string;
     
     @Input() inputId: string;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
+
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
-    @ViewChild('panel') panelViewChild: ElementRef;
-    
-    @ViewChild('colorSelector') colorSelectorViewChild: ElementRef;
-    
-    @ViewChild('colorHandle') colorHandleViewChild: ElementRef;
-    
-    @ViewChild('hue') hueViewChild: ElementRef;
-    
-    @ViewChild('hueHandle') hueHandleViewChild: ElementRef;
     
     @ViewChild('input') inputViewChild: ElementRef;
     
@@ -84,7 +84,7 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     
     shown: boolean;
     
-    panelVisible: boolean;
+    overlayVisible: boolean;
     
     defaultColor: string = 'ff0000';
     
@@ -105,16 +105,35 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     colorDragging: boolean;
     
     hueDragging: boolean;
+
+    overlay: HTMLDivElement;
+
+    colorSelectorViewChild: ElementRef;
+    
+    colorHandleViewChild: ElementRef;
+    
+    hueViewChild: ElementRef;
+    
+    hueHandleViewChild: ElementRef;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
-    
-    ngAfterViewChecked() {
-        if(this.shown) {
-            this.onShow();
-            this.shown = false;
-        }
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+        
+    @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
+        this.colorSelectorViewChild = element;
     }
-    
+
+    @ViewChild('colorHandle') set colorHandle(element: ElementRef) {
+        this.colorHandleViewChild = element;
+    }
+
+    @ViewChild('hue') set hue(element: ElementRef) {
+        this.hueViewChild = element;
+    }
+
+    @ViewChild('hueHandle') set hueHandle(element: ElementRef) {
+        this.hueHandleViewChild = element;
+    }
+
     onHueMousedown(event: MouseEvent) {
         if(this.disabled) {
             return;
@@ -128,17 +147,17 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     pickHue(event: MouseEvent) {
-        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
+        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         this.value = this.validateHSB({
             h: Math.floor(360 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150),
-            s: 100,
-            b: 100
+            s: this.value.s,
+            b: this.value.b
         });
         
         this.updateColorSelector();
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.value});
+        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
     }
     
     onColorMousedown(event: MouseEvent) {
@@ -155,7 +174,7 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     
     pickColor(event: MouseEvent) {
         let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
-        let top = rect.top + document.body.scrollTop;
+        let top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         let left = rect.left + document.body.scrollLeft;
         let saturation = Math.floor(100 * (Math.max(0, Math.min(150, (event.pageX - left)))) / 150);
         let brightness = Math.floor(100 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150);
@@ -218,13 +237,24 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     updateColorSelector() {
-        this.colorSelectorViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
+        if (this.colorSelectorViewChild) {
+            const hsb: any = {};
+            hsb.s = 100;
+            hsb.b = 100;
+            hsb.h = this.value.h;
+
+            this.colorSelectorViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(hsb);
+        }
     }
         
     updateUI() {
-        this.colorHandleViewChild.nativeElement.style.left =  Math.floor(150 * this.value.s / 100) + 'px';
-        this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px';
-        this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
+        if (this.colorHandleViewChild && this.hueHandleViewChild.nativeElement) {
+            this.colorHandleViewChild.nativeElement.style.left =  Math.floor(150 * this.value.s / 100) + 'px';
+            this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px';
+            this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
+
+        }
+
         this.inputBgColor = '#' + this.HSBtoHEX(this.value);
     }
     
@@ -233,35 +263,65 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     show() {
-        this.panelViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
-        this.panelVisible = true;
-        this.shown = true;
+        this.overlayVisible = true;
+    }
+
+    onOverlayAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                if (!this.inline) {
+                    this.overlay = event.element;
+                    this.appendOverlay();
+                    if (this.autoZIndex) {
+                        this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                    }
+                    this.alignOverlay();
+                    this.bindDocumentClickListener();
+
+                    this.updateColorSelector();
+                    this.updateUI();
+                }
+            break;
+
+            case 'void':
+                this.onOverlayHide();
+            break;
+        }
+    }
+
+    appendOverlay() {
+        if (this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.overlay);
+            else
+                DomHandler.appendChild(this.overlay, this.appendTo);
+        }
+    }
+
+    restoreOverlayAppend() {
+        if (this.overlay && this.appendTo) {
+            this.el.nativeElement.appendChild(this.overlay);
+        }
+    }
+    
+    alignOverlay() {
+        if(this.appendTo)
+            DomHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
+        else
+            DomHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
     }
     
     hide() {
-        this.panelVisible = false;
-        this.unbindDocumentClickListener();
+        this.overlayVisible = false;
     }
-    
-    onShow() {
-        this.alignPanel();
-        this.bindDocumentClickListener();
-    }
-     
-    alignPanel() {
-        if(this.appendTo)
-            this.domHandler.absolutePosition(this.panelViewChild.nativeElement, this.inputViewChild.nativeElement);
-        else
-            this.domHandler.relativePosition(this.panelViewChild.nativeElement, this.inputViewChild.nativeElement);
-    }
-    
+         
     onInputClick() {
         this.selfClick = true;
         this.togglePanel();
     }
     
     togglePanel() {
-        if(!this.panelVisible)
+        if(!this.overlayVisible)
             this.show();
         else
             this.hide();
@@ -303,7 +363,7 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.selfClick) {
-                    this.panelVisible = false;
+                    this.overlayVisible = false;
                     this.unbindDocumentClickListener();
                 }
                 
@@ -480,9 +540,15 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     HSBtoHEX(hsb) {
         return this.RGBtoHEX(this.HSBtoRGB(hsb));
     }
+
+    onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.overlay = null;
+    }
     
     ngOnDestroy() {
-        this.unbindDocumentClickListener();
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 }
 

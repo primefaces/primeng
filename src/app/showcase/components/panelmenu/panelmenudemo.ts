@@ -12,38 +12,39 @@ export class PanelMenuDemo {
         this.items = [
             {
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'pi pi-pw pi-file',
                 items: [{
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
-                            {label: 'Project'},
-                            {label: 'Other'},
+                            {label: 'User', icon: 'pi pi-fw pi-user-plus'},
+                            {label: 'Filter', icon: 'pi pi-fw pi-filter'}
                         ]
                     },
-                    {label: 'Open'},
+                    {label: 'Open', icon: 'pi pi-fw pi-external-link'},
                     {separator: true},
-                    {label: 'Quit'}
+                    {label: 'Quit', icon: 'pi pi-fw pi-times'}
                 ]
             },
             {
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    {label: 'Undo', icon: 'fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa-mail-reply'}
+                    {label: 'Delete', icon: 'pi pi-fw pi-trash'},
+                    {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
                 ]
             },
             {
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     {
-                        label: 'Contents'
+                        label: 'Contents',
+                        icon: 'pi pi-pi pi-bars'
                     },
                     {
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'pi pi-pi pi-search', 
                         items: [
                             {
                                 label: 'Text', 
@@ -54,28 +55,29 @@ export class PanelMenuDemo {
                                 ]
                             },
                             {
-                                label: 'File'
+                                label: 'User',
+                                icon: 'pi pi-fw pi-file',
                             }
                     ]}
                 ]
             },
             {
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     {
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'pi pi-fw pi-pencil',
                         items: [
-                            {label: 'Save', icon: 'fa-save'},
-                            {label: 'Update', icon: 'fa-save'},
+                            {label: 'Save', icon: 'pi pi-fw pi-save'},
+                            {label: 'Update', icon: 'pi pi-fw pi-save'},
                         ]
                     },
                     {
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'pi pi-fw pi-tags',
                         items: [
-                            {label: 'Delete', icon: 'fa-minus'}
+                            {label: 'Delete', icon: 'pi pi-fw pi-minus'}
                         ]
                     }
                 ]

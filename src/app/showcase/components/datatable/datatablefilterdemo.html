@@ -21,7 +21,7 @@
         <p-column field="year" header="Year ({{yearFilter||'No Filter'}})" [filter]="true" filterMatchMode="equals">
             <ng-template pTemplate="filter" let-col>
                 <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"></i>
-                <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"></p-slider>
+                <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt, col)"></p-slider>
             </ng-template>
         </p-column>
         <p-column field="brand" header="Brand (Custom)" [filter]="true" filterMatchMode="equals">
@@ -56,6 +56,8 @@ export class DataTableFilterDemo implements OnInit &#123;
     
     yearFilter: number;
     
+    yearTimeout: any;
+    
     constructor(private carService: CarService) &#123;&#125;
 
     ngOnInit() &#123;
@@ -84,6 +86,16 @@ export class DataTableFilterDemo implements OnInit &#123;
         this.colors.push(&#123;label: 'Orange', value: 'Orange'&#125;);
         this.colors.push(&#123;label: 'Blue', value: 'Blue'&#125;);
     &#125;
+    
+    onYearChange(event, dt, col) &#123;
+        if(this.yearTimeout) &#123;
+            clearTimeout(this.yearTimeout);
+        &#125;
+        
+        this.yearTimeout = setTimeout(() => &#123;
+            dt.filter(event.value, col.field, col.filterMatchMode);
+        &#125;, 250);
+    &#125;
 &#125;
 </code>
 </pre>            
@@ -106,7 +118,7 @@ export class DataTableFilterDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;)" [filter]="true" filterMatchMode="equals"&gt;
         &lt;ng-template pTemplate="filter" let-col&gt;
             &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"&gt;&lt;/i&gt;
-            &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"&gt;&lt;/p-slider&gt;
+            &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt, col)"&gt;&lt;/p-slider&gt;
         &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand (Custom)" [filter]="true" filterMatchMode="equals"&gt;

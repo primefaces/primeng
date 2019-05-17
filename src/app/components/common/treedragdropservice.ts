@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import { TreeNode } from './treenode';
+import { Subject } from 'rxjs';
 import { TreeNodeDragEvent } from './treenodedragevent';
 
 @Injectable()

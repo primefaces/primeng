@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -12,11 +12,14 @@ export const RATING_VALUE_ACCESSOR: any = {
     selector: 'p-rating',
     template: `
         <div class="ui-rating" [ngClass]="{'ui-state-disabled': disabled}">
-            <a href="#" *ngIf="cancel" (click)="clear($event)">
-                <span class="fa fa-ban"></span>
+            <a [attr.tabindex]="disabled ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)"  class="ui-rating-cancel">
+                <span class="ui-rating-icon" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
             </a>
-            <a href="#" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)">
-                <span class="fa" [ngClass]="{'fa-star-o': (!value || i >= value), 'fa-star':(i < value)}"></span>
+            <a [attr.tabindex]="disabled ? null : '0'" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)" (keydown.enter)="rate($event,i)">
+                <span class="ui-rating-icon" 
+                    [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
+                    [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"
+                ></span>
             </a>
         </div>
     `,
@@ -32,9 +35,23 @@ export class Rating implements ControlValueAccessor {
 
     @Input() cancel: boolean = true;
 
+    @Input() iconOnClass: string = 'pi pi-star';
+
+    @Input() iconOnStyle: any;
+
+    @Input() iconOffClass: string = 'pi pi-star-o';
+
+    @Input() iconOffStyle: any;
+
+    @Input() iconCancelClass: string = 'pi pi-ban';
+
+    @Input() iconCancelStyle: any;
+
     @Output() onRate: EventEmitter<any> = new EventEmitter();
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
+
+    constructor(private cd: ChangeDetectorRef) {} 
     
     value: number;
     
@@ -76,6 +93,7 @@ export class Rating implements ControlValueAccessor {
     
     writeValue(value: any) : void {
         this.value = value;
+        this.cd.detectChanges();
     }
     
     registerOnChange(fn: Function): void {

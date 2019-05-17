@@ -15,11 +15,28 @@
         <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
         <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
         <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
-        <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"></button>
+        <button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"></button>
     </div>
     
     <h3>Message Service</h3>
     <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
+    
+    <h3>Inline Message CSS</h3>
+    <p>p-message component is used to display inline messages mostly within forms.</p>
+    <p-message severity="info" text="PrimeNG Rocks"></p-message>
+    <p-message severity="success" text="Record Saved"></p-message>  
+    <p-message severity="warn" text="Are you sure?"></p-message>  
+    <p-message severity="error" text="Field is required"></p-message>
+    
+    <div style="margin-top:30px">
+        <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid">
+        <p-message severity="error" text="Field is required"></p-message>
+    </div>
+    
+    <div style="margin-top:30px">
+        <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid">
+        <p-message severity="error"></p-message>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -28,14 +45,15 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;MessagesModule&#125; from 'primeng/primeng';
+import &#123;MessagesModule&#125; from 'primeng/messages';
+import &#123;MessageModule&#125; from 'primeng/message';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as the properties.
                 Messages to display can either be defined using the value property which should an array of Message instances or using 
-                a MessageService are defined using the value property which should an array of Message instances.</p>
+               a MessageService are defined using the value property which should an array of Message instances.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
@@ -68,19 +86,20 @@ hide() &#123;
             <h3>Message Service</h3>
             <p>MessageService alternative does not require a value binding to an array.
             In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself 
-            so that descandant components can have it injected.</p>
+            so that descandant components can have it injected. If there are multiple message components having the same message service, you may use key property of the component
+            to match the key of the message to implement scoping.</p>
             
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+import &#123;MessageService&#125; from 'primeng/api';
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
-import &#123;Message&#125; from 'primeng/components/common/api';
-import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+import &#123;Message&#125; from 'primeng//api';
+import &#123;MessageService&#125; from 'primeng/api';
 
 @Component(&#123;
     templateUrl: './messagesdemo.html'
@@ -94,8 +113,12 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
         &#125;
 
         addMultiple() &#123;
-            this.messageService.addAdd([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+            this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
                             &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+        &#125;
+        
+        clear() &#123;
+            this.messageService.clear();
         &#125;
 &#125;
 </code>
@@ -125,7 +148,28 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
                 <li>warn</li>
                 <li>error</li>
             </ul>
+            
+            <h3>Message Component</h3>
+            <p>Message component is useful in cases where messages need to be displayed related to an element such as forms. It has two property, severity and text of the message.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;Inline Message CSS&lt;/h3&gt;
+&lt;p&gt;CSS helpers to display inline messages mostly within forms.&lt;/p&gt;
+&lt;p-message severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
+&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
+</code>
+</pre>
 
+            <h3>Animation Configuration</h3>
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+                example below disables the animations altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-message [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
+</code>
+</pre>
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -149,6 +193,42 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
                             <td>boolean</td>
                             <td>true</td>
                             <td>Defines if message box can be closed by the click icon.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>enableService</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether displaying services messages are enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>key</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Id to match the key of the message to enable scoping in service based messaging.</td>
+                        </tr>
+                        <tr>
+                            <td>showTransitionOptions</td>
+                            <td>string</td>
+                            <td>300ms ease-out</td>
+                            <td>Transition options of the show animation.</td>
+                        </tr>
+                        <tr>
+                            <td>hideTransitionOptions</td>
+                            <td>string</td>
+                            <td>250ms ease-in</td>
+                            <td>Transition options of the hide animation.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -225,11 +305,28 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
     &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Message Service&lt;/h3&gt;
 &lt;button type="button" pButton (click)="showViaService()" label="Use Service"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Inline Message CSS&lt;/h3&gt;
+&lt;p&gt;CSS helpers to display inline messages mostly within forms.&lt;/p&gt;
+&lt;p-message severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
+&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
+
+&lt;div style="margin-top:30px"&gt;
+    &lt;input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid"&gt;
+    &lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
+&lt;/div&gt;
+
+&lt;div style="margin-top:30px"&gt;
+    &lt;input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid"&gt;
+    &lt;p-message severity="error"&gt;&lt;/p-message&gt;
+&lt;/div>
 </code>
 </pre>
 
@@ -242,9 +339,19 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
 
 @Component(&#123;
     templateUrl: './messagesdemo.html',
+    styles: [`
+        :host ::ng-deep button &#123;
+            margin-right: .25em;
+        &#125;
+
+        :host ::ng-deep .ui-message,
+        :host ::ng-deep .ui-inputtext &#123;
+            margin-right: .25em;
+        &#125;
+    `],
     providers: [MessageService]
 &#125;)
-export class GrowlDemo &#123;
+export class MessagesDemo &#123;
 
     msgs: Message[] = [];
     
