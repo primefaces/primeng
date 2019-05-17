@@ -307,7 +307,7 @@ describe('Calendar', () => {
       expect(onDateSelectSpy).toHaveBeenCalled();
     });
 
-    it('should use min and max date', () => {
+    it('should use min and max date', fakeAsync(() => {
       let minDate:Date;
       let maxDate:Date;
       let today = new Date();
@@ -335,14 +335,17 @@ describe('Calendar', () => {
 
       const nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
+      tick(150);
+      fixture.detectChanges();
       nextMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       const containerEl = fixture.debugElement.query(By.css('.ui-datepicker-calendar-container'));
       const unselectableEls = containerEl.queryAll(By.css('.ui-state-default.ui-state-disabled'));
       expect(unselectableEls).toBeTruthy();
       expect(unselectableEls.length).toBeGreaterThan(30);
-    });
+    }));
 
     it('should use invalidDates', () => {
       
@@ -882,7 +885,7 @@ describe('Calendar', () => {
       expect(onClearValue).toBeTruthy();
     });
 
-    it('should listen onMonthChange', () => {
+    it('should listen onMonthChange', fakeAsync(() => {
       fixture.detectChanges();
 
       let onMonthChangeValue;
@@ -895,10 +898,11 @@ describe('Calendar', () => {
 
       const nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       expect(onMonthChangeValue).toBeTruthy();
-    });
+    }));
 
     it('should listen onYearChange', () => {
       calendar.yearNavigator = true;
@@ -1338,7 +1342,7 @@ describe('Calendar', () => {
       expect(inputEl.nativeElement.disabled).toEqual(true);
     });
 
-    it('should disabled(inline true)', () => {
+    it('should disabled(inline true)', fakeAsync(() => {
       calendar.disabled = true;
       calendar.inline = true;
       fixture.detectChanges();
@@ -1351,8 +1355,10 @@ describe('Calendar', () => {
       const createMonthsSpy = spyOn(calendar, 'createMonths').and.callThrough();
       const preMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       preMonthEl.nativeElement.click();
+      tick(150);
       const nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       expect(incrementYearSpy).not.toHaveBeenCalled();
@@ -1370,7 +1376,7 @@ describe('Calendar', () => {
       expect(createMonthsSpy).not.toHaveBeenCalled();
       expect(selectDateSpy).not.toHaveBeenCalled();
       expect(updateModelSpy).not.toHaveBeenCalled();
-    });
+    }));
 
     it('should listen onBlur', () => {
      fixture.detectChanges();
@@ -1604,7 +1610,7 @@ describe('Calendar', () => {
       expect(calendar.overlayVisible).toEqual(false);
     }));
 
-    it('should be next year', () => {
+    it('should be next year', fakeAsync(() => {
       const date = new Date(2017,11,23);
       calendar.defaultDate = date;
       jasmine.clock().mockDate(date);
@@ -1621,6 +1627,7 @@ describe('Calendar', () => {
       expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);      
       const nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       const currentMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-month'));
@@ -1628,9 +1635,9 @@ describe('Calendar', () => {
       expect(calendar.currentMonth).toEqual(0);
       expect(calendar.currentYear).toEqual(2018);
       expect(navForwardSpy).toHaveBeenCalled();
-    });
+    }));
 
-    it('should be previous year', () => {
+    it('should be previous year', fakeAsync(() => {
       const date = new Date(2017,0,23);
       calendar.defaultDate = date;
       jasmine.clock().mockDate(date);
@@ -1647,6 +1654,7 @@ describe('Calendar', () => {
       expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);      
       const prevMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       prevMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       const currentMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-month'));
@@ -1654,7 +1662,7 @@ describe('Calendar', () => {
       expect(calendar.currentMonth).toEqual(11);
       expect(calendar.currentYear).toEqual(2016);
       expect(navBackwardSpy).toHaveBeenCalled();
-    });
+    }));
 
     it('should change yearRange', () => {
       calendar.dateFormat = "mm/yy";
@@ -1682,7 +1690,7 @@ describe('Calendar', () => {
       expect(inputEl.nativeElement.tabIndex).toEqual(5);
     });
 
-    it('should be next year', () => {
+    it('should be next year', fakeAsync(() => {
       const date = new Date(2017,11,23);
       calendar.defaultDate = date;
       jasmine.clock().mockDate(date);
@@ -1699,13 +1707,14 @@ describe('Calendar', () => {
 
       const nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
       
       expect(calendar.currentMonth).toEqual(0);
       expect(calendar.currentYear).toEqual(2018);
-    });
+    }));
 
-    it('should be previous year', () => {
+    it('should be previous year', fakeAsync(() => {
       const date = new Date(2017,0,23);
       calendar.defaultDate = date;
       jasmine.clock().mockDate(date);
@@ -1722,11 +1731,12 @@ describe('Calendar', () => {
 
       const prevMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       prevMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       expect(calendar.currentMonth).toEqual(11);
       expect(calendar.currentYear).toEqual(2016);
-    });
+    }));
 
     it('should select range (touchUI)', () => {
       const date = new Date(2017,2,12);
@@ -1840,7 +1850,7 @@ describe('Calendar', () => {
       expect(calendar.currentMinute).toEqual(58);
     });
 
-    it('should call navForward and pick the next year', () => {
+    it('should call navForward and pick the next year', fakeAsync(() => {
       fixture.detectChanges();
 
       calendar.view = "month";
@@ -1857,16 +1867,18 @@ describe('Calendar', () => {
       const navForwardEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       const navBackwardEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       navForwardEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       expect(incrementYearSpy).toHaveBeenCalled();
 
       navBackwardEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
       expect(decrementYearSpy).toHaveBeenCalled();
-    });
+    }));
 
-    it('should call navForward and go to out of year range(increment)', () => {
+    it('should call navForward and go to out of year range(increment)', fakeAsync(() => {
       fixture.detectChanges();
 
       calendar.view = "month";
@@ -1886,6 +1898,7 @@ describe('Calendar', () => {
 
       const navForwardEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       navForwardEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       expect(calendar.yearOptions.length).toEqual(2);
@@ -1894,9 +1907,9 @@ describe('Calendar', () => {
       expect(calendar.yearOptions[1]).toEqual(calendar.currentYear);
       expect(incrementYearSpy).toHaveBeenCalled();
       expect(populateYearOptionsSpy).toHaveBeenCalled();
-    });
+    }));
 
-    it('should call navForward and go to out of year range (decrement)', () => {
+    it('should call navForward and go to out of year range (decrement)', fakeAsync(() => {
       fixture.detectChanges();
 
       calendar.view = "month";
@@ -1916,6 +1929,7 @@ describe('Calendar', () => {
 
       const navBackwardEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       navBackwardEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       expect(calendar.yearOptions.length).toEqual(2);
@@ -1924,7 +1938,7 @@ describe('Calendar', () => {
       expect(calendar.yearOptions[1]).toEqual(2017);
       expect(decrementYearSpy).toHaveBeenCalled();
       expect(populateYearOptionsSpy).toHaveBeenCalled();
-    });
+    }));
     
     it('should call onUserInput and return nothing', () => {
       const onUserInputSpy = spyOn(calendar,'onUserInput');
