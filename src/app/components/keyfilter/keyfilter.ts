@@ -1,4 +1,4 @@
-import { NgModule, Directive, ElementRef, HostBinding, HostListener, Input, forwardRef } from '@angular/core';
+import { NgModule, Directive, ElementRef, HostBinding, HostListener, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
 import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
@@ -49,11 +49,19 @@ export class KeyFilter implements Validator {
 
     @Input() pValidateOnly: boolean;
 
+    @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
+
     regex: RegExp;
 
     _pattern: any;
 
-    constructor(public el: ElementRef) { }
+    isAndroid: boolean;
+
+    lastValue: any;
+
+    constructor(public el: ElementRef) { 
+        this.isAndroid = DomHandler.isAndroid();
+    }
 
     get pattern(): any {
         return this._pattern;
@@ -87,11 +95,68 @@ export class KeyFilter implements Validator {
 
     getCharCode(e: KeyboardEvent) {
         return e.charCode || e.keyCode || e.which;
-    };
+    }
+
+    findDelta(value: string, prevValue: string) { 
+        let delta = '';
+
+        for (let i = 0; i < value.length; i++) {
+            let str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
+
+            if (str === prevValue) 
+                delta = value.substr(i, value.length - prevValue.length);
+        }
+
+        return delta;
+    }
+
+    isValidChar(c: string) {
+        return this.regex.test(c);
+    }
+
+    isValidString(str: string) {
+        for (let i = 0; i < str.length; i++) {
+            if (!this.isValidChar(str.substr(i, 1))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @HostListener('input', ['$event'])
+    onInput(e: KeyboardEvent) { 
+        if (this.isAndroid && !this.pValidateOnly) {
+            let val = this.el.nativeElement.value;
+            let lastVal = this.lastValue || '';
+
+            let inserted = this.findDelta(val, lastVal);
+            let removed = this.findDelta(lastVal, val);
+            let pasted = inserted.length > 1 || (!inserted && !removed);
+
+            if (pasted) {
+                if (!this.isValidString(val)) {
+                    this.el.nativeElement.value = lastVal;
+                    this.ngModelChange.emit(lastVal);
+                }
+            } 
+            else if (!removed) {
+                if (!this.isValidChar(inserted)) {
+                    this.el.nativeElement.value = lastVal;
+                    this.ngModelChange.emit(lastVal);
+                }
+            }
+
+            val = this.el.nativeElement.value;
+            if (this.isValidString(val)) {
+                this.lastValue = val;
+            }
+        }
+    }
 
     @HostListener('keypress', ['$event'])
     onKeyPress(e: KeyboardEvent) {
-        if(this.pValidateOnly) {
+        if (this.isAndroid || this.pValidateOnly) {
             return;
         }
         
