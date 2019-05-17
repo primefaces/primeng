@@ -210,6 +210,7 @@ describe('Calendar', () => {
       expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);      
       const nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       const currentMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-month'));
@@ -233,6 +234,7 @@ describe('Calendar', () => {
       expect(monthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);      
       const preMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       preMonthEl.nativeElement.click();
+      tick(150);
       fixture.detectChanges();
 
       const currentMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-month'));
