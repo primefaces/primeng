@@ -195,7 +195,7 @@ describe('Calendar', () => {
       expect(createMonthPickerValuesSpy).toHaveBeenCalled();
     });
 
-    it('should select next month and call navForward', () => {
+    it('should select next month and call navForward', fakeAsync(() => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -217,9 +217,9 @@ describe('Calendar', () => {
       expect(currentMonth).not.toEqual(calendar.currentMonth);
       expect(currentMonthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
       expect(navForwardSpy).toHaveBeenCalled();
-    });
+    }));
 
-    it('should select pre month and call navBackward', () => {
+    it('should select pre month and call navBackward', fakeAsync(() => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -241,7 +241,7 @@ describe('Calendar', () => {
       expect(currentMonth).not.toEqual(calendar.currentMonth);
       expect(currentMonthEl.nativeElement.textContent).toEqual(calendar.locale.monthNames[calendar.currentMonth]);
       expect(navBackwardSpy).toHaveBeenCalled();
-    });
+    }));
 
     it('should select date when click', fakeAsync(() => {
       const date = new Date(2017,8,23);
