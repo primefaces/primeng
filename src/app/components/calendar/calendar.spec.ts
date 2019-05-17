@@ -333,10 +333,11 @@ describe('Calendar', () => {
       inputEl.dispatchEvent(focusEvent);
       fixture.detectChanges();
 
-      const nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
+      let nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
       tick(150);
       fixture.detectChanges();
+      nextMonthEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
       nextMonthEl.nativeElement.click();
       tick(150);
       fixture.detectChanges();
