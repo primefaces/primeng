@@ -705,6 +705,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
                 this.createMonths(this.currentMonth, this.currentYear);
             }
+            this.cd.markForCheck();
         }, 1);
     }
     
@@ -730,6 +731,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
                 this.createMonths(this.currentMonth, this.currentYear);
             }
+            this.cd.markForCheck();
         }, 1);
     }
 
