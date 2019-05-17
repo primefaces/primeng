@@ -684,49 +684,53 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     navBackward(event) {
+        event.preventDefault();
         if (this.disabled) {
-            event.preventDefault();
             return;
         }
 
-        if (this.view === 'month') {
-            this.decrementYear();
-        }
-        else {
-            if (this.currentMonth === 0) {
-                this.currentMonth = 11;
+        setTimeout(() => {
+            if (this.view === 'month') {
                 this.decrementYear();
             }
             else {
-                this.currentMonth--;
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.decrementYear();
+                }
+                else {
+                    this.currentMonth--;
+                }
+                
+                this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
+                this.createMonths(this.currentMonth, this.currentYear);
             }
-            
-            this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
+        }, 1);
     }
     
     navForward(event) {
+        event.preventDefault();
         if (this.disabled) {
-            event.preventDefault();
             return;
         }
 
-        if (this.view === 'month') {
-            this.incrementYear();
-        }
-        else {
-            if (this.currentMonth === 11) {
-                this.currentMonth = 0;
+        setTimeout(() => {
+            if (this.view === 'month') {
                 this.incrementYear();
             }
             else {
-                this.currentMonth++;
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.incrementYear();
+                }
+                else {
+                    this.currentMonth++;
+                }
+                
+                this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
+                this.createMonths(this.currentMonth, this.currentYear);
             }
-            
-            this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
+        }, 1);
     }
 
     decrementYear() {
