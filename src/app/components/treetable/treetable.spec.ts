@@ -55,9 +55,80 @@ import { Component } from '@angular/core';
                 </tr>
             </ng-template>
         </p-treeTable>
+        <p-treeTable class="basicSortTreeTable" [value]="files" [columns]="cols">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="multipleSortTreeTable" [value]="files" [columns]="cols" sortMode="multiple">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="singleSelectionTreeTable" [value]="files" [columns]="cols" selectionMode="single" [(selection)]="selectedNode" dataKey="name">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="multipleSelectionTreeTable" [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNode" dataKey="name">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
 `
 })
 class TestTreeTableComponent {
+    selectedNode:any;
     cols = [
         { field: 'name', header: 'Name' },
         { field: 'size', header: 'Size' },
@@ -377,8 +448,13 @@ class TestTreeTableComponent {
 
 describe('TreeTable', () => {
 
+    let testcomponent:TestTreeTableComponent;
     let basicTreetable: TreeTable;
     let paginationTreeTable: TreeTable;
+    let basicSortTreeTable: TreeTable;
+    let multipleSortTreeTable: TreeTable;
+    let singleSelectionTreeTable: TreeTable;
+    let multipleSelectionTreeTable: TreeTable;
     let fixture: ComponentFixture<TestTreeTableComponent>;
 
     beforeEach(() => {
@@ -395,8 +471,13 @@ describe('TreeTable', () => {
         });
 
         fixture = TestBed.createComponent(TestTreeTableComponent);
+        testcomponent = fixture.componentInstance;
         basicTreetable = fixture.debugElement.children[0].componentInstance;
         paginationTreeTable = fixture.debugElement.children[1].componentInstance;
+        basicSortTreeTable = fixture.debugElement.children[2].componentInstance;
+        multipleSortTreeTable = fixture.debugElement.children[3].componentInstance;
+        singleSelectionTreeTable = fixture.debugElement.children[4].componentInstance;
+        multipleSelectionTreeTable = fixture.debugElement.children[5].componentInstance;
     });
 
     it('should show 11 rows', () => {
@@ -537,5 +618,184 @@ describe('TreeTable', () => {
 
         expect(onPageChangeSpy).toHaveBeenCalled();
         expect(paginationTreeTable.first).toEqual(3);
+    });
+
+    it('should sort the treetable', () => {
+        fixture.detectChanges();
+  
+        const sortSpy = spyOn(basicSortTreeTable,"sort").and.callThrough();
+        const sortSingleSpy = spyOn(basicSortTreeTable,"sortSingle").and.callThrough();
+        const basicSortTreeTableEl = fixture.debugElement.query(By.css(".basicSortTreeTable"));
+        const sortableHeaders = basicSortTreeTableEl.queryAll(By.css("th"));
+        let rowEls = basicSortTreeTableEl.queryAll(By.css("td"));
+        expect(rowEls[0].nativeElement.textContent).toContain("Applications");
+        expect(sortableHeaders.length).toEqual(3);
+        sortableHeaders[0].nativeElement.click();
+        fixture.detectChanges();
+
+        sortableHeaders[0].nativeElement.click();
+        fixture.detectChanges();
+
+        rowEls = basicSortTreeTableEl.queryAll(By.css("td"));
+        expect(sortSpy).toHaveBeenCalled();
+        expect(sortSingleSpy).toHaveBeenCalled();
+        expect(rowEls[0].nativeElement.textContent).toContain("Videos");
+    });
+
+    it('should sort the treetable (multiple)', () => {
+        fixture.detectChanges();
+  
+        const sortMultipleSpy = spyOn(multipleSortTreeTable,"sortMultiple").and.callThrough();
+        const multipleSortTreeTableEl = fixture.debugElement.query(By.css(".multipleSortTreeTable"));
+        const sortableHeaders = multipleSortTreeTableEl.queryAll(By.css("th"));
+        let rowEls = multipleSortTreeTableEl.queryAll(By.css("td"));
+        expect(rowEls[0].nativeElement.textContent).toContain("Applications");
+        expect(sortableHeaders.length).toEqual(3);
+        sortableHeaders[2].nativeElement.click();
+        fixture.detectChanges();
+
+        const clickEvent: any = document.createEvent('CustomEvent');
+		clickEvent.initEvent('click', true, true);
+		clickEvent.ctrlKey = true;
+        sortableHeaders[1].nativeElement.dispatchEvent(clickEvent);
+        fixture.detectChanges();
+
+        rowEls = multipleSortTreeTableEl.queryAll(By.css("td"));
+        expect(sortMultipleSpy).toHaveBeenCalled();
+        expect(rowEls[0].nativeElement.textContent).toContain("Other");
+    });
+
+    it('should single select', () => {
+        fixture.detectChanges();
+  
+        const handleRowClickSpy = spyOn(singleSelectionTreeTable,"handleRowClick").and.callThrough();
+        const singleSelectionTreeTableEl = fixture.debugElement.query(By.css(".singleSelectionTreeTable"));
+        let rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        rowEls[1].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(handleRowClickSpy).toHaveBeenCalled();
+        expect(testcomponent.selectedNode.data.name).toEqual("Applications");
+        rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.initEvent('keydown', true, true);
+        keydownEvent.code ="Enter";
+        keydownEvent.key = "Enter";
+        keydownEvent.keyCode = 13;
+        keydownEvent.which = 13;
+        rowEls[2].nativeElement.dispatchEvent(keydownEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.data.name).toEqual("Cloud");
+        rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        const touchendEvent: any = document.createEvent('CustomEvent');
+        touchendEvent.initEvent('touchend', true, true);
+        rowEls[2].nativeElement.dispatchEvent(touchendEvent);
+        rowEls[2].nativeElement.dispatchEvent(keydownEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode).toBeNull();
+    });
+
+    it('should single select with metaKeySelection', () => {
+        fixture.detectChanges();
+  
+        singleSelectionTreeTable.metaKeySelection = true;
+        fixture.detectChanges();
+
+        const handleRowClickSpy = spyOn(singleSelectionTreeTable,"handleRowClick").and.callThrough();
+        const singleSelectionTreeTableEl = fixture.debugElement.query(By.css(".singleSelectionTreeTable"));
+        let rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        rowEls[1].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(handleRowClickSpy).toHaveBeenCalled();
+        expect(testcomponent.selectedNode.data.name).toEqual("Applications");
+        rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        rowEls[2].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.data.name).toEqual("Cloud");
+        rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        
+        rowEls[2].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode).not.toBeNull();
+        const clickEvent: any = document.createEvent('CustomEvent');
+        clickEvent.initEvent('click', true, true);
+        clickEvent.ctrlKey = true;
+        clickEvent.metaKey = true;
+        rowEls[2].nativeElement.dispatchEvent(clickEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode).toBeNull();
+    });
+
+    it('should multiple select', () => {
+        fixture.detectChanges();
+  
+        const handleRowClickSpy = spyOn(multipleSelectionTreeTable,"handleRowClick").and.callThrough();
+        const singleSelectionTreeTableEl = fixture.debugElement.query(By.css(".multipleSelectionTreeTable"));
+        let rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        rowEls[1].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(handleRowClickSpy).toHaveBeenCalled();
+        expect(testcomponent.selectedNode[0].data.name).toEqual("Applications");
+        rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.initEvent('keydown', true, true);
+        keydownEvent.code ="Enter";
+        keydownEvent.key = "Enter";
+        keydownEvent.keyCode = 13;
+        keydownEvent.which = 13;
+        rowEls[2].nativeElement.dispatchEvent(keydownEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode[1].data.name).toEqual("Cloud");
+        expect(testcomponent.selectedNode.length).toEqual(2);
+        rowEls[2].nativeElement.dispatchEvent(keydownEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.length).toEqual(1);
+    });
+
+    it('should multiple select with metaKeySeleciton', () => {
+        fixture.detectChanges();
+  
+        multipleSelectionTreeTable.metaKeySelection = true;
+        fixture.detectChanges();
+
+        const handleRowClickSpy = spyOn(multipleSelectionTreeTable,"handleRowClick").and.callThrough();
+        const singleSelectionTreeTableEl = fixture.debugElement.query(By.css(".multipleSelectionTreeTable"));
+        let rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        rowEls[1].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(handleRowClickSpy).toHaveBeenCalled();
+        expect(testcomponent.selectedNode[0].data.name).toEqual("Applications");
+        rowEls = singleSelectionTreeTableEl.queryAll(By.css("tr"));
+        const clickEvent: any = document.createEvent('CustomEvent');
+        clickEvent.initEvent('click', true, true);
+        clickEvent.ctrlKey = true;
+        clickEvent.metaKey = true;
+        rowEls[2].nativeElement.dispatchEvent(clickEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode[1].data.name).toEqual("Cloud");
+        expect(testcomponent.selectedNode.length).toEqual(2);
+        rowEls[3].nativeElement.dispatchEvent(clickEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.length).toEqual(3);
+        rowEls[3].nativeElement.dispatchEvent(clickEvent);
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.length).toEqual(2);
+        rowEls[3].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.length).toEqual(1);
     });
 });
