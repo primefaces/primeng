@@ -23,6 +23,7 @@ export interface LocaleSettings {
     today: string;
     clear: string;
     dateFormat?: string;
+    weekHeader?: string;
 }
 
 @Component({
@@ -66,13 +67,21 @@ export interface LocaleSettings {
                             <table class="ui-datepicker-calendar">
                                 <thead>
                                     <tr>
+                                        <th *ngIf="showWeek" class="ui-datepicker-weekheader">
+                                            <span>{{locale['weekHeader']}}</span>
+                                        </th>
                                         <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
                                             <span>{{weekDay}}</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let week of month.dates">
+                                    <tr *ngFor="let week of month.dates; let i = index;">
+                                        <td *ngIf="showWeek" class="ui-datepicker-weeknumber ui-state-disabled">
+                                            <span>
+                                                {{month.weekNumbers[i]}}
+                                            </span>
+                                        </td>
                                         <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month': date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                             <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
@@ -249,8 +258,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() monthNavigator: boolean;
 
     @Input() yearNavigator: boolean;
-
-    @Input() yearRange: string;
     
     @Input() hourFormat: string = '24';
     
@@ -267,6 +274,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() required: boolean;
 
     @Input() showOnFocus: boolean = true;
+
+    @Input() showWeek: boolean = false;
     
     @Input() dataType: string = 'date';
     
@@ -333,7 +342,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
         today: 'Today',
         clear: 'Clear',
-        dateFormat: 'mm/dd/yy'
+        dateFormat: 'mm/dd/yy',
+        weekHeader: 'Wk'
     };
     
     @Input() tabindex: number;
@@ -407,6 +417,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     _maxDate: Date;
     
     _showTime: boolean;
+
+    _yearRange: string;
     
     preventDocumentListener: boolean;
     
@@ -472,6 +484,20 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
     
+    @Input() get yearRange(): string {
+        return this._yearRange;
+    }
+
+    set yearRange(yearRange: string) {
+        if (this.yearNavigator && yearRange) {
+            const years = yearRange.split(':');
+            const yearStart = parseInt(years[0]);
+            const yearEnd = parseInt(years[1]);
+            
+            this.populateYearOptions(yearStart, yearEnd);
+        }
+    }
+
     @Input() get showTime(): boolean {
         return this._showTime;
     }
@@ -508,14 +534,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         const date = this.defaultDate||new Date();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
-
-        if (this.yearNavigator && this.yearRange) {
-            const years = this.yearRange.split(':');
-            const yearStart = parseInt(years[0]);
-            const yearEnd = parseInt(years[1]);
-            
-            this.populateYearOptions(yearStart, yearEnd);
-        }
 
         if (this.view === 'date') {
             this.createWeekDays();
@@ -579,16 +597,25 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.months.push(this.createMonth(m, y));
         }
     }
+
+    getWeekNumber(date: Date) {
+        let checkDate = new Date(date.getTime());
+		checkDate.setDate(checkDate.getDate() + 4 - ( checkDate.getDay() || 7 ));
+		let time = checkDate.getTime();
+		checkDate.setMonth( 0 );
+		checkDate.setDate( 1 );
+		return Math.floor( Math.round((time - checkDate.getTime()) / 86400000 ) / 7 ) + 1;
+    }
     
     createMonth(month: number, year: number) {
         let dates = [];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
-        let sundayIndex = this.getSundayIndex();
         let dayNo = 1;
         let today = new Date();
-        
+        let weekNumbers = [];
+
         for (let i = 0; i < 6; i++) {
             let week = [];
             
@@ -623,13 +650,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 }
             }
             
+            if (this.showWeek) {
+                weekNumbers.push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day))); 
+            }
+
             dates.push(week);
         }
 
         return {
             month: month,
             year: year,
-            dates: dates
+            dates: dates,
+            weekNumbers: weekNumbers
         };
     }
     
@@ -761,7 +793,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     shouldSelectDate(dateMeta) {
         if (this.isMultipleSelection())
-            return !this.maxDateCount || !this.value || this.maxDateCount > this.value.length;
+            return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
         else
             return true;
     }
@@ -1402,7 +1434,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.updateTime();
         event.preventDefault();
     }
-    
+
     onUserInput(event) {
         // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
         if (!this.isKeydown) {
@@ -1413,21 +1445,34 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let val = event.target.value;
         try {
             let value = this.parseValueFromString(val);
-            if (this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
+            if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
             }
         }
         catch(err) {
             //invalid date
-            this.updateModel(null);
         }
         
         this.filled = val != null && val.length;
         this.onInput.emit(event);
     }
+
+    isValidSelection(value): boolean {
+        let isValid = true;
+        if (this.isSingleSelection()) {
+            if (!this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
+                isValid = false;
+            }
+        } else if (value.every(v => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false))) {
+            if (this.isRangeSelection()) {
+                isValid = value.length > 1 && value[1] > value[0] ? true : false;
+            }
+        }
+        return isValid;
+    }
     
-    parseValueFromString(text: string): Date {
+    parseValueFromString(text: string): Date | Date[]{
         if (!text || text.trim().length === 0) {
             return null;
         }

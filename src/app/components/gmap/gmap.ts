@@ -20,6 +20,8 @@ export class GMap implements AfterViewChecked,DoCheck {
     @Output() onMapClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onOverlayClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onOverlayDblClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onOverlayDragStart: EventEmitter<any> = new EventEmitter();
     
@@ -83,6 +85,16 @@ export class GMap implements AfterViewChecked,DoCheck {
         overlay.addListener('click', (event) => {
             this.zone.run(() => {
                 this.onOverlayClick.emit({
+                    originalEvent: event,
+                    'overlay': overlay,
+                    map: this.map
+                });
+            });
+        });
+
+        overlay.addListener('dblclick', (event) => {
+            this.zone.run(() => {
+                this.onOverlayDblClick.emit({
                     originalEvent: event,
                     'overlay': overlay,
                     map: this.map

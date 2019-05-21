@@ -1,5 +1,40 @@
 # Change Log
 
+## [7.1.3](https://github.com/primefaces/primeng/tree/7.1.3) (2019-05-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.2...7.1.3)
+
+**Implemented New Features and Enhancements:**
+
+- State save and restore events for Table [\#7666](https://github.com/primefaces/primeng/issues/7666)
+- Improve relativePosition method in DomHandler [\#7653](https://github.com/primefaces/primeng/issues/7653)
+- Improve Galleria styling [\#7652](https://github.com/primefaces/primeng/issues/7652)
+- Left arrow press should focus parent on Tree [\#7619](https://github.com/primefaces/primeng/issues/7619)
+- Update dynamic dialog animations  [\#7598](https://github.com/primefaces/primeng/issues/7598)
+- Update confirmDialog animations [\#7597](https://github.com/primefaces/primeng/issues/7597)
+
+**Fixed bugs:**
+
+- InputMask's style not working [\#7664](https://github.com/primefaces/primeng/issues/7664)
+- The scroll bar is not moving correctly on the TurboTable with resizeMode="expand" [\#7659](https://github.com/primefaces/primeng/issues/7659)
+- Menu \(Popup\) - double click on item reloads the page [\#7648](https://github.com/primefaces/primeng/issues/7648)
+- p-spinner min/max validation on every keypress prevents manual input of value PrimeNG7.1.2 [\#7643](https://github.com/primefaces/primeng/issues/7643)
+- \[Spinner\] \(7.1.2\) Decimal spinner control marked as invalid in Firefox [\#7625](https://github.com/primefaces/primeng/issues/7625)
+- \[Spinner\] 7.1.2 introduces incompatible changes to spinner control [\#7624](https://github.com/primefaces/primeng/issues/7624)
+- The value of Spinner component is not always updated after being manually changed. [\#7623](https://github.com/primefaces/primeng/issues/7623)
+- Down arrow press on draggable Tree [\#7617](https://github.com/primefaces/primeng/issues/7617)
+- Spinner max length does not work in version 7.1.2 [\#7616](https://github.com/primefaces/primeng/issues/7616)
+- p-menubar without AutoDisplay not opening adjacent menu items [\#7600](https://github.com/primefaces/primeng/issues/7600)
+- p-dialog not considering content scroll height on resize [\#7573](https://github.com/primefaces/primeng/issues/7573)
+- Spinner doesn't get the state filled [\#7532](https://github.com/primefaces/primeng/issues/7532)
+- p-fileUpload component has bug on select file [\#7149](https://github.com/primefaces/primeng/issues/7149)
+
+**Unit Tests:**
+
+- DragDrop Unit Test [\#7656](https://github.com/primefaces/primeng/issues/7656)
+- TreeTable Unit Test [\#7649](https://github.com/primefaces/primeng/issues/7649)
+- DynamicDialog Unit Test [\#7630](https://github.com/primefaces/primeng/issues/7630)
+
 ## [7.1.2](https://github.com/primefaces/primeng/tree/7.1.2) (2019-04-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.1.1...7.1.2)

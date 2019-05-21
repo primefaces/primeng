@@ -88,7 +88,7 @@
     </div>
 
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date14" [inline]="true"></p-calendar>
+    <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"></p-calendar>
 
 </div>
 
@@ -238,7 +238,8 @@ export class MyModel &#123;
             monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
             today: 'Today',
             clear: 'Clear',
-            dateFormat: 'mm/dd/yy'
+            dateFormat: 'mm/dd/yy',
+            weekHeader: 'Wk'
         &#125;;
     &#125;
 &#125;
@@ -405,6 +406,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>When disabled, datepicker will not be visible with input focus.</td>
+                        </tr>
+                        <tr>
+                            <td>showWeek</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, calendar will show week numbers.</td>
                         </tr>
                         <tr>
                             <td>icon</td>
@@ -863,7 +870,7 @@ export class MyModel &#123;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date14" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 

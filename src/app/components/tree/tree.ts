@@ -343,7 +343,7 @@ export class UITreeNode implements OnInit {
         switch (event.which) {
             //down arrow
             case 40:
-                const listElement = nodeElement.children[0].children[1];
+                const listElement = (this.tree.droppableNodes) ? nodeElement.children[1].children[1] : nodeElement.children[0].children[1];
                 if (listElement) {
                     this.focusNode(listElement.children[0]);
                 }
@@ -391,6 +391,12 @@ export class UITreeNode implements OnInit {
             case 37:
                 if (this.node.expanded) {
                     this.collapse(event);
+                }
+                else {
+                    let parentNodeElement = this.getParentNodeElement(nodeElement);
+                    if (parentNodeElement) {
+                        this.focusNode(parentNodeElement);
+                    }
                 }
 
                 event.preventDefault();

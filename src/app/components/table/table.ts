@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -7,7 +7,6 @@ import { ObjectUtils } from '../utils/objectutils';
 import { SortMeta } from '../common/sortmeta';
 import { TableState } from '../common/tablestate';
 import { FilterMetadata } from '../common/filtermetadata';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Injectable } from '@angular/core';
 import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription } from 'rxjs';
@@ -262,6 +261,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() firstChange: EventEmitter<number> = new EventEmitter();
 
+    @Output() onStateSave: EventEmitter<any> = new EventEmitter();
+
+    @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
@@ -336,6 +339,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCell: Element;
 
+    editingCellData: any;
+
+    editingCellField: any;
+
     editingCellClick: boolean;
 
     documentEditListener: any;
@@ -376,7 +383,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     tableWidthState: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService) {}
+    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -1263,6 +1270,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.first = 0;
             this.firstChange.emit(this.first);
         }
+
+        this.cd.detectChanges();
     }
 
     hasFilter() {
@@ -1540,8 +1549,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    updateEditingCell(cell) {
+    updateEditingCell(cell, data, field) {
         this.editingCell = cell;
+        this.editingCellData = data;
+        this.editingCellField = field;
         this.bindDocumentEditListener();
     }
 
@@ -1555,6 +1566,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
+                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
+                    this.editingCellField = null;
+                    this.editingCellData = null;
                     this.unbindDocumentEditListener();
                 }
 
@@ -2038,6 +2052,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (Object.keys(state).length) {
             storage.setItem(this.stateKey, JSON.stringify(state));
         }
+
+        this.onStateSave.emit(state);
     }
 
     clearState() {
@@ -2091,6 +2107,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             this.stateRestored = true;
+
+            this.onStateRestore.emit(state);
         }
     }
 
@@ -3211,7 +3229,7 @@ export class EditableColumn implements AfterViewInit {
     }
 
     openCell() {
-        this.dt.updateEditingCell(this.el.nativeElement);
+        this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field);
         DomHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
         this.dt.onEditInit.emit({ field: this.field, data: this.data});
         this.zone.runOutsideAngular(() => {
@@ -3229,6 +3247,8 @@ export class EditableColumn implements AfterViewInit {
     closeEditingCell() {
         DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
+        this.dt.editingCellData = null;
+        this.dt.editingCellField = null;
         this.dt.unbindDocumentEditListener();
     }
 
