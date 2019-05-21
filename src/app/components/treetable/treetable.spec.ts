@@ -125,6 +125,52 @@ import { Component } from '@angular/core';
                 </tr>
             </ng-template>
         </p-treeTable>
+        <p-treeTable class="checkboxSelectionTreeTable" [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNode">
+            <ng-template pTemplate="caption">
+                <div style="text-align:left">
+                    <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+                    <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="editableTreeTable" [value]="files" [columns]="cols">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'ui-toggler-column': i === 0}">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                        <p-treeTableCellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                            </ng-template>
+                            <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
 `
 })
 class TestTreeTableComponent {
@@ -455,6 +501,8 @@ describe('TreeTable', () => {
     let multipleSortTreeTable: TreeTable;
     let singleSelectionTreeTable: TreeTable;
     let multipleSelectionTreeTable: TreeTable;
+    let checkboxSelectionTreeTable: TreeTable;
+    let editableTreeTable: TreeTable;
     let fixture: ComponentFixture<TestTreeTableComponent>;
 
     beforeEach(() => {
@@ -478,6 +526,8 @@ describe('TreeTable', () => {
         multipleSortTreeTable = fixture.debugElement.children[3].componentInstance;
         singleSelectionTreeTable = fixture.debugElement.children[4].componentInstance;
         multipleSelectionTreeTable = fixture.debugElement.children[5].componentInstance;
+        checkboxSelectionTreeTable = fixture.debugElement.children[6].componentInstance;
+        editableTreeTable = fixture.debugElement.children[7].componentInstance;
     });
 
     it('should show 11 rows', () => {
@@ -797,5 +847,163 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         expect(testcomponent.selectedNode.length).toEqual(1);
+    });
+
+    it('should select with checkbox', () => {
+        fixture.detectChanges();
+  
+        const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
+        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        expect(checkboxEls.length).toEqual(10);
+        checkboxEls[1].query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
+        fixture.detectChanges();
+
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        expect(checkboxEls[1].query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
+        checkboxEls[1].query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
+        fixture.detectChanges();
+
+        expect(checkboxEls[1].query(By.css(".ui-chkbox-box")).nativeElement.className).not.toContain("ui-state-focus");
+        checkboxEls[1].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode[0].data.name).toEqual("Applications");
+        checkboxEls[1].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode).toEqual([]);
+    });
+
+    it('should select childs with checkbox', () => {
+        fixture.detectChanges();
+  
+        const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
+        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        let toggleEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-treetable-toggler"));
+        toggleEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        expect(checkboxEls.length).toEqual(13);
+        checkboxEls[2].nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        expect(checkboxEls[1].query(By.css(".ui-chkbox-icon")).nativeElement.className).toContain("pi-minus");
+        checkboxEls[3].nativeElement.click();
+        checkboxEls[4].nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        expect(checkboxEls[1].query(By.css(".ui-chkbox-icon")).nativeElement.className).toContain("pi-check");
+        expect(testcomponent.selectedNode.length).toEqual(7);
+        checkboxEls[4].nativeElement.click();
+        fixture.detectChanges();
+
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        expect(checkboxEls[1].query(By.css(".ui-chkbox-icon")).nativeElement.className).toContain("pi-minus");
+        expect(testcomponent.selectedNode.length).toEqual(5);
+    });
+
+    it('should select with headerCheckbox', () => {
+        fixture.detectChanges();
+  
+        const checkboxSelectionTreeTableEl = fixture.debugElement.query(By.css(".checkboxSelectionTreeTable"));
+        let checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        checkboxEls[0].query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
+        fixture.detectChanges();
+
+        checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css(".ui-chkbox"));
+        expect(checkboxEls[0].query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
+        checkboxEls[0].query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
+        fixture.detectChanges();
+
+        expect(checkboxEls[0].query(By.css(".ui-chkbox-box")).nativeElement.className).not.toContain("ui-state-focus");
+        checkboxEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.length).toEqual(40);
+        checkboxEls[0].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(testcomponent.selectedNode.length).toEqual(0);
+    });
+
+    it('should open cell and close', () => {
+        fixture.detectChanges();
+        
+        const editableTreeTableEl = fixture.debugElement.query(By.css(".editableTreeTable"));
+        let editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        editableColumns[0].nativeElement.click();
+        fixture.detectChanges();
+
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        let inputEl = editableTreeTableEl.query(By.css("input"));
+        expect(inputEl).toBeTruthy();
+        expect(editableColumns[0].nativeElement.className).toContain("ui-editing-cell");
+        fixture.detectChanges();
+
+        document.dispatchEvent(new Event("click"));
+        fixture.detectChanges();
+
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        inputEl = editableTreeTableEl.query(By.css("input"));
+        expect(inputEl).toBeFalsy();
+        expect(editableColumns[0].nativeElement.className).not.toContain("ui-editing-cell");
+    });
+
+    it('should open cell and close with tab escape and enter key', () => {
+        fixture.detectChanges();
+        
+        const editableTreeTableEl = fixture.debugElement.query(By.css(".editableTreeTable"));
+        let editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        editableColumns[1].nativeElement.click();
+        fixture.detectChanges();
+
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        let inputEl = editableTreeTableEl.query(By.css("input"));
+        expect(inputEl).toBeTruthy();
+        expect(editableColumns[1].nativeElement.className).toContain("ui-editing-cell");
+        fixture.detectChanges();
+
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        editableColumns[1].triggerEventHandler('keydown',{'target':editableColumns[1].nativeElement,'keyCode':9,preventDefault(){}});
+        fixture.detectChanges();
+
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        expect(editableColumns[1].nativeElement.className).not.toContain("ui-editing-cell");
+        expect(editableColumns[2].nativeElement.className).toContain("ui-editing-cell");
+        editableColumns[2].triggerEventHandler('keydown',{'target':editableColumns[2].nativeElement,'keyCode':9,preventDefault(){}});
+        fixture.detectChanges();
+
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        expect(editableColumns[2].nativeElement.className).not.toContain("ui-editing-cell");
+        expect(editableColumns[3].nativeElement.className).toContain("ui-editing-cell");
+
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        editableColumns[3].triggerEventHandler('keydown',{'target':editableColumns[3].nativeElement,'shiftKey':true,'keyCode':9,preventDefault(){}});
+        fixture.detectChanges();
+
+        expect(editableColumns[3].nativeElement.className).not.toContain("ui-editing-cell");
+        expect(editableColumns[2].nativeElement.className).toContain("ui-editing-cell");
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        editableColumns[2].triggerEventHandler('keydown',{'target':editableColumns[2].nativeElement,'shiftKey':true,'keyCode':9,preventDefault(){}});
+        fixture.detectChanges();
+
+        expect(editableColumns[1].nativeElement.className).toContain("ui-editing-cell");
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        editableColumns[1].triggerEventHandler('keydown',{'target':editableColumns[1].nativeElement,'shiftKey':true,'keyCode':27,preventDefault(){}});
+        fixture.detectChanges();
+
+        expect(editableColumns[1].nativeElement.className).not.toContain("ui-editing-cell");
+        editableColumns = editableTreeTableEl.queryAll(By.css("td"));
+        editableColumns[1].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(editableColumns[1].nativeElement.className).toContain("ui-editing-cell");
+        editableColumns[1].triggerEventHandler('keydown',{'target':editableColumns[1].nativeElement,'shiftKey':true,'keyCode':13,preventDefault(){}});
+        fixture.detectChanges();
+
+        expect(editableColumns[1].nativeElement.className).not.toContain("ui-editing-cell");
     });
 });
