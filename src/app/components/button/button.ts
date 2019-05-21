@@ -7,7 +7,7 @@ import {CommonModule} from '@angular/common';
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
 
-    @Input() iconPos: string = 'left';
+    @Input() iconPos: 'left' | 'right' = 'left';
     
     @Input() cornerStyleClass: string = 'ui-corner-all';
         
