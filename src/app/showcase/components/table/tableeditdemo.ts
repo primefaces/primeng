@@ -1,26 +1,60 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
+import { SelectItem } from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './tableeditdemo.html'
+    templateUrl: './tableeditdemo.html',
+    providers: [MessageService]
 })
 export class TableEditDemo implements OnInit {
 
-    cars: Car[];
+    cars1: Car[];
 
-    cols: any[];
+    cars2: Car[];
 
-    constructor(private carService: CarService) { }
+    brands: SelectItem[];
+
+    clonedCars: { [s: string]: Car; } = {};
+
+    constructor(private carService: CarService, private messageService: MessageService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.carService.getCarsSmall().then(cars => this.cars1 = cars);
+        this.carService.getCarsSmall().then(cars => this.cars2 = cars);
 
-        this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+        this.brands = [
+            {label: 'Audi', value: 'Audi'},
+            {label: 'BMW', value: 'BMW'},
+            {label: 'Fiat', value: 'Fiat'},
+            {label: 'Ford', value: 'Ford'},
+            {label: 'Honda', value: 'Honda'},
+            {label: 'Jaguar', value: 'Jaguar'},
+            {label: 'Mercedes', value: 'Mercedes'},
+            {label: 'Renault', value: 'Renault'},
+            {label: 'VW', value: 'VW'},
+            {label: 'Volvo', value: 'Volvo'}
         ];
     }
+
+    onRowEditInit(car: Car) {
+        this.clonedCars[car.vin] = {...car};
+    }
+
+    onRowEditSave(car: Car) {
+        if (car.year > 0) {
+            delete this.clonedCars[car.vin];
+            this.messageService.add({severity:'success', summary: 'Success', detail:'Car is updated'});
+        }  
+        else {
+            this.messageService.add({severity:'error', summary: 'Error', detail:'Year is required'});
+        }
+    }
+
+    onRowEditCancel(car: Car, index: number) {
+        this.cars2[index] = this.clonedCars[car.vin];
+        delete this.clonedCars[car.vin];
+    }
+
 }

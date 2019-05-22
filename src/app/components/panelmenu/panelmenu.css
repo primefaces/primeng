@@ -21,8 +21,17 @@
     text-decoration: none;
 }
 
+.ui-panelmenu .ui-panelmenu-icon {
+    vertical-align: middle;
+}
+
+.ui-panelmenu .ui-menuitem-text {
+    vertical-align: middle;
+}
+
 .ui-panelmenu .ui-menuitem-icon {
     margin-right: .25em;
+    vertical-align: middle;
 }
 
 .ui-panelmenu .ui-panelmenu-content {

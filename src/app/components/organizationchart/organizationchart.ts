@@ -19,8 +19,8 @@ import {PrimeTemplate} from '../common/shared';
                     <div *ngIf="chart.getTemplateForNode(node)">
                         <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                     </div>
-                    <a *ngIf="!leaf" href="#" class="ui-node-toggler" (click)="toggleNode($event, node)">
-                        <i class="fa ui-node-toggler-icon" [ngClass]="{'fa-chevron-down': node.expanded, 'fa-chevron-up': !node.expanded}"></i>
+                    <a *ngIf="!leaf" tabindex="0" class="ui-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)">
+                        <i class="ui-node-toggler-icon pi" [ngClass]="{'pi-chevron-down': node.expanded, 'pi-chevron-up': !node.expanded}"></i>
                     </a>
                 </div>
             </td>
@@ -31,10 +31,17 @@ import {PrimeTemplate} from '../common/shared';
             </td>
         </tr>
         <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
-            <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
-                <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
-                <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
-            </ng-template>
+            <ng-container *ngIf="node.children && node.children.length === 1">
+                <td [attr.colspan]="colspan">
+                    <div class="ui-organizationchart-line-down"></div>
+                </td>
+            </ng-container>
+            <ng-container *ngIf="node.children && node.children.length > 1">
+                <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
+                    <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
+                    <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
+                </ng-template>
+            </ng-container>
         </tr>
         <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-nodes" [@childState]="'in'">
             <td *ngFor="let child of node.children" colspan="2">
@@ -53,7 +60,7 @@ import {PrimeTemplate} from '../common/shared';
              animate(150, style({opacity:0}))
            ])
         ])
-    ],
+    ]
 })
 export class OrganizationChartNode {
 
@@ -95,8 +102,7 @@ export class OrganizationChartNode {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-organizationchart ui-widget'">
             <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class OrganizationChart implements AfterContentInit {
             
@@ -120,7 +126,7 @@ export class OrganizationChart implements AfterContentInit {
     
     public templateMap: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
     
     get root(): TreeNode {
         return this.value && this.value.length ? this.value[0] : null;

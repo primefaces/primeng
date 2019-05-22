@@ -1,7 +1,11 @@
 language: node_js
-sudo: false
+sudo: required
 node_js:
    - node
+
+before_script:
+   - "sudo chown root /opt/google/chrome/chrome-sandbox"
+   - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 
 before_install:
    - export CHROME_BIN=chromium-browser
@@ -9,7 +13,7 @@ before_install:
    - sh -e /etc/init.d/xvfb start
 
 script: # the build step
-   - node_modules/.bin/ng test --colors=false --progress=false --single-run
+   - node_modules/.bin/ng test --watch=false
 
 
 cache:

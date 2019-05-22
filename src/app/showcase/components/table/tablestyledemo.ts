@@ -5,12 +5,12 @@ import { CarService } from '../../service/carservice';
 @Component({
     templateUrl: './tablestyledemo.html',
     styles: [`
-        .old-car {
+        .new-car {
             background-color: #1CA979 !important;
             color: #ffffff !important;
         }
 
-         .very-old-car {
+        .old-car {
             background-color: #2CA8B1 !important;
             color: #ffffff !important;
         }

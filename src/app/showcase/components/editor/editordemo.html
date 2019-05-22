@@ -10,7 +10,7 @@
     <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
     <p>Value: {{text1||'empty'}}</p>
     
-    <button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"></button>
+    <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"></button>
     
     <hr style="border-top:0px;border-color:#dde3e6">
     
@@ -26,7 +26,7 @@
     </p-editor>
     <p>Value: {{text2||'empty'}}</p>
     
-    <button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"></button>
+    <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text2=null"></button>
 </div>
 
 <div class="content-section documentation">
@@ -128,7 +128,32 @@ export class EditorDemo &#123;
                             <td>null</td>
                             <td>Whitelist of formats to display, see <a href="http://quilljs.com/docs/formats/">here</a> for available options.</td>
                         </tr>
-                        
+                        <tr>
+                            <td>modules</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Modules configuration of Editor, see <a href="https://quilljs.com/docs/modules/">here</a> for available options.</td>
+                        </tr>
+                        <tr>
+                            <td>debug</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Shortcut for debug. Note debug is a static method and will affect other instances of Quill 
+                                editors on the page. Only warning and error messages are enabled by default.</td>
+                        </tr>
+                        <tr>
+                            <td>bounds</td>
+                            <td>Element</td>
+                            <td>document.body</td>
+                            <td>DOM Element or a CSS selector for a DOM Element, within which the editor’s ui elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries..</td>
+                        </tr>
+                        <tr>
+                            <td>scrollingContainer</td>
+                            <td>Element</td>
+                            <td>null</td>
+                            <td>DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. 
+                                Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling..</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -252,7 +277,7 @@ npm install quill --save
 &lt;p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 &lt;p&gt;Value: &#123;&#123;text1||'empty'&#125;&#125;&lt;/p&gt;
 
-&lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"&gt;&lt;/button&gt;
 
 &lt;hr style="border-top:0px;border-color:#dde3e6"&gt;
 
@@ -268,7 +293,7 @@ npm install quill --save
 &lt;/p-editor&gt;
 &lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
 
-&lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Clear" icon="pi pi-times" (click)="text2=null"&gt;&lt;/button&gt;
 </code>
 </pre>
 

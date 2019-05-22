@@ -1,0 +1,242 @@
+<treetable-submenu></treetable-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">TreeTable - <span class="subitem">Column Group</span></span>
+        <span>Columns can be grouped using rowspan and colspan properties.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-treeTable [value]="sales">
+        <ng-template pTemplate="header">
+            <tr>
+                <th rowspan="3">Brand</th>
+                <th colspan="4">Sale Rate</th>
+            </tr>
+            <tr>
+                <th colspan="2">Sales</th>
+                <th colspan="2">Profits</th>
+            </tr>
+            <tr>
+                <th>Last Year</th>
+                <th>This Year</th>
+                <th>Last Year</th>
+                <th>This Year</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr>
+                <td>
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.brand}}
+                </td>
+                <td>{{rowData.lastYearSale}}</td>
+                <td>{{rowData.thisYearSale}}</td>
+                <td>{{rowData.lastYearProfit}}</td>
+                <td>{{rowData.thisYearProfit}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td colspan="3">Totals</td>
+                <td>$3,283,772</td>
+                <td>$2,126,925</td>
+            </tr>
+        </ng-template>
+    </p-treeTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="treetablecolgroupdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecolgroupdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableColGroupDemo implements OnInit &#123;
+
+    sales: TreeNode[];
+
+    cols: any[];
+
+    ngOnInit() &#123;
+        this.sales = [
+            &#123;
+                data: &#123; brand: 'Bliss', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'&#125;,
+                expanded: true,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product A', lastYearSale: '25%', thisYearSale: '20%', lastYearProfit: '$34,406.00', thisYearProfit: '$23,342' &#125;,
+                        expanded: true,
+                        children: [
+                            &#123;
+                                data: &#123; brand: 'Product A-1', lastYearSale: '20%', thisYearSale: '10%', lastYearProfit: '$24,406.00', thisYearProfit: '$13,342' &#125;, 
+                            &#125;,
+                            &#123;
+                                data: &#123; brand: 'Product A-2', lastYearSale: '5%', thisYearSale: '10%', lastYearProfit: '$10,000.00', thisYearProfit: '$10,000' &#125;, 
+                            &#125;
+                        ]
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product B', lastYearSale: '26%', thisYearSale: '20%', lastYearProfit: '$24,000.00', thisYearProfit: '$23,000' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Fate', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product X', lastYearSale: '50%', thisYearSale: '40%', lastYearProfit: '$223,132', thisYearProfit: '$156,061' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product Y', lastYearSale: '33%', thisYearSale: '56%', lastYearProfit: '$200,000', thisYearProfit: '$156,061' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Ruby', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product M', lastYearSale: '18%', thisYearSale: '2%', lastYearProfit: '$10,300', thisYearProfit: '$5,500' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product N', lastYearSale: '20%', thisYearSale: '3%', lastYearProfit: '$2,021', thisYearProfit: '$3,000' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Sky', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product P', lastYearSale: '20%', thisYearSale: '16%', lastYearProfit: '$345,232', thisYearProfit: '$350,000' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product R', lastYearSale: '29%', thisYearSale: '6%', lastYearProfit: '$400,009', thisYearProfit: '$300,323' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Comfort', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product S', lastYearSale: '10%', thisYearSale: '40%', lastYearProfit: '$243,242', thisYearProfit: '$100,000' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product T', lastYearSale: '7%', thisYearSale: '39%', lastYearProfit: '$400,00', thisYearProfit: '$400,332' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Merit', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product L', lastYearSale: '20%', thisYearSale: '40%', lastYearProfit: '$121,132', thisYearProfit: '$100,000' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product G', lastYearSale: '32%', thisYearSale: '25%', lastYearProfit: '$300,000', thisYearProfit: '$50,005' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Violet', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product SH1', lastYearSale: '30%', thisYearSale: '6%', lastYearProfit: '$101,211', thisYearProfit: '$30,214' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product SH2', lastYearSale: '52%', thisYearSale: '6%', lastYearProfit: '$30,000', thisYearProfit: '$70,000' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Dulce', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product PN1', lastYearSale: '22%', thisYearSale: '25%', lastYearProfit: '$33,221', thisYearProfit: '$20,000' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product PN2', lastYearSale: '22%', thisYearSale: '25%', lastYearProfit: '$33,221', thisYearProfit: '$33,322' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data: &#123; brand: 'Solace', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product HT1', lastYearSale: '60%', thisYearSale: '36%', lastYearProfit: '$465,000', thisYearProfit: '$150,653' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product HT2', lastYearSale: '30%', thisYearSale: '20%', lastYearProfit: '$300,442', thisYearProfit: '$145,579' &#125;, 
+                    &#125;
+                ]
+            &#125;,
+            &#123;
+                data:  &#123; brand: 'Essence', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' &#125;,
+                children: [
+                    &#123;
+                        data: &#123; brand: 'Product TS1', lastYearSale: '50%', thisYearSale: '34%', lastYearProfit: '$11,000', thisYearProfit: '$8,562' &#125;, 
+                    &#125;,
+                    &#123;
+                        data: &#123; brand: 'Product TS2', lastYearSale: '25%', thisYearSale: '20%', lastYearProfit: '$11,212', thisYearProfit: '$3,971' &#125;, 
+                    &#125;
+                ]
+            &#125;
+        ];
+    &#125;;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="treetablecolgroupdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecolgroupdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="sales"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th rowspan="3"&gt;Brand&lt;/th&gt;
+            &lt;th colspan="4"&gt;Sale Rate&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th colspan="2"&gt;Sales&lt;/th&gt;
+            &lt;th colspan="2"&gt;Profits&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Last Year&lt;/th&gt;
+            &lt;th&gt;This Year&lt;/th&gt;
+            &lt;th&gt;Last Year&lt;/th&gt;
+            &lt;th&gt;This Year&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData.brand&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;&#123;&#123;rowData.lastYearSale&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;rowData.thisYearSale&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;rowData.lastYearProfit&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;rowData.thisYearProfit&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer"&gt;
+        &lt;tr&gt;
+            &lt;td colspan="3"&gt;Totals&lt;/td&gt;
+            &lt;td&gt;$3,283,772&lt;/td&gt;
+            &lt;td&gt;$2,126,925&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

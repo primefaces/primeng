@@ -50,6 +50,7 @@ exports
 
 # config
 .angular-cli.json
+angular.json
 tsconfig.json
 tsconfig-release.json
 tsconfig-aot.json

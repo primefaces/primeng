@@ -10,7 +10,7 @@
     <p-menubar [model]="items">
         <div>
             <input type="text" pInputText placeholder="Search">
-            <button pButton label="Logout" icon="fa-sign-out"></button>
+            <button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"></button>
         </div>
     </p-menubar>
 
@@ -18,7 +18,7 @@
     <p-menubar [model]="items" [autoDisplay]="false">
         <div>
             <input type="text" pInputText placeholder="Search">
-            <button pButton label="Logout" icon="fa-sign-out"></button>
+            <button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"></button>
         </div>
     </p-menubar>
 </div>
@@ -56,8 +56,8 @@ export class MenubarDemo &#123;
             &#123;
                 label: 'File',
                 items: [&#123;
-                        label: 'New',
-                        icon: 'fa-plus',
+                        label: 'New', 
+                        icon: 'pi pi-fw pi-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -69,10 +69,10 @@ export class MenubarDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
                 ]
             &#125;
         ];
@@ -88,7 +88,7 @@ export class MenubarDemo &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-menubar [model]="items"&gt;
     &lt;input type="text" pInputText placeholder="Search"&gt;
-    &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+    &lt;button pButton label="Logout" icon="fa fa-sign-out"&gt;&lt;/button&gt;
 &lt;/p-menubar&gt;
 </code>
 </pre>
@@ -198,13 +198,13 @@ export class MenubarDemo &#123;
 &lt;p-menubar [model]="items"&gt;
     &lt;div&gt;
         &lt;input type="text" pInputText placeholder="Search"&gt;
-        &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+        &lt;button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/p-menubar&gt;
 &lt;p-menubar [model]="items" [autoDisplay]="false"&gt;
     &lt;div&gt;
         &lt;input type="text" pInputText placeholder="Search"&gt;
-        &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+        &lt;button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/p-menubar&gt;
 </code>
@@ -220,41 +220,41 @@ export class MenubarDemo &#123;
         this.items = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'pi pi-fw pi-file',
                 items: [&#123;
-                        label: 'New',
-                        icon: 'fa-plus',
+                        label: 'New', 
+                        icon: 'pi pi-fw pi-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
                         ]
                     &#125;,
                     &#123;label: 'Open'&#125;,
-                    &#123;separator: true&#125;,
+                    &#123;separator:true&#125;,
                     &#123;label: 'Quit'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
-                        label: 'Search',
-                        icon: 'fa-search',
+                        label: 'Search', 
+                        icon: 'pi pi-fw pi-search', 
                         items: [
                             &#123;
-                                label: 'Text',
+                                label: 'Text', 
                                 items: [
                                     &#123;
                                         label: 'Workspace'
@@ -269,27 +269,28 @@ export class MenubarDemo &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'pi pi-fw pi-pencil',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
+                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'pi pi-fw pi-tags',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
                         ]
                     &#125;
                 ]
             &#125;,
+            &#123;separator:true&#125;,
             &#123;
-                label: 'Quit', icon: 'fa-minus'
+                label: 'Quit', icon: 'pi pi-fw pi-times'
             &#125;
         ];
     &#125;

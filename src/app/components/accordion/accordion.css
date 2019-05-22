@@ -14,6 +14,11 @@
     padding: .5em;
 }
 
+.ui-accordion .ui-accordion-toggle-icon,
+.ui-accordion .ui-accordion-header-text {
+    vertical-align: middle;   
+}
+
 .ui-accordion .ui-accordion-content { 
     padding: 1em;
     border-top: 0; 
@@ -34,11 +39,11 @@
     padding: .5em 2em .5em .5em;
 }
  
-.ui-rtl .ui-accordion .ui-accordion-header > .fa {
+.ui-rtl .ui-accordion .ui-accordion-toggle-icon {
     left: initial;
     right: .5em;
 }
 
-.ui-rtl .ui-accordion .ui-accordion-header > .fa-caret-right::before {
-    content: '\f0d9';
+.ui-rtl .ui-accordion .ui-accordion-toggle-icon.pi-caret-right:before {
+    content: '\e904';
 }

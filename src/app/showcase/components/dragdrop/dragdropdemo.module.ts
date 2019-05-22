@@ -4,7 +4,7 @@ import {DragDropDemo} from './dragdropdemo';
 import {DragDropDemoRoutingModule} from './dragdropdemo-routing.module';
 import {DragDropModule} from '../../../components/dragdrop/dragdrop';
 import {PanelModule} from '../../../components/panel/panel';
-import {DataTableModule} from '../../../components/datatable/datatable';
+import {TableModule} from '../../../components/table/table';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -15,7 +15,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		DragDropDemoRoutingModule,
         DragDropModule,
         PanelModule,
-        DataTableModule,
+        TableModule,
         TabViewModule,
         CodeHighlighterModule
 	],

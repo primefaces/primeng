@@ -11,7 +11,7 @@ export const KEYFILTER_VALIDATOR: any = {
 
 @Directive({
     selector: '[pKeyFilter]',
-    providers: [DomHandler, KEYFILTER_VALIDATOR]
+    providers: [KEYFILTER_VALIDATOR]
 })
 export class KeyFilter implements Validator {
 
@@ -53,7 +53,7 @@ export class KeyFilter implements Validator {
 
     _pattern: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) { }
+    constructor(public el: ElementRef) { }
 
     get pattern(): any {
         return this._pattern;
@@ -66,7 +66,7 @@ export class KeyFilter implements Validator {
 
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
-        k = this.domHandler.getBrowser().safari ? (KeyFilter.SAFARI_KEYS[k] || k) : k;
+        k = DomHandler.getBrowser().safari ? (KeyFilter.SAFARI_KEYS[k] || k) : k;
 
         return (k >= 33 && k <= 40) || k == KeyFilter.KEYS.RETURN || k == KeyFilter.KEYS.TAB || k == KeyFilter.KEYS.ESC;
     };
@@ -76,13 +76,13 @@ export class KeyFilter implements Validator {
         let c = e.charCode;
 
         return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 ||(k >= 18 && k <= 20) ||
-            (this.domHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
+            (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
     }
 
 
     getKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
-        return this.domHandler.getBrowser().safari ? (KeyFilter.SAFARI_KEYS[k] || k) : k;
+        return DomHandler.getBrowser().safari ? (KeyFilter.SAFARI_KEYS[k] || k) : k;
     }
 
     getCharCode(e: KeyboardEvent) {
@@ -95,13 +95,18 @@ export class KeyFilter implements Validator {
             return;
         }
         
-        let browser = this.domHandler.getBrowser();
+        let browser = DomHandler.getBrowser();
 
         if (e.ctrlKey || e.altKey) {
             return;
         }
 
         let k = this.getKey(e);
+        
+        if (k == 13) {
+            return;
+        }
+
         if (browser.mozilla && (this.isNavKeyPress(e) || k == KeyFilter.KEYS.BACKSPACE || (k == KeyFilter.KEYS.DELETE && e.charCode == 0))) {
             return;
         }
@@ -121,11 +126,24 @@ export class KeyFilter implements Validator {
         }
     }
 
+    @HostListener('paste', ['$event'])
+    onPaste(e) {
+        const clipboardData = e.clipboardData || (<any>window).clipboardData.getData('text');
+        if (clipboardData) {
+            const pastedText = clipboardData;
+            if (!this.regex.test(pastedText)) {
+                e.preventDefault();
+            }
+        }
+    }
+
     validate(c: AbstractControl): { [key: string]: any } {
-        let value = this.el.nativeElement.value;
-        if (!this.regex.test(value)) {
-            return {
-                validatePattern: false
+        if(this.pValidateOnly) {
+            let value = this.el.nativeElement.value;
+            if (value && !this.regex.test(value)) {
+                return {
+                    validatePattern: false
+                }
             }
         }
     }

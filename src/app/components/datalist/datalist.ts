@@ -12,7 +12,7 @@ import {BlockableUI} from '../common/blockableui';
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
-            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+            (onPageChange)="paginate($event)" styleClass="ui-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
             [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
             <div class="ui-datalist-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
                 <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>

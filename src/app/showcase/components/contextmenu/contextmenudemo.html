@@ -9,7 +9,7 @@
 <div class="content-section implementation">    
     <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
     
-    <p-contextMenu [target]="img" [model]="items2" ></p-contextMenu>
+    <p-contextMenu [target]="img" [model]="items2"></p-contextMenu>
     
     <img #img src="assets/showcase/images/primeng-text.svg" alt="Logo">
 </div>
@@ -62,7 +62,7 @@ export class ContextMenuDemo &#123;
                 label: 'File',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -74,10 +74,10 @@ export class ContextMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
                 ]
             &#125;
         ];
@@ -145,6 +145,12 @@ export class ContextMenuDemo &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to automatically manage layering.</td>
+                        </tr>
+                        <tr>
+                            <td>triggerEvent</td>
+                            <td>string</td>
+                            <td>contextmenu</td>
+                            <td>Event for which the menu must be displayed.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -232,7 +238,7 @@ export class ContextMenuDemo &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [global]="true" [model]="items1"&gt;&lt;/p-contextMenu&gt;
 
-&lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
+&lt;p-contextMenu [target]="img" [model]="items2"&gt;&lt;/p-contextMenu&gt;
 
 &lt;img #img src="assets/showcase/images/primeng-text.svg" alt="Logo"&gt;
 </code>
@@ -247,13 +253,13 @@ export class ContextMenuDemo &#123;
     items2: MenuItem[];
 
     ngOnInit() &#123;
-        this.items = [
+        this.items1 = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'pi pi-fw pi-file',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -266,22 +272,22 @@ export class ContextMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'pi pi-fw pi-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -299,39 +305,39 @@ export class ContextMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'pi pi-fw pi-pencil',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
+                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'pi pi-fw pi-tags',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
                         ]
                     &#125;
                 ]
             &#125;,
             &#123;separator:true&#125;,
             &#123;
-                label: 'Quit', icon: 'fa-minus'
+                label: 'Quit', icon: 'pi pi-fw pi-times'
             &#125;
         ];
-        
+
         this.items2 = [
             &#123;
                 label: 'Next',
-                icon: 'fa-chevron-right'
+                icon: 'pi pi-fw pi-chevron-right'
             &#125;,
             &#123;
                 label: 'Prev',
-                icon: 'fa-chevron-left'
+                icon: 'pi pi-fw pi-chevron-left'
             &#125;
         ];
     &#125;

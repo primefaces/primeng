@@ -13,7 +13,7 @@ import {FilterMetadata} from '../common/filtermetadata';
 import {SortMeta} from '../common/sortmeta';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
 
 @Component({
@@ -82,7 +82,7 @@ export class DTCheckbox {
                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': col.sortable, 'ui-state-active': dt.isSorted(col), 'ui-resizable-column': dt.resizableColumns, 'ui-selection-column':col.selectionMode,
                             'ui-helper-hidden': col.hidden}"
                 (dragstart)="dt.onColumnDragStart($event)" (dragleave)="dt.onColumnDragleave($event)" (drop)="dt.onColumnDrop($event)" (mousedown)="dt.onHeaderMousedown($event,headerCell)"
-                [attr.tabindex]="col.sortable ? tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)"
+                [attr.tabindex]="col.sortable ? dt.tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)"
                 [attr.scope]="col.scope||(col.colspan ? 'colgroup' : 'col')">
                 <span class="ui-column-resizer ui-clickable" *ngIf="dt.resizableColumns && col.resizable && ((dt.columnResizeMode == 'fit' && !lastCol) || dt.columnResizeMode == 'expand')" (mousedown)="dt.initColumnResize($event)"></span>
                 <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
@@ -167,9 +167,9 @@ export class ColumnFooters {
                                 (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" (blur)="dt.onCellEditorBlur($event, col, rowData, rowIndex)"
                                 (input)="dt.onCellEditorInput($event, col, rowData, rowIndex)" (change)="dt.onCellEditorChange($event, col, rowData, rowIndex)"
                                 class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event, colIndex)"></a>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event)"></a>
                             <ng-container *ngTemplateOutlet="col.editorTemplate; context: {$implicit: col, rowData: rowData, rowIndex: rowIndex}"></ng-container>
-                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event, colIndex)"></a>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event)"></a>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
                             <span class="ui-row-toggler fa fa-fw ui-clickable" [ngClass]="dt.isRowExpanded(rowData) ? dt.expandedIcon : dt.collapsedIcon"></span>
@@ -192,9 +192,9 @@ export class ColumnFooters {
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
-                <ng-template *ngIf="dt.emptyMessageTemplate">
+                <ng-container *ngIf="dt.emptyMessageTemplate">
                     <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate"></ng-container>
-                </ng-template>
+                </ng-container>
             </td>
         </tr>
     `
@@ -254,7 +254,7 @@ export class TableBody {
 })
 export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy {
     
-    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
     
     @Input("pScrollableView") columns: Column[];
     
@@ -316,9 +316,9 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     ngAfterViewChecked() {
         if(this.virtualScroll && !this.rowHeight) {
-             let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content:not(.ui-datatable-emptymessage-row)');
+             let row = DomHandler.findSingle(this.scrollTable, 'tr.ui-widget-content:not(.ui-datatable-emptymessage-row)');
              if(row) {
-                 this.rowHeight = this.domHandler.getOuterHeight(row);
+                 this.rowHeight = DomHandler.getOuterHeight(row);
              }
         }
         
@@ -353,14 +353,14 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             this.alignScrollBar();
         }
         else {
-            this.scrollBody.style.paddingBottom = this.domHandler.calculateScrollbarWidth() + 'px';
+            this.scrollBody.style.paddingBottom = DomHandler.calculateScrollbarWidth() + 'px';
         }
     }
     
     onBodyScroll(event) {
         let frozenView = this.el.nativeElement.previousElementSibling;
         if(frozenView) {
-            var frozenScrollBody = this.domHandler.findSingle(frozenView, '.ui-datatable-scrollable-body');
+            var frozenScrollBody = DomHandler.findSingle(frozenView, '.ui-datatable-scrollable-body');
         }
         
         this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
@@ -373,10 +373,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         }
         
         if(this.virtualScroll) {
-            let viewport = this.domHandler.getOuterHeight(this.scrollBody);
-            let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
+            let viewport = DomHandler.getOuterHeight(this.scrollBody);
+            let tableHeight = DomHandler.getOuterHeight(this.scrollTable);
             let pageHeight = this.rowHeight * this.dt.rows;
-            let virtualTableHeight = this.domHandler.getOuterHeight(this.scrollTableWrapper);
+            let virtualTableHeight = DomHandler.getOuterHeight(this.scrollTableWrapper);
             let pageCount = (virtualTableHeight / pageHeight)||1;
 
             if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
@@ -396,8 +396,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             if(this.dt.scrollHeight.indexOf('%') !== -1) {
                 this.scrollBody.style.visibility = 'hidden';
                 this.scrollBody.style.height = '100px';     //temporary height to calculate static height
-                let containerHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.dt.scrollHeight) / 100;
+                let containerHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
+                let relativeHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.dt.scrollHeight) / 100;
                 let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                 let scrollBodyHeight = (relativeHeight - staticHeight);
                 
@@ -416,11 +416,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
     
     hasVerticalOverflow() {
-        return this.domHandler.getOuterHeight(this.scrollTable) > this.domHandler.getOuterHeight(this.scrollBody);
+        return DomHandler.getOuterHeight(this.scrollTable) > DomHandler.getOuterHeight(this.scrollBody);
     }
     
     alignScrollBar() {
-        let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
+        let scrollBarWidth = this.hasVerticalOverflow() ? DomHandler.calculateScrollbarWidth() : 0;
         this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';
         if(this.scrollFooterBox) {
             this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';
@@ -489,8 +489,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <span class="fa fa-arrow-down ui-datatable-reorder-indicator-up" style="position: absolute; display: none;"></span>
             <span class="fa fa-arrow-up ui-datatable-reorder-indicator-down" style="position: absolute; display: none;"></span>
         </div>
-    `,
-    providers: [DomHandler,ObjectUtils]
+    `
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,OnDestroy,BlockableUI {
 
@@ -745,7 +744,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public emptyMessageTemplate: TemplateRef<any>;
     
     public paginatorLeftTemplate: TemplateRef<any>;
-            
+    
     public paginatorRightTemplate: TemplateRef<any>;
     
     public scrollBarWidth: number;
@@ -794,8 +793,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     editChanged: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
-            public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils,
+    constructor(public el: ElementRef, public differs: IterableDiffers,
+            public renderer: Renderer2, public changeDetector: ChangeDetectorRef,
             public zone: NgZone) {
     	this.differ = differs.find([]).create(null);
     }
@@ -858,8 +857,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         if(this.totalRecordsChanged && this.virtualScroll && this.virtualScrollableTableWrapper && this.virtualScrollableTableWrapper.offsetParent) {
-            let row = this.domHandler.findSingle(this.virtualScrollableTableWrapper,'tr.ui-widget-content');
-            let rowHeight = this.domHandler.getOuterHeight(row);
+            let row = DomHandler.findSingle(this.virtualScrollableTableWrapper,'tr.ui-widget-content');
+            let rowHeight = DomHandler.getOuterHeight(row);
             this.virtualTableHeight = this._totalRecords * rowHeight;
             this.virtualScrollableTableWrapper.style.height = this.virtualTableHeight + 'px';
             this.totalRecordsChanged = false;
@@ -879,7 +878,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
 
-        this.virtualScrollableTableWrapper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-scrollable-table-wrapper');
+        this.virtualScrollableTableWrapper = DomHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-scrollable-table-wrapper');
 
         this.initialized = true;
     }
@@ -966,11 +965,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this._selection) {
                 if(Array.isArray(this._selection)) {
                     for(let data of this._selection) {
-                        this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                        this.selectionKeys[String(ObjectUtils.resolveFieldData(data, this.dataKey))] = 1;
                     }
                 }
                 else {
-                    this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+                    this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
                 }
             }
         }
@@ -1057,7 +1056,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     resolveFieldData(data: any, field: string): any {
-        return this.objectUtils.resolveFieldData(data, field);
+        return ObjectUtils.resolveFieldData(data, field);
     }
     
     updateRowGroupMetadata() {
@@ -1182,7 +1181,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             return;
         }
         let targetNode = event.target;
-        if(this.domHandler.hasClass(targetNode, 'ui-sortable-column') || this.domHandler.hasClass(targetNode, 'ui-column-title') || this.domHandler.hasClass(targetNode, 'ui-sortable-column-icon')) {
+        if(DomHandler.hasClass(targetNode, 'ui-sortable-column') || DomHandler.hasClass(targetNode, 'ui-column-title') || DomHandler.hasClass(targetNode, 'ui-sortable-column-icon')) {
             if(!this.immutable) {
                 this.preventSortPropagation = true;
             }
@@ -1362,7 +1361,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(this.sortableRowGroup) {
             let targetNode = event.target.nodeName;
-            if((targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-clickable')))) {
+            if((targetNode == 'TD' || (targetNode == 'SPAN' && !DomHandler.hasClass(event.target, 'ui-clickable')))) {
                 if(this.sortField != this.groupField) {
                     this._sortField = this.groupField;
                     this.sortSingle();
@@ -1439,7 +1438,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         let targetNode = (<HTMLElement> event.target).nodeName;
         
-        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.target, 'ui-clickable'))) {
+        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (DomHandler.hasClass(event.target, 'ui-clickable'))) {
             return;
         }
         
@@ -1447,7 +1446,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(this.selectionMode) {
             if(this.isMultipleSelectionMode() && event.shiftKey && this.anchorRowIndex != null) {
-                this.domHandler.clearSelection();
+                DomHandler.clearSelection();
                 if(this.rangeRowIndex != null) {
                     this.clearSelectionRange(event);
                 }
@@ -1675,7 +1674,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     isSelected(rowData) {
         if(rowData && this.selection) {
             if(this.dataKey) {
-                return this.selectionKeys[this.objectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
+                return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
             }
             else {
                 if(this.selection instanceof Array)
@@ -1689,7 +1688,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     equals(data1, data2) {
-        return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
+        return this.compareSelectionBy === 'equals' ? (data1 === data2) : ObjectUtils.equals(data1, data2, this.dataKey);
     }
     
     get allSelected() {
@@ -1918,16 +1917,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.bindDocumentEditListener();
             
             if(cell != this.editingCell) {
-                if(this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
-                    this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
+                if(this.editingCell && DomHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
+                    DomHandler.removeClass(this.editingCell, 'ui-cell-editing');
                 }
                 
                 this.editingCell = cell;
                 this.onEditInit.emit({column: column, data: rowData});
-                this.domHandler.addClass(cell, 'ui-cell-editing');
-                let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input, .ui-cell-editor textarea');
+                DomHandler.addClass(cell, 'ui-cell-editing');
+                let focusable = DomHandler.findSingle(cell, '.ui-cell-editor input, .ui-cell-editor textarea');
                 if(focusable) {
-                    setTimeout(() => this.domHandler.invokeElementMethod(focusable, 'focus'), 50);
+                    setTimeout(() => DomHandler.invokeElementMethod(focusable, 'focus'), 50);
                 }
             }
         }
@@ -1936,13 +1935,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     switchCellToViewMode(element: any) {
         this.editingCell = null;
         let cell = this.findCell(element);
-        this.domHandler.removeClass(cell, 'ui-cell-editing');
+        DomHandler.removeClass(cell, 'ui-cell-editing');
         this.unbindDocumentEditListener();
     }
     
     closeCell() {
         if(this.editingCell) {
-            this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
+            DomHandler.removeClass(this.editingCell, 'ui-cell-editing');
             this.editingCell = null;
             this.unbindDocumentEditListener();
         }
@@ -1951,7 +1950,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     bindDocumentEditListener() {
         if(!this.documentEditListener) {
             this.documentEditListener = this.renderer.listen('document', 'click', (event) => {
-                if(!this.editorClick) {
+                if(!this.editorClick && event.button !== 2) {
                     this.closeCell();
                 }
                 this.editorClick = false;
@@ -1970,7 +1969,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.editable) {
             //enter
             if(event.keyCode == 13) {
-                if(this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
+                if(DomHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
                     this.switchCellToViewMode(event.target);
                     event.preventDefault();
                 }
@@ -2021,7 +2020,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let targetCell = this.findPreviousEditableColumn(currentCell);
         
         if(targetCell) {
-            this.domHandler.invokeElementMethod(targetCell, 'click');
+            DomHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
     }
@@ -2032,7 +2031,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let targetCell = this.findNextEditableColumn(currentCell);
         
         if(targetCell) {
-            this.domHandler.invokeElementMethod(targetCell, 'click');
+            DomHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
     }
@@ -2048,7 +2047,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         if(prevCell) {
-            if(this.domHandler.hasClass(prevCell, 'ui-editable-column'))
+            if(DomHandler.hasClass(prevCell, 'ui-editable-column'))
                 return prevCell;
             else
                 return this.findPreviousEditableColumn(prevCell);
@@ -2069,7 +2068,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         if(nextCell) {
-            if(this.domHandler.hasClass(nextCell, 'ui-editable-column'))
+            if(DomHandler.hasClass(nextCell, 'ui-editable-column'))
                 return nextCell;
             else
                 return this.findNextEditableColumn(nextCell);
@@ -2102,8 +2101,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     initResizableColumns() {
-        this.tbody = this.domHandler.findSingle(this.el.nativeElement, 'tbody.ui-datatable-data');
-        this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
+        this.tbody = DomHandler.findSingle(this.el.nativeElement, 'tbody.ui-datatable-data');
+        this.resizerHelper = DomHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
         this.fixColumnWidths();
     }
     
@@ -2146,7 +2145,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.bindColumnResizeEvents();
         
         let container = this.el.nativeElement.children[0];
-        let containerLeft = this.domHandler.getOffset(container).left;
+        let containerLeft = DomHandler.getOffset(container).left;
         this.resizeColumn = event.target.parentElement;
         this.columnResizing = true;
         this.lastResizerHelperX = (event.pageX - containerLeft + container.scrollLeft);
@@ -2154,8 +2153,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     onColumnResize(event) {
         let container = this.el.nativeElement.children[0];
-        let containerLeft = this.domHandler.getOffset(container).left;
-        this.domHandler.addClass(container, 'ui-unselectable-text');
+        let containerLeft = DomHandler.getOffset(container).left;
+        DomHandler.addClass(container, 'ui-unselectable-text');
         this.resizerHelper.style.height = container.offsetHeight + 'px';
         this.resizerHelper.style.top = 0 + 'px';
         this.resizerHelper.style.left = (event.pageX - containerLeft + container.scrollLeft) + 'px';
@@ -2172,7 +2171,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(columnWidth + delta > parseInt(minWidth)) {
             if(this.columnResizeMode === 'fit') {
                 let nextColumn = this.resizeColumn.nextElementSibling;
-                while (this.domHandler.hasClass(nextColumn, 'ui-helper-hidden')) {
+                while (DomHandler.hasClass(nextColumn, 'ui-helper-hidden')) {
                     nextColumn = nextColumn.nextElementSibling;
                 }
 
@@ -2187,8 +2186,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         }
 
                         if (this.scrollable) {
-                            let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
-                            let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
+                            let colGroup = DomHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+                            let resizeColumnIndex = DomHandler.index(this.resizeColumn);
                             colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
 
                             if (nextColumn) {
@@ -2204,9 +2203,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let containerWidth = this.tbody.parentElement.style.width;
                 
                 if(this.scrollable) {
-                    this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
-                    let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
-                    let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
+                    DomHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
+                    let colGroup = DomHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+                    let resizeColumnIndex = DomHandler.index(this.resizeColumn);
                     colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
                 }
                 else {
@@ -2222,12 +2221,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         this.resizerHelper.style.display = 'none';
         this.resizeColumn = null;
-        this.domHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
+        DomHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
         this.unbindColumnResizeEvents();
     }
     
     fixColumnWidths() {
-        let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
+        let columns = DomHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
         let bodyCols;
         
         for(let i = 0; i < columns.length; i++) {
@@ -2235,7 +2234,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         if(this.scrollable) {
-            let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+            let colGroup = DomHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
             bodyCols = colGroup.children;
             
             if(bodyCols) {
@@ -2264,8 +2263,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
             let container = this.el.nativeElement.children[0];
-            let containerOffset = this.domHandler.getOffset(container);
-            let dropHeaderOffset = this.domHandler.getOffset(dropHeader);
+            let containerOffset = DomHandler.getOffset(container);
+            let dropHeaderOffset = DomHandler.getOffset(dropHeader);
             
             if(this.draggedColumn != dropHeader) {
                 let targetLeft =  dropHeaderOffset.left - containerOffset.left;
@@ -2307,15 +2306,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     onColumnDrop(event) {
         event.preventDefault();
         if(this.draggedColumn) {
-            let dragIndex = this.domHandler.index(this.draggedColumn);
-            let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
+            let dragIndex = DomHandler.index(this.draggedColumn);
+            let dropIndex = DomHandler.index(this.findParentHeader(event.target));
             let allowDrop = (dragIndex != dropIndex);
             if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
                 allowDrop = false;
             }
         
             if(allowDrop) {
-                this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
+                ObjectUtils.reorderArray(this.columns, dragIndex, dropIndex);
                 if(this.scrollable) {
                     this.initScrollableColumns();
                 }
@@ -2336,10 +2335,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     initColumnReordering() {
-        this.reorderIndicatorUp = this.domHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-up');
-        this.reorderIndicatorDown = this.domHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-down');
-        this.iconWidth = this.domHandler.getHiddenElementOuterWidth(this.reorderIndicatorUp);
-        this.iconHeight = this.domHandler.getHiddenElementOuterHeight(this.reorderIndicatorUp);
+        this.reorderIndicatorUp = DomHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-up');
+        this.reorderIndicatorDown = DomHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-down');
+        this.iconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUp);
+        this.iconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorUp);
     }
     
     findParentHeader(element) {

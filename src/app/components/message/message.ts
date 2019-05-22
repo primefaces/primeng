@@ -5,12 +5,12 @@ import {CommonModule} from '@angular/common';
     selector: 'p-message',
     template: `
         <div aria-live="polite" class="ui-message ui-widget ui-corner-all" *ngIf="severity"
-        [ngClass]="{'ui-messages-info': (severity === 'info'),
-                'ui-messages-warn': (severity === 'warn'),
-                'ui-messages-error': (severity === 'error'),
-                'ui-messages-success': (severity === 'success')}">
+        [ngClass]="{'ui-message-info': (severity === 'info'),
+                'ui-message-warn': (severity === 'warn'),
+                'ui-message-error': (severity === 'error'),
+                'ui-message-success': (severity === 'success')}">
             <span class="ui-message-icon" [ngClass]="icon"></span>
-            <span class="ui-message-text">{{text}}</span>
+            <span class="ui-message-text" [innerHTML]="text"></span>
         </div>
     `
 })
@@ -26,23 +26,23 @@ export class UIMessage {
         if(this.severity) {
             switch(this.severity) {
                 case 'success':
-                    icon = 'fa fa-check';
+                    icon = 'pi pi-check';
                 break;
 
                 case 'info':
-                    icon = 'fa fa-info-circle';
+                    icon = 'pi pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'fa fa-close';
+                    icon = 'pi pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'fa fa-warning';
+                    icon = 'pi pi-exclamation-triangle';
                 break;
 
                 default:
-                    icon = 'fa fa-info-circle';
+                    icon = 'pi pi-info-circle';
                 break;
             }
         }

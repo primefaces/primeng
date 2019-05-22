@@ -1,3 +1,7 @@
+/*
+* Deprecated: Use nova instead
+*/
+
 $fontFamily:  "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
 $fontSize: 1em;
 $borderRadius: 3px;
@@ -267,9 +271,13 @@ $inputGroupTextColor: #222222;
 }
 
 /* InputSwitch */
-.ui-inputswitch-on {
-	background: #186ba0 !important;
-	color: #ffffff !important;
+/* InputSwitch */
+.ui-inputswitch.ui-inputswitch-focus {
+    .ui-inputswitch-slider {
+        -moz-box-shadow: 0px 0px 5px #1f89ce;
+        -webkit-box-shadow: 0px 0px 5px #1f89ce;
+        box-shadow: 0px 0px 5px #1f89ce;
+    }
 }
 
 .ui-paginator .ui-paginator-page.ui-state-active {
@@ -326,12 +334,12 @@ $inputGroupTextColor: #222222;
 .ui-table {
     .ui-table-thead > tr > th,
     .ui-table-tfoot > tr > td {
-        background: #ebedf0;
+        background-color: #ebedf0;
         border-color: #d9d9d9;
     }
 
     .ui-sortable-column:not(.ui-state-highlight):hover {
-        background: #d3d5d8;
+        background-color: #d3d5d8;
         border-color: #d9d9d9;
     }
 
@@ -347,6 +355,20 @@ $inputGroupTextColor: #222222;
             background-color: lighten($stateHighlightBgColor, 20%);
             color: $stateHighlightTextColor;
         }
+    }
+}
+
+/* TurboTable */
+.ui-treetable {
+    .ui-treetable-thead > tr > th,
+    .ui-treetable-tfoot > tr > td {
+        background-color: #ebedf0;
+        border-color: #d9d9d9;
+    }
+
+    .ui-sortable-column:not(.ui-state-highlight):hover {
+        background-color: #d3d5d8;
+        border-color: #d9d9d9;
     }
 }
 
@@ -392,7 +414,7 @@ $inputGroupTextColor: #222222;
 }
 
 .ui-togglebutton.ui-button.ui-state-hover,.ui-togglebutton.ui-button.ui-state-focus,
-.ui-selectbutton .ui-button.ui-state-hover,.ui-selectbutton .ui-button.ui-state-focus {
+.ui-selectbutton .ui-button.ui-state-hover,.ui-selectbutton .ui-button.ui-state-focus, .ui-selectbutton .ui-button:focus {
    border: 1px solid #c0c0c0; 
    background: #eeeeee; 
    font-weight: normal; 
@@ -400,7 +422,8 @@ $inputGroupTextColor: #222222;
 }
 
 .ui-togglebutton.ui-button.ui-state-focus,
-.ui-selectbutton .ui-button.ui-state-focus.ui-state-active  {
+.ui-selectbutton .ui-button.ui-state-focus.ui-state-active,
+.ui-selectbutton .ui-button.ui-state-active:focus  {
     -moz-box-shadow: 0px 0px 5px #1f89ce;
 	-webkit-box-shadow: 0px 0px 5px #1f89ce;
 	box-shadow: 0px 0px 5px #1f89ce;
@@ -542,18 +565,12 @@ $inputGroupTextColor: #222222;
         
         thead th {
             background-color: #f6f8fa;
-            padding: 8px;
         }
         
         td {
             border-bottom: 1px solid rgba(213, 213, 213, 0.5);
-            padding: 0;
             
-            a {
-                border: 0 none;
-                text-align: center;
-                padding: 8px;
-                
+            a {                
                 &.ui-state-highlight {
                     background-color: #d6d6d6;
                     color: #212121;
@@ -568,6 +585,13 @@ $inputGroupTextColor: #222222;
         
         tr:last-child td {
             border-bottom: 0 none;
+        }
+    }
+
+    .ui-monthpicker {
+        a.ui-state-active {
+            background-color: #186ba0;
+            color: #ffffff;
         }
     }
     

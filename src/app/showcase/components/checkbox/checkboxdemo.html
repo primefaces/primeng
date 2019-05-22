@@ -109,7 +109,7 @@ export class ModelComponent &#123;
 &lt;p-checkbox formControlName="cities"&gt;&lt;/p-checkbox&gt;
 
 &lt;!-- Correct --&gt;
-&lt;p-checkbox [formControl]="myFormGroup.get['cities']"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox [formControl]="myFormGroup.controls['cities']"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 
@@ -178,6 +178,18 @@ export class ModelComponent &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>labelStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the label.</td>
+                        </tr>
+                        <tr>
+                            <td>checkboxIcon</td>
+                            <td>string</td>
+                            <td>pi pi-check</td>
+                            <td>Icon class of the checkbox icon.</td>
                         </tr>
                     </tbody>
                 </table>

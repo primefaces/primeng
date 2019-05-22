@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {StepsDemo} from './stepsdemo';
 import {StepsDemoRoutingModule} from './stepsdemo-routing.module';
 import {StepsModule} from '../../../components/steps/steps';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -12,7 +12,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		CommonModule,
 		StepsDemoRoutingModule,
         StepsModule,
-        GrowlModule,
+        ToastModule,
         TabViewModule,
         CodeHighlighterModule
 	],

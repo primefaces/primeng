@@ -18,6 +18,18 @@
     cursor: pointer;
 }
 
+.ui-table p-sorticon {
+    vertical-align: middle;
+}
+
+.ui-table-auto-layout > .ui-table-wrapper {
+    overflow-x: auto;
+}
+
+.ui-table-auto-layout > .ui-table-wrapper > table {
+    table-layout: auto;
+}
+
 /* Sections */
 .ui-table-caption,
 .ui-table-summary {
@@ -44,6 +56,9 @@
 }
 
 /* Scrollable */
+.ui-table-scrollable-wrapper {
+    position: relative;
+}
 .ui-table-scrollable-header,
 .ui-table-scrollable-footer {
     overflow: hidden;
@@ -55,12 +70,12 @@
     position: relative;
 }
 
-.ui-table-scrollable-body > table > .ui-table-tbody > tr:first-child > td {
-    border-top: 0 none;
-} 
-
 .ui-table-virtual-table {
     position: absolute;
+}
+
+.ui-table-loading-virtual-table {
+    display: none;
 }
 
 /* Frozen Columns */
@@ -84,13 +99,17 @@
 
 .ui-table-resizable .ui-table-thead > tr > th,
 .ui-table-resizable .ui-table-tfoot > tr > td,
-.ui-table-resizable .ui-table-data > tr > td {
+.ui-table-resizable .ui-table-tbody > tr > td {
     overflow: hidden;
 }
 
-.ui-resizable-column {
+.ui-table-resizable .ui-resizable-column {
     background-clip: padding-box;
     position: relative;
+}
+
+.ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer {
+    display: none;
 }
 
 .ui-table .ui-column-resizer {
@@ -178,4 +197,8 @@
     z-index: 2;
     margin-top: -1em;
     margin-left: -1em;
+}
+
+.ui-table .ui-table-loading-icon {
+    font-size: 2em;
 }

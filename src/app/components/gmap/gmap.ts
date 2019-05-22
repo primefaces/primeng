@@ -20,6 +20,8 @@ export class GMap implements AfterViewChecked,DoCheck {
     @Output() onMapClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onOverlayClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onOverlayDblClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onOverlayDragStart: EventEmitter<any> = new EventEmitter();
     
@@ -89,6 +91,16 @@ export class GMap implements AfterViewChecked,DoCheck {
                 });
             });
         });
+
+        overlay.addListener('dblclick', (event) => {
+            this.zone.run(() => {
+                this.onOverlayDblClick.emit({
+                    originalEvent: event,
+                    'overlay': overlay,
+                    map: this.map
+                });
+            });
+        });
         
         if(overlay.getDraggable()) {
             this.bindDragEvents(overlay);
@@ -99,7 +111,11 @@ export class GMap implements AfterViewChecked,DoCheck {
         let changes = this.differ.diff(this.overlays);
         
         if(changes && this.map) {
-            changes.forEachRemovedItem((record) => {record.item.setMap(null)});
+            changes.forEachRemovedItem((record) => {
+                google.maps.event.clearInstanceListeners(record.item);
+                record.item.setMap(null);
+            });
+
             changes.forEachAddedItem((record) => {
                 record.item.setMap(this.map);
                 record.item.addListener('click', (event) => {
@@ -148,7 +164,6 @@ export class GMap implements AfterViewChecked,DoCheck {
                     map: this.map
                 });
             });
-            
         });
     }
     

@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,Output,OnInit,DoCheck,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,Output,DoCheck,EventEmitter,Optional} from '@angular/core';
 import {NgModel} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
@@ -7,81 +7,70 @@ import {CommonModule} from '@angular/common';
     host: {
         '[class.ui-inputtext]': 'true',
         '[class.ui-corner-all]': 'true',
+        '[class.ui-inputtextarea-resizable]': 'autoResize',
         '[class.ui-state-default]': 'true',
         '[class.ui-widget]': 'true',
-        '[class.ui-state-filled]': 'filled',
-        '[attr.rows]': 'rows',
-        '[attr.cols]': 'cols'
+        '[class.ui-state-filled]': 'filled'
     }
 })
-export class InputTextarea implements OnInit,DoCheck {
+export class InputTextarea implements DoCheck {
     
     @Input() autoResize: boolean;
     
-    @Input() rows: number;
-    
-    @Input() cols: number;
-    
     @Output() onResize: EventEmitter<any> = new EventEmitter();
-    
-    rowsDefault: number;
-    
-    colsDefault: number;
-    
-    filled: boolean;
         
+    filled: boolean;
+
+    cachedScrollHeight:number;
+
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel) {}
-    
-    ngOnInit() {
-        this.rowsDefault = this.rows;
-        this.colsDefault = this.cols;
-    }
-    
+        
     ngDoCheck() {
         this.updateFilledState();
+        
+        if (this.autoResize) {
+            this.resize();
+        }
     }
     
     //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
-    @HostListener('input', ['$event']) 
+    @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();
+        if (this.autoResize) {
+            this.resize(e);
+        }
     }
     
     updateFilledState() {
-        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) ||
-                        (this.ngModel && this.ngModel.model);
+        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
     }
     
-    @HostListener('focus', ['$event']) 
-    onFocus(e) {        
-        if(this.autoResize) {
+    @HostListener('focus', ['$event'])
+    onFocus(e) {
+        if (this.autoResize) {
             this.resize(e);
         }
     }
     
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {        
-        if(this.autoResize) {
-            this.resize(e);
-        }
-    }
-    
-    @HostListener('keyup', ['$event']) 
-    onKeyup(e) {
-        if(this.autoResize) {
+    @HostListener('blur', ['$event'])
+    onBlur(e) {
+        if (this.autoResize) {
             this.resize(e);
         }
     }
     
     resize(event?: Event) {
-        let linesCount = 0,
-        lines = this.el.nativeElement.value.split('\n');
+        this.el.nativeElement.style.height = this.el.nativeElement.scrollHeight + 'px';
 
-        for(let i = lines.length-1; i >= 0 ; --i) {
-            linesCount += Math.floor((lines[i].length / this.colsDefault) + 1);
+        if (parseFloat(this.el.nativeElement.style.height) >= parseFloat(this.el.nativeElement.style.maxHeight)) {
+            this.el.nativeElement.style.overflowY = "scroll";
+            this.el.nativeElement.style.height = this.el.nativeElement.style.maxHeight;
+        }
+        else {
+            this.el.nativeElement.style.overflow = "hidden";
         }
 
-        this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
         this.onResize.emit(event||{});
     }
 }

@@ -10,7 +10,7 @@
     <p-spinner size="30" [(ngModel)]="val1"></p-spinner>
 
     <h3>Min/Max</h3>
-    <p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"></p-spinner>{{val2}}
+    <p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"></p-spinner>
 
     <h3>Step</h3>
     <p-spinner size="30" [(ngModel)]="val3" [step]="0.25"></p-spinner>
@@ -122,28 +122,10 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
                             <td>Size of the input field.</td>
                         </tr>
                         <tr>
-                            <td>decimalSeparator</td>
-                            <td>string</td>
-                            <td>.</td>
-                            <td>Separator character for decimals.</td>
-                        </tr>
-                        <tr>
-                            <td>thousandSeparator</td>
-                            <td>string</td>
-                            <td>,</td>
-                            <td>Separator character for thousands.</td>
-                        </tr>
-                        <tr>
                             <td>tabindex</td>
                             <td>number</td>
                             <td>null</td>
                             <td>Index of the element in tabbing order.</td>
-                        </tr>
-                        <tr>
-                            <td>formatInput</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>When present, formats the user input.</td>
                         </tr>
                         <tr>
                             <td>inputId</td>
@@ -162,6 +144,24 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that an input field must be filled out before submitting the form.</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>inputStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>inputStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the input field.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,ContentChildren,EventEmitter,QueryList,Renderer2,ChangeDetectorRef,ViewChild} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,ContentChildren,EventEmitter,QueryList,Renderer2,ChangeDetectorRef,ViewChild} from '@angular/core';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -12,41 +12,45 @@ import {RouterModule} from '@angular/router';
     template: `
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-right': 'ui-corner-left'" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
-            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
-            <div #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
-                    [ngStyle]="menuStyle" [class]="menuStyleClass" [@overlayState]="menuVisible ? 'visible' : 'hidden'">
+            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="pi pi-chevron-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
+            <div #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" *ngIf="overlayVisible"
+                    [ngStyle]="menuStyle" [class]="menuStyleClass"
+                    [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ul class="ui-menu-list ui-helper-reset">
-                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model">
-                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
-                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
-                            <span class="ui-menuitem-text">{{item.label}}</span>
-                        </a>
-                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
-                            class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
-                            <span class="ui-menuitem-text">{{item.label}}</span>
-                        </a>
-                    </li>
+                    <ng-template ngFor let-item [ngForOf]="model">
+                        <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngIf="item.visible !== false">
+                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                                [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
+                                <span class="ui-menuitem-text">{{item.label}}</span>
+                            </a>
+                            <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
+                                class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
+                                <span class="ui-menuitem-text">{{item.label}}</span>
+                            </a>
+                        </li>
+                    </ng-template>
                 </ul>
             </div>
         </div>
     `,
     animations: [
-        trigger('overlayState', [
-            state('hidden', style({
+        trigger('overlayAnimation', [
+            state('void', style({
+                transform: 'translateY(5%)',
                 opacity: 0
             })),
             state('visible', style({
+                transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            transition('void => visible', animate('{{showTransitionParams}}')),
+            transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
-export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class SplitButton implements OnDestroy {
 
     @Input() model: MenuItem[];
 
@@ -76,13 +80,17 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @Input() dir: string;
 
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
+
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
-    
-    @ViewChild('overlay') overlayViewChild: ElementRef;
-                
-    public menuVisible: boolean = false;
+
+    overlay: HTMLDivElement;
+                    
+    public overlayVisible: boolean = false;
     
     public documentClickListener: any;
     
@@ -90,24 +98,10 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     public shown: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
-        
-    ngAfterViewInit() {
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
-                document.body.appendChild(this.overlayViewChild.nativeElement);
-            else
-                this.domHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
-        }
-    }
-    
-    ngAfterViewChecked() {
-        if(this.shown) {
-            this.onShow();
-            this.shown = false;
-        }
-    }
-    
+    documentResizeListener: any;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
+                
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
@@ -129,32 +123,58 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
             });
         }
         
-        this.menuVisible = false;
+        this.overlayVisible = false;
     }
     
     show() {
-        this.shown = true;
-        this.menuVisible= !this.menuVisible;
-        this.alignPanel(); 
-        this.overlayViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.overlayVisible = !this.overlayVisible;
     }
-    
-    onShow() {
-        this.alignPanel();
-        this.bindDocumentClickListener();
+
+    onOverlayAnimationStart(event: AnimationEvent) {
+        switch (event.toState) {
+            case 'visible':
+                this.overlay = event.element;
+                this.appendOverlay();
+                this.overlay.style.zIndex = String(++DomHandler.zindex);
+                this.alignOverlay();
+                this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
+            break;
+
+            case 'void':
+                this.onOverlayHide();
+            break;
+        }
     }
-    
+        
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
         this.dropdownClick = true;
         this.show();
     }
-    
-    alignPanel() {
+
+    alignOverlay() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.containerViewChild.nativeElement);
+            DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
         else
-            this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.containerViewChild.nativeElement);
+            DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+    }
+
+    appendOverlay() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.overlay);
+            else
+                DomHandler.appendChild(this.overlay, this.appendTo);
+
+            this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+        }
+    }
+
+    restoreOverlayAppend() {
+        if (this.overlay && this.appendTo) {
+            this.el.nativeElement.appendChild(this.overlay);
+        }
     }
     
     bindDocumentClickListener() {
@@ -164,7 +184,7 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
                     this.dropdownClick = false;
                 }
                 else {
-                    this.menuVisible = false;
+                    this.overlayVisible = false;
                     this.unbindDocumentClickListener();
                     this.cd.markForCheck();
                 }
@@ -177,10 +197,33 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.documentClickListener();
             this.documentClickListener = null;
         }
-    }   
+    }
+    
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
+        }
+    }
+
+    onWindowResize() {
+        this.overlayVisible = false;
+    }
+
+    onOverlayHide() {
+        this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
+        this.overlay = null;
+    }
          
     ngOnDestroy() {
-        this.unbindDocumentClickListener();
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 }
 

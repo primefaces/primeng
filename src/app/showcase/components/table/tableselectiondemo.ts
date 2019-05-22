@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
-import { Message } from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './tableselectiondemo.html'
+    templateUrl: './tableselectiondemo.html',
+    providers: [MessageService]
 })
 export class TableSelectionDemo implements OnInit {
-
-    msgs: Message[] = [];
 
     cars: Car[];
 
@@ -26,7 +25,9 @@ export class TableSelectionDemo implements OnInit {
 
     selectedCars2: Car[];
 
-    constructor(private carService: CarService) { }
+    selectedCars3: Car[];
+
+    constructor(private carService: CarService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
@@ -41,14 +42,14 @@ export class TableSelectionDemo implements OnInit {
 
     selectCarWithButton(car: Car) {
         this.selectedCar2 = car;
-        this.msgs = [{severity:'info', summary:'Car Selected', detail:'Vin: ' + car.vin}];
+        this.messageService.add({severity:'info', summary:'Car Selected', detail:'Vin: ' + car.vin});
     }
 
     onRowSelect(event) {
-        this.msgs = [{severity:'info', summary:'Car Selected', detail:'Vin: ' + event.data.vin}];
+        this.messageService.add({severity:'info', summary:'Car Selected', detail:'Vin: ' + event.data.vin});
     }
 
     onRowUnselect(event) {
-        this.msgs = [{severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin}];
+        this.messageService.add({severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin});
     }
 }

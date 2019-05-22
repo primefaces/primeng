@@ -7,21 +7,21 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [value]="msgs"></p-growl>
-        
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
     <h3 class="first">Advanced</h3>
-    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
-            multiple="multiple" accept="image/*" maxFileSize="1000000"> 
+    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+            multiple="multiple" accept="image/*" maxFileSize="1000000">
             <ng-template pTemplate="content">
                 <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
                 </ul>
-            </ng-template>    
+            </ng-template>
     </p-fileUpload>
-    
+
     <h3>Basic</h3>
     <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
-    
+
     <h3>Basic with Auto</h3>
     <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true" chooseLabel="Browse"></p-fileUpload>
 </div>
@@ -54,7 +54,7 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 
             <h3>DragDrop</h3>
             <p>File selection can also be done by dragging and dropping one or more to the content section of the component.</p>
-            
+
             <h3>Auto Uploads</h3>
             <p>When auto property is enabled, upload begins as soon as file selection is completed or a file is dropped on the drop area.</p>
 <pre>
@@ -83,16 +83,16 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 </code>
 </pre>
 
-            <p>In order to customize the default messages use invalidFileSizeMessageSummary and invalidFileSizeMessageDetail options. 
+            <p>In order to customize the default messages use invalidFileSizeMessageSummary and invalidFileSizeMessageDetail options.
             In summary &#123;0&#125; placeholder refers to the filename and in detail, file size.</p>
             <ul>
                 <li>invalidFileSizeMessageSummary: '&#123;0&#125;: Invalid file size, '</li>
                 <li>invalidFileSizeMessageDetail: string = 'maximum upload size is &#123;0&#125;.'</li>
             </ul>
-            
+
             <h3>Templating</h3>
             <p>File list UI is customizable using a ng-template called "file" that gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable.
-                Second ng-template named "content" can be used to place custom content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them.  
+                Second ng-template named "content" can be used to place custom content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them.
                 Third and final ng-template option is "toolbar" to display custom content at toolbar.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -100,21 +100,20 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
         accept="image/*" maxFileSize="1000000"&gt;
         &lt;ng-template pTemplate="toolbar"&gt;
             &lt;div&gt;Upload 3 Files&lt;/div&gt;
-        &lt;/ng-template&gt;  
+        &lt;/ng-template&gt;
         &lt;ng-template let-file pTemplate="file"&gt;
             &lt;div&gt;Custom UI to display a file&lt;/div&gt;
-        &lt;/ng-template&gt; 
+        &lt;/ng-template&gt;
         &lt;ng-template pTemplate="content"&gt;
             &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
-        &lt;/ng-template&gt;  
+        &lt;/ng-template&gt;
 &lt;/p-fileUpload&gt;
 </code>
 </pre>
 
             <h3>Request Customization</h3>
-            <p>XHR request to upload the files can be customized using the onBeforeUpload callback that passes
-                the xhr instance and FormData object as event parameters.</p>
-                
+            <p>Internally, FileUpload uses Angular's HttpClient module so you may take advantage of the built-in features such interceptors and header customization.</p>
+
             <h3>Basic UI</h3>
             <p>FileUpload basic mode provides a simpler UI as an alternative to advanced mode.</p>
 <pre>
@@ -137,7 +136,7 @@ myUploader(event) &#123;
 &#125;
 </code>
 </pre>
-            
+
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -311,28 +310,26 @@ myUploader(event) &#123;
                     <tbody>
                         <tr>
                             <td>onBeforeUpload</td>
-                            <td>event.xhr: XmlHttpRequest instance. <br/>
-                                event.formData: FormData object.</td>
+                            <td>event.formData: FormData object.</td>
                             <td>Callback to invoke before file upload begins to customize the request
                                 such as post parameters before the files.</td>
                         </tr>
 						<tr>
                             <td>onBeforeSend</td>
-                            <td>event.xhr: XmlHttpRequest instance. <br/>
-                                event.formData: FormData object.</td>
+                            <td>event.formData: FormData object.</td>
                             <td>Callback to invoke before file send begins to customize the request
                                 such as adding headers.</td>
                         </tr>
                         <tr>
                             <td>onUpload</td>
-                            <td>event.xhr: XmlHttpRequest instance.<br />
-                                event.files: Uploaded files.</td>
+                            <td>event.files: Uploaded files.<br />
+                                event.originalEvent: Http Event</td>
                             <td>Callback to invoke when file upload is complete.</td>
                         </tr>
                         <tr>
                             <td>onError</td>
-                            <td>event.xhr: XmlHttpRequest instance.<br />
-                                event.files: Files that are not uploaded.</td>
+                            <td>event.files: Files that are not uploaded.<br />
+                                event.error: Request Error.</td>
                             <td>Callback to invoke if file upload fails.</td>
                         </tr>
                         <tr>
@@ -356,7 +353,7 @@ myUploader(event) &#123;
                             <td>onProgress</td>
                             <td>event.originalEvent: Original browser event. <br />
                                 event.progress: Calculated progress value.</td>
-                            <td>Callback to invoke when files are selected.</td>
+                            <td>Callback to invoke when files are being uploaded.</td>
                         </tr>
                         <tr>
                             <td>uploadHandler</td>
@@ -366,7 +363,7 @@ myUploader(event) &#123;
                     </tbody>
                 </table>
             </div>
-            
+
             <h3>Methods</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -430,16 +427,16 @@ myUploader(event) &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
-    
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+
 &lt;h3 class="first"&gt;Advanced&lt;/h3&gt;
-&lt;p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
+&lt;p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
         multiple="multiple" accept="image/*" maxFileSize="1000000"&gt;
     &lt;ng-template pTemplate="content"&gt;
         &lt;ul *ngIf="uploadedFiles.length"&gt;
             &lt;li *ngFor="let file of uploadedFiles"&gt;&#123;&#123;file.name&#125;&#125; - &#123;&#123;file.size&#125;&#125; bytes&lt;/li&gt;
         &lt;/ul&gt;
-    &lt;/ng-template&gt;        
+    &lt;/ng-template&gt;
 &lt;/p-fileUpload&gt;
 
 &lt;h3&gt;Basic&lt;/h3&gt;
@@ -454,17 +451,16 @@ myUploader(event) &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class FileUploadDemo &#123;
 
-    msgs: Message[];
-    
     uploadedFiles: any[] = [];
+
+    constructor(private messageService: MessageService) &#123;&#125;
 
     onUpload(event) &#123;
         for(let file of event.files) &#123;
             this.uploadedFiles.push(file);
         &#125;
-    
-        this.msgs = [];
-        this.msgs.push(&#123;severity: 'info', summary: 'File Uploaded', detail: ''&#125;);
+
+        this.messageService.add(&#123;severity: 'info', summary: 'File Uploaded', detail: ''&#125;);
     &#125;
 &#125;
 </code>

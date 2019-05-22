@@ -8,7 +8,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15" [responsive]="true">
         <p-header>CRUD for Cars</p-header>
         <p-column field="vin" header="Vin" [sortable]="true"></p-column>
         <p-column field="year" header="Year" [sortable]="true"></p-column>
@@ -17,7 +17,7 @@
         <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>
     </p-dataTable>
 
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+    <p-dialog header="Car Details" [minY]="70" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="car">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="vin">Vin</label></div>
@@ -59,9 +59,9 @@ export class DataTableCrudDemo implements OnInit &#123;
     displayDialog: boolean;
 
     car: Car = new PrimeCar();
-    
+
     selectedCar: Car;
-    
+
     newCar: boolean;
 
     cars: Car[];
@@ -71,38 +71,38 @@ export class DataTableCrudDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
     &#125;
-    
+
     showDialogToAdd() &#123;
         this.newCar = true;
         this.car = new PrimeCar();
         this.displayDialog = true;
     &#125;
-    
+
     save() &#123;
         let cars = [...this.cars];
         if(this.newCar)
             cars.push(this.car);
         else
             cars[this.findSelectedCarIndex()] = this.car;
-        
+
         this.cars = cars;
         this.car = null;
         this.displayDialog = false;
     &#125;
-    
+
     delete() &#123;
         let index = this.findSelectedCarIndex();
         this.cars = this.cars.filter((val,i) => i!=index);
         this.car = null;
         this.displayDialog = false;
-    &#125;    
-    
+    &#125;
+
     onRowSelect(event) &#123;
         this.newCar = false;
         this.car = this.cloneCar(event.data);
         this.displayDialog = true;
     &#125;
-    
+
     cloneCar(c: Car): Car &#123;
         let car = new PrimeCar();
         for(let prop in c) &#123;
@@ -110,18 +110,18 @@ export class DataTableCrudDemo implements OnInit &#123;
         &#125;
         return car;
     &#125;
-    
+
     findSelectedCarIndex(): number &#123;
         return this.cars.indexOf(this.selectedCar);
     &#125;
 &#125;
 
 class PrimeCar implements Car &#123;
-    
+
     constructor(public vin?, public year?, public brand?, public color?) &#123;&#125;
 &#125;
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="datatablecruddemo.html">
@@ -131,7 +131,7 @@ class PrimeCar implements Car &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15" [responsive]="true"&gt;
     &lt;p-header&gt;CRUD for Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;

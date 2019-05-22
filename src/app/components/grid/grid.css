@@ -176,12 +176,14 @@
     display: -webkit-flex;
     display: flex;
     flex-wrap: wrap;
+    box-sizing: border-box;
 }
             
 .ui-g::after {
     clear: both;
     content: "";
     display: table;
+    box-sizing: border-box;
 }
             
 .ui-g-1,

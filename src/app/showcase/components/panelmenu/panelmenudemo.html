@@ -41,37 +41,39 @@ export class PanelMenuDemo &#123;
         this.items = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'pi pi-pw pi-file',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
-                            &#123;label: 'Project'&#125;,
-                            &#123;label: 'Other'&#125;,
+                            &#123;label: 'User', icon: 'pi pi-fw pi-user-plus'&#125;,
+                            &#123;label: 'Filter', icon: 'pi pi-fw pi-filter'&#125;
                         ]
                     &#125;,
-                    &#123;label: 'Open'&#125;,
-                    &#123;label: 'Quit'&#125;
+                    &#123;label: 'Open', icon: 'pi pi-fw pi-external-link'&#125;,
+                    &#123;separator: true&#125;,
+                    &#123;label: 'Quit', icon: 'pi pi-fw pi-times'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     &#123;
-                        label: 'Contents'
+                        label: 'Contents',
+                        icon: 'pi pi-pi pi-bars'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'pi pi-pi pi-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -82,28 +84,29 @@ export class PanelMenuDemo &#123;
                                 ]
                             &#125;,
                             &#123;
-                                label: 'File'
+                                label: 'User',
+                                icon: 'pi pi-fw pi-file',
                             &#125;
                     ]&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'pi pi-fw pi-pencil',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
+                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'pi pi-fw pi-tags',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
                         ]
                     &#125;
                 ]
@@ -117,6 +120,14 @@ export class PanelMenuDemo &#123;
             <h3>Initial State</h3>
             <p>MenuItem has an expanded property to control the visibility of a submenu, you may use this property to control the state from the menumodel.</p>
 
+            <h3>Animation Configuration</h3>
+            <p>Transition of the toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
+                example below disables the animation altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+ &lt;p-panelMenu [transitionOptions]="'0ms'" [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
+</code>
+</pre>
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -152,6 +163,12 @@ export class PanelMenuDemo &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether multiple tabs can be activated at the same time or not.</td>
+                        </tr>
+                        <tr>
+                            <td>transitionOptions</td>
+                            <td>string</td>
+                            <td>400ms cubic-bezier(0.86, 0, 0.07, 1)</td>
+                            <td>Transition options of the animation.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -229,39 +246,39 @@ export class PanelMenuDemo &#123;
         this.items = [
             &#123;
                 label: 'File',
-                icon: 'fa-file-o',
+                icon: 'pi pi-pw pi-file',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
-                            &#123;label: 'Project', icon: 'fa-lock'&#125;,
-                            &#123;label: 'Other', icon: 'fa-list'&#125;
+                            &#123;label: 'User', icon: 'pi pi-fw pi-user-plus'&#125;,
+                            &#123;label: 'Filter', icon: 'pi pi-fw pi-filter'&#125;
                         ]
                     &#125;,
-                    &#123;label: 'Open', icon: 'fa-external-link'&#125;,
+                    &#123;label: 'Open', icon: 'pi pi-fw pi-external-link'&#125;,
                     &#123;separator: true&#125;,
-                    &#123;label: 'Quit', icon: 'fa-close'&#125;
+                    &#123;label: 'Quit', icon: 'pi pi-fw pi-times'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa-edit',
+                icon: 'pi pi-fw pi-pencil',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     &#123;
                         label: 'Contents',
-                        icon: 'fa-bars'
+                        icon: 'pi pi-pi pi-bars'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa-search', 
+                        icon: 'pi pi-pi pi-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -272,29 +289,29 @@ export class PanelMenuDemo &#123;
                                 ]
                             &#125;,
                             &#123;
-                                label: 'File',
-                                icon: 'fa-file',
+                                label: 'User',
+                                icon: 'pi pi-fw pi-file',
                             &#125;
                     ]&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa-refresh',
+                        icon: 'pi pi-fw pi-pencil',
                         items: [
-                            &#123;label: 'Save', icon: 'fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
+                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa-phone',
+                        icon: 'pi pi-fw pi-tags',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
                         ]
                     &#125;
                 ]

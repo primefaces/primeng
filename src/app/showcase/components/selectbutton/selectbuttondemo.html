@@ -9,15 +9,29 @@
     <h3 class="first">Single</h3>
     <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
 
-    <p>Selected Type: {{selectedType}}</p>
+    <p>Selected Type: <span style="font-weight: bold">{{selectedType}}</span></p>
 
     <h3>Multiple</h3>
     <p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"></p-selectButton>
-    <p>Selected Types: <span *ngFor="let type of selectedTypes">{{type}} </span></p>
+    <p>Selected Types: <span style="font-weight: bold" *ngFor="let type of selectedTypes">{{type}} </span></p>
 
-    <hr />
+    <h3>Icon Only</h3>
+    <p-selectButton [options]="modes" [(ngModel)]="selectedModes" multiple="multiple"></p-selectButton>
+    <p>Selected Modes: <span style="font-weight: bold" *ngFor="let mode of selectedModes">{{mode}} </span></p>
 
-    <button type="button" (click)="clear()" pButton icon="fa-close" label="Clear"></button>
+    <h3>Custom Template</h3>
+    <p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name">
+        <ng-template let-item>
+            <div style="padding: .5em 1em">
+                <img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/{{item.value.flag}}" height="20px"/>
+                <span>{{item.name}}</span>
+            </div>
+        </ng-template>
+    </p-selectButton>
+    <p>Selected Country: <span style="font-weight: bold">{{selectedCountry?.name}}</span></p>
+
+    <hr>
+    <button type="button" (click)="clear()" pButton icon="pi pi-times" label="Clear"></button>
 </div>
 
 <div class="content-section documentation">
@@ -86,7 +100,7 @@ export class MyModel &#123;
                 In multiple case, model property should be an array instance that is not null or undefined.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" &gt;&lt;/p-selectButton&gt;
 </code>
 </pre>
 
@@ -121,6 +135,72 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Icons</h3>
+            <p>Button options can display icons using the icon property of the SelectItem API.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class SelectButtonDemo &#123;
+
+    types: SelectItem[];
+
+    selectedType: string;
+
+    constructor() &#123;
+        this.types = [];
+        this.types.push(&#123;title: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'&#125;);
+        this.types.push(&#123;title: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'&#125;);
+        this.types.push(&#123;title: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Disabled Options</h3>
+            <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
+
+            <h3>Templating</h3>
+            <p>Items support templating to display custom content inside the buttons using an ng-template that receives the option as the implicit variable. Note that
+                if an arbitrary object is used as the option instead of the SelectItem API, internally they are converted to SelectItems which means in the template
+                the arbitrary object can be access using the value property.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
+    &lt;ng-template let-item&gt;
+        &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" /&gt;
+        &lt;span&gt;&#123;&#123;item.name&#125;&#125;&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-selectButton&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class SelectButtonDemo &#123;
+        
+    countries: any[];
+
+    selectedCountry: any;
+
+    constructor() &#123;
+        this.countries = [
+            &#123;name: 'USA', flag: 'usa.png'&#125;,
+            &#123;name: 'Germany', flag: 'germany.png'&#125;,
+            &#123;name: 'Japan', flag: 'japan.png'&#125;
+        ];
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -154,7 +234,7 @@ export class MyModel &#123;
                         <tr>
                             <td>tabindex</td>
                             <td>number</td>
-                            <td>null</td>
+                            <td>0</td>
                             <td>Index of the element in tabbing order.</td>
                         </tr>
                         <tr>
@@ -174,6 +254,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>dataKey</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>A property to uniquely identify a value in options.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -223,15 +309,29 @@ export class MyModel &#123;
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
 
-&lt;p&gt;Selected Type: {{selectedType}}&lt;/p&gt;
+&lt;p&gt;Selected Type: &lt;span style="font-weight: bold"&gt;&#123;&#123;selectedType&#125;&#125;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Types: &lt;span *ngFor="let type of selectedTypes"&gt;{{type}} &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Selected Types: &lt;span style="font-weight: bold" *ngFor="let type of selectedTypes"&gt;&#123;&#123;type&#125;&#125; &lt;/span&gt;&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;h3&gt;Icon Only&lt;/h3&gt;
+&lt;p-selectButton [options]="modes" [(ngModel)]="selectedModes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
+&lt;p&gt;Selected Modes: &lt;span style="font-weight: bold" *ngFor="let mode of selectedModes"&gt;&#123;&#123;mode&#125;&#125; &lt;/span&gt;&lt;/p&gt;
 
-&lt;button type="button" (click)="clear()" pButton icon="fa-close" label="Clear"&gt;&lt;/button&gt;
+&lt;h3&gt;Custom Template&lt;/h3&gt;
+&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
+    &lt;ng-template let-item&gt;
+        &lt;div style="padding: .5em 1em"&gt;
+            &lt;img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" height="20px"/&gt;
+            &lt;span&gt;&#123;&#123;item.name&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-selectButton&gt;
+&lt;p&gt;Selected Country: &lt;span style="font-weight: bold"&gt;&#123;&#123;selectedCountry?.name&#125;&#125;&lt;/span&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+&lt;button type="button" (click)="clear()" pButton icon="pi pi-times" label="Clear"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -243,18 +343,41 @@ export class SelectButtonDemo &#123;
 
     selectedType: string;
 
-    selectedTypes: string[] = ['Apartment','Studio'];
+    selectedTypes: string[] = ['PayPal','MasterCard'];
+
+    selectedModes: string[];
+
+    modes: SelectItem[];
+
+    countries: any[];
+
+    selectedCountry: any;
 
     constructor() &#123;
-        this.types = [];
-        this.types.push(&#123;label: 'Apartment', value: 'Apartment'&#125;);
-        this.types.push(&#123;label: 'House', value: 'House'&#125;);
-        this.types.push(&#123;label: 'Studio', value: 'Studio'&#125;);
+        this.types = [
+            &#123;label: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'&#125;,
+            &#123;label: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'&#125;,
+            &#123;label: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'&#125;
+        ];
+
+        this.modes = [
+            &#123;value: 'Bold', title: 'Bold', icon: 'fa fa-fw fa-bold'&#125;,
+            &#123;value: 'Italic', title: 'Italic', icon: 'fa fa-fw fa-italic'&#125;,
+            &#123;value: 'Underline', title: 'Underline', icon: 'fa fa-fw fa-underline'&#125;
+        ];
+
+        this.countries = [
+            &#123;name: 'USA', flag: 'usa.png'&#125;,
+            &#123;name: 'Germany', flag: 'germany.png'&#125;,
+            &#123;name: 'Japan', flag: 'japan.png'&#125;
+        ];
     &#125;
 
     clear() &#123;
         this.selectedType = null;
         this.selectedTypes = [];
+        this.selectedModes = [];
+        this.selectedCountry = null;
     &#125;
 &#125;
 </code>

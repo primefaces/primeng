@@ -1,10 +1,11 @@
 import {Component,OnInit} from '@angular/core';
-import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 declare var google: any;
 
 @Component({
     templateUrl: './gmapdemo.html',
+    providers: [MessageService],
     styles: [`
         .ui-g-2 {
             padding-top: .75em;
@@ -27,7 +28,7 @@ export class GMapDemo implements OnInit {
     
     draggable: boolean;
     
-    msgs: Message[] = [];
+    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.options = {
@@ -45,7 +46,6 @@ export class GMapDemo implements OnInit {
     }
     
     handleOverlayClick(event) {
-        this.msgs = [];
         let isMarker = event.overlay.getTitle != undefined;
         
         if(isMarker) {
@@ -54,11 +54,11 @@ export class GMapDemo implements OnInit {
             this.infoWindow.open(event.map, event.overlay);
             event.map.setCenter(event.overlay.getPosition());
             
-            this.msgs.push({severity:'info', summary:'Marker Selected', detail: title});
+            this.messageService.add({severity:'info', summary:'Marker Selected', detail: title});
         }
         else {
-            this.msgs.push({severity:'info', summary:'Shape Selected', detail: ''});
-        }        
+            this.messageService.add({severity:'info', summary:'Shape Selected', detail: ''});
+        }
     }
     
     addMarker() {
@@ -68,8 +68,7 @@ export class GMapDemo implements OnInit {
     }
     
     handleDragEnd(event) {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Marker Dragged', detail: event.overlay.getTitle()});
+        this.messageService.add({severity:'info', summary:'Marker Dragged', detail: event.overlay.getTitle()});
     }
     
     initOverlays() {

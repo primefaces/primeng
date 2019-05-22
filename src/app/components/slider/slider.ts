@@ -1,7 +1,4 @@
-import {
-    NgModule, Component, ElementRef, OnDestroy, Input, Output, SimpleChange, EventEmitter, forwardRef, Renderer2,
-    NgZone
-} from '@angular/core';
+import {NgModule, Component, ElementRef, OnDestroy, Input, Output, SimpleChange, EventEmitter, forwardRef, Renderer2,NgZone,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -22,15 +19,15 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span *ngIf="range && orientation == 'vertical'" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'bottom':handleValues[0] + '%',height: (handleValues[1] - handleValues[0] + '%')}"></span>
             <span *ngIf="!range && orientation=='vertical'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'height': handleValue + '%'}"></span>
             <span *ngIf="!range && orientation=='horizontal'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'width': handleValue + '%'}"></span>
-            <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="dragging=false"
+            <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)"
                 [style.transition]="dragging ? 'none': null" [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"></span>
-            <span *ngIf="range" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
+            <span *ngIf="range" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="onTouchEnd($event)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
                 [ngStyle]="{'left': rangeStartLeft, 'bottom': rangeStartBottom}" [ngClass]="{'ui-slider-handle-active':handleIndex==0}"></span>
-            <span *ngIf="range" (mousedown)="onMouseDown($event,1)" (touchstart)="onTouchStart($event,1)" (touchmove)="onTouchMove($event,1)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
+            <span *ngIf="range" (mousedown)="onMouseDown($event,1)" (touchstart)="onTouchStart($event,1)" (touchmove)="onTouchMove($event,1)" (touchend)="onTouchEnd($event)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
                 [ngStyle]="{'left': rangeEndLeft, 'bottom': rangeEndBottom}" [ngClass]="{'ui-slider-handle-active':handleIndex==1}"></span>
         </div>
     `,
-    providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
+    providers: [SLIDER_VALUE_ACCESSOR]
 })
 export class Slider implements OnDestroy,ControlValueAccessor {
 
@@ -58,7 +55,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     public value: number;
     
-    public values: number;
+    public values: number[];
     
     public handleValue: number;
     
@@ -92,7 +89,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     public starty: number;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private ngZone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
     
     onMouseDown(event:Event, index?:number) {
         if(this.disabled) {
@@ -108,6 +105,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     onTouchStart(event, index?:number) {
+        if(this.disabled) {
+            return;
+        }
+
         var touchobj = event.changedTouches[0];
         this.startHandleValue = (this.range) ? this.handleValues[index] : this.handleValue;
         this.dragging = true;
@@ -126,6 +127,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     onTouchMove(event, index?:number) {
+        if(this.disabled) {
+            return;
+        }
+        
         var touchobj = event.changedTouches[0],
         handleValue = 0;
 
@@ -138,6 +143,21 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
         this.setValueFromHandle(event, handleValue);
 
+        event.preventDefault();
+    }
+
+    onTouchEnd(event, index?:number) {
+        if(this.disabled) {
+            return;
+        }
+
+        this.dragging = false;
+        
+        if (this.range)
+            this.onSlideEnd.emit({originalEvent: event, values: this.values});
+        else
+            this.onSlideEnd.emit({originalEvent: event, value: this.value});
+        
         event.preventDefault();
     }
     
@@ -226,10 +246,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         let val = oldValue;
         
         if(diff < 0) {
-            val = oldValue + Math.ceil((newValue - oldValue) / this.step) * this.step;
+            val = oldValue + Math.ceil(newValue / this.step - oldValue / this.step) * this.step;
         }
         else if(diff > 0) {
-            val = oldValue + Math.floor((newValue - oldValue) / this.step) * this.step;
+            val = oldValue + Math.floor(newValue / this.step - oldValue / this.step) * this.step;
         }
         
         this.updateValue(val);
@@ -243,6 +263,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
             this.value = value||0;
         
         this.updateHandleValue();
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {
@@ -279,8 +300,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     updateDomData(): void {
         let rect = this.el.nativeElement.children[0].getBoundingClientRect();
-        this.initX = rect.left + this.domHandler.getWindowScrollLeft();
-        this.initY = rect.top + this.domHandler.getWindowScrollTop();
+        this.initX = rect.left + DomHandler.getWindowScrollLeft();
+        this.initY = rect.top + DomHandler.getWindowScrollTop();
         this.barWidth = this.el.nativeElement.children[0].offsetWidth;
         this.barHeight = this.el.nativeElement.children[0].offsetHeight;
     }
@@ -332,7 +353,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 }
             }
             
-            this.values[this.handleIndex] = Math.floor(value);
+            this.values[this.handleIndex] = this.getNormalizedValue(value);
             this.onModelChange(this.values);
             this.onChange.emit({event: event, values: this.values});
         }
@@ -346,7 +367,8 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 this.handleValue = 100;
             }
             
-            this.value = Math.floor(val);
+			this.value = this.getNormalizedValue(val);
+            
             this.onModelChange(this.value);
             this.onChange.emit({event: event, value: this.value});
         }
@@ -355,6 +377,22 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     getValueFromHandle(handleValue: number): number {
         return (this.max - this.min) * (handleValue / 100) + this.min;
     }
+	
+	getDecimalsCount(value: number): number {
+		if (value && Math.floor(value) !== value)
+			return value.toString().split(".")[1].length || 0;
+		return 0;
+	}
+	
+	getNormalizedValue(val: number): number {
+		let decimalsCount = this.getDecimalsCount(this.step);
+		if (decimalsCount > 0) {
+			return +val.toFixed(decimalsCount);
+		} 
+		else {
+			return Math.floor(val);
+		}
+	}
     
     ngOnDestroy() {
         this.unbindDragListeners();

@@ -26,22 +26,22 @@ import &#123;MenuItem&#125; from 'primeng/api';
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
-    
+
     private items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa-download'&#125;
+                &#123;label: 'New', icon: 'fa fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'fa fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa fa-repeat'&#125;
             ]
         &#125;];
     &#125;
@@ -175,23 +175,29 @@ export class MenuDemo &#123;
                     <td>null</td>
                     <td>Tooltip text of the item.</td>
                 </tr>
+                <tr>
+                    <td>automationId</td>
+                    <td>any</td>
+                    <td>null</td>
+                    <td>Value of HTML data-* attribute.</td>
+                </tr>
             </tbody>
         </table>
     </div>
-    
+
     <h4>Command</h4>
     <p>The function to invoke when an item is clicked is defined using the command property.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
-    
+
     private items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus', command: (event) => &#123;
+                &#123;label: 'New', icon: 'fa fa-plus', command: (event) => &#123;
                     //event.originalEvent: Browser event
                     //event.item: menuitem metadata
                 }}
@@ -208,16 +214,16 @@ export class MenuDemo &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
-    
+
     private items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus', url: 'http://www.primefaces.org/primeng'&#125;,
-                &#123;label: 'Open', icon: 'fa-download', routerLink: ['/pagename']&#125;
-                &#123;label: 'Recent Files', icon: 'fa-download', routerLink: ['/pagename'], queryParams: &#123;'recent': 'true'&#125;&#125;
+                &#123;label: 'New', icon: 'fa fa-plus', url: 'http://www.primefaces.org/primeng'&#125;,
+                &#123;label: 'Open', icon: 'fa fa-download', routerLink: ['/pagename']&#125;
+                &#123;label: 'Recent Files', icon: 'fa fa-download', routerLink: ['/pagename'], queryParams: &#123;'recent': 'true'&#125;&#125;
             ]
         &#125;
     &#125;

@@ -11,6 +11,7 @@
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 npm install primeng --save
+npm install primeicons --save
 </code>
 </pre>
 
@@ -29,13 +30,14 @@ import &#123;MenuItem&#125; from 'primeng/api';                 //api
 </pre>
 
     <h3>Dependencies</h3>
-    <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require font-awesome for icons.</p>
+    <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require <a href="https://www.npmjs.com/package/primeicons">PrimeIcons</a> for icons.</p>
 
-    <p>The css dependencies are as follows, font awesome, theme of your choice and structural css of components.</p>
+    <p>The css dependencies are as follows, Prime Icons, theme of your choice and structural css of components.</p>
+
 <pre>
 <code class="language-html" pCode ngNonBindable>
-&lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="/node_modules/primeicons/primeicons.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/nova-light/theme.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" /&gt;
 </code>
 </pre>
@@ -53,7 +55,7 @@ import &#123;MenuItem&#125; from 'primeng/api';                 //api
             <tbody>
                 <tr>
                     <td>Schedule</td>
-                    <td>FullCalendar and Moment.js</td>
+                    <td>FullCalendar 4.0.0-alpha.2</td>
                 </tr>
                 <tr>
                     <td>Editor</td>
@@ -75,9 +77,9 @@ import &#123;MenuItem&#125; from 'primeng/api';                 //api
         </table>
     </div>
 
-    <h3>Animations with Angular 4+</h3>
+    <h3>Animations</h3>
     <p>Various components utilize angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need
-    to import <i>BrowserAnimationsModule</i> to your application. If you prefer not to use <i>NoopAnimationsModule</i> instead.</p>
+    to import <i>BrowserAnimationsModule</i> to your application. If you prefer to disable animations globally, import <i>NoopAnimationsModule</i> instead.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -106,25 +108,25 @@ export class YourAppModule &#123; &#125;
     <p>Angular CLI is the official CLI tool for Angular. We strongly suggest using Angular CLI when starting an Angular project.</p>
 
     <h4>Dependencies</h4>
-    <p>Add PrimeNG and FontAwesome as a dependency</p>
+    <p>Add PrimeNG and PrimeIcons as dependencies.</p>
 <pre>
 <code class="language-js" pCode ngNonBindable>
 "dependencies": &#123;
   //...
-  "primeng": "^4.1.0",
-  "font-awesome": "^4.7.0"
+  "primeng": "^7.0.0",
+  "primeicons": "^1.0.0"
 &#125;,
 </code>
 </pre>
 
     <h4>Styles Configuration</h4>
-    <p>Configure required styles at the styles section, example below uses the Omega theme.</p>
+    <p>Configure required styles at the styles section, example below uses the Nova Light theme.</p>
 <pre>
 <code class="language-js" pCode ngNonBindable>
 "styles": [
-  "../node_modules/font-awesome/css/font-awesome.min.css",
-  "../node_modules/primeng/resources/themes/omega/theme.css",
-  "../node_modules/primeng/resources/primeng.min.css",
+  "node_modules/primeicons/primeicons.css",
+  "node_modules/primeng/resources/themes/nova-light/theme.css",
+  "node_modules/primeng/resources/primeng.min.css",
   //...
 ],
 </code>
@@ -132,25 +134,4 @@ export class YourAppModule &#123; &#125;
 
     <p>That is all, you may now import PrimeNG components, for a working example visit the <a href="https://github.com/primefaces/primeng-quickstart-cli">PrimeNG CLI QuickStart</a> sample at GitHub.</p>
 
-    <h3>Angular Seed Integration</h3>
-    <p>Angular2 Seed is an alternative modular starter project, there is an <a href="https://github.com/mgechev/angular2-seed/wiki/Add-PrimeNG">official entry</a> at the project wiki
-        describing how to use PrimeNG with seed.</p>
-
-    <h3>QuickStart with System.js</h3>
-    <p><a href="https://angular.io/docs/ts/latest/quickstart.html">The official quickstart example</a> of Angular uses System.JS and we
-    have extended it to add PrimeNG. Visit the <a href="https://github.com/primefaces/primeng-quickstart">PrimeNG-Quickstart</a> at GitHub for an example.</p>
-
-    <h3>QuickStart with Webpack</h3>
-    <p>There is also a webpack version of the <a href="https://angular.io/docs/ts/latest/guide/webpack.html">The official quickstart example</a> of Angular and we
-    have extended it to add PrimeNG. Visit the <a href="https://github.com/primefaces/primeng-quickstart-webpack">PrimeNG-Quickstart-Webpack</a> at GitHub for an example.</p>
-
-    <h4>External Articles</h4>
-    <ul>
-        <li><a href="https://yakovfain.com/2016/10/06/primeng-ui-components-for-angular-2/">PrimeNG - UI Components for Angular 2</a> - Yakov Fain's Blog</li>
-        <li><a href="https://yakovfain.com/2016/10/28/adding-primeng-ui-components-to-angular-cli-project/">Adding PrimeNG UI components to Angular CLI projects</a> - Yakov Fain's Blog</li>
-        <li><a href="https://blog.davincisoftware.sk/primeng-web-component-framework-based-on-angularjs-2">PRIMENG - WEB COMPONENT FRAMEWORK BASED ON ANGULARJS 2</a> - DaVinci IT Blog</li>
-        <li><a href="http://blogs.bytecode.com.au/glen/2016/10/27/primeng-with-angular-cli.html">PrimeNG with CLI</a> - Glen Smith</li>
-        <li><a href="http://lightswitchhelpwebsite.com/Blog/tabid/61/EntryId/3304/Hello-World-Angular-2-Data-Sample-Using-JavaScriptServices-Net-Core-and-PrimeNg.aspx">Hello World Angular 2+ Data Sample Using JavaScriptServices .Net Core and PrimeNg</a></li>
-        <li><a href="http://lightswitchhelpwebsite.com/Blog/tabid/61/EntryId/3298/An-Angular-2-Tree-With-CRUD-Functionality.aspx">An Angular 2 Tree With CRUD Functionality</a></li>
-    </ul>
 </div>

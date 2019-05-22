@@ -1,36 +1,37 @@
-import {NgModule,Component,Input,Output,AfterViewInit,AfterViewChecked,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Component({
     selector: 'p-overlayPanel',
     template: `
         <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass"
-            [style.display]="visible ? 'block' : 'none'" (click)="onPanelClick($event)" [@panelState]="visible ? 'visible' : 'hidden'">
+            [@animation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-overlaypanel-content">
                 <ng-content></ng-content>
             </div>
-            <a href="#" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)">
-                <span class="fa fa-fw fa-close"></span>
+            <a tabindex="0" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)" (keydown.enter)="hide()">
+                <span class="ui-overlaypanel-close-icon pi pi-times"></span>
             </a>
         </div>
     `,
     animations: [
-        trigger('panelState', [
-            state('hidden', style({
+        trigger('animation', [
+            state('void', style({
+                transform: 'translateY(5%)',
                 opacity: 0
             })),
             state('visible', style({
+                transform: 'translateY(0)',
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            transition('void => visible', animate('{{showTransitionParams}}')),
+            transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
-export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class OverlayPanel implements OnDestroy {
 
     @Input() dismissable: boolean = true;
 
@@ -42,86 +43,67 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @Input() appendTo: any;
 
-    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
+    @Input() autoZIndex: boolean = true;
     
-    container: any;
+    @Input() baseZIndex: number = 0;
+    
+    @Input() showTransitionOptions: string = '225ms ease-out';
+
+    @Input() hideTransitionOptions: string = '195ms ease-in';
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    
+    container: HTMLDivElement;
 
     visible: boolean = false;
 
     documentClickListener: any;
-    
-    selfClick: boolean;
-        
+            
     target: any;
     
     willHide: boolean;
-    
-    willShow: boolean;
-    
-    targetClickEvent: boolean;
-    
-    closeClick: boolean;
-    
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
-    
-    ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
         
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
-                document.body.appendChild(this.container);
-            else
-                this.domHandler.appendChild(this.container, this.appendTo);
-        }
-    }
+    documentResizeListener: any;
     
-    ngAfterViewChecked() {
-        if(this.willShow) {
-            this.domHandler.absolutePosition(this.container, this.target);
-            this.bindDocumentClickListener();
-            this.onAfterShow.emit(null);
-            this.willShow = false;
-        }
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
         
-        if(this.willHide) {
-            this.onAfterHide.emit(null);
-            this.willHide = false;
-        }
-    }
-    
     bindDocumentClickListener() {
-        if(!this.documentClickListener && this.dismissable) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.selfClick && !this.targetClickEvent) {
-                    this.hide();
-                }
-                
-                this.selfClick = false;
-                this.targetClickEvent = false;
-                this.cd.markForCheck();
+        if (!this.documentClickListener && this.dismissable) {
+            this.zone.runOutsideAngular(() => {
+                let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+                this.documentClickListener = this.renderer.listen('document', documentEvent, (event) => {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                        this.zone.run(() => {
+                            this.hide();
+                        });
+                    }
+
+                    this.cd.markForCheck();
+                });
             });
         }
     }
     
     unbindDocumentClickListener() {
-        if(this.documentClickListener) {
+        if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
     }
     
-    toggle(event, target?) {                          
-        if(!this.target || this.target === (target||event.currentTarget||event.target)) {
-            if(this.visible)
-                this.hide();
-            else
-                this.show(event, target);
+    toggle(event, target?) {
+        if (this.visible) {
+            this.visible = false;
+
+            if (this.hasTargetChanged(event, target)) {
+                this.target = target||event.currentTarget||event.target;
+
+                setTimeout(() => {
+                    this.visible = true;
+                }, 200);
+            }
         }
         else {
             this.show(event, target);
@@ -129,52 +111,93 @@ export class OverlayPanel implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
 
     show(event, target?) {
-        this.onBeforeShow.emit(null);
         this.target = target||event.currentTarget||event.target;
-        this.container.style.zIndex = ++DomHandler.zindex;
-
         this.visible = true;
-        this.willShow = true;
-        
-        if(event.type === 'click') {
-            this.targetClickEvent = true;
+    }
+
+    hasTargetChanged(event, target) {
+        return this.target != null && this.target !== (target||event.currentTarget||event.target);
+    }
+
+    appendContainer() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.container);
+            else
+                DomHandler.appendChild(this.container, this.appendTo);
+        }
+    }
+
+    restoreAppend() {
+        if (this.container && this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
+        }
+    }
+
+    onAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                this.container = event.element;
+                this.onShow.emit(null);
+                this.appendContainer();
+                if (this.autoZIndex) {
+                    this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
+                DomHandler.absolutePosition(this.container, this.target);
+                if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.target).top) {
+                    DomHandler.addClass(this.container, 'ui-overlaypanel-flipped');
+                }
+                if (DomHandler.getOffset(this.container).left < DomHandler.getOffset(this.target).left &&
+                    DomHandler.getOffset(this.container).left > 0) {
+                    DomHandler.addClass(this.container, 'ui-overlaypanel-shifted');
+                }
+                this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
+            break;
+
+            case 'void':
+                this.onContainerDestroy();
+                this.onHide.emit({});
+            break;
         }
     }
 
     hide() {
-        if(this.visible) {
-            this.onBeforeHide.emit(null);
-            this.willHide = true;
-            this.visible = false;
-            this.selfClick = false;
-            this.targetClickEvent = false;
-            this.unbindDocumentClickListener();
-        }
-    }
-        
-    onPanelClick(event) {
-        if(this.closeClick) {
-            this.hide();
-            this.closeClick = false;
-        }
-        else if(this.dismissable) {
-            this.selfClick = true;
-        }
+        this.visible = false;
     }
 
     onCloseClick(event) {
-        this.closeClick = true;
+        this.hide();
         event.preventDefault();
     }
 
-    ngOnDestroy() {
-        this.unbindDocumentClickListener();
-        
-        if(this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
+    onWindowResize(event) {
+        this.hide();
+    }
+
+    bindDocumentResizeListener() {
+        this.documentResizeListener = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.documentResizeListener);
+    }
+    
+    unbindDocumentResizeListener() {
+        if (this.documentResizeListener) {
+            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = null;
         }
-        
+    }
+
+    onContainerDestroy() {
+        this.unbindDocumentClickListener();
+        this.unbindDocumentResizeListener();
+    }
+
+    ngOnDestroy() {
         this.target = null;
+        if (this.container) {
+            this.restoreAppend();
+            this.onContainerDestroy();
+        }
     }
 }
 

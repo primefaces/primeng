@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy,DoCheck} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -10,12 +10,11 @@ import {DomHandler} from '../dom/domhandler';
         '[class.ui-state-default]': 'true',
         '[class.ui-widget]': 'true',
         '[class.ui-state-filled]': 'filled'
-    },
-    providers: [DomHandler]
+    }
 })
-export class Password implements AfterViewInit,OnDestroy,DoCheck {
+export class Password implements OnDestroy,DoCheck {
 
-    @Input() promptLabel: string = 'Please enter a password';
+    @Input() promptLabel: string = 'Enter a password';
 
     @Input() weakLabel: string = 'Weak';
 
@@ -24,8 +23,12 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     @Input() strongLabel: string = 'Strong';
     
     @Input() feedback: boolean = true;
+
+    @Input() set showPassword(show: boolean) {
+        this.el.nativeElement.type = show ? 'text' : 'password';
+    }
     
-    panel: any;
+    panel: HTMLDivElement;
     
     meter: any;
     
@@ -33,23 +36,7 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     
     filled: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
-    
-    ngAfterViewInit() {
-        this.panel = document.createElement('div');
-        this.panel.className = 'ui-password-panel ui-widget ui-state-highlight ui-corner-all ui-helper-hidden ui-password-panel-overlay';
-        this.meter = document.createElement('div');
-        this.meter.className = 'ui-password-meter';
-        this.info = document.createElement('div');
-        this.info.className = 'ui-password-info';
-        this.info.textContent = this.promptLabel;
-        
-        if(this.feedback) {
-            this.panel.appendChild(this.meter);
-            this.panel.appendChild(this.info);
-            document.body.appendChild(this.panel);
-        }
-    }
+    constructor(public el: ElementRef, public zone: NgZone) {}
     
     ngDoCheck() {
         this.updateFilledState();
@@ -64,49 +51,84 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     updateFilledState() {
         this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
+
+    createPanel() {
+        this.panel = document.createElement('div');
+        this.panel.className = 'ui-password-panel ui-widget ui-state-highlight ui-corner-all';
+        this.meter = document.createElement('div');
+        this.meter.className = 'ui-password-meter';
+        this.info = document.createElement('div');
+        this.info.className = 'ui-password-info';
+        this.info.textContent = this.promptLabel;
+        this.panel.appendChild(this.meter);
+        this.panel.appendChild(this.info);
+        this.panel.style.minWidth = DomHandler.getOuterWidth(this.el.nativeElement) + 'px';
+        document.body.appendChild(this.panel);
+    }
         
     @HostListener('focus', ['$event']) 
     onFocus(e) {
-        this.panel.style.zIndex = String(++DomHandler.zindex);
-        this.domHandler.removeClass(this.panel, 'ui-helper-hidden');
-        this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
-        this.domHandler.fadeIn(this.panel, 250);
+        if (this.feedback) {
+            if (!this.panel) {
+                this.createPanel();
+            }
+    
+            this.panel.style.zIndex = String(++DomHandler.zindex);
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    DomHandler.addClass(this.panel, 'ui-password-panel-visible');
+                    DomHandler.removeClass(this.panel, 'ui-password-panel-hidden');
+                }, 1);
+                DomHandler.absolutePosition(this.panel, this.el.nativeElement);
+            });
+        }
     }
     
     @HostListener('blur', ['$event']) 
-    onBlur(e) {        
-        this.domHandler.addClass(this.panel, 'ui-helper-hidden');
+    onBlur(e) {   
+        if (this.feedback) {
+            DomHandler.addClass(this.panel, 'ui-password-panel-hidden');
+            DomHandler.removeClass(this.panel, 'ui-password-panel-visible');
+
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.ngOnDestroy();
+                }, 150);
+            });
+        }     
     }
     
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
-        let value = e.target.value,
-        label = null,
-        meterPos = null;
+        if (this.feedback) {
+            let value = e.target.value,
+            label = null,
+            meterPos = null;
 
-        if(value.length === 0) {
-            label = this.promptLabel;
-            meterPos = '0px 0px';
-        }
-        else {
-            var score = this.testStrength(value);
-
-            if(score < 30) {
-                label = this.weakLabel;
-                meterPos = '0px -10px';
+            if(value.length === 0) {
+                label = this.promptLabel;
+                meterPos = '0px 0px';
             }
-            else if(score >= 30 && score < 80) {
-                label = this.mediumLabel;
-                meterPos = '0px -20px';
-            } 
-            else if(score >= 80) {
-                label = this.strongLabel;
-                meterPos = '0px -30px';
-            }
-        }
+            else {
+                var score = this.testStrength(value);
 
-        this.meter.style.backgroundPosition = meterPos;
-        this.info.textContent = label;
+                if(score < 30) {
+                    label = this.weakLabel;
+                    meterPos = '0px -10px';
+                }
+                else if(score >= 30 && score < 80) {
+                    label = this.mediumLabel;
+                    meterPos = '0px -20px';
+                } 
+                else if(score >= 80) {
+                    label = this.strongLabel;
+                    meterPos = '0px -30px';
+                }
+            }
+
+            this.meter.style.backgroundPosition = meterPos;
+            this.info.textContent = label;
+        }
     }
     
     testStrength(str: string) {
@@ -144,15 +166,12 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     }
     
     ngOnDestroy() {
-        if (!this.feedback)
-            return;
-            
-        this.panel.removeChild(this.meter);
-        this.panel.removeChild(this.info);
-        document.body.removeChild(this.panel);
-        this.panel = null;
-        this.meter = null;
-        this.info = null;
+        if (this.panel) {
+            document.body.removeChild(this.panel);
+            this.panel = null;
+            this.meter = null;
+            this.info = null;
+        }
     }
 }
 

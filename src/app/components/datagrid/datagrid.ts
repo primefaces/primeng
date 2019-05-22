@@ -23,7 +23,7 @@ import {BlockableUI} from '../common/blockableui';
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
-            <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
+            <div class="ui-datagrid-footer ui-widget-footer ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>

@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 import {Car} from '../../components/domain/car';
 
 @Component({
     templateUrl: './carouseldemo.html',
+    providers: [MessageService],
     styles: [`
         .ui-grid-row {
             text-align: center;
@@ -22,10 +23,7 @@ export class CarouselDemo {
 
     cars: Car[];
 
-    msgs: Message[];
-
-    constructor() {
-        this.msgs = [];
+    constructor(private messageService: MessageService) {
         this.cars = [
             {vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'},
             {vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'},
@@ -38,9 +36,8 @@ export class CarouselDemo {
             {vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'}
         ];
     }
-        
+    
     selectCar(car: Car) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin});
+        this.messageService.add({severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin});
     }
 }

@@ -14,4 +14,5 @@ export interface TreeNode {
     draggable?: boolean;
     droppable?: boolean;
     selectable?: boolean;
+    key?: string;
 }

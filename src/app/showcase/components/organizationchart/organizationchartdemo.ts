@@ -1,8 +1,10 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {Message,TreeNode} from '../../../components/common/api';
+import {TreeNode} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
+    providers: [MessageService],
     styles: [`
         .company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
             padding: 0;
@@ -60,7 +62,7 @@ export class OrganizationChartDemo implements OnInit {
     
     selectedNode: TreeNode;
     
-    messages: Message[];
+    constructor(private messageService: MessageService) {}
     
     ngOnInit() {
         this.data1 = [{
@@ -164,6 +166,6 @@ export class OrganizationChartDemo implements OnInit {
     }
     
     onNodeSelect(event) {
-        this.messages = [{severity: 'success', summary: 'Node Selected', detail: event.node.label}];
+        this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
     }
 }

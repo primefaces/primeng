@@ -8,11 +8,15 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15">
+    <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+            List of Cars
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
             </tr>
         </ng-template>
@@ -23,16 +27,14 @@
                 </td>
             </tr>
         </ng-template>
-
         <ng-template pTemplate="summary" let-rowData>
             <div style="text-align:left">
-                <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+                <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
             </div>
         </ng-template>
-        
     </p-table>
     
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
         <div class="ui-g ui-fluid" *ngIf="car">
             <div class="ui-g-12">
                 <div class="ui-g-4">
@@ -69,8 +71,8 @@
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
-                <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+                <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+                <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
             </div>
         </p-footer>
     </p-dialog>
@@ -162,11 +164,15 @@ export class TableCrudDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15"&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        List of Cars
+    &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
+            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
                 &#123;&#123;col.header&#125;&#125;
+                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -177,16 +183,14 @@ export class TableCrudDemo implements OnInit &#123;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-
     &lt;ng-template pTemplate="summary" let-rowData&gt;
         &lt;div style="text-align:left"&gt;
-            &lt;button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"&gt;&lt;/button&gt;
         &lt;/div&gt;
-    &lt;/ng-template&gt;
-    
+    &lt;/ng-template&gt;    
 &lt;/p-table&gt;
 
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300"&gt;
+&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="&#123;width: '300px'&#125;"&gt;
     &lt;div class="ui-g ui-fluid" *ngIf="car"&gt;
         &lt;div class="ui-g-12"&gt;
             &lt;div class="ui-g-4"&gt;
@@ -223,8 +227,8 @@ export class TableCrudDemo implements OnInit &#123;
     &lt;/div&gt;
     &lt;p-footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-check" (click)="save()" label="Save"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;

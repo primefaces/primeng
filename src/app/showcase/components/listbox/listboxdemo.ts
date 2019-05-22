@@ -7,7 +7,12 @@ interface City {
 }
 
 @Component({
-    templateUrl: './listboxdemo.html'
+    templateUrl: './listboxdemo.html',
+    styles: [`
+        :host ::ng-deep .ui-listbox {
+            width: 20em;
+        }
+    `]
 })
 export class ListboxDemo {
 
@@ -43,4 +48,5 @@ export class ListboxDemo {
             {label: 'Volvo', value: 'Volvo'}
         ];
     }
+    
 }
