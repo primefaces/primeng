@@ -35,7 +35,7 @@ import {SharedModule} from '../common/shared';
                 <span class="ui-paginator-icon pi pi-step-forward"></span>
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
-                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo"></p-dropdown>
+                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"></p-dropdown>
             <div class="ui-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
@@ -59,6 +59,8 @@ export class Paginator implements OnInit {
     @Input() templateRight: TemplateRef<any>;
 
     @Input() dropdownAppendTo: any;
+
+    @Input() dropdownScrollHeight: any;
 
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
 
