@@ -56,6 +56,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "node-sass": "^4.12.0",
     "primeflex": "1.0.0-rc.1",
     "primeicons": "1.0.0",
     "prismjs": "1.15.0",
