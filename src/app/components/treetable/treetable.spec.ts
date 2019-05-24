@@ -1,10 +1,11 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TreeTable, TreeTableModule } from './treetable';
+import { TreeTable, TreeTableModule, TTScrollableView } from './treetable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component } from '@angular/core';
+import { ContextMenuModule, ContextMenu } from '../contextmenu/contextmenu';
 
 @Component({
     template: `
@@ -171,15 +172,187 @@ import { Component } from '@angular/core';
                 </tr>            
             </ng-template>
         </p-treeTable>
+        <p-treeTable class="basicScrollTable" [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="lazyScrollTable" [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
+            [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
+            [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody" let-columns="columns">
+                <tr style="height:34px">
+                    <td *ngFor="let col of columns;">
+                        <div class="loading-text"></div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="resizableTreeTable" [value]="files" [columns]="cols" [resizableColumns]="true">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" ttResizableColumn>
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="reorderableTreeTable" [value]="files" [columns]="cols" [reorderableColumns]="true">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" ttReorderableColumn>
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>            
+            </ng-template>
+        </p-treeTable>
+        <p-treeTable class="contextMenuTreeTable" [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttContextMenuRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+
+        <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+        <p-treeTable class="filterTreeTable" #tt [value]="files" [columns]="cols">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">        
+                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" class="globalFilter" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of cols">
+                        {{col.header}}
+                    </th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of cols">
+                        <input pInputText type="text" class="filterInput" (input)="tt.filter($event.target.value, col.field, filterMode)">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr>
+                    <td *ngFor="let col of cols; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>        
+                    <td [attr.colspan]="cols.length">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
 `
 })
 class TestTreeTableComponent {
+
+    ngOnInit() {
+        this.totalRecords = 250000;
+
+        this.showLoader = false;
+    }
     selectedNode:any;
+    filterMode = "contains";
     cols = [
         { field: 'name', header: 'Name' },
         { field: 'size', header: 'Size' },
         { field: 'type', header: 'Type' }
     ];
+    items = [
+        { label: 'View', icon: 'pi pi-search', command: (event) => {} },
+        { label: 'Toggle', icon: 'pi pi-sort', command: (event) => {} }
+    ];
+
+    loadNodes(event) {
+        setTimeout(() => {
+            this.virtualFiles = [];
+
+            if (event.first === 249980)
+                this.createLazyNodes(event.first, 20);
+            else
+                this.createLazyNodes(event.first, event.rows);
+        }, 50);
+    }
+
+    createLazyNodes(index, length) {
+        for(let i = 0; i < length; i++) {
+            let node = {
+                data: {  
+                    name: 'Item ' + (index + i),
+                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    type: 'Type ' + (index + i)
+                },
+                leaf: false
+            };
+
+            this.virtualFiles.push(node);
+        }
+    }
+    onNodeExpand(event) {
+    }
+    totalRecords: number;
+    virtualFiles: any[];
+    showLoader: boolean;
     files = [  
         {  
             "data":{  
@@ -503,6 +676,12 @@ describe('TreeTable', () => {
     let multipleSelectionTreeTable: TreeTable;
     let checkboxSelectionTreeTable: TreeTable;
     let editableTreeTable: TreeTable;
+    let basicScrollTable: TreeTable;
+    let lazyScrollTable: TreeTable;
+    let resizableTreeTable: TreeTable;
+    let reorderableTreeTable: TreeTable;
+    let contextMenuTreeTable: TreeTable;
+    let filterTreeTable: TreeTable;
     let fixture: ComponentFixture<TestTreeTableComponent>;
 
     beforeEach(() => {
@@ -511,7 +690,8 @@ describe('TreeTable', () => {
                 NoopAnimationsModule,
                 FormsModule,
                 ScrollingModule,
-                TreeTableModule
+                TreeTableModule,
+                ContextMenuModule
             ],
             declarations: [
                 TestTreeTableComponent
@@ -528,6 +708,12 @@ describe('TreeTable', () => {
         multipleSelectionTreeTable = fixture.debugElement.children[5].componentInstance;
         checkboxSelectionTreeTable = fixture.debugElement.children[6].componentInstance;
         editableTreeTable = fixture.debugElement.children[7].componentInstance;
+        basicScrollTable = fixture.debugElement.children[8].componentInstance;resizableTreeTable
+        lazyScrollTable = fixture.debugElement.children[9].componentInstance;
+        resizableTreeTable = fixture.debugElement.children[10].componentInstance;
+        reorderableTreeTable = fixture.debugElement.children[11].componentInstance;
+        contextMenuTreeTable = fixture.debugElement.children[12].componentInstance;
+        filterTreeTable = fixture.debugElement.children[14].componentInstance;
     });
 
     it('should show 11 rows', () => {
@@ -1006,4 +1192,373 @@ describe('TreeTable', () => {
 
         expect(editableColumns[1].nativeElement.className).not.toContain("ui-editing-cell");
     });
+
+    it('should create scrollable body and view', () => {
+        fixture.detectChanges();
+        
+        const basicScrollTableEl = fixture.debugElement.query(By.css(".basicScrollTable"));
+        const scrollEl = basicScrollTableEl.query(By.css(".ui-treetable-scrollable-body"));
+        const scrollBody = basicScrollTableEl.query(By.css(".ui-treetable-scrollable-view"));
+        fixture.detectChanges();
+        
+        scrollBody.nativeElement.dispatchEvent(new Event("scroll"));
+        fixture.detectChanges();
+
+        expect(scrollEl).toBeTruthy();
+        expect(scrollBody).toBeTruthy();
+    });
+
+    it('should scroll lazy',  async(() => {
+        const loadNodesSpy = spyOn(testcomponent, "loadNodes").and.callThrough();
+        const onNodeExpandSpy = spyOn(testcomponent, "onNodeExpand").and.callThrough();
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            
+            const lazyScrollTableEl = fixture.debugElement.query(By.css(".lazyScrollTable"));
+            let scrollBody = lazyScrollTableEl.query(By.css(".ui-treetable-scrollable-body"));
+            let rowEls = lazyScrollTableEl.queryAll(By.css("tr"));
+            expect(rowEls.length).toEqual(61);
+            expect(rowEls[1].queryAll(By.css("td"))[0].nativeElement.innerText).toContain("Item 0");
+            expect(loadNodesSpy).toHaveBeenCalled();
+            fixture.detectChanges();
+
+            const toggleEls = lazyScrollTableEl.queryAll(By.css(".ui-treetable-toggler"));
+            toggleEls[0].nativeElement.click();
+            scrollBody.nativeElement.scrollTop = 1700;
+            scrollBody.nativeElement.dispatchEvent(new Event("scroll"));
+            fixture.whenStable().then(() => {
+                fixture.detectChanges();
+
+                rowEls = lazyScrollTableEl.queryAll(By.css("tr"));
+                expect(rowEls[1].queryAll(By.css("td"))[0].nativeElement.innerText).toContain("Item 40");
+                expect(testcomponent.virtualFiles[0].data.name).toBe("Item 40");
+                expect(loadNodesSpy).toHaveBeenCalledTimes(2);
+                expect(onNodeExpandSpy).toHaveBeenCalled();
+                scrollBody.nativeElement.scrollTop = 700;
+                scrollBody.nativeElement.dispatchEvent(new Event("scroll"));
+                fixture.whenStable().then(() => {
+                    fixture.detectChanges();
+
+                    rowEls = lazyScrollTableEl.queryAll(By.css("tr"));
+                    expect(rowEls[1].queryAll(By.css("td"))[0].nativeElement.innerText).toContain("Item 20");
+                    expect(loadNodesSpy).toHaveBeenCalledTimes(3);
+                    expect(testcomponent.virtualFiles[0].data.name).toBe("Item 20")
+                });
+            });
+        });
+    }));
+
+    it('should resize (Fit Mode)',  () => {
+        fixture.detectChanges();
+
+        const resizableTreeTableEl = fixture.debugElement.query(By.css(".resizableTreeTable"));
+        const onColumnResizeBeginSpy = spyOn(resizableTreeTable,"onColumnResizeBegin").and.callThrough();
+        const onColumnResizeSpy = spyOn(resizableTreeTable,"onColumnResize").and.callThrough();
+        const onColumnResizeEndSpy = spyOn(resizableTreeTable,"onColumnResizeEnd").and.callThrough();
+        let headerEls = resizableTreeTableEl.queryAll(By.css("th"));
+        let firstWidth = headerEls[0].nativeElement.clientWidth;
+        let firstResizer = document.querySelector(".ui-column-resizer");
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = firstWidth + 200;
+		event.initEvent('mousedown', true, true);
+        firstResizer.dispatchEvent(event);
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        event.pageX = firstWidth + 150;
+		event.initEvent('mousemove', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        event.initEvent('mouseup', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        headerEls = resizableTreeTableEl.queryAll(By.css("th"));
+        expect(headerEls[0].nativeElement.clientWidth).toBeLessThan(firstWidth);
+        firstWidth = headerEls[0].nativeElement.clientWidth;
+        event.pageX = firstWidth + 200;
+		event.initEvent('mousedown', true, true);
+        firstResizer.dispatchEvent(event);
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        event.pageX = 0;
+		event.initEvent('mousemove', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        event.initEvent('mouseup', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        headerEls = resizableTreeTableEl.queryAll(By.css("th"));
+        expect(headerEls[0].nativeElement.clientWidth).toEqual(firstWidth);
+    });
+
+    it('should resize (Expand Mode)',  () => {
+        resizableTreeTable.columnResizeMode = "expand";
+        fixture.detectChanges();
+
+        const resizableTreeTableEl = fixture.debugElement.query(By.css(".resizableTreeTable"));
+        const onColumnResizeBeginSpy = spyOn(resizableTreeTable,"onColumnResizeBegin").and.callThrough();
+        const onColumnResizeSpy = spyOn(resizableTreeTable,"onColumnResize").and.callThrough();
+        const onColumnResizeEndSpy = spyOn(resizableTreeTable,"onColumnResizeEnd").and.callThrough();
+        let headerEls = resizableTreeTableEl.queryAll(By.css("th"));
+        let firstWidth = headerEls[0].nativeElement.clientWidth;
+        let firstResizer = document.querySelector(".ui-column-resizer");
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = firstWidth + 200;
+		event.initEvent('mousedown', true, true);
+        firstResizer.dispatchEvent(event);
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        event.pageX = firstWidth + 150;
+		event.initEvent('mousemove', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        event.initEvent('mouseup', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        headerEls = resizableTreeTableEl.queryAll(By.css("th"));
+        expect(headerEls[0].nativeElement.clientWidth).toBeLessThan(firstWidth);
+        firstWidth = headerEls[0].nativeElement.clientWidth;
+        event.pageX = firstWidth + 200;
+		event.initEvent('mousedown', true, true);
+        firstResizer.dispatchEvent(event);
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        event.pageX = 0;
+		event.initEvent('mousemove', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        event.initEvent('mouseup', true, true);
+        firstResizer.dispatchEvent(event);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        headerEls = resizableTreeTableEl.queryAll(By.css("th"));
+        expect(headerEls[0].nativeElement.clientWidth).toEqual(firstWidth);
+    });
+
+    it('should reorder -1',  () => {
+        fixture.detectChanges();
+
+        const reorderableTreeTableEl = fixture.debugElement.query(By.css(".reorderableTreeTable"));
+        let reorableHeaderEls = reorderableTreeTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[0].nativeElement.draggable).toBeFalsy();
+        reorableHeaderEls[0].nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(reorableHeaderEls[0].nativeElement.draggable).toBeTruthy();
+        const onColumnDragStartSpy = spyOn(reorderableTreeTable,"onColumnDragStart").and.callThrough();
+        const dragEvent: any = document.createEvent('CustomEvent');
+        dragEvent.initEvent('dragstart', true, true);
+        dragEvent.dataTransfer = {setData(val1,val2){}};
+        reorableHeaderEls[0].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        dragEvent.initEvent('dragenter', true, true);
+        dragEvent.pageX = reorableHeaderEls[1].nativeElement.clientWidth + 1;
+        reorableHeaderEls[1].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        dragEvent.initEvent('dragleave', true, true);
+        reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onColumnDragStartSpy).toHaveBeenCalled();
+        expect(reorderableTreeTable.draggedColumn.textContent).toEqual(" Name ");
+        dragEvent.initEvent('dragenter', true, true);
+        dragEvent.pageX = reorableHeaderEls[2].nativeElement.clientWidth * 2 + 1;
+        reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(reorderableTreeTable.dropPosition).toEqual(-1);
+        dragEvent.initEvent('drop');
+        reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        reorableHeaderEls = reorderableTreeTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[1].nativeElement.textContent).toEqual(" Type ");
+        expect(reorableHeaderEls[2].nativeElement.textContent).toEqual(" Name ");
+    });
+
+    it('should reorder +1',  () => {
+        fixture.detectChanges();
+
+        const reorderableTreeTableEl = fixture.debugElement.query(By.css(".reorderableTreeTable"));
+        let reorableHeaderEls = reorderableTreeTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[0].nativeElement.draggable).toBeFalsy();
+        reorableHeaderEls[0].nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(reorableHeaderEls[0].nativeElement.draggable).toBeTruthy();
+        const onColumnDragStartSpy = spyOn(reorderableTreeTable,"onColumnDragStart").and.callThrough();
+        const dragEvent: any = document.createEvent('CustomEvent');
+        dragEvent.initEvent('dragstart', true, true);
+        dragEvent.dataTransfer = {setData(val1,val2){}};
+        reorableHeaderEls[0].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(onColumnDragStartSpy).toHaveBeenCalled();
+        expect(reorderableTreeTable.draggedColumn.textContent).toEqual(" Name ");
+        dragEvent.initEvent('dragenter', true, true);
+        dragEvent.pageX = reorableHeaderEls[2].nativeElement.clientWidth * 3 + 1;
+        reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        expect(reorderableTreeTable.dropPosition).toEqual(1);
+        dragEvent.initEvent('drop');
+        reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
+        fixture.detectChanges();
+
+        reorableHeaderEls = reorderableTreeTableEl.queryAll(By.css("th"));
+        expect(reorableHeaderEls[0].nativeElement.textContent).toEqual(" Size ");
+        expect(reorableHeaderEls[1].nativeElement.textContent).toEqual(" Type ");
+        expect(reorableHeaderEls[2].nativeElement.textContent).toEqual(" Name ");
+    });
+
+    it('should open contextMenu (separate)',  () => {
+        fixture.detectChanges();
+
+        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const showSpy = spyOn(contextMenu,"show").and.callThrough();
+        const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTreeTable"));
+        const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
+        const event: any = document.createEvent('CustomEvent');
+        const handleRowRightClickSpy = spyOn(contextMenuTreeTable,"handleRowRightClick").and.callThrough();
+        event.initEvent('contextmenu');
+        rowEls[1].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
+    
+        expect(handleRowRightClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(contextMenuTreeTable.contextMenuSelection.data.name).toEqual("Applications");
+    });
+
+    it('should select with contextMenu (joint single)',  () => {
+        fixture.detectChanges();
+
+        contextMenuTreeTable.selectionMode = "single";
+        contextMenuTreeTable.contextMenuSelectionMode = "joint";
+        fixture.detectChanges();
+
+        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const showSpy = spyOn(contextMenu,"show").and.callThrough();
+        const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTreeTable"));
+        const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
+        const event: any = document.createEvent('CustomEvent');
+        const handleRowRightClickSpy = spyOn(contextMenuTreeTable,"handleRowRightClick").and.callThrough();
+        event.initEvent('contextmenu');
+        rowEls[1].nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
+    
+        expect(handleRowRightClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(contextMenuTreeTable.selection.data.name).toEqual("Applications");
+    });
+
+    it('should select with contextMenu (joint multiple)',  () => {
+        fixture.detectChanges();
+
+        contextMenuTreeTable.selectionMode = "multiple";
+        contextMenuTreeTable.contextMenuSelectionMode = "joint";
+        fixture.detectChanges();
+
+        const contextMenu = fixture.debugElement.query(By.css(".ui-contextmenu")).componentInstance as ContextMenu;
+        const showSpy = spyOn(contextMenu,"show").and.callThrough();
+        const contextMenuTableEl = fixture.debugElement.query(By.css(".contextMenuTreeTable"));
+        const rowEls = contextMenuTableEl.queryAll(By.css("tr"));
+        const event: any = document.createEvent('CustomEvent');
+        const handleRowRightClickSpy = spyOn(contextMenuTreeTable,"handleRowRightClick").and.callThrough();
+        event.initEvent('contextmenu');
+        rowEls[1].nativeElement.dispatchEvent(event);
+        rowEls[2].nativeElement.click();
+        fixture.detectChanges();
+    
+        expect(handleRowRightClickSpy).toHaveBeenCalled();
+        expect(showSpy).toHaveBeenCalled();
+        expect(contextMenuTreeTable.selection[0].data.name).toEqual("Applications");
+    });
+
+    it('should filter global and show 6 item ',  async(() => {
+        fixture.detectChanges();
+
+        const globalFilter = fixture.debugElement.query(By.css(".globalFilter"));
+        globalFilter.nativeElement.value = "a";
+        globalFilter.nativeElement.dispatchEvent(new Event("input"));
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
+            const bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            expect(bodyRows.length).toEqual(6);
+        });
+    }));
+
+    it('should filter and show 1 item (contains)',  async(() => {
+        fixture.detectChanges();
+
+        const filterEls = fixture.debugElement.queryAll(By.css(".filterInput"));
+        filterEls[0].nativeElement.value = "a";
+        filterEls[0].nativeElement.dispatchEvent(new Event("input"));
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
+            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            expect(bodyRows.length).toEqual(6);
+            filterEls[0].nativeElement.value = "";
+            filterEls[0].nativeElement.dispatchEvent(new Event("input"));
+            fixture.whenStable().then(() => {
+                fixture.detectChanges();
+
+                bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+                expect(bodyRows.length).toEqual(9);
+            });
+        });
+    }));
+
+    it('should filter and show 1 item (endsWith)',  async(() => {
+        testcomponent.filterMode = "endsWith";
+        fixture.detectChanges();
+
+        const filterEls = fixture.debugElement.queryAll(By.css(".filterInput"));
+        filterEls[0].nativeElement.value = "n";
+        filterEls[0].nativeElement.dispatchEvent(new Event("input"));
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
+            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            expect(bodyRows.length).toEqual(1);
+        });
+    }));
+
+    it('should filter and show 1 item (equals)',  async(() => {
+        testcomponent.filterMode = "equals";
+        fixture.detectChanges();
+
+        const filterEls = fixture.debugElement.queryAll(By.css(".filterInput"));
+        filterEls[0].nativeElement.value = "Applications";
+        filterEls[0].nativeElement.dispatchEvent(new Event("input"));
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
+            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            expect(bodyRows.length).toEqual(1);
+        });
+    }));
 });
