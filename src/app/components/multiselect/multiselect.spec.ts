@@ -449,4 +449,35 @@ describe('MultiSelect', () => {
 
 		expect(fixture.debugElement.query(By.css("div")).nativeElement.className).not.toContain("ui-multiselect-open");
 	});
+
+	it('should display not found message when filter returns 0 results', () => {
+		multiselect.options = [
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
+			];
+			const multiselectEl = fixture.debugElement.children[0].nativeElement;
+			multiselectEl.click();
+			fixture.detectChanges();
+	
+			const filterInputEl = fixture.debugElement.query(By.css('.ui-inputtext')).nativeElement;
+			filterInputEl.value = "1";
+			filterInputEl.dispatchEvent(new Event('input'));
+			fixture.detectChanges();
+	
+			const visibleItems = fixture.debugElement.queryAll(By.css('.ui-multiselect-items li'))
+				.filter(el => el.styles.display !== 'none');
+			const emptyMesage = visibleItems[0]; 
+			expect(multiselect.visibleOptions.length).toEqual(0);
+			expect(visibleItems.length).toEqual(1);
+			expect(emptyMesage).toBeTruthy();
+			expect(emptyMesage.nativeElement.textContent).toEqual("No results found");
+	});
 });
