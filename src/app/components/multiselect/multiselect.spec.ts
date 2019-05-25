@@ -419,6 +419,41 @@ describe('MultiSelect', () => {
 		expect(multiselect.visibleOptions.length).toEqual(2);
 	});
 
+	it('should reapply filter on options change', () => {
+		multiselect.options = [
+		{label: 'Audi', value: 'Audi'},
+		{label: 'BMW', value: 'BMW'},
+		{label: 'Fiat', value: 'Fiat'},
+		{label: 'Ford', value: 'Ford'},
+		{label: 'Honda', value: 'Honda'},
+		{label: 'Jaguar', value: 'Jaguar'},
+		{label: 'Mercedes', value: 'Mercedes'},
+		{label: 'Renault', value: 'Renault'},
+		{label: 'VW', value: 'VW'},
+		{label: 'Volvo', value: 'Volvo'}
+		];
+
+		const multiselectEl = fixture.debugElement.children[0].nativeElement;
+		multiselectEl.click();
+		fixture.detectChanges();
+
+		const filterInputEl = fixture.debugElement.query(By.css('.ui-inputtext')).nativeElement;
+		filterInputEl.value = "f";
+		filterInputEl.dispatchEvent(new Event('input'));
+		fixture.detectChanges();
+
+		multiselect.options = [
+			{label: 'Toyota', value: 'Toyota'},
+			{label: 'Hyundai', value: 'Hyundai'},
+			{label: 'Nissan', value: 'Nissan'},
+			{label: 'Suzuki', value: 'Suzuki'},
+			{label: 'Ford', value: 'Ford'},
+		];
+		fixture.detectChanges();
+
+		expect(multiselect.visibleOptions.length).toEqual(1);
+	});
+
 	it('should close with close icon and reset filter input', () => {
 		multiselect.options = [
 		{label: 'Audi', value: 'Audi'},
