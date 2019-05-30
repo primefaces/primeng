@@ -1390,8 +1390,8 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         reorableHeaderEls = reorderableTreeTableEl.queryAll(By.css("th"));
-        expect(reorableHeaderEls[1].nativeElement.textContent).toEqual(" Type ");
-        expect(reorableHeaderEls[2].nativeElement.textContent).toEqual(" Name ");
+        expect(reorableHeaderEls[1].nativeElement.textContent).toEqual(" Name ");
+        expect(reorableHeaderEls[2].nativeElement.textContent).toEqual(" Type ");
     });
 
     it('should reorder +1',  () => {

@@ -18,7 +18,7 @@ import { TreeDragDropService } from '../common/api';
   })
   class TestTreeComponent implements OnInit {
 
-	@ViewChild('cm') cm:ElementRef;
+	@ViewChild('cm', { static: false }) cm:ElementRef;
 
 	filesTree7: any;
 
@@ -437,6 +437,8 @@ describe('Tree', () => {
 	});
 
 	it('should select with second click and open the context menu', () => {
+		fixture.detectChanges();
+
 		tree.contextMenu = testComponent.cm;
 		tree.selectionMode = 'single';
 		fixture.detectChanges();
