@@ -148,7 +148,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @Input() triggerEvent: string = 'contextmenu';
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     documentClickListener: any;
 

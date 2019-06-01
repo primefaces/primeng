@@ -156,13 +156,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() autofocus: boolean;
 
-    @ViewChild('in') inputEL: ElementRef;
+    @ViewChild('in', { static: false }) inputEL: ElementRef;
 
-    @ViewChild('multiIn') multiInputEL: ElementRef;
+    @ViewChild('multiIn', { static: false }) multiInputEL: ElementRef;
 
-    @ViewChild('multiContainer') multiContainerEL: ElementRef;
+    @ViewChild('multiContainer', { static: false }) multiContainerEL: ElementRef;
 
-    @ViewChild('ddBtn') dropdownButton: ElementRef;
+    @ViewChild('ddBtn', { static: false }) dropdownButton: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

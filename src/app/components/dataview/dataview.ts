@@ -86,9 +86,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header) header;
+    @ContentChild(Header, { static: false }) header;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, { static: false }) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

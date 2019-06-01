@@ -114,11 +114,11 @@ export class Dialog implements OnDestroy {
     
     @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
         
-    @ViewChild('titlebar') headerViewChild: ElementRef;
+    @ViewChild('titlebar', { static: false }) headerViewChild: ElementRef;
     
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
 
-    @ViewChild('footer') footerViewChild: ElementRef;
+    @ViewChild('footer', { static: false }) footerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
