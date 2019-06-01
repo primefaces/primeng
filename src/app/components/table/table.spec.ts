@@ -1526,14 +1526,14 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let value;
-        const spyObj = {
+        const spyObj: any = {
             style:{
               display:'block'  
             }
         };
         spyOn(document, 'createElement').and.returnValue(spyObj);
-        spyOn(document.body, 'appendChild').and.returnValue("");
-        spyOn(document.body, 'removeChild').and.returnValue("");
+        spyOn(document.body, 'appendChild').and.returnValue(null);
+        spyOn(document.body, 'removeChild').and.returnValue(null);
         window.open = function(csv){
             value = decodeURI(csv);
             return null;
@@ -1553,7 +1553,7 @@ describe('Table', () => {
     it('should set href and download when using exportCSV function', () => {
         fixture.detectChanges();
 
-        const spyObj = {
+        const spyObj: any = {
             click: () => {
             },
             style:{
@@ -1567,8 +1567,8 @@ describe('Table', () => {
         };
         spyOn(spyObj, 'click').and.callThrough();
         spyOn(document, 'createElement').and.returnValue(spyObj);
-        spyOn(document.body, 'appendChild').and.returnValue("");
-        spyOn(document.body, 'removeChild').and.returnValue("");
+        spyOn(document.body, 'appendChild').and.returnValue(null);
+        spyOn(document.body, 'removeChild').and.returnValue(null);
         basicSelectionTable.exportCSV();
         expect(document.createElement).toHaveBeenCalledTimes(1);
         expect(document.createElement).toHaveBeenCalledWith('a');

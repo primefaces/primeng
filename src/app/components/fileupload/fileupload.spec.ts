@@ -16,20 +16,20 @@ describe('FileUpload', () => {
     beforeEach(() => {
     TestBed.configureTestingModule({
         imports: [
-        NoopAnimationsModule,
-        ProgressBarModule,
-        MessagesModule,
-        ButtonModule,
-        HttpClientModule
+            NoopAnimationsModule,
+            ProgressBarModule,
+            MessagesModule,
+            ButtonModule,
+            HttpClientModule
         ],
         declarations: [
-        FileUpload,
-        PrimeTemplate,
+            FileUpload,
+            PrimeTemplate,
         ]
     });
 
-    fixture = TestBed.createComponent(FileUpload);
-    fileupload = fixture.componentInstance;
+        fixture = TestBed.createComponent(FileUpload);
+        fileupload = fixture.componentInstance;
     });
 
     it('should display by default (basic)', () => {
@@ -125,6 +125,34 @@ describe('FileUpload', () => {
         fixture.detectChanges();
 
         expect(uploadSpy).toHaveBeenCalled();
+    });
+
+    it('should call onBeforeUpload and expose options and formdata', () => {
+        fileupload.auto = true;
+        fileupload.url = " ";
+        fixture.detectChanges();
+
+        let event;
+        event = {
+            'target':{files: [{
+                'lastModified':1533276674178,
+                'name': 'primeng.txt',
+                'size': 179,
+                'type': "text/plain"
+            }]}
+        }
+
+        const onBeforeUploadSpy = spyOn(fileupload.onBeforeUpload, 'emit');
+
+        fileupload.onFileSelect(event);
+        fixture.detectChanges();
+
+        expect(onBeforeUploadSpy).toHaveBeenCalled();
+
+        // event emitter should expose correct params
+        let onBeforeUploadArgs = (fileupload.onBeforeUpload.emit as any).calls.mostRecent();
+        expect(onBeforeUploadArgs.args.formData).not.toBeNull();
+        expect(onBeforeUploadArgs.args.httpOptions).not.toBeNull();
     });
 
     it('should call upload with customUpload (advanced)', () => {

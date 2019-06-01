@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
 import {Message} from '../common/message';
 import {PrimeTemplate,SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
-import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Component({
     selector: 'p-fileUpload',
@@ -109,7 +109,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+	@Output() onSend: EventEmitter<any> = new EventEmitter();
 
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
 
@@ -305,23 +305,26 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             this.uploading = true;
             this.msgs = [];
             let formData = new FormData();
+            let httpOptions: object = {
+                headers: new HttpHeaders(),
+                reportProgress: true, 
+                observe: 'events'
+            };
 
             this.onBeforeUpload.emit({
-                'formData': formData
+                'formData': formData,
+                'httpOptions': httpOptions
             });
 
             for(let i = 0; i < this.files.length; i++) {
                 formData.append(this.name, this.files[i], this.files[i].name);
             }
 
-            this.http.post(this.url, formData, {
-                reportProgress: true, observe: 'events'
-            }).subscribe( (event: HttpEvent<any>) => {
+            this.http.post(this.url, formData, httpOptions)
+                .subscribe( (event: HttpEvent<any>) => {
                     switch (event.type) {
                         case HttpEventType.Sent:
-                            this.onBeforeSend.emit({
-                                'formData': formData
-                            });
+                            this.onSend.emit();
                             break;
                         case HttpEventType.Response:
                             this.uploading = false;

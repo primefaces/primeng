@@ -10,7 +10,7 @@
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
     <h3 class="first">Advanced</h3>
-    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+    <p-fileUpload name="demo[]" url="./upload.php" (onBeforeUpload)="onBeforeUpload($event)" (onUpload)="onUpload($event)"
             multiple="multiple" accept="image/*" maxFileSize="1000000">
             <ng-template pTemplate="content">
                 <ul *ngIf="uploadedFiles.length">
@@ -310,15 +310,18 @@ myUploader(event) &#123;
                     <tbody>
                         <tr>
                             <td>onBeforeUpload</td>
-                            <td>event.formData: FormData object.</td>
+                            <td>
+                                event.formData: FormData object.
+                                <br/>
+                                event.httpOptions: httpOptions object.
+                            </td>
                             <td>Callback to invoke before file upload begins to customize the request
-                                such as post parameters before the files.</td>
+                                such as post parameters and headers.</td>
                         </tr>
 						<tr>
-                            <td>onBeforeSend</td>
-                            <td>event.formData: FormData object.</td>
-                            <td>Callback to invoke before file send begins to customize the request
-                                such as adding headers.</td>
+                            <td>onSend</td>
+                            <td>-</td>
+                            <td>Callback which alerts the web request was sent.</td>
                         </tr>
                         <tr>
                             <td>onUpload</td>
@@ -334,7 +337,7 @@ myUploader(event) &#123;
                         </tr>
                         <tr>
                             <td>onClear</td>
-                            <td>-.</td>
+                            <td>-</td>
                             <td>Callback to invoke when files in queue are removed without uploading using clear all button.</td>
                         </tr>
                         <tr>
