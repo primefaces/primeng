@@ -87,7 +87,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     public negativeSeparator = '-';
     
-    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+    @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
     
     constructor(public el: ElementRef) {}
 

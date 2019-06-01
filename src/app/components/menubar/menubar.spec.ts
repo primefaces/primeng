@@ -341,7 +341,7 @@ describe('Menubar', () => {
 
       const firstSubmenuList = firstParentEl.query(By.css('ul'));
       const firstSubItem = firstSubmenuList.children[0];
-      firstSubItem.nativeElement.click();
+      firstSubItem.nativeElement.dispatchEvent(new Event('mouseenter'));
       fixture.detectChanges();
 
       expect(onItemMenuClickSpy).toHaveBeenCalled();

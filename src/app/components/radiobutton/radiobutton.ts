@@ -54,7 +54,7 @@ export class RadioButton implements ControlValueAccessor {
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('rb') inputViewChild: ElementRef;
+    @ViewChild('rb', { static: false }) inputViewChild: ElementRef;
             
     public onModelChange: Function = () => {};
     
@@ -92,7 +92,7 @@ export class RadioButton implements ControlValueAccessor {
     writeValue(value: any) : void {
         this.checked = (value == this.value);
 
-        if(this.inputViewChild.nativeElement) {
+        if(this.inputViewChild && this.inputViewChild.nativeElement) {
             this.inputViewChild.nativeElement.checked = this.checked;
         }
         

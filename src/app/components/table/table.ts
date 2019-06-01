@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -7,7 +7,6 @@ import { ObjectUtils } from '../utils/objectutils';
 import { SortMeta } from '../common/sortmeta';
 import { TableState } from '../common/tablestate';
 import { FilterMetadata } from '../common/filtermetadata';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Injectable } from '@angular/core';
 import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription } from 'rxjs';
@@ -266,15 +265,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
-    @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
+    @ViewChild('resizeHelper', { static: false }) resizeHelperViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
+    @ViewChild('reorderIndicatorUp', { static: false }) reorderIndicatorUpViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
+    @ViewChild('reorderIndicatorDown', { static: false }) reorderIndicatorDownViewChild: ElementRef;
 
-    @ViewChild('table') tableViewChild: ElementRef;
+    @ViewChild('table', { static: false }) tableViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -2280,21 +2279,21 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     @Input() frozen: boolean;
 
-    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
+    @ViewChild('scrollHeader', { static: false }) scrollHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
+    @ViewChild('scrollHeaderBox', { static: false }) scrollHeaderBoxViewChild: ElementRef;
 
-    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
+    @ViewChild('scrollBody', { static: false }) scrollBodyViewChild: ElementRef;
 
-    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
+    @ViewChild('scrollTable', { static: false }) scrollTableViewChild: ElementRef;
 
-    @ViewChild('loadingTable') scrollLoadingTableViewChild: ElementRef;
+    @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter', { static: false }) scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox', { static: false }) scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
+    @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
 
     headerScrollListener: Function;
 
@@ -3498,7 +3497,7 @@ export class TableRadioButton  {
 
     @Input() index: number;
 
-    @ViewChild('box') boxViewChild: ElementRef;
+    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -3562,7 +3561,7 @@ export class TableCheckbox  {
 
     @Input() index: number;
 
-    @ViewChild('box') boxViewChild: ElementRef;
+    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -3620,7 +3619,7 @@ export class TableCheckbox  {
 })
 export class TableHeaderCheckbox  {
 
-    @ViewChild('box') boxViewChild: ElementRef;
+    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
 
     @Input() disabled: boolean;
 

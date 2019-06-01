@@ -220,15 +220,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
-    @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
+    @ViewChild('resizeHelper', { static: false }) resizeHelperViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
+    @ViewChild('reorderIndicatorUp', { static: false }) reorderIndicatorUpViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
+    @ViewChild('reorderIndicatorDown', { static: false }) reorderIndicatorDownViewChild: ElementRef;
 
-    @ViewChild('table') tableViewChild: ElementRef;
+    @ViewChild('table', { static: false }) tableViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -961,6 +961,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             let allowDrop = (dragIndex != dropIndex);
             if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
                 allowDrop = false;
+            }
+
+            if (allowDrop && ((dropIndex < dragIndex && this.dropPosition === 1))) {
+                dropIndex = dropIndex + 1;
+            }
+
+            if (allowDrop && ((dropIndex > dragIndex && this.dropPosition === -1))) {
+                dropIndex = dropIndex - 1;
             }
 
             if (allowDrop) {
@@ -1753,21 +1761,21 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     @Input() frozen: boolean;
 
-    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
+    @ViewChild('scrollHeader', { static: false }) scrollHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
+    @ViewChild('scrollHeaderBox', { static: false }) scrollHeaderBoxViewChild: ElementRef;
 
-    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
+    @ViewChild('scrollBody', { static: false }) scrollBodyViewChild: ElementRef;
 
-    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
+    @ViewChild('scrollTable', { static: false }) scrollTableViewChild: ElementRef;
 
-    @ViewChild('loadingTable') scrollLoadingTableViewChild: ElementRef;
+    @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter', { static: false }) scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox', { static: false }) scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
+    @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
 
     headerScrollListener: Function;
 
@@ -2516,7 +2524,7 @@ export class TTCheckbox  {
 
     @Input("value") rowNode: any;
 
-    @ViewChild('box') boxViewChild: ElementRef;
+    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -2574,7 +2582,7 @@ export class TTCheckbox  {
 })
 export class TTHeaderCheckbox  {
 
-    @ViewChild('box') boxViewChild: ElementRef;
+    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
 
     checked: boolean;
 

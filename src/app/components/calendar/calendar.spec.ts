@@ -388,9 +388,9 @@ describe('Calendar', () => {
 
     it('should use year and month navigator', () => {
 
-      calendar.yearRange = "2000:2030";
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       const onMonthDropdownChangeSpy = spyOn(calendar,'onMonthDropdownChange').and.callThrough();
@@ -426,10 +426,10 @@ describe('Calendar', () => {
       calendar.defaultDate = date;
       jasmine.clock().mockDate(date);
       const updateInputfieldSpy = spyOn(calendar,'updateInputfield').and.callThrough();
-      calendar.yearRange = "2000:2030";
       calendar.showTime = true;
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       expect(updateInputfieldSpy).toHaveBeenCalled();
@@ -547,9 +547,9 @@ describe('Calendar', () => {
 
     it('should select multiple', () => {
       calendar.selectionMode = "multiple";
-      calendar.yearRange = "2000:2030";
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -593,9 +593,9 @@ describe('Calendar', () => {
     it('should select multiple with dataType string', () => {
       calendar.selectionMode = "multiple";
       calendar.dataType = "string";
-      calendar.yearRange = "2000:2030";
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1655,9 +1655,9 @@ describe('Calendar', () => {
     });
 
     it('should change yearRange', () => {
-      calendar.yearRange = "2000:2019";
       calendar.dateFormat = "mm/yy";
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2019";
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;

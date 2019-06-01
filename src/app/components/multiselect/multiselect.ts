@@ -226,13 +226,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() ariaFilterLabel: string;
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
-    @ViewChild('filterInput') filterInputChild: ElementRef;
+    @ViewChild('filterInput', { static: false }) filterInputChild: ElementRef;
 
-    @ContentChild(Footer) footerFacet;
+    @ContentChild(Footer, { static: false }) footerFacet;
 
-    @ContentChild(Header) headerFacet;
+    @ContentChild(Header, { static: false }) headerFacet;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

@@ -70,7 +70,11 @@ export class AccordionTab implements OnDestroy {
 
     loaded: boolean;
 
-    constructor( @Inject(forwardRef(() => Accordion)) public accordion: Accordion) {}
+    accordion: Accordion;
+
+    constructor( @Inject(forwardRef(() => Accordion)) accordion) {
+        this.accordion = accordion as Accordion;
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

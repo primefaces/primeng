@@ -38,7 +38,11 @@ export class ContextMenuSub {
 
     @Input() root: boolean;
 
-    constructor(@Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) { }
+    contextMenu: ContextMenu;
+
+    constructor(@Inject(forwardRef(() => ContextMenu)) contextMenu) {
+        this.contextMenu = contextMenu as ContextMenu;
+    }
 
     activeItem: any;
 
@@ -148,7 +152,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @Input() triggerEvent: string = 'contextmenu';
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     documentClickListener: any;
 

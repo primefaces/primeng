@@ -224,13 +224,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
-    @ViewChild('filter') filterViewChild: ElementRef;
+    @ViewChild('filter', { static: false }) filterViewChild: ElementRef;
     
-    @ViewChild('in') focusViewChild: ElementRef;
+    @ViewChild('in', { static: false }) focusViewChild: ElementRef;
     
-    @ViewChild('editableInput') editableInputViewChild: ElementRef;
+    @ViewChild('editableInput', { static: false }) editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
