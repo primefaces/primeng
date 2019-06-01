@@ -62,7 +62,7 @@
     "tslib": "^1.9.0",
     "tslint": "~5.15.0",
     "typescript": "~3.4.3",
-    "web-animations-js": "2.3.1",
+    "web-animations-js": "angular/web-animations-js#release_pr208",
     "zone.js": "~0.9.1"
   }
 }
