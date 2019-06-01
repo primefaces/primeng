@@ -38,7 +38,11 @@ export class ContextMenuSub {
 
     @Input() root: boolean;
 
-    constructor(@Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) { }
+    contextMenu: ContextMenu;
+
+    constructor(@Inject(forwardRef(() => ContextMenu)) contextMenu) {
+        this.contextMenu = contextMenu as ContextMenu;
+    }
 
     activeItem: any;
 

@@ -24,8 +24,12 @@ import {RouterModule} from '@angular/router';
 export class MenuItemContent {
 
     @Input("pMenuItemContent") item: MenuItem;
+
+    menu: Menu;
     
-    constructor(@Inject(forwardRef(() => Menu)) public menu: Menu) {}
+    constructor(@Inject(forwardRef(() => Menu)) menu) {
+        this.menu = menu as Menu;
+    }
 }
 
 @Component({

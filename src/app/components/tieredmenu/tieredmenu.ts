@@ -47,8 +47,12 @@ export class TieredMenuSub {
 
     @Input() hideDelay: number = 250;
 
-    constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu, private cf: ChangeDetectorRef) {}
+    tieredMenu: TieredMenu;
     
+    constructor(@Inject(forwardRef(() => TieredMenu)) tieredMenu, private cf: ChangeDetectorRef) {
+        this.tieredMenu = tieredMenu as TieredMenu;
+    }
+
     activeItem: HTMLLIElement;
 
     hideTimeout: any;

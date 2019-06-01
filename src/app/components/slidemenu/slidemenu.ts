@@ -52,9 +52,13 @@ export class SlideMenuSub implements OnDestroy {
     @Input() easing: string = 'ease-out';
 
     @Input() index: number;
-        
-    constructor(@Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu) {}
-        
+
+    slideMenu: SlideMenu;
+    
+    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu) {
+        this.slideMenu = slideMenu as SlideMenu;
+    }
+             
     activeItem: any;
                             
     itemClick(event, item: MenuItem, listitem: any) {
