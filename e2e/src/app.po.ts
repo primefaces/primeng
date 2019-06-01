@@ -1,11 +1,7 @@
 import { browser, by, element } from 'protractor';
 
-export class PrimengPage {
+export class AppPage {
   navigateTo() {
-    return browser.get('/');
-  }
-
-  getPROText() {
-    return element(by.css('.pro-title')).getText();
+    return browser.get(browser.baseUrl) as Promise<any>;
   }
 }
