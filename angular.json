@@ -35,12 +35,10 @@
               ],
               "scripts": [
                 "./node_modules/moment/moment.js",
-                "./node_modules/chart.js/dist/Chart.js",
                 "./node_modules/@fullcalendar/core/main.js",
                 "./node_modules/@fullcalendar/daygrid/main.js",
                 "./node_modules/@fullcalendar/timegrid/main.js",
                 "./node_modules/@fullcalendar/interaction/main.js",
-                "./node_modules/quill/dist/quill.js",
                 "./node_modules/prismjs/prism.js",
                 "./node_modules/prismjs/components/prism-typescript.js"
               ]
