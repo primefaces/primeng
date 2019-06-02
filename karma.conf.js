@@ -21,10 +21,10 @@ module.exports = function (config) {
         fixWebpackSourcePaths: true
       },
       files: [
-        '../node_modules/moment/moment.js',
-        '../node_modules/@fullcalendar/core/main.js',
-        '../node_modules/chart.js/dist/Chart.js',
-        '../node_modules/quill/dist/quill.js'
+        'node_modules/moment/moment.js',
+        'node_modules/@fullcalendar/core/main.js',
+        'node_modules/chart.js/dist/Chart.js',
+        'node_modules/quill/dist/quill.js'
       ],
       reporters: ['progress', 'kjhtml'],
       port: 9876,
