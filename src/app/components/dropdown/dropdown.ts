@@ -255,6 +255,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.focused = false;
         
         this._disabled = _disabled;
+        this.cd.detectChanges();
     }
 
     overlay: HTMLDivElement;
