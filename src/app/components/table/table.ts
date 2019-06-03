@@ -2671,13 +2671,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 export class SortIcon implements OnInit, OnDestroy {
     
     @Input() field: string;
-    
-    @Input() ariaLabel: string;
-    
-    @Input() ariaLabelDesc: string;
-    
-    @Input() ariaLabelAsc: string;
-    
+        
     subscription: Subscription;
     
     sortOrder: number;
@@ -2704,26 +2698,6 @@ export class SortIcon implements OnInit, OnDestroy {
             let sortMeta = this.dt.getSortMeta(this.field);
             this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
-    }
-    
-    get ariaText(): string {
-        let text: string;
-
-        switch (this.sortOrder) {
-            case 1:
-                text =  this.ariaLabelAsc;
-            break;
-            
-            case -1:
-                text = this.ariaLabelDesc;
-            break;
-            
-            default:
-                text = this.ariaLabel;
-            break;
-        }
-
-        return text;
     }
     
     ngOnDestroy() {
