@@ -69,7 +69,7 @@ export class TableService {
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
@@ -92,7 +92,7 @@ export class TableService {
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             
                 <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
@@ -134,6 +134,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() paginatorPosition: string = 'bottom';
 
     @Input() paginatorDropdownAppendTo: any;
+
+    @Input() paginatorDropdownScrollHeight: string = '200px';
 
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
 
@@ -1961,7 +1963,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             this.onRowReorder.emit({
                 dragIndex: this.draggedRowIndex,
-                dropIndex: this.droppedRowIndex
+                dropIndex: dropIndex
             });
         }
         //cleanup
@@ -2671,13 +2673,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 export class SortIcon implements OnInit, OnDestroy {
     
     @Input() field: string;
-    
-    @Input() ariaLabel: string;
-    
-    @Input() ariaLabelDesc: string;
-    
-    @Input() ariaLabelAsc: string;
-    
+        
     subscription: Subscription;
     
     sortOrder: number;
@@ -2704,26 +2700,6 @@ export class SortIcon implements OnInit, OnDestroy {
             let sortMeta = this.dt.getSortMeta(this.field);
             this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
-    }
-    
-    get ariaText(): string {
-        let text: string;
-
-        switch (this.sortOrder) {
-            case 1:
-                text =  this.ariaLabelAsc;
-            break;
-            
-            case -1:
-                text = this.ariaLabelDesc;
-            break;
-            
-            default:
-                text = this.ariaLabel;
-            break;
-        }
-
-        return text;
     }
     
     ngOnDestroy() {

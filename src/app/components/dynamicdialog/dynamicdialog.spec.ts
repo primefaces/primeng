@@ -91,8 +91,8 @@ describe('DynamicDialog', () => {
         expect(testComponentHeader.textContent).toEqual(" PrimeNG ROCKS! ");
         let dynamicDialogTitlebarIconEl = document.querySelector(".ui-dialog-titlebar-icon") as HTMLElement;
         dynamicDialogTitlebarIconEl.click();
-        tick(300);
         fixture.detectChanges();
+        tick(300);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
@@ -115,8 +115,8 @@ describe('DynamicDialog', () => {
         escapeEvent.which = 27;
         escapeEvent.initEvent('keydown', true, true);
         document.dispatchEvent(escapeEvent);
-        tick(300);
         fixture.detectChanges();
+        tick(300);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
@@ -137,8 +137,8 @@ describe('DynamicDialog', () => {
         expect(testComponentHeader.textContent).toEqual(" PrimeNG ROCKS! ");
         let maskEl = document.querySelector(".ui-dialog-mask") as HTMLElement;
         maskEl.click();
-        tick(300);
         fixture.detectChanges();
+        tick(300);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
