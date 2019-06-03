@@ -5,6 +5,8 @@ import {Component} from '@angular/core';
 })
 export class FocusTrapDemo {
 
+    selectedCity: string;
+
     cities = [
         {name: 'New York', code: 'NY'},
         {name: 'Rome', code: 'RM'},

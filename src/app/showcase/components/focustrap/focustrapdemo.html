@@ -17,7 +17,7 @@
         </span>
 
         <h3>Disabled Input</h3>
-        <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
+        <input id="disabled-input" type="text" size="30" pInputText [disabled]="true" />
 
         <h3>Input with tabindex -1</h3>
         <input type="text" size="30" pInputText tabindex="-1" />
@@ -98,7 +98,7 @@ import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
     &lt;/span&gt;
 
     &lt;h3&gt;Disabled Input&lt;/h3&gt;
-    &lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" /&gt;
+    &lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="true" /&gt;
 
     &lt;h3&gt;Input with tabindex -1&lt;/h3&gt;
     &lt;input type="text" size="30" pInputText tabindex="-1" /&gt;
@@ -132,6 +132,8 @@ import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class FocusTrapDemo &#123;
+
+    selectedCity: string;
    
     cities = [
         &#123;name: 'New York', code: 'NY'&#123;,
