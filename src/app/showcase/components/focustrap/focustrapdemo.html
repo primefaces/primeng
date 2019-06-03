@@ -1,161 +1,144 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Focus Trap</span>
-        <span>Focus Trap</span>
+        <span>Focus Trap keeps focus within a certain DOM element while tabbing.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
     <div pFocusTrap>
-            <h3 class="first">Basic Input</h3>
-            <input id="input" type="text" size="30" pInputText [(ngModel)]="text"> 
-            
-            <h3>Float Label</h3>
-            <span class="ui-float-label">
-                <input id="float-input" type="text" size="30" pInputText> 
-                <label for="float-input">Username</label>
-            </span>
-    
-            <h3>Disabled</h3>
-            <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
-    
-            <h3>Tabindex -1</h3>
-            <input type="text" size="30" pInputText tabindex="-1" />
-    
-            <h3>Button</h3>
-            <button pButton type="button" icon="pi pi-check" label="Check"></button>
-    
-            <h3>Disabled Button</h3>
-            <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
-    
-            <h3>Tabindex -1 Button</h3>
-            <button pButton type="button" icon="pi pi-check" tabindex="-1"  label="Check"></button>
-    
-            <h3>Basic Calendar</h3>
-            <p-calendar></p-calendar>
-    
-            <h3>AutoComplete</h3>
-            <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
-            [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true"></p-autoComplete>
-            
-            <h3>Drodpown</h3>
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
-    
-            <h3>Multiselect</h3>
-            <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
-    
-            <h3>Editor</h3>
-    
-            <p-editor [style]="{'height':'320px'}">
-                    <p-header>
-                        <span class="ql-formats">
-                            <button class="ql-bold" aria-label="Bold"></button>
-                            <button class="ql-italic" aria-label="Italic"></button>
-                            <button class="ql-underline" aria-label="Underline"></button>
-                        </span>
-                    </p-header>
-            </p-editor>
+        <h3 class="first">Input</h3>
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="text"> 
+        
+        <h3>Float Label</h3>
+        <span class="ui-float-label">
+            <input id="float-input" type="text" size="30" pInputText> 
+            <label for="float-input">Username</label>
+        </span>
+
+        <h3>Disabled Input</h3>
+        <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
+
+        <h3>Input with tabindex -1</h3>
+        <input type="text" size="30" pInputText tabindex="-1" />
+
+        <h3>Button</h3>
+        <button pButton type="button" icon="pi pi-check" label="Check"></button>
+
+        <h3>Disabled Button</h3>
+        <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
+
+        <h3>Button with tabindex -1</h3>
+        <button pButton type="button" icon="pi pi-check" tabindex="-1"  label="Check"></button>
+        
+        <h3>Dropdown</h3>
+        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
+
+        <h3>Editor</h3>   
+        <p-editor [style]="{'height':'320px'}">
+            <p-header>
+                <span class="ql-formats">
+                    <button class="ql-bold" aria-label="Bold"></button>
+                    <button class="ql-italic" aria-label="Italic"></button>
+                    <button class="ql-underline" aria-label="Underline"></button>
+                </span>
+            </p-header>
+        </p-editor>
     </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>FocusTrap is applied to a container element with the <b>pFocusTrap</b> directive.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div pFocusTrap&gt;
+    //content
+&lt;/div&gt;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <p>Directive has no properties.</p>
+
+            <h3>Events</h3>
+            <p>Directive has no events.</p>
+
+            <h3>Styling</h3>
+            <p>Directive does not apply any styling to host.</p>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/rtl" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/focustrap" class="btn-viewsource" target="_blank">
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-        &lt;h3&gt;Basic Input&lt;/h3&gt;
-        &lt;input id="input" type="text" size="30" pInputText [(ngModel)]="text"&gt;
+&lt;div pFocusTrap&gt;
+    &lt;h3 class="first"&gt;Input&lt;/h3&gt;
+    &lt;input id="input" type="text" size="30" pInputText [(ngModel)]="text"&gt; 
     
-        &lt;button type="text" (click)="showDialog()" pButton icon="pi pi-plus" label="Show"&gt;&lt;/button&gt;
-        
-        &lt;h3&gt;Float Label&lt;/h3&gt;
-        &lt;span class="ui-float-label"&gt;
-            &lt;input id="float-input" type="text" size="30" pInputText&gt;
-            &lt;label for="float-input"&gt;Username&lt;/label &gt;
-        &lt;/span&gt;
-        
-        &lt;h3&gt;Disabled&lt;/h3&gt;
-        &lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="true"&gt;
-          
-        &lt;h3&gt;Tabindex -1&lt;/h3&gt;
-        &lt;input type="text" size="30" pInputText tabindex="-1" &gt; 
+    &lt;h3&gt;Float Label&lt;/h3&gt;
+    &lt;span class="ui-float-label"&gt;
+        &lt;input id="float-input" type="text" size="30" pInputText&gt; 
+        &lt;label for="float-input"&gt;Username&lt;/label&gt;
+    &lt;/span&gt;
+
+    &lt;h3&gt;Disabled Input&lt;/h3&gt;
+    &lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" /&gt;
+
+    &lt;h3&gt;Input with tabindex -1&lt;/h3&gt;
+    &lt;input type="text" size="30" pInputText tabindex="-1" /&gt;
+
+    &lt;h3&gt;Button&lt;/h3&gt;
+    &lt;button pButton type="button" icon="pi pi-check" label="Check"&gt;&lt;/button&gt;
+
+    &lt;h3&gt;Disabled Button&lt;/h3&gt;
+    &lt;button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+
+    &lt;h3&gt;Button with tabindex -1&lt;/h3&gt;
+    &lt;button pButton type="button" icon="pi pi-check" tabindex="-1"  label="Check"&gt;&lt;/button&gt;
     
-        &lt;h3&gt;Button&lt;/h3&gt;
-        &lt;button pButton type="button" icon="pi pi-check" label="Check"&gt;&lt;/button&gt;  
-    
-        &lt;h3&gt;Disabled Button&lt;/h3&gt;
-        &lt;button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
-        
-        &lt;h3&gt;Tabindex -1 Button&lt;/h3&gt;
-        &lt;button pButton type="button" icon="pi pi-check" tabindex="-1"  label="Check"&gt;&lt;/button&gt;
-    
-        &lt;h3&gt;Basic Calendar&lt;/h3&gt;
-        &lt;p-calendar&gt;&lt;/p-calendar&gt;
-    
-        &lt;h3&gt;AutoComplete&lt;/h3&gt;
-        &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
-        [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" &gt;&lt;/p-autoComplete&gt;
-    
-        &lt;h3&gt;Drodpown&lt;/h3&gt;
-        &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
-    
-        &lt;h3&gt;Multiselect&lt;/h3&gt;
-        &lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="&#123;minWidth:'12em'&#125;"&gt;&lt;/p-multiSelect&gt;
-    
-        &lt;h3&gt;Editor&lt;/h3&gt;
-        &lt;p-editor [style]="&#123;'height':'320px'&#125;"&gt;
-            &lt;p-header&gt;
-                &lt;span class="ql-formats"&gt;
-                    &lt;button class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
-                    &lt;button class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
-                    &lt;button class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
-                &lt;/span&gt;
-            &lt;/p-header&gt;
-        &lt;/p-editor&gt;
+    &lt;h3&gt;Dropdown&lt;/h3&gt;
+    &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
+
+    &lt;h3&gt;Editor&lt;/h3&gt;   
+    &lt;p-editor [style]="&#123;'height':'320px'&#125;"&gt;
+        &lt;p-header&gt;
+            &lt;span class="ql-formats"&gt;
+                &lt;button class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
+                &lt;button class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
+                &lt;button class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
+            &lt;/span&gt;
+        &lt;/p-header&gt;
+    &lt;/p-editor&gt;
+&lt;/div&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class FocusTrapDemo &#123;
-    
-    brands: string[] = ['Audi','BMW','Fiat','Ford','Honda','Jaguar','Mercedes','Renault','Volvo','VW'];
-    
-    filteredBrands: any[];
-
-    filterBrands(event) &#123;
-        this.filteredBrands = [];
-        for(let i = 0; i < this.brands.length; i++) &#123;
-            let brand = this.brands[i];
-            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) &#123;
-                this.filteredBrands.push(brand);
-            &#123;
-        &#123;
-    &#123;
-
+   
     cities = [
         &#123;name: 'New York', code: 'NY'&#123;,
         &#123;name: 'Rome', code: 'RM'&#123;,
         &#123;name: 'London', code: 'LDN'&#123;,
         &#123;name: 'Istanbul', code: 'IST'&#123;,
         &#123;name: 'Paris', code: 'PRS'&#123;
-    ];
-
-    cars = [
-        &#123;label: 'Audi', value: 'Audi'&#123;,
-        &#123;label: 'BMW', value: 'BMW'&#123;,
-        &#123;label: 'Fiat', value: 'Fiat'&#123;,
-        &#123;label: 'Ford', value: 'Ford'&#123;,
-        &#123;label: 'Honda', value: 'Honda'&#123;,
-        &#123;label: 'Jaguar', value: 'Jaguar'&#123;,
-        &#123;label: 'Mercedes', value: 'Mercedes'&#123;,
-        &#123;label: 'Renault', value: 'Renault'&#123;,
-        &#123;label: 'VW', value: 'VW'&#123;,
-        &#123;label: 'Volvo', value: 'Volvo'&#123;,
     ];
     
 &#125;
