@@ -300,6 +300,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.visibleOptions = opts;
         this._options = opts;
         this.updateLabel();
+
+        if (this.filterValue && this.filterValue.length) {
+            this.activateFilter();
+        }
     }
     
     ngOnInit() {
