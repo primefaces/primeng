@@ -60,7 +60,7 @@ export class Paginator implements OnInit {
 
     @Input() dropdownAppendTo: any;
 
-    @Input() dropdownScrollHeight: string;
+    @Input() dropdownScrollHeight: string = '200px';
 
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
 

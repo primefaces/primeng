@@ -58,7 +58,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Input() paginatorDropdownAppendTo: any;
 
-    @Input() paginatorDropdownScrollHeight: string;
+    @Input() paginatorDropdownScrollHeight: string = '200px';
 
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
 

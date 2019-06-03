@@ -135,7 +135,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() paginatorDropdownAppendTo: any;
 
-    @Input() paginatorDropdownScrollHeight: string;
+    @Input() paginatorDropdownScrollHeight: string = '200px';
 
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
 
