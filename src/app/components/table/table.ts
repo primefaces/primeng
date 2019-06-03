@@ -1963,7 +1963,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             this.onRowReorder.emit({
                 dragIndex: this.draggedRowIndex,
-                dropIndex: this.droppedRowIndex
+                dropIndex: dropIndex
             });
         }
         //cleanup
