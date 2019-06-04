@@ -127,11 +127,11 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('advancedfileinput') advancedFileInput: ElementRef;
+    @ViewChild('advancedfileinput', { static: false }) advancedFileInput: ElementRef;
 
-    @ViewChild('basicfileinput') basicFileInput: ElementRef;
+    @ViewChild('basicfileinput', { static: false }) basicFileInput: ElementRef;
 
-    @ViewChild('content') content: ElementRef;
+    @ViewChild('content', { static: false }) content: ElementRef;
 
     @Input() files: File[] = [];
 
@@ -180,7 +180,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     ngAfterViewInit() {
         if(this.mode === 'advanced') {
             this.zone.runOutsideAngular(() => {
-                this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
+                if (this.content)
+                    this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
             });
         }
     }

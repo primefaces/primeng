@@ -47,13 +47,13 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
-    @ContentChild(Header) header;
+    @ContentChild(Header, { static: false }) header;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, { static: false }) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
         

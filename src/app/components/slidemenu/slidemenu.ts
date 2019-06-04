@@ -52,9 +52,13 @@ export class SlideMenuSub implements OnDestroy {
     @Input() easing: string = 'ease-out';
 
     @Input() index: number;
-        
-    constructor(@Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu) {}
-        
+
+    slideMenu: SlideMenu;
+    
+    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu) {
+        this.slideMenu = slideMenu as SlideMenu;
+    }
+             
     activeItem: any;
                             
     itemClick(event, item: MenuItem, listitem: any) {
@@ -183,15 +187,15 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
-    @ViewChild('container') set container(element: ElementRef) {
+    @ViewChild('container', { static: false }) set container(element: ElementRef) {
         this.containerViewChild = element;
     }
 
-    @ViewChild('backward') set backward(element: ElementRef) {
+    @ViewChild('backward', { static: false }) set backward(element: ElementRef) {
         this.backwardViewChild = element;
     }
 
-    @ViewChild('slideMenuContent') set slideMenuContent(element: ElementRef) {
+    @ViewChild('slideMenuContent', { static: false }) set slideMenuContent(element: ElementRef) {
         this.slideMenuContentViewChild = element;
     }
 

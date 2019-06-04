@@ -71,8 +71,12 @@ export class OrganizationChartNode {
     @Input() first: boolean;
     
     @Input() last: boolean;
+
+    chart: OrganizationChart;
         
-    constructor(@Inject(forwardRef(() => OrganizationChart)) public chart:OrganizationChart) {}
+    constructor(@Inject(forwardRef(() => OrganizationChart)) chart) {
+        this.chart = chart as OrganizationChart;
+    }
                 
     get leaf(): boolean {
         return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);

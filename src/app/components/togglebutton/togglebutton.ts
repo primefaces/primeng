@@ -50,7 +50,7 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('checkbox') checkboxViewChild: ElementRef;
+    @ViewChild('checkbox', { static: false }) checkboxViewChild: ElementRef;
     
     checkbox: HTMLInputElement;
     
@@ -63,7 +63,9 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     onModelTouched: Function = () => {};
     
     ngAfterViewInit() {
-        this.checkbox = <HTMLInputElement> this.checkboxViewChild.nativeElement;
+        if (this.checkboxViewChild){
+            this.checkbox = <HTMLInputElement> this.checkboxViewChild.nativeElement;
+        }
     }
     
     toggle(event: Event) {
@@ -75,7 +77,9 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
                 originalEvent: event,
                 checked: this.checked
             });
-            this.checkbox.focus();
+            if (this.checkbox) {
+                this.checkbox.focus();
+            }
         }
     }
 

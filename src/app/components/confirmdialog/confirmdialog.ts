@@ -94,9 +94,9 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, { static: false }) footer;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
     
     confirmation: Confirmation;
         

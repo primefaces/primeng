@@ -89,11 +89,11 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     public shrinked: boolean;
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
-    @ViewChild('viewport') viewportViewChild: ElementRef;
+    @ViewChild('viewport', { static: false }) viewportViewChild: ElementRef;
         
-    @ViewChild('items') itemsViewChild: ElementRef;
+    @ViewChild('items', { static: false }) itemsViewChild: ElementRef;
     
     documentResponsiveListener: any;
     
@@ -138,7 +138,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     }
         
     ngAfterViewChecked() {
-        if(this.valuesChanged && this.containerViewChild.nativeElement.offsetParent) {
+        if(this.valuesChanged && this.containerViewChild && this.containerViewChild.nativeElement.offsetParent) {
             this.render();
             this.valuesChanged = false;
         }

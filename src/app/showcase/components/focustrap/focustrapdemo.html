@@ -1,0 +1,151 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Focus Trap</span>
+        <span>Focus Trap keeps focus within a certain DOM element while tabbing.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div pFocusTrap>
+        <h3 class="first">Input</h3>
+        <input id="input" type="text" size="30" pInputText> 
+        
+        <h3>Float Label</h3>
+        <span class="ui-float-label">
+            <input id="float-input" type="text" size="30" pInputText> 
+            <label for="float-input">Username</label>
+        </span>
+
+        <h3>Disabled Input</h3>
+        <input id="disabled-input" type="text" size="30" pInputText [disabled]="true" />
+
+        <h3>Input with tabindex -1</h3>
+        <input type="text" size="30" pInputText tabindex="-1" />
+
+        <h3>Button</h3>
+        <button pButton type="button" icon="pi pi-check" label="Check"></button>
+
+        <h3>Disabled Button</h3>
+        <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
+
+        <h3>Button with tabindex -1</h3>
+        <button pButton type="button" icon="pi pi-check" tabindex="-1"  label="Check"></button>
+        
+        <h3>Dropdown</h3>
+        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
+
+        <h3>Editor</h3>   
+        <p-editor [style]="{'height':'320px'}">
+            <p-header>
+                <span class="ql-formats">
+                    <button class="ql-bold" aria-label="Bold"></button>
+                    <button class="ql-italic" aria-label="Italic"></button>
+                    <button class="ql-underline" aria-label="Underline"></button>
+                </span>
+            </p-header>
+        </p-editor>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>FocusTrap is applied to a container element with the <b>pFocusTrap</b> directive.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div pFocusTrap&gt;
+    //content
+&lt;/div&gt;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <p>Directive has no properties.</p>
+
+            <h3>Events</h3>
+            <p>Directive has no events.</p>
+
+            <h3>Styling</h3>
+            <p>Directive does not apply any styling to host.</p>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/focustrap" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div pFocusTrap&gt;
+    &lt;h3 class="first"&gt;Input&lt;/h3&gt;
+    &lt;input id="input" type="text" size="30" pInputText&gt; 
+    
+    &lt;h3&gt;Float Label&lt;/h3&gt;
+    &lt;span class="ui-float-label"&gt;
+        &lt;input id="float-input" type="text" size="30" pInputText&gt; 
+        &lt;label for="float-input"&gt;Username&lt;/label&gt;
+    &lt;/span&gt;
+
+    &lt;h3&gt;Disabled Input&lt;/h3&gt;
+    &lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="true" /&gt;
+
+    &lt;h3&gt;Input with tabindex -1&lt;/h3&gt;
+    &lt;input type="text" size="30" pInputText tabindex="-1" /&gt;
+
+    &lt;h3&gt;Button&lt;/h3&gt;
+    &lt;button pButton type="button" icon="pi pi-check" label="Check"&gt;&lt;/button&gt;
+
+    &lt;h3&gt;Disabled Button&lt;/h3&gt;
+    &lt;button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+
+    &lt;h3&gt;Button with tabindex -1&lt;/h3&gt;
+    &lt;button pButton type="button" icon="pi pi-check" tabindex="-1"  label="Check"&gt;&lt;/button&gt;
+    
+    &lt;h3&gt;Dropdown&lt;/h3&gt;
+    &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
+
+    &lt;h3&gt;Editor&lt;/h3&gt;   
+    &lt;p-editor [style]="&#123;'height':'320px'&#125;"&gt;
+        &lt;p-header&gt;
+            &lt;span class="ql-formats"&gt;
+                &lt;button class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
+                &lt;button class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
+                &lt;button class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
+            &lt;/span&gt;
+        &lt;/p-header&gt;
+    &lt;/p-editor&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class FocusTrapDemo &#123;
+
+    selectedCity: string;
+   
+    cities = [
+        &#123;name: 'New York', code: 'NY'&#123;,
+        &#123;name: 'Rome', code: 'RM'&#123;,
+        &#123;name: 'London', code: 'LDN'&#123;,
+        &#123;name: 'Istanbul', code: 'IST'&#123;,
+        &#123;name: 'Paris', code: 'PRS'&#123;
+    ];
+    
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
