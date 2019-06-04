@@ -953,6 +953,9 @@ body .ui-datepicker .ui-monthpicker .ui-monthpicker-month.ui-state-active {
   color: #ffffff;
   background-color: #cc285c;
 }
+body .ui-datepicker .ui-monthpicker .ui-monthpicker-month.ui-state-disabled {
+    pointer-events: none;
+}
 body .ui-datepicker.ui-datepicker-timeonly {
   padding: 0;
 }
