@@ -1326,7 +1326,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
         return true;
     }
-
+    
     _filter() {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -1357,7 +1357,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
                 for (let node of this.value) {
                     let copyNode = {...node};
-                    let localMatch = true;
+                    let localMatch = false;
                     let globalMatch = false;
                     let paramsWithoutNode;
     
@@ -1369,12 +1369,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
                             let filterConstraint = this.filterConstraints[filterMatchMode];
                             paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
-                            if ((isStrictMode && !(this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
-                                (!isStrictMode && !(this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
-                                    localMatch = false;
+                            if ((isStrictMode && (this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
+                                (!isStrictMode && (this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
+                                    localMatch = true;
                             }
     
-                            if (!localMatch) {
+                            if (localMatch) {
                                 break;
                             }
                         }
@@ -1398,18 +1398,16 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     
                     let matches = localMatch;
                     if (this.filters['global']) {
-                        matches = localMatch && globalMatch;
+                        matches = Object.keys(this.filter).some(key => key !== 'global') 
+                            ? localMatch && globalMatch
+                            : globalMatch;
                     }
 
                     if (matches) {
                         this.filteredNodes.push(copyNode);
                     }
 
-                    isValueChanged = isValueChanged || !localMatch || globalMatch;
-                }
-    
-                if (!isValueChanged) {
-                    this.filteredNodes = null;
+                    isValueChanged = isValueChanged || localMatch || globalMatch;
                 }
     
                 if (this.paginator) {
@@ -1433,21 +1431,17 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     findFilteredNodes(node, paramsWithoutNode) {
         if (node) {
-            let matched = false;
             if (node.children) {
                 let childNodes = [...node.children];
                 node.children = [];
                 for (let childNode of childNodes) {
                     let copyChildNode = {...childNode};
                     if (this.isFilterMatched(copyChildNode, paramsWithoutNode)) {
-                        matched = true;
                         node.children.push(copyChildNode);
                     }
                 }
-            }
-            
-            if (matched) {
-                return true;
+
+                return !!node.children.length;
             }
         }
     }

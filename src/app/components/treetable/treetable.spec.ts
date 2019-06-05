@@ -302,6 +302,41 @@ import { ContextMenuModule, ContextMenu } from '../contextmenu/contextmenu';
                 </tr>
             </ng-template>
         </p-treeTable>
+
+        
+        <p-treeTable class="filterTreeTable-oneFolder" #tt1 [value]="oneFolderFiles" [columns]="cols">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">        
+                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" class="globalFilter" placeholder="Global Filter" (input)="tt1.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of cols">
+                        {{col.header}}
+                    </th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of cols">
+                        <input pInputText type="text" class="filterInput-oneFolder" (input)="tt1.filter($event.target.value, col.field, filterMode)">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr>
+                    <td *ngFor="let col of cols; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>        
+                    <td [attr.colspan]="cols.length">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
 `
 })
 class TestTreeTableComponent {
@@ -663,6 +698,63 @@ class TestTreeTableComponent {
             ]
         }
     ];
+    oneFolderFiles = [
+        {  
+            "data":{  
+                "name":"Applications",
+                "size":"200mb",
+                "type":"Folder",
+            },
+            "children":[  
+                {  
+                    "data":{  
+                        "name":"Angular",
+                        "size":"25mb",
+                        "type":"Folder"
+                    },
+                    "children":[  
+                        {  
+                            "data":{  
+                                "name":"angular.app",
+                                "size":"10mb",
+                                "type":"Application"
+                            }
+                        },
+                        {  
+                            "data":{  
+                                "name":"cli.app",
+                                "size":"10mb",
+                                "type":"Application"
+                            }
+                        },
+                        {  
+                            "data":{  
+                                "name":"mobile.app",
+                                "size":"5mb",
+                                "type":"Application"
+                            }
+                        }
+                    ],
+                    "expanded": true,
+                },
+                {  
+                    "data":{  
+                        "name":"editor.app",
+                        "size":"25mb",
+                        "type":"Application"
+                    }
+                },
+                {  
+                    "data":{  
+                        "name":"settings.app",
+                        "size":"50mb",
+                        "type":"Application"
+                    }
+                }
+            ],
+            "expanded": true,
+        },
+    ]
 }
 
 describe('TreeTable', () => {
@@ -1559,6 +1651,45 @@ describe('TreeTable', () => {
             const tableEl = fixture.debugElement.query(By.css(".filterTreeTable"));
             let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
             expect(bodyRows.length).toEqual(1);
+        });
+    }));
+
+    it('should filter and show 3 items in table with one folder (equals)',  async(() => {
+        testcomponent.filterMode = "equals";
+        fixture.detectChanges();
+
+        const filterEls = fixture.debugElement.queryAll(By.css(".filterInput-oneFolder"));
+        filterEls[0].nativeElement.value = "cli.app";
+        filterEls[0].nativeElement.dispatchEvent(new Event("input"));
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            const tableEl = fixture.debugElement.query(By.css(".filterTreeTable-oneFolder"));
+            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            expect(bodyRows.length).toEqual(3);
+        });
+    }));
+
+    it('should filter and show 2 items in table with one folder (contains)',  async(() => {
+        fixture.detectChanges();
+
+        const filterEls = fixture.debugElement.queryAll(By.css(".filterInput-oneFolder"));
+        filterEls[0].nativeElement.value = "tt";
+        filterEls[0].nativeElement.dispatchEvent(new Event("input"));
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+
+            const tableEl = fixture.debugElement.query(By.css(".filterTreeTable-oneFolder"));
+            let bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+            expect(bodyRows.length).toEqual(2);
+            filterEls[0].nativeElement.value = "";
+            filterEls[0].nativeElement.dispatchEvent(new Event("input"));
+            fixture.whenStable().then(() => {
+                fixture.detectChanges();
+
+                bodyRows = tableEl.query(By.css('.ui-treetable-tbody')).queryAll(By.css('tr'));
+                expect(bodyRows.length).toEqual(7);
+            });
         });
     }));
 });
