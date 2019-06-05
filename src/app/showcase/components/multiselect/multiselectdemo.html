@@ -28,6 +28,10 @@
 
     <h3>Virtual Scroll (10000 Items)</h3>
     <p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
+
+    <h3>Lazy Loading</h3>
+    <p-multiSelect [lazy]="true" [rows]="10" [options]="lazyItems" [(ngModel)]="selectedItems" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"
+        (onLazyLoad)="onLazyLoadEvent($event)"></p-multiSelect>
 </div>
 
 <div class="content-section documentation">
