@@ -126,7 +126,7 @@
     </p-table>
 
     <h3>Frozen Columns</h3>
-    <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
+    <p-table [columns]="scrollableCols"  [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" style="width:300px">
