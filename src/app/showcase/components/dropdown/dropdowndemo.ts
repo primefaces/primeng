@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
-import {SelectItem} from '../../../components/common/api';
+import {LazyLoadEvent, SelectItem} from '../../../components/common/api';
 import {SelectItemGroup} from '../../../components/common/api';
+import {map} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 interface City {
     name: string,
@@ -28,7 +30,13 @@ export class DropdownDemo {
 
     items: SelectItem[];
 
+    lazyItems: SelectItem[];
+
     item: string;
+
+    selectedLazy: SelectItem;
+
+    filterValue: string;
 
     constructor() {
         this.items = [];
@@ -84,5 +92,36 @@ export class DropdownDemo {
                 ]
             }
         ];
+        this.selectedLazy = this.items[43].value;
+        this.filterValue =  this.items[43].label;
+    }
+
+    onLazyLoadEvent(event: LazyLoadEvent) {
+        this.loadBatch(event).pipe(map(items => ({event, items}))).subscribe(res => {
+            const {event, items} = res;
+            this.lazyItems = [];
+            for (let i = 0; i < items.length; i++) {
+                this.lazyItems[event.first + i] = items[i];
+            }
+        });
+    }
+
+    loadBatch(event: LazyLoadEvent): Observable<SelectItem[]> {
+        // simulate server response
+        const res = [];
+        let skipped = 0;
+        for (let i = 0; i < this.items.length; i++) {
+            if (!event.globalFilter || (event.globalFilter && this.items[i].label.includes(event.globalFilter))) {
+                if (skipped < event.first) {
+                    skipped++;
+                } else {
+                    res.push({...this.items[i]});
+                }
+            }
+            if (event.rows === res.length) {
+                break;
+            }
+        }
+        return of(res);
     }
 }

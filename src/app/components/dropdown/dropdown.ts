@@ -1,4 +1,4 @@
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -8,6 +8,7 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {LazyLoadEvent} from '../common/lazyloadevent';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,13 +20,13 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     selector: 'p-dropdownItem',
     template: `
         <li (click)="onOptionClick($event)" role="option"
-            [attr.aria-label]="option.label"
+            [attr.aria-label]="option?.label"
             [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'ui-dropdown-item ui-corner-all':true,
                                                 'ui-state-highlight': selected,
-                                                'ui-state-disabled':(option.disabled),
-                                                'ui-dropdown-item-empty': !option.label||option.label.length === 0}">
-            <span *ngIf="!template">{{option.label||'empty'}}</span>
+                                                'ui-state-disabled':(!option||option.disabled),
+                                                'ui-dropdown-item-empty': !option?.label||option.label.length === 0}">
+            <span *ngIf="!template">{{option?.label||'empty'}}</span>
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
     `
@@ -109,7 +110,7 @@ export class DropdownItem {
                                 </ng-template>
                             </ng-container>
                             <ng-template #virtualScrollList>
-                                <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
+                                <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length" (scrolledIndexChange)="onScrollIndexChange($event)">
                                     <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">         
                                         <p-dropdownItem [option]="option" [selected]="selectedOption == option"
                                                                    (onClick)="onItemClick($event)"
@@ -213,6 +214,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @Input() ariaFilterLabel: string;
+
+    @Input() lazy: boolean;
+
+    @Input() lazyLoadOnInit: boolean;
+
+    @Input() rows: number;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -225,6 +232,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
+
+    @Output() onLazyLoad: EventEmitter<LazyLoadEvent> = new EventEmitter();
     
     @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
@@ -233,6 +242,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('in', { static: false }) focusViewChild: ElementRef;
     
     @ViewChild('editableInput', { static: false }) editableInputViewChild: ElementRef;
+
+    @ViewChild('viewport', { static: false }) viewport: CdkVirtualScrollViewport;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -269,8 +280,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     groupTemplate: TemplateRef<any>;
 
     selectedItemTemplate: TemplateRef<any>;
-    
-    selectedOption: any;
+
+    selectedOption: SelectItem;
     
     _options: any[];
     
@@ -307,7 +318,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     hoveredItem: any;
     
     selectedOptionUpdated: boolean;
-    
+
+    @Input()
     filterValue: string;
 
     searchValue: string;
@@ -321,6 +333,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     currentSearchChar: string;
 
     documentResizeListener: any;
+
+    page: number = 0;
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public zone: NgZone) {}
     
@@ -349,6 +363,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     ngOnInit() {
         this.optionsToDisplay = this.options;
         this.updateSelectedOption(null);
+        if(this.lazyLoadOnInit){
+            setTimeout(() => {
+                    this.lazyLoad(0);
+                }, 100)
+        }
     }
     
     @Input() get options(): any[] {
@@ -361,12 +380,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
-        
-        if (this.filterValue && this.filterValue.length) {
+
+        if (!this.lazy && this.filterValue && this.filterValue.length) {
             this.activateFilter();
         }
     }
-    
+
     ngAfterViewInit() {
         if (this.editable) {
             this.updateEditableLabel();
@@ -433,6 +452,17 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     writeValue(value: any): void {
+        // due to this bug: https://github.com/angular/angular/issues/14988 writeValue is called with null on initialization, after initializing all inputs
+        // I want to detect when this done because of init, and when it's the user trying to nullify the value programmatically (ngModel change)
+        // This problematic because when we start with an initial value, and lazy = true, if I use inputs to set the selectedOption.label...
+        // writeValue comes and clears it because I can't distinguish it from a genuine writeValue(null)
+        // we still need a mechanism that remembers the label associated with the value use when initializing
+        // we can't use a cache of label:value since we won't be able to detect when it should be cleared "new completely different of options vs lazy update"
+        // + it won't work great with filters (even though we can avoid caching when filters are active)
+        // we still can use cache if we provide the user with a way to invalidate it but it's not very clean.
+        // since there is no clean way to provide the label as separate input, we need to tell the user to make sure to provide the selectedOption in the list of options
+        // or to set a filterValue and lazyLoadOnInit so that the array contains the value
+        // or else configurable message "example 'selected' appear".
         if (this.filter) {
             this.resetFilter();
         }
@@ -454,7 +484,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     updateSelectedOption(val: any): void {
-        this.selectedOption = this.findOption(val, this.optionsToDisplay);
+        const option = this.findOption(val, this.optionsToDisplay);
+        // in case of lazy, selected option might be not found in the visible part, in that case:
+        // - if val is defined we trust the user to provide a valid value present in options (or init filterValue and loadOnInit)
+        // - or keep previous select item if val didn't change
+        if (this.lazy && !option) {
+            //  if val changed
+            if(!(this.selectedOption && ObjectUtils.equals(val, this.selectedOption.value, this.dataKey))) {
+                this.selectedOption = {label: 'selected', value: val};
+            }
+        } else {
+            // the "!lazy" makes sure that when options are reloaded on lazy load event if options are not found any more we keep them
+            this.selectedOption = option;
+        }
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             this.selectedOption = this.optionsToDisplay[0];
         }
@@ -512,9 +554,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             originalEvent: event,
             value: this.value
         });
+        // we could make editable work with lazy loading but it will just be a waste of time IMHO, a better component for that would be autocomplete
     }
     
     show() {
+        if(this.lazy && !this.options || !this.options.length) {
+            this.lazyLoad(0);
+        }
         this.overlayVisible = true;
     }
 
@@ -605,7 +651,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.optionsToDisplay && this.optionsToDisplay.length) {
             for (let i = (index - 1); 0 <= i; i--) {
                 let option = this.optionsToDisplay[i];
-                if (option.disabled) {
+                if (!option || option.disabled) {
                     continue;
                 }
                 else {
@@ -613,16 +659,20 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                     break;
                 }
             }
-
             if (!prevEnabledOption) {
-                for (let i = this.optionsToDisplay.length - 1; i >= index ; i--) {
-                    let option = this.optionsToDisplay[i];
-                    if (option.disabled) {
-                        continue;
-                    }
-                    else {
-                        prevEnabledOption = option;
-                        break;
+                // can't go up before 0 on lazy since limit not know
+                if(this.lazy){
+                    prevEnabledOption = this.optionsToDisplay[index];
+                } else {
+                    for (let i = this.optionsToDisplay.length - 1; i >= index ; i--) {
+                        let option = this.optionsToDisplay[i];
+                        if (option.disabled) {
+                            continue;
+                        }
+                        else {
+                            prevEnabledOption = option;
+                            break;
+                        }
                     }
                 }
             }
@@ -637,7 +687,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.optionsToDisplay && this.optionsToDisplay.length) {
             for (let i = (index + 1); index < (this.optionsToDisplay.length - 1); i++) {
                 let option = this.optionsToDisplay[i];
-                if (option.disabled) {
+                if (!option || option.disabled) {
                     continue;
                 }
                 else {
@@ -647,14 +697,18 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             }
 
             if (!nextEnabledOption) {
-                for (let i = 0; i < index; i++) {
-                    let option = this.optionsToDisplay[i];
-                    if (option.disabled) {
-                        continue;
-                    }
-                    else {
-                        nextEnabledOption = option;
-                        break;
+                if(this.lazy){
+                    //limit reached, don't loop up to avoid many requests...
+                    nextEnabledOption = this.optionsToDisplay[index];
+                } else {
+                    for (let i = 0; i < index; i++) {
+                        let option = this.optionsToDisplay[i];
+                        if (option.disabled) {
+                            continue;
+                        } else {
+                            nextEnabledOption = option;
+                            break;
+                        }
                     }
                 }
             }
@@ -700,9 +754,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                             this.selectItem(event, nextEnabledOption);
                             this.selectedOptionUpdated = true;
                         }
+                        this.viewport.scrollToIndex(selectedItemIndex);
                     }
                 }
-                
                 event.preventDefault();
                 
             break;
@@ -733,13 +787,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                         this.selectItem(event, prevEnabledOption);
                         this.selectedOptionUpdated = true;
                     }
+                    this.viewport.scrollToIndex(selectedItemIndex-2);
                 }
 
                 event.preventDefault();
             break;
 
             //space
-            case 32:
             case 32:
                 if (!this.overlayVisible){
                     this.show();
@@ -862,7 +916,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let index: number = -1;
         if (opts) {
             for (let i = 0; i < opts.length; i++) {
-                if ((val == null && opts[i].value == null) || ObjectUtils.equals(val, opts[i].value, this.dataKey)) {
+                if (opts[i] && ((val == null && opts[i].value == null) || ObjectUtils.equals(val, opts[i].value, this.dataKey))) {
                     index = i;
                     break;
                 }
@@ -921,7 +975,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
         else {
             this.filterValue = null;
-            this.optionsToDisplay = this.options;
+            if(this.lazy){
+                this.lazyLoad(0);
+            } else {
+                this.optionsToDisplay = this.options;
+            }
         }
         
         this.optionsChanged = true;
@@ -929,8 +987,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     activateFilter() {
         let searchFields: string[] = this.filterBy.split(',');
-        
-        if (this.options && this.options.length) {
+
+        if (this.lazy) {
+            this.lazyLoad(0);
+        } else if (this.options && this.options.length) {
             if (this.group) {
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
@@ -952,6 +1012,25 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             this.optionsChanged = true;
         }
+    }
+
+    onScrollIndexChange(index: number) {
+        if(this.lazy) {
+            let p = Math.floor(index / this.rows);
+            if (p !== this.page) {
+                this.page = p;
+                const first = this.page * this.rows;
+                this.lazyLoad(first);
+            }
+        }
+    }
+
+    lazyLoad(first: number) {
+        this.onLazyLoad.emit({
+            first,
+            rows: this.rows * 2,
+            globalFilter: this.filterValue,
+        });
     }
     
     applyFocus(): void {

@@ -9,11 +9,11 @@
     <h3 class="first">Single</h3>
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" optionValue="code" [showClear]="true"></p-dropdown>
     <p>Selected City: {{selectedCity}}</p>
-    
+
     <h3>Editable</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand"></p-dropdown>
     <p>Selected Car: {{selectedCar1 || 'none'}}</p>
-    
+
     <h3>Content with Filters</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true">
         <ng-template let-item pTemplate="selectedItem">
@@ -39,7 +39,14 @@
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
 
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
+    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="true"></p-dropdown>
+
+    <h3>Lazy Loading</h3>
+    <form>
+        <p-dropdown name="lazy" [lazy]="true" [rows]="10" [options]="lazyItems" [(ngModel)]="selectedLazy" placeholder="Select Item" [virtualScroll]="true"
+                    [filter]="true" [filterValue]="filterValue" [lazyLoadOnInit]="true" [itemSize]="31" (onLazyLoad)="onLazyLoadEvent($event)"></p-dropdown>
+
+    </form>
 </div>
 
 <div class="content-section documentation">
