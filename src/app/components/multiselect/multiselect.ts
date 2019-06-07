@@ -699,7 +699,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
         
     updateLabel() {
-        if (this.value && this.options && this.value.length && this.displaySelectedLabel) {
+        if (this.value && (this.lazy || this.options) && this.value.length && this.displaySelectedLabel) {
             if (this.value.length <= this.maxSelectedLabels && this._selectedLabels && this.value.length === this._selectedLabels.length) {
                 this.valuesAsString = this._selectedLabels.join(', ');
             }
