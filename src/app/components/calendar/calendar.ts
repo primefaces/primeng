@@ -792,7 +792,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     shouldSelectDate(dateMeta) {
         if (this.isMultipleSelection())
-            return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
+            return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
         else
             return true;
     }
@@ -1471,55 +1471,89 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         return isValid;
     }
     
-    parseValueFromString(text: string): Date | Date[]{
-        if (!text || text.trim().length === 0) {
-            return null;
-        }
-        
-        let value: any;
-        
-        if (this.isSingleSelection()) {
-            value = this.parseDateTime(text);
-        }
-        else if (this.isMultipleSelection()) {
-            let tokens = text.split(',');
-            value = [];
-            for (let token of tokens) {
-                value.push(this.parseDateTime(token.trim()));
-            }
-        }
-        else if (this.isRangeSelection()) {
-            let tokens = text.split(' - ');
-            value = [];
-            for (let i = 0; i < tokens.length; i++) {
-                value[i] = this.parseDateTime(tokens[i].trim());
-            }
-        }
-        
-        return value;
-    }
-    
-    parseDateTime(text): Date {
-        let date: Date;
-        let parts: string[] = text.split(' ');
-        
-        if (this.timeOnly) {
-            date = new Date();
-            this.populateTime(date, parts[0], parts[1]);
-        }
-        else {
-            const dateFormat = this.getDateFormat();
-            if (this.showTime) {
-                date = this.parseDate(parts[0], dateFormat);
-                this.populateTime(date, parts[1], parts[2]);
-            }
-            else {
-                 date = this.parseDate(text, dateFormat);
-            }
-        }
-        
-        return date;
-    }
+    parseValueFromString(text: string): Date | Date[] {
+		if (!text || text.trim().length === 0) {
+			return null;
+		}
+
+		let value: any;
+
+		if (this.isSingleSelection()) {
+			value = this.parseDateTime(text);
+		} else if (this.isMultipleSelection()) {
+			// look for the number of commas in the date format that could potentially
+			// collide with date separator
+			const dfIterator = this.dateFormat[Symbol.iterator]();
+			let dfChar = dfIterator.next();
+			let numCommas = 0;
+			while (!dfChar.done) {
+				if (dfChar.value === ',') {
+					numCommas++;
+				}
+				dfChar = dfIterator.next();
+			}
+			let count = 0;
+			let newText = '';
+			for (let i = 0; i < text.length; i++) {
+				if (text[i] === ',') {
+					if (count === numCommas) {
+						count = 0;
+						newText += '|SEPARATOR|';
+					} else {
+						count++;
+						newText += text[i];
+					}
+				} else {
+					newText += text[i];
+				}
+			}
+			const tokens = newText.split('|SEPARATOR|');
+			value = [];
+			for (const token of tokens) {
+				value.push(this.parseDateTime(token.trim()));
+			}
+		} else if (this.isRangeSelection()) {
+			const tokens = text.split(' - ');
+			value = [];
+			for (let i = 0; i < tokens.length; i++) {
+				value[i] = this.parseDateTime(tokens[i].trim());
+			}
+		}
+
+		return value;
+	}
+
+	parseDateTime(text): Date {
+		let date: Date;
+		const parts: string[] = text.split(' ');
+
+		if (this.timeOnly) {
+			date = new Date();
+			this.populateTime(date, parts[0], parts[1]);
+		} else {
+			const dateFormat = this.getDateFormat();
+			if (this.showTime) {
+				let timeParts;
+				let time;
+				let ampm;
+				if (this.hourFormat === '12') {
+					timeParts = 2;
+					time = parts[parts.length - 2];
+					ampm = parts[parts.length - 1];
+				} else {
+					timeParts = 1;
+					time = parts[parts.length - 1];
+					ampm = null;
+				}
+				const dateParts = parts.slice(0, parts.length - timeParts);
+				date = this.parseDate(dateParts.join(' '), dateFormat);
+				this.populateTime(date, time, ampm);
+			} else {
+				date = this.parseDate(text, dateFormat);
+			}
+		}
+		return date;
+	}
     
     populateTime(value, timeString, ampm) {
         if (this.hourFormat == '12' && !ampm) {
@@ -2080,7 +2114,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) || 
+        return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) || 
                 this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node> event.target)));
     }
     
