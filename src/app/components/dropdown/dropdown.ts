@@ -281,7 +281,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     selectedItemTemplate: TemplateRef<any>;
 
-    selectedOption: SelectItem;
+    selectedOption: any;
     
     _options: any[];
     
@@ -754,7 +754,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                             this.selectItem(event, nextEnabledOption);
                             this.selectedOptionUpdated = true;
                         }
-                        this.viewport.scrollToIndex(selectedItemIndex);
+                        if(this.virtualScroll) {
+                            this.viewport.scrollToIndex(selectedItemIndex);
+                        }
                     }
                 }
                 event.preventDefault();
@@ -787,7 +789,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                         this.selectItem(event, prevEnabledOption);
                         this.selectedOptionUpdated = true;
                     }
-                    this.viewport.scrollToIndex(selectedItemIndex-2);
+                    if(this.virtualScroll) {
+                        this.viewport.scrollToIndex(selectedItemIndex-2);
+                    }
                 }
 
                 event.preventDefault();
