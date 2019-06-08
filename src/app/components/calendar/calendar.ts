@@ -1688,8 +1688,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     writeValue(value: any) : void {
         this.value = value;
-        if (this.value && typeof this.value === 'string') {
-            this.value = this.parseValueFromString(this.value);
+        if (this.value) {
+            if(typeof this.value === 'string') {
+                this.value = this.parseValueFromString(this.value);
+            } else if(Array.isArray(this.value)) {
+                this.value = this.value.map(v => {
+                    if(typeof v === 'string') {
+                        return v && v.trim().length!==0 && this.parseDateTime(v);
+                    } else {
+                        return v;
+                    }
+                });
+            }
         }
 
         this.updateInputfield();

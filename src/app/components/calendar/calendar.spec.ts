@@ -1962,4 +1962,15 @@ describe('Calendar', () => {
       expect(calendar.currentMinute).toEqual(10);
       expect(calendar.pm).toEqual(false);
     });
+
+    it('should read dates correctly when provided in array', () => {
+        calendar.dataType = 'string';
+        calendar.selectionMode = 'range';
+        fixture.detectChanges();
+        calendar.writeValue(['08/08/2008', '08/09/2008']);
+        fixture.detectChanges();
+
+        expect(calendar.value[0]).toEqual(new Date('08/08/2008'));
+        expect(calendar.value[1]).toEqual(new Date('08/09/2008'));
+    });
 });
