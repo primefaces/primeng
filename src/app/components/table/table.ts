@@ -123,8 +123,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() paginator: boolean;
 
-    @Input() rows: number;
-
     @Input() pageLinks: number = 5;
 
     @Input() rowsPerPageOptions: number[];
@@ -263,6 +261,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() firstChange: EventEmitter<number> = new EventEmitter();
 
+    @Output() rowsChange: EventEmitter<number> = new EventEmitter();
+
     @Output() onStateSave: EventEmitter<any> = new EventEmitter();
 
     @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
@@ -286,6 +286,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     _totalRecords: number = 0;
 
     _first: number = 0;
+
+    _rows: number;
 
     filteredValue: any[];
 
@@ -518,6 +520,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._first = val;
     }
 
+    @Input() get rows(): number {
+        return this._rows;
+    }
+    set rows(val: number) {
+        this._rows = val;
+    }
+
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -608,6 +617,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         });
         
         this.firstChange.emit(this.first);
+        this.rowsChange.emit(this.rows);
         this.tableService.onValueChange(this.value);
 
         if (this.isStateful()) {
@@ -2077,6 +2087,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.first = state.first;
                 this.rows = state.rows;
                 this.firstChange.emit(this.first);
+                this.rowsChange.emit(this.rows);
             }
 
             if (state.sortField) {
