@@ -13,7 +13,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #inputfield type="number" [attr.id]="inputId" [value]="value === 0 ? '0' : value||null" [attr.name]="name"
+            <input #inputfield type="text" [attr.id]="inputId" [value]="value === 0 ? '0' : value||null" [attr.name]="name"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
             (keydown)="onInputKeydown($event)" (blur)="onInputBlur($event)" (input)="onInput($event)" (change)="onInputChange($event)" (focus)="onInputFocus($event)"
             [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
