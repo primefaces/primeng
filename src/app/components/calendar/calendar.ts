@@ -1018,8 +1018,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     return this.isDateBetween(this.value[0], this.value[1], {day: 1, month: month, year: this.currentYear})
                 }
                 return this.value[0] ? (this.value[0].getMonth() === month && this.value[0].getFullYear() == this.currentYear) : false;
+            } else if (this.isMultipleSelection() && this.value.length) {
+                return this.value.filter((date, i) => {
+                    return this.isDateEquals(date, {day: 1, month: month, year: this.currentYear});
+                }).length > 0;
+            } else {
+                return this.value.getMonth() === month && this.value.getFullYear() === this.currentYear;
             }
-            return this.value.getMonth() === month && this.value.getFullYear() === this.currentYear;
         }
         return false;
     }
