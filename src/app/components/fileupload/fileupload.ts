@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
 import {Message} from '../common/message';
 import {PrimeTemplate,SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
-import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 
 @Component({
     selector: 'p-fileUpload',
@@ -105,6 +105,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() mode: string = 'advanced';
 
+    @Input() headers: HttpHeaders;
+    
     @Input() customUpload: boolean;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
@@ -315,7 +317,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             }
 
             this.http.post(this.url, formData, {
-                reportProgress: true, observe: 'events'
+                headers: this.headers, reportProgress: true, observe: 'events', withCredentials: this.withCredentials
             }).subscribe( (event: HttpEvent<any>) => {
                     switch (event.type) {
                         case HttpEventType.Sent:
