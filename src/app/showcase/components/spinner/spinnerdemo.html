@@ -14,9 +14,12 @@
 
     <h3>Step</h3>
     <p-spinner size="30" [(ngModel)]="val3" [step]="0.25"></p-spinner>
+
+    <h3>Format Input</h3>
+    <p-spinner size="30" [(ngModel)]="val4" [step]="0.25" [formatInput]="true"></p-spinner>
     
     <h3>Disabled</h3>
-    <p-spinner size="30" [(ngModel)]="val4" [disabled]="true"></p-spinner>
+    <p-spinner size="30" [(ngModel)]="val5" [disabled]="true"></p-spinner>
 </div>
 
 <div class="content-section documentation">
@@ -61,13 +64,14 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
 </code>
 </pre>
 
-            <h3>Separators</h3>
-            <p>Value entered is formatted at onblur event using thosandSeparator and decimalSeparator properties which retrieve their values from the user locale automatically. If you'd like to apply
-                certain values, define the separators manually. In addition, setting formatInput property as false, will disable number formatting altogether.
+            <h3>Formatting Input</h3>
+            <p>Enable formatInput property so that value entered is formatted at onblur event using thosandSeparator and decimalSeparator properties which retrieve their values from the user locale automatically. If you'd like to apply
+                certain separators, define the separators manually.
             </p>
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-spinner [(ngModel)]="val" [step]="0.25" thosandSeparator="," decimalSeparator="."&gt;&lt;/p-spinner&gt;
+&lt;p-spinner [(ngModel)]="val" [step]="0.25" [formatInput]="true" thosandSeparator="," decimalSeparator="."&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -188,7 +192,7 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
                         <tr>
                             <td>formatInput</td>
                             <td>boolean</td>
-                            <td>true</td>
+                            <td>false</td>
                             <td>When present, formats the user input at blur event.</td>
                         </tr>
                     </tbody>
@@ -272,8 +276,11 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
 &lt;h3&gt;Step&lt;/h3&gt;
 &lt;p-spinner size="30" [(ngModel)]="val3" [step]="0.25"&gt;&lt;/p-spinner&gt;
 
+&lt;h3&gt;Format Input&lt;/h3&gt;
+&lt;p-spinner size="30" [(ngModel)]="val4" [step]="0.25" [formatInput]="true"&gt;&lt;/p-spinner&gt;
+
 &lt;h3&gt;Disabled&lt;/h3&gt;
-&lt;p-spinner size="30" [(ngModel)]="val4" [disabled]="true"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val5" [disabled]="true"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -287,7 +294,9 @@ export class SpinnerDemo &#123;
 
     val3: number;
 
-    val4: number = 100;
+    val4: number = 1000000.50;
+
+    val5: number = 100;
     
 &#125;
 </code>
