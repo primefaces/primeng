@@ -1,5 +1,56 @@
 # Change Log
 
+## [8.0.0](https://github.com/primefaces/primeng/tree/8.0.0) (2019-06-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.0.0-rc.1...8.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Add decimalSeparator and thousandSeparator props to Spinner [\#7807](https://github.com/primefaces/primeng/issues/7807)
+- Add formatInput prop to Spinner [\#7806](https://github.com/primefaces/primeng/issues/7806)
+- Add onSend and remove onBeforeSend for FileUpload [\#7805](https://github.com/primefaces/primeng/issues/7805)
+- headers prop for FileUpload [\#7803](https://github.com/primefaces/primeng/issues/7803)
+- Two-way binding support for "rows" property of Table [\#7797](https://github.com/primefaces/primeng/issues/7797)
+
+**Fixed bugs:**
+
+- withCredentials Ignored in FileUpload [\#7804](https://github.com/primefaces/primeng/issues/7804)
+- 2x styleClass property in multiselect documentation [\#7790](https://github.com/primefaces/primeng/issues/7790)
+- autocomplete - tabindex=-1 not working [\#7771](https://github.com/primefaces/primeng/issues/7771)
+- Textarea Floating labels fails on Firefox [\#6957](https://github.com/primefaces/primeng/issues/6957)
+
+## [8.0.0-rc.1](https://github.com/primefaces/primeng/tree/8.0.0-rc.1) (2019-06-03)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.3...8.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Apply ng lint to codebase [\#7418](https://github.com/primefaces/primeng/issues/7418)
+- Remove aria props from pSortIcon [\#7766](https://github.com/primefaces/primeng/issues/7766)
+- Add static false to all ViewChild and ContentChild [\#7764](https://github.com/primefaces/primeng/issues/7764)
+- Chart and Editor should not use Global variables [\#7763](https://github.com/primefaces/primeng/issues/7763)
+- Remove deprecated themes [\#7762](https://github.com/primefaces/primeng/issues/7762)
+- Angular 8 Compatibility [\#7761](https://github.com/primefaces/primeng/issues/7761)
+- Refactor forwardRef injects [\#7760](https://github.com/primefaces/primeng/issues/7760)
+- Remove DataTable [\#7759](https://github.com/primefaces/primeng/issues/7759)
+- Change Dropdown scrollHeight from TurboTable, DataView and Paginator [\#7713](https://github.com/primefaces/primeng/issues/7713)
+- New Directive: pTrapFocus [\#7665](https://github.com/primefaces/primeng/issues/7665)
+- Support Angular 8 [\#7627](https://github.com/primefaces/primeng/issues/7627)
+- dismissableMask and closeOnEscape functionality for Sidebar [\#4793](https://github.com/primefaces/primeng/issues/4793)
+
+**Fixed bugs:**
+
+- p-TreeTable column reordering not working [\#7735](https://github.com/primefaces/primeng/issues/7735)
+- Lazy loaded table will break with reordering of rows [\#7730](https://github.com/primefaces/primeng/issues/7730)
+- Issue with indexing of current page in currentPageReport [\#7684](https://github.com/primefaces/primeng/issues/7684)
+- p-table 'onRowReorder' event emits wrong dropindex value [\#6910](https://github.com/primefaces/primeng/issues/6910)
+- p-Dropdown : ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ui-inputwrapper-focus: true'. Current value: 'ui-inputwrapper-focus: false'. [\#6671](https://github.com/primefaces/primeng/issues/6671)
+- keyFilter on Chrome Android [\#5925](https://github.com/primefaces/primeng/issues/5925)
+
+**Unit Tests:**
+
+- Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
 ## [7.1.3](https://github.com/primefaces/primeng/tree/7.1.3) (2019-05-13)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.1.2...7.1.3)
