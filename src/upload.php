@@ -1,1 +1,2 @@
- <?php echo '<p>Fake Upload Process</p>'; ?> 
+<?php header('Access-Control-Allow-Origin: *'); ?>
+<?php echo '{"success": true}'; ?> 

@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import Chart from 'chart.js';
+import * as Chart from 'chart.js';
 
 @Component({
     selector: 'p-chart',
