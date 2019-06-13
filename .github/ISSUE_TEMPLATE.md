@@ -7,7 +7,9 @@ where our team will respond within 4 business hours.
 If you do not have a PrimeNG PRO Support subscription, fill-in the report below. Please note that
 your issue will be added to the waiting list of community issues and will be reviewed on a first-come first-serve basis, as a result, the support team is unable to guarantee a specific schedule on when it will be reviewed. Thank you for your understanding.
 
-Current Waiting Time: ~8 weeks.
+Current Queue Time for Review
+Without PRO Support: ~8-12 weeks.
+With PRO Support: 1 hour
 
 **I'm submitting a ...**  (check one with "x")
 ```
