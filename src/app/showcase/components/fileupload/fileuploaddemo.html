@@ -23,7 +23,7 @@
     <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
 
     <h3>Basic with Auto</h3>
-    <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true" chooseLabel="Browse"></p-fileUpload>
+    <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
 </div>
 
 <div class="content-section documentation">
@@ -60,7 +60,7 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
-        accept="image/*" auto="auto"&gt;&lt;/p-fileUpload&gt;
+        accept="image/*" [auto]="true"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 
@@ -118,7 +118,7 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
             <p>FileUpload basic mode provides a simpler UI as an alternative to advanced mode.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" auto="true"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" [auto]="true"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
             <h3>Custom Upload</h3>
@@ -448,7 +448,7 @@ myUploader(event) &#123;
 &lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"&gt;&lt;/p-fileUpload&gt;
 
 &lt;h3&gt;Basic with Auto&lt;/h3&gt;
-&lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 
