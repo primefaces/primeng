@@ -317,19 +317,18 @@ myUploader(event) &#123;
                         <tr>
                             <td>onBeforeUpload</td>
                             <td>event.formData: FormData object.</td>
-                            <td>Callback to invoke before file upload begins to customize the request
-                                such as post parameters before the files.</td>
+                            <td>Callback to invoke before file upload is initialized.</td>
                         </tr>
-						<tr>
-                            <td>onBeforeSend</td>
-                            <td>event.formData: FormData object.</td>
-                            <td>Callback to invoke before file send begins to customize the request
-                                such as adding headers.</td>
+                        <tr>
+                            <td>onSend</td>
+                            <td>event.originalEvent: Http Event <br>
+                                event.formData: FormData object.</td>
+                            <td>An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.</td>
                         </tr>
                         <tr>
                             <td>onUpload</td>
-                            <td>event.files: Uploaded files.<br />
-                                event.originalEvent: Http Event</td>
+                            <td>event.originalEvent: Http Event<br />
+                                event.files: Uploaded files.</td>
                             <td>Callback to invoke when file upload is complete.</td>
                         </tr>
                         <tr>
@@ -340,7 +339,7 @@ myUploader(event) &#123;
                         </tr>
                         <tr>
                             <td>onClear</td>
-                            <td>-.</td>
+                            <td>-</td>
                             <td>Callback to invoke when files in queue are removed without uploading using clear all button.</td>
                         </tr>
                         <tr>

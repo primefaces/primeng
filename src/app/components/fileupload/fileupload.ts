@@ -111,7 +111,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+    @Output() onSend: EventEmitter<any> = new EventEmitter();
 
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
 
@@ -312,7 +312,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                 'formData': formData
             });
 
-            for(let i = 0; i < this.files.length; i++) {
+            for (let i = 0; i < this.files.length; i++) {
                 formData.append(this.name, this.files[i], this.files[i].name);
             }
 
@@ -321,7 +321,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             }).subscribe( (event: HttpEvent<any>) => {
                     switch (event.type) {
                         case HttpEventType.Sent:
-                            this.onBeforeSend.emit({
+                            this.onSend.emit({
+                                originalEvent: event,
                                 'formData': formData
                             });
                             break;
@@ -330,14 +331,14 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                             this.progress = 0;
 
                             if (event['status'] >= 200 && event['status'] < 300) {
-                                this.onUpload.emit({files: this.files, originalEvent: event});
+                                this.onUpload.emit({originalEvent: event, files: this.files});
                             } else {
                                 this.onError.emit({files: this.files});
                             }
 
                             this.clear();
                             break;
-                        case 1: {
+                        case HttpEventType.UploadProgress: {
                             if (event['loaded']) {
                                 this.progress = Math.round((event['loaded'] * 100) / event['total']);
                             }
