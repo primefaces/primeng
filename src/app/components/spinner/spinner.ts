@@ -290,25 +290,27 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     formatValue() {
         let value = this.value;
 
-        if (this.formatInput && value != null) {
-            value = value.toLocaleString(undefined, {maximumFractionDigits: 20});
-
-            if (this.decimalSeparator && this.thousandSeparator) {
-                value = value.split(this.localeDecimalSeparator);
-
-                if (this.precision && value[1]) {
-                    value[1] = (this.decimalSeparator || this.localeDecimalSeparator) + value[1];
+        if (value != null) {
+            if (this.formatInput) {
+                value = value.toLocaleString(undefined, {maximumFractionDigits: 20});
+    
+                if (this.decimalSeparator && this.thousandSeparator) {
+                    value = value.split(this.localeDecimalSeparator);
+    
+                    if (this.precision && value[1]) {
+                        value[1] = (this.decimalSeparator || this.localeDecimalSeparator) + value[1];
+                    }
+    
+                    if (this.thousandSeparator && value[0].length > 3) {
+                        value[0] = value[0].replace(new RegExp(`[${this.localeThousandSeparator}]`, 'gim'), this.thousandSeparator);
+                    }
+    
+                    value = value.join('');
                 }
-
-                if (this.thousandSeparator && value[0].length > 3) {
-                    value[0] = value[0].replace(new RegExp(`[${this.localeThousandSeparator}]`, 'gim'), this.thousandSeparator);
-                }
-
-                value = value.join('');
             }
+    
+            this.formattedValue = value.toString();
         }
-
-        this.formattedValue = value;
     }
             
     clearTimer() {
