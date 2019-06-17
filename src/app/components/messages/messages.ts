@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 @Component({
     selector: 'p-messages',
     template: `
-        <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all" style="display:block"
+        <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all"
                     [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),

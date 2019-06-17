@@ -21,6 +21,7 @@ import { TableReorderDemo } from './tablereorderdemo';
 import { TableEditDemo } from './tableeditdemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
 import { TableStateDemo } from './tablestatedemo';
+import { TableStickyDemo } from './tablestickydemo';
 
 @NgModule({
 	imports: [
@@ -45,7 +46,8 @@ import { TableStateDemo } from './tablestatedemo';
 			{ path: 'reorder', component: TableReorderDemo },
 			{ path: 'edit', component: TableEditDemo },
             { path: 'rowgroup', component: TableRowGroupDemo },
-            { path: 'state', component: TableStateDemo }
+            { path: 'state', component: TableStateDemo },
+            { path: 'sticky', component: TableStickyDemo }
 		])
 	],
 	exports: [

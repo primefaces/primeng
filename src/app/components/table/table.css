@@ -74,6 +74,10 @@
     position: absolute;
 }
 
+.ui-table-loading-virtual-table {
+    display: none;
+}
+
 /* Frozen Columns */
 .ui-table-frozen-view .ui-table-scrollable-body {
     overflow: hidden;

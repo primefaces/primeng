@@ -23,7 +23,7 @@ import {MessageService} from '../../../components/common/messageservice';
 })
 export class TreeDemo implements OnInit {
 
-    @ViewChild('expandingTree')
+    @ViewChild('expandingTree', { static: false })
     expandingTree: Tree;
 
     filesTree0: TreeNode[];
@@ -38,7 +38,9 @@ export class TreeDemo implements OnInit {
     filesTree9: TreeNode[];
     filesTree10: TreeNode[];
     filesTree11: TreeNode[];
-    
+    filesTree12: TreeNode[];
+    filesTree13: TreeNode[];
+
     lazyFiles: TreeNode[];
     
     selectedFile: TreeNode;
@@ -87,8 +89,10 @@ export class TreeDemo implements OnInit {
             }
         ];
         this.nodeService.getFiles().then(files => this.filesTree10 = files);
+        this.nodeService.getFiles().then(files => this.filesTree11 = files);
+        this.nodeService.getFiles().then(files => this.filesTree12 = files);
         this.nodeService.getFiles().then(files => {
-            this.filesTree11 = [{
+            this.filesTree13 = [{
                 label: 'Root',
                 children: files
             }];

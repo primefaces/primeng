@@ -32,6 +32,10 @@ export class MultiSelectDemo {
     
     selectedCars2: string[] = [];
 
+    items: SelectItem[];
+
+    item: string;
+
     constructor() {
         this.cars = [
             {label: 'Audi', value: 'Audi'},
@@ -45,5 +49,10 @@ export class MultiSelectDemo {
             {label: 'VW', value: 'VW'},
             {label: 'Volvo', value: 'Volvo'},
         ];
+        
+        this.items = [];
+        for (let i = 0; i < 10000; i++) {
+            this.items.push({label: 'Item ' + i, value: 'Item ' + i});
+        }
     }
 }

@@ -29,7 +29,6 @@
     margin: 0;
     padding: 0;
     width: 2340px;
-    z-index: 900;
     position: absolute;
     top: 0;
     left: 0;
@@ -53,7 +52,7 @@
 .ui-galleria .ui-galleria-nav-next, .ui-galleria .ui-galleria-nav-prev {
 	cursor: pointer;
     position: absolute;
-    z-index: 910;
+    z-index: 1;
 }
 
 .ui-galleria .ui-galleria-nav-prev {

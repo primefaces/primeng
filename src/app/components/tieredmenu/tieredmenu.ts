@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef, ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -14,14 +14,14 @@ import {RouterModule} from '@angular/router';
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menuitem-active':listItem==activeItem,'ui-helper-hidden': child.visible === false}"
                     [class]="child.styleClass" [ngStyle]="child.style"
                     (mouseenter)="onItemMouseEnter($event, listItem, child)" (mouseleave)="onItemMouseLeave($event)">
-                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" 
-                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" 
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
                         class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         
@@ -33,8 +33,7 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ng-template>
         </ul>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class TieredMenuSub {
 
@@ -48,8 +47,12 @@ export class TieredMenuSub {
 
     @Input() hideDelay: number = 250;
 
-    constructor(@Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu, public domHandler: DomHandler) {}
+    tieredMenu: TieredMenu;
     
+    constructor(@Inject(forwardRef(() => TieredMenu)) tieredMenu, private cf: ChangeDetectorRef) {
+        this.tieredMenu = tieredMenu as TieredMenu;
+    }
+
     activeItem: HTMLLIElement;
 
     hideTimeout: any;
@@ -74,13 +77,14 @@ export class TieredMenuSub {
             sublist.style.zIndex = String(++DomHandler.zindex);
                         
             sublist.style.top = '0px';
-            sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+            sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
         }
     }
     
     onItemMouseLeave(event: Event) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
+            this.cf.markForCheck();
         }, this.hideDelay);
     }
     
@@ -132,8 +136,7 @@ export class TieredMenuSub {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class TieredMenu implements OnDestroy {
 
@@ -169,7 +172,7 @@ export class TieredMenu implements OnDestroy {
 
     visible: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2) {}
     
     toggle(event) {
         if (this.visible)
@@ -193,7 +196,7 @@ export class TieredMenu implements OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.appendOverlay();
-                    this.domHandler.absolutePosition(this.container, this.target);
+                    DomHandler.absolutePosition(this.container, this.target);
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                 }
@@ -210,7 +213,7 @@ export class TieredMenu implements OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
-                this.domHandler.appendChild(this.container, this.appendTo);
+                DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 

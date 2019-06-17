@@ -249,6 +249,33 @@ describe('Slider', () => {
         slider.ngOnDestroy();
         fixture.detectChanges();
     });
+	
+	it('should increment value with decimal step and decimal max', () => {
+        slider.value = 0.02;
+        slider.step = 0.01;
+        slider.max = 2.5;
+        fixture.detectChanges();
+
+        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(slider.dragging).toEqual(true);
+        const mousemoveEvent: any = document.createEvent('CustomEvent');
+        mousemoveEvent.pageX = 300;
+        mousemoveEvent.initEvent('mousemove', true, true);
+        document.dispatchEvent(mousemoveEvent);
+        document.dispatchEvent(mousemoveEvent as MouseEvent);
+        fixture.detectChanges();
+        
+        expect(slider.value).toBeGreaterThan(0.02);
+        document.dispatchEvent(new Event("mouseup"));
+        fixture.detectChanges();
+
+        expect(slider.dragging).toEqual(false);
+        slider.ngOnDestroy();
+        fixture.detectChanges();
+    });
 
     it('should decrement value with step', () => {
         slider.value = 90;
@@ -276,11 +303,40 @@ describe('Slider', () => {
         slider.ngOnDestroy();
         fixture.detectChanges();
     });
+	
+	it('should decrement value with decimal step and decimal max', () => {
+        slider.value = 2.4;
+        slider.step = 0.01;
+        slider.max = 2.5;
+        fixture.detectChanges();
+
+        const spanEl = fixture.debugElement.query(By.css(".ui-slider-handle"));
+        spanEl.nativeElement.dispatchEvent(new Event("mousedown"));
+        fixture.detectChanges();
+
+        expect(slider.dragging).toEqual(true);
+        const mousemoveEvent: any = document.createEvent('CustomEvent');
+        mousemoveEvent.pageX = 300;
+        mousemoveEvent.initEvent('mousemove', true, true);
+        document.dispatchEvent(mousemoveEvent);
+        document.dispatchEvent(mousemoveEvent as MouseEvent);
+        fixture.detectChanges();
+        
+        expect(slider.value).toBeGreaterThan(0);
+		expect(slider.value).toBeLessThan(2.4);
+        document.dispatchEvent(new Event("mouseup"));
+        fixture.detectChanges();
+
+        expect(slider.dragging).toEqual(false);
+        slider.ngOnDestroy();
+        fixture.detectChanges();
+    });
 
     it('should select range', () => {
         slider.range = true;
         slider.handleValues = [20,80];
         slider.values = [20,80];
+        slider.style = {'width':'600px'};
         fixture.detectChanges();
 
         const sliderHandlers = fixture.debugElement.queryAll(By.css(".ui-slider-handle"));
@@ -302,6 +358,7 @@ describe('Slider', () => {
         slider.range = true;
         slider.step = 2;
         slider.handleValues = [20,80];
+        slider.style = {'width':'600px'};
         slider.values = [20,80];
         fixture.detectChanges();
 

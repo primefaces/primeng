@@ -60,7 +60,7 @@ import {PrimeTemplate} from '../common/shared';
              animate(150, style({opacity:0}))
            ])
         ])
-    ],
+    ]
 })
 export class OrganizationChartNode {
 
@@ -71,8 +71,12 @@ export class OrganizationChartNode {
     @Input() first: boolean;
     
     @Input() last: boolean;
+
+    chart: OrganizationChart;
         
-    constructor(@Inject(forwardRef(() => OrganizationChart)) public chart:OrganizationChart) {}
+    constructor(@Inject(forwardRef(() => OrganizationChart)) chart) {
+        this.chart = chart as OrganizationChart;
+    }
                 
     get leaf(): boolean {
         return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
@@ -102,8 +106,7 @@ export class OrganizationChartNode {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-organizationchart ui-widget'">
             <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class OrganizationChart implements AfterContentInit {
             
@@ -127,7 +130,7 @@ export class OrganizationChart implements AfterContentInit {
     
     public templateMap: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
     
     get root(): TreeNode {
         return this.value && this.value.length ? this.value[0] : null;

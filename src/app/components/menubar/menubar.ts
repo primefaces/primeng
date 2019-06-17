@@ -2,7 +2,6 @@ import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDete
 import { CommonModule } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
 import { MenuItem } from '../common/menuitem';
-import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -32,8 +31,7 @@ import { RouterModule } from '@angular/router';
                 </li>
             </ng-template>
         </ul>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class MenubarSub implements OnDestroy {
 
@@ -59,16 +57,15 @@ export class MenubarSub implements OnDestroy {
     
     activeMenu: any;
 
-    constructor(public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef) { }
+    constructor(public renderer: Renderer2, private cd: ChangeDetectorRef) { }
 
     onItemMenuClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (!this.autoDisplay) {
-
             if (menuitem.disabled) {
                 return;
             }
             
-            this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item) ? null : item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
@@ -77,18 +74,18 @@ export class MenubarSub implements OnDestroy {
                 }
 
                 if (this.root) {
-                    sublist.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
+                    sublist.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
                     sublist.style.left = '0px'
                 }
                 else {
                     sublist.style.top = '0px';
-                    sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+                    sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
                 }
             }
 
             this.menuClick = true;
             this.menuHoverActive = this.activeMenu ? (!this.activeMenu.isEqualNode(item)) : true;
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) ? null: item) : item;
             this.bindEventListener();
         }
     }
@@ -116,23 +113,23 @@ export class MenubarSub implements OnDestroy {
                 this.hideTimeout = null;
             }
 
-            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item)? null: item) : item;
+            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item) && this.autoDisplay ? null: item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
                 sublist.style.zIndex = String(++DomHandler.zindex);
 
                 if (this.root) {
-                    sublist.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
+                    sublist.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
                     sublist.style.left = '0px'
                 }
                 else {
                     sublist.style.top = '0px';
-                    sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+                    sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
                 }
             }
   
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) && this.autoDisplay ? null: item) : item;
         }
     }
 
@@ -192,8 +189,7 @@ export class MenubarSub implements OnDestroy {
                 <ng-content></ng-content>
             </div>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class Menubar {
 
@@ -209,7 +205,7 @@ export class Menubar {
 
     @Input() baseZIndex: number = 0;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) { }
+    constructor(public el: ElementRef, public renderer: Renderer2) { }
 }
 
 @NgModule({

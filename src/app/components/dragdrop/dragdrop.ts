@@ -3,8 +3,7 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({
-    selector: '[pDraggable]',
-    providers: [DomHandler]
+    selector: '[pDraggable]'
 })
 export class Draggable implements AfterViewInit, OnDestroy {
     
@@ -30,7 +29,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     mouseUpListener: any;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public el: ElementRef, public zone: NgZone) {}
     
     ngAfterViewInit() {
         if (!this.pDraggableDisabled) {
@@ -116,7 +115,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
     
     allowDrag() : boolean {
         if(this.dragHandle && this.handle)
-            return this.domHandler.matches(this.handle, this.dragHandle);
+            return DomHandler.matches(this.handle, this.dragHandle);
         else
             return true;
     }
@@ -129,8 +128,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pDroppable]',
-    providers: [DomHandler]
+    selector: '[pDroppable]'
 })
 export class Droppable implements AfterViewInit, OnDestroy {
     
@@ -146,7 +144,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public el: ElementRef, public zone: NgZone) {}
 
     dragOverListener: any;
 

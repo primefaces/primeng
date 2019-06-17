@@ -1,16 +1,10 @@
-import { PrimengPage } from './app.po';
+import { AppPage } from './app.po';
+import { browser, logging } from 'protractor';
 
-describe('primeng App', () => {
-  let page: PrimengPage;
+describe('workspace-project App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new PrimengPage();
-  });
-
-  it('should display welcome message', done => {
-    page.navigateTo();
-    page.getPROText()
-      .then(msg => expect(msg).toEqual('PrimeNG PRO Support'))
-      .then(done, done.fail);
+    page = new AppPage();
   });
 });

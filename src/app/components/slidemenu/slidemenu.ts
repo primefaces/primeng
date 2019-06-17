@@ -52,9 +52,13 @@ export class SlideMenuSub implements OnDestroy {
     @Input() easing: string = 'ease-out';
 
     @Input() index: number;
-        
-    constructor(@Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu) {}
-        
+
+    slideMenu: SlideMenu;
+    
+    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu) {
+        this.slideMenu = slideMenu as SlideMenu;
+    }
+             
     activeItem: any;
                             
     itemClick(event, item: MenuItem, listitem: any) {
@@ -120,8 +124,7 @@ export class SlideMenuSub implements OnDestroy {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class SlideMenu implements AfterViewChecked, OnDestroy {
 
@@ -175,7 +178,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     viewportUpdated: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2) {}
 
     ngAfterViewChecked() {
         if (!this.viewportUpdated && !this.popup && this.containerViewChild) {
@@ -184,20 +187,20 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
-    @ViewChild('container') set container(element: ElementRef) {
+    @ViewChild('container', { static: false }) set container(element: ElementRef) {
         this.containerViewChild = element;
     }
 
-    @ViewChild('backward') set backward(element: ElementRef) {
+    @ViewChild('backward', { static: false }) set backward(element: ElementRef) {
         this.backwardViewChild = element;
     }
 
-    @ViewChild('slideMenuContent') set slideMenuContent(element: ElementRef) {
+    @ViewChild('slideMenuContent', { static: false }) set slideMenuContent(element: ElementRef) {
         this.slideMenuContentViewChild = element;
     }
 
     updateViewPort() {
-        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
+        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
     }
     
     toggle(event) {
@@ -222,7 +225,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
                     this.updateViewPort();
                     this.moveOnTop();
                     this.appendOverlay();
-                    this.domHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
+                    DomHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                 }
@@ -239,7 +242,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
             else
-                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+                DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
 

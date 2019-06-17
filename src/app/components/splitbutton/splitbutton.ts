@@ -12,14 +12,14 @@ import {RouterModule} from '@angular/router';
     template: `
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-right': 'ui-corner-left'" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
-            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="pi pi-caret-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
+            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="pi pi-chevron-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
             <div #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" *ngIf="overlayVisible"
                     [ngStyle]="menuStyle" [class]="menuStyleClass"
                     [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
                 <ul class="ui-menu-list ui-helper-reset">
                     <ng-template ngFor let-item [ngForOf]="model">
                         <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngIf="item.visible !== false">
-                            <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                                 [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                 <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
                                 <span class="ui-menuitem-text">{{item.label}}</span>
@@ -48,8 +48,7 @@ import {RouterModule} from '@angular/router';
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
 export class SplitButton implements OnDestroy {
 
@@ -85,9 +84,9 @@ export class SplitButton implements OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
-    @ViewChild('defaultbtn') buttonViewChild: ElementRef;
+    @ViewChild('defaultbtn', { static: false }) buttonViewChild: ElementRef;
 
     overlay: HTMLDivElement;
                     
@@ -101,7 +100,7 @@ export class SplitButton implements OnDestroy {
 
     documentResizeListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
                 
     onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
@@ -156,9 +155,9 @@ export class SplitButton implements OnDestroy {
 
     alignOverlay() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
+            DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
         else
-            this.domHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
+            DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
     }
 
     appendOverlay() {
@@ -166,9 +165,9 @@ export class SplitButton implements OnDestroy {
             if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                DomHandler.appendChild(this.overlay, this.appendTo);
 
-            this.overlay.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+            this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
         }
     }
 

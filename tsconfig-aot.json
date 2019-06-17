@@ -17,8 +17,13 @@
   "include": [
     "src/app/components/**/*"
   ],
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts"
+  ],
   "angularCompilerOptions": {
    "genDir": "aot",
-   "skipMetadataEmit" : false
+   "skipMetadataEmit" : false,
+   "fullTemplateTypeCheck": true
  }
 }

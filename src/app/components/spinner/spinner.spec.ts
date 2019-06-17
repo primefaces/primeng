@@ -77,13 +77,15 @@ describe('Spinner', () => {
     });
 
     it('Should display the formated value with thousand and decimal separator when input is filled by value 1234.1234', () => {
+        fixture.detectChanges();
+
         spinner.precision = 4;
         const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
         spinnerInput.value = '1234.1234';
         triggerEvent(spinnerInput, 'input');
 
         fixture.detectChanges();
-        expect(spinner.value).toEqual('1234.1234')
+        expect(spinner.value).toEqual(1234.1234);
     });
     
     it('Should disabled', () => {
@@ -100,6 +102,8 @@ describe('Spinner', () => {
     });
 
     it('should value should not change.', () => {
+        fixture.detectChanges();
+
         spinner.disabled=true;
         const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
         spinnerInput.value = '1';
@@ -192,10 +196,9 @@ describe('Spinner', () => {
         expect(inputEl.nativeElement.style.primeng).toEqual("rocks!");
     });
 
-    it('should change inputId placeholder readonly tabindex and required', () => {
+    it('should change inputId placeholder tabindex and required', () => {
         spinner.inputId = "primeng";
         spinner.placeholder = "Primeng ROCKS!";
-        spinner.readonly = true;
         spinner.tabindex = 13;
         spinner.required = true;
         fixture.detectChanges();
@@ -205,7 +208,25 @@ describe('Spinner', () => {
         expect(inputEl.nativeElement.placeholder).toEqual("Primeng ROCKS!");
         expect(inputEl.nativeElement.tabIndex).toEqual(13);
         expect(inputEl.nativeElement.required).toEqual(true);
+    });
+
+    it('should change readonly and disable buttons', () => {
+        spinner.readonly = true;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input'));
+        const upButtonEl = fixture.debugElement.query(By.css('.ui-spinner-up'));
+        const downButtonEl = fixture.debugElement.query(By.css('.ui-spinner-down'));
         expect(inputEl.nativeElement.readOnly).toEqual(true);
+        expect(upButtonEl.nativeElement.disabled).toEqual(true);
+        expect(downButtonEl.nativeElement.disabled).toEqual(true);
+
+        spinner.readonly = false;
+        fixture.detectChanges();
+
+        expect(inputEl.nativeElement.readOnly).toEqual(false);
+        expect(upButtonEl.nativeElement.disabled).toEqual(false);
+        expect(downButtonEl.nativeElement.disabled).toEqual(false);
     });
 
     it('should listen onChange onFocus and onBlur', () => {
