@@ -1,5 +1,5 @@
-import {NgModule,Component,Input,Output,EventEmitter,Optional} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, Component, Input, Output, EventEmitter, Optional } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-message',
@@ -23,27 +23,27 @@ export class UIMessage {
     get icon(): string {
         let icon: string = null;
 
-        if(this.severity) {
-            switch(this.severity) {
+        if (this.severity) {
+            switch (this.severity) {
                 case 'success':
                     icon = 'pi pi-check';
-                break;
+                    break;
 
                 case 'info':
                     icon = 'pi pi-info-circle';
-                break;
+                    break;
 
                 case 'error':
                     icon = 'pi pi-times';
-                break;
+                    break;
 
                 case 'warn':
                     icon = 'pi pi-exclamation-triangle';
-                break;
+                    break;
 
                 default:
                     icon = 'pi pi-info-circle';
-                break;
+                    break;
             }
         }
 
