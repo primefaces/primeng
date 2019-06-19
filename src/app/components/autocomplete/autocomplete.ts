@@ -45,7 +45,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
                     </li>
-                    <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
+                    <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-emptymessage ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
                 </ul>
             </div>
         </span>
