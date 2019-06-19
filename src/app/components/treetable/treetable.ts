@@ -116,7 +116,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() pageLinks: number = 5;
 
-    @Input() rowsPerPageOptions: number[];
+    @Input() rowsPerPageOptions: any[];
 
     @Input() alwaysShowPaginator: boolean = true;
 
