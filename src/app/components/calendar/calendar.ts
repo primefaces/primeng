@@ -330,6 +330,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Output() onYearChange: EventEmitter<any> = new EventEmitter();
     
+    @Output() onClickOutside: EventEmitter<any> = new EventEmitter();
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     _locale: LocaleSettings = {
@@ -2051,6 +2053,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
                 if (this.isOutsideClicked(event) && this.overlayVisible) {
                     this.hideOverlay();
+                    this.onClickOutside.emit(event);
                 }
 
                 this.cd.detectChanges();
