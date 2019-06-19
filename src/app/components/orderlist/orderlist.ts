@@ -309,9 +309,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragStart(event: DragEvent, index: number) {
+        event.dataTransfer.setData('text', 'b');    // For firefox
         (<HTMLLIElement> event.target).blur();
         this.dragging = true;
-        this.draggedItemIndex = index;
+        this.draggedItemIndex = index; 
     }
     
     onDragOver(event: DragEvent, index: number) {
