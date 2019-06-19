@@ -858,10 +858,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
         
         if (this.showTime) {
-            if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
-                date.setHours(this.currentHour + 12);
+            if (this.currentHour === 12)
+                date.setHours(this.pm ? 12 : 0);
             else
-                date.setHours(this.currentHour);
+                date.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
 
             date.setMinutes(this.currentMinute);
             date.setSeconds(this.currentSecond);
