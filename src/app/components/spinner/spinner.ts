@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,ViewChild, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -103,7 +103,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
     
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     @Input() set type(value: string) {
         console.warn("type property is removed as Spinner does not format the value anymore");
@@ -323,6 +323,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         this.value = value;
         this.formatValue();
         this.updateFilledState();
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {
