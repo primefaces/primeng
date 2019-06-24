@@ -39,7 +39,7 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
 
     @Input() pageLinks: number = 5;
     
-    @Input() rowsPerPageOptions: number[];
+    @Input() rowsPerPageOptions: any[];
 
     @Input() lazy: boolean;
 

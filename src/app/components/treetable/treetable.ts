@@ -116,7 +116,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() pageLinks: number = 5;
 
-    @Input() rowsPerPageOptions: number[];
+    @Input() rowsPerPageOptions: any[];
 
     @Input() alwaysShowPaginator: boolean = true;
 
@@ -1405,7 +1405,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         this.filteredNodes.push(copyNode);
                     }
 
-                    isValueChanged = isValueChanged || !localMatch || globalMatch;
+                    isValueChanged = isValueChanged || !localMatch || globalMatch || (localMatch && this.filteredNodes.length > 0) || (!globalMatch && this.filteredNodes.length === 0)
                 }
     
                 if (!isValueChanged) {

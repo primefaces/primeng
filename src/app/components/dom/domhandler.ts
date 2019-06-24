@@ -138,7 +138,7 @@ export class DomHandler {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
         }
 
-        if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
+        if (targetOffset.left + elementOuterWidth > viewport.width)
             left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
         else
             left = targetOffset.left + windowScrollLeft;

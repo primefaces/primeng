@@ -50,7 +50,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Input() pageLinks: number = 5;
     
-    @Input() rowsPerPageOptions: number[];
+    @Input() rowsPerPageOptions: any[];
 
     @Input() paginatorPosition: string = 'bottom';
     
