@@ -2110,6 +2110,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     ngOnDestroy() {
         this.restoreOverlayAppend();
         this.onOverlayHide();
+        this.disableModality();
     }
 }
 
