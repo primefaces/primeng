@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
 import {Message} from '../common/message';
 import {PrimeTemplate,SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
-import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 
 @Component({
     selector: 'p-fileUpload',
@@ -105,11 +105,13 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() mode: string = 'advanced';
 
+    @Input() headers: HttpHeaders;
+    
     @Input() customUpload: boolean;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+    @Output() onSend: EventEmitter<any> = new EventEmitter();
 
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
 
@@ -127,11 +129,11 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('advancedfileinput') advancedFileInput: ElementRef;
+    @ViewChild('advancedfileinput', { static: false }) advancedFileInput: ElementRef;
 
-    @ViewChild('basicfileinput') basicFileInput: ElementRef;
+    @ViewChild('basicfileinput', { static: false }) basicFileInput: ElementRef;
 
-    @ViewChild('content') content: ElementRef;
+    @ViewChild('content', { static: false }) content: ElementRef;
 
     @Input() files: File[] = [];
 
@@ -180,7 +182,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     ngAfterViewInit() {
         if(this.mode === 'advanced') {
             this.zone.runOutsideAngular(() => {
-                this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
+                if (this.content)
+                    this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
             });
         }
     }
@@ -309,16 +312,17 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                 'formData': formData
             });
 
-            for(let i = 0; i < this.files.length; i++) {
+            for (let i = 0; i < this.files.length; i++) {
                 formData.append(this.name, this.files[i], this.files[i].name);
             }
 
             this.http.post(this.url, formData, {
-                reportProgress: true, observe: 'events'
+                headers: this.headers, reportProgress: true, observe: 'events', withCredentials: this.withCredentials
             }).subscribe( (event: HttpEvent<any>) => {
                     switch (event.type) {
                         case HttpEventType.Sent:
-                            this.onBeforeSend.emit({
+                            this.onSend.emit({
+                                originalEvent: event,
                                 'formData': formData
                             });
                             break;
@@ -327,14 +331,14 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                             this.progress = 0;
 
                             if (event['status'] >= 200 && event['status'] < 300) {
-                                this.onUpload.emit({files: this.files, originalEvent: event});
+                                this.onUpload.emit({originalEvent: event, files: this.files});
                             } else {
                                 this.onError.emit({files: this.files});
                             }
 
                             this.clear();
                             break;
-                        case 1: {
+                        case HttpEventType.UploadProgress: {
                             if (event['loaded']) {
                                 this.progress = Math.round((event['loaded'] * 100) / event['total']);
                             }

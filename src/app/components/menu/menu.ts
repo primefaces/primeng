@@ -24,8 +24,12 @@ import {RouterModule} from '@angular/router';
 export class MenuItemContent {
 
     @Input("pMenuItemContent") item: MenuItem;
+
+    menu: Menu;
     
-    constructor(@Inject(forwardRef(() => Menu)) public menu: Menu) {}
+    constructor(@Inject(forwardRef(() => Menu)) menu) {
+        this.menu = menu as Menu;
+    }
 }
 
 @Component({
@@ -85,7 +89,7 @@ export class Menu implements OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
     

@@ -20,5 +20,9 @@
   },
   "include": [
       "src/app/components/**/*"
+  ],
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts"
   ]
 }

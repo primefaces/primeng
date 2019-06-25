@@ -11,5 +11,7 @@ export class SpinnerDemo {
 
     val3: number;
 
-    val4: number = 100;
+    val4: number = 1000000.5;
+
+    val5: number = 100;
 }

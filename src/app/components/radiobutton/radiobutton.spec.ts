@@ -48,6 +48,8 @@ describe('RadioButton', () => {
     });
 
     it('should display active state initially when checked by default', () => {
+        fixture.detectChanges();
+
         radiobutton.checked = true;
         radiobutton.inputViewChild.nativeElement.checked=true;
         fixture.detectChanges();

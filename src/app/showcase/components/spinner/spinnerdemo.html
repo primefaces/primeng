@@ -14,9 +14,12 @@
 
     <h3>Step</h3>
     <p-spinner size="30" [(ngModel)]="val3" [step]="0.25"></p-spinner>
+
+    <h3>Format Input</h3>
+    <p-spinner size="30" [(ngModel)]="val4" [step]="0.25" [formatInput]="true"></p-spinner>
     
     <h3>Disabled</h3>
-    <p-spinner size="30" [(ngModel)]="val4" [disabled]="true"></p-spinner>
+    <p-spinner size="30" [(ngModel)]="val5" [disabled]="true"></p-spinner>
 </div>
 
 <div class="content-section documentation">
@@ -33,7 +36,7 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
             <p>Two-way value binding is defined using standard ngModel directive.</p>     
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-spinner size="30" [(ngModel)]="val"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner [(ngModel)]="val"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -49,7 +52,7 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
             <p>Boundaries are specified with min and max attributes.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-spinner size="30" [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -57,7 +60,18 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
             <p>Step factor is 1 by default and can be customized with step option.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-spinner size="30" [(ngModel)]="val" [step]="0.25"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner [(ngModel)]="val" [step]="0.25"&gt;&lt;/p-spinner&gt;
+</code>
+</pre>
+
+            <h3>Formatting Input</h3>
+            <p>Enable formatInput property so that value entered is formatted at onblur event using thosandSeparator and decimalSeparator properties which retrieve their values from the user locale automatically. If you'd like to apply
+                certain separators, define the separators manually.
+            </p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-spinner [(ngModel)]="val" [step]="0.25" [formatInput]="true" thosandSeparator="," decimalSeparator="."&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -163,6 +177,24 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
                             <td>null</td>
                             <td>Style class of the input field.</td>
                         </tr>
+                        <tr>
+                            <td>decimalSeparator</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Separator character for decimals, defaults to settings at user locale.</td>
+                        </tr>
+                        <tr>
+                            <td>thousandSeparator</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Separator character for thousands, defaults to settings at user locale.</td>
+                        </tr>
+                        <tr>
+                            <td>formatInput</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, formats the user input at blur event.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -244,8 +276,11 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
 &lt;h3&gt;Step&lt;/h3&gt;
 &lt;p-spinner size="30" [(ngModel)]="val3" [step]="0.25"&gt;&lt;/p-spinner&gt;
 
+&lt;h3&gt;Format Input&lt;/h3&gt;
+&lt;p-spinner size="30" [(ngModel)]="val4" [step]="0.25" [formatInput]="true"&gt;&lt;/p-spinner&gt;
+
 &lt;h3&gt;Disabled&lt;/h3&gt;
-&lt;p-spinner size="30" [(ngModel)]="val4" [disabled]="true"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val5" [disabled]="true"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -259,7 +294,9 @@ export class SpinnerDemo &#123;
 
     val3: number;
 
-    val4: number = 100;
+    val4: number = 1000000.50;
+
+    val5: number = 100;
     
 &#125;
 </code>

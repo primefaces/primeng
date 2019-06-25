@@ -101,7 +101,11 @@ export class UITreeNode implements OnInit {
 
     @Input() lastChild: boolean;
 
-    constructor(@Inject(forwardRef(() => Tree)) public tree:Tree) {}
+    tree: Tree;
+
+    constructor(@Inject(forwardRef(() => Tree)) tree) {
+        this.tree = tree as Tree;
+    }
 
     draghoverPrev: boolean;
 

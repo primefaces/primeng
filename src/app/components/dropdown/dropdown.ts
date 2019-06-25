@@ -68,6 +68,12 @@ export class DropdownItem {
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox"
                     (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
             </div>
+            <div class="ui-helper-hidden-accessible ui-dropdown-hidden-select">
+                <select [attr.required]="required" [attr.name]="name" tabindex="-1" aria-hidden="true">
+                    <option *ngIf="placeholder" value="">{{placeholder}}</option>
+                    <option *ngIf="selectedOption" [value]="selectedOption.value" [selected]="true">{{selectedOption.label}}</option>
+                </select>
+            </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label == null || label.length === 0)}" *ngIf="!editable && (label != null)">
                 <ng-container *ngIf="!selectedItemTemplate">{{label||'empty'}}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: selectedOption}"></ng-container>
@@ -224,13 +230,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
-    @ViewChild('filter') filterViewChild: ElementRef;
+    @ViewChild('filter', { static: false }) filterViewChild: ElementRef;
     
-    @ViewChild('in') focusViewChild: ElementRef;
+    @ViewChild('in', { static: false }) focusViewChild: ElementRef;
     
-    @ViewChild('editableInput') editableInputViewChild: ElementRef;
+    @ViewChild('editableInput', { static: false }) editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -255,6 +261,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.focused = false;
         
         this._disabled = _disabled;
+        this.cd.detectChanges();
     }
 
     overlay: HTMLDivElement;

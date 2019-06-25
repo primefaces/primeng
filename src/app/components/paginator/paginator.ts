@@ -35,7 +35,7 @@ import {SharedModule} from '../common/shared';
                 <span class="ui-paginator-icon pi pi-step-forward"></span>
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
-                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo"></p-dropdown>
+                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"></p-dropdown>
             <div class="ui-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
@@ -60,6 +60,8 @@ export class Paginator implements OnInit {
 
     @Input() dropdownAppendTo: any;
 
+    @Input() dropdownScrollHeight: string = '200px';
+
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
 
     @Input() showCurrentPageReport: boolean;
@@ -72,7 +74,7 @@ export class Paginator implements OnInit {
 
     _rows: number = 0;
     
-    _rowsPerPageOptions: number[];
+    _rowsPerPageOptions: any[];
     
     rowsPerPageItems: SelectItem[];
     
@@ -93,6 +95,7 @@ export class Paginator implements OnInit {
         this.updatePageLinks();
         this.updatePaginatorState();
         this.updateFirst();
+        this.updateRowsPerPageOptions();
     }
 
     @Input() get first(): number {
@@ -115,16 +118,25 @@ export class Paginator implements OnInit {
         this.updatePaginatorState();
     }
     
-    @Input() get rowsPerPageOptions(): number[] {
+    @Input() get rowsPerPageOptions(): any[] {
         return this._rowsPerPageOptions;
     }
 
-    set rowsPerPageOptions(val:number[]) {
+    set rowsPerPageOptions(val:any[]) {
         this._rowsPerPageOptions = val;
-        if(this._rowsPerPageOptions) {
+        this.updateRowsPerPageOptions();
+    }
+
+    updateRowsPerPageOptions() {
+        if(this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
-            for(let opt of this._rowsPerPageOptions) {
-                this.rowsPerPageItems.push({label: String(opt), value: opt});
+            for (let opt of this.rowsPerPageOptions) {
+                if (typeof opt == 'object' && opt['showAll']) {
+                    this.rowsPerPageItems.push({label: opt['showAll'], value: this.totalRecords});
+                }
+                else {
+                    this.rowsPerPageItems.push({label: String(opt), value: opt});
+                }
             }
         }
     }
@@ -242,7 +254,9 @@ export class Paginator implements OnInit {
     }
 
     get currentPageReport() {
-        return this.currentPageReportTemplate.replace("{currentPage}", this.getPage().toString()).replace("{totalPages}", this.getPageCount().toString());
+        return this.currentPageReportTemplate
+            .replace("{currentPage}", (this.getPage() + 1).toString())
+            .replace("{totalPages}", this.getPageCount().toString());
     }
 }
 

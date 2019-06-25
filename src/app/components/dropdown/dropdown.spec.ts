@@ -110,6 +110,8 @@ describe('Dropdown', () => {
 			{name: 'Istanbul', code: 'IST'},
 			{name: 'Paris', code: 'PRS'}
 		];
+		fixture.detectChanges();
+
 		const container = fixture.debugElement.query(By.css('div')).nativeElement;
 		container.click();
 		fixture.detectChanges();

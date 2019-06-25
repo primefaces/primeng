@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'datascroller-demos',
     template: `
-        <div id="datatable-submenu" class="content-section content-submenu ui-helper-clearfix">
+        <div class="content-section content-submenu ui-helper-clearfix">
             <ul>
                 <li><a [routerLink]="['/datascroller']">&#9679; Window</a></li>
                 <li><a [routerLink]="['/datascroller/inline']">&#9679; Inline</a></li>
