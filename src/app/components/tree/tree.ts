@@ -1,6 +1,6 @@
-import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,EmbeddedViewRef,ViewContainerRef,
+import {NgModule,Component,Input,AfterContentInit,AfterViewInit,OnDestroy,Output,EventEmitter,OnInit,EmbeddedViewRef,ViewContainerRef,
     ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,Host} from '@angular/core';
-import {Optional} from '@angular/core';
+import {Optional, NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/treenode';
 import {SharedModule} from '../common/shared';
@@ -13,13 +13,11 @@ import { ObjectUtils } from '../utils/objectutils';
 @Component({
     selector: 'p-treeNode',
     template: `
-        <ng-template [ngIf]="node">
-            <li *ngIf="tree.droppableNodes" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
-            (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
+                <ng-template [ngIf]="node">
+            <li #dropPointBefore *ngIf="tree.droppableNodes" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"></li>
             <li *ngIf="!tree.horizontal" role="treeitem" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '']">
-                <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
-                    (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
-                    [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" tabIndex="0"
+                <div #nodeElement class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
+                    [draggable]="tree.draggableNodes" tabIndex="0"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" 
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()">
                     <span class="ui-tree-toggler pi pi-fw ui-unselectable-text" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
@@ -41,51 +39,11 @@ import { ObjectUtils } from '../utils/objectutils';
                         [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
                 </ul>
             </li>
-            <li *ngIf="tree.droppableNodes&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"
-            (drop)="onDropPoint($event,1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <table *ngIf="tree.horizontal" [class]="node.styleClass">
-                <tbody>
-                    <tr>
-                        <td class="ui-treenode-connector" *ngIf="!root">
-                            <table class="ui-treenode-connector-table">
-                                <tbody>
-                                    <tr>
-                                        <td [ngClass]="{'ui-treenode-connector-line':!firstChild}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td [ngClass]="{'ui-treenode-connector-line':!lastChild}"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="ui-treenode" [ngClass]="{'ui-treenode-collapsed':!node.expanded}">
-                            <div class="ui-treenode-content ui-state-default ui-corner-all"
-                                [ngClass]="{'ui-treenode-selectable':tree.selectionMode,'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
-                                (touchend)="onNodeTouchEnd()">
-                                <span class="ui-tree-toggler pi pi-fw ui-unselectable-text" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()"
-                                        (click)="toggle($event)"></span
-                                ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
-                                ><span class="ui-treenode-label ui-corner-all">
-                                        <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
-                                        <span *ngIf="tree.getTemplateForNode(node)">
-                                        <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
-                                        </span>
-                                </span>
-                            </div>
-                        </td>
-                        <td class="ui-treenode-children-container" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
-                            <div class="ui-treenode-children">
-                                <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; trackBy: tree.nodeTrackBy" [node]="childNode"
-                                        [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <li #dropPointAfter *ngIf="tree.droppableNodes&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"></li>
         </ng-template>
     `
 })
-export class UITreeNode implements OnInit {
+export class UITreeNode implements OnInit, AfterViewInit, OnDestroy {
 
     static ICON_CLASS: string = 'ui-treenode-icon ';
 
@@ -102,8 +60,14 @@ export class UITreeNode implements OnInit {
     @Input() lastChild: boolean;
 
     tree: Tree;
+    
+    @ViewChild("dropPointBefore") dropPointBefore: ElementRef;
 
-    constructor(@Inject(forwardRef(() => Tree)) tree) {
+    @ViewChild("dropPointAfter") dropPointAfter: ElementRef;
+
+    @ViewChild("nodeElement") nodeEl: ElementRef;
+
+    constructor(@Inject(forwardRef(() => Tree)) tree, public zone: NgZone) {
         this.tree = tree as Tree;
     }
 
@@ -112,12 +76,94 @@ export class UITreeNode implements OnInit {
     draghoverNext: boolean;
 
     draghoverNode: boolean
+    
+    onDropPointBeforeDrop = (event) => this.zone.run(() => this.onDropPoint(event, -1));
+
+    onDropPointBeforeDragOver = (event) => this.zone.run(() => this.onDropPointDragOver(event));
+
+    onDropPointBeforeDragEnter = (event) => this.zone.run(() => this.onDropPointDragEnter(event, -1));
+
+    onDropPointBeforeDragLeave = (event) => this.zone.run(() => this.onDropPointDragLeave(event));
+
+    onDropPointAfterDrop = (event) => this.zone.run(() => this.onDropPoint(event, 1));
+
+    onDropPointAfterDragOver = (event) => this.zone.run(() => this.onDropPointDragOver(event));
+
+    onDropPointAfterDragEnter = (event) => this.zone.run(() => this.onDropPointDragEnter(event, 1));
+
+    onDropPointAfterDragLeave = (event) => this.zone.run(() => this.onDropPointDragLeave(event));
+
+    onDrop = (event) => this.zone.run(() => this.onDropNode(event));
+
+    onDropDragOver = (event) => this.zone.run(() => this.onDropNodeDragOver(event));
+
+    onDropDragEnter = (event) => this.zone.run(() => this.onDropNodeDragEnter(event));
+
+    onDropDragLeave = (event) => this.zone.run(() => this.onDropNodeDragLeave(event));
+
+    onNodeDragStop = (event) => this.zone.run(() => this.onDragStop(event));
+
+    onNodeDragStart = (event) => this.zone.run(() => this.onDragStart(event));
 
     ngOnInit() {
         this.node.parent = this.parentNode;
 
         if (this.parentNode) {
             this.tree.syncNodeOption(this.node, this.tree.value, 'parent', this.tree.getNodeWithKey(this.parentNode.key, this.tree.value));
+        }
+    }
+    
+    ngAfterViewInit() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        this.zone.runOutsideAngular(() => {
+            if (this.tree.droppableNodes) {
+                this.dropPointBefore.nativeElement.addEventListener("drop", this.onDropPointBeforeDrop);
+                this.dropPointBefore.nativeElement.addEventListener("dragover", this.onDropPointBeforeDragOver);
+                this.dropPointBefore.nativeElement.addEventListener("dragenter", this.onDropPointBeforeDragEnter);
+                this.dropPointBefore.nativeElement.addEventListener("dragleave", this.onDropPointBeforeDragLeave);
+
+                this.nodeEl.nativeElement.addEventListener("drop", this.onDrop);
+                this.nodeEl.nativeElement.addEventListener("dragover", this.onDropDragOver);
+                this.nodeEl.nativeElement.addEventListener("dragenter", this.onDropDragEnter);
+                this.nodeEl.nativeElement.addEventListener("dragleave", this.onDropDragLeave);
+            }
+            if (this.tree.draggableNodes) {
+                this.nodeEl.nativeElement.addEventListener("dragend", this.onNodeDragStop);
+                this.nodeEl.nativeElement.addEventListener("dragstart", this.onNodeDragStart);
+            }
+            if (this.tree.droppableNodes && this.lastChild) {
+                this.dropPointAfter.nativeElement.addEventListener("drop", this.onDropPointAfterDrop);
+                this.dropPointAfter.nativeElement.addEventListener("dragover", this.onDropPointAfterDragOver);
+                this.dropPointAfter.nativeElement.addEventListener("dragenter", this.onDropPointAfterDragEnter);
+                this.dropPointAfter.nativeElement.addEventListener("dragleave", this.onDropPointAfterDragLeave);
+            }
+        });
+    }
+
+    unbindEvents() {
+        if (this.tree.droppableNodes) {
+            this.dropPointBefore.nativeElement.removeEventListener("drop", this.onDropPointBeforeDrop);
+            this.dropPointBefore.nativeElement.removeEventListener("dragover", this.onDropPointBeforeDragOver);
+            this.dropPointBefore.nativeElement.removeEventListener("dragenter", this.onDropPointBeforeDragEnter);
+            this.dropPointBefore.nativeElement.removeEventListener("dragleave", this.onDropPointBeforeDragLeave);
+
+            this.nodeEl.nativeElement.removeEventListener("drop", this.onDrop);
+            this.nodeEl.nativeElement.removeEventListener("dragover", this.onDropDragOver);
+            this.nodeEl.nativeElement.removeEventListener("dragenter", this.onDropDragEnter);
+            this.nodeEl.nativeElement.removeEventListener("dragleave", this.onDropDragLeave);
+        }
+        if (this.tree.draggableNodes) {
+            this.nodeEl.nativeElement.removeEventListener("dragend", this.onNodeDragStop);
+            this.nodeEl.nativeElement.removeEventListener("dragstart", this.onNodeDragStart);
+        }
+        if (this.tree.droppableNodes && this.lastChild) {
+            this.dropPointAfter.nativeElement.removeEventListener("drop", this.onDropPointAfterDrop);
+            this.dropPointAfter.nativeElement.removeEventListener("dragover", this.onDropPointAfterDragOver);
+            this.dropPointAfter.nativeElement.removeEventListener("dragenter", this.onDropPointAfterDragEnter);
+            this.dropPointAfter.nativeElement.removeEventListener("dragleave", this.onDropPointAfterDragLeave);
         }
     }
 
