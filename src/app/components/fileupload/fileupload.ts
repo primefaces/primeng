@@ -1,65 +1,67 @@
-import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
-            ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ButtonModule} from '../button/button';
-import {MessagesModule} from '../messages/messages';
-import {ProgressBarModule} from '../progressbar/progressbar';
-import {DomHandler} from '../dom/domhandler';
-import {Message} from '../common/message';
-import {PrimeTemplate,SharedModule} from '../common/shared';
-import {BlockableUI} from '../common/blockableui';
-import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
+import {
+    NgModule, Component, OnDestroy, Input, Output, EventEmitter, TemplateRef, AfterViewInit, AfterContentInit,
+    ContentChildren, QueryList, ViewChild, ElementRef, NgZone
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ButtonModule } from '../button/button';
+import { MessagesModule } from '../messages/messages';
+import { ProgressBarModule } from '../progressbar/progressbar';
+import { DomHandler } from '../dom/domhandler';
+import { Message } from '../common/message';
+import { PrimeTemplate, SharedModule } from '../common/shared';
+import { BlockableUI } from '../common/blockableui';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from "@angular/common/http";
 
 @Component({
     selector: 'p-fileUpload',
     template: `
-        <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
-            <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
-                </span>
+<div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
+    <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
+        <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
+            <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
+        </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (click)="upload()" [disabled]="!hasFiles()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (click)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+        <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (click)="upload()" [disabled]="!hasFiles()"></p-button>
+        <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (click)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
 
-                <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
-            </div>
-            <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}"
-                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-                <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
+        <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
+    </div>
+    <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}"
+         (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+        <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
 
-                <p-messages [value]="msgs" [enableService]="false"></p-messages>
+        <p-messages [value]="msgs" [enableService]="false"></p-messages>
 
-                <div class="ui-fileupload-files" *ngIf="hasFiles()">
-                    <div *ngIf="!fileTemplate">
-                        <div class="ui-fileupload-row" *ngFor="let file of files; let i = index;">
-                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
-                            <div>{{file.name}}</div>
-                            <div>{{formatSize(file.size)}}</div>
-                            <div>
-                                <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="fileTemplate">
-                        <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
+        <div class="ui-fileupload-files" *ngIf="hasFiles()">
+            <div *ngIf="!fileTemplate">
+                <div class="ui-fileupload-row" *ngFor="let file of files; let i = index;">
+                    <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
+                    <div>{{file.name}}</div>
+                    <div>{{formatSize(file.size)}}</div>
+                    <div>
+                        <button type="button" icon="pi pi-times" pButton (click)="remove($event,i)" [disabled]="uploading"></button>
                     </div>
                 </div>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+            </div>
+            <div *ngIf="fileTemplate">
+                <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
             </div>
         </div>
-        <span *ngIf="mode === 'basic'" [ngClass]="{'ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left': true, 
-                'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus, 'ui-state-disabled':disabled}"
-              [ngStyle]="style" [class]="styleClass" (mouseup)="onSimpleUploaderClick($event)">
-            <span class="ui-button-icon-left pi" [ngClass]="{'pi-plus': !hasFiles()||auto, 'pi-upload': hasFiles()&&!auto}"></span>
-            <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
-            <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
-                   (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
-        </span>
-    `
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+</div>
+<span *ngIf="mode === 'basic'" [ngClass]="{'ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left': true, 
+        'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus, 'ui-state-disabled':disabled}"
+      [ngStyle]="style" [class]="styleClass" (mouseup)="onSimpleUploaderClick($event)">
+    <span class="ui-button-icon-left pi" [ngClass]="{'pi-plus': !hasFiles()||auto, 'pi-upload': hasFiles()&&!auto}"></span>
+    <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
+    <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
+           (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
+</span>
+`
 })
-export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
+export class FileUpload implements AfterViewInit, AfterContentInit, OnDestroy, BlockableUI {
 
     @Input() name: string;
 
@@ -106,8 +108,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     @Input() mode: string = 'advanced';
 
     @Input() headers: HttpHeaders;
-    
+
     @Input() customUpload: boolean;
+
+    @Input() fileLimit: number = null;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
@@ -155,32 +159,32 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
-    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient){}
+    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'file':
                     this.fileTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.fileTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
 
     ngAfterViewInit() {
-        if(this.mode === 'advanced') {
+        if (this.mode === 'advanced') {
             this.zone.runOutsideAngular(() => {
                 if (this.content)
                     this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
@@ -189,47 +193,51 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     onFileSelect(event) {
-        if(event.type !== 'drop' && this.isIE11() && this.duplicateIEEvent) {
+        if (event.type !== 'drop' && this.isIE11() && this.duplicateIEEvent) {
             this.duplicateIEEvent = false;
             return;
         }
 
         this.msgs = [];
-        if(!this.multiple) {
+        if (!this.multiple) {
             this.files = [];
         }
 
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-        for(let i = 0; i < files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
             let file = files[i];
 
-            if(!this.isFileSelected(file)){
-              if(this.validate(file)) {
-                  if(this.isImage(file)) {
-                      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-                  }
-
-                  this.files.push(files[i]);
-              }
+            if (!this.isFileSelected(file)) {
+                if (this.validate(file)) {
+                    if (this.isImage(file)) {
+                        file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                    }
+                    
+                    if (this.fileLimit == null || this.fileLimit <= 0) {
+                        this.files.push(files[i]);
+                    } else if (this.files.length < this.fileLimit) {
+                        this.files.push(files[i]);
+                    }
+                }
             }
         }
 
-        this.onSelect.emit({originalEvent: event, files: files});
+        this.onSelect.emit({ originalEvent: event, files: files });
 
-        if(this.hasFiles() && this.auto) {
+        if (this.hasFiles() && this.auto) {
             this.upload();
         }
 
         if (event.type !== 'drop' && this.isIE11()) {
-          this.clearIEInput();
+            this.clearIEInput();
         } else {
-          this.clearInputElement();
+            this.clearInputElement();
         }
     }
 
-    isFileSelected(file: File): boolean{
-        for(let sFile of this.files){
-            if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size)) {
+    isFileSelected(file: File): boolean {
+        for (let sFile of this.files) {
+            if ((sFile.name + sFile.type + sFile.size) === (file.name + file.type + file.size)) {
                 return true;
             }
         }
@@ -242,7 +250,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     validate(file: File): boolean {
-        if(this.accept && !this.isFileTypeValid(file)) {
+        if (this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
@@ -251,7 +259,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             return false;
         }
 
-        if(this.maxFileSize  && file.size > this.maxFileSize) {
+        if (this.maxFileSize && file.size > this.maxFileSize) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name),
@@ -265,11 +273,11 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     private isFileTypeValid(file: File): boolean {
         let acceptableTypes = this.accept.split(',').map(type => type.trim());
-        for(let type of acceptableTypes) {
+        for (let type of acceptableTypes) {
             let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type)
-                                                    : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
+                : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
 
-            if(acceptable) {
+            if (acceptable) {
                 return true;
             }
         }
@@ -298,7 +306,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     upload() {
-        if(this.customUpload) {
+        if (this.customUpload) {
             this.uploadHandler.emit({
                 files: this.files
             });
@@ -318,39 +326,39 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
             this.http.post(this.url, formData, {
                 headers: this.headers, reportProgress: true, observe: 'events', withCredentials: this.withCredentials
-            }).subscribe( (event: HttpEvent<any>) => {
-                    switch (event.type) {
-                        case HttpEventType.Sent:
-                            this.onSend.emit({
-                                originalEvent: event,
-                                'formData': formData
-                            });
-                            break;
-                        case HttpEventType.Response:
-                            this.uploading = false;
-                            this.progress = 0;
+            }).subscribe((event: HttpEvent<any>) => {
+                switch (event.type) {
+                    case HttpEventType.Sent:
+                        this.onSend.emit({
+                            originalEvent: event,
+                            'formData': formData
+                        });
+                        break;
+                    case HttpEventType.Response:
+                        this.uploading = false;
+                        this.progress = 0;
 
-                            if (event['status'] >= 200 && event['status'] < 300) {
-                                this.onUpload.emit({originalEvent: event, files: this.files});
-                            } else {
-                                this.onError.emit({files: this.files});
-                            }
-
-                            this.clear();
-                            break;
-                        case HttpEventType.UploadProgress: {
-                            if (event['loaded']) {
-                                this.progress = Math.round((event['loaded'] * 100) / event['total']);
-                            }
-
-                            this.onProgress.emit({originalEvent: event, progress: this.progress});
-                            break;
+                        if (event['status'] >= 200 && event['status'] < 300) {
+                            this.onUpload.emit({ originalEvent: event, files: this.files });
+                        } else {
+                            this.onError.emit({ files: this.files });
                         }
+
+                        this.clear();
+                        break;
+                    case HttpEventType.UploadProgress: {
+                        if (event['loaded']) {
+                            this.progress = Math.round((event['loaded'] * 100) / event['total']);
+                        }
+
+                        this.onProgress.emit({ originalEvent: event, progress: this.progress });
+                        break;
                     }
-                },
+                }
+            },
                 error => {
                     this.uploading = false;
-                    this.onError.emit({files: this.files, error: error});
+                    this.onError.emit({ files: this.files, error: error });
                 });
         }
     }
@@ -363,7 +371,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     remove(event: Event, index: number) {
         this.clearInputElement();
-        this.onRemove.emit({originalEvent: event, file: this.files[index]});
+        this.onRemove.emit({ originalEvent: event, file: this.files[index] });
         this.files.splice(index, 1);
     }
 
@@ -389,14 +397,14 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     onDragEnter(e) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             e.stopPropagation();
             e.preventDefault();
         }
     }
 
     onDragOver(e) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             DomHandler.addClass(this.content.nativeElement, 'ui-fileupload-highlight');
             this.dragHighlight = true;
             e.stopPropagation();
@@ -405,21 +413,21 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     onDragLeave(event) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             DomHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
         }
     }
 
     onDrop(event) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             DomHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
             event.stopPropagation();
             event.preventDefault();
 
             let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-            let allowDrop = this.multiple||(files && files.length === 1);
+            let allowDrop = this.multiple || (files && files.length === 1);
 
-            if(allowDrop) {
+            if (allowDrop) {
                 this.onFileSelect(event);
             }
         }
@@ -434,37 +442,37 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     formatSize(bytes) {
-        if(bytes == 0) {
+        if (bytes == 0) {
             return '0 B';
         }
         let k = 1000,
-        dm = 3,
-        sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
+            dm = 3,
+            sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
 
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 
     onSimpleUploaderClick(event: Event) {
-        if(this.hasFiles()) {
+        if (this.hasFiles()) {
             this.upload();
         }
     }
 
-    getBlockableElement(): HTMLElement {
-      return this.el.nativeElement.children[0];
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 
     ngOnDestroy() {
-        if(this.content && this.content.nativeElement) {
+        if (this.content && this.content.nativeElement) {
             this.content.nativeElement.removeEventListener('dragover', this.onDragOver);
         }
     }
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ButtonModule,ProgressBarModule,MessagesModule],
-    exports: [FileUpload,SharedModule,ButtonModule,ProgressBarModule,MessagesModule],
+    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
+    exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })
 export class FileUploadModule { }
