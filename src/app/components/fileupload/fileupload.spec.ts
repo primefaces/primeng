@@ -302,4 +302,35 @@ describe('FileUpload', () => {
       expect((fileupload as any).isFileTypeValid(mockFile1)).toBe(false)
       expect((fileupload as any).isFileTypeValid(mockFile2)).toBe(true);
     });
+
+    it('should limit the number of files that can be selected via onFileSelect ', () => {
+        fixture.detectChanges();
+
+        let event;
+        event = {
+            'target':{files: [{
+                'lastModified':1533276674178,
+                'name': 'primeng.txt',
+                'size': 179,
+                'type': "text/plain"
+            },
+            {
+                'lastModified':1533276674178,
+                'name': 'test.txt',
+                'size': 179,
+                'type': "text/plain"
+            },
+            {
+                'lastModified':1533276674178,
+                'name': 'primeng.txt',
+                'size': 179,
+                'type': "text/plain"
+            }
+        ]}
+        };
+
+        fileUpload.fileLimit = 2;
+        fileupload.onFileSelect(event);
+        expect(FileUpload.files.length).toBe(fileupload.fileLimit);
+    });
 });
