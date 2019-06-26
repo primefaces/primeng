@@ -468,6 +468,14 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnDestroy, B
             this.content.nativeElement.removeEventListener('dragover', this.onDragOver);
         }
     }
+
+    getFileLimit() {
+        return this.fileLimit;
+    }
+
+    setFileLimit(fileLimit: number) {
+        this.fileLimit = fileLimit;
+    }
 }
 
 @NgModule({
