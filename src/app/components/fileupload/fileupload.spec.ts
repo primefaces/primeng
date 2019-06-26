@@ -9,7 +9,6 @@ import { MessagesModule } from '../messages/messages';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('FileUpload', () => {
-
     let fileupload: FileUpload;
     let fixture: ComponentFixture<FileUpload>;
 
@@ -304,8 +303,6 @@ describe('FileUpload', () => {
     });
 
     it('should limit the number of files that can be selected via onFileSelect ', () => {
-        fixture.detectChanges();
-
         let event;
         event = {
             'target':{files: [{
@@ -329,8 +326,8 @@ describe('FileUpload', () => {
         ]}
         };
 
-        fileUpload.fileLimit = 2;
+        fileupload.setFileLimit(2);
         fileupload.onFileSelect(event);
-        expect(FileUpload.files.length).toBe(fileupload.fileLimit);
+        expect(fileupload.files.length).toBe(fileupload.getFileLimit());
     });
 });
