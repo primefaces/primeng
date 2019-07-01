@@ -195,7 +195,7 @@ export class KeyFilter implements Validator {
     onPaste(e) {
         const clipboardData = e.clipboardData || (<any>window).clipboardData.getData('text');
         if (clipboardData) {
-            const pastedText = clipboardData;
+            const pastedText = clipboardData.getData('text');
             if (!this.regex.test(pastedText)) {
                 e.preventDefault();
             }
