@@ -1,15 +1,15 @@
 import {Component} from '@angular/core';
-import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './tabviewdemo.html'
+    templateUrl: './tabviewdemo.html',
+    providers: [MessageService]
 })
 export class TabViewDemo {
-
-    msgs: Message[];
+    
+    constructor(private messageService: MessageService) {}
     
     onTabChange(event) {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
+        this.messageService.add({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
     }
 }

@@ -1,13 +1,12 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
-declare var Chart: any;
+import * as Chart from 'chart.js';
 
 @Component({
     selector: 'p-chart',
     template: `
-        <div style="position:relative" [style.width]="width" [style.height]="height">
-            <canvas (click)="onCanvasClick($event)"></canvas>
+        <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
+            <canvas [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
         </div>
     `
 })
@@ -15,11 +14,15 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     @Input() type: string;
 
-    @Input() options: any;
+    @Input() options: any = {};
+
+    @Input() plugins: any[] = [];
     
     @Input() width: string;
     
     @Input() height: string;
+
+    @Input() responsive: boolean = true;
     
     @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
 
@@ -56,10 +59,19 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     initChart() {
+        let opts = this.options||{};
+        opts.responsive = this.responsive;
+
+        // allows chart to resize in responsive mode
+        if (opts.responsive&&(this.height||this.width)) {
+            opts.maintainAspectRatio = false;
+        }
+
         this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
             type: this.type,
             data: this.data,
-            options: this.options
+            options: this.options,
+            plugins: this.plugins
         });
     }
     
@@ -73,7 +85,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     
     generateLegend() {
         if(this.chart) {
-            this.chart.generateLegend();
+            return this.chart.generateLegend();
         }
     }
     

@@ -1,15 +1,15 @@
 import {Component} from '@angular/core';
-import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './captchademo.html'
+    templateUrl: './captchademo.html',
+    providers: [MessageService]
 })
 export class CaptchaDemo {
     
-    msgs: Message[] = [];
+    constructor(private messageService: MessageService) {}
     
     showResponse(event) {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail: 'User Responsed'});
+        this.messageService.add({severity:'info', summary:'Success', detail: 'User Responsed',sticky: true});
     }
 }

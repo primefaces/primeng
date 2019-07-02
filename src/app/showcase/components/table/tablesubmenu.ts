@@ -18,13 +18,15 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/table/rowexpansion']">&#9679; RowExpand</a></li>
                 <li><a [routerLink]="['/table/rowgroup']">&#9679; RowGroup</a></li>
                 <li><a [routerLink]="['/table/colresize']">&#9679; Resize</a></li>
-                <li><a [routerLink]="['/table/colreorder']">&#9679; Reorder</a></li>
+                <li><a [routerLink]="['/table/reorder']">&#9679; Reorder</a></li>
                 <li><a [routerLink]="['/table/coltoggle']">&#9679; Toggle</a></li>
                 <li><a [routerLink]="['/table/style']">&#9679; Style</a></li>
                 <li><a [routerLink]="['/table/export']">&#9679; Export</a></li>
                 <li><a [routerLink]="['/table/contextmenu']">&#9679; ContextMenu</a></li>
                 <li><a [routerLink]="['/table/responsive']">&#9679; Responsive</a></li>
                 <li><a [routerLink]="['/table/crud']">&#9679; Crud</a></li>
+                <li><a [routerLink]="['/table/state']">&#9679; State</a></li>
+                <li><a [routerLink]="['/table/sticky']">&#9679; Sticky</a></li>
             </ul>
         </div>
     `

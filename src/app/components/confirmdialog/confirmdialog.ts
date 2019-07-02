@@ -1,26 +1,26 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,AfterViewChecked,EventEmitter,Renderer2,ContentChild,NgZone} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild} from '@angular/core';
+import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Header,Footer,SharedModule} from '../common/shared';
+import {Footer,SharedModule} from '../common/shared';
 import {ButtonModule} from '../button/button';
 import {Confirmation} from '../common/confirmation';
 import {ConfirmationService} from '../common/confirmationservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-confirmDialog',
     template: `
-        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" 
-            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
+        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
+            [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
-                    <span class="fa fa-fw fa-close"></span>
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
+                    <span class="pi pi-fw pi-times"></span>
                 </a>
             </div>
-            <div class="ui-dialog-content ui-widget-content">
-                <i [ngClass]="'fa'" [class]="icon" *ngIf="icon"></i>
+            <div #content class="ui-dialog-content ui-widget-content">
+                <i [ngClass]="'ui-confirmdialog-icon'" [class]="icon" *ngIf="icon"></i>
                 <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
             </div>
             <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
@@ -33,34 +33,40 @@ import {Subscription}   from 'rxjs/Subscription';
         </div>
     `,
     animations: [
-        trigger('dialogState', [
-            state('hidden', style({
+        trigger('animation', [
+            state('void', style({
+                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
+                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(1)',
                 opacity: 1
             })),
-            transition('visible => hidden', animate('400ms ease-in')),
-            transition('hidden => visible', animate('400ms ease-out'))
+            transition('* => *', animate('{{transitionParams}}'))
         ])
-    ],
-    providers: [DomHandler]
+    ]
 })
-export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class ConfirmDialog implements OnDestroy {
     
+    @Input() visible: boolean;
+
     @Input() header: string;
     
     @Input() icon: string;
     
     @Input() message: string;
+
+    @Input() style: any;
     
-    @Input() acceptIcon: string = 'fa-check';
+    @Input() styleClass: string;
+    
+    @Input() acceptIcon: string = 'pi pi-check';
     
     @Input() acceptLabel: string = 'Yes';
     
     @Input() acceptVisible: boolean = true;
 
-    @Input() rejectIcon: string = 'fa-close';
+    @Input() rejectIcon: string = 'pi pi-times';
     
     @Input() rejectLabel: string = 'No';
     
@@ -69,151 +75,171 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() acceptButtonStyleClass: string;
     
     @Input() rejectButtonStyleClass: string;
-        
-    @Input() width: any;
 
-    @Input() height: any;
-    
     @Input() closeOnEscape: boolean = true;
+
+    @Input() blockScroll: boolean = true;
 
     @Input() rtl: boolean;
 
     @Input() closable: boolean = true;
-
-    @Input() responsive: boolean = true;
     
     @Input() appendTo: any;
     
     @Input() key: string;
-        
-    @ContentChild(Footer) footer;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
+    
+    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+
+    @ContentChild(Footer, { static: false }) footer;
+
+    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
     
     confirmation: Confirmation;
         
     _visible: boolean;
     
     documentEscapeListener: any;
-    
-    documentResponsiveListener: any;
-    
-    mask: any;
         
-    contentContainer: any;
-    
-    positionInitialized: boolean;
-    
+    mask: any;
+
+    container: HTMLDivElement;
+        
+    contentContainer: HTMLDivElement;
+      
     subscription: Subscription;
-    
-    executePostShowActions: boolean;
-            
-    constructor(public el: ElementRef, public domHandler: DomHandler, 
-            public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
-        this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
-            if(confirmation.key === this.key) {
+
+    preWidth: number;
+
+    _width: any;
+
+    _height: any;
+                
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
+        this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
+            if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
                 this.message = this.confirmation.message||this.message;
                 this.icon = this.confirmation.icon||this.icon;
                 this.header = this.confirmation.header||this.header;
                 this.rejectVisible = this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible;
                 this.acceptVisible = this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible;
-                
-                if(this.confirmation.accept) {
+                this.acceptLabel = this.confirmation.acceptLabel||this.acceptLabel;
+                this.rejectLabel = this.confirmation.rejectLabel||this.rejectLabel;
+
+                if (this.confirmation.accept) {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
                 
-                if(this.confirmation.reject) {
+                if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
+                }
+
+                if (this.confirmation.blockScroll === false) {
+                    this.blockScroll = this.confirmation.blockScroll;
                 }
 
                 this.visible = true;
             }
         });         
     }
-    
-    @Input() get visible(): boolean {
-        return this._visible;
+
+    @Input() get width(): any {
+        return this._width;
     }
 
-    set visible(val:boolean) {
-        this._visible = val;
-        
-        if(this._visible) {      
-            if(!this.positionInitialized) {
-                this.center();
-                this.positionInitialized = true;
-            }
-            
-            this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
-            this.bindGlobalListeners();
-            this.executePostShowActions = true;
-        } 
-        
-        if(this._visible)
-            this.enableModality();
-        else
-            this.disableModality();
+    set width(val:any) {
+        this._width = val;
+        console.warn("width property is deprecated, use style to define the width of the Dialog.");
     }
-    
-    ngAfterViewInit() {
-        this.contentContainer = this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog-content');
-        
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
-                document.body.appendChild(this.el.nativeElement);
+
+    @Input() get height(): any {
+        return this._height;
+    }
+
+    set height(val:any) {
+        this._height = val;
+        console.warn("height property is deprecated, use style to define the height of the Dialog.");
+    }
+
+    onAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                this.container = event.element;
+                this.setDimensions();
+                this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
+                DomHandler.findSingle(this.container, 'button').focus();
+                this.appendContainer();
+                this.moveOnTop();
+                this.bindGlobalListeners();
+                this.enableModality();
+            break;
+
+            case 'void':
+                this.onOverlayHide();
+            break;
+        }
+    }
+
+    setDimensions() {
+        if (this.width) {
+            this.container.style.width = this.width + 'px';
+        }
+
+        if (this.height) {
+            this.container.style.height = this.height + 'px';
+        }
+    }
+
+    appendContainer() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.container);
             else
-                this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
+                DomHandler.appendChild(this.container, this.appendTo);
         }
     }
-    
-    ngAfterViewChecked() {
-        if(this.executePostShowActions) {
-            this.domHandler.findSingle(this.el.nativeElement.children[0], 'button').focus();
-            this.executePostShowActions = false;
+
+    restoreAppend() {
+        if (this.container && this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
         }
     }
         
-    center() {
-        let container = this.el.nativeElement.children[0];
-        let elementWidth = this.domHandler.getOuterWidth(container);
-        let elementHeight = this.domHandler.getOuterHeight(container);
-        if(elementWidth == 0 && elementHeight == 0) {
-            container.style.visibility = 'hidden';
-            container.style.display = 'block';
-            elementWidth = this.domHandler.getOuterWidth(container);
-            elementHeight = this.domHandler.getOuterHeight(container);
-            container.style.display = 'none';
-            container.style.visibility = 'visible';
-        }
-        let viewport = this.domHandler.getViewport();
-        let x = (viewport.width - elementWidth) / 2;
-        let y = (viewport.height - elementHeight) / 2;
-
-        container.style.left = x + 'px';
-        container.style.top = y + 'px';
-    }
-    
     enableModality() {
-        if(!this.mask) {
+        if (!this.mask) {
             this.mask = document.createElement('div');
-            this.mask.style.zIndex = this.el.nativeElement.children[0].style.zIndex - 1;
-            this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+            this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
+            DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
             document.body.appendChild(this.mask);
-            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+            DomHandler.addClass(document.body, 'ui-overflow-hidden');
+
+            if(this.blockScroll) {
+                DomHandler.addClass(document.body, 'ui-overflow-hidden');
+            }
         }
     }
     
     disableModality() {
-        if(this.mask) {
+        if (this.mask) {
             document.body.removeChild(this.mask);
-            this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+
+            if(this.blockScroll) {            
+                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+            }
+            
             this.mask = null;
         }
     }
     
     close(event: Event) {
-        if(this.confirmation.rejectEvent) {
+        if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
         
@@ -223,64 +249,47 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     hide() {
         this.visible = false;
-        this.unbindGlobalListeners();
     }
     
     moveOnTop() {
-        this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+        if (this.autoZIndex) {
+            this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
     }
     
     bindGlobalListeners() {
-        if(this.closeOnEscape && this.closable && !this.documentEscapeListener) {
+        if (this.closeOnEscape && this.closable && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
-                if(event.which == 27) {
-                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex && this.visible) {
+                if (event.which == 27) {
+                    if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
                     }
                 }
             });
         }
-        
-        if(this.responsive) {
-            this.zone.runOutsideAngular(() => {
-                this.documentResponsiveListener = this.center.bind(this);
-                window.addEventListener('resize', this.documentResponsiveListener);
-            });
-        }
     }
     
     unbindGlobalListeners() {
-        if(this.documentEscapeListener) {
+        if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
-        
-        if(this.documentResponsiveListener) {
-            window.removeEventListener('resize', this.documentResponsiveListener);
-            this.documentResponsiveListener = null;
-        }
+    }
+
+    onOverlayHide() {
+        this.disableModality();
+        this.unbindGlobalListeners();
+        this.container = null;
     }
                 
     ngOnDestroy() {
-        this.disableModality();
-                        
-        if(this.documentResponsiveListener) {
-            this.documentResponsiveListener();
-        }
-        
-        if(this.documentEscapeListener) {
-            this.documentEscapeListener();
-        }
-        
-        if(this.appendTo && this.appendTo === 'body') {
-            document.body.removeChild(this.el.nativeElement);
-        }
-        
+        this.restoreAppend();
+        this.onOverlayHide();
         this.subscription.unsubscribe();
     }
     
     accept() {
-        if(this.confirmation.acceptEvent) {
+        if (this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
         
@@ -289,7 +298,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     reject() {
-        if(this.confirmation.rejectEvent) {
+        if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
         

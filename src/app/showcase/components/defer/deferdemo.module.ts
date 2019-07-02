@@ -3,8 +3,8 @@ import {CommonModule} from '@angular/common';
 import {DeferDemo} from './deferdemo';
 import {DeferDemoRoutingModule} from './deferdemo-routing.module';
 import {DeferModule} from '../../../components/defer/defer';
-import {DataTableModule} from '../../../components/datatable/datatable';
-import {GrowlModule} from '../../../components/growl/growl';
+import {TableModule} from '../../../components/table/table';
+import {ToastModule} from '../../../components/toast/toast';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -13,9 +13,9 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		CommonModule,
 		DeferDemoRoutingModule,
         DeferModule,
-        GrowlModule,
+        ToastModule,
         TabViewModule,
-        DataTableModule,
+        TableModule,
         CodeHighlighterModule
 	],
 	declarations: [

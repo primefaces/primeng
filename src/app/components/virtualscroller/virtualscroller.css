@@ -1,0 +1,17 @@
+.ui-virtualscroller .ui-virtualscroller-header {
+    text-align: center;
+	padding: .5em .75em;
+    border-bottom: 0 none;
+}
+
+.ui-virtualscroller .ui-virtualscroller-footer {
+    text-align: center;
+    padding: .25em .625em;
+    border-top: 0px none;
+}
+
+.ui-virtualscroller .ui-virtualscroller-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

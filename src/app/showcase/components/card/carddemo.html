@@ -6,22 +6,22 @@
 </div>
 
 <div class="content-section implementation">
-    <p-card title="Simple Card" [style]="{width: '360px'}">
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+    <p-card header="Simple Card" [style]="{width: '360px'}">
+        <div style="line-height:1.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
     </p-card>
 
     <br><br>
 
-    <p-card title="Advanced Card" subtitle="Subtitle" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+    <p-card header="Advanced Card" subheader="Subheader" [style]="{width: '360px'}" styleClass="ui-card-shadow">
         <p-header>
             <img src="Card" src="assets/showcase/images/usercard.png">
         </p-header>
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+        <div style="line-height:1.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
         <p-footer>
-            <button pButton type="button" label="Save" icon="fa-check"></button>
-            <button pButton type="button" label="Cancel" icon="fa-close" class="ui-button-secondary"></button>
+            <button pButton type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
         </p-footer>
     </p-card>
 </div>
@@ -45,11 +45,11 @@ import &#123;CardModule&#125; from 'primeng/card';
 &lt;/p-card&gt;
 </code>
 </pre>
-            <h3>Title</h3>
-            <p>Title text of the card is provided using the <strong>title</strong> property, optionally <strong>subtitle</strong> property is available for additional information about the card.</p>
+            <h3>Header</h3>
+            <p>Header text of the card is provided using the <strong>header</strong> property, optionally <strong>subheader</strong> property is available for additional information about the card.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-card title="Title"&gt;
+&lt;p-card header="header"&gt;
     Content
 &lt;/p-card&gt;
 </code>
@@ -84,13 +84,13 @@ import &#123;CardModule&#125; from 'primeng/card';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>title</td>
+                            <td>header</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Title of the card.</td>
                         </tr>
                         <tr>
-                            <td>subtitle</td>
+                            <td>subheader</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Secondary title of the card.</td>
@@ -127,11 +127,11 @@ import &#123;CardModule&#125; from 'primeng/card';
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-card-title</td>
+                            <td>ui-card-header</td>
                             <td>Title element.</td>
                         </tr>
                         <tr>
-                            <td>ui-card-subtitle</td>
+                            <td>ui-card-subheader</td>
                             <td>Subtitle element.</td>
                         </tr>
                         <tr>
@@ -158,7 +158,7 @@ import &#123;CardModule&#125; from 'primeng/card';
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-card title="Simple Card" [style]="&#123;width: '360px'&#125;"&gt;
+&lt;p-card header="Simple Card" [style]="&#123;width: '360px'&#125;"&gt;
     &lt;div&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/div&gt;
 &lt;/p-card&gt;
@@ -166,15 +166,15 @@ import &#123;CardModule&#125; from 'primeng/card';
 &lt;br&gt;
 &lt;br&gt;
 
-&lt;p-card title="Advanced Card" subtitle="Subtitle" [style]="&#123;width: '360px'&#125;" styleClass="ui-card-shadow"&gt;
+&lt;p-card header="Advanced Card" subheader="Subheader" [style]="&#123;width: '360px'&#125;" styleClass="ui-card-shadow"&gt;
     &lt;p-header&gt;
         &lt;img src="Card" src="assets/showcase/images/usercard.png"&gt;
     &lt;/p-header&gt;
     &lt;div&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
         quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!&lt;/div&gt;
     &lt;p-footer&gt;
-        &lt;button pButton type="button" label="Save" icon="fa-check"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Cancel" icon="fa-close" class="ui-button-secondary"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"&gt;&lt;/button&gt;
     &lt;/p-footer&gt;
 &lt;/p-card&gt;
 </code>

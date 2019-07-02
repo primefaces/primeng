@@ -83,6 +83,26 @@
     margin-left: 1px;
 }
 
+.ui-tree .ui-tree-filter {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 1.5em;
+}
+
+.ui-tree .ui-tree-filter-container {
+    position: relative;
+    margin: 0;
+    padding: 0.4em;
+    display: inline-block;
+    width: 100%;
+}
+
+.ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+    position: absolute;
+    top: .8em;
+    right: 1em;
+}
+
 /** Fluid **/
 .ui-fluid .ui-tree {
     width: 100%;
@@ -184,3 +204,7 @@
     margin-top: -1em;
     margin-left: -1em;
 }
+
+.ui-tree .ui-tree-loading-content .ui-tree-loading-icon {
+    font-size: 2em;
+} 

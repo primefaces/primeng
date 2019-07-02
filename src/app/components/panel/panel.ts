@@ -10,15 +10,16 @@ let idx: number = 0;
     selector: 'p-panel',
     template: `
         <div [attr.id]="id" [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="showHeader">
+            <div [ngClass]="{'ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all': true, 'ui-panel-titlebar-clickable': (toggleable && toggler === 'header')}" 
+                *ngIf="showHeader" (click)="onHeaderClick($event)">
                 <span class="ui-panel-title" *ngIf="header">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
-                <a *ngIf="toggleable" [attr.id]="id + '-label'" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
-                    (click)="toggle($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
-                    <span [class]="collapsed ? 'fa fa-fw ' + expandIcon : 'fa fa-fw ' + collapseIcon"></span>
+                <a *ngIf="toggleable" [attr.id]="id + '-label'" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" tabindex="0"
+                    (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
+                    <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                 </a>
             </div>
-            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
+            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions}} : {value: 'visible', params: {transitionParams: transitionOptions}}" (@panelContent.done)="onToggleDone($event)"
                 [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}"
                 role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-label'">
                 <div class="ui-panel-content ui-widget-content">
@@ -34,12 +35,14 @@ let idx: number = 0;
     animations: [
         trigger('panelContent', [
             state('hidden', style({
-                height: '0'
+                height: '0',
+                opacity: 0
             })),
             state('visible', style({
-                height: '*'
+                height: '*',
+                opacity: 1
             })),
-            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible <=> hidden', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -55,11 +58,13 @@ export class Panel implements BlockableUI {
     
     @Input() styleClass: string;
     
-    @Input() expandIcon: string = 'fa-plus';
+    @Input() expandIcon: string = 'pi pi-plus';
     
-    @Input() collapseIcon: string = 'fa-minus';
+    @Input() collapseIcon: string = 'pi pi-minus';
   
     @Input() showHeader: boolean = true;
+
+    @Input() toggler: string = "icon";
     
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
@@ -67,15 +72,29 @@ export class Panel implements BlockableUI {
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Footer) footerFacet;
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
+    @ContentChild(Footer, { static: false }) footerFacet;
     
     animating: boolean;
     
     id: string = `ui-panel-${idx++}`;
     
     constructor(private el: ElementRef) {}
+
+    onHeaderClick(event: Event) {
+        if (this.toggler === 'header') {
+            this.toggle(event);
+        }
+    }
+
+    onIconClick(event: Event) {
+        if (this.toggler === 'icon') {
+            this.toggle(event);
+        }
+    }
     
-    toggle(event) {
+    toggle(event: Event) {
         if(this.animating) {
             return false;
         }

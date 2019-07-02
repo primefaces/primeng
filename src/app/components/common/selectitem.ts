@@ -4,4 +4,5 @@ export interface SelectItem {
     styleClass?: string;
     icon?: string;
     title?: string;
+    disabled?: boolean;
 }

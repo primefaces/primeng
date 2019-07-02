@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,ElementRef,Input,Output,SimpleChange,EventEmitter,TemplateRef} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from '../dropdown/dropdown';
@@ -13,28 +13,29 @@ import {SharedModule} from '../common/shared';
             <div class="ui-paginator-left-content" *ngIf="templateLeft">
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>
-            <a href="#" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
-                <span class="fa fa-step-backward"></span>
+            <span class="ui-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
+            <a [attr.tabindex]="isFirstPage() ? null : '0'" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToFirst($event)" (keydown.enter)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
+                <span class="ui-paginator-icon pi pi-step-backward"></span>
             </a>
-            <a href="#" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
-                <span class="fa fa-backward"></span>
+            <a tabindex="0" [attr.tabindex]="isFirstPage() ? null : '0'" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToPrev($event)" (keydown.enter)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
+                <span class="ui-paginator-icon pi pi-caret-left"></span>
             </a>
             <span class="ui-paginator-pages">
-                <a href="#" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="onPageLinkClick($event, pageLink - 1)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
+                <a tabindex="0" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="onPageLinkClick($event, pageLink - 1)" (keydown.enter)="onPageLinkClick($event, pageLink - 1)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
-            <a href="#" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
-                <span class="fa fa-forward"></span>
+            <a [attr.tabindex]="isLastPage() ? null : '0'" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToNext($event)" (keydown.enter)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
+                <span class="ui-paginator-icon pi pi-caret-right"></span>
             </a>
-            <a href="#" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
-                <span class="fa fa-step-forward"></span>
+            <a [attr.tabindex]="isLastPage() ? null : '0'" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToLast($event)" (keydown.enter)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
+                <span class="ui-paginator-icon pi pi-step-forward"></span>
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
-                (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false" [appendTo]="dropdownAppendTo"></p-dropdown>
+                (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"></p-dropdown>
             <div class="ui-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
@@ -59,6 +60,12 @@ export class Paginator implements OnInit {
 
     @Input() dropdownAppendTo: any;
 
+    @Input() dropdownScrollHeight: string = '200px';
+
+    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+
+    @Input() showCurrentPageReport: boolean;
+
     pageLinks: number[];
 
     _totalRecords: number = 0;
@@ -67,11 +74,13 @@ export class Paginator implements OnInit {
 
     _rows: number = 0;
     
-    _rowsPerPageOptions: number[];
+    _rowsPerPageOptions: any[];
     
     rowsPerPageItems: SelectItem[];
     
     paginatorState: any;
+
+    constructor(private cd: ChangeDetectorRef) {}
     
     ngOnInit() {
         this.updatePaginatorState();
@@ -84,6 +93,9 @@ export class Paginator implements OnInit {
     set totalRecords(val:number) {
         this._totalRecords = val;
         this.updatePageLinks();
+        this.updatePaginatorState();
+        this.updateFirst();
+        this.updateRowsPerPageOptions();
     }
 
     @Input() get first(): number {
@@ -93,6 +105,7 @@ export class Paginator implements OnInit {
     set first(val:number) {
         this._first = val;
         this.updatePageLinks();
+        this.updatePaginatorState();
     }
 
     @Input() get rows(): number {
@@ -102,18 +115,28 @@ export class Paginator implements OnInit {
     set rows(val:number) {
         this._rows = val;
         this.updatePageLinks();
+        this.updatePaginatorState();
     }
     
-    @Input() get rowsPerPageOptions(): number[] {
+    @Input() get rowsPerPageOptions(): any[] {
         return this._rowsPerPageOptions;
     }
 
-    set rowsPerPageOptions(val:number[]) {
+    set rowsPerPageOptions(val:any[]) {
         this._rowsPerPageOptions = val;
-        if(this._rowsPerPageOptions) {
+        this.updateRowsPerPageOptions();
+    }
+
+    updateRowsPerPageOptions() {
+        if(this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
-            for(let opt of this._rowsPerPageOptions) {
-                this.rowsPerPageItems.push({label: String(opt), value: opt});
+            for (let opt of this.rowsPerPageOptions) {
+                if (typeof opt == 'object' && opt['showAll']) {
+                    this.rowsPerPageItems.push({label: opt['showAll'], value: this.totalRecords});
+                }
+                else {
+                    this.rowsPerPageItems.push({label: String(opt), value: opt});
+                }
             }
         }
     }
@@ -174,6 +197,13 @@ export class Paginator implements OnInit {
         }
     }
 
+    updateFirst() {
+        const page = this.getPage();
+        if (page > 0 && (this.first >= this.totalRecords)) {
+            Promise.resolve(null).then(() => this.changePage(page - 1));
+        }
+    }
+
     getPage(): number {
         return Math.floor(this.first / this.rows);
     }
@@ -216,10 +246,17 @@ export class Paginator implements OnInit {
     updatePaginatorState() {
         this.paginatorState = {
             page: this.getPage(),
+            pageCount: this.getPageCount(),
             rows: this.rows,
             first: this.first,
             totalRecords: this.totalRecords
         }
+    }
+
+    get currentPageReport() {
+        return this.currentPageReportTemplate
+            .replace("{currentPage}", (this.getPage() + 1).toString())
+            .replace("{totalPages}", this.getPageCount().toString());
     }
 }
 

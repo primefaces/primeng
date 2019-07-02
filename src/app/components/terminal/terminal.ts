@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {TerminalService} from './terminalservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription}   from 'rxjs';
 
 @Component({
     selector: 'p-terminal',
@@ -22,8 +22,7 @@ import {Subscription}   from 'rxjs/Subscription';
                 <input #in type="text" [(ngModel)]="command" class="ui-terminal-input" autocomplete="off" (keydown)="handleCommand($event)" autofocus>
             </div>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
 
@@ -45,7 +44,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     subscription: Subscription;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public terminalService: TerminalService) {
+    constructor(public el: ElementRef, public terminalService: TerminalService) {
         this.subscription = terminalService.responseHandler.subscribe(response => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;
@@ -53,7 +52,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngAfterViewInit() {
-        this.container = this.domHandler.find(this.el.nativeElement, '.ui-terminal')[0];
+        this.container = DomHandler.find(this.el.nativeElement, '.ui-terminal')[0];
     }
     
     ngAfterViewChecked() {

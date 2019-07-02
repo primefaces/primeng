@@ -3,13 +3,13 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Table - <span class="subitem">ContextMenu</span></span>
-        <span>DataTable has exclusive integration with ContextMenu.</span>
+        <span>Table has exclusive integration with ContextMenu.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-growl [value]="msgs"></p-growl>
-    
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
     <p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -41,8 +41,6 @@
 <code class="language-typescript" pCode ngNonBindable>
 export class TableContextMenuDemo implements OnInit &#123;
 
-    msgs: Message[];
-
     cars: Car[];
 
     cols: any[];
@@ -53,7 +51,7 @@ export class TableContextMenuDemo implements OnInit &#123;
 
     items: MenuItem[];
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
@@ -66,14 +64,13 @@ export class TableContextMenuDemo implements OnInit &#123;
         ];
 
         this.items = [
-            &#123; label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar) &#125;,
-            &#123; label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar) &#125;
+            &#123; label: 'View', icon: 'pi pi-search', command: (event) => this.viewCar(this.selectedCar) &#125;,
+            &#123; label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteCar(this.selectedCar) &#125;
         ];
     &#125;
 
     viewCar(car: Car) &#123;
-        this.msgs = [];
-        this.msgs.push(&#123; severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand &#125;);
+        this.messageService.add(&#123; severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand &#125;);
     &#125;
 
     deleteCar(car: Car) &#123;
@@ -86,12 +83,11 @@ export class TableContextMenuDemo implements OnInit &#123;
         &#125;
         this.cars.splice(index, 1);
 
-        this.msgs = [];
-        this.msgs.push(&#123; severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand &#125;);
+        this.messageService.add(&#123; severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand &#125;);
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="tablecontextmenudemo.html">
@@ -101,7 +97,7 @@ export class TableContextMenuDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;

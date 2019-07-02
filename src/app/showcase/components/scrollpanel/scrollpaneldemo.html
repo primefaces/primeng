@@ -188,6 +188,11 @@ import &#123;ScrollPanelModule&#125; from 'primeng/scrollpanel';
                             <td>-</td>
                             <td>Refreshes the position and size of the scrollbar.</td>
                         </tr>
+                        <tr>
+                            <td>scrollTop</td>
+                            <td>value: number</td>
+                            <td>Scrolls the top location to the given value.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -239,7 +244,7 @@ import &#123;ScrollPanelModule&#125; from 'primeng/scrollpanel';
     &lt;/div&gt;
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;p-scrollPanel [style]="&#123;width: '100%', height: '200px'&#125;" styleClass="custombar2"&gt;
-            &lt;div style="padding:1em;line-height:1.5"&gt;
+            &lt;div style="padding:1em;line-height:1.5;width:600px;"&gt;
                 The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved
                 son Michael has just come home from the war, but does not intend to become part of his father's business.
                 Through Michael's life the nature of the family business becomes clear. The business of the family is just
@@ -254,6 +259,49 @@ import &#123;ScrollPanelModule&#125; from 'primeng/scrollpanel';
         &lt;/p-scrollPanel&gt;
     &lt;/div&gt;
 &lt;/div&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './scrollpaneldemo.html',
+    styles: [`
+        .custombar1 .ui-scrollpanel-wrapper &#123;
+            border-right: 9px solid #f4f4f4;
+        &#125;
+            
+        .custombar1 .ui-scrollpanel-bar &#123;
+            background-color: #1976d2;
+            opacity: 1;
+            transition: background-color .3s;
+        &#125;
+            
+        .custombar1 .ui-scrollpanel-bar:hover &#123;
+            background-color: #135ba1;
+        &#125;
+            
+        .custombar2 .ui-scrollpanel-wrapper &#123;
+            border-right: 9px solid #757575;
+            border-bottom: 9px solid #757575;
+        &#125;
+            
+        .custombar2 .ui-scrollpanel-bar &#123;
+            background-color: #68C77D;
+            border-radius: 0;
+            opacity: 1;
+            transition: background-color .3s;
+        &#125;
+            
+        .custombar2:hover .ui-scrollpanel-bar &#123;
+            background-color: #46A55A;
+        &#125;
+    `],
+    encapsulation: ViewEncapsulation.None
+&#125;)
+export class ScrollPanelDemo &#123;
+            
+&#125;    
 </code>
 </pre>
         </p-tabPanel>

@@ -23,7 +23,7 @@ import {BlockableUI} from '../common/blockableui';
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
-            <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
+            <div class="ui-datagrid-footer ui-widget-footer ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
@@ -39,7 +39,7 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
 
     @Input() pageLinks: number = 5;
     
-    @Input() rowsPerPageOptions: number[];
+    @Input() rowsPerPageOptions: any[];
 
     @Input() lazy: boolean;
 
@@ -63,9 +63,9 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header) header;
+    @ContentChild(Header, { static: false }) header;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, { static: false }) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

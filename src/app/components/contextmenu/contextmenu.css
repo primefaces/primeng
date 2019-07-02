@@ -28,9 +28,19 @@
     position: relative;
 }
 
+.ui-contextmenu .ui-menuitem-icon {
+    margin-right: .25em;
+    vertical-align: middle;
+}
+
+.ui-contextmenu .ui-menuitem-text {
+    vertical-align: middle;
+}
+
 .ui-contextmenu .ui-menuitem {
     position: relative;
 }
+
 
 .ui-contextmenu .ui-menuitem-link .ui-submenu-icon {
     position: absolute;

@@ -12,7 +12,7 @@
         <ng-template pTemplate="caption">
             <div style="text-align:left">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                         selectedItemsLabel="&#123;0&#125; columns selected" [style]="&#123;minWidth: '200px'&#125;" defaultLabel="Choose Columns"></p-multiSelect>
+                         selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -35,7 +35,7 @@
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="tablecoltoggle.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecoltoggle.ts" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/blob/master/src/app/showcase/components/table/tablecoltoggledemo.ts" class="btn-viewsource" target="_blank">
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
@@ -65,11 +65,11 @@ export class TableColToggleDemo implements OnInit &#123;
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="tablecoltoggle.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecoltoggle.html" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/blob/master/src/app/showcase/components/table/tablecoltoggledemo.html" class="btn-viewsource" target="_blank">
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>

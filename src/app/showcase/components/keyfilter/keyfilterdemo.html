@@ -37,7 +37,7 @@
     <h3>Validation Mode</h3>
     <form #form="ngForm">
         <label for="cc" style="display:block;margin-bottom:4px">Credit Card</label>
-        <input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234">
+        <input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em">
         <p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"></p-message>
     </form>
 </div>
@@ -79,7 +79,7 @@ import &#123;KeyFilterModule&#125; from 'primeng/keyfilter';
             <p>A custom filter is provided by binding a regular expression, here is an example that blocks special characters including "< > * !"</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;input type="text" pKeyFilter="noSpecial"&gt;
+&lt;input type="text" [pKeyFilter]="noSpecial"&gt;
 </code>
 </pre>
 
@@ -136,7 +136,7 @@ export class KeyFilterDemo &#123;
         </p-tabPanel>
         
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tooltip" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/keyfilter" class="btn-viewsource" target="_blank">
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
@@ -173,7 +173,7 @@ export class KeyFilterDemo &#123;
 &lt;h3&gt;Validation Mode&lt;/h3&gt;
 &lt;form #form="ngForm"&gt;
     &lt;label for="cc" style="display:block;margin-bottom:4px"&gt;Credit Card&lt;/label&gt;
-    &lt;input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234"&gt;
+    &lt;input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em"&gt;
     &lt;p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"&gt;&lt;/p-message&gt;
 &lt;/form&gt;
 </code>

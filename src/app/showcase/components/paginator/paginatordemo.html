@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation ui-fluid">
-    <p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
 </div>
 
 <div class="content-section documentation">
@@ -30,7 +30,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
             <p>Rows and TotalRecords define how many pages the paginator should display. Paginator below will have 10 pages.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator rows="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="100"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -39,7 +39,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator rows="10" totalRecords="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -47,7 +47,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
             <p>Number of items per page can be changed by the user using a dropdown if you define rowsPerPageOptions as an array of possible values.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -91,7 +91,8 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>rowsPerPageOptions</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>Array of integer values to display inside rows per page dropdown.</td>
+                            <td>Array of integer/object values to display inside rows per page dropdown.
+                                A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}] </td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -129,6 +130,24 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>null</td>
                             <td>Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
+                        <tr>
+                            <td>dropdownScrollHeight</td>
+                            <td>string</td>
+                            <td>200px</td>
+                            <td>Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                        </tr>
+                        <tr>
+                            <td>currentPageReportTemplate</td>
+                            <td>string</td>
+                            <td>&#123;currentPage&#125; of &#123;totalPages&#125;</td>
+                            <td>Text to display the current page information.</td>
+                        </tr>
+                        <tr>
+                            <td>showCurrentPageReport</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display current page report.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -158,7 +177,7 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator rows="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -235,7 +254,7 @@ export class MyComponent &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
         </p-tabPanel>

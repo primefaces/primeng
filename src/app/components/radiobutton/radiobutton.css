@@ -3,6 +3,9 @@
     cursor: pointer;
     vertical-align: middle;
     margin-right: .25em;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 .ui-radiobutton-box {
@@ -13,15 +16,20 @@
     -webkit-border-radius: 100%;
     border-radius: 100%;
     text-align: center;
+    position: relative;
 }
 
 .ui-radiobutton-icon {
     display: block;
-    font-size: .5em;
-    line-height: inherit;
-    margin-top: -1px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    margin-top: -.5em;
+    margin-left: -.5em;
 }
  
-.ui-radiobutton, .ui-radiobutton-label {
+.ui-radiobutton {
     vertical-align: middle;
 }

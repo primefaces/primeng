@@ -5,7 +5,7 @@ import {AccordionDemoRoutingModule} from './accordiondemo-routing.module';
 import {AccordionModule} from '../../../components/accordion/accordion';
 import {ButtonModule} from '../../../components/button/button';
 import {TabViewModule} from '../../../components/tabview/tabview';
-import {GrowlModule} from '../../../components/growl/growl';
+import {ToastModule} from '../../../components/toast/toast';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
 @NgModule({
@@ -15,7 +15,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         AccordionModule,
         ButtonModule,
         TabViewModule,
-        GrowlModule,
+        ToastModule,
         CodeHighlighterModule
 	],
 	declarations: [

@@ -21,8 +21,7 @@ import {DomHandler} from '../dom/domhandler';
             <ng-content select="p-footer"></ng-content>
         </div>
     </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
@@ -48,13 +47,13 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
-    @ContentChild(Header) header;
+    @ContentChild(Header, { static: false }) header;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, { static: false }) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
         
@@ -64,8 +63,6 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
     first: number = 0;
         
-    contentElement: HTMLDivElement;
-
     inlineScrollListener: any;
 
     windowScrollListener: any;
@@ -74,7 +71,7 @@ export class DataScroller implements OnInit,AfterViewInit,OnDestroy {
 
     page: number = 0;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler, public zone: NgZone) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
 
     ngOnInit() {
         this.load();

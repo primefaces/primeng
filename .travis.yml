@@ -13,7 +13,7 @@ before_install:
    - sh -e /etc/init.d/xvfb start
 
 script: # the build step
-   - node_modules/.bin/ng test --colors=false --progress=false --single-run
+   - node_modules/.bin/ng test --watch=false
 
 
 cache:
