@@ -417,7 +417,16 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     toggleAll(event: Event) {
         if (this.isAllChecked()) {
-            this.value = [];
+            if (this.filterValue && this.filterValue.trim().length) {
+                let opts = this.getVisibleOptions();
+                for (let i = 0; i < opts.length; i++) {
+                    let option = opts[i];
+                    this.value.splice(this.findSelectionIndex(option.value),1);
+                }
+            }
+            else {
+                this.value = [];
+            }
         }
         else {
             let opts = this.getVisibleOptions();
