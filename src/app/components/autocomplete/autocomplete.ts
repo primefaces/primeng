@@ -37,8 +37,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </ul
             ><i *ngIf="loading" class="ui-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
-            <div #panel *ngIf="overlayVisible" class="ui-autocomplete-panel ui-widget ui-widget-content ui-corner-all ui-shadow" [style.max-height]="scrollHeight"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
+            <div #panel *ngIf="overlayVisible" [ngClass]="['ui-autocomplete-panel ui-widget ui-widget-content ui-corner-all ui-shadow']" [style.max-height]="scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" >
                 <ul role="listbox" class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                     <li role="option"  *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
