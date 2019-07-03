@@ -96,6 +96,7 @@ export class OrganizationChartNode {
             this.chart.onNodeExpand.emit({originalEvent: event, node: this.node});
         else
             this.chart.onNodeCollapse.emit({originalEvent: event, node: this.node});
+            
         event.preventDefault();
     }
     
