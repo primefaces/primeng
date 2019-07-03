@@ -92,6 +92,10 @@ export class OrganizationChartNode {
     
     toggleNode(event: Event, node: TreeNode) {
         node.expanded = !node.expanded;
+        if(node.expanded)
+            this.chart.onNodeExpand.emit({originalEvent: event, node: this.node});
+        else
+            this.chart.onNodeCollapse.emit({originalEvent: event, node: this.node});
         event.preventDefault();
     }
     
@@ -125,6 +129,10 @@ export class OrganizationChart implements AfterContentInit {
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
