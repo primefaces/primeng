@@ -150,6 +150,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() immutable: boolean = true;
 
+    @Input() showOnFocus: boolean = true;
+
+    @Input() showOnFocusMode: string = 'blank';
+
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
@@ -591,6 +595,15 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     onInputFocus(event) {
         this.focus = true;
+        if (this.showOnFocus) {
+            let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+
+            if (this.showOnFocusMode === 'blank')
+                this.search(event, '');
+            else if (this.showOnFocusMode === 'current')
+                this.search(event, queryValue);
+        }
+
         this.onFocus.emit(event);
     }
 
