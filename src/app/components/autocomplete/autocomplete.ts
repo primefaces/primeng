@@ -156,6 +156,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() autofocus: boolean;
 
+    @Input() focusInputOnSelection: boolean = true;
+
     @ViewChild('in', { static: false }) inputEL: ElementRef;
 
     @ViewChild('multiIn', { static: false }) multiInputEL: ElementRef;
@@ -402,7 +404,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
         this.onSelect.emit(option);
         this.updateFilledState();
 
-        if (focus) {
+        if (focus && this.focusInputOnSelection) {
             this.focusInput();
         }
     }
