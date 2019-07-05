@@ -1456,6 +1456,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         catch(err) {
             //invalid date
+            this.updateModel(null);
         }
         
         this.filled = val != null && val.length;
