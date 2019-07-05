@@ -54,6 +54,8 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     @Input() baseZIndex: number = 0;
                 
+    @Input() closeOnEscape: boolean = true;
+
     public visible: boolean;
     
     public loading: boolean;
@@ -73,6 +75,8 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     public preventDocumentClickListener: boolean;
     
     public documentClickListener: any;
+
+    public documentEscapeListener: Function;
 
     constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
                 
@@ -104,6 +108,15 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.preventDocumentClickListener = false;
             this.cd.markForCheck();
         });
+        if(this.closeOnEscape && !this.documentEscapeListener) {
+            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+                if (event.which == 27) {
+                    if (parseInt(this.panel.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                        this.hide(event);
+                    }
+                }
+            });
+        }
     }
     
     onLinkClick(event,content) {
