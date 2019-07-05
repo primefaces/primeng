@@ -150,7 +150,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() immutable: boolean = true;
 
-    @Input() showOnFocus: boolean = true;
+    @Input() showOnFocus: boolean = false;
 
     @Input() showOnFocusMode: string = 'blank';
 
