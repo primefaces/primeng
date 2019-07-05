@@ -633,27 +633,31 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 }
             }
             else {
-                for (let j = 0; j < 7; j++) {
-                    if (dayNo > daysLength) {
-                        let next = this.getNextMonthAndYear(month, year);
-                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth: true,
-                                    today: this.isToday(today, dayNo - daysLength, next.month, next.year),
-                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year, true)});
+                if (dayNo <= daysLength) {
+                    for (let j = 0; j < 7; j++) {
+                        if (dayNo > daysLength) {
+                            let next = this.getNextMonthAndYear(month, year);
+                            week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth: true,
+                                        today: this.isToday(today, dayNo - daysLength, next.month, next.year),
+                                        selectable: this.isSelectable((dayNo - daysLength), next.month, next.year, true)});
+                        }
+                        else {
+                            week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
+                                selectable: this.isSelectable(dayNo, month, year, false)});
+                        }
+                        
+                        dayNo++;
                     }
-                    else {
-                        week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
-                            selectable: this.isSelectable(dayNo, month, year, false)});
-                    }
-                    
-                    dayNo++;
                 }
             }
-            
-            if (this.showWeek) {
-                weekNumbers.push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day))); 
-            }
 
-            dates.push(week);
+            if (week.length > 0) {
+                if (this.showWeek) {
+                    weekNumbers.push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day))); 
+                }
+                
+                dates.push(week);
+            }
         }
 
         return {
