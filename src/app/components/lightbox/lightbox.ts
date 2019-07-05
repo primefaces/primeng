@@ -139,8 +139,6 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.index = null;
         this.currentImage = null;
         this.visible = false;
-        this.panel.style.left = 'auto';
-        this.panel.style.top = 'auto';
         
         if(this.mask) {
             document.body.removeChild(this.mask);
@@ -161,12 +159,6 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.panel.style.display = 'none';
             this.panel.style.visibility = 'visible';
         }
-        let viewport = DomHandler.getViewport();
-        let x = (viewport.width - elementWidth) / 2;
-        let y = (viewport.height - elementHeight) / 2;
-
-        this.panel.style.left = x + 'px';
-        this.panel.style.top = y + 'px';
     }
         
     onImageLoad(event,content) {
