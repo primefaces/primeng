@@ -491,7 +491,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.lazy && !option) {
             //  if val changed
             if(!(this.selectedOption && ObjectUtils.equals(val, this.selectedOption.value, this.dataKey))) {
-                this.selectedOption = {label: 'selected', value: val};
+                this.selectedOption = val ? {label: 'selected', value: val} : undefined;
             }
         } else {
             // the "!lazy" makes sure that when options are reloaded on lazy load event if options are not found any more we keep them

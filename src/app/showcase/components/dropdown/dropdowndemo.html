@@ -43,7 +43,7 @@
 
     <h3>Lazy Loading</h3>
     <form>
-        <p-dropdown name="lazy" [lazy]="true" [rows]="10" [options]="lazyItems" [(ngModel)]="selectedLazy" placeholder="Select Item" [virtualScroll]="true"
+        <p-dropdown name="lazy" [lazy]="true" [rows]="10" [options]="lazyItems" [(ngModel)]="selectedLazy" placeholder="Select Item" [showClear]="true" [virtualScroll]="true"
                     [filter]="true" [filterValue]="filterValue" [lazyLoadOnInit]="true" [itemSize]="31" (onLazyLoad)="onLazyLoadEvent($event)"></p-dropdown>
 
     </form>
