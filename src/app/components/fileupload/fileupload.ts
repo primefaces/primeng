@@ -137,12 +137,14 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input()
     public set files(value: File[]) {
-        this._files = value.filter(file => this.validate(file));
-        this._files.forEach(file => {
-            if(this.isImage(file)) {
-                (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file)));
-            }
-        });
+        this._files = value && value.filter(file => this.validate(file));
+        if(this._files) {
+            this._files.forEach(file => {
+                if(this.isImage(file)) {
+                    (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file)));
+                }
+            });
+        }
     }
 
     public get files(): File[] {
