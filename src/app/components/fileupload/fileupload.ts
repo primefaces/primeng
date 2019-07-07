@@ -1,5 +1,5 @@
 import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
-            ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
+    ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from '../button/button';
@@ -109,7 +109,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+    @Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
 
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
 
@@ -133,7 +133,21 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @ViewChild('content', { static: false }) content: ElementRef;
 
-    @Input() files: File[] = [];
+    _files: File[] = [];
+
+    @Input()
+    public set files(value: File[]) {
+        this._files = value.filter(file => this.validate(file));
+        this._files.forEach(file => {
+            if(this.isImage(file)) {
+                (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file)));
+            }
+        });
+    }
+
+    public get files(): File[] {
+        return this._files;
+    }
 
     public progress: number = 0;
 
@@ -160,19 +174,19 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             switch(item.getType()) {
                 case 'file':
                     this.fileTemplate = item.template;
-                break;
+                    break;
 
                 case 'content':
                     this.contentTemplate = item.template;
-                break;
+                    break;
 
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.fileTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -202,13 +216,13 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             let file = files[i];
 
             if(!this.isFileSelected(file)){
-              if(this.validate(file)) {
-                  if(this.isImage(file)) {
-                      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-                  }
+                if(this.validate(file)) {
+                    if(this.isImage(file)) {
+                        file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                    }
 
-                  this.files.push(files[i]);
-              }
+                    this.files.push(files[i]);
+                }
             }
         }
 
@@ -219,9 +233,9 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         }
 
         if (event.type !== 'drop' && this.isIE11()) {
-          this.clearIEInput();
+            this.clearIEInput();
         } else {
-          this.clearInputElement();
+            this.clearInputElement();
         }
     }
 
@@ -265,7 +279,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         let acceptableTypes = this.accept.split(',').map(type => type.trim());
         for(let type of acceptableTypes) {
             let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type)
-                                                    : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
+                : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
 
             if(acceptable) {
                 return true;
@@ -435,9 +449,9 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             return '0 B';
         }
         let k = 1000,
-        dm = 3,
-        sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
+            dm = 3,
+            sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
 
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
@@ -449,7 +463,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     getBlockableElement(): HTMLElement {
-      return this.el.nativeElement.children[0];
+        return this.el.nativeElement.children[0];
     }
 
     ngOnDestroy() {
