@@ -614,8 +614,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let dayNo = 1;
         let today = new Date();
         let weekNumbers = [];
+        let monthRows = Math.ceil((daysLength + firstDay) / 7);
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < monthRows; i++) {
             let week = [];
             
             if (i == 0) {
