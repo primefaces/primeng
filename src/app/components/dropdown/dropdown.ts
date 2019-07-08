@@ -1,4 +1,4 @@
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -110,15 +110,15 @@ export class DropdownItem {
                             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                                 <ng-template ngFor let-option let-i="index" [ngForOf]="options">
                                     <p-dropdownItem [option]="option" [selected]="selectedOption == option" 
-                                                    (onClick)="onItemClick($event)"
+                                                    (onClick)="onItemClick($event,i)"
                                                     [template]="itemTemplate"></p-dropdownItem>
                                 </ng-template>
                             </ng-container>
                             <ng-template #virtualScrollList>
-                                <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
+                                <cdk-virtual-scroll-viewport (scrolledIndexChange)="scrollToSelectedVirtualScrollElement($event)" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
                                     <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">         
                                         <p-dropdownItem [option]="option" [selected]="selectedOption == option"
-                                                                   (onClick)="onItemClick($event)"
+                                                                   (onClick)="onItemClick($event,i)"
                                                                    [template]="itemTemplate"></p-dropdownItem>
                                     </ng-container>
                                 </cdk-virtual-scroll-viewport>
@@ -235,12 +235,18 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('filter', { static: false }) filterViewChild: ElementRef;
     
     @ViewChild('in', { static: false }) focusViewChild: ElementRef;
-    
+
+    @ViewChild(CdkVirtualScrollViewport, {static:false}) viewPort: CdkVirtualScrollViewport;
+
     @ViewChild('editableInput', { static: false }) editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     private _autoWidth: boolean;
+
+    private virtualAutoScrolled: boolean;
+
+    private virtualScrollSelectedIndex: number;
 
     @Input() get autoWidth(): boolean {
         return this._autoWidth;
@@ -387,10 +393,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    onItemClick(event) {
+    onItemClick(event, index) {
         const option=event.option;
         this.itemClick = true;
 
+        if (this.virtualScroll) {
+            this.virtualScrollSelectedIndex = index;
+        }
         if (!option.disabled) {
             this.selectItem(event, option);
             this.focusViewChild.nativeElement.focus();
@@ -536,9 +545,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.bindDocumentResizeListener();
 
                 if (this.options && this.options.length) {
-                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
-                    if (selectedListItem) {
-                        DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
+                    if(!this.virtualScroll) {
+                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
+                        if (selectedListItem) {
+                            DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
+                        }
                     }
                 }
 
@@ -553,6 +564,24 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.onHide.emit(event);
                 this.onOverlayHide();
             break;
+        }
+    }
+
+    scrollToSelectedVirtualScrollElement(event){
+        if (!this.virtualAutoScrolled) {
+            if (this.filter && !this.resetFilterOnHide) {
+                let index = this.optionsToDisplay.findIndex(option => option.value === this.value);
+                if (event == 0 && index > 0) {
+                    this.viewPort.scrollToIndex(index,'auto');
+                }
+            }
+            else {
+                if (event == 0 && this.virtualScrollSelectedIndex > 0) {
+                    this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex,'auto');
+                }
+            }
+
+            this.virtualAutoScrolled = true;
         }
     }
 
@@ -578,6 +607,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
+        }
+
+        if(this.virtualScroll) {
+            this.virtualAutoScrolled = false;
         }
 
         this.cd.markForCheck();
