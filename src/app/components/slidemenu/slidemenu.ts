@@ -79,13 +79,7 @@ export class SlideMenuSub implements OnDestroy {
         }
         
         if (item.items && !this.slideMenu.animating) {
-            let oldLeft = this.slideMenu.left;
             this.slideMenu.left -= this.slideMenu.menuWidth;
-            
-            if(!oldLeft && this.slideMenu.left) {
-                this.slideMenu.updateViewPort();
-            }
-            
             this.activeItem = listitem;
             this.slideMenu.animating = true;
             setTimeout(() => this.slideMenu.animating = false, this.effectDuration);
@@ -206,12 +200,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     updateViewPort() {
-        if (!this.left) {
-            this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight + 'px';
-        }
-        else {
-            this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
-        }
+        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
     }
     
     toggle(event) {
@@ -282,12 +271,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
     
     goBack() {
-        let oldLeft = this.left;
         this.left += this.menuWidth;
-        
-        if(oldLeft && !this.left) {
-            this.updateViewPort();
-        }
     }
 
     bindDocumentClickListener() {
