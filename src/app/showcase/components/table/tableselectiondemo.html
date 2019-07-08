@@ -181,6 +181,40 @@
             </ul>
         </ng-template>
     </p-table>
+
+    <h3>Checkbox selection with lazy loaded data</h3>
+    <p>When using checkboxes for multiple selection with paging and clicking the header checkbox, by default, items on
+        ￼ all other pages will be deselected and only the current page's items will be toggled.
+        If you set the <strong>"headerCheckboxRetainSelection"</strong> to true, toggling the header checkbox will add or
+        remove to the current
+        selection.</p>
+    <p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true"
+        [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [(selection)]="selectedCars4"
+        [headerCheckboxRetainSelection]=true>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3em">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td>
+                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <p style="text-align: left">Current selection: {{ selectedCars4 ? selectedCars4.length : "0" }}</p>
+        </ng-template>
+    </p-table>
 </div>
 
 <div class="content-section documentation">
@@ -195,6 +229,8 @@
 export class TableSelectionDemo implements OnInit &#123;
 
     cars: Car[];
+
+    datasource: Car[];
 
     cols: any[];
 
@@ -212,10 +248,21 @@ export class TableSelectionDemo implements OnInit &#123;
 
     selectedCars3: Car[];
 
+    selectedCars4: Car[];
+
+    loading: boolean;
+
+    totalRecords: number;
+
     constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
+
+        this.carService.getCarsLarge().then(cars => &#123;
+            this.datasource = cars;
+            this.totalRecords = this.datasource.length;
+        &#125;);
 
         this.cols = [
             &#123; field: 'vin', header: 'Vin' &#125;,
@@ -223,6 +270,8 @@ export class TableSelectionDemo implements OnInit &#123;
             &#123; field: 'brand', header: 'Brand' &#125;,
             &#123; field: 'color', header: 'Color' &#125;
         ];
+
+        this.loading = true;
     &#125;
 
     selectCarWithButton(car: Car) &#123;
@@ -236,6 +285,25 @@ export class TableSelectionDemo implements OnInit &#123;
 
     onRowUnselect(event) &#123;
         this.messageService.add(&#123;severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin&#125;);
+    &#125;
+
+    loadCarsLazy(event: LazyLoadEvent) &#123;
+        this.loading = true;
+
+        //in a real application, make a remote request to load data using state metadata from event
+        //event.first = First row offset
+        //event.rows = Number of rows per page
+        //event.sortField = Field name to sort with
+        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+
+        //imitate db connection over a network
+        setTimeout(() => &#123;
+            if (this.datasource) &#123;
+                this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+                this.loading = false;
+            &#125;
+        &#125;, 1000);
     &#125;
 &#125;
 </code>
@@ -420,6 +488,40 @@ export class TableSelectionDemo implements OnInit &#123;
                 &#123;&#123;car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color&#125;&#125;
             &lt;/li&gt;
         &lt;/ul&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Checkbox selection with lazy loaded data&lt;/h3&gt;
+&lt;p&gt;When using checkboxes for multiple selection with paging and clicking the header checkbox, by default, items on
+    ￼ all other pages will be deselected and only the current page's items will be toggled.
+    If you set the &lt;strong&gt;&quot;headerCheckboxRetainSelection&quot;&lt;/strong&gt; to true, toggling the header checkbox will add or
+    remove to the current
+    selection.&lt;/p&gt;
+&lt;p-table [columns]=&quot;cols&quot; [value]=&quot;cars&quot; [lazy]=&quot;true&quot; (onLazyLoad)=&quot;loadCarsLazy($event)&quot; [paginator]=&quot;true&quot;
+    [rows]=&quot;10&quot; [totalRecords]=&quot;totalRecords&quot; [loading]=&quot;loading&quot; [(selection)]=&quot;selectedCars4&quot;
+    [headerCheckboxRetainSelection]=true&gt;
+    &lt;ng-template pTemplate=&quot;header&quot; let-columns&gt;
+        &lt;tr&gt;
+            &lt;th style=&quot;width: 3em&quot;&gt;
+                &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+            &lt;/th&gt;
+            &lt;th *ngFor=&quot;let col of columns&quot;&gt;
+                {{col.header}}
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate=&quot;body&quot; let-rowData let-columns=&quot;columns&quot;&gt;
+        &lt;tr [pSelectableRow]=&quot;rowData&quot;&gt;
+            &lt;td&gt;
+                &lt;p-tableCheckbox [value]=&quot;rowData&quot;&gt;&lt;/p-tableCheckbox&gt;
+            &lt;/td&gt;
+            &lt;td *ngFor=&quot;let col of columns&quot;&gt;
+                {{rowData[col.field]}}
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate=&quot;summary&quot;&gt;
+        &lt;p style=&quot;text-align: left&quot;&gt;Current selection: {{ selectedCars4 ? selectedCars4.length : &quot;0&quot; }}&lt;/p&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
 </code>

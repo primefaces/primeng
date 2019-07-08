@@ -121,6 +121,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     
     @Input() tableStyleClass: string;
 
+    @Input() headerCheckboxRetainSelection: boolean;
+
     @Input() paginator: boolean;
 
     @Input() pageLinks: number = 5;
@@ -1130,12 +1132,26 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRowsWithCheckbox(event: Event, check: boolean) {
-        this._selection = check ? this.filteredValue ? this.filteredValue.slice(): this.value.slice() : [];
+        this._selection = this._selection || [];
+        const values = this.filteredValue ? this.filteredValue.slice() : this.value.slice();
+        if (check) {
+            if (this.headerCheckboxRetainSelection) {
+                this._selection = [...this._selection, ...(values.filter(item => this._selection.indexOf(item) === -1))];
+            } else {
+                this._selection = this.filteredValue ? this.filteredValue.slice() : this.value.slice();
+            }
+        } else {
+            if (this.headerCheckboxRetainSelection) {
+                this._selection = this._selection.filter(item => values.indexOf(item) === -1);
+            } else {
+                this._selection = [];
+            }
+        }
         this.preventSelectionSetterPropagation = true;
         this.updateSelectionKeys();
         this.selectionChange.emit(this._selection);
         this.tableService.onSelectionChange();
-        this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: check});
+        this.onHeaderCheckboxToggle.emit({ originalEvent: event, checked: check });
 
         if (this.isStateful()) {
             this.saveState();
@@ -3664,14 +3680,8 @@ export class TableHeaderCheckbox  {
     }
 
     updateCheckedState() {
-        if (this.dt.filteredValue) {
-            const val = this.dt.filteredValue;
-            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.isAllFilteredValuesChecked());
-        }
-        else {
-            const val = this.dt.value;
-            return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.dt.selection.length === val.length);
-        }
+        const val = this.dt.filteredValue||this.dt.value;
+        return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && val.filter(item => this.dt.selection.indexOf(item) === -1).length === 0);
     }
 
     isAllFilteredValuesChecked() {
