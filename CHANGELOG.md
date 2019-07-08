@@ -1,5 +1,39 @@
 # Change Log
 
+## [8.0.1](https://github.com/primefaces/primeng/tree/8.0.1) (2019-07-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.0.0...8.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- Clear icon for Table filter columns. [\#6494](https://github.com/primefaces/primeng/issues/6494)
+- SlideMenu: Back button keeps taking up space when hidden [\#7850](https://github.com/primefaces/primeng/issues/7850)
+- Autcomplete ui-autocomplete-panel class [\#7822](https://github.com/primefaces/primeng/issues/7822)
+- Improve formatValue method on Spinner [\#7815](https://github.com/primefaces/primeng/issues/7815)
+- Different styling for AutoComplete EmptyMessage [\#7791](https://github.com/primefaces/primeng/issues/7791)
+- Add showAll option for rowsPerPage to Paginator [\#7770](https://github.com/primefaces/primeng/issues/7770)
+- OnNodeExpand event in Organization Chart [\#7592](https://github.com/primefaces/primeng/issues/7592)
+- p-calendar shows a redundant week on the calendar [\#6501](https://github.com/primefaces/primeng/issues/6501)
+- Add keyboard shortcut to lightbox so a user can escape out of the lightbox without use of the mouse [\#6456](https://github.com/primefaces/primeng/issues/6456)
+- Responsive Lightbox [\#2318](https://github.com/primefaces/primeng/issues/2318)
+
+**Fixed bugs:**
+
+- Backspace doesn't clear the date in calendar. [\#7897](https://github.com/primefaces/primeng/issues/7897)
+- Lightbox listeners should remove when hiding. [\#7895](https://github.com/primefaces/primeng/issues/7895)
+- Table pSelectableRowCblClick provides no styling like pSelectableRow [\#7876](https://github.com/primefaces/primeng/issues/7876)
+- Touch UI does not delete the background overlay properly - Breaks entire app state [\#7847](https://github.com/primefaces/primeng/issues/7847)
+- The "required" prop is not working on Dropdown [\#7831](https://github.com/primefaces/primeng/issues/7831)
+- Dropdown is not align with input when using appendTo="body" property [\#7808](https://github.com/primefaces/primeng/issues/7808)
+- Times between 12:00AM-12:59AM save as PM when defaulted or typed in [\#7799](https://github.com/primefaces/primeng/issues/7799)
+- Drag and Drop is not working in OrderList in Firefox web browser [\#7793](https://github.com/primefaces/primeng/issues/7793)
+- Spinner does not reflect initially bound value when OnPush strategy is used [\#7773](https://github.com/primefaces/primeng/issues/7773)
+- p-treetable not filtering when only one parent is present [\#7757](https://github.com/primefaces/primeng/issues/7757)
+- KeyFilter is not working on pase [\#7729](https://github.com/primefaces/primeng/issues/7729)
+- Dropdown does not scroll to selected when virtual scroll is enabled [\#7718](https://github.com/primefaces/primeng/issues/7718)
+- p-multiselect disabled and selected option gets un-selected by the select all checkbox in header [\#7540](https://github.com/primefaces/primeng/issues/7540)
+- Display issue with accordion nested inside overlay [\#6318](https://github.com/primefaces/primeng/issues/6318)
+
 ## [8.0.0](https://github.com/primefaces/primeng/tree/8.0.0) (2019-06-13)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/8.0.0-rc.1...8.0.0)
