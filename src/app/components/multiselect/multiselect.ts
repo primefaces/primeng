@@ -499,7 +499,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.disabledSelectedOptions = [];
             if(this.value) {
                 for (let opt of this.options) {
-                    if (opt.disabled && this.value.includes(opt.value)) {
+                    if (opt.disabled && this.isSelected(opt.value)) {
                         this.disabledSelectedOptions.push(opt.value);
                     }
                 }
