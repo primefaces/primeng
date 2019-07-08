@@ -2855,6 +2855,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRowDblClick]',
     host: {
+        '[class.ui-selectable-row]': 'isEnabled()',
         '[class.ui-state-highlight]': 'selected'
     }
 })
