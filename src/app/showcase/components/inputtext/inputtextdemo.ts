@@ -1,26 +1,15 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: './inputtextdemo.html',
-    styles:[
-      'input.ui-state-filled {background-color:green;}',
-      'input:not(.ui-state-filled) {background-color:red;}'
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './inputtextdemo.html'
 })
 export class InputTextDemo {
 
     text: string;
-
-    counter: number = 5;
 
     disabled: boolean = true;
 
     toggleDisabled() {
         this.disabled = !this.disabled;
     }
-
-    fill() {
-        this.counter++;
-     }
 }
