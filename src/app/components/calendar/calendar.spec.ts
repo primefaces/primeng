@@ -1414,7 +1414,7 @@ describe('Calendar', () => {
       
       const datesContainer = fixture.debugElement.query(By.css('.ui-datepicker-calendar-container'));
       const dates = datesContainer.queryAll(By.css('a'));
-      expect(dates.length).toEqual(42);
+      expect(dates.length).toEqual(35);
       dates[0].nativeElement.click();
       fixture.detectChanges();
 
