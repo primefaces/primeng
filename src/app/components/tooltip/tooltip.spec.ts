@@ -6,12 +6,7 @@ import { Component } from '@angular/core';
 import { InputText } from '../inputtext/inputtext';
 
 @Component({
-    template: `
-        <div style="margin:50px;">
-            <input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position"> 
-        </div>
-    
-    `
+    template: `<input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position"> `
 })
 class TestTooltipComponent {
     position: string ="right";
