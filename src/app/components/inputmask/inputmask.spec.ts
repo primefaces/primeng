@@ -44,7 +44,7 @@ describe('InputMask', () => {
         expect(inputMaskEl.nativeElement).toBeTruthy();
     });
 
-    it('should change style styleClass placeholder inputId size tabindex and autoFocus', () => {
+    it('should change style styleClass placeholder inputId size tabindex title and autoFocus', () => {
         inputmask.mask = "99-999999";
         inputmask.style = { 'primeng': 'rocks' }
         inputmask.styleClass = "PrimengRocks";
@@ -54,6 +54,7 @@ describe('InputMask', () => {
         inputmask.tabindex = "1";
         inputmask.required = true;
         inputmask.autoFocus = true;
+        inputmask.title = "TheTitle";
         fixture.detectChanges();
 
         const inputMaskEl = fixture.debugElement.query(By.css('input'));
@@ -66,6 +67,7 @@ describe('InputMask', () => {
         expect(inputMaskEl.nativeElement.tabIndex).toEqual(1);
         expect(inputMaskEl.nativeElement.required).toBeTruthy();
         expect(inputMaskEl.nativeElement.autofocus).toBeTruthy();
+        expect(inputMaskEl.nativeElement.title).toEqual("TheTitle");
     });
 
     it('should change value with keydown event', () => {
