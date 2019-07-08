@@ -145,7 +145,11 @@ describe('KeyFilter', () => {
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.clipboardData = "53";
+        keydownEvent.clipboardData = {
+            getData:(type) => {
+                return "53";
+            }
+        }
         keydownEvent.initEvent('paste', true, true);
         const preventDefaultSpy = spyOn(keydownEvent,'preventDefault').and.callThrough();
         inputEl.dispatchEvent(keydownEvent);
@@ -160,8 +164,12 @@ describe('KeyFilter', () => {
 
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 		const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.clipboardData = "paste event";
         keydownEvent.initEvent('paste', true, true);
+        keydownEvent.clipboardData = {
+            getData:(type) => {
+                return "pasteevent";
+            }
+        }
         const preventDefaultSpy = spyOn(keydownEvent,'preventDefault').and.callThrough();
         inputEl.dispatchEvent(keydownEvent);
         fixture.detectChanges();
