@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {trigger,state,style,transition,animate, AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
@@ -22,7 +22,7 @@ let idx: number = 0;
                     <ng-content select="p-header"></ng-content>
                 </ng-template>
             </legend>
-            <div [attr.id]="id + '-content'" class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions}} : {value: 'visible', params: {transitionParams: transitionOptions}}" 
+            <div [attr.id]="id + '-content'" class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}" 
                         [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}" [attr.aria-hidden]="collapsed"
                          (@fieldsetContent.done)="onToggleDone($event)" role="region">
                 <div class="ui-fieldset-content">
@@ -34,13 +34,18 @@ let idx: number = 0;
     animations: [
         trigger('fieldsetContent', [
             state('hidden', style({
-                height: '0px'
+                height: '0'
             })),
+            state('void', style({
+                height: '{{height}}'
+            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
             transition('visible => hidden', animate('{{transitionParams}}')),
-            transition('hidden => visible', animate('{{transitionParams}}'))
+            transition('hidden => visible', animate('{{transitionParams}}')),
+            transition('void => hidden', animate('{{transitionParams}}')),
+            transition('void => visible', animate('{{transitionParams}}'))
         ])
     ]
 })

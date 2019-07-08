@@ -1,6 +1,6 @@
 import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
     ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef, TemplateRef} from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header, PrimeTemplate } from '../common/shared';
 import { BlockableUI } from '../common/blockableui';
@@ -21,7 +21,7 @@ let idx: number = 0;
                 <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
             </a>
         </div>
-        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}" (@tabContent.done)="onToggleDone($event)"
+        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
             role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
             <div class="ui-accordion-content ui-widget-content">
@@ -37,10 +37,15 @@ let idx: number = 0;
             state('hidden', style({
                 height: '0'
             })),
+            state('void', style({
+                height: '{{height}}'
+            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', animate('{{transitionParams}}'))
+            transition('visible <=> hidden', animate('{{transitionParams}}')),
+            transition('void => hidden', animate('{{transitionParams}}')),
+            transition('void => visible', animate('{{transitionParams}}'))
         ])
     ]
 })
