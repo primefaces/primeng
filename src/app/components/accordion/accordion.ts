@@ -1,6 +1,6 @@
 import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
     ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef, TemplateRef} from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header, PrimeTemplate } from '../common/shared';
 import { BlockableUI } from '../common/blockableui';
