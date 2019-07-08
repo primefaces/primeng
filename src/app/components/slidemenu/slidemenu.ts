@@ -79,12 +79,7 @@ export class SlideMenuSub implements OnDestroy {
         }
         
         if (item.items && !this.slideMenu.animating) {
-            let oldLeft = this.slideMenu.left;
             this.slideMenu.left -= this.slideMenu.menuWidth;
-            
-            if(!oldLeft && this.slideMenu.left) {
-                this.slideMenu.updateViewPort();
-            }
             
             this.activeItem = listitem;
             this.slideMenu.animating = true;
@@ -107,7 +102,7 @@ export class SlideMenuSub implements OnDestroy {
         <div #container [ngClass]="{'ui-slidemenu ui-widget ui-widget-content ui-corner-all':true, 'ui-slidemenu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="onClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="!popup || visible">
-            <div class="ui-slidemenu-wrapper" [style.height.px]="viewportHeight">
+            <div class="ui-slidemenu-wrapper" [style.height]="left ? viewportHeight + 'px' : 'auto'">
                 <div #slideMenuContent class="ui-slidemenu-content">
                     <p-slideMenuSub [item]="model" root="root" [index]="0" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
@@ -206,12 +201,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     updateViewPort() {
-        if (!this.left) {
-            this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight + 'px';
-        }
-        else {
-            this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
-        }
+        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
     }
     
     toggle(event) {
@@ -282,12 +272,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
     
     goBack() {
-        let oldLeft = this.left;
         this.left += this.menuWidth;
-        
-        if(oldLeft && !this.left) {
-            this.updateViewPort();
-        }
     }
 
     bindDocumentClickListener() {
