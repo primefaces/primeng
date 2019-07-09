@@ -347,7 +347,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
         if (value.length === 0 && !this.multiple) {
            this.hide();
            this.onClear.emit(event);
-	   this.onModelChange(value);
+           if (this.forceSelection)
+               this.onModelChange(null);
+           else
+               this.onModelChange(value);
         }
 
         if (value.length >= this.minLength) {
