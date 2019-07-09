@@ -6,7 +6,6 @@
 
 **Implemented New Features and Enhancements:**
 
-- Clear icon for Table filter columns. [\#6494](https://github.com/primefaces/primeng/issues/6494)
 - SlideMenu: Back button keeps taking up space when hidden [\#7850](https://github.com/primefaces/primeng/issues/7850)
 - Autcomplete ui-autocomplete-panel class [\#7822](https://github.com/primefaces/primeng/issues/7822)
 - Improve formatValue method on Spinner [\#7815](https://github.com/primefaces/primeng/issues/7815)
