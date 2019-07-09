@@ -135,7 +135,27 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @ViewChild('content', { static: false }) content: ElementRef;
 
-    @Input() files: File[] = [];
+    @Input() set files(files) {
+        this._files = [];
+
+        for(let i = 0; i < files.length; i++) {
+            let file = files[i];
+
+            if(this.validate(file)) {
+                if(this.isImage(file)) {
+                    (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                }
+
+                this._files.push(files[i]);
+            }
+        }
+    }
+
+    get files(): File[] {
+        return this._files;
+    }
+
+    public _files: File[] = [];
 
     public progress: number = 0;
 
