@@ -1167,10 +1167,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onInputKeydown(event) {
         this.isKeydown = true;
         if (event.keyCode === 9) {
-            if (this.touchUI)
-                this.disableModality();
-            else
-                this.hideOverlay();
+            this.hideOverlay();
         }
     }
     
