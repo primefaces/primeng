@@ -35,11 +35,11 @@ import {Subscription}   from 'rxjs';
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(0.7)',
+                transform: 'translateX(-50%) translateY(-50%) scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
-                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(1)',
+                transform: 'translateX(-50%) translateY(-50%) scale(1)',
                 opacity: 1
             })),
             transition('* => *', animate('{{transitionParams}}'))
