@@ -33,7 +33,7 @@ export class BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenuSub',
     template: `
-        <ul class="ui-submenu-list" [@submenu]="expanded ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}">
+        <ul class="ui-submenu-list" [@submenu]="expanded ? {value: 'visible', params: {transitionParams: transitionOptions, height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}">
             <ng-template ngFor let-child [ngForOf]="item.items">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="child.styleClass" [class.ui-helper-hidden]="child.visible === false" [ngStyle]="child.style">
@@ -61,11 +61,16 @@ export class BasePanelMenuItem {
             state('hidden', style({
                 height: '0px'
             })),
+            state('void', style({
+                height: '{{height}}'
+            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
             transition('visible => hidden', animate('{{transitionParams}}')),
-            transition('hidden => visible', animate('{{transitionParams}}'))
+            transition('hidden => visible', animate('{{transitionParams}}')),
+            transition('void => hidden', animate('{{transitionParams}}')),
+            transition('void => visible', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -103,7 +108,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </div>
-                    <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}"  (@rootItem.done)="onToggleDone()"
+                    <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}"  (@rootItem.done)="onToggleDone()"
                          [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
                         <div class="ui-panelmenu-content ui-widget-content">
                             <p-panelMenuSub [item]="item" [expanded]="true" [transitionOptions]="transitionOptions" class="ui-panelmenu-root-submenu"></p-panelMenuSub>
@@ -118,11 +123,16 @@ export class PanelMenuSub extends BasePanelMenuItem {
             state('hidden', style({
                 height: '0px'
             })),
+            state('void', style({
+                height: '{{height}}'
+            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
             transition('visible => hidden', animate('{{transitionParams}}')),
-            transition('hidden => visible', animate('{{transitionParams}}'))
+            transition('hidden => visible', animate('{{transitionParams}}')),
+            transition('void => hidden', animate('{{transitionParams}}')),
+            transition('void => visible', animate('{{transitionParams}}'))
         ])
     ]
 })

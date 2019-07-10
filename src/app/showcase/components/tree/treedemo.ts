@@ -23,7 +23,7 @@ import {MessageService} from '../../../components/common/messageservice';
 })
 export class TreeDemo implements OnInit {
 
-    @ViewChild('expandingTree')
+    @ViewChild('expandingTree', { static: false })
     expandingTree: Tree;
 
     filesTree0: TreeNode[];

@@ -71,8 +71,12 @@ export class OrganizationChartNode {
     @Input() first: boolean;
     
     @Input() last: boolean;
+
+    chart: OrganizationChart;
         
-    constructor(@Inject(forwardRef(() => OrganizationChart)) public chart:OrganizationChart) {}
+    constructor(@Inject(forwardRef(() => OrganizationChart)) chart) {
+        this.chart = chart as OrganizationChart;
+    }
                 
     get leaf(): boolean {
         return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
@@ -88,6 +92,11 @@ export class OrganizationChartNode {
     
     toggleNode(event: Event, node: TreeNode) {
         node.expanded = !node.expanded;
+        if(node.expanded)
+            this.chart.onNodeExpand.emit({originalEvent: event, node: this.node});
+        else
+            this.chart.onNodeCollapse.emit({originalEvent: event, node: this.node});
+            
         event.preventDefault();
     }
     
@@ -121,6 +130,10 @@ export class OrganizationChart implements AfterContentInit {
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
+
+    @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

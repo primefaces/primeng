@@ -52,7 +52,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     _sticky: boolean;
     

@@ -83,7 +83,7 @@ describe('SlideMenu', () => {
       fixture.detectChanges();
       
       const wrapperEl = fixture.debugElement.query(By.css('.ui-slidemenu-wrapper'));
-      expect(wrapperEl.nativeElement.style.height).toEqual(slidemenu.viewportHeight.toString()+"px");
+      expect(wrapperEl.nativeElement.style.height).toEqual("auto");
      });
 
      it('should change backlabel', () => {

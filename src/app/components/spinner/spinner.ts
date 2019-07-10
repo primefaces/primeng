@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,ViewChild, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -13,7 +13,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #inputfield type="number" [attr.id]="inputId" [value]="value === 0 ? '0' : value||null" [attr.name]="name"
+            <input #inputfield type="text" [attr.id]="inputId" [value]="formattedValue||null" [attr.name]="name"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
             (keydown)="onInputKeydown($event)" (blur)="onInputBlur($event)" (input)="onInput($event)" (change)="onInputChange($event)" (focus)="onInputFocus($event)"
             [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
@@ -68,8 +68,16 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
+
+    @Input() formatInput: boolean;
+
+    @Input() decimalSeparator: string;
+
+    @Input() thousandSeparator: string;
     
     value: any;
+
+    formattedValue: string;
         
     onModelChange: Function = () => {};
     
@@ -86,22 +94,16 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     public filled: boolean;
     
     public negativeSeparator = '-';
+
+    localeDecimalSeparator: string;
+
+    localeThousandSeparator: string;
+
+    thousandRegExp: RegExp;
     
-    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+    @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
     
-    constructor(public el: ElementRef) {}
-
-    @Input() set decimalSeparator(value: string) {
-        console.warn("decimalSeparator property is removed as Spinner does not format the value anymore.");
-    }
-
-    @Input() set thousandSeparator(value: string) {
-        console.warn("thousandSeparator property is removed as Spinner does not format the value anymore.");
-    }
-
-    @Input() set formatInput(value: boolean) {
-        console.warn("formatInput property is removed as Spinner does not format the value anymore.");
-    }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     @Input() set type(value: string) {
         console.warn("type property is removed as Spinner does not format the value anymore");
@@ -115,8 +117,18 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             // If step is not an integer then extract the length of the decimal part
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
+
+        if (this.formatInput) {
+            this.localeDecimalSeparator = (1.1).toLocaleString().substring(1, 2);
+            this.localeThousandSeparator = (1000).toLocaleString().substring(1, 2);
+            this.thousandRegExp = new RegExp(`[${this.thousandSeparator || this.localeThousandSeparator}]`, 'gim');
+
+            if (this.decimalSeparator && this.thousandSeparator && this.decimalSeparator === this.thousandSeparator) {
+                console.warn("thousandSeparator and decimalSeparator cannot have the same value.");
+            }
+        }
     }
-    
+
     repeat(event: Event, interval: number, dir: number) {
         let i = interval||500;
 
@@ -154,6 +166,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             this.value = this.max;
         }
        
+        this.formatValue();
         this.onModelChange(this.value);
         this.onChange.emit(event);
     }
@@ -228,6 +241,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         
     onInputBlur(event) {
         this.focus = false;
+        this.formatValue();
         this.onModelTouched();
         this.onBlur.emit(event);
     }
@@ -244,10 +258,17 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             value = null;
         }
         else {
-            if (this.precision)
-                value = parseFloat(val.replace(',', '.'));
-            else
+            if (this.formatInput) {
+                val = val.replace(this.thousandRegExp, '');
+            }
+
+            if (this.precision) {
+                val = this.formatInput ? val.replace(this.decimalSeparator || this.localeDecimalSeparator, '.') : val.replace(',', '.');
+                value = parseFloat(val);
+            }
+            else {
                 value = parseInt(val, 10);
+            }
             
             if (!isNaN(value)) {
                 if (this.max !== null && value > this.max) {
@@ -265,6 +286,32 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         
         return value;
     }
+
+    formatValue() {
+        let value = this.value;
+
+        if (value != null) {
+            if (this.formatInput) {
+                value = value.toLocaleString(undefined, {maximumFractionDigits: 20});
+    
+                if (this.decimalSeparator && this.thousandSeparator) {
+                    value = value.split(this.localeDecimalSeparator);
+    
+                    if (this.precision && value[1]) {
+                        value[1] = (this.decimalSeparator || this.localeDecimalSeparator) + value[1];
+                    }
+    
+                    if (this.thousandSeparator && value[0].length > 3) {
+                        value[0] = value[0].replace(new RegExp(`[${this.localeThousandSeparator}]`, 'gim'), this.thousandSeparator);
+                    }
+    
+                    value = value.join('');
+                }
+            }
+    
+            this.formattedValue = value.toString();
+        }
+    }
             
     clearTimer() {
         if (this.timer) {
@@ -274,7 +321,9 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     writeValue(value: any) : void {
         this.value = value;
+        this.formatValue();
         this.updateFilledState();
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {

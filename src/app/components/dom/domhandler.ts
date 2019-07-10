@@ -138,7 +138,7 @@ export class DomHandler {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
         }
 
-        if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
+        if (targetOffset.left + elementOuterWidth > viewport.width)
             left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
         else
             left = targetOffset.left + windowScrollLeft;
@@ -521,5 +521,21 @@ export class DomHandler {
 
     public static isHidden(element: HTMLElement): boolean {
         return element.offsetParent === null;
+    }
+
+    public static getFocusableElements(element:HTMLElement) {
+        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
+            );
+
+            let visibleFocusableElements = [];
+            for(let focusableElement of focusableElements) {
+                if(getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
+                    visibleFocusableElements.push(focusableElement);
+            }
+        return visibleFocusableElements;
     }
 }

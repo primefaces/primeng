@@ -91,7 +91,8 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>rowsPerPageOptions</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>Array of integer values to display inside rows per page dropdown.</td>
+                            <td>Array of integer/object values to display inside rows per page dropdown.
+                                A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,&#123;showAll:'All'&#125;] </td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -128,6 +129,12 @@ import &#123;PaginatorModule&#125; from 'primeng/paginator';
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>dropdownScrollHeight</td>
+                            <td>string</td>
+                            <td>200px</td>
+                            <td>Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
                         </tr>
                         <tr>
                             <td>currentPageReportTemplate</td>

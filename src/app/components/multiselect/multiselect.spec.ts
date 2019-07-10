@@ -75,6 +75,7 @@ describe('MultiSelect', () => {
 	});
 
 	it('should change panelstyle and panelStyleClass', () => {
+		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
 		multiselect.panelStyle = {'primeng':'rocks'};
@@ -88,6 +89,9 @@ describe('MultiSelect', () => {
 	});
 
 	it('should open when click', () => {
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		const clickSpy = spyOn(multiselect, 'onMouseclick').and.callThrough();
 		multiselectEl.click();
@@ -118,17 +122,20 @@ describe('MultiSelect', () => {
 
 	it('should select item', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW'},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
-	];
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
+		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		multiselectEl.click();
 		fixture.detectChanges();
@@ -188,17 +195,20 @@ describe('MultiSelect', () => {
 
 	it('should not select disabled item', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW',disabled:true},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
-	];
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW',disabled:true},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
+		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		multiselectEl.click();
 		fixture.detectChanges();
@@ -221,17 +231,20 @@ describe('MultiSelect', () => {
 
 	it('should select multiple', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW'},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
-	];
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
+		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		multiselectEl.click();
 		fixture.detectChanges();
@@ -294,17 +307,20 @@ describe('MultiSelect', () => {
 
 	it('should select all', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW'},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
 		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		const itemClickSpy = spyOn(multiselect,'isAllChecked').and.callThrough();
 		const onHeaderCheckboxFocusSpy = spyOn(multiselect,'onHeaderCheckboxFocus').and.callThrough();
@@ -329,17 +345,20 @@ describe('MultiSelect', () => {
 
 	it('should select all when filtered', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW'},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
 		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const onInputFocusSpy = spyOn(multiselect,"onInputFocus").and.callThrough();
 		const onInputBlur = spyOn(multiselect,"onInputBlur").and.callThrough();
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
@@ -365,17 +384,20 @@ describe('MultiSelect', () => {
 
 	it('should unselect all', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW'},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
 		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		const toggleSpy = spyOn(multiselect,'isAllChecked').and.callThrough();
 		multiselectEl.click();
@@ -396,17 +418,20 @@ describe('MultiSelect', () => {
 
 	it('should filtered', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW'},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
 		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		multiselectEl.click();
 		fixture.detectChanges();
@@ -419,19 +444,59 @@ describe('MultiSelect', () => {
 		expect(multiselect.visibleOptions.length).toEqual(2);
 	});
 
+	it('should reapply filter on options change', () => {
+		multiselect.options = [
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
+		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
+		const multiselectEl = fixture.debugElement.children[0].nativeElement;
+		multiselectEl.click();
+		fixture.detectChanges();
+
+		const filterInputEl = fixture.debugElement.query(By.css('.ui-inputtext')).nativeElement;
+		filterInputEl.value = "f";
+		filterInputEl.dispatchEvent(new Event('input'));
+		fixture.detectChanges();
+
+		multiselect.options = [
+			{label: 'Toyota', value: 'Toyota'},
+			{label: 'Hyundai', value: 'Hyundai'},
+			{label: 'Nissan', value: 'Nissan'},
+			{label: 'Suzuki', value: 'Suzuki'},
+			{label: 'Ford', value: 'Ford'},
+		];
+		fixture.detectChanges();
+
+		expect(multiselect.visibleOptions.length).toEqual(1);
+	});
+
 	it('should close with close icon and reset filter input', () => {
 		multiselect.options = [
-		{label: 'Audi', value: 'Audi'},
-		{label: 'BMW', value: 'BMW'},
-		{label: 'Fiat', value: 'Fiat'},
-		{label: 'Ford', value: 'Ford'},
-		{label: 'Honda', value: 'Honda'},
-		{label: 'Jaguar', value: 'Jaguar'},
-		{label: 'Mercedes', value: 'Mercedes'},
-		{label: 'Renault', value: 'Renault'},
-		{label: 'VW', value: 'VW'},
-		{label: 'Volvo', value: 'Volvo'}
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
 		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
 		multiselect.resetFilterOnHide = true;
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		multiselectEl.click();
@@ -448,5 +513,39 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		expect(fixture.debugElement.query(By.css("div")).nativeElement.className).not.toContain("ui-multiselect-open");
+	});
+
+	it('should display not found message when filter returns 0 results', () => {
+		multiselect.options = [
+				{label: 'Audi', value: 'Audi'},
+				{label: 'BMW', value: 'BMW'},
+				{label: 'Fiat', value: 'Fiat'},
+				{label: 'Ford', value: 'Ford'},
+				{label: 'Honda', value: 'Honda'},
+				{label: 'Jaguar', value: 'Jaguar'},
+				{label: 'Mercedes', value: 'Mercedes'},
+				{label: 'Renault', value: 'Renault'},
+				{label: 'VW', value: 'VW'},
+				{label: 'Volvo', value: 'Volvo'}
+			];
+			multiselect.disabledSelectedOptions = [];
+			fixture.detectChanges();
+
+			const multiselectEl = fixture.debugElement.children[0].nativeElement;
+			multiselectEl.click();
+			fixture.detectChanges();
+	
+			const filterInputEl = fixture.debugElement.query(By.css('.ui-inputtext')).nativeElement;
+			filterInputEl.value = "1";
+			filterInputEl.dispatchEvent(new Event('input'));
+			fixture.detectChanges();
+	
+			const visibleItems = fixture.debugElement.queryAll(By.css('.ui-multiselect-items li'))
+				.filter(el => el.styles.display !== 'none');
+			const emptyMesage = visibleItems[0]; 
+			expect(multiselect.visibleOptions.length).toEqual(0);
+			expect(visibleItems.length).toEqual(1);
+			expect(emptyMesage).toBeTruthy();
+			expect(emptyMesage.nativeElement.textContent).toEqual("No results found");
 	});
 });

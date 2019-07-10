@@ -438,7 +438,7 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>rowsPerPageOptions</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>Array of integer values to display inside rows per page dropdown of paginator</td>
+                            <td>Array of integer/object values to display inside rows per page dropdown of paginator</td>
                         </tr>
                         <tr>
                             <td>paginatorPosition</td>
@@ -457,6 +457,12 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorDropdownScrollHeight</td>
+                            <td>string</td>
+                            <td>200px</td>
+                            <td>Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
                         </tr>
                         <tr>
                             <td>currentPageReportTemplate</td>

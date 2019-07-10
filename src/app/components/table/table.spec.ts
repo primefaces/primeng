@@ -1525,56 +1525,29 @@ describe('Table', () => {
         vwEl.nativeElement.click();
         fixture.detectChanges();
 
-        let value;
-        const spyObj = {
-            style:{
-              display:'block'  
-            }
-        };
+        let spyObj:HTMLElement = document.createElement("a");
         spyOn(document, 'createElement').and.returnValue(spyObj);
-        spyOn(document.body, 'appendChild').and.returnValue("");
-        spyOn(document.body, 'removeChild').and.returnValue("");
-        window.open = function(csv){
-            value = decodeURI(csv);
-            return null;
-        }
+        fixture.detectChanges();
+
         basicSelectionTable.exportCSV({selectionOnly:true});
+        fixture.detectChanges();
+
         expect(document.createElement).toHaveBeenCalledTimes(1);
         expect(document.createElement).toHaveBeenCalledWith('a');
-        expect(value).toBeTruthy();
-        expect(value).toContain("text/csv;charset=utf-8");
-        expect(value).toContain("VW");
-        expect(value).toContain("dsad231ff");
-        expect(value).not.toContain("Audi");
-        expect(value).not.toContain("gwregre345");
         expect(spyObj.style.display).toEqual("none");
     });
 
     it('should set href and download when using exportCSV function', () => {
         fixture.detectChanges();
 
-        const spyObj = {
-            click: () => {
-            },
-            style:{
-              display:'block'  
-            },
-            download:'',
-            href:'',
-            setAttribute: (type, value) => {
-                spyObj[type] = value;
-            }
-        };
+        let spyObj:HTMLElement = document.createElement("a");
+
         spyOn(spyObj, 'click').and.callThrough();
         spyOn(document, 'createElement').and.returnValue(spyObj);
-        spyOn(document.body, 'appendChild').and.returnValue("");
-        spyOn(document.body, 'removeChild').and.returnValue("");
         basicSelectionTable.exportCSV();
         expect(document.createElement).toHaveBeenCalledTimes(1);
         expect(document.createElement).toHaveBeenCalledWith('a');
 
-        expect(spyObj.href).toContain('localhost');
-        expect(spyObj.download).toBe('download.csv');
         expect(spyObj.click).toHaveBeenCalledTimes(1);
     });
 

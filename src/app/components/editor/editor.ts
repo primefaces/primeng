@@ -3,8 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule,Header} from '../common/shared'
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-
-declare var Quill: any;
+import * as Quill from "quill";
 
 export const EDITOR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -71,7 +70,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header) toolbar;
+    @ContentChild(Header, { static: false }) toolbar;
     
     @Input() style: any;
         

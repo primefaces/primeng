@@ -347,7 +347,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() tabindex: number;
 
-    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+    @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
 
     private _utc: boolean;
 
@@ -614,8 +614,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let dayNo = 1;
         let today = new Date();
         let weekNumbers = [];
+        let monthRows = Math.ceil((daysLength + firstDay) / 7);
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < monthRows; i++) {
             let week = [];
             
             if (i == 0) {
@@ -792,7 +793,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     shouldSelectDate(dateMeta) {
         if (this.isMultipleSelection())
-            return this.maxDate != null ? this.maxDateCount > this.value.length : true;
+            return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
         else
             return true;
     }
@@ -858,10 +859,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
         
         if (this.showTime) {
-            if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
-                date.setHours(this.currentHour + 12);
-            else
+            if (this.hourFormat == '12') {
+                if (this.currentHour === 12)
+                    date.setHours(this.pm ? 12 : 0);
+                else
+                    date.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
+            }
+            else {
                 date.setHours(this.currentHour);
+            }
 
             date.setMinutes(this.currentMinute);
             date.setSeconds(this.currentSecond);
@@ -1161,10 +1167,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     onInputKeydown(event) {
         this.isKeydown = true;
         if (event.keyCode === 9) {
-            if (this.touchUI)
-                this.disableModality();
-            else
-                this.hideOverlay();
+            this.hideOverlay();
         }
     }
     
@@ -1451,6 +1454,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         catch(err) {
             //invalid date
+            this.updateModel(null);
         }
         
         this.filled = val != null && val.length;
@@ -2100,6 +2104,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.unbindMaskClickListener();
         this.unbindDocumentResizeListener();
         this.overlay = null;
+        this.disableModality();
     }
     
     ngOnDestroy() {

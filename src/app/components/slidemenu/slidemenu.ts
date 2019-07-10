@@ -52,9 +52,13 @@ export class SlideMenuSub implements OnDestroy {
     @Input() easing: string = 'ease-out';
 
     @Input() index: number;
-        
-    constructor(@Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu) {}
-        
+
+    slideMenu: SlideMenu;
+    
+    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu) {
+        this.slideMenu = slideMenu as SlideMenu;
+    }
+             
     activeItem: any;
                             
     itemClick(event, item: MenuItem, listitem: any) {
@@ -76,6 +80,7 @@ export class SlideMenuSub implements OnDestroy {
         
         if (item.items && !this.slideMenu.animating) {
             this.slideMenu.left -= this.slideMenu.menuWidth;
+            
             this.activeItem = listitem;
             this.slideMenu.animating = true;
             setTimeout(() => this.slideMenu.animating = false, this.effectDuration);
@@ -97,7 +102,7 @@ export class SlideMenuSub implements OnDestroy {
         <div #container [ngClass]="{'ui-slidemenu ui-widget ui-widget-content ui-corner-all':true, 'ui-slidemenu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="onClick($event)"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="!popup || visible">
-            <div class="ui-slidemenu-wrapper" [style.height.px]="viewportHeight">
+            <div class="ui-slidemenu-wrapper" [style.height]="left ? viewportHeight + 'px' : 'auto'">
                 <div #slideMenuContent class="ui-slidemenu-content">
                     <p-slideMenuSub [item]="model" root="root" [index]="0" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
@@ -183,15 +188,15 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
-    @ViewChild('container') set container(element: ElementRef) {
+    @ViewChild('container', { static: false }) set container(element: ElementRef) {
         this.containerViewChild = element;
     }
 
-    @ViewChild('backward') set backward(element: ElementRef) {
+    @ViewChild('backward', { static: false }) set backward(element: ElementRef) {
         this.backwardViewChild = element;
     }
 
-    @ViewChild('slideMenuContent') set slideMenuContent(element: ElementRef) {
+    @ViewChild('slideMenuContent', { static: false }) set slideMenuContent(element: ElementRef) {
         this.slideMenuContentViewChild = element;
     }
 

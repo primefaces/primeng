@@ -1,5 +1,124 @@
 # Change Log
 
+## [8.0.1](https://github.com/primefaces/primeng/tree/8.0.1) (2019-07-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.0.0...8.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- SlideMenu: Back button keeps taking up space when hidden [\#7850](https://github.com/primefaces/primeng/issues/7850)
+- Autcomplete ui-autocomplete-panel class [\#7822](https://github.com/primefaces/primeng/issues/7822)
+- Improve formatValue method on Spinner [\#7815](https://github.com/primefaces/primeng/issues/7815)
+- Different styling for AutoComplete EmptyMessage [\#7791](https://github.com/primefaces/primeng/issues/7791)
+- Add showAll option for rowsPerPage to Paginator [\#7770](https://github.com/primefaces/primeng/issues/7770)
+- OnNodeExpand event in Organization Chart [\#7592](https://github.com/primefaces/primeng/issues/7592)
+- p-calendar shows a redundant week on the calendar [\#6501](https://github.com/primefaces/primeng/issues/6501)
+- Add keyboard shortcut to lightbox so a user can escape out of the lightbox without use of the mouse [\#6456](https://github.com/primefaces/primeng/issues/6456)
+- Responsive Lightbox [\#2318](https://github.com/primefaces/primeng/issues/2318)
+
+**Fixed bugs:**
+
+- Backspace doesn't clear the date in calendar. [\#7897](https://github.com/primefaces/primeng/issues/7897)
+- Lightbox listeners should remove when hiding. [\#7895](https://github.com/primefaces/primeng/issues/7895)
+- Table pSelectableRowCblClick provides no styling like pSelectableRow [\#7876](https://github.com/primefaces/primeng/issues/7876)
+- Touch UI does not delete the background overlay properly - Breaks entire app state [\#7847](https://github.com/primefaces/primeng/issues/7847)
+- The "required" prop is not working on Dropdown [\#7831](https://github.com/primefaces/primeng/issues/7831)
+- Dropdown is not align with input when using appendTo="body" property [\#7808](https://github.com/primefaces/primeng/issues/7808)
+- Times between 12:00AM-12:59AM save as PM when defaulted or typed in [\#7799](https://github.com/primefaces/primeng/issues/7799)
+- Drag and Drop is not working in OrderList in Firefox web browser [\#7793](https://github.com/primefaces/primeng/issues/7793)
+- Spinner does not reflect initially bound value when OnPush strategy is used [\#7773](https://github.com/primefaces/primeng/issues/7773)
+- p-treetable not filtering when only one parent is present [\#7757](https://github.com/primefaces/primeng/issues/7757)
+- KeyFilter is not working on pase [\#7729](https://github.com/primefaces/primeng/issues/7729)
+- Dropdown does not scroll to selected when virtual scroll is enabled [\#7718](https://github.com/primefaces/primeng/issues/7718)
+- p-multiselect disabled and selected option gets un-selected by the select all checkbox in header [\#7540](https://github.com/primefaces/primeng/issues/7540)
+- Display issue with accordion nested inside overlay [\#6318](https://github.com/primefaces/primeng/issues/6318)
+
+## [8.0.0](https://github.com/primefaces/primeng/tree/8.0.0) (2019-06-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.0.0-rc.1...8.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Add decimalSeparator and thousandSeparator props to Spinner [\#7807](https://github.com/primefaces/primeng/issues/7807)
+- Add formatInput prop to Spinner [\#7806](https://github.com/primefaces/primeng/issues/7806)
+- Add onSend and remove onBeforeSend for FileUpload [\#7805](https://github.com/primefaces/primeng/issues/7805)
+- headers prop for FileUpload [\#7803](https://github.com/primefaces/primeng/issues/7803)
+- Two-way binding support for "rows" property of Table [\#7797](https://github.com/primefaces/primeng/issues/7797)
+
+**Fixed bugs:**
+
+- withCredentials Ignored in FileUpload [\#7804](https://github.com/primefaces/primeng/issues/7804)
+- 2x styleClass property in multiselect documentation [\#7790](https://github.com/primefaces/primeng/issues/7790)
+- autocomplete - tabindex=-1 not working [\#7771](https://github.com/primefaces/primeng/issues/7771)
+- Textarea Floating labels fails on Firefox [\#6957](https://github.com/primefaces/primeng/issues/6957)
+
+## [8.0.0-rc.1](https://github.com/primefaces/primeng/tree/8.0.0-rc.1) (2019-06-03)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.3...8.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Apply ng lint to codebase [\#7418](https://github.com/primefaces/primeng/issues/7418)
+- Remove aria props from pSortIcon [\#7766](https://github.com/primefaces/primeng/issues/7766)
+- Add static false to all ViewChild and ContentChild [\#7764](https://github.com/primefaces/primeng/issues/7764)
+- Chart and Editor should not use Global variables [\#7763](https://github.com/primefaces/primeng/issues/7763)
+- Remove deprecated themes [\#7762](https://github.com/primefaces/primeng/issues/7762)
+- Angular 8 Compatibility [\#7761](https://github.com/primefaces/primeng/issues/7761)
+- Refactor forwardRef injects [\#7760](https://github.com/primefaces/primeng/issues/7760)
+- Remove DataTable [\#7759](https://github.com/primefaces/primeng/issues/7759)
+- Change Dropdown scrollHeight from TurboTable, DataView and Paginator [\#7713](https://github.com/primefaces/primeng/issues/7713)
+- New Directive: pTrapFocus [\#7665](https://github.com/primefaces/primeng/issues/7665)
+- Support Angular 8 [\#7627](https://github.com/primefaces/primeng/issues/7627)
+- dismissableMask and closeOnEscape functionality for Sidebar [\#4793](https://github.com/primefaces/primeng/issues/4793)
+
+**Fixed bugs:**
+
+- p-TreeTable column reordering not working [\#7735](https://github.com/primefaces/primeng/issues/7735)
+- Lazy loaded table will break with reordering of rows [\#7730](https://github.com/primefaces/primeng/issues/7730)
+- Issue with indexing of current page in currentPageReport [\#7684](https://github.com/primefaces/primeng/issues/7684)
+- p-table 'onRowReorder' event emits wrong dropindex value [\#6910](https://github.com/primefaces/primeng/issues/6910)
+- p-Dropdown : ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ui-inputwrapper-focus: true'. Current value: 'ui-inputwrapper-focus: false'. [\#6671](https://github.com/primefaces/primeng/issues/6671)
+- keyFilter on Chrome Android [\#5925](https://github.com/primefaces/primeng/issues/5925)
+
+**Unit Tests:**
+
+- Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
+## [7.1.3](https://github.com/primefaces/primeng/tree/7.1.3) (2019-05-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.2...7.1.3)
+
+**Implemented New Features and Enhancements:**
+
+- State save and restore events for Table [\#7666](https://github.com/primefaces/primeng/issues/7666)
+- Improve relativePosition method in DomHandler [\#7653](https://github.com/primefaces/primeng/issues/7653)
+- Improve Galleria styling [\#7652](https://github.com/primefaces/primeng/issues/7652)
+- Left arrow press should focus parent on Tree [\#7619](https://github.com/primefaces/primeng/issues/7619)
+- Update dynamic dialog animations  [\#7598](https://github.com/primefaces/primeng/issues/7598)
+- Update confirmDialog animations [\#7597](https://github.com/primefaces/primeng/issues/7597)
+
+**Fixed bugs:**
+
+- InputMask's style not working [\#7664](https://github.com/primefaces/primeng/issues/7664)
+- The scroll bar is not moving correctly on the TurboTable with resizeMode="expand" [\#7659](https://github.com/primefaces/primeng/issues/7659)
+- Menu \(Popup\) - double click on item reloads the page [\#7648](https://github.com/primefaces/primeng/issues/7648)
+- p-spinner min/max validation on every keypress prevents manual input of value PrimeNG7.1.2 [\#7643](https://github.com/primefaces/primeng/issues/7643)
+- \[Spinner\] \(7.1.2\) Decimal spinner control marked as invalid in Firefox [\#7625](https://github.com/primefaces/primeng/issues/7625)
+- \[Spinner\] 7.1.2 introduces incompatible changes to spinner control [\#7624](https://github.com/primefaces/primeng/issues/7624)
+- The value of Spinner component is not always updated after being manually changed. [\#7623](https://github.com/primefaces/primeng/issues/7623)
+- Down arrow press on draggable Tree [\#7617](https://github.com/primefaces/primeng/issues/7617)
+- Spinner max length does not work in version 7.1.2 [\#7616](https://github.com/primefaces/primeng/issues/7616)
+- p-menubar without AutoDisplay not opening adjacent menu items [\#7600](https://github.com/primefaces/primeng/issues/7600)
+- p-dialog not considering content scroll height on resize [\#7573](https://github.com/primefaces/primeng/issues/7573)
+- Spinner doesn't get the state filled [\#7532](https://github.com/primefaces/primeng/issues/7532)
+- p-fileUpload component has bug on select file [\#7149](https://github.com/primefaces/primeng/issues/7149)
+
+**Unit Tests:**
+
+- DragDrop Unit Test [\#7656](https://github.com/primefaces/primeng/issues/7656)
+- TreeTable Unit Test [\#7649](https://github.com/primefaces/primeng/issues/7649)
+- DynamicDialog Unit Test [\#7630](https://github.com/primefaces/primeng/issues/7630)
+
 ## [7.1.2](https://github.com/primefaces/primeng/tree/7.1.2) (2019-04-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.1.1...7.1.2)

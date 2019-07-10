@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
     ngOnInit() {
         let routes = this.router.config;
         for (let route of routes) {
-            if (route.path && route.path !== "datatable" && route.path !== "datagrid" && route.path !== "datalist" && route.path !== "datascroller" && route.path !== "growl")
+            if (route.path && route.path !== "datagrid" && route.path !== "datalist" && route.path !== "datascroller" && route.path !== "growl")
                 this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1));
         }
     }
