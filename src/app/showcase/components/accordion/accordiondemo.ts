@@ -1,15 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MessageService} from '../../../components/common/messageservice';
+import { timer } from 'rxjs';
 
 @Component({
     templateUrl: './accordiondemo.html',
     providers: [MessageService]
 })
-export class AccordionDemo {
+export class AccordionDemo implements OnInit {
     
     index: number = -1;
+    expanded: boolean;
 
     constructor(private messageService: MessageService) {}
+
+    ngOnInit(): void {
+        const someHttpCallBack$ = timer(100, 200);
+        someHttpCallBack$.subscribe(() => {
+          this.expanded = !this.expanded;
+        });
+    }
 
     onTabClose(event) {
         this.messageService.add({severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index})
