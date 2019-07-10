@@ -74,7 +74,7 @@ export class OverlayPanel implements OnDestroy {
             this.zone.runOutsideAngular(() => {
                 let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
                 this.documentClickListener = this.renderer.listen('document', documentEvent, (event) => {
-                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.isDatePickerNav(event)) {
                         this.zone.run(() => {
                             this.hide();
                         });
@@ -173,6 +173,16 @@ export class OverlayPanel implements OnDestroy {
 
     onWindowResize(event) {
         this.hide();
+    }
+
+    isDatePickerNav(event) {
+        if (event.target.classList.value.includes("ui-datepicker-next" || "ui-datepicker-next-icon") || event.target.classList.value.includes("ui-datepicker-prev" || "ui-datepicker-prev-icon")) {
+            if(DomHandler.findSingle(this.container,".ui-datepicker-header")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     bindDocumentResizeListener() {
