@@ -685,6 +685,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     navBackward(event) {
+        event.stopPropagation();
+        
         if (this.disabled) {
             event.preventDefault();
             return;
@@ -708,6 +710,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     navForward(event) {
+        event.stopPropagation();
+
         if (this.disabled) {
             event.preventDefault();
             return;
