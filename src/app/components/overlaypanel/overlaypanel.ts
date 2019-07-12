@@ -6,7 +6,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 @Component({
     selector: 'p-overlayPanel',
     template: `
-        <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass"
+        <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick()"
             [@animation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-overlaypanel-content">
                 <ng-content></ng-content>
@@ -59,6 +59,8 @@ export class OverlayPanel implements OnDestroy {
 
     visible: boolean = false;
 
+    isContainerClicked: boolean = true;
+
     documentClickListener: any;
             
     target: any;
@@ -69,17 +71,22 @@ export class OverlayPanel implements OnDestroy {
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
         
+    onContainerClick() {
+        this.isContainerClicked = true;
+    }
+
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {
             this.zone.runOutsideAngular(() => {
                 let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
                 this.documentClickListener = this.renderer.listen('document', documentEvent, (event) => {
-                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.isContainerClicked) {
                         this.zone.run(() => {
                             this.hide();
                         });
                     }
 
+                    this.isContainerClicked = false;
                     this.cd.markForCheck();
                 });
             });
