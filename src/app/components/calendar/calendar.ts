@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,
-        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
+        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList, NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
@@ -527,7 +527,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
        }
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
         const date = this.defaultDate||new Date();
@@ -2052,12 +2052,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (this.isOutsideClicked(event) && this.overlayVisible) {
-                    this.hideOverlay();
-                }
-
-                this.cd.detectChanges();
+            this.zone.runOutsideAngular(() => {
+                this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+                    if (this.isOutsideClicked(event) && this.overlayVisible) {
+                        this.zone.run(() => {
+                            this.hideOverlay();
+                        });
+                    }
+                    
+                    this.cd.markForCheck();
+                });
             });
         }
     }
