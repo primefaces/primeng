@@ -109,6 +109,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     
     @Input() customUpload: boolean;
 
+    @Input() fileLimit: number;
+
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
     @Output() onSend: EventEmitter<any> = new EventEmitter();
@@ -205,12 +207,17 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
             if(!this.isFileSelected(file)){
               if(this.validate(file)) {
-                  if(this.isImage(file)) {
-                      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-                  }
+                    if(this.isImage(file)) {
+                        file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                    }
 
-                  this.files.push(files[i]);
-              }
+                    if(!this.fileLimit && this.fileLimit !== 0) {
+                        this.files.push(files[i]);
+                    }
+                    else if(this.files.length < this.fileLimit) {
+                        this.files.push(files[i]);
+                    }
+                }
             }
         }
 
