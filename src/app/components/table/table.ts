@@ -2911,6 +2911,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[pContextMenuRow]',
     host: {
+        '[class.ui-selectable-row]': 'isEnabled()',
         '[class.ui-contextmenu-selected]': 'selected'
     }
 })
