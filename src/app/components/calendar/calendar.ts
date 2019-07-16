@@ -1522,8 +1522,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         else {
             const dateFormat = this.getDateFormat();
             if (this.showTime) {
-                date = this.parseDate(parts[0], dateFormat);
-                this.populateTime(date, parts[1], parts[2]);
+                let ampm = this.hourFormat == '12' ? parts.pop() : null;
+                let timeString = parts.pop();
+                
+                date = this.parseDate(parts.join(' '), dateFormat);
+                this.populateTime(date, timeString, ampm);
             }
             else {
                  date = this.parseDate(text, dateFormat);
