@@ -275,7 +275,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     public visibleOptions: SelectItem[];
 
-    public disabledSelectedOptions: SelectItem[];
+    public disabledSelectedOptions: SelectItem[] = [];
     
     public filtered: boolean;
     
