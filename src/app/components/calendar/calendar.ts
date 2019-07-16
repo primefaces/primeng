@@ -237,6 +237,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() disabled: any;
     
     @Input() dateFormat: string = 'mm/dd/yy';
+
+    @Input() multipleSeparator: string = ',';
+
+    @Input() rangeSeparator: string = '-';
     
     @Input() inline: boolean = false;
     
@@ -818,7 +822,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     let dateAsString = this.formatDateTime(this.value[i]);
                     formattedValue += dateAsString;
                     if (i !== (this.value.length - 1)) {
-                        formattedValue += ', ';
+                        formattedValue += this.multipleSeparator+' ';
                     }
                 }
             }
@@ -829,7 +833,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     
                     formattedValue = this.formatDateTime(startDate);
                     if (endDate) {
-                        formattedValue += ' - ' + this.formatDateTime(endDate);
+                        formattedValue += ' '+this.rangeSeparator +' ' + this.formatDateTime(endDate);
                     }
                 }
             }
@@ -1490,14 +1494,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             value = this.parseDateTime(text);
         }
         else if (this.isMultipleSelection()) {
-            let tokens = text.split(',');
+            let tokens = text.split(this.multipleSeparator);
             value = [];
             for (let token of tokens) {
                 value.push(this.parseDateTime(token.trim()));
             }
         }
         else if (this.isRangeSelection()) {
-            let tokens = text.split(' - ');
+            let tokens = text.split(' '+this.rangeSeparator +' ');
             value = [];
             for (let i = 0; i < tokens.length; i++) {
                 value[i] = this.parseDateTime(tokens[i].trim());
