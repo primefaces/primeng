@@ -1026,13 +1026,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isMonthSelected(month: number): boolean {
-        if (this.value) {
-            if (this.isRangeSelection() || this.isMultipleSelection())
-                return this.isSelected({year: this.currentYear, month: month, day: 1, selectable: true});
-            else
-                return this.value.getMonth() === month && this.value.getFullYear() === this.currentYear;
-        }
-        return false;
+        return this.isSelected({year: this.currentYear, month: month, day: 1, selectable: true});
     }
     
     isDateEquals(value, dateMeta) {
