@@ -1,4 +1,5 @@
 import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
+import {ListRange} from '@angular/cdk/collections';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -115,7 +116,7 @@ export class DropdownItem {
                                 </ng-template>
                             </ng-container>
                             <ng-template #virtualScrollList>
-                                <cdk-virtual-scroll-viewport (scrolledIndexChange)="scrollToSelectedVirtualScrollElement($event)" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
+                                <cdk-virtual-scroll-viewport (scrolledIndexChange)="onVirtualScrolledIndexChange($event)" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
                                     <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">         
                                         <p-dropdownItem [option]="option" [selected]="selectedOption == option"
                                                                    (onClick)="onItemClick($event,i)"
@@ -246,7 +247,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     private virtualAutoScrolled: boolean;
 
-    private virtualScrollSelectedIndex: number;
+    private virtualScrollSelectedIndex: number = -1;
 
     @Input() get autoWidth(): boolean {
         return this._autoWidth;
@@ -418,6 +419,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             this.onModelChange(this.value);
             this.updateEditableLabel();
+
+            if (this.virtualScroll) {
+                /* This ensures index update on both click select and arrow key select */
+                this.virtualScrollSelectedIndex = this.optionsToDisplay.indexOf(option);
+            }
+
             this.onChange.emit({
                 originalEvent: event.originalEvent,
                 value: this.value
@@ -428,6 +435,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     ngAfterViewChecked() {        
         if (this.optionsChanged && this.overlayVisible) {
             this.optionsChanged = false;
+
+            if (this.virtualScroll) {
+                this.virtualScrollSelectedIndex = this.optionsToDisplay.indexOf(this.selectedOption);
+            }
+            this.scrollToSelectedListItem();
             
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
@@ -437,10 +449,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
         
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
-            if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.ui-state-highlight'));
-            }
+            this.scrollToSelectedListItem();
             this.selectedOptionUpdated = false;
         }
     }
@@ -545,11 +554,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.bindDocumentResizeListener();
 
                 if (this.options && this.options.length) {
-                    if(!this.virtualScroll) {
-                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
-                        if (selectedListItem) {
-                            DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
-                        }
+                    if (!this.virtualScroll) {
+                        /* because virtualScroll has not loaded yet at this point */
+                        this.scrollToSelectedListItem();
                     }
                 }
 
@@ -567,21 +574,54 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    scrollToSelectedVirtualScrollElement(event){
+    onVirtualScrolledIndexChange(event){
+
         if (!this.virtualAutoScrolled) {
-            if (this.filter && !this.resetFilterOnHide) {
-                let index = this.optionsToDisplay.findIndex(option => option.value === this.value);
-                if (event == 0 && index > 0) {
-                    this.viewPort.scrollToIndex(index,'auto');
+            this.scrollToSelectedListItem();
+        }
+
+    }
+
+    scrollToSelectedListItem() {
+        if (this.virtualScroll) {
+
+            if (this.viewPort && this.virtualScrollSelectedIndex > -1) {
+
+                let listRange: ListRange = this.viewPort.getRenderedRange();
+                /* if virtualScrollSelectedIndex is not within rendered range, we */
+                /* scroll closer to selected item, but keep it out of view intentionally. */
+                /* This scrolling will trigger a onVirtualScrolledIndexChange event which */
+                /* will call this method again. This time the index will be in rendered range. */
+                /* So DomHandler will scroll it into view as it does for normal drop-down */
+
+                if(this.virtualScrollSelectedIndex < listRange.start) {
+                    let indexToScrollTo = this.virtualScrollSelectedIndex + 1;
+                    this.viewPort.scrollToIndex(indexToScrollTo);
+                    this.virtualAutoScrolled = false;
                 }
-            }
-            else {
-                if (event == 0 && this.virtualScrollSelectedIndex > 0) {
-                    this.viewPort.scrollToIndex(this.virtualScrollSelectedIndex,'auto');
+                else if(this.virtualScrollSelectedIndex > listRange.end) {
+                    let listRangeItemCount = listRange.end - listRange.start + 1;
+                    let indexToScrollTo = this.virtualScrollSelectedIndex - listRangeItemCount + 6;
+                    this.viewPort.scrollToIndex(indexToScrollTo);
+                    this.virtualAutoScrolled = false;
                 }
+                else {
+                    let selectedItemContainer = DomHandler.findSingle(this.overlay, 'cdk-virtual-scroll-viewport');
+                    let selectedItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+                    if (selectedItemContainer && selectedItem) {
+                        DomHandler.scrollInView(selectedItemContainer, selectedItem);
+                    }
+                    this.virtualAutoScrolled = true;
+                }
+
             }
 
-            this.virtualAutoScrolled = true;
+        }
+        else {
+            let selectedItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+            if (selectedItem) {
+                DomHandler.scrollInView(this.itemsWrapper, selectedItem);
+            }
         }
     }
 
@@ -960,7 +1000,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.filterValue = null;
             this.optionsToDisplay = this.options;
         }
-        
+
         this.optionsChanged = true;
     }
     
