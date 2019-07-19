@@ -76,6 +76,34 @@ import { RouterTestingModule } from '@angular/router/testing';
         </ng-template>
     </p-table>
 
+    <p-table class="functionFilterTable" #dt2 [columns]="cols3" [value]="cars3">
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">        
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" class="globalFunctionFilter" pInputText size="50" placeholder="Global Filter" (input)="dt2.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.header">
+                    <input *ngSwitchCase="'Brand'" class="brandFunctionFilter" pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{col.field(rowData)}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
     <p-table class="sortTable" [columns]="cols" [value]="cars">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -358,6 +386,12 @@ class TestBasicTableComponent {
         { field: 'year', header: 'Year' },
         { field: 'color', header: 'Color' }
     ];
+    cols3 = [
+        { field: (row) => row.brand, header: 'Brand' },
+        { field: (row) => row.vin, header: 'Vin' },
+        { field: (row) => row.year, header: 'Year' },
+        { field: (row) => row.color, header: 'Color' }
+    ];
     cars = [
         {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
         {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
@@ -371,6 +405,18 @@ class TestBasicTableComponent {
         {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"}
     ];
     cars2 = [
+        {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
+        {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
+        {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
+        {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
+        {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"},
+        {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
+        {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
+        {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
+        {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
+        {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"}
+    ];
+    cars3 = [
         {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
         {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
         {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
@@ -409,6 +455,7 @@ describe('Table', () => {
   
     let table: Table;
     let filterTable: Table;
+    let functionFilterTable: Table;
     let sortTable: Table;
     let basicSelectionTable: Table;
     let radioSelectionTable: Table;
@@ -466,16 +513,17 @@ describe('Table', () => {
         testComponent = fixture.componentInstance;
         table = fixture.debugElement.children[0].componentInstance;
         filterTable = fixture.debugElement.children[1].componentInstance;
-        sortTable = fixture.debugElement.children[2].componentInstance;
-        basicSelectionTable = fixture.debugElement.children[3].componentInstance;
-        radioSelectionTable = fixture.debugElement.children[4].componentInstance;
-        checkboxSelectionTable = fixture.debugElement.children[5].componentInstance;
-        editableTable = fixture.debugElement.children[6].componentInstance;
-        rowExpansionTable = fixture.debugElement.children[7].componentInstance;
-        colResizeTable = fixture.debugElement.children[8].componentInstance;
-        reorderableTable = fixture.debugElement.children[9].componentInstance;
-        contextMenuTable = fixture.debugElement.children[10].componentInstance;
-        stateTable = fixture.debugElement.children[12].componentInstance;
+        functionFilterTable = fixture.debugElement.children[2].componentInstance;
+        sortTable = fixture.debugElement.children[3].componentInstance;
+        basicSelectionTable = fixture.debugElement.children[4].componentInstance;
+        radioSelectionTable = fixture.debugElement.children[5].componentInstance;
+        checkboxSelectionTable = fixture.debugElement.children[6].componentInstance;
+        editableTable = fixture.debugElement.children[7].componentInstance;
+        rowExpansionTable = fixture.debugElement.children[8].componentInstance;
+        colResizeTable = fixture.debugElement.children[9].componentInstance;
+        reorderableTable = fixture.debugElement.children[10].componentInstance;
+        contextMenuTable = fixture.debugElement.children[11].componentInstance;
+        stateTable = fixture.debugElement.children[13].componentInstance;
     });
 
     it('should display by default', () => {
@@ -699,6 +747,176 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let tableEl = fixture.debugElement.query(By.css(".filterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(7);
+    }));
+
+    it('should use custom function filter and show 2 items', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const brandFunctionFilter = fixture.debugElement.query(By.css(".brandFunctionFilter"));
+        brandFunctionFilter.nativeElement.value = "v";
+        brandFunctionFilter.nativeElement.dispatchEvent(new Event("input"));
+        tick(300);
+        fixture.detectChanges();
+
+        const tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(2);
+    }));
+	
+	it('should use custom function filter and show 2 items and after call reset', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const brandFunctionFilter = fixture.debugElement.query(By.css(".brandFunctionFilter"));
+        brandFunctionFilter.nativeElement.value = "v";
+        brandFunctionFilter.nativeElement.dispatchEvent(new Event("input"));
+        tick(300);
+        fixture.detectChanges();
+
+        const tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(2);
+        functionFilterTable.reset();
+        fixture.detectChanges();
+
+        expect(functionFilterTable.filteredValue).toBeNull();
+    }));
+
+    it('should use global function filter and show 1 items', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const globalFunctionFilter = fixture.debugElement.query(By.css(".globalFunctionFilter"));
+        globalFunctionFilter.nativeElement.value = "dsad231ff";
+        globalFunctionFilter.nativeElement.dispatchEvent(new Event("input"));
+        tick(300);
+        fixture.detectChanges();
+
+        const tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(1);
+    }));
+
+    it('should use globaFilterFields function and show 0 items', fakeAsync(() => {
+        fixture.detectChanges();
+
+        functionFilterTable.globalFilterFields = ['year','color','brand']
+        fixture.detectChanges();
+        
+        const globalFunctionFilter = fixture.debugElement.query(By.css(".globalFunctionFilter"));
+        globalFunctionFilter.nativeElement.value = "dsad231";
+        globalFunctionFilter.nativeElement.dispatchEvent(new Event("input"));
+        tick(300);
+        fixture.detectChanges();
+
+        const tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(0);
+    }));
+
+    it('should use endsWith function filter and show 1 item. It should clear the filter and show 10 item.', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter("231ff","vin","endsWith");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(1);
+        functionFilterTable.filter(null,"vin","endsWith");
+        tick(300);
+        fixture.detectChanges();
+
+        bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(10);
+    }));
+
+    it('should use equals function filter and show 1 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter("dsad231ff","vin","equals");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(1);
+    }));
+
+    it('should use not equals function filter and show 9 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter("dsad231ff","vin","notEquals");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(9);
+    }));
+
+    it('should use in function filter and show 1 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter(["BMW",null],"brand","in");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(1);
+        functionFilterTable.filter([],"brand","in");
+        tick(300);
+        fixture.detectChanges();
+
+        expect(bodyRows.length).toEqual(1);
+    }));
+
+    it('should use lt function filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter("2005","year","lt");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(3);
+    }));
+
+    it('should use lte function filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter("2005","year","lte");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(5);
+    }));
+
+    it('should use gt function filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter("2005","year","gt");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
+        let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
+        expect(bodyRows.length).toEqual(5);
+    }));
+
+    it('should use gte function filter and show 5 item', fakeAsync(() => {
+        fixture.detectChanges();
+        
+        functionFilterTable.filter("2005","year","gte");
+        tick(300);
+        fixture.detectChanges();
+
+        let tableEl = fixture.debugElement.query(By.css(".functionFilterTable"));
         let bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(7);
     }));

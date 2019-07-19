@@ -1152,7 +1152,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
         
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode };
+            this.filters[field] = { value: value, matchMode: matchMode, field: field };
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -1214,7 +1214,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
                             localFiltered = true;
                             let filterMeta = this.filters[prop];
-                            let filterField = prop;
+                            let filterField = filterMeta.field;
                             let filterValue = filterMeta.value;
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
                             let dataFieldValue = ObjectUtils.resolveFieldData(this.value[i], filterField);
