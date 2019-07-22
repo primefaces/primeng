@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter,
+import { NgModule, Component, ElementRef, OnInit, DoCheck, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter,
     forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild } from '@angular/core';
 import { trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
@@ -150,7 +150,7 @@ export class MultiSelectItem {
     },
     providers: [MULTISELECT_VALUE_ACCESSOR]
 })
-export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
+export class MultiSelect implements OnInit,DoCheck,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
     @Input() scrollHeight: string = '200px';
 
@@ -312,6 +312,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.updateLabel();
     }
     
+    ngDoCheck() {
+        this.checkSelectionLimit();
+    }
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
@@ -352,6 +356,16 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.cd.markForCheck();
     }
 
+    checkSelectionLimit() {
+        if (this.selectionLimit) {
+            let selectedValueCount = this.value ? this.value.length : 0;
+            this.maxSelectionLimitReached = selectedValueCount >= this.selectionLimit;
+        }
+        else {
+            this.maxSelectionLimitReached = false;
+        }
+    }
+    
     updateFilledState() {
         this.filled = (this.valuesAsString != null && this.valuesAsString.length > 0);
     }
@@ -378,18 +392,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let selectionIndex = this.findSelectionIndex(optionValue);
         if (selectionIndex != -1) {
             this.value = this.value.filter((val,i) => i != selectionIndex);
-
-            if (this.selectionLimit) {
-                this.maxSelectionLimitReached = false;
-            }
         }
         else {
             if (!this.selectionLimit || (!this.value || this.value.length < this.selectionLimit)) {
                 this.value = [...this.value || [], optionValue];
-            }
-
-            if (this.selectionLimit && (!this.value || this.value.length === this.selectionLimit)) {
-                this.maxSelectionLimitReached = true;
             }
         }
     
