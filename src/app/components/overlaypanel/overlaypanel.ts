@@ -154,7 +154,7 @@ export class OverlayPanel implements OnDestroy {
                 if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.target).top) {
                     DomHandler.addClass(this.container, 'ui-overlaypanel-flipped');
                 }
-                if (DomHandler.getOffset(this.container).left < DomHandler.getOffset(this.target).left &&
+                if (Math.floor(DomHandler.getOffset(this.container).left) < Math.floor(DomHandler.getOffset(this.target).left) &&
                     DomHandler.getOffset(this.container).left > 0) {
                     DomHandler.addClass(this.container, 'ui-overlaypanel-shifted');
                 }
