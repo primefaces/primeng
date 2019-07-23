@@ -87,9 +87,9 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
 
-    @Input() invalidFileLimitMessageDetail: string = 'maximum upload limit is {0}.';
+    @Input() invalidFileLimitMessageDetail: string = 'limit is {0} at most.';
 
-    @Input() invalidFileLimitMessageSummary: string = '{0}: Invalid file count,';
+    @Input() invalidFileLimitMessageSummary: string = 'Maximum number of files exceeded, ';
 
     @Input() style: any;
 
