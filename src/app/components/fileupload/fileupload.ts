@@ -20,7 +20,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isEqualToFileLimit()" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isOutOfFileLimit()"></p-button>
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
                 <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
@@ -246,7 +246,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             this.checkFileLimit();
         }
 
-        if(this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isOutOfFileLimit())) {
+        if(this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isFileLimitExceeded())) {
             this.upload();
         }
 
@@ -397,7 +397,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         this.files.splice(index, 1);
     }
 
-    isOutOfFileLimit() {
+    isFileLimitExceeded() {
         return this.fileLimit && this.fileLimit < this.files.length;
     }
 
@@ -406,7 +406,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     checkFileLimit() {
-        if (this.isOutOfFileLimit()) {
+        if (this.isFileLimitExceeded()) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileLimitMessageSummary.replace('{0}', this.fileLimit.toString()),
