@@ -67,7 +67,15 @@ export class AccordionTab implements OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    animating: boolean;
+    private _animating: boolean;
+
+    get animating(): boolean {
+        return this._animating;
+    }
+    set animating(val: boolean) {
+        this._animating = val;
+        this.changeDetector.detectChanges();
+    }
 
     contentTemplate: TemplateRef<any>;
 
@@ -77,7 +85,7 @@ export class AccordionTab implements OnDestroy {
 
     accordion: Accordion;
 
-    constructor( @Inject(forwardRef(() => Accordion)) accordion) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
     }
 
@@ -225,10 +233,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
                 if (changed) {
                     this.tabs[i].animating = true;
+                    this.tabs[i].selected = selected;
+                    this.tabs[i].selectedChange.emit(selected);
                 }
-
-                this.tabs[i].selected = selected;
-                this.tabs[i].selectedChange.emit(selected);
             }
         }
     }
