@@ -20,8 +20,8 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (click)="upload()" [disabled]="!hasFiles()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (click)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isOutOfFileLimit()"></p-button>
+                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -87,6 +87,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
 
+    @Input() invalidFileLimitMessageDetail: string = 'maximum upload limit is {0}.';
+
+    @Input() invalidFileLimitMessageSummary: string = '{0}: Invalid file count,';
+
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -108,6 +112,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     @Input() headers: HttpHeaders;
     
     @Input() customUpload: boolean;
+
+    @Input() fileLimit: number;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
@@ -236,7 +242,11 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
         this.onSelect.emit({originalEvent: event, files: files});
 
-        if(this.hasFiles() && this.auto) {
+        if (this.fileLimit && this.mode == "advanced") {
+            this.checkFileLimit();
+        }
+
+        if(this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isOutOfFileLimit())) {
             this.upload();
         }
 
@@ -385,6 +395,20 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         this.clearInputElement();
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
+    }
+
+    isOutOfFileLimit() {
+        return this.fileLimit && this.fileLimit < this.files.length;
+    }
+
+    checkFileLimit() {
+        if (this.isOutOfFileLimit()) {
+            this.msgs.push({
+                severity: 'error',
+                summary: this.invalidFileLimitMessageSummary.replace('{0}', this.fileLimit.toString()),
+                detail: this.invalidFileLimitMessageDetail.replace('{0}', this.fileLimit.toString())
+            });
+        }
     }
 
     clearInputElement() {
