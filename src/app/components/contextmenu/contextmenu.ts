@@ -200,13 +200,13 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             event.preventDefault();
         }
 
-        this.onShow.emit({});
+        this.onShow.emit();
     }
 
     hide() {
         this.containerViewChild.nativeElement.style.display = 'none';
         this.unbindGlobalListeners();
-        this.onHide.emit({});
+        this.onHide.emit();
     }
 
     moveOnTop() {
