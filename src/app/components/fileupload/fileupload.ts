@@ -16,8 +16,8 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled || isEqualToFileLimit()}"> 
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isEqualToFileLimit()" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
                 <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isOutOfFileLimit()"></p-button>
@@ -399,6 +399,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     isOutOfFileLimit() {
         return this.fileLimit && this.fileLimit < this.files.length;
+    }
+
+    isEqualToFileLimit() {
+        return this.fileLimit && this.fileLimit <= this.files.length;
     }
 
     checkFileLimit() {
