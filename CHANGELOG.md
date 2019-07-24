@@ -1,6 +1,6 @@
 # Change Log
 
-## [8.0.2](https://github.com/primefaces/primeng/tree/8.0.2)
+## [8.0.2](https://github.com/primefaces/primeng/tree/8.0.2) (2019-07-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/8.0.1...8.0.2)
 
