@@ -349,6 +349,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.updateLabel();
         this.updateFilledState();
         this.setDisabledSelectedOptions();
+        if (this.selectionLimit && (!this.value || this.value.length === this.selectionLimit)) {
+            this.maxSelectionLimitReached = true;
+        }
+        
         this.cd.markForCheck();
     }
 
