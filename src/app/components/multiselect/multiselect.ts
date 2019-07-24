@@ -349,11 +349,15 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.updateLabel();
         this.updateFilledState();
         this.setDisabledSelectedOptions();
+        this.checkSelectionLimit();
+        
+        this.cd.markForCheck();
+    }
+
+    checkSelectionLimit() {
         if (this.selectionLimit && (!this.value || this.value.length === this.selectionLimit)) {
             this.maxSelectionLimitReached = true;
         }
-        
-        this.cd.markForCheck();
     }
 
     updateFilledState() {
@@ -392,9 +396,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.value = [...this.value || [], optionValue];
             }
 
-            if (this.selectionLimit && (!this.value || this.value.length === this.selectionLimit)) {
-                this.maxSelectionLimitReached = true;
-            }
+            this.checkSelectionLimit();
         }
     
         this.onModelChange(this.value);
