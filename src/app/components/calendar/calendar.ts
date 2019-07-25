@@ -1562,7 +1562,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             let hours = val.getHours();
             
             if (this.hourFormat == '12') {
-                this.pm = hours > 11;
                 
                 if (hours >= 12) {
                     this.currentHour = (hours == 12) ? 12 : hours - 12;
@@ -1837,7 +1836,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         
         if (this.hourFormat == '12') {
-            output += date.getHours() > 11 ? ' PM' : ' AM';
+            output += this.pm ? ' PM' : ' AM';
         }
         
         return output;
