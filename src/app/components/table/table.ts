@@ -10,7 +10,7 @@ import { FilterMetadata } from '../common/filtermetadata';
 import { Injectable } from '@angular/core';
 import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription } from 'rxjs';
-import { FilterConstraints } from '../filterconstraints/filterconstraints';
+import { FilterUtils } from '../filterconstraints/filterutils';
 
 @Injectable()
 export class TableService {
@@ -1227,7 +1227,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             let filterValue = filterMeta.value;
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
                             let dataFieldValue = ObjectUtils.resolveFieldData(this.value[i], filterField);
-                            let filterConstraint = FilterConstraints[filterMatchMode];
+                            let filterConstraint = FilterUtils[filterMatchMode];
     
                             if (!filterConstraint(dataFieldValue, filterValue)) {
                                 localMatch = false;
@@ -1242,7 +1242,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = FilterConstraints[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
+                            globalMatch = FilterUtils[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
                             
                             if(globalMatch) {
                                 break;

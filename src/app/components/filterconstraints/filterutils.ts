@@ -1,6 +1,6 @@
 import { ObjectUtils } from '../utils/objectutils';
 
-export class FilterConstraints {
+export class FilterUtils {
 
     public static startsWith(value, filter): boolean {
         if (filter === undefined || filter === null || filter.trim() === '') {
