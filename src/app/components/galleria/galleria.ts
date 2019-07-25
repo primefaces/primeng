@@ -92,8 +92,10 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     ngAfterViewChecked() {
         if(this.imagesChanged) {
             this.stopSlideshow();
-            this.render();
-            this.imagesChanged = false;
+            setTimeout(() => {
+                this.render();
+                this.imagesChanged = false;
+            }, 0);
         }
     }
 
