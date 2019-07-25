@@ -23,7 +23,7 @@ import {DomHandler} from '../dom/domhandler';
                     </li>
                 </ul>
             </div>
-            <div class="ui-galleria-nav-prev pi pi-fw pi-chevron-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="activeIndex !== 0"></div>
+            <div class="ui-galleria-nav-prev pi pi-fw pi-chevron-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2"></div>
             <div class="ui-galleria-nav-next pi pi-fw pi-chevron-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2"></div>
             <div class="ui-galleria-caption" *ngIf="showCaption&&images" style="display:block">
                 <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
@@ -189,6 +189,8 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     prev() {
         if(this.activeIndex !== 0) {
             this.select(this.activeIndex - 1, true);
+        } else if (this.images.length > 0) {
+            this.select(this.images.length - 1, true);
         }
     }
     
