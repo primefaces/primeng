@@ -10,6 +10,7 @@ import { FilterMetadata } from '../common/filtermetadata';
 import { Injectable } from '@angular/core';
 import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription } from 'rxjs';
+import { FilterUtils } from '../filterconstraints/filterutils';
 
 @Injectable()
 export class TableService {
@@ -1226,7 +1227,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             let filterValue = filterMeta.value;
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
                             let dataFieldValue = ObjectUtils.resolveFieldData(this.value[i], filterField);
-                            let filterConstraint = this.filterConstraints[filterMatchMode];
+                            let filterConstraint = FilterUtils[filterMatchMode];
     
                             if (!filterConstraint(dataFieldValue, filterValue)) {
                                 localMatch = false;
@@ -1241,7 +1242,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = this.filterConstraints[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
+                            globalMatch = FilterUtils[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
                             
                             if(globalMatch) {
                                 break;
@@ -1300,162 +1301,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         return !empty;
-    }
-
-    filterConstraints = {
-
-        startsWith(value, filter): boolean {
-            if (filter === undefined || filter === null || filter.trim() === '') {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
-
-            return stringValue.slice(0, filterValue.length) === filterValue;
-        },
-
-        contains(value, filter): boolean {
-            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
-
-            return stringValue.indexOf(filterValue) !== -1;
-        },
-
-        endsWith(value, filter): boolean {
-            if (filter === undefined || filter === null || filter.trim() === '') {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
-
-            return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
-        },
-
-        equals(value, filter): boolean {
-            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() === filter.getTime();
-            else
-                return ObjectUtils.removeAccents(value.toString()).toLowerCase() == ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-        },
-
-        notEquals(value, filter): boolean {
-            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-                return false;
-            }
-
-            if (value === undefined || value === null) {
-                return true;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() !== filter.getTime();
-            else
-                return ObjectUtils.removeAccents(value.toString()).toLowerCase() != ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-        },
-
-        in(value, filter: any[]): boolean {
-            if (filter === undefined || filter === null || filter.length === 0) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            for (let i = 0; i < filter.length; i++) {
-                if (filter[i] === value || (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime())) {
-                    return true;
-                }
-            }
-
-            return false;
-        },
-
-        lt(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() < filter.getTime();
-            else
-                return value < filter;
-        },
-        
-        lte(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() <= filter.getTime();
-            else
-                return value <= filter;
-        },
-
-        gt(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() > filter.getTime();
-            else
-                return value > filter;
-        },
-        
-        gte(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() >= filter.getTime();
-            else
-                return value >= filter;
-        }
     }
 
     createLazyLoadMetadata(): any {
