@@ -89,4 +89,17 @@ describe('Galleria', () => {
 
         expect(x).toEqual(1);
     });
+
+    it('should move from right to left', () => {
+        fixture.detectChanges();
+
+        const leftButton = fixture.debugElement.query(By.css('.pi-chevron-left'));
+        const clickNavLeftSpy = spyOn(galleria, "clickNavLeft").and.callThrough();
+        leftButton.nativeElement.click();
+        fixture.detectChanges();
+
+        expect(clickNavLeftSpy).toHaveBeenCalled();
+        expect(galleria.activeIndex).toEqual(galleria.images.length - 1);
+
+    });
 });
