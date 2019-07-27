@@ -266,12 +266,14 @@ export class Dialog implements OnDestroy {
         let elementWidth = DomHandler.getOuterWidth(this.container);
         let elementHeight = DomHandler.getOuterHeight(this.container);
         if(elementWidth == 0 && elementHeight == 0) {
+            const originalVisibility = this.container.style.visibility;
+            const originalDisplay = this.container.style.display;
             this.container.style.visibility = 'hidden';
             this.container.style.display = 'block';
             elementWidth = DomHandler.getOuterWidth(this.container);
             elementHeight = DomHandler.getOuterHeight(this.container);
-            this.container.style.display = 'none';
-            this.container.style.visibility = 'visible';
+            this.container.style.display = originalDisplay;
+            this.container.style.visibility = originalVisibility;
         }
         let viewport = DomHandler.getViewport();
         let x = Math.max(Math.floor((viewport.width - elementWidth) / 2), 0);
