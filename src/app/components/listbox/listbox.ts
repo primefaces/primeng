@@ -5,6 +5,7 @@ import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
 import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { FilterUtils } from '../filterconstraints/filterutils';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -410,17 +411,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             let visible;
             let filterText = ObjectUtils.removeAccents(this.filterValue).toLowerCase();
 
-            switch (this.filterMode) {
-                case 'startsWith':
-                    visible = ObjectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) === 0;
-                    break;
-
-                case 'contains':
-                    visible = ObjectUtils.removeAccents(option.label).toLowerCase().indexOf(filterText) > -1;
-                    break;
-
-                default:
-                    visible = true;
+            if (this.filterMode) {
+                visible = FilterUtils[this.filterMode](option.label,this.filterValue);
+            }
+            else {
+                visible = true;
             }
 
             return visible;
