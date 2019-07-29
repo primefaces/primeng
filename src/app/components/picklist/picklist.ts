@@ -4,6 +4,7 @@ import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
+import { FilterUtils } from '../filterconstraints/filterutils';
 
 @Component({
     selector: 'p-pickList',
@@ -137,6 +138,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() ariaSourceFilterLabel: string;
 
     @Input() ariaTargetFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
     
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
@@ -315,12 +318,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
         if(listType === this.SOURCE_LIST) {
             this.filterValueSource = query;
-            this.visibleOptionsSource = ObjectUtils.filter(data, searchFields, this.filterValueSource);
+            this.visibleOptionsSource = FilterUtils.filter(data, searchFields, this.filterValueSource, this.filterMatchMode);
             this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
         }
         else if(listType === this.TARGET_LIST) {
             this.filterValueTarget = query;
-            this.visibleOptionsTarget = ObjectUtils.filter(data, searchFields, this.filterValueTarget);
+            this.visibleOptionsTarget = FilterUtils.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode);
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
     }
