@@ -8,6 +8,7 @@ import { ObjectUtils } from '../utils/objectutils';
 import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { FilterUtils } from '../filterconstraints/filterutils';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -229,6 +230,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() ariaFilterLabel: string;
     
+    @Input() filterMatchMode: string = "contains";
+
     @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
     @ViewChild('filterInput', { static: false }) filterInputChild: ElementRef;
@@ -757,7 +760,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     activateFilter() {
         if (this.options && this.options.length) {
             let searchFields: string[] = this.filterBy.split(',');
-            this.visibleOptions = ObjectUtils.filter(this.options, searchFields, this.filterValue);
+            this.visibleOptions = FilterUtils.filter(this.options, searchFields, this.filterValue, this.filterMatchMode);
             this.filtered = true;
         }        
     }
