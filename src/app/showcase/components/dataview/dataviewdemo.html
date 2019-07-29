@@ -353,13 +353,15 @@ export class DataViewSortDemo implements OnInit &#123;
 </code>
 </pre>
             <h3>Filtering</h3>
-            <p>Filtering is implemented by defining the filterBy property and  calling the filter function of the component, for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
+            <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component, 
+                for flexibility there is no built-in UI available so that a custom UI can be used for the filter element. 
+                Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".  
                 Here is an example that uses an input field. filterBy is a string and multiple fields can be defined with a comma separated list.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView #dv [value]="cars" filterBy="brand"&gt;
     &lt;p-header&gt;
-        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"&gt;
+        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value, "contains")"&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &#123;&#123;car.id&#125;&#125;
