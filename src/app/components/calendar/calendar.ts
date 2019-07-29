@@ -493,6 +493,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     set yearRange(yearRange: string) {
         if (this.yearNavigator && yearRange) {
+            this._yearRange = yearRange;
             const years = yearRange.split(':');
             const yearStart = parseInt(years[0]);
             const yearEnd = parseInt(years[1]);
