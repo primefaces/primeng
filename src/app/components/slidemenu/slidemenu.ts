@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild,Output,EventEmitter} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -157,6 +157,10 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
     containerViewChild: ElementRef;
     
     backwardViewChild: ElementRef;
@@ -225,6 +229,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
                 if (this.popup) {
                     this.updateViewPort();
                     this.moveOnTop();
+                    this.onShow.emit({});
                     this.appendOverlay();
                     DomHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
                     this.bindDocumentClickListener();
@@ -234,6 +239,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
             case 'void':
                 this.onOverlayHide();
+                this.onHide.emit({});
             break;
         }
     }
