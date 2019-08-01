@@ -4,7 +4,7 @@ import {ObjectUtils} from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/blockableui';
-import { FilterUtils } from '../filterconstraints/filterutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-dataView',

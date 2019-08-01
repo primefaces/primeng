@@ -9,7 +9,7 @@ import { SortMeta } from '../common/sortmeta';
 import { BlockableUI } from '../common/blockableui';
 import { FilterMetadata } from '../common/filtermetadata';
 import { ObjectUtils } from '../utils/objectutils';
-import { FilterUtils } from '../filterconstraints/filterutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Injectable()
 export class TreeTableService {

@@ -8,7 +8,7 @@ import { ObjectUtils } from '../utils/objectutils';
 import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { FilterUtils } from '../filterconstraints/filterutils';
+import { FilterUtils } from '../utils/filterutils';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

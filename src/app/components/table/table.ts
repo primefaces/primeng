@@ -10,7 +10,7 @@ import { FilterMetadata } from '../common/filtermetadata';
 import { Injectable } from '@angular/core';
 import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription } from 'rxjs';
-import { FilterUtils } from '../filterconstraints/filterutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Injectable()
 export class TableService {

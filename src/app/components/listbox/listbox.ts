@@ -5,7 +5,7 @@ import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
 import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { FilterUtils } from '../filterconstraints/filterutils';
+import { FilterUtils } from '../utils/filterutils';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
