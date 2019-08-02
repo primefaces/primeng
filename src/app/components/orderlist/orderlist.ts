@@ -4,6 +4,7 @@ import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-orderList',
@@ -64,6 +65,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() controlsPosition: string = 'left';
 
     @Input() ariaFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
@@ -200,7 +203,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
-        this.visibleOptions = ObjectUtils.filter(this.value, searchFields, this.filterValue);
+        this.visibleOptions = FilterUtils.filter(this.value, searchFields, this.filterValue, this.filterMatchMode);
     }
     
     isItemVisible(item: any): boolean {

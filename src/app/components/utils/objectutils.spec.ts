@@ -34,18 +34,6 @@ describe('ObjectUtils Suite', () => {
         expect(ObjectUtils.resolveFieldData(obj, 'age')).toBeUndefined();
     });
 
-    it('Should run single field correctly', () => {
-        let result = ObjectUtils.filter(data, ['brand'], 'b');
-        expect(result[0].brand).toBe('BMW');
-    });
-
-    it('Should run multiple filter correctly', () => {
-        let result = ObjectUtils.filter(data, ['brand','color.name'], 'w');
-        expect(result[0].brand).toBe('VW');
-        expect(result[1].brand).toBe('BMW');
-        expect(result[2].brand).toBe('Ford');
-    });
-
     it('Should relocate an item in array', () => {
         let arr: string[] = ['New York', 'Istanbul', 'Paris', 'Barcelona', 'London'];
         ObjectUtils.reorderArray(arr, 3, 1);

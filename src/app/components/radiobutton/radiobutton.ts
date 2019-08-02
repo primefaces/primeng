@@ -54,7 +54,7 @@ export class RadioButton implements ControlValueAccessor {
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('rb', { static: false }) inputViewChild: ElementRef;
+    @ViewChild('rb', { static: true }) inputViewChild: ElementRef;
             
     public onModelChange: Function = () => {};
     

@@ -8,6 +8,7 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { FilterUtils } from '../utils/filterutils';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -217,6 +218,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @Input() ariaFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -973,7 +976,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             if (this.group) {
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
-                    let filteredSubOptions = ObjectUtils.filter(optgroup.items, searchFields, this.filterValue);
+                    let filteredSubOptions = FilterUtils.filter(optgroup.items, searchFields, this.filterValue, this.filterMatchMode);
                     if (filteredSubOptions && filteredSubOptions.length) {
                         filteredGroups.push({
                             label: optgroup.label,
@@ -986,7 +989,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.optionsToDisplay = filteredGroups;
             }
             else {
-                this.optionsToDisplay = ObjectUtils.filter(this.options, searchFields, this.filterValue);
+                this.optionsToDisplay = FilterUtils.filter(this.options, searchFields, this.filterValue, this.filterMatchMode);
             }
 
             this.optionsChanged = true;

@@ -16,8 +16,8 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled || isEqualToFileLimit()}"> 
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isEqualToFileLimit()" (focus)="onFocus()" (blur)="onBlur()">
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled || isChooseDisabled()}"> 
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
                 <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
@@ -175,6 +175,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     public toolbarTemplate: TemplateRef<any>;
 
+    public uploadedFileCount: number = 0;
+
     focus: boolean;
 
     uploading: boolean;
@@ -329,6 +331,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     upload() {
         if(this.customUpload) {
+            if (this.fileLimit) {
+                this.uploadedFileCount += this.files.length; 
+            }
+            
             this.uploadHandler.emit({
                 files: this.files
             });
@@ -361,6 +367,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                             this.progress = 0;
 
                             if (event['status'] >= 200 && event['status'] < 300) {
+                                if (this.fileLimit) {
+                                    this.uploadedFileCount += this.files.length; 
+                                }
+
                                 this.onUpload.emit({originalEvent: event, files: this.files});
                             } else {
                                 this.onError.emit({files: this.files});
@@ -398,11 +408,15 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     isFileLimitExceeded() {
-        return this.fileLimit && this.fileLimit < this.files.length;
+        if (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount && this.focus) {
+            this.focus = false;
+        }
+
+        return this.fileLimit && this.fileLimit < this.files.length + this.uploadedFileCount;
     }
 
-    isEqualToFileLimit() {
-        return this.fileLimit && this.fileLimit <= this.files.length;
+    isChooseDisabled() {
+        return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
     }
 
     checkFileLimit() {
