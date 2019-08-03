@@ -218,6 +218,8 @@ export interface LocaleSettings {
 })
 export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
+    readonly defaultDateFormat = 'mm/dd/yy';
+    
     @Input() defaultDate: Date;
     
     @Input() style: any;
@@ -236,7 +238,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() disabled: any;
     
-    @Input() dateFormat: string = 'mm/dd/yy';
+    @Input() dateFormat: string;
 
     @Input() multipleSeparator: string = ',';
 
@@ -1724,7 +1726,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     getDateFormat() {
-        return this.dateFormat || this.locale.dateFormat;
+        return this.dateFormat || this.locale.dateFormat || this.defaultDateFormat;
     }
     
     // Ported from jquery-ui datepicker formatDate
