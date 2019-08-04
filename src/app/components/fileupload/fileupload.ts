@@ -78,6 +78,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     @Input() withCredentials: boolean;
 
     @Input() maxFileSize: number;
+    
+    @Input() maxImageWidth: number;
+
+    @Input() maxImageHeight: number;
 
     @Input() invalidFileSizeMessageSummary: string = '{0}: Invalid file size, ';
 
@@ -90,6 +94,14 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     @Input() invalidFileLimitMessageDetail: string = 'limit is {0} at most.';
 
     @Input() invalidFileLimitMessageSummary: string = 'Maximum number of files exceeded, ';
+    
+    @Input() invalidImageWidthMessageSummary: string = '{0}: Invalid image width, ';
+
+    @Input() invalidImageWidthMessageDetail: string = 'maximum image width is {0}px.';
+
+    @Input() invalidImageHeightMessageSummary: string = '{0}: Invalid image height, ';
+
+    @Input() invalidImageHeightMessageDetail: string = 'maximum image height is {0}px.';
 
     @Input() style: any;
 
@@ -147,13 +159,18 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
 
-            if(this.validate(file)) {
-                if(this.isImage(file)) {
-                    (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-                }
+            const promise = new Promise((resolve) => {
+                this.validate(file).then((res)=>{
+                    if (res) {
+                        if(this.isImage(file)) {
+                            (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                        }
 
-                this._files.push(files[i]);
-            }
+                        this._files.push(files[i]);
+                    }
+                })
+            })
+
         }
     }
 
@@ -227,36 +244,49 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             this.files = [];
         }
 
+
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+
+
+        const promises = [];
+
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
 
             if(!this.isFileSelected(file)){
-              if(this.validate(file)) {
-                  if(this.isImage(file)) {
-                      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+              const promise = new Promise((resolve) => {
+                this.validate(file).then((res)=>{
+                  if (res) {
+                    if(this.isImage(file)) {
+                        file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                    }
+                    this.files.push(files[i]);
+                    resolve();
                   }
-
-                  this.files.push(files[i]);
-              }
+                })
+              })
+              promises.push(promise);
             }
         }
 
-        this.onSelect.emit({originalEvent: event, files: files});
+        Promise.all(promises).then(() => {
+          this.onSelect.emit({originalEvent: event, files: files});
 
-        if (this.fileLimit && this.mode == "advanced") {
-            this.checkFileLimit();
-        }
+          if (this.fileLimit && this.mode == "advanced") {
+              this.checkFileLimit();
+          }
 
-        if(this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isFileLimitExceeded())) {
-            this.upload();
-        }
+          if(this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isFileLimitExceeded())) {
+              this.upload();
+          }
 
-        if (event.type !== 'drop' && this.isIE11()) {
-          this.clearIEInput();
-        } else {
-          this.clearInputElement();
-        }
+          if (event.type !== 'drop' && this.isIE11()) {
+            this.clearIEInput();
+          } else {
+            this.clearInputElement();
+          }
+        })
+
     }
 
     isFileSelected(file: File): boolean{
@@ -273,26 +303,63 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         return !!window['MSInputMethodContext'] && !!document['documentMode'];
     }
 
-    validate(file: File): boolean {
-        if(this.accept && !this.isFileTypeValid(file)) {
-            this.msgs.push({
-                severity: 'error',
-                summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
-                detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept)
-            });
-            return false;
-        }
+    validate(file: File): Promise<boolean> {
 
-        if(this.maxFileSize  && file.size > this.maxFileSize) {
-            this.msgs.push({
-                severity: 'error',
-                summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name),
-                detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
-            });
-            return false;
-        }
+        return new Promise<boolean>((resolve) => {
 
-        return true;
+            if(this.accept && !this.isFileTypeValid(file)) {
+                this.msgs.push({
+                    severity: 'error',
+                    summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
+                    detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept)
+                });
+                resolve(false);
+            }
+
+            else if(this.maxFileSize  && file.size > this.maxFileSize) {
+                this.msgs.push({
+                    severity: 'error',
+                    summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name),
+                    detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
+                });
+                resolve(false);
+            }
+
+            let width;
+            let fr = new FileReader();
+            fr.onload = () => {
+                var img = new Image();
+                if (!this.isImage(file)) {
+                    resolve(true);
+                }
+                img.onload = () => {
+                    if (this.maxImageWidth  && img.width > this.maxImageWidth) {
+                        this.msgs.push({
+                            severity: 'error',
+                            summary: this.invalidImageWidthMessageSummary.replace('{0}', file.name),
+                            detail: this.invalidImageWidthMessageDetail.replace('{0}', (String)(this.maxImageWidth))
+                        });
+                        resolve(false);
+                    }
+                    else if (this.maxImageHeight  && img.height > this.maxImageHeight) {
+                        this.msgs.push({
+                            severity: 'error',
+                            summary: this.invalidImageHeightMessageSummary.replace('{0}', file.name),
+                            detail: this.invalidImageHeightMessageDetail.replace('{0}', (String)(this.maxImageHeight))
+                        });
+                        resolve(false);
+                    }
+                    resolve(true);
+                };
+
+                img.src = fr.result as string;
+            };
+
+            fr.readAsDataURL(file);
+            this.advancedFileInput.nativeElement.value = "";
+
+        })
+
     }
 
     private isFileTypeValid(file: File): boolean {
