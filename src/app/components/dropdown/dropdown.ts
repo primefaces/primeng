@@ -410,7 +410,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         setTimeout(() => {
-            this.hide();
+            this.hide(event);
         }, 150);
     }
 
@@ -503,7 +503,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.focusViewChild.nativeElement.focus();
             
             if (this.overlayVisible)
-                this.hide();
+                this.hide(event);
             else
                 this.show();
 
@@ -518,7 +518,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onEditableInputFocus(event) {
         this.focused = true;
-        this.hide();
+        this.hide(event);
         this.onFocus.emit(event);
     }
     
@@ -606,7 +606,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
     
-    hide() {
+    hide(event) {
         this.overlayVisible = false;
         
         if (this.filter && this.resetFilterOnHide) {
@@ -792,7 +792,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //enter
             case 13:
                 if (!this.filter || (this.optionsToDisplay && this.optionsToDisplay.length > 0)) {
-                    this.hide();
+                    this.hide(event);
                 }
                 
                 event.preventDefault();
@@ -801,7 +801,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //escape and tab
             case 27:
             case 9:
-                this.hide();
+                this.hide(event);
             break;
 
             //search item based on keyboard input
@@ -1009,9 +1009,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
                 if (!this.selfClick && !this.itemClick) {
-                    this.hide();
+                    this.hide(event);
                     this.unbindDocumentClickListener();
                 }
                 
@@ -1047,7 +1047,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     onWindowResize() {
         if (!DomHandler.isAndroid()) {
-            this.hide();
+            this.hide(event);
         }
     }
 
