@@ -2,27 +2,45 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Checkbox } from './checkbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
+
+@Component({
+    template: `
+        <p-checkbox [(ngModel)]="checked">
+    `
+})
+    class TestCheckboxComponent {
+        checked: boolean = false;
+    }
+  
 describe('Checkbox', () => {
 
     let checkbox: Checkbox;
-    let fixture: ComponentFixture<Checkbox>;
+    let testComponent: TestCheckboxComponent;
+    let fixture: ComponentFixture<TestCheckboxComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                NoopAnimationsModule
+                NoopAnimationsModule,
+                FormsModule
             ],
             declarations: [
-                Checkbox
+                Checkbox,
+                TestCheckboxComponent
             ]
         });
 
-        fixture = TestBed.createComponent(Checkbox);
-        checkbox = fixture.componentInstance;
+        fixture = TestBed.createComponent(TestCheckboxComponent);
+        testComponent = fixture.componentInstance;
+        checkbox = fixture.debugElement.children[0].componentInstance;
     });
 
     it('should check the input on click', () => {
+        fixture.detectChanges();
+        
         const boxEl = fixture.nativeElement.querySelector('.ui-chkbox-box');
         boxEl.click();
         fixture.detectChanges();
@@ -79,6 +97,8 @@ describe('Checkbox', () => {
     });
 
     it('should uncheck when twice click', () => {
+        fixture.detectChanges();
+
         const boxEl = fixture.nativeElement.querySelector('.ui-chkbox-box');
         const onClickSpy = spyOn(checkbox,'onClick').and.callThrough();
         boxEl.click();
@@ -131,6 +151,8 @@ describe('Checkbox', () => {
     });
 
     it('should have default checkbox icon', () => {
+        fixture.detectChanges();
+
         const boxEl = fixture.nativeElement.querySelector('.ui-chkbox-box');
         boxEl.click();
         fixture.detectChanges();
@@ -141,6 +163,8 @@ describe('Checkbox', () => {
     });
 
     it('should have custom checkbox icon', () => {
+        fixture.detectChanges();
+
         const boxEl = fixture.nativeElement.querySelector('.ui-chkbox-box');
         boxEl.click();
         checkbox.checkboxIcon = 'pi pi-new-check';
@@ -149,5 +173,17 @@ describe('Checkbox', () => {
         const iconEl = fixture.nativeElement.querySelector('.ui-chkbox-box .ui-chkbox-icon');
 
         expect(iconEl.className).toContain('pi pi-new-check');
+    });
+
+    it('should call handleChange', () => {
+        fixture.detectChanges();
+        
+        checkbox.binary = "true";
+        const handleChangeSpy = spyOn(checkbox,"handleChange").and.callThrough();
+        const input = fixture.nativeElement.querySelector('input');
+        input.dispatchEvent(new Event('change'));
+        fixture.detectChanges();
+
+        expect(handleChangeSpy).toHaveBeenCalled();
     });
 });
