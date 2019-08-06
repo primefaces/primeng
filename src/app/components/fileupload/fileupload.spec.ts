@@ -132,6 +132,73 @@ describe('FileUpload', () => {
         expect(uploadSpy).toHaveBeenCalled();
     });
 
+    it('should not push same file', () => {
+        fileupload.multiple = true;
+        fileupload.url = " ";
+        fixture.detectChanges();
+
+        let event;
+        let blob:Blob;
+        blob = new Blob([JSON.stringify([{
+            'lastModified':1533276674178,
+            'name': 'primeng.txt',
+            'size': 179,
+            'type': "text/plain"
+        }])], {type : 'application/json'});
+        let blobFile = new File([blob], 'primeng.txt');
+        event = {
+            'target':{files: [blobFile]},
+            stopPropagation(){},
+            preventDefault(){}
+        };
+        fileupload.onFileSelect(event);
+        fixture.detectChanges();
+
+        expect(fileupload.files.length).toEqual(1);
+        fileupload.onFileSelect(event);
+        fixture.detectChanges();
+
+        expect(fileupload.files.length).toEqual(1);
+    });
+
+    it('should not push when exceeded filelimit', () => {
+        fileupload.multiple = true;
+        fileupload.fileLimit = 1;
+        fileupload.auto = true
+        fileupload.url = " ";
+        fixture.detectChanges();
+
+        let event;
+        let blob:Blob;
+        blob = new Blob([JSON.stringify([
+            {
+                'lastModified':1533276674178,
+                'name': 'primeng.txt',
+                'size': 179,
+                'type': "text/plain"
+            },
+            {
+                'lastModified':1533276674179,
+                'name': 'primeng2.txt',
+                'size': 123,
+                'type': "text/plain"
+            },
+        ])], {type : 'application/json'});
+        let blobFile = new File([blob], 'primeng.txt');
+        let blobFile2 = new File([blob], 'primeng2.txt');
+        event = {
+            'target':{files: [blobFile,blobFile2]},
+            stopPropagation(){},
+            preventDefault(){}
+        };
+        const uploadSpy = spyOn(fileupload,"upload").and.callThrough();
+        fileupload.onFileSelect(event);
+        fixture.detectChanges();
+
+        expect(fileupload.files.length).toEqual(2);
+        expect(uploadSpy).not.toHaveBeenCalled();
+    });
+
     it('should call upload with customUpload (advanced)', () => {
         fileupload.auto = true;
         fileupload.customUpload = true;
