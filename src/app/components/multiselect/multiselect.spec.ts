@@ -104,6 +104,39 @@ describe('MultiSelect', () => {
 		expect(clickSpy).toHaveBeenCalled();
 	});
 
+	it('should open and close with keydown', () => {
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
+		const inputEl = fixture.debugElement.query(By.css("input"));
+		const onKeydownSpy = spyOn(multiselect, 'onKeydown').and.callThrough();
+		const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.which = 40;
+        keydownEvent.altKey = true;
+		keydownEvent.initEvent('keydown', true, true);
+		inputEl.nativeElement.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		let multiselectPanelEl = fixture.debugElement.query(By.css('.ui-multiselect-panel'));
+		expect(multiselect.overlayVisible).toEqual(true);
+		expect(multiselectPanelEl).toBeTruthy();
+		expect(onKeydownSpy).toHaveBeenCalled();
+		keydownEvent.which = 27;
+		inputEl.nativeElement.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		multiselectPanelEl = fixture.debugElement.query(By.css('.ui-multiselect-panel'));
+		expect(multiselect.overlayVisible).toEqual(false);
+		expect(multiselectPanelEl).toBeFalsy();
+		keydownEvent.which = 32;
+		inputEl.nativeElement.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		multiselectPanelEl = fixture.debugElement.query(By.css('.ui-multiselect-panel'));
+		expect(multiselect.overlayVisible).toEqual(true);
+		expect(multiselectPanelEl).toBeTruthy();
+	});
+
 	it('should close when double click', () => {
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		const clickSpy = spyOn(multiselect, 'onMouseclick').and.callThrough();
@@ -150,6 +183,55 @@ describe('MultiSelect', () => {
 		expect(multiselect.value[0]).toEqual('BMW');
 		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
 		expect(onOptionClickSpy).toBeTruthy();
+	});
+
+	it('should select item and navigate with keydown', () => {
+		multiselect.options = [
+			{label: 'Audi', value: 'Audi'},
+			{label: 'BMW', value: 'BMW'},
+			{label: 'Fiat', value: 'Fiat'},
+			{label: 'Ford', value: 'Ford'},
+			{label: 'Honda', value: 'Honda'},
+			{label: 'Jaguar', value: 'Jaguar'},
+			{label: 'Mercedes', value: 'Mercedes'},
+			{label: 'Renault', value: 'Renault'},
+			{label: 'VW', value: 'VW'},
+			{label: 'Volvo', value: 'Volvo'}
+		];
+		multiselect.disabledSelectedOptions = [];
+		fixture.detectChanges();
+
+		multiselect.writeValue(["BMW"]);
+		const multiselectEl = fixture.debugElement.children[0].nativeElement;
+		multiselectEl.click();
+		fixture.detectChanges();
+
+		const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.which = 13;
+		keydownEvent.initEvent('keydown', true, true);
+		const multiselectItemEl = fixture.debugElement.queryAll(By.css('.ui-multiselect-item'));
+		const bmwEl = multiselectItemEl[1];
+		expect(multiselectItemEl.length).toEqual(10);
+		expect(multiselect.value[0]).toEqual('BMW');
+		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
+		expect(multiselect.value.length).toEqual(1);
+		const onOptionKeydownSpy = spyOn(multiselect,'onOptionKeydown').and.callThrough();
+		bmwEl.nativeElement.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
+		expect(onOptionKeydownSpy).toBeTruthy();
+		expect(multiselect.value.length).toEqual(0);
+        keydownEvent.which = 40;
+		bmwEl.nativeElement.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		expect(document.activeElement).toEqual(multiselectItemEl[2].nativeElement);
+		keydownEvent.which = 38;
+		bmwEl.nativeElement.dispatchEvent(keydownEvent);
+		fixture.detectChanges();
+
+		expect(document.activeElement).toEqual(multiselectItemEl[0].nativeElement);
 	});
 
 	it('should unselect item', () => {

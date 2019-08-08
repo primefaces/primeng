@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, Renderer2, Inject, forwardRef, ViewChild, NgZone } from '@angular/core';
+import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
 import { MenuItem } from '../common/menuitem';
@@ -152,6 +152,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @Input() triggerEvent: string = 'contextmenu';
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     documentClickListener: any;
@@ -195,11 +199,14 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (event) {
             event.preventDefault();
         }
+
+        this.onShow.emit();
     }
 
     hide() {
         this.containerViewChild.nativeElement.style.display = 'none';
         this.unbindGlobalListeners();
+        this.onHide.emit();
     }
 
     moveOnTop() {

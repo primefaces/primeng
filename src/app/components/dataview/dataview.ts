@@ -4,6 +4,7 @@ import {ObjectUtils} from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/blockableui';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-dataView',
@@ -276,12 +277,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    filter(filter: string) {
+    filter(filter: string, filterMatchMode:string ="contains") {
         this.filterValue = filter;
 
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = ObjectUtils.filter(this.value, searchFields, filter);
+            this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode);
     
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;

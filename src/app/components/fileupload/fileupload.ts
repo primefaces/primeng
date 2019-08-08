@@ -16,12 +16,12 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled || isChooseDisabled()}"> 
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (click)="upload()" [disabled]="!hasFiles()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (click)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
+                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -87,6 +87,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
 
+    @Input() invalidFileLimitMessageDetail: string = 'limit is {0} at most.';
+
+    @Input() invalidFileLimitMessageSummary: string = 'Maximum number of files exceeded, ';
+
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -108,6 +112,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     @Input() headers: HttpHeaders;
     
     @Input() customUpload: boolean;
+
+    @Input() fileLimit: number;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
@@ -135,7 +141,27 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @ViewChild('content', { static: false }) content: ElementRef;
 
-    @Input() files: File[] = [];
+    @Input() set files(files) {
+        this._files = [];
+
+        for(let i = 0; i < files.length; i++) {
+            let file = files[i];
+
+            if(this.validate(file)) {
+                if(this.isImage(file)) {
+                    (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                }
+
+                this._files.push(files[i]);
+            }
+        }
+    }
+
+    get files(): File[] {
+        return this._files;
+    }
+
+    public _files: File[] = [];
 
     public progress: number = 0;
 
@@ -148,6 +174,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     public contentTemplate: TemplateRef<any>;
 
     public toolbarTemplate: TemplateRef<any>;
+
+    public uploadedFileCount: number = 0;
 
     focus: boolean;
 
@@ -216,7 +244,11 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
         this.onSelect.emit({originalEvent: event, files: files});
 
-        if(this.hasFiles() && this.auto) {
+        if (this.fileLimit && this.mode == "advanced") {
+            this.checkFileLimit();
+        }
+
+        if(this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isFileLimitExceeded())) {
             this.upload();
         }
 
@@ -299,6 +331,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     upload() {
         if(this.customUpload) {
+            if (this.fileLimit) {
+                this.uploadedFileCount += this.files.length; 
+            }
+            
             this.uploadHandler.emit({
                 files: this.files
             });
@@ -331,6 +367,10 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                             this.progress = 0;
 
                             if (event['status'] >= 200 && event['status'] < 300) {
+                                if (this.fileLimit) {
+                                    this.uploadedFileCount += this.files.length; 
+                                }
+
                                 this.onUpload.emit({originalEvent: event, files: this.files});
                             } else {
                                 this.onError.emit({files: this.files});
@@ -365,6 +405,28 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         this.clearInputElement();
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
+    }
+
+    isFileLimitExceeded() {
+        if (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount && this.focus) {
+            this.focus = false;
+        }
+
+        return this.fileLimit && this.fileLimit < this.files.length + this.uploadedFileCount;
+    }
+
+    isChooseDisabled() {
+        return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+    }
+
+    checkFileLimit() {
+        if (this.isFileLimitExceeded()) {
+            this.msgs.push({
+                severity: 'error',
+                summary: this.invalidFileLimitMessageSummary.replace('{0}', this.fileLimit.toString()),
+                detail: this.invalidFileLimitMessageDetail.replace('{0}', this.fileLimit.toString())
+            });
+        }
     }
 
     clearInputElement() {

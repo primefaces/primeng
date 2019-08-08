@@ -198,6 +198,12 @@ myUploader(event) &#123;
                             <td>Maximum file size allowed in bytes.</td>
                         </tr>
                         <tr>
+                            <td>fileLimit</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Maximum number of files that can be uploaded.</td>
+                        </tr>
+                        <tr>
                             <td>invalidFileSizeMessageSummary</td>
                             <td>string</td>
                             <td>"&#123;0&#125;: Invalid file size, "</td>
@@ -216,7 +222,19 @@ myUploader(event) &#123;
                             <td>Summary message of the invalid fize type.</td>
                         </tr>
                         <tr>
-                            <td>invalidFileTypeMessageDetail</td>
+                            <td>invalidFileLimitMessageDetail</td>
+                            <td>string</td>
+                            <td>"limit is &#123;0&#125; at most."</td>
+                            <td>Detail message of the invalid fize type.</td>
+                        </tr>
+                        <tr>
+                            <td>invalidFileLimitMessageSummary</td>
+                            <td>string</td>
+                            <td>"Maximum number of files exceeded, "</td>
+                            <td>Summary message of the invalid fize type.</td>
+                        </tr>
+                        <tr>
+                            <td>fileTypeMessageDetail</td>
                             <td>string</td>
                             <td>"allowed file types: &#123;0&#125;."</td>
                             <td>Detail message of the invalid fize type.</td>

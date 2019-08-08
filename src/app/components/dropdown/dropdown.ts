@@ -8,6 +8,7 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { FilterUtils } from '../utils/filterutils';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -217,6 +218,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @Input() ariaFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -407,7 +410,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         setTimeout(() => {
-            this.hide();
+            this.hide(event);
         }, 150);
     }
 
@@ -500,9 +503,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.focusViewChild.nativeElement.focus();
             
             if (this.overlayVisible)
-                this.hide();
+                this.hide(event);
             else
                 this.show();
+
+            this.cd.detectChanges();
         }
     }
     
@@ -513,7 +518,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onEditableInputFocus(event) {
         this.focused = true;
-        this.hide();
+        this.hide(event);
         this.onFocus.emit(event);
     }
     
@@ -561,7 +566,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             break;
 
             case 'void':
-                this.onHide.emit(event);
                 this.onOverlayHide();
             break;
         }
@@ -602,7 +606,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
     
-    hide() {
+    hide(event) {
         this.overlayVisible = false;
         
         if (this.filter && this.resetFilterOnHide) {
@@ -614,6 +618,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.cd.markForCheck();
+        this.onHide.emit(event);
     }
     
     alignOverlay() {
@@ -787,7 +792,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //enter
             case 13:
                 if (!this.filter || (this.optionsToDisplay && this.optionsToDisplay.length > 0)) {
-                    this.hide();
+                    this.hide(event);
                 }
                 
                 event.preventDefault();
@@ -796,7 +801,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //escape and tab
             case 27:
             case 9:
-                this.hide();
+                this.hide(event);
             break;
 
             //search item based on keyboard input
@@ -971,7 +976,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             if (this.group) {
                 let filteredGroups = [];
                 for (let optgroup of this.options) {
-                    let filteredSubOptions = ObjectUtils.filter(optgroup.items, searchFields, this.filterValue);
+                    let filteredSubOptions = FilterUtils.filter(optgroup.items, searchFields, this.filterValue, this.filterMatchMode);
                     if (filteredSubOptions && filteredSubOptions.length) {
                         filteredGroups.push({
                             label: optgroup.label,
@@ -984,7 +989,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.optionsToDisplay = filteredGroups;
             }
             else {
-                this.optionsToDisplay = ObjectUtils.filter(this.options, searchFields, this.filterValue);
+                this.optionsToDisplay = FilterUtils.filter(this.options, searchFields, this.filterValue, this.filterMatchMode);
             }
 
             this.optionsChanged = true;
@@ -1004,9 +1009,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
                 if (!this.selfClick && !this.itemClick) {
-                    this.hide();
+                    this.hide(event);
                     this.unbindDocumentClickListener();
                 }
                 
@@ -1042,7 +1047,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     onWindowResize() {
         if (!DomHandler.isAndroid()) {
-            this.hide();
+            this.hide(event);
         }
     }
 

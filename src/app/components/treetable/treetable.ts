@@ -9,6 +9,7 @@ import { SortMeta } from '../common/sortmeta';
 import { BlockableUI } from '../common/blockableui';
 import { FilterMetadata } from '../common/filtermetadata';
 import { ObjectUtils } from '../utils/objectutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Injectable()
 export class TreeTableService {
@@ -1367,7 +1368,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             let filterField = prop;
                             let filterValue = filterMeta.value;
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
-                            let filterConstraint = this.filterConstraints[filterMatchMode];
+                            let filterConstraint = FilterUtils[filterMatchMode];
                             paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
                             if ((isStrictMode && !(this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
                                 (!isStrictMode && !(this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
@@ -1385,7 +1386,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                             let copyNodeForGlobal = {...copyNode};
                             let filterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
                             let filterValue = this.filters['global'].value;
-                            let filterConstraint = this.filterConstraints[this.filters['global'].matchMode];
+                            let filterConstraint = FilterUtils[this.filters['global'].matchMode];
                             paramsWithoutNode = {filterField, filterValue, filterConstraint, isStrictMode};
 
                             if ((isStrictMode && (this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode) || this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode))) ||
@@ -1480,159 +1481,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
 
         return !empty;
-    }
-
-    filterConstraints = {
-
-        startsWith(value, filter): boolean {
-            if (filter === undefined || filter === null || filter.trim() === '') {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
-
-            return stringValue.slice(0, filterValue.length) === filterValue;
-        },
-
-        contains(value, filter): boolean {
-            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
-
-            return stringValue.indexOf(filterValue) !== -1;
-        },
-
-        endsWith(value, filter): boolean {
-            if (filter === undefined || filter === null || filter.trim() === '') {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            let filterValue = ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-            let stringValue = ObjectUtils.removeAccents(value.toString()).toLowerCase();
-
-            return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
-        },
-
-        equals(value, filter): boolean {
-            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() === filter.getTime();
-            else
-                return ObjectUtils.removeAccents(value.toString()).toLowerCase() == ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-        },
-
-        notEquals(value, filter): boolean {
-            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-                return false;
-            }
-
-            if (value === undefined || value === null) {
-                return true;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() !== filter.getTime();
-            else
-                return ObjectUtils.removeAccents(value.toString()).toLowerCase() != ObjectUtils.removeAccents(filter.toString()).toLowerCase();
-        },
-
-        in(value, filter: any[]): boolean {
-            if (filter === undefined || filter === null || filter.length === 0) {
-                return true;
-            }
-
-            for (let i = 0; i < filter.length; i++) {
-                if (filter[i] === value || ( value != null && (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime()))) {
-
-                    return true;
-                }
-            }
-
-            return false;
-        },
-
-        lt(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() < filter.getTime();
-            else
-                return value < filter;
-        },
-        
-        lte(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() <= filter.getTime();
-            else
-                return value <= filter;
-        },
-
-        gt(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() > filter.getTime();
-            else
-                return value > filter;
-        },
-        
-        gte(value, filter): boolean {
-            if (filter === undefined || filter === null) {
-                return true;
-            }
-
-            if (value === undefined || value === null) {
-                return false;
-            }
-
-            if (value.getTime && filter.getTime)
-                return value.getTime() >= filter.getTime();
-            else
-                return value >= filter;
-        }
     }
 
     public reset() {

@@ -35,17 +35,22 @@ describe('Lightbox', () => {
         expect(lightboxClickEl.nativeElement).toBeTruthy();
     });
 
-    it('should call imageClick', () => {
+    it('should call imageClick', fakeAsync(() => {
         lightbox.appendTo = 'body';
         fixture.detectChanges();
         
         const imageClickSpy = spyOn(lightbox,"onImageClick").and.callThrough();
+        const displayImageSpy = spyOn(lightbox,"displayImage").and.callThrough();
         const lightboxClickEl = fixture.debugElement.query(By.css('a'));
         lightboxClickEl.nativeElement.click();
+        tick(2000);
         fixture.detectChanges();
 
-        expect(imageClickSpy).toHaveBeenCalled();
-    });
+        fixture.whenStable().then(() =>{
+            expect(imageClickSpy).toHaveBeenCalled();
+            expect(displayImageSpy).toHaveBeenCalled();
+        });
+    }));
 
     it('should call imageClick', () => {
         lightbox.appendTo = 'body';
@@ -107,5 +112,25 @@ describe('Lightbox', () => {
 
         expect(prevSpy).toHaveBeenCalled();
         expect(lightbox.index).toEqual(0);
+    });
+
+    it('should hide with esc key', () => {
+        lightbox.appendTo = document.body;
+        fixture.detectChanges();
+        
+        const imageClickSpy = spyOn(lightbox,"onImageClick").and.callThrough();
+        const hideSpy = spyOn(lightbox,"hide").and.callThrough();
+        const lightboxClickEl = fixture.debugElement.query(By.css('a'));
+        lightboxClickEl.nativeElement.click();
+        fixture.detectChanges();
+        
+        expect(imageClickSpy).toHaveBeenCalled();
+        const escapeEvent: any = document.createEvent('CustomEvent');
+        escapeEvent.which = 27;
+        escapeEvent.initEvent('keydown', true, true);
+        document.dispatchEvent(escapeEvent as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(hideSpy).toHaveBeenCalled();
     });
 });
