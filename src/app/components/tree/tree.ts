@@ -344,6 +344,10 @@ export class UITreeNode implements OnInit {
     onKeyDown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement> event.target).parentElement.parentElement;
 
+        if (nodeElement.nodeName !== 'P-TREENODE') {
+            return;
+        }
+
         switch (event.which) {
             //down arrow
             case 40:
