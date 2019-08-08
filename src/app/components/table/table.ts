@@ -3459,7 +3459,7 @@ export class TableCheckbox  {
             </div>
         </div>
     `
-}) 
+})
 export class TableHeaderCheckbox  {
 
     @ViewChild('box', { static: false }) boxViewChild: ElementRef;
