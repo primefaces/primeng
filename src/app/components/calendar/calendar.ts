@@ -39,6 +39,7 @@ export interface LocaleSettings {
             </ng-template>
             <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
+                (click)="onDatePickerClick($event)" 
                 [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}: 
                                             {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" 
                                             [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" *ngIf="inline || overlayVisible">
@@ -1579,7 +1580,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.currentSecond = val.getSeconds();
         }
     }
-        
+
+    onDatePickerClick(event: Event) {
+        // p-cellEditor listens for click events on document.
+        // But we want the overlay to stay open, when a month or year dropdown
+        // is clicked: https://github.com/primefaces/primeng/issues/8042 
+        event.stopPropagation();
+    }
+
     showOverlay() {
         if (!this.overlayVisible) {
             this.updateUI();
