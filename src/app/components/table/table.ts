@@ -1586,6 +1586,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.editingCellField = null;
                     this.editingCellData = null;
                     this.unbindDocumentEditListener();
+                    this.cd.markForCheck();
                 }
 
                 this.editingCellClick = false;
