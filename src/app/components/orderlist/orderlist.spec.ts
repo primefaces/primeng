@@ -159,7 +159,7 @@ describe('OrderList', () => {
       fixture.detectChanges();
       
       const ctrlClickEvent = {'ctrlKey':true};
-      orderlist.onItemClick(ctrlClickEvent,orderlist.selection[0],3);
+      orderlist.onItemClick(ctrlClickEvent,3);
       fixture.detectChanges();
 
       expect(onItemClickSpy).toHaveBeenCalledTimes(2);
@@ -194,7 +194,7 @@ describe('OrderList', () => {
       fixture.detectChanges();
       
       const ctrlClickEvent = {'ctrlKey':true};
-      orderlist.onItemClick(ctrlClickEvent,orderlist.selection[0],3);
+      orderlist.onItemClick(ctrlClickEvent,3);
       fixture.detectChanges();
 
       expect(onItemClickSpy).toHaveBeenCalledTimes(2);

@@ -281,7 +281,7 @@ describe('PickList', () => {
 
 		let event = { 'ctrlKey': true };
 		let callback = new EventEmitter();
-		picklist.onItemClick(event, picklist.source[0], picklist.selectedItemsSource, callback);
+		picklist.onItemClick(event, 0, picklist.source, picklist.selectedItemsSource, callback);
 		fixture.detectChanges();
 
 		expect(onItemClickSpy).toHaveBeenCalled();
