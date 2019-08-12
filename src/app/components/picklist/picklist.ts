@@ -29,7 +29,7 @@ import { FilterUtils } from '../utils/filterutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, SOURCE_LIST)" (drop)="onDrop($event, i, SOURCE_LIST)" (dragleave)="onDragLeave($event, SOURCE_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource), 'ui-state-disabled': disabled}"
-                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsSource,onSourceSelect)"
+                            (click)="onItemClick($event,i,source,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,i,source,selectedItemsSource,onSourceSelect)"
                             [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'" tabindex="0"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, SOURCE_LIST)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
@@ -63,7 +63,7 @@ import { FilterUtils } from '../utils/filterutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, TARGET_LIST)" (drop)="onDrop($event, i, TARGET_LIST)" (dragleave)="onDragLeave($event, TARGET_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget), 'ui-state-disabled': disabled}"
-                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsTarget,onTargetSelect)"
+                            (click)="onItemClick($event,i,target,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,i,target,selectedItemsTarget,onTargetSelect)"
                             [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'" tabindex="0"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, TARGET_LIST)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
@@ -262,7 +262,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
     
-    onItemClick(event, item: any, selectedItems: any[], callback: EventEmitter<any>) {
+    onItemClick(event, itemIndex: number, items: any[], selectedItems: any[], callback: EventEmitter<any>) {
+        const item = items[itemIndex];
+
         if(this.disabled) {
             return;
         }
@@ -280,8 +282,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             else {
                 if(!metaKey) {
                     selectedItems.length = 0;
-                }         
-                selectedItems.push(item);
+                    selectedItems.push(item);
+                } else if(event.shiftKey && selectedItems.length) {
+                    const indexFrom = this.findIndexInList(selectedItems[selectedItems.length - 1], items);
+                    const indexTo = itemIndex;
+                    selectedItems.length = 0;
+                    selectedItems.push(...items.slice(Math.min(indexFrom, indexTo), Math.max(indexFrom, indexTo) + 1));
+                } else {
+                    selectedItems.push(item);
+                }
             }
         }
         else {
@@ -697,7 +706,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         (<HTMLInputElement> this.targetFilterViewChild.nativeElement).value = '';
     }
     
-    onItemKeydown(event: KeyboardEvent, item: any, selectedItems: any[], callback: EventEmitter<any>) {
+    onItemKeydown(event: KeyboardEvent, itemIndex: number, items: any[], selectedItems: any[], callback: EventEmitter<any>) {
         let listItem = <HTMLLIElement> event.currentTarget;
         
         switch(event.which) {
@@ -723,7 +732,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             
             //enter
             case 13:
-                this.onItemClick(event, item, selectedItems, callback);
+                this.onItemClick(event, itemIndex, items, selectedItems, callback);
                 event.preventDefault();
             break;
         }
