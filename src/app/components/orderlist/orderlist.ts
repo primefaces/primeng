@@ -29,7 +29,7 @@ import { FilterUtils } from '../utils/filterutils';
                             [ngClass]="{'ui-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item" tabindex="0"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
-                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
+                            (click)="onItemClick($event,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,i)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
@@ -157,8 +157,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         }
     }
                 
-    onItemClick(event, item, index) {
+    onItemClick(event, index: number) {
         this.itemTouched = false;
+        const item = this.value[index];
         let selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
         let selected = (selectedIndex != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
@@ -170,8 +171,19 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 this._selection = this._selection.filter((val, index) => index !== selectedIndex);
             }
             else {
-                this._selection = (metaKey) ? this._selection ? [...this._selection] : [] : [];            
-                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
+                if(!metaKey) {
+                    this._selection = [];
+                    ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);
+                } else if(event.shiftKey && this._selection && this._selection.length) {
+                    const indexFrom = this.value.findIndex((x) => x === this._selection[this._selection.length - 1]);
+                    const indexTo = index;
+                    this.selection = [];
+                    this.value.slice(Math.min(indexFrom, indexTo), Math.max(indexFrom, indexTo) + 1)
+                        .forEach((rangeItem, rangeInd) => ObjectUtils.insertIntoOrderedArray(rangeItem, rangeInd, this._selection, this.value));
+                } else {
+                    this._selection = this.selection ? [...this.selection] : [];
+                    ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value); 
+                }
             }
         }
         else {
@@ -353,7 +365,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         }
     }
     
-    onItemKeydown(event: KeyboardEvent, item, index: Number) {
+    onItemKeydown(event: KeyboardEvent, index: number) {
         let listItem = <HTMLLIElement> event.currentTarget;
         
         switch(event.which) {
@@ -379,7 +391,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             
             //enter
             case 13:
-                this.onItemClick(event, item, index);
+                this.onItemClick(event, index);
                 event.preventDefault();
             break;
         }
