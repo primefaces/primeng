@@ -25,9 +25,18 @@
 
     <h3>Multiple</h3>
     <span class="ui-fluid">
-        <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
-            [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
-        </p-autoComplete>
+            <p-autoComplete [(ngModel)]="countries" (onSelect)="selectCountry($event)"
+              [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
+              field="name" [multiple]="true">
+              <ng-template let-value pTemplate="selectedItem">
+                <span>{{value}} <i class="icon-erase" (click)="deleteCountry(value)"></i></span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div>
+                  <div>{{item}}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
     </span>
     <ul>
         <li *ngFor="let c of countries">{{c.name}}</li>
