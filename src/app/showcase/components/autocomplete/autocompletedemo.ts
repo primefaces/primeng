@@ -22,7 +22,7 @@ export class AutoCompleteDemo {
     
     constructor(private countryService: CountryService) { }
     
-    filterCountrySingle(event) {
+     filterCountrySingle(event) {
         let query = event.query;        
         this.countryService.getCountries().then(countries => {
             this.filteredCountriesSingle = this.filterCountry(query, countries);
@@ -34,6 +34,14 @@ export class AutoCompleteDemo {
         this.countryService.getCountries().then(countries => {
             this.filteredCountriesMultiple = this.filterCountry(query, countries);
         });
+    }
+    
+    selectCountry(country: string) {
+        console.log('country selected', country);
+    }
+    
+    deleteCountry(country: string) {
+        console.log('country to delete', country);
     }
     
     filterCountry(query, countries: any[]):any[] {
