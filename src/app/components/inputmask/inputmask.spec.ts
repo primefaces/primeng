@@ -251,4 +251,14 @@ describe('InputMask', () => {
         let inputMaskEl = fixture.debugElement.query(By.css('input'));
         expect(inputMaskEl.parent.nativeElement.className).toContain("ui-inputwrapper-focus");
     });
+
+    it('should disabled with setDisabledState', () => {
+        inputmask.setDisabledState(true);
+        fixture.detectChanges();
+
+        inputmask.focus();
+        fixture.detectChanges();
+
+        expect(document.activeElement).not.toEqual(inputmask.inputViewChild.nativeElement);
+    });
 });
