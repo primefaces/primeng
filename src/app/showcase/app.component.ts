@@ -1,10 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('animation', [
+        state('hidden', style({
+            height: '0',
+            overflow: 'hidden',
+            maxHeight: '0',
+            paddingTop: '0',
+            paddingBottom: '0',
+            marginTop: '0',
+            marginBottom: '0',
+            opacity: '0',
+        })),
+        state('void', style({
+            height: '0',
+            overflow: 'hidden',
+            maxHeight: '0',
+            paddingTop: '0',
+            paddingBottom: '0',
+            marginTop: '0',
+            marginBottom: '0',
+        })),
+        state('visible', style({
+            height: '*'
+        })),
+        transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+        transition('void => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+        transition('void => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+    ])
+]
 })
 export class AppComponent implements OnInit{
 
@@ -27,6 +57,36 @@ export class AppComponent implements OnInit{
         for (let route of routes) {
             if (route.path && route.path !== "datagrid" && route.path !== "datalist" && route.path !== "datascroller" && route.path !== "growl")
                 this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1));
+        }
+    }
+
+    onAnimationStart (event) {
+        switch (event.toState) {
+            case 'visible':
+                event.element.style.display = 'block';
+            break;
+        }
+    }
+    onAnimationDone (event) {
+        switch (event.toState) {
+            case 'hidden':
+                event.element.style.display = 'none';
+            break;
+
+            case 'void':
+                event.element.style.display = 'none';
+            break;
+        }
+    }
+
+    toggle(id:string) {
+        this.activeMenuId = (this.activeMenuId === id ? null : id);
+    }
+
+    onKeydown(event: KeyboardEvent,id:string) {
+        if (event.which === 32 || event.which === 13) {
+            this.toggle(id);
+            event.preventDefault();
         }
     }
 
