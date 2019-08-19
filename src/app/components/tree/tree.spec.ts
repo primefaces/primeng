@@ -11,9 +11,9 @@ import { TreeDragDropService } from '../common/api';
 	template: `
 	<p-tree></p-tree>
 	<p-contextMenu #cm [model]="item"></p-contextMenu>
-	<p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"></p-tree>
-	<p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"></p-tree>
-	<p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"></p-tree>
+	<p-tree class="files" [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"></p-tree>
+	<p-tree class="server1" [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"></p-tree>
+	<p-tree class="server2" [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"></p-tree>
 	`
   })
   class TestTreeComponent implements OnInit {
@@ -103,7 +103,7 @@ import { TreeDragDropService } from '../common/api';
 	
   }
 
-describe('Tree', () => {
+fdescribe('Tree', () => {
 
 	let tree: Tree;
 	let filesTree: Tree;
@@ -481,6 +481,7 @@ describe('Tree', () => {
 		const documentsContentEl = fileTreeContentEls[0];
 		const onDragStartSpy = spyOn(documentsContentEl.componentInstance,"onDragStart").and.callThrough();
 		const startDragSpy = spyOn(filesTree.dragDropService,"startDrag").and.callThrough();
+		const onDropSpy = spyOn(server2Tree,"onDrop").and.callThrough();
 		documentsContentEl.triggerEventHandler("dragstart",{dataTransfer:new DataTransfer});
 		fixture.detectChanges();
 		
@@ -510,6 +511,7 @@ describe('Tree', () => {
 		server2DropPoints[1].triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
 		let dropEvent;
 		server2Tree.onNodeDrop.subscribe((event) => {dropEvent = event});
+		server2TreeEl.triggerEventHandler("drop",{preventDefault(){}});
 		server2DropPoints[1].triggerEventHandler("drop",{preventDefault(){}});
 		fixture.detectChanges();
 
@@ -518,5 +520,96 @@ describe('Tree', () => {
 		expect(dropEvent.dragNode.label).toEqual("Documents");
 		expect(dropEvent.dropNode.label).toEqual("Storage");
 		expect(dropEvent.dropIndex).toEqual(0);
+		expect(onDropSpy).toHaveBeenCalled();
+	});
+
+	it('should drop item to inside of node', () => {
+		fixture.detectChanges();
+
+		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		expect(fileTreeContentEls.length).toEqual(3);
+		const documentsContentEl = fileTreeContentEls[0];
+		const onDragStartSpy = spyOn(documentsContentEl.componentInstance,"onDragStart").and.callThrough();
+		const startDragSpy = spyOn(filesTree.dragDropService,"startDrag").and.callThrough();
+		documentsContentEl.triggerEventHandler("dragstart",{dataTransfer:new DataTransfer});
+		fixture.detectChanges();
+		
+		expect(onDragStartSpy).toHaveBeenCalled();
+		expect(startDragSpy).toHaveBeenCalled();
+		expect(documentsContentEl.componentInstance).toEqual(filesTree.dragNodeTree);
+		expect(filesTree.dragNode.label).toEqual("Documents");
+		expect(filesTree.dragNodeIndex).toEqual(0);
+		const picturesContentEl = fileTreeContentEls[1];
+		picturesContentEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		picturesContentEl.triggerEventHandler("dragleave",{currentTarget:picturesContentEl.nativeElement});
+		const fileTreeEl = fixture.debugElement.children[2].query(By.css('div'));
+		const server2TreeEl = fixture.debugElement.children[4].query(By.css('div'));
+		const onDragLeaveSpy =spyOn(filesTree,"onDragLeave").and.callThrough();
+		const onDragEnterSpy =spyOn(server2Tree,"onDragEnter").and.callThrough();
+		fileTreeEl.triggerEventHandler("dragleave",{currentTarget:fileTreeEl.nativeElement});
+		expect(onDragLeaveSpy).toHaveBeenCalled();
+		server2TreeEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		expect(onDragEnterSpy).toHaveBeenCalled();
+		const server2DropPoints = server2TreeEl.queryAll(By.css('.ui-treenode-droppoint'));
+		const serverContentEl = server2TreeEl.query(By.css('.ui-treenode-content'));
+		expect(server2DropPoints.length).toEqual(2);
+		server2DropPoints[0].triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		server2DropPoints[0].triggerEventHandler("dragleave",{currentTarget:fileTreeEl.nativeElement});
+		serverContentEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		serverContentEl.triggerEventHandler("dragleave",{currentTarget:fileTreeEl.nativeElement});
+		server2DropPoints[1].triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		server2DropPoints[1].triggerEventHandler("dragleave",{dataTransfer:new DataTransfer});
+		serverContentEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		serverContentEl.triggerEventHandler("dragover",{dataTransfer:new DataTransfer,preventDefault(){},stopPropagation(){}});
+		let dropEvent;
+		server2Tree.onNodeDrop.subscribe((event) => {dropEvent = event});
+		serverContentEl.triggerEventHandler("drop",{preventDefault(){},stopPropagation(){}});
+		serverContentEl.triggerEventHandler("dragend",{dataTransfer:new DataTransfer,preventDefault(){},stopPropagation(){}});
+		fixture.detectChanges();
+
+		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		expect(fileTreeContentEls.length).toEqual(2);
+		expect(dropEvent.dragNode.label).toEqual("Documents");
+		expect(dropEvent.dropNode.label).toEqual("Storage");
+	});
+
+	it('should drop item from files to server2(empty)', () => {
+		fixture.detectChanges();
+
+		server2Tree.value = [];
+		let fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		expect(fileTreeContentEls.length).toEqual(3);
+		const documentsContentEl = fileTreeContentEls[0];
+		const onDragStartSpy = spyOn(documentsContentEl.componentInstance,"onDragStart").and.callThrough();
+		const startDragSpy = spyOn(filesTree.dragDropService,"startDrag").and.callThrough();
+		const onDropSpy = spyOn(server2Tree,"onDrop").and.callThrough();
+		documentsContentEl.triggerEventHandler("dragstart",{dataTransfer:new DataTransfer});
+		fixture.detectChanges();
+		
+		expect(onDragStartSpy).toHaveBeenCalled();
+		expect(startDragSpy).toHaveBeenCalled();
+		expect(documentsContentEl.componentInstance).toEqual(filesTree.dragNodeTree);
+		expect(filesTree.dragNode.label).toEqual("Documents");
+		expect(filesTree.dragNodeIndex).toEqual(0);
+		const picturesContentEl = fileTreeContentEls[1];
+		picturesContentEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		picturesContentEl.triggerEventHandler("dragleave",{currentTarget:picturesContentEl.nativeElement});
+		const fileTreeEl = fixture.debugElement.children[2].query(By.css('div'));
+		const server2TreeEl = fixture.debugElement.children[4].query(By.css('div'));
+		const onDragLeaveSpy =spyOn(filesTree,"onDragLeave").and.callThrough();
+		const onDragEnterSpy =spyOn(server2Tree,"onDragEnter").and.callThrough();
+		fileTreeEl.triggerEventHandler("dragleave",{currentTarget:fileTreeEl.nativeElement});
+		expect(onDragLeaveSpy).toHaveBeenCalled();
+		server2TreeEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		expect(onDragEnterSpy).toHaveBeenCalled();
+		server2TreeEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		server2TreeEl.triggerEventHandler("dragleave",{currentTarget:fileTreeEl.nativeElement});
+		server2TreeEl.triggerEventHandler("dragenter",{dataTransfer:new DataTransfer});
+		server2TreeEl.triggerEventHandler("drop",{preventDefault(){}});
+		fixture.detectChanges();
+
+		fileTreeContentEls = fixture.debugElement.children[2].queryAll(By.css('.ui-treenode-content'));
+		expect(fileTreeContentEls.length).toEqual(2);
+		expect(onDropSpy).toHaveBeenCalled();
 	});
 });
