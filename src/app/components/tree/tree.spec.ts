@@ -103,7 +103,7 @@ import { TreeDragDropService } from '../common/api';
 	
   }
 
-fdescribe('Tree', () => {
+describe('Tree', () => {
 
 	let tree: Tree;
 	let filesTree: Tree;
