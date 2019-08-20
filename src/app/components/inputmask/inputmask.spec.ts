@@ -261,4 +261,25 @@ describe('InputMask', () => {
 
         expect(document.activeElement).not.toEqual(inputmask.inputViewChild.nativeElement);
     });
+
+    it('should be readonly', () => {
+        inputmask.readonly = true;
+        fixture.detectChanges();
+
+        const updateModelSpy = spyOn(inputmask, "updateModel").and.callThrough();
+        const inputMaskEl = fixture.debugElement.query(By.css("input"));
+        const event: any = document.createEvent('CustomEvent');
+        event.which = 13;
+        event.initEvent('keydown', true, true);
+        inputMaskEl.nativeElement.dispatchEvent(event as KeyboardEvent);
+        event.initEvent('input', true, true);
+        inputMaskEl.nativeElement.dispatchEvent(event as KeyboardEvent);
+        event.initEvent('keypress', true, true);
+        inputMaskEl.nativeElement.dispatchEvent(event as KeyboardEvent);
+        inputMaskEl.nativeElement.dispatchEvent(new Event("focus"));
+        fixture.detectChanges();
+
+        expect(document.activeElement).not.toEqual(inputmask.inputViewChild.nativeElement);
+        expect(updateModelSpy).not.toHaveBeenCalled();
+    });
 });
