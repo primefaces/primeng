@@ -1026,7 +1026,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isMonthSelected(month: number): boolean {
-        return this.isSelected({year: this.currentYear, month: month, day: 1, selectable: true});
+        let day = this.value ? (Array.isArray(this.value) ? this.value[0].getDate() : this.value.getDate()) : 1; 
+        return this.isSelected({year: this.currentYear, month: month, day: day, selectable: true});
     }
     
     isDateEquals(value, dateMeta) {
