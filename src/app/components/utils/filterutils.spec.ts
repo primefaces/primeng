@@ -3,16 +3,16 @@ import { FilterUtils } from './filterutils';
 describe('FilterUtils Suite', () => {
 
     let data: any = [
-        {brand: "VW", year: 2012, color: {name:"Orange"}, vin: "dsad231ff"},
-        {brand: "Audi", year: 2011, color: {name:"Black"}, vin: "gwregre345"},
-        {brand: "Renault", year: 2005, color: {name:"Black"}, vin: "h354htr"},
-        {brand: "BMW", year: 2003, color: {name:"Blue"}, vin: "j6w54qgh"},
-        {brand: "Mercedes", year: 1995, color: {name:"Red"}, vin: "hrtwy34"},
-        {brand: "Volvo", year: 2005, color: {name:"Orange"}, vin: "jejtyj"},
-        {brand: "Honda", year: 2012, color: {name:"Blue"}, vin: "g43gr"},
-        {brand: "Jaguar", year: 2013,color: {name:"Black"}, vin: "greg34"},
-        {brand: "Ford", year: 2000, color: {name:"White"}, vin: "h54hw5"},
-        {brand: "Fiat", year: 2013, color: {name:"Yellow"}, vin: "245t2s"}
+        {brand: "VW", year: 2012, color: {name:"Orange"}, vin: "dsad231ff", dealers: ['Philadelphia', 'Boston']},
+        {brand: "Audi", year: 2011, color: {name:"Black"}, vin: "gwregre345", dealers: ['Philadelphia']},
+        {brand: "Renault", year: 2005, color: {name:"Black"}, vin: "h354htr", dealers: ['New York', 'Chicago']},
+        {brand: "BMW", year: 2003, color: {name:"Blue"}, vin: "j6w54qgh", dealers: ['Dallas']},
+        {brand: "Mercedes", year: 1995, color: {name:"Red"}, vin: "hrtwy34", dealers: []},
+        {brand: "Volvo", year: 2005, color: {name:"Orange"}, vin: "jejtyj", dealers: []},
+        {brand: "Honda", year: 2012, color: {name:"Blue"}, vin: "g43gr" , dealers: ['Baltimore', 'Denver']},
+        {brand: "Jaguar", year: 2013,color: {name:"Black"}, vin: "greg34", dealers: ['Denver', 'Washington']},
+        {brand: "Ford", year: 2000, color: {name:"White"}, vin: "h54hw5", dealers: []},
+        {brand: "Fiat", year: 2013, color: {name:"Yellow"}, vin: "245t2s", dealers: ['Portland']}
     ];
     let timeData  = [
         {date:'Tue Aug 04 2019 00:00:00 GMT+0300 (GMT+03:00)'},
@@ -91,6 +91,25 @@ describe('FilterUtils Suite', () => {
         expect(FilterUtils.in(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'), [new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(true);
         expect(FilterUtils.in(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'), [new Date('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(false);
         expect(FilterUtils.in(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'), [new Date('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)'), new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(true);
+    });
+
+    it('Should filter by containsAny', () => {
+        let filteredValue = FilterUtils.filter(data, ['dealers'], ['Denver', 'Philadelphia'], 'containsAny');
+        expect(filteredValue.length).toEqual(4);
+        filteredValue = FilterUtils.filter(data, ['dealers'], ['Lima', 'Santiago'], 'containsAny');
+        expect(filteredValue.length).toEqual(0);
+        filteredValue = FilterUtils.filter(data, ['dealers'], [], 'containsAny');
+        expect(filteredValue.length).toEqual(10);
+        filteredValue = FilterUtils.filter(data, [], ['Dallas'], 'containsAny');
+        expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.containsAny(['A', 'Test'], undefined)).toBe(true);
+        expect(FilterUtils.containsAny(['A', 'Test'], null)).toBe(true);
+        expect(FilterUtils.containsAny(['A', 'Test'], [])).toBe(true);
+        expect(FilterUtils.containsAny(undefined, ['Value'])).toBe(false);
+        expect(FilterUtils.containsAny(null, ['Value'])).toBe(false);
+        expect(FilterUtils.containsAny([], ['Value'])).toBe(false);
+        expect(FilterUtils.containsAny(['A', 'Test'], ['Some', 'Allowed', 'Test', 'Values'])).toBe(true);
+        expect(FilterUtils.containsAny(['One', 'Two'], ['Three', 'Four'])).toBe(false);
     });
 
     it('Should filter by lt', () => {

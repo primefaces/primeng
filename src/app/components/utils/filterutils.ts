@@ -17,9 +17,16 @@ export class FilterUtils {
         if (value) {
             for (let item of value) {
                 for (let field of fields) {
-                    let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(item, field))).toLowerCase();
+                    const fieldValue = ObjectUtils.resolveFieldData(item, field);
+                    let sanitizedFieldValue = fieldValue;
 
-                    if (FilterUtils[filterMatchMode](fieldValue,sanitizedFilterText)) {
+                    if (Object.prototype.toString.call(fieldValue) === '[object Array]') {
+                        sanitizedFieldValue = (fieldValue as any[]).map(x => this.sanitizeForFiltering(String(x)));
+                    } else {
+                        sanitizedFieldValue = this.sanitizeForFiltering(String(fieldValue));
+                    }
+
+                    if (FilterUtils[filterMatchMode](sanitizedFieldValue, sanitizedFilterText)) {
                         filteredItems.push(item);
                         break;
                     }
@@ -126,6 +133,24 @@ export class FilterUtils {
 
         for (let i = 0; i < filter.length; i++) {
             if (filter[i] === value || (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static containsAny(values: any[], filters: any[]): boolean {
+        if (filters === undefined || filters === null || filters.length === 0) {
+            return true;
+        }
+
+        if (values === undefined || values === null || values.length === 0) {
+            return false;
+        }
+
+        for (const value of values) {
+            if (this.in(value, filters)) {
                 return true;
             }
         }
