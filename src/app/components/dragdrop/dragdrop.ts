@@ -1,4 +1,4 @@
-import {NgModule,Directive,OnDestroy,AfterViewInit,ElementRef,HostListener,Input,Output,EventEmitter,NgZone} from '@angular/core';
+import {NgModule,Directive,OnDestroy,AfterViewInit,ElementRef,HostListener,Input,Output,EventEmitter,NgZone,SimpleChanges,OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -130,7 +130,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[pDroppable]'
 })
-export class Droppable implements AfterViewInit, OnDestroy {
+export class Droppable implements AfterViewInit, OnDestroy, OnChanges {
     
     @Input('pDroppable') scope: string|string[];
 
@@ -150,6 +150,14 @@ export class Droppable implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         if (!this.pDroppableDisabled) {
+            this.bindDragOverListener();
+        }
+    }
+	
+	ngOnChanges(_: SimpleChanges) {
+        if (this.pDroppableDisabled) {
+            this.unbindDragOverListener();
+        } else {
             this.bindDragOverListener();
         }
     }
