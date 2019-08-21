@@ -27,6 +27,7 @@ describe('FilterUtils Suite', () => {
         expect(filteredValue.length).toEqual(10);
         filteredValue = FilterUtils.filter(data,[''],'f','startsWith');
         expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.startsWith(null,"brand")).toBeFalsy();
     });
 
     it('Should filter by contains', () => {
@@ -36,6 +37,7 @@ describe('FilterUtils Suite', () => {
         expect(filteredValue.length).toEqual(10);
         filteredValue = FilterUtils.filter(data,[''],'f','contains');
         expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.contains(null,"brand")).toBeFalsy();
     });
 
     it('Should filter by endsWith', () => {
@@ -45,6 +47,7 @@ describe('FilterUtils Suite', () => {
         expect(filteredValue.length).toEqual(10);
         filteredValue = FilterUtils.filter(data,[''],'t','endsWith');
         expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.endsWith(null,"brand")).toBeFalsy();
     });
 
     it('Should filter by equals', () => {
@@ -54,6 +57,7 @@ describe('FilterUtils Suite', () => {
         expect(filteredValue.length).toEqual(10);
         filteredValue = FilterUtils.filter(data,[''],'BMW','equals');
         expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.equals(null,"brand")).toBeFalsy();
     });
 
     it('Should filter by notEquals', () => {
@@ -63,6 +67,7 @@ describe('FilterUtils Suite', () => {
         expect(filteredValue.length).toEqual(0);
         filteredValue = FilterUtils.filter(data,[''],'BMW','notEquals');
         expect(filteredValue.length).toEqual(10);
+        expect(FilterUtils.notEquals(null,"brand")).toBeTruthy();
     });
 
     it('Should filter by lt', () => {
@@ -72,6 +77,9 @@ describe('FilterUtils Suite', () => {
         expect(filteredValue.length).toEqual(0);
         filteredValue = FilterUtils.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lt');
         expect(filteredValue.length).toEqual(3);
+        expect(FilterUtils.lt('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)',null)).toBeTruthy();
+        expect(FilterUtils.lt(null,'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')).toBeFalsy();
+        expect(FilterUtils.lt(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'),new Date('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)'))).toBeFalsy();
     });
 
     it('Should filter by lte', () => {
@@ -81,23 +89,32 @@ describe('FilterUtils Suite', () => {
         expect(filteredValue.length).toEqual(0);
         filteredValue = FilterUtils.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lte');
         expect(filteredValue.length).toEqual(3);
+        expect(FilterUtils.lte('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)',null)).toBeTruthy();
+        expect(FilterUtils.lte(null,'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')).toBeFalsy();
+        expect(FilterUtils.lte(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'),new Date('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)'))).toBeFalsy();
     });
 
     it('Should filter by gt', () => {
-        let filteredValue = FilterUtils.filter(timeData,['date'],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lt');
+        let filteredValue = FilterUtils.filter(timeData,['date'],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','gt');
         expect(filteredValue.length).toEqual(1);
-        filteredValue = FilterUtils.filter(timeData,['date'],'','lt');
-        expect(filteredValue.length).toEqual(0);
-        filteredValue = FilterUtils.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lt');
+        filteredValue = FilterUtils.filter(timeData,['date'],'','gt');
         expect(filteredValue.length).toEqual(3);
+        filteredValue = FilterUtils.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','gt');
+        expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.gt('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)',null)).toBeTruthy();
+        expect(FilterUtils.gt(null,'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')).toBeFalsy();
+        expect(FilterUtils.gt(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'),new Date('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)'))).toBeTruthy();
     });
 
     it('Should filter by gte', () => {
-        let filteredValue = FilterUtils.filter(timeData,['date'],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lte');
+        let filteredValue = FilterUtils.filter(timeData,['date'],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','gte');
         expect(filteredValue.length).toEqual(2);
-        filteredValue = FilterUtils.filter(timeData,['date'],'','lte');
-        expect(filteredValue.length).toEqual(0);
-        filteredValue = FilterUtils.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lte');
+        filteredValue = FilterUtils.filter(timeData,['date'],'','gte');
         expect(filteredValue.length).toEqual(3);
+        filteredValue = FilterUtils.filter(timeData,[''],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','gte');
+        expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.gte('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)',null)).toBeTruthy();
+        expect(FilterUtils.gte(null,'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')).toBeFalsy();
+        expect(FilterUtils.gte(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'),new Date('Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)'))).toBeTruthy();
     });
 });

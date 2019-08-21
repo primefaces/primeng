@@ -406,7 +406,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (!option.disabled) {
             this.selectItem(event, option);
             this.focusViewChild.nativeElement.focus();
-            this.filled = true;
         }
 
         setTimeout(() => {
@@ -418,6 +417,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.selectedOption != option) {
             this.selectedOption = option;
             this.value = option.value;
+            this.filled = true;
 
             this.onModelChange(this.value);
             this.updateEditableLabel();

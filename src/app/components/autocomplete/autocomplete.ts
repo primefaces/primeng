@@ -120,6 +120,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() dropdownIcon: string = "pi pi-caret-down";
 
+    @Input() unique: boolean = true;
+
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -392,7 +394,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
         if (this.multiple) {
             this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
-            if (!this.isSelected(option)) {
+            if (!this.isSelected(option) || !this.unique) {
                 this.value = [...this.value,option];
                 this.onModelChange(this.value);
             }

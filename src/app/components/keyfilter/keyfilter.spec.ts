@@ -177,4 +177,30 @@ describe('KeyFilter', () => {
         expect(preventDefaultSpy).toHaveBeenCalled();
         expect(keydownEvent.returnValue).toBeFalsy();
     });
+    
+    it('should use input (mocking android)', () => {
+        fixture.detectChanges();
+
+        keyfilter.isAndroid = true;
+        keyfilter.el.nativeElement.value = "PrimeNG";
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+		const inputEvent: any = document.createEvent('CustomEvent');
+        
+        inputEvent.initEvent('input', true, true);
+        inputEl.dispatchEvent(inputEvent);
+        fixture.detectChanges();
+
+        expect(keyfilter.el.nativeElement.value).not.toContain("PrimeNG");
+        keyfilter.el.nativeElement.value = "3507";
+        inputEl.dispatchEvent(inputEvent);
+        fixture.detectChanges();
+
+        keyfilter.el.nativeElement.value = "35a07";
+        inputEl.dispatchEvent(inputEvent);
+        fixture.detectChanges();
+
+        expect(keyfilter.el.nativeElement.value).toContain("3507");
+    });
 });

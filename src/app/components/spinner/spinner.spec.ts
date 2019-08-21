@@ -47,6 +47,7 @@ describe('Spinner', () => {
     });
 
     it('should have value as -3 when down clicked 3 times', () => {
+        spinner.type="deprecated";
         fixture.detectChanges();
         
         const spinnerDown = fixture.nativeElement.querySelector('.ui-spinner-down');
@@ -251,5 +252,19 @@ describe('Spinner', () => {
         expect(onChangeData).toBeTruthy();
         expect(onFocusData).toBeTruthy();
         expect(onBlurData).toBeTruthy();
+    });
+
+    it('should format input', () => {
+        spinner.thousandSeparator = ",";
+        spinner.decimalSeparator = ".";
+        spinner.formatInput = true;
+        spinner.step = 0.25;
+        spinner.value= "10000";
+        fixture.detectChanges();
+       
+        spinner.writeValue(10000000);
+        fixture.detectChanges();
+
+        expect(spinner.formattedValue).toEqual("10,000,000");
     });
 });
