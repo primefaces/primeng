@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 @Directive({
     selector: '[pDraggable]'
 })
-export class Draggable implements AfterViewInit, OnDestroy {
+export class Draggable implements AfterViewInit, OnDestroy, OnChanges {
     
     @Input('pDraggable') scope: string;
 
@@ -35,6 +35,16 @@ export class Draggable implements AfterViewInit, OnDestroy {
         if (!this.pDraggableDisabled) {
             this.el.nativeElement.draggable = true;
             this.bindMouseListeners();
+        }
+    }
+
+    ngOnChanges(_: SimpleChanges) {
+        if (this.pDraggableDisabled) {
+            this.el.nativeElement.draggable = false;
+            this.unbindDragListener();
+        } else {
+            this.el.nativeElement.draggable = true;
+            this.bindDragListener();
         }
     }
 
@@ -153,8 +163,8 @@ export class Droppable implements AfterViewInit, OnDestroy, OnChanges {
             this.bindDragOverListener();
         }
     }
-	
-	ngOnChanges(_: SimpleChanges) {
+
+    ngOnChanges(_: SimpleChanges) {
         if (this.pDroppableDisabled) {
             this.unbindDragOverListener();
         } else {
