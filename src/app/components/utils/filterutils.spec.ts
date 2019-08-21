@@ -70,6 +70,29 @@ describe('FilterUtils Suite', () => {
         expect(FilterUtils.notEquals(null,"brand")).toBeTruthy();
     });
 
+    it('Should filter by in', () => {
+        let filteredValue = FilterUtils.filter(data, ['brand'], ['BMW', 'Jaguar', 'Subaru'], 'in');
+        expect(filteredValue.length).toEqual(2);
+        filteredValue = FilterUtils.filter(data, ['brand'], undefined, 'in');
+        expect(filteredValue.length).toEqual(10);
+        filteredValue = FilterUtils.filter(data, ['brand'], null, 'in');
+        expect(filteredValue.length).toEqual(10);
+        filteredValue = FilterUtils.filter(data, ['brand'], [], 'in');
+        expect(filteredValue.length).toEqual(10);
+        filteredValue = FilterUtils.filter(data, ['brand'], ['Kia'], 'in');
+        expect(filteredValue.length).toEqual(0);
+        expect(FilterUtils.in('Test', ['Some', 'Allowed', 'Test', 'Values'])).toBe(true);
+        expect(FilterUtils.in(undefined, [new Date('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(false);
+        expect(FilterUtils.in(null, [new Date('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(false);
+        expect(FilterUtils.in('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)', undefined)).toBe(true);
+        expect(FilterUtils.in('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)', null)).toBe(true);
+        expect(FilterUtils.in('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)', [])).toBe(true);
+        expect(FilterUtils.in('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)', [])).toBe(true);
+        expect(FilterUtils.in(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'), [new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(true);
+        expect(FilterUtils.in(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'), [new Date('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(false);
+        expect(FilterUtils.in(new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)'), [new Date('Mon Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)'), new Date('Tue Aug 06 2019 00:00:00 GMT+0300 (GMT+03:00)')])).toBe(true);
+    });
+
     it('Should filter by lt', () => {
         let filteredValue = FilterUtils.filter(timeData,['date'],'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)','lt');
         expect(filteredValue.length).toEqual(1);

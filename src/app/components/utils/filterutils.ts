@@ -2,16 +2,24 @@ import { ObjectUtils } from '../utils/objectutils';
 
 export class FilterUtils {
 
-    public static filter(value: any[], fields: any[], filterValue: string, filterMatchMode: string) {
+    public static filter(value: any[], fields: any[], filterValue: any, filterMatchMode: string) {
         let filteredItems: any[] = [];
-        let filterText = ObjectUtils.removeAccents(filterValue).toLowerCase();
+        let sanitizedFilterText = filterValue;
+
+        if (sanitizedFilterText) {
+            if (Object.prototype.toString.call(filterValue) === '[object Array]') {
+                sanitizedFilterText = (sanitizedFilterText as any[]).map(x => this.sanitizeForFiltering(x));
+            } else {
+                sanitizedFilterText = this.sanitizeForFiltering(sanitizedFilterText);
+            }
+        }
 
         if (value) {
             for (let item of value) {
                 for (let field of fields) {
                     let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(item, field))).toLowerCase();
-                    
-                    if (FilterUtils[filterMatchMode](fieldValue,filterText)) {
+
+                    if (FilterUtils[filterMatchMode](fieldValue,sanitizedFilterText)) {
                         filteredItems.push(item);
                         break;
                     }
@@ -20,6 +28,16 @@ export class FilterUtils {
         }
 
         return filteredItems;
+    }
+
+    private static sanitizeForFiltering(value: any): any {
+        const isValueString  = Object.prototype.toString.call(value) === '[object String]';
+
+        if (isValueString) {
+            return ObjectUtils.removeAccents(value).toLowerCase();
+        }
+
+        return value;
     }
 
     public static startsWith(value, filter): boolean {
@@ -97,7 +115,7 @@ export class FilterUtils {
             return ObjectUtils.removeAccents(value.toString()).toLowerCase() != ObjectUtils.removeAccents(filter.toString()).toLowerCase();
     }
 
-    public static in(value, filter: any[]): boolean {
+    public static in(value: any, filter: any[]): boolean {
         if (filter === undefined || filter === null || filter.length === 0) {
             return true;
         }
