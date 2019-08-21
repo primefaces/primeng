@@ -49,7 +49,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
     <p-table class="filterTable" #dt [columns]="cols" [value]="cars">
         <ng-template pTemplate="caption">
-            <div style="text-align: right">        
+            <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" class="globalFilter" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
             </div>
@@ -405,7 +405,7 @@ class TestBasicTableComponent {
 
 }
 describe('Table', () => {
-  
+
     let table: Table;
     let filterTable: Table;
     let sortTable: Table;
@@ -459,14 +459,14 @@ describe('Table', () => {
 
     it('should display by default', () => {
         fixture.detectChanges();
-  
+
         const tableEl = fixture.debugElement.query(By.css('div'));
         expect(tableEl.nativeElement).toBeTruthy();
     });
 
     it('should display 10 rows', () => {
         fixture.detectChanges();
-  
+
         const tableEl = fixture.debugElement.query(By.css('div'));
         const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(10);
@@ -474,7 +474,7 @@ describe('Table', () => {
 
     it('should use sections', () => {
         fixture.detectChanges();
-        
+
         expect(table.captionTemplate).toBeTruthy();
         expect(table.footerTemplate).toBeTruthy();
         expect(table.summaryTemplate).toBeTruthy();
@@ -499,7 +499,7 @@ describe('Table', () => {
         table.paginator = true;
         table.rows = 5;
         fixture.detectChanges();
-        
+
         const tableEl = fixture.debugElement.query(By.css('div'));
         const bodyRows = tableEl.query(By.css('.ui-table-tbody')).queryAll(By.css('tr'));
         expect(bodyRows.length).toEqual(5);
@@ -563,7 +563,7 @@ describe('Table', () => {
 
         filterTable.globalFilterFields = ['year','color','brand']
         fixture.detectChanges();
-        
+
         const globalFilter = fixture.debugElement.query(By.css(".globalFilter"));
         globalFilter.nativeElement.value = "dsad231";
         globalFilter.nativeElement.dispatchEvent(new Event("input"));
@@ -577,7 +577,7 @@ describe('Table', () => {
 
     it('should use endsWith filter and show 1 item. It should clear the filter and show 10 item.', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("231ff","vin","endsWith");
         tick(300);
         fixture.detectChanges();
@@ -595,7 +595,7 @@ describe('Table', () => {
 
     it('should use equals filter and show 1 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("dsad231ff","vin","equals");
         tick(300);
         fixture.detectChanges();
@@ -607,7 +607,7 @@ describe('Table', () => {
 
     it('should use not equals filter and show 9 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("dsad231ff","vin","notEquals");
         tick(300);
         fixture.detectChanges();
@@ -619,7 +619,7 @@ describe('Table', () => {
 
     it('should use in filter and show 1 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter(["BMW",null],"brand","in");
         tick(300);
         fixture.detectChanges();
@@ -636,7 +636,7 @@ describe('Table', () => {
 
     it('should use lt filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","lt");
         tick(300);
         fixture.detectChanges();
@@ -648,7 +648,7 @@ describe('Table', () => {
 
     it('should use lte filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","lte");
         tick(300);
         fixture.detectChanges();
@@ -660,7 +660,7 @@ describe('Table', () => {
 
     it('should use gt filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","gt");
         tick(300);
         fixture.detectChanges();
@@ -672,7 +672,7 @@ describe('Table', () => {
 
     it('should use gte filter and show 5 item', fakeAsync(() => {
         fixture.detectChanges();
-        
+
         filterTable.filter("2005","year","gte");
         tick(300);
         fixture.detectChanges();
@@ -698,22 +698,26 @@ describe('Table', () => {
         sortTable.sortMode = "multiple"
         fixture.detectChanges();
 
-        const yearSortEl = fixture.debugElement.queryAll(By.css(".sortableColumn"))[1];
+        const yearSortEl = fixture.debugElement.queryAll(By.css(".sortableColumn"))[2];
         const colorSortEl = fixture.debugElement.queryAll(By.css(".sortableColumn"))[3];
+
+        // sort by color ascending
         colorSortEl.nativeElement.click();
         fixture.detectChanges();
 
-        const firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('tr'));
+        let firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('tr'));
 
         expect(firstEl.children[3].nativeElement.outerText).toEqual("Black");
-        expect(firstEl.children[2].nativeElement.outerText).toEqual("2011");
-        sortTable.multiSortMeta.push({field:"year",order:1});
-        sortTable.sortMultiple();
-        tick(300);
+        expect(firstEl.children[1].nativeElement.outerText).toEqual("gwregre345");
+
+        // sort by color ascending, than by year ascending
+        yearSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
         fixture.detectChanges();
 
-        const firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('tr'));
-        expect(firstRow.children[2].nativeElement.outerText).toEqual("2000");
+        firstEl = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).query(By.css('tr'));
+
+        expect(firstEl.children[3].nativeElement.outerText).toEqual("Black");
+        expect(firstEl.children[1].nativeElement.outerText).toEqual("h54hw5");
     }));
 
     it('should use custom sort', () => {
@@ -729,6 +733,113 @@ describe('Table', () => {
 
         expect(firstEl.nativeElement.outerText).toEqual("Audi");
     });
+
+    it('should undo basic sort', () => {
+        fixture.detectChanges();
+
+        const brandSortEl = fixture.debugElement.queryAll(By.css(".sortableColumn"))[0];
+
+        // sort ascending
+        brandSortEl.nativeElement.click();
+        fixture.detectChanges();
+
+        let firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[0];
+        let secondRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[1];
+        let firstEl = firstRow.queryAll(By.css('td'));
+        let secondEl = secondRow.queryAll(By.css('td'));
+
+        expect(firstEl[0].nativeElement.outerText).toEqual("Audi");
+        expect(firstEl[1].nativeElement.outerText).toEqual("gwregre345");
+        expect(secondEl[0].nativeElement.outerText).toEqual("BMW");
+        expect(secondEl[1].nativeElement.outerText).toEqual("j6w54qgh");
+
+        // sort descending
+        brandSortEl.nativeElement.click();
+        fixture.detectChanges();
+
+        firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[0];
+        secondRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[1];
+        firstEl = firstRow.queryAll(By.css('td'));
+        secondEl = secondRow.queryAll(By.css('td'));
+
+        expect(firstEl[0].nativeElement.outerText).toEqual("VW");
+        expect(firstEl[1].nativeElement.outerText).toEqual("dsad231ff");
+        expect(secondEl[0].nativeElement.outerText).toEqual("Volvo");
+        expect(secondEl[1].nativeElement.outerText).toEqual("jejtyj");
+
+        // reset (undo) sorting
+        brandSortEl.nativeElement.click();
+        fixture.detectChanges();
+
+        firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[0];
+        secondRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[1];
+        firstEl = firstRow.queryAll(By.css('td'));
+        secondEl = secondRow.queryAll(By.css('td'));
+
+        expect(firstEl[0].nativeElement.outerText).toEqual("VW");
+        expect(firstEl[1].nativeElement.outerText).toEqual("dsad231ff");
+        expect(secondEl[0].nativeElement.outerText).toEqual("Audi");
+        expect(secondEl[1].nativeElement.outerText).toEqual("gwregre345");
+    })
+
+    it('should undo multiple sort', fakeAsync(() => {
+        sortTable.sortMode = "multiple"
+        fixture.detectChanges();
+
+        const vinSortEl = fixture.debugElement.queryAll(By.css(".sortableColumn"))[1];
+        const colorSortEl = fixture.debugElement.queryAll(By.css(".sortableColumn"))[3];
+
+        // sort by color ascending, than by vin descending
+        colorSortEl.nativeElement.click();
+        vinSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
+        vinSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
+        fixture.detectChanges();
+
+        let firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[0].queryAll(By.css('td'));
+        let secondRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[1].queryAll(By.css('td'));
+        let thirdRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[2].queryAll(By.css('td'));
+
+        expect(firstRow[3].nativeElement.outerText).toEqual("Black");
+        expect(secondRow[3].nativeElement.outerText).toEqual("Black");
+        expect(thirdRow[3].nativeElement.outerText).toEqual("Black");
+        expect(firstRow[1].nativeElement.outerText).toEqual("jejtyj");
+        expect(secondRow[1].nativeElement.outerText).toEqual("h54hw5");
+        expect(thirdRow[1].nativeElement.outerText).toEqual("gwregre345");
+
+        // sort by color ascending, than reset (undo) sort by vin
+        colorSortEl.nativeElement.click();
+        vinSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
+        vinSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
+        vinSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
+        fixture.detectChanges();
+
+        firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[0].queryAll(By.css('td'));
+        secondRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[1].queryAll(By.css('td'));
+        thirdRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[2].queryAll(By.css('td'));
+
+        expect(firstRow[3].nativeElement.outerText).toEqual("Black");
+        expect(secondRow[3].nativeElement.outerText).toEqual("Black");
+        expect(thirdRow[3].nativeElement.outerText).toEqual("Black");
+        expect(firstRow[1].nativeElement.outerText).toEqual("gwregre345");
+        expect(secondRow[1].nativeElement.outerText).toEqual("jejtyj");
+        expect(thirdRow[1].nativeElement.outerText).toEqual("h54hw5");
+
+        // reset (undo) sort by color ascending
+        colorSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
+        colorSortEl.nativeElement.dispatchEvent(new MouseEvent('click', {ctrlKey: true}));
+        fixture.detectChanges();
+
+        firstRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[0].queryAll(By.css('td'));
+        secondRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[1].queryAll(By.css('td'));
+        thirdRow = fixture.debugElement.query(By.css(".sortTable")).query(By.css('.ui-table-tbody')).queryAll(By.css('tr'))[2].queryAll(By.css('td'));
+
+        expect(firstRow[3].nativeElement.outerText).toEqual("Orange");
+        expect(secondRow[3].nativeElement.outerText).toEqual("Black");
+        expect(thirdRow[3].nativeElement.outerText).toEqual("Gray");
+        expect(firstRow[1].nativeElement.outerText).toEqual("dsad231ff");
+        expect(secondRow[1].nativeElement.outerText).toEqual("gwregre345");
+        expect(thirdRow[1].nativeElement.outerText).toEqual("h354htr");
+    }))
 
     it('should select single item and unselect when another item select and self click', () => {
         fixture.detectChanges();
@@ -757,7 +868,7 @@ describe('Table', () => {
         fixture.detectChanges();
         basicSelectionTable.dataKey = null;
         fixture.detectChanges();
-        
+
         const selectableRows = fixture.debugElement.queryAll(By.css(".selectableRow"));
         const vwEl = selectableRows[0];
         vwEl.nativeElement.click();
@@ -960,7 +1071,7 @@ describe('Table', () => {
         vwRadioEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         vwRadioEl.nativeElement.click();
         fixture.detectChanges();
-        
+
         expect(vwRadioEl.query(By.css(".ui-radiobutton-box")).nativeElement.className).toContain("ui-state-focus");
         vwRadioEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
@@ -982,14 +1093,14 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const checkboxRows = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
         expect(checkboxRows.length).toEqual(10);
         const vwCheckboxEl = checkboxRows[0].query(By.css("div"));
         vwCheckboxEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         vwCheckboxEl.nativeElement.click();
         fixture.detectChanges();
-        
+
         expect(vwCheckboxEl.query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
         vwCheckboxEl.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
         fixture.detectChanges();
@@ -1013,13 +1124,13 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const checkboxRows = fixture.debugElement.queryAll(By.css(".rowCheckbox"));
         const vwCheckboxEl = checkboxRows[0].query(By.css("div"));
         const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
         headerCheckbox.query(By.css("input")).nativeElement.dispatchEvent(new Event("focus"));
         fixture.detectChanges();
-        
+
         expect(headerCheckbox.query(By.css(".ui-chkbox-box")).nativeElement.className).toContain("ui-state-focus");
         headerCheckbox.nativeElement.click();
         headerCheckbox.query(By.css("input")).nativeElement.dispatchEvent(new Event("blur"));
@@ -1044,7 +1155,7 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
         headerCheckbox.nativeElement.click();
         fixture.detectChanges();
@@ -1071,7 +1182,7 @@ describe('Table', () => {
 
         checkboxSelectionTable.stateKey = "vin";
         fixture.detectChanges();
-        
+
         const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
         headerCheckbox.nativeElement.click();
         fixture.detectChanges();
@@ -1425,7 +1536,7 @@ describe('Table', () => {
         expect(reorderableTable.rowDragging).toBeTruthy();
         expect(reorderableTable.draggedRowIndex).toEqual(0);
         dragEvent.initEvent('dragover', true,true);
-        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth * 3 + 1; 
+        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth * 3 + 1;
         const onRowDragOverSpy = spyOn(reorderableTable,"onRowDragOver").and.callThrough();
         reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
@@ -1474,7 +1585,7 @@ describe('Table', () => {
         expect(reorderableTable.rowDragging).toBeTruthy();
         expect(reorderableTable.draggedRowIndex).toEqual(0);
         dragEvent.initEvent('dragover', true,true);
-        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth + 1; 
+        dragEvent.pageY = reorderableRowEls[3].nativeElement.clientWidth + 1;
         const onRowDragOverSpy = spyOn(reorderableTable,"onRowDragOver").and.callThrough();
         reorderableRowEls[3].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
@@ -1546,7 +1657,7 @@ describe('Table', () => {
         event.initEvent('contextmenu');
         rowEls[1].nativeElement.dispatchEvent(event);
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTable.contextMenuSelection.brand).toEqual("VW");
@@ -1568,7 +1679,7 @@ describe('Table', () => {
         event.initEvent('contextmenu');
         rowEls[1].nativeElement.dispatchEvent(event);
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTable.selection.brand).toEqual("VW");
@@ -1591,7 +1702,7 @@ describe('Table', () => {
         rowEls[1].nativeElement.dispatchEvent(event);
         rowEls[2].nativeElement.click();
         fixture.detectChanges();
-    
+
         expect(handleRowRightClickSpy).toHaveBeenCalled();
         expect(showSpy).toHaveBeenCalled();
         expect(contextMenuTable.selection[0].brand).toEqual("VW");
@@ -1600,9 +1711,9 @@ describe('Table', () => {
     });
 
     it('should call saveState and clearState (session)', () => {
-        stateTable.columnResizeMode = "expand";       
+        stateTable.columnResizeMode = "expand";
         fixture.detectChanges();
-        
+
         stateTable.selection = null;
         stateTable.clearState();
         stateTable.stateStorage = "session";
@@ -1657,9 +1768,9 @@ describe('Table', () => {
     });
 
     it('should call saveState and clearState (local)', () => {
-        stateTable.columnResizeMode = "expand";       
+        stateTable.columnResizeMode = "expand";
         fixture.detectChanges();
-        
+
         stateTable.selection = null;
         stateTable.clearState();
         stateTable.stateStorage = "local";
