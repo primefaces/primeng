@@ -108,9 +108,11 @@ export class ContextMenuSub {
 
         if ((parseInt(this.containerOffset.top) + itemOuterHeight + sublistHeight) > (viewport.height - DomHandler.calculateScrollbarHeight())) {
             sublist.style.bottom = '0px';
+            sublist.style.top = '';
         }
         else {
             sublist.style.top = '0px';
+            sublist.style.bottom = '';
         }
 
         if ((parseInt(this.containerOffset.left) + itemOuterWidth + sublistWidth) > (viewport.width - DomHandler.calculateScrollbarWidth())) {
