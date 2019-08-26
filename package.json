@@ -1,6 +1,6 @@
 {
-  "name": "@keepsolutions/primeng-keeps",
-  "version": "8.0.3-SNAPSHOT-keeps",
+  "name": "@keepsolutions/primeng",
+  "version": "8.0.3-SNAPSHOT-KEEPS",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
