@@ -18,7 +18,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     selector: 'p-autoComplete',
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
-            <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [attr.required]="required"
+            <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" [autocomplete]="autocomplete" [attr.required]="required"
             [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="inputFieldValue" aria-autocomplete="list" role="combobox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
@@ -30,7 +30,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" autocomplete="off" 
+                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" [autocomplete]="autocomplete"
                             [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
                             aria-autocomplete="list" role="combobox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'">
                 </li>
@@ -81,7 +81,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     @Input() panelStyle: any;
 
     @Input() styleClass: string;
-    
+
     @Input() panelStyleClass: string;
 
     @Input() inputStyle: any;
@@ -111,7 +111,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     @Input() type: string = 'text';
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() ariaLabel: string;
@@ -161,6 +161,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @Input() autofocus: boolean;
+
+    @Input() autocomplete: string = 'off';
 
     @ViewChild('in', { static: false }) inputEL: ElementRef;
 
@@ -228,7 +230,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-        
+
         if (this.immutable) {
             this.handleSuggestionsChange();
         }
@@ -291,7 +293,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
                     this.hide();
                 }
             }
-    
+
             this.loading = false;
         }
     }
@@ -416,7 +418,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     show() {
         if (this.multiInputEL || this.inputEL) {
             let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
-            
+
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
             }
@@ -726,7 +728,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
