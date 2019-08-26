@@ -1,10 +1,9 @@
-import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter,
-    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef, TemplateRef} from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, PrimeTemplate } from '../common/shared';
-import { BlockableUI } from '../common/blockableui';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewRef } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { BlockableUI } from '../common/blockableui';
+import { Header, PrimeTemplate, SharedModule } from '../common/shared';
 
 let idx: number = 0;
 
@@ -74,7 +73,7 @@ export class AccordionTab implements OnDestroy {
     }
     set animating(val: boolean) {
         this._animating = val;
-        if(!this.changeDetector.destroyed)
+        if (!(this.changeDetector as ViewRef).destroyed)
           this.changeDetector.detectChanges();
     }
 
