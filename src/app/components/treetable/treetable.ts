@@ -2641,7 +2641,7 @@ export class TTEditableColumn implements AfterViewInit {
         let prevCell = cell.previousElementSibling;
 
         if (!prevCell) {
-            let previousRow = cell.parentElement.previousElementSibling;
+            let previousRow = cell.parentElement ? cell.parentElement.previousElementSibling : null;
             if (previousRow) {
                 prevCell = previousRow.lastElementChild;
             }
@@ -2662,7 +2662,7 @@ export class TTEditableColumn implements AfterViewInit {
         let nextCell = cell.nextElementSibling;
 
         if (!nextCell) {
-            let nextRow = cell.parentElement.nextElementSibling;
+            let nextRow = cell.parentElement ? cell.parentElement.nextElementSibling : null;
             if (nextRow) {
                 nextCell = nextRow.firstElementChild;
             }
