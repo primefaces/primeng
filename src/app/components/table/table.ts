@@ -1427,7 +1427,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
-                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
+                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event });
                     this.editingCellField = null;
                     this.editingCellData = null;
                     this.unbindDocumentEditListener();
@@ -3098,7 +3098,7 @@ export class EditableColumn implements AfterViewInit {
             if (event.keyCode == 13) {
                 if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell();
-                    this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+                    this.dt.onEditComplete.emit({ field: this.field, data: this.data, originalEvent: event });
                 }
     
                 event.preventDefault();
@@ -3108,7 +3108,7 @@ export class EditableColumn implements AfterViewInit {
             else if (event.keyCode == 27) {
                 if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell();
-                    this.dt.onEditCancel.emit({ field: this.field, data: this.data });
+                    this.dt.onEditCancel.emit({ field: this.field, data: this.data, originalEvent: event });
                 }
     
                 event.preventDefault();
@@ -3116,7 +3116,7 @@ export class EditableColumn implements AfterViewInit {
     
             //tab
             else if (event.keyCode == 9) {
-                this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+                this.dt.onEditComplete.emit({ field: this.field, data: this.data, originalEvent: event });
                 
                 if (event.shiftKey)
                     this.moveToPreviousCell(event);
