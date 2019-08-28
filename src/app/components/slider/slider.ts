@@ -183,38 +183,29 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     onHandleKeydown(event, handleIndex?:number) {
         if (event.which == 38 || event.which == 39) {
-            let step = this.step ? this.step : 1;
-
-            if (this.range) {
-                this.handleIndex = handleIndex;
-                this.updateValue(this.values[this.handleIndex]  + step);
-                this.updateHandleValue();
-                event.preventDefault();
-            }
-            else {
-                this.updateValue(this.value + step);
-                this.updateHandleValue();
-                event.preventDefault();
-            }
-            
+            this.spin(event, 1, handleIndex);
         }
         else if (event.which == 37 || event.which == 40) {
-            let step = this.step ? this.step : 1;
-
-            if (this.range) {
-                this.handleIndex = handleIndex;
-                this.updateValue(this.values[this.handleIndex] - step);
-                this.updateHandleValue();
-                event.preventDefault();
-            }
-            else {
-                this.updateValue(this.value - step);
-                this.updateHandleValue();
-                event.preventDefault();
-            }
+            this.spin(event, -1, handleIndex);
         }
     }
     
+    spin(event, dir: number, handleIndex?:number) {
+        let step = (this.step || 1) * dir;
+
+        if (this.range) {
+            this.handleIndex = handleIndex;
+            this.updateValue(this.values[this.handleIndex] + step);
+            this.updateHandleValue();
+        }
+        else {
+            this.updateValue(this.value + step);
+            this.updateHandleValue();
+        }
+
+        event.preventDefault();
+    }
+
     handleChange(event: Event) {
         let handleValue = this.calculateHandleValue(event);
         this.setValueFromHandle(event, handleValue);
