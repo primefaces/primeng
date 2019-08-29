@@ -10,8 +10,8 @@
     <p-tieredMenu [model]="items"></p-tieredMenu>
 
     <h3>Popup</h3>
-    <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
     <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+    <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
 </div>
 
 <div class="content-section documentation">
@@ -252,8 +252,8 @@ export class TieredMenuDemo &#123;
 &lt;p-tieredMenu [model]="items"&gt;&lt;/p-tieredMenu&gt;
 
 &lt;h3&gt;Popup&lt;/h3&gt;
-&lt;p-tieredMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-tieredMenu&gt;
 &lt;button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;p-tieredMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-tieredMenu&gt;
 </code>
 </pre>
 
