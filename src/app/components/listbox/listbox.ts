@@ -241,6 +241,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             this.onModelChange(this.value);
             this.onChange.emit({
                 originalEvent: event,
+                option: option.value,
+                selected: !selected,
                 value: this.value
             });
         }
@@ -307,6 +309,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         this.onModelChange(this.value);
         this.onChange.emit({
             originalEvent: event,
+            option: option.value,
+            selected: !selected,
             value: this.value
         });
     }
