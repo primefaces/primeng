@@ -1029,7 +1029,7 @@ describe('Table', () => {
         expect(checkboxSelectionTable.selection.length).toEqual(0);
     });
 
-    it('should select all items and unselect all item with header checkbox', () => {
+    it('should select all items and unselect all item with header checkbox', fakeAsync(() => {
         fixture.detectChanges();
 
         checkboxSelectionTable.stateKey = "vin";
@@ -1053,12 +1053,52 @@ describe('Table', () => {
 
         expect(checkboxSelectionTable.selection.length).toEqual(9);
         headerCheckbox.nativeElement.click();
+        tick(100);
         fixture.detectChanges();
 
         headerCheckbox.nativeElement.click();
+        tick(100);
         fixture.detectChanges();
         expect(checkboxSelectionTable.selection).toEqual([]);
-    });
+    }));
+
+    it('should not select and unselect disabled items with header checkbox', fakeAsync(() => {
+        checkboxSelectionTable.selection = [];
+        tick(100);
+        fixture.detectChanges();
+        expect(checkboxSelectionTable.selection.length).toEqual(0);
+
+        const headerCheckbox = fixture.debugElement.query(By.css(".headerCheckbox")).query(By.css("div"));
+        const vwCheckbox = checkboxSelectionTable._rowsCheckboxes[0];
+
+        vwCheckbox.disabled = true;
+        headerCheckbox.nativeElement.click();
+        tick(100);
+        fixture.detectChanges();
+        expect(checkboxSelectionTable.selection.length).toEqual(9);
+
+        headerCheckbox.nativeElement.click();
+        tick(100);
+        fixture.detectChanges();
+        expect(checkboxSelectionTable.selection.length).toEqual(0);
+
+        vwCheckbox.disabled = false;
+        headerCheckbox.nativeElement.click();
+        tick(100);
+        fixture.detectChanges();
+        expect(checkboxSelectionTable.selection.length).toEqual(10);
+
+        vwCheckbox.disabled = true;
+        headerCheckbox.nativeElement.click();
+        tick(100);
+        fixture.detectChanges();
+        expect(checkboxSelectionTable.selection.length).toEqual(1);
+
+        headerCheckbox.nativeElement.click();
+        tick(100);
+        fixture.detectChanges();
+        expect(checkboxSelectionTable.selection.length).toEqual(10);
+    }));
 
     it('should headerCheckbox changing by filtering', fakeAsync(() => {
         fixture.detectChanges();
