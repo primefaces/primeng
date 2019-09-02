@@ -2071,6 +2071,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
                         this.zone.run(() => {
                             this.hideOverlay();
+                            
                             this.cd.markForCheck();
                         });
                     }
