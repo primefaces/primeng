@@ -325,6 +325,13 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         this.updateFilledState();
         this.cd.markForCheck();
     }
+
+    clear() {
+        this.value = null;
+        this.formattedValue = null;
+        this.inputfieldViewChild.nativeElement.value = this.formattedValue;
+        this.onModelChange(this.value);
+    }
     
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
