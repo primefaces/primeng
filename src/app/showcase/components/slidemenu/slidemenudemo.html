@@ -10,8 +10,8 @@
     <p-slideMenu [model]="items" [viewportHeight]="250"></p-slideMenu>
 
     <h3>Popup</h3>
-    <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"></p-slideMenu>
     <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+    <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"></p-slideMenu>
 </div>
 
 <div class="content-section documentation">
@@ -297,8 +297,8 @@ export class SlideMenuDemo &#123;
 &lt;p-slideMenu [model]="items" [viewportHeight]="250"&gt;&lt;/p-slideMenu&gt;
 
 &lt;h3&gt;Popup&lt;/h3&gt;
-&lt;p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"&gt;&lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"&gt;&lt;/p-slideMenu&gt;
 </code>
 </pre>
 

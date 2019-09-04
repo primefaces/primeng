@@ -189,6 +189,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         }
         this.onClick.emit({
             originalEvent: event,
+            option: option,
             value: this.value
         });
         this.optionTouched = false;
@@ -209,6 +210,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
         this.onDblClick.emit({
             originalEvent: event,
+            option: option,
             value: this.value
         })
     }

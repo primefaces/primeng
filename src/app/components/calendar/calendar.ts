@@ -492,6 +492,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     set yearRange(yearRange: string) {
+        this._yearRange = yearRange;
+        
         if (this.yearNavigator && yearRange) {
             const years = yearRange.split(':');
             const yearStart = parseInt(years[0]);
@@ -2069,10 +2071,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
                         this.zone.run(() => {
                             this.hideOverlay();
+                            
+                            this.cd.markForCheck();
                         });
                     }
                     
-                    this.cd.markForCheck();
                 });
             });
         }
