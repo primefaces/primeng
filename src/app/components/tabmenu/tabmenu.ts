@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/menuitem';
-import {PrimeTemplate} from '../common/shared';
+import {PrimeTemplate, SharedModule} from '../common/shared';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -86,8 +86,8 @@ export class TabMenu implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
-    exports: [TabMenu,RouterModule],
+    imports: [CommonModule,RouterModule,SharedModule],
+    exports: [TabMenu,RouterModule,SharedModule],
     declarations: [TabMenu]
 })
 export class TabMenuModule { }
