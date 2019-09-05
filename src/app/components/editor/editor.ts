@@ -99,6 +99,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     onModelTouched: Function = () => {};
     
     quill: any;
+
+    isCreated:boolean = false;
     
     constructor(public el: ElementRef) {}
 
@@ -124,7 +126,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         }
         
         this.quill.on('text-change', (delta, oldContents, source) => {
-            if (source === 'user') {
+            if (this.isCreated) {
                 let html = editorElement.children[0].innerHTML;
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
@@ -141,6 +143,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                 this.onModelChange(html);
                 this.onModelTouched();
             }
+
+            this.isCreated = true;
         });
         
         this.quill.on('selection-change', (range, oldRange, source) => {
