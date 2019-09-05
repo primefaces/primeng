@@ -1862,8 +1862,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             throw "Invalid time";
         }
         else {
-            if (this.hourFormat == '12' && h !== 12 && this.pm) {
-                h+= 12;
+            if (this.hourFormat == '12') {
+                if (h !== 12 && this.pm) {
+                    h += 12;
+                }
+                else if (!this.pm && h === 12) {
+                    h -= 12;
+                }
             }
             
             return {hour: h, minute: m, second: s};
