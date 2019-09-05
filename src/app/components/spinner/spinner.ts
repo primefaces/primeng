@@ -310,6 +310,12 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             }
     
             this.formattedValue = value.toString();
+        }
+        else {
+            this.formattedValue = null;
+        }
+
+        if (this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
             this.inputfieldViewChild.nativeElement.value = this.formattedValue;
         }
     }
