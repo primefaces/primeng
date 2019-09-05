@@ -47,8 +47,6 @@ export class DropdownItem {
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
-
-
     onOptionClick(event: Event) {
         this.onClick.emit({
             originalEvent: event,
@@ -56,8 +54,6 @@ export class DropdownItem {
         });
     }
 }
-
-
 
 @Component({
     selector: 'p-dropdown',
