@@ -102,7 +102,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
-                           (click)="handleClick($event,item)" [attr.target]="item.target" [attr.title]="item.title" class="ui-panelmenu-header-link" [attr.id]="child.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'">
+                           (click)="handleClick($event,item)" [attr.target]="item.target" [attr.title]="item.title" class="ui-panelmenu-header-link" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'">
                         <span *ngIf="item.items" class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!item.expanded,'pi-chevron-down':item.expanded}"></span
                         ><span class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>

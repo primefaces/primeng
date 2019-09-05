@@ -112,7 +112,7 @@ export class DropdownItem {
                                 </ng-template>
                             </ng-container>
                             <ng-template #virtualScrollList>
-                                <cdk-virtual-scroll-viewport (scrolledIndexChange)="scrollToSelectedVirtualScrollElement($event)" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
+                                <cdk-virtual-scroll-viewport (scrolledIndexChange)="scrollToSelectedVirtualScrollElement()" #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
                                     <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">         
                                         <p-dropdownItem [option]="option" [selected]="selectedOption == option"
                                                                    (onClick)="onItemClick($event)"
@@ -586,7 +586,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
 
-    scrollToSelectedVirtualScrollElement(){
+    scrollToSelectedVirtualScrollElement() {
         if (!this.virtualAutoScrolled) {
             if (this.viewPortOffsetTop) {
                 this.viewPort.scrollToOffset(this.viewPortOffsetTop);
