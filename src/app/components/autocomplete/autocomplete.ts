@@ -333,7 +333,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     }
 
     onInput(event: Event) {
-        if (!this.inputKeyDown) {
+        // When an input element with a placeholder is clicked, the onInput event is invoked in IE.
+        if (!this.inputKeyDown && DomHandler.isIE()) {
             return;
         }
 
