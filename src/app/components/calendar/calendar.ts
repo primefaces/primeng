@@ -1598,6 +1598,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    toggle() {
+        if (!this.inline){
+            if (!this.overlayVisible) {
+                this.showOverlay();
+                this.inputfieldViewChild.nativeElement.focus();
+            }
+            else {
+                this.hideOverlay();
+            }
+        }
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
