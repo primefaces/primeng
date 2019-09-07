@@ -109,7 +109,19 @@ import &#123;CodeHighlighterModule&#125; from 'primeng/codehighlighter';
             <h3>Getting Started</h3>
             <p>CodeHighlighter is applied to a code element with [pCode] directive. The &lt;code&gt; should have
             a style class having language- prefix to specify the language to highlight. See Prismjs docs for the list of available languages.
-            An example block with css code would be as follows.</p>
+            An example block with css code would be as follows. It is important to note that in order to use the non-default languages you
+            add an import statement for the specific language</p>
+            
+            <p> It is important to note that in order to use any of the the non-default languages ( markup, css, clike and javascript) you 
+                add an import statement for the specific language, for most in the app module.</p>
+            
+            <h3>Language Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+/* Import the language you need to highlight */
+import &#x27;prismjs/components/prism-sql.js&#x27;;
+</code>
+</pre> 
             
 <pre>
 <code class="language-markup" pCode ngNonBindable>
