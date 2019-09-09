@@ -74,7 +74,9 @@ export class AccordionTab implements OnDestroy {
     }
     set animating(val: boolean) {
         this._animating = val;
-        this.changeDetector.detectChanges();
+
+        if (!this.isDestroyed)
+            this.changeDetector.detectChanges();
     }
 
     contentTemplate: TemplateRef<any>;
@@ -84,6 +86,8 @@ export class AccordionTab implements OnDestroy {
     loaded: boolean;
 
     accordion: Accordion;
+
+    isDestroyed: boolean = false;
 
     constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
@@ -161,6 +165,7 @@ export class AccordionTab implements OnDestroy {
 
     ngOnDestroy() {
         this.accordion.tabs.splice(this.findTabIndex(), 1);
+        this.isDestroyed = true;
     }
 }
 
