@@ -19,9 +19,9 @@ import {MessageService} from '../../../components/common/messageservice';
 export class MessagesDemo {
 
     msgs: Message[] = [];
-    
+
     constructor(private messageService: MessageService) {}
-    
+
     showSuccess() {
         this.msgs = [];
         this.msgs.push({severity:'success', summary:'Success Message', detail:'Order submitted'});
@@ -42,13 +42,18 @@ export class MessagesDemo {
         this.msgs.push({severity:'error', summary:'Error Message', detail:'Validation failed'});
     }
 
+    showBusy() {
+        this.msgs = [];
+        this.msgs.push({severity:'busy', summary:'Busy Message', detail:'Doing something'});
+    }
+
     showMultiple() {
         this.msgs = [];
         this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks'});
         this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
         this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
     }
-    
+
     showViaService() {
         this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
     }

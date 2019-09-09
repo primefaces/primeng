@@ -12,7 +12,8 @@ import {Subscription} from 'rxjs';
                     [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}"
+                    'ui-messages-success':(value[0].severity === 'success'),
+                    'ui-messages-info':(value[0].severity === 'busy')}"
                     [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
             <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
                 <i class="pi pi-times"></i>
@@ -52,7 +53,7 @@ export class Messages implements OnInit, OnDestroy {
     @Input() closable: boolean = true;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() enableService: boolean = true;
@@ -64,7 +65,7 @@ export class Messages implements OnInit, OnDestroy {
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     messageSubscription: Subscription;
 
     clearSubscription: Subscription;
@@ -134,6 +135,10 @@ export class Messages implements OnInit, OnDestroy {
                     icon = 'pi-exclamation-triangle';
                 break;
 
+                case 'busy':
+                    icon = 'pi-spinner pi-spin';
+                break;
+
                 default:
                     icon = 'pi-info-circle';
                 break;
@@ -147,7 +152,7 @@ export class Messages implements OnInit, OnDestroy {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }

@@ -14,25 +14,26 @@
         <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
         <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
         <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
+        <button type="button" pButton (click)="showBusy()" label="Busy" class="ui-button-info"></button>
         <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
         <button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"></button>
     </div>
-    
+
     <h3>Message Service</h3>
     <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
-    
+
     <h3>Inline Message CSS</h3>
     <p>p-message component is used to display inline messages mostly within forms.</p>
     <p-message severity="info" text="PrimeNG Rocks"></p-message>
-    <p-message severity="success" text="Record Saved"></p-message>  
-    <p-message severity="warn" text="Are you sure?"></p-message>  
+    <p-message severity="success" text="Record Saved"></p-message>
+    <p-message severity="warn" text="Are you sure?"></p-message>
     <p-message severity="error" text="Field is required"></p-message>
-    
+
     <div style="margin-top:30px">
         <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid">
         <p-message severity="error" text="Field is required"></p-message>
     </div>
-    
+
     <div style="margin-top:30px">
         <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid">
         <p-message severity="error"></p-message>
@@ -52,14 +53,14 @@ import &#123;MessageModule&#125; from 'primeng/message';
 
             <h3>Getting Started</h3>
             <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as the properties.
-                Messages to display can either be defined using the value property which should an array of Message instances or using 
+                Messages to display can either be defined using the value property which should an array of Message instances or using
                a MessageService are defined using the value property which should an array of Message instances.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
-            
+
             <h3>Message Array</h3>
             <p>A binding to the value property is required to provide messages to the component.</p>
 <pre>
@@ -85,10 +86,10 @@ hide() &#123;
 
             <h3>Message Service</h3>
             <p>MessageService alternative does not require a value binding to an array.
-            In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself 
+            In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself
             so that descandant components can have it injected. If there are multiple message components having the same message service, you may use key property of the component
             to match the key of the message to implement scoping.</p>
-            
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;MessageService&#125; from 'primeng/api';
@@ -116,7 +117,7 @@ import &#123;MessageService&#125; from 'primeng/api';
             this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
                             &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
         &#125;
-        
+
         clear() &#123;
             this.messageService.clear();
         &#125;
@@ -148,7 +149,7 @@ import &#123;MessageService&#125; from 'primeng/api';
                 <li>warn</li>
                 <li>error</li>
             </ul>
-            
+
             <h3>Message Component</h3>
             <p>Message component is useful in cases where messages need to be displayed related to an element such as forms. It has two property, severity and text of the message.</p>
 <pre>
@@ -156,14 +157,14 @@ import &#123;MessageService&#125; from 'primeng/api';
 &lt;h3&gt;Inline Message CSS&lt;/h3&gt;
 &lt;p&gt;CSS helpers to display inline messages mostly within forms.&lt;/p&gt;
 &lt;p-message severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
-&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;  
-&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;
+&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;
 &lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
 </code>
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -314,8 +315,8 @@ import &#123;MessageService&#125; from 'primeng/api';
 &lt;h3&gt;Inline Message CSS&lt;/h3&gt;
 &lt;p&gt;CSS helpers to display inline messages mostly within forms.&lt;/p&gt;
 &lt;p-message severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
-&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;  
-&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;
+&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;
 &lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
 
 &lt;div style="margin-top:30px"&gt;
@@ -354,7 +355,7 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
 export class MessagesDemo &#123;
 
     msgs: Message[] = [];
-    
+
     constructor(private messageService: MessageService) &#123;&#125;
 
     showSuccess() &#123;
@@ -383,7 +384,7 @@ export class MessagesDemo &#123;
         this.msgs.push(&#123;severity:'info', summary:'Message 2', detail:'PrimeUI rocks'&#125;);
         this.msgs.push(&#123;severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'&#125;);
     &#125;
-    
+
     showViaService() &#123;
         this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
     &#125;
