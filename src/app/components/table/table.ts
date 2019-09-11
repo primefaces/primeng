@@ -108,7 +108,7 @@ export class TableService {
     `,
     providers: [TableService]
 })
-export class ObjectUtilsTable implements OnInit, AfterViewInit, AfterContentInit, BlockableUI {
+export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI {
     
     @Input() frozenColumns: any[];
 
