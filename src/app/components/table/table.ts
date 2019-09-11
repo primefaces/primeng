@@ -108,7 +108,7 @@ export class TableService {
     `,
     providers: [TableService]
 })
-export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI {
+export class ObjectUtilsTable implements OnInit, AfterViewInit, AfterContentInit, BlockableUI {
     
     @Input() frozenColumns: any[];
 
@@ -758,30 +758,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
-        let value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
-        let value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
-        let result = null;
-
-        if (value1 == null && value2 != null)
-            result = -1;
-        else if (value1 != null && value2 == null)
-            result = 1;
-        else if (value1 == null && value2 == null)
-            result = 0;
-        if (typeof value1 == 'string' || value1 instanceof String) {
-            if (value1.localeCompare && (value1 != value2)) {
-                return (multiSortMeta[index].order * value1.localeCompare(value2));
-            }
-        }
-        else {
-            result = (value1 < value2) ? -1 : 1;
-        }
+        const value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
+        const value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
 
         if (value1 == value2) {
             return (multiSortMeta.length - 1) > (index) ? (this.multisortField(data1, data2, multiSortMeta, index + 1)) : 0;
         }
 
-        return (multiSortMeta[index].order * result);
+        let result = null;
+        if (value1 == null || value2 == null) {
+            result = value1 != null ? 1 : -1;
+        } else if (typeof value1 == 'string' || value1 instanceof String) {
+            result = value1.localeCompare(value2);
+        } else {
+            result = (value1 < value2) ? -1 : 1;
+        }
+
+        return multiSortMeta[index].order * result;
     }
 
     getSortMeta(field: string) {
