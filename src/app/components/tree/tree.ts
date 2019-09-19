@@ -1039,6 +1039,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
             }
             
             if (matched) {
+                node.expanded = true;
                 return true;
             }
         }
