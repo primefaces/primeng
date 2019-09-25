@@ -107,7 +107,7 @@
     float: right;
 }
 
-.ui-sidebar-close:hover {
+.ui-sidebar-close {
     cursor: pointer;   
 }
 
