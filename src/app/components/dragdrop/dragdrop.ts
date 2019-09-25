@@ -9,7 +9,19 @@ export class Draggable implements AfterViewInit, OnDestroy {
     
     @Input('pDraggable') scope: string;
 
-    @Input() pDraggableDisabled: boolean;
+    @Input() get pDraggableDisabled(): boolean {
+        return this._pDraggableDisabled;
+    }
+    set pDraggableDisabled(_pDraggableDisabled:boolean) {
+        this._pDraggableDisabled = _pDraggableDisabled;
+        if (this._pDraggableDisabled) {
+            this.unbindMouseListeners();
+        }
+        else {
+            this.el.nativeElement.draggable = true;
+            this.bindMouseListeners();
+        }
+    }
         
     @Input() dragEffect: string;
     
@@ -28,6 +40,8 @@ export class Draggable implements AfterViewInit, OnDestroy {
     mouseDownListener: any;
 
     mouseUpListener: any;
+
+    _pDraggableDisabled: boolean;
         
     constructor(public el: ElementRef, public zone: NgZone) {}
     
@@ -84,7 +98,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {
-        if(this.allowDrag()) {
+        if(this.allowDrag() && !this.pDraggableDisabled) {
             if(this.dragEffect) {
                 event.dataTransfer.effectAllowed = this.dragEffect;
             }
