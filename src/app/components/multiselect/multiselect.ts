@@ -661,7 +661,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     findNextItem(event) {
-        let nextItem = event.target.parentElement.nextElementSibling;
+        let nextItem = event.target ? event.target.parentElement.nextElementSibling : event.parentElement.nextElementSibling;
         
         if (nextItem)
             return DomHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem.children[0]) : nextItem.children[0];
@@ -670,10 +670,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     findPrevItem(event) {
-        let prevItem = event.target.parentElement.previousElementSibling;
+        let prevItem = event.target ? event.target.parentElement.previousElementSibling : event.parentElement.previousElementSibling;
         
         if (prevItem)
-            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem.children[0]) : prevItem.children[0];
+            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem.children[0]) ? this.findPrevItem(prevItem.children[0]) : prevItem.children[0];
         else
             return null;
     } 
