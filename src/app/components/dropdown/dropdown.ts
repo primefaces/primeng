@@ -1,6 +1,6 @@
 import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
-        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone} from '@angular/core';
+        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
@@ -264,7 +264,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.focused = false;
         
         this._disabled = _disabled;
-        this.cd.detectChanges();
+        if(!(this.cd as ViewRef).destroyed) {
+            this.cd.detectChanges();
+        }
     }
 
     overlay: HTMLDivElement;
