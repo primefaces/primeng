@@ -357,7 +357,10 @@ export class Dialog implements OnDestroy {
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
         DomHandler.addClass(this.container, 'ui-dialog-maximized');
-        DomHandler.addClass(document.body, 'ui-overflow-hidden');
+        if(!this.blockScroll) {
+            DomHandler.addClass(document.body, 'ui-overflow-hidden');
+        }
+
         this.moveOnTop();
 
         this.maximized = true;
@@ -370,7 +373,9 @@ export class Dialog implements OnDestroy {
         this.container.style.height = this.preMaximizeContainerHeight + 'px';
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
 
-        DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+        if (!this.blockScroll) {
+            DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+        }
 
         this.maximized = false;
 
