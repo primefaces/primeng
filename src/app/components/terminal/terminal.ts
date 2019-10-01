@@ -43,10 +43,16 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     commandProcessed: boolean;
     
     subscription: Subscription;
+
+    commandSubscription: Subscription;
     
     constructor(public el: ElementRef, public terminalService: TerminalService) {
+        this.commandSubscription = terminalService.bufferCommandHandler.subscribe(command =>{
+            this.commands.push({text: command});
+        })
         this.subscription = terminalService.responseHandler.subscribe(response => {
             this.commands[this.commands.length - 1].response = response;
+            this.command = '';
             this.commandProcessed = true;
         });
     }
@@ -72,9 +78,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     handleCommand(event: KeyboardEvent) {
         if(event.keyCode == 13) {
-            this.commands.push({text: this.command});
             this.terminalService.sendCommand(this.command);
-            this.command = '';
         }
     }
     
@@ -85,6 +89,10 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     ngOnDestroy() {
         if(this.subscription) {
             this.subscription.unsubscribe();
+        }
+
+        if(this.commandSubscription) {
+            this.commandSubscription.unsubscribe();
         }
     }
     
