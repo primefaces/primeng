@@ -705,7 +705,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     updateLabel() {
         if (this.value && this.options && this.value.length && this.displaySelectedLabel) {
             let label = '';
-            for (let i = 0; i < this.value.length; i++) {
+            let selectedVisibleOptions = this.getVisibleSelectedOptions();
+
+            for (let i = 0; i < selectedVisibleOptions.length; i++) {
                 let itemLabel = this.findLabelByValue(this.value[i]);
                 if (itemLabel) {
                     if (label.length > 0) {
@@ -715,13 +717,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 }
             }
             
-            if (this.value.length <= this.maxSelectedLabels) {
+            if (selectedVisibleOptions.length <= this.maxSelectedLabels) {
                 this.valuesAsString = label;
             }
             else {
                 let pattern = /{(.*?)}/;
                 if (pattern.test(this.selectedItemsLabel)) {
-                    this.valuesAsString = this.selectedItemsLabel.replace(this.selectedItemsLabel.match(pattern)[0], this.value.length + '');
+                    this.valuesAsString = this.selectedItemsLabel.replace(this.selectedItemsLabel.match(pattern)[0], selectedVisibleOptions.length + '');
                 } else {
                     this.valuesAsString = this.selectedItemsLabel;
                 }
@@ -755,6 +757,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.visibleOptions = this.options;
             this.filtered = false;
         }
+
+        this.updateLabel();
     }
     
     activateFilter() {
@@ -785,6 +789,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         else {
             return this.options;
         }
+    }
+
+    getVisibleSelectedOptions() {
+        let selectedVisibleOptions = [];
+        for (let option of this.visibleOptions || this.options) {
+            if (this.isSelected(option.value)) {
+                selectedVisibleOptions.push(option);
+            }
+        }
+
+        return selectedVisibleOptions;
     }
     
     onHeaderCheckboxFocus() {
