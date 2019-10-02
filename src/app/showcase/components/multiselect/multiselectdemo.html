@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}" tooltip="Choose Your Car"></p-multiSelect>
     <p>Selected Cars: {{selectedCars1}}</p>
 
     <h3>Templating</h3>
@@ -403,6 +403,30 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Defines a string that labels the filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltip</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Advisory information to display in a tooltip on hover.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the tooltip.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPosition</td>
+                            <td>string</td>
+                            <td>top</td>
+                            <td>Position of the tooltip, valid values are right, left, top and bottom.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPositionStyle</td>
+                            <td>string</td>
+                            <td>absolute</td>
+                            <td>Type of CSS position.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -9,6 +9,7 @@ import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FilterUtils } from '../utils/filterutils';
+import {TooltipModule} from '../tooltip/tooltip';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -77,7 +78,7 @@ export class MultiSelectItem {
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
                        [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)">
             </div>
-            <div class="ui-multiselect-label-container" [title]="valuesAsString">
+            <div class="ui-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
                 <span class="ui-multiselect-label ui-corner-all">
                     <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString}}</ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
@@ -231,6 +232,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() ariaFilterLabel: string;
     
     @Input() filterMatchMode: string = "contains";
+
+    @Input() tooltip: string = '';
+
+    @Input() tooltipPosition: string = 'right';
+
+    @Input() tooltipPositionStyle: string = 'absolute';
+
+    @Input() tooltipStyleClass: string;
 
     @ViewChild('container', { static: false }) containerViewChild: ElementRef;
     
@@ -848,7 +857,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ScrollingModule],
+    imports: [CommonModule,SharedModule,ScrollingModule, TooltipModule],
     exports: [MultiSelect,SharedModule,ScrollingModule],
     declarations: [MultiSelect,MultiSelectItem]
 })
