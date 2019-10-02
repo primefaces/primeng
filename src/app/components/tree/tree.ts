@@ -625,7 +625,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     onNodeClick(event, node: TreeNode) {
         let eventTarget = (<Element> event.target);
 
-        if(eventTarget.className && eventTarget.className.indexOf('ui-tree-toggler') === 0) {
+        if(eventTarget.className && typeof eventTarget.className === 'string' && eventTarget.className.indexOf('ui-tree-toggler') === 0) {
             return;
         }
         else if(this.selectionMode) {
