@@ -81,7 +81,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     @Input() panelStyle: any;
 
     @Input() styleClass: string;
-
+    
     @Input() panelStyleClass: string;
 
     @Input() inputStyle: any;
@@ -111,7 +111,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     @Input() type: string = 'text';
 
     @Input() autoZIndex: boolean = true;
-
+    
     @Input() baseZIndex: number = 0;
 
     @Input() ariaLabel: string;
@@ -219,7 +219,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     documentResizeListener: any;
 
     forceSelectionUpdateModelTimeout: any;
-
+    
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
@@ -418,7 +418,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     show() {
         if (this.multiInputEL || this.inputEL) {
             let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
-
+            
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
             }
@@ -728,7 +728,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-
+    
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
