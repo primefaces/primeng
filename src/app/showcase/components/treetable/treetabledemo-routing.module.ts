@@ -15,6 +15,7 @@ import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
 import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
+import { TreeTableFilterDemo } from './treetablefilterdemo';
 
 @NgModule({
 	imports: [
@@ -33,7 +34,8 @@ import { TreeTableEditDemo } from './treetableeditdemo';
 			{ path: 'contextmenu', component: TreeTableContextMenuDemo },
 			{ path: 'colresize', component: TreeTableColResizeDemo },
 			{ path: 'reorder', component: TreeTableReorderDemo },
-			{ path: 'edit', component: TreeTableEditDemo }
+			{ path: 'edit', component: TreeTableEditDemo },
+			{ path: 'filter', component: TreeTableFilterDemo }
 		])
 	],
 	exports: [

@@ -54,6 +54,8 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     @Input() baseZIndex: number = 0;
                 
+    @Input() closeOnEscape: boolean = true;
+
     public visible: boolean;
     
     public loading: boolean;
@@ -74,6 +76,8 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     
     public documentClickListener: any;
 
+    public documentEscapeListener: any;
+
     constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
                 
     onImageClick(event,image,i,content) {
@@ -81,9 +85,9 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.loading = true;
         content.style.width = 32 + 'px';
         content.style.height = 32 + 'px';
+        this.preventDocumentClickListener = true;
         this.show();
         this.displayImage(image);
-        this.preventDocumentClickListener = true;
         event.preventDefault();
     }
     
@@ -96,19 +100,11 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             else
                 DomHandler.appendChild(this.panel, this.appendTo);
         }
-        
-        this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-            if(!this.preventDocumentClickListener&&this.visible) {
-                this.hide(event);
-            }
-            this.preventDocumentClickListener = false;
-            this.cd.markForCheck();
-        });
     }
     
     onLinkClick(event,content) {
-        this.show();
         this.preventDocumentClickListener = true;
+        this.show();
         event.preventDefault();
     }
     
@@ -132,6 +128,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.mask.style.zIndex = this.zindex - 1;
         this.center();
         this.visible = true;
+        this.bindGlobalListeners();
     }
     
     hide(event) {
@@ -139,14 +136,13 @@ export class Lightbox implements AfterViewInit,OnDestroy {
         this.index = null;
         this.currentImage = null;
         this.visible = false;
-        this.panel.style.left = 'auto';
-        this.panel.style.top = 'auto';
         
         if(this.mask) {
             document.body.removeChild(this.mask);
             this.mask = null;
         }
         
+        this.unbindGlobalListeners();
         event.preventDefault();
     }
     
@@ -161,12 +157,6 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.panel.style.display = 'none';
             this.panel.style.visibility = 'visible';
         }
-        let viewport = DomHandler.getViewport();
-        let x = (viewport.width - elementWidth) / 2;
-        let y = (viewport.height - elementHeight) / 2;
-
-        this.panel.style.left = x + 'px';
-        this.panel.style.top = y + 'px';
     }
         
     onImageLoad(event,content) {
@@ -209,6 +199,37 @@ export class Lightbox implements AfterViewInit,OnDestroy {
             this.displayImage(this.images[++this.index]);
         }
     }
+
+    bindGlobalListeners() {
+        this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+            if(!this.preventDocumentClickListener&&this.visible) {
+                this.hide(event);
+            }
+            this.preventDocumentClickListener = false;
+            this.cd.markForCheck();
+        });
+        if(this.closeOnEscape && !this.documentEscapeListener) {
+            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+                    if (event.which == 27) {
+                    if (parseInt(this.panel.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                        this.hide(event);
+                    }
+                }
+            });
+        }
+    }
+
+    unbindGlobalListeners() {
+        if(this.documentEscapeListener){
+            this.documentEscapeListener();
+            this.documentEscapeListener = null;
+        }
+
+        if(this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
         
     get leftVisible():boolean {
         return this.images && this.images.length && this.index != 0 && !this.loading; 
@@ -219,9 +240,7 @@ export class Lightbox implements AfterViewInit,OnDestroy {
     }
     
     ngOnDestroy() {
-        if(this.documentClickListener) {
-            this.documentClickListener();
-        }
+        this.unbindGlobalListeners();
         
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.panel);

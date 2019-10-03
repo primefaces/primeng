@@ -6,6 +6,7 @@ import { ProgressBarModule} from '../progressbar/progressbar';
 import { ButtonModule } from '../button/button';
 import { PrimeTemplate} from '../common/shared';
 import { MessagesModule } from '../messages/messages';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('FileUpload', () => {
 
@@ -18,7 +19,8 @@ describe('FileUpload', () => {
         NoopAnimationsModule,
         ProgressBarModule,
         MessagesModule,
-        ButtonModule
+        ButtonModule,
+        HttpClientModule
         ],
         declarations: [
         FileUpload,
@@ -110,19 +112,91 @@ describe('FileUpload', () => {
         fixture.detectChanges();
 
         let event;
+        let blob:Blob;
+        blob = new Blob([JSON.stringify([{
+            'lastModified':1533276674178,
+            'name': 'primeng.txt',
+            'size': 179,
+            'type': "text/plain"
+        }])], {type : 'application/json'});
+        let blobFile = new File([blob], 'primeng.txt');
         event = {
-            'target':{files: [{
-                'lastModified':1533276674178,
-                'name': 'primeng.txt',
-                'size': 179,
-                'type': "text/plain"
-            }]}
-        }
+            'target':{files: [blobFile]},
+            stopPropagation(){},
+            preventDefault(){}
+        };
         const uploadSpy = spyOn(fileupload,"upload").and.callThrough();
         fileupload.onFileSelect(event);
         fixture.detectChanges();
 
         expect(uploadSpy).toHaveBeenCalled();
+    });
+
+    it('should not push same file', () => {
+        fileupload.multiple = true;
+        fileupload.url = " ";
+        fixture.detectChanges();
+
+        let event;
+        let blob:Blob;
+        blob = new Blob([JSON.stringify([{
+            'lastModified':1533276674178,
+            'name': 'primeng.txt',
+            'size': 179,
+            'type': "text/plain"
+        }])], {type : 'application/json'});
+        let blobFile = new File([blob], 'primeng.txt');
+        event = {
+            'target':{files: [blobFile]},
+            stopPropagation(){},
+            preventDefault(){}
+        };
+        fileupload.onFileSelect(event);
+        fixture.detectChanges();
+
+        expect(fileupload.files.length).toEqual(1);
+        fileupload.onFileSelect(event);
+        fixture.detectChanges();
+
+        expect(fileupload.files.length).toEqual(1);
+    });
+
+    it('should not push when exceeded filelimit', () => {
+        fileupload.multiple = true;
+        fileupload.fileLimit = 1;
+        fileupload.auto = true
+        fileupload.url = " ";
+        fixture.detectChanges();
+
+        let event;
+        let blob:Blob;
+        blob = new Blob([JSON.stringify([
+            {
+                'lastModified':1533276674178,
+                'name': 'primeng.txt',
+                'size': 179,
+                'type': "text/plain"
+            },
+            {
+                'lastModified':1533276674179,
+                'name': 'primeng2.txt',
+                'size': 123,
+                'type': "text/plain"
+            },
+        ])], {type : 'application/json'});
+        let blobFile = new File([blob], 'primeng.txt');
+        let blobFile2 = new File([blob], 'primeng2.txt');
+        event = {
+            'target':{files: [blobFile,blobFile2]},
+            stopPropagation(){},
+            preventDefault(){}
+        };
+        const uploadSpy = spyOn(fileupload,"upload").and.callThrough();
+        fileupload.onFileSelect(event);
+        fixture.detectChanges();
+
+        expect(fileupload.files.length).toEqual(2);
+        expect(uploadSpy).not.toHaveBeenCalled();
     });
 
     it('should call upload with customUpload (advanced)', () => {
@@ -261,13 +335,16 @@ describe('FileUpload', () => {
         fileupload.url = " ";
         fixture.detectChanges();
         let event;
+        let blob:Blob;
+        blob = new Blob([JSON.stringify([{
+            'lastModified':1533276674178,
+            'name': 'primeng.txt',
+            'size': 179,
+            'type': "text/plain"
+        }])], {type : 'application/json'});
+        let blobFile = new File([blob], 'primeng.txt');
         event = {
-            'target':{files: [{
-                'lastModified':1533276674178,
-                'name': 'primeng.txt',
-                'size': 179,
-                'type': "text/plain"
-            }]},
+            'target':{files: [blobFile]},
             stopPropagation(){},
             preventDefault(){}
         };

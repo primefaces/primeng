@@ -580,29 +580,6 @@ describe('Listbox', () => {
         }
     });
 
-    it('should show all items with wrong filterMode', () => {
-        listbox.options = [
-            {label: 'Audi', value: 'Audi'},
-            {label: 'BMW', value: 'BMW'},
-            {label: 'Fiat', value: 'Fiat'},
-            {label: 'Ford', value: 'Ford'},
-            {label: 'Honda', value: 'Honda'},
-            {label: 'Jaguar', value: 'Jaguar'},
-            {label: 'Mercedes', value: 'Mercedes'},
-            {label: 'Renault', value: 'Renault'},
-            {label: 'VW', value: 'VW'},
-            {label: 'Volvo', value: 'Volvo'}
-        ];
-        listbox.filterMode = "somethingWrong";
-        listbox.filter = true;
-        listbox.filterValue = "Bmw";
-        fixture.detectChanges();
-
-        for(let x =0; x<10; x++ ){
-                expect(fixture.debugElement.query(By.css('ul')).children[x].nativeElement.style.display).toEqual("block");
-        }
-    });
-
     it('should select all filtered items', () => {
         listbox.options = [
             {label: 'Audi', value: 'Audi'},

@@ -59,7 +59,7 @@
                         Gender *:
                     </div>
                     <div class="ui-grid-col-6">
-                        <p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"></p-dropdown>
+                        <p-dropdown [options]="genders" formControlName="gender"></p-dropdown>
                     </div>
                     <div class="ui-grid-col-4">
                         <p-message severity="error" text="Gender is required" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"></p-message>
@@ -196,7 +196,7 @@ export class ValidationDemo implements OnInit &#123;
                     Gender *:
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-6"&gt;
-                    &lt;p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
+                    &lt;p-dropdown [options]="genders" formControlName="gender"&gt;&lt;/p-dropdown&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-4"&gt;
                     &lt;p-message severity="error" text="Gender is required" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"&gt;&lt;/p-message&gt;

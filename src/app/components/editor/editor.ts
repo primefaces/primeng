@@ -3,8 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule,Header} from '../common/shared'
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-
-declare var Quill: any;
+import * as Quill from "quill";
 
 export const EDITOR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -71,7 +70,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header) toolbar;
+    @ContentChild(Header, { static: false }) toolbar;
     
     @Input() style: any;
         
@@ -83,9 +82,9 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
     @Input() modules: any;
 
-    @Input() bounds: Element;
+    @Input() bounds: any;
 
-    @Input() scrollingContainer: Element;
+    @Input() scrollingContainer: any;
 
     @Input() debug: string;
     
@@ -128,7 +127,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             if (source === 'user') {
                 let html = editorElement.children[0].innerHTML;
                 let text = this.quill.getText().trim();
-                if (text.length === 0) {
+                if (html === '<p><br></p>') {
                     html = null;
                 }
 

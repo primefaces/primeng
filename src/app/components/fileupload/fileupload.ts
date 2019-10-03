@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
+import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
             ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -9,27 +9,28 @@ import {DomHandler} from '../dom/domhandler';
 import {Message} from '../common/message';
 import {PrimeTemplate,SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
+import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 
 @Component({
     selector: 'p-fileUpload',
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled}"> 
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled || isChooseDisabled()}"> 
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (click)="upload()" [disabled]="!hasFiles()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (click)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
-            
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
+                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
-            <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}" 
-                (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}"
+                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
-                
+
                 <p-messages [value]="msgs" [enableService]="false"></p-messages>
-                
+
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
                         <div class="ui-fileupload-row" *ngFor="let file of files; let i = index;">
@@ -50,15 +51,15 @@ import {BlockableUI} from '../common/blockableui';
         </div>
         <span *ngIf="mode === 'basic'" [ngClass]="{'ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left': true, 
                 'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus, 'ui-state-disabled':disabled}"
-                [ngStyle]="style" [class]="styleClass" (mouseup)="onSimpleUploaderClick($event)">
+              [ngStyle]="style" [class]="styleClass" (mouseup)="onSimpleUploaderClick($event)">
             <span class="ui-button-icon-left pi" [ngClass]="{'pi-plus': !hasFiles()||auto, 'pi-upload': hasFiles()&&!auto}"></span>
             <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
             <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
-                (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
+                   (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
     `
 })
-export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
+export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() name: string;
 
@@ -86,6 +87,10 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
 
+    @Input() invalidFileLimitMessageDetail: string = 'limit is {0} at most.';
+
+    @Input() invalidFileLimitMessageSummary: string = 'Maximum number of files exceeded, ';
+
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -104,11 +109,15 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     @Input() mode: string = 'advanced';
 
+    @Input() headers: HttpHeaders;
+    
     @Input() customUpload: boolean;
+
+    @Input() fileLimit: number;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+    @Output() onSend: EventEmitter<any> = new EventEmitter();
 
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
 
@@ -126,13 +135,33 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('advancedfileinput') advancedFileInput: ElementRef;
+    @ViewChild('advancedfileinput', { static: false }) advancedFileInput: ElementRef;
 
-    @ViewChild('basicfileinput') basicFileInput: ElementRef;
+    @ViewChild('basicfileinput', { static: false }) basicFileInput: ElementRef;
 
-    @ViewChild('content') content: ElementRef;
+    @ViewChild('content', { static: false }) content: ElementRef;
 
-    @Input() files: File[];
+    @Input() set files(files) {
+        this._files = [];
+
+        for(let i = 0; i < files.length; i++) {
+            let file = files[i];
+
+            if(this.validate(file)) {
+                if(this.isImage(file)) {
+                    (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                }
+
+                this._files.push(files[i]);
+            }
+        }
+    }
+
+    get files(): File[] {
+        return this._files;
+    }
+
+    public _files: File[] = [];
 
     public progress: number = 0;
 
@@ -146,17 +175,15 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     public toolbarTemplate: TemplateRef<any>;
 
+    public uploadedFileCount: number = 0;
+
     focus: boolean;
 
     uploading: boolean;
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
-    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone){}
-
-    ngOnInit() {
-        this.files = [];
-    }
+    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient){}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -183,7 +210,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     ngAfterViewInit() {
         if(this.mode === 'advanced') {
             this.zone.runOutsideAngular(() => {
-                this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
+                if (this.content)
+                    this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
             });
         }
     }
@@ -216,7 +244,11 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
         this.onSelect.emit({originalEvent: event, files: files});
 
-        if(this.hasFiles() && this.auto) {
+        if (this.fileLimit && this.mode == "advanced") {
+            this.checkFileLimit();
+        }
+
+        if(this.hasFiles() && this.auto && (!(this.mode === "advanced") || !this.isFileLimitExceeded())) {
             this.upload();
         }
 
@@ -299,6 +331,10 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     upload() {
         if(this.customUpload) {
+            if (this.fileLimit) {
+                this.uploadedFileCount += this.files.length; 
+            }
+            
             this.uploadHandler.emit({
                 files: this.files
             });
@@ -306,50 +342,56 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         else {
             this.uploading = true;
             this.msgs = [];
-            let xhr = new XMLHttpRequest(),
-            formData = new FormData();
+            let formData = new FormData();
 
             this.onBeforeUpload.emit({
-                'xhr': xhr,
                 'formData': formData
             });
 
-            for(let i = 0; i < this.files.length; i++) {
+            for (let i = 0; i < this.files.length; i++) {
                 formData.append(this.name, this.files[i], this.files[i].name);
             }
 
-            xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
-                if(e.lengthComputable) {
-                  this.progress = Math.round((e.loaded * 100) / e.total);
-                }
+            this.http.post(this.url, formData, {
+                headers: this.headers, reportProgress: true, observe: 'events', withCredentials: this.withCredentials
+            }).subscribe( (event: HttpEvent<any>) => {
+                    switch (event.type) {
+                        case HttpEventType.Sent:
+                            this.onSend.emit({
+                                originalEvent: event,
+                                'formData': formData
+                            });
+                            break;
+                        case HttpEventType.Response:
+                            this.uploading = false;
+                            this.progress = 0;
 
-                this.onProgress.emit({originalEvent: e, progress: this.progress});
-              }, false);
+                            if (event['status'] >= 200 && event['status'] < 300) {
+                                if (this.fileLimit) {
+                                    this.uploadedFileCount += this.files.length; 
+                                }
 
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4) {
-                    this.progress = 0;
+                                this.onUpload.emit({originalEvent: event, files: this.files});
+                            } else {
+                                this.onError.emit({files: this.files});
+                            }
 
-                    if(xhr.status >= 200 && xhr.status < 300)
-                        this.onUpload.emit({xhr: xhr, files: this.files});
-                    else
-                        this.onError.emit({xhr: xhr, files: this.files});
+                            this.clear();
+                            break;
+                        case HttpEventType.UploadProgress: {
+                            if (event['loaded']) {
+                                this.progress = Math.round((event['loaded'] * 100) / event['total']);
+                            }
 
-                    this.clear();
+                            this.onProgress.emit({originalEvent: event, progress: this.progress});
+                            break;
+                        }
+                    }
+                },
+                error => {
                     this.uploading = false;
-                }
-            };
-
-            xhr.open(this.method, this.url, true);
-
-            this.onBeforeSend.emit({
-                'xhr': xhr,
-                'formData': formData
-            });
-
-            xhr.withCredentials = this.withCredentials;
-
-            xhr.send(formData);
+                    this.onError.emit({files: this.files, error: error});
+                });
         }
     }
 
@@ -363,6 +405,28 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         this.clearInputElement();
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
+    }
+
+    isFileLimitExceeded() {
+        if (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount && this.focus) {
+            this.focus = false;
+        }
+
+        return this.fileLimit && this.fileLimit < this.files.length + this.uploadedFileCount;
+    }
+
+    isChooseDisabled() {
+        return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+    }
+
+    checkFileLimit() {
+        if (this.isFileLimitExceeded()) {
+            this.msgs.push({
+                severity: 'error',
+                summary: this.invalidFileLimitMessageSummary.replace('{0}', this.fileLimit.toString()),
+                detail: this.invalidFileLimitMessageDetail.replace('{0}', this.fileLimit.toString())
+            });
+        }
     }
 
     clearInputElement() {

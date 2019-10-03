@@ -4,7 +4,7 @@ import {InplaceDemo} from './inplacedemo';
 import {InplaceDemoRoutingModule} from './inplacedemo-routing.module';
 import {InplaceModule} from '../../../components/inplace/inplace';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
-import {DataTableModule} from '../../../components/datatable/datatable';
+import {TableModule} from '../../../components/table/table';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -14,7 +14,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		InplaceDemoRoutingModule,
         InplaceModule,
         InputTextModule,
-        DataTableModule,
+        TableModule,
         TabViewModule,
         CodeHighlighterModule
 	],

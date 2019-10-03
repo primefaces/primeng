@@ -63,7 +63,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     timeout: any;
 
@@ -159,7 +159,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

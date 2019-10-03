@@ -4,6 +4,7 @@ import {ObjectUtils} from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/blockableui';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-dataView',
@@ -18,7 +19,8 @@ import {BlockableUI} from '../common/blockableui';
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [dropdownAppendTo]="paginatorDropdownAppendTo" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
+                [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
+                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             <div class="ui-dataview-content ui-widget-content">
                 <div class="ui-g">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
@@ -29,7 +31,8 @@ import {BlockableUI} from '../common/blockableui';
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [dropdownAppendTo]="paginatorDropdownAppendTo" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
+                [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
+                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             <div class="ui-dataview-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -48,13 +51,19 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Input() pageLinks: number = 5;
     
-    @Input() rowsPerPageOptions: number[];
+    @Input() rowsPerPageOptions: any[];
 
     @Input() paginatorPosition: string = 'bottom';
     
     @Input() alwaysShowPaginator: boolean = true;
 
     @Input() paginatorDropdownAppendTo: any;
+
+    @Input() paginatorDropdownScrollHeight: string = '200px';
+
+    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+
+    @Input() showCurrentPageReport: boolean;
 
     @Input() lazy: boolean;
 
@@ -80,9 +89,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header) header;
+    @ContentChild(Header, { static: false }) header;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, { static: false }) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -258,7 +267,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
-            rows: this.rows
+            rows: this.rows,
+            sortField: this.sortField,
+            sortOrder: this.sortOrder
         };
     }
     
@@ -266,12 +277,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    filter(filter: string) {
+    filter(filter: string, filterMatchMode:string ="contains") {
         this.filterValue = filter;
 
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = ObjectUtils.filter(this.value, searchFields, filter);
+            this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode);
     
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;

@@ -7,7 +7,7 @@
 </div>
 
 <div class="content-section implementation">    
-    <p-confirmDialog [style]="{width: '425px'}"></p-confirmDialog>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 
     <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
     
@@ -130,24 +130,6 @@ export class ConfirmDialogDemo &#123;
                             <td>Visibility of the reject button.</td>
                         </tr>
                         <tr>
-                            <td>positionLeft</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Left coordinate value of the dialog.</td>
-                        </tr>
-                        <tr>
-                            <td>positionTop</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Top coordinate value of the dialog.</td>
-                        </tr>
-                        <tr>
-                            <td>breakpoint</td>
-                            <td>number</td>
-                            <td>640</td>
-                            <td>Maximum screen width to display the dialog with 100% width in responsive mode.</td>
-                        </tr>
-                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -158,6 +140,12 @@ export class ConfirmDialogDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>blockScroll</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether background scroll should be blocked when dialog is visible.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -294,12 +282,6 @@ export class ConfirmDialogDemo &#123;
                             <td>Adds a close icon to the header to hide the dialog.</td>
                         </tr>
                         <tr>
-                            <td>responsive</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>In responsive mode, dialog adjusts itself to screen width.</td>
-                        </tr>
-                        <tr>
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
@@ -393,7 +375,7 @@ export class ConfirmDialogDemo &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>    
-&lt;p-confirmDialog [style]="&#123;width: '425px'&#125;"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;"&gt;&lt;/p-confirmDialog&gt;
 
 &lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
 

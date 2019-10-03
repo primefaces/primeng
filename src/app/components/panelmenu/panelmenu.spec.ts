@@ -252,7 +252,7 @@ describe('PanelMenu', () => {
       expect(handleClickSpy).toHaveBeenCalled();
       expect(panelmenu.animating).toEqual(true);
       expect(panelmenu.model[0].expanded).toEqual(true);
-      expect(iconSpanEl.nativeElement.className).toContain('pi-caret-down');
+      expect(iconSpanEl.nativeElement.className).toContain('pi-chevron-down');
       expect(firstSubMenuComponent.expanded).toEqual(true);
     });
 

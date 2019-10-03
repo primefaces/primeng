@@ -18,7 +18,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     
     @Input() baseZIndex: number = 0;
     
-    @ViewChild('mask') mask: ElementRef;
+    @ViewChild('mask', { static: false }) mask: ElementRef;
     
     _blocked: boolean;
         
@@ -31,7 +31,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     set blocked(val: boolean) {
         this._blocked = val;
         
-        if (this.mask.nativeElement) {
+        if (this.mask && this.mask.nativeElement) {
             if (this._blocked)
                 this.block();
             else

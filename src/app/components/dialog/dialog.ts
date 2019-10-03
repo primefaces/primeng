@@ -19,10 +19,10 @@ let idx: number = 0;
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)" (mousedown)="onCloseMouseDown($event)">
-                    <span class="pi pi-times"></span>
+                    <span [class]="closeIcon"></span>
                 </a>
                 <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" tabindex="0" role="button" (click)="toggleMaximize($event)" (keydown.enter)="toggleMaximize($event)">
-                    <span [ngClass]="maximized ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></span>
+                    <span [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                 </a>
             </div>
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
@@ -37,7 +37,7 @@ let idx: number = 0;
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translate3d(0, 25%, 0) scale(0.9)',
+                transform: 'scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
@@ -100,17 +100,25 @@ export class Dialog implements OnDestroy {
 
     @Input() maximizable: boolean;
 
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
+    @Input() focusTrap: boolean = true;
+
+    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+
+    @Input() closeIcon: string = 'pi pi-times';
+
+    @Input() minimizeIcon: string = 'pi pi-window-minimize';
+
+    @Input() maximizeIcon: string = 'pi pi-window-maximize';
     
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
     @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
         
-    @ViewChild('titlebar') headerViewChild: ElementRef;
+    @ViewChild('titlebar', { static: false }) headerViewChild: ElementRef;
     
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
 
-    @ViewChild('footer') footerViewChild: ElementRef;
+    @ViewChild('footer', { static: false }) footerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
@@ -119,12 +127,14 @@ export class Dialog implements OnDestroy {
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
 
     container: HTMLDivElement;
-    
+
     _visible: boolean;
     
     dragging: boolean;
 
     documentDragListener: any;
+
+    documentKeydownListener: any;
 
     documentDragEndListener: any;
     
@@ -223,7 +233,7 @@ export class Dialog implements OnDestroy {
     
     positionOverlay() {
         let viewport = DomHandler.getViewport();
-        if (DomHandler.getOuterHeight(this.container) > viewport.height) {
+        if (DomHandler.getOuterHeight(this.container) + this.contentViewChild.nativeElement.scrollHeight - this.contentViewChild.nativeElement.clientHeight > viewport.height) {
              this.contentViewChild.nativeElement.style.height = (viewport.height * .75) + 'px';
              this.container.style.height = 'auto';
         } 
@@ -327,7 +337,6 @@ export class Dialog implements OnDestroy {
     }
 
     maximize() {
-        DomHandler.addClass(this.container, 'ui-dialog-maximized');
         this.preMaximizePageX = parseFloat(this.container.style.top);
         this.preMaximizePageY = parseFloat(this.container.style.left);
         this.preMaximizeContainerWidth = DomHandler.getOuterWidth(this.container);
@@ -347,7 +356,12 @@ export class Dialog implements OnDestroy {
         }
         this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
 
-        DomHandler.addClass(document.body, 'ui-overflow-hidden');
+        DomHandler.addClass(this.container, 'ui-dialog-maximized');
+        if(!this.blockScroll) {
+            DomHandler.addClass(document.body, 'ui-overflow-hidden');
+        }
+
+        this.moveOnTop();
 
         this.maximized = true;
     }
@@ -359,7 +373,9 @@ export class Dialog implements OnDestroy {
         this.container.style.height = this.preMaximizeContainerHeight + 'px';
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
 
-        DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+        if (!this.blockScroll) {
+            DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+        }
 
         this.maximized = false;
 
@@ -396,6 +412,38 @@ export class Dialog implements OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
             DomHandler.addClass(document.body, 'ui-unselectable-text');
+        }
+    }
+
+    onKeydown(event: KeyboardEvent) {
+        if(this.focusTrap) {
+            if(event.which === 9) {
+                event.preventDefault();
+                
+                let focusableElements = DomHandler.getFocusableElements(this.container);
+
+                if (focusableElements && focusableElements.length > 0) {
+                    if (!document.activeElement) {
+                        focusableElements[0].focus();
+                    }
+                    else {
+                        let focusedIndex = focusableElements.indexOf(document.activeElement);
+
+                        if (event.shiftKey) {
+                            if (focusedIndex == -1 || focusedIndex === 0)
+                                focusableElements[focusableElements.length - 1].focus();
+                            else
+                                focusableElements[focusedIndex - 1].focus();
+                        }
+                        else {
+                            if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                                focusableElements[0].focus();
+                            else
+                                focusableElements[focusedIndex + 1].focus();
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -476,6 +524,10 @@ export class Dialog implements OnDestroy {
     }
     
     bindGlobalListeners() {
+        if (this.modal) {
+            this.bindDocumentKeydownListener();
+        }
+
         if (this.draggable) {
             this.bindDocumentDragListener();
             this.bindDocumentDragEndListener();
@@ -496,12 +548,27 @@ export class Dialog implements OnDestroy {
     
     unbindGlobalListeners() {
         this.unbindDocumentDragListener();
+        this.unbindDocumentKeydownListener();
         this.unbindDocumentDragEndListener();
         this.unbindDocumentResizeListeners();
         this.unbindDocumentResponsiveListener();
         this.unbindDocumentEscapeListener();
     }
-    
+
+    bindDocumentKeydownListener() {
+        this.zone.runOutsideAngular(() => {
+            this.documentKeydownListener = this.onKeydown.bind(this);
+            window.document.addEventListener('keydown', this.documentKeydownListener);
+        });
+    }
+
+    unbindDocumentKeydownListener() {
+        if(this.documentKeydownListener) {
+            window.document.removeEventListener('keydown', this.documentKeydownListener);
+            this.documentKeydownListener = null;
+        }
+    }
+
     bindDocumentDragListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragListener = this.onDrag.bind(this);
@@ -585,7 +652,7 @@ export class Dialog implements OnDestroy {
     bindDocumentEscapeListener() {
         this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) == DomHandler.zindex) {
+                if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
                     this.close(event);
                 }
             }

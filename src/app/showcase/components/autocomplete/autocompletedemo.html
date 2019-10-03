@@ -264,6 +264,12 @@ export class AutoCompleteDemo &#123;
                             <td>Specifies if multiple values can be selected.</td>
                         </tr>
                         <tr>
+                            <td>dropdownIcon</td>
+                            <td>string</td>
+                            <td>pi pi-caret-down</td>
+                            <td>Icon class of the dropdown icon.</td>
+                        </tr>
+                        <tr>
                             <td>minLength</td>
                             <td>number</td>
                             <td>1</td>
@@ -439,6 +445,12 @@ export class AutoCompleteDemo &#123;
                             <td>null</td>
                             <td>Specifies one or more IDs in the DOM that labels the input field.</td>
                         </tr>
+                        <tr>
+                            <td>unique</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Ensures uniqueness of selected items on multiple mode.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -497,12 +509,12 @@ export class AutoCompleteDemo &#123;
                                 event.originalEvent: browser event <br>
                                 event.query: Current value of the input field
                             </td>
-                            <td>Callback to invoke to when dropdown button is clicked.</td>
+                            <td>Callback to invoke when dropdown button is clicked.</td>
                         </tr>
                         <tr>
                             <td>onClear</td>
                             <td>event: browser event</td>
-                            <td>Callback to invoke to when inpu field is cleared.</td>
+                            <td>Callback to invoke when input field is cleared.</td>
                         </tr>
                     </tbody>
                 </table>

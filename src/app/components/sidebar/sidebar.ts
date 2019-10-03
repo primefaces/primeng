@@ -10,7 +10,7 @@ import {DomHandler} from '../dom/domhandler';
             'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'),
             'ui-sidebar-top': (position === 'top'), 'ui-sidebar-bottom': (position === 'bottom'), 
             'ui-sidebar-full': fullScreen}"
-            [@panelState]="visible ? 'visible' : 'hidden'" [ngStyle]="style" [class]="styleClass">
+            [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass">
             <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" *ngIf="showCloseIcon" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
                 <span class="pi pi-times"></span>
             </a>
@@ -54,7 +54,9 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     @Input() showCloseIcon: boolean = true;
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @Input() closeOnEscape: boolean = true;
+
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
@@ -71,6 +73,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     mask: HTMLDivElement;
 
     maskClickListener: Function;
+
+    documentEscapeListener: Function;
 
     executePostDisplayActions: boolean;
 
@@ -151,7 +155,9 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             
             if(this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
-                    this.close(event);
+                    if (this.dismissible) {
+                        this.close(event);
+                    }
                 });
             }
 
@@ -173,11 +179,47 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
         }
     }
 
+    onAnimationStart(event){
+        switch(event.toState) {
+            case 'visible':
+                if (this.closeOnEscape) {
+                    this.bindDocumentEscapeListener();
+                }
+            break;
+            
+            case 'hidden':
+                this.unbindGlobalListeners();
+            break;
+        }
+    }
+
+    bindDocumentEscapeListener() {
+        this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+            if (event.which == 27) {
+                if (parseInt(this.containerViewChild.nativeElement.style.zIndex) === (DomHandler.zindex + this.baseZIndex)) {
+                    this.close(event);
+                }
+            }
+        });
+    }
+
+    unbindDocumentEscapeListener() {
+        if(this.documentEscapeListener) {
+            this.documentEscapeListener();
+            this.documentEscapeListener = null;
+        }
+    }
+
     unbindMaskClickListener() {
-        if(this.maskClickListener) {
+        if (this.maskClickListener) {
             this.maskClickListener();
             this.maskClickListener = null;
         }
+    }
+
+    unbindGlobalListeners() {
+        this.unbindMaskClickListener();
+        this.unbindDocumentEscapeListener();
     }
 
     ngOnDestroy() {
@@ -191,7 +233,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
 
-		this.unbindMaskClickListener();
+		this.unbindGlobalListeners();
     }
 }
 

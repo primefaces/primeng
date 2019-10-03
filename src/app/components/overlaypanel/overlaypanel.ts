@@ -6,7 +6,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 @Component({
     selector: 'p-overlayPanel',
     template: `
-        <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass" (click)="onPanelClick($event)"
+        <div [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick()"
             [@animation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-overlaypanel-content">
                 <ng-content></ng-content>
@@ -59,34 +59,34 @@ export class OverlayPanel implements OnDestroy {
 
     visible: boolean = false;
 
+    isContainerClicked: boolean = true;
+
     documentClickListener: any;
-    
-    selfClick: boolean;
-        
+            
     target: any;
     
     willHide: boolean;
         
-    targetClickEvent: boolean;
-    
-    closeClick: boolean;
-
     documentResizeListener: any;
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
         
+    onContainerClick() {
+        this.isContainerClicked = true;
+    }
+
     bindDocumentClickListener() {
         if (!this.documentClickListener && this.dismissable) {
-         this.zone.runOutsideAngular(() => {
-                this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                    if (!this.selfClick && !this.targetClickEvent) {
+            this.zone.runOutsideAngular(() => {
+                let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+                this.documentClickListener = this.renderer.listen('document', documentEvent, (event) => {
+                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.isContainerClicked) {
                         this.zone.run(() => {
                             this.hide();
                         });
                     }
- 
-                    this.selfClick = false;
-                    this.targetClickEvent = false;
+
+                    this.isContainerClicked = false;
                     this.cd.markForCheck();
                 });
             });
@@ -101,10 +101,6 @@ export class OverlayPanel implements OnDestroy {
     }
     
     toggle(event, target?) {
-        if (event.type === 'click') {
-            this.targetClickEvent = true;
-        }
-
         if (this.visible) {
             this.visible = false;
 
@@ -122,10 +118,6 @@ export class OverlayPanel implements OnDestroy {
     }
 
     show(event, target?) {
-        if (event.type === 'click') {
-            this.targetClickEvent = true;
-        }
-        
         this.target = target||event.currentTarget||event.target;
         this.visible = true;
     }
@@ -162,6 +154,10 @@ export class OverlayPanel implements OnDestroy {
                 if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.target).top) {
                     DomHandler.addClass(this.container, 'ui-overlaypanel-flipped');
                 }
+                if (Math.floor(DomHandler.getOffset(this.container).left) < Math.floor(DomHandler.getOffset(this.target).left) &&
+                    DomHandler.getOffset(this.container).left > 0) {
+                    DomHandler.addClass(this.container, 'ui-overlaypanel-shifted');
+                }
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
             break;
@@ -176,19 +172,9 @@ export class OverlayPanel implements OnDestroy {
     hide() {
         this.visible = false;
     }
-    
-    onPanelClick(event) {
-        if (this.closeClick) {
-            this.hide();
-            this.closeClick = false;
-        }
-        else if (this.dismissable) {
-            this.selfClick = true;
-        }
-    }
 
     onCloseClick(event) {
-        this.closeClick = true;
+        this.hide();
         event.preventDefault();
     }
 
@@ -211,8 +197,6 @@ export class OverlayPanel implements OnDestroy {
     onContainerDestroy() {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
-        this.selfClick = false;
-        this.targetClickEvent = false;
     }
 
     ngOnDestroy() {

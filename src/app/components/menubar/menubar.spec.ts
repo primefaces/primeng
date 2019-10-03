@@ -341,14 +341,14 @@ describe('Menubar', () => {
 
       const firstSubmenuList = firstParentEl.query(By.css('ul'));
       const firstSubItem = firstSubmenuList.children[0];
-      firstSubItem.nativeElement.click();
+      firstSubItem.nativeElement.dispatchEvent(new Event('mouseenter'));
       fixture.detectChanges();
 
       expect(onItemMenuClickSpy).toHaveBeenCalled();
       expect(bindEventListenerSpy).toHaveBeenCalled();
-      expect(firstParentEl.componentInstance.activeItem).toEqual(null);
-      expect(secondParentEl.componentInstance.activeItem).toEqual(null);
-      expect(firstParentEl.nativeElement.className).not.toContain('ui-menuitem-active');
+      expect(firstParentEl.componentInstance.activeItem).toBeTruthy();
+      expect(secondParentEl.componentInstance.activeItem).toBeTruthy();
+      expect(firstParentEl.nativeElement.className).toContain('ui-menuitem-active');
     });
 
     it('should show router items', () => {

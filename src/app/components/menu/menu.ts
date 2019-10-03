@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -8,13 +8,13 @@ import {RouterModule} from '@angular/router';
 @Component({
     selector: '[pMenuItemContent]',
     template: `
-        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.data-automationid]="item.automationId" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
-            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)">
+        <a *ngIf="!item.routerLink" [attr.href]="item.url||null" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.tabindex ? item.tabindex : '0'" [attr.data-automationid]="item.automationId" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
+            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)" >
             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="ui-menuitem-text">{{item.label}}</span>
         </a>
-        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId"  [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'"
-            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.id]="item.id"
+        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'"
+            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'" 
              [attr.title]="item.title" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)">
             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -24,8 +24,12 @@ import {RouterModule} from '@angular/router';
 export class MenuItemContent {
 
     @Input("pMenuItemContent") item: MenuItem;
+
+    menu: Menu;
     
-    constructor(@Inject(forwardRef(() => Menu)) public menu: Menu) {}
+    constructor(@Inject(forwardRef(() => Menu)) menu) {
+        this.menu = menu as Menu;
+    }
 }
 
 @Component({
@@ -85,7 +89,11 @@ export class Menu implements OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
     
     container: HTMLDivElement;
     
@@ -122,6 +130,7 @@ export class Menu implements OnDestroy {
                 if (this.popup) {
                     this.container = event.element;
                     this.moveOnTop();
+                    this.onShow.emit({});
                     this.appendOverlay();
                     DomHandler.absolutePosition(this.container, this.target);
                     this.bindDocumentClickListener();
@@ -131,6 +140,7 @@ export class Menu implements OnDestroy {
 
             case 'void':
                 this.onOverlayHide();
+                this.onHide.emit({});
             break;
         }
     }

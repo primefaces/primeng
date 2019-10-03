@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -19,7 +19,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [attr.required]="required"
-            [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="inputFieldValue"
+            [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="inputFieldValue" aria-autocomplete="list" role="combobox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
             ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
@@ -31,20 +31,21 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
                             (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" autocomplete="off" 
-                            [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required">
+                            [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
+                            aria-autocomplete="list" role="combobox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'">
                 </li>
             </ul
-            ><i *ngIf="loading" class="ui-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton icon="pi pi-fw pi-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
-                (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
-            <div #panel *ngIf="overlayVisible" class="ui-autocomplete-panel ui-widget ui-widget-content ui-corner-all ui-shadow" [style.max-height]="scrollHeight"
-                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)">
-                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                    <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
-                        (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
+            ><i *ngIf="loading" class="ui-autocomplete-loader pi pi-spinner pi-spin"></i><button #ddBtn type="button" pButton [icon]="dropdownIcon" class="ui-autocomplete-dropdown" [disabled]="disabled"
+                (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"></button>
+            <div #panel *ngIf="overlayVisible" [ngClass]="['ui-autocomplete-panel ui-widget ui-widget-content ui-corner-all ui-shadow']" [style.max-height]="scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
+                [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" >
+                <ul role="listbox" class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                    <li role="option"  *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
+                        (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)">
                         <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
                     </li>
-                    <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
+                    <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-emptymessage ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
                 </ul>
             </div>
         </span>
@@ -69,7 +70,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,ControlValueAccessor {
+export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() minLength: number = 1;
 
@@ -77,7 +78,11 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     @Input() style: any;
 
+    @Input() panelStyle: any;
+
     @Input() styleClass: string;
+    
+    @Input() panelStyleClass: string;
 
     @Input() inputStyle: any;
 
@@ -112,6 +117,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     @Input() ariaLabel: string;
 
     @Input() ariaLabelledBy: string;
+
+    @Input() dropdownIcon: string = "pi pi-caret-down";
+
+    @Input() unique: boolean = true;
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 
@@ -153,13 +162,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
 
     @Input() autofocus: boolean;
 
-    @ViewChild('in') inputEL: ElementRef;
+    @ViewChild('in', { static: false }) inputEL: ElementRef;
 
-    @ViewChild('multiIn') multiInputEL: ElementRef;
+    @ViewChild('multiIn', { static: false }) multiInputEL: ElementRef;
 
-    @ViewChild('multiContainer') multiContainerEL: ElementRef;
+    @ViewChild('multiContainer', { static: false }) multiContainerEL: ElementRef;
 
-    @ViewChild('ddBtn') dropdownButton: ElementRef;
+    @ViewChild('ddBtn', { static: false }) dropdownButton: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -238,15 +247,21 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     ngAfterViewChecked() {
         //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
         if (this.suggestionsUpdated && this.overlay && this.overlay.offsetParent) {
-            setTimeout(() => this.alignOverlay(), 1);
+            setTimeout(() => {
+                if (this.overlay) {
+                    this.alignOverlay();
+                }
+            }, 1);
             this.suggestionsUpdated = false;
         }
 
         if (this.highlightOptionChanged) {
             setTimeout(() => {
-                let listItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
-                if (listItem) {
-                    DomHandler.scrollInView(this.overlay, listItem);
+                if (this.overlay) {
+                    let listItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+                    if (listItem) {
+                        DomHandler.scrollInView(this.overlay, listItem);
+                    }
                 }
             }, 1);
             this.highlightOptionChanged = false;
@@ -318,7 +333,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
     }
 
     onInput(event: Event) {
-        if (!this.inputKeyDown) {
+        // When an input element with a placeholder is clicked, the onInput event is invoked in IE.
+        if (!this.inputKeyDown && DomHandler.isIE()) {
             return;
         }
 
@@ -331,7 +347,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
             this.onModelChange(value);
         }
 
-        if (value.length === 0) {
+        if (value.length === 0 && !this.multiple) {
            this.hide();
            this.onClear.emit(event);
 	   this.onModelChange(value);
@@ -379,7 +395,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
         if (this.multiple) {
             this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
-            if (!this.isSelected(option)) {
+            if (!this.isSelected(option) || !this.unique) {
                 this.value = [...this.value,option];
                 this.onModelChange(this.value);
             }

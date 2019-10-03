@@ -4,6 +4,7 @@ import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-pickList',
@@ -20,7 +21,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showSourceFilter !== false">
-                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
+                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
                     <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightSource}" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,SOURCE_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, SOURCE_LIST)">
@@ -54,7 +55,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showTargetFilter !== false">
-                    <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder">
+                    <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
                     <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightTarget}" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,TARGET_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event,TARGET_LIST)">
@@ -133,6 +134,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() targetFilterPlaceholder: string;
 
     @Input() disabled: boolean = false;
+
+    @Input() ariaSourceFilterLabel: string;
+
+    @Input() ariaTargetFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
     
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
@@ -154,13 +161,13 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Output() onTargetFilter: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('sourcelist') listViewSourceChild: ElementRef;
+    @ViewChild('sourcelist', { static: false }) listViewSourceChild: ElementRef;
     
-    @ViewChild('targetlist') listViewTargetChild: ElementRef;
+    @ViewChild('targetlist', { static: false }) listViewTargetChild: ElementRef;
 
-    @ViewChild('sourceFilter') sourceFilterViewChild: ElementRef;
+    @ViewChild('sourceFilter', { static: false }) sourceFilterViewChild: ElementRef;
 
-    @ViewChild('targetFilter') targetFilterViewChild: ElementRef;
+    @ViewChild('targetFilter', { static: false }) targetFilterViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -265,7 +272,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if(metaSelection) {
-            let metaKey = (event.metaKey||event.ctrlKey);
+            let metaKey = (event.metaKey||event.ctrlKey||event.shiftKey);
             
             if(selected && metaKey) {
                 selectedItems.splice(index, 1);
@@ -311,12 +318,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
         if(listType === this.SOURCE_LIST) {
             this.filterValueSource = query;
-            this.visibleOptionsSource = ObjectUtils.filter(data, searchFields, this.filterValueSource);
+            this.visibleOptionsSource = FilterUtils.filter(data, searchFields, this.filterValueSource, this.filterMatchMode);
             this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
         }
         else if(listType === this.TARGET_LIST) {
             this.filterValueTarget = query;
-            this.visibleOptionsTarget = ObjectUtils.filter(data, searchFields, this.filterValueTarget);
+            this.visibleOptionsTarget = FilterUtils.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode);
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
     }

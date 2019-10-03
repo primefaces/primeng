@@ -4,6 +4,7 @@ import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-orderList',
@@ -19,7 +20,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                 <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder">
+                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
                     <span class="ui-orderlist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
@@ -63,6 +64,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Input() controlsPosition: string = 'left';
 
+    @Input() ariaFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() trackBy: Function = (index: number, item: any) => item;
@@ -73,7 +78,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Output() onFilterEvent: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('listelement') listViewChild: ElementRef;
+    @ViewChild('listelement', { static: false }) listViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -159,7 +164,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if (metaSelection) {
-            let metaKey = (event.metaKey||event.ctrlKey);
+            let metaKey = (event.metaKey||event.ctrlKey||event.shiftKey);
             
             if (selected && metaKey) {
                 this._selection = this._selection.filter((val, index) => index !== selectedIndex);
@@ -198,7 +203,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
-        this.visibleOptions = ObjectUtils.filter(this.value, searchFields, this.filterValue);
+        this.visibleOptions = FilterUtils.filter(this.value, searchFields, this.filterValue, this.filterMatchMode);
     }
     
     isItemVisible(item: any): boolean {
@@ -307,9 +312,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragStart(event: DragEvent, index: number) {
+        event.dataTransfer.setData('text', 'b');    // For firefox
         (<HTMLLIElement> event.target).blur();
         this.dragging = true;
-        this.draggedItemIndex = index;
+        this.draggedItemIndex = index; 
     }
     
     onDragOver(event: DragEvent, index: number) {

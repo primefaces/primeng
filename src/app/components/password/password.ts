@@ -23,6 +23,10 @@ export class Password implements OnDestroy,DoCheck {
     @Input() strongLabel: string = 'Strong';
     
     @Input() feedback: boolean = true;
+
+    @Input() set showPassword(show: boolean) {
+        this.el.nativeElement.type = show ? 'text' : 'password';
+    }
     
     panel: HTMLDivElement;
     

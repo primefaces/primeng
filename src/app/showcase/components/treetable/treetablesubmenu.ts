@@ -20,6 +20,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/treetable/style']">&#9679; Style</a></li>
                 <li><a [routerLink]="['/treetable/contextmenu']">&#9679; ContextMenu</a></li>
                 <li><a [routerLink]="['/treetable/responsive']">&#9679; Responsive</a></li>
+                <li><a [routerLink]="['/treetable/filter']">&#9679; Filter</a></li>
             </ul>
         </div>
     `

@@ -4,13 +4,13 @@
             <i class="fa fa-bars"></i>
         </a>
 
-        <a href="#" class="logo" [routerLink]="['/']">
+        <a class="logo" [routerLink]="['/']">
             <img alt="logo" src="assets/showcase/images/logo.png" />
         </a>
 
         <ul class="topbar-menu">
             <li>
-                <a href="#" [routerLink]="['/setup']">GET STARTED</a>
+                <a [routerLink]="['/setup']">GET STARTED</a>
             </li>
             <li class="topbar-menu-themes">
                 <a href="#">THEMES</a>
@@ -20,11 +20,13 @@
                     <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon fa fa-paint-brush"></span>Designer <span class="menuitem-badge">NEW</span></a></li>
                     <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon fa fa-info-circle"></span>Icons <span class="menuitem-badge">NEW</span></a></li>
                     <li class="topbar-submenu-header">PREMIUM</li>
+                    <li><a href="http://www.primefaces.org/layouts/sapphire-ng"><img src="assets/showcase/images/themeswitcher-sapphire.png" alt="Sapphire (Material)"><span class="ui-text">Sapphire <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/avalon-ng"><img src="assets/showcase/images/themeswitcher-avalon.png" alt="Avalon (Bootstrap)"><span class="ui-text">Avalon <span class="theme-badge bootstrap">bootstrap</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/serenity-ng"><img src="assets/showcase/images/themeswitcher-serenity.png" alt="Serenity (Material)"><span class="ui-text">Serenity <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima (Material)"><span class="ui-text">Ultima <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="assets/showcase/images/themeswitcher-barcelona.png" alt="Barcelona (Material)"><span class="ui-text">Barcelona <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/babylon-ng"><img src="assets/showcase/images/themeswitcher-babylon.png" alt="Babylon"><span class="ui-text">Babylon </span><span class="menuitem-badge">NEW</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/roma-ng"><img src="assets/showcase/images/themeswitcher-roma.jpg" alt="Roma"><span class="ui-text">Roma </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/olympia-ng"><img src="assets/showcase/images/themeswitcher-olympia.png" alt="Olympia"><span class="ui-text">Olympia </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/california-ng"><img src="assets/showcase/images/themeswitcher-california.png" alt="Harmony"><span class="ui-text">California </span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ecuador-ng"><img src="assets/showcase/images/themeswitcher-ecuador.png" alt="Ecuador"><span class="ui-text">Ecuador </span></a></li>
@@ -52,11 +54,12 @@
                 <a [routerLink]="['/support']">SUPPORT</a>
             </li>
             <li class="topbar-menu-versions">
-                <a href="#">v7</a>
+                <a [routerLink]="['/']">v8</a>
                 <ul>
-                    <li><a href="http://www.primefaces.org/primeng-6.1.6">v6</a></li>
-                    <li><a href="http://www.primefaces.org/primeng-5.2.7">v5</a></li>
-                    <li><a href="http://www.primefaces.org/primeng-4.3.0">v4</a></li>
+                    <li><a href="https://www.primefaces.org/primeng-7.1.3">v7</a></li>
+                    <li><a href="https://www.primefaces.org/primeng-6.1.6">v6</a></li>
+                    <li><a href="https://www.primefaces.org/primeng-5.2.7">v5</a></li>
+                    <li><a href="https://www.primefaces.org/primeng-4.3.0">v4</a></li>
                 </ul>
             </li>
         </ul>
@@ -69,12 +72,12 @@
                     (onSelect)="selectRoute($event)" placeholder="Search"></p-autoComplete>
                     <i class="pi pi-search"></i>
             </div>
-            <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
+            <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, inputmenutitle.id)" (click)="toggle(inputmenutitle.id)">
                 <img src="assets/showcase/images/icons/input-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/input.svg" class="layout-menu-icon-inactive"/>
                 <span>Input</span>
             </a>
-            <div [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
+            <div [@animation]="(inputmenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/inputgroup']" (click)="menuActive = false">&#9679; InputGroup</a>
                 <a [routerLink]="['/autocomplete']" (click)="menuActive = false">&#9679; AutoComplete</a>
                 <a [routerLink]="['/calendar']" (click)="menuActive = false">&#9679; Calendar</a>
@@ -100,22 +103,22 @@
                 <a [routerLink]="['/tristatecheckbox']" (click)="menuActive = false">&#9679; TriCheckbox</a>
             </div>
 
-            <a id="button_menutitle" #buttonmenutitle [class.active-menuitem]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === buttonmenutitle.id ? null : buttonmenutitle.id)">
+            <a id="button_menutitle" #buttonmenutitle [class.active-menuitem]="buttonmenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, buttonmenutitle.id)" (click)="toggle(buttonmenutitle.id)">
                 <img src="assets/showcase/images/icons/button-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/button.svg" class="layout-menu-icon-inactive"/>
                 <span>Button</span>
             </a>
-            <div [ngClass]="{'submenushow': (buttonmenutitle.id == activeMenuId), 'submenuhide': (buttonmenutitle.id != activeMenuId)}">
+            <div [@animation]="(buttonmenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/button']" (click)="menuActive = false">&#9679; Button</a>
                 <a [routerLink]="['/splitbutton']" (click)="menuActive = false">&#9679; SplitButton</a>
             </div>
 
-            <a id="data_menutitle" #datamenutitle [class.active-menuitem]="datamenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === datamenutitle.id ? null : datamenutitle.id)">
+            <a id="data_menutitle" #datamenutitle [class.active-menuitem]="datamenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, datamenutitle.id)" (click)="toggle(datamenutitle.id)">
                 <img src="assets/showcase/images/icons/data-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/data.svg" class="layout-menu-icon-inactive"/>
                 <span>Data</span>
             </a>
-            <div [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
+            <div [@animation]="(datamenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/carousel']" (click)="menuActive = false">&#9679; Carousel</a>
                 <a [routerLink]="['/dataview']" (click)="menuActive = false">&#9679; DataView</a>
                 <a [routerLink]="['/fullcalendar']" (click)="menuActive = false">&#9679; FullCalendar</a>
@@ -130,12 +133,12 @@
                 <a [routerLink]="['/virtualscroller']" (click)="menuActive = false">&#9679; VirtualScroller</a>
             </div>
 
-            <a id="menu_panel" #panelmenutitle [class.active-menuitem]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === panelmenutitle.id ? null : panelmenutitle.id)">
+            <a id="menu_panel" #panelmenutitle [class.active-menuitem]="panelmenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, panelmenutitle.id)" (click)="toggle(panelmenutitle.id)">
                 <img src="assets/showcase/images/icons/panel-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/panel.svg" class="layout-menu-icon-inactive"/>
                 <span>Panel</span>
             </a>
-            <div [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
+            <div [@animation]="(panelmenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/accordion']" (click)="menuActive = false">&#9679; Accordion</a>
                 <a [routerLink]="['/card']" (click)="menuActive = false">&#9679; Card</a>
                 <a [routerLink]="['/fieldset']" (click)="menuActive = false">&#9679; Fieldset</a>
@@ -147,12 +150,12 @@
                 <a [routerLink]="['/toolbar']" (click)="menuActive = false">&#9679; Toolbar</a>
             </div>
 
-            <a id="menu_overlay" #overlaymenutitle [class.active-menuitem]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === overlaymenutitle.id ? null : overlaymenutitle.id)">
+            <a id="menu_overlay" #overlaymenutitle [class.active-menuitem]="overlaymenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, overlaymenutitle.id)" (click)="toggle(overlaymenutitle.id)">
                 <img src="assets/showcase/images/icons/overlay-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/overlay.svg" class="layout-menu-icon-inactive"/>
                 <span>Overlay</span>
             </a>
-            <div [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
+            <div [@animation]="(overlaymenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/confirmdialog']" (click)="menuActive = false">&#9679; ConfirmDialog</a>
                 <a [routerLink]="['/dialog']" (click)="menuActive = false">&#9679; Dialog</a>
                 <a [routerLink]="['/dynamicdialog']" (click)="menuActive = false">&#9679; DynamicDialog</a>
@@ -162,21 +165,21 @@
                 <a [routerLink]="['/tooltip']" (click)="menuActive = false">&#9679; Tooltip</a>
             </div>
 
-            <a id="menu_file" #filemenutitle [class.active-menuitem]="filemenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === filemenutitle.id ? null : filemenutitle.id)">
+            <a id="menu_file" #filemenutitle [class.active-menuitem]="filemenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, filemenutitle.id)" (click)="toggle(filemenutitle.id)">
                 <img src="assets/showcase/images/icons/file-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/file.svg" class="layout-menu-icon-inactive"/>
                 <span>File</span>
             </a>
-            <div [ngClass]="{'submenushow': (filemenutitle.id == activeMenuId), 'submenuhide': (filemenutitle.id != activeMenuId)}">
+            <div [@animation]="(filemenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/fileupload']" (click)="menuActive = false">&#9679; Upload</a>
             </div>
 
-            <a id="menu_menu" #menumenutitle [class.active-menuitem]="menumenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menumenutitle.id ? null : menumenutitle.id)">
+            <a id="menu_menu" #menumenutitle [class.active-menuitem]="menumenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, menumenutitle.id)" (click)="toggle(menumenutitle.id)">
                 <img src="assets/showcase/images/icons/menu-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/menu.svg" class="layout-menu-icon-inactive"/>
                 <span>Menu</span>
             </a>
-            <div [ngClass]="{'submenushow': (menumenutitle.id == activeMenuId), 'submenuhide': (menumenutitle.id != activeMenuId)}">
+            <div [@animation]="(menumenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/menumodel']" (click)="menuActive = false">&#9679; MenuModel</a>
                 <a [routerLink]="['/breadcrumb']" (click)="menuActive = false">&#9679; Breadcrumb</a>
                 <a [routerLink]="['/contextmenu']" (click)="menuActive = false">&#9679; ContextMenu</a>
@@ -190,12 +193,12 @@
                 <a [routerLink]="['/tieredmenu']" (click)="menuActive = false">&#9679; TieredMenu</a>
             </div>
 
-            <a id="menu_chart" #chartmenutitle [class.active-menuitem]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === chartmenutitle.id ? null : chartmenutitle.id)">
+            <a id="menu_chart" #chartmenutitle [class.active-menuitem]="chartmenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, chartmenutitle.id)" (click)="toggle(chartmenutitle.id)">
                 <img src="assets/showcase/images/icons/charts-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/charts.svg" class="layout-menu-icon-inactive"/>
                 <span>Charts</span>
             </a>
-            <div [ngClass]="{'submenushow': (chartmenutitle.id == activeMenuId), 'submenuhide': (chartmenutitle.id != activeMenuId)}">
+            <div [@animation]="(chartmenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/chart']" (click)="menuActive = false">&#9679; ChartModel</a>
                 <a [routerLink]="['/chart/bar']" (click)="menuActive = false">&#9679; Bar</a>
                 <a [routerLink]="['/chart/doughnut']" (click)="menuActive = false">&#9679; Doughnut</a>
@@ -205,46 +208,44 @@
                 <a [routerLink]="['/chart/radar']" (click)="menuActive = false">&#9679; Radar</a>
             </div>
 
-            <a id="menu_messages" #messagesmenutitle [class.active-menuitem]="messagesmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === messagesmenutitle.id ? null : messagesmenutitle.id)">
+            <a id="menu_messages" #messagesmenutitle [class.active-menuitem]="messagesmenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, messagesmenutitle.id)" (click)="toggle(messagesmenutitle.id)">
                 <img src="assets/showcase/images/icons/message-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/message.svg" class="layout-menu-icon-inactive"/>
                 <span>Messages</span>
             </a>
-            <div [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
+            <div [@animation]="(messagesmenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/messages']" (click)="menuActive = false">&#9679; Messages</a>
                 <a [routerLink]="['/toast']" (click)="menuActive = false">&#9679; Toast</a>
             </div>
 
-            <a id="menu_multimedia" #multimediamenutitle [class.active-menuitem]="multimediamenutitle.id == activeMenuId"
-                    (click)="activeMenuId = (activeMenuId === multimediamenutitle.id ? null : multimediamenutitle.id)">
+            <a id="menu_multimedia" #multimediamenutitle [class.active-menuitem]="multimediamenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, multimediamenutitle.id)" (click)="toggle(multimediamenutitle.id)">
                     <img src="assets/showcase/images/icons/multimedia-active.svg" class="layout-menu-icon-active"/>
                     <img src="assets/showcase/images/icons/multimedia.svg" class="layout-menu-icon-inactive"/>
                     <span>Multimedia</span>
             </a>
-            <div [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
+            <div [@animation]="(multimediamenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/galleria']" (click)="menuActive = false">&#9679; Galleria</a>
             </div>
 
-            <a id="menu_dnd" #dndmenutitle [class.active-menuitem]="dndmenutitle.id == activeMenuId"
-                    (click)="activeMenuId = (activeMenuId === dndmenutitle.id ? null : dndmenutitle.id)">
+            <a id="menu_dnd" #dndmenutitle [class.active-menuitem]="dndmenutitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, dndmenutitle.id)" (click)="toggle(dndmenutitle.id)">
                     <img src="assets/showcase/images/icons/dragdrop-active.svg" class="layout-menu-icon-active"/>
                     <img src="assets/showcase/images/icons/dragdrop.svg" class="layout-menu-icon-inactive"/>
                     <span>DragDrop</span>
             </a>
-            <div [ngClass]="{'submenushow': (dndmenutitle.id == activeMenuId), 'submenuhide': (dndmenutitle.id != activeMenuId)}">
+            <div [@animation]="(dndmenutitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/dragdrop']" (click)="menuActive = false">&#9679; Drag&amp;Drop</a>
             </div>
 
-            <a id="menu_misc" #misctitle [class.active-menuitem]="misctitle.id == activeMenuId"
-                    (click)="activeMenuId = (activeMenuId === misctitle.id ? null : misctitle.id)">
+            <a id="menu_misc" #misctitle [class.active-menuitem]="misctitle.id == activeMenuId" tabindex="0" (keydown)="onKeydown($event, misctitle.id)" (click)="toggle(misctitle.id)">
                     <img src="assets/showcase/images/icons/misc-active.svg" class="layout-menu-icon-active"/>
                     <img src="assets/showcase/images/icons/misc.svg" class="layout-menu-icon-inactive"/>
                     <span>Misc</span>
             </a>
-            <div [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
+            <div [@animation]="(misctitle.id == activeMenuId) ? 'visible' : 'hidden'" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationDone($event)">
                 <a [routerLink]="['/responsive']" (click)="menuActive = false">&#9679; Responsive</a>
                 <a [routerLink]="['/rtl']" (click)="menuActive = false">&#9679; RTL</a>
                 <a [routerLink]="['/defer']" (click)="menuActive = false">&#9679; Defer</a>
+                <a [routerLink]="['/focustrap']" (click)="menuActive = false">&#9679; FocusTrap</a>
                 <a [routerLink]="['/blockui']" (click)="menuActive = false">&#9679; BlockUI</a>
                 <a [routerLink]="['/captcha']" (click)="menuActive = false">&#9679; Captcha</a>
                 <a [routerLink]="['/inplace']" (click)="menuActive = false">&#9679; Inplace</a>
@@ -266,7 +267,7 @@
         </div>
 
         <div class="content-section layout-footer clearfix">
-            <span>PrimeNG 7.0.4</span>
+            <span>PrimeNG 8.1.0</span>
             <div class="footer-links">
                 <a href="https://github.com/primefaces/primeng"><i class="fa fa-github"></i></a>
                 <a href="https://twitter.com/prime_ng"><i class="fa fa-twitter"></i></a>

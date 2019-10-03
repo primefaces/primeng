@@ -12,7 +12,7 @@
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
                     <div class="ui-g-12 ui-md-4">
-                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'140px'}"></p-dropdown>
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                     </div>
                     <div class="ui-g-6 ui-md-4 filter-container">
                         <div style="position:relative">
@@ -233,7 +233,7 @@ export class DataViewDemo implements OnInit &#123;
                 of page links to display. To customize the left and right side of the paginators, use "paginatorLeftTemplate" and "paginatorRightTemplate" templates.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataView [value]="cars" [paginator="true" [rows]="10"&gt;
+&lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
             &#123;&#123;car.id&#125;&#125;
@@ -262,7 +262,7 @@ export class DataViewDemo implements OnInit &#123;
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataView [value]="cars" [paginator="true" [rows]="10"
+&lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -295,7 +295,7 @@ loadData(event) &#123;
 &lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;
     &lt;p-header&gt;
         &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
-            (onChange)="onSortChange($event)" [autoWidth]="false" [style]="&#123;'min-width':'15em'&#125;"&gt;&lt;/p-dropdown&gt;
+            (onChange)="onSortChange($event)" [style]="&#123;'min-width':'15em'&#125;"&gt;&lt;/p-dropdown&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -353,13 +353,15 @@ export class DataViewSortDemo implements OnInit &#123;
 </code>
 </pre>
             <h3>Filtering</h3>
-            <p>Filtering is implemented by defining the filterBy property and  calling the filter function of the component, for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
+            <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component, 
+                for flexibility there is no built-in UI available so that a custom UI can be used for the filter element. 
+                Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".  
                 Here is an example that uses an input field. filterBy is a string and multiple fields can be defined with a comma separated list.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView #dv [value]="cars" filterBy="brand"&gt;
     &lt;p-header&gt;
-        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"&gt;
+        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value, "contains")"&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &#123;&#123;car.id&#125;&#125;
@@ -438,7 +440,7 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>rowsPerPageOptions</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>Array of integer values to display inside rows per page dropdown of paginator</td>
+                            <td>Array of integer/object values to display inside rows per page dropdown of paginator</td>
                         </tr>
                         <tr>
                             <td>paginatorPosition</td>
@@ -457,6 +459,24 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorDropdownScrollHeight</td>
+                            <td>string</td>
+                            <td>200px</td>
+                            <td>Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                        </tr>
+                        <tr>
+                            <td>currentPageReportTemplate</td>
+                            <td>string</td>
+                            <td>&#123;currentPage&#125; of &#123;totalPages&#125;</td>
+                            <td>Text to display the current page information.</td>
+                        </tr>
+                        <tr>
+                            <td>showCurrentPageReport</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display current page report.</td>
                         </tr>
                         <tr>
                             <td>lazy</td>
@@ -613,7 +633,7 @@ export class DataViewSortDemo implements OnInit &#123;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;div class="ui-g"&gt;
                 &lt;div class="ui-g-12 ui-md-4"&gt;
-                    &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="&#123;'min-width':'15em'&#125;"&gt;&lt;/p-dropdown&gt;
+                    &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="&#123;'min-width':'140px'&#125;"&gt;&lt;/p-dropdown&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-g-6 ui-md-4 filter-container"&gt;
                     &lt;div style="position:relative"&gt;

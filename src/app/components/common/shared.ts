@@ -71,7 +71,7 @@ export class Column implements AfterContentInit{
     @Input() resizable: boolean = true;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    @ContentChild(TemplateRef) template: TemplateRef<any>;
+    @ContentChild(TemplateRef, { static: false }) template: TemplateRef<any>;
     
     public headerTemplate: TemplateRef<any>;
     public bodyTemplate: TemplateRef<any>;    

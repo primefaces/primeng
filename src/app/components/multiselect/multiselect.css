@@ -77,12 +77,16 @@
     position: relative;
 }
 
+.ui-multiselect-panel .ui-multiselect-empty-message {
+    padding: .5em;
+} 
+
 .ui-multiselect-panel .ui-multiselect-item .ui-chkbox {
     display: inline-block;
     vertical-align: middle;
 }
 
-.ui-multiselect-panel .ui-multiselect-item label {
+.ui-multiselect-panel .ui-multiselect-item span {
     display: inline-block;
     vertical-align: middle;
 }

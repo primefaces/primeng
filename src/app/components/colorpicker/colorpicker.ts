@@ -76,7 +76,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('input') inputViewChild: ElementRef;
+    @ViewChild('input', { static: false }) inputViewChild: ElementRef;
     
     value: any;
     
@@ -118,19 +118,19 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
                 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
         
-    @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
+    @ViewChild('colorSelector', { static: false }) set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
     }
 
-    @ViewChild('colorHandle') set colorHandle(element: ElementRef) {
+    @ViewChild('colorHandle', { static: false }) set colorHandle(element: ElementRef) {
         this.colorHandleViewChild = element;
     }
 
-    @ViewChild('hue') set hue(element: ElementRef) {
+    @ViewChild('hue', { static: false }) set hue(element: ElementRef) {
         this.hueViewChild = element;
     }
 
-    @ViewChild('hueHandle') set hueHandle(element: ElementRef) {
+    @ViewChild('hueHandle', { static: false }) set hueHandle(element: ElementRef) {
         this.hueHandleViewChild = element;
     }
 

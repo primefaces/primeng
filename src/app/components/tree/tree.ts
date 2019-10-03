@@ -8,6 +8,7 @@ import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
+import { ObjectUtils } from '../utils/objectutils';
 
 @Component({
     selector: 'p-treeNode',
@@ -15,15 +16,15 @@ import {BlockableUI} from '../common/blockableui';
         <ng-template [ngIf]="node">
             <li *ngIf="tree.droppableNodes" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <li *ngIf="!tree.horizontal" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '']">
-                <div class="ui-treenode-content" role="treeitem" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
+            <li *ngIf="!tree.horizontal" role="treeitem" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '']">
+                <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" tabIndex="0"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" 
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()">
                     <span class="ui-tree-toggler pi pi-fw ui-unselectable-text" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
-                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox' && node.selectable !== false"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
+                    ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-disabled': node.selectable === false}">
                         <span class="ui-chkbox-icon ui-clickable pi"
                             [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
@@ -100,7 +101,11 @@ export class UITreeNode implements OnInit {
 
     @Input() lastChild: boolean;
 
-    constructor(@Inject(forwardRef(() => Tree)) public tree:Tree) {}
+    tree: Tree;
+
+    constructor(@Inject(forwardRef(() => Tree)) tree) {
+        this.tree = tree as Tree;
+    }
 
     draghoverPrev: boolean;
 
@@ -110,6 +115,10 @@ export class UITreeNode implements OnInit {
 
     ngOnInit() {
         this.node.parent = this.parentNode;
+
+        if (this.parentNode) {
+            this.tree.syncNodeOption(this.node, this.tree.value, 'parent', this.tree.getNodeWithKey(this.parentNode.key, this.tree.value));
+        }
     }
 
     getIcon() {
@@ -124,7 +133,7 @@ export class UITreeNode implements OnInit {
     }
 
     isLeaf() {
-        return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
+        return this.tree.isNodeLeaf(this.node);
     }
 
     toggle(event: Event) {
@@ -335,11 +344,15 @@ export class UITreeNode implements OnInit {
     onKeyDown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement> event.target).parentElement.parentElement;
 
+        if (nodeElement.nodeName !== 'P-TREENODE') {
+            return;
+        }
+
         switch (event.which) {
             //down arrow
             case 40:
-                const listElement = nodeElement.children[0].children[1];
-                if (listElement) {
+                const listElement = (this.tree.droppableNodes) ? nodeElement.children[1].children[1] : nodeElement.children[0].children[1];
+                if (listElement && listElement.children.length > 0) {
                     this.focusNode(listElement.children[0]);
                 }
                 else {
@@ -387,6 +400,12 @@ export class UITreeNode implements OnInit {
                 if (this.node.expanded) {
                     this.collapse(event);
                 }
+                else {
+                    let parentNodeElement = this.getParentNodeElement(nodeElement);
+                    if (parentNodeElement) {
+                        this.focusNode(parentNodeElement);
+                    }
+                }
 
                 event.preventDefault();
             break;
@@ -418,7 +437,7 @@ export class UITreeNode implements OnInit {
 
     findLastVisibleDescendant(nodeElement) {
         const childrenListElement = nodeElement.children[0].children[1];
-        if (childrenListElement) {
+        if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
 
             return this.findLastVisibleDescendant(lastChildElement);
@@ -435,7 +454,10 @@ export class UITreeNode implements OnInit {
     }
 
     focusNode(element) {
-        element.children[0].children[0].focus();
+        if (this.tree.droppableNodes)
+            element.children[1].children[0].focus();
+        else
+            element.children[0].children[0].focus();
     }
 }
 
@@ -448,11 +470,16 @@ export class UITreeNode implements OnInit {
             <div class="ui-tree-loading-content" *ngIf="loading">
                 <i [class]="'ui-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
-            <ul class="ui-tree-container" *ngIf="value" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                <p-treeNode *ngFor="let node of value; let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
+            <div *ngIf="filter" class="ui-tree-filter-container">
+                <input #filter type="text" autocomplete="off" class="ui-tree-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
+                    (keydown.enter)="$event.preventDefault()" (input)="onFilter($event)">
+                    <span class="ui-tree-filter-icon pi pi-search"></span>
+            </div>
+            <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
-            <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
+            <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
         <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
             <div class="ui-tree-loading ui-widget-overlay" *ngIf="loading"></div>
@@ -462,7 +489,7 @@ export class UITreeNode implements OnInit {
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
-            <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
+            <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
     `
 })
@@ -522,6 +549,14 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() validateDrop: boolean;
 
+    @Input() filter: boolean;
+
+    @Input() filterBy: string = 'label';
+
+    @Input() filterMode: string = 'lenient';
+
+    @Input() filterPlaceholder: string;
+
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
@@ -545,6 +580,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     public dragStartSubscription: Subscription;
 
     public dragStopSubscription: Subscription;
+
+    public filteredNodes: TreeNode[];
 
     constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService) {}
 
@@ -594,6 +631,14 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         else if(this.selectionMode) {
             if(node.selectable === false) {
                 return;
+            }
+
+            if (this.hasFilteredNodes()) {
+                node = this.getNodeWithKey(node.key, this.value);
+
+                if (!node) {
+                    return;
+                }
             }
 
             let index = this.findIndexInSelection(node);
@@ -720,11 +765,14 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
         if(this.selectionMode && this.selection) {
             if(this.isSingleSelectionMode()) {
-                index = (this.selection == node) ? 0 : - 1;
+                let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
+                index = areNodesEqual ? 0 : - 1;
             }
             else {
                 for(let i = 0; i  < this.selection.length; i++) {
-                    if(this.selection[i] == node) {
+                    let selectedNode = this.selection[i];
+                    let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
+                    if(areNodesEqual) {
                         index = i;
                         break;
                     }
@@ -733,6 +781,33 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         }
 
         return index;
+    }
+
+    syncNodeOption(node, parentNodes, option, value?: any) {
+        // to synchronize the node option between the filtered nodes and the original nodes(this.value) 
+        const _node = this.hasFilteredNodes() ? this.getNodeWithKey(node.key, parentNodes) : null;
+        if (_node) {
+            _node[option] = value||node[option];
+        }
+    }
+
+    hasFilteredNodes() {
+        return this.filter && this.filteredNodes && this.filteredNodes.length;
+    }
+
+    getNodeWithKey(key: string, nodes: TreeNode[]) {
+        for (let node of nodes) {
+            if (node.key === key) {
+                return node;
+            }
+
+            if (node.children) {
+                let matchedNode = this.getNodeWithKey(key, node.children);
+                if (matchedNode) {
+                    return matchedNode;
+                }
+            }
+        }
     }
 
     propagateUp(node: TreeNode, select: boolean) {
@@ -765,6 +840,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
                 else
                     node.partialSelected = false;
             }
+
+            this.syncNodeOption(node, this.filteredNodes, 'partialSelected');
         }
 
         let parent = node.parent;
@@ -784,6 +861,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         }
 
         node.partialSelected = false;
+
+        this.syncNodeOption(node, this.filteredNodes, 'partialSelected');
 
         if(node.children && node.children.length) {
             for(let child of node.children) {
@@ -808,14 +887,20 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         return this.selectionMode && this.selectionMode == 'checkbox';
     }
 
+    isNodeLeaf(node) {
+        return node.leaf == false ? false : !(node.children&&node.children.length);
+    }
+
+    getRootNode() {
+        return this.filteredNodes ? this.filteredNodes : this.value;
+    }
+    
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
         if(this.templateMap)
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else
             return null;
-    }
-
-    
+    }    
 
     onDragOver(event) {
         if(this.droppableNodes && (!this.value || this.value.length === 0)) {
@@ -915,6 +1000,65 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         else {
             return true;
         }
+    }
+
+    onFilter(event) {
+        let filterValue = event.target.value;
+        if (filterValue === '') {
+            this.filteredNodes = null;
+        }
+        else {
+            this.filteredNodes = [];
+            const searchFields: string[] = this.filterBy.split(',');
+            const filterText = ObjectUtils.removeAccents(filterValue).toLowerCase();
+            const isStrictMode = this.filterMode === 'strict';
+            for(let node of this.value) {
+                let copyNode = {...node};
+                let paramsWithoutNode = {searchFields, filterText, isStrictMode};
+                if ((isStrictMode && (this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
+                    (!isStrictMode && (this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))) {
+                    this.filteredNodes.push(copyNode);
+                }
+            }
+        }  
+    }
+
+    findFilteredNodes(node, paramsWithoutNode) {
+        if (node) {
+            let matched = false;
+            if (node.children) {
+                let childNodes = [...node.children];
+                node.children = [];
+                for (let childNode of childNodes) {
+                    let copyChildNode = {...childNode};
+                    if (this.isFilterMatched(copyChildNode, paramsWithoutNode)) {
+                        matched = true;
+                        node.children.push(copyChildNode);
+                    }
+                }
+            }
+            
+            if (matched) {
+                node.expanded = true;
+                return true;
+            }
+        }
+    }
+
+    isFilterMatched(node, {searchFields, filterText, isStrictMode}) {
+        let matched = false;
+        for(let field of searchFields) {
+            let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLowerCase();
+            if(fieldValue.indexOf(filterText) > -1) {
+                matched = true;
+            }
+        }
+
+        if (!matched || (isStrictMode && !this.isNodeLeaf(node))) {
+            matched = this.findFilteredNodes(node, {searchFields, filterText, isStrictMode}) || matched;
+        }
+
+        return matched;
     }
 
     getBlockableElement(): HTMLElement {

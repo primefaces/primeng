@@ -26,3 +26,7 @@
     vertical-align: middle;  
 }
 
+.ui-chkbox-readonly {
+    cursor: default;
+}
+

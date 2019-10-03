@@ -11,11 +11,11 @@
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Editable</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" [style]="{'width':'150px'}" editable="true" placeholder="Select a Brand"></p-dropdown>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand"></p-dropdown>
     <p>Selected Car: {{selectedCar1 || 'none'}}</p>
     
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="true">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true">
         <ng-template let-item pTemplate="selectedItem">
             <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
             <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
@@ -30,18 +30,29 @@
     <p>Selected Car: {{selectedCar2 || 'none'}}</p>
 
     <h3>Group</h3>
-    <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="{'width':'150px'}" placeholder="Select a Car" [group]="true">
+    <p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car" [group]="true">
         <ng-template let-group pTemplate="group">
             <img src="assets/showcase/images/demo/flag/{{group.value}}" style="width:20px;vertical-align:middle" />
             <span style="margin-left:.25em">{{group.label}}</span>
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
+
+    <h3>Virtual Scroll (10000 Items)</h3>
+    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
+            <h3>CDK</h3>
+            <p>VirtualScrolling enabled Dropdown depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install @angular/cdk --save
+</code>
+</pre>
+
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -227,6 +238,15 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Virtual Scrolling</h3>
+            <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
+                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. </p>
+            <pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown [options]="cities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
             <h3>Animation Configuration</h3>
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
                 example below disables the animations altogether.</p>
@@ -308,16 +328,16 @@ export class MyModel &#123;
                             <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
                         </tr>
                         <tr>
+                            <td>filterMatchMode</td>
+                            <td>string</td>
+                            <td>contains</td>
+                            <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "contains", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
+                        </tr>
+                        <tr>
                             <td>filterPlaceholder</td>
                             <td>string</td>
                             <td>null</td>
                             <td>Placeholder text to show when filter input is empty.</td>
-                        </tr>
-                        <tr>
-                            <td>autoWidth</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Calculates the width based on options width, set to false for custom width.</td>
                         </tr>
                         <tr>
                             <td>required</td>
@@ -342,6 +362,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, custom value instead of predefined options can be entered using the editable input field.</td>
+                        </tr>
+                        <tr>
+                            <td>maxlength</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Maximum number of character allows in the editable input field.</td>
                         </tr>
                         <tr>
                             <td>appendTo</td>
@@ -394,7 +420,7 @@ export class MyModel &#123;
                         <tr>
                             <td>dropdownIcon</td>
                             <td>string</td>
-                            <td>pi pi-caret-down</td>
+                            <td>pi pi-chevron-down</td>
                             <td>Icon class of the dropdown icon.</td>
                         </tr>
                         <tr>
@@ -444,6 +470,36 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>195ms ease-in</td>
                             <td>Transition options of the hide animation.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaFilterLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltip</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Advisory information to display in a tooltip on hover.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the tooltip.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPosition</td>
+                            <td>string</td>
+                            <td>top</td>
+                            <td>Position of the tooltip, valid values are right, left, top and bottom.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPositionStyle</td>
+                            <td>string</td>
+                            <td>absolute</td>
+                            <td>Type of CSS position.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -611,11 +667,11 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Editable&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar1" [style]="&#123;'width':'150px'&#125;" editable="true" placeholder="Select a Brand"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand"&gt;&lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar1 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Content with Filters&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="true"&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true"&gt;
     &lt;ng-template let-item pTemplate="selectedItem"&gt;
         &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
         &lt;span style="vertical-align:middle; margin-left: .5em"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
@@ -630,13 +686,16 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar2 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Group&lt;/h3&gt;
-&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" [style]="&#123;'width':'150px'&#125;" placeholder="Select a Car" [group]="true"&gt;
+&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car" [group]="true"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
         &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;group.value&#125;&#125;" style="width:20px;vertical-align:middle" /&gt;
         &lt;span style="margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar3 || 'none'&#125;&#125;&lt;/p&gt;
+
+&lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
+&lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -657,6 +716,10 @@ export class DropdownDemo &#123;
     selectedCar3: string;
 
     groupedCars: SelectItemGroup[];
+
+    items: SelectItem[];
+
+    item: string;
 
     constructor() &#123;
         this.cities = [
@@ -706,6 +769,11 @@ export class DropdownDemo &#123;
                 ]
             &#125;
         ];
+
+        this.items = [];
+        for (let i = 0; i &lt; 10000; i++) &#123;
+            this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
+        &#125;
     &#125;
 &#125;
 </code>

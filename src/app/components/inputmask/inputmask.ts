@@ -39,10 +39,10 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-inputMask',
-    template: `<input #input pInputText [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder"
-        [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
+    template: `<input #input pInputText [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
+        [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
         (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
-        (input)="onInput($event)" (paste)="handleInputChange($event)">`,
+        (input)="onInputChange($event)" (paste)="handleInputChange($event)">`,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
@@ -57,7 +57,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() autoClear: boolean = true;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() inputId: string;
 
@@ -70,9 +70,11 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() maxlength: number;
 
     @Input() tabindex: string;
-    
+
+    @Input() title: string;
+
     @Input() ariaLabel: string;
-     
+
     @Input() ariaRequired: boolean;
 
     @Input() disabled: boolean;
@@ -89,13 +91,17 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() autoFocus: boolean;
 
-    @ViewChild('input') inputViewChild: ElementRef;
+    @Input() autocomplete: string;
+
+    @ViewChild('input', { static: true }) inputViewChild: ElementRef;
 
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() onInput: EventEmitter<any> = new EventEmitter();
 
     value: any;
 
@@ -133,7 +139,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     androidChrome: boolean;
 
-    focus: boolean;
+    focused: boolean;
 
     constructor(public el: ElementRef) {}
 
@@ -204,7 +210,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     writeValue(value: any) : void {
         this.value = value;
 
-        if(this.inputViewChild.nativeElement) {
+        if(this.inputViewChild && this.inputViewChild.nativeElement) {
             if(this.value == undefined || this.value == null)
                 this.inputViewChild.nativeElement.value = '';
             else
@@ -357,7 +363,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             this.checkVal(true);
             while (pos.begin < this.len && !this.tests[pos.begin])
                 pos.begin++;
-                
+
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
                 this.updateModel(e);
@@ -369,13 +375,13 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onInputBlur(e) {
-        this.focus = false;
+        this.focused = false;
         this.onModelTouched();
         this.checkVal();
         this.updateFilledState();
         this.onBlur.emit(e);
 
-        if (this.inputViewChild.nativeElement.value != this.focusText) {
+        if (this.inputViewChild.nativeElement.value != this.focusText || this.inputViewChild.nativeElement.value != this.value) {
             this.updateModel(e);
             let event = document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
@@ -549,7 +555,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             return;
         }
 
-        this.focus = true;
+        this.focused = true;
 
         clearTimeout(this.caretTimeoutId);
         let pos;
@@ -573,11 +579,13 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         this.onFocus.emit(event);
     }
 
-    onInput(event) {
+    onInputChange(event) {
         if (this.androidChrome)
             this.handleAndroidInput(event);
         else
             this.handleInputChange(event);
+
+        this.onInput.emit(event);
     }
 
     handleInputChange(event) {
@@ -617,6 +625,10 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     updateFilledState() {
         this.filled = this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '';
+    }
+
+    focus() {
+        this.inputViewChild.nativeElement.focus();
     }
 
     ngOnDestroy() {

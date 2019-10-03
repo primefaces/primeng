@@ -232,6 +232,7 @@ body {
     cursor: pointer;
     border-top: solid 1px #e3e9ea;
     box-sizing: border-box;
+    user-select: none;
 }
 
 #layout-sidebar .layout-menu >  div.layout-menu-search {
@@ -280,6 +281,17 @@ body {
     transition: all 0.5s ease;
 }
 
+#layout-sidebar .layout-menu > a:focus {
+    z-index: 1;
+    outline: 0 none;
+    -webkit-transition: -webkit-box-shadow .3s;
+    transition: -webkit-box-shadow .3s;
+    transition: box-shadow .3s;
+    transition: box-shadow .3s,-webkit-box-shadow .3s;
+    -webkit-box-shadow: inset 0 0 0 0.2em #1b82d7;
+    box-shadow: inset 0 0 0 0.2em #1b82d7;
+}
+
 #layout-sidebar .layout-menu > a img {
     width: 20px;
     height: auto;
@@ -307,35 +319,6 @@ body {
     background-color: #ffffff;
 }
 
-#layout-sidebar .layout-menu > div.submenuhide {
-    overflow: hidden;
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    -moz-transition-duration: 0.2s;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -moz-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-    -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-    -o-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-    transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-}
-
-#layout-sidebar .layout-menu > div.submenushow {
-    -moz-transition-duration: 0.2s;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -moz-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-    -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-    -o-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-    transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-    max-height: 500px;
-}
-
 #layout-sidebar .layout-menu > div a {
     width: 50%;
     float: left;
@@ -346,6 +329,17 @@ body {
     -webkit-border-radius: 4px;
     font-size: 14px;
     color: #6d7879;
+}
+
+#layout-sidebar .layout-menu > div a:focus {
+    z-index: 1;
+    outline: 0 none;
+    -webkit-transition: -webkit-box-shadow .3s;
+    transition: -webkit-box-shadow .3s;
+    transition: box-shadow .3s;
+    transition: box-shadow .3s,-webkit-box-shadow .3s;
+    -webkit-box-shadow: inset 0 0 0 0.2em #1b82d7;
+    box-shadow: inset 0 0 0 0.2em #1b82d7;
 }
 
 .menuitem-badge {

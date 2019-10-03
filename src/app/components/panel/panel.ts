@@ -19,7 +19,7 @@ let idx: number = 0;
                     <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                 </a>
             </div>
-            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions}} : {value: 'visible', params: {transitionParams: transitionOptions}}" (@panelContent.done)="onToggleDone($event)"
+            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity:'0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1'}}" (@panelContent.done)="onToggleDone($event)"
                 [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}"
                 role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-label'">
                 <div class="ui-panel-content ui-widget-content">
@@ -38,11 +38,17 @@ let idx: number = 0;
                 height: '0',
                 opacity: 0
             })),
+            state('void', style({
+                height: '{{height}}',
+                opacity: '{{opacity}}'
+            }), {params: {height: '0', opacity: '0'}}),
             state('visible', style({
                 height: '*',
                 opacity: 1
             })),
-            transition('visible <=> hidden', animate('{{transitionParams}}'))
+            transition('visible <=> hidden', animate('{{transitionParams}}')),
+            transition('void => hidden', animate('{{transitionParams}}')),
+            transition('void => visible', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -74,7 +80,7 @@ export class Panel implements BlockableUI {
     
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @ContentChild(Footer) footerFacet;
+    @ContentChild(Footer, { static: false }) footerFacet;
     
     animating: boolean;
     

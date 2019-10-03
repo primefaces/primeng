@@ -88,33 +88,12 @@ export class ObjectUtils {
         return !!(obj && obj.constructor && obj.call && obj.apply);
     }
 
-    public static filter(value: any[], fields: any[], filterValue: string) {
-        let filteredItems: any[] = [];
-        let filterText = this.removeAccents(filterValue).toLowerCase();
-
-        if(value) {
-            for(let item of value) {
-                for(let field of fields) {
-                    let fieldValue = this.removeAccents(String(this.resolveFieldData(item, field))).toLowerCase();
-                    if(fieldValue.indexOf(filterText) > -1) {
-                        filteredItems.push(item);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return filteredItems;
-    }
-
     public static reorderArray(value: any[], from: number, to: number) {
         let target: number;
-        if(value && (from !== to)) {
-            if(to >= value.length) {
-                target = to - value.length;
-                while((target--) + 1) {
-                    value.push(undefined);
-                }
+        if (value && from !== to) {
+            if (to >= value.length) {
+                to %= value.length;
+                from %= value.length;
             }
             value.splice(to, 0, value.splice(from, 1)[0]);
         }

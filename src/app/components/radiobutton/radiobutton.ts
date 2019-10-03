@@ -14,7 +14,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [ngClass]="'ui-radiobutton ui-widget'" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" 
-                    [checked]="checked" (change)="onChange($event)" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled">
+                    [checked]="checked" (change)="onChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled">
             </div>
             <div (click)="handleClick($event, rb, true)"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
@@ -22,7 +22,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':rb.checked}"></span>
             </div>
         </div>
-        <label (click)="select()" [class]="labelStyleClass"
+        <label (click)="select($event)" [class]="labelStyleClass"
             [ngClass]="{'ui-radiobutton-label':true, 'ui-label-active':rb.checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
@@ -49,8 +49,12 @@ export class RadioButton implements ControlValueAccessor {
     @Input() labelStyleClass: string;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('rb') inputViewChild: ElementRef;
+    @ViewChild('rb', { static: true }) inputViewChild: ElementRef;
             
     public onModelChange: Function = () => {};
     
@@ -69,26 +73,26 @@ export class RadioButton implements ControlValueAccessor {
             return;
         }
 
-        this.select();
+        this.select(event);
 
         if(focus) {
             radioButton.focus();
         }
     }
     
-    select() {
-        if(!this.disabled) {
+    select(event) {
+        if (!this.disabled) {
             this.inputViewChild.nativeElement.checked = true;
             this.checked = true;
             this.onModelChange(this.value);
-            this.onClick.emit(null);
+            this.onClick.emit(event);
         }
     }
             
     writeValue(value: any) : void {
         this.checked = (value == this.value);
 
-        if(this.inputViewChild.nativeElement) {
+        if(this.inputViewChild && this.inputViewChild.nativeElement) {
             this.inputViewChild.nativeElement.checked = this.checked;
         }
         
@@ -107,17 +111,19 @@ export class RadioButton implements ControlValueAccessor {
         this.disabled = val;
     }
     
-    onFocus(event) {
+    onInputFocus(event) {
         this.focused = true;
+        this.onFocus.emit(event);
     }
 
-    onBlur(event) {
+    onInputBlur(event) {
         this.focused = false;
         this.onModelTouched();
+        this.onBlur.emit(event);
     }
     
     onChange(event) {
-        this.select();
+        this.select(event);
     }
 }
 

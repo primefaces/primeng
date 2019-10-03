@@ -56,7 +56,10 @@ export class DomHandler {
     }
 
     public static findSingle(element: any, selector: string): any {
-        return element.querySelector(selector);
+        if (element) {
+            return element.querySelector(selector);
+        }
+        return null;
     }
 
     public static index(element: any): number {
@@ -81,28 +84,33 @@ export class DomHandler {
 
     public static relativePosition(element: any, target: any): void {
         let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
-        let targetHeight = target.offsetHeight;
-        let targetWidth = target.offsetWidth;
-        let targetOffset = target.getBoundingClientRect();
-        let windowScrollTop = this.getWindowScrollTop();
-        let viewport = this.getViewport();
-        let top, left;
-        
+        const targetHeight = target.offsetHeight;
+        const targetOffset = target.getBoundingClientRect();
+        const viewport = this.getViewport();
+        let top: number, left: number;
+
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
-            if(targetOffset.top + top < 0) {
-                top = 0;
+            if (targetOffset.top + top < 0) {
+                top = -1 * targetOffset.top;
             }
         }
         else {
             top = targetHeight;
         }
-            
-            
-        if ((targetOffset.left + elementDimensions.width) > viewport.width)
-            left = targetWidth - elementDimensions.width;
-        else
+
+        if (elementDimensions.width > viewport.width) {
+            // element wider then viewport and cannot fit on screen (align at left side of viewport)
+            left = targetOffset.left * -1;
+        }
+        else if ((targetOffset.left + elementDimensions.width) > viewport.width) {
+            // element wider then viewport but can be fit on screen (align at right side of viewport)
+            left = (targetOffset.left + elementDimensions.width - viewport.width) * -1;
+        }
+        else {
+            // element fits on screen (align with target)
             left = 0;
+        }
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
@@ -123,15 +131,15 @@ export class DomHandler {
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
             if(top < 0) {
-                top = 0 + windowScrollTop;
+                top = windowScrollTop;
             }
         } 
         else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
         }
 
-        if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
-            left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
+        if (targetOffset.left + elementOuterWidth > viewport.width)
+            left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
         else
             left = targetOffset.left + windowScrollLeft;
 
@@ -375,7 +383,15 @@ export class DomHandler {
         // other browser
         return false;
     }
-    
+
+    public static isIOS() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window['MSStream'];
+    }
+
+    public static isAndroid() {
+        return /(android)/i.test(navigator.userAgent);
+    }
+     
     public static appendChild(element: any, target: any) {
         if(this.isElement(target))
             target.appendChild(element);
@@ -400,20 +416,26 @@ export class DomHandler {
         );
     }
     
-    public static calculateScrollbarWidth(): number {
-        if(this.calculatedScrollbarWidth !== null)
-            return this.calculatedScrollbarWidth;
-        
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "ui-scrollbar-measure";
-        document.body.appendChild(scrollDiv);
+    public static calculateScrollbarWidth(el?: HTMLElement): number {
+        if (el) {
+            let style = getComputedStyle(el);
+            return (el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth));
+        }
+        else {
+            if(this.calculatedScrollbarWidth !== null)
+                return this.calculatedScrollbarWidth;
+            
+            let scrollDiv = document.createElement("div");
+            scrollDiv.className = "ui-scrollbar-measure";
+            document.body.appendChild(scrollDiv);
 
-        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-        document.body.removeChild(scrollDiv);
+            let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+            document.body.removeChild(scrollDiv);
 
-        this.calculatedScrollbarWidth = scrollbarWidth;
-        
-        return scrollbarWidth;
+            this.calculatedScrollbarWidth = scrollbarWidth;
+            
+            return scrollbarWidth;
+        }
     }
 
     public static calculateScrollbarHeight(): number {
@@ -499,5 +521,21 @@ export class DomHandler {
 
     public static isHidden(element: HTMLElement): boolean {
         return element.offsetParent === null;
+    }
+
+    public static getFocusableElements(element:HTMLElement) {
+        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
+            );
+
+            let visibleFocusableElements = [];
+            for(let focusableElement of focusableElements) {
+                if(getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
+                    visibleFocusableElements.push(focusableElement);
+            }
+        return visibleFocusableElements;
     }
 }

@@ -21,7 +21,7 @@ let idx: number = 0;
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="presentation"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
                 (click)="clickTab($event,tab)" *ngIf="!tab.closed" tabindex="0" (keydown.enter)="clickTab($event,tab)">
-                <a [attr.id]="tab.id + '-label'" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="orientation">
+                <a [attr.id]="tab.id + '-label'" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass">
                     <ng-container *ngIf="!tab.headerTemplate" >
                         <span class="ui-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                         <span class="ui-tabview-title">{{tab.header}}</span>
@@ -41,7 +41,7 @@ export class TabViewNav {
     @Input() tabs: TabPanel[];
 
     @Input() orientation: string = 'top';
-    
+
     @Output() onTabClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onTabCloseClick: EventEmitter<any> = new EventEmitter();
@@ -101,6 +101,12 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     @Input() tooltip: any;
     
+    @Input() tooltipPosition: string = 'top';
+
+    @Input() tooltipPositionStyle: string = 'absolute';
+
+    @Input() tooltipStyleClass: string;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     constructor(public viewContainer: ViewContainerRef) {}

@@ -412,6 +412,12 @@ export class TreeTableDemo implements OnInit &#123;
                             </td>
                             <td>Content to display when there is no value to display.</td>
                         </tr>
+                        <tr>
+                            <td>loadingbody</td>
+                            <td>columns: Columns collection <br>
+                            </td>
+                            <td>Content of the tbody element to show when data is being loaded in virtual scroll mode.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -453,7 +459,7 @@ this.value = [...this.value];
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
-                &123;&123;col.header&125;&125;
+                &#123;&#123;col.header&#125;&#125;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -461,19 +467,19 @@ this.value = [...this.value];
         &lt;tr&gt;
             &lt;td *ngFor="let col of columns; let i = index"&gt;
                 &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &123;&123;rowData[col.field]&125;&125;
+                &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="footer" let-columns&gt;
         &lt;tr&gt;
             &lt;td *ngFor="let col of columns"&gt;
-                &123;&123;col.header&125;&125;
+                &#123;&#123;col.header&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
-        There are &123;&123;files?.length&125;&125; Root Folders
+        There are &#123;&#123;files?.length&#125;&#125; Root Folders
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -900,6 +906,86 @@ export class TreeTableSortDemo implements OnInit &#123;
 
             <p>See the <a [routerLink]="['/treetable/sort']">live example.</a></p>
 
+            <h3>Filtering</h3>
+            <p>Filtering is enabled by defining the filter elements and calling filter method on the local template variable of the table with value, column field and match mode parameters. Available match modes are
+            "startsWith", "contains", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</p>
+
+            <p>An optional global filter feature is available to search all fields with the same query, to enable this place an input component and call the filterGlobal function with value and match mode properties on your event of choice.</p>
+
+            <p>In addition <b>filterMode</b> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, 
+                in <b>strict</b> mode when the query matches a node, filtering continues on all descendants.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable #tt [value]="files" [columns]="cols"&gt;
+    &lt;ng-template pTemplate="caption"&gt;
+        &lt;div style="text-align: right"&gt;
+            &lt;i class="pi pi-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
+            &lt;input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto"&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of cols"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of cols"&gt;
+                &lt;input pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)"&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of cols; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './treetablefilterdemo.html'
+&#125;)
+export class TreeTableFilterDemo &#123;
+
+    files: TreeNode[];
+
+    cols: any[];
+
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFilesystem().then(files => this.files = files);
+
+        this.cols = [
+            &#123; field: 'name', header: 'Name' &#125;,
+            &#123; field: 'size', header: 'Size' &#125;,
+            &#123; field: 'type', header: 'Type' &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <p>If you have static columns and need to use global filtering, globalFilterFields property must be defined to configure which fields should be used in global filtering. Another
+                use case of this property is to change the fields to utilize in global filtering with dynamic columns.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable #tt [value]="files" [columns]="cols"&gt;
+    //content
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <p>See the <a [routerLink]="['/treetable/filter']">live example.</a></p>
+
             <h3>Selection</h3>
             <p>TreeTable provides built-in single, multiple and checkbox selection features where selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. In order to enable this feature, define a <strong>selectionMode</strong>, bind a selection reference and add <strong>ttSelectableRow</strong> directive
@@ -1188,7 +1274,7 @@ export class TreeTableSelectionDemo &#123;
             <p>See the <a [routerLink]="['/treetable/colreorder']">live example.</a></p>
 
             <h3>Scrolling</h3>
-            <p>TreeTable supports both horizontal and vertical scrolling as well as frozen columns.</p>
+            <p>TreeTable supports both horizontal and vertical scrolling as well as frozen columns. Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>Sample below uses vertical scrolling where headers are fixed and data is scrollable.</p>
 <pre>
@@ -1320,6 +1406,71 @@ export class TreeTableSelectionDemo &#123;
 &#125;
 </code>
 </pre>
+
+            <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
+                on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight
+                property which defaults to 28px, in your row template also assign the height of the row with the same value for smooth scrolling.
+                Note that variable row height is not supported due to the nature of the virtual scrolling behavior.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
+    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
+    [totalRecords]="totalRecords" [loading]="loading" (onNodeExpand)="onNodeExpand($event)"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <p>Instead of using the built-in loading mask indicator, an special "loadingbody" template is available to provide feedback to the users
+                about the loading status of a scroll event.
+            </p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
+    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
+    [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
+        &lt;tr style="height:34px"&gt;
+            &lt;td *ngFor="let col of columns;"&gt;
+                &lt;div class="loading-text"&gt;&lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/treetable/scroll']">live example.</a></p>
 
             <h3>Lazy Loading</h3>
@@ -1359,7 +1510,9 @@ loadNodes(event: LazyLoadEvent) &#123;
     //event.rows = Number of rows per page
     //event.sortField = Field name to sort in single sort mode
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec in single sort mode
-    //multiSortMeta: An array of SortMeta objects used in multiple columns sorting. Each SortMeta has field and order properties.
+    //event.multiSortMeta: An array of SortMeta objects used in multiple columns sorting. Each SortMeta has field and order properties.
+    //event.filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+    //event.globalFilter: Value of the global filter if available
 
     this.files = //do a request to a remote datasource using a service and return the cars that match the lazy load criteria
 &#125;
@@ -1690,7 +1843,7 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>rowsPerPageOptions</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>Array of integer values to display inside rows per page dropdown of paginator</td>
+                            <td>Array of integer/object values to display inside rows per page dropdown of paginator</td>
                         </tr>
                         <tr>
                             <td>alwaysShowPaginator</td>
@@ -1759,6 +1912,30 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>An event emitter to invoke on custom sorting, refer to sorting section for details.</td>
                         </tr>
                         <tr>
+                            <td>filters</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of FilterMetadata objects to provide external filters.</td>
+                        </tr>
+                        <tr>
+                            <td>filterDelay</td>
+                            <td>number</td>
+                            <td>300</td>
+                            <td>Delay in milliseconds before filtering the data.</td>
+                        </tr>
+                        <tr>
+                            <td>globalFilterFields</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of fields as string to use in global filtering.</td>
+                        </tr>
+                        <tr>
+                            <td>filterMode</td>
+                            <td>string</td>
+                            <td>lenient</td>
+                            <td>Mode for filtering valid values are "lenient" and "strict". Default is lenient.</td>
+                        </tr>
+                        <tr>
                             <td>selectionMode</td>
                             <td>string</td>
                             <td>null</td>
@@ -1813,6 +1990,12 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>The icon to show while indicating data load is in progress.</td>
                         </tr>
                         <tr>
+                            <td>showLoader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the loading mask when loading property is true.</td>
+                        </tr>
+                        <tr>
                             <td>scrollable</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -1823,6 +2006,24 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Height of the scroll viewport in fixed pixels, percentage or a calc expression.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScrollDelay</td>
+                            <td>number</td>
+                            <td>150</td>
+                            <td>Delay in virtual scroll before doing a call to lazy load.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualRowHeight</td>
+                            <td>number</td>
+                            <td>28</td>
+                            <td>Height of a row to use in calculations of virtual scrolling.</td>
                         </tr>
                         <tr>
                             <td>frozenWidth</td>
@@ -1907,12 +2108,20 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>Callback to invoke when a column gets sorted.</td>
                         </tr>
                         <tr>
+                            <td>onFilter</td>
+                            <td>event.filters: Filters object having a field as the property key and an object with value, matchMode as the property value.<br>
+                                event.filteredValue: Filtered data after running the filtering.</td>
+                            <td>Callback to invoke when data is filtered.</td>
+                        </tr>
+                        <tr>
                             <td>onLazyLoad</td>
                             <td>event.first = First row offset <br>
                                 event.rows = Number of rows per page <br>
                                 event.sortField = Field name to sort with <br>
                                 event.sortOrder = Sort order as number, 1 for asc and -1 for dec <br>
                                 event.multiSortMeta: An array of SortMeta objects used in multiple columns sorting. Each SortMeta has field and order properties.</td>
+                                event.filters: FilterMetadata object having field as key and filter value, filter matchMode as value<br>
+                                event.globalFilter: Value of the global filter if available
                             <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
                         </tr>
                         <tr>

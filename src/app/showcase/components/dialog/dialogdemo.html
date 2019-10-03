@@ -7,11 +7,11 @@
 
 <div class="content-section implementation">
     <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-        <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
            kind and benevolent to those who give respect,
-           but given to ruthless violence whenever anything stands against the good of the family.</span>
+           but given to ruthless violence whenever anything stands against the good of the family.</p>
            <p-footer>
                <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
                <button type="button" pButton icon="pi pi-times" (click)="display=false" label="No" class="ui-button-secondary"></button>
@@ -140,7 +140,7 @@ export class ModelComponent &#123;
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.25, 0.8, 0.25, 1)</b>, 
+            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>, 
                 example below disables the animation altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -270,7 +270,7 @@ export class ModelComponent &#123;
                         </tr>
                         <tr>
                             <td>style</td>
-                            <td>string</td>
+                            <td>object</td>
                             <td>null</td>
                             <td>Inline style of the component.</td>
                         </tr>
@@ -329,6 +329,12 @@ export class ModelComponent &#123;
                             <td>When enabled, first button receives focus on show.</td>
                         </tr>
                         <tr>
+                            <td>focusTrap</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When enabled, can only focus on elements inside the dialog.</td>
+                        </tr>
+                        <tr>
                             <td>maximizable</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -337,8 +343,26 @@ export class ModelComponent &#123;
                         <tr>
                             <td>transitionOptions</td>
                             <td>string</td>
-                            <td>400ms cubic-bezier(0.25, 0.8, 0.25, 1)</td>
+                            <td>150ms cubic-bezier(0, 0, 0.2, 1)</td>
                             <td>Transition options of the animation.</td>
+                        </tr>
+                        <tr>
+                            <td>closeIcon</td>
+                            <td>string</td>
+                            <td>pi pi-times</td>
+                            <td>Name of the close icon.</td>
+                        </tr>
+                        <tr>
+                            <td>minimizeIcon</td>
+                            <td>string</td>
+                            <td>pi pi-window-minimize</td>
+                            <td>Name of the minimize icon.</td>
+                        </tr>
+                        <tr>
+                            <td>maximizeIcon</td>
+                            <td>string</td>
+                            <td>pi pi-window-maximize</td>
+                            <td>Name of the maximize icon.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -425,11 +449,11 @@ export class ModelComponent &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="&#123;width: '350px', minWidth: '200px'&#125;" [minY]="70" 
         [maximizable]="true" [baseZIndex]="10000"&gt;
-    &lt;span&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
         kind and benevolent to those who give respect,
-        but given to ruthless violence whenever anything stands against the good of the family.&lt;/span&gt;
+        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;p-footer&gt;
             &lt;button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;

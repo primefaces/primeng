@@ -15,13 +15,13 @@ import { RouterModule } from '@angular/router';
                         'ui-menu-parent':child.items,'ui-menuitem-active':listItem==activeItem,'ui-helper-hidden': child.visible === false}"
                         (mouseenter)="onItemMouseEnter($event,listItem,child)" (mouseleave)="onItemMouseLeave($event)" (click)="onItemMenuClick($event, listItem, child)">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="itemClick($event, child)"
-                         [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
+                         [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" [attr.tabindex]="child.tabindex ? child.tabindex : '0'">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw" *ngIf="child.items" [ngClass]="{'pi-caret-down':root,'pi-caret-right':!root}"></span>
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
-                        [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
+                        [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'"
                         (click)="itemClick($event, child)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -65,7 +65,7 @@ export class MenubarSub implements OnDestroy {
                 return;
             }
             
-            this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item) ? null : item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
@@ -85,7 +85,7 @@ export class MenubarSub implements OnDestroy {
 
             this.menuClick = true;
             this.menuHoverActive = this.activeMenu ? (!this.activeMenu.isEqualNode(item)) : true;
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) ? null: item) : item;
             this.bindEventListener();
         }
     }
@@ -113,7 +113,7 @@ export class MenubarSub implements OnDestroy {
                 this.hideTimeout = null;
             }
 
-            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item)? null: item) : item;
+            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item) && this.autoDisplay ? null: item) : item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
                 let sublist = <HTMLUListElement>nextElement.children[0];
@@ -129,7 +129,7 @@ export class MenubarSub implements OnDestroy {
                 }
             }
   
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item)? null: item) : item;
+            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) && this.autoDisplay ? null: item) : item;
         }
     }
 

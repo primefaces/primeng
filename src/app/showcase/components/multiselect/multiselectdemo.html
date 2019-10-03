@@ -27,14 +27,14 @@
     <p>Selected Cars: {{selectedCars2}}</p>
 
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="34" [filter]="false"></p-multiSelect>
+    <p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>CDK</h3>
-            <p>VirtualScrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+            <p>Virtual Scrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 npm install @angular/cdk --save
@@ -166,7 +166,7 @@ export class MyModel &#123;
 
             <h3>Virtual Scrolling</h3>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
-                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. Notice that filtering is not support when virtual scrolling is enabled. </p>
+                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
@@ -237,6 +237,12 @@ export class MyModel &#123;
                             <td>Defines placeholder of the filter input.</td>
                         </tr>
                         <tr>
+                            <td>filterMatchMode</td>
+                            <td>string</td>
+                            <td>contains</td>
+                            <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "contains", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
+                        </tr>
+                        <tr>
                             <td>defaultLabel</td>
                             <td>string</td>
                             <td>Choose</td>
@@ -265,12 +271,6 @@ export class MyModel &#123;
                             <td>object</td>
                             <td>null</td>
                             <td>Inline style of the overlay panel.</td>
-                        </tr>
-                        <tr>
-                            <td>panelStyleClass</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Style class of the overlay panel.</td>
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
@@ -341,8 +341,14 @@ export class MyModel &#123;
                         <tr>
                             <td>dropdownIcon</td>
                             <td>string</td>
-                            <td>fa fa-fw fa-caret-down</td>
+                            <td>pi pi-chevron-down</td>
                             <td>Icon class of the dropdown icon.</td>
+                        </tr>
+                        <tr>
+                            <td>emptyFilterMessage</td>
+                            <td>string</td>
+                            <td>No results found</td>
+                            <td>Text to display when filtering does not return any results.</td>
                         </tr>
                         <tr>
                             <td>showHeader</td>
@@ -391,6 +397,36 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaFilterLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltip</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Advisory information to display in a tooltip on hover.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the tooltip.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPosition</td>
+                            <td>string</td>
+                            <td>top</td>
+                            <td>Position of the tooltip, valid values are right, left, top and bottom.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPositionStyle</td>
+                            <td>string</td>
+                            <td>absolute</td>
+                            <td>Type of CSS position.</td>
                         </tr>
                     </tbody>
                 </table>

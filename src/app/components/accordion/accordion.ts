@@ -12,8 +12,8 @@ let idx: number = 0;
     selector: 'p-accordionTab',
     template: `
         <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}">
-            <a tabindex="0" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" 
-                (keydown.space)="toggle($event)" (keydown.enter)="toggle($event)">
+            <a [attr.tabindex]="disabled ? -1 : 0" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" 
+                (keydown)="onKeydown($event)">
                 <span class="ui-accordion-toggle-icon" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
                 <span class="ui-accordion-header-text" *ngIf="!hasHeaderFacet">
                     {{header}}
@@ -21,7 +21,7 @@ let idx: number = 0;
                 <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
             </a>
         </div>
-        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}" (@tabContent.done)="onToggleDone($event)"
+        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
             role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
             <div class="ui-accordion-content ui-widget-content">
@@ -37,10 +37,15 @@ let idx: number = 0;
             state('hidden', style({
                 height: '0'
             })),
+            state('void', style({
+                height: '{{height}}'
+            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', animate('{{transitionParams}}'))
+            transition('visible <=> hidden', animate('{{transitionParams}}')),
+            transition('void => hidden', animate('{{transitionParams}}')),
+            transition('void => visible', animate('{{transitionParams}}'))
         ])
     ]
 })
@@ -62,7 +67,15 @@ export class AccordionTab implements OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    animating: boolean;
+    private _animating: boolean;
+
+    get animating(): boolean {
+        return this._animating;
+    }
+    set animating(val: boolean) {
+        this._animating = val;
+        this.changeDetector.detectChanges();
+    }
 
     contentTemplate: TemplateRef<any>;
 
@@ -70,7 +83,11 @@ export class AccordionTab implements OnDestroy {
 
     loaded: boolean;
 
-    constructor( @Inject(forwardRef(() => Accordion)) public accordion: Accordion) {}
+    accordion: Accordion;
+
+    constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
+        this.accordion = accordion as Accordion;
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -135,6 +152,13 @@ export class AccordionTab implements OnDestroy {
         this.animating = false;
     }
 
+    onKeydown(event: KeyboardEvent) {
+        if (event.which === 32 || event.which === 13) {
+            this.toggle(event);
+            event.preventDefault();
+        }
+    }
+
     ngOnDestroy() {
         this.accordion.tabs.splice(this.findTabIndex(), 1);
     }
@@ -160,9 +184,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'pi pi-fw pi-caret-right';
+    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
 
-    @Input() collapseIcon: string = 'pi pi-fw pi-caret-down';
+    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
     
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
@@ -209,10 +233,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
                 if (changed) {
                     this.tabs[i].animating = true;
+                    this.tabs[i].selected = selected;
+                    this.tabs[i].selectedChange.emit(selected);
                 }
-
-                this.tabs[i].selected = selected;
-                this.tabs[i].selectedChange.emit(selected);
             }
         }
     }
