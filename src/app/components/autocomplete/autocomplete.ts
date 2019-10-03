@@ -219,7 +219,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     documentResizeListener: any;
 
     forceSelectionUpdateModelTimeout: any;
-    
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
@@ -230,7 +230,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-
+        
         if (this.immutable) {
             this.handleSuggestionsChange();
         }
@@ -293,7 +293,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
                     this.hide();
                 }
             }
-
+    
             this.loading = false;
         }
     }
