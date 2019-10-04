@@ -110,7 +110,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-button',
     template: `
-        <button [attr.type]="type" [class]="styleClass" [style]="style" [disabled]="disabled"
+        <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled"
             [ngClass]="{'ui-button ui-widget ui-state-default ui-corner-all':true,
                         'ui-button-icon-only': (icon && !label),
                         'ui-button-text-icon-left': (icon && label && iconPos === 'left'),

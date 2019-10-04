@@ -655,7 +655,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (!metaKey || !this.multiSortMeta) {
                     this._multiSortMeta = [];
                 }
-                this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
+                this._multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
             
             this.sortMultiple();
