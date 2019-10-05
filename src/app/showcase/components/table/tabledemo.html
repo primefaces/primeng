@@ -2019,7 +2019,7 @@ loadData(event: LazyLoadEvent) &#123;
             <p>When there is no data, emptymessage template can be used to display a message.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [value]="cars"&gt;
+&lt;p-table [value]="cars" [columns]="cols"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
             &lt;th&gt;Vin&lt;/th&gt;
