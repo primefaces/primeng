@@ -226,6 +226,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() editMode: string = 'cell';
 
+    @Input() nullUndefinedFilter: 'null' | 'undefined';
+
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -1155,7 +1157,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             clearTimeout(this.filterTimeout);
         }
         
-        if (!this.isFilterBlank(value)) {
+        const filterIsBlank = this.isFilterBlank(value);
+        if (!filterIsBlank || (filterIsBlank && this.nullUndefinedFilter)) {
             this.filters[field] = { value: value, matchMode: matchMode };
         } else if (this.filters[field]) {
             delete this.filters[field];
@@ -1206,10 +1209,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             else {
                 let globalFilterFieldsArray;
                 if (this.filters['global']) {
-                    if (!this.columns && !this.globalFilterFields)
+                    if (!this.columns && !this.globalFilterFields) {
                         throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
-                    else
+                    }
+                    else {
                         globalFilterFieldsArray = this.globalFilterFields||this.columns;
+                    }
                 }
                 
                 this.filteredValue = [];
@@ -1229,6 +1234,21 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             let dataFieldValue = ObjectUtils.resolveFieldData(this.value[i], filterField);
                             let filterConstraint = FilterUtils[filterMatchMode];
     
+                            if (this.nullUndefinedFilter) {
+                                const filterModeMatchesFilterValue = 
+                                    (this.nullUndefinedFilter === 'null' && filterValue === null) ||
+                                    (this.nullUndefinedFilter === 'undefined' && filterValue === undefined);
+                                const filterModeMatchesDataValue =
+                                    (this.nullUndefinedFilter === 'null' && dataFieldValue === null) ||
+                                    (this.nullUndefinedFilter === 'undefined' && dataFieldValue === undefined);
+                                if (filterModeMatchesFilterValue && filterModeMatchesDataValue) {
+                                    continue;
+                                } else if (filterModeMatchesFilterValue) {
+                                    // when using special filter we must "fake" filterValue to make filterConstraint work properly
+                                    filterValue = { faked: null };
+                                } 
+                            } 
+
                             if (!filterConstraint(dataFieldValue, filterValue)) {
                                 localMatch = false;
                             }

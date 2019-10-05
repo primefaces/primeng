@@ -2391,6 +2391,18 @@ export class TableDemo implements OnInit &#123;
                             <td>Delay in milliseconds before filtering the data.</td>
                         </tr>
                         <tr>
+                            <td>nullUndefinedFilter</td>
+                            <td>string of 'null' or 'undefined'</td>
+                            <td>null (not a string value)</td>
+                            <td>
+                                Allows filtering null or undefined rows, not both. Example options for filtering undefined rows from a dropdown -
+                                <br>
+                                &#123; label: 'All Rows', value: null &#125;,
+                                <br>
+                                &#123; label: 'Empty Rows', value: undefined &#125;
+                            </td>
+                        </tr>
+                        <tr>
                             <td>globalFilterFields</td>
                             <td>array</td>
                             <td>null</td>
