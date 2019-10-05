@@ -1244,8 +1244,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                                 if (filterModeMatchesFilterValue && filterModeMatchesDataValue) {
                                     continue;
                                 } else if (filterModeMatchesFilterValue) {
-                                    // when using special filter we must "fake" filterValue to make filterConstraint work properly
-                                    filterValue = { faked: null };
+                                    localMatch = false;
+                                    break;
                                 } 
                             } 
 
