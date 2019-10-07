@@ -643,7 +643,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         
             //down
             case 40:
-                var nextItem = this.findNextItem(event.originalEvent);
+                var nextItem = this.findNextItem(event.originalEvent.target.parentElement);
                 if(nextItem) {
                     nextItem.focus();
                 }
@@ -653,7 +653,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             
             //up
             case 38:
-                var prevItem = this.findPrevItem(event.originalEvent);
+                var prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
                 if(prevItem) {
                     prevItem.focus();
                 }
@@ -669,20 +669,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
     
-    findNextItem(event) {
-        let nextItem = event.target.parentElement.nextElementSibling;
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
         
         if (nextItem)
-            return DomHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem.children[0]) : nextItem.children[0];
+            return DomHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem) : nextItem.children[0];
         else
             return null;
     }
 
-    findPrevItem(event) {
-        let prevItem = event.target.parentElement.previousElementSibling;
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
         
         if (prevItem)
-            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem.children[0]) : prevItem.children[0];
+            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem.children[0]) ? this.findPrevItem(prevItem) : prevItem.children[0];
         else
             return null;
     } 
