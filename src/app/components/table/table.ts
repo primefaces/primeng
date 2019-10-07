@@ -768,7 +768,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             result = 1;
         else if (value1 == null && value2 == null)
             result = 0;
-        if (typeof value1 == 'string' || value1 instanceof String) {
+        else if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));
             }
