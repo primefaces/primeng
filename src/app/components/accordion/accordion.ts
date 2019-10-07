@@ -1,5 +1,5 @@
 import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
-    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef, TemplateRef} from '@angular/core';
+    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef, TemplateRef, ViewRef} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header, PrimeTemplate } from '../common/shared';
@@ -75,7 +75,7 @@ export class AccordionTab implements OnDestroy {
     set animating(val: boolean) {
         this._animating = val;
 
-        if (!this.isDestroyed) {
+        if(!(this.changeDetector as ViewRef).destroyed) {
             this.changeDetector.detectChanges();
         }
     }
@@ -87,8 +87,6 @@ export class AccordionTab implements OnDestroy {
     loaded: boolean;
 
     accordion: Accordion;
-
-    isDestroyed: boolean = false;
 
     constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
@@ -166,7 +164,6 @@ export class AccordionTab implements OnDestroy {
 
     ngOnDestroy() {
         this.accordion.tabs.splice(this.findTabIndex(), 1);
-        this.isDestroyed = true;
     }
 }
 
