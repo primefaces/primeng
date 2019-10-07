@@ -38,7 +38,7 @@ export class BasePanelMenuItem {
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="child.styleClass" [class.ui-helper-hidden]="child.visible === false" [ngStyle]="child.style">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.expanded ? null : child.tabindex ? child.tabindex : '-1'" [attr.id]="child.id"
-                        [ngClass]="{'ui-state-disabled':child.disabled}" 
+                        [ngClass]="{'ui-state-disabled':child.disabled, 'ui-state-active': child.expanded}" 
                         (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
                         <span class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!child.expanded,'pi-caret-down':child.expanded}" *ngIf="child.items"></span
                         ><span class="ui-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span
