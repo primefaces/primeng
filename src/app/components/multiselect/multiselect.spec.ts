@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { MultiSelect, MultiSelectItem } from './multiselect';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TooltipModule } from '../tooltip/tooltip';
 
 describe('MultiSelect', () => {
   
@@ -13,7 +14,8 @@ describe('MultiSelect', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          ScrollingModule
+		  ScrollingModule,
+		  TooltipModule
         ],
         declarations: [
           MultiSelect,
