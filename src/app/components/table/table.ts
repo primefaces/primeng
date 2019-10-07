@@ -2887,16 +2887,18 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         }
     }
 
-    onMouseDown(event: Event) {
-        this.dt.onColumnResizeBegin(event);
-        this.bindDocumentEvents();
+    onMouseDown(event: MouseEvent) {
+        if (event.which === 1) {
+            this.dt.onColumnResizeBegin(event);
+            this.bindDocumentEvents();
+        } 
     }
 
-    onDocumentMouseMove(event: Event) {
+    onDocumentMouseMove(event: MouseEvent) {
         this.dt.onColumnResize(event);
     }
 
-    onDocumentMouseUp(event: Event) {
+    onDocumentMouseUp(event: MouseEvent) {
         this.dt.onColumnResizeEnd(event, this.el.nativeElement);
         this.unbindDocumentEvents();
     }
