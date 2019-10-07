@@ -483,7 +483,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     isAllVisibleOptionsChecked() {
-        if (!this.visibleOptions) {
+        if (!this.visibleOptions || this.visibleOptions.length === 0) {
             return false;
         }
         else {
@@ -788,12 +788,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     getVisibleOptions(): SelectItem[] {
-        if (this.visibleOptions && this.visibleOptions.length) {
-            return this.visibleOptions;
-        }
-        else {
-            return this.options;
-        }
+        return this.visibleOptions || this.options;
     }
     
     onHeaderCheckboxFocus() {
