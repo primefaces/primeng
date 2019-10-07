@@ -1,14 +1,14 @@
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Table, TableBody, ScrollableView, SortableColumn, SelectableRow, RowToggler, ContextMenuRow, ResizableColumn, ReorderableColumn, EditableColumn, CellEditor, SortIcon, TableRadioButton, TableCheckbox, TableHeaderCheckbox, ReorderableRowHandle, ReorderableRow, SelectableRowDblClick } from './table';
+import { Table, TableBody, ScrollableView, SortableColumn, SelectableRow, RowToggler, ContextMenuRow, ResizableColumn, ReorderableColumn, EditableColumn, CellEditor, SortIcon, TableRadioButton, TableCheckbox, TableHeaderCheckbox, ReorderableRowHandle, ReorderableRow, SelectableRowDblClick, TableModule } from './table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { Paginator } from '../paginator/paginator';
-import {Dropdown, DropdownItem} from '../dropdown/dropdown';
+import {Dropdown, DropdownItem, DropdownModule} from '../dropdown/dropdown';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../common/shared';
-import { ContextMenu, ContextMenuSub } from '../contextmenu/contextmenu';
+import { ContextMenu, ContextMenuSub, ContextMenuModule } from '../contextmenu/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TooltipModule } from '../tooltip/tooltip';
 
@@ -430,37 +430,16 @@ describe('Table', () => {
                 FormsModule,
                 SharedModule,
                 ScrollingModule,
-                TooltipModule,
+                DropdownModule,
+                ContextMenuModule,
+                TableModule,
                 RouterTestingModule.withRoutes([
                     { path: 'test', component: ContextMenu }
                 ]),
 
             ],
             declarations: [
-                Table,
-                SortableColumn,
-                SelectableRow,
-                RowToggler,
-                ContextMenuRow,
-                ResizableColumn,
-                ReorderableColumn,
-                EditableColumn,
-                CellEditor,
-                TableBody,
-                ScrollableView,
-                SortIcon,
-                TableRadioButton,
-                TableCheckbox,
-                TableHeaderCheckbox,
-                ReorderableRowHandle,
-                ReorderableRow,
-                SelectableRowDblClick,
-                Paginator,
-                Dropdown,
-                DropdownItem,
-                ContextMenu,
-                ContextMenuSub,
-                TestBasicTableComponent,
+                TestBasicTableComponent
             ]
         });
 
