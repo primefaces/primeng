@@ -123,7 +123,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public headerCheckboxFocus: boolean;
 
-    public disabledSelectedOptions: SelectItem[];
+    public disabledSelectedOptions: SelectItem[] = [];
     
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 

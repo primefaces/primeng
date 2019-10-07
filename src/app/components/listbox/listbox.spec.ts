@@ -2,6 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Listbox } from './listbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TooltipModule } from '../tooltip/tooltip';
 
 describe('Listbox', () => {
   
@@ -11,7 +12,8 @@ describe('Listbox', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
-          NoopAnimationsModule
+          NoopAnimationsModule,
+          TooltipModule
         ],
         declarations: [
           Listbox
