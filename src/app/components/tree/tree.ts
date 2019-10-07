@@ -8,7 +8,8 @@ import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
-import { ObjectUtils } from '../utils/objectutils';
+import {ObjectUtils} from '../utils/objectutils';
+import {DomHandler} from '../common/api';
 
 @Component({
     selector: 'p-treeNode',
@@ -625,7 +626,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     onNodeClick(event, node: TreeNode) {
         let eventTarget = (<Element> event.target);
 
-        if(eventTarget.className && eventTarget.className.indexOf('ui-tree-toggler') === 0) {
+        if(DomHandler.hasClass(eventTarget, 'ui-tree-toggler')) {
             return;
         }
         else if(this.selectionMode) {
