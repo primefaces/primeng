@@ -524,7 +524,7 @@ export class Dialog implements OnDestroy {
     }
     
     bindGlobalListeners() {
-        if (this.modal) {
+        if (this.focusTrap) {
             this.bindDocumentKeydownListener();
         }
 
