@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../common/shared';
 import { ContextMenu, ContextMenuSub } from '../contextmenu/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TooltipModule } from '../tooltip/tooltip';
 
 @Component({
     template: `
@@ -429,6 +430,7 @@ describe('Table', () => {
                 FormsModule,
                 SharedModule,
                 ScrollingModule,
+                TooltipModule,
                 RouterTestingModule.withRoutes([
                     { path: 'test', component: ContextMenu }
                 ]),
@@ -1208,6 +1210,7 @@ describe('Table', () => {
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
         event.initEvent('mousedown');
+        event.which = 1;
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
         fixture.detectChanges();
@@ -1240,6 +1243,7 @@ describe('Table', () => {
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
+        event.which = 1;
         event.initEvent('mousedown');
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
@@ -1275,6 +1279,7 @@ describe('Table', () => {
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
+        event.which = 1;
         event.initEvent('mousedown');
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
@@ -1312,6 +1317,7 @@ describe('Table', () => {
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
+        event.which = 1;
         event.initEvent('mousedown');
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
