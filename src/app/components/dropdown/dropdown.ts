@@ -629,7 +629,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             else
                 DomHandler.appendChild(this.overlay, this.appendTo);
 
-            this.overlay.style.minWidth = DomHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
+            if (!this.overlay.style.minWidth) {
+                this.overlay.style.minWidth = DomHandler.getWidth(this.containerViewChild.nativeElement) + 'px';
+            }
         }
     }
 
