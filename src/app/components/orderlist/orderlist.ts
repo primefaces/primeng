@@ -12,29 +12,33 @@ import { FilterUtils } from '../utils/filterutils';
         <div [ngClass]="{'ui-orderlist ui-widget': true, 'ui-orderlist-controls-left': controlsPosition === 'left',
                     'ui-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-orderlist-controls">
-                <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
+                <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event)"
+                        [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled"></button>
+                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event)"
+                        [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled"></button>
+                <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event)"
+                        [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled"></button>
+                <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event)"
+                        [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             </div>
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                 <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
+                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel" [disabled]="disabled">
                     <span class="ui-orderlist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
-                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
+                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop && !disabled && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item" tabindex="0"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
-                            [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
+                            [draggable]="dragdrop && !disabled" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
-                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
+                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop && !disabled && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-orderlist-droppoint-highlight': (i + 1 === dragOverItemIndex)}"></li>
                     </ng-template>
                 </ul>
@@ -67,6 +71,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() ariaFilterLabel: string;
 
     @Input() filterMatchMode: string = "contains";
+
+    @Input() disabled: boolean;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
@@ -158,6 +164,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
                 
     onItemClick(event, item, index) {
+        if (this.disabled) {
+            return;
+        }
+
         this.itemTouched = false;
         let selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
         let selected = (selectedIndex != -1);
@@ -220,6 +230,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onItemTouchEnd(event) {
+        if (this.disabled) {
+            return;
+        }
+
         this.itemTouched = true;
     }
     
@@ -354,8 +368,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onItemKeydown(event: KeyboardEvent, item, index: Number) {
+        if (this.disabled) {
+            return;
+        }
+
         let listItem = <HTMLLIElement> event.currentTarget;
-        
         switch(event.which) {
             //down
             case 40:

@@ -7,8 +7,7 @@
 
 <div class="content-section implementation">
     
-    <p-orderList [value]="cars" [listStyle]="{'height':'350px'}" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand"
-        dragdrop="true">
+    <p-orderList [value]="cars" [listStyle]="{'height':'350px'}" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand" dragdrop="true">
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix">
                 <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
@@ -174,6 +173,12 @@ export class MyComponent &#123;
                             <td>Inline style of the list element.</td>
                         </tr>
                         <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified, disables the component.</td>
+                        </tr>
+                        <tr>
                             <td>filterBy</td>
                             <td>string</td>
                             <td>null</td>
@@ -184,6 +189,18 @@ export class MyComponent &#123;
                             <td>string</td>
                             <td>contains</td>
                             <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "contains", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
+                        </tr>
+                        <tr>
+                            <td>filterPlaceHolder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Placeholder text on filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaFilterLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the filter input.</td>
                         </tr>
                         <tr>
                             <td>metaKeySelection</td>
@@ -199,12 +216,6 @@ export class MyComponent &#123;
                             <td>Whether to enable dragdrop based reordering.</td>
                         </tr>
                         <tr>
-                            <td>filterPlaceHolder</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Placeholder text on filter input.</td>
-                        </tr>
-                        <tr>
                             <td>trackBy</td>
                             <td>Function</td>
                             <td>null</td>
@@ -215,12 +226,6 @@ export class MyComponent &#123;
                             <td>string</td>
                             <td>left</td>
                             <td>Defines the location of the buttons with respect to the list, valid values are "left" or "right".</td>
-                        </tr>
-                        <tr>
-                            <td>ariaFilterLabel</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Defines a string that labels the filter input.</td>
                         </tr>
                     </tbody>
                 </table>
