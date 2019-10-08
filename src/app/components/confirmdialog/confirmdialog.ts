@@ -6,7 +6,7 @@ import {Footer,SharedModule} from '../common/shared';
 import {ButtonModule} from '../button/button';
 import {Confirmation} from '../common/confirmation';
 import {ConfirmationService} from '../common/confirmationservice';
-import {Subscription}   from 'rxjs';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'p-confirmDialog',
@@ -117,7 +117,7 @@ export class ConfirmDialog implements OnDestroy {
     _width: any;
 
     _height: any;
-                
+
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (confirmation.key === this.key) {
@@ -134,7 +134,7 @@ export class ConfirmDialog implements OnDestroy {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
-                
+
                 if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
@@ -146,7 +146,7 @@ export class ConfirmDialog implements OnDestroy {
 
                 this.visible = true;
             }
-        });         
+        });
     }
 
     @Input() get width(): any {
@@ -291,6 +291,7 @@ export class ConfirmDialog implements OnDestroy {
     accept() {
         if (this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
+            this.confirmationService.accept(this.confirmation);
         }
         
         this.hide();
@@ -300,8 +301,9 @@ export class ConfirmDialog implements OnDestroy {
     reject() {
         if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
+            this.confirmationService.reject(this.confirmation);
         }
-        
+
         this.hide();
         this.confirmation = null;
     }
