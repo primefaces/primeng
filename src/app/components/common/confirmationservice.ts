@@ -23,7 +23,7 @@ export class ConfirmationService {
     }
 
     reject(confirmation: Confirmation): void {
-        this.eventsSource.next({ Confirmation: confirmation, Event: ConfirmationEventTypes.Reject});
+        this.eventsSource.next({ Confirmation: confirmation, Event: ConfirmationEventTypes.Rejected});
     }
 }
 
@@ -35,5 +35,5 @@ export class ConfirmationEvent {
 export enum ConfirmationEventTypes {
     Created,
     Accepted,
-    Reject
+    Rejected
 }
