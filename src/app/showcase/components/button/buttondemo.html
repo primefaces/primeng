@@ -7,42 +7,31 @@
 
 <div class="content-section implementation">
     <h3 class="first">Button Component</h3>
-    <p-button label="Click"></p-button>
-    <p-button icon="pi pi-check" label="Click"></p-button>
-    <p-button icon="pi pi-check" iconPos="right" label="Click"></p-button>
-    <p-button icon="pi pi-check"></p-button>
-    <p-button icon="pi pi-check" [disabled]="true" label="Disabled"></p-button>
-
-    <h3>Button Directive</h3>
-    <button pButton type="button"label="Click"></button>
-    <button pButton type="button" icon="pi pi-check" label="Click"></button>
-    <button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"></button>
-    <button pButton type="button" icon="pi pi-check"></button>
-    <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
-
-    <h3>Severity Buttons</h3>
-    <button pButton type="button" label="Primary"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-danger"></button>
-
-    <h3>Raised Buttons</h3>
-    <button pButton type="button" label="Primary" class="ui-button-raised"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-raised ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-raised ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"></button>
-
-    <h3>Rounded Buttons</h3>
-    <button pButton type="button" label="Primary" class="ui-button-rounded"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"></button>
+    <div class="ui-grid ui-grid-responsive">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-2"></div>
+            <div class="ui-grid-col-8">
+                <p-carousel [items]="items">
+                    <p-header>
+                        <h1 style="text-align: center;">Hello</h1>
+                    </p-header>
+                    <ng-template let-some pTemplate="item">
+                            <div [ngStyle]="{'background-color':some.color}">
+                                <h1 style="text-align: center;">
+                                    {{some.text}}
+                                </h1>
+                            </div>
+                    </ng-template>
+                    <p-footer>
+                        <h1 style="text-align: center;">
+                            Bye!
+                        </h1>
+                    </p-footer>
+                </p-carousel>
+            </div>
+            <div class="ui-grid-col-2"></div>
+        </div>
+    </div>
 </div>
 
 <div class="content-section documentation">
