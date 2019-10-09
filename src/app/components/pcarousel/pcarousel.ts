@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 	selector: 'p-carousel',
 	template: `
 	
-		<div [attr.id]="id" class="p-carousel p-component">
-			<div class="p-carousel-content">
+		<div [attr.id]="id" [ngClass]="containerClass()">
+			<div [class]="contentClasses()">
 				<button [class]="['p-carousel-prev p-link']" (click)="navBackward()">
 					<span class="p-carousel-prev-icon pi pi-chevron-left"></span>
 				</button>
@@ -29,7 +29,7 @@ import { CommonModule } from '@angular/common';
 					<span class="p-carousel-next-icon pi pi-chevron-right"></span>
 				</button>
 			</div>
-			<ul class="p-carousel-dots-content ui-helper-reset">
+			<ul [class]="dotsContentClasses()">
 				<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'p-carousel-dot-item':true,'p-highlight': _activeIndex === i}">
 					<button class="p-link" (click)="onDotClick($event, i)">
 						<span [ngClass]="{'p-carousel-dot-icon pi':true, 'pi-circle-on': _activeIndex === i, 'pi-circle-off': !(_activeIndex === i)}"></span>
@@ -70,15 +70,15 @@ export class PCarousel implements OnInit, AfterContentInit {
 		this._numScroll = val;
 	}
 	
-	@Input() responsive;
+	@Input() responsive: any[];
 	
 	@Input() orientation = "horizontal";
 	
 	@Input() verticalContentHeight = "300px";
 	
-	@Input() contentClass: String;
+	@Input() contentClass: String = "";
 
-	@Input() dotsContentClass: String;
+	@Input() dotsContentClass: String = "";
 
 	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
 
@@ -110,11 +110,11 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	animationTimeout:any;
 
-	remainingItems: number;
+	remainingItems: number = 0;
 
 	_items: any[];
 
-	windowResizeListener: any;
+	documentResizeListener: any;
 
 	_responsiveSettings: any[];
 
@@ -134,6 +134,11 @@ export class PCarousel implements OnInit, AfterContentInit {
 		this.id = UniqueComponentId();
 		this.createStyle();
 		this.calculatePosition();
+
+		if (this.responsive) {
+			this.bindDocumentListeners();
+		}
+
 		this.templates.forEach((item) => {
 			switch (item.getType()) {
 				case 'item':
@@ -245,6 +250,24 @@ export class PCarousel implements OnInit, AfterContentInit {
 			return totalDots;
 		}
 
+		containerClass() {
+			return {'p-carousel p-component':true, 
+				'p-carousel-vertical': this.isVertical()
+			};
+		}
+
+		contentClasses() {
+			return 'p-carousel-content '+ this.contentClass;
+		}
+
+		dotsContentClasses() {
+			return 'p-carousel-dots-content ui-helper-reset ' + this.dotsContentClass;
+		}
+
+		isVertical() {
+			return this.orientation === 'vertical';
+		}
+
 		navForward(e?,index?) {
 			if (this._activeIndex < (this.totalDots() - 1)) {
 				this.step(e, -1, index);
@@ -293,19 +316,18 @@ export class PCarousel implements OnInit, AfterContentInit {
 				index = Math.abs(parseInt((totalShiftedItems / this._numScroll).toString(), 10));
 			}
 
-			// if (index === (this.totalDots - 1) && this.remainingItems > 0) {
-			// 	totalShiftedItems += ((this.remainingItems * -1) - (this.d_numScroll * dir));
-			// 	this.isRemainingItemsAdded = true;
-			// }
+			if (index === (this.totalDots() - 1) && this.remainingItems > 0) {
+				totalShiftedItems += ((this.remainingItems * -1) - (this._numScroll * dir));
+				this.isRemainingItemsAdded = true;
+			}
 
 			if (this.itemsContainer) {
-				// this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this.d_numVisible)}%, 0, 0)`;
-				this.itemsContainer.nativeElement.style.transform = `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 				this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
 
-				// if (this.animationTimeout) {
-				// 	clearTimeout(this.animationTimeout);
-				// }
+				if (this.animationTimeout) {
+					clearTimeout(this.animationTimeout);
+				}
 
 				this.animationTimeout = setTimeout(() => {
 					if (this.itemsContainer) {
@@ -319,24 +341,29 @@ export class PCarousel implements OnInit, AfterContentInit {
 			this.activeIndex = index;
 		}
 
+	bindDocumentListeners() {
+		if (!this.documentResizeListener) {
+			this.documentResizeListener = (e) => {
+				this.calculatePosition();
+			};
 
-	//new
-
-	bindGlobalListeners() {
-		if (this.responsive) {
-			this.zone.runOutsideAngular(() => {
-				if (!this.windowResizeListener) {
-					this.windowResizeListener = this.onWindowResize.bind(this);
-					window.addEventListener('resize', this.windowResizeListener);
-				}
-			});
+			window.addEventListener('resize', this.documentResizeListener);
 		}
 	}
-	
-	onWindowResize(event) {
 
+	unbindDocumentListeners() {
+		if(this.documentResizeListener) {
+			window.removeEventListener('resize', this.documentResizeListener);
+			this.documentResizeListener = null;
+		}
 	}
-	
+
+	ngOnDestroy() {
+		if (this.responsive) {
+			this.unbindDocumentListeners();
+		}
+    }
+
 }
 
 @NgModule({
