@@ -7,14 +7,14 @@ import { CommonModule } from '@angular/common';
 	
 		<div [attr.id]="id" [ngClass]="containerClass()">
 			<div [class]="contentClasses()">
-				<button [class]="['p-carousel-prev p-link']" (click)="navBackward()">
+				<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _activeIndex === 0}" [disabled]="_activeIndex === 0" (click)="navBackward()">
 					<span class="p-carousel-prev-icon pi pi-chevron-left"></span>
 				</button>
-				<div class="p-carousel-container" [ngStyle]="{'height': false ? verticalContentHeight : 'auto'}">
+				<div class="p-carousel-container" [ngStyle]="{'height': isVertical() ? verticalContentHeight : 'auto'}">
 					<div class="p-carousel-header">
 						<ng-content select="p-header"></ng-content>
 					</div>
-					<div #itemsContainer class="p-carousel-items">
+					<div #itemsContainer class="p-carousel-items" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
 						<div *ngFor="let item of items; let index = index" [ngClass]= "{'p-carousel-item': true,'p-carousel-item-active': (firstIndex() <= index && lastIndex() >= index),
 						'p-carousel-item-start': firstIndex() === index,
 						'p-carousel-item-end': lastIndex() === index}">
@@ -25,7 +25,7 @@ import { CommonModule } from '@angular/common';
 						<ng-content select="p-footer"></ng-content>
 					</div>
 				</div>
-				<button [class]="['p-carousel-next p-link']" (click)="navForward()">
+				<button [ngClass]="{'p-carousel-next p-link': true, 'ui-state-disabled': (_activeIndex === totalDots()-1)}" (click)="navForward()" [disabled]="_activeIndex === totalDots()-1">
 					<span class="p-carousel-next-icon pi pi-chevron-right"></span>
 				</button>
 			</div>
@@ -42,8 +42,6 @@ import { CommonModule } from '@angular/common';
 	styleUrls: ['./pcarousel.css']
 })
 export class PCarousel implements OnInit, AfterContentInit {
-
-	@Input() value;
 
 	@Input() get activeIndex():number {
 		return this._activeIndex;
@@ -98,6 +96,10 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	_oldNumScroll: number = 0;
 
+	defaultNumScroll:number = 1;
+
+	defaultNumVisible:number = 1;
+
 	_activeIndex: number = 0;
 
 	carouselStyle:any;
@@ -114,17 +116,15 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	_items: any[];
 
+	startPos: any;
+
 	documentResizeListener: any;
-
-	_responsiveSettings: any[];
-
-	mockResponsiveSettings: any[];
-
-	currentResponsiveSetingIndex: number = 0;
 
 	public itemTemplate: TemplateRef<any>;
 
-	constructor(public el: ElementRef, public zone: NgZone) { }
+	constructor(public el: ElementRef, public zone: NgZone) { 
+		
+	}
 
 	ngOnInit() {
 	}
@@ -132,6 +132,10 @@ export class PCarousel implements OnInit, AfterContentInit {
 	ngAfterContentInit() {
 
 		this.id = UniqueComponentId();
+		if (this.responsive) {
+			this.defaultNumScroll = this._numScroll;
+			this.defaultNumVisible = this._numVisible;
+		}
 		this.createStyle();
 		this.calculatePosition();
 
@@ -150,6 +154,28 @@ export class PCarousel implements OnInit, AfterContentInit {
 					break;
 			}
 		});
+	}
+
+	ngAfterViewChecked() {
+		if(this._oldNumScroll !== this._numScroll) {
+			this.remainingItems = (this.items.length - this._numVisible) % this._numScroll;
+
+			let totalShiftedItems = this.totalShiftedItems;
+			let activeIndex = this._activeIndex;
+
+			if (activeIndex === (this.totalDots() - 1) && this.remainingItems > 0) {
+				totalShiftedItems += (-1 * this.remainingItems) + this._numScroll;
+				this.totalShiftedItems = totalShiftedItems;
+				this.isRemainingItemsAdded = true;
+			}
+			else {
+				this.isRemainingItemsAdded = false;
+			}
+
+			this._oldNumScroll = this._numScroll;
+
+			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+		}
 	}
 
 	createStyle() {
@@ -205,8 +231,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 			if (this.itemsContainer && this.responsive) {
 				let windowWidth = window.innerWidth;
 				let matchedResponsiveData = {
-					numVisible: this.numVisible,
-					numScroll: this.numScroll
+					numVisible: this.defaultNumVisible,
+					numScroll: this.defaultNumScroll
 				};
 
 				for (let i = 0; i < this.responsive.length; i++) {
@@ -216,7 +242,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 						matchedResponsiveData = res;
 					}
 				}
-				
+
 				if (this._numScroll !== matchedResponsiveData.numScroll) {
 					let activeIndex = this._activeIndex;
 					activeIndex = Math.floor((activeIndex * this._numScroll) / matchedResponsiveData.numScroll);
@@ -339,6 +365,40 @@ export class PCarousel implements OnInit, AfterContentInit {
 			this.totalShiftedItems = totalShiftedItems;
 
 			this.activeIndex = index;
+		}
+
+		onTouchStart(e) {
+			let touchobj = e.changedTouches[0];
+
+			this.startPos = {
+				x: touchobj.pageX,
+				y: touchobj.pageY
+			};
+		}
+
+		onTouchMove(e) {
+			if (e.cancelable) {
+				e.preventDefault();
+			}
+		}
+		onTouchEnd(e) {
+			let touchobj = e.changedTouches[0];
+
+			if (this.isVertical()) {
+				this.changePageOnTouch(e, (touchobj.pageY - this.startPos.y));
+			}
+			else {
+				this.changePageOnTouch(e, (touchobj.pageX - this.startPos.x));
+			}
+		}
+
+		changePageOnTouch(e, diff) {
+			if (diff < 0) {
+				this.navForward(e);
+			}
+			else {
+				this.navBackward(e);
+			}
 		}
 
 	bindDocumentListeners() {
