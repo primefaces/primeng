@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -107,7 +107,7 @@ export class Menu implements OnDestroy {
 
     visible: boolean;
     
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
 
     toggle(event) {
         if (this.visible)
@@ -168,6 +168,11 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
+        /*
+            This should solve the scenario when the parent component has 'ChangeDetectionStrategy.OnPush'
+            https://github.com/primefaces/primeng/issues/8226
+        */ 
+        this.cd.detectChanges();
     }
 
     onWindowResize() {
