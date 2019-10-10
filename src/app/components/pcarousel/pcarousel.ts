@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 						<ng-content select="p-header"></ng-content>
 					</div>
 					<div #itemsContainer class="p-carousel-items" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
-						<div *ngFor="let item of items; let index = index" [ngClass]= "{'p-carousel-item': true,'p-carousel-item-active': (firstIndex() <= index && lastIndex() >= index),
+						<div *ngFor="let item of value; let index = index" [ngClass]= "{'p-carousel-item': true,'p-carousel-item-active': (firstIndex() <= index && lastIndex() >= index),
 						'p-carousel-item-start': firstIndex() === index,
 						'p-carousel-item-end': lastIndex() === index}">
 							<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
@@ -80,13 +80,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
 
-	@Input() get items(): any[] {
-		return this._items;
-	};
-
-	set items(val) {
-		this._items = val;
-	}
+	@Input() value :any[];
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -158,7 +152,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	ngAfterViewChecked() {
 		if(this._oldNumScroll !== this._numScroll) {
-			this.remainingItems = (this.items.length - this._numVisible) % this._numScroll;
+			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
 			let totalShiftedItems = this.totalShiftedItems;
 			let activeIndex = this._activeIndex;
@@ -269,10 +263,10 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 
 		totalDots() {
-			return this.items ? Math.ceil((this.items.length - this._numVisible) / this._numScroll) + 1 : 0;
+			return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
 		}
 		totalDotsArray() {
-			let totalDots = Array(this.items ? Math.ceil((this.items.length - this._numVisible) / this._numScroll) + 1 : 0).fill(0);
+			let totalDots = Array(this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0).fill(0);
 			return totalDots;
 		}
 
