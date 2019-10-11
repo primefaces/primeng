@@ -7,12 +7,50 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => AutoComplete),
   multi: true
 };
+
+@Component({
+    selector: 'p-autoCompleteItem',
+    template: `
+        <li role="option" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
+            (mouseenter)="highlightOptionChange.emit(option)" (mouseleave)="highlightOptionChange.emit(null)"
+            [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem($event)"
+            [ngStyle]="{'height': itemSize + 'px'}"
+        >
+            <span *ngIf="!template">{{resolvedFieldData}}</span>
+            <ng-container *ngTemplateOutlet="template; context: {$implicit: option, index: index}"></ng-container>
+        </li>
+    `
+})
+export class AutoCompleteItem {
+
+    @Input() option: any;
+    @Input() resolvedFieldData: any;
+
+    @Input() highlightOption: any;
+    @Output() highlightOptionChange = new EventEmitter<any>();
+
+    @Input() index: number;
+
+    @Input() itemSize: number;
+
+    @Input() template: TemplateRef<any>;
+
+    @Output() onClick = new EventEmitter();
+
+    selectItem(event: Event): void {
+        this.onClick.emit({
+            originalEvent: event,
+            option: this.option
+        });
+    }
+}
 
 @Component({
     selector: 'p-autoComplete',
@@ -48,12 +86,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)"
             >
                 <ul role="listbox" class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                    <li role="option"  *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
-                        (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" [id]="highlightOption == option ? 'p-highlighted-option':''" (click)="selectItem(option)"
-                    >
-                        <span *ngIf="!itemTemplate">{{resolveFieldData(option)}}</span>
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: idx}"></ng-container>
-                    </li>
+                    <p-autoCompleteItem *ngFor="let option of suggestions; let idx = index"
+                        [option]="option" [(highlightOption)]="highlightOption" [index]="idx"
+                        (onClick)="selectItem($event.option)" [itemSize]="itemSize"
+                        [template]="itemTemplate" [resolvedFieldData]="resolveFieldData(option)"
+                    ></p-autoCompleteItem>
                     <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-emptymessage ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
                 </ul>
             </div>
@@ -152,6 +189,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     @Input() field: string;
 
     @Input() scrollHeight: string = '200px';
+
+    @Input() virtualScroll: boolean;
+
+    @Input() itemSize: number;
 
     @Input() dropdown: boolean;
 
@@ -765,8 +806,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule,ButtonModule,SharedModule],
-    exports: [AutoComplete,SharedModule],
-    declarations: [AutoComplete]
+    imports: [CommonModule,InputTextModule,ButtonModule,SharedModule,ScrollingModule],
+    exports: [AutoComplete,SharedModule,ScrollingModule],
+    declarations: [AutoComplete,AutoCompleteItem]
 })
 export class AutoCompleteModule { }
