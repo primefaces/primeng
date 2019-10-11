@@ -8,7 +8,8 @@ import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
-import { ObjectUtils } from '../utils/objectutils';
+import {ObjectUtils} from '../utils/objectutils';
+import {DomHandler} from '../common/api';
 
 @Component({
     selector: 'p-treeNode',
@@ -344,11 +345,15 @@ export class UITreeNode implements OnInit {
     onKeyDown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement> event.target).parentElement.parentElement;
 
+        if (nodeElement.nodeName !== 'P-TREENODE') {
+            return;
+        }
+
         switch (event.which) {
             //down arrow
             case 40:
                 const listElement = (this.tree.droppableNodes) ? nodeElement.children[1].children[1] : nodeElement.children[0].children[1];
-                if (listElement) {
+                if (listElement && listElement.children.length > 0) {
                     this.focusNode(listElement.children[0]);
                 }
                 else {
@@ -433,7 +438,7 @@ export class UITreeNode implements OnInit {
 
     findLastVisibleDescendant(nodeElement) {
         const childrenListElement = nodeElement.children[0].children[1];
-        if (childrenListElement) {
+        if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
 
             return this.findLastVisibleDescendant(lastChildElement);
@@ -475,7 +480,7 @@ export class UITreeNode implements OnInit {
                 <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
-            <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
+            <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
         <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
             <div class="ui-tree-loading ui-widget-overlay" *ngIf="loading"></div>
@@ -485,7 +490,7 @@ export class UITreeNode implements OnInit {
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
-            <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
+            <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
     `
 })
@@ -621,7 +626,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     onNodeClick(event, node: TreeNode) {
         let eventTarget = (<Element> event.target);
 
-        if(eventTarget.className && eventTarget.className.indexOf('ui-tree-toggler') === 0) {
+        if(DomHandler.hasClass(eventTarget, 'ui-tree-toggler')) {
             return;
         }
         else if(this.selectionMode) {
@@ -884,7 +889,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 
     isNodeLeaf(node) {
-        return node.leaf == false ? false : !(node.children&&node.children.length);
+        return node.leaf || !(node.children&&node.children.length);
     }
 
     getRootNode() {
@@ -1035,6 +1040,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
             }
             
             if (matched) {
+                node.expanded = true;
                 return true;
             }
         }

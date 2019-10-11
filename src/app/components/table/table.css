@@ -159,6 +159,10 @@
         display: none !important;
     }
 
+    .ui-table-responsive colgroup {
+        display: none !important;
+    }
+
     .ui-table-responsive .ui-table-tbody > tr > td {
         text-align: left;
         display: block;

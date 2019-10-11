@@ -42,10 +42,10 @@ export interface LocaleSettings {
                 [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}: 
                                             {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" 
                                             [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)" *ngIf="inline || overlayVisible">
+                <ng-content select="p-header"></ng-content>
                 <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-                            <ng-content select="p-header"></ng-content>
                             <a class="ui-datepicker-prev ui-corner-all" (click)="navBackward($event)" *ngIf="i === 0">
                                 <span class="ui-datepicker-prev-icon pi pi-chevron-left"></span>
                             </a>
@@ -492,6 +492,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     set yearRange(yearRange: string) {
+        this._yearRange = yearRange;
+        
         if (this.yearNavigator && yearRange) {
             const years = yearRange.split(':');
             const yearStart = parseInt(years[0]);
@@ -1026,7 +1028,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isMonthSelected(month: number): boolean {
-        return this.isSelected({year: this.currentYear, month: month, day: 1, selectable: true});
+        let day = this.value ? (Array.isArray(this.value) ? this.value[0].getDate() : this.value.getDate()) : 1; 
+        return this.isSelected({year: this.currentYear, month: month, day: day, selectable: true});
     }
     
     isDateEquals(value, dateMeta) {
@@ -1595,6 +1598,18 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    toggle() {
+        if (!this.inline){
+            if (!this.overlayVisible) {
+                this.showOverlay();
+                this.inputfieldViewChild.nativeElement.focus();
+            }
+            else {
+                this.hideOverlay();
+            }
+        }
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
@@ -1859,8 +1874,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             throw "Invalid time";
         }
         else {
-            if (this.hourFormat == '12' && h !== 12 && this.pm) {
-                h+= 12;
+            if (this.hourFormat == '12') {
+                if (h !== 12 && this.pm) {
+                    h += 12;
+                }
+                else if (!this.pm && h === 12) {
+                    h -= 12;
+                }
             }
             
             return {hour: h, minute: m, second: s};
@@ -2068,10 +2088,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
                         this.zone.run(() => {
                             this.hideOverlay();
+                            
+                            this.cd.markForCheck();
                         });
                     }
                     
-                    this.cd.markForCheck();
                 });
             });
         }
