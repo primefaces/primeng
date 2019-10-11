@@ -1,4 +1,4 @@
-import {NgModule,Component,Input} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/menuitem';
 import {Location} from '@angular/common';
@@ -48,6 +48,8 @@ export class Breadcrumb {
     @Input() styleClass: string;
     
     @Input() home: MenuItem;
+
+    @Output() selectItem: EventEmitter<any> = new EventEmitter<any>();
         
     itemClick(event, item: MenuItem) {
         if (item.disabled) {
@@ -65,6 +67,8 @@ export class Breadcrumb {
                 item: item
             });
         }
+
+        this.selectItem.emit({item: item, originalEvent: event});
     }
     
     onHomeClick(event) {
