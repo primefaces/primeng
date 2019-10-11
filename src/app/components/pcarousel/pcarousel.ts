@@ -43,10 +43,10 @@ import { CommonModule } from '@angular/common';
 })
 export class PCarousel implements OnInit, AfterContentInit {
 
-	@Input() get activeIndex():number {
+	@Input() get page():number {
 		return this._activeIndex;
 	}
-	set activeIndex(val:number) {
+	set page(val:number) {
 		this._activeIndex = val;
 	}
 		
@@ -100,7 +100,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	id:string;
 
-	totalShiftedItems= this.activeIndex * this.numScroll * -1;
+	totalShiftedItems= this.page * this.numScroll * -1;
 
 	isRemainingItemsAdded:boolean = false;
 
@@ -244,7 +244,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 					this.totalShiftedItems = (matchedResponsiveData.numScroll * activeIndex) * -1;
 					this._numScroll = matchedResponsiveData.numScroll;
 
-					this.activeIndex = activeIndex;
+					this.page = activeIndex;
 				}
 
 				if (this._numVisible !== matchedResponsiveData.numVisible) {
@@ -290,7 +290,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 		navForward(e?,index?) {
 			if (this._activeIndex < (this.totalDots() - 1)) {
-				this.step(e, -1, index);
+				this.step(-1, index);
 			}
 
 			if (e && e.cancelable) {
@@ -300,7 +300,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 		navBackward(e?,index?) {
 			if (this._activeIndex !== 0) {
-				this.step(e, 1, index);
+				this.step(1, index);
 			}
 
 			if (e && e.cancelable) {
@@ -319,7 +319,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 			}
 		}
 
-		step(event, dir, index) {
+		step(dir, index) {
 			let totalShiftedItems = this.totalShiftedItems;
 
 			if (index != null) {
@@ -333,7 +333,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 					this.isRemainingItemsAdded = false;
 				}
 
-				index = Math.abs(parseInt((totalShiftedItems / this._numScroll).toString(), 10));
+				index = Math.abs(Math.floor((totalShiftedItems / this._numScroll)));
 			}
 
 			if (index === (this.totalDots() - 1) && this.remainingItems > 0) {
@@ -358,7 +358,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 			this.totalShiftedItems = totalShiftedItems;
 
-			this.activeIndex = index;
+			this.page = index;
 		}
 
 		onTouchStart(e) {
