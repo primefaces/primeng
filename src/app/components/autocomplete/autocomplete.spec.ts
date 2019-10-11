@@ -1,11 +1,12 @@
 import { TestBed, ComponentFixture,fakeAsync,tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AutoComplete } from './autocomplete';
+import { AutoComplete, AutoCompleteItem } from './autocomplete';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '../button/button';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
@@ -46,12 +47,12 @@ class TestAutocompleteComponent {
 }
 
 describe('AutoComplete', () => {
-  
+
     let autocomplete: AutoComplete;
     let autocomplete2: AutoComplete;
     let testComponent: TestAutocompleteComponent;
     let fixture: ComponentFixture<TestAutocompleteComponent>;
-  
+
     beforeEach(() => {
     TestBed.configureTestingModule({
 
@@ -60,13 +61,15 @@ describe('AutoComplete', () => {
         FormsModule,
         BrowserDynamicTestingModule,
         ButtonModule,
+        ScrollingModule,
       ],
       declarations: [
         AutoComplete,
+        AutoCompleteItem,
         TestAutocompleteComponent
       ]
     });
-    
+
     fixture = TestBed.createComponent(TestAutocompleteComponent);
     autocomplete = fixture.debugElement.children[0].componentInstance;
     autocomplete2 = fixture.debugElement.children[2].componentInstance;
@@ -159,7 +162,7 @@ describe('AutoComplete', () => {
       let focusValue;
       autocomplete.onFocus.subscribe(value => focusValue = value);
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -176,7 +179,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
       expect(autocomplete.suggestions.length).toEqual(2);
       expect(suggestionsEls.length).toEqual(2);
@@ -200,7 +203,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -212,7 +215,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
       const panelEl = fixture.debugElement.query(By.css('div'));
       expect(panelEl.nativeElement.style.maxHeight).toEqual("450px")
@@ -227,7 +230,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -239,7 +242,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
       expect(autocomplete.suggestions.length).toEqual(2);
       expect(suggestionsEls.length).toEqual(2);
@@ -252,7 +255,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -264,7 +267,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
       expect(autocomplete.suggestions.length).toEqual(2);
       expect(suggestionsEls.length).toEqual(2);
@@ -276,7 +279,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -287,7 +290,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
       expect(autocomplete.suggestions.length).toEqual(0);
       expect(suggestionsEls.length).toEqual(0);
@@ -299,7 +302,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -318,7 +321,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
       expect(autocomplete.suggestions.length).toEqual(0);
       expect(suggestionsEls.length).toEqual(1);
@@ -332,18 +335,18 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
-      
+
       inputEl.nativeElement.value = "v";
       inputEl.nativeElement.dispatchEvent(new Event('keydown'));
       inputEl.nativeElement.dispatchEvent(new Event('input'));
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const firstItemEl = fixture.debugElement.query(By.css('li')).nativeElement;
       expect(firstItemEl.className).toContain('ui-state-highlight');
     }));
@@ -353,7 +356,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -367,7 +370,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('change'));
       tick(300);
       fixture.detectChanges();
-      
+
       expect(inputEl.nativeElement.value).toEqual('');
     }));
 
@@ -375,7 +378,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -387,7 +390,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const firstItemEl = fixture.debugElement.query(By.css('li')).nativeElement;
       firstItemEl.click();
       fixture.detectChanges();
@@ -406,7 +409,7 @@ describe('AutoComplete', () => {
       const dropdownOpenEl = fixture.debugElement.query(By.css('.ui-autocomplete-dropdown'));
       dropdownOpenEl.nativeElement.click();
       fixture.detectChanges();
-      
+
       const panelEl = fixture.debugElement.query(By.css('div'));
       expect(panelEl).toBeTruthy();
       expect(autocomplete.overlayVisible).toEqual(true);
@@ -421,7 +424,7 @@ describe('AutoComplete', () => {
       const dropdownOpenEl = fixture.debugElement.query(By.css('.ui-autocomplete-dropdown'));
       dropdownOpenEl.nativeElement.click();
       fixture.detectChanges();
-      
+
       const panelEl = fixture.debugElement.query(By.css('div'));
       expect(panelEl).toBeTruthy();
       expect(autocomplete.overlayVisible).toEqual(true);
@@ -433,7 +436,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -445,7 +448,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const firstItemEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('li')).nativeElement;
       firstItemEl.click();
       fixture.detectChanges();
@@ -459,7 +462,7 @@ describe('AutoComplete', () => {
       autocomplete.minLength = 2;
       fixture.detectChanges();
       const inputEl = fixture.debugElement.query(By.css('.ui-inputtext.ui-widget'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.focus();
       inputEl.nativeElement.click();
       fixture.detectChanges();
@@ -472,7 +475,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const panelEl = fixture.debugElement.query(By.css('div'));
-      expect(panelEl).toBeFalsy();      
+      expect(panelEl).toBeFalsy();
     }));
 
     it('should multiple', () => {
@@ -491,7 +494,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -502,7 +505,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       inputEl.nativeElement.dispatchEvent(new Event('change'));
       const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
       firstItemEl.click();
@@ -518,7 +521,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -529,7 +532,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
       firstItemEl.click();
       fixture.detectChanges();
@@ -545,7 +548,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -556,7 +559,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
       firstItemEl.click();
       fixture.detectChanges();
@@ -577,7 +580,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -588,7 +591,7 @@ describe('AutoComplete', () => {
       inputEl.nativeElement.dispatchEvent(new Event('keyup'));
       tick(300);
       fixture.detectChanges();
-      
+
       const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
       firstItemEl.click();
       fixture.detectChanges();
@@ -608,7 +611,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -634,7 +637,7 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -656,10 +659,10 @@ describe('AutoComplete', () => {
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input'));
-      inputEl.nativeElement.dispatchEvent(new Event('focus'));  
+      inputEl.nativeElement.dispatchEvent(new Event('focus'));
       inputEl.nativeElement.click();
       fixture.detectChanges();
-     
+
       const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
       const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
       autocomplete.suggestions = ["Volvo","VW"]

@@ -32,6 +32,31 @@
     <ul>
         <li *ngFor="let c of countries">{{c.name}}</li>
     </ul>
+
+    <h3 style="margin-bottom: 0">Virtual Scroll (5000 Items)</h3>
+    <div style="display: flex">
+        <div style="margin-right: 25px">
+            <h4 style="margin-bottom: 10px; margin-top: 10px">Single Selection</h4>
+            <p-autoComplete [suggestions]="virtualScrollItems" [(ngModel)]="virtualScrollItem" placeholder="Select one..." [size]="30"
+                [dropdown]="true" [minLength]="1" (completeMethod)="filterVirtualScroll($event)" [virtualScroll]="true"
+                [itemSize]="31"
+            ></p-autoComplete>
+            <br>
+            Selected: {{ virtualScrollItem }}
+        </div>
+        <div style="flex: 1">
+            <h4 style="margin-bottom: 10px; margin-top: 10px">Multiple Selection</h4>
+            <p-autoComplete [suggestions]="virtualScrollItems" [(ngModel)]="selectedVirtualScrollItems" placeholder="Select many..." [size]="30"
+                [dropdown]="true" [minLength]="1" (completeMethod)="filterVirtualScroll($event)" [virtualScroll]="true"
+                [itemSize]="31" [multiple]="true"
+            ></p-autoComplete>
+            <br>
+            Selected:
+            <ul>
+                <li *ngFor="let car of selectedVirtualScrollItems">{{car}}</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -213,7 +238,7 @@ export class AutoCompleteDemo &#123;
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>

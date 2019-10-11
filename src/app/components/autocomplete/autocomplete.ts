@@ -7,7 +7,7 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -82,15 +82,32 @@ export class AutoCompleteItem {
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex"
             ></button>
 
-            <div #panel *ngIf="overlayVisible" [ngClass]="['ui-autocomplete-panel ui-widget ui-widget-content ui-corner-all ui-shadow']" [style.max-height]="scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass"
+            <div #panel *ngIf="overlayVisible" [ngClass]="['ui-autocomplete-panel ui-widget ui-widget-content ui-corner-all ui-shadow']"
+                [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')" [ngStyle]="panelStyle" [class]="panelStyleClass"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" (@overlayAnimation.done)="onOverlayAnimationDone($event)"
             >
                 <ul role="listbox" class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                    <p-autoCompleteItem *ngFor="let option of suggestions; let idx = index"
-                        [option]="option" [(highlightOption)]="highlightOption" [index]="idx"
-                        (onClick)="selectItem($event.option)" [itemSize]="itemSize"
-                        [template]="itemTemplate" [resolvedFieldData]="resolveFieldData(option)"
-                    ></p-autoCompleteItem>
+                    <ng-container *ngIf="!virtualScroll; else virtualScrollList">
+                        <p-autoCompleteItem *ngFor="let option of suggestions; let idx = index"
+                            [option]="option" [(highlightOption)]="highlightOption" [index]="idx"
+                            (onClick)="selectItem($event.option)" [itemSize]="itemSize"
+                            [template]="itemTemplate" [resolvedFieldData]="resolveFieldData(option)"
+                        ></p-autoCompleteItem>
+                    </ng-container>
+                    <ng-template #virtualScrollList>
+                        <cdk-virtual-scroll-viewport *ngIf="virtualScroll && suggestions && suggestions.length"
+                            [ngStyle]="{height: scrollHeight}" [itemSize]="itemSize"
+                        >
+                            <ng-container *cdkVirtualFor="let option of suggestions; let idx = index">
+                                <p-autoCompleteItem
+                                    [option]="option" [(highlightOption)]="highlightOption" [index]="idx"
+                                    (onClick)="selectItem($event.option)" [itemSize]="itemSize"
+                                    [template]="itemTemplate" [resolvedFieldData]="resolveFieldData(option)"
+                                ></p-autoCompleteItem>
+                            </ng-container>
+                        </cdk-virtual-scroll-viewport>
+                    </ng-template>
+
                     <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-emptymessage ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
                 </ul>
             </div>
