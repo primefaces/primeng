@@ -13,8 +13,7 @@ import { PCarouselModule } from 'src/app/components/pcarousel/pcarousel';
 		ButtonDemoRoutingModule,
         ButtonModule,
         TabViewModule,
-		CodeHighlighterModule,
-		PCarouselModule
+		CodeHighlighterModule
 	],
 	declarations: [
 		ButtonDemo
