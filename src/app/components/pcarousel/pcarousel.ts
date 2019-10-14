@@ -291,249 +291,249 @@ export class PCarousel implements OnInit, AfterContentInit {
 			this.carouselStyle.innerHTML = innerHTML;
 		}
 
-		calculatePosition() {
-			if (this.itemsContainer && this.responsive) {
-				let windowWidth = window.innerWidth;
-				let matchedResponsiveData = {
-					numVisible: this.defaultNumVisible,
-					numScroll: this.defaultNumScroll
-				};
+	calculatePosition() {
+		if (this.itemsContainer && this.responsive) {
+			let windowWidth = window.innerWidth;
+			let matchedResponsiveData = {
+				numVisible: this.defaultNumVisible,
+				numScroll: this.defaultNumScroll
+			};
 
-				for (let i = 0; i < this.responsive.length; i++) {
-					let res = this.responsive[i];
+			for (let i = 0; i < this.responsive.length; i++) {
+				let res = this.responsive[i];
 
-					if (parseInt(res.breakpoint, 10) >= windowWidth) {
-						matchedResponsiveData = res;
-					}
-				}
-
-				if (this._numScroll !== matchedResponsiveData.numScroll) {
-					let activeIndex = this._page;
-					activeIndex = Math.floor((activeIndex * this._numScroll) / matchedResponsiveData.numScroll);
-
-					let totalShiftedItems = (matchedResponsiveData.numScroll * this.page) * -1;
-
-					if (this.isCircular()) {
-						totalShiftedItems -= matchedResponsiveData.numVisible;
-					}
-
-					this.totalShiftedItems = totalShiftedItems;
-					this._numScroll = matchedResponsiveData.numScroll;
-
-					this.page = activeIndex;
-				}
-
-				if (this._numVisible !== matchedResponsiveData.numVisible) {
-					this._numVisible = matchedResponsiveData.numVisible;
-					this.setCloneItems();
+				if (parseInt(res.breakpoint, 10) >= windowWidth) {
+					matchedResponsiveData = res;
 				}
 			}
+
+			if (this._numScroll !== matchedResponsiveData.numScroll) {
+				let activeIndex = this._page;
+				activeIndex = Math.floor((activeIndex * this._numScroll) / matchedResponsiveData.numScroll);
+
+				let totalShiftedItems = (matchedResponsiveData.numScroll * this.page) * -1;
+
+				if (this.isCircular()) {
+					totalShiftedItems -= matchedResponsiveData.numVisible;
+				}
+
+				this.totalShiftedItems = totalShiftedItems;
+				this._numScroll = matchedResponsiveData.numScroll;
+
+				this.page = activeIndex;
+			}
+
+			if (this._numVisible !== matchedResponsiveData.numVisible) {
+				this._numVisible = matchedResponsiveData.numVisible;
+				this.setCloneItems();
+			}
+		}
+	}
+	
+	setCloneItems() {
+		this.clonedItemsForStarting = [];
+		this.clonedItemsForFinishing = [];
+		if (this.circular) {
+			this.clonedItemsForStarting.push(...this.value.slice(-1 * this._numVisible));
+			this.clonedItemsForFinishing.push(...this.value.slice(0, this._numVisible));
+		}
+	}
+
+	firstIndex() {
+		return this.isCircular ? (-1 * (this.totalShiftedItems + this.numVisible)) : (this.totalShiftedItems * -1);
+	}
+
+	lastIndex() {
+		return this.firstIndex() + this.numVisible - 1;
+	}
+
+	totalDots() {
+		return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
+	}
+	totalDotsArray() {
+		let totalDots = Array(this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0).fill(0);
+		return totalDots;
+	}
+
+	containerClass() {
+		return {'p-carousel p-component':true, 
+			'p-carousel-vertical': this.isVertical()
+		};
+	}
+
+	contentClasses() {
+		return 'p-carousel-content '+ this.contentClass;
+	}
+
+	dotsContentClasses() {
+		return 'p-carousel-dots-container ui-helper-reset ' + this.dotsContentClass;
+	}
+
+	isVertical() {
+		return this.orientation === 'vertical';
+	}
+
+	isCircular() {
+		return this.circular && this.value.length >= this.numVisible;
+	}
+
+	isAutoplay() {
+		return this.autoplayInterval && this.allowAutoplay;
+	}
+
+	navForward(e?,index?) {
+		if (this.circular || this._page < (this.totalDots() - 1)) {
+			this.step(-1, index);
+		}
+
+		if(this.autoplayInterval) {
+			this.stopAutoplay();
+			this.allowAutoplay = false;
+		}
+
+		if (e && e.cancelable) {
+			e.preventDefault();
+		}
+	}
+
+	navBackward(e?,index?) {
+		if (this.circular || this._page !== 0) {
+			this.step(1, index);
+		}
+
+		if(this.autoplayInterval) {
+			this.stopAutoplay();
+			this.allowAutoplay = false;
 		}
 		
-		setCloneItems() {
-			this.clonedItemsForStarting = [];
-			this.clonedItemsForFinishing = [];
-			if (this.circular) {
-				this.clonedItemsForStarting.push(...this.value.slice(-1 * this._numVisible));
-				this.clonedItemsForFinishing.push(...this.value.slice(0, this._numVisible));
-			}
+		if (e && e.cancelable) {
+			e.preventDefault();
 		}
+	}
 
-		firstIndex() {
-			return this.isCircular ? (-1 * (this.totalShiftedItems + this.numVisible)) : (this.totalShiftedItems * -1);
-		}
+	onDotClick(e?, index?) {
+		let activeIndex = this._page;
 
-		lastIndex() {
-			return this.firstIndex() + this.numVisible - 1;
+		if(this.autoplayInterval) {
+			this.stopAutoplay();
+			this.allowAutoplay = false;
 		}
+		
+		if (index > activeIndex) {
+			this.navForward(e, index);
+		}
+		else if (index < activeIndex) {
+			this.navBackward(e, index);
+		}
+	}
 
-		totalDots() {
-			return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
-		}
-		totalDotsArray() {
-			let totalDots = Array(this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0).fill(0);
-			return totalDots;
-		}
+	step(dir, page) {
+		let totalShiftedItems = this.totalShiftedItems;
+		const isCircular = this.isCircular();
 
-		containerClass() {
-			return {'p-carousel p-component':true, 
-				'p-carousel-vertical': this.isVertical()
-			};
-		}
+		if (page != null) {
+			totalShiftedItems = (this._numScroll * page) * -1;
 
-		contentClasses() {
-			return 'p-carousel-content '+ this.contentClass;
-		}
-
-		dotsContentClasses() {
-			return 'p-carousel-dots-container ui-helper-reset ' + this.dotsContentClass;
-		}
-
-		isVertical() {
-			return this.orientation === 'vertical';
-		}
-
-		isCircular() {
-			return this.circular && this.value.length >= this.numVisible;
-		}
-
-		isAutoplay() {
-			return this.autoplayInterval && this.allowAutoplay;
-		}
-
-		navForward(e?,index?) {
-			if (this.circular || this._page < (this.totalDots() - 1)) {
-				this.step(-1, index);
+			if (isCircular) {
+				totalShiftedItems -= this._numVisible;
 			}
 
-			if(this.autoplayInterval) {
-				this.stopAutoplay();
-				this.allowAutoplay = false;
-			}
-
-			if (e && e.cancelable) {
-				e.preventDefault();
-			}
+			this.isRemainingItemsAdded = false;
 		}
-
-		navBackward(e?,index?) {
-			if (this.circular || this._page !== 0) {
-				this.step(1, index);
-			}
-
-			if(this.autoplayInterval) {
-				this.stopAutoplay();
-				this.allowAutoplay = false;
-			}
-			
-			if (e && e.cancelable) {
-				e.preventDefault();
-			}
-		}
-
-		onDotClick(e?, index?) {
-			let activeIndex = this._page;
-
-			if(this.autoplayInterval) {
-				this.stopAutoplay();
-				this.allowAutoplay = false;
-			}
-			
-			if (index > activeIndex) {
-				this.navForward(e, index);
-			}
-			else if (index < activeIndex) {
-				this.navBackward(e, index);
-			}
-		}
-
-		step(dir, page) {
-			let totalShiftedItems = this.totalShiftedItems;
-			const isCircular = this.isCircular();
-
-			if (page != null) {
-				totalShiftedItems = (this._numScroll * page) * -1;
-
-				if (isCircular) {
-					totalShiftedItems -= this._numVisible;
-				}
-
+		else {
+			totalShiftedItems += (this._numScroll * dir);
+			if (this.isRemainingItemsAdded) {
+				totalShiftedItems += this.remainingItems - (this._numScroll * dir);
 				this.isRemainingItemsAdded = false;
 			}
-			else {
-				totalShiftedItems += (this._numScroll * dir);
-				if (this.isRemainingItemsAdded) {
-					totalShiftedItems += this.remainingItems - (this._numScroll * dir);
-					this.isRemainingItemsAdded = false;
-				}
 
-				let originalShiftedItems = isCircular ? (totalShiftedItems + this._numVisible) : totalShiftedItems;
-				page = Math.abs(Math.floor((originalShiftedItems / this._numScroll)));
-			}
-
-			if (isCircular && this.page === (this.totalDots() - 1) && dir === -1) {
-				totalShiftedItems = -1 * (this.value.length + this._numVisible);
-				page = 0;
-			}
-			else if (isCircular && this.page === 0 && dir === 1) {
-				totalShiftedItems = 0;
-				page = (this.totalDots() - 1);
-			}
-			else if (page === (this.totalDots() - 1) && this.remainingItems > 0) {
-				totalShiftedItems += ((this.remainingItems * -1) - (this._numScroll * dir));
-				this.isRemainingItemsAdded = true;
-			}
-
-			if (this.itemsContainer) {
-				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
-				this.itemsContainer.nativeElement.style.transition = 'transform 600ms ease 0s';
-			}
-
-			this.totalShiftedItems = totalShiftedItems;
-			this.page = page;
+			let originalShiftedItems = isCircular ? (totalShiftedItems + this._numVisible) : totalShiftedItems;
+			page = Math.abs(Math.floor((originalShiftedItems / this._numScroll)));
 		}
 
-		startAutoplay() {
-			this.interval = setInterval(() => {
-				if(this.page === (this.totalDots() - 1)) {
-					this.step(-1, 0);
-				}
-				else {
-					this.step(-1, this.page + 1);
-				}
-			}, 
-			this.autoplayInterval);
+		if (isCircular && this.page === (this.totalDots() - 1) && dir === -1) {
+			totalShiftedItems = -1 * (this.value.length + this._numVisible);
+			page = 0;
 		}
-	
-		stopAutoplay() {
-			if (this.interval) {
-				clearInterval(this.interval);
-			}
+		else if (isCircular && this.page === 0 && dir === 1) {
+			totalShiftedItems = 0;
+			page = (this.totalDots() - 1);
+		}
+		else if (page === (this.totalDots() - 1) && this.remainingItems > 0) {
+			totalShiftedItems += ((this.remainingItems * -1) - (this._numScroll * dir));
+			this.isRemainingItemsAdded = true;
 		}
 
-		onTransitionEnd() {
-			if (this.itemsContainer) {
-				this.itemsContainer.nativeElement.style.transition = '';
-	
-				if ((this.page === 0 || this.page === (this.totalDots() - 1)) && this.isCircular()) {
-					this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
-				}
-			}
+		if (this.itemsContainer) {
+			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+			this.itemsContainer.nativeElement.style.transition = 'transform 600ms ease 0s';
 		}
 
-		onTouchStart(e) {
-			let touchobj = e.changedTouches[0];
+		this.totalShiftedItems = totalShiftedItems;
+		this.page = page;
+	}
 
-			this.startPos = {
-				x: touchobj.pageX,
-				y: touchobj.pageY
-			};
-		}
-
-		onTouchMove(e) {
-			if (e.cancelable) {
-				e.preventDefault();
-			}
-		}
-		onTouchEnd(e) {
-			let touchobj = e.changedTouches[0];
-
-			if (this.isVertical()) {
-				this.changePageOnTouch(e, (touchobj.pageY - this.startPos.y));
+	startAutoplay() {
+		this.interval = setInterval(() => {
+			if(this.page === (this.totalDots() - 1)) {
+				this.step(-1, 0);
 			}
 			else {
-				this.changePageOnTouch(e, (touchobj.pageX - this.startPos.x));
+				this.step(-1, this.page + 1);
 			}
-		}
+		}, 
+		this.autoplayInterval);
+	}
 
-		changePageOnTouch(e, diff) {
-			if (diff < 0) {
-				this.navForward(e);
-			}
-			else {
-				this.navBackward(e);
+	stopAutoplay() {
+		if (this.interval) {
+			clearInterval(this.interval);
+		}
+	}
+
+	onTransitionEnd() {
+		if (this.itemsContainer) {
+			this.itemsContainer.nativeElement.style.transition = '';
+
+			if ((this.page === 0 || this.page === (this.totalDots() - 1)) && this.isCircular()) {
+				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 			}
 		}
+	}
+
+	onTouchStart(e) {
+		let touchobj = e.changedTouches[0];
+
+		this.startPos = {
+			x: touchobj.pageX,
+			y: touchobj.pageY
+		};
+	}
+
+	onTouchMove(e) {
+		if (e.cancelable) {
+			e.preventDefault();
+		}
+	}
+	onTouchEnd(e) {
+		let touchobj = e.changedTouches[0];
+
+		if (this.isVertical()) {
+			this.changePageOnTouch(e, (touchobj.pageY - this.startPos.y));
+		}
+		else {
+			this.changePageOnTouch(e, (touchobj.pageX - this.startPos.x));
+		}
+	}
+
+	changePageOnTouch(e, diff) {
+		if (diff < 0) {
+			this.navForward(e);
+		}
+		else {
+			this.navBackward(e);
+		}
+	}
 
 	bindDocumentListeners() {
 		if (!this.documentResizeListener) {
