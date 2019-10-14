@@ -6,10 +6,10 @@
 
 .p-carousel-content {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: nowrap;
 	overflow: auto;
-	padding: .5em;
+	padding: 0 .5em;
 }
 
 .p-carousel-prev.p-link,
@@ -25,12 +25,10 @@
 
 .p-carousel-prev span,
 .p-carousel-next span {
-	display: block;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-top: -.45em;
-	margin-left: -.45em;
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .p-carousel-prev span {
@@ -39,9 +37,8 @@
 
 .p-carousel-container {
 	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	padding: 0 .1em;
+    flex-direction: row;
+    padding: 0 .1em;
 }
 
 .p-carousel-header,
@@ -50,48 +47,31 @@
 	z-index: 1;
 }
 
-.p-carousel-items {
-	display: flex;
-	flex-wrap: nowrap;
-	flex-direction: row;
+.p-carousel-items-content {
+    overflow: hidden;
+    width: 100%;
 }
 
-.p-carousel-items .p-carousel-item {
-	width: 100%;
-	box-sizing: border-box;
-	overflow: auto;
+.p-carousel-items-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
 }
 
-.p-carousel-items .p-carousel-item.p-carousel-item-active {
-	visibility: visible;
+.p-carousel-items-container .p-carousel-item {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
-.p-carousel-dots-content {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	margin: .5em;
+.p-carousel-dots-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: .5em;
 }
 
-/* Vertical */
-.p-carousel-vertical .p-carousel-content {
-	flex-direction: column;
-	flex-basis: 100%;
-}
-
-.p-carousel-vertical .p-carousel-prev,
-.p-carousel-vertical .p-carousel-next {
-	transform: rotate(90deg);
-}
-
-.p-carousel-vertical .p-carousel-items {
-	flex-direction: column;
-	height: 100%;
-}
-
-.p-carousel-vertical .p-carousel-dots-content {
-	margin: .75em 0;
-}
 .p-link {
 	text-align: left;
 	background-color: transparent;
@@ -99,4 +79,19 @@
 	padding: 0;
 	border: none;
 	cursor: pointer;
+}
+
+/* Vertical */
+.p-carousel-vertical .p-carousel-container {
+    flex-direction: column;
+    width: 100%;
+}
+
+.p-carousel-vertical .p-carousel-items-container {
+    flex-direction: column;
+    height: 100%;
+}
+
+.p-carousel-vertical .p-carousel-dots-container {
+    margin: .75em 0;
 }

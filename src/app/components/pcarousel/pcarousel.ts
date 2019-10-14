@@ -6,46 +6,48 @@ import { CommonModule } from '@angular/common';
 	template: `
 	
 		<div [attr.id]="id" [ngClass]="containerClass()">
-			<div [class]="contentClasses()">
-				<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward()">
-					<span class="p-carousel-prev-icon pi pi-chevron-left"></span>
-				</button>
-				<div class="p-carousel-container" [ngStyle]="{'height': isVertical() ? verticalContentHeight : 'auto'}">
-					<div class="p-carousel-header">
-						<ng-content select="p-header"></ng-content>
-					</div>
-					<div #itemsContainer class="p-carousel-items" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
-						<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems === 0),
-						'p-carousel-item-start': 0 === index,
-						'p-carousel-item-end': (clonedItemsForStarting.length - 1) === index}">
-							<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
-						</div>
-						<div *ngFor="let item of value; let index = index" [ngClass]= "{'p-carousel-item': true,'p-carousel-item-active': (firstIndex() <= index && lastIndex() >= index),
-						'p-carousel-item-start': firstIndex() === index,
-						'p-carousel-item-end': lastIndex() === index}">
-							<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
-						</div>
-						<div *ngFor="let item of clonedItemsForFinishing; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems * -1) === (this.value.length + this.numVisible),
-						'p-carousel-item-start': 0 === index,
-						'p-carousel-item-end': (clonedItemsForFinishing.lenght - 1) === index}">
-							<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
-						</div>
-					</div>
-					<div class="p-carousel-footer">
-						<ng-content select="p-footer"></ng-content>
-					</div>
-				</div>
-				<button [ngClass]="{'p-carousel-next p-link': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" (click)="navForward()" [disabled]="_page === totalDots()-1 && !circular">
-					<span class="p-carousel-next-icon pi pi-chevron-right"></span>
-				</button>
+			<div class="p-carousel-header">
+				<ng-content select="p-header"></ng-content>
 			</div>
-			<ul [class]="dotsContentClasses()">
-				<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'p-carousel-dot-item':true,'p-highlight': _page === i}">
-					<button class="p-link" (click)="onDotClick($event, i)">
-						<span [ngClass]="{'p-carousel-dot-icon pi':true, 'pi-circle-on': _page === i, 'pi-circle-off': !(_page === i)}"></span>
+			<div [class]="contentClasses()">
+				<div class="p-carousel-container">
+					<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward()">
+						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
 					</button>
-				</li>
-			</ul>
+					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalContentHeight : 'auto'}">
+						<div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+							<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems === 0),
+							'p-carousel-item-start': 0 === index,
+							'p-carousel-item-end': (clonedItemsForStarting.length - 1) === index}">
+								<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+							</div>
+							<div *ngFor="let item of value; let index = index" [ngClass]= "{'p-carousel-item': true,'p-carousel-item-active': (firstIndex() <= index && lastIndex() >= index),
+							'p-carousel-item-start': firstIndex() === index,
+							'p-carousel-item-end': lastIndex() === index}">
+								<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+							</div>
+							<div *ngFor="let item of clonedItemsForFinishing; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems * -1) === (this.value.length + this.numVisible),
+							'p-carousel-item-start': 0 === index,
+							'p-carousel-item-end': (clonedItemsForFinishing.lenght - 1) === index}">
+								<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+							</div>
+						</div>
+					</div>
+					<button [ngClass]="{'p-carousel-next p-link': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" (click)="navForward()" [disabled]="_page === totalDots()-1 && !circular">
+						<span [ngClass]="{'p-carousel-next-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
+					</button>
+				</div>
+				<ul [class]="dotsContentClasses()">
+					<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'p-carousel-dot-item':true,'p-highlight': _page === i}">
+						<button class="p-link" (click)="onDotClick($event, i)">
+							<span [ngClass]="{'p-carousel-dot-icon pi':true, 'pi-circle-on': _page === i, 'pi-circle-off': !(_page === i)}"></span>
+						</button>
+					</li>
+				</ul>
+			</div>
+			<div class="p-carousel-footer">
+				<ng-content select="p-footer"></ng-content>
+			</div>
 		</div>
 
 	`,
@@ -368,7 +370,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 
 		dotsContentClasses() {
-			return 'p-carousel-dots-content ui-helper-reset ' + this.dotsContentClass;
+			return 'p-carousel-dots-container ui-helper-reset ' + this.dotsContentClass;
 		}
 
 		isVertical() {
