@@ -92,6 +92,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 	
 	@Input() circular:boolean = false;
 
+	@Input() autoplayInterval:number = 0;
+
 	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
@@ -112,7 +114,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	id:string;
 
-	totalShiftedItems= this.page * this.numScroll * -1; //ngOnInit e tasinacak
+	totalShiftedItems;
 
 	isRemainingItemsAdded:boolean = false;
 
@@ -132,10 +134,14 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	clonedItemsForFinishing: any[];
 
+	allowAutoplay: boolean;
+
+	interval: any;
+
 	public itemTemplate: TemplateRef<any>;
 
 	constructor(public el: ElementRef, public zone: NgZone) { 
-		
+		this.totalShiftedItems = this.page * this.numScroll * -1; 
 	}
 
 	ngOnInit() {
@@ -143,6 +149,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	ngAfterContentInit() {
 		this.id = UniqueComponentId();
+		this.allowAutoplay = !!this.autoplayInterval;
+
 		if (this.circular) {
 			this.setCloneItems();
 		}
@@ -175,8 +183,11 @@ export class PCarousel implements OnInit, AfterContentInit {
 	ngAfterContentChecked() {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
-        let stateChanged = false;
-
+		let stateChanged = false;
+		
+		if(this.autoplayInterval) {
+            this.stopAutoplay();
+        }
 
 		if(this._oldNumScroll !== this._numScroll) {
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
@@ -227,6 +238,10 @@ export class PCarousel implements OnInit, AfterContentInit {
                 stateChanged = true;
             }
 		}
+
+		if(!stateChanged && this.isAutoplay()) {
+            this.startAutoplay();
+        }
 	}
 
 	createStyle() {
@@ -364,11 +379,16 @@ export class PCarousel implements OnInit, AfterContentInit {
 			return this.circular && this.value.length >= this.numVisible;
 		}
 
+		isAutoplay() {
+			return this.autoplayInterval && this.allowAutoplay;
+		}
+
 		navForward(e?,index?) {
 			if (this.circular || this._page < (this.totalDots() - 1)) {
 				this.step(-1, index);
 			}
 
+			this.allowAutoplay = false;
 			if (e && e.cancelable) {
 				e.preventDefault();
 			}
@@ -379,6 +399,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 				this.step(1, index);
 			}
 
+			this.allowAutoplay = false;
 			if (e && e.cancelable) {
 				e.preventDefault();
 			}
@@ -439,6 +460,24 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 			this.totalShiftedItems = totalShiftedItems;
 			this.page = page;
+		}
+
+		startAutoplay() {
+			this.interval = setInterval(() => {
+				if(this.page === (this.totalDots() - 1)) {
+					this.step(-1, 0);
+				}
+				else {
+					this.step(-1, this.page + 1);
+				}
+			}, 
+			this.autoplayInterval);
+		}
+	
+		stopAutoplay() {
+			if (this.interval) {
+				clearInterval(this.interval);
+			}
 		}
 
 		onTransitionEnd() {
