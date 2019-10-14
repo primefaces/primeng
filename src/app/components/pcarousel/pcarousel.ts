@@ -7,15 +7,15 @@ import { CommonModule } from '@angular/common';
 	
 		<div [attr.id]="id" [ngClass]="containerClass()">
 			<div [class]="contentClasses()">
-				<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _activeIndex === 0  && !circular}" [disabled]="_activeIndex === 0  && !circular" (click)="navBackward()">
+				<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward()">
 					<span class="p-carousel-prev-icon pi pi-chevron-left"></span>
 				</button>
 				<div class="p-carousel-container" [ngStyle]="{'height': isVertical() ? verticalContentHeight : 'auto'}">
 					<div class="p-carousel-header">
 						<ng-content select="p-header"></ng-content>
 					</div>
-					<div #itemsContainer class="p-carousel-items" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
-						<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (this.totalShiftedItems === 0),
+					<div #itemsContainer class="p-carousel-items" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+						<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems === 0),
 						'p-carousel-item-start': 0 === index,
 						'p-carousel-item-end': (clonedItemsForStarting.length - 1) === index}">
 							<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
@@ -25,9 +25,9 @@ import { CommonModule } from '@angular/common';
 						'p-carousel-item-end': lastIndex() === index}">
 							<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
 						</div>
-						<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (this.totalShiftedItems * -1) === (this.value.length + this.numVisible),
+						<div *ngFor="let item of clonedItemsForFinishing; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems * -1) === (this.value.length + this.numVisible),
 						'p-carousel-item-start': 0 === index,
-						'p-carousel-item-end': (clonedItemsForStarting.lenght - 1) === index}">
+						'p-carousel-item-end': (clonedItemsForFinishing.lenght - 1) === index}">
 							<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
 						</div>
 					</div>
@@ -35,14 +35,14 @@ import { CommonModule } from '@angular/common';
 						<ng-content select="p-footer"></ng-content>
 					</div>
 				</div>
-				<button [ngClass]="{'p-carousel-next p-link': true, 'ui-state-disabled': (_activeIndex === totalDots()-1 && !circular)}" (click)="navForward()" [disabled]="_activeIndex === totalDots()-1 && !circular">
+				<button [ngClass]="{'p-carousel-next p-link': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" (click)="navForward()" [disabled]="_page === totalDots()-1 && !circular">
 					<span class="p-carousel-next-icon pi pi-chevron-right"></span>
 				</button>
 			</div>
 			<ul [class]="dotsContentClasses()">
-				<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'p-carousel-dot-item':true,'p-highlight': _activeIndex === i}">
+				<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'p-carousel-dot-item':true,'p-highlight': _page === i}">
 					<button class="p-link" (click)="onDotClick($event, i)">
-						<span [ngClass]="{'p-carousel-dot-icon pi':true, 'pi-circle-on': _activeIndex === i, 'pi-circle-off': !(_activeIndex === i)}"></span>
+						<span [ngClass]="{'p-carousel-dot-icon pi':true, 'pi-circle-on': _page === i, 'pi-circle-off': !(_page === i)}"></span>
 					</button>
 				</li>
 			</ul>
@@ -54,10 +54,10 @@ import { CommonModule } from '@angular/common';
 export class PCarousel implements OnInit, AfterContentInit {
 
 	@Input() get page():number {
-		return this._activeIndex;
+		return this._page;
 	}
 	set page(val:number) {
-		this._activeIndex = val;
+		this._page = val;
 	}
 		
 	@Input() header = null;
@@ -106,13 +106,13 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	defaultNumVisible:number = 1;
 
-	_activeIndex: number = 0;
+	_page: number = 0;
 
 	carouselStyle:any;
 
 	id:string;
 
-	totalShiftedItems= this.page * this.numScroll * -1;
+	totalShiftedItems= this.page * this.numScroll * -1; //ngOnInit e tasinacak
 
 	isRemainingItemsAdded:boolean = false;
 
@@ -173,24 +173,59 @@ export class PCarousel implements OnInit, AfterContentInit {
 	}
 
 	ngAfterContentChecked() {
+		const isCircular = this.isCircular();
+		let totalShiftedItems = this.totalShiftedItems;
+        let stateChanged = false;
+
+
 		if(this._oldNumScroll !== this._numScroll) {
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
-			let totalShiftedItems = this.totalShiftedItems;
-			let activeIndex = this._activeIndex;
+			let page = this._page;
+			if (this.totalDots() !== 0 && page >= this.totalDots()) {
+                page = this.totalDots() - 1;
+                this.page = page;
+                stateChanged = true;
+			}
+			
+			totalShiftedItems = (page * this._numScroll) * -1;
+            if (isCircular) {
+                totalShiftedItems -= this._numVisible;
+            }
 
-			if (activeIndex === (this.totalDots() - 1) && this.remainingItems > 0) {
+			if (page === (this.totalDots() - 1) && this.remainingItems > 0) {
 				totalShiftedItems += (-1 * this.remainingItems) + this._numScroll;
-				this.totalShiftedItems = totalShiftedItems;
 				this.isRemainingItemsAdded = true;
 			}
 			else {
 				this.isRemainingItemsAdded = false;
 			}
 
+			if (totalShiftedItems !== this.totalShiftedItems) {
+                this.totalShiftedItems = totalShiftedItems;
+                stateChanged = true;
+            }
+
 			this._oldNumScroll = this._numScroll;
 
 			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+		}
+
+		if (isCircular) {
+            if (this.page === 0) {
+                totalShiftedItems = -1 * this._numVisible;
+            }
+            else if (totalShiftedItems === 0) {
+                totalShiftedItems = -1 * this.value.length;
+                if (this.remainingItems > 0) {
+                    this.isRemainingItemsAdded = true;
+                }
+            }
+
+            if (totalShiftedItems !== this.totalShiftedItems) {
+				this.totalShiftedItems = totalShiftedItems;
+                stateChanged = true;
+            }
 		}
 	}
 
@@ -260,10 +295,14 @@ export class PCarousel implements OnInit, AfterContentInit {
 				}
 
 				if (this._numScroll !== matchedResponsiveData.numScroll) {
-					let activeIndex = this._activeIndex;
+					let activeIndex = this._page;
 					activeIndex = Math.floor((activeIndex * this._numScroll) / matchedResponsiveData.numScroll);
 
 					let totalShiftedItems = (matchedResponsiveData.numScroll * this.page) * -1;
+
+					if (this.isCircular()) {
+						totalShiftedItems -= matchedResponsiveData.numVisible;
+					}
 
 					this.totalShiftedItems = totalShiftedItems;
 					this._numScroll = matchedResponsiveData.numScroll;
@@ -325,7 +364,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 
 		navForward(e?,index?) {
-			if (this._activeIndex < (this.totalDots() - 1)) {
+			if (this.circular || this._page < (this.totalDots() - 1)) {
 				this.step(-1, index);
 			}
 
@@ -335,7 +374,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 
 		navBackward(e?,index?) {
-			if (this._activeIndex !== 0) {
+			if (this.circular || this._page !== 0) {
 				this.step(1, index);
 			}
 
@@ -345,7 +384,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 
 		onDotClick(e?, index?) {
-			let activeIndex = this._activeIndex;
+			let activeIndex = this._page;
 
 			if (index > activeIndex) {
 				this.navForward(e, index);
@@ -355,11 +394,17 @@ export class PCarousel implements OnInit, AfterContentInit {
 			}
 		}
 
-		step(dir, index) {
+		step(dir, page) {
 			let totalShiftedItems = this.totalShiftedItems;
+			const isCircular = this.isCircular();
 
-			if (index != null) {
-				totalShiftedItems = (this._numScroll * index) * -1;
+			if (page != null) {
+				totalShiftedItems = (this._numScroll * page) * -1;
+
+				if (isCircular) {
+					totalShiftedItems -= this._numVisible;
+				}
+
 				this.isRemainingItemsAdded = false;
 			}
 			else {
@@ -369,32 +414,40 @@ export class PCarousel implements OnInit, AfterContentInit {
 					this.isRemainingItemsAdded = false;
 				}
 
-				index = Math.abs(Math.floor((totalShiftedItems / this._numScroll)));
+				let originalShiftedItems = isCircular ? (totalShiftedItems + this._numVisible) : totalShiftedItems;
+				page = Math.abs(Math.floor((originalShiftedItems / this._numScroll)));
 			}
 
-			if (index === (this.totalDots() - 1) && this.remainingItems > 0) {
+			if (isCircular && this.page === (this.totalDots() - 1) && dir === -1) {
+				totalShiftedItems = -1 * (this.value.length + this._numVisible);
+				page = 0;
+			}
+			else if (isCircular && this.page === 0 && dir === 1) {
+				totalShiftedItems = 0;
+				page = (this.totalDots() - 1);
+			}
+			else if (page === (this.totalDots() - 1) && this.remainingItems > 0) {
 				totalShiftedItems += ((this.remainingItems * -1) - (this._numScroll * dir));
 				this.isRemainingItemsAdded = true;
 			}
 
 			if (this.itemsContainer) {
 				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
-				this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
-
-				if (this.animationTimeout) {
-					clearTimeout(this.animationTimeout);
-				}
-
-				this.animationTimeout = setTimeout(() => {
-					if (this.itemsContainer) {
-						this.itemsContainer.nativeElement.style.transition = '';
-					}
-				}, 500);
+				this.itemsContainer.nativeElement.style.transition = 'transform 600ms ease 0s';
 			}
 
 			this.totalShiftedItems = totalShiftedItems;
+			this.page = page;
+		}
 
-			this.page = index;
+		onTransitionEnd() {
+			if (this.itemsContainer) {
+				this.itemsContainer.nativeElement.style.transition = '';
+	
+				if ((this.page === 0 || this.page === (this.totalDots() - 1)) && this.isCircular()) {
+					this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+				}
+			}
 		}
 
 		onTouchStart(e) {

@@ -60,8 +60,6 @@
 	width: 100%;
 	box-sizing: border-box;
 	overflow: auto;
-	visibility: hidden;
-	transition: visibility 1s;
 }
 
 .p-carousel-items .p-carousel-item.p-carousel-item-active {
