@@ -312,6 +312,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 				if (this._numVisible !== matchedResponsiveData.numVisible) {
 					this._numVisible = matchedResponsiveData.numVisible;
+					this.setCloneItems();
 				}
 			}
 		}
