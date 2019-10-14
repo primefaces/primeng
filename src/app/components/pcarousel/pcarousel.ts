@@ -187,10 +187,6 @@ export class PCarousel implements OnInit, AfterContentInit {
 		let totalShiftedItems = this.totalShiftedItems;
 		let stateChanged = false;
 		
-		if(this.autoplayInterval) {
-            this.stopAutoplay();
-        }
-
 		if(this._oldNumScroll !== this._numScroll) {
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
@@ -241,9 +237,9 @@ export class PCarousel implements OnInit, AfterContentInit {
             }
 		}
 
-		if(!stateChanged && this.isAutoplay()) {
+		if(!stateChanged && this.isAutoplay() && !this.interval) {
             this.startAutoplay();
-        }
+		}
 	}
 
 	createStyle() {
@@ -390,7 +386,11 @@ export class PCarousel implements OnInit, AfterContentInit {
 				this.step(-1, index);
 			}
 
-			this.allowAutoplay = false;
+			if(this.autoplayInterval) {
+				this.stopAutoplay();
+				this.allowAutoplay = false;
+			}
+
 			if (e && e.cancelable) {
 				e.preventDefault();
 			}
@@ -401,7 +401,11 @@ export class PCarousel implements OnInit, AfterContentInit {
 				this.step(1, index);
 			}
 
-			this.allowAutoplay = false;
+			if(this.autoplayInterval) {
+				this.stopAutoplay();
+				this.allowAutoplay = false;
+			}
+			
 			if (e && e.cancelable) {
 				e.preventDefault();
 			}
@@ -410,6 +414,11 @@ export class PCarousel implements OnInit, AfterContentInit {
 		onDotClick(e?, index?) {
 			let activeIndex = this._page;
 
+			if(this.autoplayInterval) {
+				this.stopAutoplay();
+				this.allowAutoplay = false;
+			}
+			
 			if (index > activeIndex) {
 				this.navForward(e, index);
 			}
