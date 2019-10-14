@@ -5,7 +5,6 @@ import {ButtonDemoRoutingModule} from './buttondemo-routing.module';
 import {ButtonModule} from '../../../components/button/button';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
-import { PCarouselModule } from 'src/app/components/pcarousel/pcarousel';
 
 @NgModule({
 	imports: [
@@ -13,7 +12,7 @@ import { PCarouselModule } from 'src/app/components/pcarousel/pcarousel';
 		ButtonDemoRoutingModule,
         ButtonModule,
         TabViewModule,
-		CodeHighlighterModule
+        CodeHighlighterModule
 	],
 	declarations: [
 		ButtonDemo
