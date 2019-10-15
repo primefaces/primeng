@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 					</button>
 					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
 						<div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
-							<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems === 0),
+							<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems * -1) === (value.length),
 							'p-carousel-item-start': 0 === index,
 							'p-carousel-item-end': (clonedItemsForStarting.length - 1) === index}">
 								<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
@@ -26,9 +26,9 @@ import { CommonModule } from '@angular/common';
 							'p-carousel-item-end': lastIndex() === index}">
 								<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
 							</div>
-							<div *ngFor="let item of clonedItemsForFinishing; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems * -1) === (this.value.length + this.numVisible),
+							<div *ngFor="let item of clonedItemsForFinishing; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': ((totalShiftedItems *-1) === numVisible),
 							'p-carousel-item-start': 0 === index,
-							'p-carousel-item-end': (clonedItemsForFinishing.lenght - 1) === index}">
+							'p-carousel-item-end': (clonedItemsForFinishing.length - 1) === index}">
 								<ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
 							</div>
 						</div>
@@ -118,6 +118,12 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	_oldNumScroll: number = 0;
 
+	prevState: any = {
+		numScroll:0,
+		numVisible:0,
+		value: []
+	};
+
 	defaultNumScroll:number = 1;
 
 	defaultNumVisible:number = 1;
@@ -201,7 +207,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		let totalShiftedItems = this.totalShiftedItems;
 		let stateChanged = false;
 		
-		if(this._oldNumScroll !== this._numScroll && this.value) {
+		if(this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
 			let page = this._page;
@@ -230,6 +236,9 @@ export class PCarousel implements OnInit, AfterContentInit {
             }
 
 			this._oldNumScroll = this._numScroll;
+			this.prevState.numScroll = this._numScroll;
+			this.prevState.numVisible = this._numVisible;
+			this.prevState.value = this._value;
 
 			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 		}
@@ -347,7 +356,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 	setCloneItems() {
 		this.clonedItemsForStarting = [];
 		this.clonedItemsForFinishing = [];
-		if (this.circular && this.value) {
+		if (this.isCircular()) {
 			this.clonedItemsForStarting.push(...this.value.slice(-1 * this._numVisible));
 			this.clonedItemsForFinishing.push(...this.value.slice(0, this._numVisible));
 		}
@@ -365,8 +374,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
 	}
 	totalDotsArray() {
-		let totalDots = Array(this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0).fill(0);
-		return totalDots;
+		return Array(this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0).fill(0);;
 	}
 
 	containerClass() {
@@ -396,7 +404,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		return this.autoplayInterval && this.allowAutoplay;
 	}
 
-	navForward(e?,index?) {
+	navForward(e,index?) {
 		if (this.circular || this._page < (this.totalDots() - 1)) {
 			this.step(-1, index);
 		}
@@ -411,7 +419,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 	}
 
-	navBackward(e?,index?) {
+	navBackward(e,index?) {
 		if (this.circular || this._page !== 0) {
 			this.step(1, index);
 		}
@@ -426,7 +434,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 	}
 
-	onDotClick(e?, index?) {
+	onDotClick(e, index) {
 		let activeIndex = this._page;
 
 		if(this.autoplayInterval) {
@@ -481,7 +489,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 		if (this.itemsContainer) {
 			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
-			this.itemsContainer.nativeElement.style.transition = 'transform 600ms ease 0s';
+			this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
 		}
 
 		this.totalShiftedItems = totalShiftedItems;
@@ -570,6 +578,9 @@ export class PCarousel implements OnInit, AfterContentInit {
 	ngOnDestroy() {
 		if (this.responsive) {
 			this.unbindDocumentListeners();
+		}
+		if (this.autoplayInterval) {
+			this.stopAutoplay();
 		}
     }
 
