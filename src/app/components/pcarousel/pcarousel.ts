@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 	selector: 'p-carousel',
 	template: `
 	
-		<div [attr.id]="id" [ngClass]="containerClass()">
+		<div [attr.id]="id" [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
 			<div class="p-carousel-header">
 				<ng-content select="p-header"></ng-content>
 			</div>
@@ -103,6 +103,10 @@ export class PCarousel implements OnInit, AfterContentInit {
 	@Input() circular:boolean = false;
 
 	@Input() autoplayInterval:number = 0;
+
+	@Input() style: any;
+
+    @Input() styleClass: string;
 
 	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
 
