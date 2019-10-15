@@ -31,10 +31,6 @@
     align-items: center;
 }
 
-.p-carousel-prev span {
-	margin-left: -.5em;
-}
-
 .p-carousel-container {
 	display: flex;
     flex-direction: row;
