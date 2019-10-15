@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 					<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward()">
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
 					</button>
-					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalContentHeight : 'auto'}">
+					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
 						<div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
 							<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'p-carousel-item p-carousel-item-cloned': true,'p-carousel-item-active': (totalShiftedItems === 0),
 							'p-carousel-item-start': 0 === index,
@@ -84,7 +84,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 	
 	@Input() orientation = "horizontal";
 	
-	@Input() verticalContentHeight = "300px";
+	@Input() verticalViewPortHeight = "300px";
 	
 	@Input() contentClass: String = "";
 
