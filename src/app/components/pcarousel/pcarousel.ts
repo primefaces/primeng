@@ -90,7 +90,15 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	@Input() dotsContentClass: String = "";
 
-	@Input() value :any[];
+	@Input() get value() :any[] {
+		return this._value;
+	};
+	set value(val) {
+		this._value = val;
+		if (this.circular && this._value) {
+			this.setCloneItems();
+		}
+	}
 	
 	@Input() circular:boolean = false;
 
@@ -111,6 +119,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 	defaultNumVisible:number = 1;
 
 	_page: number = 0;
+
+	_value: any[];
 
 	carouselStyle:any;
 
@@ -187,7 +197,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		let totalShiftedItems = this.totalShiftedItems;
 		let stateChanged = false;
 		
-		if(this._oldNumScroll !== this._numScroll) {
+		if(this._oldNumScroll !== this._numScroll && this.value) {
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
 			let page = this._page;
@@ -333,7 +343,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 	setCloneItems() {
 		this.clonedItemsForStarting = [];
 		this.clonedItemsForFinishing = [];
-		if (this.circular) {
+		if (this.circular && this.value) {
 			this.clonedItemsForStarting.push(...this.value.slice(-1 * this._numVisible));
 			this.clonedItemsForFinishing.push(...this.value.slice(0, this._numVisible));
 		}
@@ -357,7 +367,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	containerClass() {
 		return {'p-carousel p-component':true, 
-			'p-carousel-vertical': this.isVertical()
+			'p-carousel-vertical': this.isVertical(),
+			'p-carousel-horizontal': !this.isVertical()
 		};
 	}
 
@@ -374,7 +385,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 	}
 
 	isCircular() {
-		return this.circular && this.value.length >= this.numVisible;
+		return this.circular && this.value && this.value.length >= this.numVisible;
 	}
 
 	isAutoplay() {
