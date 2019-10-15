@@ -363,7 +363,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 	}
 
 	firstIndex() {
-		return this.isCircular ? (-1 * (this.totalShiftedItems + this.numVisible)) : (this.totalShiftedItems * -1);
+		return this.isCircular() ? (-1 * (this.totalShiftedItems + this.numVisible)) : (this.totalShiftedItems * -1);
 	}
 
 	lastIndex() {
