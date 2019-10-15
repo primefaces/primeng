@@ -5,59 +5,79 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <h3 class="first">Button Component</h3>
-    <div class="ui-grid ui-grid-responsive">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-2"></div>
-            <div class="ui-grid-col-8">
-                <p-carousel [value]="items" orientation="vertical" [numVisible]="4" [numScroll]="4" [circular]="true" [autoplayInterval]="3000" [responsive]="responsive">
-                    <p-header>
-                        <h1 style="text-align: center;">Hello</h1>
-                    </p-header>
-                    <ng-template let-some pTemplate="item">
-                            <div [ngStyle]="{'background-color':some.color}">
-                                <h1 style="text-align: center;">
-                                    {{some.text}}
-                                </h1>
+<div class="content-section implementation carousel-demo">
+        <p-carousel [value]="cars" [numVisible]="4" [numScroll]="3" [circular]="false" [responsive]="responsiveOptions">
+            <p-header>
+                <h3>Basic</h3>
+            </p-header>
+            <ng-template let-car pTemplate="item">
+                <div class="car-details">
+                    <div class="p-grid p-nogutter">
+                        <div class="p-col-12">
+                            <img src="assets/showcase/images/demo/car/{{car.brand}}.png" />
+                        </div>
+                        <div class="p-col-12 car-data">
+                            <div class="car-title">{{car.brand}}</div>
+                            <div class="car-subtitle">{{car.year}} | {{car.color}}</div>
+    
+                            <div class="car-buttons">
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-search"></button>
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-star"></button>
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"></button>
                             </div>
-                    </ng-template>
-                    <p-footer>
-                        <h1 style="text-align: center;">
-                            Bye!
-                        </h1>
-                    </p-footer>
-                </p-carousel>
-            </div>
-            <div class="ui-grid-col-2"></div>
-        </div>
-    </div>
-
-    <div class="ui-grid ui-grid-responsive">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-2"></div>
-            <div class="ui-grid-col-8">
-                <p-carousel [value]="items" orientation="horizontal" [numVisible]="4" [numScroll]="4" [circular]="true" [autoplayInterval]="3000" [responsive]="responsive">
-                    <p-header>
-                        <h1 style="text-align: center;">Hello</h1>
-                    </p-header>
-                    <ng-template let-some pTemplate="item">
-                            <div [ngStyle]="{'background-color':some.color}">
-                                <h1 style="text-align: center;">
-                                    {{some.text}}
-                                </h1>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+        <p-carousel [value]="cars" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsive]="responsiveOptions">
+            <p-header>
+                <h3>Circular, AutoPlay, 3 Items per Page and Scroll by 1</h3>
+            </p-header>
+            <ng-template let-car pTemplate="item">
+                <div class="car-details">
+                    <div class="p-grid p-nogutter">
+                        <div class="p-col-12">
+                            <img src="assets/showcase/images/demo/car/{{car.brand}}.png" />
+                        </div>
+                        <div class="p-col-12 car-data">
+                            <div class="car-title">{{car.brand}}</div>
+                            <div class="car-subtitle">{{car.year}} | {{car.color}}</div>
+    
+                            <div class="car-buttons">
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-search"></button>
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-star"></button>
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"></button>
                             </div>
-                    </ng-template>
-                    <p-footer>
-                        <h1 style="text-align: center;">
-                            Bye!
-                        </h1>
-                    </p-footer>
-                </p-carousel>
-            </div>
-            <div class="ui-grid-col-2"></div>
-        </div>
-    </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+        <p-carousel [value]="cars" orientation="vertical" [style]="{'max-width':'400px', 'margin-top':'2em'}" verticalViewPortHeight="330px" [numVisible]="1" [numScroll]="1" [responsive]="responsive">
+            <p-header>
+                <h3>Vertical</h3>
+            </p-header>
+            <ng-template let-car pTemplate="item">
+                <div class="car-details">
+                    <div class="p-grid p-nogutter">
+                        <div class="p-col-12">
+                            <img src="assets/showcase/images/demo/car/{{car.brand}}.png" />
+                        </div>
+                        <div class="p-col-12 car-data">
+                            <div class="car-title">{{car.brand}}</div>
+                            <div class="car-subtitle">{{car.year}} | {{car.color}}</div>
+    
+                            <div class="car-buttons">
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-search"></button>
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-star"></button>
+                                <button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
 </div>
 
 <div class="content-section documentation">
