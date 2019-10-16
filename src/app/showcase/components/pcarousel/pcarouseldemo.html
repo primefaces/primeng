@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation carousel-demo">
-        <p-carousel [value]="cars" [numVisible]="4" [numScroll]="3" [circular]="false" [responsive]="responsiveOptions">
+        <p-carousel [value]="cars" [numVisible]="4" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
             <p-header>
                 <h3>Basic</h3>
             </p-header>
@@ -30,7 +30,7 @@
                 </div>
             </ng-template>
         </p-carousel>
-        <p-carousel [value]="cars" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsive]="responsiveOptions">
+        <p-carousel [value]="cars" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
             <p-header>
                 <h3>Circular, AutoPlay, 3 Items per Page and Scroll by 1</h3>
             </p-header>
@@ -54,7 +54,7 @@
                 </div>
             </ng-template>
         </p-carousel>
-        <p-carousel [value]="cars" orientation="vertical" [style]="{'max-width':'400px', 'margin-top':'2em'}" verticalViewPortHeight="330px" [numVisible]="1" [numScroll]="1" [responsive]="responsive">
+        <p-carousel [value]="cars" orientation="vertical" [style]="{'max-width':'400px', 'margin-top':'2em'}" verticalViewPortHeight="330px" [numVisible]="1" [numScroll]="1">
             <p-header>
                 <h3>Vertical</h3>
             </p-header>
