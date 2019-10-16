@@ -1,43 +1,74 @@
-import {Component} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
-import {Car} from '../../components/domain/car';
+import {Component, ViewEncapsulation} from '@angular/core';
+import { CarService } from '../../service/carservice';
 
 @Component({
     templateUrl: './carouseldemo.html',
-    providers: [MessageService],
     styles: [`
-        .ui-grid-row {
-            text-align: center;
-        }
-
-        .ui-grid {
-            margin: 10px 0px;
-        }
-
-        .ui-grid-row > div {
-            padding: 4px 10px;
-        }
-    `]
+		.carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-details > .p-grid {
+			border: 1px solid #b3c2ca;
+			border-radius: 3px;
+			margin: 0.3em;
+			text-align: center;
+			padding: 2em 0 2.25em 0;
+		}
+		.carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data .car-title {
+			font-weight: 700;
+			font-size: 20px;
+			margin-top: 24px;
+		}
+		.carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data .car-subtitle {
+			margin: 0.25em 0 2em 0;
+		}
+		.carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data button {
+			margin-left: 0.5em;
+		}
+		.carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data button:first-child {
+			margin-left: 0;
+		}
+		.carousel-demo .p-carousel.custom-carousel .p-carousel-dot-icon {
+			width: 16px !important;
+			height: 16px !important;
+			border-radius: 50%;
+		}
+		.carousel-demo .p-carousel.p-carousel-horizontal .p-carousel-content .p-carousel-item.p-carousel-item-start .car-details > .p-grid {
+			margin-left: 0.6em;
+		}
+		.carousel-demo .p-carousel.p-carousel-horizontal .p-carousel-content .p-carousel-item.p-carousel-item-end .car-details > .p-grid {
+			margin-right: 0.6em;
+		}
+	`],
+	encapsulation: ViewEncapsulation.None
 })
 export class CarouselDemo {
 
-    cars: Car[];
+	cars: any[];
 
-    constructor(private messageService: MessageService) {
-        this.cars = [
-            {vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'},
-            {vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'},
-            {vin: 'h453w54', year: 2012, brand: 'Honda', color: 'Blue'},
-            {vin: 'g43gwwg', year: 1998, brand: 'Renault', color: 'White'},
-            {vin: 'gf45wg5', year: 2011, brand: 'VW', color: 'Red'},
-            {vin: 'bhv5y5w', year: 2015, brand: 'Jaguar', color: 'Blue'},
-            {vin: 'ybw5fsd', year: 2012, brand: 'Ford', color: 'Yellow'},
-            {vin: '45665e5', year: 2011, brand: 'Mercedes', color: 'Brown'},
-            {vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'}
+	
+	responsiveOptions;
+
+	constructor(private carService: CarService) { 
+		this.responsiveOptions = [
+            {
+                breakpoint: '1024px',
+                numVisible: 3,
+                numScroll: 3
+            },
+            {
+                breakpoint: '768px',
+                numVisible: 2,
+                numScroll: 2
+            },
+            {
+                breakpoint: '560px',
+                numVisible: 1,
+                numScroll: 1
+            }
         ];
-    }
-    
-    selectCar(car: Car) {
-        this.messageService.add({severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin});
-    }
+	}
+
+	ngOnInit() {
+		this.carService.getCarsSmall().then(cars => {
+			this.cars = cars
+		});
+	}
 }
