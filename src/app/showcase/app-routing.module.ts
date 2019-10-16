@@ -65,7 +65,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'paginator', loadChildren: './components/paginator/paginatordemo.module#PaginatorDemoModule'},
             {path: 'panel', loadChildren: './components/panel/paneldemo.module#PanelDemoModule'},
             {path: 'panelmenu', loadChildren: './components/panelmenu/panelmenudemo.module#PanelMenuDemoModule'},
-            {path: 'pcarousel', loadChildren: './components/pcarousel/pcarouseldemo.module#PCarouselDemoModule'},
             {path: 'password', loadChildren: './components/password/passworddemo.module#PasswordDemoModule'},
             {path: 'picklist', loadChildren: './components/picklist/picklistdemo.module#PickListDemoModule'},
             {path: 'progressbar', loadChildren: './components/progressbar/progressbardemo.module#ProgressBarDemoModule'},
