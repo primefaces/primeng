@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Button</span>
-        <span>Button is an extension to standard input element with icons and theming.</span>
+        <span class="feature-title">Carousel</span>
+        <span>Carousel is a content slider featuring various customization options.</span>
     </div>
 </div>
 
@@ -86,82 +86,107 @@
                     <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;ButtonModule&#125; from 'primeng/button';
+import &#123;CarouselModule&#125; from 'primeng/carousel';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Button is either applies as a component using p-button element or a directive using pButton attribute. Directive enhances an existing button whereas 
-                p-button is an element on its own.</p>
-
+            <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" label="Click" &gt;&lt;/button&gt;
-&lt;p-button label="Click" &gt;&lt;/p-button&gt;
+&lt;carousel [value]="cars"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Content to display
+    &lt;/ng-template&gt;
+&lt;/carousel&gt;
 </code>
 </pre>
-
-            <h3>Events</h3>
-            <p>Events are defined using standard notation in pButton and with on* prefix at p-button.</p>
-
+            <h3>Items per page and Scroll Items</h3>
+            <p>Number of items per page is defined using the <i>numVisible</i> property whereas number of items to scroll is defined with the <i>numScroll</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" label="Click" (click)="handleClick($event)"&gt;&lt;/button&gt;
-&lt;p-button label="Click" (onClick)="handleClick($event)"&gt;&lt;/p-button&gt;
+&lt;carousel [value]="cars" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Content to display
+    &lt;/ng-template&gt;
+&lt;/carousel&gt;
 </code>
 </pre>
-
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class Model &#123;
+export class CarouselDemo &#123;
+    constructor(private carService: CarService) &#123; 
+		this.responsiveOptions = [
+            &#123;
+                breakpoint: '1024px',
+                numVisible: 3,
+                numScroll: 3
+            &#125;,
+            &#123;
+                breakpoint: '768px',
+                numVisible: 2,
+                numScroll: 2
+            &#125;,
+            &#123;
+                breakpoint: '560px',
+                numVisible: 1,
+                numScroll: 1
+            &#125;
+        ];
+	&#125;
 
-    handleClick() &#123;
-        //execute action
-    &#125;
-
+	ngOnInit() &#123;
+		this.carService.getCarsSmall().then(cars => &#123;
+			this.cars = cars
+		&#125;);
+	&#125;
 &#125;
 </code>
 </pre>
-
-            <h3>Icons</h3>
-            <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
-            icon position is left. To display only an icon, leave label as undefined.</p>
+            <h3>Header and Footer</h3>
+            <p>Custom content projection is available using the <i>header</i> and <i>footer</i> properties.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" icon="pi pi-check" iconPos="left"&gt;&lt;/button&gt;
-&lt;p-button label="Click" icon="pi pi-check" iconPos="left"&gt;&lt;/p-button&gt;
+&lt;carousel [value]="cars"&gt;
+    &lt;p-header&gt;
+        &lt;h3&gt;Vertical&lt;/h3&gt;
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Content to display
+    &lt;/ng-template&gt;
+&lt;/carousel&gt;
 </code>
 </pre>
 
-            <h3>Severity</h3>
-            <p>Different color options are available to define severity levels.</p>
-
-            <ul>
-                <li>.ui-button-secondary</li>
-                <li>.ui-button-success</li>
-                <li>.ui-button-info</li>
-                <li>.ui-button-warning</li>
-                <li>.ui-button-danger</li>
-            </ul>
-
+<h3>Orientation</h3>
+<p>Default layout of the Carousel is horizontal, other possible option is the vertical mode that is configured with the <i>orientation</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" class="ui-button-info"&gt;&lt;/button&gt;
-&lt;p-button label="Click" styleClass="ui-button-info"&gt;&lt;/p-button&gt;
+&lt;carousel [value]="cars" orientation="vertical"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Content to display
+    &lt;/ng-template&gt;
+&lt;/carousel&gt;
 </code>
 </pre>
 
-            <h3>Raised and Rounded Buttons</h3>
-            <p>A button can be raised by having "ui-button-raised" style class and similarly borders can be made rounded using "ui-button-rounded" class.</p>
+            <h3>AutoPlay and Circular</h3>
+            <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be enabled. Note that in autoplay mode, circular is enabled by default.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" class="ui-button-raised ui-button-rounded"&gt;&lt;/button&gt;
+&lt;carousel [value]="cars" [autoplayIntervla]="3000" [circular]="true"&gt;
+    &lt;p-header&gt;
+        &lt;h3&gt;Vertical&lt;/h3&gt;
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Content to display
+    &lt;/ng-template&gt;
+&lt;/carousel&gt;
 </code>
 </pre>
-
-            <h3>Properties of pButton</h3>
+            <h3>Properties</h3>
             <div class="doc-tablewrapper">
-                <table class="doc-table">
+                    <table class="doc-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -172,109 +197,112 @@ export class Model &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>label</td>
-                            <td>string</td>
+                            <td>value</td>
+                            <td>array</td>
                             <td>null</td>
-                            <td>Text of the button.</td>
+                            <td>An array of objects to display.</td>
                         </tr>
                         <tr>
-                            <td>icon</td>
-                            <td>string</td>
+                            <td>page</td>
+                            <td>number</td>
                             <td>null</td>
-                            <td>Name of the icon.</td>
-                        </tr>
-                        <tr>
-                            <td>iconPos</td>
-                            <td>string</td>
-                            <td>left</td>
-                            <td>Position of the icon, valid values are "left" and "right".</td>
-                        </tr>
-                        <tr>
-                            <td>cornerStyleClass</td>
-                            <td>string</td>
-                            <td>ui-corner-all</td>
-                            <td>Defines the cornering of the button, valid replacements are top, left, right and button such as ui-corner-top.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3>Properties of p-button</h3>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Default</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>type</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Type of the button.</td>
-                        </tr>
-                        <tr>
-                            <td>label</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Text of the button.</td>
-                        </tr>
-                        <tr>
-                            <td>icon</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Name of the icon.</td>
-                        </tr>
-                        <tr>
-                            <td>iconPos</td>
-                            <td>string</td>
-                            <td>left</td>
-                            <td>Position of the icon, valid values are "left" and "right".</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the component should be disabled.</td>
+                            <td>Index of the first item.</td>
                         </tr>
                         <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Inline style of the element.</td>
+                            <td>Inline style of the component.</td>
                         </tr>
                         <tr>
                             <td>styleClass</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Style class of the element.</td>
+                            <td>Style class of the component.</td>
                         </tr>
                         <tr>
-                            <td>onClick</td>
-                            <td>event</td>
-                            <td>null</td>
-                            <td>Callback to execute when button is clicked.</td>
+                            <td>circular</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if scrolling would be infinite.</td>
                         </tr>
                         <tr>
-                            <td>onFocus</td>
-                            <td>event</td>
+                            <td>autoplayInterval</td>
+                            <td>number</td>
                             <td>null</td>
-                            <td>Callback to execute when button is focused.</td>
+                            <td>Time in milliseconds to scroll items automatically.</td>
                         </tr>
                         <tr>
-                            <td>onBlur</td>
-                            <td>event</td>
+                            <td>numVisible</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Number of items per page.</td>
+                        </tr>
+                        <tr>
+                            <td>numScroll</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Number of items to scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>responsiveOptions</td>
+                            <td>any</td>
                             <td>null</td>
-                            <td>Callback to execute when button loses focus.</td>
+                            <td>An array of options for responsive design.</td>
+                        </tr>
+                        <tr>
+                            <td>orientation</td>
+                            <td>string</td>
+                            <td>horizontal</td>
+                            <td>Specifies the layout of the component, valid values are "horizontal" and "vertical".</td>
+                        </tr>
+                        <tr>
+                            <td>verticalViewPortHeight</td>
+                            <td>string</td>
+                            <td>300px</td>
+                            <td>Height of the viewport in vertical layout.</td>
+                        </tr>
+                        <tr>
+                            <td>contentClassName</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of main content.</td>
+                        </tr>
+                        <tr>
+                            <td>containerClassName</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the viewport container.</td>
+                        </tr>
+                        <tr>
+                            <td>dotsContainerClassName</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the paginator items.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                    <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onPage</td>
+                            <td>event.page = Value of the new page.</td>
+                            <td>Callback to invoke after scroll.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -287,16 +315,40 @@ export class Model &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-button</td>
-                            <td>Button element</td>
+                            <td>p-carousel</td>
+                            <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-button-icon</td>
-                            <td>Icon element</td>
+                            <td>p-carousel-header</td>
+                            <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-button-text</td>
-                            <td>Label element of the button</td>
+                            <td>p-carousel-footer</td>
+                            <td>Footer section.</td>
+                        </tr>
+                        <tr>
+                            <td>p-carousel-content</td>
+                            <td>Main content element. It contains the container of the viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>p-carousel-container</td>
+                            <td>Container of the viewport. It contains navigation buttons and viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>p-carousel-items-content</td>
+                            <td>Viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>p-carousel-dots-container</td>
+                            <td>Container of the paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>p-carousel-dot-item</td>
+                            <td>Paginator element.</td>
+                        </tr>
+                        <tr>
+                            <td>p-carousel-dot-icon</td>
+                            <td>Paginator element icon.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -312,53 +364,151 @@ export class Model &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Button Component&lt;/h3&gt;
-&lt;p-button label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-check" label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-check"&gt;&lt;/p-button&gt;
-&lt;p-button icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
+&lt;p-carousel [value]="cars" [numVisible]="4" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+    &lt;p-header&gt;
+        &lt;h3&gt;Basic&lt;/h3&gt;
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="car-details"&gt;
+            &lt;div class="p-grid p-nogutter"&gt;
+                &lt;div class="p-col-12"&gt;
+                    &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" /&gt;
+                &lt;/div&gt;
+                &lt;div class="p-col-12 car-data"&gt;
+                    &lt;div class="car-title"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/div&gt;
+                    &lt;div class="car-subtitle"&gt;&#123;&#123;car.year&#125;&#125; | &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
 
-&lt;h3&gt;Button Directive&lt;/h3&gt;
-&lt;button pButton type="button"label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check" label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+                    &lt;div class="car-buttons"&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-search"&gt;&lt;/button&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-star"&gt;&lt;/button&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"&gt;&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-carousel&gt;
+&lt;p-carousel [value]="cars" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions"&gt;
+    &lt;p-header&gt;
+        &lt;h3&gt;Circular, AutoPlay, 3 Items per Page and Scroll by 1&lt;/h3&gt;
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="car-details"&gt;
+            &lt;div class="p-grid p-nogutter"&gt;
+                &lt;div class="p-col-12"&gt;
+                    &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" /&gt;
+                &lt;/div&gt;
+                &lt;div class="p-col-12 car-data"&gt;
+                    &lt;div class="car-title"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/div&gt;
+                    &lt;div class="car-subtitle"&gt;&#123;&#123;car.year&#125;&#125; | &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
 
-&lt;h3&gt;Severity Buttons&lt;/h3&gt;
-&lt;button pButton type="button" label="Primary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Warning" class="ui-button-warning"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Danger" class="ui-button-danger"&gt;&lt;/button&gt;
+                    &lt;div class="car-buttons"&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-search"&gt;&lt;/button&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-star"&gt;&lt;/button&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"&gt;&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-carousel&gt;
+&lt;p-carousel [value]="cars" orientation="vertical" [style]="&#123;'max-width':'400px', 'margin-top':'2em'&#125;" verticalViewPortHeight="330px" [numVisible]="1" [numScroll]="1"&gt;
+    &lt;p-header&gt;
+        &lt;h3&gt;Vertical&lt;/h3&gt;
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="car-details"&gt;
+            &lt;div class="p-grid p-nogutter"&gt;
+                &lt;div class="p-col-12"&gt;
+                    &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" /&gt;
+                &lt;/div&gt;
+                &lt;div class="p-col-12 car-data"&gt;
+                    &lt;div class="car-title"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/div&gt;
+                    &lt;div class="car-subtitle"&gt;&#123;&#123;car.year&#125;&#125; | &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
 
-&lt;h3&gt;Raised Buttons&lt;/h3&gt;
-&lt;button pButton type="button" label="Primary" class="ui-button-raised"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Success" class="ui-button-raised ui-button-success"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Info" class="ui-button-raised ui-button-info"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"&gt;&lt;/button&gt;
-
-&lt;h3&gt;Rounded Buttons&lt;/h3&gt;
-&lt;button pButton type="button" label="Primary" class="ui-button-rounded"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"&gt;&lt;/button&gt;
-&lt;button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"&gt;&lt;/button&gt;
+                    &lt;div class="car-buttons"&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-search"&gt;&lt;/button&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-star"&gt;&lt;/button&gt;
+                        &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"&gt;&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-carousel&gt;
 </code>
 </pre>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class ButtonDemo &#123;
+@Component(&#123;
+    templateUrl: './carouseldemo.html',
+    styles: [`
+        .carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-details > .p-grid &#123;
+            border: 1px solid #b3c2ca;
+            border-radius: 3px;
+            margin: 0.3em;
+            text-align: center;
+            padding: 2em 0 2.25em 0;
+        &#125;
+        .carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data .car-title &#123;
+            font-weight: 700;
+            font-size: 20px;
+            margin-top: 24px;
+        &#125;
+        .carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data .car-subtitle &#123;
+            margin: 0.25em 0 2em 0;
+        &#125;
+        .carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data button &#123;
+            margin-left: 0.5em;
+        &#125;
+        .carousel-demo .p-carousel .p-carousel-content .p-carousel-item .car-data button:first-child &#123;
+            margin-left: 0;
+        &#125;
+        .carousel-demo .p-carousel.custom-carousel .p-carousel-dot-icon &#123;
+            width: 16px !important;
+            height: 16px !important;
+            border-radius: 50%;
+        &#125;
+        .carousel-demo .p-carousel.p-carousel-horizontal .p-carousel-content .p-carousel-item.p-carousel-item-start .car-details > .p-grid &#123;
+            margin-left: 0.6em;
+        &#125;
+        .carousel-demo .p-carousel.p-carousel-horizontal .p-carousel-content .p-carousel-item.p-carousel-item-end .car-details > .p-grid &#123;
+            margin-right: 0.6em;
+        &#125;
+    `],
+    encapsulation: ViewEncapsulation.None
+&#125;)
+export class CarouselDemo &#123;
 
-    clicks: number = 0;
+    cars: any[];
 
-    count() &#123;
-        this.clicks++;
+    
+    responsiveOptions;
+
+    constructor(private carService: CarService) &#123; 
+        this.responsiveOptions = [
+            &#123;
+                breakpoint: '1024px',
+                numVisible: 3,
+                numScroll: 3
+            &#125;,
+            &#123;
+                breakpoint: '768px',
+                numVisible: 2,
+                numScroll: 2
+            &#125;,
+            &#123;
+                breakpoint: '560px',
+                numVisible: 1,
+                numScroll: 1
+            &#125;
+        ];
+    &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => &#123;
+            this.cars = cars
+        &#125;);
     &#125;
 &#125;
 </code>
