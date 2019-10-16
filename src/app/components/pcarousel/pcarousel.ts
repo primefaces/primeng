@@ -81,7 +81,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		this._numScroll = val;
 	}
 	
-	@Input() responsive: any[];
+	@Input() responsiveOptions: any[];
 	
 	@Input() orientation = "horizontal";
 	
@@ -178,7 +178,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 			this.setCloneItems();
 		}
 
-		if (this.responsive) {
+		if (this.responsiveOptions) {
 			this.defaultNumScroll = this._numScroll;
 			this.defaultNumVisible = this._numVisible;
 		}
@@ -186,7 +186,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 		this.createStyle();
 		this.calculatePosition();
 
-		if (this.responsive) {
+		if (this.responsiveOptions) {
 			this.bindDocumentListeners();
 		}
 
@@ -279,8 +279,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 			}
         `;
 
-			if (this.responsive) {
-				this.responsive.sort((data1, data2) => {
+			if (this.responsiveOptions) {
+				this.responsiveOptions.sort((data1, data2) => {
 					const value1 = data1.breakpoint;
 					const value2 = data2.breakpoint;
 					let result = null;
@@ -299,8 +299,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 					return -1 * result;
 				});
 
-				for (let i = 0; i < this.responsive.length; i++) {
-					let res = this.responsive[i];
+				for (let i = 0; i < this.responsiveOptions.length; i++) {
+					let res = this.responsiveOptions[i];
 
 					innerHTML += `
                     @media screen and (max-width: ${res.breakpoint}) {
@@ -316,15 +316,15 @@ export class PCarousel implements OnInit, AfterContentInit {
 		}
 
 	calculatePosition() {
-		if (this.itemsContainer && this.responsive) {
+		if (this.itemsContainer && this.responsiveOptions) {
 			let windowWidth = window.innerWidth;
 			let matchedResponsiveData = {
 				numVisible: this.defaultNumVisible,
 				numScroll: this.defaultNumScroll
 			};
 
-			for (let i = 0; i < this.responsive.length; i++) {
-				let res = this.responsive[i];
+			for (let i = 0; i < this.responsiveOptions.length; i++) {
+				let res = this.responsiveOptions[i];
 
 				if (parseInt(res.breakpoint, 10) >= windowWidth) {
 					matchedResponsiveData = res;
@@ -577,7 +577,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 	}
 
 	ngOnDestroy() {
-		if (this.responsive) {
+		if (this.responsiveOptions) {
 			this.unbindDocumentListeners();
 		}
 		if (this.autoplayInterval) {
