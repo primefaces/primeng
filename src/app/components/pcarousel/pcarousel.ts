@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewChecked, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output } from '@angular/core';
 import { PrimeTemplate, SharedModule } from '../common/shared';
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
@@ -107,7 +107,9 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 	@Input() style: any;
 
-    @Input() styleClass: string;
+	@Input() styleClass: string;
+	
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
 
 	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
 
@@ -217,7 +219,10 @@ export class PCarousel implements OnInit, AfterContentInit {
 			let page = this._page;
 			if (this.totalDots() !== 0 && page >= this.totalDots()) {
                 page = this.totalDots() - 1;
-                this.page = page;
+				this.page = page;
+				this.onPage.emit({
+					page: this.page
+				});
 			}
 			
 			totalShiftedItems = (page * this._numScroll) * -1;
@@ -332,8 +337,8 @@ export class PCarousel implements OnInit, AfterContentInit {
 			}
 
 			if (this._numScroll !== matchedResponsiveData.numScroll) {
-				let activeIndex = this._page;
-				activeIndex = Math.floor((activeIndex * this._numScroll) / matchedResponsiveData.numScroll);
+				let page = this._page;
+				page = Math.floor((page * this._numScroll) / matchedResponsiveData.numScroll);
 
 				let totalShiftedItems = (matchedResponsiveData.numScroll * this.page) * -1;
 
@@ -344,7 +349,10 @@ export class PCarousel implements OnInit, AfterContentInit {
 				this.totalShiftedItems = totalShiftedItems;
 				this._numScroll = matchedResponsiveData.numScroll;
 
-				this.page = activeIndex;
+				this.page = page;
+				this.onPage.emit({
+					page: this.page
+				});
 			}
 
 			if (this._numVisible !== matchedResponsiveData.numVisible) {
@@ -495,6 +503,9 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 		this.totalShiftedItems = totalShiftedItems;
 		this.page = page;
+		this.onPage.emit({
+			page: this.page
+		});
 	}
 
 	startAutoplay() {
