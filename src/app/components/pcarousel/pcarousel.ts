@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewChecked, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone } from '@angular/core';
-import { PrimeTemplate, SharedModule, UniqueComponentId } from '../common/shared';
+import { PrimeTemplate, SharedModule } from '../common/shared';
 import { CommonModule } from '@angular/common';
+import { UniqueComponentId } from '../utils/uniquecomponentid';
 @Component({
 	selector: 'p-carousel',
 	template: `
