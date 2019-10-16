@@ -75,6 +75,11 @@
 	padding: 0;
 	border: none;
 	cursor: pointer;
+	font-size: 14px;
+	font-family: "Open Sans", "Helvetica Neue", sans-serif;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; 
 }
 
 /* Vertical */

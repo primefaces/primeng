@@ -205,16 +205,18 @@ export class PCarousel implements OnInit, AfterContentInit {
 	ngAfterContentChecked() {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
-		let stateChanged = false;
 		
 		if(this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
+			if (this.autoplayInterval) {
+				this.stopAutoplay();
+			}
+			
 			this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
 			let page = this._page;
 			if (this.totalDots() !== 0 && page >= this.totalDots()) {
                 page = this.totalDots() - 1;
                 this.page = page;
-                stateChanged = true;
 			}
 			
 			totalShiftedItems = (page * this._numScroll) * -1;
@@ -232,7 +234,6 @@ export class PCarousel implements OnInit, AfterContentInit {
 
 			if (totalShiftedItems !== this.totalShiftedItems) {
                 this.totalShiftedItems = totalShiftedItems;
-                stateChanged = true;
             }
 
 			this._oldNumScroll = this._numScroll;
@@ -241,6 +242,10 @@ export class PCarousel implements OnInit, AfterContentInit {
 			this.prevState.value = this._value;
 
 			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+
+			if (this.autoplayInterval && this.isAutoplay()) {
+				this.startAutoplay();
+			}
 		}
 
 		if (isCircular) {
@@ -256,12 +261,7 @@ export class PCarousel implements OnInit, AfterContentInit {
 
             if (totalShiftedItems !== this.totalShiftedItems) {
 				this.totalShiftedItems = totalShiftedItems;
-                stateChanged = true;
             }
-		}
-
-		if(!stateChanged && this.isAutoplay() && !this.interval) {
-            this.startAutoplay();
 		}
 	}
 
