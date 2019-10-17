@@ -60,6 +60,20 @@ export class Carousel implements OnInit, AfterContentInit {
 		return this._page;
 	}
 	set page(val:number) {
+		if(this.isCreated && val !== this._page) {
+			if(this.autoplayInterval) {
+				this.stopAutoplay();
+				this.allowAutoplay = false;
+			}
+			
+			if(val > this._page && val < (this.totalDots() - 1)) {
+				this.step(-1, val);
+			}
+			else if(val < this._page && val !== 0) {
+				this.step(1, val);
+			}
+		} 
+
 		this._page = val;
 	}
 		
@@ -163,6 +177,8 @@ export class Carousel implements OnInit, AfterContentInit {
 
 	interval: any;
 
+	isCreated: boolean;
+
 	public itemTemplate: TemplateRef<any>;
 
 	constructor(public el: ElementRef, public zone: NgZone) { 
@@ -219,7 +235,7 @@ export class Carousel implements OnInit, AfterContentInit {
 			let page = this._page;
 			if (this.totalDots() !== 0 && page >= this.totalDots()) {
                 page = this.totalDots() - 1;
-				this.page = page;
+				this._page = page;
 				this.onPage.emit({
 					page: this.page
 				});
@@ -248,6 +264,7 @@ export class Carousel implements OnInit, AfterContentInit {
 			this.prevState.value = this._value;
 
 			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+			this.isCreated = true;
 
 			if (this.autoplayInterval && this.isAutoplay()) {
 				this.startAutoplay();
@@ -349,7 +366,7 @@ export class Carousel implements OnInit, AfterContentInit {
 				this.totalShiftedItems = totalShiftedItems;
 				this._numScroll = matchedResponsiveData.numScroll;
 
-				this.page = page;
+				this._page = page;
 				this.onPage.emit({
 					page: this.page
 				});
@@ -444,17 +461,17 @@ export class Carousel implements OnInit, AfterContentInit {
 	}
 
 	onDotClick(e, index) {
-		let activeIndex = this._page;
+		let page = this._page;
 
 		if(this.autoplayInterval) {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
 		
-		if (index > activeIndex) {
+		if (index > page) {
 			this.navForward(e, index);
 		}
-		else if (index < activeIndex) {
+		else if (index < page) {
 			this.navBackward(e, index);
 		}
 	}
@@ -502,7 +519,7 @@ export class Carousel implements OnInit, AfterContentInit {
 		}
 
 		this.totalShiftedItems = totalShiftedItems;
-		this.page = page;
+		this._page = page;
 		this.onPage.emit({
 			page: this.page
 		});
