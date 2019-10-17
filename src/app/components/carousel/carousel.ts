@@ -5,14 +5,13 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 @Component({
 	selector: 'p-carousel',
 	template: `
-	
 		<div [attr.id]="id" [ngClass]="containerClass()" [ngStyle]="style" [class]="styleClass">
 			<div class="p-carousel-header">
 				<ng-content select="p-header"></ng-content>
 			</div>
 			<div [class]="contentClasses()">
 				<div class="p-carousel-container">
-					<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward()">
+					<button [ngClass]="{'p-carousel-prev p-link':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward($event)">
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
 					</button>
 					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
@@ -34,7 +33,7 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 							</div>
 						</div>
 					</div>
-					<button [ngClass]="{'p-carousel-next p-link': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" (click)="navForward()" [disabled]="_page === totalDots()-1 && !circular">
+					<button [ngClass]="{'p-carousel-next p-link': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" (click)="navForward($event)" [disabled]="_page === totalDots()-1 && !circular">
 						<span [ngClass]="{'p-carousel-next-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
 					</button>
 				</div>
