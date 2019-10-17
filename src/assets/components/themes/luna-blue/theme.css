@@ -895,9 +895,6 @@ body .ui-datepicker table {
 body .ui-datepicker table th {
   padding: 0.5em;
 }
-body .ui-datepicker table th.ui-datepicker-weekheader {
-  border-right: 1px solid #191919;
-}
 body .ui-datepicker table td {
   padding: 0.5em;
 }
@@ -925,7 +922,7 @@ body .ui-datepicker table td.ui-datepicker-today > a.ui-state-active, body .ui-d
   color: #ffffff;
   background-color: #1f7ed0;
 }
-body .ui-datepicker table td.ui-datepicker-weeknumber {
+body .ui-datepicker table td.ui-datepicker-weekheader, body .ui-datepicker table td.ui-datepicker-weeknumber {
   border-right: 1px solid #191919;
 }
 body .ui-datepicker .ui-datepicker-buttonbar {
@@ -1861,6 +1858,11 @@ body .ui-table .ui-table-tbody > tr.ui-contextmenu-selected {
   background-color: #1f7ed0;
   color: #ffffff;
 }
+body .ui-table .ui-table-tbody > tr.ui-table-dragpoint-top > td {
+  -webkit-box-shadow: inset 0 2px 0 0 #1f7ed0;
+  -moz-box-shadow: inset 0 2px 0 0 #1f7ed0;
+  box-shadow: inset 0 2px 0 0 #1f7ed0;
+}
 body .ui-table .ui-table-tbody > tr.ui-table-dragpoint-bottom > td {
   -webkit-box-shadow: inset 0 -2px 0 0 #1f7ed0;
   -moz-box-shadow: inset 0 -2px 0 0 #1f7ed0;
@@ -2361,65 +2363,6 @@ body .ui-organizationchart .ui-organizationchart-node-content .ui-node-toggler {
   margin-left: -0.46em;
   color: #888888;
 }
-body .ui-carousel {
-  padding: 0;
-}
-body .ui-carousel .ui-carousel-header {
-  background-color: #191919;
-  color: #dedede;
-  padding: 0.571em 1em;
-  border: 1px solid #191919;
-  margin: 0;
-  font-weight: 700;
-}
-body .ui-carousel .ui-carousel-header .ui-carousel-header-title {
-  padding: 0;
-}
-body .ui-carousel .ui-carousel-viewport {
-  border: 1px solid #191919;
-  background-color: #323232;
-  color: #dedede;
-  padding: 0;
-}
-body .ui-carousel .ui-carousel-viewport .ui-carousel-items .ui-carousel-item {
-  border: 1px solid #191919;
-}
-body .ui-carousel .ui-carousel-footer {
-  background-color: #191919;
-  color: #dedede;
-  padding: 0.571em 1em;
-  border: 1px solid #191919;
-  margin: 0;
-}
-body .ui-carousel .ui-carousel-button {
-  color: #888888;
-  -moz-transition: color 0.2s;
-  -o-transition: color 0.2s;
-  -webkit-transition: color 0.2s;
-  transition: color 0.2s;
-}
-body .ui-carousel .ui-carousel-button.ui-carousel-next-button:before {
-  content: "";
-}
-body .ui-carousel .ui-carousel-button.ui-carousel-prev-button:before {
-  content: "";
-}
-body .ui-carousel .ui-carousel-button:not(.ui-state-disabled):hover {
-  color: #dedede;
-}
-body .ui-carousel .ui-carousel-page-links {
-  margin: 0.125em 0.5em;
-}
-body .ui-carousel .ui-carousel-page-links .ui-carousel-page-link {
-  color: #888888;
-  -moz-transition: color 0.2s;
-  -o-transition: color 0.2s;
-  -webkit-transition: color 0.2s;
-  transition: color 0.2s;
-}
-body .ui-carousel .ui-carousel-page-links .ui-carousel-page-link:hover {
-  color: #dedede;
-}
 body .ui-treetable .ui-treetable-caption,
 body .ui-treetable .ui-treetable-summary {
   background-color: #191919;
@@ -2522,6 +2465,42 @@ body .ui-treetable.ui-treetable-hoverable-rows .ui-treetable-tbody > tr:not(.ui-
   color: #dedede;
 }
 body .ui-treetable .ui-column-resizer-helper {
+  background-color: #1f7ed0;
+}
+body .ui-carousel .ui-carousel-content .ui-carousel-container {
+  background-color: #323232;
+}
+body .ui-carousel .ui-carousel-content .ui-carousel-prev,
+body .ui-carousel .ui-carousel-content .ui-carousel-next {
+  background-color: #323232;
+  border: 1px solid #191919;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin: 0.2em;
+  color: #dedede;
+  -moz-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+body .ui-carousel .ui-carousel-content .ui-carousel-prev:not(.ui-state-disabled):hover,
+body .ui-carousel .ui-carousel-content .ui-carousel-next:not(.ui-state-disabled):hover {
+  color: #1f7ed0;
+}
+body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item > a {
+  cursor: pointer;
+}
+body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item .ui-carousel-dot-icon {
+  width: 20px;
+  height: 6px;
+  background-color: #888888;
+  margin: 0 0.2em;
+}
+body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item .ui-carousel-dot-icon::before {
+  content: " ";
+}
+body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item.ui-state-highlight .ui-carousel-dot-icon {
   background-color: #1f7ed0;
 }
 
@@ -3466,5 +3445,3 @@ body .ui-fluid .ui-inplace.ui-inplace-closable .ui-inplace-content > :first-chil
   display: inline-block;
   width: calc(100% - 2.357em);
 }
-
-/* Add your customizations of theme here */
