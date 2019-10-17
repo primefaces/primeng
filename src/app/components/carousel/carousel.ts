@@ -54,7 +54,7 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 	`,
 	styleUrls: ['./carousel.css']
 })
-export class Carousel implements OnInit, AfterContentInit {
+export class Carousel implements AfterContentInit {
 
 	@Input() get page():number {
 		return this._page;
@@ -65,7 +65,7 @@ export class Carousel implements OnInit, AfterContentInit {
 				this.stopAutoplay();
 				this.allowAutoplay = false;
 			}
-			
+
 			if(val > this._page && val < (this.totalDots() - 1)) {
 				this.step(-1, val);
 			}
@@ -183,9 +183,6 @@ export class Carousel implements OnInit, AfterContentInit {
 
 	constructor(public el: ElementRef, public zone: NgZone) { 
 		this.totalShiftedItems = this.page * this.numScroll * -1; 
-	}
-
-	ngOnInit() {
 	}
 
 	ngAfterContentInit() {
