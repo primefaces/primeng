@@ -42,7 +42,6 @@ import { CarService } from '../../service/carservice';
 export class CarouselDemo {
 
 	cars: any[];
-
 	
 	responsiveOptions;
 
