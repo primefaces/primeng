@@ -16,7 +16,6 @@
 .ui-carousel-next {
 	align-self: center;
 	text-align: center;
-	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
 	width: 2.5em;
@@ -28,6 +27,7 @@
 .ui-carousel-prev span,
 .ui-carousel-next span {
 	width: 100%;
+	height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
