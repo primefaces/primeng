@@ -175,7 +175,11 @@ export class ConfirmDialog implements OnDestroy {
                 this.container = event.element;
                 this.setDimensions();
                 this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
-                DomHandler.findSingle(this.container, 'button').focus();
+                
+                if (this.acceptVisible || this.rejectVisible) {
+                    DomHandler.findSingle(this.container, 'button').focus();
+                }
+
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
