@@ -103,7 +103,7 @@ export class Carousel implements AfterContentInit {
 	
 	@Input() contentClass: String = "";
 
-	@Input() dotsContentClass: String = "";
+	@Input() dotsContainerClass: String = "";
 
 	@Input() get value() :any[] {
 		return this._value;
@@ -412,7 +412,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	dotsContentClasses() {
-		return 'p-carousel-dots-container ui-helper-reset ' + this.dotsContentClass;
+		return 'p-carousel-dots-container ui-helper-reset ' + this.dotsContainerClass;
 	}
 
 	isVertical() {
