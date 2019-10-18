@@ -1217,3 +1217,19 @@ a {
     display: block;
   }
 }
+
+/* Dark Theme such as luna-amber, luna-blue, luna-green and luna-pink */
+.dark-theme .implementation {
+    background-color: #3f3f3f;
+    color: #dedede; 
+}
+
+.dark-theme .implementation > h3,
+.dark-theme .implementation > h4 {
+    color: #dedede; 
+}
+
+.dark-theme .carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-details > .p-grid {
+    border: 1px solid #191919;
+    background-color: #323232; 
+}
