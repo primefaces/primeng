@@ -1998,8 +1998,9 @@ body .ui-carousel .ui-carousel-content .ui-carousel-next {
     background-color: #ffffff;
     color: #007ad9;
     border-color: solid 1px rgba(178, 193, 205, 0.64); }
-body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item > a {
-  cursor: pointer; }
+body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item > .ui-button {
+  border-color: transparent;
+  background-color: transparent; }
 body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item .ui-carousel-dot-icon {
   width: 20px;
   height: 6px;

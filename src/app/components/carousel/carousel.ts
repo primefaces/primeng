@@ -11,9 +11,9 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 			</div>
 			<div [class]="contentClasses()">
 				<div class="ui-carousel-container">
-					<a [ngClass]="{'ui-carousel-prev':true, 'ui-state-disabled': _page === 0  && !circular}" (click)="navBackward($event)">
+					<button [ngClass]="{'ui-carousel-prev ui-button ui-widget ui-state-default ui-corner-all':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward($event)">
 						<span [ngClass]="{'ui-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
-					</a>
+					</button>
 					<div class="ui-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
 						<div #itemsContainer class="ui-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
 							<div *ngFor="let item of clonedItemsForStarting; let index = index" [ngClass]= "{'ui-carousel-item ui-carousel-item-cloned': true,'ui-carousel-item-active': (totalShiftedItems * -1) === (value.length),
@@ -33,15 +33,15 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 							</div>
 						</div>
 					</div>
-					<a [ngClass]="{'ui-carousel-next': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" (click)="navForward($event)">
+					<button [ngClass]="{'ui-carousel-next ui-button ui-widget ui-state-default ui-corner-all': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" [disabled]="_page === totalDots()-1 && !circular" (click)="navForward($event)">
 						<span [ngClass]="{'ui-carousel-next-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
-					</a>
+					</button>
 				</div>
 				<ul [class]="dotsContentClasses()">
 					<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'ui-carousel-dot-item':true,'ui-state-highlight': _page === i}">
-						<a (click)="onDotClick($event, i)">
+						<button class="ui-button ui-widget ui-state-default ui-corner-all" (click)="onDotClick($event, i)">
 							<span [ngClass]="{'ui-carousel-dot-icon pi':true, 'pi-circle-on': _page === i, 'pi-circle-off': !(_page === i)}"></span>
-						</a>
+						</button>
 					</li>
 				</ul>
 			</div>
@@ -427,10 +427,6 @@ export class Carousel implements AfterContentInit {
 	}
 
 	navForward(e,index?) {
-		if (this._page === this.totalDots()-1 && !this.circular) {
-			return;
-		}
-
 		if (this.circular || this._page < (this.totalDots() - 1)) {
 			this.step(-1, index);
 		}
@@ -446,10 +442,6 @@ export class Carousel implements AfterContentInit {
 	}
 
 	navBackward(e,index?) {
-		if (this._page === 0  && !this.circular) {
-			return;
-		}
-
 		if (this.circular || this._page !== 0) {
 			this.step(1, index);
 		}
