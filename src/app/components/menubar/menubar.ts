@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'ui-menuitem ui-corner-all':true,
                         'ui-menu-parent':child.items,'ui-menuitem-active':listItem==activeItem,'ui-helper-hidden': child.visible === false}"
-                        (mouseenter)="onItemMouseEnter($event,listItem,child)" (mouseleave)="onItemMouseLeave($event)" (click)="onItemMenuClick($event, listItem, child)">
+                        (mouseenter)="onItemMouseEnter($event,listItem,child)" (click)="onItemMenuClick($event, listItem, child)">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="itemClick($event, child)"
                          [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" [attr.tabindex]="child.tabindex ? child.tabindex : '0'">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -27,7 +27,7 @@ import { RouterModule } from '@angular/router';
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw" *ngIf="child.items" [ngClass]="{'pi-caret-down':root,'pi-caret-right':!root}"></span>
                     </a>
-                    <p-menubarSub class="ui-submenu" [item]="child" *ngIf="child.items" [autoDisplay]="true"></p-menubarSub>
+                    <p-menubarSub class="ui-submenu" [parentActive]="listItem==activeItem" [item]="child" *ngIf="child.items" [autoDisplay]="true"></p-menubarSub>
                 </li>
             </ng-template>
         </ul>
@@ -45,6 +45,21 @@ export class MenubarSub implements OnDestroy {
 
     @Input() baseZIndex: number = 0;
 
+    @Input() get parentActive():boolean 
+    {
+        return this._parentActive;
+    }
+    set parentActive(value) {
+        if (!this.root) {
+            this._parentActive = value;
+
+            if (!value)
+                this.activeItem = null;
+        }
+    }
+
+    _parentActive:boolean;
+
     documentClickListener: any;
 
     menuClick: boolean;
@@ -53,8 +68,6 @@ export class MenubarSub implements OnDestroy {
 
     activeItem: any;
 
-    hideTimeout: any;
-    
     activeMenu: any;
 
     constructor(public renderer: Renderer2, private cd: ChangeDetectorRef) { }
@@ -96,6 +109,7 @@ export class MenubarSub implements OnDestroy {
                 if (!this.menuClick) {
                     this.activeItem = null;
                     this.menuHoverActive = false;
+                    this.activeMenu = false;
                 }
                 this.menuClick = false;
             });
@@ -108,39 +122,27 @@ export class MenubarSub implements OnDestroy {
                 return;
             }
 
-            if(this.hideTimeout) {
-                clearTimeout(this.hideTimeout);
-                this.hideTimeout = null;
-            }
+            if ((this.activeItem && !this.activeItem.isEqualNode(item) || !this.activeItem)) {
+                this.activeItem = item;
+                let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
+                if (nextElement) {
+                    let sublist = <HTMLUListElement>nextElement.children[0];
+                    sublist.style.zIndex = String(++DomHandler.zindex);
 
-            this.activeItem = this.activeItem ? (this.activeItem.isEqualNode(item) && this.autoDisplay ? null: item) : item;
-            let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
-            if (nextElement) {
-                let sublist = <HTMLUListElement>nextElement.children[0];
-                sublist.style.zIndex = String(++DomHandler.zindex);
-
-                if (this.root) {
-                    sublist.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
-                    sublist.style.left = '0px'
+                    if (this.root) {
+                        sublist.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
+                        sublist.style.left = '0px'
+                    }
+                    else {
+                        sublist.style.top = '0px';
+                        sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
+                    }
                 }
-                else {
-                    sublist.style.top = '0px';
-                    sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
-                }
+                this.activeMenu = item;
             }
-  
-            this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) && this.autoDisplay ? null: item) : item;
         }
     }
 
-    onItemMouseLeave(event: Event) {
-        if (this.autoDisplay) {
-            this.hideTimeout = setTimeout(() => {
-                this.activeItem = null;
-                this.cd.markForCheck();
-            }, 250);
-        }
-    }
 
     itemClick(event, item: MenuItem)  {
         if (item.disabled) {
@@ -182,7 +184,7 @@ export class MenubarSub implements OnDestroy {
     selector: 'p-menubar',
     template: `
         <div [ngClass]="{'ui-menubar ui-widget ui-widget-content ui-corner-all':true}" [class]="styleClass" [ngStyle]="style">
-            <p-menubarSub [item]="model" root="root" [autoDisplay]="autoDisplay" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex">
+            <p-menubarSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex">
                 <ng-content></ng-content>
             </p-menubarSub>
             <div class="ui-menubar-custom">
@@ -198,8 +200,6 @@ export class Menubar {
     @Input() style: any;
 
     @Input() styleClass: string;
-
-    @Input() autoDisplay: boolean = true;
 
     @Input() autoZIndex: boolean = true;
 
