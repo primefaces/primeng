@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -13,9 +13,9 @@ import {RouterModule} from '@angular/router';
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listItem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menuitem-active':listItem==activeItem,'ui-helper-hidden': child.visible === false}"
                     [class]="child.styleClass" [ngStyle]="child.style"
-                    (mouseenter)="onItemMouseEnter($event, listItem, child)" (mouseleave)="onItemMouseLeave($event)">
+                    (mouseenter)="onItemMouseEnter($event, listItem, child)">
                     <a *ngIf="!child.routerLink" [attr.href]="child.url" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" [attr.title]="child.title" [attr.id]="child.id" 
-                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
+                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, listItem, child)">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
@@ -23,19 +23,19 @@ import {RouterModule} from '@angular/router';
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" [attr.tabindex]="child.tabindex ? child.tabindex : '0'"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
                         class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
+                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, listItem, child)">
                         
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                     </a>
-                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
+                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items" [baseZIndex]="baseZIndex" [parentActive]="listItem==activeItem" [autoZIndex]="autoZIndex"></p-tieredMenuSub>
                 </li>
             </ng-template>
         </ul>
     `
 })
-export class TieredMenuSub {
+export class TieredMenuSub implements AfterViewInit, OnDestroy {
 
     @Input() item: MenuItem;
     
@@ -45,73 +45,127 @@ export class TieredMenuSub {
     
     @Input() baseZIndex: number = 0;
 
-    @Input() hideDelay: number = 250;
+    @Input() get parentActive(): boolean {
+        return this._parentActive;
+    }
+    set parentActive(value) {
+        this._parentActive = value;
+
+        if (!value) {
+            this.activeItem = null;
+        }
+    }
 
     tieredMenu: TieredMenu;
+
+    _parentActive: boolean;
+
+    rootItemClick: boolean;
+
+    documentClickListener: any;
+
+    ngAfterViewInit() {
+        if(this.root && !this.tieredMenu.popup) {
+            this.bindDocumentClickListener();
+        }
+    }
     
-    constructor(@Inject(forwardRef(() => TieredMenu)) tieredMenu, private cf: ChangeDetectorRef) {
+    constructor(@Inject(forwardRef(() => TieredMenu)) tieredMenu, private cf: ChangeDetectorRef, public renderer: Renderer2) {
         this.tieredMenu = tieredMenu as TieredMenu;
     }
 
     activeItem: HTMLLIElement;
 
-    hideTimeout: any;
-                
     onItemMouseEnter(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
-        if (menuitem.disabled) {
-            return;
-        }
-
-        if (this.hideTimeout) {
-            clearTimeout(this.hideTimeout);
-            this.hideTimeout = null;
-        }
-        
-        this.activeItem = item;
-        let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
-        if (nextElement) {
-            let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
-            if (this.autoZIndex) {
-                sublist.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        if (this.tieredMenu.popup || (!this.root || this.activeItem)) {
+            if (menuitem.disabled) {
+                return;
             }
-            sublist.style.zIndex = String(++DomHandler.zindex);
-                        
-            sublist.style.top = '0px';
-            sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
+
+            this.activeItem = item;
+            let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
+            if (nextElement) {
+                let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
+                if (this.autoZIndex) {
+                    sublist.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
+                sublist.style.zIndex = String(++DomHandler.zindex);
+                            
+                sublist.style.top = '0px';
+                sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
+            }
         }
     }
     
-    onItemMouseLeave(event: Event) {
-        this.hideTimeout = setTimeout(() => {
-            this.activeItem = null;
-            this.cf.markForCheck();
-        }, this.hideDelay);
-    }
-    
-    itemClick(event: Event, item: MenuItem) {
-        if (item.disabled) {
+    itemClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
+        if (menuitem.disabled) {
             event.preventDefault();
             return true;
         }
         
-        if (!item.url) {
+        if (!menuitem.url) {
             event.preventDefault();
         }
         
-        if (item.command) {            
-            item.command({
+        if (menuitem.command) {            
+            menuitem.command({
                 originalEvent: event,
                 item: item
             });
         }
 
-        if (!item.items && this.tieredMenu.popup) {
+        if (this.root && !this.activeItem && !this.tieredMenu.popup ) {
+            this.activeItem = item;
+            let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
+            if (nextElement) {
+                let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
+                if (this.autoZIndex) {
+                    sublist.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
+                sublist.style.zIndex = String(++DomHandler.zindex);
+                            
+                sublist.style.top = '0px';
+                sublist.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
+
+                this.rootItemClick = true;
+            }
+        }
+
+        if (!menuitem.items && this.tieredMenu.popup) {
             this.tieredMenu.hide();
         }
     }
     
     listClick(event: Event) {
-        this.activeItem = null;
+        if (!this.rootItemClick) {
+            this.activeItem = null;
+        }
+    }
+
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if (!this.rootItemClick) {
+                    this.parentActive = false;
+                    this.activeItem = null;
+                }
+
+                this.rootItemClick = false;
+            });
+        }
+    }
+
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.root && !this.tieredMenu.popup) {
+            this.unbindDocumentClickListener();
+        }
     }
 }
 
@@ -120,7 +174,7 @@ export class TieredMenuSub {
     template: `
         <div [ngClass]="{'ui-tieredmenu ui-widget ui-widget-content ui-corner-all':true, 'ui-tieredmenu-dynamic ui-shadow':popup}" [class]="styleClass" [ngStyle]="style"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)" *ngIf="!popup || visible">
-            <p-tieredMenuSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" [hideDelay]="hideDelay"></p-tieredMenuSub>
+            <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-tieredMenuSub>
         </div>
     `,
     animations: [
@@ -154,11 +208,11 @@ export class TieredMenu implements OnDestroy {
     
     @Input() baseZIndex: number = 0;
 
-    @Input() hideDelay: number = 250
-    
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
+
+    parentActive: boolean;
 
     container: HTMLDivElement;
     
@@ -186,6 +240,7 @@ export class TieredMenu implements OnDestroy {
     show(event) {
         this.target = event.currentTarget;
         this.visible = true;
+        this.parentActive = true;
         this.preventDocumentDefault = true;
     }
 
@@ -231,6 +286,7 @@ export class TieredMenu implements OnDestroy {
 
     hide() {
         this.visible = false;
+        this.parentActive = false;
     }
 
     onWindowResize() {
@@ -240,7 +296,7 @@ export class TieredMenu implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if (!this.preventDocumentDefault) {
+                if (!this.preventDocumentDefault && this.popup) {
                     this.hide();
                 }
 
