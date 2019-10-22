@@ -853,7 +853,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             clearTimeout(this.searchTimeout);
         }
 
-        const char = String.fromCharCode(event.keyCode);
+        const char = event.key;
         this.previousSearchChar = this.currentSearchChar;
         this.currentSearchChar = char;
 
