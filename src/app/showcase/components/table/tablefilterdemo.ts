@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
-import { SelectItem } from '../../../components/common/api';
+import { SelectItem, FilterUtils } from '../../../components/common/api';
 
 @Component({
     templateUrl: './tablefilterdemo.html'
@@ -51,11 +51,24 @@ export class TableFilterDemo implements OnInit {
         ];
 
         this.cols = [
-            { field: 'vin', header: 'Vin' },
+            { field: 'vin', header: 'Vin'},
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+            { field: 'color', header: 'Color' },
+            { field: 'price', header: 'Price' }
         ];
+
+        FilterUtils['custom'] = (value, filter): boolean => {
+            if (filter === undefined || filter === null || filter.trim() === '') {
+                return true;
+            }
+    
+            if (value === undefined || value === null) {
+                return false;
+            }
+            
+            return parseInt(filter) > value;
+        }
     }
 
     onYearChange(event, dt) {

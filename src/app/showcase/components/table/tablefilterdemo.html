@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                     <div *ngSwitchCase="'year'">
                         Value > {{yearFilter}}
                         <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
@@ -31,6 +31,7 @@
                     </div>
                     <p-dropdown *ngSwitchCase="'brand'" [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
                     <p-multiSelect *ngSwitchCase="'color'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
+                    <input *ngSwitchCase="'price'" pInputText type="text" placeholder="Custom - Greater Than" (input)="dt.filter($event.target.value, col.field, 'custom')">
                 </th>
             </tr>
         </ng-template>
@@ -103,6 +104,18 @@ export class TableFilterDemo implements OnInit &#123;
             &#123; field: 'brand', header: 'Brand' &#125;,
             &#123; field: 'color', header: 'Color' &#125;
         ];
+
+        FilterUtils['custom'] = (value, filter): boolean => &#123;
+            if (filter === undefined || filter === null || filter.trim() === '') &#123;
+                return true;
+            &#125;
+    
+            if (value === undefined || value === null) &#123;
+                return false;
+            &#125;
+            
+            return parseInt(filter) > value;
+        &#125;
     &#125;
 
     onYearChange(event, dt) &#123;
@@ -141,14 +154,15 @@ export class TableFilterDemo implements OnInit &#123;
         &lt;/tr&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns" [ngSwitch]="col.field"&gt;
-                &lt;input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"&gt;
+                &lt;input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"&gt;
                 &lt;div *ngSwitchCase="'year'"&gt;
-                    Value &lt; &#123;&#123;yearFilter&#125;&#125;
+                    Value &gt; &#123;&#123;yearFilter&#125;&#125;
                     &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"&gt;&lt;/i&gt;
                     &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"&gt;&lt;/p-slider&gt;
                 &lt;/div&gt;
                 &lt;p-dropdown *ngSwitchCase="'brand'" [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value, col.field, 'equals')"&gt;&lt;/p-dropdown&gt;
                 &lt;p-multiSelect *ngSwitchCase="'color'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"&gt;&lt;/p-multiSelect&gt;
+                &lt;input *ngSwitchCase="'price'" pInputText type="text" placeholder="Custom - Greater Than" (input)="dt.filter($event.target.value, col.field, 'custom')"&gt;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
