@@ -36,6 +36,11 @@ import {SelectItem} from '../../../components/common/api';
         .ui-panel-content {
             padding: 1em;
         }
+
+        .dark-theme :host ::ng-deep .car-details,
+        .dark-theme :host ::ng-deep .car-detail {
+            border-bottom: 1px solid #191919;
+        }
         
         @media (max-width: 1024px) {
             .car-details img {
