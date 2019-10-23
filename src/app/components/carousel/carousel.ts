@@ -49,9 +49,7 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 				<ng-content select="p-footer"></ng-content>
 			</div>
 		</div>
-
-	`,
-	styleUrls: ['./carousel.css']
+	`
 })
 export class Carousel implements AfterContentInit {
 
