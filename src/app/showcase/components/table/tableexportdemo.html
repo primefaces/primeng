@@ -10,11 +10,11 @@
 <div class="content-section implementation">
     <p-table #dt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars">
         <ng-template pTemplate="caption">
-            <div class="ui-helper-clearfix">
-                <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left; margin-right: 0.5em;"></button>
-                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="All Data" (click)="exportExcel()" style="float:left; margin-right: 0.5em;"></button>
-                <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="All Data" (click)="exportPdf()" style="float:left"></button>
-                <button type="button" pButton icon="pi pi-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
+            <div class="ui-helper-clearfix" style="text-align: left">
+                <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button>
+                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button>
+                <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -72,7 +72,7 @@ export class TableExportDemo implements OnInit &#123;
         ];
     &#125;
 
-    public exportPdf () &#123;
+    exportPdf () &#123;
         import("jspdf").then(jsPDF => &#123;
             import("jspdf-autotable").then(x => &#123;
                 const doc = new jsPDF.default(0,0);
@@ -81,7 +81,8 @@ export class TableExportDemo implements OnInit &#123;
             &#125;)
         &#125;)
     &#125;
-    public exportExcel() &#123;
+    
+    exportExcel() &#123;
         import("xlsx").then(xlsx => &#123;
             const worksheet = xlsx.utils.json_to_sheet(this.getCars());
             const workbook = &#123; Sheets: &#123; 'data': worksheet &#125;, SheetNames: ['data'] &#125;;
@@ -89,6 +90,7 @@ export class TableExportDemo implements OnInit &#123;
             this.saveAsExcelFile(excelBuffer, "primengTable");
         &#125;);
     &#125;
+
     saveAsExcelFile(buffer: any, fileName: string): void &#123;
         import("file-saver").then(FileSaver => &#123;
             let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -122,11 +124,11 @@ export class TableExportDemo implements OnInit &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table #dt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
     &lt;ng-template pTemplate="caption"&gt;
-        &lt;div class="ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="pi pi-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left; margin-right: 0.5em;"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="All Data" (click)="exportExcel()" style="float:left; margin-right: 0.5em;"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="All Data" (click)="exportPdf()" style="float:left"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
+        &lt;div class="ui-helper-clearfix" style="text-align: left"&gt;
+            &lt;button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
