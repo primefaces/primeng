@@ -441,6 +441,7 @@ describe('Dropdown', () => {
 
 		keydownEvent.which = 76;
 		keydownEvent.keyCode = 76;
+		keydownEvent.key = "l";
 		inputEl.dispatchEvent(keydownEvent);
 		fixture.detectChanges();
 
@@ -510,6 +511,7 @@ describe('Dropdown', () => {
 
 		keydownEvent.which = 77;
 		keydownEvent.keyCode = 77;
+		keydownEvent.key = "m";
 		keydownEvent.altKey = false;
 		inputEl.dispatchEvent(keydownEvent);
 
