@@ -64,15 +64,11 @@ export class TableExportDemo implements OnInit &#123;
             &#123; field: 'brand', header: 'Brand' &#125;,
             &#123; field: 'color', header: 'Color' &#125;
         ];
-        this.columns = [
-            &#123;title: "Vin", dataKey: "vin"&#125;,
-            &#123;title: "Year", dataKey: "year"&#125;, 
-            &#123;title: "Brand", dataKey: "brand"&#125;,
-            &#123;title: "Color", dataKey: "color"&#125;
-        ];
+
+        this.exportColumns = this.cols.map(col => (&#123;title: col.header, dataKey: col.field&#125;));
     &#125;
 
-    exportPdf () &#123;
+    exportPdf() &#123;
         import("jspdf").then(jsPDF => &#123;
             import("jspdf-autotable").then(x => &#123;
                 const doc = new jsPDF.default(0,0);

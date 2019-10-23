@@ -13,7 +13,7 @@ export class TableExportDemo implements OnInit {
 
     cols: any[];
 
-    columns: any[];
+    exportColumns: any[];
 
     constructor(private carService: CarService) { }
 
@@ -26,24 +26,21 @@ export class TableExportDemo implements OnInit {
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' }
         ];
-        this.columns = [
-            {title: "Vin", dataKey: "vin"},
-            {title: "Year", dataKey: "year"}, 
-            {title: "Brand", dataKey: "brand"},
-            {title: "Color", dataKey: "color"}
-        ];
+
+        this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
     }
 
-    public exportPdf () {
+    exportPdf() {
         import("jspdf").then(jsPDF => {
             import("jspdf-autotable").then(x => {
                 const doc = new jsPDF.default(0,0);
-                doc.autoTable(this.columns, this.cars);
+                doc.autoTable(this.exportColumns, this.cars);
                 doc.save('primengTable.pdf');
             })
         })
     }
-    public exportExcel() {
+
+    exportExcel() {
         import("xlsx").then(xlsx => {
             const worksheet = xlsx.utils.json_to_sheet(this.getCars());
             const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
@@ -51,6 +48,7 @@ export class TableExportDemo implements OnInit {
             this.saveAsExcelFile(excelBuffer, "primengTable");
         });
     }
+
     saveAsExcelFile(buffer: any, fileName: string): void {
         import("file-saver").then(FileSaver => {
             let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
