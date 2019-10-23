@@ -26,26 +26,17 @@
             </div>
         </p-header>
         <ng-template let-car pTemplate="listItem">
-            <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-                <div class="ui-g-12 ui-md-3" style="text-align:center">
-                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
-                </div>
-                <div class="ui-g-12 ui-md-8 car-details">
-                    <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">Vin: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{car.vin}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Year: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{car.year}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Brand: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{car.brand}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Color: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{car.color}}</b></div>
+            <div class="ui-g-12">
+                <div class="car-details">
+                    <div>
+                        <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
+                        <div class="ui-g">
+                            <div class="ui-g-12">Vin: <b>{{car.vin}}</b></div>
+                            <div class="ui-g-12">Year: <b>{{car.year}}</b></div>
+                            <div class="ui-g-12">Brand: <b>{{car.brand}}</b></div>
+                            <div class="ui-g-12">Color: <b>{{car.color}}</b></div>
+                        </div>
                     </div>
-                </div>
-                <div class="ui-g-12 ui-md-1 search-icon">
                     <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"></button>
                 </div>
             </div>
@@ -55,7 +46,6 @@
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>
-                    <hr class="ui-widget-content" style="border-top:0">
                     <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button>
                 </p-panel>
             </div>
@@ -647,26 +637,17 @@ export class DataViewSortDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
-        &lt;div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9"&gt;
-            &lt;div class="ui-g-12 ui-md-3" style="text-align:center"&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-8 car-details"&gt;
-                &lt;div class="ui-g"&gt;
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+        &lt;div class="ui-g-12"&gt;
+            &lt;div class="car-details"&gt;
+                &lt;div&gt;
+                    &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
+                    &lt;div class="ui-g"&gt;
+                        &lt;div class="ui-g-12"&gt;Vin: &lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="ui-g-12"&gt;Year: &lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="ui-g-12"&gt;Brand: &lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="ui-g-12"&gt;Color: &lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                    &lt;/div&gt;
                 &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-1 search-icon"&gt;
                 &lt;button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"&gt;&lt;/button&gt;
             &lt;/div&gt;
         &lt;/div&gt;

@@ -6,18 +6,40 @@ import {SelectItem} from '../../../components/common/api';
 @Component({
     templateUrl: './dataviewdemo.html',
     styles: [`      
-        .ui-button { 
-            margin-top: 3em;
-        }  
-
         .filter-container {
             text-align: center;
         }
 
-        @media (max-width: 40em) {
-            .car-details, .search-icon {
-                text-align: center;
-                margin-top: 0;
+        .car-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2em;
+            border-bottom: 1px solid #d9dad9;
+        }
+
+        .car-details > div {
+            display: flex;
+            align-items: center;
+        }
+
+        .car-details > div img {
+            margin-right: 14px;
+        }
+
+        .car-detail {
+            padding: 0 1em 1em 1em;
+            border-bottom: 1px solid #d9dad9;
+            margin: 1em;
+        }
+
+        .ui-panel-content {
+            padding: 1em;
+        }
+        
+        @media (max-width: 1024px) {
+            .car-details img {
+                 width: 75px;
             }
 
             .filter-container {
