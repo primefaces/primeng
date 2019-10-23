@@ -59,16 +59,16 @@ export class Carousel implements AfterContentInit {
 		return this._page;
 	}
 	set page(val:number) {
-		if(this.isCreated && val !== this._page) {
-			if(this.autoplayInterval) {
+		if (this.isCreated && val !== this._page) {
+			if (this.autoplayInterval) {
 				this.stopAutoplay();
 				this.allowAutoplay = false;
 			}
 
-			if(val > this._page && val < (this.totalDots() - 1)) {
+			if (val > this._page && val < (this.totalDots() - 1)) {
 				this.step(-1, val);
 			}
-			else if(val < this._page && val !== 0) {
+			else if (val < this._page && val !== 0) {
 				this.step(1, val);
 			}
 		} 
@@ -221,7 +221,7 @@ export class Carousel implements AfterContentInit {
 		const isCircular = this.isCircular();
 		let totalShiftedItems = this.totalShiftedItems;
 		
-		if(this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
+		if (this.value && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
 			if (this.autoplayInterval) {
 				this.stopAutoplay();
 			}
@@ -431,7 +431,7 @@ export class Carousel implements AfterContentInit {
 			this.step(-1, index);
 		}
 
-		if(this.autoplayInterval) {
+		if (this.autoplayInterval) {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
@@ -446,7 +446,7 @@ export class Carousel implements AfterContentInit {
 			this.step(1, index);
 		}
 
-		if(this.autoplayInterval) {
+		if (this.autoplayInterval) {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
@@ -459,7 +459,7 @@ export class Carousel implements AfterContentInit {
 	onDotClick(e, index) {
 		let page = this._page;
 
-		if(this.autoplayInterval) {
+		if (this.autoplayInterval) {
 			this.stopAutoplay();
 			this.allowAutoplay = false;
 		}
@@ -523,7 +523,7 @@ export class Carousel implements AfterContentInit {
 
 	startAutoplay() {
 		this.interval = setInterval(() => {
-			if(this.page === (this.totalDots() - 1)) {
+			if (this.page === (this.totalDots() - 1)) {
 				this.step(-1, 0);
 			}
 			else {
@@ -594,7 +594,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	unbindDocumentListeners() {
-		if(this.documentResizeListener) {
+		if (this.documentResizeListener) {
 			window.removeEventListener('resize', this.documentResizeListener);
 			this.documentResizeListener = null;
 		}

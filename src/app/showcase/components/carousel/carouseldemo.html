@@ -101,8 +101,20 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
 &lt;/carousel&gt;
 </code>
 </pre>
-            <h3>Items per page and Scroll Items</h3>
+            <h3>Items Per Page and Scroll Items</h3>
             <p>Number of items per page is defined using the <i>numVisible</i> property whereas number of items to scroll is defined with the <i>numScroll</i> property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;carousel [value]="cars" [numVisible]="3" [numScroll]="1"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Content to display
+    &lt;/ng-template&gt;
+&lt;/carousel&gt;
+</code>
+</pre>
+
+            <h3>Responsive</h3>
+            <p>For responsive design, numVisible and numScroll can be defined using the responsiveOptions property that should be an array of objects whose breakpoint defines the max-width to apply the settings.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;carousel [value]="cars" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions"&gt;
@@ -112,11 +124,12 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
 &lt;/carousel&gt;
 </code>
 </pre>
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class CarouselDemo &#123;
     constructor(private carService: CarService) &#123; 
-		this.responsiveOptions = [
+        this.responsiveOptions = [
             &#123;
                 breakpoint: '1024px',
                 numVisible: 3,
@@ -133,18 +146,19 @@ export class CarouselDemo &#123;
                 numScroll: 1
             &#125;
         ];
-	&#125;
+    &#125;
 
-	ngOnInit() &#123;
-		this.carService.getCarsSmall().then(cars => &#123;
-			this.cars = cars
-		&#125;);
-	&#125;
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => &#123;
+            this.cars = cars
+        &#125;);
+    &#125;
 &#125;
 </code>
 </pre>
+
             <h3>Header and Footer</h3>
-            <p>Custom content projection is available using the <i>header</i> and <i>footer</i> properties.</p>
+            <p>Custom content projection is available using the <i>p-header</i> and <i>p-footer</i> components.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;carousel [value]="cars"&gt;
@@ -382,6 +396,7 @@ export class CarouselDemo &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-carousel&gt;
+
 &lt;p-carousel [value]="cars" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions"&gt;
     &lt;p-header&gt;
         &lt;h3&gt;Circular, AutoPlay, 3 Items per Page and Scroll by 1&lt;/h3&gt;
@@ -406,6 +421,7 @@ export class CarouselDemo &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-carousel&gt;
+
 &lt;p-carousel [value]="cars" orientation="vertical" [style]="&#123;'max-width':'400px', 'margin-top':'2em'&#125;" verticalViewPortHeight="330px" [numVisible]="1" [numScroll]="1"&gt;
     &lt;p-header&gt;
         &lt;h3&gt;Vertical&lt;/h3&gt;
@@ -432,6 +448,7 @@ export class CarouselDemo &#123;
 &lt;/p-carousel&gt;
 </code>
 </pre>
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
@@ -476,7 +493,6 @@ export class CarouselDemo &#123;
 
     cars: any[];
 
-    
     responsiveOptions;
 
     constructor(private carService: CarService) &#123; 
@@ -507,6 +523,6 @@ export class CarouselDemo &#123;
 &#125;
 </code>
 </pre>
-        </ p-tabPanel>
+        </p-tabPanel>
      </p-tabView >
 </div>
