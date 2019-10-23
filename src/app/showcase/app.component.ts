@@ -106,21 +106,39 @@ export class AppComponent implements OnInit{
     changeTheme(event: Event, theme: string, dark: boolean) {
         let themeLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('theme-css');
         themeLink.href = 'assets/components/themes/' + theme + '/theme.css';
-
+        const hasBodyDarkTheme = this.hasClass(document.body, 'dark-theme');
+        
         if (dark) {
-            if (!this.darkDemoStyle) {
-                this.darkDemoStyle = document.createElement('style');
-                this.darkDemoStyle.type = 'text/css';
-                this.darkDemoStyle.innerHTML = '.implementation { background-color: #3f3f3f; color: #dedede} .implementation > h3, .implementation > h4{ color: #dedede}';
-                document.body.appendChild(this.darkDemoStyle);
+            if (!hasBodyDarkTheme) {
+                this.addClass(document.body, 'dark-theme');
             }
         }
-        else if(this.darkDemoStyle) {
-            document.body.removeChild(this.darkDemoStyle);
-            this.darkDemoStyle = null;
+        else if(hasBodyDarkTheme) {
+            this.removeClass(document.body, 'dark-theme');
         }
         
         event.preventDefault();
+    }
+
+    addClass(element: any, className: string) {
+        if (element.classList)
+            element.classList.add(className);
+        else
+            element.className += ' ' + className;
+    }
+
+    removeClass(element: any, className: string) {
+        if (element.classList)
+            element.classList.remove(className);
+        else
+            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
+
+    hasClass(element: any, className: string) {
+        if (element.classList)
+            return element.classList.contains(className);
+        else
+            return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
     }
 
     onMenuButtonClick(event: Event) {

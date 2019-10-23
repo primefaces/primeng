@@ -1595,14 +1595,17 @@ export class TableEditDemo implements OnInit &#123;
             <h3>Data Export</h3>
             <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
                 columns should be dynamic for export functionality to work and column objects must define field/header properties.
+                PDF AND EXCEL DOC HERE
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table #tt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data" (click)="tt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="tt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left; margin-right: 0.5em;"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="All Data" (click)="exportExcel()" style="float:left; margin-right: 0.5em;"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="All Data" (click)="exportPdf()" style="float:left"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;

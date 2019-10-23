@@ -1,10 +1,10 @@
-.p-carousel {
+.ui-carousel {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
 
-.p-carousel-content {
+.ui-carousel-content {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -12,8 +12,8 @@
 	padding: 0 .5em;
 }
 
-.p-carousel-prev.p-link,
-.p-carousel-next.p-link {
+.ui-carousel-prev,
+.ui-carousel-next {
 	align-self: center;
 	text-align: center;
 	flex-grow: 0;
@@ -23,44 +23,44 @@
 	position: relative;
 }
 
-.p-carousel-prev span,
-.p-carousel-next span {
+.ui-carousel-prev span,
+.ui-carousel-next span {
 	width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.p-carousel-container {
+.ui-carousel-container {
 	display: flex;
     flex-direction: row;
     padding: 0 .1em;
 }
 
-.p-carousel-header,
-.p-carousel-footer {
+.ui-carousel-header,
+.ui-carousel-footer {
 	padding: .5em;
 	z-index: 1;
 }
 
-.p-carousel-items-content {
+.ui-carousel-items-content {
     overflow: hidden;
     width: 100%;
 }
 
-.p-carousel-items-container {
+.ui-carousel-items-container {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
 }
 
-.p-carousel-items-container .p-carousel-item {
+.ui-carousel-items-container .ui-carousel-item {
     width: 100%;
     box-sizing: border-box;
     overflow: auto;
 }
 
-.p-carousel-dots-container {
+.ui-carousel-dots-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -68,31 +68,17 @@
     margin: .5em;
 }
 
-.p-link {
-	text-align: left;
-	background-color: transparent;
-	margin: 0;
-	padding: 0;
-	border: none;
-	cursor: pointer;
-	font-size: 14px;
-	font-family: "Open Sans", "Helvetica Neue", sans-serif;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px; 
-}
-
 /* Vertical */
-.p-carousel-vertical .p-carousel-container {
+.ui-carousel-vertical .ui-carousel-container {
     flex-direction: column;
     width: 100%;
 }
 
-.p-carousel-vertical .p-carousel-items-container {
+.ui-carousel-vertical .ui-carousel-items-container {
     flex-direction: column;
     height: 100%;
 }
 
-.p-carousel-vertical .p-carousel-dots-container {
+.ui-carousel-vertical .ui-carousel-dots-container {
     margin: .75em 0;
 }
