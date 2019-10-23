@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">FileUpload</span>
-        <span>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and
+        <span>FileUpload is an advanced uploader with drag and drop support, multi file uploads, auto uploading, progress tracking and
             validations.</span>
     </div>
 </div>
@@ -53,7 +53,7 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 </pre>
 
             <h3>DragDrop</h3>
-            <p>File selection can also be done by dragging and dropping one or more to the content section of the component.</p>
+            <p>File selection can also be done by dragging and dropping one or more files to the content section of the component.</p>
 
             <h3>Auto Uploads</h3>
             <p>When auto property is enabled, upload begins as soon as file selection is completed or a file is dropped on the drop area.</p>
@@ -75,7 +75,7 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 </pre>
 
             <h3>File Size</h3>
-            <p>Maximium file size can be restricted using maxFileSize property defined in bytes.</p>
+            <p>Maximum file size can be restricted using maxFileSize property defined in bytes.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
@@ -122,7 +122,7 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 </code>
 </pre>
             <h3>Custom Upload</h3>
-            <p>Uploading implementation can be overriden by enabling customMode property and defining a custom upload handler event.</p>
+            <p>Uploading implementation can be overridden by enabling customMode property and defining a custom upload handler event.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="myUploader($event)"&gt;&lt;/p-fileUpload&gt;
@@ -207,37 +207,37 @@ myUploader(event) &#123;
                             <td>invalidFileSizeMessageSummary</td>
                             <td>string</td>
                             <td>"&#123;0&#125;: Invalid file size, "</td>
-                            <td>Summary message of the invalid fize size.</td>
+                            <td>Summary message of the invalid file size.</td>
                         </tr>
                         <tr>
                             <td>invalidFileSizeMessageDetail</td>
                             <td>string</td>
                             <td>"maximum upload size is &#123;0&#125;."</td>
-                            <td>Detail message of the invalid fize size.</td>
+                            <td>Detail message of the invalid file size.</td>
                         </tr>
                         <tr>
                             <td>invalidFileTypeMessageSummary</td>
                             <td>string</td>
                             <td>"&#123;0&#125;: Invalid file type, "</td>
-                            <td>Summary message of the invalid fize type.</td>
+                            <td>Summary message of the invalid file type.</td>
                         </tr>
                         <tr>
                             <td>invalidFileLimitMessageDetail</td>
                             <td>string</td>
                             <td>"limit is &#123;0&#125; at most."</td>
-                            <td>Detail message of the invalid fize type.</td>
+                            <td>Detail message of the invalid file type.</td>
                         </tr>
                         <tr>
                             <td>invalidFileLimitMessageSummary</td>
                             <td>string</td>
                             <td>"Maximum number of files exceeded, "</td>
-                            <td>Summary message of the invalid fize type.</td>
+                            <td>Summary message of the invalid file type.</td>
                         </tr>
                         <tr>
                             <td>invalidFileTypeMessageDetail</td>
                             <td>string</td>
                             <td>"allowed file types: &#123;0&#125;."</td>
-                            <td>Detail message of the invalid fize type.</td>
+                            <td>Detail message of the invalid file type.</td>
                         </tr>
                         <tr>
                             <td>style</td>
