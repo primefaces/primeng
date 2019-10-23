@@ -1,5 +1,25 @@
 # Change Log
 
+## [8.1.0](https://github.com/primefaces/primeng/tree/8.1.0) (2019-10-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.0.4...8.1.0)
+
+**Implemented New Features and Enhancements:**
+
+- Deprecate autoDisplay from Menubar [\#8266](https://github.com/primefaces/primeng/issues/8266)
+- Improve Menubar, ContextMenu and TieredMenu Behavior [\#8214](https://github.com/primefaces/primeng/issues/8214)
+- ConfirmDialog should trap focus [\#8212](https://github.com/primefaces/primeng/issues/8212)
+- Ability to extend Filters in Table [\#8123](https://github.com/primefaces/primeng/issues/8123)
+- Reimplement Carousel [\#3896](https://github.com/primefaces/primeng/issues/3896)
+- PDF and EXCEL demo for Table [\#534](https://github.com/primefaces/primeng/issues/534)
+
+**Fixed bugs:**
+
+- acceptVisible and rejectVisible being false cause focus error  [\#8246](https://github.com/primefaces/primeng/issues/8246)
+- p-tree lazy loading not working as arrow icon not showing despite marking leaf false [\#8237](https://github.com/primefaces/primeng/issues/8237)
+- Multiple autocomplete ignore maxlength attribute [\#8232](https://github.com/primefaces/primeng/issues/8232)
+- Numeric keypad \(0-9\) cannot be used for searching in dropdown [\#6777](https://github.com/primefaces/primeng/issues/6777)
+
 ## [8.0.4](https://github.com/primefaces/primeng/tree/8.0.4) (2019-10-07)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/8.0.3...8.0.4)
