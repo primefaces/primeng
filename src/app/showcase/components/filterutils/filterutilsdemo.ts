@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FilterUtils } from '../../../components/utils/filterutils';
 import { CarService } from '../../service/carservice';
 import { Car } from '../../domain/car';
@@ -18,7 +18,7 @@ export class FilterUtilsDemo {
         {label: 'Mercedes', value: 'Mercedes'},
         {label: 'Renault', value: 'Renault'},
         {label: 'VW', value: 'VW'},
-        {label: 'Volvo', value: 'Volvo'},
+        {label: 'Volvo', value: 'Volvo'}
     ];
 
     filteredBrands: any[];
@@ -30,7 +30,7 @@ export class FilterUtilsDemo {
     cols: any[];
 
     constructor(private carService:CarService) {
-        FilterUtils['custom'] = (value, filter): boolean => {
+        FilterUtils['custom-equals'] = (value, filter): boolean => {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
@@ -43,15 +43,16 @@ export class FilterUtilsDemo {
         }
 
         this.cols = [
-            { field: 'year', header: 'Year', filterMatchMode:'custom' },
-            { field: 'brand', header: 'Brand', filterMatchMode:'custom' },
-            { field: 'color', header: 'Color', filterMatchMode:'custom' },
-            { field: 'vin', header: 'Vin', filterMatchMode:'custom' }
+            { field: 'year', header: 'Year', filterMatchMode:'custom-equals' },
+            { field: 'brand', header: 'Brand', filterMatchMode:'custom-equals' },
+            { field: 'color', header: 'Color', filterMatchMode:'custom-equals' },
+            { field: 'vin', header: 'Vin', filterMatchMode:'custom-equals' }
         ];
+
         this.carService.getCarsMedium().then(cars => this.cars = cars);
     }
 
     filterWithContains(event) {
-        this.filteredBrands = FilterUtils['filter'](this.brands,['value'],event.query,"contains");
+        this.filteredBrands = FilterUtils.filter(this.brands, ['value'], event.query, "contains");
     }
 }
