@@ -889,7 +889,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 
     isNodeLeaf(node) {
-        return node.leaf || !(node.children&&node.children.length);
+        return node.leaf == false ? false : !(node.children && node.children.length);
     }
 
     getRootNode() {
