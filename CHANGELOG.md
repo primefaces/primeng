@@ -1,5 +1,13 @@
 # Change Log
 
+## [8.1.1](https://github.com/primefaces/primeng/tree/8.1.1) (2019-10-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.1.0...8.1.1)
+
+**Fixed bugs:**
+
+- PrimeNG 8.1.0 Couldn't resolve resource ./carousel.css [\#8267](https://github.com/primefaces/primeng/issues/8267)
+
 ## [8.1.0](https://github.com/primefaces/primeng/tree/8.1.0) (2019-10-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/8.0.4...8.1.0)
