@@ -33,3 +33,12 @@
 .ui-radiobutton {
     vertical-align: middle;
 }
+
+.ui-radiobutton-preselected::before {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+    -webkit-animation: none !important;
+    animation: none !important;
+}

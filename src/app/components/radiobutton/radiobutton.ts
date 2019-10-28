@@ -17,7 +17,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
                     [checked]="checked" (change)="onChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled">
             </div>
             <div (click)="handleClick($event, rb, true)"
-                [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
+                [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true, 'ui-radiobutton-preselected': isPreselected,
                 'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':rb.checked}"></span>
             </div>
@@ -65,7 +65,9 @@ export class RadioButton implements ControlValueAccessor {
     public focused: boolean;
 
     constructor(private cd: ChangeDetectorRef) {}
-    
+
+    isPreselected: boolean = false;
+ 
     handleClick(event, radioButton, focus) {
         event.preventDefault();
 
@@ -86,11 +88,16 @@ export class RadioButton implements ControlValueAccessor {
             this.checked = true;
             this.onModelChange(this.value);
             this.onClick.emit(event);
+            this.isPreselected = false;
         }
     }
             
     writeValue(value: any) : void {
         this.checked = (value == this.value);
+
+        if (this.checked) {
+            this.isPreselected = true;
+        }
 
         if(this.inputViewChild && this.inputViewChild.nativeElement) {
             this.inputViewChild.nativeElement.checked = this.checked;
