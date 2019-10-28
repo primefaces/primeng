@@ -88,7 +88,7 @@ export class MultiSelectItem {
                 <span class="ui-multiselect-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div *ngIf="overlayVisible" [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow']" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                [ngStyle]="panelStyle" [class]="panelStyleClass" (click)="panelClick=true">
+                [ngStyle]="panelStyle" [class]="panelStyleClass" (click)="panelClick=true" (keydown)="onKeydown($event)">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix" [ngClass]="{'ui-multiselect-header-no-toggleall': !showToggleAll}" *ngIf="showHeader">
                 <ng-content select="p-header"></ng-content>  
                 <div class="ui-chkbox ui-widget" *ngIf="showToggleAll && !selectionLimit">
