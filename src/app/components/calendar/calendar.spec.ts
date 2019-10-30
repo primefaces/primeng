@@ -1924,4 +1924,11 @@ describe('Calendar', () => {
       expect(calendar.currentMinute).toEqual(10);
       expect(calendar.pm).toEqual(false);
     });
+
+    it('should parse input into date given a UTC string', () =>{
+        const given = '2019-10-23T12:56:46.5566667'
+        calendar.writeValue(given);
+
+        expect(typeof(Date)).toBe(typeof(calendar.value));
+    })
 });

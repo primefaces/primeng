@@ -417,6 +417,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     focusElement: any;
 
+    _utcRegex = (/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z?/);
+
     @Input() get minDate(): Date {
         return this._minDate;
     }
@@ -1572,8 +1574,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     writeValue(value: any) : void {
         this.value = value;
-        if (this.value && typeof this.value === 'string') {
-            this.value = this.parseValueFromString(this.value);
+        if (value && typeof this.value === 'string') {
+            this.value = this._utcRegex.test(value)
+                ? new Date(value)
+                : this.parseValueFromString(value);
         }
 
         this.updateInputfield();
