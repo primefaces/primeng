@@ -1,5 +1,5 @@
-import { Injectable, Optional } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Message } from './message';
 
 @Injectable()

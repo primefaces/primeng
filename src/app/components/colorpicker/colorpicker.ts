@@ -46,7 +46,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    providers: [DomHandler,COLORPICKER_VALUE_ACCESSOR]
+    providers: [COLORPICKER_VALUE_ACCESSOR]
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
@@ -76,7 +76,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('input') inputViewChild: ElementRef;
+    @ViewChild('input', { static: false }) inputViewChild: ElementRef;
     
     value: any;
     
@@ -116,21 +116,21 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     hueHandleViewChild: ElementRef;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
         
-    @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
+    @ViewChild('colorSelector', { static: false }) set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
     }
 
-    @ViewChild('colorHandle') set colorHandle(element: ElementRef) {
+    @ViewChild('colorHandle', { static: false }) set colorHandle(element: ElementRef) {
         this.colorHandleViewChild = element;
     }
 
-    @ViewChild('hue') set hue(element: ElementRef) {
+    @ViewChild('hue', { static: false }) set hue(element: ElementRef) {
         this.hueViewChild = element;
     }
 
-    @ViewChild('hueHandle') set hueHandle(element: ElementRef) {
+    @ViewChild('hueHandle', { static: false }) set hueHandle(element: ElementRef) {
         this.hueHandleViewChild = element;
     }
 
@@ -294,7 +294,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                DomHandler.appendChild(this.overlay, this.appendTo);
         }
     }
 
@@ -306,9 +306,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     alignOverlay() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
+            DomHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
         else
-            this.domHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
+            DomHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
     }
     
     hide() {

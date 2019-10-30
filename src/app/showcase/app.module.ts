@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { AutoCompleteModule } from '../components/autocomplete/autocomplete';
 
 import { CarService } from './service/carservice';
 import { CountryService } from './service/countryservice';
@@ -26,7 +27,8 @@ import { IconService } from './service/iconservice';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AutoCompleteModule
   ],
   providers: [
       { provide: LocationStrategy, useClass: HashLocationStrategy },

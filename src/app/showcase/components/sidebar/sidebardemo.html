@@ -80,7 +80,7 @@ import &#123;SidebarModule&#125; from 'primeng/sidebar';
             <p>Sidebar size can be changed using a fixed value or using one of the three predefined ones.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-sidebar [(visible)]="display" [ngStyle]="&#123;width:'30em'&#125;"&gt;&lt;/p-sidebar&gt;
+&lt;p-sidebar [(visible)]="display" [style]="&#123;width:'30em'&#125;"&gt;&lt;/p-sidebar&gt;
 
 &lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-sm"&gt;&lt;/p-sidebar&gt;
 &lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-md"&gt;&lt;/p-sidebar&gt;
@@ -181,6 +181,12 @@ Content
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to display the close icon.</td>
+                        </tr>
+                        <tr>
+                            <td>closeOnEscape</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Specifices if pressing escape key should hide the sidebar.</td>
                         </tr>
                     </tbody>
                 </table>

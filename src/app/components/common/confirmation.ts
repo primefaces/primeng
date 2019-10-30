@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
 
 export interface Confirmation {
-    message: string;
+    message?: string;
     key?: string;
     icon?: string;
     header?: string;
@@ -11,6 +11,7 @@ export interface Confirmation {
     rejectLabel?: string;
     acceptVisible?: boolean;
     rejectVisible?: boolean;
+    blockScroll?: boolean;
     acceptEvent?: EventEmitter<any>;
     rejectEvent?: EventEmitter<any>;
 }

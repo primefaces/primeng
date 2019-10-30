@@ -26,8 +26,9 @@
 }
 
 .ui-progress-spinner-circle {
-    stroke-dasharray: 1, 200;
+    stroke-dasharray: 89,200;
     stroke-dashoffset: 0;
+    stroke: #d62d20;
     animation: ui-progress-spinner-dash 1.5s ease-in-out infinite, ui-progress-spinner-color 6s ease-in-out infinite;
     stroke-linecap: round;
 }

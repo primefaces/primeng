@@ -19,8 +19,8 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
             <tr [pReorderableRow]="index">
-                <td>
-                    <i class="fa fa-bars" pReorderableRowHandle></i>
+                <td style="width: 2.5em; line-height: 1.25; padding: 0; text-align: center;">
+                    <i class="pi pi-bars" pReorderableRowHandle></i>
                 </td>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -80,8 +80,8 @@ export class TableColReorderDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"&gt;
         &lt;tr [pReorderableRow]="index"&gt;
-            &lt;td&gt;
-                &lt;i class="fa fa-bars" pReorderableRowHandle&gt;&lt;/i&gt;
+            &lt;td style="line-height: 1.25; padding: 0; text-align: center;"&gt;
+                &lt;i class="pi pi-bars" pReorderableRowHandle&gt;&lt;/i&gt;
             &lt;/td&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;

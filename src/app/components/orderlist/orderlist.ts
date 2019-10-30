@@ -4,6 +4,7 @@ import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-orderList',
@@ -19,28 +20,27 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                 <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder">
+                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
                     <span class="ui-orderlist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
-                            [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
-                        <li class="ui-orderlist-item"
+                            [ngClass]="{'ui-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
+                        <li class="ui-orderlist-item" tabindex="0"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
-                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
-                            [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndex)}"></li>
+                            [ngClass]="{'ui-orderlist-droppoint-highlight': (i + 1 === dragOverItemIndex)}"></li>
                     </ng-template>
                 </ul>
             </div>
         </div>
-    `,
-    providers: [DomHandler,ObjectUtils]
+    `
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
     
@@ -62,9 +62,11 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Input() dragdrop: boolean;
     
-    @Input() dragdropScope: string;
-
     @Input() controlsPosition: string = 'left';
+
+    @Input() ariaFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
@@ -76,7 +78,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Output() onFilterEvent: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('listelement') listViewChild: ElementRef;
+    @ViewChild('listelement', { static: false }) listViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -102,7 +104,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     public _value: any[];
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef) {}
 
     get selection(): any[] {
         return this._selection;
@@ -128,7 +130,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
          
     ngAfterViewChecked() {
         if (this.movedUp||this.movedDown) {
-            let listItems = this.domHandler.find(this.listViewChild.nativeElement, 'li.ui-state-highlight');
+            let listItems = DomHandler.find(this.listViewChild.nativeElement, 'li.ui-state-highlight');
             let listItem;
             
             if (listItems.length > 0) {
@@ -137,7 +139,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 else
                     listItem = listItems[listItems.length - 1];
                 
-                this.domHandler.scrollInView(this.listViewChild.nativeElement, listItem);
+                DomHandler.scrollInView(this.listViewChild.nativeElement, listItem);
             }
             this.movedUp = false;
             this.movedDown = false;
@@ -157,19 +159,19 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 
     onItemClick(event, item, index) {
         this.itemTouched = false;
-        let selectedIndex = this.objectUtils.findIndexInList(item, this.selection);
+        let selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
         let selected = (selectedIndex != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if (metaSelection) {
-            let metaKey = (event.metaKey||event.ctrlKey);
+            let metaKey = (event.metaKey||event.ctrlKey||event.shiftKey);
             
             if (selected && metaKey) {
                 this._selection = this._selection.filter((val, index) => index !== selectedIndex);
             }
             else {
                 this._selection = (metaKey) ? this._selection ? [...this._selection] : [] : [];            
-                this.objectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
+                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
             }
         }
         else {
@@ -178,10 +180,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             }
             else {
                 this._selection = this._selection ? [...this._selection] : [];
-                this.objectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
+                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);    
             }
         }
-        
+                
         //binding
         this.selectionChange.emit(this._selection);
 
@@ -192,7 +194,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     onFilterKeyup(event) {
         this.filterValue = event.target.value.trim().toLowerCase();
         this.filter();
-        
+    
         this.onFilterEvent.emit({
             originalEvent: event,
             value: this.visibleOptions
@@ -201,7 +203,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     filter() {
         let searchFields: string[] = this.filterBy.split(',');
-        this.visibleOptions = this.objectUtils.filter(this.value, searchFields, this.filterValue);
+        this.visibleOptions = FilterUtils.filter(this.value, searchFields, this.filterValue, this.filterMatchMode);
     }
     
     isItemVisible(item: any): boolean {
@@ -222,14 +224,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     isSelected(item: any) {
-        return this.objectUtils.findIndexInList(item, this.selection) != -1;
+        return ObjectUtils.findIndexInList(item, this.selection) != -1;
     }
         
     moveUp(event) {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = this.value[selectedItemIndex];
@@ -251,7 +253,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];
@@ -271,7 +273,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value[selectedItemIndex];
@@ -293,7 +295,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];
@@ -310,15 +312,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragStart(event: DragEvent, index: number) {
+        event.dataTransfer.setData('text', 'b');    // For firefox
+        (<HTMLLIElement> event.target).blur();
         this.dragging = true;
-        this.draggedItemIndex = index;
-        if (this.dragdropScope) {
-            event.dataTransfer.setData("text", this.dragdropScope);
-        }
+        this.draggedItemIndex = index; 
     }
     
     onDragOver(event: DragEvent, index: number) {
-        if (this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
+        if (this.dragging && this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
             this.dragOverItemIndex = index;
             event.preventDefault();
         }
@@ -330,7 +331,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     onDrop(event: DragEvent, index: number) {
         let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
-        this.objectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
+        ObjectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
         this.dragOverItemIndex = null;
         this.onReorder.emit(event);
         event.preventDefault();
@@ -351,6 +352,56 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
                 this.listViewChild.nativeElement.scrollTop -= 15;
         }
     }
+    
+    onItemKeydown(event: KeyboardEvent, item, index: Number) {
+        let listItem = <HTMLLIElement> event.currentTarget;
+        
+        switch(event.which) {
+            //down
+            case 40:
+                var nextItem = this.findNextItem(listItem);
+                if (nextItem) {
+                    nextItem.focus();
+                }
+                
+                event.preventDefault();
+            break;
+            
+            //up
+            case 38:
+                var prevItem = this.findPrevItem(listItem);
+                if (prevItem) {
+                    prevItem.focus();
+                }
+                
+                event.preventDefault();
+            break;
+            
+            //enter
+            case 13:
+                this.onItemClick(event, item, index);
+                event.preventDefault();
+            break;
+        }
+    }
+    
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return !DomHandler.hasClass(nextItem, 'ui-orderlist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        else
+            return null;
+    }
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+        
+        if (prevItem)
+            return !DomHandler.hasClass(prevItem, 'ui-orderlist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        else
+            return null;
+    } 
 }
 
 @NgModule({

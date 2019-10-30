@@ -65,7 +65,7 @@ export class MyComponents implements OnInit &#123;
             label: 'Root',
             children: [
                 &#123;
-                    label: 'Child 1,
+                    label: 'Child 1',
                     children: [
                         &#123;
                             label: 'Grandchild 1.1'
@@ -267,6 +267,18 @@ export class MyComponents implements OnInit &#123;
                         <td>event.originalEvent: browser event <br>
                             event.node: Unselected node instance.</td>
                         <td>Callback to invoke when a node is unselected.</td>
+                    </tr>
+                    <tr>
+                        <td>onNodeExpand</td>
+                        <td>event.originalEvent: browser event <br>
+                            event.node: Expanded node instance.</td>
+                        <td>Callback to invoke when a node is expanded.</td>
+                    </tr>
+                    <tr>
+                        <td>onNodeCollapse</td>
+                        <td>event.originalEvent: browser event <br>
+                            event.node: Collapsed node instance.</td>
+                        <td>Callback to invoke when a node is collapsed.</td>
                     </tr>
                 </tbody>
             </table>

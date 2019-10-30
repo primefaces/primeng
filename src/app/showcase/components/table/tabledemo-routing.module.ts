@@ -20,6 +20,8 @@ import { TableColResizeDemo } from './tablecolresizedemo';
 import { TableReorderDemo } from './tablereorderdemo';
 import { TableEditDemo } from './tableeditdemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
+import { TableStateDemo } from './tablestatedemo';
+import { TableStickyDemo } from './tablestickydemo';
 
 @NgModule({
 	imports: [
@@ -43,7 +45,9 @@ import { TableRowGroupDemo } from './tablerowgroupdemo';
 			{ path: 'colresize', component: TableColResizeDemo },
 			{ path: 'reorder', component: TableReorderDemo },
 			{ path: 'edit', component: TableEditDemo },
-			{ path: 'rowgroup', component: TableRowGroupDemo }
+            { path: 'rowgroup', component: TableRowGroupDemo },
+            { path: 'state', component: TableStateDemo },
+            { path: 'sticky', component: TableStickyDemo }
 		])
 	],
 	exports: [

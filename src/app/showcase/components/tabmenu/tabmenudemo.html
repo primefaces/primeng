@@ -6,7 +6,23 @@
 </div>
 
 <div class="content-section implementation">
-    <p-tabMenu [model]="items" [activeItem]="items[0]"></p-tabMenu>
+    <h3 class="first">Default</h3>
+    <p-tabMenu [model]="items1" [activeItem]="items1[0]"></p-tabMenu>
+
+    <h3>Templating</h3>
+    <p-tabMenu [model]="items2" [activeItem]="activeItem">
+        <ng-template pTemplate="item" let-item let-i="index">
+            <div style="position: relative; text-align: center; min-width: 10em">
+                <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
+                <div class="ui-menuitem-text">
+                    {{item.label}}
+                </div>
+                <a tabindex="0" class="ui-menuitem-icon" (click)="closeItem($event, i)" style="position: absolute; right: -1em; top: -.5em; padding: 0" *ngIf="i !== 0">
+                    <span class="pi pi-times"></span>
+                </a>
+            </div>
+        </ng-template>
+    </p-tabMenu>
 </div>
 
 <div class="content-section documentation">
@@ -51,7 +67,7 @@ export class TabMenuDemo &#123;
 </pre>
 
             <h3>ActiveItem</h3>
-            <p>By defaulttem item that matches the active route is highlighted, alternatively activeItem property can be used choose the initial active item.</p>
+            <p>By default item that matches the active route is highlighted, alternatively activeItem property can be used choose the initial active item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;
@@ -78,6 +94,18 @@ export class TabMenuDemo &#123;
         this.activeItem = this.items[2];
     &#125;
 &#125;
+</code>
+</pre>
+
+            <h3>Templating</h3>
+            <p>Menuitem content supports templating via the "item" template which gets the menuitem instance and the index.</p>
+            <pre>
+<code class="language-typescript" pCode ngNonBindable>
+&lt;p-tabMenu [model]="items"&gt;
+    &lt;ng-template pTemplate="item" let-item let-i="index"&gt;
+        //item content
+    &lt;/ng-template&gt;
+&lt;/p-tabMenu&gt;
 </code>
 </pre>
 
@@ -171,7 +199,23 @@ export class TabMenuDemo &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;
+&lt;h3 class="first"&gt;Default&lt;/h3&gt;
+&lt;p-tabMenu [model]="items1" [activeItem]="items1[0]"&gt;&lt;/p-tabMenu&gt;
+
+&lt;h3&gt;Templating&lt;/h3&gt;
+&lt;p-tabMenu [model]="items2" [activeItem]="activeItem"&gt;
+    &lt;ng-template pTemplate="item" let-item let-i="index"&gt;
+        &lt;div style="position: relative; text-align: center; min-width: 10em"&gt;
+            &lt;div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"&gt;&lt;/div&gt;
+            &lt;div class="ui-menuitem-text"&gt;
+                &#123;&#123;item.label&#125;&#125;
+            &lt;/div&gt;
+            &lt;a tabindex="0" class="ui-menuitem-icon" (click)="closeItem($event, i)" style="position: absolute; right: -1em; top: -.5em; padding: 0" *ngIf="i !== 0"&gt;
+                &lt;span class="pi pi-times"&gt;&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-tabMenu&gt;
 </code>
 </pre>
 
@@ -179,17 +223,37 @@ export class TabMenuDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class TabMenuDemo &#123;
     
-    items: MenuItem[];
+    items1: MenuItem[];
+
+    items2: MenuItem[];
+
+    activeItem: MenuItem;
 
     ngOnInit() &#123;
-        this.items = [
+        this.items1 = [
             &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
             &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
             &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
             &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
             &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
         ];
+
+        this.items2 = [
+            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
+            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
+            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
+            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
+            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+        ];
+
+        this.activeItem = this.items2[0];
     &#125;
+
+    closeItem(event, index) &#123;
+        this.items2 = this.items2.filter((item, i) => i !== index);
+        event.preventDefault();
+    &#125;
+
 &#125;
 </code>
 </pre>

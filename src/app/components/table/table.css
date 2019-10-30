@@ -70,12 +70,12 @@
     position: relative;
 }
 
-.ui-table-scrollable-body > table > .ui-table-tbody > tr:first-child > td {
-    border-top: 0 none;
-}
-
 .ui-table-virtual-table {
     position: absolute;
+}
+
+.ui-table-loading-virtual-table {
+    display: none;
 }
 
 /* Frozen Columns */
@@ -156,6 +156,10 @@
 @media screen and (max-width: 40em) {
     .ui-table-responsive .ui-table-thead > tr > th,
     .ui-table-responsive .ui-table-tfoot > tr > td {
+        display: none !important;
+    }
+
+    .ui-table-responsive colgroup {
         display: none !important;
     }
 

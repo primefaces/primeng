@@ -1,9 +1,10 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild} from '@angular/core';
+import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
+import { FilterUtils } from '../utils/filterutils';
 
 @Component({
     selector: 'p-pickList',
@@ -20,7 +21,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showSourceFilter !== false">
-                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
+                    <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
                     <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightSource}" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,SOURCE_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, SOURCE_LIST)">
@@ -28,14 +29,19 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, SOURCE_LIST)" (drop)="onDrop($event, i, SOURCE_LIST)" (dragleave)="onDragLeave($event, SOURCE_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource), 'ui-state-disabled': disabled}"
-                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
-                            [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'"
+                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsSource,onSourceSelect)"
+                            [style.display]="isItemVisible(item, SOURCE_LIST) ? 'block' : 'none'" tabindex="0"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, SOURCE_LIST)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, SOURCE_LIST)" (drop)="onDrop($event, i + 1, SOURCE_LIST)" (dragleave)="onDragLeave($event, SOURCE_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
                     </ng-template>
+                    <ng-container *ngIf="(source == null || source.length === 0) && emptyMessageSourceTemplate">
+                        <li class="ui-picklist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate"></ng-container>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
             <div class="ui-picklist-buttons">
@@ -49,7 +55,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy && showTargetFilter !== false">
-                    <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder">
+                    <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
                     <span class="ui-picklist-filter-icon pi pi-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightTarget}" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,TARGET_LIST)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event,TARGET_LIST)">
@@ -57,14 +63,19 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, TARGET_LIST)" (drop)="onDrop($event, i, TARGET_LIST)" (dragleave)="onDragLeave($event, TARGET_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget), 'ui-state-disabled': disabled}"
-                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
-                            [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'"
+                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,selectedItemsTarget,onTargetSelect)"
+                            [style.display]="isItemVisible(item, TARGET_LIST) ? 'block' : 'none'" tabindex="0"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, TARGET_LIST)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, TARGET_LIST)" (drop)="onDrop($event, i + 1, TARGET_LIST)" (dragleave)="onDragLeave($event, TARGET_LIST)"
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
                     </ng-template>
+                    <ng-container *ngIf="(target == null || target.length === 0) && emptyMessageTargetTemplate">
+                        <li class="ui-picklist-empty-message">
+                            <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate"></ng-container>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
@@ -76,8 +87,7 @@ import {ObjectUtils} from '../utils/objectutils';
                 </div>
             </div>
         </div>
-    `,
-    providers: [DomHandler,ObjectUtils]
+    `
 })
 export class PickList implements AfterViewChecked,AfterContentInit {
 
@@ -107,8 +117,6 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     @Input() dragdrop: boolean;
     
-    @Input() dragdropScope: string;
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -126,6 +134,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() targetFilterPlaceholder: string;
 
     @Input() disabled: boolean = false;
+
+    @Input() ariaSourceFilterLabel: string;
+
+    @Input() ariaTargetFilterLabel: string;
+
+    @Input() filterMatchMode: string = "contains";
     
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
@@ -143,13 +157,17 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Output() onTargetSelect: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('sourcelist') listViewSourceChild: ElementRef;
+    @Output() onSourceFilter: EventEmitter<any> = new EventEmitter();
+
+    @Output() onTargetFilter: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('sourcelist', { static: false }) listViewSourceChild: ElementRef;
     
-    @ViewChild('targetlist') listViewTargetChild: ElementRef;
+    @ViewChild('targetlist', { static: false }) listViewTargetChild: ElementRef;
 
-    @ViewChild('sourceFilter') sourceFilterViewChild: ElementRef;
+    @ViewChild('sourceFilter', { static: false }) sourceFilterViewChild: ElementRef;
 
-    @ViewChild('targetFilter') targetFilterViewChild: ElementRef;
+    @ViewChild('targetFilter', { static: false }) targetFilterViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -195,11 +213,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     listHighlightSource: boolean;
 
+    emptyMessageSourceTemplate: TemplateRef<any>;
+
+    emptyMessageTargetTemplate: TemplateRef<any>;
+
     readonly SOURCE_LIST = -1;
 
     readonly TARGET_LIST = 1;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -207,6 +229,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
+
+                case 'emptymessagesource':
+                    this.emptyMessageSourceTemplate = item.template;
+                break;
+
+                case 'emptymessagetarget':
+                    this.emptyMessageTargetTemplate = item.template;
+                    break;
                 
                 default:
                     this.itemTemplate = item.template;
@@ -217,7 +247,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         
     ngAfterViewChecked() {
         if(this.movedUp||this.movedDown) {
-            let listItems = this.domHandler.find(this.reorderedListElement, 'li.ui-state-highlight');
+            let listItems = DomHandler.find(this.reorderedListElement, 'li.ui-state-highlight');
             let listItem;
             
             if(this.movedUp)
@@ -225,7 +255,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             else
                 listItem = listItems[listItems.length - 1];
             
-            this.domHandler.scrollInView(this.reorderedListElement, listItem);
+            DomHandler.scrollInView(this.reorderedListElement, listItem);
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
@@ -242,7 +272,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if(metaSelection) {
-            let metaKey = (event.metaKey||event.ctrlKey);
+            let metaKey = (event.metaKey||event.ctrlKey||event.shiftKey);
             
             if(selected && metaKey) {
                 selectedItems.splice(index, 1);
@@ -284,24 +314,20 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     onFilter(event: KeyboardEvent, data: any[], listType: number) {
         let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
-        
-        if(listType === this.SOURCE_LIST)
-            this.filterValueSource = query;
-        else
-            this.filterValueTarget = query;
-                
-        this.activateFilter(data, listType);
-    }
-    
-    activateFilter(data: any[], listType: number) {
         let searchFields = this.filterBy.split(',');
-        
-        if(listType === this.SOURCE_LIST)
-            this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
-        else
-            this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);
+
+        if(listType === this.SOURCE_LIST) {
+            this.filterValueSource = query;
+            this.visibleOptionsSource = FilterUtils.filter(data, searchFields, this.filterValueSource, this.filterMatchMode);
+            this.onSourceFilter.emit({query: this.filterValueSource, value: this.visibleOptionsSource});
+        }
+        else if(listType === this.TARGET_LIST) {
+            this.filterValueTarget = query;
+            this.visibleOptionsTarget = FilterUtils.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode);
+            this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
+        }
     }
-    
+        
     isItemVisible(item: any, listType: number): boolean {
         if(listType == this.SOURCE_LIST)
             return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);
@@ -530,32 +556,32 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragStart(event: DragEvent, index: number, listType: number) {
+        (<HTMLLIElement> event.target).blur();
         this.dragging = true;
         this.fromListType = listType;
+
         if(listType === this.SOURCE_LIST)
             this.draggedItemIndexSource = index;
         else
             this.draggedItemIndexTarget = index;
-                        
-        if(this.dragdropScope) {
-            event.dataTransfer.setData("text", this.dragdropScope);
-        }
     }
     
     onDragOver(event: DragEvent, index: number, listType: number) {
-        if(listType == this.SOURCE_LIST) {
-            if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === this.TARGET_LIST)) {
-                this.dragOverItemIndexSource = index;
-                event.preventDefault();
+        if (this.dragging) {
+            if(listType == this.SOURCE_LIST) {
+                if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === this.TARGET_LIST)) {
+                    this.dragOverItemIndexSource = index;
+                    event.preventDefault();
+                }
             }
-        }
-        else {
-            if(this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index || (this.fromListType === this.SOURCE_LIST)) {
-                this.dragOverItemIndexTarget = index;
-                event.preventDefault();
+            else {
+                if(this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index || (this.fromListType === this.SOURCE_LIST)) {
+                    this.dragOverItemIndexTarget = index;
+                    event.preventDefault();
+                }
             }
+            this.onListItemDroppoint = true;
         }
-        this.onListItemDroppoint = true;
     }
     
     onDragLeave(event: DragEvent, listType: number) {
@@ -571,7 +597,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.insert(this.draggedItemIndexTarget, this.target, index, this.source, this.onMoveToSource);
                 }
                 else {
-                    this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
+                    ObjectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
                     this.onSourceReorder.emit({items: this.source[this.draggedItemIndexSource]});
                 }
 
@@ -582,7 +608,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                     this.insert(this.draggedItemIndexSource, this.source, index, this.target, this.onMoveToTarget);
                 }
                 else {
-                    this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
+                    ObjectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
                     this.onTargetReorder.emit({items: this.target[this.draggedItemIndexTarget]});
                 }
                     
@@ -637,21 +663,23 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             let offsetY = moveListType.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
             let bottomDiff = (offsetY + moveListType.nativeElement.clientHeight) - event.pageY;
             let topDiff = (event.pageY - offsetY);
+
             if(bottomDiff < 25 && bottomDiff > 0)
                 moveListType.nativeElement.scrollTop += 15;
             else if(topDiff < 25 && topDiff > 0)
                 moveListType.nativeElement.scrollTop -= 15;
+
+            if(listType === this.SOURCE_LIST) {
+                if(this.fromListType === this.TARGET_LIST)
+                    this.listHighlightSource = true;
+            }
+            else {
+                if(this.fromListType === this.SOURCE_LIST)
+                    this.listHighlightTarget = true;
+            }
+            
+            event.preventDefault();
         }
-        
-        if(listType === this.SOURCE_LIST) {
-            if(this.fromListType === this.TARGET_LIST)
-                this.listHighlightSource = true;
-        }
-        else {
-            if(this.fromListType === this.SOURCE_LIST)
-                this.listHighlightTarget = true;
-        }
-        event.preventDefault();
     }
     
     onListDragLeave() {
@@ -668,6 +696,56 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         (<HTMLInputElement> this.sourceFilterViewChild.nativeElement).value = '';
         (<HTMLInputElement> this.targetFilterViewChild.nativeElement).value = '';
     }
+    
+    onItemKeydown(event: KeyboardEvent, item: any, selectedItems: any[], callback: EventEmitter<any>) {
+        let listItem = <HTMLLIElement> event.currentTarget;
+        
+        switch(event.which) {
+            //down
+            case 40:
+                var nextItem = this.findNextItem(listItem);
+                if (nextItem) {
+                    nextItem.focus();
+                }
+                
+                event.preventDefault();
+            break;
+            
+            //up
+            case 38:
+                var prevItem = this.findPrevItem(listItem);
+                if (prevItem) {
+                    prevItem.focus();
+                }
+                
+                event.preventDefault();
+            break;
+            
+            //enter
+            case 13:
+                this.onItemClick(event, item, selectedItems, callback);
+                event.preventDefault();
+            break;
+        }
+    }
+        
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
+
+        if (nextItem)
+            return !DomHandler.hasClass(nextItem, 'ui-picklist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        else
+            return null;
+    }
+
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
+        
+        if (prevItem)
+            return !DomHandler.hasClass(prevItem, 'ui-picklist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        else
+            return null;
+    } 
 }
 
 @NgModule({

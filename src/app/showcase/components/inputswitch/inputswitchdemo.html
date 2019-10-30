@@ -109,6 +109,12 @@ export class ModelComponent &#123;
                             <td>false</td>
                             <td>When present, it specifies that the element should be disabled.</td>
                         </tr>
+                        <tr>
+                            <td>readonly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component cannot be edited.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -136,7 +142,7 @@ export class ModelComponent &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-inputSwitch (onChange)="handleChange($event)" [(ngModel)]="val"&gt;
+&lt;p-inputSwitch (onChange)="handleChange($event)" [(ngModel)]="val"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
  <pre>

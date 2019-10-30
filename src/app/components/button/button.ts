@@ -3,12 +3,11 @@ import {DomHandler} from '../dom/domhandler';
 import {CommonModule} from '@angular/common';
 
 @Directive({
-    selector: '[pButton]',
-    providers: [DomHandler]
+    selector: '[pButton]'
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
 
-    @Input() iconPos: string = 'left';
+    @Input() iconPos: 'left' | 'right' = 'left';
     
     @Input() cornerStyleClass: string = 'ui-corner-all';
         
@@ -18,10 +17,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             
     public initialized: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
     
     ngAfterViewInit() {
-        this.domHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
+        DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
         if(this.icon) {
             let iconElement = document.createElement("span");
             iconElement.setAttribute("aria-hidden", "true");
@@ -70,16 +69,16 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._label = val;
         
         if(this.initialized) {
-            this.domHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
+            DomHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
 
             if(!this.icon) {
                 if (this._label) {
-                    this.domHandler.removeClass(this.el.nativeElement, 'ui-button-text-empty');
-                    this.domHandler.addClass(this.el.nativeElement, 'ui-button-text-only');
+                    DomHandler.removeClass(this.el.nativeElement, 'ui-button-text-empty');
+                    DomHandler.addClass(this.el.nativeElement, 'ui-button-text-only');
                 }
                 else {
-                    this.domHandler.addClass(this.el.nativeElement, 'ui-button-text-empty');
-                    this.domHandler.removeClass(this.el.nativeElement, 'ui-button-text-only');
+                    DomHandler.addClass(this.el.nativeElement, 'ui-button-text-empty');
+                    DomHandler.removeClass(this.el.nativeElement, 'ui-button-text-only');
                 }
             }
         }
@@ -94,7 +93,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         
         if(this.initialized) {
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
-            this.domHandler.findSingle(this.el.nativeElement, '.ui-clickable').className =
+            DomHandler.findSingle(this.el.nativeElement, '.ui-clickable').className =
                 iconPosClass + ' ui-clickable ' + this.icon;
         }
     }
@@ -111,7 +110,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-button',
     template: `
-        <button [attr.type]="type" [class]="styleClass" [style]="style" [disabled]="disabled"
+        <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled"
             [ngClass]="{'ui-button ui-widget ui-state-default ui-corner-all':true,
                         'ui-button-icon-only': (icon && !label),
                         'ui-button-text-icon-left': (icon && label && iconPos === 'left'),

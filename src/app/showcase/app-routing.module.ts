@@ -1,4 +1,4 @@
-import { Routes,RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 
@@ -28,16 +28,18 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'datagrid', loadChildren: './components/datagrid/datagriddemo.module#DataGridDemoModule'},
             {path: 'datalist', loadChildren: './components/datalist/datalistdemo.module#DataListDemoModule'},
             {path: 'datascroller', loadChildren: './components/datascroller/datascrollerdemo.module#DataScrollerDemoModule'},
-            {path: 'datatable', loadChildren: './components/datatable/datatabledemo.module#DataTableDemoModule'},
             {path: 'dataview', loadChildren: './components/dataview/dataviewdemo.module#DataViewDemoModule'},
             {path: 'defer', loadChildren: './components/defer/deferdemo.module#DeferDemoModule'},
             {path: 'dialog', loadChildren: './components/dialog/dialogdemo.module#DialogDemoModule'},
+            {path: 'dynamicdialog', loadChildren: './components/dynamicdialog/dynamicdialogdemo.module#DynamicDialogDemoModule'},
             {path: 'dragdrop', loadChildren: './components/dragdrop/dragdropdemo.module#DragDropDemoModule'},
             {path: 'dropdown', loadChildren: './components/dropdown/dropdowndemo.module#DropdownDemoModule'},
             {path: 'editor', loadChildren: './components/editor/editordemo.module#EditorDemoModule'},
             {path: 'fieldset', loadChildren: './components/fieldset/fieldsetdemo.module#FieldsetDemoModule'},
             {path: 'fileupload', loadChildren: './components/fileupload/fileuploaddemo.module#FileUploadDemoModule'},
+            {path: 'filterutils', loadChildren: './components/filterutils/filterutilsdemo.module#FilterUtilsDemoModule'},
             {path: 'flexgrid', loadChildren: './components/flexgrid/flexgriddemo.module#FlexGridDemoModule'},
+            {path: 'focustrap', loadChildren: './components/focustrap/focustrapdemo.module#FocusTrapDemoModule'},
             {path: 'fullcalendar', loadChildren: './components/fullcalendar/fullcalendardemo.module#FullCalendarDemoModule'},
             {path: 'galleria', loadChildren: './components/galleria/galleriademo.module#GalleriaDemoModule'},
             {path: 'gmap', loadChildren: './components/gmap/gmapdemo.module#GMapDemoModule'},
@@ -93,7 +95,8 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'tree', loadChildren: './components/tree/treedemo.module#TreeDemoModule'},
             {path: 'treetable', loadChildren: './components/treetable/treetabledemo.module#TreeTableDemoModule'},
             {path: 'tristatecheckbox', loadChildren: './components/tristatecheckbox/tristatecheckboxdemo.module#TriStateCheckboxDemoModule'},
-            {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
+            {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'},
+            {path: 'virtualscroller', loadChildren: './components/virtualscroller/virtualscrollerdemo.module#VirtualScrollerDemoModule'}
         ], {scrollPositionRestoration: 'enabled'})    
     ],
     exports: [RouterModule]

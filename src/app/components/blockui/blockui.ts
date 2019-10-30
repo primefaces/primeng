@@ -1,7 +1,6 @@
-import {NgModule,Component,Input,AfterViewInit,OnDestroy,EventEmitter,ElementRef,ViewChild} from '@angular/core';
+import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {BlockableUI} from '../common/blockableui';
 
 @Component({
     selector: 'p-blockUI',
@@ -9,8 +8,7 @@ import {BlockableUI} from '../common/blockableui';
         <div #mask class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
             <ng-content></ng-content>
         </div>
-    `,
-    providers: [DomHandler]
+    `
 })
 export class BlockUI implements AfterViewInit,OnDestroy {
 
@@ -20,11 +18,11 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     
     @Input() baseZIndex: number = 0;
     
-    @ViewChild('mask') mask: ElementRef;
+    @ViewChild('mask', { static: false }) mask: ElementRef;
     
     _blocked: boolean;
         
-    constructor(public el: ElementRef,public domHandler: DomHandler) {}
+    constructor(public el: ElementRef) {}
     
     @Input() get blocked(): boolean {
         return this._blocked;
@@ -33,7 +31,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     set blocked(val: boolean) {
         this._blocked = val;
         
-        if (this.mask.nativeElement) {
+        if (this.mask && this.mask.nativeElement) {
             if (this._blocked)
                 this.block();
             else

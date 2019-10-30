@@ -388,9 +388,9 @@ describe('Calendar', () => {
 
     it('should use year and month navigator', () => {
 
-      calendar.yearRange = "2000:2030";
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       const onMonthDropdownChangeSpy = spyOn(calendar,'onMonthDropdownChange').and.callThrough();
@@ -426,10 +426,10 @@ describe('Calendar', () => {
       calendar.defaultDate = date;
       jasmine.clock().mockDate(date);
       const updateInputfieldSpy = spyOn(calendar,'updateInputfield').and.callThrough();
-      calendar.yearRange = "2000:2030";
       calendar.showTime = true;
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       expect(updateInputfieldSpy).toHaveBeenCalled();
@@ -460,12 +460,18 @@ describe('Calendar', () => {
       monthDropdownEl.nativeElement.dispatchEvent(event);
       yearDropdownEl.nativeElement.value = "2008";
       yearDropdownEl.nativeElement.dispatchEvent(event);
-      incrementHourEl.nativeElement.click();
-      incrementHourEl.nativeElement.click();
-      decrementHourEl.nativeElement.click();
-      incrementMinuteEl.nativeElement.click();
-      incrementMinuteEl.nativeElement.click();
-      decrementMinuteEl.nativeElement.click();
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultHour.toString());
@@ -518,12 +524,18 @@ describe('Calendar', () => {
       const decrementHourEl = hourPicker.children[3];
       const incrementMinuteEl = minutePicker.children[0];
       const decrementMinuteEl = minutePicker.children[3];
-      incrementHourEl.nativeElement.click();
-      incrementHourEl.nativeElement.click();
-      decrementHourEl.nativeElement.click();
-      incrementMinuteEl.nativeElement.click();
-      incrementMinuteEl.nativeElement.click();
-      decrementMinuteEl.nativeElement.click();
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultHour.toString());
@@ -535,9 +547,9 @@ describe('Calendar', () => {
 
     it('should select multiple', () => {
       calendar.selectionMode = "multiple";
-      calendar.yearRange = "2000:2030";
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -581,9 +593,9 @@ describe('Calendar', () => {
     it('should select multiple with dataType string', () => {
       calendar.selectionMode = "multiple";
       calendar.dataType = "string";
-      calendar.yearRange = "2000:2030";
       calendar.monthNavigator = true;
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2030";
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -962,13 +974,15 @@ describe('Calendar', () => {
       expect(incrementHour).toBeTruthy();
       expect(calendar.pm).toEqual(false);
       expect(amPmEl.children[1].nativeElement.textContent).toEqual("AM");
-      incrementHour.nativeElement.click();
+      incrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(calendar.pm).toEqual(true);
       expect(amPmEl.children[1].nativeElement.textContent).toEqual("PM");
       expect(hourPicker.children[2].nativeElement.textContent).toEqual("12");
-      decrementHour.nativeElement.click();
+      decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(calendar.pm).toEqual(false);
@@ -1089,14 +1103,16 @@ describe('Calendar', () => {
       const secondPicker = fixture.debugElement.query(By.css('.ui-second-picker'));
       const incrementSecond = secondPicker.query(By.css('a'));
       const decrementSecond = secondPicker.queryAll(By.css('a'))[1];
-      incrementSecond.nativeElement.click();
+      incrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(secondPicker.children[2].nativeElement.textContent).toEqual('22');
       expect(incrementSecondSpy).toHaveBeenCalled();
       fixture.detectChanges();
 
-      decrementSecond.nativeElement.click();
+      decrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(secondPicker.children[2].nativeElement.textContent).toEqual('21');
@@ -1130,9 +1146,12 @@ describe('Calendar', () => {
       const minutePicker = fixture.debugElement.query(By.css('.ui-minute-picker'));
       const incrementMinute = minutePicker.query(By.css('a'));
       const decrementMinute = minutePicker.queryAll(By.css('a'))[1]; 
-      incrementHour.nativeElement.click();
-      incrementMinute.nativeElement.click();
-      incrementSecond.nativeElement.click();
+      incrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(hourPicker.children[2].nativeElement.textContent).toEqual('13');
@@ -1141,9 +1160,12 @@ describe('Calendar', () => {
       expect(calendar.currentHour).toEqual(13);
       expect(calendar.currentMinute).toEqual(14);
       expect(calendar.currentSecond).toEqual(23);
-      decrementHour.nativeElement.click();
-      decrementMinute.nativeElement.click();
-      decrementSecond.nativeElement.click();
+      decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(hourPicker.children[2].nativeElement.textContent).toEqual('11');
@@ -1181,9 +1203,12 @@ describe('Calendar', () => {
       const minutePicker = fixture.debugElement.query(By.css('.ui-minute-picker'));
       const incrementMinute = minutePicker.query(By.css('a'));
       const decrementMinute = minutePicker.queryAll(By.css('a'))[1]; 
-      incrementHour.nativeElement.click();
-      incrementMinute.nativeElement.click();
-      incrementSecond.nativeElement.click();
+      incrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(hourPicker.children[2].nativeElement.textContent).toEqual('3');
@@ -1192,9 +1217,12 @@ describe('Calendar', () => {
       expect(calendar.currentHour).toEqual(3);
       expect(calendar.currentMinute).toEqual(3);
       expect(calendar.currentSecond).toEqual(3);
-      decrementHour.nativeElement.click();
-      decrementMinute.nativeElement.click();
-      decrementSecond.nativeElement.click();
+      decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementMinute.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementMinute.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementSecond.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(hourPicker.children[2].nativeElement.textContent).toEqual('22');
@@ -1386,7 +1414,7 @@ describe('Calendar', () => {
       
       const datesContainer = fixture.debugElement.query(By.css('.ui-datepicker-calendar-container'));
       const dates = datesContainer.queryAll(By.css('a'));
-      expect(dates.length).toEqual(42);
+      expect(dates.length).toEqual(35);
       dates[0].nativeElement.click();
       fixture.detectChanges();
 
@@ -1627,9 +1655,9 @@ describe('Calendar', () => {
     });
 
     it('should change yearRange', () => {
-      calendar.yearRange = "2000:2019";
       calendar.dateFormat = "mm/yy";
       calendar.yearNavigator = true;
+      calendar.yearRange = "2000:2019";
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1762,15 +1790,19 @@ describe('Calendar', () => {
 
     it('should timeonly with touchUI', () => {
       calendar.timeOnly = true;
-      calendar.touchUI = true;
+	    calendar.touchUI = true;
       fixture.detectChanges();
 
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-      const focusEvent = new Event('focus');
+	    const focusEvent = new Event('focus');
+	    fixture.detectChanges();
+	  
       inputEl.click();
       inputEl.dispatchEvent(focusEvent);
+	    calendar.currentHour = 0;
+	    calendar.currentMinute = 0;
       fixture.detectChanges();
-
+	  
       let defaultHour = calendar.currentHour;
       let defaultMinute = calendar.currentMinute;
       const timers = fixture.debugElement.query(By.css('.ui-timepicker')).queryAll(By.css('div'));
@@ -1780,14 +1812,22 @@ describe('Calendar', () => {
       const decrementHourEl = hourPicker.children[3];
       const incrementMinuteEl = minutePicker.children[0];
       const decrementMinuteEl = minutePicker.children[3];
-      incrementHourEl.nativeElement.click();
-      decrementHourEl.nativeElement.click();
-      decrementHourEl.nativeElement.click();
-      decrementHourEl.nativeElement.click();
-      incrementMinuteEl.nativeElement.click();
-      decrementMinuteEl.nativeElement.click();
-      decrementMinuteEl.nativeElement.click();
-      decrementMinuteEl.nativeElement.click();
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementHourEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      incrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
+      decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
       fixture.detectChanges();
 
       expect(hourPicker.queryAll(By.css('span'))[2].nativeElement.textContent).not.toEqual(defaultHour.toString());
@@ -1828,7 +1868,6 @@ describe('Calendar', () => {
       fixture.detectChanges();
 
       calendar.view = "month";
-      calendar.currentYear = 2018;
       calendar.yearRange = (calendar.currentYear-1).toString()+":"+(calendar.currentYear+1).toString();
       calendar.yearNavigator = true;
       calendar.yearOptions = [2017,2018];
@@ -1839,12 +1878,11 @@ describe('Calendar', () => {
       inputEl.click();
       inputEl.dispatchEvent(focusEvent);
       const incrementYearSpy = spyOn(calendar,'incrementYear').and.callThrough();
-      const decrementYearSpy = spyOn(calendar,'decrementYear').and.callThrough();
-      const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+	  const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+      calendar.currentYear = 2018;	  
       fixture.detectChanges();
 
       const navForwardEl = fixture.debugElement.query(By.css('.ui-datepicker-next'));
-      const navBackwardEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));
       navForwardEl.nativeElement.click();
       fixture.detectChanges();
 
@@ -1860,7 +1898,6 @@ describe('Calendar', () => {
       fixture.detectChanges();
 
       calendar.view = "month";
-      calendar.currentYear = 2017;
       calendar.yearRange = (calendar.currentYear-1).toString()+":"+(calendar.currentYear+1).toString();
       calendar.yearNavigator = true;
       calendar.yearOptions = [2017,2018];
@@ -1871,7 +1908,8 @@ describe('Calendar', () => {
       inputEl.click();
       inputEl.dispatchEvent(focusEvent);
       const decrementYearSpy = spyOn(calendar,'decrementYear').and.callThrough();
-      const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+	  const populateYearOptionsSpy = spyOn(calendar,'populateYearOptions').and.callThrough();
+      calendar.currentYear = 2017;	  
       fixture.detectChanges();
 
       const navBackwardEl = fixture.debugElement.query(By.css('.ui-datepicker-prev'));

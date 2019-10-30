@@ -1,35 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-      trigger('overlayState', [
-          state('hidden', style({
-              opacity: 0
-          })),
-          state('visible', style({
-              opacity: 1
-          })),
-          transition('visible => hidden', animate('400ms ease-in')),
-          transition('hidden => visible', animate('400ms ease-out'))
-      ]),
-
-      trigger('notificationTopbar', [
+    trigger('animation', [
         state('hidden', style({
-          height: '0',
-          opacity: 0
+            height: '0',
+            overflow: 'hidden',
+            maxHeight: '0',
+            paddingTop: '0',
+            paddingBottom: '0',
+            marginTop: '0',
+            marginBottom: '0',
+            opacity: '0',
+        })),
+        state('void', style({
+            height: '0',
+            overflow: 'hidden',
+            maxHeight: '0',
+            paddingTop: '0',
+            paddingBottom: '0',
+            marginTop: '0',
+            marginBottom: '0',
         })),
         state('visible', style({
-          height: '*',
-          opacity: 1
+            height: '*'
         })),
-        transition('visible => hidden', animate('400ms ease-in')),
-        transition('hidden => visible', animate('400ms ease-out'))
-      ])
-  ],
+        transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+        transition('void => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+        transition('void => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+    ])
+]
 })
 export class AppComponent implements OnInit{
 
@@ -37,41 +42,107 @@ export class AppComponent implements OnInit{
 
     activeMenuId: string;
 
-    notification: boolean = false;
-
     darkDemoStyle: HTMLStyleElement;
 
+    routes: Array<string> = [];
+
+    filteredRoutes: Array<string> = [];
+
+    searchText:string;
+
+    constructor(private router:Router){}
+
     ngOnInit() {
-      setTimeout(()=>this.notification = true , 1000)
+        let routes = this.router.config;
+        for (let route of routes) {
+            if (route.path && route.path !== "datagrid" && route.path !== "datalist" && route.path !== "datascroller" && route.path !== "growl")
+                this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1));
+        }
+    }
+
+    onAnimationStart (event) {
+        switch (event.toState) {
+            case 'visible':
+                event.element.style.display = 'block';
+            break;
+        }
+    }
+    onAnimationDone (event) {
+        switch (event.toState) {
+            case 'hidden':
+                event.element.style.display = 'none';
+            break;
+
+            case 'void':
+                event.element.style.display = 'none';
+            break;
+        }
+    }
+
+    toggle(id:string) {
+        this.activeMenuId = (this.activeMenuId === id ? null : id);
+    }
+
+    onKeydown(event: KeyboardEvent,id:string) {
+        if (event.which === 32 || event.which === 13) {
+            this.toggle(id);
+            event.preventDefault();
+        }
+    }
+
+    selectRoute(routeName) {
+        this.router.navigate(['/'+routeName.toLowerCase()]);
+        this.filteredRoutes = [];
+        this.searchText = "";
+    }
+
+    filterRoutes(event) {
+        let query = event.query;
+        this.filteredRoutes = this.routes.filter(route => {
+            return route.toLowerCase().includes(query.toLowerCase());
+        });
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
         let themeLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('theme-css');
         themeLink.href = 'assets/components/themes/' + theme + '/theme.css';
-
+        const hasBodyDarkTheme = this.hasClass(document.body, 'dark-theme');
+        
         if (dark) {
-            if (!this.darkDemoStyle) {
-                this.darkDemoStyle = document.createElement('style');
-                this.darkDemoStyle.type = 'text/css';
-                this.darkDemoStyle.innerHTML = '.implementation { background-color: #3f3f3f; color: #dedede} .implementation > h3, .implementation > h4{ color: #dedede}';
-                document.body.appendChild(this.darkDemoStyle);
+            if (!hasBodyDarkTheme) {
+                this.addClass(document.body, 'dark-theme');
             }
         }
-        else if(this.darkDemoStyle) {
-            document.body.removeChild(this.darkDemoStyle);
-            this.darkDemoStyle = null;
+        else if(hasBodyDarkTheme) {
+            this.removeClass(document.body, 'dark-theme');
         }
         
         event.preventDefault();
     }
 
+    addClass(element: any, className: string) {
+        if (element.classList)
+            element.classList.add(className);
+        else
+            element.className += ' ' + className;
+    }
+
+    removeClass(element: any, className: string) {
+        if (element.classList)
+            element.classList.remove(className);
+        else
+            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
+
+    hasClass(element: any, className: string) {
+        if (element.classList)
+            return element.classList.contains(className);
+        else
+            return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+    }
+
     onMenuButtonClick(event: Event) {
         this.menuActive = !this.menuActive;
         event.preventDefault();
-    }
-
-    closeNotification(event) {
-      this.notification = false;
-      event.preventDefault();
     }
 }
