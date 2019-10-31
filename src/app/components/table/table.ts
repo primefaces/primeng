@@ -1339,6 +1339,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let data = this.filteredValue || this.value;
         let csv = '';
 
+        if (options && options.ignoreFilters) {
+            data = this.value;
+        }
+
         if (options && options.selectionOnly) {
             data = this.selection || [];
         }
