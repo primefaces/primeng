@@ -677,11 +677,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.showTime) {
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
-            
-            if (this.hourFormat == '12')
-                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
-            else
-                this.currentHour = date.getHours();
+            this.setCurrentHourPM(date.getHours());
         }
         else if (this.timeOnly) {
             this.currentMinute = 0;
@@ -864,6 +860,22 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         
         return formattedValue;
     }
+
+    setCurrentHourPM(hours: number) {
+        if (this.hourFormat == '12') {
+            this.pm = hours > 11;
+            if (hours >= 12) {
+                this.currentHour = (hours == 12) ? 12 : hours - 12;
+            }
+            else {
+                this.currentHour = (hours == 0) ? 12 : hours;
+            }
+        }
+        else {
+            this.currentHour = hours;
+        }
+    }
+
     
     selectDate(dateMeta) {
         let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
@@ -885,14 +897,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         
         if (this.minDate && this.minDate > date) {
             date = this.minDate;
-            this.currentHour = date.getHours();
+            this.setCurrentHourPM(date.getHours());
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
         }
         
         if (this.maxDate && this.maxDate < date) {
             date = this.maxDate;
-            this.currentHour = date.getHours();
+            this.setCurrentHourPM(date.getHours());
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
         }
@@ -1549,22 +1561,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.createMonths(this.currentMonth, this.currentYear);
         
         if (this.showTime||this.timeOnly) {
-            let hours = val.getHours();
-            
-            if (this.hourFormat == '12') {
-                this.pm = hours > 11;
-                
-                if (hours >= 12) {
-                    this.currentHour = (hours == 12) ? 12 : hours - 12;
-                }
-                else {
-                    this.currentHour = (hours == 0) ? 12 : hours;
-                }
-            }
-            else {
-                this.currentHour = val.getHours();
-            }
-            
+            this.setCurrentHourPM(val.getHours());
             this.currentMinute = val.getMinutes();
             this.currentSecond = val.getSeconds();
         }
