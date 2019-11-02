@@ -69,7 +69,7 @@
     <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <div class="layout-menu-search ui-fluid">
-                    <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)" 
+                    <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)"
                     (onSelect)="selectRoute($event)" placeholder="Search"></p-autoComplete>
                     <i class="pi pi-search"></i>
             </div>
@@ -277,4 +277,6 @@
         </div>
     </div>
 
+</div>
+    </div>
 </div>
