@@ -175,6 +175,8 @@ describe('Spinner', () => {
     });
 
     it('should select with up and down arrows', () => {
+        fixture.detectChanges();
+
         let upArrowEvent = {'which': 38,preventDefault(){}};
         let downArrowEvent = {'which': 40,preventDefault(){}};
         spinner.onInputKeydown(upArrowEvent as KeyboardEvent);

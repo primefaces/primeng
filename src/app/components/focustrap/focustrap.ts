@@ -12,7 +12,7 @@ export class FocusTrap {
     @HostListener('keydown', ['$event']) 
     onkeydown(e) {
         if(e.which === 9) {
-            event.preventDefault();
+            e.preventDefault();
             
             let focusableElements = DomHandler.getFocusableElements(this.el.nativeElement);
 

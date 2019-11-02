@@ -5,6 +5,7 @@ import {Dropdown, DropdownItem} from './dropdown';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '../../../../node_modules/@angular/forms';
 import { Component } from '@angular/core';
+import { TooltipModule } from '../tooltip/tooltip';
 
 @Component({
 	template: `
@@ -63,7 +64,8 @@ describe('Dropdown', () => {
         imports: [
           NoopAnimationsModule,
           FormsModule,
-          ScrollingModule
+		  ScrollingModule,
+		  TooltipModule
         ],
         declarations: [
           Dropdown,
@@ -439,6 +441,7 @@ describe('Dropdown', () => {
 
 		keydownEvent.which = 76;
 		keydownEvent.keyCode = 76;
+		keydownEvent.key = "l";
 		inputEl.dispatchEvent(keydownEvent);
 		fixture.detectChanges();
 
@@ -508,6 +511,7 @@ describe('Dropdown', () => {
 
 		keydownEvent.which = 77;
 		keydownEvent.keyCode = 77;
+		keydownEvent.key = "m";
 		keydownEvent.altKey = false;
 		inputEl.dispatchEvent(keydownEvent);
 

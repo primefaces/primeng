@@ -269,7 +269,7 @@ export class MyModel &#123;
                     <td>filterMode</td>
                     <td>string</td>
                     <td>contains</td>
-                    <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "contains", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
+                    <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
                 </tr>
                 <tr>
                     <td>filterValue</td>
@@ -359,14 +359,16 @@ export class MyModel &#123;
                 <tr>
                     <td>onDblClick</td>
                     <td>event.originalEvent: browser event<br />
-                        event.value: Clicked selecte item
+                        event.value: single value or an array of values that are selected
+                        event.option: option that are clicked
                     </td>
                     <td>Callback to invoke when an item is double clicked.</td>
                 </tr>
                 <tr>
                     <td>onClick</td>
                     <td>event.originalEvent: browser event<br />
-                        event.value: single value that are clicked
+                        event.value: single value or an array of values that are selected
+                        event.option: option that are clicked
                     </td>
                     <td>Callback to invoke when listbox option clicks.</td>
                 </tr>

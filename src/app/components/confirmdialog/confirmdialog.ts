@@ -94,6 +94,8 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
+    @Input() focusTrap: boolean = true;
+
     @ContentChild(Footer, { static: false }) footer;
 
     @ViewChild('content', { static: false }) contentViewChild: ElementRef;
@@ -173,7 +175,11 @@ export class ConfirmDialog implements OnDestroy {
                 this.container = event.element;
                 this.setDimensions();
                 this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
-                DomHandler.findSingle(this.container, 'button').focus();
+                
+                if (this.acceptVisible || this.rejectVisible) {
+                    DomHandler.findSingle(this.container, 'button').focus();
+                }
+
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
@@ -258,11 +264,39 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     bindGlobalListeners() {
-        if (this.closeOnEscape && this.closable && !this.documentEscapeListener) {
+        if ((this.closeOnEscape && this.closable) || this.focusTrap && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
-                if (event.which == 27) {
+                if (event.which == 27 && (this.closeOnEscape && this.closable)) {
                     if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
+                    }
+                }
+
+                if(event.which === 9 && this.focusTrap) {
+                    event.preventDefault();
+                    
+                    let focusableElements = DomHandler.getFocusableElements(this.container);
+    
+                    if (focusableElements && focusableElements.length > 0) {
+                        if (!document.activeElement) {
+                            focusableElements[0].focus();
+                        }
+                        else {
+                            let focusedIndex = focusableElements.indexOf(document.activeElement);
+    
+                            if (event.shiftKey) {
+                                if (focusedIndex == -1 || focusedIndex === 0)
+                                    focusableElements[focusableElements.length - 1].focus();
+                                else
+                                    focusableElements[focusedIndex - 1].focus();
+                            }
+                            else {
+                                if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                                    focusableElements[0].focus();
+                                else
+                                    focusableElements[focusedIndex + 1].focus();
+                            }
+                        }
                     }
                 }
             });

@@ -8,7 +8,8 @@ import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs';
 import {BlockableUI} from '../common/blockableui';
-import { ObjectUtils } from '../utils/objectutils';
+import {ObjectUtils} from '../utils/objectutils';
+import {DomHandler} from '../common/api';
 
 @Component({
     selector: 'p-treeNode',
@@ -352,7 +353,7 @@ export class UITreeNode implements OnInit {
             //down arrow
             case 40:
                 const listElement = (this.tree.droppableNodes) ? nodeElement.children[1].children[1] : nodeElement.children[0].children[1];
-                if (listElement) {
+                if (listElement && listElement.children.length > 0) {
                     this.focusNode(listElement.children[0]);
                 }
                 else {
@@ -437,7 +438,7 @@ export class UITreeNode implements OnInit {
 
     findLastVisibleDescendant(nodeElement) {
         const childrenListElement = nodeElement.children[0].children[1];
-        if (childrenListElement) {
+        if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
 
             return this.findLastVisibleDescendant(lastChildElement);
@@ -625,7 +626,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     onNodeClick(event, node: TreeNode) {
         let eventTarget = (<Element> event.target);
 
-        if(eventTarget.className && eventTarget.className.indexOf('ui-tree-toggler') === 0) {
+        if(DomHandler.hasClass(eventTarget, 'ui-tree-toggler')) {
             return;
         }
         else if(this.selectionMode) {
@@ -888,7 +889,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 
     isNodeLeaf(node) {
-        return node.leaf == false ? false : !(node.children&&node.children.length);
+        return node.leaf == false ? false : !(node.children && node.children.length);
     }
 
     getRootNode() {
@@ -1039,6 +1040,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
             }
             
             if (matched) {
+                node.expanded = true;
                 return true;
             }
         }

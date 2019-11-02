@@ -462,13 +462,14 @@ body {
     background-color: #FFFFFF;
     overflow: visible;
 }
-.implementation > h3 {
+.implementation h3 {
     margin-top: 30px;
     color: #5C666A;
-    font-weight: 700;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 1.5em;
 }
-.implementation h3.first {
+.implementation h3.first,
+.implementation h3:first-child {
     margin-top: 0px !important;
 }
 .implementation h4 {
@@ -1216,4 +1217,20 @@ a {
   .notification-topbar .notification-topbar-image-mobile {
     display: block;
   }
+}
+
+/* Dark Theme such as luna-amber, luna-blue, luna-green and luna-pink */
+.dark-theme .implementation {
+    background-color: #3f3f3f;
+    color: #dedede; 
+}
+
+.dark-theme .implementation > h3,
+.dark-theme .implementation > h4 {
+    color: #dedede; 
+}
+
+.dark-theme .carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-details > .p-grid {
+    border: 1px solid #191919;
+    background-color: #323232; 
 }

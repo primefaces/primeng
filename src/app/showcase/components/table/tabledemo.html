@@ -1593,16 +1593,20 @@ export class TableEditDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/reorder']">live example.</a></p>
 
             <h3>Data Export</h3>
-            <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
+            <p>Table can export its data in CSV format using the built-in exportCSV() function. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
                 columns should be dynamic for export functionality to work and column objects must define field/header properties.
             </p>
+
+            <p>PDF and EXCEL export are also available using 3rd party libraries such as jspdf. Example below demonstrates how to implement all three export options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table #tt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+&lt;p-table #dt [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
     &lt;ng-template pTemplate="caption"&gt;
-        &lt;div class="ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data" (click)="tt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="tt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
+        &lt;div class="ui-helper-clearfix" style="text-align: left"&gt;
+            &lt;button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
@@ -1620,6 +1624,75 @@ export class TableEditDemo implements OnInit &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableExportDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    selectedCars: Car[];
+
+    cols: any[];
+
+    columns: any[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+
+        this.cols = [
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
+        ];
+
+        this.exportColumns = this.cols.map(col => (&#123;title: col.header, dataKey: col.field&#125;));
+    &#125;
+
+    exportPdf() &#123;
+        import("jspdf").then(jsPDF => &#123;
+            import("jspdf-autotable").then(x => &#123;
+                const doc = new jsPDF.default(0,0);
+                doc.autoTable(this.columns, this.cars);
+                doc.save('primengTable.pdf');
+            &#125;)
+        &#125;)
+    &#125;
+    
+    exportExcel() &#123;
+        import("xlsx").then(xlsx => &#123;
+            const worksheet = xlsx.utils.json_to_sheet(this.getCars());
+            const workbook = &#123; Sheets: &#123; 'data': worksheet &#125;, SheetNames: ['data'] &#125;;
+            const excelBuffer: any = xlsx.write(workbook, &#123; bookType: 'xlsx', type: 'array' &#125;);
+            this.saveAsExcelFile(excelBuffer, "primengTable");
+        &#125;);
+    &#125;
+
+    saveAsExcelFile(buffer: any, fileName: string): void &#123;
+        import("file-saver").then(FileSaver => &#123;
+            let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+            let EXCEL_EXTENSION = '.xlsx';
+            const data: Blob = new Blob([buffer], &#123;
+                type: EXCEL_TYPE
+            &#125;);
+            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+        &#125;);
+    &#125;
+
+    getCars() &#123;
+        let cars = [];
+        for(let car of this.cars) &#123;
+            car.year = car.year.toString();
+            cars.push(car);
+        &#125;
+        return cars;
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -2019,21 +2092,19 @@ loadData(event: LazyLoadEvent) &#123;
             <p>When there is no data, emptymessage template can be used to display a message.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [value]="cars"&gt;
-    &lt;ng-template pTemplate="header"&gt;
+&lt;p-table [columns]="cols" [value]="cars"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th&gt;Vin&lt;/th&gt;
-            &lt;th&gt;Year&lt;/th&gt;
-            &lt;th&gt;Brand&lt;/th&gt;
-            &lt;th&gt;Color&lt;/th&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-car&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
         &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                    &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="emptymessage" let-columns&gt;
@@ -2496,7 +2567,7 @@ export class TableDemo implements OnInit &#123;
                             <td>rowHover</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Adds hover effect to rows without the need for selectionMode.</td>
+                            <td>Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "ui-selectable-row" class for rowHover to work.</td>
                         </tr>
                         <tr>
                             <td>paginatorDropdownAppendTo</td>
@@ -2655,22 +2726,22 @@ export class TableDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>onEditInit</td>
-                            <td>event.column: Column object of the cell<br>
+                            <td>event.field: Column object of the cell<br>
                                 event.data: Row data</td>
                             <td>Callback to invoke when a cell switches to edit mode.</td>
                         </tr>
                         <tr>
                             <td>onEditComplete</td>
-                            <td>event.column: Column object of the cell<br>
+                            <td>event.field: Column object of the cell<br>
                                 event.data: Row data <br />
-                                event.index: Row index</td>
+                                event.originalEvent: Browser event</td>
                             <td>Callback to invoke when cell edit is completed.</td>
                         </tr>
                         <tr>
                             <td>onEditCancel</td>
-                            <td>event.column: Column object of the cell<br>
+                            <td>event.field: Column object of the cell<br>
                                 event.data: Row data <br />
-                                event.index: Row index</td>
+                                event.originalEvent: Browser event</td>
                             <td>Callback to invoke when cell edit is cancelled with escape key.</td>
                         </tr>
                         <tr>

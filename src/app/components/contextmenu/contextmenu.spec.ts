@@ -251,7 +251,7 @@ describe('ConextMenu', () => {
         fixture.detectChanges();
 
         let menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem).toEqual(undefined);        
+        expect(menuItems[0].componentInstance.activeItem).toEqual(null);        
         menuItems[0].nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
@@ -259,7 +259,7 @@ describe('ConextMenu', () => {
         expect(menuItems[0].componentInstance.activeItem.textContent).toEqual("FileNewProjectOtherOpenQuit"); 
     });
 
-    it('should change activeitem to null when mouseleave', fakeAsync(() => {
+    it('should change activeitem to null when outside click', fakeAsync(() => {
         fixture.detectChanges();
 
         const contextmenuEvent: any = document.createEvent('CustomEvent');
@@ -270,13 +270,13 @@ describe('ConextMenu', () => {
         fixture.detectChanges();
 
         let menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem).toEqual(undefined);        
+        expect(menuItems[0].componentInstance.activeItem).toEqual(null);        
         menuItems[0].nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 
         menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
         expect(menuItems[0].componentInstance.activeItem.textContent).toEqual("FileNewProjectOtherOpenQuit");
-        menuItems[0].nativeElement.dispatchEvent(new Event("mouseleave"));
+        document.dispatchEvent(new Event('click'));
         tick(1000);
         fixture.detectChanges();
 
@@ -295,7 +295,7 @@ describe('ConextMenu', () => {
         fixture.detectChanges();
 
         let menuItems = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-        expect(menuItems[0].componentInstance.activeItem).toEqual(undefined);        
+        expect(menuItems[0].componentInstance.activeItem).toEqual(null);        
         menuItems[0].nativeElement.dispatchEvent(new Event("mouseenter"));
         fixture.detectChanges();
 

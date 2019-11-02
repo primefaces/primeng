@@ -79,10 +79,10 @@ export class TableService {
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
+                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                     <tfoot *ngIf="footerTemplate" class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
-                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                 </table>
             </div>
 
@@ -655,7 +655,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (!metaKey || !this.multiSortMeta) {
                     this._multiSortMeta = [];
                 }
-                this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
+                this._multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
             
             this.sortMultiple();
@@ -768,7 +768,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             result = 1;
         else if (value1 == null && value2 == null)
             result = 0;
-        if (typeof value1 == 'string' || value1 instanceof String) {
+        else if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));
             }
@@ -1337,7 +1337,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     public exportCSV(options?: any) {
         let data = this.filteredValue || this.value;
-        let csv = '\ufeff';
+        let csv = '';
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
@@ -1427,7 +1427,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
-                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
+                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event });
                     this.editingCellField = null;
                     this.editingCellData = null;
                     this.unbindDocumentEditListener();
@@ -2887,16 +2887,18 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         }
     }
 
-    onMouseDown(event: Event) {
-        this.dt.onColumnResizeBegin(event);
-        this.bindDocumentEvents();
+    onMouseDown(event: MouseEvent) {
+        if (event.which === 1) {
+            this.dt.onColumnResizeBegin(event);
+            this.bindDocumentEvents();
+        } 
     }
 
-    onDocumentMouseMove(event: Event) {
+    onDocumentMouseMove(event: MouseEvent) {
         this.dt.onColumnResize(event);
     }
 
-    onDocumentMouseUp(event: Event) {
+    onDocumentMouseUp(event: MouseEvent) {
         this.dt.onColumnResizeEnd(event, this.el.nativeElement);
         this.unbindDocumentEvents();
     }
@@ -3098,7 +3100,7 @@ export class EditableColumn implements AfterViewInit {
             if (event.keyCode == 13) {
                 if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell();
-                    this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+                    this.dt.onEditComplete.emit({ field: this.field, data: this.data, originalEvent: event });
                 }
     
                 event.preventDefault();
@@ -3108,7 +3110,7 @@ export class EditableColumn implements AfterViewInit {
             else if (event.keyCode == 27) {
                 if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell();
-                    this.dt.onEditCancel.emit({ field: this.field, data: this.data });
+                    this.dt.onEditCancel.emit({ field: this.field, data: this.data, originalEvent: event });
                 }
     
                 event.preventDefault();
@@ -3116,7 +3118,7 @@ export class EditableColumn implements AfterViewInit {
     
             //tab
             else if (event.keyCode == 9) {
-                this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+                this.dt.onEditComplete.emit({ field: this.field, data: this.data, originalEvent: event });
                 
                 if (event.shiftKey)
                     this.moveToPreviousCell(event);

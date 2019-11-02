@@ -30,7 +30,9 @@ gulp.task('build-css-prod', function() {
 
 gulp.task('copy-component-css', function () {
     gulp.src([
-        'src/app/components/**/*.css'
+        'src/app/components/**/*.css',
+        'src/app/components/**/images/*.png', 
+        'src/app/components/**/images/*.gif'
     ])
     .pipe(gulp.dest('resources/components'));
 });
