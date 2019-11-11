@@ -188,15 +188,15 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
-    @ViewChild('container', { static: false }) set container(element: ElementRef) {
+    @ViewChild('container') set container(element: ElementRef) {
         this.containerViewChild = element;
     }
 
-    @ViewChild('backward', { static: false }) set backward(element: ElementRef) {
+    @ViewChild('backward') set backward(element: ElementRef) {
         this.backwardViewChild = element;
     }
 
-    @ViewChild('slideMenuContent', { static: false }) set slideMenuContent(element: ElementRef) {
+    @ViewChild('slideMenuContent') set slideMenuContent(element: ElementRef) {
         this.slideMenuContentViewChild = element;
     }
 

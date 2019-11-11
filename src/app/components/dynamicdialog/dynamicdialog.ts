@@ -50,9 +50,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	mask: HTMLDivElement;
 
-	@ViewChild(DynamicDialogContent, { static: false }) insertionPoint: DynamicDialogContent;
+	@ViewChild(DynamicDialogContent) insertionPoint: DynamicDialogContent;
 	
-	@ViewChild('mask', { static: false }) maskViewChild: ElementRef;
+	@ViewChild('mask') maskViewChild: ElementRef;
 
 	childComponentType: Type<any>;
 

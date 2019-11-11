@@ -18,7 +18,7 @@ import { TreeDragDropService } from '../common/api';
   })
   class TestTreeComponent implements OnInit {
 
-	@ViewChild('cm', { static: false }) cm:ElementRef;
+	@ViewChild('cm') cm:ElementRef;
 
 	filesTree7: any;
 

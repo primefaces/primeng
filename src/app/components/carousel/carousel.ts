@@ -120,9 +120,9 @@ export class Carousel implements AfterContentInit {
 
 	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
 
-	@ContentChild(Header, { static: false }) headerFacet;
+	@ContentChild(Header) headerFacet;
 
-    @ContentChild(Footer, { static: false }) footerFacet;
+    @ContentChild(Footer) footerFacet;
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

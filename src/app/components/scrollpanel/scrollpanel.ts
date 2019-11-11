@@ -24,13 +24,13 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     
     constructor(public el: ElementRef, public zone: NgZone) {}
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
-    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
+    @ViewChild('content') contentViewChild: ElementRef;
 
-    @ViewChild('xBar', { static: false }) xBarViewChild: ElementRef;
+    @ViewChild('xBar') xBarViewChild: ElementRef;
     
-    @ViewChild('yBar', { static: false }) yBarViewChild: ElementRef;
+    @ViewChild('yBar') yBarViewChild: ElementRef;
 
     scrollYRatio: number;
 

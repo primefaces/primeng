@@ -163,7 +163,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
     parentActive: boolean;
 

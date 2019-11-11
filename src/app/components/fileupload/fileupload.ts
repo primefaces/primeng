@@ -135,11 +135,11 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('advancedfileinput', { static: false }) advancedFileInput: ElementRef;
+    @ViewChild('advancedfileinput') advancedFileInput: ElementRef;
 
-    @ViewChild('basicfileinput', { static: false }) basicFileInput: ElementRef;
+    @ViewChild('basicfileinput') basicFileInput: ElementRef;
 
-    @ViewChild('content', { static: false }) content: ElementRef;
+    @ViewChild('content') content: ElementRef;
 
     @Input() set files(files) {
         this._files = [];

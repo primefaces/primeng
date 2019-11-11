@@ -68,7 +68,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Output() onChipClick: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('inputtext', { static: false }) inputViewChild: ElementRef;
+    @ViewChild('inputtext') inputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

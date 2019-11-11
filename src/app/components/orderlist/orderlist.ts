@@ -78,7 +78,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Output() onFilterEvent: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('listelement', { static: false }) listViewChild: ElementRef;
+    @ViewChild('listelement') listViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

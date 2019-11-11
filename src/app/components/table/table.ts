@@ -268,15 +268,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Output() onStateRestore: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
-    @ViewChild('resizeHelper', { static: false }) resizeHelperViewChild: ElementRef;
+    @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorUp', { static: false }) reorderIndicatorUpViewChild: ElementRef;
+    @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorDown', { static: false }) reorderIndicatorDownViewChild: ElementRef;
+    @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
 
-    @ViewChild('table', { static: false }) tableViewChild: ElementRef;
+    @ViewChild('table') tableViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -2143,21 +2143,21 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     @Input() frozen: boolean;
 
-    @ViewChild('scrollHeader', { static: false }) scrollHeaderViewChild: ElementRef;
+    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollHeaderBox', { static: false }) scrollHeaderBoxViewChild: ElementRef;
+    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
 
-    @ViewChild('scrollBody', { static: false }) scrollBodyViewChild: ElementRef;
+    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
 
-    @ViewChild('scrollTable', { static: false }) scrollTableViewChild: ElementRef;
+    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
 
-    @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
+    @ViewChild('loadingTable') scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter', { static: false }) scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox', { static: false }) scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
+    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
 
     headerScrollListener: Function;
 
@@ -3338,7 +3338,7 @@ export class TableRadioButton  {
 
     @Input() index: number;
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -3402,7 +3402,7 @@ export class TableCheckbox  {
 
     @Input() index: number;
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -3460,7 +3460,7 @@ export class TableCheckbox  {
 })
 export class TableHeaderCheckbox  {
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box') boxViewChild: ElementRef;
 
     @Input() disabled: boolean;
 

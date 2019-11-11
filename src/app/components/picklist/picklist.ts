@@ -161,13 +161,13 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Output() onTargetFilter: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('sourcelist', { static: false }) listViewSourceChild: ElementRef;
+    @ViewChild('sourcelist') listViewSourceChild: ElementRef;
     
-    @ViewChild('targetlist', { static: false }) listViewTargetChild: ElementRef;
+    @ViewChild('targetlist') listViewTargetChild: ElementRef;
 
-    @ViewChild('sourceFilter', { static: false }) sourceFilterViewChild: ElementRef;
+    @ViewChild('sourceFilter') sourceFilterViewChild: ElementRef;
 
-    @ViewChild('targetFilter', { static: false }) targetFilterViewChild: ElementRef;
+    @ViewChild('targetFilter') targetFilterViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
