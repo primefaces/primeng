@@ -165,10 +165,10 @@ export interface LocaleSettings {
                 <div class="ui-datepicker-buttonbar ui-widget-header" *ngIf="showButtonBar">
                     <div class="ui-g">
                         <div class="ui-g-6">
-                            <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
+                            <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]" tabindex="-1"></button>
                         </div>
                         <div class="ui-g-6">
-                            <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
+                            <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]" tabindex="-1"></button>
                         </div>
                     </div>
                 </div>
