@@ -70,7 +70,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,ControlValueAccessor {
+export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy,ControlValueAccessor {
 
     @Input() minLength: number = 1;
 
@@ -156,8 +156,6 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() emptyMessage: string;
 
-    @Input() immutable: boolean = true;
-
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
@@ -233,20 +231,9 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     set suggestions(val:any[]) {
         this._suggestions = val;
         
-        if (this.immutable) {
-            this.handleSuggestionsChange();
-        }
+        this.handleSuggestionsChange();
     }
 
-    ngDoCheck() {
-        if (!this.immutable) {
-            let changes = this.differ.diff(this.suggestions);
-
-            if (changes) {
-                this.handleSuggestionsChange();
-            }
-        }
-    }
 
     ngAfterViewChecked() {
         //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
