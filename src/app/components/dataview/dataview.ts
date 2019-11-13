@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef, OnChanges, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
@@ -39,7 +39,7 @@ import { FilterUtils } from '../utils/filterutils';
         </div>
     `
 })
-export class DataView implements OnInit,AfterContentInit,BlockableUI {
+export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     @Input() layout: string = 'list';
 
@@ -85,6 +85,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     @Input() first: number = 0;
 
+    @Input() sortField: string;
+
+    @Input() sortOrder: number;
+
+    @Input() value: any[];
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
@@ -111,10 +117,6 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
 
     filterValue: string;
 
-    _sortField: string;
-
-    _sortOrder: number = 1;
-
     initialized: boolean;
     
     constructor(public el: ElementRef) {}
@@ -126,28 +128,28 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         this.initialized = true;
     }
 
-    @Input() get sortField(): string {
-        return this._sortField;
-    }
-
-    set sortField(val: string) {
-        this._sortField = val;
-
-        //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            this.sort();
+    ngOnChanges(simpleChanges: SimpleChanges) {
+        if(simpleChanges.sortField) {
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if (!this.lazy || this.initialized) {
+                this.sort();
+            }
         }
-    }
 
-    @Input() get sortOrder(): number {
-        return this._sortOrder;
-    }
-    set sortOrder(val: number) {
-        this._sortOrder = val;
+        if(simpleChanges.sortOrder) {
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if (!this.lazy || this.initialized) {
+                this.sort();
+            }
+        }
 
-         //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            this.sort();
+        if(simpleChanges.value) {
+            this._value = simpleChanges.value.currentValue;
+            this.updateTotalRecords();
+            
+            if (!this.lazy && this.hasFilter()) {
+                this.filter(this.filterValue);
+            }
         }
     }
     
@@ -184,18 +186,6 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             case 'grid':
                 this.itemTemplate = this.gridItemTemplate;
             break;
-        }
-    }
-    
-    @Input() get value(): any[] {
-        return this._value;
-    }
-
-    set value(val:any[]) {
-        this._value = val;
-        this.updateTotalRecords();
-        if (!this.lazy && this.hasFilter()) {
-            this.filter(this.filterValue);
         }
     }
 
