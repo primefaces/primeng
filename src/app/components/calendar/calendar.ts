@@ -353,16 +353,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
 
-    private _utc: boolean;
-
-    @Input() get utc(): boolean {
-        return this._utc;
-    }
-    set utc(_utc: boolean) {
-        this._utc = _utc;
-        console.log("Setting utc has no effect as built-in UTC support is dropped.");
-    }
-            
     value: any;
     
     dates: any[];
