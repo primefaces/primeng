@@ -205,15 +205,6 @@ export class Menubar {
 
     @Input() baseZIndex: number = 0;
 
-    private _autoDisplay: boolean;
-
-    @Input() get autoDisplay(): boolean {
-        return this._autoDisplay;
-    }
-    set utc(_utc: boolean) {
-        console.log("AutoDisplay property is deprecated and functionality is not available.");
-    }
-
     constructor(public el: ElementRef, public renderer: Renderer2) { }
 }
 
