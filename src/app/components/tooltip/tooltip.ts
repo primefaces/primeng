@@ -134,8 +134,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this._text = text;
         if (this.active) {
             if (this._text) {
-                if (this.container && this.container.offsetParent)
+                if (this.container && this.container.offsetParent) {
                     this.updateText();
+					this.align();
+				}
                 else
                     this.show();
             }
