@@ -105,10 +105,6 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
-    @Input() set type(value: string) {
-        console.warn("type property is removed as Spinner does not format the value anymore");
-    }
-
     ngAfterViewInit() {
         if(this.value && this.value.toString().indexOf('.') > 0) {
             this.precision = this.value.toString().split(/[.]/)[1].length;
