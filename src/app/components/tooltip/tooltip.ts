@@ -42,6 +42,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     active: boolean;
 
     _text: string;
+	
+	_disabled: boolean;
 
     mouseEnterListener: Function;
 
@@ -54,6 +56,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     blurListener: Function;
 
     resizeListener: any;
+	
+	focused: boolean;
+
+    hovered: boolean;
 
     constructor(public el: ElementRef, public zone: NgZone) { }
 
@@ -78,23 +84,28 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onMouseEnter(e: Event) {
         if (!this.container && !this.showTimeout) {
+			this.hovered = true;
             this.activate();
         }
     }
     
     onMouseLeave(e: Event) {
+		this.hovered = false;
         this.deactivate();
     }
     
     onFocus(e: Event) {
+		this.focused = true;
         this.activate();
     }
     
     onBlur(e: Event) {
+		this.focused = false;
         this.deactivate();
     }
   
     onClick(e: Event) {
+		this.hovered = false;
         this.deactivate();
     }
 
@@ -143,6 +154,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 this.hide();
             }
         }
+    }
+	
+	get disabled() {
+        return this._disabled;
+    }
+
+    @Input("tooltipDisabled") set disabled(disabled: boolean) {
+        this._disabled = disabled;
+
+        if (this.disabled)
+            this.deactivate();
+        else if (this.focused || this.hovered)
+            this.activate();
     }
 
     create() {
