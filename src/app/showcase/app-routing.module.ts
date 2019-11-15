@@ -25,7 +25,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'colorpicker', loadChildren: () => import('./components/colorpicker/colorpickerdemo.module').then(m => m.ColorPickerDemoModule)},
             {path: 'confirmdialog', loadChildren: () => import('./components/confirmdialog/confirmdialogdemo.module').then(m => m.ConfirmDialogDemoModule)},
             {path: 'contextmenu', loadChildren: () => import('./components/contextmenu/contextmenudemo.module').then(m => m.ContextMenuDemoModule)},
-            {path: 'datascroller', loadChildren: () => import('./components/datascroller/datascrollerdemo.module').then(m => m.DataScrollerDemoModule)},
             {path: 'dataview', loadChildren: () => import('./components/dataview/dataviewdemo.module').then(m => m.DataViewDemoModule)},
             {path: 'defer', loadChildren: () => import('./components/defer/deferdemo.module').then(m => m.DeferDemoModule)},
             {path: 'dialog', loadChildren: () => import('./components/dialog/dialogdemo.module').then(m => m.DialogDemoModule)},
