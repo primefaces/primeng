@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -108,7 +108,7 @@ export class TableService {
     `,
     providers: [TableService]
 })
-export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
+export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI {
     
     @Input() frozenColumns: any[];
 
@@ -225,18 +225,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() stateStorage: string = 'session';
 
     @Input() editMode: string = 'cell';
-
-    @Input() value: any[];
-
-    @Input() columns: any[];
-
-    @Input() sortField: string;
-
-    @Input() sortOrder: number;
-
-    @Input() multiSortMeta: SortMeta[];
-
-    @Input() selection: any;
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -488,81 +476,47 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.restoreColumnWidths();
         }
     }
-    ngOnChanges(simpleChange: SimpleChanges) {
-        if (simpleChange.value) {
-            if (this.isStateful() && !this.stateRestored) {
-                this.restoreState();
-            }
-            
-            this._value = simpleChange.value.currentValue;
-            
-            if (!this.lazy) {
-                this.totalRecords = (this._value ? this._value.length : 0);
-    
-                if (this.sortMode == 'single' && this.sortField)
-                    this.sortSingle();
-                else if (this.sortMode == 'multiple' && this.multiSortMeta)
-                    this.sortMultiple();
-                else if(this.hasFilter())       //sort already filters
-                    this._filter();
-            }
-    
-            if(this.virtualScroll && this.virtualScrollCallback) {
-                this.virtualScrollCallback();
-            }
-    
-            this.tableService.onValueChange(simpleChange.value.currentValue);
+
+    @Input() get value(): any[] {
+        return this._value;
+    }
+    set value(val: any[]) {
+        if (this.isStateful() && !this.stateRestored) {
+            this.restoreState();
         }
+
+        this._value = val;
         
-        if(simpleChange.columns) {
-            this._columns = simpleChange.columns.currentValue;
-            this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+        if (!this.lazy) {
+            this.totalRecords = (this._value ? this._value.length : 0);
 
-            if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
-                this.restoreColumnOrder();
-            }
-        }
-
-        if(simpleChange.sortField) {
-            this._sortField = simpleChange.sortField.currentValue;
-
-            if ( !this.lazy || this.initialized ) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
-        }
-
-        if(simpleChange.sortOrder) {
-            this._sortOrder = simpleChange.sortOrder.currentValue;
-
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if ( !this.lazy || this.initialized ) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
-        }
-
-        if(simpleChange.multiSortMeta) {
-            this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
-
-            if (this.sortMode === 'multiple') {
+            if (this.sortMode == 'single' && this.sortField)
+                this.sortSingle();
+            else if (this.sortMode == 'multiple' && this.multiSortMeta)
                 this.sortMultiple();
-            }
+            else if(this.hasFilter())       //sort already filters
+                this._filter();
         }
 
-        if(simpleChange.selection) {
-            this._selection = simpleChange.selection.currentValue;
+        if(this.virtualScroll && this.virtualScrollCallback) {
+            this.virtualScrollCallback();
+        }
 
-            if(!this.preventSelectionSetterPropagation) {
-                this.updateSelectionKeys();
-                this.tableService.onSelectionChange();
-            }
-            this.preventSelectionSetterPropagation = false;
+        this.tableService.onValueChange(val);
+    }
+
+    @Input() get columns(): any[] {
+        return this._columns;
+    }
+    set columns(cols: any[]) {
+        this._columns = cols;
+        this.tableService.onColumnsChange(cols);
+
+        if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
+            this.restoreColumnOrder();
         }
     }
-    
+
     @Input() get first(): number {
         return this._first;
     }
@@ -583,6 +537,60 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     set totalRecords(val: number) {
         this._totalRecords = val;
         this.tableService.onTotalRecordsChange(this._totalRecords);
+    }
+
+    @Input() get sortField(): string {
+        return this._sortField;
+    }
+
+    set sortField(val: string) {
+        this._sortField = val;
+
+        //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            if (this.sortMode === 'single') {
+                this.sortSingle();
+            }
+        }
+    }
+
+    @Input() get sortOrder(): number {
+        return this._sortOrder;
+    }
+    set sortOrder(val: number) {
+        this._sortOrder = val;
+
+         //avoid triggering lazy load prior to lazy initialization at onInit
+        if ( !this.lazy || this.initialized ) {
+            if (this.sortMode === 'single') {
+                this.sortSingle();
+            }
+        }
+    }
+
+    @Input() get multiSortMeta(): SortMeta[] {
+        return this._multiSortMeta;
+    }
+
+    set multiSortMeta(val: SortMeta[]) {
+        this._multiSortMeta = val;
+        if (this.sortMode === 'multiple') {
+            this.sortMultiple();
+        }
+    }
+
+    @Input() get selection(): any {
+        return this._selection;
+    }
+
+    set selection(val: any) {
+        this._selection = val;
+
+        if(!this.preventSelectionSetterPropagation) {
+            this.updateSelectionKeys();
+            this.tableService.onSelectionChange();
+        }
+        this.preventSelectionSetterPropagation = false;
     }
 
     updateSelectionKeys() {
