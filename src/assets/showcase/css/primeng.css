@@ -12,7 +12,6 @@
 @import '../../../app/components/colorpicker/colorpicker.css';
 @import '../../../app/components/contextmenu/contextmenu.css';
 @import '../../../app/components/datagrid/datagrid.css';
-@import '../../../app/components/datalist/datalist.css';
 @import '../../../app/components/datascroller/datascroller.css';
 @import '../../../app/components/dataview/dataview.css';
 @import '../../../app/components/dialog/dialog.css';
@@ -22,7 +21,6 @@
 @import '../../../app/components/fullcalendar/fullcalendar.css';
 @import '../../../app/components/galleria/galleria.css';
 @import '../../../app/components/grid/grid.css';
-@import '../../../app/components/growl/growl.css';
 @import '../../../app/components/inplace/inplace.css';
 @import '../../../app/components/inputmask/inputmask.css';
 @import '../../../app/components/inputswitch/inputswitch.css';

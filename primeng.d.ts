@@ -17,7 +17,6 @@ export * from './components/colorpicker/colorpicker';
 export * from './components/confirmdialog/confirmdialog';
 export * from './components/contextmenu/contextmenu';
 export * from './components/datagrid/datagrid';
-export * from './components/datalist/datalist';
 export * from './components/datascroller/datascroller';
 export * from './components/defer/defer';
 export * from './components/dialog/dialog';

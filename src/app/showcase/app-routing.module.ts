@@ -26,7 +26,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'confirmdialog', loadChildren: () => import('./components/confirmdialog/confirmdialogdemo.module').then(m => m.ConfirmDialogDemoModule)},
             {path: 'contextmenu', loadChildren: () => import('./components/contextmenu/contextmenudemo.module').then(m => m.ContextMenuDemoModule)},
             {path: 'datagrid', loadChildren: () => import('./components/datagrid/datagriddemo.module').then(m => m.DataGridDemoModule)},
-            {path: 'datalist', loadChildren: () => import('./components/datalist/datalistdemo.module').then(m => m.DataListDemoModule)},
             {path: 'datascroller', loadChildren: () => import('./components/datascroller/datascrollerdemo.module').then(m => m.DataScrollerDemoModule)},
             {path: 'dataview', loadChildren: () => import('./components/dataview/dataviewdemo.module').then(m => m.DataViewDemoModule)},
             {path: 'defer', loadChildren: () => import('./components/defer/deferdemo.module').then(m => m.DeferDemoModule)},
