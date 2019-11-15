@@ -22,7 +22,6 @@ __export(require("./components/codehighlighter/codehighlighter"));
 __export(require("./components/colorpicker/colorpicker"));
 __export(require("./components/confirmdialog/confirmdialog"));
 __export(require("./components/contextmenu/contextmenu"));
-__export(require("./components/datagrid/datagrid"));
 __export(require("./components/datascroller/datascroller"));
 __export(require("./components/defer/defer"));
 __export(require("./components/dialog/dialog"));
