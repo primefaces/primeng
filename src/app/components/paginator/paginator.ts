@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef, OnChanges, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from '../dropdown/dropdown';
@@ -42,7 +42,7 @@ import {SharedModule} from '../common/shared';
         </div>
     `
 })
-export class Paginator implements OnInit {
+export class Paginator implements OnInit, OnChanges {
 
     @Input() pageLinkSize: number = 5;
 
@@ -66,16 +66,16 @@ export class Paginator implements OnInit {
 
     @Input() showCurrentPageReport: boolean;
 
+    @Input() totalRecords: number;
+
+    @Input() first: number;
+
+    @Input() rows: number;
+    
+    @Input() rowsPerPageOptions: any[];
+
     pageLinks: number[];
 
-    _totalRecords: number = 0;
-
-    _first: number = 0;
-
-    _rows: number = 0;
-    
-    _rowsPerPageOptions: any[];
-    
     rowsPerPageItems: SelectItem[];
     
     paginatorState: any;
@@ -86,45 +86,27 @@ export class Paginator implements OnInit {
         this.updatePaginatorState();
     }
 
-    @Input() get totalRecords(): number {
-        return this._totalRecords;
-    }
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if(simpleChange.totalRecords) {
+            this.updatePageLinks();
+            this.updatePaginatorState();
+            this.updateFirst();
+            this.updateRowsPerPageOptions();
+        }
 
-    set totalRecords(val:number) {
-        this._totalRecords = val;
-        this.updatePageLinks();
-        this.updatePaginatorState();
-        this.updateFirst();
-        this.updateRowsPerPageOptions();
-    }
+        if(simpleChange.first) {
+            this.updatePageLinks();
+            this.updatePaginatorState();
+        }
 
-    @Input() get first(): number {
-        return this._first;
-    }
+        if(simpleChange.rows) {
+            this.updatePageLinks();
+            this.updatePaginatorState();
+        }
 
-    set first(val:number) {
-        this._first = val;
-        this.updatePageLinks();
-        this.updatePaginatorState();
-    }
-
-    @Input() get rows(): number {
-        return this._rows;
-    }
-
-    set rows(val:number) {
-        this._rows = val;
-        this.updatePageLinks();
-        this.updatePaginatorState();
-    }
-    
-    @Input() get rowsPerPageOptions(): any[] {
-        return this._rowsPerPageOptions;
-    }
-
-    set rowsPerPageOptions(val:any[]) {
-        this._rowsPerPageOptions = val;
-        this.updateRowsPerPageOptions();
+        if(simpleChange.rowsPerPageOptions) {
+            this.updateRowsPerPageOptions();
+        }
     }
 
     updateRowsPerPageOptions() {
