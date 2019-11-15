@@ -44,7 +44,6 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'galleria', loadChildren: () => import('./components/galleria/galleriademo.module').then(m => m.GalleriaDemoModule)},
             {path: 'gmap', loadChildren: () => import('./components/gmap/gmapdemo.module').then(m => m.GMapDemoModule)},
             {path: 'grid', loadChildren: () => import('./components/grid/griddemo.module').then(m => m.GridDemoModule)},
-            {path: 'growl', loadChildren: () => import('./components/growl/growldemo.module').then(m => m.GrowlDemoModule)},
             {path: 'inplace', loadChildren: () => import('./components/inplace/inplacedemo.module').then(m => m.InplaceDemoModule)},
             {path: 'inputmask', loadChildren: () => import('./components/inputmask/inputmaskdemo.module').then(m => m.InputMaskDemoModule)},
             {path: 'inputswitch', loadChildren: () => import('./components/inputswitch/inputswitchdemo.module').then(m => m.InputSwitchDemoModule)},

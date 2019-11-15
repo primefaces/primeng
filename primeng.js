@@ -34,7 +34,6 @@ __export(require("./components/fieldset/fieldset"));
 __export(require("./components/fileupload/fileupload"));
 __export(require("./components/galleria/galleria"));
 __export(require("./components/gmap/gmap"));
-__export(require("./components/growl/growl"));
 __export(require("./components/inplace/inplace"));
 __export(require("./components/inputmask/inputmask"));
 __export(require("./components/inputswitch/inputswitch"));

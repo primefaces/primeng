@@ -28,7 +28,6 @@ export * from './components/fieldset/fieldset';
 export * from './components/fileupload/fileupload';
 export * from './components/galleria/galleria';
 export * from './components/gmap/gmap';
-export * from './components/growl/growl';
 export * from './components/inplace/inplace';
 export * from './components/inputmask/inputmask';
 export * from './components/inputswitch/inputswitch';
