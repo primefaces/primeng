@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ContentChild,TemplateRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ContentChild,TemplateRef, OnChanges, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {ObjectUtils} from '../utils/objectutils';
@@ -30,7 +30,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR]
 })
-export class SelectButton implements ControlValueAccessor {
+export class SelectButton implements ControlValueAccessor, OnChanges {
 
     @Input() tabindex: number = 0;
 
@@ -56,21 +56,19 @@ export class SelectButton implements ControlValueAccessor {
     
     focusedItem: HTMLDivElement;
     
-    _options: any[];
-    
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
     
     constructor(private cd: ChangeDetectorRef) {}
     
-    @Input() get options(): any[] {
-        return this._options;
-    }
+    @Input() options: any[];
 
-    set options(val: any[]) {
-        let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
-        this._options = opts;
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if (simpleChange.options) {
+            let opts = this.optionLabel ? ObjectUtils.generateSelectItems(simpleChange.options.currentValue, this.optionLabel) : simpleChange.options.currentValue;
+            this.options = opts;
+        }
     }
     
     writeValue(value: any) : void {
