@@ -16,7 +16,6 @@ import {RadioButtonModule} from '../../../components/radiobutton/radiobutton';
 import {DialogModule} from '../../../components/dialog/dialog';
 import {PanelModule} from '../../../components/panel/panel';
 import {TableModule} from '../../../components/table/table';
-import {DataGridModule} from '../../../components/datagrid/datagrid';
 import {CarouselModule} from '../../../components/carousel/carousel';
 import {OrderListModule} from '../../../components/orderlist/orderlist';
 import {PickListModule} from '../../../components/picklist/picklist';
@@ -44,7 +43,6 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         DialogModule,
         PanelModule,
         TableModule,
-        DataGridModule,
         CarouselModule,
         OrderListModule,
         PickListModule,
