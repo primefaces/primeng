@@ -66,11 +66,9 @@ export class Paginator implements OnInit, OnChanges {
 
     @Input() showCurrentPageReport: boolean;
 
-    @Input() totalRecords: number;
+    @Input() totalRecords: number = 0;
 
-    @Input() first: number;
-
-    @Input() rows: number;
+    @Input() rows: number = 0;
     
     @Input() rowsPerPageOptions: any[];
 
@@ -79,6 +77,8 @@ export class Paginator implements OnInit, OnChanges {
     rowsPerPageItems: SelectItem[];
     
     paginatorState: any;
+
+    _first: number = 0;
 
     constructor(private cd: ChangeDetectorRef) {}
     
@@ -95,6 +95,7 @@ export class Paginator implements OnInit, OnChanges {
         }
 
         if(simpleChange.first) {
+            this._first = simpleChange.first.currentValue;
             this.updatePageLinks();
             this.updatePaginatorState();
         }
@@ -109,6 +110,13 @@ export class Paginator implements OnInit, OnChanges {
         }
     }
 
+    @Input() get first(): number {
+        return this._first;
+    }
+    set first(val:number) {
+        this._first = val;
+    }
+    
     updateRowsPerPageOptions() {
         if(this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
@@ -165,7 +173,7 @@ export class Paginator implements OnInit, OnChanges {
         var pc = this.getPageCount();
 
         if(p >= 0 && p < pc) {
-            this.first = this.rows * p;
+            this._first = this.rows * p;
             var state = {
                 page: p,
                 first: this.first,
