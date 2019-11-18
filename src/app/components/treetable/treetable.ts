@@ -1,4 +1,4 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from '../common/treenode';
 import { Subject, Subscription } from 'rxjs';
@@ -97,7 +97,7 @@ export class TreeTableService {
     `,
     providers: [TreeTableService]
 })
-export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI {
+export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
 
     @Input() columns: any[];
 
@@ -380,29 +380,74 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
 
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if(simpleChange.value) {
+            this._value = simpleChange.value.currentValue;
+
+            if (!this.lazy) {
+                this.totalRecords = (this._value ? this._value.length : 0);
+
+                if (this.sortMode == 'single' && this.sortField)
+                    this.sortSingle();
+                else if (this.sortMode == 'multiple' && this.multiSortMeta)
+                    this.sortMultiple();
+                else if(this.hasFilter())       //sort already filters
+                    this._filter();
+            }
+
+            if(this.virtualScroll && this.virtualScrollCallback) {
+                this.virtualScrollCallback();
+            }
+
+            this.updateSerializedValue();
+            this.tableService.onUIUpdate(this.value);
+        }
+
+        if(simpleChange.sortField) {
+            this._sortField = simpleChange.sortField.currentValue;
+
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
+        if(simpleChange.sortOrder) {
+            this._sortOrder = simpleChange.sortOrder.currentValue;
+
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
+        if(simpleChange.multiSortMeta) {
+            this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
+            if (this.sortMode === 'multiple') {
+                this.sortMultiple();
+            }
+        }
+
+        if(simpleChange.selection) {
+            this._selection = simpleChange.selection.currentValue;
+
+            if(!this.preventSelectionSetterPropagation) {
+                this.updateSelectionKeys();
+                this.tableService.onSelectionChange();
+            }
+            this.preventSelectionSetterPropagation = false;
+        }
+    }
+
     @Input() get value(): any[] {
         return this._value;
     }
     set value(val: any[]) {
         this._value = val;
-
-        if (!this.lazy) {
-            this.totalRecords = (this._value ? this._value.length : 0);
-
-            if (this.sortMode == 'single' && this.sortField)
-                this.sortSingle();
-            else if (this.sortMode == 'multiple' && this.multiSortMeta)
-                this.sortMultiple();
-            else if(this.hasFilter())       //sort already filters
-                this._filter();
-        }
-
-        if(this.virtualScroll && this.virtualScrollCallback) {
-            this.virtualScrollCallback();
-        }
-
-        this.updateSerializedValue();
-        this.tableService.onUIUpdate(this.value);
     }
 
     updateSerializedValue() {
@@ -469,13 +514,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     set sortField(val: string) {
         this._sortField = val;
-
-        //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            if (this.sortMode === 'single') {
-                this.sortSingle();
-            }
-        }
     }
 
     @Input() get sortOrder(): number {
@@ -483,13 +521,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     set sortOrder(val: number) {
         this._sortOrder = val;
-
-        //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            if (this.sortMode === 'single') {
-                this.sortSingle();
-            }
-        }
     }
 
     @Input() get multiSortMeta(): SortMeta[] {
@@ -498,9 +529,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     set multiSortMeta(val: SortMeta[]) {
         this._multiSortMeta = val;
-        if (this.sortMode === 'multiple') {
-            this.sortMultiple();
-        }
     }
 
     @Input() get selection(): any {
@@ -509,12 +537,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     set selection(val: any) {
         this._selection = val;
-
-        if(!this.preventSelectionSetterPropagation) {
-            this.updateSelectionKeys();
-            this.tableService.onSelectionChange();
-        }
-        this.preventSelectionSetterPropagation = false;
     }
 
     updateSelectionKeys() {
