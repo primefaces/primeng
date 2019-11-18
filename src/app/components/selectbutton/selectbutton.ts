@@ -45,6 +45,8 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     @Input() dataKey: string
     
     @Input() optionLabel: string;
+
+    @Input() options: any[];
     
     @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
 
@@ -62,7 +64,6 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     
     constructor(private cd: ChangeDetectorRef) {}
     
-    @Input() options: any[];
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.options) {
