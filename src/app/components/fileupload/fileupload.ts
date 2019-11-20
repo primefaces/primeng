@@ -2,13 +2,13 @@ import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,After
             ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ButtonModule} from '../button/button';
-import {MessagesModule} from '../messages/messages';
-import {ProgressBarModule} from '../progressbar/progressbar';
-import {DomHandler} from '../dom/domhandler';
-import {Message} from '../common/message';
-import {PrimeTemplate,SharedModule} from '../common/shared';
-import {BlockableUI} from '../common/blockableui';
+import {ButtonModule} from 'primeng/button';
+import {MessagesModule} from 'primeng/messages';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {DomHandler} from 'primeng/dom';
+import {Message} from 'primeng/common';
+import {PrimeTemplate,SharedModule} from 'primeng/common';
+import {BlockableUI} from 'primeng/common';
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 
 @Component({

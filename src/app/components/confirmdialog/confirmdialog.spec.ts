@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { ConfirmDialog } from './confirmdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConfirmationService} from '../common/api';
+import { ConfirmationService} from 'primeng/common';
 
 @Component({
   template: `<p-confirmDialog></p-confirmDialog>

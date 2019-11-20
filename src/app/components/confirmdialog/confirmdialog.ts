@@ -1,11 +1,11 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {Footer,SharedModule} from '../common/shared';
-import {ButtonModule} from '../button/button';
-import {Confirmation} from '../common/confirmation';
-import {ConfirmationService} from '../common/confirmationservice';
+import {DomHandler} from 'primeng/dom';
+import {Footer,SharedModule} from 'primeng/common';
+import {ButtonModule} from 'primeng/button';
+import {Confirmation} from 'primeng/common';
+import {ConfirmationService} from 'primeng/common';
 import {Subscription}   from 'rxjs';
 
 @Component({

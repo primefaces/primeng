@@ -4,13 +4,13 @@ import { By } from '@angular/platform-browser';
 import { Table, TableBody, ScrollableView, SortableColumn, SelectableRow, RowToggler, ContextMenuRow, ResizableColumn, ReorderableColumn, EditableColumn, CellEditor, SortIcon, TableRadioButton, TableCheckbox, TableHeaderCheckbox, ReorderableRowHandle, ReorderableRow, SelectableRowDblClick, TableModule } from './table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
-import { Paginator } from '../paginator/paginator';
-import {Dropdown, DropdownItem, DropdownModule} from '../dropdown/dropdown';
+import { Paginator } from 'primeng/paginator';
+import {Dropdown, DropdownItem, DropdownModule} from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../common/shared';
-import { ContextMenu, ContextMenuSub, ContextMenuModule } from '../contextmenu/contextmenu';
+import { SharedModule } from 'primeng/common';
+import { ContextMenu, ContextMenuSub, ContextMenuModule } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TooltipModule } from '../tooltip/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `

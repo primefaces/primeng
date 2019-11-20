@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Accordion } from './accordion';
 import { AccordionTab } from './accordion'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, DebugElement, NO_ERRORS_SCHEMA } from '../../../../node_modules/@angular/core';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 @Component({
   template: `<p-accordion>

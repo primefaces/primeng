@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Card } from './card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Footer, Header } from '../common/shared';
+import { Footer, Header } from 'primeng/common';
 
 @Component({
   template: `<p-card>

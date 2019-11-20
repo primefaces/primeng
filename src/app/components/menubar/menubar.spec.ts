@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { Menubar, MenubarSub } from './menubar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '../../../../node_modules/@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Menubar', () => {
 

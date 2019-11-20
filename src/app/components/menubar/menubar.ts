@@ -1,7 +1,7 @@
 import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from '../dom/domhandler';
-import { MenuItem } from '../common/menuitem';
+import { DomHandler } from 'primeng/dom';
+import { MenuItem } from 'primeng/common';
 import { RouterModule } from '@angular/router';
 
 @Component({

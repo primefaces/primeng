@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { OrderList } from './orderlist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Button } from '../button/button';
+import { Button } from 'primeng/button';
 import { Component } from '@angular/core';
 
 @Component({

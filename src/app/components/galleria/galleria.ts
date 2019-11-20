@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import {DomHandler} from 'primeng/dom';
 
 @Component({
     selector: 'p-galleria',

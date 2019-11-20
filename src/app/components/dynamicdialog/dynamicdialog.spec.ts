@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { DynamicDialogModule } from './dynamicdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NgModule } from '@angular/core';
-import { Footer } from '../common/shared';
-import { DialogService, DynamicDialogRef, DynamicDialogConfig } from '../common/api';
+import { Footer } from 'primeng/common';
 import { CommonModule } from '@angular/common';
+import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
 
 
 @Component({

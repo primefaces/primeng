@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { ScrollPanel } from './scrollpanel';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component } from '../../../../node_modules/@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	template: `

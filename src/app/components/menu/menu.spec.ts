@@ -4,7 +4,7 @@ import { Menu, MenuItemContent } from './menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
-import { Button } from '../button/button';
+import { Button } from 'primeng/button';
 
 @Component({
   template: `<p-menu #menu></p-menu>

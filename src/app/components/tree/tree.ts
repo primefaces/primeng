@@ -2,14 +2,14 @@ import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,
     ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,Host} from '@angular/core';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TreeNode} from '../common/treenode';
-import {SharedModule} from '../common/shared';
-import {PrimeTemplate} from '../common/shared';
-import {TreeDragDropService} from '../common/treedragdropservice';
+import {TreeNode} from 'primeng/common';
+import {SharedModule} from 'primeng/common';
+import {PrimeTemplate} from 'primeng/common';
+import {TreeDragDropService} from 'primeng/common';
 import {Subscription}   from 'rxjs';
-import {BlockableUI} from '../common/blockableui';
-import {ObjectUtils} from '../utils/objectutils';
-import {DomHandler} from '../common/api';
+import {BlockableUI} from 'primeng/common';
+import {ObjectUtils} from 'primeng/utils';
+import {DomHandler} from 'primeng/dom';
 
 @Component({
     selector: 'p-treeNode',

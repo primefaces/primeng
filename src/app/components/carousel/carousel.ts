@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild } from '@angular/core';
-import { PrimeTemplate, SharedModule, Header, Footer } from '../common/shared';
+import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/common';
 import { CommonModule } from '@angular/common';
-import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { UniqueComponentId } from 'primeng/utils';
 @Component({
 	selector: 'p-carousel',
 	template: `
@@ -120,9 +120,9 @@ export class Carousel implements AfterContentInit {
 
 	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
 
-	@ContentChild(Header) headerFacet;
+	@ContentChild(Header, {static: true}) headerFacet;
 
-    @ContentChild(Footer) footerFacet;
+    @ContentChild(Footer, {static: true}) footerFacet;
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

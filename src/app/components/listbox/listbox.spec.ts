@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Listbox } from './listbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TooltipModule } from '../tooltip/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('Listbox', () => {
   

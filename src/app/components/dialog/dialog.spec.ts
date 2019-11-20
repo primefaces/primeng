@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Dialog } from './dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
-import { Footer } from '../common/shared';
+import { Footer } from 'primeng/common';
 
 @Component({
     template: `

@@ -2,10 +2,10 @@ import {NgModule,Component,ElementRef,Input,Output,OnInit,AfterContentInit,OnDes
         Inject,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {SharedModule} from '../common/shared';
-import {TreeNode} from '../common/treenode';
-import {PrimeTemplate} from '../common/shared';
+import {DomHandler} from 'primeng/dom';
+import {SharedModule} from 'primeng/common';
+import {TreeNode} from 'primeng/common';
+import {PrimeTemplate} from 'primeng/common';
 
 @Component({
     selector: '[pOrganizationChartNode]',

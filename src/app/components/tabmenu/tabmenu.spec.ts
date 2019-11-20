@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TabMenu } from './tabmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '../../../../node_modules/@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TabMenu', () => {
   

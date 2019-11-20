@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {MenuItem} from '../common/menuitem';
+import {MenuItem} from 'primeng/common';
 import {RouterModule} from '@angular/router';
 
 export class BasePanelMenuItem {

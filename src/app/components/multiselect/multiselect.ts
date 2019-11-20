@@ -2,14 +2,14 @@ import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentIni
     forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild } from '@angular/core';
 import { trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SelectItem } from '../common/selectitem';
-import { DomHandler } from '../dom/domhandler';
-import { ObjectUtils } from '../utils/objectutils';
-import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
+import { SelectItem } from 'primeng/common';
+import { DomHandler } from 'primeng/dom';
+import { ObjectUtils } from 'primeng/utils';
+import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { FilterUtils } from '../utils/filterutils';
-import {TooltipModule} from '../tooltip/tooltip';
+import { FilterUtils } from 'primeng/utils';
+import {TooltipModule} from 'primeng/tooltip';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

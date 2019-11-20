@@ -1,16 +1,16 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Column, PrimeTemplate, SharedModule } from '../common/shared';
-import { PaginatorModule } from '../paginator/paginator';
-import { DomHandler } from '../dom/domhandler';
-import { ObjectUtils } from '../utils/objectutils';
-import { SortMeta } from '../common/sortmeta';
-import { TableState } from '../common/tablestate';
-import { FilterMetadata } from '../common/filtermetadata';
+import { Column, PrimeTemplate, SharedModule } from 'primeng/common';
+import { PaginatorModule } from 'primeng/paginator';
+import { DomHandler } from 'primeng/dom';
+import { ObjectUtils } from 'primeng/utils';
+import { SortMeta } from 'primeng/common';
+import { TableState } from 'primeng/common';
+import { FilterMetadata } from 'primeng/common';
 import { Injectable } from '@angular/core';
-import { BlockableUI } from '../common/blockableui';
+import { BlockableUI } from 'primeng/common';
 import { Subject, Subscription } from 'rxjs';
-import { FilterUtils } from '../utils/filterutils';
+import { FilterUtils } from 'primeng/utils';
 
 @Injectable()
 export class TableService {

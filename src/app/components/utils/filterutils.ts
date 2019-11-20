@@ -1,4 +1,4 @@
-import { ObjectUtils } from '../utils/objectutils';
+import { ObjectUtils } from './objectutils';
 
 export class FilterUtils {
 

@@ -1,6 +1,6 @@
 import {NgModule, Component, ElementRef, OnDestroy, Input, Output, SimpleChange, EventEmitter, forwardRef, Renderer2,NgZone,ChangeDetectorRef, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SLIDER_VALUE_ACCESSOR: any = {

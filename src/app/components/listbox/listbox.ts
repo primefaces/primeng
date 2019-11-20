@@ -1,11 +1,11 @@
 import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SelectItem } from '../common/selectitem';
-import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
-import { DomHandler } from '../dom/domhandler';
-import { ObjectUtils } from '../utils/objectutils';
+import { SelectItem } from 'primeng/common';
+import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/common';
+import { DomHandler } from 'primeng/dom';
+import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { FilterUtils } from '../utils/filterutils';
+import { FilterUtils } from 'primeng/utils';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

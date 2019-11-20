@@ -1,9 +1,9 @@
 import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef, OnChanges, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {DropdownModule} from '../dropdown/dropdown';
-import {SelectItem} from '../common/selectitem';
-import {SharedModule} from '../common/shared';
+import {DropdownModule} from 'primeng/dropdown';
+import {SelectItem} from 'primeng/common';
+import {SharedModule} from 'primeng/common';
 
 @Component({
     selector: 'p-paginator',

@@ -1,9 +1,9 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
         ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TooltipModule} from '../tooltip/tooltip';
-import {SharedModule,PrimeTemplate} from '../common/shared';
-import {BlockableUI} from '../common/blockableui';
+import {TooltipModule} from 'primeng/tooltip';
+import {SharedModule,PrimeTemplate} from 'primeng/common';
+import {BlockableUI} from 'primeng/common';
 
 let idx: number = 0;
 

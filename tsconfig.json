@@ -17,9 +17,17 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "paths": {
+            "primeng/*": ["src/app/components/*/public_api"]
+        }
     },
     "angularCompilerOptions": {
-        "enableIvy": false
+        "enableIvy": false,
+        "annotateForClosureCompiler": false,
+        "strictMetadataEmit": true,
+        "skipTemplateCodegen": true,
+        "flatModuleOutFile": "primeng.js",
+        "flatModuleId": "primeng"
+      },
     }
-}

@@ -2,9 +2,9 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TabView, TabPanel, TabViewNav } from './tabview';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component } from '../../../../node_modules/@angular/core';
-import { Tooltip } from '../tooltip/tooltip';
-import { PrimeTemplate } from '../common/shared';
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { PrimeTemplate } from 'primeng/common';
 
 @Component({
     template: `<p-tabView>

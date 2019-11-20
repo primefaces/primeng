@@ -2,8 +2,8 @@ import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { SlideMenu, SlideMenuSub } from './slidemenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '../../../../node_modules/@angular/router/testing';
-import { MenuItem } from '../common/api';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MenuItem } from 'primeng/common';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 
 @Component({

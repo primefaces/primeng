@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Paginator, PaginatorModule } from './paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from '../dropdown/dropdown';
+import { DropdownModule } from 'primeng/dropdown';
 
 describe('Paginator', () => {
     

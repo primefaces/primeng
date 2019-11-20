@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ButtonModule} from '../button/button';
+import {ButtonModule} from 'primeng/button';
 
 @Component({
     selector: 'p-inplaceDisplay',

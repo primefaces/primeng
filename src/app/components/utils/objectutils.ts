@@ -1,4 +1,4 @@
-import {SelectItem} from '../common/selectitem';
+import {SelectItem} from 'primeng/common';
 
 export class ObjectUtils {
 
