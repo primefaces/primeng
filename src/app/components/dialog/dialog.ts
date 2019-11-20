@@ -12,6 +12,7 @@ let idx: number = 0;
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable}"
             [ngStyle]="style" [class]="styleClass"
+            [style.width]="width" [style.height]="height" [style.left]="left" [style.top]="top" 
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" role="dialog" [attr.aria-labelledby]="id + '-label'" *ngIf="visible">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -173,6 +174,14 @@ export class Dialog implements OnDestroy {
     preMaximizePageX: number;
 
     preMaximizePageY: number;
+
+    width: string;
+
+    height: string;
+
+    left: string;
+
+    top: string;
     
     id: string = `ui-dialog-${idx++}`;
     
@@ -191,19 +200,19 @@ export class Dialog implements OnDestroy {
         let viewport = DomHandler.getViewport();
         if (DomHandler.getOuterHeight(this.container) + this.contentViewChild.nativeElement.scrollHeight - this.contentViewChild.nativeElement.clientHeight > viewport.height) {
              this.contentViewChild.nativeElement.style.height = (viewport.height * .75) + 'px';
-             this.container.style.height = 'auto';
+             this.height = 'auto';
         } 
         else {
             this.contentViewChild.nativeElement.style.height = null;
         }
         
         if (this.positionLeft >= 0 && this.positionTop >= 0) {
-            this.container.style.left = this.positionLeft + 'px';
-            this.container.style.top = this.positionTop + 'px';
+            this.left = this.positionLeft + 'px';
+            this.top = this.positionTop + 'px';
         }
         else if (this.positionTop >= 0) {
             this.center();
-            this.container.style.top = this.positionTop + 'px';
+            this.top = this.positionTop + 'px';
         }
         else{
             this.center();
@@ -230,8 +239,8 @@ export class Dialog implements OnDestroy {
         let x = Math.max(Math.floor((viewport.width - elementWidth) / 2), 0);
         let y = Math.max(Math.floor((viewport.height - elementHeight) / 2), 0);
 
-        this.container.style.left = x + 'px';
-        this.container.style.top = y + 'px';
+        this.left = x + 'px';
+        this.top = y + 'px';
     }
     
     enableModality() {
@@ -296,10 +305,10 @@ export class Dialog implements OnDestroy {
         this.preMaximizeContainerHeight = DomHandler.getOuterHeight(this.container);
         this.preMaximizeContentHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement);
 
-        this.container.style.top = '0px';
-        this.container.style.left = '0px';
-        this.container.style.width = '100vw';
-        this.container.style.height = '100vh';
+        this.top = '0px';
+        this.left = '0px';
+        this.width = '100vw';
+        this.height = '100vh';
         let diffHeight = parseFloat(this.container.style.top);
         if(this.headerViewChild && this.headerViewChild.nativeElement) {
             diffHeight += DomHandler.getOuterHeight(this.headerViewChild.nativeElement);
@@ -320,10 +329,10 @@ export class Dialog implements OnDestroy {
     }
 
     revertMaximize() {
-        this.container.style.top = this.preMaximizePageX + 'px';
-        this.container.style.left = this.preMaximizePageY + 'px';
-        this.container.style.width = this.preMaximizeContainerWidth + 'px';
-        this.container.style.height = this.preMaximizeContainerHeight + 'px';
+        this.top = this.preMaximizePageX + 'px';
+        this.left = this.preMaximizePageY + 'px';
+        this.width = this.preMaximizeContainerWidth + 'px';
+        this.height = this.preMaximizeContainerHeight + 'px';
         this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
 
         if (!this.blockScroll) {
@@ -412,11 +421,11 @@ export class Dialog implements OnDestroy {
             let viewport = DomHandler.getViewport();
 
             if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
-                this.container.style.left = leftPos + 'px';
+                this.left = leftPos + 'px';
             }
 
             if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
-                this.container.style.top = topPos + 'px';
+                this.top = topPos + 'px';
             }
 
             this.lastPageX = event.pageX;
@@ -456,11 +465,11 @@ export class Dialog implements OnDestroy {
             let viewport = DomHandler.getViewport();
 
             if ((!minWidth || newWidth > parseInt(minWidth)) && (offset.left + newWidth) < viewport.width) {
-                this.container.style.width = newWidth + 'px';
+                this.width = newWidth + 'px';
             }
             
             if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
-                this.container.style.height = newHeight + 'px';
+                this.height = newHeight + 'px';
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
             }
 
@@ -593,12 +602,19 @@ export class Dialog implements OnDestroy {
             if (!this.preWidth) {
                 this.preWidth = width;
             }
-            this.container.style.left = '0px';
-            this.container.style.width = '100%';
+            this.left = '0px';
+            this.width = '100%';
+
+            //outside zone
+            this.container.style.left = this.left;
+            this.container.style.width = this.width;
         }
         else {
-            this.container.style.width = this.preWidth + 'px';
+            this.width = this.preWidth + 'px';
             this.positionOverlay();
+            this.container.style.left = this.left;
+            this.container.style.top = this.top;
+            this.container.style.width = this.width;
         }
     }
     
@@ -682,6 +698,10 @@ export class Dialog implements OnDestroy {
         }
 
         this.container = null;
+        this.width = null;
+        this.height = null;
+        this.left = null;
+        this.top = null;
     }
     
     ngOnDestroy() {
