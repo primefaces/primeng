@@ -70,7 +70,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header) toolbar;
+    @ContentChild(Header, {static: true}) toolbar;
     
     @Input() style: any;
         

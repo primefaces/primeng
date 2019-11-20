@@ -83,7 +83,10 @@ export class Paginator implements OnInit, OnChanges {
     constructor(private cd: ChangeDetectorRef) {}
     
     ngOnInit() {
+        this.updatePageLinks();
         this.updatePaginatorState();
+        this.updateFirst();
+        this.updateRowsPerPageOptions();
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {

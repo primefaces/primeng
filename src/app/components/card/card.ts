@@ -33,9 +33,9 @@ export class Card implements BlockableUI {
 
     @Input() styleClass: string;
 
-    @ContentChild(Header) headerFacet;
+    @ContentChild(Header, {static: true}) headerFacet;
 
-    @ContentChild(Footer) footerFacet;
+    @ContentChild(Footer, {static: true}) footerFacet;
 
     constructor(private el: ElementRef) { }
 

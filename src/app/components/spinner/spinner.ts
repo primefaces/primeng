@@ -101,7 +101,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
 
     thousandRegExp: RegExp;
     
-    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+    @ViewChild('inputfield', {static: true}) inputfieldViewChild: ElementRef;
     
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 

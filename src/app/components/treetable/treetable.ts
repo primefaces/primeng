@@ -221,15 +221,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', {static: true}) containerViewChild: ElementRef;
 
-    @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
+    @ViewChild('resizeHelper', {static: false}) resizeHelperViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
+    @ViewChild('reorderIndicatorUp', {static: false}) reorderIndicatorUpViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
+    @ViewChild('reorderIndicatorDown', {static: false}) reorderIndicatorDownViewChild: ElementRef;
 
-    @ViewChild('table') tableViewChild: ElementRef;
+    @ViewChild('table', {static: false}) tableViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -1631,21 +1631,21 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     @Input() frozen: boolean;
 
-    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
+    @ViewChild('scrollHeader', {static: true}) scrollHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
+    @ViewChild('scrollHeaderBox', {static: true}) scrollHeaderBoxViewChild: ElementRef;
 
-    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
+    @ViewChild('scrollBody', {static: true}) scrollBodyViewChild: ElementRef;
 
-    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
+    @ViewChild('scrollTable', {static: true}) scrollTableViewChild: ElementRef;
 
-    @ViewChild('loadingTable') scrollLoadingTableViewChild: ElementRef;
+    @ViewChild('loadingTable', {static: true}) scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter', {static: true}) scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox', {static: true}) scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
+    @ViewChild('virtualScroller', {static: false}) virtualScrollerViewChild: ElementRef;
 
     headerScrollListener: Function;
 
@@ -2394,7 +2394,7 @@ export class TTCheckbox  {
 
     @Input("value") rowNode: any;
 
-    @ViewChild('box') boxViewChild: ElementRef;
+    @ViewChild('box', {static: true}) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -2452,7 +2452,7 @@ export class TTCheckbox  {
 })
 export class TTHeaderCheckbox  {
 
-    @ViewChild('box') boxViewChild: ElementRef;
+    @ViewChild('box', {static: true}) boxViewChild: ElementRef;
 
     checked: boolean;
 

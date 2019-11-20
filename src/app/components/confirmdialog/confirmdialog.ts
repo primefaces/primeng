@@ -96,9 +96,9 @@ export class ConfirmDialog implements OnDestroy {
 
     @Input() focusTrap: boolean = true;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, {static: true}) footer;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content', {static: true}) contentViewChild: ElementRef;
     
     confirmation: Confirmation;
         

@@ -50,7 +50,7 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('checkbox') checkboxViewChild: ElementRef;
+    @ViewChild('checkbox', {static: true}) checkboxViewChild: ElementRef;
     
     checkbox: HTMLInputElement;
     

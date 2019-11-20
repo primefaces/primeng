@@ -242,15 +242,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', {static: true}) containerViewChild: ElementRef;
     
-    @ViewChild('filter') filterViewChild: ElementRef;
+    @ViewChild('filter', {static: true}) filterViewChild: ElementRef;
     
-    @ViewChild('in') focusViewChild: ElementRef;
+    @ViewChild('in', {static: true}) focusViewChild: ElementRef;
 
-    @ViewChild(CdkVirtualScrollViewport) viewPort: CdkVirtualScrollViewport;
+    @ViewChild(CdkVirtualScrollViewport, {static: true}) viewPort: CdkVirtualScrollViewport;
 
-    @ViewChild('editableInput') editableInputViewChild: ElementRef;
+    @ViewChild('editableInput', {static: true}) editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
