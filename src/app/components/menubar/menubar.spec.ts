@@ -55,7 +55,6 @@ describe('Menubar', () => {
 		expect(subMenu.baseZIndex).toEqual(20);
 		expect(subMenu.autoZIndex).toEqual(false);
 		expect(subMenu.autoDisplay).toBeUndefined();
-		expect(subMenu.autoDisplay).toEqual(menubar.autoDisplay);
 		expect(subMenu.autoZIndex).toEqual(menubar.autoZIndex);
 		expect(subMenu.baseZIndex).toEqual(menubar.baseZIndex);
 	});

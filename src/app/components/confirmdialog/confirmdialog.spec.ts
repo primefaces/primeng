@@ -169,19 +169,6 @@ describe('ConfirmDialog', () => {
 		expect(confirmDialogEl).toBeFalsy();
 	}));
 
-	it('should set width and height (deprecated)', fakeAsync(() => {
-		confirmDialog.width = 250;
-		confirmDialog.height = 250;
-		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
-		buttonEl.click();
-		fixture.detectChanges();
-		
-		tick(300);
-		const container = fixture.debugElement.query(By.css(".ui-dialog"));
-		expect(container.nativeElement.style.height).toEqual("250px");
-		expect(container.nativeElement.style.width).toEqual("250px");
-	}));
-
 	it('should close with esc', fakeAsync(() => {
 		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		buttonEl.click();

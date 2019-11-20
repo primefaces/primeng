@@ -190,8 +190,7 @@ describe('AutoComplete', () => {
       expect(focusValue).toBeTruthy();
     }));
 
-    it('should change immutable and scrollHeight', fakeAsync(() => {
-      autocomplete.immutable = false;
+    it('should change scrollHeight', fakeAsync(() => {
       autocomplete.scrollHeight = "450px";
       fixture.detectChanges();
 

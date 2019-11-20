@@ -47,7 +47,6 @@ describe('Spinner', () => {
     });
 
     it('should have value as -3 when down clicked 3 times', () => {
-        spinner.type="deprecated";
         fixture.detectChanges();
         
         const spinnerDown = fixture.nativeElement.querySelector('.ui-spinner-down');

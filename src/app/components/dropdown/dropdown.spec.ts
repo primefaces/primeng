@@ -204,7 +204,6 @@ describe('Dropdown', () => {
 			{label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
 		];
 		dropdown.showClear=true;
-		dropdown.autoWidth = true;
 		fixture.detectChanges();
 		
 		const container = fixture.debugElement.query(By.css('.ui-dropdown')).nativeElement;
