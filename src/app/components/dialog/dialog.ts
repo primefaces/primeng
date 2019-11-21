@@ -309,7 +309,7 @@ export class Dialog implements OnDestroy {
         this.left = '0px';
         this.width = '100vw';
         this.height = '100vh';
-        let diffHeight = parseFloat(this.container.style.top);
+        let diffHeight = 0;
         if(this.headerViewChild && this.headerViewChild.nativeElement) {
             diffHeight += DomHandler.getOuterHeight(this.headerViewChild.nativeElement);
         }
@@ -430,6 +430,9 @@ export class Dialog implements OnDestroy {
 
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
+
+            this.container.style.left = this.left;
+            this.container.style.top = this.top;
         }
     }
     
@@ -466,6 +469,7 @@ export class Dialog implements OnDestroy {
 
             if ((!minWidth || newWidth > parseInt(minWidth)) && (offset.left + newWidth) < viewport.width) {
                 this.width = newWidth + 'px';
+                this.container.style.width = this.width;
             }
             
             if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
