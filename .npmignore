@@ -49,9 +49,7 @@ CHANGELOG.md
 # config
 .angular-cli.json
 angular.json
-tsconfig.json
-tsconfig-release.json
-tsconfig-aot.json
+tsconfig*.json
 tslint.json
 gulpfile.js
 .github
