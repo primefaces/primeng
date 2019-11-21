@@ -1,0 +1,67 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">PolarAreaChart</span>
+        <span>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</span>
+    </div>
+</div>
+
+<div class="content-section implementation-charts">
+    <p-chart type="polarArea" [data]="data"></p-chart>
+</div>
+
+<div class="content-section documentation">
+    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chart/polarchart" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+    </a>
+    
+    <p-tabView effect="fade">
+        <p-tabPanel header="polarareachartdemo.ts">
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class PolarAreaChartDemo &#123;
+
+    data: any;
+
+    constructor() &#123;
+        this.data = &#123;
+            datasets: [&#123;
+                data: [
+                    11,
+                    16,
+                    7,
+                    3,
+                    14
+                ],
+                backgroundColor: [
+                    "#FF6384",
+                    "#4BC0C0",
+                    "#FFCE56",
+                    "#E7E9ED",
+                    "#36A2EB"
+                ],
+                label: 'My dataset'
+            &#125;],
+            labels: [
+                "Red",
+                "Green",
+                "Yellow",
+                "Grey",
+                "Blue"
+            ]
+        &#125;
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="polarareachartdemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-chart type="polarArea" [data]="data"&gt;&lt;/p-chart&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

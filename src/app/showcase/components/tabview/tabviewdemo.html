@@ -1,0 +1,554 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">TabView</span>
+        <span>TabView is a container component to group content with tabs.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+    <h3 class="first">Default</h3>
+    <p-tabView>
+        <p-tabPanel header="Godfather I" leftIcon="pi pi-calendar">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather II" rightIcon="pi pi-inbox">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-tabPanel>
+    </p-tabView>
+
+    <h3>Closable</h3>
+    <p-tabView id="closableTabView">
+        <p-tabPanel header="Godfather I" [selected]="true">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather II" [closable]="true">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather III" [closable]="true">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-tabPanel>
+    </p-tabView>
+
+    <h3>Event</h3>
+    <p-tabView (onChange)="onTabChange($event)">
+        <p-tabPanel header="Godfather I">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather II" [selected]="true">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather III">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather IV" [disabled]="true">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-tabPanel>
+    </p-tabView>
+
+    <h3>Tooltips</h3>
+    <p-tabView>
+        <p-tabPanel header="Godfather I" leftIcon="pi pi-calendar" tooltip="1972">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather II" rightIcon="pi pi-inbox" tooltip="1974">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        </p-tabPanel>
+        <p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header ="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;TabViewModule&#125; from 'primeng/tabview';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using header attribute.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView&gt;
+    &lt;p-tabPanel header="Header 1"&gt;
+       Content 1
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 2"&gt;
+        Content 2
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 3"&gt;
+        Content 3
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+            <h3>Dynamic Tabs</h3>
+            <p>p-tabPanel components can be generated dynamically using ngFor, note that in this case due to an Angular issue selected property must be enabled manually.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView&gt;
+    &lt;p-tabPanel [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 0"&gt;
+        {{item.content}}
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+            <h3>Selection</h3>
+            <p>First tab is selected by default, to customize this enable selected property on another panel.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView&gt;
+    &lt;p-tabPanel header="Header 1"&gt;
+       Content 1
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 2" [selected]="true"&gt;
+        Content 2
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 3"&gt;
+        Content 3
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+            <h3>Closable</h3>
+            <p>When closable attribute is enabled, an icon is displayed to close the tab. onClose event is fired when a tab is closed.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabPanel header="Header Text" [closable]="true"&gt;
+    Content 1
+&lt;/p-tabPanel&gt;
+</code>
+</pre>
+
+            <p>If you'd like to control whether a tab can be closed, enable controlClose property which gives you the control
+            to decide at onClose event. In this case, the event gets a 3rd parameter called close callback and invoking this function
+            actually closes the tab.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView [controlClose]="true" (onClose)="handleClose($event)"&gt;
+    &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
+        Content 1
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+handleClose(e) &#123;
+   if(condition)
+       e.close();
+&#125;
+</code>
+</pre>
+
+            <h3>Disabled</h3>
+            <p>A tab can be disabled to prevent the content to be displayed by setting the disabled property on a panel.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabPanel header="Header Text" [disabled]="true"&gt;
+    Content 1
+&lt;/p-tabPanel&gt;
+</code>
+</pre>
+
+            <h3>Icons</h3>
+            <p>Icons can be placed at left and right of a header using leftIcon and rightIcon properties of tabPanel.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabPanel header="Header Text" leftIcon="fa-bell-o" rightIcon="fa-bookmark-o"&gt;;
+    Content
+&lt;/p-tabPanel&gt;
+</code>
+</pre>
+
+            <h3>Header Template</h3>
+            <p>Header of a tab supports templating to place custom html content instead of strings as well.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabPanel&gt;
+    &lt;ng-template pTemplate="header"&gt;Custom Content&lt;/ng-template&gt;
+&lt;/p-tabPanel&gt;
+</code>
+</pre>
+
+            <h3>Orientation</h3>
+            <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
+            and this can be changed using orientation attribute.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView orientation="left"&gt;
+</code>
+</pre>
+
+            <h3>Programmatic Control</h3>
+            <p>Tabs can be controlled programmatically using activeIndex property that defines the index of the active tab.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+
+&lt;p-tabView [activeIndex]="index"&gt;
+    &lt;p-tabPanel header="Header 1"&gt;
+        Content 1
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 2"&gt;
+        Content 2
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 3"&gt;
+        Content 3
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TabViewDemo &#123;
+
+    index: number = 0;
+
+    openNext() &#123;
+        this.index = (this.index === 2) ? 0 : this.index + 1;
+    &#125;
+
+    openPrev() &#123;
+        this.index = (this.index === 0) ? 2 : this.index - 1;
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+            <h3>Lazy Loading</h3>
+            <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy
+            loaded tabpanel contents are cached by default so that upon reselection, they are not created again. You may use cache property on TabPanel to
+            configure this behavior. A TabPanel is specified as lazy when there is a ngTemplate with pTemplate="content" in it.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView&gt;
+    &lt;p-tabPanel header="Header 1"&gt;
+        Content 1
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 2"&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            Complex Content to Lazy Load
+        &lt;/ng-template&gt;
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 3"&gt;
+        &lt;ng-template pTemplate="content"&gt;
+            Complex Content to Lazy Load
+        &lt;/ng-template&gt;
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+            <h3>Properties of TabView</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>orientation</td>
+                            <td>string</td>
+                            <td>top</td>
+                            <td>Orientation of tab headers.</td>
+                        </tr>
+                        <tr>
+                            <td>activeIndex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the active tab to change selected tab programmatically.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Properties of TabPanel</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Orientation of tab headers.</td>
+                        </tr>
+                        <tr>
+                            <td>selected</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if tab is active.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When true, tab cannot be activated.</td>
+                        </tr>
+                        <tr>
+                            <td>closable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if tab can be removed.</td>
+                        </tr>
+                        <tr>
+                            <td>headerStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the tab header.</td>
+                        </tr>
+                        <tr>
+                            <td>headerStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the tab header.</td>
+                        </tr>
+                        <tr>
+                            <td>controlClose</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether tab close is controlled at onClose event or not.</td>
+                        </tr>
+                        <tr>
+                            <td>cache</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether a lazy loaded panel should avoid getting loaded again on reselection.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltip</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Advisory information to display in a tooltip on hover.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the tooltip.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPosition</td>
+                            <td>string</td>
+                            <td>top</td>
+                            <td>Position of the tooltip, valid values are right, left, top and bottom.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPositionStyle</td>
+                            <td>string</td>
+                            <td>absolute</td>
+                            <td>Type of CSS position.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onChange</td>
+                            <td>
+                                event.originalEvent: Click event <br>
+                                event.index: Index of the selected tab
+                            </td>
+                            <td>Callback to invoke on tab change.</td>
+                        </tr>
+                        <tr>
+                            <td>onClose</td>
+                            <td>
+                                event.originalEvent: Click event <br>
+                                event.index: Index of the closed tab <br >
+                                event.close: Callback to actually close the tab, only available if controlClose is enabled.
+                            </td>
+                            <td>Callback to invoke on tab close.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tabView (onChange)="handleChange($event)"&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+handleChange(e) &#123;
+    var index = e.index;
+&#125;
+</code>
+</pre>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-tabview</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-tabview-nav</td>
+                            <td>Container of headers.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-tabview-selected</td>
+                            <td>Selected tab header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-tabview-panels</td>
+                            <td>Container panels.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-tabview-panel</td>
+                            <td>Content of a tab.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tabview" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+
+&lt;h3 class="first"&gt;Default&lt;/h3&gt;
+&lt;p-tabView&gt;
+    &lt;p-tabPanel header="Godfather I" leftIcon="pi pi-calendar"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather II" leftIcon="pi pi-inbox"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+
+&lt;h3&gt;Closable&lt;/h3&gt;
+&lt;p-tabView&gt;
+    &lt;p-tabPanel header="Godfather I" [selected]="true"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather II" [closable]="true"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather III" [closable]="true"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+
+&lt;h3&gt;Event&lt;/h3&gt;
+&lt;p-tabView (onChange)="onTabChange($event)"&gt;
+    &lt;p-tabPanel header="Godfather I"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather II" [selected]="true"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather III"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather IV" [disabled]="true"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+
+&lt;h3&gt;Tooltips&lt;/h3&gt;
+&lt;p-tabView&gt;
+    &lt;p-tabPanel header="Godfather I" leftIcon="pi pi-calendar" tooltip="1972"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather II" rightIcon="pi pi-inbox" tooltip="1974"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TabViewDemo &#123;
+
+    constructor(private messageService: MessageService) &#123;&#125;
+
+    onTabChange(event) &#123;
+        this.messageService.add(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

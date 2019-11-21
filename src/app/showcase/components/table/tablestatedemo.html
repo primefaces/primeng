@@ -1,0 +1,164 @@
+<table-submenu></table-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Table - <span class="subitem">State</span></span>
+        <span>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page
+            is visited again, table would render the data using its last settings.
+        </span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Session Storage</h3>
+    <p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+        selectionMode="single" [(selection)]="selectedCar1" stateStorage="session" stateKey="statedemo-session">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                    <input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <h3>Local Storage</h3>
+    <p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+        selectionMode="single" [(selection)]="selectedCar2" stateStorage="local" stateKey="statedemo-local">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                    <input pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt2.filters[col.field]?.value">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="tablestatedemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestatedemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableStateDemo implements OnInit &#123;
+
+    cars1: Car[];
+
+    cars2: Car[];
+
+    cols: any[];
+
+    selectedCar1: Car;
+
+    selectedCar2: Car;
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsMedium().then(cars => this.cars1 = cars);
+        this.carService.getCarsMedium().then(cars => this.cars2 = cars);
+
+        this.cols = [
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
+        ];
+    &#125;
+    
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="tablestatedemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestatedemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Session Storage&lt;/h3&gt;
+&lt;p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+    selectionMode="single" [(selection)]="selectedCar1" stateStorage="session" stateKey="statedemo-session"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn&gt;
+                &#123;&#123;col.header&#125;&#125;
+                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid"&gt;
+                &lt;input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value"&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Local Storage&lt;/h3&gt;
+&lt;p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+    selectionMode="single" [(selection)]="selectedCar2" stateStorage="local" stateKey="statedemo-local"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn&gt;
+                &#123;&#123;col.header&#125;&#125;
+                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid"&gt;
+                &lt;input pInputText type="text" (input)="dt2.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt2.filters[col.field]?.value"&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

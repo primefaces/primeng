@@ -1,0 +1,66 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">LineChart</span>
+        <span>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</span>
+    </div>
+</div>
+
+<div class="content-section implementation-charts">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+    <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+</div>
+
+<div class="content-section documentation">
+    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/linechart/linechartdemo" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+    </a>
+
+    <p-tabView effect="fade">
+        <p-tabPanel header="linechartdemo.ts">
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class LineChartDemo &#123;
+
+    data: any;
+
+    constructor(private messageService: MessageService) &#123;
+        this.data = &#123;
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                &#123;
+                    label: 'First Dataset',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    fill: false,
+                    borderColor: '#4bc0c0'
+                &#125;,
+                &#123;
+                    label: 'Second Dataset',
+                    data: [28, 48, 40, 19, 86, 27, 90],
+                    fill: false,
+                    borderColor: '#565656'
+                &#125;
+            ]
+        &#125;
+    &#125;
+
+    selectData(event) &#123;
+        this.messageService.add(&#123;severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+
+        <p-tabPanel header="linechartdemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+
+&lt;p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"&gt;&lt;/p-chart&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

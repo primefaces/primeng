@@ -1,0 +1,236 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Tooltip</span>
+        <span>Tooltip provides advisory information for a component.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Positions</h3>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-3">
+            <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">                
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top">
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom">
+        </div>
+        <div class="ui-g-12 ui-md-3">
+            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left">
+        </div>
+    </div>
+    
+    <h3>Focus and Blur</h3>
+    <input type="text" pInputText pTooltip="Enter your username" placeholder="Right" tooltipEvent="focus" style="margin-left:.5em">
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+                    <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;TooltipModule&#125; from 'primeng/tooltip';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
+            
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;input type="text" pTooltip="Enter your username"&gt;
+</code>
+</pre>
+
+            <h3>Position</h3>
+            <p>There are four choices to position the tooltip, default value is "right" and alternatives are "top", "bottom", "left". Position is 
+            specified using tooltipPosition attribute.</p>
+            
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;input type="text" pTooltip="Enter your username" tooltipPosition="top"&gt;
+</code>
+</pre>
+
+            <h3>Events</h3>
+            <p>Tooltip gets displayed on hover event of its target by default, other option is the focus event to display and blur to hide.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus"&gt;
+</code>
+</pre>
+
+            <h3>Delay</h3>
+            <p>Tooltip is displayed or hidden instantly by default however you may add delays using showDelay and hideDelay properties which accept a number value in terms of milliseconds.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus" showDelay="1000" hideDelay="500"&gt;
+</code>
+</pre>
+
+            <h3>Scrolling Containers</h3>
+            <p>When placed inside a scrolling container like an overflown div, tooltip must be appended to another element that has
+                relative positioning instead of document body which is the default.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div #container style="display:inline-block;position:relative"&gt;
+    &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right" [appendTo]="container"&gt;
+&lt;/div&gt;
+</code>
+</pre>
+            
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pTooltip</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Text of the tooltip.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipPosition</td>
+                            <td>string</td>
+                            <td>right</td>
+                            <td>Position of the tooltip, valid values are right, left, top and bottom.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipEvent</td>
+                            <td>string</td>
+                            <td>hover</td>
+                            <td>Event to show the tooltip, valid values are hover and focus.</td>
+                        </tr>
+                        <tr>
+                            <td>positionStyle</td>
+                            <td>string</td>
+                            <td>absolute</td>
+                            <td>Type of CSS position.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipDisabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>appendTo</td>
+                            <td>string</td>
+                            <td>any</td>
+                            <td>Target element to attach the overlay, valid values are "body", "target" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>hideDelay</td>
+                            <td>null</td>
+                            <td>number</td>
+                            <td>Delay to hide the tooltip in milliseconds.</td>
+                        </tr>
+                        <tr>
+                            <td>showDelay</td>
+                            <td>null</td>
+                            <td>number</td>
+                            <td>Delay to show the tooltip in milliseconds.</td>
+                        </tr>
+                        <tr>
+                            <td>life</td>
+                            <td>null</td>
+                            <td>number</td>
+                            <td>Time to wait in milliseconds to hide the tooltip even it is active.</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the tooltip.</td>
+                        </tr>
+                        <tr>
+                            <td>escape</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>By default the tooltip contents are rendered as text. Set to false to support html tags in the content</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipZIndex</td>
+                            <td>string</td>
+                            <td>auto</td>
+                            <td>Whether the z-index should be managed automatically to always go on top or have a fixed value.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-tooltip</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-tooltip-arrow</td>
+                            <td>Arrow of the tooltip</td>
+                        </tr>
+                        <tr>
+                            <td>ui-tooltip-text</td>
+                            <td>Text of the tooltip</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+        
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tooltip" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Positions&lt;/h3&gt;
+&lt;div class="ui-g ui-fluid"&gt;
+    &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right"&gt;                
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top"&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom"&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Focus and Blur&lt;/h3&gt;
+&lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right" tooltipEvent="focus" style="margin-left:.5em"&gt;
+</code>
+</pre>
+
+        </p-tabPanel>
+     </p-tabView >
+</div>

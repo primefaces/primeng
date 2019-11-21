@@ -1,0 +1,84 @@
+.ui-carousel {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.ui-carousel-content {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	overflow: auto;
+	padding: 0 .5em;
+}
+
+.ui-carousel-prev,
+.ui-carousel-next {
+	align-self: center;
+	text-align: center;
+	flex-grow: 0;
+	flex-shrink: 0;
+	width: 2.5em;
+	height: 2.5em;
+	position: relative;
+}
+
+.ui-carousel-prev span,
+.ui-carousel-next span {
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ui-carousel-container {
+	display: flex;
+    flex-direction: row;
+    padding: 0 .1em;
+}
+
+.ui-carousel-header,
+.ui-carousel-footer {
+	padding: .5em;
+	z-index: 1;
+}
+
+.ui-carousel-items-content {
+    overflow: hidden;
+    width: 100%;
+}
+
+.ui-carousel-items-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.ui-carousel-items-container .ui-carousel-item {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.ui-carousel-dots-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: .5em;
+}
+
+/* Vertical */
+.ui-carousel-vertical .ui-carousel-container {
+    flex-direction: column;
+    width: 100%;
+}
+
+.ui-carousel-vertical .ui-carousel-items-container {
+    flex-direction: column;
+    height: 100%;
+}
+
+.ui-carousel-vertical .ui-carousel-dots-container {
+    margin: .75em 0;
+}

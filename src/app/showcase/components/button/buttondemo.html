@@ -1,0 +1,333 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Button</span>
+        <span>Button is an extension to standard input element with icons and theming.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Button Component</h3>
+    <p-button label="Click"></p-button>
+    <p-button icon="pi pi-check" label="Click"></p-button>
+    <p-button icon="pi pi-check" iconPos="right" label="Click"></p-button>
+    <p-button icon="pi pi-check"></p-button>
+    <p-button icon="pi pi-check" [disabled]="true" label="Disabled"></p-button>
+
+    <h3>Button Directive</h3>
+    <button pButton type="button"label="Click"></button>
+    <button pButton type="button" icon="pi pi-check" label="Click"></button>
+    <button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"></button>
+    <button pButton type="button" icon="pi pi-check"></button>
+    <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
+
+    <h3>Severity Buttons</h3>
+    <button pButton type="button" label="Primary"></button>
+    <button pButton type="button" label="Secondary" class="ui-button-secondary"></button>
+    <button pButton type="button" label="Success" class="ui-button-success"></button>
+    <button pButton type="button" label="Info" class="ui-button-info"></button>
+    <button pButton type="button" label="Warning" class="ui-button-warning"></button>
+    <button pButton type="button" label="Danger" class="ui-button-danger"></button>
+
+    <h3>Raised Buttons</h3>
+    <button pButton type="button" label="Primary" class="ui-button-raised"></button>
+    <button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"></button>
+    <button pButton type="button" label="Success" class="ui-button-raised ui-button-success"></button>
+    <button pButton type="button" label="Info" class="ui-button-raised ui-button-info"></button>
+    <button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"></button>
+    <button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"></button>
+
+    <h3>Rounded Buttons</h3>
+    <button pButton type="button" label="Primary" class="ui-button-rounded"></button>
+    <button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"></button>
+    <button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"></button>
+    <button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"></button>
+    <button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"></button>
+    <button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"></button>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+                    <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;ButtonModule&#125; from 'primeng/button';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Button is either applies as a component using p-button element or a directive using pButton attribute. Directive enhances an existing button whereas 
+                p-button is an element on its own.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button pButton type="button" label="Click" &gt;&lt;/button&gt;
+&lt;p-button label="Click" &gt;&lt;/p-button&gt;
+</code>
+</pre>
+
+            <h3>Events</h3>
+            <p>Events are defined using standard notation in pButton and with on* prefix at p-button.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button pButton type="button" label="Click" (click)="handleClick($event)"&gt;&lt;/button&gt;
+&lt;p-button label="Click" (onClick)="handleClick($event)"&gt;&lt;/p-button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class Model &#123;
+
+    handleClick() &#123;
+        //execute action
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+            <h3>Icons</h3>
+            <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
+            icon position is left. To display only an icon, leave label as undefined.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button pButton type="button" icon="pi pi-check" iconPos="left"&gt;&lt;/button&gt;
+&lt;p-button label="Click" icon="pi pi-check" iconPos="left"&gt;&lt;/p-button&gt;
+</code>
+</pre>
+
+            <h3>Severity</h3>
+            <p>Different color options are available to define severity levels.</p>
+
+            <ul>
+                <li>.ui-button-secondary</li>
+                <li>.ui-button-success</li>
+                <li>.ui-button-info</li>
+                <li>.ui-button-warning</li>
+                <li>.ui-button-danger</li>
+            </ul>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button pButton type="button" class="ui-button-info"&gt;&lt;/button&gt;
+&lt;p-button label="Click" styleClass="ui-button-info"&gt;&lt;/p-button&gt;
+</code>
+</pre>
+
+            <h3>Raised and Rounded Buttons</h3>
+            <p>A button can be raised by having "ui-button-raised" style class and similarly borders can be made rounded using "ui-button-rounded" class.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button pButton type="button" class="ui-button-raised ui-button-rounded"&gt;&lt;/button&gt;
+</code>
+</pre>
+
+            <h3>Properties of pButton</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Text of the button.</td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the icon.</td>
+                        </tr>
+                        <tr>
+                            <td>iconPos</td>
+                            <td>string</td>
+                            <td>left</td>
+                            <td>Position of the icon, valid values are "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>cornerStyleClass</td>
+                            <td>string</td>
+                            <td>ui-corner-all</td>
+                            <td>Defines the cornering of the button, valid replacements are top, left, right and button such as ui-corner-top.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Properties of p-button</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>type</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Type of the button.</td>
+                        </tr>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Text of the button.</td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the icon.</td>
+                        </tr>
+                        <tr>
+                            <td>iconPos</td>
+                            <td>string</td>
+                            <td>left</td>
+                            <td>Position of the icon, valid values are "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>onClick</td>
+                            <td>event</td>
+                            <td>null</td>
+                            <td>Callback to execute when button is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>onFocus</td>
+                            <td>event</td>
+                            <td>null</td>
+                            <td>Callback to execute when button is focused.</td>
+                        </tr>
+                        <tr>
+                            <td>onBlur</td>
+                            <td>event</td>
+                            <td>null</td>
+                            <td>Callback to execute when button loses focus.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-button</td>
+                            <td>Button element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-button-icon</td>
+                            <td>Icon element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-button-text</td>
+                            <td>Label element of the button</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/button" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Button Component&lt;/h3&gt;
+&lt;p-button label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check" label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
+
+&lt;h3&gt;Button Directive&lt;/h3&gt;
+&lt;button pButton type="button"label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check"&gt;&lt;/button&gt;
+&lt;button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Severity Buttons&lt;/h3&gt;
+&lt;button pButton type="button" label="Primary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Warning" class="ui-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Danger" class="ui-button-danger"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Raised Buttons&lt;/h3&gt;
+&lt;button pButton type="button" label="Primary" class="ui-button-raised"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Success" class="ui-button-raised ui-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Info" class="ui-button-raised ui-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Rounded Buttons&lt;/h3&gt;
+&lt;button pButton type="button" label="Primary" class="ui-button-rounded"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"&gt;&lt;/button&gt;
+</code>
+</pre>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ButtonDemo &#123;
+
+    clicks: number = 0;
+
+    count() &#123;
+        this.clicks++;
+    &#125;
+&#125;
+</code>
+</pre>
+        </ p-tabPanel>
+     </p-tabView >
+</div>

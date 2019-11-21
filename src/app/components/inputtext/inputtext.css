@@ -1,0 +1,111 @@
+.ui-inputtext {
+    margin: 0;
+    outline: medium none;
+    padding: .25em;
+    font-weight: normal;
+}
+
+.ui-widget-header .ui-inputtext,
+.ui-widget-content .ui-inputtext {
+    font-weight: normal;
+}
+
+.ui-fluid .ui-inputtext {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+
+.ui-inputgroup {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.ui-inputgroup .ui-inputgroup-addon {
+    display: inline-block;
+    text-align: center;
+    min-width: 1.5em;
+    padding: .25em;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.ui-inputgroup .ui-inputgroup-addon + .ui-inputgroup-addon {
+    border-left: 0 none;
+}
+
+.ui-inputgroup .ui-inputtext {
+    padding-left: .5em;
+}
+
+.ui-inputgroup .ui-inputtext:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0 none;
+}
+
+.ui-inputgroup .ui-inputtext:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0 none;
+}
+
+.ui-inputgroup .ui-button {
+    margin-right: 0;
+    border-radius: 0;
+}
+
+.ui-fluid .ui-inputgroup .ui-button {
+    width: auto;
+}
+
+.ui-fluid .ui-inputgroup .ui-inputtext {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.ui-inputgroup .ui-chkbox, 
+.ui-inputgroup .ui-radiobutton {
+    margin-right: 0;
+    vertical-align: bottom;
+}
+
+/* Floating Label */
+.ui-float-label {
+    display: block;
+    position:relative; 
+}
+
+.ui-float-label > label {
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left: .25em;
+  top: 50%;
+  margin-top: -.5em;
+  transition: 0.3s ease all; 
+  -moz-transition: 0.3s ease all; 
+  -webkit-transition: 0.3s ease all;
+  color: #898989;
+  line-height: 1;
+}
+
+/* breaks firefox so defined separately */
+.ui-float-label > input:-webkit-autofill ~ label {
+    top:-.75em;
+    font-size:12px;
+}
+    
+.ui-float-label > input:focus ~ label,
+.ui-float-label > input.ui-state-filled ~ label,
+.ui-float-label > .ui-inputwrapper-focus ~ label,
+.ui-float-label > .ui-inputwrapper-filled ~ label {
+  top:-.75em;
+  font-size:12px;
+}
+
+

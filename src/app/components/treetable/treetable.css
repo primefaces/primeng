@@ -1,0 +1,209 @@
+.ui-treetable {
+    position: relative;
+}
+
+.ui-treetable table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.ui-treetable .ui-treetable-thead > tr > th,
+.ui-treetable .ui-treetable-tbody > tr > td,
+.ui-treetable .ui-treetable-tfoot > tr > td {
+    padding: .25em .5em;
+}
+
+.ui-treetable .ui-treetable-toggler {
+    cursor: pointer;
+    display: inline-block;
+    height: 1em;
+    position: relative;
+    top: 50%;
+    margin-top: -.5em;
+}
+
+.ui-treetable .ui-sortable-column {
+    cursor: pointer;
+}
+
+.ui-treetable p-treetablesorticon {
+    vertical-align: middle;
+}
+
+.ui-treetable-auto-layout > .ui-treetable-wrapper {
+    overflow-x: auto;
+}
+
+.ui-treetable-auto-layout > .ui-treetable-wrapper > table {
+    table-layout: auto;
+}
+
+.ui-treetable .ui-treetable-chkbox {
+    margin: 0 .25em;
+    vertical-align: middle;
+}
+
+/* Sections */
+.ui-treetable-caption,
+.ui-treetable-summary {
+    padding: .25em .5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ui-treetable-caption {
+    border-bottom: 0 none;
+}
+
+.ui-treetable-summary {
+    border-top: 0 none;
+}
+
+/* Paginator */
+.ui-treetable .ui-paginator-top {
+    border-bottom: 0 none;
+}
+
+.ui-treetable .ui-paginator-bottom {
+    border-top: 0 none;
+}
+
+/* Scrollable */
+.ui-treetable-scrollable-wrapper {
+    position: relative;
+}
+.ui-treetable-scrollable-header,
+.ui-treetable-scrollable-footer {
+    overflow: hidden;
+    border: 0 none;
+}
+
+.ui-treetable-scrollable-body {
+    overflow: auto;
+    position: relative;
+}
+
+.ui-treetable-scrollable-body > table > .ui-treetable-tbody > tr:first-child > td {
+    border-top: 0 none;
+}
+
+.ui-treetable-virtual-table {
+    position: absolute;
+}
+
+/* Frozen Columns */
+.ui-treetable-frozen-view .ui-treetable-scrollable-body {
+    overflow: hidden;
+}
+
+.ui-treetable-frozen-view > .ui-treetable-scrollable-body > table > .ui-treetable-tbody > tr > td:last-child {
+    border-right: 0 none;
+}
+
+.ui-treetable-unfrozen-view {
+    position: absolute;
+    top: 0px;
+}
+
+/* Resizable */
+.ui-treetable-resizable > .ui-treetable-wrapper {
+    overflow-x: auto;
+}
+
+.ui-treetable-resizable .ui-treetable-thead > tr > th,
+.ui-treetable-resizable .ui-treetable-tfoot > tr > td,
+.ui-treetable-resizable .ui-treetable-tbody > tr > td {
+    overflow: hidden;
+}
+
+.ui-treetable-resizable .ui-resizable-column {
+    background-clip: padding-box;
+    position: relative;
+}
+
+.ui-treetable-resizable-fit .ui-resizable-column:last-child .ui-column-resizer {
+    display: none;
+}
+
+.ui-treetable .ui-column-resizer {
+    display: block;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: .5em;
+    height: 100%;
+    padding: 0px;
+    cursor:col-resize;
+    border: 1px solid transparent;
+}
+
+.ui-treetable .ui-column-resizer-helper {
+    width: 1px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+}
+
+/* Reorder */
+.ui-treetable-reorder-indicator-up,
+.ui-treetable-reorder-indicator-down {
+    position: absolute;
+    display: none;
+}
+
+/* Responsive */
+.ui-treetable-responsive .ui-treetable-tbody > tr > td .ui-column-title {
+    display: none;
+}
+
+@media screen and (max-width: 40em) {
+    .ui-treetable-responsive .ui-treetable-thead > tr > th,
+    .ui-treetable-responsive .ui-treetable-tfoot > tr > td {
+        display: none !important;
+    }
+
+    .ui-treetable-responsive .ui-treetable-tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none;
+        width: 100% !important;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		float: left;
+		clear: left;
+    }
+
+    .ui-treetable-responsive .ui-treetable-tbody > tr > td .ui-column-title {
+        padding: .4em;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4em 1em -.4em -.4em;
+        font-weight: bold;
+    }
+}
+
+/* Loader */
+.ui-treetable-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.ui-treetable-loading-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    margin-top: -1em;
+    margin-left: -1em;
+}
+
+.ui-treetable .ui-treetable-loading-icon {
+    font-size: 2em;
+}

@@ -1,0 +1,203 @@
+.ui-picklist > div {
+    float: left;
+}
+
+.ui-picklist .ui-picklist-buttons {
+    height: 12.5em;
+    padding: 0 .25em;
+}
+
+.ui-picklist .ui-picklist-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow:auto;
+    height: 12.5em;
+    width: 12.5em;
+}
+
+.ui-picklist .ui-picklist-list li {
+    margin: 1px;
+    padding: .125em;
+}
+
+.ui-picklist .ui-button {
+    display:block;
+    margin-bottom: 0.25em;
+}
+
+.ui-picklist .ui-button-text-icon-left {
+    width: 100%;
+}
+
+.ui-picklist .ui-picklist-item {
+    cursor: pointer;
+    border: 0 none;
+    font-weight: inherit;
+}
+
+.ui-picklist .ui-picklist-caption {
+    text-align: center;
+	padding: .5em .75em;
+    border-bottom:0 none;
+}
+
+.ui-picklist table {
+    width: 100%;
+    border-collapse:collapse;
+}
+
+.ui-picklist .ui-picklist-filter-container {
+    position: relative;
+    width: 100%;
+    padding: .5em .6em;
+    border-bottom: 0 none;
+}
+
+.ui-picklist .ui-picklist-filter-container .ui-picklist-filter {
+    text-indent: 1.1em;
+    width: 100%;
+}
+
+.ui-picklist .ui-picklist-filter-container .ui-picklist-filter-icon {
+    position: absolute;
+    top: 50%;
+    left: 1em;
+    margin-top: -.6em;
+}
+
+.ui-picklist {
+    display: table;
+}
+
+.ui-picklist > div {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.ui-picklist .ui-picklist-buttons {
+    vertical-align: middle;
+}
+
+/* Vertical */
+.ui-picklist.ui-picklist-vertical {
+    display: table;
+}
+
+.ui-picklist.ui-picklist-vertical > div {
+    float: none;
+    display: table-row;
+    vertical-align: top;
+}
+
+.ui-picklist.ui-picklist-vertical .ui-picklist-buttons {
+    text-align:center;
+    height: auto;
+}
+
+.ui-picklist.ui-picklist-vertical .ui-picklist-buttons .ui-button {
+    display: inline-block;
+}
+
+.ui-picklist.ui-picklist-vertical .ui-button {
+    margin-top: 0.25em;
+}
+
+.ui-picklist-outline {
+    outline: 1px dotted black;
+    z-index: 1;
+}
+
+.ui-picklist .ui-picklist-droppoint {
+    height: 6px;
+    list-style-type: none;
+}
+
+.ui-picklist .ui-picklist-list .ui-picklist-droppoint-empty {
+    height: 100%;
+    list-style-type: none;
+}
+
+.ui-picklist-list.ui-picklist-source,
+.ui-picklist-list.ui-picklist-target {
+    outline: none;
+}
+
+/* Responsive */
+.ui-picklist.ui-picklist-responsive * {
+    box-sizing: border-box;
+}
+
+.ui-picklist.ui-picklist-responsive {
+    width: 100%;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-listwrapper {
+    width: 35%;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-listwrapper.ui-picklist-listwrapper-nocontrols {
+    width: 45%;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
+    width: 10%;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-buttons button {
+    width: 100%;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-list {
+    width: auto;
+}
+        
+/* Responsive */
+@media (max-width: 40em) {
+    .ui-picklist.ui-picklist-responsive {
+        display: block;
+    }
+    
+    .ui-picklist.ui-picklist-responsive > div {
+        display: block;
+        width: 100% !important;
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
+        text-align: center;
+        height: auto;
+        padding: .4em 0;
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons button {
+        display: inline-block;
+        width: 20%;
+        margin-bottom: 0;
+        margin-right: .25em;
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-source-controls.ui-picklist-buttons {
+        padding-bottom: .4em;
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-target-controls.ui-picklist-buttons {
+        padding-top: .4em;
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .pi-angle-right::before {
+        content: "\e930";
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .pi-angle-double-right::before {
+        content: "\e92c";
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .pi-angle-left::before {
+        content: "\e933";
+    }
+    
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .pi-angle-double-left::before {
+        content: "\e92f";
+    }
+}

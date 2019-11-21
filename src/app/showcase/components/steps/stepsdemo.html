@@ -1,0 +1,280 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Steps</span>
+        <span>Steps components is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+    <h3 class="first">Basic</h3>
+    <p-steps [model]="items"></p-steps>
+
+    <h3>Clickable</h3>
+    <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+
+    <h3>Custom Style</h3>
+    <p-steps [model]="items" styleClass="steps-custom"></p-steps>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;StepsModule&#125; from 'primeng/steps';
+import &#123;MenuItem&#125; from 'primeng/api';
+</code>
+</pre>
+
+            <h3>MenuModel API</h3>
+            <p>Steps uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
+
+            <h3>Getting Started</h3>
+            <p>Steps requires a collection of menuitems as its model.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-steps [model]="items"&gt;&lt;/p-steps&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MenuDemo &#123;
+
+    items: MenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;label: 'Step 1'&#125;,
+            &#123;label: 'Step 2'&#125;,
+            &#123;label: 'Step 3'&#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Readonly</h3>
+            <p>Items are readonly by default, if you'd like to make them interactive then disable readonly.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-steps [model]="items" [readonly]="false"&gt;&lt;/p-steps&gt;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>model</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of menuitems.</td>
+                        </tr>
+                        <tr>
+                            <td>activeIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Index of the active item.</td>
+                        </tr>
+                        <tr>
+                            <td>readonly</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether the items are clickable or not.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>activeIndexChange</td>
+                            <td>index: Index of the active step item</td>
+                            <td>Callback to invoke when the new step is selected.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-steps</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-steps-item</td>
+                            <td>Menuitem element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-steps-current</td>
+                            <td>Active item.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-steps-incomplete</td>
+                            <td>Inactive item.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-steps-complete</td>
+                            <td>Completed item.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-steps-number</td>
+                            <td>Number of menuitem.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-steps-title</td>
+                            <td>Label of menuitem.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/steps" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-steps [model]="items"&gt;&lt;/p-steps&gt;
+
+&lt;h3&gt;Clickable&lt;/h3&gt;
+&lt;p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"&gt;&lt;/p-steps&gt;
+
+&lt;h3&gt;Custom Style&lt;/h3&gt;
+&lt;p-steps [model]="items" styleClass="steps-custom"&gt;&lt;/p-steps&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: 'showcase/demo/steps/stepsdemo.html',
+    providers: [MessageService],
+    styles: [`
+        .ui-steps .ui-steps-item &#123;
+            width: 25%;
+        &#125;
+
+        .ui-steps.steps-custom &#123;
+            margin-bottom: 30px;
+        &#125;
+
+        .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link &#123;
+            height: 10px;
+            padding: 0 1em;
+        &#125;
+
+        .ui-steps.steps-custom .ui-steps-item .ui-steps-number &#123;
+            background-color: #0081c2;
+            color: #FFFFFF;
+            display: inline-block;
+            width: 36px;
+            border-radius: 50%;
+            margin-top: -14px;
+            margin-bottom: 10px;
+        &#125;
+
+        .ui-steps.steps-custom .ui-steps-item .ui-steps-title &#123;
+            color: #555555;
+        &#125;
+    `],
+    encapsulation: ViewEncapsulation.None
+&#125;)
+export class StepsDemo implements OnInit &#123;
+
+    items: MenuItem[];
+
+    activeIndex: number = 1;
+
+    constructor(private messageService: MessageService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.items = [&#123;
+                label: 'Personal',
+                command: (event: any) => &#123;
+                    this.activeIndex = 0;
+                    this.messageService.add(&#123;severity:'info', summary:'First Step', detail: event.item.label&#125;);
+                &#125;
+            &#125;,
+            &#123;
+                label: 'Seat',
+                command: (event: any) => &#123;
+                    this.activeIndex = 1;
+                    this.messageService.add(&#123;severity:'info', summary:'Seat Selection', detail: event.item.label&#125;);
+                &#125;
+            &#125;,
+            &#123;
+                label: 'Payment',
+                command: (event: any) => &#123;
+                    this.activeIndex = 2;
+                    this.messageService.add(&#123;severity:'info', summary:'Pay with CC', detail: event.item.label&#125;);
+                &#125;
+            &#125;,
+            &#123;
+                label: 'Confirmation',
+                command: (event: any) => &#123;
+                    this.activeIndex = 3;
+                    this.messageService.add(&#123;severity:'info', summary:'Last Step', detail: event.item.label&#125;);
+                &#125;
+            &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

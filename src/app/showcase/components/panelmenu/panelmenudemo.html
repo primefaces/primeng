@@ -1,0 +1,326 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Menu - PanelMenu</span>
+        <span>PanelMenu is a hybrid of accordion-tree components.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="false"></p-panelMenu>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;PanelMenuModule&#125; from 'primeng/panelmenu';
+import &#123;MenuItem&#125; from 'primeng/api';
+</code>
+</pre>
+
+            <h3>MenuModel API</h3>
+            <p>PanelMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
+
+            <h3>Getting Started</h3>
+            <p>PanelMenu requires nested menuitems as its model.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-panelMenu [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class PanelMenuDemo &#123;
+  
+    items: MenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;
+                label: 'File',
+                icon: 'pi pi-pw pi-file',
+                items: [&#123;
+                        label: 'New', 
+                        icon: 'pi pi-fw pi-plus',
+                        items: [
+                            &#123;label: 'User', icon: 'pi pi-fw pi-user-plus'&#125;,
+                            &#123;label: 'Filter', icon: 'pi pi-fw pi-filter'&#125;
+                        ]
+                    &#125;,
+                    &#123;label: 'Open', icon: 'pi pi-fw pi-external-link'&#125;,
+                    &#123;separator: true&#125;,
+                    &#123;label: 'Quit', icon: 'pi pi-fw pi-times'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Edit',
+                icon: 'pi pi-fw pi-pencil',
+                items: [
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Help',
+                icon: 'pi pi-fw pi-question',
+                items: [
+                    &#123;
+                        label: 'Contents',
+                        icon: 'pi pi-pi pi-bars'
+                    &#125;,
+                    &#123;
+                        label: 'Search', 
+                        icon: 'pi pi-pi pi-search', 
+                        items: [
+                            &#123;
+                                label: 'Text', 
+                                items: [
+                                    &#123;
+                                        label: 'Workspace'
+                                    &#125;
+                                ]
+                            &#125;,
+                            &#123;
+                                label: 'User',
+                                icon: 'pi pi-fw pi-file',
+                            &#125;
+                    ]&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Actions',
+                icon: 'pi pi-fw pi-cog',
+                items: [
+                    &#123;
+                        label: 'Edit',
+                        icon: 'pi pi-fw pi-pencil',
+                        items: [
+                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
+                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
+                        ]
+                    &#125;,
+                    &#123;
+                        label: 'Other',
+                        icon: 'pi pi-fw pi-tags',
+                        items: [
+                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
+                        ]
+                    &#125;
+                ]
+            &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Initial State</h3>
+            <p>MenuItem has an expanded property to control the visibility of a submenu, you may use this property to control the state from the menumodel.</p>
+
+            <h3>Animation Configuration</h3>
+            <p>Transition of the toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
+                example below disables the animation altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+ &lt;p-panelMenu [transitionOptions]="'0ms'" [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
+</code>
+</pre>
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>model</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of menuitems.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>multiple</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether multiple tabs can be activated at the same time or not.</td>
+                        </tr>
+                        <tr>
+                            <td>transitionOptions</td>
+                            <td>string</td>
+                            <td>400ms cubic-bezier(0.86, 0, 0.07, 1)</td>
+                            <td>Transition options of the animation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-panelmenu</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-panelmenu-header</td>
+                            <td>Accordion header of root submenu.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-panelmenu-content</td>
+                            <td>Accordion content of root submenu.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-menu-list</td>
+                            <td>List element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-menuitem</td>
+                            <td>Menuitem element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-menuitem-text</td>
+                            <td>Label of a menuitem.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-menuitem-icon</td>
+                            <td>Icon of a menuitem.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-panelmenu-icon</td>
+                            <td>Arrow icon of an accordion header.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/panelmenu" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-panelMenu [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class PanelMenuDemo &#123;
+  
+    items: MenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;
+                label: 'File',
+                icon: 'pi pi-pw pi-file',
+                items: [&#123;
+                        label: 'New', 
+                        icon: 'pi pi-fw pi-plus',
+                        items: [
+                            &#123;label: 'User', icon: 'pi pi-fw pi-user-plus'&#125;,
+                            &#123;label: 'Filter', icon: 'pi pi-fw pi-filter'&#125;
+                        ]
+                    &#125;,
+                    &#123;label: 'Open', icon: 'pi pi-fw pi-external-link'&#125;,
+                    &#123;separator: true&#125;,
+                    &#123;label: 'Quit', icon: 'pi pi-fw pi-times'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Edit',
+                icon: 'pi pi-fw pi-pencil',
+                items: [
+                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
+                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Help',
+                icon: 'pi pi-fw pi-question',
+                items: [
+                    &#123;
+                        label: 'Contents',
+                        icon: 'pi pi-pi pi-bars'
+                    &#125;,
+                    &#123;
+                        label: 'Search', 
+                        icon: 'pi pi-pi pi-search', 
+                        items: [
+                            &#123;
+                                label: 'Text', 
+                                items: [
+                                    &#123;
+                                        label: 'Workspace'
+                                    &#125;
+                                ]
+                            &#125;,
+                            &#123;
+                                label: 'User',
+                                icon: 'pi pi-fw pi-file',
+                            &#125;
+                    ]&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Actions',
+                icon: 'pi pi-fw pi-cog',
+                items: [
+                    &#123;
+                        label: 'Edit',
+                        icon: 'pi pi-fw pi-pencil',
+                        items: [
+                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
+                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
+                        ]
+                    &#125;,
+                    &#123;
+                        label: 'Other',
+                        icon: 'pi pi-fw pi-tags',
+                        items: [
+                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
+                        ]
+                    &#125;
+                ]
+            &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

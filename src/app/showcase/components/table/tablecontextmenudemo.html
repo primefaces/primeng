@@ -1,0 +1,124 @@
+<table-submenu></table-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Table - <span class="subitem">ContextMenu</span></span>
+        <span>Table has exclusive integration with ContextMenu.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+    <p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pContextMenuRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="tablecontextmenudemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecontextmenudemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableContextMenuDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    cols: any[];
+
+    selectedCar: Car;
+
+    selectCars: Car[];
+
+    items: MenuItem[];
+
+    constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+
+        this.cols = [
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
+        ];
+
+        this.items = [
+            &#123; label: 'View', icon: 'pi pi-search', command: (event) => this.viewCar(this.selectedCar) &#125;,
+            &#123; label: 'Delete', icon: 'pi pi-times', command: (event) => this.deleteCar(this.selectedCar) &#125;
+        ];
+    &#125;
+
+    viewCar(car: Car) &#123;
+        this.messageService.add(&#123; severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand &#125;);
+    &#125;
+
+    deleteCar(car: Car) &#123;
+        let index = -1;
+        for (let i = 0; i &lt; this.cars.length; i++) &#123;
+            if (this.cars[i].vin == car.vin) &#123;
+                index = i;
+                break;
+            &#125;
+        &#125;
+        this.cars.splice(index, 1);
+
+        this.messageService.add(&#123; severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand &#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+
+        <p-tabPanel header="tablecontextmenudemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecontextmenudemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+
+&lt;p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pContextMenuRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

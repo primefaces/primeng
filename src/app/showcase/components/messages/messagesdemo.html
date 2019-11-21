@@ -1,0 +1,399 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Messages</span>
+        <span>Messages is used to display messages inline.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-messages [(value)]="msgs"></p-messages>
+
+    <h3 class="first">Basic</h3>
+    <div>
+        <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
+        <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
+        <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
+        <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
+        <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
+        <button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"></button>
+    </div>
+    
+    <h3>Message Service</h3>
+    <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
+    
+    <h3>Inline Message CSS</h3>
+    <p>p-message component is used to display inline messages mostly within forms.</p>
+    <p-message severity="info" text="PrimeNG Rocks"></p-message>
+    <p-message severity="success" text="Record Saved"></p-message>  
+    <p-message severity="warn" text="Are you sure?"></p-message>  
+    <p-message severity="error" text="Field is required"></p-message>
+    
+    <div style="margin-top:30px">
+        <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid">
+        <p-message severity="error" text="Field is required"></p-message>
+    </div>
+    
+    <div style="margin-top:30px">
+        <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid">
+        <p-message severity="error"></p-message>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;MessagesModule&#125; from 'primeng/messages';
+import &#123;MessageModule&#125; from 'primeng/message';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as the properties.
+                Messages to display can either be defined using the value property which should an array of Message instances or using 
+               a MessageService are defined using the value property which should an array of Message instances.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+</code>
+</pre>
+            
+            <h3>Message Array</h3>
+            <p>A binding to the value property is required to provide messages to the component.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+
+&lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
+&lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+show() &#123;
+    this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
+&#125;
+
+hide() &#123;
+    this.msgs = [];
+&#125;
+</code>
+</pre>
+
+            <h3>Message Service</h3>
+            <p>MessageService alternative does not require a value binding to an array.
+            In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself 
+            so that descandant components can have it injected. If there are multiple message components having the same message service, you may use key property of the component
+            to match the key of the message to implement scoping.</p>
+            
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;MessageService&#125; from 'primeng/api';
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Component&#125; from '@angular/core';
+import &#123;Message&#125; from 'primeng//api';
+import &#123;MessageService&#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './messagesdemo.html'
+    &#125;)
+    export class MessageServiceDemo &#123;
+
+        constructor(private messageService: MessageService) &#123;&#125;
+
+        addSingle() &#123;
+            this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
+        &#125;
+
+        addMultiple() &#123;
+            this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+                            &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+        &#125;
+        
+        clear() &#123;
+            this.messageService.clear();
+        &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Closable</h3>
+            <p>Messages are closable by default resulting in a close icon being displayed on top right corner.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+</code>
+</pre>
+
+            <p>In order to disable closable messages, set closable to false. Note that in this case two-way binding is not necessary as the component
+            does not need to update its value.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
+</code>
+</pre>
+
+            <h3>Severities</h3>
+            <p>Here are the possible values for the severity of a message.</p>
+            <ul>
+                <li>success</li>
+                <li>info</li>
+                <li>warn</li>
+                <li>error</li>
+            </ul>
+            
+            <h3>Message Component</h3>
+            <p>Message component is useful in cases where messages need to be displayed related to an element such as forms. It has two property, severity and text of the message.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;Inline Message CSS&lt;/h3&gt;
+&lt;p&gt;CSS helpers to display inline messages mostly within forms.&lt;/p&gt;
+&lt;p-message severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
+&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
+</code>
+</pre>
+
+            <h3>Animation Configuration</h3>
+            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+                example below disables the animations altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-message [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
+</code>
+</pre>
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of messages to display.</td>
+                        </tr>
+                        <tr>
+                            <td>closable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines if message box can be closed by the click icon.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>enableService</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether displaying services messages are enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>key</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Id to match the key of the message to enable scoping in service based messaging.</td>
+                        </tr>
+                        <tr>
+                            <td>showTransitionOptions</td>
+                            <td>string</td>
+                            <td>300ms ease-out</td>
+                            <td>Transition options of the show animation.</td>
+                        </tr>
+                        <tr>
+                            <td>hideTransitionOptions</td>
+                            <td>string</td>
+                            <td>250ms ease-in</td>
+                            <td>Transition options of the hide animation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-messages</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-info</td>
+                            <td>Container element when displaying info messages.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-warn</td>
+                            <td>Container element when displaying warning messages.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-error</td>
+                            <td>Container element when displaying error messages.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-success</td>
+                            <td>Container element when displaying success messages.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-close</td>
+                            <td>Close icon.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-icon</td>
+                            <td>Severity icon.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-summary</td>
+                            <td>Summary of a message.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-detail</td>
+                            <td>Detail of a message.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/messages" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;div&gt;
+    &lt;button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="clear()" icon="pi pi-times" style="float:right" label="Clear"&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Message Service&lt;/h3&gt;
+&lt;button type="button" pButton (click)="showViaService()" label="Use Service"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Inline Message CSS&lt;/h3&gt;
+&lt;p&gt;CSS helpers to display inline messages mostly within forms.&lt;/p&gt;
+&lt;p-message severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
+&lt;p-message severity="success" text="Record Saved"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;  
+&lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
+
+&lt;div style="margin-top:30px"&gt;
+    &lt;input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid"&gt;
+    &lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
+&lt;/div&gt;
+
+&lt;div style="margin-top:30px"&gt;
+    &lt;input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid"&gt;
+    &lt;p-message severity="error"&gt;&lt;/p-message&gt;
+&lt;/div>
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Component&#125; from '@angular/core';
+import &#123;SelectItem&#125; from 'primeng/components/common/api';
+import &#123;Message&#125; from 'primeng/components/common/api';
+import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+
+@Component(&#123;
+    templateUrl: './messagesdemo.html',
+    styles: [`
+        :host ::ng-deep button &#123;
+            margin-right: .25em;
+        &#125;
+
+        :host ::ng-deep .ui-message,
+        :host ::ng-deep .ui-inputtext &#123;
+            margin-right: .25em;
+        &#125;
+    `],
+    providers: [MessageService]
+&#125;)
+export class MessagesDemo &#123;
+
+    msgs: Message[] = [];
+    
+    constructor(private messageService: MessageService) &#123;&#125;
+
+    showSuccess() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'success', summary:'Success Message', detail:'Order submitted'&#125;);
+    &#125;
+
+    showInfo() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
+    &#125;
+
+    showWarn() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'&#125;);
+    &#125;
+
+    showError() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'error', summary:'Error Message', detail:'Validation failed'&#125;);
+    &#125;
+
+    showMultiple() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'info', summary:'Message 1', detail:'PrimeNG rocks'&#125;);
+        this.msgs.push(&#123;severity:'info', summary:'Message 2', detail:'PrimeUI rocks'&#125;);
+        this.msgs.push(&#123;severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'&#125;);
+    &#125;
+    
+    showViaService() &#123;
+        this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
+    &#125;
+
+    clear() &#123;
+        this.msgs = [];
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

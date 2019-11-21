@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="118px" height="134px" viewBox="0 0 118 134" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>head</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="head">
+            <polygon id="chick-right" fill="#FFFFFF" fill-rule="nonzero" points="86.9772677 61.3740458 77.76791 59.3282443 84.9307438 69.5572519 84.9307438 101.267176 109.489031 80.8091603 109.489031 46.0305344 98.2331494 50.1221374"></polygon>
+            <polygon id="chick-left" fill="#FFFFFF" fill-rule="nonzero" transform="translate(23.023394, 73.648855) scale(-1, 1) translate(-23.023394, -73.648855) " points="16.3721916 61.3740458 7.16283381 59.3282443 14.3256676 69.5572519 14.3256676 101.267176 38.883955 80.8091603 38.883955 46.0305344 27.6280733 50.1221374"></polygon>
+            <polygon id="mask" fill="#FFFFFF" points="34.6903553 71.4772269 42.8527919 59.177665 47.9543147 62.2525555 68.3604061 62.2525555 73.4619289 59.177665 81.6243655 71.4772269 81.6243655 117.600584 75.5025381 126.825256 68.3604061 134 47.9543147 134 40.8121827 126.825256 34.6903553 117.600584"></polygon>
+            <g id="mask-effect-right" transform="translate(65.488766, 88.992366)" fill="#C3002F">
+                <polygon id="Rectangle-3" transform="translate(9.209358, 8.183206) rotate(-38.000000) translate(-9.209358, -8.183206) " points="1.67501876 6.19305236 19.2636287 6.94913265 16.7436968 10.1733599 -0.844913144 9.41727957"></polygon>
+                <polygon id="Rectangle-3" transform="translate(9.209358, 16.366412) rotate(-38.000000) translate(-9.209358, -16.366412) " points="1.67501876 14.3762585 19.2636287 15.1323388 16.7436968 18.356566 -0.844913144 17.6004857"></polygon>
+                <polygon id="Rectangle-3" transform="translate(9.209358, 24.549618) rotate(-38.000000) translate(-9.209358, -24.549618) " points="1.67501876 22.5594646 19.2636287 23.3155449 16.7436968 26.5397721 -0.844913144 25.7836918"></polygon>
+            </g>
+            <g id="mask-effect-left" transform="translate(32.744383, 88.992366)" fill="#DD0031">
+                <polygon id="Rectangle-3" transform="translate(9.209358, 8.183206) scale(-1, 1) rotate(-38.000000) translate(-9.209358, -8.183206) " points="1.67501876 6.19305236 19.2636287 6.94913265 16.7436968 10.1733599 -0.844913144 9.41727957"></polygon>
+                <polygon id="Rectangle-3" transform="translate(9.209358, 16.366412) scale(-1, 1) rotate(-38.000000) translate(-9.209358, -16.366412) " points="1.67501876 14.3762585 19.2636287 15.1323388 16.7436968 18.356566 -0.844913144 17.6004857"></polygon>
+                <polygon id="Rectangle-3" transform="translate(9.209358, 24.549618) scale(-1, 1) rotate(-38.000000) translate(-9.209358, -24.549618) " points="1.67501876 22.5594646 19.2636287 23.3155449 16.7436968 26.5397721 -0.844913144 25.7836918"></polygon>
+            </g>
+            <polygon id="bottom-chick-right" fill="#FFFFFF" fill-rule="nonzero" points="84.9307438 120.70229 98.2331494 107.40458 98.2331494 94.1068702 84.9307438 105.358779"></polygon>
+            <polygon id="bottom-chick-left" fill="#FFFFFF" fill-rule="nonzero" transform="translate(25.069918, 107.404580) scale(-1, 1) translate(-25.069918, -107.404580) " points="18.4187155 120.70229 31.7211212 107.40458 31.7211212 94.1068702 18.4187155 105.358779"></polygon>
+            <path d="M64.4655043,1.91846539e-13 L64.4655043,25.5725191 L68.5585522,23.5267176 L68.5585522,1.91846539e-13 L71.6283381,0 L79.8144339,19.4351145 L67.5352902,58.3053435 L60.3724564,58.3053435 L60.3724564,0 L64.4655043,1.91846539e-13 Z M48.0933127,23.5267176 L52.1863606,25.5725191 L52.1863606,0 L56.2794085,0 L56.2794085,58.3053435 L50.1398367,58.3053435 L36.837431,19.4351145 L45.0235268,0 L48.0933127,0 L48.0933127,23.5267176 Z" fill="#FFFFFF"></path>
+            <polygon id="head-left" fill="#FFFFFF" fill-rule="nonzero" points="50.1398367 58.3053435 6.13957184 41.9389313 0 16.3664122 37.860693 19.4351145 51.1630987 58.3053435"></polygon>
+            <polygon id="head-right" fill="#FFFFFF" fill-rule="nonzero" transform="translate(92.093578, 37.335878) scale(-1, 1) translate(-92.093578, -37.335878) " points="116.651865 58.3053435 72.6516001 41.9389313 66.5120282 16.3664122 105.395983 19.4351145 117.675127 58.3053435"></polygon>
+            <polygon id="ear-right" fill="#FFFFFF" fill-rule="nonzero" points="81.8609578 16.3664122 103.349459 14.3206107 89.0237917 0 74.698124 0"></polygon>
+            <polygon id="ear-left" fill="#FFFFFF" fill-rule="nonzero" transform="translate(27.628073, 8.183206) scale(-1, 1) translate(-27.628073, -8.183206) " points="20.4652395 16.3664122 41.9537409 14.3206107 27.6280733 0 13.3024056 0"></polygon>
+        </g>
+    </g>
+</svg>

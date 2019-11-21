@@ -1,0 +1,276 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Chips</span>
+        <span>Chips is used to enter multiple values on an inputfield.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Basic</h3>
+    <p-chips [(ngModel)]="values1"></p-chips>
+    
+    <h3>Template</h3>
+    <p-chips [(ngModel)]="values2">
+        <ng-template let-item pTemplate="item">
+            {{item}} - (active) <i class="fa fa-user" style="margin-right:2em"></i>
+        </ng-template>
+    </p-chips>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;ChipsModule&#125; from 'primeng/chips';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Chips requires an array as its model.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-chips [(ngModel)]="values"&gt;&lt;/p-chips&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MyModel &#123;
+
+    values: string[];
+
+&#125;
+</code>
+</pre>
+            <h3>Model Driven Forms</h3>
+            <p>Chips can be used in a model driven form as well.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-chips formControlName="cities"&gt;&lt;/p-chips&gt;
+</code>
+</pre>
+
+            <h3>Custom Content</h3>
+            <p>A chip is customized using a ng-template element where the value is passed as the implicit variable.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-chips [(ngModel)]="values"&gt;
+    &lt;ng-template let-item pTemplate="item"&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
+    &lt;/ng-template&gt;
+&lt;/p-chips&gt;
+</code>
+</pre>
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>field</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the property to display on a chip.</td>
+                        </tr>
+                        <tr>
+                            <td>max</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Maximum number of entries allowed.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>placeholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Advisory information to display on input.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
+                        </tr>
+                        <tr>
+                            <td>inputId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the focus input to match a label defined for the component.</td>
+                        </tr>
+                        <tr>
+                            <td>allowDuplicate</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to allow duplicate values or not.</td>
+                        </tr>
+                        <tr>
+                            <td>inputStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>inputStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>addOnTab</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to add an item on tab key press.</td>
+                        </tr>
+                        <tr>
+                            <td>addOnBlur</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to add an item when the input loses focus.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onAdd</td>
+                            <td>originalEvent: Browser event <br >
+                                value: Added item value
+                            </td>
+                            <td>Callback to invoke when a value is added.</td>
+                        </tr>
+                        <tr>
+                            <td>onRemove</td>
+                            <td>originalEvent: Browser event <br >
+                                value: Added item value
+                            </td>
+                            <td>Callback to invoke when a value is removed.</td>
+                        </tr>
+                        <tr>
+                            <td>onChipClick</td>
+                            <td>originalEvent: Browser event <br >
+                                value: Clicked item value
+                            </td>
+                            <td>Callback to invoke when a chip is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>onFocus</td>
+                            <td>originalEvent: Browser event</td>
+                            <td>Callback to invoke when a input is focused.</td>
+                        </tr>
+                        <tr>
+                            <td>onBlur</td>
+                            <td>originalEvent: Browser event</td>
+                            <td>Callback to invoke when a input loses focus.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-chips</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-chips-token</td>
+                            <td>Chip element container.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-chips-token-icon</td>
+                            <td>Icon of a chip.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-chips-token-label</td>
+                            <td>Label of a chip.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-chips-input-token</td>
+                            <td>Container of input element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chips" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-chips [(ngModel)]="values1" &gt;&lt;/p-chips&gt;
+
+&lt;h3&gt;ng-template&lt;/h3&gt;
+&lt;p-chips [(ngModel)]="values2"&gt;
+    &lt;ng-template let-item pTemplate="item"&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user" style="margin-right:2em"&gt;&lt;/i&gt;
+    &lt;/ng-template&gt;
+&lt;/p-chips&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ChipsDemo &#123;
+
+    values1: string[];
+    
+    values2: string[];
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

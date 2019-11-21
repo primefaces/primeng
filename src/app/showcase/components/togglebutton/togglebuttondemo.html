@@ -1,0 +1,255 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">ToggleButton</span>
+        <span>ToggleButton is used to select a boolean value using a button.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Basic - ({{checked1}})</h3>
+    <p-toggleButton [(ngModel)]="checked1" [style]="{'width':'150px'}"></p-toggleButton>
+
+    <h3>Customized - ({{checked2}})</h3>
+    <p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'150px'}"></p-toggleButton>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;ToggleButtonModule&#125; from 'primeng/togglebutton';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toggleButton [(ngModel)]="checked"&gt;&lt;/p-toggleButton&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ModelComponent &#123;
+
+    checked: boolean;
+
+&#125;
+</code>
+</pre>
+
+            <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ModelComponent &#123;
+
+   checked: boolean = true;
+
+&#125;
+</code>
+</pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>ToggleButton can be used in a model driven form as well.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toggleButton formControlName="agreed"&gt;&lt;/p-toggleButton&gt;
+</code>
+</pre>
+
+            <h3>Labels</h3>
+            <p>Labels are customized using onLabel and offLabel properties.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toggleButton onLabel="I confirm" offLabel="I reject"
+            onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
+</code>
+</pre>
+
+            <h3>Icons</h3>
+            <p>Icon on a ToggleButton is specified with the onIcon and offIcon properties and position is customized using the iconPos property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toggleButton onLabel="I confirm" offLabel="I reject" 
+            onIcon="fa fa-check" offIcon="fa fa-times" iconPos="right" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
+</code>
+</pre>
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <tr>
+                            <td>onLabel</td>
+                            <td>string</td>
+                            <td>Yes</td>
+                            <td>Label for the on state.</td>
+                        </tr>
+                        <tr>
+                            <td>offLabel</td>
+                            <td>string</td>
+                            <td>No</td>
+                            <td>Label for the off state.</td>
+                        </tr>
+                        <tr>
+                            <td>onIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Icon for the on state.</td>
+                        </tr>
+                        <tr>
+                            <td>offIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Icon for the off state.</td>
+                        </tr>
+                        <tr>
+                            <td>iconPos</td>
+                            <td>string</td>
+                            <td>left</td>
+                            <td>Position of the icon, valid values are "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
+                        </tr>
+                        <tr>
+                            <td>inputId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the focus input to match a label defined for the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onChange</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.checked: boolean value to represent checked state.</td>
+                            <td>Callback to invoke on state change.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-toggleButton (onChange)="handleChange($event)" [(ngModel)]="val"&gt;
+</code>
+</pre>
+ <pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ModelComponent &#123;
+
+    handleChange(e) &#123;
+        var isChecked = e.checked;
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-togglebutton</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-button-icon-left</td>
+                            <td>Icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-button-icon-right</td>
+                            <td>Icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-button-text</td>
+                            <td>Label element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/togglebutton" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic - ({{checked1}})&lt;/h3&gt;
+&lt;p-toggleButton [(ngModel)]="checked1" [style]="&#123;'width':'150px'&#125;"&gt;&lt;/p-toggleButton&gt;
+
+&lt;h3&gt;Customized - ({{checked2}})&lt;/h3&gt;
+&lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="&#123;'width':'150px'&#125;"&gt;&lt;/p-toggleButton&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ToggleButtonDemo &#123;
+
+    checked1: boolean = false;
+
+    checked2: boolean = true;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

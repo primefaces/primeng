@@ -1,0 +1,280 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">FilterUtils</span>
+        <span>FilterUtils is a helper to filter collections against constraints. Examples below demonstrate use-cases with AutoComplete and DataTable.</span>
+    </div>
+</div>
+
+<div class="content-section implementation ui-fluid">
+    <h3>Basic</h3>
+    <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterWithContains($event)" [size]="30"
+    [minLength]="1" placeholder="Hint: type 'a' or 'o'" [dropdown]="true" field="label" [style]="{'width':'250px'}">
+        <ng-template let-brand pTemplate="item">
+            <div class="ui-helper-clearfix">
+                <img src="assets/showcase/images/demo/car/{{brand.value}}.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
+                <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand.value}}</div>
+            </div>
+        </ng-template>
+    </p-autoComplete>
+    
+    <h3>Custom</h3>
+    <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'year'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'brand'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'color'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;FilterUtils&#125; from 'primeng/api';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>FilterUtils consists of static functions that implement various constraints.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+const value = 'PrimeNG';
+
+FilterUtils.equals(value, 'NG');                            //false
+FilterUtils.equals(value, 8);                               //false
+FilterUtils.equals(value, new Date());                      //false
+FilterUtils.contains(value, 'NG');                          //true
+FilterUtils.startsWith(value, 'NG');                        //false
+FilterUtils.endsWith(value, 'NG');                          //true
+FilterUtils.lt(10, 20);                                     //true
+FilterUtils.gte(50, 20);                                    //true
+FilterUtils.in(value, ['PrimeFaces', 'PrimeNG']);           //true
+</code>
+</pre>
+
+            <h3>Custom Constraint</h3>
+            <p>FilterUtils can be extended by adding new constraints.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+FilterUtils['isPrimeNumber'] = (value): boolean => &#123;
+    for(var i = 2; i &lt; num; i++)
+        if(num % i === 0) return false;
+    return num > 1;
+&#125;
+
+FilterUtils['isPrimeNumber'](3);                      //true
+FilterUtils['isPrimeNumber'](5);                      //true
+FilterUtils['isPrimeNumber'](568985673);              //false
+</code>
+</pre>
+
+            <h3>FilterUtils API</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>startsWith</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value starts with the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>contains</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value contains the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>endsWith</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value ends with the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>equals</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value equals the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>notEquals</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value does not equal the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>in</td>
+                            <td>value: Value to filter<br />
+                                filter[]: An array of filter values</td>
+                            <td>Whether the value contains the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>lt</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value is less than the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>lte</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value is less than or equals to the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>gt</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value is greater than the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>gte</td>
+                            <td>value: Value to filter<br />
+                                filter: Filter value</td>
+                            <td>Whether the value is greater than or equals to the filter value</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>value[]: An array of values to filter<br />
+                                fields[]: An array of properties in the value object<br />
+                                filterValue: Filter value<br />
+                                filterMatchMode: Constraint</td>
+                            <td>Whether the property values of the given value collection matches the filter.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>            
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/menu" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;Basic&lt;/h3&gt;
+&lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterWithContains($event)" [size]="30"
+[minLength]="1" placeholder="Hint: type 'a' or 'o'" [dropdown]="true" field="label" [style]="&#123;'width':'250px'&#125;"&gt;
+    &lt;ng-template let-brand pTemplate="item"&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;brand.value&#125;&#125;.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand.value&#125;&#125;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-autoComplete&gt;
+
+&lt;h3&gt;Custom&lt;/h3&gt;
+&lt;p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field"&gt;
+                &lt;input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"&gt;
+                &lt;input *ngSwitchCase="'year'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"&gt;
+                &lt;input *ngSwitchCase="'brand'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"&gt;
+                &lt;input *ngSwitchCase="'color'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class FilterUtilsDemo &#123;
+
+    brands: any[] = [
+        &#123;label: 'Audi', value: 'Audi'&#125;,
+        &#123;label: 'BMW', value: 'BMW'&#125;,
+        &#123;label: 'Fiat', value: 'Fiat'&#125;,
+        &#123;label: 'Ford', value: 'Ford'&#125;,
+        &#123;label: 'Honda', value: 'Honda'&#125;,
+        &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
+        &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
+        &#123;label: 'Renault', value: 'Renault'&#125;,
+        &#123;label: 'VW', value: 'VW'&#125;,
+        &#123;label: 'Volvo', value: 'Volvo'&#125;
+    ];
+
+    filteredBrands: any[];
+
+    brand:any;
+
+    cars: Car[];
+
+    cols: any[];
+
+    constructor(private carService:CarService) &#123;
+        FilterUtils['custom-equals'] = (value, filter): boolean => &#123;
+            if (filter === undefined || filter === null || filter.trim() === '') &#123;
+                return true;
+            &#125;
+    
+            if (value === undefined || value === null) &#123;
+                return false;
+            &#125;
+            
+            return value.toString() === filter.toString();
+        &#125;
+
+        this.cols = [
+            &#123; field: 'year', header: 'Year', filterMatchMode:'custom-equals' &#125;,
+            &#123; field: 'brand', header: 'Brand', filterMatchMode:'custom-equals' &#125;,
+            &#123; field: 'color', header: 'Color', filterMatchMode:'custom-equals' &#125;,
+            &#123; field: 'vin', header: 'Vin', filterMatchMode:'custom-equals' &#125;
+        ];
+
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+    &#125;
+
+    filterWithContains(event) &#123;
+        this.filteredBrands = FilterUtils.filter(this.brands, ['value'], event.query, "contains");
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

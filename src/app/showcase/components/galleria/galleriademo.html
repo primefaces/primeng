@@ -1,0 +1,252 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Galleria</span>
+        <span>Galleria is a content gallery component.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-galleria [images]="images" panelWidth="500" panelHeight="313"></p-galleria>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;GalleriaModule&#125; from 'primeng/galleria';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Galleria requires a set of images to display. Source attribute defines the path of the image whereas title and alt attributes are used in the caption section
+                to display summary and description about an image.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" [showCaption]="true"&gt;&lt;/p-galleria&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class GalleriaDemo implements OnInit &#123;
+    
+    images: any[];
+    
+    ngOnInit() &#123;
+        this.images = [];
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria2.jpg', alt:'Description for Image 2', title:'Title 2'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria3.jpg', alt:'Description for Image 3', title:'Title 3'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria4.jpg', alt:'Description for Image 4', title:'Title 4'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria5.jpg', alt:'Description for Image 5', title:'Title 5'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria6.jpg', alt:'Description for Image 6', title:'Title 6'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria7.jpg', alt:'Description for Image 7', title:'Title 7'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria8.jpg', alt:'Description for Image 8', title:'Title 8'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria9.jpg', alt:'Description for Image 9', title:'Title 9'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>panelWidth</td>
+                            <td>number</td>
+                            <td>600</td>
+                            <td>Width of the content panel.</td>
+                        </tr>
+                        <tr>
+                            <td>panelHeight</td>
+                            <td>number</td>
+                            <td>400</td>
+                            <td>Height of the content panel.</td>
+                        </tr>
+                        <tr>
+                            <td>frameWidth</td>
+                            <td>number</td>
+                            <td>60</td>
+                            <td>Width of the filmstrip frames.</td>
+                        </tr>
+                        <tr>
+                            <td>frameHeight</td>
+                            <td>number</td>
+                            <td>40</td>
+                            <td>Height of the filmstrip frames.</td>
+                        </tr>
+                        <tr>
+                            <td>showFilmstrip</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines visibility of filmstrip.</td>
+                        </tr>
+                        <tr>
+                            <td>autoPlay</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Images are displayed with a slideshow in autoPlay mode.</td>
+                        </tr>
+                        <tr>
+                            <td>transitionInterval</td>
+                            <td>number</td>
+                            <td>4000</td>
+                            <td>Time in milliseconds between each slide in autoPlay mode.</td>
+                        </tr>
+                        <tr>
+                            <td>effectDuration</td>
+                            <td>number</td>
+                            <td>250</td>
+                            <td>Duration of animation in milliseconds.</td>
+                        </tr>
+                        <tr>
+                            <td>showCaption</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Displays information retrieved from title and alt attributes of images in content caption.</td>
+                        </tr>
+                        <tr>
+                            <td>activeIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Index of the current active image of galleria images.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>Events</h4>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onImageClicked</td>
+                            <td>
+                                event.image: Image Object<br>
+                                event.originalEvent: Click Object<br>
+                                event.index: Index of the image
+                            </td>
+                            <td>Callback to invoke when the displayed image is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>onImageChange</td>
+                            <td>
+                                event.index: Index of the image
+                            </td>
+                            <td>Callback to invoke when an image changes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-galleria</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-panel-wrapper</td>
+                            <td>Parent of item containers.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-filmstrip-wrapper</td>
+                            <td>Container of filmstrip.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-filmstrip</td>
+                            <td>Filmstrip element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-frame</td>
+                            <td>Frame element of thumbnail</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-nav-next</td>
+                            <td>Icon to navigate to next item</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-nav-prev</td>
+                            <td>Icon to navigate to previous item</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-caption</td>
+                            <td>Caption element that displays title and description of an item</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class GalleriaDemo implements OnInit &#123;
+    
+    images: any[];
+    
+    ngOnInit() &#123;
+        this.images = [];
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria2.jpg', alt:'Description for Image 2', title:'Title 2'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria3.jpg', alt:'Description for Image 3', title:'Title 3'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria4.jpg', alt:'Description for Image 4', title:'Title 4'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria5.jpg', alt:'Description for Image 5', title:'Title 5'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria6.jpg', alt:'Description for Image 6', title:'Title 6'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria7.jpg', alt:'Description for Image 7', title:'Title 7'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria8.jpg', alt:'Description for Image 8', title:'Title 8'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria9.jpg', alt:'Description for Image 9', title:'Title 9'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'&#125;);
+        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+

@@ -1,0 +1,196 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">BlockUI</span>
+        <span>BlockUI can either block other components or the whole page.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Document</h3>
+    <p-blockUI [blocked]="blockedDocument"></p-blockUI>
+    
+    <button type="button" pButton label="Block" (click)="blockDocument()"></button>
+    
+    <h3>Panel</h3>
+    <button type="button" pButton label="Block" (click)="blockedPanel=true"></button>
+    <button type="button" pButton label="Unblock" (click)="blockedPanel=false"></button>
+    
+    <p-blockUI [target]="pnl" [blocked]="blockedPanel">
+        <i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"></i>
+    </p-blockUI>
+    <p-panel #pnl header="Godfather I" [style]="{'margin-top':'20px'}">
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    </p-panel>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;BlockUIModule&#125; from 'primeng/blockui';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>BlockUI is controlled using the blocked property and component to block is defined as target. If target is not provided, document
+            itself is selected as the block target.</p>
+            
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class BlockUIDemo &#123;
+
+    blocked: boolean;
+    
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-blockUI [blocked]="blocked"&gt;&lt;/p-blockUI&gt;
+</code>
+</pre>
+
+            <p>To block a certain component, define a local ng-template variable and bind it to the target option. The target component must implement the 
+            BlockableUI interface, otherwise an exception is thrown.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-blockUI [blocked]="blockedDocument" [target]="pnl"&gt;&lt;/p-blockUI&gt;
+
+&lt;p-panel #pnl header="Panel Header"&gt;
+    Content of Panel
+&lt;/p-panel&gt;
+</code>
+</pre>
+
+            <h3>Custom Content</h3>
+            <p>Blocker mask is customized by simply adding the content inside the component<p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
+    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+&lt;/p-blockUI&gt;
+
+&lt;p-panel #pnl header="Panel Header"&gt;
+    Content of Panel
+&lt;/p-panel&gt;
+</code>
+</pre>
+
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>blocked</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Controls the blocked state.</td>
+                        </tr>
+                        <tr>
+                            <td>target</td>
+                            <td>any</td>
+                            <td>document</td>
+                            <td>Name of the local ng-template variable referring to another component.</td>
+                        </tr>
+                        <tr>
+                            <td>baseZIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Base zIndex value to use in layering.</td>
+                        </tr>
+                        <tr>
+                            <td>autoZIndex</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to automatically manage layering.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-blockui</td>
+                            <td>Container element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/blockui" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class BlockUIDemo &#123;
+
+    blockedPanel: boolean = false;
+    
+    blockedDocument: boolean = false;
+        
+    blockDocument() &#123;
+        this.blockedDocument = true;
+        setTimeout(() => &#123;
+            this.blockedDocument = false;
+        &#125;, 3000);
+    &#125;
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Document&lt;/h3&gt;
+&lt;p-blockUI [blocked]="blockedDocument"&gt;&lt;/p-blockUI&gt;
+
+&lt;button type="button" pButton label="Block" (click)="blockDocument()"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Panel&lt;/h3&gt;
+&lt;button type="button" pButton label="Block" (click)="blockedPanel=true"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Unblock" (click)="blockedPanel=false"&gt;&lt;/button&gt;
+
+&lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
+    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+&lt;/p-blockUI&gt;
+&lt;p-panel #pnl header="Godfather I" [style]="&#123;'margin-top':'20px'&#125;"&gt;
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+&lt;/p-panel&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -1,0 +1,170 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Breadcrumb</span>
+        <span>Breadcrumb provides contextual information about page hierarchy.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;BreadcrumbModule&#125; from 'primeng/breadcrumb';
+import &#123;MenuItem&#125; from 'primeng/api';
+</code>
+</pre>
+
+            <h3>MenuModel API</h3>
+            <p>Breadcrumb uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
+
+            <h3>Getting Started</h3>
+            <p>Breadcrumb requires a collection of menuitems connected to its model property.</p>
+            
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class BreadcrumbDemo implements OnInit &#123;
+
+    private items: MenuItem[];
+    
+    ngOnInit() &#123;
+        this.items = [
+            &#123;label:'Categories'&#125;,
+            &#123;label:'Sports'&#125;,
+            &#123;label:'Football'&#125;,
+            &#123;label:'Countries'&#125;,
+            &#123;label:'Spain'&#125;,
+            &#123;label:'F.C. Barcelona'&#125;,
+            &#123;label:'Squad'&#125;,
+            &#123;label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'&#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-breadcrumb [model]="items"&gt;&lt;/p-breadcrumb&gt;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>model</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of menuitems.</td>
+                        </tr>
+                        <tr>
+                            <td>home</td>
+                            <td>MenuItem</td>
+                            <td>null</td>
+                            <td>MenuItem configuration for the home icon.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-breadcrumb</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-menuitem</td>
+                            <td>Menuitem element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-menuitem-text</td>
+                            <td>Label of a menuitem.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-breadcrumb-chevron</td>
+                            <td>Chevron element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/breadcrumb" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class BreadcrumbDemo implements OnInit &#123;
+
+    items: MenuItem[];
+
+    home: MenuItem;
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;label:'Categories'&#125;,
+            &#123;label:'Sports'&#125;,
+            &#123;label:'Football'&#125;,
+            &#123;label:'Countries'&#125;,
+            &#123;label:'Spain'&#125;,
+            &#123;label:'F.C. Barcelona'&#125;,
+            &#123;label:'Squad'&#125;,
+            &#123;label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'&#125;
+        ];
+        
+        this.home = &#123;icon: 'pi pi-home'&#125;;
+    &#125;
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-breadcrumb [model]="items" [home]="home"&gt;&lt;/p-breadcrumb&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

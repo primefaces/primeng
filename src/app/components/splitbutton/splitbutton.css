@@ -1,0 +1,30 @@
+.ui-splitbutton {
+    position: relative;
+    display: inline-block;
+    zoom: 1;
+}
+
+.ui-splitbutton .ui-button.ui-splitbutton-menubutton {
+    width: 2em;
+    vertical-align: top;
+}
+
+.ui-splitbutton.ui-state-disabled button {
+    cursor: default;
+}
+
+.ui-fluid .ui-splitbutton {
+    width: 100%;
+}
+
+.ui-fluid .ui-splitbutton .ui-button:first-child {
+    width: calc(100% - 2em);
+}
+
+.ui-fluid .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
+    width: 2em;
+}
+
+.ui-splitbutton .ui-menuitem-link {
+    cursor: pointer;
+}

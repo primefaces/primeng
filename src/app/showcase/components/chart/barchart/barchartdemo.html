@@ -1,0 +1,58 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">BarChart</span>
+        <span>A bar chart or bar graph is a chart that presents Grouped data with rectangular bars with lengths proportional to the values that they represent.</span>
+    </div>
+</div>
+
+<div class="content-section implementation-charts">
+    <p-chart type="bar" [data]="data"></p-chart>
+</div>
+
+<div class="content-section documentation">
+    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/chart/barchart" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+    </a>
+    
+    <p-tabView effect="fade">
+        <p-tabPanel header="barchartdemo.ts">
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class BarChartDemo &#123;
+
+    data: any;
+
+    constructor() &#123;
+        this.data = &#123;
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                &#123;
+                    label: 'My First dataset',
+                    backgroundColor: '#42A5F5',
+                    borderColor: '#1E88E5',
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                &#125;,
+                &#123;
+                    label: 'My Second dataset',
+                    backgroundColor: '#9CCC65',
+                    borderColor: '#7CB342',
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                &#125;
+            ]
+        &#125;
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="barchartdemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-chart type="bar" [data]="data"&gt;&lt;/p-chart&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

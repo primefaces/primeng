@@ -1,0 +1,327 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">OrderList</span>
+        <span>OrderList is used to sort a collection. When the position of an item changes, the backend array is updated as well.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    
+    <p-orderList [value]="cars" [listStyle]="{'height':'350px'}" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand"
+        dragdrop="true">
+        <ng-template let-car pTemplate="item">
+            <div class="ui-helper-clearfix">
+                <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+                <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
+            </div>
+        </ng-template>
+    </p-orderList>
+    
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;OrderListModule&#125; from 'primeng/orderlist';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>OrderList requires an array as its value and a ng-template for its content where each item in the array
+                 can be accessed inside the ng-template using a local ng-template variable.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-orderList&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MyComponent &#123;
+
+    cars: Car[];
+    
+    ngOnInit() &#123;
+        this.cars = //initialize cars
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Multiple Selection</h3>
+            <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+            devices metaKeySelection is turned off automatically.</p>
+
+            <h3>Selection Binding</h3>
+            <p>The optional <b>selection</b> property is provided in case you'd like to a two-way binding to the selections.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-orderList&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MyComponent &#123;
+
+    cars: Car[];
+
+    selectedCars: Car[];
+    
+    ngOnInit() &#123;
+        this.cars = //initialize cars
+    &#125;
+&#125;
+</code>
+</pre>
+            
+            <h3>Filtering</h3>
+            <p>Items can be filtered using an input field by enabling the filterBy property that specifies the fields to use in filtering.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars" filterBy="brand"&gt;&lt;/p-orderList&gt;
+</code>
+</pre>
+
+            <p>Multiple fields can be defines using a comma separates list.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars" filterBy="brand,color,address.city"&gt;&lt;/p-orderList&gt;
+</code>
+</pre>
+
+            <h3>DragDrop</h3>
+            <p>Items can be reordered using drag and drop by enabling dragdrop property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars" dragdrop="true"&gt;
+</code>
+</pre>
+
+            <h3>Buttons Location</h3>
+            <p>Buttons that control the ordering are displayed at the left side of the list by default, controlsPosition property enables customizing the location. Currently
+                right is the available alternative.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars" controlsPosition="right"&gt;
+</code>
+</pre>
+            
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to reorder.</td>
+                        </tr>
+                        <tr>
+                            <td>selection</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to bind the selections.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Text for the caption</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>listStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the list element.</td>
+                        </tr>
+                        <tr>
+                            <td>filterBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>When specified displays an input field to filter the items on keyup and decides which fields to search against.</td>
+                        </tr>
+                        <tr>
+                            <td>filterMatchMode</td>
+                            <td>string</td>
+                            <td>contains</td>
+                            <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>dragdrop</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to enable dragdrop based reordering.</td>
+                        </tr>
+                        <tr>
+                            <td>filterPlaceHolder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Placeholder text on filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>trackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
+                        </tr>
+                        <tr>
+                            <td>controlsPosition</td>
+                            <td>string</td>
+                            <td>left</td>
+                            <td>Defines the location of the buttons with respect to the list, valid values are "left" or "right".</td>
+                        </tr>
+                        <tr>
+                            <td>ariaFilterLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines a string that labels the filter input.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onReorder</td>
+                            <td>event: browser event</td>
+                            <td>Callback to invoke when list is reordered.</td>
+                        </tr>
+                        <tr>
+                            <td>onSelectionChange</td>
+                            <td>originalEvent: browser event<br/>
+                                value: Current selection</td>
+                            <td>Callback to invoke when selection changes.</td>
+                        </tr>
+                        <tr>
+                            <td>onFilterEvent</td>
+                            <td>originalEvent: browser event<br/>
+                                value: Current filter values</td>
+                            <td>Callback to invoke when filtering occurs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-orderlist</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-orderlist-list</td>
+                            <td>List container.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-orderlist-item</td>
+                            <td>An item in the list.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/orderlist" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" header="Cars" 
+    filter="filter" filterBy="brand" filterPlaceholder="Filter by brand" dragdrop="true"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-orderList&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class OrderListDemo &#123;
+
+    cars: Car[];
+    
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

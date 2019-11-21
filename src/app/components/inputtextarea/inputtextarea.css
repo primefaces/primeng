@@ -1,0 +1,25 @@
+.ui-inputtextarea-resizable {
+    overflow:hidden;
+    resize:none;
+}
+
+.ui-fluid .ui-inputtextarea {
+    width:100%;
+}
+
+.ui-float-label > textarea ~ label {
+    left: .25em;
+    top: .75em;
+}
+
+/* breaks firefox so defined separately */
+.ui-float-label textarea:-webkit-autofill ~ label {
+    top:-.75em;
+    font-size:12px;
+}
+
+.ui-float-label textarea:focus ~ label,
+.ui-float-label textarea.ui-state-filled ~ label {
+    top: -.75em;
+    font-size: 12px;
+}

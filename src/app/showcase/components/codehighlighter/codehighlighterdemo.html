@@ -1,0 +1,149 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">CodeHighlighter</span>
+        <span>CodeHighlighter is an attribute directive to highlight code blocks using PrismJS</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">CSS</h3>
+<pre>
+<code class="language-css" pCode ngNonBindable>
+.ui-table table &#123;
+    border-collapse:collapse;
+    width: 100%;
+    table-layout: fixed;
+&#125;
+</code>
+</pre>
+    
+    <h3>HTML</h3>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div id="pm" style="width:300px"&gt;
+&lt;div&gt;
+&lt;div&gt;&lt;a data-icon="fa-file-o"&gt;File&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a data-icon="fa-plus"&gt;New&lt;/a&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a&gt;Project&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a&gt;Other&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;a&gt;Open&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a&gt;Quit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</code>
+</pre>
+    
+    <h3>Javascript</h3>
+<pre>
+<code class="language-javascript" pCode ngNonBindable>
+var map;
+    function initMap() &#123;
+        map = new google.maps.Map(document.getElementById('map'), &#123;
+        center: &#123;lat: -34.397, lng: 150.644&#125;,
+        zoom: 8
+    &#125;);
+&#125;
+</code>
+</pre>
+
+    <h3>Typescript</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Directive, ElementRef, OnInit&#125; from '@angular/core';
+
+declare var Prism: any;
+
+@Directive(&#123;
+    selector: '[pCode]'
+&#125;)
+export class CodeHighlighter implements OnInit &#123;
+
+    constructor(private el: ElementRef) &#123;&#125;
+
+    ngOnInit() &#123;
+        Prism.highlightElement(this.el.nativeElement);
+    &#125;
+&#125;
+</code>
+</pre>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+                <h3>PrismJS</h3>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install prismjs --save
+</code>
+</pre>
+
+                <p>Include the javascript and a theme css from Prism. Example for angular.json configuration of a CLI project would be as follows. Refer to the PrismJS <a href="https://prismjs.com/#basic-usage">documentation</a> for the list of available languages.</p>
+<pre>
+<code class="language-javascript" pCode ngNonBindable>
+"styles": [
+    "node_modules/prismjs/themes/prism.css",
+    //...
+],
+"scripts": [
+    "node_modules/prismjs/prism.js",
+    //...
+]
+</code>
+</pre>
+
+                    <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;CodeHighlighterModule&#125; from 'primeng/codehighlighter';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>CodeHighlighter is applied to a code element with [pCode] directive. The &lt;code&gt; should have
+            a style class having language- prefix to specify the language to highlight. See Prismjs docs for the list of available languages.
+            An example block with css code would be as follows.</p>
+            
+            <p> It is important to note that in order to use any of the the non-default languages ( markup, css, clike and javascript) you 
+                add an import statement for the specific language, for most in the app module.</p>
+            
+            <h3>Language Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+/* Import the language you need to highlight */
+import &#x27;prismjs/components/prism-sql.js&#x27;;
+</code>
+</pre> 
+            
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;pre&gt;
+&lt;code class="language-css" pCode&gt;
+.ui-table table &#123;
+    border-collapse:collapse;
+    width: 100%;
+    table-layout: fixed;
+&#125;
+&lt;/code&gt;
+&lt;/pre&gt;
+</code>
+</pre>                        
+            <h3>Dependencies</h3>
+            <p>Prismjs</p>
+        </p-tabPanel>
+        
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/codehighlighter" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+        </p-tabPanel>
+     </p-tabView>
+</div>

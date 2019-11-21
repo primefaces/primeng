@@ -1,0 +1,216 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Fieldset</span>
+        <span>Fieldset is a grouping component with the optional content toggle feature.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-fieldset legend="Godfather I">
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        kind and benevolent to those who give respect, 
+        but given to ruthless violence whenever anything stands against the good of the family.
+    </p-fieldset>
+    <br>
+    <p-fieldset legend="Toggleable" [toggleable]="true">
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        kind and benevolent to those who give respect, 
+        but given to ruthless violence whenever anything stands against the good of the family.
+    </p-fieldset>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;FieldsetModule&#125; from 'primeng/fieldset';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Fieldset is defined with p-fieldset element.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-fieldset legend="Header"&gt;
+    Content
+&lt;/p-fieldset&gt;
+</code>
+</pre>
+
+            <h3>Toggleable</h3>
+            <p>Content of the fieldset can be expanded and collapsed using toggleable option, default state is defined with collapsed option.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-fieldset legend="Header" [toggleable]="true"&gt;
+    Content
+&lt;/p-fieldset&gt;
+</code>
+</pre>
+
+            <h3>Custom Legend</h3>
+            <p>Legend content can be customized with p-header component.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-fieldset&gt;
+    &lt;p-header&gt;Custom Legend Content&lt;/p-header&gt;
+    Content
+&lt;/p-fieldset&gt;
+</code>
+</pre>
+
+            <h3>Animation Configuration</h3>
+            <p>Transition of toggle animation can be customized using the transitionOptions property with a default value as <b>400ms cubic-bezier(0.86, 0, 0.07, 1)</b>, 
+                example below disables the animation altogether.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-fieldset [transitionOptions]="'0ms'"&gt;
+&lt;/p-fieldset&gt;
+</code>
+</pre>
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>legend</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Header text of the fieldset.</td>
+                        </tr>
+                        <tr>
+                            <td>toggleable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified, content can toggled by clicking the legend.</td>
+                        </tr>
+                        <tr>
+                            <td>collapsed</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines the default visibility state of the content.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the fieldset.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the fieldset.</td>
+                        </tr>
+                        <tr>
+                            <td>transitionOptions</td>
+                            <td>string</td>
+                            <td>400ms cubic-bezier(0.86, 0, 0.07, 1)</td>
+                            <td>Transition options of the animation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onBeforeToggle</td>
+                            <td>event.originalEvent: browser event<br>
+                                event.collapsed: state as a boolean</td>
+                            <td>Callback to invoke before content toggle.</td>
+                        </tr>
+                        <tr>
+                            <td>onAfterToggle</td>
+                            <td>event.originalEvent: browser event<br>
+                                event.collapsed: state as a boolean</td>
+                            <td>Callback to invoke after content toggle.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-fieldset</td>
+                            <td>Fieldset element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-fieldset-toggleable</td>
+                            <td>Toggleable fieldset element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-fieldset-legend</td>
+                            <td>Legend element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-fieldset-content</td>
+                            <td>Content element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fieldset" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-fieldset legend="Godfather I"&gt;
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    kind and benevolent to those who give respect, 
+    but given to ruthless violence whenever anything stands against the good of the family.
+&lt;/p-fieldset&gt;
+
+&lt;p-fieldset legend="Toggleable" [toggleable]="true"&gt;
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    kind and benevolent to those who give respect, 
+    but given to ruthless violence whenever anything stands against the good of the family.
+&lt;/p-fieldset&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

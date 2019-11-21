@@ -1,0 +1,49 @@
+.ui-steps ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}     
+
+.ui-steps .ui-steps-item {
+    float: left;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.ui-steps.ui-steps-readonly .ui-steps-item {
+    cursor: auto;
+}
+
+.ui-steps .ui-steps-item .ui-menuitem-link {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    position: relative;
+    text-align: center;
+}
+
+.ui-steps .ui-steps-item.ui-state-highlight .ui-menuitem-link,
+.ui-steps .ui-steps-item.ui-state-disabled .ui-menuitem-link {
+    cursor: default;
+}
+
+.ui-steps .ui-steps-number {
+    font-size: 2em; 
+    display: block;
+}
+
+.ui-steps .ui-steps-title {
+    display: block;
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 40em) {    
+    .ui-steps .ui-steps-item .ui-menuitem-link {
+        padding: 0.5em;
+    }
+    
+    .ui-steps .ui-steps-item .ui-steps-title {
+        display: none;
+    }
+}

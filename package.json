@@ -1,6 +1,6 @@
 {
   "name": "primeng",
-  "version": "9.0.0-rc.1-SNAPSHOT",
+  "version": "9.0.0-rc.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-lib": "ng build primeng-library && gulp build-assets"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.0-rc.2",
+    "@angular-devkit/build-ng-packagr": "^0.803.19",
     "@angular/animations": "~9.0.0-rc.2",
     "@angular/cdk": "~8.0.0",
     "@angular/cli": "~9.0.0-rc.2",
@@ -56,6 +58,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "ng-packagr": "^5.7.1",
     "primeflex": "1.0.0",
     "primeicons": "2.0.0",
     "prismjs": "1.15.0",
