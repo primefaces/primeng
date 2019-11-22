@@ -172,7 +172,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @ViewChild('multiContainer', { static: false }) multiContainerEL: ElementRef;
 
-    @ViewChild('ddBtn', { static: true }) dropdownButton: ElementRef;
+    @ViewChild('ddBtn', { static: false }) dropdownButton: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
