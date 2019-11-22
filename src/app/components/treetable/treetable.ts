@@ -1617,7 +1617,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     @ViewChild('scrollTable', { static: true }) scrollTableViewChild: ElementRef;
 
-    @ViewChild('loadingTable', { static: true }) scrollLoadingTableViewChild: ElementRef;
+    @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
 
     @ViewChild('scrollFooter', { static: true }) scrollFooterViewChild: ElementRef;
 
