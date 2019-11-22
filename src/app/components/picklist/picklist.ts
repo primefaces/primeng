@@ -165,9 +165,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     @ViewChild('targetlist', { static: true }) listViewTargetChild: ElementRef;
 
-    @ViewChild('sourceFilter', { static: true }) sourceFilterViewChild: ElementRef;
+    @ViewChild('sourceFilter', { static: false }) sourceFilterViewChild: ElementRef;
 
-    @ViewChild('targetFilter', { static: true }) targetFilterViewChild: ElementRef;
+    @ViewChild('targetFilter', { static: false }) targetFilterViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
