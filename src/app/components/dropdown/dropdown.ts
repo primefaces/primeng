@@ -244,13 +244,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @ViewChild('container', { static: true }) containerViewChild: ElementRef;
     
-    @ViewChild('filter', { static: true }) filterViewChild: ElementRef;
+    @ViewChild('filter', { static: false }) filterViewChild: ElementRef;
     
     @ViewChild('in', { static: true }) focusViewChild: ElementRef;
 
-    @ViewChild(CdkVirtualScrollViewport, {static: true }) viewPort: CdkVirtualScrollViewport;
+    @ViewChild(CdkVirtualScrollViewport, {static: false }) viewPort: CdkVirtualScrollViewport;
 
-    @ViewChild('editableInput', { static: true }) editableInputViewChild: ElementRef;
+    @ViewChild('editableInput', { static: false }) editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
