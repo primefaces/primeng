@@ -1,6 +1,6 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Column, PrimeTemplate, SharedModule } from 'primeng/common';
+import { PrimeTemplate, SharedModule } from 'primeng/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
@@ -498,7 +498,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this._filter();
         }
 
-        if(this.virtualScroll && this.virtualScrollCallback) {
+        if (this.virtualScroll && this.virtualScrollCallback) {
             this.virtualScrollCallback();
         }
 
@@ -512,7 +512,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._columns = cols;
         this.tableService.onColumnsChange(cols);
 
-        if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
+        if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored) {
             this.restoreColumnOrder();
         }
     }
@@ -2084,7 +2084,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 })
 export class TableBody {
 
-    @Input("pTableBody") columns: Column[];
+    @Input("pTableBody") columns: any[];
 
     @Input("pTableBodyTemplate") template: TemplateRef<any>;
  
@@ -2139,7 +2139,7 @@ export class TableBody {
 })
 export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked {
 
-    @Input("pScrollableView") columns: Column[];
+    @Input("pScrollableView") columns: any[];
 
     @Input() frozen: boolean;
 
