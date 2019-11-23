@@ -3,7 +3,7 @@ import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
 import {NodeService} from '../../service/nodeservice';
 import {CountryService} from '../../service/countryservice';
-import {SelectItem,MenuItem,TreeNode} from '../../../components/common/api';
+import {SelectItem,MenuItem,TreeNode} from 'primeng/api';
 
 @Component({
     templateUrl: './responsivedemo.html',

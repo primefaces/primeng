@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './fileuploaddemo.html',

@@ -1,7 +1,7 @@
 import {Component,OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
-import {SelectItem} from '../../../components/common/api';
+import {SelectItem} from 'primeng/api';
 
 @Component({
     templateUrl: './dataviewdemo.html',

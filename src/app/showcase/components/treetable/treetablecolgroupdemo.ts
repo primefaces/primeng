@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from '../../../components/common/api';
+import { TreeNode } from 'primeng/api';
 
 @Component({
     templateUrl: './treetablecolgroupdemo.html'

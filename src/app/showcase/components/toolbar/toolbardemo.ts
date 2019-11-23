@@ -1,5 +1,5 @@
 import {Component,OnInit} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
+import {MenuItem} from 'primeng/api';
 
 @Component({
     templateUrl: './toolbardemo.html',

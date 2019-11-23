@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {DialogService} from '../../../components/dynamicdialog/dialogservice';
-import {MessageService} from '../../../components/common/messageservice';
+import {MessageService} from 'primeng/api';
 import {CarsListDemo} from './carslistdemo';
 import {Car} from '../../components/domain/car';
 

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {ConfirmationService} from '../../../components/common/api';
-import {Message} from '../../../components/common/api';
+import {ConfirmationService} from 'primeng/api';
+import {Message} from 'primeng/api';
 
 @Component({
     templateUrl: './confirmdialogdemo.html',
