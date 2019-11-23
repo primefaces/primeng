@@ -1,6 +1,3 @@
-export { TreeNode } from './treenode';
-export { TreeDragDropService } from './treedragdropservice';
-export { TreeNodeDragEvent } from './treenodedragevent';
 export { BlockableUI } from './blockableui';
 export { Confirmation } from './confirmation';
 export { ConfirmationService } from './confirmationservice';
@@ -11,5 +8,8 @@ export { Message } from './message';
 export { MessageService } from './messageservice';
 export { SelectItem } from './selectitem';
 export { SelectItemGroup } from './selectitemgroup';
-export { SortMeta } from './sortmeta';
 export { SortEvent } from './sortevent';
+export { SortMeta } from './sortmeta';
+export { TreeDragDropService } from './treedragdropservice';
+export { TreeNode } from './treenode';
+export { TreeNodeDragEvent } from './treenodedragevent';
