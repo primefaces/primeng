@@ -1,11 +1,11 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SplitButtonDemo} from './splitbuttondemo';
 import {SplitButtonDemoRoutingModule} from './splitbuttondemo-routing.module';
-import {SplitButtonModule} from '../../../components/splitbutton/splitbutton';
-import {ToastModule} from '../../../components/toast/toast';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {ToastModule} from 'primeng/toast';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

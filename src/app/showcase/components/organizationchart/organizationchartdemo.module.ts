@@ -1,12 +1,12 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {OrganizationChartDemo} from './organizationchartdemo';
 import {OrganizationChartDemoRoutingModule} from './organizationchartdemo-routing.module';
-import {OrganizationChartModule} from '../../../components/organizationchart/organizationchart';
-import {ToastModule} from '../../../components/toast/toast';
-import {PanelModule} from '../../../components/panel/panel';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {OrganizationChartModule} from 'primeng/organizationchart';
+import {ToastModule} from 'primeng/toast';
+import {PanelModule} from 'primeng/panel';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

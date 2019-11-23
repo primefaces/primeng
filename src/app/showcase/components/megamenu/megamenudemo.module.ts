@@ -1,10 +1,10 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MegaMenuDemo} from './megamenudemo';
 import {MegaMenuDemoRoutingModule} from './megamenudemo-routing.module';
-import {MegaMenuModule} from '../../../components/megamenu/megamenu';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {MegaMenuModule} from 'primeng/megamenu';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 
 @NgModule({

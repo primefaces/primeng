@@ -1,10 +1,10 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LightboxDemo} from './lightboxdemo';
 import {LightboxDemoRoutingModule} from './lightboxdemo-routing.module';
-import {LightboxModule} from '../../../components/lightbox/lightbox';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {LightboxModule} from 'primeng/lightbox';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

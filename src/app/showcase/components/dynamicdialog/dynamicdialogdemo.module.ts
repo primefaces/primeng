@@ -1,14 +1,14 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DynamicDialogModule} from '../../../components/dynamicdialog/dynamicdialog';
 import {DynamicDialogDemo} from './dynamicdialogdemo';
 import {DynamicDialogDemoRoutingModule} from './dynamicdialogdemo-routing.module';
 import {CarsListDemo} from './carslistdemo';
-import {ToastModule} from '../../../components/toast/toast';
-import {TableModule} from '../../../components/table/table';
-import {ButtonModule} from '../../../components/button/button';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {ToastModule} from 'primeng/toast';
+import {TableModule} from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

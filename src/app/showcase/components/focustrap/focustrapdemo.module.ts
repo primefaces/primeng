@@ -1,20 +1,20 @@
-import {NgModule}     from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule}    from '@angular/forms';
-import {DialogModule} from '../../../components/dialog/dialog';
-import {InputTextModule} from '../../../components/inputtext/inputtext';
-import {ButtonModule} from '../../../components/button/button';
-import {AccordionModule} from '../../../components/accordion/accordion';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
+import { TabViewModule } from 'primeng/tabview';
+import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { FocusTrapDemoRoutingModule } from './focustrapdemo-routing.module';
 import { FocusTrapDemo } from './focustrapdemo';
-import { AutoCompleteModule } from 'src/app/components/autocomplete/autocomplete';
-import { CalendarModule } from 'src/app/components/calendar/calendar';
-import { MultiSelectModule } from 'src/app/components/multiselect/multiselect';
-import { DropdownModule } from 'src/app/components/dropdown/dropdown';
-import { EditorModule } from 'src/app/components/editor/editor';
-import { FocusTrapModule } from 'src/app/components/focustrap/focustrap';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
+import { EditorModule } from 'primeng/editor';
+import { FocusTrapModule } from 'primeng/focustrap';
 
 @NgModule({
 	imports: [

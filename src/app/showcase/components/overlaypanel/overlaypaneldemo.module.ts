@@ -1,12 +1,12 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {OverlayPanelDemo} from './overlaypaneldemo';
 import {OverlayPanelDemoRoutingModule} from './overlaypaneldemo-routing.module';
-import {OverlayPanelModule} from '../../../components/overlaypanel/overlaypanel';
-import {ButtonModule} from '../../../components/button/button';
-import {TableModule} from '../../../components/table/table';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

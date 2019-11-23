@@ -1,14 +1,14 @@
-import {NgModule}     from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule }     from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {ButtonModule} from '../../../components/button/button';;
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import { ButtonModule } from 'primeng/button';;
+import { TabViewModule } from 'primeng/tabview';
+import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { FilterUtilsDemo } from './filterutilsdemo';
 import { FilterUtilsDemoRoutingModule } from './filterutils-routing.module';
-import { AutoCompleteModule } from '../../../components/autocomplete/autocomplete';
-import { TableModule } from '../../../components/table/table';
-import { InputTextModule } from 'src/app/components/inputtext/inputtext';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
 	imports: [

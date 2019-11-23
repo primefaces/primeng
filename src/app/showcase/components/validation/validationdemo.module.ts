@@ -1,17 +1,17 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule,ReactiveFormsModule}    from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {ValidationDemo} from './validationdemo';
 import {ValidationDemoRoutingModule} from './validationdemo-routing.module';
-import {ToastModule} from '../../../components/toast/toast';
-import {MessageModule} from '../../../components/message/message';
-import {PanelModule} from '../../../components/panel/panel';
-import {DropdownModule} from '../../../components/dropdown/dropdown';
-import {InputTextModule} from '../../../components/inputtext/inputtext';
-import {InputTextareaModule} from '../../../components/inputtextarea/inputtextarea';
-import {ButtonModule} from '../../../components/button/button';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {ToastModule} from 'primeng/toast';
+import {MessageModule} from 'primeng/message';
+import {PanelModule} from 'primeng/panel';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputTextModule} from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {ButtonModule} from 'primeng/button';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

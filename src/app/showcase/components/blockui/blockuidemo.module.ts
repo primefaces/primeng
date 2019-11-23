@@ -1,12 +1,12 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BlockUIDemo} from './blockuidemo';
 import {BlockUIDemoRoutingModule} from './blockuidemo-routing.module';
-import {BlockUIModule} from '../../../components/blockui/blockui';
-import {ButtonModule} from '../../../components/button/button';
-import {PanelModule} from '../../../components/panel/panel';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {BlockUIModule} from 'primeng/blockui;
+import {ButtonModule} from 'primeng/button';
+import {PanelModule} from 'primeng/panel';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

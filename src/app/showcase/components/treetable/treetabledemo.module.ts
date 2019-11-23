@@ -3,13 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import { TreeTableDemo } from './treetabledemo';
 import { TreeTableDemoRoutingModule } from './treetabledemo-routing.module';
-import { TreeTableModule } from '../../../components/treetable/treetable';
-import { ToastModule } from '../../../components/toast/toast';
-import { TabViewModule } from '../../../components/tabview/tabview';
-import { MultiSelectModule } from '../../../components/multiselect/multiselect';
-import { InputTextModule } from '../../../components/inputtext/inputtext';
-import { ContextMenuModule } from '../../../components/contextmenu/contextmenu';
-import { CodeHighlighterModule } from '../../../components/codehighlighter/codehighlighter';
+import { TreeTableModule } from 'primeng/treetable';
 import { TreeTableSubmenu } from './treetablesubmenu';
 import { TreeTablePageDemo } from './treetablepagedemo';
 import { TreeTableSortDemo } from './treetablesortdemo';
@@ -26,6 +20,12 @@ import { TreeTableColResizeDemo } from './treetablecolresizedemo';
 import { TreeTableReorderDemo } from './treetablereorderdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
+import { ToastModule } from 'primeng/toast';
+import { TabViewModule } from 'primeng/tabview';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputTextModule } from 'primeng/inputtext';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { CodeHighlighterModule } from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [
