@@ -254,16 +254,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    private _autoWidth: boolean;
-
-    @Input() get autoWidth(): boolean {
-        return this._autoWidth;
-    }
-    set autoWidth(_autoWidth: boolean) {
-        this._autoWidth = _autoWidth;
-        console.log("Setting autoWidth has no effect as automatic width calculation is removed for better perfomance.");
-    }
-
     private _disabled: boolean;
 
     @Input() get disabled(): boolean {

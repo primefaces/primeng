@@ -115,10 +115,6 @@ export class ConfirmDialog implements OnDestroy {
     subscription: Subscription;
 
     preWidth: number;
-
-    _width: any;
-
-    _height: any;
                 
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
@@ -151,29 +147,10 @@ export class ConfirmDialog implements OnDestroy {
         });         
     }
 
-    @Input() get width(): any {
-        return this._width;
-    }
-
-    set width(val:any) {
-        this._width = val;
-        console.warn("width property is deprecated, use style to define the width of the Dialog.");
-    }
-
-    @Input() get height(): any {
-        return this._height;
-    }
-
-    set height(val:any) {
-        this._height = val;
-        console.warn("height property is deprecated, use style to define the height of the Dialog.");
-    }
-
     onAnimationStart(event: AnimationEvent) {
         switch(event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.setDimensions();
                 this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
                 
                 if (this.acceptVisible || this.rejectVisible) {
@@ -189,16 +166,6 @@ export class ConfirmDialog implements OnDestroy {
             case 'void':
                 this.onOverlayHide();
             break;
-        }
-    }
-
-    setDimensions() {
-        if (this.width) {
-            this.container.style.width = this.width + 'px';
-        }
-
-        if (this.height) {
-            this.container.style.height = this.height + 'px';
         }
     }
 

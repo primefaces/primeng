@@ -172,55 +172,11 @@ export class Dialog implements OnDestroy {
     preMaximizePageX: number;
 
     preMaximizePageY: number;
-
-    _width: any;
-
-    _height: any;
-
-    _minWidth: any;
-
-    _minHeight: any;
     
     id: string = `ui-dialog-${idx++}`;
     
     constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
     
-    @Input() get width(): any {
-        return this._width;
-    }
-
-    set width(val:any) {
-        this._width = val;
-        console.warn("width property is deprecated, use style to define the width of the Dialog.");
-    }
-
-    @Input() get height(): any {
-        return this._height;
-    }
-
-    set height(val:any) {
-        this._height = val;
-        console.warn("height property is deprecated, use style to define the height of the Dialog.");
-    }
-
-    @Input() get minWidth(): any {
-        return this._minWidth;
-    }
-
-    set minWidth(val:any) {
-        this._minWidth = val;
-        console.warn("minWidth property is deprecated, use style to define the minWidth of the Dialog.");
-    }
-
-    @Input() get minHeight(): any {
-        return this._minHeight;
-    }
-
-    set minHeight(val:any) {
-        this._minHeight = val;
-        console.warn("minHeight property is deprecated, use style to define the minHeight of the Dialog.");
-    }
-
     focus() {
         let focusable = DomHandler.findSingle(this.container, 'button');
         if(focusable) {
@@ -238,9 +194,6 @@ export class Dialog implements OnDestroy {
         } 
         else {
             this.contentViewChild.nativeElement.style.height = null;
-            if (this.height) {
-                this.container.style.height = this.height + 'px';
-            }
         }
         
         if (this.positionLeft >= 0 && this.positionTop >= 0) {
@@ -251,7 +204,7 @@ export class Dialog implements OnDestroy {
             this.center();
             this.container.style.top = this.positionTop + 'px';
         }
-        else{
+        else {
             this.center();
         }
     }
@@ -665,24 +618,6 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    setDimensions() {
-        if (this.width) {
-            this.container.style.width = this.width + 'px';
-        }
-
-        if (this.height) {
-            this.container.style.height = this.height + 'px';
-        }
-
-        if (this.minWidth) {
-            this.container.style.minWidth = this.minWidth + 'px';
-        }
-
-        if (this.minHeight) {
-            this.container.style.minHeight = this.minHeight + 'px';
-        }
-    }
-
     appendContainer() {
         if(this.appendTo) {
             if(this.appendTo === 'body')
@@ -702,7 +637,6 @@ export class Dialog implements OnDestroy {
         switch(event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.setDimensions();
                 this.onShow.emit({});
                 this.appendContainer();
                 this.moveOnTop();
