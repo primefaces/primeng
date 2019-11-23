@@ -1,5 +1,4 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DynamicDialogModule } from './dynamicdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NgModule } from '@angular/core';

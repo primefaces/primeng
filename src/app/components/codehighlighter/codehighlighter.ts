@@ -1,4 +1,4 @@
-import { NgModule, Directive, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { NgModule, Directive, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Directive({

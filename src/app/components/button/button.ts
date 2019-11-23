@@ -1,4 +1,4 @@
-import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
+import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
 

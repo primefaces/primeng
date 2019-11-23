@@ -1,5 +1,5 @@
-import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,EmbeddedViewRef,ViewContainerRef,
-    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,Host} from '@angular/core';
+import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,
+    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef} from '@angular/core';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from 'primeng/common';

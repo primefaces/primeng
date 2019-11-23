@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from 'primeng/common';
 import {InputTextModule} from 'primeng/inputtext';

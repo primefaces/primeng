@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -25,7 +25,7 @@ export const RATING_VALUE_ACCESSOR: any = {
     `,
     providers: [RATING_VALUE_ACCESSOR]
 })
-export class Rating implements ControlValueAccessor {
+export class Rating implements OnInit,ControlValueAccessor {
 
     @Input() disabled: boolean;
 

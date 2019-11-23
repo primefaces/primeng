@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,AfterContentInit,EventEmitter,TemplateRef,EmbeddedViewRef,ViewContainerRef,
+import {NgModule,Component,ElementRef,Input,Output,AfterContentInit,EventEmitter,TemplateRef,
         Inject,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';

@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild } from '@angular/core';
+import { NgModule, Component, Input, ElementRef, ContentChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header, Footer } from 'primeng/common';
 import { BlockableUI } from 'primeng/common';

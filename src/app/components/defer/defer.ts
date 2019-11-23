@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,Input,TemplateRef,EmbeddedViewRef,
+import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,TemplateRef,EmbeddedViewRef,
         ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
