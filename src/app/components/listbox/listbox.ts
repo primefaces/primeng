@@ -1,7 +1,7 @@
 import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SelectItem } from 'primeng/common';
-import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/common';
+import { SelectItem } from 'primeng/api';
+import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';

@@ -3,8 +3,8 @@ import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,Afte
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {SelectItem} from 'primeng/common';
-import {SharedModule,PrimeTemplate} from 'primeng/common';
+import {SelectItem} from 'primeng/api';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';

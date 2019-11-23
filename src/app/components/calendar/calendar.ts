@@ -4,7 +4,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {DomHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate} from 'primeng/common';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {

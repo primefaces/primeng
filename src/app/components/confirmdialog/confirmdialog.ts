@@ -2,10 +2,10 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,Con
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule} from 'primeng/common';
+import {Footer,SharedModule} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
-import {Confirmation} from 'primeng/common';
-import {ConfirmationService} from 'primeng/common';
+import {Confirmation} from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
 import {Subscription}   from 'rxjs';
 
 @Component({

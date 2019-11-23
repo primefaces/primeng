@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,AfterViewChecked,AfterContentInit,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
-import {SharedModule,PrimeTemplate} from 'primeng/common';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
 import { FilterUtils } from 'primeng/utils';

@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,PrimeTemplate} from 'primeng/common';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 

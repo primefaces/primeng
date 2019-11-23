@@ -5,8 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/common';
-import { Message } from 'primeng/common';
+import { MessageService } from 'primeng/api';
+import { Message } from 'primeng/api';
 
 @Component({
     template: `

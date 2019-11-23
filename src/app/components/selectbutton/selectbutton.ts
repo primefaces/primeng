@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ContentChild,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SelectItem} from 'primeng/common';
+import {SelectItem} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 

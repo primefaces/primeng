@@ -2,7 +2,7 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Render
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule} from 'primeng/common';
+import {Header,Footer,SharedModule} from 'primeng/api';
 
 let idx: number = 0;
 

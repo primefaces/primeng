@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import {SharedModule,PrimeTemplate} from 'primeng/common';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';

@@ -2,12 +2,12 @@ import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,
     ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef} from '@angular/core';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TreeNode} from 'primeng/common';
-import {SharedModule} from 'primeng/common';
-import {PrimeTemplate} from 'primeng/common';
-import {TreeDragDropService} from 'primeng/common';
+import {TreeNode} from 'primeng/api';
+import {SharedModule} from 'primeng/api';
+import {PrimeTemplate} from 'primeng/api';
+import {TreeDragDropService} from 'primeng/api';
 import {Subscription} from 'rxjs';
-import {BlockableUI} from 'primeng/common';
+import {BlockableUI} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
 import {DomHandler} from 'primeng/dom';
 

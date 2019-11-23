@@ -1,7 +1,7 @@
 import { NgModule, Component, Input, ElementRef, ContentChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, Footer } from 'primeng/common';
-import { BlockableUI } from 'primeng/common';
+import { SharedModule, Header, Footer } from 'primeng/api';
+import { BlockableUI } from 'primeng/api';
 
 @Component({
     selector: 'p-card',

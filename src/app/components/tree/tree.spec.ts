@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContextMenu, ContextMenuSub } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { TreeDragDropService } from 'primeng/common';
+import { TreeDragDropService } from 'primeng/api';
 
 @Component({
 	template: `

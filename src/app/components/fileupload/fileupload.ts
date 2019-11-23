@@ -6,9 +6,9 @@ import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {DomHandler} from 'primeng/dom';
-import {Message} from 'primeng/common';
-import {PrimeTemplate,SharedModule} from 'primeng/common';
-import {BlockableUI} from 'primeng/common';
+import {Message} from 'primeng/api';
+import {PrimeTemplate,SharedModule} from 'primeng/api';
+import {BlockableUI} from 'primeng/api';
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 
 @Component({

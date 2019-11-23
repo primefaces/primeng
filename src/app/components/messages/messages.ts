@@ -1,8 +1,8 @@
 import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Message} from 'primeng/common';
-import {MessageService} from 'primeng/common';
+import {Message} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 
 @Component({

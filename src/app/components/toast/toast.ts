@@ -1,9 +1,9 @@
 import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Message} from 'primeng/common';
+import {Message} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate,SharedModule} from 'primeng/common';
-import {MessageService} from 'primeng/common';
+import {PrimeTemplate,SharedModule} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
 

@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild } from '@angular/core';
-import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/common';
+import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
 

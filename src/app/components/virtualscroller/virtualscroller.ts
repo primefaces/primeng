@@ -1,8 +1,8 @@
 import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/common';
+import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {BlockableUI} from 'primeng/common';
+import {BlockableUI} from 'primeng/api';
 
 @Component({
     selector: 'p-virtualScroller',

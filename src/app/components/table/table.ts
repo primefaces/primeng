@@ -1,14 +1,14 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeTemplate, SharedModule } from 'primeng/common';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
-import { SortMeta } from 'primeng/common';
-import { TableState } from 'primeng/common';
-import { FilterMetadata } from 'primeng/common';
+import { SortMeta } from 'primeng/api';
+import { TableState } from 'primeng/api';
+import { FilterMetadata } from 'primeng/api';
 import { Injectable } from '@angular/core';
-import { BlockableUI } from 'primeng/common';
+import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { FilterUtils } from 'primeng/utils';
 
