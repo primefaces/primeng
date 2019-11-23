@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from 'primeng/inputtext';
@@ -70,7 +70,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,ControlValueAccessor {
+export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy,ControlValueAccessor {
 
     @Input() minLength: number = 1;
 
@@ -156,8 +156,6 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() emptyMessage: string;
 
-    @Input() immutable: boolean = true;
-
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
@@ -232,20 +230,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-        
-        if (this.immutable) {
-            this.handleSuggestionsChange();
-        }
-    }
-
-    ngDoCheck() {
-        if (!this.immutable) {
-            let changes = this.differ.diff(this.suggestions);
-
-            if (changes) {
-                this.handleSuggestionsChange();
-            }
-        }
+        this.handleSuggestionsChange();
     }
 
     ngAfterViewChecked() {
