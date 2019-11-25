@@ -16,7 +16,7 @@
                     </div>
                     <div class="ui-g-6 ui-md-4 filter-container">
                         <div style="position:relative">
-                            <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
+                            <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
                         </div>
                     </div>
                     <div class="ui-g-6 ui-md-4" style="text-align:right">
@@ -351,7 +351,7 @@ export class DataViewSortDemo implements OnInit &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView #dv [value]="cars" filterBy="brand"&gt;
     &lt;p-header&gt;
-        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value, "contains")"&gt;
+        &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value, "contains")"&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &#123;&#123;car.id&#125;&#125;
@@ -627,7 +627,7 @@ export class DataViewSortDemo implements OnInit &#123;
                 &lt;/div&gt;
                 &lt;div class="ui-g-6 ui-md-4 filter-container"&gt;
                     &lt;div style="position:relative"&gt;
-                        &lt;input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"&gt;
+                        &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)"&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-g-6 ui-md-4" style="text-align:right"&gt;
