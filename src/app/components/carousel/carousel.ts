@@ -12,7 +12,7 @@ import { UniqueComponentId } from 'primeng/utils';
 			</div>
 			<div [class]="contentClasses()">
 				<div class="ui-carousel-container">
-					<button [ngClass]="{'ui-carousel-prev ui-button ui-widget ui-state-default ui-corner-all':true, 'ui-state-disabled': _page === 0  && !circular}" [disabled]="_page === 0  && !circular" (click)="navBackward($event)">
+					<button [ngClass]="{'ui-carousel-prev ui-button ui-widget ui-state-default ui-corner-all':true, 'ui-state-disabled': isBackwardNavDisabled()}" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)">
 						<span [ngClass]="{'ui-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
 					</button>
 					<div class="ui-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
@@ -34,7 +34,7 @@ import { UniqueComponentId } from 'primeng/utils';
 							</div>
 						</div>
 					</div>
-					<button [ngClass]="{'ui-carousel-next ui-button ui-widget ui-state-default ui-corner-all': true, 'ui-state-disabled': (_page === totalDots()-1 && !circular)}" [disabled]="_page === totalDots()-1 && !circular" (click)="navForward($event)">
+					<button [ngClass]="{'ui-carousel-next ui-button ui-widget ui-state-default ui-corner-all': true, 'ui-state-disabled': isForwardNavDisabled()}" [disabled]="isForwardNavDisabled()" (click)="navForward($event)">
 						<span [ngClass]="{'ui-carousel-next-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
 					</button>
 				</div>
@@ -395,11 +395,13 @@ export class Carousel implements AfterContentInit {
 		return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
 	}
 	totalDotsArray() {
-		return Array(this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0).fill(0);;
+		let totalDots = this.totalDots();
+		return totalDots === 0 ? [] : Array(totalDots).fill(0);
 	}
 
 	containerClass() {
-		return {'ui-carousel ui-widget':true, 
+		return {
+			'ui-carousel ui-widget':true, 
 			'ui-carousel-vertical': this.isVertical(),
 			'ui-carousel-horizontal': !this.isVertical()
 		};
@@ -423,6 +425,18 @@ export class Carousel implements AfterContentInit {
 
 	isAutoplay() {
 		return this.autoplayInterval && this.allowAutoplay;
+	}
+
+	isForwardNavDisabled() {
+		return this.isEmpty() || (this._page === this.totalDots() - 1 && !this.circular);
+	}
+
+	isBackwardNavDisabled() {
+		return this.isEmpty() || (this._page === 0  && !this.circular);
+	}
+
+	isEmpty() {
+		return !this.value || this.value.length === 0;
 	}
 
 	navForward(e,index?) {
