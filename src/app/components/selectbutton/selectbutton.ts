@@ -69,13 +69,12 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     }
 
     set options(val: any[]) {
-        
+        //NoOp
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.options) {
-            let opts = this.optionLabel ? ObjectUtils.generateSelectItems(simpleChange.options.currentValue, this.optionLabel) : simpleChange.options.currentValue;
-            this._options = opts;
+            this._options = this.optionLabel ? ObjectUtils.generateSelectItems(simpleChange.options.currentValue, this.optionLabel) : simpleChange.options.currentValue;
         }
     }
     

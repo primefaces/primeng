@@ -381,7 +381,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
-        if(simpleChange.value) {
+        if (simpleChange.value) {
             this._value = simpleChange.value.currentValue;
 
             if (!this.lazy) {
@@ -395,7 +395,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this._filter();
             }
 
-            if(this.virtualScroll && this.virtualScrollCallback) {
+            if (this.virtualScroll && this.virtualScrollCallback) {
                 this.virtualScrollCallback();
             }
 
@@ -403,7 +403,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             this.tableService.onUIUpdate(this.value);
         }
 
-        if(simpleChange.sortField) {
+        if (simpleChange.sortField) {
             this._sortField = simpleChange.sortField.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
@@ -414,7 +414,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             }
         }
 
-        if(simpleChange.sortOrder) {
+        if (simpleChange.sortOrder) {
             this._sortOrder = simpleChange.sortOrder.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
@@ -425,14 +425,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             }
         }
 
-        if(simpleChange.multiSortMeta) {
+        if (simpleChange.multiSortMeta) {
             this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
             if (this.sortMode === 'multiple') {
                 this.sortMultiple();
             }
         }
 
-        if(simpleChange.selection) {
+        if (simpleChange.selection) {
             this._selection = simpleChange.selection.currentValue;
 
             if(!this.preventSelectionSetterPropagation) {

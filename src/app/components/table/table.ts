@@ -478,7 +478,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
-        if(simpleChange.value) {
+        if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored) {
                 this.restoreState();
             }
@@ -503,7 +503,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.tableService.onValueChange(simpleChange.value.currentValue);
         }
 
-        if(simpleChange.columns) {
+        if (simpleChange.columns) {
             this._columns = simpleChange.columns.currentValue;
             this.tableService.onColumnsChange(simpleChange.columns.currentValue);
 
@@ -512,7 +512,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if(simpleChange.sortField) {
+        if (simpleChange.sortField) {
             this._sortField = simpleChange.sortField.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
@@ -523,7 +523,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if(simpleChange.sortOrder) {
+        if (simpleChange.sortOrder) {
             this._sortOrder = simpleChange.sortOrder.currentValue;
 
             //avoid triggering lazy load prior to lazy initialization at onInit
@@ -534,14 +534,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if(simpleChange.multiSortMeta) {
+        if (simpleChange.multiSortMeta) {
             this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
             if (this.sortMode === 'multiple') {
                 this.sortMultiple();
             }
         }
 
-        if(simpleChange.selection) {
+        if (simpleChange.selection) {
             this._selection = simpleChange.selection.currentValue;
 
             if(!this.preventSelectionSetterPropagation) {
@@ -660,7 +660,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     sort(event) {
         let originalEvent = event.originalEvent;
 
-        if(this.sortMode === 'single') {
+        if (this.sortMode === 'single') {
             this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this._sortField = event.field;
             this.sortSingle();

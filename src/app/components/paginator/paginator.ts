@@ -87,25 +87,25 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
-        if(simpleChange.totalRecords) {
+        if (simpleChange.totalRecords) {
             this.updatePageLinks();
             this.updatePaginatorState();
             this.updateFirst();
             this.updateRowsPerPageOptions();
         }
 
-        if(simpleChange.first) {
+        if (simpleChange.first) {
             this._first = simpleChange.first.currentValue;
             this.updatePageLinks();
             this.updatePaginatorState();
         }
 
-        if(simpleChange.rows) {
+        if (simpleChange.rows) {
             this.updatePageLinks();
             this.updatePaginatorState();
         }
 
-        if(simpleChange.rowsPerPageOptions) {
+        if (simpleChange.rowsPerPageOptions) {
             this.updateRowsPerPageOptions();
         }
     }

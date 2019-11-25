@@ -129,26 +129,19 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
-        if(simpleChanges.sortField) {
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                this.sort();
-            }
-        }
-
-        if(simpleChanges.sortOrder) {
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                this.sort();
-            }
-        }
-
-        if(simpleChanges.value) {
+        if (simpleChanges.value) {
             this._value = simpleChanges.value.currentValue;
             this.updateTotalRecords();
             
             if (!this.lazy && this.hasFilter()) {
                 this.filter(this.filterValue);
+            }
+        }
+
+        if (simpleChanges.sortField || simpleChanges.sortOrder) {
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if (!this.lazy || this.initialized) {
+                this.sort();
             }
         }
     }
