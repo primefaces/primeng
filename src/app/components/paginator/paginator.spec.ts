@@ -5,8 +5,9 @@ import { Paginator, PaginatorModule } from './paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { SimpleChange } from '@angular/core';
 
-describe('Paginator', () => {
+fdescribe('Paginator', () => {
     
     let paginator: Paginator;
     let fixture: ComponentFixture<Paginator>;
@@ -34,13 +35,13 @@ describe('Paginator', () => {
     });
 
     it('should change style and styleClass', () => {
-      paginator.style = {'primeng':'rocks!'};
+      paginator.style = {'height':'250px'};
       paginator.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
       
       const paginatorEl = fixture.debugElement.query(By.css('.ui-paginator'));
       expect(paginatorEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(paginatorEl.nativeElement.style.primeng).toEqual("rocks!");
+      expect(paginatorEl.nativeElement.style.height).toEqual("250px");
     });
 
     it('should use alwaysShow false', () => {
@@ -54,6 +55,10 @@ describe('Paginator', () => {
     it('should not show dropdown', () => {
       paginator.rows = 10;
       paginator.totalRecords = 120;
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+      });
       fixture.detectChanges();
       
       const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
@@ -62,9 +67,14 @@ describe('Paginator', () => {
 
     it('should use dropdownAppendTo', () => {
       paginator.dropdownAppendTo = 'body';
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      })
       fixture.detectChanges();
       
       const dropdownEl = fixture.debugElement.query(By.css('p-dropdown'));
@@ -72,9 +82,14 @@ describe('Paginator', () => {
     });
 
     it('should have a 5 page link, 4 paginator element and 1 dropdown with 3 option', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      });
       const updatePaginatorStateSpy = spyOn(paginator, 'updatePaginatorState').and.callThrough();
       fixture.detectChanges();
 
@@ -90,9 +105,14 @@ describe('Paginator', () => {
     });
     
     it('should called onPageLinkClick and go to clicked page', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      })
       const onPageLinkClickSpy = spyOn(paginator, 'onPageLinkClick').and.callThrough();
       fixture.detectChanges();
       
@@ -115,9 +135,14 @@ describe('Paginator', () => {
     });
 
     it('should called changePageToNext and go to next page', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      });
       const changePageToNextSpy = spyOn(paginator, 'changePageToNext').and.callThrough();
       fixture.detectChanges();
       
@@ -141,9 +166,14 @@ describe('Paginator', () => {
     });
 
     it('should called changePageToPrev and go to prev page', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      });
       const changePageToPrevSpy = spyOn(paginator, 'changePageToPrev').and.callThrough();
       fixture.detectChanges();
       
@@ -171,9 +201,14 @@ describe('Paginator', () => {
     });
 
     it('should called changePageToLast and go to last page', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      });
       const changePageToLastSpy = spyOn(paginator, 'changePageToLast').and.callThrough();
       fixture.detectChanges();
       
@@ -195,9 +230,14 @@ describe('Paginator', () => {
     });
 
     it('should called changePageToFirst and go to first page', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      });
       const changePageToFirstSpy = spyOn(paginator, 'changePageToFirst').and.callThrough();
       fixture.detectChanges();
       
@@ -223,9 +263,14 @@ describe('Paginator', () => {
     });
 
     it('should called onRppChange and change page count', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      });
       const onRppChangeSpy = spyOn(paginator, 'onRppChange').and.callThrough();
       fixture.detectChanges();
    
@@ -241,9 +286,14 @@ describe('Paginator', () => {
     });
 
     it('should listen onPageChange', () => {
+      paginator.rowsPerPageOptions = [10,20,30];
       paginator.rows = 10;
       paginator.totalRecords = 120;
-      paginator.rowsPerPageOptions = [10,20,30];
+      paginator.ngOnChanges({
+        rows: new SimpleChange(null,10,false),
+        totalRecords: new SimpleChange(null,120,false),
+        rowsPerPageOptions: new SimpleChange(null,[10,20,30],false),
+      });
       fixture.detectChanges();
       
       let data;
