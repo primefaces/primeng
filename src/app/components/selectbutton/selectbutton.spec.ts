@@ -2,6 +2,7 @@ import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { SelectButton } from './selectbutton';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleChange } from '@angular/core';
 
 describe('SelectButton', () => {
   
@@ -23,15 +24,18 @@ describe('SelectButton', () => {
   });
   
   it('should display the label', () => {
-    selectButton.options = [{label: 'Apartment', value: 'Apartment'},{label: 'House', value: 'House'},{label: 'Studio', value: 'Studio'}];
+    selectButton.ngOnChanges({
+      options: new SimpleChange(null, [{label: 'Apartment', value: 'Apartment'},{label: 'House', value: 'House'},{label: 'Studio', value: 'Studio'}],false)
+    });
     fixture.detectChanges();
     const labelEl = fixture.debugElement.query(By.css('.ui-selectbutton')).children[0];
     expect(labelEl.nativeElement.querySelector('.ui-button-text').textContent).toContain('Apartment')
   });
   
   it('should display the preselected button', () => {
-
-    selectButton.options = [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}];
+    selectButton.ngOnChanges({
+      options: new SimpleChange(null, [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}],false)
+    });
     selectButton.dataKey = 'name';
     selectButton.writeValue({name:'Studio'});
     fixture.detectChanges();
@@ -41,7 +45,11 @@ describe('SelectButton', () => {
   });
 
   it('should display the active when click', fakeAsync(() => {
-    selectButton.options = [{label: 'Apartment', value: 'Apartment'},{label: 'House', value: 'House'},{label: 'Studio', value: 'Studio'}];
+
+    selectButton.ngOnChanges({
+      options: new SimpleChange(null, [{label: 'Apartment', value: 'Apartment'},{label: 'House', value: 'House'},{label: 'Studio', value: 'Studio'}],false)
+    });
+
     fixture.detectChanges();
   
     const activeEl = fixture.nativeElement.querySelector('.ui-selectbutton').children[0];
@@ -55,7 +63,9 @@ describe('SelectButton', () => {
 
   it('should disabled', () => {
     selectButton.disabled = true;
-    selectButton.options = [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}];
+    selectButton.ngOnChanges({
+      options: new SimpleChange(null, [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}],false)
+    });
     fixture.detectChanges();
 
     const onItemClickSpy = spyOn(selectButton,'onItemClick').and.callThrough();
@@ -70,7 +80,9 @@ describe('SelectButton', () => {
 
   it('should select multiple', () => {
     selectButton.multiple = true;
-    selectButton.options = [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}];
+    selectButton.ngOnChanges({
+      options: new SimpleChange(null, [{label: 'Apartment', value: {name:'Apartment'}},{label: 'House', value: {name:'House'}},{label: 'Studio', value: {name:'Studio'}}],false)
+    });
     fixture.detectChanges();
 
     let valueOptionClick;
