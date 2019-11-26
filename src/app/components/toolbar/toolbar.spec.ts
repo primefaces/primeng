@@ -50,13 +50,13 @@ describe('Toolbar', () => {
     });
 
     it('should change style and styleClass', () => {
-      toolbar.style = {'primeng' : 'rocks!'};
+      toolbar.style = {'height' : '300px'};
       toolbar.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const toolbarEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(toolbarEl.className).toContain("Primeng ROCKS!");
-      expect(toolbarEl.style.primeng).toEqual("rocks!");
+      expect(toolbarEl.style.height).toEqual("300px");
     });
 
     it('should show ng-content', () => {

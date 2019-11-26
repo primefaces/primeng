@@ -43,13 +43,13 @@ describe('TieredMenu', () => {
 
     it('should change style and styleClass', () => {
       tieredmenu.styleClass = "Primeng ROCKS!";
-      tieredmenu.style = {'primeng' : 'rocks!'};
+      tieredmenu.style = {'height' : '300px'};
       fixture.detectChanges();
 
       const tieredmenuEl = fixture.debugElement.query(By.css('div'));
-      const styleEl = tieredmenuEl.styles.primeng;
+      const styleEl = tieredmenuEl.styles.height;
       expect(tieredmenuEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(styleEl).toEqual("rocks!");
+      expect(styleEl).toEqual("300px");
     });
 
     it('should change autoZindex', () => {

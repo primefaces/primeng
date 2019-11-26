@@ -70,11 +70,11 @@ describe('OrderList', () => {
     });
 
     it('should change listStyle', () => {
-      orderlist.listStyle = {'primeng':'rocks!'};
+      orderlist.listStyle = {'height':'300px'};
       fixture.detectChanges();
 
       const contentEl = fixture.debugElement.query(By.css('ul'));
-      expect(contentEl.nativeElement.style.primeng).toEqual("rocks!");
+      expect(contentEl.nativeElement.style.height).toEqual("300px");
     });
     
     it('should change header', () => {

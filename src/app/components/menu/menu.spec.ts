@@ -53,15 +53,15 @@ describe('Menu', () => {
     });
 
     it('should change style and styleClass', () => {
-      menu.style = {'primeng' : 'rocks!'};
+      menu.style = {'height' : '300px'};
       menu.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
       
       const containerEl = fixture.debugElement.query(By.css('.ui-menu'));
       expect(containerEl.nativeElement.className).toContain("Primeng ROCKS!");      
       expect(containerEl.nativeElement.className).toContain(menu.styleClass);
-      expect(containerEl.nativeElement.style.primeng).toEqual(menu.style.primeng);
-      expect(containerEl.nativeElement.style.primeng).toEqual("rocks!");
+      expect(containerEl.nativeElement.style.height).toEqual(menu.style.height);
+      expect(containerEl.nativeElement.style.height).toEqual("300px");
     });
 
     it('should call hasSubMenu and return false', () => {
@@ -141,8 +141,8 @@ describe('Menu', () => {
       menu.model  = [{
         label: 'File',
         items: [
-          {label: 'New', icon: 'pi pi-fw pi-plus',style:{'primeng':'rocks!'},styleClass:"Primeng ROCKS!"},
-          {label: 'Download', icon: 'pi pi-fw pi-download',style:{'primeng':'rocks!'},styleClass:"Primeng ROCKS!"}
+          {label: 'New', icon: 'pi pi-fw pi-plus',style:{'height':'300px'},styleClass:"Primeng ROCKS!"},
+          {label: 'Download', icon: 'pi pi-fw pi-download',style:{'height':'300px'},styleClass:"Primeng ROCKS!"}
         ]
       }]; 
       fixture.detectChanges();
@@ -151,7 +151,7 @@ describe('Menu', () => {
       expect(menuItemsEl.length).toEqual(2);
       for(let menuItem of menuItemsEl){
         expect(menuItem.nativeElement.className).toContain("Primeng ROCKS!");
-        expect(menuItem.nativeElement.style.primeng).toContain("rocks!");
+        expect(menuItem.nativeElement.style.height).toContain("300px");
       }
     });
 

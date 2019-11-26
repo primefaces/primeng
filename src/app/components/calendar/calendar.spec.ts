@@ -55,13 +55,13 @@ describe('Calendar', () => {
 
     it('should change panelStyle and panelStyleClass', () => {
       calendar.panelStyleClass = "Primeng ROCKS!";
-      calendar.panelStyle = {'primeng' : 'rocks!'};
+      calendar.panelStyle = {'height' : '300px'};
       calendar.overlayVisible = true;
       fixture.detectChanges();
 
       const panelEl = fixture.debugElement.query(By.css('div'));
       expect(panelEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(panelEl.nativeElement.style.primeng).toContain("rocks!");
+      expect(panelEl.nativeElement.style.height).toContain("300px");
     });
 
     it('should change inputId', () => {
@@ -95,7 +95,7 @@ describe('Calendar', () => {
       const calenderEl = fixture.debugElement.query(By.css('span'));
       const buttonEl = fixture.debugElement.query(By.css('button'));
       expect(calenderEl.nativeElement.className).toContain('ui-calendar-w-btn');
-      expect(buttonEl.nativeElement.attributes[6].value).toEqual("pi pi-calendar");
+      expect(buttonEl.nativeNode.outerHTML).toContain("pi pi-calendar");
     });
 
     it('should change icon', () => {
@@ -104,7 +104,7 @@ describe('Calendar', () => {
       fixture.detectChanges();
 
       const buttonEl = fixture.debugElement.query(By.css('button'));
-      expect(buttonEl.nativeElement.attributes[6].value).toEqual("Primeng ROCKS!");
+      expect(buttonEl.nativeNode.outerHTML).toContain("Primeng ROCKS!");
     });
 
     it('should show panel and call onInputClick when inputClick', () => {

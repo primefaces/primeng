@@ -33,13 +33,13 @@ describe('PanelMenu', () => {
     });
 
     it('should change style and styleClass', () => {
-      panelmenu.style = {'primeng':'rocks!'};
+      panelmenu.style = {'height':'300px'};
       panelmenu.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const panelMenuEl = fixture.debugElement.query(By.css('.ui-panelmenu'));
       expect(panelMenuEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(panelMenuEl.nativeElement.style.primeng).toContain("rocks!");
+      expect(panelMenuEl.nativeElement.style.height).toContain("300px");
     });
 
     it('should change item visible ', () => {
@@ -85,7 +85,7 @@ describe('PanelMenu', () => {
                 {separator: true},
                 {label: 'Quit', icon: 'pi pi-fw pi-times'}
             ],
-          style:{'primeng':'rocks!'},
+          style:{'height':'300px'},
           styleClass:"Primeng ROCKS!",
           disabled:true
         }
@@ -95,7 +95,7 @@ describe('PanelMenu', () => {
       const panelHeaderEl = fixture.debugElement.query(By.css('.ui-panelmenu-header'));
       expect(panelHeaderEl.nativeElement.className).toContain("ui-state-disabled");
       expect(panelHeaderEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(panelHeaderEl.nativeElement.style.primeng).toContain("rocks!");
+      expect(panelHeaderEl.nativeElement.style.height).toContain("300px");
     });
 
     it('should change item url target item and title', () => {
@@ -160,12 +160,12 @@ describe('PanelMenu', () => {
             items: [{
                     label: 'New', 
                     icon: 'pi pi-fw pi-plus',
-                    style:{'primeng':'rocks!'},
+                    style:{'height':'300px'},
                     styleClass:"Primeng ROCKS!",
                 },
-                {label: 'Open', icon: 'pi pi-fw pi-external-link',style:{'primeng':'rocks!'},styleClass:"Primeng ROCKS!"},
+                {label: 'Open', icon: 'pi pi-fw pi-external-link',style:{'height':'300px'},styleClass:"Primeng ROCKS!"},
                 {separator: true},
-                {label: 'Quit', icon: 'pi pi-fw pi-times',style:{'primeng':'rocks!'},styleClass:"Primeng ROCKS!"}
+                {label: 'Quit', icon: 'pi pi-fw pi-times',style:{'height':'300px'},styleClass:"Primeng ROCKS!"}
             ],
         }
       ];
@@ -174,7 +174,7 @@ describe('PanelMenu', () => {
       const menuItemLinks = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
       for(let menuItemLink of menuItemLinks){
       expect(menuItemLink.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(menuItemLink.nativeElement.style.primeng).toContain("rocks!");
+      expect(menuItemLink.nativeElement.style.height).toContain("300px");
       }
     });
 

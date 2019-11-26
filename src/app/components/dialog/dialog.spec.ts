@@ -231,28 +231,6 @@ describe('Dialog', () => {
         expect(dialog.visible).toEqual(true);
     });
 
-    it('should open with change height width minWidth minHeight (deprecated)  positionLeft and positionTop', fakeAsync(() => {
-        dialog.height = 250;
-        dialog.width = 250;
-        dialog.minWidth = 200;
-        dialog.minHeight = 200;
-        dialog.positionLeft = 25;
-        dialog.positionTop = 25;
-        fixture.detectChanges();
-
-        const buttonEl = fixture.debugElement.query(By.css('button'));
-        buttonEl.nativeElement.click();
-        fixture.detectChanges();
-
-        tick(300);
-        expect(dialog.container.style.height).toEqual('250px');
-        expect(dialog.container.style.width).toEqual('250px');
-        expect(dialog.container.style.minWidth).toEqual('200px');
-        expect(dialog.container.style.minHeight).toEqual('200px');
-        expect(dialog.container.style.left).toEqual('25px');
-        expect(dialog.container.style.top).toEqual('25px');
-    }));
-
     it('should open with change just positionTop', fakeAsync(() => {
         dialog.positionTop = 25;
         fixture.detectChanges();

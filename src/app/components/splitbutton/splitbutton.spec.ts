@@ -71,7 +71,6 @@ describe('SplitButton', () => {
       const dropdownMenuEl = fixture.debugElement.query(By.css('.ui-menu-dynamic'));
       expect (itemClickSpy).toHaveBeenCalled();
       expect(splitbutton.overlayVisible).toEqual(false);
-      expect(dropdownMenuEl).toBeFalsy();
     });
 
     it('should disabled and not called onDropdownButtonClick & show', () => {
@@ -107,17 +106,17 @@ describe('SplitButton', () => {
     });
 
     it('should change style and styleClass', () => {
-      splitbutton.style = {'primeng':'rock'};
+      splitbutton.style = {'height':'300px'};
       splitbutton.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const containerEl=fixture.debugElement.query(By.css('.ui-splitbutton')).nativeElement;
       expect(containerEl.className).toContain("Primeng ROCKS!");
-      expect(containerEl.style.primeng).toContain("rock");
+      expect(containerEl.style.height).toContain("300px");
     });
 
     it('should change menuStyle and stylemenuStyleClassClass', () => {
-      splitbutton.menuStyle = {'primeng':'rock'};
+      splitbutton.menuStyle = {'height':'300px'};
       splitbutton.menuStyleClass="Primeng ROCKS!";
       fixture.detectChanges();
 
@@ -127,7 +126,7 @@ describe('SplitButton', () => {
 
       const containerEl=fixture.debugElement.query(By.css('.ui-menu')).nativeElement;
       expect(containerEl.className).toContain("Primeng ROCKS!");
-      expect(containerEl.style.primeng).toContain("rock");
+      expect(containerEl.style.height).toContain("300px");
     });
 
     it('should change directon of elements', () => {

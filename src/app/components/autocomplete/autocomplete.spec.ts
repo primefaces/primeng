@@ -104,9 +104,9 @@ describe('AutoComplete', () => {
     });
 
     it('should change style and styleClass', () => {
-      autocomplete.style = {'primeng':'rocks!'};
+      autocomplete.style = {'height':'300px'};
       autocomplete.styleClass = "Primeng Rocks!";
-      autocomplete.inputStyle = {'primeng':'rocks!'};
+      autocomplete.inputStyle = {'height':'300px'};
       autocomplete.inputStyleClass = "Primeng Rocks!";
       fixture.detectChanges();
 
@@ -114,14 +114,14 @@ describe('AutoComplete', () => {
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
       expect(autocompleteEl.className).toContain('Primeng Rocks!');
       expect(inputEl.className).toContain('Primeng Rocks!');
-      expect(autocompleteEl.style.primeng).toContain('rocks!');
-      expect(inputEl.style.primeng).toContain('rocks!');
+      expect(autocompleteEl.style.height).toContain('300px');
+      expect(inputEl.style.height).toContain('300px');
       autocomplete.multiple=true;
       fixture.detectChanges();
 
       const inputMultipleEl = fixture.debugElement.query(By.css('ul')).query(By.css('input')).nativeElement;
       expect(inputMultipleEl.className).toContain('Primeng Rocks!');
-      expect(inputMultipleEl.style.primeng).toContain('rocks!');
+      expect(inputMultipleEl.style.height).toContain('300px');
     });
 
     it('should change inputId size readonly tabindex maxlength type and placeholder', () => {
@@ -191,7 +191,6 @@ describe('AutoComplete', () => {
     }));
 
     it('should change immutable and scrollHeight', fakeAsync(() => {
-      autocomplete.immutable = false;
       autocomplete.scrollHeight = "450px";
       fixture.detectChanges();
 

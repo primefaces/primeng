@@ -115,13 +115,13 @@ describe('Listbox', () => {
 
 
     it('should change style and styleClass', () => {
-        listbox.style = {'primeng' : 'rocks!'};
+        listbox.style = {'height' : '300px'};
         listbox.styleClass = "Primeng ROCKS!"
         fixture.detectChanges();
         
         const listboxEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(listboxEl.className).toContain("Primeng ROCKS!");
-        expect(listboxEl.style.primeng).toEqual("rocks!");
+        expect(listboxEl.style.height).toEqual("300px");
     });
 
     it('should select item when click', () => {

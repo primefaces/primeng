@@ -30,17 +30,17 @@ describe('Chips', () => {
     });
 
     it('should change style and styleClass', () => {
-      chips.style = {'primeng': 'rocks!'};
+      chips.style = {'height': '300px'};
       chips.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const chipsEl = fixture.debugElement.query(By.css('div'));
       expect(chipsEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(chipsEl.nativeElement.style.primeng).toEqual('rocks!');
+      expect(chipsEl.nativeElement.style.height).toEqual('300px');
     });
 
     it('should change inputStyle inputStyleClass inputId placeholder and tabIndex', () => {
-      chips.inputStyle = {'primeng': 'rocks!'};
+      chips.inputStyle = {'height': '300px'};
       chips.inputStyleClass = "Primeng ROCKS!";
       chips.inputId = "primeng";
       chips.tabindex = 13;
@@ -49,7 +49,7 @@ describe('Chips', () => {
 
       const inputEl = fixture.debugElement.query(By.css('input'));
       expect(inputEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(inputEl.nativeElement.style.primeng).toEqual('rocks!');
+      expect(inputEl.nativeElement.style.height).toEqual('300px');
       expect(inputEl.nativeElement.id).toEqual('primeng');
       expect(inputEl.nativeElement.tabIndex).toEqual(13);
       expect(inputEl.nativeElement.placeholder).toEqual('rocks!');

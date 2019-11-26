@@ -69,13 +69,13 @@ describe('SlideMenu', () => {
     });
 
     it('should change style and styleClass', () => {
-      slidemenu.style = {'primeng':'rocks!'};
+      slidemenu.style = {'height':'300px'};
       slidemenu.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
       
       const containerEl = fixture.debugElement.query(By.css('.ui-slidemenu'));
       expect(containerEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(containerEl.nativeElement.style.primeng).toEqual("rocks!");
+      expect(containerEl.nativeElement.style.height).toEqual("300px");
      });
 
      it('should change viewportHeight', () => {
@@ -143,7 +143,7 @@ describe('SlideMenu', () => {
       const activeItem = fixture.debugElement.query(By.css('.ui-menuitem-active'));
       expect(activeItem.query(By.css('.ui-menuitem-text')).nativeElement.textContent).toEqual('File');
       expect(itemClickSpy).toHaveBeenCalled();
-      expect(activeItem.query(By.css('ul')).nativeElement.className).toContain('ui-submenu-list ui-active-submenu');
+      expect(activeItem.query(By.css('ul')).nativeElement.className).toContain('ui-active-submenu ui-submenu-list');
       expect(slidemenu.left).toEqual(-190);
     });
 

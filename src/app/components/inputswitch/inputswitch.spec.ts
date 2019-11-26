@@ -45,13 +45,13 @@ describe('InputSwitch', () => {
     });
 
     it('should change style and styleClass', () => {
-      inputswitch.style = {'primeng' : 'rocks!'};
+      inputswitch.style = {'height' : '300px'};
       inputswitch.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(inputSwitchEl.className).toContain("Primeng ROCKS!");
-      expect(inputSwitchEl.style.primeng).toContain("rocks!")
+      expect(inputSwitchEl.style.height).toContain("300px")
     });
 
     it('should get a name inputId and tabindex', () => {

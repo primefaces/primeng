@@ -72,12 +72,12 @@ describe('Card', () => {
 
     it('should change style and styleClass', () => {
       card.styleClass = "Primeng ROCKS!";
-      card.style = {'primeng' : 'rocks!'};
+      card.style = {'height' : '300px'};
       fixture.detectChanges();
 
       const cardEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(cardEl.className).toContain("Primeng ROCKS!");
-      expect(cardEl.style.primeng).toEqual("rocks!");
+      expect(cardEl.style.height).toEqual("300px");
     });
 
     it('should have a header', () => {

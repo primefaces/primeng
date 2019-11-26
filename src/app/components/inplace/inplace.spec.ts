@@ -30,7 +30,7 @@ describe('Inplace', () => {
     });
 
     it('should change style styleClass and closable', () => {
-        inplace.style = {'primeng': 'rocks!'};
+        inplace.style = {'height': '300px'};
         inplace.styleClass = "Primeng ROCKS!";
         inplace.closable = true;
         inplace.active = true;
@@ -40,7 +40,7 @@ describe('Inplace', () => {
         const closableButton = fixture.debugElement.query(By.css('button'));
         expect(inplaceEl.nativeElement.className).toContain("Primeng ROCKS!");
         expect(inplaceEl.nativeElement.className).toContain("ui-inplace-closable");
-        expect(inplaceEl.nativeElement.style.primeng).toContain("rocks!");
+        expect(inplaceEl.nativeElement.style.height).toContain("300px");
         expect(closableButton).toBeTruthy();
     });
 

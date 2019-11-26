@@ -37,13 +37,13 @@ describe('Menubar', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		menubar.style = { 'primeng': 'rocks!' };
+		menubar.style = { 'height': '300px' };
 		menubar.styleClass = "Primeng ROCKS!";
 		fixture.detectChanges();
 
 		const menuEl = fixture.debugElement.query(By.css('.ui-menubar'));
 		expect(menuEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(menuEl.nativeElement.style.primeng).toContain("rocks!");
+		expect(menuEl.nativeElement.style.height).toContain("300px");
 	});
 
 	it('should change autoDisplay baseZIndex and autoZIndex', () => {
@@ -64,7 +64,7 @@ describe('Menubar', () => {
 		menubar.model = [
 			{
 				label: 'File',
-				icon: 'pi pi-fw pi-file',
+				icon: 'pi pi-file pi-fw',
 				items: [{
 					label: 'New',
 					icon: 'pi pi-fw pi-plus',
@@ -418,7 +418,7 @@ describe('Menubar', () => {
 			{
 				label: 'File',
 				icon: 'pi pi-fw pi-file',
-				style: { 'primeng': 'rocks!' },
+				style: { 'height': '300px' },
 				styleClass: "Primeng ROCKS!",
 				items: [{
 					label: 'New',
@@ -447,7 +447,7 @@ describe('Menubar', () => {
 
 		const firstItem = firstParentEl.query(By.css('a'));
 		expect(firstItem.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(firstItem.nativeElement.style.primeng).toContain("rocks!");
+		expect(firstItem.nativeElement.style.height).toContain("300px");
 	});
 
 	it('should change item disable', () => {

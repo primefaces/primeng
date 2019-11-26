@@ -74,13 +74,13 @@ describe('Steps', () => {
     });
 
     it('should change style & styleClass', () => {
-      steps.style = {'primeng' : 'rocks!'};
+      steps.style = {'height' : '300px'};
       steps.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
       expect(stepsEl.className).toContain("Primeng ROCKS!");
-      expect(stepsEl.style.primeng).toContain("rocks!");
+      expect(stepsEl.style.height).toContain("300px");
     });
 
     it('should readonly by default', () => {

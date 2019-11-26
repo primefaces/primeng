@@ -53,7 +53,7 @@ describe('FileUpload', () => {
     });
 
     it('should change style, styleClass, chooseLabel, uploadLabel, cancelLabel, showUploadButton and showCancelButton (advanced)', () => {
-        fileupload.style = {'primeng': 'rocks!'};
+        fileupload.style = {'height': '300px'};
         fileupload.styleClass = "Primeng ROCKS!";
         fileupload.chooseLabel = "primeng";
         fileupload.uploadLabel = "primeng";
@@ -66,7 +66,7 @@ describe('FileUpload', () => {
         const chooseButton =fixture.debugElement.query(By.css(".ui-fileupload-choose"));
         expect(fileuploadEl).toBeTruthy();
         expect(fileuploadEl.nativeElement.className).toContain("Primeng ROCKS!");
-        expect(fileuploadEl.nativeElement.style.primeng).toContain("rocks!");
+        expect(fileuploadEl.nativeElement.style.height).toContain("300px");
         expect(uploadButton).toBeTruthy();
         expect(cancelButton).toBeTruthy();
         expect(uploadButton.nativeElement.textContent).toEqual("primeng");

@@ -104,12 +104,12 @@ describe('Dropdown', () => {
 
 	it('should change style and styleClass', () => {
 		dropdown.styleClass = "Primeng";
-		dropdown.style = {'primeng':'rocks'}
+		dropdown.style = {'height':'300px'}
 		fixture.detectChanges();
 
 		const containerEl = fixture.debugElement.query(By.css('.ui-dropdown'));
 		expect(containerEl.nativeElement.className).toContain("Primeng");
-		expect(containerEl.nativeElement.style.primeng).toEqual("rocks");
+		expect(containerEl.nativeElement.style.height).toEqual("300px");
 	});
 
 	it('should change panelStyleClass', () => {
@@ -204,7 +204,6 @@ describe('Dropdown', () => {
 			{label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
 		];
 		dropdown.showClear=true;
-		dropdown.autoWidth = true;
 		fixture.detectChanges();
 		
 		const container = fixture.debugElement.query(By.css('.ui-dropdown')).nativeElement;

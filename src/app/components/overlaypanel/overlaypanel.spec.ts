@@ -40,7 +40,7 @@ describe('OverlayPanel', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		overlaypanel.style = { 'primeng': 'rocks!' };
+		overlaypanel.style = { 'height': '300px' };
 		overlaypanel.styleClass = "Primeng rocks!";
 		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
 		buttonEl.click();
@@ -48,7 +48,7 @@ describe('OverlayPanel', () => {
 
 		const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
 		expect(containerEl.className).toContain("Primeng rocks!");
-		expect(containerEl.style.primeng).toContain('rocks!')
+		expect(containerEl.style.height).toContain('300px')
 	});
 
 	it('should show icon', () => {

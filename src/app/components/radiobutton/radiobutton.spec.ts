@@ -26,7 +26,7 @@ describe('RadioButton', () => {
         radiobutton.name = "primeng";
         radiobutton.inputId = "prime"
         radiobutton.value = "Primeng";
-        radiobutton.style = {'primeng': 'rocks!'};
+        radiobutton.style = {'height': '300px'};
         radiobutton.styleClass = "Primeng ROCKS!";
         radiobutton.label = "Prime";
         radiobutton.labelStyleClass = "Primeng ROCKS";
@@ -41,7 +41,7 @@ describe('RadioButton', () => {
         expect(inputEl.nativeElement.id).toEqual("prime");
         expect(inputEl.nativeElement.tabIndex).toEqual(13);
         expect(radiobuttonEl.nativeElement.className).toContain("Primeng ROCKS!");
-        expect(radiobuttonEl.nativeElement.style.primeng).toEqual("rocks!");
+        expect(radiobuttonEl.nativeElement.style.height).toEqual("300px");
         expect(labelEl.nativeElement.className).toContain("Primeng ROCKS");
         expect(labelEl.nativeElement.textContent).toEqual("Prime");
         expect(labelEl.nativeElement.htmlFor).toEqual("prime");
