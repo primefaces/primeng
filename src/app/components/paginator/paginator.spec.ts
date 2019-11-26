@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { SimpleChange } from '@angular/core';
 
-fdescribe('Paginator', () => {
+describe('Paginator', () => {
     
     let paginator: Paginator;
     let fixture: ComponentFixture<Paginator>;
