@@ -34,13 +34,13 @@ describe('TabMenu', () => {
     });
 
     it('should change style and styleClass', () => {
-      tabmenu.style = {'primeng' : 'rocks!'};
+      tabmenu.style = {'height' : '300px'};
       tabmenu.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const tabmenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(tabmenuEl.className).toContain("Primeng ROCKS!");
-      expect(tabmenuEl.style.primeng).toContain("rocks!");
+      expect(tabmenuEl.style.height).toContain("300px");
     });
 
     it('should not show items ', () => {
