@@ -74,13 +74,13 @@ describe('PickList', () => {
 	});
 
 	it('should change style and styleClass', () => {
-		picklist.style = { 'primeng': 'rocks!' };
+		picklist.style = { 'height': '300px' };
 		picklist.styleClass = "Primeng ROCKS!";
 		fixture.detectChanges();
 
 		const picklistEl = fixture.debugElement.query(By.css('div'));
 		expect(picklistEl.nativeElement.className).toContain("Primeng ROCKS!");
-		expect(picklistEl.nativeElement.style.primeng).toEqual("rocks!");
+		expect(picklistEl.nativeElement.style.height).toEqual("300px");
 	});
 
 	it('should show sourceHeader and targetHeader', () => {
@@ -200,13 +200,13 @@ describe('PickList', () => {
 	});
 
 	it('should change sourceStyle and targetStyle', () => {
-		picklist.sourceStyle = { 'primeng': 'rocks!' };
-		picklist.targetStyle = { 'primeng': 'rocks!' };
+		picklist.sourceStyle = { 'height': '300px' };
+		picklist.targetStyle = { 'height': '300px' };
 		fixture.detectChanges();
 
 		const headerEls = fixture.debugElement.queryAll(By.css('.ui-widget-content.ui-picklist-list'));
-		expect(headerEls[0].nativeElement.style.primeng).toContain("rocks!");
-		expect(headerEls[1].nativeElement.style.primeng).toContain("rocks!");
+		expect(headerEls[0].nativeElement.style.height).toContain("300px");
+		expect(headerEls[1].nativeElement.style.height).toContain("300px");
 	});
 
 	it('should not show controls', () => {
