@@ -16,6 +16,62 @@ body {
     font-size: 14px;
 }
 
+.layout-notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 70px;
+    width: 100%;
+    background: #2f002e; /* Old browsers */
+    background: -moz-linear-gradient(45deg,  #2f002e 0%, #6a0062 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg,  #2f002e 0%,#6a0062 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg,  #2f002e 0%,#6a0062 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f002e', endColorstr='#6a0062',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.layout-notification + #layout-topbar {
+    top: 70px; 
+}
+
+.layout-notification + #layout-topbar + #layout-sidebar {
+    top: 140px;
+}
+
+.layout-notification + #layout-topbar + #layout-sidebar + #layout-content {
+    padding-top: 140px;
+}
+
+.layout-notification a {
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #f0b6ff;
+    font-size: 20px;
+}
+
+.layout-notification a:hover {
+    color: #f0b6ff;
+}
+
+.layout-notification-details {
+    margin-left: 2em;
+}
+
+.layout-notification-details .rate {
+    color: #f2b837;
+    font-size: 25px;
+    font-weight: bold;
+}
+
 #layout-topbar {
     background-color: #20272a;
     box-sizing: border-box;
@@ -747,6 +803,14 @@ body {
 @media (max-width: 768px) {
     .doc-table tbody td {
         word-break: break-word;
+    }
+
+    .layout-notification a {
+        font-size: 16px;
+    }
+
+    .layout-notification-details .rate {
+        font-size: 21px;
     }
 }
 
