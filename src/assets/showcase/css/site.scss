@@ -896,7 +896,7 @@ a {
 	}
 	.introduction {
 		background-color: #1976d2;
-		background: url('/src/assets/showcase/images/home/introduction.jpg');
+		background-image: url('/assets/showcase/images/home/introduction.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
 		color: #ffffff;
@@ -1180,7 +1180,7 @@ a {
 	cursor: pointer;
 	position: relative;
 	display: block;
-	background-image: url("/src/assets/showcase/images/prime-showcases-notification-topbar-bg.png");
+	background-image: url("/assets/showcase/images/prime-showcases-notification-topbar-bg.png");
 	-webkit-animation-duration: 1.5s;
 	-moz-animation-duration: 1.5s;
 	animation-duration: 1.5s;
