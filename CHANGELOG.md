@@ -1,5 +1,37 @@
 # Change Log
 
+## [9.0.0-rc.1](https://github.com/primefaces/primeng/tree/9.0.0-rc.1) (2019-11-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.1.1...9.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Angular 9 Compatibility [\#8347](https://github.com/primefaces/primeng/issues/8347)
+- Add separator option to the SplitButton [\#8337](https://github.com/primefaces/primeng/issues/8337)
+- Delete deprecated components [\#8328](https://github.com/primefaces/primeng/issues/8328)
+- Delete deprecated properties [\#8322](https://github.com/primefaces/primeng/issues/8322)
+- Delete Autocomplete immutable property [\#8313](https://github.com/primefaces/primeng/issues/8313)
+- Add aria-required to Calendar [\#8278](https://github.com/primefaces/primeng/issues/8278)
+- Feat\(ng-packagr\): use ng-packagr to build library [\#8057](https://github.com/primefaces/primeng/issues/8057)
+
+**Fixed bugs:**
+
+- Carousel - Invalid Array Length error when array length = 0 [\#8300](https://github.com/primefaces/primeng/issues/8300)
+- Calendar Receives Keyboard Focus [\#8280](https://github.com/primefaces/primeng/issues/8280)
+- Esc keyboard click is not hiding MultiSelect overlay [\#8181](https://github.com/primefaces/primeng/issues/8181)
+
+**Unit Tests:**
+
+- Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
+
+## [8.1.1](https://github.com/primefaces/primeng/tree/8.1.1) (2019-10-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/8.1.0...8.1.1)
+
+**Fixed bugs:**
+
+- PrimeNG 8.1.0 Couldn't resolve resource ./carousel.css [\#8267](https://github.com/primefaces/primeng/issues/8267)
+
 ## [8.1.0](https://github.com/primefaces/primeng/tree/8.1.0) (2019-10-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/8.0.4...8.1.0)
