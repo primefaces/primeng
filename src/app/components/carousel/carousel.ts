@@ -38,7 +38,7 @@ import { UniqueComponentId } from 'primeng/utils';
 						<span [ngClass]="{'ui-carousel-next-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
 					</button>
 				</div>
-				<ul [class]="dotsContentClasses()">
+				<ul [class]="dotsContentClasses()" (keydown)="onKeydown($event)">
 					<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'ui-carousel-dot-item':true,'ui-state-highlight': _page === i}">
 						<button class="ui-button ui-widget ui-state-default ui-corner-all" (click)="onDotClick($event, i)">
 							<span [ngClass]="{'ui-carousel-dot-icon pi':true, 'pi-circle-on': _page === i, 'pi-circle-off': !(_page === i)}"></span>
@@ -613,12 +613,14 @@ export class Carousel implements AfterContentInit {
 		}
 	}
 
-	ngOnDestroy() {
-		if (this.responsiveOptions) {
-			this.unbindDocumentListeners();
-		}
-		if (this.autoplayInterval) {
-			this.stopAutoplay();
+	onKeydown($event) {
+		switch ($event.key) {
+			case 'ArrowLeft':
+				this.navBackward($event);
+				break;
+			case 'ArrowRight':
+				this.navForward($event);
+				break;
 		}
     }
 
