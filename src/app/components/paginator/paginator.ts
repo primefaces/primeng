@@ -189,7 +189,7 @@ export class Paginator implements OnInit, OnChanges {
 
     updateFirst() {
         const page = this.getPage();
-        if (page > 0 && this.totalRecords && this.first >= this.totalRecords) {
+        if (page > 0 && this.totalRecords && (this.first >= this.totalRecords)) {
             Promise.resolve(null).then(() => this.changePage(page - 1));
         }
     }
