@@ -239,7 +239,7 @@ body {
 	position: fixed;
 	left: 0;
 	top: 70px;
-	height: calc(100% - 140px);
+	height: calc(100% - 70px);
 	background-color: #ffffff;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -896,7 +896,7 @@ a {
 	}
 	.introduction {
 		background-color: #1976d2;
-		background-image: url('/assets/showcase/images/home/introduction.jpg');
+		background-image: url('assets/showcase/images/home/introduction.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
 		color: #ffffff;
@@ -1172,43 +1172,6 @@ a {
 		line-height: 1.5;
 	}
 }
-
-/*NOTIFICATION*/
-.notification-topbar {
-	width: 100%;
-	height: 150px;
-	cursor: pointer;
-	position: relative;
-	display: block;
-	background-image: url("/assets/showcase/images/prime-showcases-notification-topbar-bg.png");
-	-webkit-animation-duration: 1.5s;
-	-moz-animation-duration: 1.5s;
-	animation-duration: 1.5s;
-	webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-	.notification-topbar-image {
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		height: 100%;
-		position: absolute;
-		float: left;
-	}
-	.notification-topbar-close {
-		position: absolute;
-		top: 15px;
-		right: 15px;
-		color: white;
-	}
-	.notification-topbar-image-mobile {
-		width: 100%;
-		top: 45px;
-		display: none;
-		position: absolute;
-		float: left;
-	}
-}
-
 /* Dark Theme such as luna-amber, luna-blue, luna-green and luna-pink */
 .dark-theme {
 	.implementation {
