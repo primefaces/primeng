@@ -270,7 +270,7 @@ body {
     position: fixed;
     left: 0;
     top: 70px;
-    height: calc(100% - 140px);
+    height: calc(100% - 70px);
     background-color: #ffffff;
     overflow-x: hidden;
     overflow-y: auto;
