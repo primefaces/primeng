@@ -133,31 +133,31 @@ export class Carousel implements AfterContentInit, OnDestroy {
 
 	_oldNumScroll = 0;
 
-	prevState: any = {
+	prevState: { numScroll: number, numVisible: number, value: any[] } = {
 		numScroll: 0,
 		numVisible: 0,
 		value: []
 	};
 
-	defaultNumScroll:number = 1;
+	defaultNumScroll: number = 1;
 
-	defaultNumVisible:number = 1;
+	defaultNumVisible: number = 1;
 
 	_page: number = 0;
 
 	_value: any[];
 
-	carouselStyle:any;
+	carouselStyle: any;
 
-	id:string;
+	id: string;
 
-	totalShiftedItems;
+	totalShiftedItems: number;
 
-	isRemainingItemsAdded:boolean = false;
+	isRemainingItemsAdded: boolean = false;
 
-	animationTimeout:any;
+	animationTimeout: number;
 
-	translateTimeout:any;
+	translateTimeout: number;
 
 	remainingItems: number = 0;
 
@@ -214,15 +214,6 @@ export class Carousel implements AfterContentInit, OnDestroy {
 					break;
 			}
 		});
-	}
-
-	ngOnDestroy(): void {
-		if (this.responsiveOptions) {
-			this.unbindDocumentListeners();
-		}
-		if (this.autoplayInterval) {
-			this.stopAutoplay();
-		}
 	}
 
 	ngAfterContentChecked() {
@@ -411,14 +402,14 @@ export class Carousel implements AfterContentInit, OnDestroy {
 
 	containerClass() {
 		return {
-			'ui-carousel ui-widget':true,
+			'ui-carousel ui-widget': true,
 			'ui-carousel-vertical': this.isVertical(),
 			'ui-carousel-horizontal': !this.isVertical()
 		};
 	}
 
 	contentClasses(): string {
-		return 'ui-carousel-content '+ this.contentClass;
+		return 'ui-carousel-content ' + this.contentClass;
 	}
 
 	dotsContentClasses(): string {
