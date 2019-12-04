@@ -16,7 +16,7 @@
     <button type="button" pButton label="Zoom In" icon="pi pi-plus" (click)="zoomIn(gmap.getMap())" style="margin-right:.25em"></button>
     <button type="button" pButton label="Zoom Out" icon="pi pi-minus" (click)="zoomOut(gmap.getMap())"></button>
 
-    <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location" [width]="300">
+    <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location" [style]="{width: '300px'}">
         <div class="ui-g ui-fluid" *ngIf="selectedPosition">
             <div class="ui-g-2"><label for="title">Label</label></div>
             <div class="ui-g-10"><input type="text" pInputText id="title" [(ngModel)]="markerTitle"></div>
@@ -367,7 +367,7 @@ export class MyModel &#123;
 &lt;button type="button" pButton label="Zoom In" icon="pi pi-plus" (click)="zoomIn(gmap.getMap())" style="margin-right:.25em"&gt;&lt;/button&gt;
 &lt;button type="button" pButton label="Zoom Out" icon="pi pi-minus" (click)="zoomOut(gmap.getMap())"&gt;&lt;/button&gt;
 
-&lt;p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location"&gt;
+&lt;p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location" [style]="&#123;width: '300px'&#125;">&gt;
     &lt;div class="ui-g ui-fluid" *ngIf="selectedPosition"&gt;
         &lt;div class="ui-g-2"&gt;&lt;label for="title"&gt;Label&lt;/label&gt;&lt;/div&gt;
         &lt;div class="ui-g-10"&gt;&lt;input type="text" pInputText id="title" [(ngModel)]="markerTitle"&gt;&lt;/div&gt;

@@ -1,6 +1,6 @@
-import {NgModule, Component, ElementRef, OnDestroy, Input, Output, SimpleChange, EventEmitter, forwardRef, Renderer2,NgZone,ChangeDetectorRef, ViewChild} from '@angular/core';
+import {NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, forwardRef, Renderer2,NgZone,ChangeDetectorRef, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import {DomHandler} from 'primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
@@ -55,11 +55,11 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild("sliderHandle",{static:false}) sliderHandle: ElementRef;
+    @ViewChild("sliderHandle", {static: false}) sliderHandle: ElementRef;
 
-    @ViewChild("sliderHandleStart",{static:false}) sliderHandleStart: ElementRef;
+    @ViewChild("sliderHandleStart", {static: false}) sliderHandleStart: ElementRef;
 
-    @ViewChild("sliderHandleEnd",{static:false}) sliderHandleEnd: ElementRef;
+    @ViewChild("sliderHandleEnd", {static: false}) sliderHandleEnd: ElementRef;
 
     public value: number;
     

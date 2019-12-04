@@ -1,15 +1,15 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TreeNode } from '../common/treenode';
+import { TreeNode } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
-import { DomHandler } from '../dom/domhandler';
-import { PaginatorModule } from '../paginator/paginator';
-import { PrimeTemplate, SharedModule } from '../common/shared';
-import { SortMeta } from '../common/sortmeta';
-import { BlockableUI } from '../common/blockableui';
-import { FilterMetadata } from '../common/filtermetadata';
-import { ObjectUtils } from '../utils/objectutils';
-import { FilterUtils } from '../utils/filterutils';
+import { DomHandler } from 'primeng/dom';
+import { PaginatorModule } from 'primeng/paginator';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SortMeta } from 'primeng/api';
+import { BlockableUI } from 'primeng/api';
+import { FilterMetadata } from 'primeng/api';
+import { ObjectUtils } from 'primeng/utils';
+import { FilterUtils } from 'primeng/utils';
 
 @Injectable()
 export class TreeTableService {
@@ -97,7 +97,7 @@ export class TreeTableService {
     `,
     providers: [TreeTableService]
 })
-export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI {
+export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
 
     @Input() columns: any[];
 
@@ -221,7 +221,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
 
     @ViewChild('resizeHelper', { static: false }) resizeHelperViewChild: ElementRef;
 
@@ -380,29 +380,74 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     constructor(public el: ElementRef, public zone: NgZone, public tableService: TreeTableService) {}
 
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if (simpleChange.value) {
+            this._value = simpleChange.value.currentValue;
+
+            if (!this.lazy) {
+                this.totalRecords = (this._value ? this._value.length : 0);
+
+                if (this.sortMode == 'single' && this.sortField)
+                    this.sortSingle();
+                else if (this.sortMode == 'multiple' && this.multiSortMeta)
+                    this.sortMultiple();
+                else if(this.hasFilter())       //sort already filters
+                    this._filter();
+            }
+
+            if (this.virtualScroll && this.virtualScrollCallback) {
+                this.virtualScrollCallback();
+            }
+
+            this.updateSerializedValue();
+            this.tableService.onUIUpdate(this.value);
+        }
+
+        if (simpleChange.sortField) {
+            this._sortField = simpleChange.sortField.currentValue;
+
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
+        if (simpleChange.sortOrder) {
+            this._sortOrder = simpleChange.sortOrder.currentValue;
+
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
+        if (simpleChange.multiSortMeta) {
+            this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
+            if (this.sortMode === 'multiple') {
+                this.sortMultiple();
+            }
+        }
+
+        if (simpleChange.selection) {
+            this._selection = simpleChange.selection.currentValue;
+
+            if(!this.preventSelectionSetterPropagation) {
+                this.updateSelectionKeys();
+                this.tableService.onSelectionChange();
+            }
+            this.preventSelectionSetterPropagation = false;
+        }
+    }
+
     @Input() get value(): any[] {
         return this._value;
     }
     set value(val: any[]) {
         this._value = val;
-
-        if (!this.lazy) {
-            this.totalRecords = (this._value ? this._value.length : 0);
-
-            if (this.sortMode == 'single' && this.sortField)
-                this.sortSingle();
-            else if (this.sortMode == 'multiple' && this.multiSortMeta)
-                this.sortMultiple();
-            else if(this.hasFilter())       //sort already filters
-                this._filter();
-        }
-
-        if(this.virtualScroll && this.virtualScrollCallback) {
-            this.virtualScrollCallback();
-        }
-
-        this.updateSerializedValue();
-        this.tableService.onUIUpdate(this.value);
     }
 
     updateSerializedValue() {
@@ -469,13 +514,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     set sortField(val: string) {
         this._sortField = val;
-
-        //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            if (this.sortMode === 'single') {
-                this.sortSingle();
-            }
-        }
     }
 
     @Input() get sortOrder(): number {
@@ -483,13 +521,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     set sortOrder(val: number) {
         this._sortOrder = val;
-
-        //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            if (this.sortMode === 'single') {
-                this.sortSingle();
-            }
-        }
     }
 
     @Input() get multiSortMeta(): SortMeta[] {
@@ -498,9 +529,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     set multiSortMeta(val: SortMeta[]) {
         this._multiSortMeta = val;
-        if (this.sortMode === 'multiple') {
-            this.sortMultiple();
-        }
     }
 
     @Input() get selection(): any {
@@ -509,12 +537,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     set selection(val: any) {
         this._selection = val;
-
-        if(!this.preventSelectionSetterPropagation) {
-            this.updateSelectionKeys();
-            this.tableService.onSelectionChange();
-        }
-        this.preventSelectionSetterPropagation = false;
     }
 
     updateSelectionKeys() {
@@ -1609,19 +1631,19 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     @Input() frozen: boolean;
 
-    @ViewChild('scrollHeader', { static: false }) scrollHeaderViewChild: ElementRef;
+    @ViewChild('scrollHeader', { static: true }) scrollHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollHeaderBox', { static: false }) scrollHeaderBoxViewChild: ElementRef;
+    @ViewChild('scrollHeaderBox', { static: true }) scrollHeaderBoxViewChild: ElementRef;
 
-    @ViewChild('scrollBody', { static: false }) scrollBodyViewChild: ElementRef;
+    @ViewChild('scrollBody', { static: true }) scrollBodyViewChild: ElementRef;
 
-    @ViewChild('scrollTable', { static: false }) scrollTableViewChild: ElementRef;
+    @ViewChild('scrollTable', { static: true }) scrollTableViewChild: ElementRef;
 
     @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter', { static: false }) scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter', { static: true }) scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox', { static: false }) scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox', { static: true }) scrollFooterBoxViewChild: ElementRef;
 
     @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
 
@@ -2372,7 +2394,7 @@ export class TTCheckbox  {
 
     @Input("value") rowNode: any;
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box', { static: true }) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -2430,7 +2452,7 @@ export class TTCheckbox  {
 })
 export class TTHeaderCheckbox  {
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box', { static: true }) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -2641,7 +2663,7 @@ export class TTEditableColumn implements AfterViewInit {
         let prevCell = cell.previousElementSibling;
 
         if (!prevCell) {
-            let previousRow = cell.parentElement.previousElementSibling;
+            let previousRow = cell.parentElement ? cell.parentElement.previousElementSibling : null;
             if (previousRow) {
                 prevCell = previousRow.lastElementChild;
             }
@@ -2662,7 +2684,7 @@ export class TTEditableColumn implements AfterViewInit {
         let nextCell = cell.nextElementSibling;
 
         if (!nextCell) {
-            let nextRow = cell.parentElement.nextElementSibling;
+            let nextRow = cell.parentElement ? cell.parentElement.nextElementSibling : null;
             if (nextRow) {
                 nextCell = nextRow.firstElementChild;
             }

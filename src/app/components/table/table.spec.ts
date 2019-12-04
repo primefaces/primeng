@@ -1,14 +1,13 @@
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Table, TableBody, ScrollableView, SortableColumn, SelectableRow, RowToggler, ContextMenuRow, ResizableColumn, ReorderableColumn, EditableColumn, CellEditor, SortIcon, TableRadioButton, TableCheckbox, TableHeaderCheckbox, ReorderableRowHandle, ReorderableRow, SelectableRowDblClick } from './table';
+import { Table, TableModule } from './table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
-import { Paginator } from '../paginator/paginator';
-import {Dropdown, DropdownItem} from '../dropdown/dropdown';
+import { DropdownModule} from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../common/shared';
-import { ContextMenu, ContextMenuSub } from '../contextmenu/contextmenu';
+import { SharedModule } from 'primeng/api';
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
@@ -429,36 +428,16 @@ describe('Table', () => {
                 FormsModule,
                 SharedModule,
                 ScrollingModule,
+                DropdownModule,
+                ContextMenuModule,
+                TableModule,
                 RouterTestingModule.withRoutes([
                     { path: 'test', component: ContextMenu }
                 ]),
 
             ],
             declarations: [
-                Table,
-                SortableColumn,
-                SelectableRow,
-                RowToggler,
-                ContextMenuRow,
-                ResizableColumn,
-                ReorderableColumn,
-                EditableColumn,
-                CellEditor,
-                TableBody,
-                ScrollableView,
-                SortIcon,
-                TableRadioButton,
-                TableCheckbox,
-                TableHeaderCheckbox,
-                ReorderableRowHandle,
-                ReorderableRow,
-                SelectableRowDblClick,
-                Paginator,
-                Dropdown,
-                DropdownItem,
-                ContextMenu,
-                ContextMenuSub,
-                TestBasicTableComponent,
+                TestBasicTableComponent
             ]
         });
 
@@ -1208,6 +1187,7 @@ describe('Table', () => {
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
         event.initEvent('mousedown');
+        event.which = 1;
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
         fixture.detectChanges();
@@ -1240,6 +1220,7 @@ describe('Table', () => {
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
+        event.which = 1;
         event.initEvent('mousedown');
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
@@ -1275,6 +1256,7 @@ describe('Table', () => {
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
+        event.which = 1;
         event.initEvent('mousedown');
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
@@ -1312,6 +1294,7 @@ describe('Table', () => {
         const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
+        event.which = 1;
         event.initEvent('mousedown');
         let firstWidth = resizerEls[0].parentElement.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);

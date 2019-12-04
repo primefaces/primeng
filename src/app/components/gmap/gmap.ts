@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,DoCheck,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var google: any;

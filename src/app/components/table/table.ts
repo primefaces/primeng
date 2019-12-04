@@ -1,16 +1,16 @@
-import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Column, PrimeTemplate, SharedModule } from '../common/shared';
-import { PaginatorModule } from '../paginator/paginator';
-import { DomHandler } from '../dom/domhandler';
-import { ObjectUtils } from '../utils/objectutils';
-import { SortMeta } from '../common/sortmeta';
-import { TableState } from '../common/tablestate';
-import { FilterMetadata } from '../common/filtermetadata';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PaginatorModule } from 'primeng/paginator';
+import { DomHandler } from 'primeng/dom';
+import { ObjectUtils } from 'primeng/utils';
+import { SortMeta } from 'primeng/api';
+import { TableState } from 'primeng/api';
+import { FilterMetadata } from 'primeng/api';
 import { Injectable } from '@angular/core';
-import { BlockableUI } from '../common/blockableui';
+import { BlockableUI } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
-import { FilterUtils } from '../utils/filterutils';
+import { FilterUtils } from 'primeng/utils';
 
 @Injectable()
 export class TableService {
@@ -79,10 +79,10 @@ export class TableService {
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
+                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                     <tfoot *ngIf="footerTemplate" class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
-                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                 </table>
             </div>
 
@@ -108,7 +108,7 @@ export class TableService {
     `,
     providers: [TableService]
 })
-export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI {
+export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
     
     @Input() frozenColumns: any[];
 
@@ -477,32 +477,86 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if (simpleChange.value) {
+            if (this.isStateful() && !this.stateRestored) {
+                this.restoreState();
+            }
+    
+            this._value = simpleChange.value.currentValue;
+            
+            if (!this.lazy) {
+                this.totalRecords = (this._value ? this._value.length : 0);
+                
+                if (this.sortMode == 'single' && this.sortField)
+                    this.sortSingle();
+                else if (this.sortMode == 'multiple' && this.multiSortMeta)
+                    this.sortMultiple();
+                else if(this.hasFilter())       //sort already filters
+                    this._filter();
+            }
+    
+            if(this.virtualScroll && this.virtualScrollCallback) {
+                this.virtualScrollCallback();
+            }
+    
+            this.tableService.onValueChange(simpleChange.value.currentValue);
+        }
+
+        if (simpleChange.columns) {
+            this._columns = simpleChange.columns.currentValue;
+            this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+
+            if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
+                this.restoreColumnOrder();
+            }
+        }
+
+        if (simpleChange.sortField) {
+            this._sortField = simpleChange.sortField.currentValue;
+
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
+        if (simpleChange.sortOrder) {
+            this._sortOrder = simpleChange.sortOrder.currentValue;
+
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if ( !this.lazy || this.initialized ) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
+
+        if (simpleChange.multiSortMeta) {
+            this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
+            if (this.sortMode === 'multiple') {
+                this.sortMultiple();
+            }
+        }
+
+        if (simpleChange.selection) {
+            this._selection = simpleChange.selection.currentValue;
+
+            if(!this.preventSelectionSetterPropagation) {
+                this.updateSelectionKeys();
+                this.tableService.onSelectionChange();
+            }
+            this.preventSelectionSetterPropagation = false;
+        }
+    }
+
     @Input() get value(): any[] {
         return this._value;
     }
     set value(val: any[]) {
-        if (this.isStateful() && !this.stateRestored) {
-            this.restoreState();
-        }
-
         this._value = val;
-        
-        if (!this.lazy) {
-            this.totalRecords = (this._value ? this._value.length : 0);
-
-            if (this.sortMode == 'single' && this.sortField)
-                this.sortSingle();
-            else if (this.sortMode == 'multiple' && this.multiSortMeta)
-                this.sortMultiple();
-            else if(this.hasFilter())       //sort already filters
-                this._filter();
-        }
-
-        if(this.virtualScroll && this.virtualScrollCallback) {
-            this.virtualScrollCallback();
-        }
-
-        this.tableService.onValueChange(val);
     }
 
     @Input() get columns(): any[] {
@@ -510,11 +564,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     set columns(cols: any[]) {
         this._columns = cols;
-        this.tableService.onColumnsChange(cols);
-
-        if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored ) {
-            this.restoreColumnOrder();
-        }
     }
 
     @Input() get first(): number {
@@ -545,13 +594,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     set sortField(val: string) {
         this._sortField = val;
-
-        //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            if (this.sortMode === 'single') {
-                this.sortSingle();
-            }
-        }
     }
 
     @Input() get sortOrder(): number {
@@ -559,13 +601,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     set sortOrder(val: number) {
         this._sortOrder = val;
-
-         //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            if (this.sortMode === 'single') {
-                this.sortSingle();
-            }
-        }
     }
 
     @Input() get multiSortMeta(): SortMeta[] {
@@ -574,9 +609,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     set multiSortMeta(val: SortMeta[]) {
         this._multiSortMeta = val;
-        if (this.sortMode === 'multiple') {
-            this.sortMultiple();
-        }
     }
 
     @Input() get selection(): any {
@@ -584,13 +616,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     set selection(val: any) {
-        this._selection = val;
-
-        if(!this.preventSelectionSetterPropagation) {
-            this.updateSelectionKeys();
-            this.tableService.onSelectionChange();
-        }
-        this.preventSelectionSetterPropagation = false;
+        this._selection = val;        
     }
 
     updateSelectionKeys() {
@@ -634,7 +660,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     sort(event) {
         let originalEvent = event.originalEvent;
 
-        if(this.sortMode === 'single') {
+        if (this.sortMode === 'single') {
             this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this._sortField = event.field;
             this.sortSingle();
@@ -655,7 +681,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (!metaKey || !this.multiSortMeta) {
                     this._multiSortMeta = [];
                 }
-                this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
+                this._multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
             
             this.sortMultiple();
@@ -768,7 +794,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             result = 1;
         else if (value1 == null && value2 == null)
             result = 0;
-        if (typeof value1 == 'string' || value1 instanceof String) {
+        else if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));
             }
@@ -1337,7 +1363,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     public exportCSV(options?: any) {
         let data = this.filteredValue || this.value;
-        let csv = '\ufeff';
+        let csv = '';
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
@@ -1965,7 +1991,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             if (state.selection) {
-                this.selection = state.selection;
+                Promise.resolve(null).then(() =>{
+                        this.selectionChange.emit(state.selection);
+                })
             }
 
             this.stateRestored = true;
@@ -2084,7 +2112,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 })
 export class TableBody {
 
-    @Input("pTableBody") columns: Column[];
+    @Input("pTableBody") columns: any[];
 
     @Input("pTableBodyTemplate") template: TemplateRef<any>;
  
@@ -2139,23 +2167,23 @@ export class TableBody {
 })
 export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked {
 
-    @Input("pScrollableView") columns: Column[];
+    @Input("pScrollableView") columns: any[];
 
     @Input() frozen: boolean;
 
-    @ViewChild('scrollHeader', { static: false }) scrollHeaderViewChild: ElementRef;
+    @ViewChild('scrollHeader', { static: true }) scrollHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollHeaderBox', { static: false }) scrollHeaderBoxViewChild: ElementRef;
+    @ViewChild('scrollHeaderBox', { static: true }) scrollHeaderBoxViewChild: ElementRef;
 
-    @ViewChild('scrollBody', { static: false }) scrollBodyViewChild: ElementRef;
+    @ViewChild('scrollBody', { static: true }) scrollBodyViewChild: ElementRef;
 
-    @ViewChild('scrollTable', { static: false }) scrollTableViewChild: ElementRef;
+    @ViewChild('scrollTable', { static: true }) scrollTableViewChild: ElementRef;
 
     @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter', { static: false }) scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter', { static: true }) scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox', { static: false }) scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox', { static: true }) scrollFooterBoxViewChild: ElementRef;
 
     @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
 
@@ -2887,16 +2915,18 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         }
     }
 
-    onMouseDown(event: Event) {
-        this.dt.onColumnResizeBegin(event);
-        this.bindDocumentEvents();
+    onMouseDown(event: MouseEvent) {
+        if (event.which === 1) {
+            this.dt.onColumnResizeBegin(event);
+            this.bindDocumentEvents();
+        } 
     }
 
-    onDocumentMouseMove(event: Event) {
+    onDocumentMouseMove(event: MouseEvent) {
         this.dt.onColumnResize(event);
     }
 
-    onDocumentMouseUp(event: Event) {
+    onDocumentMouseUp(event: MouseEvent) {
         this.dt.onColumnResizeEnd(event, this.el.nativeElement);
         this.unbindDocumentEvents();
     }
@@ -3336,7 +3366,7 @@ export class TableRadioButton  {
 
     @Input() index: number;
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box', { static: true }) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -3400,7 +3430,7 @@ export class TableCheckbox  {
 
     @Input() index: number;
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box', { static: true }) boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -3458,7 +3488,7 @@ export class TableCheckbox  {
 })
 export class TableHeaderCheckbox  {
 
-    @ViewChild('box', { static: false }) boxViewChild: ElementRef;
+    @ViewChild('box', { static: true }) boxViewChild: ElementRef;
 
     @Input() disabled: boolean;
 

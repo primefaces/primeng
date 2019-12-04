@@ -107,6 +107,10 @@
     float: right;
 }
 
+.ui-sidebar-close {
+    cursor: pointer;   
+}
+
 @media screen and (max-width: 64em) {
     .ui-sidebar-left.ui-sidebar-lg,
     .ui-sidebar-left.ui-sidebar-md, 

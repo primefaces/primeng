@@ -3,12 +3,29 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
+      "primeng-library": {
+        "root": "src",
+        "projectType": "library",
+        "architect": {
+            "build": {
+            "builder": "@angular-devkit/build-ng-packagr:build",
+            "options": {
+                "project": "src/app/components/ng-package.json",
+                "tsConfig": "src/app/components/tsconfig.lib.json"
+            }
+            }
+        }
+      },
       "primeng": {
         "projectType": "application",
+        "schematics": {
+          "@schematics/angular:component": {
+            "style": "scss"
+          }
+        },
         "root": "",
         "sourceRoot": "src",
         "prefix": "app",
-        "schematics": {},
         "architect": {
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
@@ -31,7 +48,7 @@
                 "node_modules/primeicons/primeicons.css",
                 "node_modules/primeflex/primeflex.css",
                 "node_modules/font-awesome/css/font-awesome.min.css",
-                "src/styles.css"
+                "src/styles.scss"
               ],
               "scripts": [
                 "./node_modules/moment/moment.js",
@@ -95,7 +112,7 @@
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
               "styles": [
-                "src/styles.css"
+                "src/styles.scss"
               ],
               "scripts": [],
               "assets": [
@@ -109,8 +126,8 @@
             "builder": "@angular-devkit/build-angular:tslint",
             "options": {
               "tsConfig": [
-                "src/tsconfig.app.json",
-                "src/tsconfig.spec.json",
+                "tsconfig.app.json",
+                "tsconfig.spec.json",
                 "e2e/tsconfig.json"
               ],
               "exclude": [

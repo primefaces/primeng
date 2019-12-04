@@ -1,11 +1,11 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProgressBarDemo} from './progressbardemo';
 import {ProgressBarDemoRoutingModule} from './progressbardemo-routing.module';
-import {ProgressBarModule} from '../../../components/progressbar/progressbar';
-import {ToastModule} from '../../../components/toast/toast';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {ToastModule} from 'primeng/toast';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

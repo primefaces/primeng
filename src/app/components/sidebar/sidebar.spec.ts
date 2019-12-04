@@ -38,13 +38,13 @@ describe('Sidebar', () => {
     });
   
     it('should change style and styleClass', () => {
-      sidebar.style = {'primeng':'rocks!'};
+      sidebar.style = {'height':'300px'};
       sidebar.styleClass = "Primeng rocks!";
       fixture.detectChanges();
 
       const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(containerEl.className).toContain("Primeng rocks!");
-      expect(containerEl.style.primeng).toContain('rocks!')
+      expect(containerEl.style.height).toContain('300px')
     });
 
     it('should not show icon', () => {

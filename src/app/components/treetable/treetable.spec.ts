@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component } from '@angular/core';
-import { ContextMenuModule, ContextMenu } from '../contextmenu/contextmenu';
+import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `

@@ -1,10 +1,11 @@
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DynamicDialogModule } from './dynamicdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NgModule } from '@angular/core';
-import { Footer } from '../common/shared';
-import { DialogService, DynamicDialogRef, DynamicDialogConfig } from '../common/api';
+import { Footer } from 'primeng/api';
+import { DialogService } from './dialogservice';
+import { DynamicDialogRef} from './dynamicdialog-ref';
+import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
 
 

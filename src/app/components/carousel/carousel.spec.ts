@@ -47,12 +47,12 @@ describe('Carousel', () => {
         expect(containerEl.length).toEqual(9);
     });
 
-    it('should call the onNextNav (circular)', () => {
+    it('should call the navForward (circular)', () => {
         carousel.circular = true;
         fixture.detectChanges();
   
-        const onNextNavSpy = spyOn(carousel,"onNextNav").and.callThrough();
-        const nextEl = fixture.debugElement.query(By.css('.ui-carousel-next-button'));
+        const onNextNavSpy = spyOn(carousel,"navForward").and.callThrough();
+        const nextEl = fixture.debugElement.query(By.css('.ui-carousel-next'));
         expect(carousel.page).toEqual(0);
         nextEl.nativeElement.click();
         fixture.detectChanges();
@@ -63,52 +63,36 @@ describe('Carousel', () => {
         nextEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(carousel.page).toEqual(0);
+        expect(carousel.page).toEqual(3);
     });
 
-    it('should call the onPrevNav (circular)', () => {
+    it('should call the navBackward (circular)', () => {
         carousel.circular = true;
         fixture.detectChanges();
   
-        const onPrevNavSpy = spyOn(carousel,"onPrevNav").and.callThrough();
-        const prevEl = fixture.debugElement.query(By.css('.ui-carousel-prev-button'));
+        const onPrevNavSpy = spyOn(carousel,"navBackward").and.callThrough();
+        const prevEl = fixture.debugElement.query(By.css('.ui-carousel-prev'));
         expect(carousel.page).toEqual(0);
         prevEl.nativeElement.click();
         fixture.detectChanges();
 
         expect(onPrevNavSpy).toHaveBeenCalled();
-        expect(carousel.page).toEqual(2);
+        expect(carousel.page).toEqual(8);
         prevEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(carousel.page).toEqual(1);
-    });
-
-    it('should call the setPageWithLink', () => {
-        carousel.circular = true;
-        fixture.detectChanges();
-  
-        const setPageWithLinkSpy = spyOn(carousel,"setPageWithLink").and.callThrough();
-        const linkEls = fixture.debugElement.queryAll(By.css('.ui-carousel-page-link'));
-        const secondPage = linkEls[1];
-        secondPage.nativeElement.click();
-        fixture.detectChanges();
-
-        expect(setPageWithLinkSpy).toHaveBeenCalled();
-        expect(carousel.page).toEqual(1);
+        expect(carousel.page).toEqual(7);
     });
 
     it('should call updateState when window resize', () => {
         fixture.detectChanges();
 
-        expect(carousel.totalPages).toEqual(3);
+        expect(carousel.totalDots()).toEqual(9);
         (<any>window).innerWidth = 490;
-        const updateStateSpy = spyOn(carousel,"updateState").and.callThrough();
         window.dispatchEvent(new Event("resize"));
         fixture.detectChanges();
 
-        expect(carousel.totalPages).toEqual(9);
-        expect(updateStateSpy).toHaveBeenCalled();
+        expect(carousel.totalDots()).toEqual(9);
         window.dispatchEvent(new Event("resize"));
         fixture.detectChanges();
 
@@ -116,7 +100,7 @@ describe('Carousel', () => {
         window.dispatchEvent(new Event("resize"));
         fixture.detectChanges();
 
-        expect(carousel.totalPages).toEqual(3);
+        expect(carousel.totalDots()).toEqual(9);
     });
 
     it('should show with autoPlay', (done) => {

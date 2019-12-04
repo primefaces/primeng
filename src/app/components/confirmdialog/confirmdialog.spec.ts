@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { ConfirmDialog } from './confirmdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConfirmationService} from '../common/api';
+import { ConfirmationService} from 'primeng/api';
 
 @Component({
   template: `<p-confirmDialog></p-confirmDialog>
@@ -167,19 +167,6 @@ describe('ConfirmDialog', () => {
 		
 		const confirmDialogEl = fixture.debugElement.query(By.css("div"));
 		expect(confirmDialogEl).toBeFalsy();
-	}));
-
-	it('should set width and height (deprecated)', fakeAsync(() => {
-		confirmDialog.width = 250;
-		confirmDialog.height = 250;
-		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
-		buttonEl.click();
-		fixture.detectChanges();
-		
-		tick(300);
-		const container = fixture.debugElement.query(By.css(".ui-dialog"));
-		expect(container.nativeElement.style.height).toEqual("250px");
-		expect(container.nativeElement.style.width).toEqual("250px");
 	}));
 
 	it('should close with esc', fakeAsync(() => {

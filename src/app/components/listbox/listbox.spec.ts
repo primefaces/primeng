@@ -2,6 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Listbox } from './listbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('Listbox', () => {
   
@@ -11,7 +12,8 @@ describe('Listbox', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
-          NoopAnimationsModule
+          NoopAnimationsModule,
+          TooltipModule
         ],
         declarations: [
           Listbox
@@ -113,13 +115,13 @@ describe('Listbox', () => {
 
 
     it('should change style and styleClass', () => {
-        listbox.style = {'primeng' : 'rocks!'};
+        listbox.style = {'height' : '300px'};
         listbox.styleClass = "Primeng ROCKS!"
         fixture.detectChanges();
         
         const listboxEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(listboxEl.className).toContain("Primeng ROCKS!");
-        expect(listboxEl.style.primeng).toEqual("rocks!");
+        expect(listboxEl.style.height).toEqual("300px");
     });
 
     it('should select item when click', () => {

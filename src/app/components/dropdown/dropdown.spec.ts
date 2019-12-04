@@ -1,10 +1,11 @@
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import { TestBed, ComponentFixture, tick, fakeAsync, async } from '@angular/core/testing';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {Dropdown, DropdownItem} from './dropdown';
+import { Dropdown, DropdownItem} from './dropdown';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '../../../../node_modules/@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
 	template: `
@@ -63,7 +64,8 @@ describe('Dropdown', () => {
         imports: [
           NoopAnimationsModule,
           FormsModule,
-          ScrollingModule
+		  ScrollingModule,
+		  TooltipModule
         ],
         declarations: [
           Dropdown,
@@ -102,12 +104,12 @@ describe('Dropdown', () => {
 
 	it('should change style and styleClass', () => {
 		dropdown.styleClass = "Primeng";
-		dropdown.style = {'primeng':'rocks'}
+		dropdown.style = {'height':'300px'}
 		fixture.detectChanges();
 
 		const containerEl = fixture.debugElement.query(By.css('.ui-dropdown'));
 		expect(containerEl.nativeElement.className).toContain("Primeng");
-		expect(containerEl.nativeElement.style.primeng).toEqual("rocks");
+		expect(containerEl.nativeElement.style.height).toEqual("300px");
 	});
 
 	it('should change panelStyleClass', () => {
@@ -202,7 +204,6 @@ describe('Dropdown', () => {
 			{label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
 		];
 		dropdown.showClear=true;
-		dropdown.autoWidth = true;
 		fixture.detectChanges();
 		
 		const container = fixture.debugElement.query(By.css('.ui-dropdown')).nativeElement;
@@ -439,6 +440,7 @@ describe('Dropdown', () => {
 
 		keydownEvent.which = 76;
 		keydownEvent.keyCode = 76;
+		keydownEvent.key = "l";
 		inputEl.dispatchEvent(keydownEvent);
 		fixture.detectChanges();
 
@@ -508,6 +510,7 @@ describe('Dropdown', () => {
 
 		keydownEvent.which = 77;
 		keydownEvent.keyCode = 77;
+		keydownEvent.key = "m";
 		keydownEvent.altKey = false;
 		inputEl.dispatchEvent(keydownEvent);
 

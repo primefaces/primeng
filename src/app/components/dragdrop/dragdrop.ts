@@ -1,6 +1,6 @@
 import {NgModule,Directive,OnDestroy,AfterViewInit,ElementRef,HostListener,Input,Output,EventEmitter,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import {DomHandler} from 'primeng/dom';
 
 @Directive({
     selector: '[pDraggable]'
@@ -8,8 +8,6 @@ import {DomHandler} from '../dom/domhandler';
 export class Draggable implements AfterViewInit, OnDestroy {
     
     @Input('pDraggable') scope: string;
-
-    @Input() pDraggableDisabled: boolean;
         
     @Input() dragEffect: string;
     
@@ -28,8 +26,25 @@ export class Draggable implements AfterViewInit, OnDestroy {
     mouseDownListener: any;
 
     mouseUpListener: any;
+
+    _pDraggableDisabled: boolean;
         
     constructor(public el: ElementRef, public zone: NgZone) {}
+
+    @Input() get pDraggableDisabled(): boolean {
+        return this._pDraggableDisabled;
+    }
+    set pDraggableDisabled(_pDraggableDisabled:boolean) {
+        this._pDraggableDisabled = _pDraggableDisabled;
+        
+        if (this._pDraggableDisabled) {
+            this.unbindMouseListeners();
+        }
+        else {
+            this.el.nativeElement.draggable = true;
+            this.bindMouseListeners();
+        }
+    }
     
     ngAfterViewInit() {
         if (!this.pDraggableDisabled) {
@@ -84,7 +99,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {
-        if(this.allowDrag()) {
+        if(this.allowDrag() && !this.pDraggableDisabled) {
             if(this.dragEffect) {
                 event.dataTransfer.effectAllowed = this.dragEffect;
             }

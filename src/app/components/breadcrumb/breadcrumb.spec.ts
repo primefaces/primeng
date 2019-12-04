@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Breadcrumb } from './breadcrumb';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '../../../../node_modules/@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Breadcrumb', () => {
   
@@ -34,13 +34,13 @@ describe('Breadcrumb', () => {
     });
 
     it('should change style and styleClass', () => {
-      breadcrumb.style = {'primeng' : 'rocks!'};
+      breadcrumb.style = {'height' : '300px'};
       breadcrumb.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
       
       const breadcrumbEl = fixture.debugElement.query(By.css('div'));
       expect(breadcrumbEl.nativeElement.className).toContain("Primeng ROCKS!");
-      expect(breadcrumbEl.styles.primeng).toEqual("rocks!")
+      expect(breadcrumbEl.styles.height).toEqual("300px")
     });
 
     it('should display the home', () => {

@@ -126,6 +126,7 @@ describe('ColorPicker', () => {
     it('should close when inputclick', () => {
         fixture.detectChanges();
   
+        const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('.ui-inputtext'));
         inputEl.nativeElement.dispatchEvent(new Event("focus"));
         inputEl.nativeElement.click();
@@ -137,12 +138,13 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
 
         selectorEl = fixture.debugElement.query(By.css(".ui-colorpicker-panel"));
-        expect(selectorEl).toBeFalsy();
+        expect(hideSpy).toHaveBeenCalled();
     });
 
     it('should open space keydown and close esc keydown', () => {
         fixture.detectChanges();
   
+        const hideSpy = spyOn(colorpicker,"hide").and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('.ui-inputtext'));
         const openEvent: any = document.createEvent('CustomEvent');
         openEvent.which = 32;
@@ -159,6 +161,6 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
 
         selectorEl = fixture.debugElement.query(By.css(".ui-colorpicker-panel"));
-        expect(selectorEl).toBeFalsy();
+        expect(hideSpy).toHaveBeenCalled();
     });
 });

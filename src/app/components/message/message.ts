@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({

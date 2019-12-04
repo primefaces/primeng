@@ -1,14 +1,14 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule}  from '@angular/forms';
 import {TreeDemo} from './treedemo';
 import {TreeDemoRoutingModule} from './treedemo-routing.module';
-import {TreeModule} from '../../../components/tree/tree';
-import {ToastModule} from '../../../components/toast/toast';
-import {ButtonModule} from '../../../components/button/button';
-import {ContextMenuModule} from '../../../components/contextmenu/contextmenu';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {TreeModule} from 'primeng/tree';
+import {ToastModule} from 'primeng/toast';
+import {ButtonModule} from 'primeng/button';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

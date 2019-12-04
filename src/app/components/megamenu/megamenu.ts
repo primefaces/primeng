@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,Renderer2} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Renderer2} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common/menuitem';
+import {DomHandler} from 'primeng/dom';
+import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 
 @Component({

@@ -28,14 +28,10 @@ node_modules
 *.launch
 .settings/
 *.sublime-workspace
-.editor-config
+.editorconfig
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+/.vscode
 
 # misc
 /.sass-cache
@@ -47,13 +43,13 @@ testem.log
 /typings
 .gitignore
 exports
+CHANGELOG.md
+.travis.yml
 
 # config
 .angular-cli.json
 angular.json
-tsconfig.json
-tsconfig-release.json
-tsconfig-aot.json
+tsconfig*.json
 tslint.json
 gulpfile.js
 .github

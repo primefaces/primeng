@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+      "declaration": true,
+      "module": "es2015",
+      "target": "es5",
+      "baseUrl": ".",
+      "stripInternal": true,
+      "emitDecoratorMetadata": false,
+      "experimentalDecorators": true,
+      "moduleResolution": "node",
+      "outDir": "../build",
+      "rootDir": ".",
+      "lib": [
+        "es2015",
+        "dom"
+      ],
+      "skipLibCheck": true,
+      "types": [],
+      "paths": {
+        "primeng/*": ["src/app/components/*/public_api"]
+      }
+    },
+    "angularCompilerOptions": {
+      "enableIvy": false,
+      "annotateForClosureCompiler": false,
+      "strictMetadataEmit": true,
+      "skipTemplateCodegen": true,
+      "flatModuleOutFile": "primeng.js",
+      "flatModuleId": "primeng"
+    },
+    "files": [
+      "./public_api.ts"
+    ]
+  }

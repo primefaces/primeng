@@ -1,8 +1,8 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common/menuitem';
+import {DomHandler} from 'primeng/dom';
+import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -89,7 +89,7 @@ export class Menu implements OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
     

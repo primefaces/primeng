@@ -74,7 +74,7 @@ describe('Checkbox', () => {
         checkbox.name = "primeng";
         checkbox.inputId = "primeng";
         checkbox.tabindex = 13;
-        checkbox.style = {'primeng': 'rocks'};
+        checkbox.style = {'height': '300px'};
         checkbox.styleClass = "Primeng Rocks!";
         checkbox.labelStyleClass = "Primeng ROCKS";
         fixture.detectChanges();
@@ -93,7 +93,7 @@ describe('Checkbox', () => {
         expect(input.id).toEqual("primeng");
         expect(input.tabIndex).toEqual(13);
         expect(containerEl.className).toContain('Primeng Rocks!');
-        expect(containerEl.style.primeng).toContain('rocks');
+        expect(containerEl.style.height).toContain('300px');
     });
 
     it('should uncheck when twice click', () => {

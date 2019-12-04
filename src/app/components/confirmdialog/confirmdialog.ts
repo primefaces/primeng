@@ -1,11 +1,11 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {Footer,SharedModule} from '../common/shared';
-import {ButtonModule} from '../button/button';
-import {Confirmation} from '../common/confirmation';
-import {ConfirmationService} from '../common/confirmationservice';
+import {DomHandler} from 'primeng/dom';
+import {Footer,SharedModule} from 'primeng/api';
+import {ButtonModule} from 'primeng/button';
+import {Confirmation} from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
 import {Subscription}   from 'rxjs';
 
 @Component({
@@ -94,9 +94,11 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
-    @ContentChild(Footer, { static: false }) footer;
+    @Input() focusTrap: boolean = true;
 
-    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
+    @ContentChild(Footer, { static: true }) footer;
+
+    @ViewChild('content', { static: true }) contentViewChild: ElementRef;
     
     confirmation: Confirmation;
         
@@ -113,10 +115,6 @@ export class ConfirmDialog implements OnDestroy {
     subscription: Subscription;
 
     preWidth: number;
-
-    _width: any;
-
-    _height: any;
                 
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
@@ -149,31 +147,16 @@ export class ConfirmDialog implements OnDestroy {
         });         
     }
 
-    @Input() get width(): any {
-        return this._width;
-    }
-
-    set width(val:any) {
-        this._width = val;
-        console.warn("width property is deprecated, use style to define the width of the Dialog.");
-    }
-
-    @Input() get height(): any {
-        return this._height;
-    }
-
-    set height(val:any) {
-        this._height = val;
-        console.warn("height property is deprecated, use style to define the height of the Dialog.");
-    }
-
     onAnimationStart(event: AnimationEvent) {
         switch(event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.setDimensions();
                 this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
-                DomHandler.findSingle(this.container, 'button').focus();
+                
+                if (this.acceptVisible || this.rejectVisible) {
+                    DomHandler.findSingle(this.container, 'button').focus();
+                }
+
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
@@ -183,16 +166,6 @@ export class ConfirmDialog implements OnDestroy {
             case 'void':
                 this.onOverlayHide();
             break;
-        }
-    }
-
-    setDimensions() {
-        if (this.width) {
-            this.container.style.width = this.width + 'px';
-        }
-
-        if (this.height) {
-            this.container.style.height = this.height + 'px';
         }
     }
 
@@ -258,11 +231,39 @@ export class ConfirmDialog implements OnDestroy {
     }
     
     bindGlobalListeners() {
-        if (this.closeOnEscape && this.closable && !this.documentEscapeListener) {
+        if ((this.closeOnEscape && this.closable) || this.focusTrap && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
-                if (event.which == 27) {
+                if (event.which == 27 && (this.closeOnEscape && this.closable)) {
                     if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
+                    }
+                }
+
+                if(event.which === 9 && this.focusTrap) {
+                    event.preventDefault();
+                    
+                    let focusableElements = DomHandler.getFocusableElements(this.container);
+    
+                    if (focusableElements && focusableElements.length > 0) {
+                        if (!document.activeElement) {
+                            focusableElements[0].focus();
+                        }
+                        else {
+                            let focusedIndex = focusableElements.indexOf(document.activeElement);
+    
+                            if (event.shiftKey) {
+                                if (focusedIndex == -1 || focusedIndex === 0)
+                                    focusableElements[focusableElements.length - 1].focus();
+                                else
+                                    focusableElements[focusedIndex - 1].focus();
+                            }
+                            else {
+                                if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                                    focusableElements[0].focus();
+                                else
+                                    focusableElements[focusedIndex + 1].focus();
+                            }
+                        }
                     }
                 }
             });

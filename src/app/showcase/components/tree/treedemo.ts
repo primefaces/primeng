@@ -1,9 +1,9 @@
 import {Component,OnInit,ViewChild} from '@angular/core';
 import {NodeService} from '../../service/nodeservice';
-import {MenuItem,TreeNode} from '../../../components/common/api';
+import {MenuItem,TreeNode} from 'primeng/api';
 import {Tree} from '../../../components/tree/tree';
-import {TreeDragDropService} from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import {TreeDragDropService} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './treedemo.html',

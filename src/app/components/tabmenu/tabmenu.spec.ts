@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TabMenu } from './tabmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '../../../../node_modules/@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TabMenu', () => {
   
@@ -34,13 +34,13 @@ describe('TabMenu', () => {
     });
 
     it('should change style and styleClass', () => {
-      tabmenu.style = {'primeng' : 'rocks!'};
+      tabmenu.style = {'height' : '300px'};
       tabmenu.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const tabmenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
       expect(tabmenuEl.className).toContain("Primeng ROCKS!");
-      expect(tabmenuEl.style.primeng).toContain("rocks!");
+      expect(tabmenuEl.style.height).toContain("300px");
     });
 
     it('should not show items ', () => {

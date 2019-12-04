@@ -2,10 +2,10 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FileUpload } from './fileupload';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ProgressBarModule} from '../progressbar/progressbar';
-import { ButtonModule } from '../button/button';
-import { PrimeTemplate} from '../common/shared';
-import { MessagesModule } from '../messages/messages';
+import { ProgressBarModule} from 'primeng/progressbar';
+import { ButtonModule } from 'primeng/button';
+import { PrimeTemplate} from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('FileUpload', () => {
@@ -53,7 +53,7 @@ describe('FileUpload', () => {
     });
 
     it('should change style, styleClass, chooseLabel, uploadLabel, cancelLabel, showUploadButton and showCancelButton (advanced)', () => {
-        fileupload.style = {'primeng': 'rocks!'};
+        fileupload.style = {'height': '300px'};
         fileupload.styleClass = "Primeng ROCKS!";
         fileupload.chooseLabel = "primeng";
         fileupload.uploadLabel = "primeng";
@@ -66,7 +66,7 @@ describe('FileUpload', () => {
         const chooseButton =fixture.debugElement.query(By.css(".ui-fileupload-choose"));
         expect(fileuploadEl).toBeTruthy();
         expect(fileuploadEl.nativeElement.className).toContain("Primeng ROCKS!");
-        expect(fileuploadEl.nativeElement.style.primeng).toContain("rocks!");
+        expect(fileuploadEl.nativeElement.style.height).toContain("300px");
         expect(uploadButton).toBeTruthy();
         expect(cancelButton).toBeTruthy();
         expect(uploadButton.nativeElement.textContent).toEqual("primeng");

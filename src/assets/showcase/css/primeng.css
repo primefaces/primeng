@@ -11,9 +11,6 @@
 @import '../../../app/components/chips/chips.css';
 @import '../../../app/components/colorpicker/colorpicker.css';
 @import '../../../app/components/contextmenu/contextmenu.css';
-@import '../../../app/components/datagrid/datagrid.css';
-@import '../../../app/components/datalist/datalist.css';
-@import '../../../app/components/datascroller/datascroller.css';
 @import '../../../app/components/dataview/dataview.css';
 @import '../../../app/components/dialog/dialog.css';
 @import '../../../app/components/dropdown/dropdown.css';
@@ -22,7 +19,6 @@
 @import '../../../app/components/fullcalendar/fullcalendar.css';
 @import '../../../app/components/galleria/galleria.css';
 @import '../../../app/components/grid/grid.css';
-@import '../../../app/components/growl/growl.css';
 @import '../../../app/components/inplace/inplace.css';
 @import '../../../app/components/inputmask/inputmask.css';
 @import '../../../app/components/inputswitch/inputswitch.css';
@@ -48,7 +44,6 @@
 @import '../../../app/components/progressspinner/progressspinner.css';
 @import '../../../app/components/radiobutton/radiobutton.css';
 @import '../../../app/components/rating/rating.css';
-@import '../../../app/components/schedule/schedule.css';
 @import '../../../app/components/scrollpanel/scrollpanel.css';
 @import '../../../app/components/selectbutton/selectbutton.css';
 @import '../../../app/components/sidebar/sidebar.css';

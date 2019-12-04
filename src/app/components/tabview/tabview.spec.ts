@@ -2,9 +2,9 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TabView, TabPanel, TabViewNav } from './tabview';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component } from '../../../../node_modules/@angular/core';
-import { Tooltip } from '../tooltip/tooltip';
-import { PrimeTemplate } from '../common/shared';
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     template: `<p-tabView>
@@ -127,25 +127,25 @@ describe('TabView', () => {
     it('should change headerStyle and headerStyleClass', () => {
       fixture.detectChanges();
 
-      firstTabPanel.headerStyle = {"prime":"rock"};
+      firstTabPanel.headerStyle = {"height":"300px"};
       firstTabPanel.headerStyleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
       expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
-      expect(firstTabViewNavEl.style.prime).toContain("rock");
+      expect(firstTabViewNavEl.style.height).toContain("300px");
     });
 
     it('should change style and styleClass', () => {
       fixture.detectChanges();
 
-      tabview.style = {"prime":"rock"};
+      tabview.style = {"height":"300px"};
       tabview.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const firstTabViewNavEl = fixture.debugElement.children[0].children[0].nativeElement;
       expect(firstTabViewNavEl.className).toContain("Primeng ROCKS!");
-      expect(firstTabViewNavEl.style.prime).toContain("rock");
+      expect(firstTabViewNavEl.style.height).toContain("300px");
     });
 
     it('should cache true by default', () => {
@@ -163,9 +163,9 @@ describe('TabView', () => {
       const firstTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
       const secondTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
       const thirdTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
-      expect(firstTabViewNavEl.className).not.toContain('ui-tabview-selected ui-state-active');
-      expect(secondTabViewNavEl.className).toContain('ui-tabview-selected ui-state-active');
-      expect(thirdTabViewNavEl.className).not.toContain('ui-tabview-selected ui-state-active');
+      expect(firstTabViewNavEl.className).not.toContain('ui-state-active ui-tabview-selected');
+      expect(secondTabViewNavEl.className).toContain('ui-state-active ui-tabview-selected');
+      expect(thirdTabViewNavEl.className).not.toContain('ui-state-active ui-tabview-selected');
     });
 
     it('should change activeIndex', () => {

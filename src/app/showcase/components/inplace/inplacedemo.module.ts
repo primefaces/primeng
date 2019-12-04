@@ -1,12 +1,12 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InplaceDemo} from './inplacedemo';
 import {InplaceDemoRoutingModule} from './inplacedemo-routing.module';
-import {InplaceModule} from '../../../components/inplace/inplace';
-import {InputTextModule} from '../../../components/inputtext/inputtext';
-import {TableModule} from '../../../components/table/table';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {InplaceModule} from 'primeng/inplace';
+import {InputTextModule} from 'primeng/inputtext';
+import {TableModule} from 'primeng/table';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

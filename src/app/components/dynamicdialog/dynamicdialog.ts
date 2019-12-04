@@ -3,7 +3,7 @@ import { trigger,state,style,transition,animate,AnimationEvent } from '@angular/
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 
 @Component({

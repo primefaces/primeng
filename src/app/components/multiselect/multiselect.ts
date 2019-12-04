@@ -2,13 +2,14 @@ import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentIni
     forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild } from '@angular/core';
 import { trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SelectItem } from '../common/selectitem';
-import { DomHandler } from '../dom/domhandler';
-import { ObjectUtils } from '../utils/objectutils';
-import { SharedModule, PrimeTemplate, Footer, Header } from '../common/shared';
+import { SelectItem } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { ObjectUtils } from 'primeng/utils';
+import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { FilterUtils } from '../utils/filterutils';
+import { FilterUtils } from 'primeng/utils';
+import {TooltipModule} from 'primeng/tooltip';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -77,7 +78,7 @@ export class MultiSelectItem {
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
                        [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)">
             </div>
-            <div class="ui-multiselect-label-container" [title]="valuesAsString">
+            <div class="ui-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
                 <span class="ui-multiselect-label ui-corner-all">
                     <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString}}</ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
@@ -87,7 +88,7 @@ export class MultiSelectItem {
                 <span class="ui-multiselect-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div *ngIf="overlayVisible" [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow']" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                [ngStyle]="panelStyle" [class]="panelStyleClass" (click)="panelClick=true">
+                [ngStyle]="panelStyle" [class]="panelStyleClass" (click)="panelClick=true" (keydown)="onKeydown($event)">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix" [ngClass]="{'ui-multiselect-header-no-toggleall': !showToggleAll}" *ngIf="showHeader">
                 <ng-content select="p-header"></ng-content>  
                 <div class="ui-chkbox ui-widget" *ngIf="showToggleAll && !selectionLimit">
@@ -232,13 +233,21 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @Input() filterMatchMode: string = "contains";
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @Input() tooltip: string = '';
+
+    @Input() tooltipPosition: string = 'right';
+
+    @Input() tooltipPositionStyle: string = 'absolute';
+
+    @Input() tooltipStyleClass: string;
+
+    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
     
     @ViewChild('filterInput', { static: false }) filterInputChild: ElementRef;
 
-    @ContentChild(Footer, { static: false }) footerFacet;
+    @ContentChild(Footer, { static: true }) footerFacet;
 
-    @ContentChild(Header, { static: false }) headerFacet;
+    @ContentChild(Header, { static: true }) headerFacet;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -358,7 +367,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     checkSelectionLimit() {
-        if (this.selectionLimit && (!this.value || this.value.length === this.selectionLimit)) {
+        if (this.selectionLimit && (this.value && this.value.length === this.selectionLimit)) {
             this.maxSelectionLimitReached = true;
         }
     }
@@ -474,7 +483,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     isAllVisibleOptionsChecked() {
-        if (!this.visibleOptions) {
+        if (!this.visibleOptions || this.visibleOptions.length === 0) {
             return false;
         }
         else {
@@ -634,7 +643,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         
             //down
             case 40:
-                var nextItem = this.findNextItem(event.originalEvent);
+                var nextItem = this.findNextItem(event.originalEvent.target.parentElement);
                 if(nextItem) {
                     nextItem.focus();
                 }
@@ -644,7 +653,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             
             //up
             case 38:
-                var prevItem = this.findPrevItem(event.originalEvent);
+                var prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
                 if(prevItem) {
                     prevItem.focus();
                 }
@@ -660,20 +669,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         }
     }
     
-    findNextItem(event) {
-        let nextItem = event.target.parentElement.nextElementSibling;
+    findNextItem(item) {
+        let nextItem = item.nextElementSibling;
         
         if (nextItem)
-            return DomHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem.children[0]) : nextItem.children[0];
+            return DomHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem) : nextItem.children[0];
         else
             return null;
     }
 
-    findPrevItem(event) {
-        let prevItem = event.target.parentElement.previousElementSibling;
+    findPrevItem(item) {
+        let prevItem = item.previousElementSibling;
         
         if (prevItem)
-            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem.children[0]) : prevItem.children[0];
+            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem.children[0]) ? this.findPrevItem(prevItem) : prevItem.children[0];
         else
             return null;
     } 
@@ -779,12 +788,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     getVisibleOptions(): SelectItem[] {
-        if (this.visibleOptions && this.visibleOptions.length) {
-            return this.visibleOptions;
-        }
-        else {
-            return this.options;
-        }
+        return this.visibleOptions || this.options;
     }
     
     onHeaderCheckboxFocus() {
@@ -848,7 +852,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ScrollingModule],
+    imports: [CommonModule,SharedModule,ScrollingModule, TooltipModule],
     exports: [MultiSelect,SharedModule,ScrollingModule],
     declarations: [MultiSelect,MultiSelectItem]
 })

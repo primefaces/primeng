@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
-import {DynamicDialogRef} from '../../../components/common/api';
-import {DynamicDialogConfig} from '../../../components/common/api';
+import {DynamicDialogRef} from '../../../components/dynamicdialog/dynamicdialog-ref';
+import {DynamicDialogConfig} from '../../../components/dynamicdialog/dynamicdialog-config';
 
 @Component({
     template: `

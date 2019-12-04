@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { Steps } from './steps';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA, ViewEncapsulation } from '@angular/core';
-import { Toast } from '../toast/toast';
-import { RouterTestingModule } from '../../../../node_modules/@angular/router/testing';
-import { MenuItem } from '../common/api';
+import { Toast } from 'primeng/toast';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   template: `<p-steps [model]="items"></p-steps>
@@ -74,13 +74,13 @@ describe('Steps', () => {
     });
 
     it('should change style & styleClass', () => {
-      steps.style = {'primeng' : 'rocks!'};
+      steps.style = {'height' : '300px'};
       steps.styleClass = "Primeng ROCKS!";
       fixture.detectChanges();
 
       const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
       expect(stepsEl.className).toContain("Primeng ROCKS!");
-      expect(stepsEl.style.primeng).toContain("rocks!");
+      expect(stepsEl.style.height).toContain("300px");
     });
 
     it('should readonly by default', () => {

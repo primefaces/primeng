@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Footer} from '../common/shared';
-import {BlockableUI} from '../common/blockableui';
+import {SharedModule,Footer} from 'primeng/api';
+import {BlockableUI} from 'primeng/api';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 
 let idx: number = 0;
@@ -80,7 +80,7 @@ export class Panel implements BlockableUI {
     
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @ContentChild(Footer, { static: false }) footerFacet;
+    @ContentChild(Footer, { static: true }) footerFacet;
     
     animating: boolean;
     

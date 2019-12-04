@@ -1,11 +1,11 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {InputTextModule} from '../inputtext/inputtext';
-import {ButtonModule} from '../button/button';
-import {SharedModule,PrimeTemplate} from '../common/shared';
-import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/objectutils';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {DomHandler} from 'primeng/dom';
+import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
@@ -18,7 +18,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     selector: 'p-autoComplete',
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
-            <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [attr.required]="required"
+            <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" [autocomplete]="autocomplete" [attr.required]="required" [attr.name]="name"
             [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="inputFieldValue" aria-autocomplete="list" role="combobox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
@@ -29,8 +29,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: val}"></ng-container>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" autocomplete="off" 
+                    <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" [attr.maxlength]="maxlength" (input)="onInput($event)"  (click)="onInputClick($event)"
+                            (keydown)="onKeydown($event)" [readonly]="readonly" (keyup)="onKeyup($event)" [attr.autofocus]="autofocus" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)" (paste)="onInputPaste($event)" [autocomplete]="autocomplete"
                             [ngStyle]="inputStyle" [class]="inputStyleClass" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-required]="required"
                             aria-autocomplete="list" role="combobox" [attr.aria-expanded]="overlayVisible" aria-haspopup="true" [attr.aria-activedescendant]="'p-highlighted-option'">
                 </li>
@@ -70,7 +70,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,ControlValueAccessor {
+export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy,ControlValueAccessor {
 
     @Input() minLength: number = 1;
 
@@ -97,6 +97,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     @Input() disabled: boolean;
 
     @Input() maxlength: number;
+
+    @Input() name: string;
 
     @Input() required: boolean;
 
@@ -154,13 +156,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     @Input() emptyMessage: string;
 
-    @Input() immutable: boolean = true;
-
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
     @Input() autofocus: boolean;
+
+    @Input() autocomplete: string = 'off';
 
     @ViewChild('in', { static: false }) inputEL: ElementRef;
 
@@ -228,20 +230,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-        
-        if (this.immutable) {
-            this.handleSuggestionsChange();
-        }
-    }
-
-    ngDoCheck() {
-        if (!this.immutable) {
-            let changes = this.differ.diff(this.suggestions);
-
-            if (changes) {
-                this.handleSuggestionsChange();
-            }
-        }
+        this.handleSuggestionsChange();
     }
 
     ngAfterViewChecked() {
@@ -333,7 +322,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,O
     }
 
     onInput(event: Event) {
-        if (!this.inputKeyDown) {
+        // When an input element with a placeholder is clicked, the onInput event is invoked in IE.
+        if (!this.inputKeyDown && DomHandler.isIE()) {
             return;
         }
 

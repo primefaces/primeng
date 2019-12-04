@@ -1,10 +1,10 @@
 import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ButtonModule} from '../button/button';
-import {SharedModule,PrimeTemplate} from '../common/shared';
-import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/objectutils';
-import { FilterUtils } from '../utils/filterutils';
+import {ButtonModule} from 'primeng/button';
+import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {DomHandler} from 'primeng/dom';
+import {ObjectUtils} from 'primeng/utils';
+import { FilterUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-pickList',
@@ -161,9 +161,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Output() onTargetFilter: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('sourcelist', { static: false }) listViewSourceChild: ElementRef;
+    @ViewChild('sourcelist', { static: true }) listViewSourceChild: ElementRef;
     
-    @ViewChild('targetlist', { static: false }) listViewTargetChild: ElementRef;
+    @ViewChild('targetlist', { static: true }) listViewTargetChild: ElementRef;
 
     @ViewChild('sourceFilter', { static: false }) sourceFilterViewChild: ElementRef;
 

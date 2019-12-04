@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { MultiSelect, MultiSelectItem } from './multiselect';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('MultiSelect', () => {
   
@@ -13,7 +14,8 @@ describe('MultiSelect', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          ScrollingModule
+		  ScrollingModule,
+		  TooltipModule
         ],
         declarations: [
           MultiSelect,
@@ -65,27 +67,27 @@ describe('MultiSelect', () => {
 	it('should change style and styleClass', () => {
 		fixture.detectChanges();
 
-		multiselect.style = {'primeng':'rocks'};
+		multiselect.style = {'height':'300px'};
 		multiselect.styleClass = "Primeng ROCKS!";
 		fixture.detectChanges();
 		
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		expect(multiselectEl.className).toContain('Primeng ROCKS!');
-		expect(multiselectEl.style.primeng).toContain('rocks');
+		expect(multiselectEl.style.height).toContain('300px');
 	});
 
 	it('should change panelstyle and panelStyleClass', () => {
 		multiselect.disabledSelectedOptions = [];
 		fixture.detectChanges();
 
-		multiselect.panelStyle = {'primeng':'rocks'};
+		multiselect.panelStyle = {'height':'300px'};
 		multiselect.panelStyleClass = "Primeng ROCKS!";
 		multiselect.overlayVisible=true;
 		fixture.detectChanges();
 		
 		const multiselectPanelEl = fixture.debugElement.query(By.css('.ui-multiselect-panel ')).nativeElement;
 		expect(multiselectPanelEl.className).toContain('Primeng ROCKS!');
-		expect(multiselectPanelEl.style.primeng).toContain('rocks');
+		expect(multiselectPanelEl.style.height).toContain('300px');
 	});
 
 	it('should open when click', () => {
@@ -117,6 +119,7 @@ describe('MultiSelect', () => {
 		inputEl.nativeElement.dispatchEvent(keydownEvent);
 		fixture.detectChanges();
 
+        const hideSpy = spyOn(multiselect,"hide").and.callThrough();
 		let multiselectPanelEl = fixture.debugElement.query(By.css('.ui-multiselect-panel'));
 		expect(multiselect.overlayVisible).toEqual(true);
 		expect(multiselectPanelEl).toBeTruthy();
@@ -126,8 +129,7 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		multiselectPanelEl = fixture.debugElement.query(By.css('.ui-multiselect-panel'));
-		expect(multiselect.overlayVisible).toEqual(false);
-		expect(multiselectPanelEl).toBeFalsy();
+		expect(hideSpy).toHaveBeenCalled();
 		keydownEvent.which = 32;
 		inputEl.nativeElement.dispatchEvent(keydownEvent);
 		fixture.detectChanges();

@@ -1,4 +1,4 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router'
 import {ChartDemo} from './chartdemo';
 import {PieChartDemo} from './piechart/piechartdemo';

@@ -1,10 +1,10 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonDemo} from './buttondemo';
 import {ButtonDemoRoutingModule} from './buttondemo-routing.module';
-import {ButtonModule} from '../../../components/button/button';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {ButtonModule} from 'primeng/button';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

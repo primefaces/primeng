@@ -1,10 +1,10 @@
-import {NgModule}     from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FieldsetDemo} from './fieldsetdemo';
 import {FieldsetDemoRoutingModule} from './fieldsetdemo-routing.module';
-import {FieldsetModule} from '../../../components/fieldset/fieldset';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {FieldsetModule} from 'primeng/fieldset';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

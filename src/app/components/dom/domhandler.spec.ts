@@ -107,14 +107,14 @@ describe('DomHandler', () => {
         const childEl = document.createElement("p");
         const childEl2 = document.createElement("a");
         const childEl3 = document.createElement("a");
-        childEl2.setAttribute("primeng","rocks!");
-        childEl3.setAttribute("primeng","rocks!");
+        childEl2.setAttribute("height","300px");
+        childEl3.setAttribute("height","300px");
         DomHandler.addClass(childEl,"primeng");
         DomHandler.addClass(childEl3,"primeng");
         element.appendChild(childEl);
         element.appendChild(childEl2);
         element.appendChild(childEl3);
-        expect(DomHandler.indexWithinGroup(element.children[2],"primeng")).toEqual(1);
+        expect(DomHandler.indexWithinGroup(element.children[2],"height")).toEqual(1);
     });
 
     it('should use relativePosition', () => {

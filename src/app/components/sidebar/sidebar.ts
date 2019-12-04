@@ -1,7 +1,7 @@
 import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import {DomHandler} from 'primeng/dom';
 
 @Component({
     selector: 'p-sidebar',
@@ -56,7 +56,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     @Input() closeOnEscape: boolean = true;
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 

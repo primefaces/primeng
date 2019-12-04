@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,Input,TemplateRef,EmbeddedViewRef,
+import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,TemplateRef,EmbeddedViewRef,
         ViewContainerRef,Renderer2,EventEmitter,Output,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
@@ -9,7 +9,7 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
         
     @Output() onLoad: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(TemplateRef, { static: false }) template: TemplateRef<any>;
+    @ContentChild(TemplateRef, { static: true }) template: TemplateRef<any>;
         
     documentScrollListener: Function;
     

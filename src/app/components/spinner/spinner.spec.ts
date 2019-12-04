@@ -47,7 +47,6 @@ describe('Spinner', () => {
     });
 
     it('should have value as -3 when down clicked 3 times', () => {
-        spinner.type="deprecated";
         fixture.detectChanges();
         
         const spinnerDown = fixture.nativeElement.querySelector('.ui-spinner-down');
@@ -190,13 +189,13 @@ describe('Spinner', () => {
     });
 
     it('should change inputStyle and inputStyleClass', () => {
-        spinner.inputStyle = {'primeng': 'rocks!'};
+        spinner.inputStyle = {'height': '300px'};
         spinner.inputStyleClass = "Primeng ROCKS!";
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
         expect(inputEl.nativeElement.className).toContain("Primeng ROCKS!");
-        expect(inputEl.nativeElement.style.primeng).toEqual("rocks!");
+        expect(inputEl.nativeElement.style.height).toEqual("300px");
     });
 
     it('should change inputId placeholder tabindex and required', () => {

@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FlexGridDemo} from './flexgriddemo';
-import {PanelModule} from '../../../components/panel/panel';
-import {ButtonModule} from '../../../components/button/button';
 import {FlexGridDemoRoutingModule} from './flexgriddemo-routing.module';
-import {TabViewModule} from '../../../components/tabview/tabview';
-import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {PanelModule} from 'primeng/panel';
+import {ButtonModule} from 'primeng/button';
+import {TabViewModule} from 'primeng/tabview';
+import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [

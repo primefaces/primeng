@@ -1,7 +1,7 @@
 import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
@@ -338,6 +338,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             //escape and tab
             case 27:
             case 9:
+                console.log("hey?")
                 this.hide();
             break;
         }
@@ -495,9 +496,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         var rgb = {
             r: null, g: null, b: null
         };
-        var h = Math.round(hsb.h);
-        var s = Math.round(hsb.s*255/100);
-        var v = Math.round(hsb.b*255/100);
+        let h: number = hsb.h;
+        let s: number = hsb.s*255/100;
+        let v: number = hsb.b*255/100;
         if(s == 0) {
             rgb = {
                 r: v,
@@ -506,9 +507,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             }
         } 
         else {
-            var t1 = v;
-            var t2 = (255-s)*v/255;
-            var t3 = (t1-t2)*(h%60)/60;
+            let t1: number = v;
+            let t2: number = (255-s)*v/255;
+            let t3: number = (t1-t2)*(h%60)/60;
             if(h==360) h = 0;
             if(h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
             else if(h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}

@@ -17,6 +17,9 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "paths": {
+            "primeng/*": ["src/app/components/*/public_api"]
+        }
+     }
     }
-}

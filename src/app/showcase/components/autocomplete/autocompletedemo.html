@@ -71,13 +71,9 @@ export class AutoCompleteDemo &#123;
 </code>
 </pre>
 
-            <h3>Change Detection</h3>
-            <p>AutoComplete either uses setter based checking or ngDoCheck to realize if the suggestions has changed to update the UI. This is configured using the immutable
-                property, when enabled (default) setter based detection is utilized so your changes such as adding or removing a record
+            <h3>Change Detection of Suggestions</h3>
+            <p>AutoComplete uses setter based checking to realize if the suggestions has changed to update the UI. In order this to work, your changes such as adding or removing a record
                 should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change.
-                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
-                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
-                both methods can be used depending on your preference.
             </p>
 
             <p>Note that if no suggestions are available after searching, provide an empty array instead of a null value.</p>
@@ -312,6 +308,12 @@ export class AutoCompleteDemo &#123;
                             <td>Identifier of the focus input to match a label defined for the component.</td>
                         </tr>
                         <tr>
+                            <td>name</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the input element.</td>
+                        </tr>
+                        <tr>
                             <td>placeholder</td>
                             <td>string</td>
                             <td>null</td>
@@ -450,6 +452,12 @@ export class AutoCompleteDemo &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Ensures uniqueness of selected items on multiple mode.</td>
+                        </tr>
+                        <tr>
+                            <td>autocomplete</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Used to define a string that autocomplete attribute the current element.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import {DomHandler} from 'primeng/dom';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Component({

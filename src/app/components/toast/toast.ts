@@ -1,9 +1,9 @@
 import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Message} from '../common/message';
-import {DomHandler} from '../dom/domhandler';
-import {PrimeTemplate,SharedModule} from '../common/shared';
-import {MessageService} from '../common/messageservice';
+import {Message} from 'primeng/api';
+import {DomHandler} from 'primeng/dom';
+import {PrimeTemplate,SharedModule} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
 
@@ -63,7 +63,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
 
     timeout: any;
 
@@ -159,7 +159,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

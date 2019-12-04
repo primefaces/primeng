@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {MenuItem} from '../common/menuitem';
+import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 
 export class BasePanelMenuItem {
@@ -38,7 +38,7 @@ export class BasePanelMenuItem {
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="child.styleClass" [class.ui-helper-hidden]="child.visible === false" [ngStyle]="child.style">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.expanded ? null : child.tabindex ? child.tabindex : '-1'" [attr.id]="child.id"
-                        [ngClass]="{'ui-state-disabled':child.disabled}" 
+                        [ngClass]="{'ui-state-disabled':child.disabled, 'ui-state-active': child.expanded}" 
                         (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
                         <span class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-caret-right':!child.expanded,'pi-caret-down':child.expanded}" *ngIf="child.items"></span
                         ><span class="ui-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span
@@ -102,7 +102,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
-                           (click)="handleClick($event,item)" [attr.target]="item.target" [attr.title]="item.title" class="ui-panelmenu-header-link" [attr.id]="child.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'">
+                           (click)="handleClick($event,item)" [attr.target]="item.target" [attr.title]="item.title" class="ui-panelmenu-header-link" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'">
                         <span *ngIf="item.items" class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!item.expanded,'pi-chevron-down':item.expanded}"></span
                         ><span class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>

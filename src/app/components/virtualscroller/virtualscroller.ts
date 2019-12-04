@@ -1,8 +1,8 @@
 import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
+import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {BlockableUI} from '../common/blockableui';
+import {BlockableUI} from 'primeng/api';
 
 @Component({
     selector: 'p-virtualScroller',
@@ -48,13 +48,13 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
-    @ContentChild(Header, { static: false }) header;
+    @ContentChild(Header, { static: true }) header;
 
-    @ContentChild(Footer, { static: false }) footer;
+    @ContentChild(Footer, { static: true}) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('viewport', { static: false }) viewPortViewChild: ElementRef;
+    @ViewChild('viewport', { static: true }) viewPortViewChild: ElementRef;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 

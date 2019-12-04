@@ -55,13 +55,13 @@ describe('Slider', () => {
     });
 
     it('should change styles', () => {
-        slider.style = {'primeng':'rocks!'};
+        slider.style = {'height':'300px'};
         slider.styleClass = "Primeng ROCKS!";
         fixture.detectChanges();
 
         const sliderEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(sliderEl.className).toContain("Primeng ROCKS!");
-        expect(sliderEl.style.primeng).toEqual("rocks!");
+        expect(sliderEl.style.height).toEqual("300px");
     });
 
     it('should change orientation', () => {

@@ -34,13 +34,13 @@ describe('MegaMenu', () => {
     });
 
     it('should change style and styleClass', () => {
-        megamenu.style = {'primeng' : 'rocks!'};
+        megamenu.style = {'height' : '300px'};
         megamenu.styleClass = "Primeng ROCKS!";
         fixture.detectChanges();
         
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(megaMenuEl.className).toContain("Primeng ROCKS!");
-        expect(megaMenuEl.style.primeng).toContain("rocks!");
+        expect(megaMenuEl.style.height).toContain("300px");
     });
 
     it('should horizontal by default', () => {
