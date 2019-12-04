@@ -108,11 +108,11 @@ export interface LocaleSettings {
                 </ng-container>
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 0, 1)" (mouseup)="onTimePickerElementMouseUp($event)">
+                        <a  (mousedown)="onTimePickerElementMouseDown($event, 0, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 0, -1)" (mouseup)="onTimePickerElementMouseUp($event)">
+                        <a  (mousedown)="onTimePickerElementMouseDown($event, 0, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -126,11 +126,11 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-minute-picker">
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 1, 1)" (mouseup)="onTimePickerElementMouseUp($event)">
+                        <a  (mousedown)="onTimePickerElementMouseDown($event, 1, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 1, -1)" (mouseup)="onTimePickerElementMouseUp($event)">
+                        <a  (mousedown)="onTimePickerElementMouseDown($event, 1, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -144,11 +144,11 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-second-picker" *ngIf="showSeconds">
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 2, 1)" (mouseup)="onTimePickerElementMouseUp($event)">
+                        <a  (mousedown)="onTimePickerElementMouseDown($event, 2, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 2, -1)" (mouseup)="onTimePickerElementMouseUp($event)">
+                        <a  (mousedown)="onTimePickerElementMouseDown($event, 2, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -1217,6 +1217,13 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    onTimePickerElementMouseOut(event: Event) {
+        if (!this.disabled) {
+            this.clearTimePickerTimer();
+            this.updateTime();
+        }
+    }
+
     repeat(event: Event, interval: number, type: number, direction: number) {
         let i = interval||500;
 
@@ -1582,6 +1589,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     hideOverlay() {
         this.overlayVisible = false;
+        this.clearTimePickerTimer();
 
         if (this.touchUI) {
             this.disableModality();
@@ -2134,6 +2142,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     ngOnDestroy() {
+        this.clearTimePickerTimer();
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }
