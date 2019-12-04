@@ -95,7 +95,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                 <div class="ui-panelmenu-panel" [ngClass]="{'ui-helper-hidden': item.visible === false}">
                     <div [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-top':f,'ui-corner-bottom':l&&!item.expanded,
                     'ui-state-active':item.expanded,'ui-state-disabled':item.disabled}" [class]="item.styleClass" [ngStyle]="item.style">
-                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" (click)="handleClick($event,item)" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
+                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" (click)="handleClick($event,item)" [attr.tabindex]="item.tabindex ? item.tabindex : '0'" [attr.id]="item.id"
                            [attr.target]="item.target" [attr.title]="item.title" class="ui-panelmenu-header-link">
                         <span *ngIf="item.items" class="ui-panelmenu-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!item.expanded,'pi-chevron-down':item.expanded}"></span
                         ><span class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span
