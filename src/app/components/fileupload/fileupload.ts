@@ -69,7 +69,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     @Input() multiple: boolean;
 
-    @Input() accept: string;
+    @Input() accept: string | string[];
 
     @Input() disabled: boolean;
 
@@ -296,7 +296,12 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     }
 
     private isFileTypeValid(file: File): boolean {
-        let acceptableTypes = this.accept.split(',').map(type => type.trim());
+        let acceptableTypes: string | string[] = this.accept;
+        if(!Array.isArray(this.accept))
+        {
+            acceptableTypes = acceptableTypes.split(',').map(type => type.trim());
+        }
+
         for(let type of acceptableTypes) {
             let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type)
                                                     : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
