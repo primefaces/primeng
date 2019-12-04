@@ -11,7 +11,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Session Storage</h3>
-    <p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+    <p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
         selectionMode="single" [(selection)]="selectedCar1" stateStorage="session" stateKey="statedemo-session">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -36,7 +36,7 @@
     </p-table>
 
     <h3>Local Storage</h3>
-    <p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+    <p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
         selectionMode="single" [(selection)]="selectedCar2" stateStorage="local" stateKey="statedemo-local">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -95,10 +95,10 @@ export class TableStateDemo implements OnInit &#123;
             &#123; field: 'color', header: 'Color' &#125;
         ];
     &#125;
-    
+
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="tablestatedemo.html">
@@ -109,7 +109,7 @@ export class TableStateDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Session Storage&lt;/h3&gt;
-&lt;p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+&lt;p-table #dt1 [columns]="cols" [value]="cars1" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
     selectionMode="single" [(selection)]="selectedCar1" stateStorage="session" stateKey="statedemo-session"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
@@ -134,7 +134,7 @@ export class TableStateDemo implements OnInit &#123;
 &lt;/p-table&gt;
 
 &lt;h3&gt;Local Storage&lt;/h3&gt;
-&lt;p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+&lt;p-table #dt2 [columns]="cols" [value]="cars2" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
     selectionMode="single" [(selection)]="selectedCar2" stateStorage="local" stateKey="statedemo-local"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
