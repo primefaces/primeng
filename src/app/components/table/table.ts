@@ -664,6 +664,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this._sortField = event.field;
             this.sortSingle();
+
+            if(this.resetPageOnSort) {
+                this.first = 0;
+                this.firstChange.emit(this.first);
+            }
         }
         if (this.sortMode === 'multiple') {
             let metaKey = originalEvent.metaKey || originalEvent.ctrlKey;
@@ -698,10 +703,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if(this.sortField && this.sortOrder) {
             if (this.restoringSort) {
                 this.restoringSort = false;
-            }
-            else if(this.resetPageOnSort) {
-                this.first = 0;
-                this.firstChange.emit(this.first);
             }
 
             if(this.lazy) {
