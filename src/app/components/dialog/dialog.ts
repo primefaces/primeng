@@ -174,7 +174,7 @@ export class Dialog implements OnDestroy {
 
     id: string = `ui-dialog-${idx++}`;
 
-    _style: any;
+    _style: any = {};
 
     originalStyle: any;
 
@@ -711,7 +711,7 @@ export class Dialog implements OnDestroy {
 
         this.container = null;
 
-        this._style = this.originalStyle ? {...this.originalStyle} : null;
+        this._style = this.originalStyle ? {...this.originalStyle} : {};
     }
 
     ngOnDestroy() {
