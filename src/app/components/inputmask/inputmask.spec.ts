@@ -241,17 +241,6 @@ describe('InputMask', () => {
         expect(onInputFocusSpy).toHaveBeenCalled();
     });
 
-    it('should focus on input (manually)', () => {
-        inputmask.mask = "99-999999";
-        fixture.detectChanges();
-
-        inputmask.focus();
-        fixture.detectChanges();
-
-        let inputMaskEl = fixture.debugElement.query(By.css('input'));
-        expect(inputMaskEl.parent.nativeElement.className).toContain("ui-inputwrapper-focus");
-    });
-
     it('should disabled with setDisabledState', () => {
         inputmask.setDisabledState(true);
         fixture.detectChanges();
