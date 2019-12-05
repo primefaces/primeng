@@ -665,7 +665,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._sortField = event.field;
             this.sortSingle();
 
-            if(this.resetPageOnSort) {
+            if (this.resetPageOnSort) {
                 this.first = 0;
                 this.firstChange.emit(this.first);
             }
