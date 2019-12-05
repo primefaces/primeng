@@ -1,5 +1,25 @@
 # Change Log
 
+## [9.0.0-rc.2](https://github.com/primefaces/primeng/tree/9.0.0-rc.2) (2019-12-05)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc.1...9.0.0-rc.2)
+
+**Fixed bugs:**
+
+- PanelMenu header item does not render id [\#8379](https://github.com/primefaces/primeng/issues/8379)
+- TableState resets paginator when sorting is enabled [\#8378](https://github.com/primefaces/primeng/issues/8378)
+- Table selection not restored with TableState [\#8376](https://github.com/primefaces/primeng/issues/8376)
+- Bug on dialog [\#8364](https://github.com/primefaces/primeng/issues/8364)
+- Don't decrease page when totalRecords is not \(yet\) set [\#8358](https://github.com/primefaces/primeng/issues/8358)
+- TreeTable column resize for footer [\#8351](https://github.com/primefaces/primeng/issues/8351)
+- colorPicker - wrong color rendered [\#8334](https://github.com/primefaces/primeng/issues/8334)
+- Dynamic Tooltip rendering wrong [\#8323](https://github.com/primefaces/primeng/issues/8323)
+- Timer running even after calendar closing and opening [\#8296](https://github.com/primefaces/primeng/issues/8296)
+- ConfirmDialog - Documentation - Incorrect Spelling 'Specifices' [\#8291](https://github.com/primefaces/primeng/issues/8291)
+- Documentation error for FullCalendar [\#8286](https://github.com/primefaces/primeng/issues/8286)
+- InputMask always setting class ui-inputwrapper-focus [\#8032](https://github.com/primefaces/primeng/issues/8032)
+- Document that resetPageOnSort is only available in single sort [\#7953](https://github.com/primefaces/primeng/issues/7953)
+
 ## [9.0.0-rc.1](https://github.com/primefaces/primeng/tree/9.0.0-rc.1) (2019-11-26)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/8.1.1...9.0.0-rc.1)
