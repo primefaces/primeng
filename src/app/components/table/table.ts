@@ -1992,9 +1992,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             if (state.selection) {
-                Promise.resolve(null).then(() =>{
-                        this.selectionChange.emit(state.selection);
-                })
+                Promise.resolve(null).then(() => this.selectionChange.emit(state.selection));
             }
 
             this.stateRestored = true;
