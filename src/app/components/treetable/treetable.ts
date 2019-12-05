@@ -868,7 +868,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
                     scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     if(scrollableFooterTable) {
-                        scrollableFooterTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
+                        scrollableFooterTable.style.width = scrollableFooterTable.offsetWidth + delta + 'px';
                     }
                     let resizeColumnIndex = DomHandler.index(column);
 
