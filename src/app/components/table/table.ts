@@ -499,7 +499,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if(this.virtualScroll && this.virtualScrollCallback) {
                 this.virtualScrollCallback();
             }
-    
+            this.updateEditingCell(null,null,null);
+            this.unbindDocumentEditListener();
             this.tableService.onValueChange(simpleChange.value.currentValue);
         }
 
@@ -3087,6 +3088,7 @@ export class EditableColumn implements AfterViewInit {
                     }
         
                     DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                    this.dt.onEditComplete.emit({ field: this.dt.editingCellField, data:this.dt.editingCellData,  originalEvent: event })
                     this.openCell();
                 }
             }
