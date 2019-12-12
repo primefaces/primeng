@@ -338,7 +338,6 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             //escape and tab
             case 27:
             case 9:
-                console.log("hey?")
                 this.hide();
             break;
         }
