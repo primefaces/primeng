@@ -13,6 +13,7 @@ body {
 	font-weight: normal;
 	color: #333c40;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	font-size: 14px;
 }
 .layout-notification {
@@ -511,7 +512,7 @@ body {
 	.ui-tabview-panel {
 		color: #404C51 !important;
     }
-    
+
     /* Tabs Source */
 	.ui-tabview {
 		.ui-tabview-panels {
@@ -921,7 +922,7 @@ a {
 			margin-top: 0;
 		}
     }
-    
+
     /* Features */
 	.features {
 		background-color: #f5f7f8;
@@ -1071,7 +1072,7 @@ a {
 			}
 		}
     }
-    
+
     /* Designer */
 	.primeng-designer {
 		background-color: #ffffff;
