@@ -114,7 +114,9 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
             } 
             else {
                 DomHandler.removeClass(xBar, 'ui-scrollpanel-hidden');
-                xBar.style.cssText = 'width:' + Math.max(this.scrollXRatio * 100, 10) + '%; left:' + (content.scrollLeft / totalWidth) * 100 + '%;bottom:' + bottom + 'px;';
+                const xBarWidth = Math.max(this.scrollXRatio * 100, 10);
+                const xBarLeft = content.scrollLeft * (100 - xBarWidth) / (totalWidth - ownWidth);
+                xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
             }
 
             if (this.scrollYRatio >= 1) {
@@ -122,7 +124,9 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
             } 
             else {
                 DomHandler.removeClass(yBar, 'ui-scrollpanel-hidden');
-                yBar.style.cssText = 'height:' + Math.max(this.scrollYRatio * 100, 10) + '%; top: calc(' + (content.scrollTop / totalHeight) * 100 + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
+                const yBarHeight = Math.max(this.scrollYRatio * 100, 10);
+                const yBarTop = content.scrollTop * (100 - yBarHeight) / (totalHeight - ownHeight);
+                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
             }
         });
     }
