@@ -50,6 +50,8 @@ export class AppComponent implements OnInit{
 
     searchText:string;
 
+    newsActive: boolean;
+
     constructor(private router:Router){}
 
     ngOnInit() {
@@ -57,6 +59,7 @@ export class AppComponent implements OnInit{
         for (let route of routes) {
             this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1)); 
         }
+        this.initNewsState();
     }
 
     onAnimationStart (event) {
@@ -144,4 +147,14 @@ export class AppComponent implements OnInit{
         this.menuActive = !this.menuActive;
         event.preventDefault();
     }
+
+    initNewsState() {
+        this.newsActive = sessionStorage.getItem('primenews-hidden') ? false: true;
+    }
+
+    hideNews(event) {
+        this.newsActive = false;
+        sessionStorage.setItem('primenews-hidden', "true");
+        event.preventDefault();
+    } 
 }

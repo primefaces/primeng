@@ -1,5 +1,20 @@
-<div class="layout-wrapper">
-    <div id="layout-topbar">
+<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive}">
+    <div class="layout-news" *ngIf="newsActive">
+        <div class="layout-news-container">
+            <img src="assets/showcase/images/news/asset-1-endofyear-2019.png" alt="New Year"/>
+            <span class="layout-news-details">
+                <span class="helper-text">NEW YEAR SALE</span> SAVE UP TO <span class="rate">60%</span> AT PRIMESTORE
+            </span>
+            <a href="https://www.primefaces.org/store" target="_blank" class="layout-news-button">
+                SHOP NOW<i class="pi pi-angle-right"></i>
+            </a>
+            <a href="#" class="layout-news-close" (click)="hideNews($event)">
+                <i class="pi pi-times"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="layout-topbar">
         <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
             <i class="fa fa-bars"></i>
         </a>
@@ -66,7 +81,7 @@
         </ul>
     </div>
 
-    <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
+    <div class="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <div class="layout-menu-search ui-fluid">
                     <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)" 
@@ -263,7 +278,7 @@
     <div class="layout-mask" *ngIf="menuActive">
     </div>
 
-    <div id="layout-content">
+    <div class="layout-content">
         <div>
             <router-outlet></router-outlet>
         </div>
