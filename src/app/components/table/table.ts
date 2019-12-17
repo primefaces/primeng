@@ -3087,6 +3087,8 @@ export class EditableColumn implements AfterViewInit {
                     }
         
                     DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                    this.dt.onEditComplete.emit({ field: this.field, data: this.data, originalEvent: event });
+                    
                     this.openCell();
                 }
             }
