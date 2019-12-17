@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './tablestickydemo.html',
@@ -8,7 +9,6 @@ import { CarService } from '../../service/carservice';
         :host ::ng-deep .ui-table .ui-table-thead > tr > th {
             position: -webkit-sticky;
             position: sticky;
-            top: 69px;
             box-shadow: 1px 3px 6px 0 rgba(32,33,36,0.10);
         }
 
@@ -25,7 +25,7 @@ export class TableStickyDemo implements OnInit {
 
     cols: any[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService, private app: AppComponent) { }
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
@@ -36,5 +36,9 @@ export class TableStickyDemo implements OnInit {
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' }
         ];
+    }
+
+    getTop() {
+        return this.app.newsActive ? '139px' : '69px';
     }
 }

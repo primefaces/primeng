@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './toastdemo.html',
@@ -23,7 +24,7 @@ import {MessageService} from 'primeng/api';
 })
 export class ToastDemo {
 
-    constructor(private messageService: MessageService) {}
+    constructor(private messageService: MessageService, private app: AppComponent) {}
 
     showSuccess() {
         this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});
@@ -76,5 +77,9 @@ export class ToastDemo {
     
     clear() {
         this.messageService.clear();
+    }
+
+    getTop() {
+        return this.app.newsActive ? '150px' : '80px';
     }
 }

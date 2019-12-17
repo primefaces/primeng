@@ -6,13 +6,13 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast [style]="{marginTop: getTop()}"></p-toast>
 
-    <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+    <p-toast [style]="{marginTop: getTop()}" position="top-left" key="tl"></p-toast>
 
-    <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+    <p-toast [style]="{marginTop: getTop()}" position="top-center" key="tc"></p-toast>
 
-    <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
+    <p-toast [style]="{marginTop: getTop()}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
 
     <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">

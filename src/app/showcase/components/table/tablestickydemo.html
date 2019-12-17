@@ -11,7 +11,7 @@
     <p-table [columns]="cols" [value]="cars">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns" [style.top]="getTop()">
                     {{col.header}}
                 </th>
             </tr>
