@@ -12,6 +12,7 @@ import {Subscription} from 'rxjs';
 import {BlockableUI} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
 import {DomHandler} from 'primeng/dom';
+import {FormsModule} from '@angular/forms';
 
 @Component({
     selector: 'p-treeNode',
@@ -497,8 +498,9 @@ export class UITreeNode implements OnInit {
             </div>
             <div *ngIf="filter" class="ui-tree-filter-container">
                 <input #filter type="text" autocomplete="off" class="ui-tree-filter ui-inputtext ui-widget ui-state-default ui-corner-all"
+                       [(ngModel)]="filterValue"
                        [attr.placeholder]="filterPlaceholder"
-                       (keydown.enter)="$event.preventDefault()" (input)="onFilter($event)">
+                       (keydown.enter)="$event.preventDefault()">
                 <span class="ui-tree-filter-icon pi pi-search"></span>
             </div>
             <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel"
@@ -532,7 +534,20 @@ export class Tree implements OnInit, AfterContentInit, OnDestroy, BlockableUI {
         return this.layout === 'horizontal';
     }
 
-    @Input() value: TreeNode[];
+    private _value: TreeNode[];
+
+    @Input()
+    set value(val: TreeNode[]) {
+        const shouldFilter = val !== this._value;
+        this._value = val;
+        if (shouldFilter) {
+            this.doFilter(this.filterValue);
+        }
+    }
+
+    get value() {
+        return this._value;
+    }
 
     @Input() selectionMode: string;
 
@@ -551,6 +566,8 @@ export class Tree implements OnInit, AfterContentInit, OnDestroy, BlockableUI {
     @Output() onNodeContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onNodeDrop: EventEmitter<any> = new EventEmitter();
+
+    @Output() filterValueChange: EventEmitter<string> = new EventEmitter();
 
     @Input() style: any;
 
@@ -587,6 +604,21 @@ export class Tree implements OnInit, AfterContentInit, OnDestroy, BlockableUI {
     @Input() validateDrop: boolean;
 
     @Input() filter: boolean;
+
+    private _filterValue: string;
+
+    get filterValue() {
+        return this._filterValue;
+    }
+
+    @Input()
+    set filterValue(value: string) {
+        if (value !== this._filterValue) {
+            this._filterValue = value;
+            this.doFilter(value);
+            this.filterValueChange.emit(value);
+        }
+    }
 
     @Input() filterBy = 'label';
 
@@ -1014,9 +1046,8 @@ export class Tree implements OnInit, AfterContentInit, OnDestroy, BlockableUI {
         }
     }
 
-    onFilter(event) {
-        const filterValue = event.target.value;
-        if (filterValue === '') {
+    private doFilter(filterValue) {
+        if (!filterValue || !this.value) {
             this.filteredNodes = null;
         } else {
             this.filteredNodes = [];
@@ -1097,7 +1128,7 @@ export class Tree implements OnInit, AfterContentInit, OnDestroy, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
     exports: [Tree, SharedModule],
     declarations: [Tree, UITreeNode]
 })

@@ -80,7 +80,15 @@
     </div>
 
     <h3>Lenient Filter Mode</h3>
-    <p-tree [value]="filesTree11" [filter]="true"></p-tree>
+    <p-tree #test [value]="filesTree11" [filter]="true" [(filterValue)]="filterValue"></p-tree>
+    <div style="margin-top: 8px">
+        <button pButton type="button" label="Filter with &quot;.jpg&quot;" (click)="test.filterValue = '.jpg'"></button>
+        <br>
+        <label>
+            Outside filter input, synchronized with tree filter input:
+            <input type="text" pInputText [(ngModel)]="filterValue">
+        </label>
+    </div>
 
     <h3>Strict Filter Mode</h3>
     <p-tree [value]="filesTree12" [filter]="true" filterMode="strict"></p-tree>

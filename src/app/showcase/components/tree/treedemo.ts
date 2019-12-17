@@ -56,6 +56,7 @@ export class TreeDemo implements OnInit {
     items: MenuItem[];
     
     loading: boolean;
+    filterValue = ".doc";
     
     constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
