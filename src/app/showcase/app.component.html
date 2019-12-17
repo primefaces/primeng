@@ -35,6 +35,7 @@
                     <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon fa fa-paint-brush"></span>Designer <span class="menuitem-badge">NEW</span></a></li>
                     <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon fa fa-info-circle"></span>Icons <span class="menuitem-badge">NEW</span></a></li>
                     <li class="topbar-submenu-header">PREMIUM</li>
+                    <li><a href="http://www.primefaces.org/layouts/mirage-ng"><img src="assets/showcase/images/themeswitcher-mirage.png" alt="Mirage"><span class="ui-text">Mirage </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/prestige-ng"><img src="assets/showcase/images/themeswitcher-prestige.png" alt="Prestige"><span class="ui-text">Prestige </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/sapphire-ng"><img src="assets/showcase/images/themeswitcher-sapphire.png" alt="Sapphire (Material)"><span class="ui-text">Sapphire <span class="theme-badge material">material</span></span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/avalon-ng"><img src="assets/showcase/images/themeswitcher-avalon.png" alt="Avalon (Bootstrap)"><span class="ui-text">Avalon <span class="theme-badge bootstrap">bootstrap</span></span></a></li>
@@ -84,7 +85,7 @@
     <div class="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <div class="layout-menu-search ui-fluid">
-                    <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)" 
+                    <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)"
                     (onSelect)="selectRoute($event)" placeholder="Search"></p-autoComplete>
                     <i class="pi pi-search"></i>
             </div>
