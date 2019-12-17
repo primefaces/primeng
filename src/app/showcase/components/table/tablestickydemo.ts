@@ -9,12 +9,28 @@ import { AppComponent } from '../../app.component';
         :host ::ng-deep .ui-table .ui-table-thead > tr > th {
             position: -webkit-sticky;
             position: sticky;
+            top: 69px;
             box-shadow: 1px 3px 6px 0 rgba(32,33,36,0.10);
+        }
+
+        :host ::ng-deep .ui-table .ui-table-thead > tr > th {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 69px;
+            box-shadow: 1px 3px 6px 0 rgba(32,33,36,0.10);
+        }
+
+        tr.news-active > th {
+            top: 139px;
         }
 
         @media screen and (max-width: 64em) {
             :host ::ng-deep .ui-table .ui-table-thead > tr > th {
                 top: 99px;
+            }
+
+            tr.news-active > th {
+                top: 169px;
             }
         }
 `]
@@ -38,7 +54,7 @@ export class TableStickyDemo implements OnInit {
         ];
     }
 
-    getTop() {
-        return this.app.newsActive ? '139px' : '69px';
+    isNewsActive() {
+        return this.app.newsActive;
     }
 }
