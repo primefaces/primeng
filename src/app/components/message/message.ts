@@ -10,7 +10,12 @@ import {CommonModule} from '@angular/common';
                 'ui-message-error': (severity === 'error'),
                 'ui-message-success': (severity === 'success')}">
             <span class="ui-message-icon" [ngClass]="icon"></span>
-            <span class="ui-message-text" [innerHTML]="text"></span>
+            <div *ngIf="!escape; else escapeOut">
+                <span *ngIf="!escape" class="ui-message-text" [innerHTML]="text"></span>
+            </div>
+            <ng-template #escapeOut>
+                <span *ngIf="escape" class="ui-message-text">{{text}}</span>
+            </ng-template>
         </div>
     `
 })
@@ -19,6 +24,8 @@ export class UIMessage {
     @Input() severity: string;
 
     @Input() text: string;
+
+    @Input() escape: boolean = true;
 
     get icon(): string {
         let icon: string = null;
