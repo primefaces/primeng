@@ -480,8 +480,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     resetFilter(): void {
+        this.filterValue = null;
+        
         if (this.filterViewChild && this.filterViewChild.nativeElement) {
-            this.filterValue = null;
             this.filterViewChild.nativeElement.value = '';
         }
         
