@@ -12,7 +12,7 @@
         Table is not loaded yet, scroll down to initialize it.
     </div>
 
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast [style]="{marginTop: getTop()}"></p-toast>
 
     <div pDefer (onLoad)="initData()">
         <ng-template>

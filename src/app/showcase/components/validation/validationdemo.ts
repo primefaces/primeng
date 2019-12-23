@@ -2,6 +2,7 @@ import {Component,OnInit} from '@angular/core';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {SelectItem} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './validationdemo.html',
@@ -17,7 +18,7 @@ export class ValidationDemo implements OnInit {
     
     description: string;
     
-    constructor(private fb: FormBuilder, private messageService: MessageService) {}
+    constructor(private fb: FormBuilder, private messageService: MessageService, private app: AppComponent) {}
     
     ngOnInit() {
         this.userform = this.fb.group({
@@ -39,6 +40,10 @@ export class ValidationDemo implements OnInit {
         this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted', sticky: true});
     }
     
+    getTop() {
+        return this.app.newsActive ? '150px' : '80px';
+    }
+
     get diagnostic() { return JSON.stringify(this.userform.value); }
     
 }
