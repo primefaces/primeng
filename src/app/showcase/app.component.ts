@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DomHandler } from '../components/dom/domhandler';
 
 @Component({
   selector: 'app-root',
@@ -52,7 +53,25 @@ export class AppComponent implements OnInit{
 
     newsActive: boolean;
 
-    constructor(private router:Router){}
+    resourcesMenuVisible: boolean;
+
+    resourcesMenuClick: boolean;
+
+    themesMenuVisible: boolean;
+
+    themesMenuClick: boolean;
+
+    versionsMenuVisible: boolean;
+
+    versionsMenuClick: boolean;
+
+    themesMenuOutsideClickListener: any;
+
+    resourcesMenuOutsideClickListener: any;
+
+    versionsMenuOutsideClickListener: any;
+
+    constructor(private router:Router, public renderer: Renderer2){}
 
     ngOnInit() {
         let routes = this.router.config;
@@ -157,4 +176,89 @@ export class AppComponent implements OnInit{
         sessionStorage.setItem('primenews-hidden', "true");
         event.preventDefault();
     } 
+
+    onResourcesMenuClick(event) {
+        this.resourcesMenuVisible = true;
+        this.resourcesMenuClick = true;
+        this.bindResourcesMenuOutsideClickListener();        
+    }
+
+    onThemesMenuClick(event) {
+        this.themesMenuVisible = true;
+        this.themesMenuClick = true;
+        this.bindThemesMenuOutsideClickListener();
+    }
+
+    onVersionsveMenuClick(event) {
+        this.versionsMenuVisible = true;
+        this.versionsMenuClick = true;
+        this.bindVersionsMenuOutsideClickListener();
+    }
+
+    bindThemesMenuOutsideClickListener() {
+        if (!this.themesMenuOutsideClickListener) {
+            this.themesMenuOutsideClickListener = (event) => {
+                if (!this.themesMenuClick) {
+                    this.themesMenuVisible = false;
+                    this.unbindThemesMenuOutsideClickListener();
+                }
+
+                this.themesMenuClick = false;
+            };
+
+            document.addEventListener('click', this.themesMenuOutsideClickListener);
+        }
+    }
+
+    unbindThemesMenuOutsideClickListener() {
+        if (this.themesMenuOutsideClickListener) {
+            document.removeEventListener('click', this.themesMenuOutsideClickListener);
+            this.themesMenuOutsideClickListener = null;
+        }
+    }
+
+    
+    bindResourcesMenuOutsideClickListener() {
+        if (!this.resourcesMenuOutsideClickListener) {
+            this.resourcesMenuOutsideClickListener = (event) => {
+                if (!this.resourcesMenuClick) {
+                    this.resourcesMenuVisible = false;
+                    this.unbindResourcesMenuOutsideClickListener();
+                }
+
+                this.resourcesMenuClick = false;
+            };
+
+            document.addEventListener('click', this.resourcesMenuOutsideClickListener);
+        }
+    }
+    
+    unbindResourcesMenuOutsideClickListener() {
+        if (this.resourcesMenuOutsideClickListener) {
+            document.removeEventListener('click', this.resourcesMenuOutsideClickListener);
+            this.resourcesMenuOutsideClickListener = null;
+        }
+    }
+
+    bindVersionsMenuOutsideClickListener() {
+        if (!this.versionsMenuOutsideClickListener) {
+            this.versionsMenuOutsideClickListener = (event) => {
+                if (!this.versionsMenuClick) {
+                    this.versionsMenuVisible = false;
+                    this.unbindVersionsMenuOutsideClickListener();
+                }
+
+                this.versionsMenuClick = false;
+            };
+
+            document.addEventListener('click', this.versionsMenuOutsideClickListener);
+        }
+    }
+
+    unbindVersionsMenuOutsideClickListener() {
+        if (this.versionsMenuOutsideClickListener) {
+            document.removeEventListener('click', this.versionsMenuOutsideClickListener);
+            this.versionsMenuOutsideClickListener = null;
+        }
+    }
 }
