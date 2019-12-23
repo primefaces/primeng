@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+@mixin shadow($value...) {
+    -webkit-box-shadow: $value;
+    -moz-box-shadow: $value;
+    box-shadow: $value;
+}
+
 html {
 	height: 100%;
 }
@@ -1132,6 +1138,20 @@ a {
 		background-color: #f5f7f8;
 		text-align: center;
 		padding: 30px;
+
+		.feature-card {
+            background-color: #ffffff;
+            @include shadow(0 0.8px 1.7px rgba(0, 0, 0, 0.008), 0 1.9px 4.2px rgba(0, 0, 0, 0.012),0 3.6px 7.9px rgba(0, 0, 0, 0.015),0 6.5px 14.1px rgba(0, 0, 0, 0.018),0 12.1px 26.3px rgba(0, 0, 0, 0.022),0 29px 63px rgba(0, 0, 0, 0.03));
+            height: 100%;
+            border-radius: 4px;
+            
+            .feature-card-detail {
+                padding: 0 16px 16px 16px;
+            }
+		}
+		img {
+			width: 100%;
+		}
 		h3 {
 			margin-bottom: 10px;
 		}
@@ -1147,8 +1167,9 @@ a {
 		}
 		.feature-name {
 			display: block;
+			font-weight: bold;
 			font-size: 18px;
-			margin-top: 4px;
+			margin-top: 1em;
 		}
 		.ui-g {
 			p {
@@ -1157,12 +1178,6 @@ a {
 				margin-bottom: 30px;
 				margin-top: 10px;
 			}
-			>div {
-				padding: .5em 2em;
-			}
-		}
-		img {
-			width: 57px;
 		}
     }
 
