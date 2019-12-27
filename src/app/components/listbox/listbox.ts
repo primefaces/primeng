@@ -29,7 +29,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
           </div>
           <div #headerchkbox class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active': allChecked, 'ui-state-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
-            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':allChecked}"></span>
+            <span class="ui-chkbox-icon ui-clickable" [ngClass]="allChecked ? checkboxIcon : null"></span>
           </div>
         </div>
         <div class="ui-listbox-filter-container" *ngIf="filter">
@@ -44,7 +44,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
               (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)" (keydown)="onOptionKeyDown($event,option)">
             <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
               <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
+                <span class="ui-chkbox-icon ui-clickable" [ngClass]="isSelected(option) ? checkboxIcon : null"></span>
               </div>
             </div>
             <span *ngIf="!itemTemplate">{{option.label}}</span>
@@ -88,6 +88,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     @Input() optionLabel: string;
 
     @Input() ariaFilterLabel: string;
+
+    @Input() checkboxIcon: string = 'pi pi-check';
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
