@@ -15,11 +15,13 @@ import { CountryService } from './service/countryservice';
 import { EventService } from './service/eventservice';
 import { NodeService } from './service/nodeservice';
 import { IconService } from './service/iconservice';
+import { AppConfigComponent } from './app.config.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AppConfigComponent
   ],
   imports: [
     BrowserModule,
