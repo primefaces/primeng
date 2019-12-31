@@ -71,6 +71,10 @@ export class AppComponent implements OnInit{
 
     versionsMenuOutsideClickListener: any;
 
+    configClick: boolean;
+
+    configActive: boolean;
+
     constructor(private router:Router, public renderer: Renderer2){}
 
     ngOnInit() {
@@ -97,17 +101,6 @@ export class AppComponent implements OnInit{
             case 'void':
                 event.element.style.display = 'none';
             break;
-        }
-    }
-
-    toggle(id:string) {
-        this.activeMenuId = (this.activeMenuId === id ? null : id);
-    }
-
-    onKeydown(event: KeyboardEvent,id:string) {
-        if (event.which === 32 || event.which === 13) {
-            this.toggle(id);
-            event.preventDefault();
         }
     }
 
