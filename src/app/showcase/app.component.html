@@ -36,7 +36,7 @@
                 <a [routerLink]="['/setup']">Get Started</a>
             </li>
             <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': themesMenuVisible}">
-                <a (click)="onThemesMenuClick()">Themes</a>
+                <a (click)="onThemesMenuClick($event)">Themes</a>
                 <ul class="topbar-submenu-themes">
                     <li class="topbar-submenu-header">THEMING</li>
                     <li><a [routerLink]="['./theming']"><span class="topbar-submenu-icon fa fa-book"></span>Guide</a></li>
