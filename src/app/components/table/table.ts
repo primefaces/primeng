@@ -2435,10 +2435,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
             }
             else {                
-                if(this.frozen && this.scrollableSiblingBody && DomHandler.getOuterWidth(this.scrollableSiblingBody) < DomHandler.getOuterWidth(this.scrollableSiblingBody.children[0]))
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - DomHandler.calculateScrollbarWidth()) + 'px';
-                else
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
             }
         }
     }
