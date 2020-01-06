@@ -42,7 +42,21 @@
                     <li><a [routerLink]="['./theming']"><span class="topbar-submenu-icon fa fa-book"></span>Guide</a></li>
                     <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon fa fa-paint-brush"></span>Designer <span class="menuitem-badge">NEW</span></a></li>
                     <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon fa fa-info-circle"></span>Icons <span class="menuitem-badge">NEW</span></a></li>
-                    <li class="topbar-submenu-header">PREMIUM</li>
+                    <li class="topbar-submenu-header" style="margin-top:12px">FREE COMPONENT THEMES</li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-light', false)"><img src="assets/showcase/images/themeswitcher-nova-light.png" alt="Nova Light"><span class="ui-text">Nova Light</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-dark', false)"><img src="assets/showcase/images/themeswitcher-nova-dark.png" alt="Nova Dark"><span class="ui-text">Nova Dark</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'nova-colored', false)"><img src="assets/showcase/images/themeswitcher-nova-colored.png" alt="Nova Colored"><span class="ui-text">Nova Colored</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-amber', true)"><img src="assets/showcase/images/themeswitcher-luna-amber.png" alt="Luna Amber"><span class="ui-text">Luna Amber</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-blue', true)"><img src="assets/showcase/images/themeswitcher-luna-blue.png" alt="Luna Blue"><span class="ui-text">Luna Blue</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-green', true)"><img src="assets/showcase/images/themeswitcher-luna-green.png" alt="Luna Green"><span class="ui-text">Luna Green</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'luna-pink', true)"><img src="assets/showcase/images/themeswitcher-luna-pink.png" alt="Luna Pink"><span class="ui-text">Luna Pink</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'rhea', false)"><img src="assets/showcase/images/themeswitcher-rhea.png" alt="Luna Pink"><span class="ui-text">Rhea</span></a></li>
+                </ul>
+            </li>
+            <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': templatesMenuVisible}">
+                <a (click)="onTemplatesMenuClick($event)">Templates</a>
+                <ul class="topbar-submenu-themes">
+                    <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
                     <li><a href="http://www.primefaces.org/layouts/mirage-ng"><img src="assets/showcase/images/themeswitcher-mirage.png" alt="Mirage"><span class="ui-text">Mirage </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/prestige-ng"><img src="assets/showcase/images/themeswitcher-prestige.png" alt="Prestige"><span class="ui-text">Prestige </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/sapphire-ng"><img src="assets/showcase/images/themeswitcher-sapphire.png" alt="Sapphire (Material)"><span class="ui-text">Sapphire <span class="theme-badge material">material</span></span></a></li>
@@ -64,24 +78,12 @@
                     <li><a href="http://www.primefaces.org/layouts/atlantis-ng"><img src="assets/showcase/images/themeswitcher-atlantis.png" alt="Atlantis"><span class="ui-text">Atlantis</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/poseidon-ng"><img src="assets/showcase/images/themeswitcher-poseidon.png" alt="Poseidon"><span class="ui-text">Poseidon</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/omega-ng"><img src="assets/showcase/images/themeswitcher-omega.png" alt="Omega"><span class="ui-text">Omega</span></a></li>
-                    <li class="topbar-submenu-header" style="margin-top:16px">FREE</li>
-                    <li><a href="#" (click)="changeTheme($event, 'nova-light', false)"><img src="assets/showcase/images/themeswitcher-nova-light.png" alt="Nova Light"><span class="ui-text">Nova Light</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'nova-dark', false)"><img src="assets/showcase/images/themeswitcher-nova-dark.png" alt="Nova Dark"><span class="ui-text">Nova Dark</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'nova-colored', false)"><img src="assets/showcase/images/themeswitcher-nova-colored.png" alt="Nova Colored"><span class="ui-text">Nova Colored</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'luna-amber', true)"><img src="assets/showcase/images/themeswitcher-luna-amber.png" alt="Luna Amber"><span class="ui-text">Luna Amber</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'luna-blue', true)"><img src="assets/showcase/images/themeswitcher-luna-blue.png" alt="Luna Blue"><span class="ui-text">Luna Blue</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'luna-green', true)"><img src="assets/showcase/images/themeswitcher-luna-green.png" alt="Luna Green"><span class="ui-text">Luna Green</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'luna-pink', true)"><img src="assets/showcase/images/themeswitcher-luna-pink.png" alt="Luna Pink"><span class="ui-text">Luna Pink</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, 'rhea', false)"><img src="assets/showcase/images/themeswitcher-rhea.png" alt="Luna Pink"><span class="ui-text">Rhea</span></a></li>
                 </ul>
-            </li>
-            <li>
-                <a [routerLink]="['/support']">Support</a>
             </li>
             <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': resourcesMenuVisible}">
                 <a (click)="onResourcesMenuClick($event)">Resources</a>
                 <ul class="topbar-submenu-resources">
-                    <li><a a href="https://www.primefaces.org/support" target="_blank"><span>Support</span></a></li>
+                    <li><a [routerLink]="['/support']"><span>Support</span></a></li>
                     <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
                     <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
                     <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>

@@ -74,6 +74,7 @@
 		color: #ffffff;
 	}
 	a {
+		user-select: none;
 		text-decoration: none;
 		color: #404C51;
 		display: block;
@@ -325,6 +326,7 @@ body {
 			height: 100%;
 			line-height: 70px;
 			font-size: 16px;
+			user-select: none;
 			&:hover {
 				background-color: #4a4f52;
 			}
@@ -339,11 +341,12 @@ body {
 			@include submenuList();
 
 			&.topbar-submenu-themes {
-				left: -50px;
+				right: 0px;
 				width: 250px;
 				max-height: 300px;
 				list-style-type: none;
-				padding: 15px 0;
+				padding: 0px;
+				padding-bottom: 6px;
 				a {
 					padding: 6px 12px;
 				}
@@ -1069,6 +1072,7 @@ body {
 			width: 25%;
 			>a {
 				min-width: 0px;
+				width: 100%;
 				padding-bottom: 0;
 				line-height: 40px;
 				font-size: 14px;
@@ -1082,6 +1086,14 @@ body {
 			>ul {
 				top: 40px;
 				text-align: left;
+
+				&.topbar-submenu-themes, &.topbar-submenu-resources {
+					width: 100vw;
+					position: fixed;
+					left: 0px;
+					top: 100px;
+					right: auto;
+				}
 			}
 		}
 	}

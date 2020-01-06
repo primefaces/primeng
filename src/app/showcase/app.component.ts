@@ -61,11 +61,17 @@ export class AppComponent implements OnInit{
 
     themesMenuClick: boolean;
 
+    templatesMenuVisible: boolean;
+
+    templatesMenuClick: boolean;
+
     versionsMenuVisible: boolean;
 
     versionsMenuClick: boolean;
 
     themesMenuOutsideClickListener: any;
+
+    templatesMenuOutsideClickListener: any;
 
     resourcesMenuOutsideClickListener: any;
 
@@ -170,21 +176,35 @@ export class AppComponent implements OnInit{
     } 
 
     onResourcesMenuClick(event) {
-        this.resourcesMenuVisible = true;
-        this.resourcesMenuClick = true;
-        this.bindResourcesMenuOutsideClickListener();        
+        if (!this.resourcesMenuVisible) {
+            this.resourcesMenuVisible = true;
+            this.resourcesMenuClick = true;
+            this.bindResourcesMenuOutsideClickListener();        
+        }
     }
 
     onThemesMenuClick(event) {
-        this.themesMenuVisible = true;
-        this.themesMenuClick = true;
-        this.bindThemesMenuOutsideClickListener();
+        if (!this.themesMenuVisible) {
+            this.themesMenuVisible = true;
+            this.themesMenuClick = true;
+            this.bindThemesMenuOutsideClickListener();
+        }
+    }
+
+    onTemplatesMenuClick(event) {
+        if (!this.templatesMenuVisible) {
+            this.templatesMenuVisible = true;
+            this.templatesMenuClick = true;
+            this.bindTemplatesMenuOutsideClickListener();
+        }
     }
 
     onVersionsveMenuClick(event) {
-        this.versionsMenuVisible = true;
-        this.versionsMenuClick = true;
-        this.bindVersionsMenuOutsideClickListener();
+        if (!this.versionsMenuVisible) {
+            this.versionsMenuVisible = true;
+            this.versionsMenuClick = true;
+            this.bindVersionsMenuOutsideClickListener();
+        }
     }
 
     bindThemesMenuOutsideClickListener() {
@@ -206,6 +226,28 @@ export class AppComponent implements OnInit{
         if (this.themesMenuOutsideClickListener) {
             document.removeEventListener('click', this.themesMenuOutsideClickListener);
             this.themesMenuOutsideClickListener = null;
+        }
+    }
+
+    bindTemplatesMenuOutsideClickListener() {
+        if (!this.templatesMenuOutsideClickListener) {
+            this.templatesMenuOutsideClickListener = (event) => {
+                if (!this.templatesMenuClick) {
+                    this.templatesMenuVisible = false;
+                    this.unbindTemplatesMenuOutsideClickListener();
+                }
+
+                this.templatesMenuClick = false;
+            };
+
+            document.addEventListener('click', this.templatesMenuOutsideClickListener);
+        }
+    }
+
+    unbindTemplatesMenuOutsideClickListener() {
+        if (this.templatesMenuOutsideClickListener) {
+            document.removeEventListener('click', this.templatesMenuOutsideClickListener);
+            this.templatesMenuOutsideClickListener = null;
         }
     }
 
