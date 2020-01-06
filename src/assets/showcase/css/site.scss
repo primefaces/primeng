@@ -55,7 +55,7 @@
 
 @mixin submenuList() {
 	position: absolute;
-	top: 65px;
+	top: 70px;
 	background-color: #ffffff;
 	-moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 	-webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
@@ -65,7 +65,7 @@
 	border-radius: 3px;
 	-webkit-animation-name: fadeInDown;
 	animation-name: fadeInDown;
-	animation-duration: .5s;
+	animation-duration: .3s;
 	>li.topbar-submenu-header {
 		padding: 6px 12px;
 		font-weight: bold;
@@ -1298,8 +1298,8 @@ a {
 @-webkit-keyframes fadeInDown {
 	from {
 		opacity: 0;
-		-webkit-transform: translate3d(0, -20px, 0);
-		transform: translate3d(0, -20px, 0);
+		-webkit-transform: translate3d(0, 20px, 0);
+		transform: translate3d(0, 20px, 0);
 	}
 	to {
 		opacity: 1;
@@ -1310,7 +1310,7 @@ a {
 @keyframes fadeInDown {
 	from {
 		opacity: 0;
-		transform: translate3d(0, -20px, 0);
+		transform: translate3d(0, 20px, 0);
 	}
 	to {
 		opacity: 1;
