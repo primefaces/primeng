@@ -9,13 +9,13 @@ import {RouterModule} from '@angular/router';
     selector: '[pMenuItemContent]',
     template: `
         <a *ngIf="!item.routerLink" [attr.href]="item.url||null" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.tabindex ? item.tabindex : '0'" [attr.data-automationid]="item.automationId" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
-            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)" >
+            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)" role="menuitem">
             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="ui-menuitem-text">{{item.label}}</span>
         </a>
         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'" 
-             [attr.title]="item.title" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)">
+             [attr.title]="item.title" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)" role="menuitem">
             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="ui-menuitem-text">{{item.label}}</span>
         </a>

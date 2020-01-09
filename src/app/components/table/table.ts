@@ -74,7 +74,7 @@ export class TableService {
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
-                <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+                <table role="grid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
@@ -3348,7 +3348,7 @@ export class CellEditor implements AfterContentInit {
                 <input type="radio" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled">
             </div>
             <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled':disabled}">
+                'ui-state-active':checked, 'ui-state-disabled':disabled}" role="radio" [attr.aria-checked]="checked">
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':checked}"></span>
             </div>
         </div>
@@ -3412,7 +3412,7 @@ export class TableRadioButton  {
                 <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled':disabled}">
+                'ui-state-active':checked, 'ui-state-disabled':disabled}" role="checkbox" [attr.aria-checked]="checked">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
@@ -3476,7 +3476,7 @@ export class TableCheckbox  {
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled': isDisabled()}">
+                'ui-state-active':checked, 'ui-state-disabled': isDisabled()}" role="checkbox" [attr.aria-checked]="checked">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>

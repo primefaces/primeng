@@ -12,10 +12,10 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     selector: 'p-inputSwitch',
     template: `
         <div [ngClass]="{'ui-inputswitch ui-widget': true, 'ui-inputswitch-checked': checked, 'ui-state-disabled': disabled, 'ui-inputswitch-readonly': readonly, 'ui-inputswitch-focus': focused}" 
-            [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)" role="checkbox" [attr.aria-checked]="checked">
+            [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
-                        (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" />
+                    (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" role="switch" [attr.aria-checked]="checked" [attr.aria-labelledby]="ariaLabelledBy"/>
             </div>
             <span class="ui-inputswitch-slider"></span>
         </div>
@@ -37,6 +37,8 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() disabled: boolean;
 
     @Input() readonly: boolean;
+
+    @Input() ariaLabelledBy: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 

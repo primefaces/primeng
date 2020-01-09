@@ -9,7 +9,7 @@ import {RouterModule} from '@angular/router';
     template: `
         <div [class]="styleClass" [ngStyle]="style"
             [ngClass]="{'ui-megamenu ui-widget ui-widget-content ui-corner-all':true,'ui-megamenu-horizontal': orientation == 'horizontal','ui-megamenu-vertical': orientation == 'vertical'}">
-            <ul class="ui-megamenu-root-list">
+            <ul class="ui-megamenu-root-list" role="menubar">
                 <ng-template ngFor let-category [ngForOf]="model">
                     <li *ngIf="category.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': category.visible === false}">
                     <li *ngIf="!category.separator" #item [ngClass]="{'ui-menuitem ui-corner-all':true,'ui-menuitem-active':item==activeItem, 'ui-helper-hidden': category.visible === false}"
@@ -33,17 +33,17 @@ import {RouterModule} from '@angular/router';
                                 <ng-template ngFor let-column [ngForOf]="category.items">
                                     <div [class]="getColumnClass(category)">
                                         <ng-template ngFor let-submenu [ngForOf]="column">
-                                            <ul class="ui-megamenu-submenu">
+                                            <ul class="ui-megamenu-submenu" role="menu">
                                                 <li class="ui-widget-header ui-megamenu-submenu-header ui-corner-all">{{submenu.label}}</li>
                                                 <ng-template ngFor let-item [ngForOf]="submenu.items">
-                                                    <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': item.visible === false}">
-                                                    <li *ngIf="!item.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-helper-hidden': item.visible === false}">
-                                                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
+                                                    <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': item.visible === false}" role="separator">
+                                                    <li *ngIf="!item.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-helper-hidden': item.visible === false}" role="none">
+                                                        <a *ngIf="!item.routerLink" role="menuitem" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>
                                                         </a>
-                                                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
+                                                        <a *ngIf="item.routerLink" role="menuitem" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
                                                              [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
