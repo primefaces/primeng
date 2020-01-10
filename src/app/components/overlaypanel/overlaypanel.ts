@@ -11,7 +11,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             <div class="ui-overlaypanel-content">
                 <ng-content></ng-content>
             </div>
-            <a tabindex="0" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)" (keydown.enter)="hide()">
+            <a tabindex="0" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel">
                 <span class="ui-overlaypanel-close-icon pi pi-times"></span>
             </a>
         </div>
@@ -44,6 +44,8 @@ export class OverlayPanel implements OnDestroy {
     @Input() appendTo: any;
 
     @Input() autoZIndex: boolean = true;
+
+    @Input() ariaCloseLabel: string;
     
     @Input() baseZIndex: number = 0;
     

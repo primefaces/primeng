@@ -10,8 +10,8 @@ import {DomHandler} from 'primeng/dom';
             'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'),
             'ui-sidebar-top': (position === 'top'), 'ui-sidebar-bottom': (position === 'bottom'), 
             'ui-sidebar-full': fullScreen}"
-            [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass">
-            <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" *ngIf="showCloseIcon" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
+            [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
+            <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" *ngIf="showCloseIcon" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel">
                 <span class="pi pi-times"></span>
             </a>
             <ng-content></ng-content>
@@ -43,6 +43,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() ariaCloseLabel: string;
 
     @Input() autoZIndex: boolean = true;
 

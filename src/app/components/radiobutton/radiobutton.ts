@@ -13,10 +13,10 @@ export const RADIO_VALUE_ACCESSOR: any = {
     template: `
         <div [ngStyle]="style" [ngClass]="'ui-radiobutton ui-widget'" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
-                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" 
+                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy"
                     [checked]="checked" (change)="onChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled">
             </div>
-            <div (click)="handleClick($event, rb, true)"
+            <div (click)="handleClick($event, rb, true)" role="radio" [attr.aria-checked]="checked"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':rb.checked}"></span>
@@ -41,6 +41,8 @@ export class RadioButton implements ControlValueAccessor {
     @Input() tabindex: number;
 
     @Input() inputId: string;
+
+    @Input() ariaLabelledBy: string;
     
     @Input() style: any;
 

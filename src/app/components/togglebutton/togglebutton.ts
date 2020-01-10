@@ -17,7 +17,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                 'ui-state-active': checked,'ui-state-focus':focus,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass" 
                 (click)="toggle($event)" (keydown.enter)="toggle($event)">
             <div class="ui-helper-hidden-accessible">
-                <input #checkbox type="checkbox" [attr.id]="inputId" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex">
+                <input #checkbox type="checkbox" [attr.id]="inputId" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex"
+                    role="button" [attr.aria-pressed]="checked" [attr.aria-labelledby]="ariaLabelledBy">
             </div>
             <span *ngIf="onIcon||offIcon" class="ui-button-icon-left" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'ui-button-icon-left': (iconPos === 'left'), 
             'ui-button-icon-right': (iconPos === 'right')}"></span>
@@ -35,6 +36,8 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     @Input() onIcon: string;
 
     @Input() offIcon: string;
+
+    @Input() ariaLabelledBy: string;
 
     @Input() disabled: boolean;
 
