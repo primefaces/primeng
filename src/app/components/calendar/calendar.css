@@ -163,6 +163,10 @@
 }
 
 /* Month Picker */
+.ui-monthpicker {
+    margin: 0.857em 0 0 0;
+}
+
 .ui-monthpicker .ui-monthpicker-month {
     width: 33.3%;
     display: inline-block;
