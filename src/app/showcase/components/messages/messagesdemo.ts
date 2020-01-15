@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {Message} from 'primeng/api';
-import {MessageService} from 'primeng/api';
+import {Message,MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './messagesdemo.html',
