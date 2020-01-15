@@ -4,10 +4,7 @@ import {TabMenuDemo, InfoComponent, MessageComponent} from './tabmenudemo';
 import {TabMenuDemoRoutingModule} from './tabmenudemo-routing.module';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {TabViewModule} from 'primeng/tabview';
-import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
