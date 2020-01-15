@@ -165,6 +165,8 @@ export class Carousel implements AfterContentInit {
 
 	startPos: any;
 
+	endPos: any;
+
 	documentResizeListener: any;
 
 	clonedItemsForStarting: any[];
@@ -439,6 +441,10 @@ export class Carousel implements AfterContentInit {
 		return !this.value || this.value.length === 0;
 	}
 
+	isSamePosition() {
+		return this.startPos.x === this.endPos.x && this.startPos.y === this.endPos.y;
+	}
+
 	navForward(e,index?) {
 		if (this.circular || this._page < (this.totalDots() - 1)) {
 			this.step(-1, index);
@@ -578,6 +584,15 @@ export class Carousel implements AfterContentInit {
 	}
 	onTouchEnd(e) {
 		let touchobj = e.changedTouches[0];
+
+		this.endPos = {
+			x: touchobj.pageX,
+			y: touchobj.pageY
+		};
+
+		if(this.isSamePosition()) {
+			return;
+		}
 
 		if (this.isVertical()) {
 			this.changePageOnTouch(e, (touchobj.pageY - this.startPos.y));
