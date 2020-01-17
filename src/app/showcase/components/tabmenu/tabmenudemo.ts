@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import {MessageService} from 'primeng/api';
 @Component({
     templateUrl: './tabmenudemo.html'
 })
@@ -97,8 +96,7 @@ export class InfoComponent {
     <h3>Inline Message CSS</h3>
     <p>p-message component is used to display inline messages mostly within forms.</p>
     <p-message severity="info" text="PrimeNG Rocks"></p-message>
-    `,
-    providers: [MessageService]
+    `
 })
 export class MessageComponent {
 }
