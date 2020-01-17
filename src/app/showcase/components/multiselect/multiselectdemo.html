@@ -27,7 +27,7 @@
     <p>Selected Cars: {{selectedCars2}}</p>
 
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
+    <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
 </div>
 
 <div class="content-section documentation">
@@ -569,7 +569,7 @@ export class MyModel &#123;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
-&lt;p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="&#123;minWidth:'12em'&#125;" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [panelStyle]="&#123;minWidth:'12em'&#125;" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
