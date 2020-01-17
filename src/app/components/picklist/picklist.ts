@@ -558,6 +558,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragStart(event: DragEvent, index: number, listType: number) {
+        event.dataTransfer.setData('text', 'b');    // For firefox
         (<HTMLLIElement> event.target).blur();
         this.dragging = true;
         this.fromListType = listType;
