@@ -141,7 +141,7 @@ export class TableEditDemo implements OnInit &#123;
 
     clonedCars: &#123; [s: string]: Car; &#125; = &#123;&#125;;
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private carService: CarService, private messageService: MessageService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars1 = cars);
