@@ -168,10 +168,6 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
-        /*
-            This should solve the scenario when the parent component has 'ChangeDetectionStrategy.OnPush'
-            https://github.com/primefaces/primeng/issues/8226
-        */ 
         this.cd.detectChanges();
     }
 
