@@ -44,6 +44,22 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## [8.1.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.2) (2020-10-20)
+
+**Fixed bugs:**
+
+- Calendar Receives Keyboard Focus [\#8280](https://github.com/primefaces/primeng/issues/8280)
+- Carousel - Invalid Array Length error when array length = 0 [\#8300](https://github.com/primefaces/primeng/issues/8300)
+- Esc keyboard click is not hiding MultiSelect overlay [\#8181](https://github.com/primefaces/primeng/issues/8181)
+- TreeTable column resize for footer [\#8351](https://github.com/primefaces/primeng/issues/8351)
+- InputMask always setting class ui-inputwrapper-focus [\#8032](https://github.com/primefaces/primeng/issues/8032)
+- PanelMenu header item does not render id [\#8352](https://github.com/primefaces/primeng/issues/8352)
+- Dynamic Tooltip rendering wrong [\#8323](https://github.com/primefaces/primeng/issues/8323)
+- TableState resets paginator when sorting is enabled [\#8379](https://github.com/primefaces/primeng/issues/8379)
+- Timer running even after calendar closing and opening [\#8378](https://github.com/primefaces/primeng/issues/8378)
+- Table selection not restored with TableState [\#8376](https://github.com/primefaces/primeng/issues/8376)
+- Calendar Receives Keyboard Focus [\#8352](https://github.com/primefaces/primeng/issues/8352)
+
 ## [8.1.1](https://github.com/primefaces/primeng/tree/8.1.1) (2019-10-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/8.1.0...8.1.1)
@@ -270,6 +286,21 @@
 **Unit Tests:**
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
+## [7.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.4) (2020-10-20)
+
+**Fixed bugs:**
+
+- Table pSelectableRowCblClick provides no styling like pSelectableRow[\#7876](https://github.com/primefaces/primeng/issues/7876)
+- Touch UI does not delete the background overlay properly - Breaks entire app state [\#7847](https://github.com/primefaces/primeng/issues/7847)
+- Autocomplete - tabindex=-1 not working  [\#7771](https://github.com/primefaces/primeng/issues/7771)
+- Textarea Floating labels fails on Firefox [\#6957](https://github.com/primefaces/primeng/issues/6957)
+- keyFilter on Chrome Android [\#5925](https://github.com/primefaces/primeng/issues/5925)
+- Add filter autoapply for multiselect on options update [\#7733](https://github.com/primefaces/primeng/issues/7733)
+- Lazy loaded table will break with reordering of rows [\#7730](https://github.com/primefaces/primeng/issues/7730)
+- p-table 'onRowReorder' event emits wrong dropindex value [\#6910](https://github.com/primefaces/primeng/issues/6910)
+- p-Dropdown : ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ui-inputwrapper-focus: true'. Current value: 'ui-inputwrapper-focus: false' [\#6671](https://github.com/primefaces/primeng/issues/6671)
+- Issue with indexing of current page in currentPageReport [\#7684](https://github.com/primefaces/primeng/issues/7684)
 
 ## [7.1.3](https://github.com/primefaces/primeng/tree/7.1.3) (2019-05-13)
 
