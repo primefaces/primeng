@@ -1004,7 +1004,17 @@ body {
 
             .layout-mask {
                 top: 170px;
-            }
+			}
+			
+			.topbar-menu {
+				>li.topbar-submenu {
+					>ul {
+						&.topbar-submenu-themes, &.topbar-submenu-resources {
+							top: 170px;
+						}
+					}
+				}
+			}
         }
     }
 
