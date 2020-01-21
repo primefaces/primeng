@@ -242,6 +242,12 @@ export class Dialog implements OnDestroy {
         let x = Math.max(Math.floor((viewport.width - elementWidth) / 2), 0);
         let y = Math.max(Math.floor((viewport.height - elementHeight) / 2), 0);
 
+        // dialog should be in the parent (at least the top bar)
+        const parent = this.container.parentElement;
+        if (parent) {
+            y = Math.max(y, DomHandler.getOffset(parent).top);
+        }
+
         this._style.left = x + 'px';
         this._style.top = y + 'px';
     }
@@ -261,7 +267,15 @@ export class Dialog implements OnDestroy {
                     this.close(event);
                 });
             }
-            document.body.appendChild(this.mask);
+
+            // append to the specified [appendTo]
+            if (this.appendTo && this.appendTo !== 'body') {
+                this.mask.style.position = "absolute";
+                DomHandler.appendChild(this.mask, this.appendTo);
+            } else {
+                document.body.appendChild(this.mask);
+            }
+
             if(this.blockScroll) {
                 DomHandler.addClass(document.body, 'ui-overflow-hidden');
             }
@@ -271,7 +285,13 @@ export class Dialog implements OnDestroy {
     disableModality() {
         if (this.mask) {
             this.unbindMaskClickListener();
-            document.body.removeChild(this.mask);
+            
+            // remove it from specified [appendTo]
+            if (this.appendTo && this.appendTo !== 'body') {
+                DomHandler.removeChild(this.mask, this.appendTo);
+            } else {
+                document.body.removeChild(this.mask);
+            }
 
             if (this.blockScroll) {
                 let bodyChildren = document.body.children;
@@ -423,19 +443,32 @@ export class Dialog implements OnDestroy {
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
 
-            if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
-                this._style.left = leftPos + 'px';
+            // //-- NILI_PATCH
+            // bound to specified [appendTo] if set
+            var bound = { left: this.minX, top: this.minY, width: viewport.width, height: viewport.height };
+            if (this.appendTo && this.appendTo !== 'body') {
+                var appendToOffset = DomHandler.getOffset(this.appendTo);
+                bound.left = appendToOffset.left;
+                bound.top = appendToOffset.top;
+                bound.width = bound.left + DomHandler.getOuterWidth(this.appendTo);
+                bound.height = bound.top + DomHandler.getOuterHeight(this.appendTo);
             }
 
-            if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
-                this._style.top = topPos + 'px';
+            // a bit of padding
+            bound.left += 5;
+            bound.top += 5;
+            bound.width -= 5;
+            bound.height -= 5;
+
+            if (leftPos > bound.left && (leftPos + containerWidth) < bound.width) {
+                this.container.style.left = leftPos + 'px';
+            }
+            if (topPos > bound.top && (topPos + containerHeight) < bound.height) {
+                this.container.style.top = topPos + 'px';
             }
 
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-
-            this.container.style.left = leftPos + 'px';
-            this.container.style.top = topPos + 'px';
         }
     }
 
