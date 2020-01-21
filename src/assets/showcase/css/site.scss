@@ -947,7 +947,10 @@ body {
 		&:hover {
 			background-color: #595959;
 		}
-	}
+    }
+    li {
+        line-height: 2;
+    }
 	.ui-tabview.ui-tabview-top {
 		>.ui-tabview-nav {
 			li {
@@ -1607,6 +1610,27 @@ a {
 			}
 		}
     }
+
+    .lts {
+		background-color: #20272a;
+		color: #ffffff;
+		text-align: left;
+		padding: 30px;
+		h3 {
+			margin-bottom: 10px;
+		}
+		p {
+			margin-bottom: 30px;
+		}
+		.ui-g {
+			>div {
+				padding: 1em 2em;
+			}
+		}
+		img {
+			width: 100%;
+		}
+	}
 
     /* Designer */
 	.primeng-designer {
