@@ -365,7 +365,7 @@ body {
 			&.topbar-submenu-resources {
 				right: 0px;
 				width: 275px;
-				max-height: 400px;
+				max-height: 450px;
 				padding: 6px 12px;
 				list-style: none;
 				a {
@@ -1622,15 +1622,23 @@ a {
 		p {
 			margin-bottom: 30px;
 		}
-		.ui-g {
-			>div {
-				padding: 1em 2em;
-			}
-		}
-		img {
-			width: 100%;
-		}
-	}
+        
+        img {
+            width: 350px;
+        }
+    }
+    
+    .section-image {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
 
     /* Designer */
 	.primeng-designer {
