@@ -2,9 +2,10 @@
     <div class="layout-news" *ngIf="newsActive">
         <div class="layout-news-container">
             <span class="layout-news-details">
+                Introducing PRIME<span style="color: #DD0031;">NG</span>&nbsp;LTS
             </span>
-            <a href="https://www.primefaces.org/store" target="_blank" class="layout-news-button">
-                SHOP NOW<i class="pi pi-angle-right"></i>
+            <a [routerLink]="['/lts']" target="_blank" class="layout-news-button">
+                LEARN MORE<i class="pi pi-angle-right"></i>
             </a>
             <a href="#" class="layout-news-close" (click)="hideNews($event)">
                 <i class="pi pi-times"></i>
