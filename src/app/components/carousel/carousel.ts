@@ -441,10 +441,6 @@ export class Carousel implements AfterContentInit {
 		return !this.value || this.value.length === 0;
 	}
 
-	isSamePosition() {
-		return this.startPos.x === this.endPos.x && this.startPos.y === this.endPos.y;
-	}
-
 	navForward(e,index?) {
 		if (this.circular || this._page < (this.totalDots() - 1)) {
 			this.step(-1, index);
@@ -573,7 +569,8 @@ export class Carousel implements AfterContentInit {
 
 		this.startPos = {
 			x: touchobj.pageX,
-			y: touchobj.pageY
+			y: touchobj.pageY,
+			r: touchobj.radiusX
 		};
 	}
 
@@ -587,10 +584,11 @@ export class Carousel implements AfterContentInit {
 
 		this.endPos = {
 			x: touchobj.pageX,
-			y: touchobj.pageY
+			y: touchobj.pageY,
+			r: touchobj.radiusX
 		};
 
-		if(this.isSamePosition()) {
+		if(this.isTouchedCircleIntersect()) {
 			return;
 		}
 
@@ -601,6 +599,13 @@ export class Carousel implements AfterContentInit {
 			this.changePageOnTouch(e, (touchobj.pageX - this.startPos.x));
 		}
 	}
+
+	isTouchedCircleIntersect(){
+		let d: number = Math.sqrt((this.startPos.x - this.endPos.x)* (this.startPos.x - this.endPos.x) 
+		+ (this.startPos.y - this.endPos.y)* (this.startPos.y - this.endPos.y));
+
+		return !(d > this.startPos.r + this.endPos.r)
+	} 
 
 	changePageOnTouch(e, diff) {
 		if (diff < 0) {
