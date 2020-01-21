@@ -44,7 +44,7 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/ltsicon.png "PrimeNG LTS")[8.1.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.2) (2020-10-20)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon.png "PrimeNG LTS")[8.1.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.2) (2020-10-20)
 
 **Fixed bugs:**
 
@@ -287,7 +287,7 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/ltsicon.png "PrimeNG LTS")[7.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.4) (2020-10-20)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon.png "PrimeNG LTS")[7.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.4) (2020-10-20)
 
 **Fixed bugs:**
 
