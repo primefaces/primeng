@@ -35,9 +35,9 @@ export interface LocaleSettings {
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" autocomplete="off" [attr.aria-labelledby]="ariaLabelledBy"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button"
-                    [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
+                    [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="0"></button>
             </ng-template>
-            <div [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
+            <div #contentWrapper [class]="panelStyleClass" [ngStyle]="panelStyle" [ngClass]="{'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all': true, 'ui-datepicker-inline':inline,'ui-shadow':!inline,
                 'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly,'ui-datepicker-multiple-month': this.numberOfMonths > 1, 'ui-datepicker-monthpicker': (view === 'month'), 'ui-datepicker-touch-ui': touchUI}"
                 [@overlayAnimation]="touchUI ? {value: 'visibleTouchUI', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}: 
                                             {value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" 
@@ -46,22 +46,22 @@ export interface LocaleSettings {
                 <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content" *ngFor="let month of months; let i = index;">
                         <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-                            <a class="ui-datepicker-prev ui-corner-all" (click)="navBackward($event)" *ngIf="i === 0">
+                            <a class="ui-datepicker-prev ui-corner-all" (click)="onPrevButtonClick($event)" (keydown.enter)="onPrevButtonClick($event)" *ngIf="i === 0" tabindex="0" (keydown)="onInputKeydown($event)">
                                 <span class="ui-datepicker-prev-icon pi pi-chevron-left"></span>
-                            </a>
-                            <a class="ui-datepicker-next ui-corner-all" (click)="navForward($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)">
-                                <span class="ui-datepicker-next-icon pi pi-chevron-right"></span>
                             </a>
                             <div class="ui-datepicker-title">
                                 <span class="ui-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
-                                <select tabindex="-1" class="ui-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
+                                <select tabindex="0" class="ui-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
                                     <option [value]="i" *ngFor="let monthName of locale.monthNames;let i = index" [selected]="i === month.month">{{monthName}}</option>
                                 </select>
-                                <select tabindex="-1" class="ui-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
+                                <select tabindex="0" class="ui-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
                                     <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
                                 </select>
                                 <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
                             </div>
+                            <a class="ui-datepicker-next ui-corner-all" (click)="onNextButtonClick($event)" (keydown.enter)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" tabindex="0" (keydown)="onInputKeydown($event)">
+                                <span class="ui-datepicker-next-icon pi pi-chevron-right"></span>
+                            </a>
                         </div>
                         <div class="ui-datepicker-calendar-container" *ngIf="view ==='date'">
                             <table class="ui-datepicker-calendar">
@@ -76,17 +76,17 @@ export interface LocaleSettings {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let week of month.dates; let i = index;">
+                                    <tr *ngFor="let week of month.dates; let j = index;">
                                         <td *ngIf="showWeek" class="ui-datepicker-weeknumber ui-state-disabled">
                                             <span>
-                                                {{month.weekNumbers[i]}}
+                                                {{month.weekNumbers[j]}}
                                             </span>
                                         </td>
                                         <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month': date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                             <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                 <a class="ui-state-default" *ngIf="date.selectable" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}"
-                                                    (click)="onDateSelect($event,date)" draggable="false">
+                                                    (click)="onDateSelect($event,date)" draggable="false" (keydown)="onDateCellKeydown($event,date,i)">
                                                     <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                                     <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
                                                 </a>
@@ -101,63 +101,63 @@ export interface LocaleSettings {
                         </div>
                     </div>
                     <div class="ui-monthpicker" *ngIf="view === 'month'">
-                        <a  *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
+                        <a  *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
                             {{m}}
                         </a>
                     </div>
                 </ng-container>
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 0, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="incrementHour($event)" (mousedown)="onTimePickerElementMouseDown($event, 0, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 0, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="decrementHour($event)" (mousedown)="onTimePickerElementMouseDown($event, 0, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-separator">
-                        <a >
+                        <a>
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span>{{timeSeparator}}</span>
-                        <a >
+                        <a>
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-minute-picker">
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 1, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="incrementMinute($event)" (mousedown)="onTimePickerElementMouseDown($event, 1, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 1, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="decrementMinute($event)" (mousedown)="onTimePickerElementMouseDown($event, 1, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-separator" *ngIf="showSeconds">
-                        <a >
+                        <a>
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span>{{timeSeparator}}</span>
-                        <a >
+                        <a>
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-second-picker" *ngIf="showSeconds">
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 2, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="incrementSecond($event)" (mousedown)="onTimePickerElementMouseDown($event, 2, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
-                        <a  (mousedown)="onTimePickerElementMouseDown($event, 2, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="decrementSecond($event)" (mousedown)="onTimePickerElementMouseDown($event, 2, -1)" (mouseup)="onTimePickerElementMouseUp($event)" (mouseout)="onTimePickerElementMouseOut($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
                     <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
-                        <a  (click)="toggleAMPM($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)">
                             <span class="pi pi-chevron-up"></span>
                         </a>
                         <span>{{pm ? 'PM' : 'AM'}}</span>
-                        <a  (click)="toggleAMPM($event)">
+                        <a tabindex="0" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)">
                             <span class="pi pi-chevron-down"></span>
                         </a>
                     </div>
@@ -165,10 +165,10 @@ export interface LocaleSettings {
                 <div class="ui-datepicker-buttonbar ui-widget-header" *ngIf="showButtonBar">
                     <div class="ui-g">
                         <div class="ui-g-6">
-                            <button type="button" tabindex="-1" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
+                            <button type="button" tabindex="0" [label]="_locale.today" (keydown)="onContainerButtonKeydown($event)" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
                         </div>
                         <div class="ui-g-6">
-                            <button type="button" tabindex="-1" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
+                            <button type="button" tabindex="0" [label]="_locale.clear" (keydown)="onContainerButtonKeydown($event)" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
                         </div>
                     </div>
                 </div>
@@ -354,7 +354,23 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() tabindex: number;
 
     @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
+
+    @ViewChild('contentWrapper', { static: false }) set content (content: ElementRef) {
+        this.contentViewChild = content;
+
+        if (this.contentViewChild) {
+            if (this.isMonthNavigate) {
+                Promise.resolve(null).then(() => this.updateFocus());
+                this.isMonthNavigate = false;
+            }
+            else {
+                this.initFocusableCell();
+            }
+        }
+    };
             
+    contentViewChild: ElementRef;
+
     value: any;
     
     dates: any[];
@@ -430,6 +446,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     focusElement: any;
 
     documentResizeListener: any;
+
+    navigationState: any = null;
+
+    isMonthNavigate: boolean;
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -690,6 +710,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             return;
         }
 
+        this.isMonthNavigate = true;
+
         if (this.view === 'month') {
             this.decrementYear();
         }
@@ -714,6 +736,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             event.preventDefault();
             return;
         }
+
+        this.isMonthNavigate = true;
 
         if (this.view === 'month') {
             this.incrementYear();
@@ -1166,11 +1190,347 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.hideOverlay();
         }
     }
+
+    onPrevButtonClick(event) {
+        this.navigationState = {backward: true, button: true};
+        this.navBackward(event);
+    }
+
+    onNextButtonClick(event) {
+        this.navigationState = {backward: false, button: true};
+        this.navForward(event);
+    }
+
+    onContainerButtonKeydown(event) {
+        switch (event.which) {
+           //tab
+           case 9:
+               this.trapFocus(event);
+           break;
+
+           //escape
+           case 27:
+               this.overlayVisible = false;
+               event.preventDefault();
+           break;
+
+           default:
+               //Noop
+           break;
+        }
+   }
     
     onInputKeydown(event) {
         this.isKeydown = true;
-        if (event.keyCode === 9) {
-            this.hideOverlay();
+        if (event.keyCode === 9 && this.contentViewChild) {
+            this.trapFocus(event);
+        }
+        else if (event.keyCode === 27) {
+            if (this.overlayVisible) {
+                this.overlayVisible = false;
+                event.preventDefault();
+            }
+        }
+    }
+
+    onDateCellKeydown(event, date, groupIndex) {
+        const cellContent = event.currentTarget;
+        const cell = cellContent.parentElement;
+
+        switch (event.which) {
+            //down arrow
+            case 40: {
+                cellContent.tabIndex = '-1';
+                let cellIndex = DomHandler.index(cell);
+                let nextRow = cell.parentElement.nextElementSibling;
+                if (nextRow) {
+                    let focusCell = nextRow.children[cellIndex].children[0];
+                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
+                        this.navigationState = {backward: false};
+                        this.navForward(event);
+                    }
+                    else {
+                        nextRow.children[cellIndex].children[0].tabIndex = '0';
+                        nextRow.children[cellIndex].children[0].focus();
+                    }
+                }
+                else {
+                    this.navigationState = {backward: false};
+                    this.navForward(event);
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //up arrow
+            case 38: {
+                cellContent.tabIndex = '-1';
+                let cellIndex = DomHandler.index(cell);
+                let prevRow = cell.parentElement.previousElementSibling;
+                if (prevRow) {
+                    let focusCell = prevRow.children[cellIndex].children[0];
+                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
+                        this.navigationState = {backward: true};
+                        this.navBackward(event);
+                    }
+                    else {
+                        focusCell.tabIndex = '0';
+                        focusCell.focus();
+                    }
+                }
+                else {
+                    this.navigationState = {backward: true};
+                    this.navBackward(event);
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //left arrow
+            case 37: {
+                cellContent.tabIndex = '-1';
+                let prevCell = cell.previousElementSibling;
+                if (prevCell) {
+                    let focusCell = prevCell.children[0];
+                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled') || DomHandler.hasClass(focusCell.parentElement, 'ui-datepicker-weeknumber')) {
+                        this.navigateToMonth(true, groupIndex);
+                    }
+                    else {
+                        focusCell.tabIndex = '0';
+                        focusCell.focus();
+                    }
+                }
+                else {
+                    this.navigateToMonth(true, groupIndex);
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //right arrow
+            case 39: {
+                cellContent.tabIndex = '-1';
+                let nextCell = cell.nextElementSibling;
+                if (nextCell) {
+                    let focusCell = nextCell.children[0];
+                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
+                        this.navigateToMonth(false, groupIndex);
+                    }
+                    else {
+                        focusCell.tabIndex = '0';
+                        focusCell.focus();
+                    }
+                }
+                else {
+                    this.navigateToMonth(false, groupIndex);
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //enter
+            case 13: {
+                this.onDateSelect(event, date);
+                event.preventDefault();
+                break;
+            }
+
+            //escape
+            case 27: {
+                this.overlayVisible = false;
+                event.preventDefault();
+                break;
+            }
+
+            //tab
+            case 9: {
+                this.trapFocus(event);
+                break;
+            }
+
+            default:
+                //no op
+            break;
+        }
+    }
+
+    onMonthCellKeydown(event, index) {
+        const cell = event.currentTarget;
+        switch (event.which) {
+            //arrows
+            case 38:
+            case 40: {
+                cell.tabIndex = '-1';
+                var cells = cell.parentElement.children;
+                var cellIndex = DomHandler.index(cell);
+                let nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex -3];
+                if (nextCell) {
+                    nextCell.tabIndex = '0';
+                    nextCell.focus();
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //left arrow
+            case 37: {
+                cell.tabIndex = '-1';
+                let prevCell = cell.previousElementSibling;
+                if (prevCell) {
+                    prevCell.tabIndex = '0';
+                    prevCell.focus();
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //right arrow
+            case 39: {
+                cell.tabIndex = '-1';
+                let nextCell = cell.nextElementSibling;
+                if (nextCell) {
+                    nextCell.tabIndex = '0';
+                    nextCell.focus();
+                }
+                event.preventDefault();
+                break;
+            }
+
+            //enter
+            case 13: {
+                this.onMonthSelect(event, index);
+                event.preventDefault();
+                break;
+            }
+
+            //escape
+            case 27: {
+                this.overlayVisible = false;
+                event.preventDefault();
+                break;
+            }
+
+            //tab
+            case 9: {
+                this.trapFocus(event);
+                break;
+            }
+
+            default:
+                //no op
+            break;
+        }
+    }
+
+    navigateToMonth(prev, groupIndex) {
+        if (prev) {
+            if (this.numberOfMonths === 1 || (groupIndex === 0)) {
+                this.navigationState = {backward: true};
+                this.navBackward(event);
+            }
+            else {
+                let prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
+                let cells = DomHandler.find(prevMonthContainer, '.ui-datepicker-calendar td a');
+                let focusCell = cells[cells.length - 1];
+                focusCell.tabIndex = '0';
+                focusCell.focus();
+            }
+        }
+        else {
+            if (this.numberOfMonths === 1 || (groupIndex === this.numberOfMonths - 1)) {
+                this.navigationState = {backward: false};
+                this.navForward(event);
+            }
+            else {
+                let nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
+                let focusCell = DomHandler.findSingle(nextMonthContainer, '.ui-datepicker-calendar td a');
+                focusCell.tabIndex = '0';
+                focusCell.focus();
+            }
+        }
+    }
+
+    updateFocus() {
+        let cell;
+        if (this.navigationState) {
+            if (this.navigationState.button) {
+                this.initFocusableCell();
+
+                if (this.navigationState.backward)
+                    DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-prev').focus();
+                else
+                    DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-next').focus();
+            }
+            else {
+                if (this.navigationState.backward) {
+                    let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+                    cell = cells[cells.length - 1];
+                }
+                else {
+                    cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+                }
+
+                if (cell) {
+                    cell.tabIndex = '0';
+                    cell.focus();
+                }
+            }
+
+            this.navigationState = null;
+        }
+        else {
+            this.initFocusableCell();
+        }
+    }
+
+    initFocusableCell() {
+        let cell;
+        if (this.view === 'month') {
+            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month');
+            let selectedCell= DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-highlight');
+            cells.forEach(cell => cell.tabIndex = -1);
+            cell = selectedCell || cells[0];
+        }
+        else {
+            cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'a.ui-state-active');
+            if (!cell) {
+                let todayCell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'td.ui-datepicker-today a:not(.ui-state-disabled)');
+                if (todayCell)
+                    cell = todayCell;
+                else
+                    cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+            }
+        }
+
+        if (cell) {
+            cell.tabIndex = '0';
+        }
+    }
+
+    trapFocus(event) {
+        event.preventDefault();
+        let focusableElements = DomHandler.getFocusableElements(this.contentViewChild.nativeElement);
+
+        if (focusableElements && focusableElements.length > 0) {
+            if (!document.activeElement) {
+                focusableElements[0].focus();
+            }
+            else {
+                let focusedIndex = focusableElements.indexOf(document.activeElement);
+
+                if (event.shiftKey) {
+                    if (focusedIndex == -1 || focusedIndex === 0)
+                        focusableElements[focusableElements.length - 1].focus();
+                    else
+                        focusableElements[focusedIndex - 1].focus();
+                }
+                else {
+                    if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                        focusableElements[0].focus();
+                    else
+                        focusableElements[focusedIndex + 1].focus();
+                }
+            }
         }
     }
     
