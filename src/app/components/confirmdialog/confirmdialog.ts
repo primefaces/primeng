@@ -138,7 +138,7 @@ export class ConfirmDialog implements OnDestroy {
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
                 }
 
-                if (this.confirmation.blockScroll === false) {
+                if (this.confirmation.blockScroll === false || this.confirmation.blockScroll === true) {
                     this.blockScroll = this.confirmation.blockScroll;
                 }
 
@@ -190,7 +190,6 @@ export class ConfirmDialog implements OnDestroy {
             this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
             document.body.appendChild(this.mask);
-            DomHandler.addClass(document.body, 'ui-overflow-hidden');
 
             if(this.blockScroll) {
                 DomHandler.addClass(document.body, 'ui-overflow-hidden');
@@ -201,7 +200,6 @@ export class ConfirmDialog implements OnDestroy {
     disableModality() {
         if (this.mask) {
             document.body.removeChild(this.mask);
-            DomHandler.removeClass(document.body, 'ui-overflow-hidden');
 
             if(this.blockScroll) {            
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
