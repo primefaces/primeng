@@ -15,9 +15,11 @@ import {Subscription}   from 'rxjs';
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
-                    <span class="pi pi-fw pi-times"></span>
-                </a>
+                <div class="ui-dialog-titlebar-icons">
+                    <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
+                        <span class="pi pi-fw pi-times"></span>
+                    </a>
+                </div>
             </div>
             <div #content class="ui-dialog-content ui-widget-content">
                 <i [ngClass]="'ui-confirmdialog-icon'" [class]="icon" *ngIf="icon"></i>
@@ -189,7 +191,12 @@ export class ConfirmDialog implements OnDestroy {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
-            document.body.appendChild(this.mask);
+            if (this.appendTo === 'body' || !this.appendTo) {
+                document.body.appendChild(this.mask);
+            }
+            else {
+                DomHandler.appendChild(this.mask, this.appendTo);
+            }
 
             if(this.blockScroll) {
                 DomHandler.addClass(document.body, 'ui-overflow-hidden');
@@ -199,7 +206,12 @@ export class ConfirmDialog implements OnDestroy {
     
     disableModality() {
         if (this.mask) {
-            document.body.removeChild(this.mask);
+            if (this.appendTo === 'body' || !this.appendTo) {
+                document.body.removeChild(this.mask);
+            }
+            else {
+                DomHandler.removeChild(this.mask, this.appendTo);
+            }
 
             if(this.blockScroll) {            
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
