@@ -376,7 +376,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     updateFilledState() {
-        this.filled = (this.valuesAsString != null && this.valuesAsString.length > 0);
+        this.filled = (this.value && this.value.length > 0);
     }
     
     registerOnChange(fn: Function): void {
