@@ -1,6 +1,19 @@
+.ui-dialog-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
 .ui-dialog {
     position: fixed;
     padding: 0;
+    pointer-events: auto;
 }
 
 .ui-dynamicdialog {
@@ -26,22 +39,40 @@
     overflow: auto;
 }
 
+.ui-dialog-breakpoint {
+    left: 0px;
+    width: 100%;
+}
+
 .ui-dialog .ui-resizable-se {
     width: 14px;
     height: 14px;
     right: 3px;
     bottom: 3px;
+    position: absolute;
+    font-size: .1px;
+    display: block;
+    cursor: se-resize;
 }
 .ui-draggable .ui-dialog-titlebar {
     cursor: move;
 }
 
+.ui-dialog .ui-dialog-titlebar-icons {
+    float: right;
+}
+.ui-dialog .ui-dialog-titlebar-icons:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .ui-dialog .ui-dialog-titlebar-icon {
     text-decoration: none;
-    float: right;
-    float: right;
     padding: .125em;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
     border: 1px solid transparent;
 }
 
@@ -60,6 +91,10 @@
     position: fixed;
     width: 100%;
     height: 100%;
+}
+
+.ui-dialog-wrapper.ui-dialog-mask {
+    pointer-events: auto;
 }
 
 .ui-dialog-maximized {
