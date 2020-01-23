@@ -3269,9 +3269,6 @@ body .ui-steps .ui-steps-item.ui-state-highlight .ui-steps-title {
   font-weight: 700;
   color: #dedede;
 }
-body .ui-steps .ui-steps-item:last-child .ui-menuitem-link {
-  display: block;
-}
 body .ui-steps:before {
   content: " ";
   border-top: 1px solid #191919;
