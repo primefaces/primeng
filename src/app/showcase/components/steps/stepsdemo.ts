@@ -15,7 +15,6 @@ import {MessageService} from 'primeng/api';
         }
         
         .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
-            height: 10px;
             padding: 0 1em;
             overflow: visible;
         }
