@@ -1205,7 +1205,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         switch (event.which) {
            //tab
            case 9:
-               this.trapFocus(event);
+                if (!this.inline) {
+                    this.trapFocus(event);
+                }
            break;
 
            //escape
@@ -1344,7 +1346,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
             //tab
             case 9: {
-                this.trapFocus(event);
+                if (!this.inline) {
+                    this.trapFocus(event);
+                }
                 break;
             }
 
@@ -1412,7 +1416,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
             //tab
             case 9: {
-                this.trapFocus(event);
+                if (!this.inline) {
+                    this.trapFocus(event);
+                }
                 break;
             }
 
