@@ -60,9 +60,9 @@ import {DomHandler} from 'primeng/dom';
                             </table>
                         </td>
                         <td class="ui-treenode" [ngClass]="{'ui-treenode-collapsed':!node.expanded}">
-                            <div class="ui-treenode-content ui-state-default ui-corner-all"
+                            <div class="ui-treenode-content ui-state-default ui-corner-all" tabindex="0"
                                 [ngClass]="{'ui-treenode-selectable':tree.selectionMode,'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
-                                (touchend)="onNodeTouchEnd()">
+                                (touchend)="onNodeTouchEnd()" (keydown)="onNodeKeydown($event)">
                                 <span class="ui-tree-toggler pi pi-fw ui-unselectable-text" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
@@ -157,6 +157,12 @@ export class UITreeNode implements OnInit {
     onNodeClick(event: MouseEvent) {
         this.tree.onNodeClick(event, this.node);
     }
+
+    onNodeKeydown(event: KeyboardEvent) {
+        if (event.which === 13) {
+            this.tree.onNodeClick(event, this.node);
+        }
+    } 
 
     onNodeTouchEnd() {
         this.tree.onNodeTouchEnd();
