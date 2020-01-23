@@ -11,37 +11,39 @@ import {Subscription}   from 'rxjs';
 @Component({
     selector: 'p-confirmDialog',
     template: `
-        <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
-            [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" *ngIf="visible">
-            <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
-                <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <div class="ui-dialog-titlebar-icons">
-                    <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
-                        <span class="pi pi-fw pi-times"></span>
-                    </a>
+        <div class="ui-dialog-wrapper" [ngClass]="{'ui-widget-overlay ui-dialog-mask': true, 'ui-dialog-mask-scrollblocker':blockScroll}" *ngIf="maskVisible">
+            <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
+                [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
+                <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+                    <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
+                    <div class="ui-dialog-titlebar-icons">
+                        <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
+                            <span class="pi pi-times"></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div #content class="ui-dialog-content ui-widget-content">
-                <i [ngClass]="'ui-confirmdialog-icon'" [class]="icon" *ngIf="icon"></i>
-                <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
-            </div>
-            <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
-                <ng-content select="p-footer"></ng-content>
-            </div>
-            <div class="ui-dialog-footer ui-widget-content" *ngIf="!footer">
-                <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" [class]="acceptButtonStyleClass" *ngIf="acceptVisible"></button>
-                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" [class]="rejectButtonStyleClass" *ngIf="rejectVisible"></button>
+                <div #content class="ui-dialog-content ui-widget-content">
+                    <i [ngClass]="'ui-confirmdialog-icon'" [class]="icon" *ngIf="icon"></i>
+                    <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
+                </div>
+                <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
+                    <ng-content select="p-footer"></ng-content>
+                </div>
+                <div class="ui-dialog-footer ui-widget-content" *ngIf="!footer">
+                    <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" [class]="acceptButtonStyleClass" *ngIf="acceptVisible"></button>
+                    <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" [class]="rejectButtonStyleClass" *ngIf="rejectVisible"></button>
+                </div>
             </div>
         </div>
     `,
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translateX(-50%) translateY(-50%) scale(0.7)',
+                transform: 'scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
-                transform: 'translateX(-50%) translateY(-50%) scale(1)',
+                transform: 'none',
                 opacity: 1
             })),
             transition('* => *', animate('{{transitionParams}}'))
@@ -49,8 +51,6 @@ import {Subscription}   from 'rxjs';
     ]
 })
 export class ConfirmDialog implements OnDestroy {
-    
-    @Input() visible: boolean;
 
     @Input() header: string;
     
@@ -98,6 +98,17 @@ export class ConfirmDialog implements OnDestroy {
 
     @Input() focusTrap: boolean = true;
 
+    @Input() get visible(): any {
+        return this._visible;
+    }
+    set visible(value:any) {
+        this._visible = value;
+        
+        if (this._visible && !this.maskVisible) {
+            this.maskVisible = true;
+        }
+    }
+
     @ContentChild(Footer, { static: true }) footer;
 
     @ViewChild('content', { static: true }) contentViewChild: ElementRef;
@@ -105,12 +116,14 @@ export class ConfirmDialog implements OnDestroy {
     confirmation: Confirmation;
         
     _visible: boolean;
+
+    maskVisible: boolean;
     
     documentEscapeListener: any;
         
-    mask: any;
-
     container: HTMLDivElement;
+
+    wrapper: HTMLElement;
         
     contentContainer: HTMLDivElement;
       
@@ -153,6 +166,7 @@ export class ConfirmDialog implements OnDestroy {
         switch(event.toState) {
             case 'visible':
                 this.container = event.element;
+                this.wrapper = this.container.parentElement;
                 this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
                 
                 if (this.acceptVisible || this.rejectVisible) {
@@ -164,7 +178,11 @@ export class ConfirmDialog implements OnDestroy {
                 this.bindGlobalListeners();
                 this.enableModality();
             break;
+        }
+    }
 
+    onAnimationEnd(event: AnimationEvent) {
+        switch(event.toState) {
             case 'void':
                 this.onOverlayHide();
             break;
@@ -187,37 +205,16 @@ export class ConfirmDialog implements OnDestroy {
     }
         
     enableModality() {
-        if (!this.mask) {
-            this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
-            DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
-            if (this.appendTo === 'body' || !this.appendTo) {
-                document.body.appendChild(this.mask);
-            }
-            else {
-                DomHandler.appendChild(this.mask, this.appendTo);
-            }
-
-            if(this.blockScroll) {
-                DomHandler.addClass(document.body, 'ui-overflow-hidden');
-            }
+        if (this.blockScroll) {
+            DomHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
     
     disableModality() {
-        if (this.mask) {
-            if (this.appendTo === 'body' || !this.appendTo) {
-                document.body.removeChild(this.mask);
-            }
-            else {
-                DomHandler.removeChild(this.mask, this.appendTo);
-            }
+        this.maskVisible = false;
 
-            if(this.blockScroll) {            
-                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
-            }
-            
-            this.mask = null;
+        if (this.blockScroll) {            
+            DomHandler.removeClass(document.body, 'ui-overflow-hidden');
         }
     }
     
@@ -237,6 +234,7 @@ export class ConfirmDialog implements OnDestroy {
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+            this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
         }
     }
     
@@ -249,7 +247,7 @@ export class ConfirmDialog implements OnDestroy {
                     }
                 }
 
-                if(event.which === 9 && this.focusTrap) {
+                if (event.which === 9 && this.focusTrap) {
                     event.preventDefault();
                     
                     let focusableElements = DomHandler.getFocusableElements(this.container);
