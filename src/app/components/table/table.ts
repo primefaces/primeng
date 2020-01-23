@@ -2150,6 +2150,7 @@ export class TableBody {
                     </ng-template>
                 </tbody>
             </table>
+            <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
             <div #virtualScroller class="ui-table-virtual-scroller" *ngIf="dt.virtualScroll"></div>
         </div>
         <div #scrollFooter class="ui-table-scrollable-footer ui-widget-header">
@@ -2185,6 +2186,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     @ViewChild('scrollFooterBox', { static: true }) scrollFooterBoxViewChild: ElementRef;
 
     @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
+
+    @ViewChild('scrollableAligner', { static: false }) scrollableAlignerViewChild: ElementRef;
 
     headerScrollListener: Function;
 
@@ -2266,7 +2269,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             }
         }
         else {
-            this.scrollBodyViewChild.nativeElement.style.paddingBottom = DomHandler.calculateScrollbarWidth() + 'px';
+            if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
+                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
+            }
             let scrollableView = this.el.nativeElement.nextElementSibling;
             if (scrollableView) {
                 this.scrollableSiblingBody = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
@@ -2434,8 +2439,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
                 this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
             }
-            else {                
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
+            else {    
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;          
             }
         }
     }
