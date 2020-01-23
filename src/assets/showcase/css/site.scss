@@ -583,7 +583,7 @@ body {
 	a {
 		color: #ffffff;
 		font-weight: 700;
-	}
+    }
 }
 .feature-title {
 	font-size: 30px;
@@ -1460,7 +1460,14 @@ a {
 			font-weight: bold;
 			margin-bottom: 40px;
 			margin-top: 0;
-		}
+        }
+        .introduction-promo {
+            display: inline-block;
+            margin-left: -50px;
+            padding: 2px 50px 2px 50px;
+            font-size: 1.5em;
+            background-image: linear-gradient(270deg, rgba(148,163,194,0.10) 0%, #283249 100%);
+        }
     }
 
     /* Features */
