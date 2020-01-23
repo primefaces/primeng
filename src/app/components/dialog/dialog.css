@@ -105,8 +105,6 @@
 /* ConfirmDialog */
 .ui-confirmdialog {
     width: 30em;
-    top: 50%;
-    left: 50%;
 }
 
 .ui-confirmdialog.ui-dialog .ui-dialog-content {
