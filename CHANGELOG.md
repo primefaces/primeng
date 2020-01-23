@@ -1,5 +1,33 @@
 # Change Log
 
+## [9.0.0-rc.3](https://github.com/primefaces/primeng/tree/9.0.0-rc.3) (2020-01-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc2...9.0.0-rc.3)
+
+**Implemented New Features and Enhancements:**
+
+- Keyboard accessible Horizontal TreeNode [\#8478](https://github.com/primefaces/primeng/issues/8478)
+- Keyboard accessible Inplace [\#8477](https://github.com/primefaces/primeng/issues/8477)
+- Unify focus visuals in Themes [\#8476](https://github.com/primefaces/primeng/issues/8476)
+- Reimplement ConfirmDialog  [\#8475](https://github.com/primefaces/primeng/issues/8475)
+- Deprecate breakpoint and responsive properties of Dialog [\#8473](https://github.com/primefaces/primeng/issues/8473)
+- Reimplement Dialog [\#8472](https://github.com/primefaces/primeng/issues/8472)
+- Enhance ARIA roles and attributes for the components [\#8439](https://github.com/primefaces/primeng/issues/8439)
+- Calendar - Keyboard Navigation Support [\#4695](https://github.com/primefaces/primeng/issues/4695)
+
+**Fixed bugs:**
+
+- Issue in Carousel component. Click events or href does not work on touch on mobile devices [\#8302](https://github.com/primefaces/primeng/issues/8302)
+- Disabled steps item still receives focus [\#8479](https://github.com/primefaces/primeng/issues/8479)
+- Frozen columns misalignment in Firefox [\#8474](https://github.com/primefaces/primeng/issues/8474)
+- Scrollbar over footer cause display issue with frozen column [\#8431](https://github.com/primefaces/primeng/issues/8431)
+- Table footer scroll not working using with Frozen Columns [\#8417](https://github.com/primefaces/primeng/issues/8417)
+- Dropdown resetFilter method not clear filter input value [\#8408](https://github.com/primefaces/primeng/issues/8408)
+- ConfirmDialog ignores blockScroll property [\#8395](https://github.com/primefaces/primeng/issues/8395)
+- Drag and Drop is not working in PickList in Firefox web browser [\#8320](https://github.com/primefaces/primeng/issues/8320)
+- Confirm dialog mask bug [\#8312](https://github.com/primefaces/primeng/issues/8312)
+- Popup menu does not hide on document click when parent uses OnPush change detection [\#8226](https://github.com/primefaces/primeng/issues/8226)
+
 ## [9.0.0-rc.2](https://github.com/primefaces/primeng/tree/9.0.0-rc.2) (2019-12-05)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc.1...9.0.0-rc.2)
