@@ -18,7 +18,7 @@ import {Subscription}   from 'rxjs';
                     <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
                     <div class="ui-dialog-titlebar-icons">
                         <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
-                            <span class="pi pi-fw pi-times"></span>
+                            <span class="pi pi-times"></span>
                         </a>
                     </div>
                 </div>
