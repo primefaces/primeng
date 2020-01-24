@@ -53,7 +53,8 @@ export class InputSwitch implements ControlValueAccessor {
     constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event: Event, cb: HTMLInputElement) {
-        if (!this.disabled && !this.readonly) {  
+        if (!this.disabled && !this.readonly) {
+            event.preventDefault();
             this.toggle(event);
             cb.focus();
         }
