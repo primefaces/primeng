@@ -1,4 +1,5 @@
 import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef } from '@angular/core';
+import { of } from 'rxjs';
 import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -12,6 +13,9 @@ export class DialogService {
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) { }
 
     public open(componentType: Type<any>, config: DynamicDialogConfig) {
+        if (this.dialogComponentRef && this.dialogComponentRef.instance.visible)
+            return {onClose: of(false)};
+
         const dialogRef = this.appendDialogComponentToBody(config);
 
         this.dialogComponentRef.instance.childComponentType = componentType;
