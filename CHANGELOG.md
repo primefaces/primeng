@@ -72,7 +72,22 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.2) (2020-10-20)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.3-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.3) (2020-01-17)
+
+**Fixed bugs:**
+
+- colorPicker - wrong color rendered [\#8334](https://github.com/primefaces/primeng/issues/8334)
+- Don't decrease page when totalRecords is not (yet) set [\#8358](https://github.com/primefaces/primeng/issues/8358)
+- Popup menu does not hide on document click when parent uses OnPush change detection  [\#8226](https://github.com/primefaces/primeng/issues/8226)
+- Drag and Drop is not working in PickList in Firefox web browser [\#8320](https://github.com/primefaces/primeng/issues/8320)
+- Table footer scroll not working using with Frozen Columns [\#8417](https://github.com/primefaces/primeng/issues/8417)
+- Dropdown resetFilter method not clear filter input value [\#8408](https://github.com/primefaces/primeng/issues/8408)
+- ConfirmDialog ignores blockScroll property [\#8395](https://github.com/primefaces/primeng/issues/8395)
+- Confirm dialog mask bug [\#8312](https://github.com/primefaces/primeng/issues/8312)
+- Scrollbar over footer cause display issue with frozen column [\#8431](https://github.com/primefaces/primeng/issues/8431)
+- Frozen columns misalignment in Firefox [\#8474](https://github.com/primefaces/primeng/issues/8474)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.2) (2020-01-20)
 
 **Fixed bugs:**
 
@@ -315,7 +330,24 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.4) (2020-10-20)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.5) (2020-01-27)
+
+**Fixed bugs:**
+
+- p-multiselect disabled and selected option gets un-selected by the select all checkbox in header [\#7540](https://github.com/primefaces/primeng/issues/7540)
+- KeyFilter is not working on paste [\#7729](https://github.com/primefaces/primeng/issues/7729)
+- Dropdown does not scroll to selected when virtual scroll is enabled [\#7718](https://github.com/primefaces/primeng/issues/7718)
+- Backspace doesn't clear the date in calendar. [\#7897](https://github.com/primefaces/primeng/issues/7897)
+- Display issue with accordion nested inside overlay [\#6318](https://github.com/primefaces/primeng/issues/6318)
+- Lightbox listeners should remove when hiding. [\#7895](https://github.com/primefaces/primeng/issues/7895)
+- Times between 12:00AM-12:59AM save as PM when defaulted or typed in [\#7799](https://github.com/primefaces/primeng/issues/7799)
+- Drag and Drop is not working in OrderList in Firefox web browser [\#7793](https://github.com/primefaces/primeng/issues/7793)
+- Spinner does not reflect initially bound value when OnPush strategy is used [\#7773](https://github.com/primefaces/primeng/issues/7773)
+- Dropdown is not align with input when using appendTo="body" property [\#7808](https://github.com/primefaces/primeng/issues/7808
+- Scrollbar over footer cause display issue with frozen column [\#8431](https://github.com/primefaces/primeng/issues/8431)
+- Frozen columns misalignment in Firefox [\#8474](https://github.com/primefaces/primeng/issues/8474)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.4) (2020-01-20)
 
 **Fixed bugs:**
 
