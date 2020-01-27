@@ -335,6 +335,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onMonthChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onYearChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClickOutside: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -1987,7 +1991,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                         this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
                     }
                     this.alignOverlay();
-                    
+                    this.onShow.emit(event);
                 }
             break;
 
@@ -2454,7 +2458,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
                         this.zone.run(() => {
                             this.hideOverlay();
-                            
+                            this.onClickOutside.emit(event);
+
                             this.cd.markForCheck();
                         });
                     }
