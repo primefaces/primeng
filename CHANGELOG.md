@@ -1,5 +1,21 @@
 # Change Log
 
+## [9.0.0-rc.4](https://github.com/primefaces/primeng/tree/9.0.0-rc.4) (2020-01-27)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc.3...9.0.0-rc.4)
+
+**Implemented New Features and Enhancements:**
+
+- P-Calendar fires onBlur event upon clicking a date in the calendar [\#7357](https://github.com/primefaces/primeng/issues/7357)
+
+**Fixed bugs:**
+
+- 'allSelected' does not exist on type 'MultiSelect' [\#8486](https://github.com/primefaces/primeng/issues/8486)
+- ui-inputwrapper-filled doesn't change with toggleAll in multiselect [\#8484](https://github.com/primefaces/primeng/issues/8484)
+- InputSwitch doesn't switch when clicked if it is inside a label [\#8466](https://github.com/primefaces/primeng/issues/8466)
+- ui-inputwrapper-filled is not removed when multi-select options are deselected [\#8279](https://github.com/primefaces/primeng/issues/8279)
+- p-dropdown: emptyFilterMessage does not work with optionLabel [\#7448](https://github.com/primefaces/primeng/issues/7448)
+
 ## [9.0.0-rc.3](https://github.com/primefaces/primeng/tree/9.0.0-rc.3) (2020-01-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc2...9.0.0-rc.3)
