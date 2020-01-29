@@ -428,11 +428,11 @@ export class Carousel implements AfterContentInit {
 	}
 
 	isForwardNavDisabled() {
-		return this.isEmpty() || (this._page === this.totalDots() - 1 && !this.circular);
+		return this.isEmpty() || (this._page >= (this.totalDots() - 1) && !this.isCircular());
 	}
 
 	isBackwardNavDisabled() {
-		return this.isEmpty() || (this._page === 0  && !this.circular);
+		return this.isEmpty() || (this._page <= 0  && !this.isCircular());
 	}
 
 	isEmpty() {
@@ -440,7 +440,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	navForward(e,index?) {
-		if (this.circular || this._page < (this.totalDots() - 1)) {
+		if (this.isCircular() || this._page < (this.totalDots() - 1)) {
 			this.step(-1, index);
 		}
 
@@ -455,7 +455,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	navBackward(e,index?) {
-		if (this.circular || this._page !== 0) {
+		if (this.isCircular() || this._page !== 0) {
 			this.step(1, index);
 		}
 
