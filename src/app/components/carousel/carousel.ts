@@ -394,9 +394,10 @@ export class Carousel implements AfterContentInit {
 	totalDots() {
 		return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
 	}
+
 	totalDotsArray() {
-		let totalDots = this.totalDots();
-		return totalDots === 0 ? [] : Array(totalDots).fill(0);
+		const totalDots = this.totalDots();
+		return totalDots <= 0 ? [] : Array(totalDots).fill(0);
 	}
 
 	containerClass() {
