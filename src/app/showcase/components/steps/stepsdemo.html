@@ -5,8 +5,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast></p-toast>
 
     <h3 class="first">Basic</h3>
     <p-steps [model]="items"></p-steps>

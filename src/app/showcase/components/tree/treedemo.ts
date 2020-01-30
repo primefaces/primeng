@@ -4,6 +4,7 @@ import {MenuItem,TreeNode} from 'primeng/api';
 import {Tree} from '../../../components/tree/tree';
 import {TreeDragDropService} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './treedemo.html',
@@ -17,6 +18,24 @@ import {MessageService} from 'primeng/api';
             padding-top: 0;
             padding-bottom: 0;
             font-size: 12px;
+        }
+
+        :host ::ng-deep .ui-toast {
+            top: 80px;
+        }
+
+        :host ::ng-deep .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-toast {
+                top: 110px;
+            }
+
+            :host ::ng-deep .news-active .ui-toast {
+                top: 180px;
+            }
         }
     `],
     providers: [TreeDragDropService,MessageService]
@@ -57,7 +76,7 @@ export class TreeDemo implements OnInit {
     
     loading: boolean;
     
-    constructor(private nodeService: NodeService, private messageService: MessageService) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService, private app: AppComponent) { }
 
     ngOnInit() {
         this.loading = true;
@@ -143,6 +162,10 @@ export class TreeDemo implements OnInit {
         this.filesTree10.forEach( node => {
             this.expandRecursive(node, false);
         } );
+    }
+
+    isNewsActive() {
+        return this.app.newsActive;
     }
     
     private expandRecursive(node:TreeNode, isExpand:boolean){

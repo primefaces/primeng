@@ -1,6 +1,7 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './stepsdemo.html',
@@ -32,6 +33,24 @@ import {MessageService} from 'primeng/api';
         .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
             color: #555555;
         }
+
+        .ui-toast {
+            top: 80px;
+        }
+
+        .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            .ui-toast {
+                top: 110px;
+            }
+
+            .news-active .ui-toast {
+                top: 180px;
+            }
+        }
     `],
     encapsulation: ViewEncapsulation.None
 })
@@ -41,7 +60,7 @@ export class StepsDemo implements OnInit {
     
     activeIndex: number = 1;
     
-    constructor(private messageService: MessageService) {}
+    constructor(private messageService: MessageService, private app: AppComponent) {}
 
     ngOnInit() {
         this.items = [{
@@ -73,5 +92,9 @@ export class StepsDemo implements OnInit {
                 }
             }
         ];
+    }
+
+    isNewsActive() {
+        return this.app.newsActive;
     }
 }

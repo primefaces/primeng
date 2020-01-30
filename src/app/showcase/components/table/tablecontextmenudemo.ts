@@ -3,10 +3,30 @@ import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 import { MenuItem } from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './tablecontextmenudemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styles: [`
+        :host ::ng-deep .ui-toast {
+            top: 80px;
+        }
+
+        :host ::ng-deep .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-toast {
+                top: 110px;
+            }
+
+            :host ::ng-deep .news-active .ui-toast {
+                top: 180px;
+            }
+        }
+    `]
 })
 export class TableContextMenuDemo implements OnInit {
 
@@ -20,7 +40,7 @@ export class TableContextMenuDemo implements OnInit {
 
     items: MenuItem[];
 
-    constructor(private carService: CarService, private messageService: MessageService) { }
+    constructor(private carService: CarService, private messageService: MessageService, private app: AppComponent) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
@@ -53,5 +73,9 @@ export class TableContextMenuDemo implements OnInit {
         this.cars.splice(index, 1);
         
         this.messageService.add({ severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand });
+    }
+
+    isNewsActive() {
+        return this.app.newsActive;
     }
 }

@@ -5,14 +5,14 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: getTop()}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast styleClass="top-toast"></p-toast>
 
-    <p-toast [style]="{marginTop: getTop()}" position="top-left" key="tl"></p-toast>
+    <p-toast position="top-left" key="tl" styleClass="top-toast"></p-toast>
 
-    <p-toast [style]="{marginTop: getTop()}" position="top-center" key="tc"></p-toast>
+    <p-toast position="top-center" key="tc" styleClass="top-toast"></p-toast>
 
-    <p-toast [style]="{marginTop: getTop()}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
+    <p-toast styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
 
     <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">

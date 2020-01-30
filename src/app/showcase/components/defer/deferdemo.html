@@ -7,12 +7,12 @@
     </div>
 </div>
 
-<div class="content-section implementation">
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
     <div style="height:800px">
         Table is not loaded yet, scroll down to initialize it.
     </div>
 
-    <p-toast [style]="{marginTop: getTop()}"></p-toast>
+    <p-toast></p-toast>
 
     <div pDefer (onLoad)="initData()">
         <ng-template>

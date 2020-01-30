@@ -5,8 +5,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast></p-toast>
 
     <p-captcha siteKey="6Lf2XQkTAAAAANcvOwYqPxWL4iZDksFqHpS39GDA" (onResponse)="showResponse($event)"></p-captcha>
 </div>

@@ -1,6 +1,7 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
 import {TreeNode} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
@@ -51,6 +52,24 @@ import {MessageService} from 'primeng/api';
         .department-cto .ui-node-toggler {
             color: #8a0a39 !important;
         }
+
+        .ui-toast {
+            top: 80px;
+        }
+
+        .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            .ui-toast {
+                top: 110px;
+            }
+
+            .news-active .ui-toast {
+                top: 180px;
+            }
+        }
     `],
     encapsulation: ViewEncapsulation.None
 })
@@ -62,7 +81,7 @@ export class OrganizationChartDemo implements OnInit {
     
     selectedNode: TreeNode;
     
-    constructor(private messageService: MessageService) {}
+    constructor(private messageService: MessageService, private app: AppComponent) {}
     
     ngOnInit() {
         this.data1 = [{
@@ -167,5 +186,10 @@ export class OrganizationChartDemo implements OnInit {
     
     onNodeSelect(event) {
         this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
+    }
+
+
+    isNewsActive() {
+        return this.app.newsActive;
     }
 }

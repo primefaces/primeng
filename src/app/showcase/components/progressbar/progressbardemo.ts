@@ -1,15 +1,35 @@
 import {Component,OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './progressbardemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styles: [`
+        :host ::ng-deep .ui-toast {
+            top: 80px;
+        }
+
+        :host ::ng-deep .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-toast {
+                top: 110px;
+            }
+
+            :host ::ng-deep .news-active .ui-toast {
+                top: 180px;
+            }
+        }
+    `]
 })
 export class ProgressBarDemo {
 
     value: number = 0;
     
-    constructor(private messageService: MessageService) {}
+    constructor(private messageService: MessageService, private app: AppComponent) {}
 
     ngOnInit() {
         let interval = setInterval(() => {
@@ -22,4 +42,7 @@ export class ProgressBarDemo {
         }, 2000);
     }
 
+    isNewsActive() {
+        return this.app.newsActive;
+    }
 }
