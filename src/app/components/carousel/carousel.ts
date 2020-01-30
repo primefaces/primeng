@@ -258,7 +258,10 @@ export class Carousel implements AfterContentInit {
 			this.prevState.numVisible = this._numVisible;
 			this.prevState.value = this._value;
 
-			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+			if (this.totalDots() > 0) {
+				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+			}
+			
 			this.isCreated = true;
 
 			if (this.autoplayInterval && this.isAutoplay()) {
@@ -537,11 +540,13 @@ export class Carousel implements AfterContentInit {
 
 	startAutoplay() {
 		this.interval = setInterval(() => {
-			if (this.page === (this.totalDots() - 1)) {
-				this.step(-1, 0);
-			}
-			else {
-				this.step(-1, this.page + 1);
+			if (this.totalDots() > 0) {
+				if (this.page === (this.totalDots() - 1)) {
+					this.step(-1, 0);
+				}
+				else {
+					this.step(-1, this.page + 1);
+				}
 			}
 		}, 
 		this.autoplayInterval);
