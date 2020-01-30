@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from 'src/app/showcase/app.component';
+import { AppComponent } from '../../../app.component';
 
 @Component({
     templateUrl: './linechartdemo.html',
