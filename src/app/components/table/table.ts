@@ -1780,7 +1780,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 });
 
                 if (this.isStateful()) {
-                    this.saveState();
+                    /** Timeout need to move saveState() method from call stack
+                     * so saveColumnWidths() can use correct order of columns after reordering
+                     */
+                    setTimeout(() => {
+                        this.saveState();
+                    });
                 }
             }
 
