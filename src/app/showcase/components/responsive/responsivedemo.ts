@@ -231,7 +231,7 @@ export class ResponsiveDemo implements OnInit {
         let filtered : any[] = [];
         for(let i = 0; i < countries.length; i++) {
             let country = countries[i];
-            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
         }

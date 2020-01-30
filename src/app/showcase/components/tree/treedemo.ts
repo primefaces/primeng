@@ -138,7 +138,7 @@ export class TreeDemo implements OnInit {
     }
     
     nodeExpand(event) {
-        if(event.node) {
+        if (event.node) {
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
         }
@@ -170,7 +170,7 @@ export class TreeDemo implements OnInit {
     
     private expandRecursive(node:TreeNode, isExpand:boolean){
         node.expanded = isExpand;
-        if(node.children){
+        if (node.children){
             node.children.forEach( childNode => {
                 this.expandRecursive(childNode, isExpand);
             } );

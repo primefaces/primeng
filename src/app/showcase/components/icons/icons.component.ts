@@ -38,7 +38,7 @@ export class IconsComponent {
     
     onFilter(event): void {
         this.searchText = event.target.value;
-        if( !this.icons) 
+        if ( !this.icons) 
 			this.filteredIcons = [];
 		if (!this.searchText) 
 			this.filteredIcons = this.icons

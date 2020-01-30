@@ -122,7 +122,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     constructor(public el: ElementRef) {}
 
     ngOnInit() {
-        if(this.lazy) {
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         this.initialized = true;
@@ -208,7 +208,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     sort() {
         this.first = 0;
 
-        if(this.lazy) {
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else if (this.value) {

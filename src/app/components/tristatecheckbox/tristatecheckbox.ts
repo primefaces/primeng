@@ -59,7 +59,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     onModelTouched: Function = () => {};
 
     onClick(event: Event, input: HTMLInputElement) {
-        if(!this.disabled && !this.readonly) {
+        if (!this.disabled && !this.readonly) {
             this.toggle(event);
             this.focus = true;
             input.focus();
@@ -67,24 +67,24 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if(event.keyCode == 32) {
+        if (event.keyCode == 32) {
             event.preventDefault();
         }
     }
 
     onKeyup(event: KeyboardEvent) {
-        if(event.keyCode == 32 && !this.readonly) {
+        if (event.keyCode == 32 && !this.readonly) {
             this.toggle(event);
             event.preventDefault();
         }
     }
 
     toggle(event: Event) {
-        if(this.value == null || this.value == undefined)
+        if (this.value == null || this.value == undefined)
             this.value = true;
-        else if(this.value == true)
+        else if (this.value == true)
             this.value = false;
-        else if(this.value == false)
+        else if (this.value == false)
             this.value = null;
 
         this.onModelChange(this.value);

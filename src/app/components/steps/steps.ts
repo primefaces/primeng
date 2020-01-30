@@ -43,18 +43,18 @@ export class Steps {
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
     
     itemClick(event: Event, item: MenuItem, i: number) {
-        if(this.readonly || item.disabled) {
+        if (this.readonly || item.disabled) {
             event.preventDefault();
             return;
         }
         
         this.activeIndexChange.emit(i);
                 
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
         
-        if(item.command) {            
+        if (item.command) {            
             item.command({
                 originalEvent: event,
                 item: item,

@@ -113,16 +113,16 @@ export class SplitButton implements OnDestroy {
     }
     
     itemClick(event: Event, item: MenuItem) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
         
-        if(item.command) {            
+        if (item.command) {            
             item.command({
                 originalEvent: event,
                 item: item
@@ -160,7 +160,7 @@ export class SplitButton implements OnDestroy {
     }
 
     alignOverlay() {
-        if(this.appendTo)
+        if (this.appendTo)
             DomHandler.absolutePosition(this.overlay, this.containerViewChild.nativeElement);
         else
             DomHandler.relativePosition(this.overlay, this.containerViewChild.nativeElement);
@@ -184,9 +184,9 @@ export class SplitButton implements OnDestroy {
     }
     
     bindDocumentClickListener() {
-        if(!this.documentClickListener) {
+        if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(this.dropdownClick) {
+                if (this.dropdownClick) {
                     this.dropdownClick = false;
                 }
                 else {
@@ -199,7 +199,7 @@ export class SplitButton implements OnDestroy {
     }
     
     unbindDocumentClickListener() {
-        if(this.documentClickListener) {
+        if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }

@@ -90,7 +90,7 @@ describe('Steps', () => {
       const items = fixture.debugElement.children[0].queryAll(By.css('li'));
 
       for(let x =0; x < testComponent.items.length; x++ ){
-        if(x==0)
+        if (x==0)
           expect(items[x].nativeElement.className).not.toContain("ui-state-disabled ui-steps-incomplete");
         else
           expect(items[x].nativeElement.className).toContain("ui-state-disabled ui-steps-incomplete");
@@ -124,7 +124,7 @@ describe('Steps', () => {
 
       const items = fixture.debugElement.children[0].queryAll(By.css('li'));
       for(let x =0; x < testComponent.items.length; x++ ){
-        if(x==0)
+        if (x==0)
           expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");
         else
           expect(items[x].nativeElement.className).toContain("ui-state-default");
@@ -137,7 +137,7 @@ describe('Steps', () => {
 
       const items = fixture.debugElement.children[0].queryAll(By.css('li'));
       for(let x =0; x < testComponent.items.length; x++ ){
-        if(x==2)
+        if (x==2)
           expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");
         else
           expect(items[x].nativeElement.className).toContain("ui-state-default");
@@ -156,7 +156,7 @@ describe('Steps', () => {
 
       expect(itemClickSpy).toHaveBeenCalled();
       for(let x =0; x < testComponent.items.length; x++ ){
-        if(x==2)
+        if (x==2)
           expect(items[x].nativeElement.className).toContain("ui-state-highlight ui-steps-current");
         else
           expect(items[x].nativeElement.className).toContain("ui-state-default");

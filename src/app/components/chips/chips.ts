@@ -130,8 +130,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
     
     resolveFieldData(data: any, field: string): any {
-        if(data && field) {
-            if(field.indexOf('.') == -1) {
+        if (data && field) {
+            if (field.indexOf('.') == -1) {
                 return data[field];
             }
             else {
@@ -155,7 +155,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     onInputBlur(event: FocusEvent) {
         this.focus = false;
-        if(this.addOnBlur && this.inputViewChild.nativeElement.value) {
+        if (this.addOnBlur && this.inputViewChild.nativeElement.value) {
             this.addItem(event, this.inputViewChild.nativeElement.value);
             this.inputViewChild.nativeElement.value = '';
         }
@@ -164,7 +164,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
     
     removeItem(event: Event, index: number): void {
-        if(this.disabled) {
+        if (this.disabled) {
             return;
         }
         
@@ -180,8 +180,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     addItem(event: Event, item: string): void {
         this.value = this.value||[];
-        if(item && item.trim().length) {
-            if(this.allowDuplicate || this.value.indexOf(item) === -1) {
+        if (item && item.trim().length) {
+            if (this.allowDuplicate || this.value.indexOf(item) === -1) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
@@ -197,7 +197,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         switch(event.which) {
             //backspace
             case 8:
-                if(this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
+                if (this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
                     this.value = [...this.value];
                     let removedItem = this.value.pop();
                     this.onModelChange(this.value);
@@ -217,7 +217,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             break;
             
             case 9:
-                if(this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
+                if (this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
                     this.addItem(event, this.inputViewChild.nativeElement.value);
                     this.inputViewChild.nativeElement.value = '';
 
@@ -226,7 +226,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             break;
             
             default:
-                if(this.max && this.value && this.max === this.value.length) {
+                if (this.max && this.value && this.max === this.value.length) {
                     event.preventDefault();
                 }
             break;
@@ -234,8 +234,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
     
     updateMaxedOut() {
-        if(this.inputViewChild && this.inputViewChild.nativeElement) {
-            if(this.max && this.value && this.max === this.value.length)
+        if (this.inputViewChild && this.inputViewChild.nativeElement) {
+            if (this.max && this.value && this.max === this.value.length)
                 this.inputViewChild.nativeElement.disabled = true;
             else
                 this.inputViewChild.nativeElement.disabled = this.disabled || false;

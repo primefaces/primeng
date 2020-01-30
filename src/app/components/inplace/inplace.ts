@@ -48,14 +48,14 @@ export class Inplace {
     hover: boolean;
 
     activate(event?: Event) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             this.active = true;
             this.onActivate.emit(event);
         }
     }
 
     deactivate(event?: Event) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             this.active = false;
             this.hover = false;
             this.onDeactivate.emit(event);

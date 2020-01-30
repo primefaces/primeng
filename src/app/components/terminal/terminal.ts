@@ -56,7 +56,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngAfterViewChecked() {
-        if(this.commandProcessed) {
+        if (this.commandProcessed) {
             this.container.scrollTop = this.container.scrollHeight;
             this.commandProcessed = false;
         }
@@ -64,14 +64,14 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
                 
     @Input()
     set response(value: string) {
-        if(value) {
+        if (value) {
             this.commands[this.commands.length - 1].response = value;
             this.commandProcessed = true;
         }
     }
     
     handleCommand(event: KeyboardEvent) {
-        if(event.keyCode == 13) {
+        if (event.keyCode == 13) {
             this.commands.push({text: this.command});
             this.terminalService.sendCommand(this.command);
             this.command = '';
@@ -83,7 +83,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngOnDestroy() {
-        if(this.subscription) {
+        if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }

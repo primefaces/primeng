@@ -80,10 +80,10 @@ export class Messages implements OnInit, OnDestroy {
     constructor(@Optional() public messageService: MessageService) {}
 
     ngOnInit() {
-        if(this.messageService && this.enableService) {
+        if (this.messageService && this.enableService) {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
-                if(messages) {
-                    if(messages instanceof Array) {
+                if (messages) {
+                    if (messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
                         this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
                     }
@@ -123,7 +123,7 @@ export class Messages implements OnInit, OnDestroy {
 
     get icon(): string {
         let icon: string = null;
-        if(this.hasMessages()) {
+        if (this.hasMessages()) {
             let msg = this.value[0];
             switch(msg.severity) {
                 case 'success':

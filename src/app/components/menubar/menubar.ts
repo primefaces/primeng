@@ -172,7 +172,7 @@ export class MenubarSub implements OnDestroy {
     }
 
     ngOnDestroy() {
-      if(this.documentClickListener) {
+      if (this.documentClickListener) {
         this.documentClickListener();
         this.documentClickListener = null;
       }

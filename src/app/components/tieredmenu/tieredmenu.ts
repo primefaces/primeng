@@ -65,7 +65,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
     documentClickListener: any;
 
     ngAfterViewInit() {
-        if(this.root && !this.tieredMenu.popup) {
+        if (this.root && !this.tieredMenu.popup) {
             this.bindDocumentClickListener();
         }
     }

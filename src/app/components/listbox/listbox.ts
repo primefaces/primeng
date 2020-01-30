@@ -397,7 +397,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         }
 
         if (this.allChecked) {
-            if(this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
+            if (this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
                 let value = [];
                 value = [...this.disabledSelectedOptions];
                 this.value = value;
@@ -409,7 +409,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             if (this.options) {
                 this.value = [];
-                if(this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
+                if (this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
                     this.value = [...this.disabledSelectedOptions];
                 }
 
@@ -465,7 +465,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             //down
             case 40:
                 var nextItem = this.findNextItem(item);
-                if(nextItem) {
+                if (nextItem) {
                     nextItem.focus();
                 }
                 
@@ -475,7 +475,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             //up
             case 38:
                 var prevItem = this.findPrevItem(item);
-                if(prevItem) {
+                if (prevItem) {
                     prevItem.focus();
                 }
                 
@@ -510,7 +510,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     
     getFilteredOptions() {
         let filteredOptions = [];
-        if(this.filterValue) {
+        if (this.filterValue) {
             for (let i = 0; i < this.options.length; i++) {
                 let opt = this.options[i];
                 if (this.isItemVisible(opt) && !opt.disabled) {
@@ -535,7 +535,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     setDisabledSelectedOptions(){
         if (this.options) {
             this.disabledSelectedOptions = [];
-            if(this.value) {
+            if (this.value) {
                 for (let opt of this.options) {
                     if (opt.disabled && this.isSelected(opt)) {
                         this.disabledSelectedOptions.push(opt.value);

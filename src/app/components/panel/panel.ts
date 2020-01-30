@@ -101,15 +101,15 @@ export class Panel implements BlockableUI {
     }
     
     toggle(event: Event) {
-        if(this.animating) {
+        if (this.animating) {
             return false;
         }
         
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
         
-        if(this.toggleable) {
-            if(this.collapsed)
+        if (this.toggleable) {
+            if (this.collapsed)
                 this.expand(event);
             else
                 this.collapse(event);

@@ -30,7 +30,7 @@ export class UIMessage {
     get icon(): string {
         let icon: string = null;
 
-        if(this.severity) {
+        if (this.severity) {
             switch(this.severity) {
                 case 'success':
                     icon = 'pi pi-check';

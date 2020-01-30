@@ -108,10 +108,10 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
-        if(this.value && this.value.toString().indexOf('.') > 0) {
+        if (this.value && this.value.toString().indexOf('.') > 0) {
             this.precision = this.value.toString().split(/[.]/)[1].length;
         }
-        else if(this.step % 1 !== 0) {
+        else if (this.step % 1 !== 0) {
             // If step is not an integer then extract the length of the decimal part
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }

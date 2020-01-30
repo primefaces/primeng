@@ -209,7 +209,7 @@ export class AppConfigComponent {
                     DomHandler.addClass(document.body, 'dark-theme');
                 }
             }
-            else if(hasBodyDarkTheme) {
+            else if (hasBodyDarkTheme) {
                 DomHandler.removeClass(document.body, 'dark-theme');
             }
 

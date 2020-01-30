@@ -69,7 +69,7 @@ export class Rating implements OnInit,ControlValueAccessor {
     }
     
     rate(event, i: number): void {
-        if(!this.readonly&&!this.disabled) {
+        if (!this.readonly&&!this.disabled) {
             this.value = (i + 1);
             this.onModelChange(this.value);
             this.onModelTouched();
@@ -82,7 +82,7 @@ export class Rating implements OnInit,ControlValueAccessor {
     }
     
     clear(event): void {
-        if(!this.readonly&&!this.disabled) {
+        if (!this.readonly&&!this.disabled) {
             this.value = null;
             this.onModelChange(this.value);
             this.onModelTouched();

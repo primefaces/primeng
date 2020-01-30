@@ -49,10 +49,10 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     onCanvasClick(event) {
-        if(this.chart) {
+        if (this.chart) {
             let element = this.chart.getElementAtEvent(event);
             let dataset = this.chart.getDatasetAtEvent(event);
-            if(element&&element[0]&&dataset) {
+            if (element&&element[0]&&dataset) {
                 this.onDataSelect.emit({originalEvent: event, element: element[0], dataset: dataset});
             }
         }
@@ -84,26 +84,26 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
     
     generateLegend() {
-        if(this.chart) {
+        if (this.chart) {
             return this.chart.generateLegend();
         }
     }
     
     refresh() {
-        if(this.chart) {
+        if (this.chart) {
             this.chart.update();
         }
     }
     
     reinit() {
-        if(this.chart) {
+        if (this.chart) {
             this.chart.destroy();
             this.initChart();
         }
     }
     
     ngOnDestroy() {
-        if(this.chart) {
+        if (this.chart) {
             this.chart.destroy();
             this.initialized = false;
             this.chart = null;

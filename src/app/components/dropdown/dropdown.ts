@@ -264,11 +264,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     };
 
     set disabled(_disabled: boolean) {
-        if(_disabled)
+        if (_disabled)
             this.focused = false;
         
         this._disabled = _disabled;
-        if(!(this.cd as ViewRef).destroyed) {
+        if (!(this.cd as ViewRef).destroyed) {
             this.cd.detectChanges();
         }
     }
@@ -574,7 +574,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.bindDocumentResizeListener();
 
                 if (this.options && this.options.length) {
-                    if(!this.virtualScroll) {
+                    if (!this.virtualScroll) {
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
                         if (selectedListItem) {
                             DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
@@ -642,7 +642,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.resetFilter();
         }
 
-        if(this.virtualScroll) {
+        if (this.virtualScroll) {
             this.virtualAutoScrolled = false;
         }
 

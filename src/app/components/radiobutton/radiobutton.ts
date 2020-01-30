@@ -71,13 +71,13 @@ export class RadioButton implements ControlValueAccessor {
     handleClick(event, radioButton, focus) {
         event.preventDefault();
 
-        if(this.disabled) {
+        if (this.disabled) {
             return;
         }
 
         this.select(event);
 
-        if(focus) {
+        if (focus) {
             radioButton.focus();
         }
     }
@@ -94,7 +94,7 @@ export class RadioButton implements ControlValueAccessor {
     writeValue(value: any) : void {
         this.checked = (value == this.value);
 
-        if(this.inputViewChild && this.inputViewChild.nativeElement) {
+        if (this.inputViewChild && this.inputViewChild.nativeElement) {
             this.inputViewChild.nativeElement.checked = this.checked;
         }
         

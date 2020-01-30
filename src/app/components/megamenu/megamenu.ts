@@ -88,18 +88,18 @@ export class MegaMenu {
     constructor(public el: ElementRef, public renderer: Renderer2) {}
     
     onItemMouseEnter(event, item, menuitem: MenuItem) {
-        if(menuitem.disabled) {
+        if (menuitem.disabled) {
             return;
         }
 
-        if(this.hideTimeout) {
+        if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
         
         this.activeItem = item;
 
-        if(menuitem.items) {
+        if (menuitem.items) {
             let submenu = item.children[0].nextElementSibling;
             if (submenu) {
                 if (this.autoZIndex) {
@@ -125,16 +125,16 @@ export class MegaMenu {
     }
     
     itemClick(event, item: MenuItem) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
         
-        if(item.command) {
+        if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item

@@ -9,7 +9,7 @@ export class BasePanelMenuItem {
     constructor(private ref: ChangeDetectorRef) {}
         
     handleClick(event, item) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
@@ -17,11 +17,11 @@ export class BasePanelMenuItem {
         item.expanded = !item.expanded;
         this.ref.detectChanges();
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
                    
-        if(item.command) {
+        if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item
@@ -156,16 +156,16 @@ export class PanelMenu extends BasePanelMenuItem {
                 
     collapseAll() {
     	for(let item of this.model) {
-    		if(item.expanded) {
+    		if (item.expanded) {
     			item.expanded = false;
     		}
     	}
     }
 
     handleClick(event, item) {
-    	if(!this.multiple) {
+    	if (!this.multiple) {
             for(let modelItem of this.model) {
-        		if(item !== modelItem && modelItem.expanded) {
+        		if (item !== modelItem && modelItem.expanded) {
         			modelItem.expanded = false;
         		}
         	}

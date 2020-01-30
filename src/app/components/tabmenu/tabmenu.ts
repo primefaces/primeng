@@ -65,16 +65,16 @@ export class TabMenu implements AfterContentInit {
     }
 
     itemClick(event: Event, item: MenuItem) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
 
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
 
-        if(item.command) {
+        if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item

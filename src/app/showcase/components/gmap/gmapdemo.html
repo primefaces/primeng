@@ -429,7 +429,7 @@ export class GMapDemo implements OnInit &#123;
     handleOverlayClick(event) &#123;
         let isMarker = event.overlay.getTitle != undefined;
 
-        if(isMarker) &#123;
+        if (isMarker) &#123;
             let title = event.overlay.getTitle();
             this.infoWindow.setContent('<div>' + title + '</div>');
             this.infoWindow.open(event.map, event.overlay);
@@ -453,7 +453,7 @@ export class GMapDemo implements OnInit &#123;
     &#125;
 
     initOverlays() &#123;
-        if(!this.overlays||!this.overlays.length) &#123;
+        if (!this.overlays||!this.overlays.length) &#123;
             this.overlays = [
                 new google.maps.Marker(&#123;position: &#123;lat: 36.879466, lng: 30.667648&#125;, title:"Konyaalti"&#125;),
                 new google.maps.Marker(&#123;position: &#123;lat: 36.883707, lng: 30.689216&#125;, title:"Ataturk Park"&#125;),

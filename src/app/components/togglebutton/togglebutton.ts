@@ -72,7 +72,7 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     }
     
     toggle(event: Event) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             this.checked = !this.checked;
             this.onModelChange(this.checked);
             this.onModelTouched();

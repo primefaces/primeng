@@ -75,7 +75,7 @@ export class AccordionTab implements OnDestroy {
     set animating(val: boolean) {
         this._animating = val;
 
-        if(!(this.changeDetector as ViewRef).destroyed) {
+        if (!(this.changeDetector as ViewRef).destroyed) {
             this.changeDetector.detectChanges();
         }
     }

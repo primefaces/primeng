@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
     }
     
     ngOnDestroy() {
-        if(this.subscription) {
+        if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }

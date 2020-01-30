@@ -441,7 +441,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     toggleAll(event: Event) {
         if (this.isAllChecked()) {
-            if(this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
+            if (this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
                 let value = [];
                 value = [...this.disabledSelectedOptions];
                 this.value = value;
@@ -454,7 +454,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             let opts = this.getVisibleOptions();
             if (opts) {
                 let value = [];
-                if(this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
+                if (this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
                     value = [...this.disabledSelectedOptions];
                 }
                 for (let i = 0; i < opts.length; i++) {
@@ -519,7 +519,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     setDisabledSelectedOptions(){
         if (this.options) {
             this.disabledSelectedOptions = [];
-            if(this.value) {
+            if (this.value) {
                 for (let opt of this.options) {
                     if (opt.disabled && this.isSelected(opt.value)) {
                         this.disabledSelectedOptions.push(opt.value);
@@ -648,7 +648,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             //down
             case 40:
                 var nextItem = this.findNextItem(event.originalEvent.target.parentElement);
-                if(nextItem) {
+                if (nextItem) {
                     nextItem.focus();
                 }
                 
@@ -658,7 +658,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             //up
             case 38:
                 var prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
-                if(prevItem) {
+                if (prevItem) {
                     prevItem.focus();
                 }
                 

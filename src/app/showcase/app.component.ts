@@ -134,7 +134,7 @@ export class AppComponent implements OnInit{
                 this.addClass(document.body, 'dark-theme');
             }
         }
-        else if(hasBodyDarkTheme) {
+        else if (hasBodyDarkTheme) {
             this.removeClass(document.body, 'dark-theme');
         }
         

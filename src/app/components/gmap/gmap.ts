@@ -44,7 +44,7 @@ export class GMap implements AfterViewChecked,DoCheck {
     }
     
     ngAfterViewChecked() {
-        if(!this.map && this.el.nativeElement.offsetParent) {
+        if (!this.map && this.el.nativeElement.offsetParent) {
             this.initialize();
         }
     }
@@ -55,7 +55,7 @@ export class GMap implements AfterViewChecked,DoCheck {
             map: this.map
         });
         
-        if(this.overlays) {
+        if (this.overlays) {
             for(let overlay of this.overlays) {
                 overlay.setMap(this.map);
                 this.bindOverlayEvents(overlay);
@@ -102,7 +102,7 @@ export class GMap implements AfterViewChecked,DoCheck {
             });
         });
         
-        if(overlay.getDraggable()) {
+        if (overlay.getDraggable()) {
             this.bindDragEvents(overlay);
         }
     }
@@ -110,7 +110,7 @@ export class GMap implements AfterViewChecked,DoCheck {
     ngDoCheck() {
         let changes = this.differ.diff(this.overlays);
         
-        if(changes && this.map) {
+        if (changes && this.map) {
             changes.forEachRemovedItem((record) => {
                 google.maps.event.clearInstanceListeners(record.item);
                 record.item.setMap(null);
@@ -128,7 +128,7 @@ export class GMap implements AfterViewChecked,DoCheck {
                     });
                 });
                 
-                if(record.item.getDraggable()) {
+                if (record.item.getDraggable()) {
                     this.bindDragEvents(record.item);
                 }
             });

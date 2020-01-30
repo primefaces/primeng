@@ -163,7 +163,7 @@ export class ProgressBarDemo &#123;
     ngOnInit() &#123;
         let interval = setInterval(() => &#123;
             this.value = this.value + Math.floor(Math.random() * 10) + 1;
-            if(this.value >= 100) &#123;
+            if (this.value >= 100) &#123;
                 this.value = 100;
                 this.messageService.add(&#123;severity: 'info', summary: 'Success', detail: 'Process Completed'&#125;);
                 clearInterval(interval);
