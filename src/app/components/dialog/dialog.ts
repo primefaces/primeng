@@ -112,6 +112,8 @@ export class Dialog implements OnDestroy {
 
     @Input() maximizable: boolean;
 
+    @Input() keepInViewport: boolean = true;
+
     @Input() focusTrap: boolean = true;
 
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
@@ -378,14 +380,22 @@ export class Dialog implements OnDestroy {
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
 
-            if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
-                this._style.left = leftPos + 'px';
+            if (this.keepInViewport) {
+                if (leftPos >= this.minX && (leftPos + containerWidth) < viewport.width) {
+                    this._style.left = leftPos + 'px';
+                    this.lastPageX = event.pageX;
+                    this.container.style.left = leftPos + 'px';
+                }
+    
+                if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
+                    this._style.top = topPos + 'px';
+                    this.lastPageY = event.pageY;
+                    this.container.style.top = topPos + 'px';
+                }
+            }
+            else {
                 this.lastPageX = event.pageX;
                 this.container.style.left = leftPos + 'px';
-            }
-
-            if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
-                this._style.top = topPos + 'px';
                 this.lastPageY = event.pageY;
                 this.container.style.top = topPos + 'px';
             }
