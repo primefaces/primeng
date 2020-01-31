@@ -1780,7 +1780,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 });
 
                 if (this.isStateful()) {
-                    this.saveState();
+                    this.zone.runOutsideAngular(() => {
+                        setTimeout(() => {
+                            this.saveState();
+                        });
+                    });
                 }
             }
 
