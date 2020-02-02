@@ -149,6 +149,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     create() {
+        if (this.container) {
+            this.remove();
+        }
+
         this.container = document.createElement('div');
 
         let tooltipArrow = document.createElement('div');
