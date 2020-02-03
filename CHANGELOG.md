@@ -112,7 +112,7 @@
 - Esc keyboard click is not hiding MultiSelect overlay [\#8181](https://github.com/primefaces/primeng/issues/8181)
 - TreeTable column resize for footer [\#8351](https://github.com/primefaces/primeng/issues/8351)
 - InputMask always setting class ui-inputwrapper-focus [\#8032](https://github.com/primefaces/primeng/issues/8032)
-- PanelMenu header item does not render id [\#8352](https://github.com/primefaces/primeng/issues/8352)
+- PanelMenu header item does not render id [\#8379](https://github.com/primefaces/primeng/issues/8379)
 - Dynamic Tooltip rendering wrong [\#8323](https://github.com/primefaces/primeng/issues/8323)
 - TableState resets paginator when sorting is enabled [\#8379](https://github.com/primefaces/primeng/issues/8379)
 - Timer running even after calendar closing and opening [\#8378](https://github.com/primefaces/primeng/issues/8378)
