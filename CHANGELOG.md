@@ -114,8 +114,8 @@
 - InputMask always setting class ui-inputwrapper-focus [\#8032](https://github.com/primefaces/primeng/issues/8032)
 - PanelMenu header item does not render id [\#8379](https://github.com/primefaces/primeng/issues/8379)
 - Dynamic Tooltip rendering wrong [\#8323](https://github.com/primefaces/primeng/issues/8323)
-- TableState resets paginator when sorting is enabled [\#8379](https://github.com/primefaces/primeng/issues/8379)
-- Timer running even after calendar closing and opening [\#8378](https://github.com/primefaces/primeng/issues/8378)
+- TableState resets paginator when sorting is enabled [\#8378](https://github.com/primefaces/primeng/issues/8378)
+- Timer running even after calendar closing and opening [\#8296](https://github.com/primefaces/primeng/issues/8296)
 - Table selection not restored with TableState [\#8376](https://github.com/primefaces/primeng/issues/8376)
 - Calendar Receives Keyboard Focus [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
