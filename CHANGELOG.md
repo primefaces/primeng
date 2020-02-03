@@ -88,6 +88,23 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.4) (2020-01-17)
+
+**Fixed bugs:**
+
+- Disabled steps item still receives focus [\#8479](https://github.com/primefaces/primeng/issues/8479)
+- p-dropdown: emptyFilterMessage does not work with optionLabel [\#7448](https://github.com/primefaces/primeng/issues/7448)
+- ui-inputwrapper-filled is not removed when multi-select options are deselected [\#8279](https://github.com/primefaces/primeng/issues/8279)
+- ui-inputwrapper-filled doesn't change with toggleAll in multiselect [\#8484](https://github.com/primefaces/primeng/issues/8484)
+- InputSwitch doesn't switch when clicked if it is inside a label [\#8466](https://github.com/primefaces/primeng/issues/8466)
+- Add aria-required to Calendar [\#8278](https://github.com/primefaces/primeng/issues/8278)
+- Add separator option to the SplitButton [\#8337](https://github.com/primefaces/primeng/issues/8337)
+- Keyboard accessible Horizontal TreeNode [\#8478](https://github.com/primefaces/primeng/issues/8478)
+- Keyboard accessible Inplace [\#8477](https://github.com/primefaces/primeng/issues/8477)
+- P-Calendar fires onBlur event upon clicking a date in the calendar [\#7357](https://github.com/primefaces/primeng/issues/7357)
+- Table State not Saving Column Width When Column Reordered [\#8506](https://github.com/primefaces/primeng/issues/8506)
+- Allow dragging popups outside of the viewport [\#8507](https://github.com/primefaces/primeng/issues/8507)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.3-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.3) (2020-01-17)
 
 **Fixed bugs:**
@@ -117,7 +134,7 @@
 - TableState resets paginator when sorting is enabled [\#8378](https://github.com/primefaces/primeng/issues/8378)
 - Timer running even after calendar closing and opening [\#8296](https://github.com/primefaces/primeng/issues/8296)
 - Table selection not restored with TableState [\#8376](https://github.com/primefaces/primeng/issues/8376)
-- Calendar Receives Keyboard Focus [\#8352](https://github.com/primefaces/primeng/issues/8352)
+- Calendar Receives Keyboard Focus [\#8280](https://github.com/primefaces/primeng/issues/8280)
 
 ## [8.1.1](https://github.com/primefaces/primeng/tree/8.1.1) (2019-10-23)
 
@@ -346,6 +363,23 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.6-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.6) (2020-01-27)
+
+**Fixed bugs:**
+
+- p-treetable not filtering when only one parent is present [\#7757](https://github.com/primefaces/primeng/issues/7757)
+- Multiselect doesn't disable options if selectionLimit reached by default value [\#7187](https://github.com/primefaces/primeng/issues/7187)
+- emptyMessage template is duplicated if table has frozen columns [\#7658](https://github.com/primefaces/primeng/issues/7658)
+- Accordion ExpressionChangedAfterItHasBeenCheckedError [\#7923](https://github.com/primefaces/primeng/issues/7923)
+- Overlay panel arrow displayed on the wrong side in IE [\#7832](https://github.com/primefaces/primeng/issues/7832)
+- Update and clear function is calling when disabled in File Upload Advanced [\#7974](https://github.com/primefaces/primeng/issues/7974)
+- ConfirmDialog is blurry when opened [\#7919](https://github.com/primefaces/primeng/issues/7919)
+- p-dropdown not closing when clicking outside of the control itself [\#7904](https://github.com/primefaces/primeng/issues/7904)
+- dropdown throws "event is not defined" error in PrimeNG v8.0.2 on Firefox  [\#8003](https://github.com/primefaces/primeng/issues/8003)
+- FileUpload inital files preview is not working  [\#7901](https://github.com/primefaces/primeng/issues/7901)
+- Table State not Saving Column Width When Column Reordered [\#8506](https://github.com/primefaces/primeng/issues/8506)
+- Allow dragging popups outside of the viewport [\#8507](https://github.com/primefaces/primeng/issues/8507)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.5) (2020-01-27)
 
 **Fixed bugs:**
@@ -359,7 +393,7 @@
 - Times between 12:00AM-12:59AM save as PM when defaulted or typed in [\#7799](https://github.com/primefaces/primeng/issues/7799)
 - Drag and Drop is not working in OrderList in Firefox web browser [\#7793](https://github.com/primefaces/primeng/issues/7793)
 - Spinner does not reflect initially bound value when OnPush strategy is used [\#7773](https://github.com/primefaces/primeng/issues/7773)
-- Dropdown is not align with input when using appendTo="body" property [\#7808](https://github.com/primefaces/primeng/issues/7808
+- Dropdown is not align with input when using appendTo="body" property [\#7808](https://github.com/primefaces/primeng/issues/7808)
 - Scrollbar over footer cause display issue with frozen column [\#8431](https://github.com/primefaces/primeng/issues/8431)
 - Frozen columns misalignment in Firefox [\#8474](https://github.com/primefaces/primeng/issues/8474)
 
