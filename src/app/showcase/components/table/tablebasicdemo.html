@@ -1,0 +1,85 @@
+<table-submenu></table-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Table - <span class="subitem">Edit</span></span>
+        <span>Cell and Row editing provides a rapid and user friendly way to manipulate data.</span>
+    </div>
+</div>
+
+<div [ngClass]="{'content-section implementation': true}">
+    <h3 class="first">Basic</h3>
+    <p-table [value]="cars">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Vin</th>
+                <th>Year</th>
+                <th>Brand</th>
+                <th>Color</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+            <tr>
+                <td>{{car.vin}}</td>
+                <td>{{car.year}}</td>
+                <td>{{car.brand}}</td>
+                <td>{{car.color}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="tableeditdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableeditdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableBasicDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+    &#125;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="tableeditdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableeditdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-table [value]="cars"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Vin&lt;/th&gt;
+            &lt;th&gt;Year&lt;/th&gt;
+            &lt;th&gt;Brand&lt;/th&gt;
+            &lt;th&gt;Color&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-car&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

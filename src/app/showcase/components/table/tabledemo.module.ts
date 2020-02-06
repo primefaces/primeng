@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableDemo } from './tabledemo';
+import { TableBasicDemo } from './tablebasicdemo';
+import { TableDynamicDemo } from './tabledynamicdemo';
 import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
@@ -57,6 +59,8 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 	declarations: [
 		TableSubmenu,
 		TableDemo,
+		TableBasicDemo,
+		TableDynamicDemo,
 		TablePageDemo,
 		TableSortDemo,
 		TableSelectionDemo,
