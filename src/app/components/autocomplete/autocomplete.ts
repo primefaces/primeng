@@ -140,6 +140,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
     @Input() field: string;
 
     @Input() scrollHeight: string = '200px';
@@ -427,6 +431,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                 this.alignOverlay();
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
+                this.onShow.emit(event);
             break;
 
             case 'void':
@@ -735,6 +740,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.overlay = null;
+        this.onHide.emit(event);
     }
 
     ngOnDestroy() {
