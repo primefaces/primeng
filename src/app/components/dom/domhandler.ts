@@ -82,7 +82,7 @@ export class DomHandler {
     }
     
     public static indexWithinGroup(element: any, attributeName: string): number {
-        let children = element.parentNode.childNodes;
+        let children = element.parentNode ? element.parentNode.childNodes : [];
         let num = 0;
         for (var i = 0; i < children.length; i++) {
             if (children[i] == element) return num;
