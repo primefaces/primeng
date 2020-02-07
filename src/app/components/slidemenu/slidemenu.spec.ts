@@ -143,7 +143,7 @@ describe('SlideMenu', () => {
       const activeItem = fixture.debugElement.query(By.css('.ui-menuitem-active'));
       expect(activeItem.query(By.css('.ui-menuitem-text')).nativeElement.textContent).toEqual('File');
       expect(itemClickSpy).toHaveBeenCalled();
-      expect(activeItem.query(By.css('ul')).nativeElement.className).toContain('ui-active-submenu ui-submenu-list');
+      expect(activeItem.query(By.css('ul')).nativeElement.className).toContain('ui-active-submenu');
       expect(slidemenu.left).toEqual(-190);
     });
 
