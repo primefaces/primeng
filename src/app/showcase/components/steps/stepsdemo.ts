@@ -34,20 +34,20 @@ import { AppComponent } from '../../app.component';
             color: #555555;
         }
 
-        .ui-toast {
+        .steps-demo .ui-toast {
             top: 80px;
         }
 
-        .news-active .ui-toast {
+        .news-active.steps-demo .ui-toast {
             top: 150px;
         }
 
         @media screen and (max-width: 64em) {
-            .ui-toast {
+            .steps-demo .ui-toast {
                 top: 110px;
             }
 
-            .news-active .ui-toast {
+            .news-active.steps-demo .ui-toast {
                 top: 180px;
             }
         }

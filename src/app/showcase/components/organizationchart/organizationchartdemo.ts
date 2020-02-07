@@ -53,20 +53,20 @@ import { AppComponent } from '../../app.component';
             color: #8a0a39 !important;
         }
 
-        .ui-toast {
+        .organization-chart-demo .ui-toast {
             top: 80px;
         }
 
-        .news-active .ui-toast {
+        .news-active.organization-chart-demo .ui-toast {
             top: 150px;
         }
 
         @media screen and (max-width: 64em) {
-            .ui-toast {
+            .organization-chart-demo .ui-toast {
                 top: 110px;
             }
 
-            .news-active .ui-toast {
+            .news-active.organization-chart-demo .ui-toast {
                 top: 180px;
             }
         }
