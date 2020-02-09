@@ -702,7 +702,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             });
         }
         else {
-            this.value.sort((node1, node2) => {
+            nodes.sort((node1, node2) => {
                 return this.multisortField(node1, node2, this.multiSortMeta, 0);
             });
         }
