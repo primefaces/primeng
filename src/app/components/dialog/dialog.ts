@@ -10,8 +10,8 @@ let idx: number = 0;
 @Component({
 selector: 'p-dialog',
 template: `
-    <div class="ui-dialog-wrapper" [ngClass]="{'ui-widget-overlay ui-dialog-mask': modal, 'ui-dialog-mask-scrollblocker': modal && blockScroll}" *ngIf="maskVisible">
-        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable}"
+    <div class="ui-dialog-wrapper" [ngClass]="{'ui-widget-overlay ui-dialog-mask': modal, 'ui-dialog-mask-scrollblocker': modal || blockScroll}" *ngIf="maskVisible">
+        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
             [ngStyle]="style" [class]="styleClass" *ngIf="visible"
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
@@ -20,7 +20,7 @@ template: `
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <div class="ui-dialog-titlebar-icons">
-                    <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" tabindex="0" role="button" (click)="toggleMaximize($event)" (keydown.enter)="toggleMaximize($event)">
+                    <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" tabindex="0" role="button" (click)="maximize()" (keydown.enter)="maximize()">
                         <span [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                     </a>
                     <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
@@ -236,7 +236,7 @@ export class Dialog implements OnDestroy {
             });
         }
 
-        if (this.modal && this.blockScroll) {
+        if (this.modal) {
             DomHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
@@ -247,67 +247,21 @@ export class Dialog implements OnDestroy {
                 this.unbindMaskClickListener();
             }
 
-            if (this.modal && this.blockScroll) {
+            if (this.modal) {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
         }
     }
 
-    toggleMaximize(event) {
-        if (this.maximized)
-            this.revertMaximize();
-        else
-            this.maximize();
-
-        event.preventDefault();
-    }
-
     maximize() {
-        this.preMaximizePageX = parseFloat(this.container.style.top);
-        this.preMaximizePageY = parseFloat(this.container.style.left);
-        this.preMaximizeContainerWidth = DomHandler.getOuterWidth(this.container);
-        this.preMaximizeContainerHeight = DomHandler.getOuterHeight(this.container);
-        this.preMaximizeContentHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement);
+        this.maximized = !this.maximized;
 
-        this._style.top = this.preMaximizePageX ? '0px' : '';
-        this._style.left = this.preMaximizePageY ? '0px' : '';
-        this._style.width = '100vw';
-        this._style.height = '100vh';
-        let diffHeight = 0;
-        if (this.headerViewChild && this.headerViewChild.nativeElement) {
-            diffHeight += DomHandler.getOuterHeight(this.headerViewChild.nativeElement);
+        if (!this.modal && !this.blockScroll) {
+            if (this.maximized)
+                DomHandler.addClass(document.body, 'ui-overflow-hidden');
+            else
+                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
         }
-        if (this.footerViewChild && this.footerViewChild.nativeElement) {
-            diffHeight += DomHandler.getOuterHeight(this.footerViewChild.nativeElement);
-        }
-        this.contentViewChild.nativeElement.style.height = 'calc(100vh - ' + diffHeight +'px)';
-
-        DomHandler.addClass(this.container, 'ui-dialog-maximized');
-        if (!this.blockScroll) {
-            DomHandler.addClass(document.body, 'ui-overflow-hidden');
-        }
-
-        this.moveOnTop();
-
-        this.maximized = true;
-    }
-
-    revertMaximize() {
-        this._style.top = this.preMaximizePageX ? this.preMaximizePageX + 'px' : '';
-        this._style.left = this.preMaximizePageY ? this.preMaximizePageY + 'px' : '';
-        this._style.width = this.preMaximizeContainerWidth + 'px';
-        this._style.height = this.preMaximizeContainerHeight + 'px';
-        this.contentViewChild.nativeElement.style.height = this.preMaximizeContentHeight + 'px';
-
-        if (!this.blockScroll) {
-            DomHandler.removeClass(document.body, 'ui-overflow-hidden');
-        }
-
-        this.maximized = false;
-
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => DomHandler.removeClass(this.container, 'ui-dialog-maximized'), 300);
-        });
     }
 
     unbindMaskClickListener() {
@@ -581,13 +535,13 @@ export class Dialog implements OnDestroy {
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
-        
-                if (this.maximized) {
-                    DomHandler.addClass(document.body, 'ui-overflow-hidden');
-                }
                 
                 if (this.modal) {
                     this.enableModality();
+                }
+
+                if (!this.modal && this.blockScroll) {
+                    DomHandler.addClass(document.body, 'ui-overflow-hidden');
                 }
         
                 if (this.focusOnShow) {
@@ -612,7 +566,7 @@ export class Dialog implements OnDestroy {
 
         this.maskVisible = false;
 
-        if (this.maximized) {
+        if (this.maximized || this.blockScroll) {
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.maximized = false;
         }
