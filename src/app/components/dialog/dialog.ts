@@ -10,7 +10,7 @@ let idx: number = 0;
 @Component({
 selector: 'p-dialog',
 template: `
-    <div class="ui-dialog-wrapper" [ngClass]="{'ui-widget-overlay ui-dialog-mask': modal, 'ui-dialog-mask-scrollblocker': modal || blockScroll}" *ngIf="maskVisible">
+    <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
             [ngStyle]="style" [class]="styleClass" *ngIf="visible"
             [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
@@ -123,6 +123,8 @@ export class Dialog implements OnDestroy {
     @Input() minimizeIcon: string = 'pi pi-window-minimize';
 
     @Input() maximizeIcon: string = 'pi pi-window-maximize';
+
+    @Input() position: string = "center";
 
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
 
@@ -276,6 +278,19 @@ export class Dialog implements OnDestroy {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
             this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
         }
+    }
+
+    getWrapperClass() {
+        let wrapperClass = {'ui-widget-overlay ui-dialog-mask': this.modal, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll};
+        wrapperClass[this.getPositionClass().toString()] = true;
+        return wrapperClass;
+    }
+
+    getPositionClass() {
+        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
+        const pos = positions.find(item => item === this.position);
+
+        return pos ? `ui-dialog-${pos}` : '';
     }
 
     initDrag(event: MouseEvent) {

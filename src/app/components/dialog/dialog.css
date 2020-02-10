@@ -116,6 +116,36 @@
     pointer-events: auto;
 }
 
+/* Position */
+.ui-dialog-left {
+    justify-content: flex-start;
+}
+.ui-dialog-right {
+    justify-content: flex-end;
+}
+.ui-dialog-top {
+    align-items: flex-start;
+}
+.ui-dialog-topleft {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.ui-dialog-topright {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.ui-dialog-bottom {
+    align-items: flex-end;
+}
+.ui-dialog-bottomleft {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.ui-dialog-bottomright {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
 /* ConfirmDialog */
 .ui-confirmdialog {
     width: 30em;

@@ -111,6 +111,15 @@ Content
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 </code>
+
+
+                <h3>Positioning</h3>
+                <p>Dialog location is controlled with the <i>position</i> property whose default value is center. Other valid values are top", "bottom", "left", "right", "topleft", "topright", "bottomleft" and "bottomright"<div class=""></div>
+<code class="language-markup" pCode ngNonBindabl>
+&lt;p-dialog position="top" (visible)]="display"&gt;
+	Content
+&lt;/p-dialog&gt;
+</code>
 </pre>
 
             <h3>Overlays Inside</h3>
@@ -205,6 +214,12 @@ Content
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if background should be blocked when dialog is displayed.</td>
+                        </tr>
+                        <tr>
+                            <td>position</td>
+                            <td>string</td>
+                            <td>center</td>
+                            <td>Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright".</td>
                         </tr>
                         <tr>
                             <td>blockScroll</td>
