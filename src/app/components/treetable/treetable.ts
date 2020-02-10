@@ -2250,9 +2250,11 @@ export class TTSelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('keydown.enter', ['$event'])
-    onEnterKey(event: Event) {
-        this.onClick(event);
+    @HostListener('keydown', ['$event'])
+    onEnterKey(event: KeyboardEvent) {
+        if (event.which === 13) {
+            this.onClick(event);
+        }
     }
 
     @HostListener('touchend', ['$event'])
