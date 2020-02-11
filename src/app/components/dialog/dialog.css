@@ -16,6 +16,7 @@
     pointer-events: auto;
     display: flex;
     flex-direction: column;
+    max-height: 90%;
 }
 
 .ui-dynamicdialog {
@@ -117,6 +118,18 @@
 }
 
 /* Position */
+.ui-dialog-top .ui-dialog,
+.ui-dialog-bottom .ui-dialog,
+.ui-dialog-left .ui-dialog,
+.ui-dialog-right .ui-dialog,
+.ui-dialog-topleft .ui-dialog,
+.ui-dialog-topright .ui-dialog,
+.ui-dialog-bottomleft .ui-dialog,
+.ui-dialog-bottomright .ui-dialog {
+    margin: .75em;
+    position: relative;
+}
+
 .ui-dialog-left {
     justify-content: flex-start;
 }
