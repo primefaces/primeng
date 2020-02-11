@@ -7,11 +7,30 @@
 </div>
 
 <div class="content-section implementation">    
+    <h3>Basic</h3>
     <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-
     <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>
-    
     <button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"></button>
+
+    <h3>Position</h3>
+    <div class="p-grid p-dir-col">
+        <div class="p-col">
+            <button type="button" (click)="confirmPosition('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"></button>
+            <button type="button" (click)="confirmPosition('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"></button>
+        </div>
+        <div class="p-col">
+            <button type="button" (click)="confirmPosition('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"></button>
+            <button type="button" (click)="confirmPosition('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"></button>
+            <button type="button" (click)="confirmPosition('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"></button>
+        </div>
+        <div class="p-col">
+            <button type="button" (click)="confirmPosition('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"></button>
+            <button type="button" (click)="confirmPosition('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"></button>
+            <button type="button" (click)="confirmPosition('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"></button>
+        </div>
+    </div>
+    <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000"></p-confirmDialog>
+
 
     <p-messages [value]="msgs"></p-messages>
 </div>
@@ -376,18 +395,51 @@ export class ConfirmDialogDemo &#123;
 &lt;button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"&gt;&lt;/button&gt;
 
 &lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
+&lt;h3&gt;Basic&lt;/h3&gt;
+&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;&lt;/p-confirmDialog&gt;
+&lt;button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"&gt;&lt;/button&gt;
+&lt;button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Position&lt;/h3&gt;
+&lt;div class="p-grid p-dir-col"&gt;
+    &lt;div class="p-col"&gt;
+        &lt;button type="button" (click)="confirmPosition('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="confirmPosition('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col"&gt;
+        &lt;button type="button" (click)="confirmPosition('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="confirmPosition('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="confirmPosition('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col"&gt;
+        &lt;button type="button" (click)="confirmPosition('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="confirmPosition('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="confirmPosition('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p-confirmDialog [style]="&#123;width: '50vw'&#125;" key="positionDialog" [position]="position" [baseZIndex]="10000"&gt;&lt;/p-confirmDialog&gt;
+
+
+&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
-    templateUrl: 'showcase/demo/confirmdialog/confirmdialogdemo.html',
+    templateUrl: './confirmdialogdemo.html',
+    styles: [`
+        :host ::ng-deep button &#123;
+            margin-right: .25em;
+        &#125;
+    `],
     providers: [ConfirmationService]
 &#125;)
 export class ConfirmDialogDemo &#123;
     
     msgs: Message[] = [];
+
+    position: string;
     
     constructor(private confirmationService: ConfirmationService) &#123;&#125;
 
@@ -404,7 +456,7 @@ export class ConfirmDialogDemo &#123;
             &#125;
         &#125;);
     &#125;
-
+    
     confirm2() &#123;
         this.confirmationService.confirm(&#123;
             message: 'Do you want to delete this record?',
@@ -416,6 +468,23 @@ export class ConfirmDialogDemo &#123;
             reject: () => &#123;
                 this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
             &#125;
+        &#125;);
+    &#125;
+
+    confirmPosition(position: string) &#123;
+        this.position = position;
+
+        this.confirmationService.confirm(&#123;
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => &#123;
+                this.msgs = [&#123;severity:'info', summary:'Confirmed', detail:'Record deleted'&#125;];
+            &#125;,
+            reject: () => &#123;
+                this.msgs = [&#123;severity:'info', summary:'Rejected', detail:'You have rejected'&#125;];
+            &#125;,
+            key: "positionDialog"
         &#125;);
     &#125;
 &#125;
