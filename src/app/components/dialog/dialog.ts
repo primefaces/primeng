@@ -1,11 +1,20 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
     ContentChildren,QueryList,ViewChild,NgZone} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {trigger,state,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule} from 'primeng/api';
 
 let idx: number = 0;
+
+const showAnimation = animation([
+    style({ transform: '{{transform}}', opacity: 0 }),
+    animate('{{transition}}', style({ transform: 'none', opacity: 1 }))
+]);
+
+const hideAnimation = animation([
+    animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))
+]);
 
 @Component({
 selector: 'p-dialog',
@@ -13,7 +22,7 @@ template: `
     <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
             [ngStyle]="style" [class]="styleClass" *ngIf="visible"
-            [@animation]="{value: 'visible', params: {transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
+            [@animation]="{value: 'visible', params: {showParams: transformShowOptions, hideParams: transformHideOptions, transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
@@ -40,15 +49,16 @@ template: `
 `,
 animations: [
     trigger('animation', [
-        state('void', style({
-            transform: 'scale(0.7)',
-            opacity: 0
-        })),
-        state('visible', style({
-            transform: 'none',
-            opacity: 1
-        })),
-        transition('* => *', animate('{{transitionParams}}'))
+        transition('void => visible', [
+            useAnimation(showAnimation, {
+                params: { transform: '{{hideParams}}', transition: '{{transitionParams}}'}
+            })
+        ]),
+        transition('visible => void', [
+            useAnimation(hideAnimation, {
+                params: { transform: '{{hideParams}}', transition: '{{transitionParams}}' }
+            })
+        ])
     ])
 ]
 })
@@ -79,7 +89,7 @@ export class Dialog implements OnDestroy {
     @Input() get responsive(): boolean {
         return false;
     };
-    
+
     set responsive(_responsive: boolean) {
         console.log("Responsive property is deprecated.");
     }
@@ -93,7 +103,7 @@ export class Dialog implements OnDestroy {
     @Input() get breakpoint(): number {
         return 649;
     };
-    
+
     set breakpoint(_breakpoint: number) {
         console.log("Breakpoint property is not utilized and deprecated, use CSS media queries instead.");
     }
@@ -129,7 +139,7 @@ export class Dialog implements OnDestroy {
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
 
     @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
-        
+
     @ViewChild('titlebar') headerViewChild: ElementRef;
 
     @ViewChild('content') contentViewChild: ElementRef;
@@ -168,12 +178,12 @@ export class Dialog implements OnDestroy {
 
     maskClickListener: Function;
 
-    lastPageX: number;æ
+    lastPageX: number;
 
     lastPageY: number;
 
     preventVisibleChangePropagation: boolean;
-        
+
     maximized: boolean;
 
     preMaximizeContentHeight: number;
@@ -192,14 +202,18 @@ export class Dialog implements OnDestroy {
 
     originalStyle: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
+    transformHideOptions: any;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {
+        this.transformHideOptions = 'translate3d(-100%, 0px, 0px)';
+    }
 
     @Input() get visible(): any {
         return this._visible;
     }
     set visible(value:any) {
         this._visible = value;
-        
+
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
         }
@@ -297,7 +311,7 @@ export class Dialog implements OnDestroy {
         if (DomHandler.hasClass(event.target, 'ui-dialog-titlebar-icon') || DomHandler.hasClass((<HTMLElement> event.target).parentElement, 'ui-dialog-titlebar-icon')) {
             return;
         }
-        
+
         if (this.draggable) {
             this.dragging = true;
             this.lastPageX = event.pageX;
@@ -310,7 +324,7 @@ export class Dialog implements OnDestroy {
         if (this.focusTrap) {
             if (event.which === 9) {
                 event.preventDefault();
-                
+
                 let focusableElements = DomHandler.getFocusableElements(this.container);
 
                 if (focusableElements && focusableElements.length > 0) {
@@ -355,7 +369,7 @@ export class Dialog implements OnDestroy {
                     this.lastPageX = event.pageX;
                     this.container.style.left = leftPos + 'px';
                 }
-    
+
                 if (topPos >= this.minY && (topPos + containerHeight) < viewport.height) {
                     this._style.top = topPos + 'px';
                     this.lastPageY = event.pageY;
@@ -405,7 +419,7 @@ export class Dialog implements OnDestroy {
                 this._style.width = newWidth + 'px';
                 this.container.style.width = this._style.width;
             }
-            
+
             if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
             }
@@ -431,11 +445,11 @@ export class Dialog implements OnDestroy {
             this.bindDocumentDragListener();
             this.bindDocumentDragEndListener();
         }
-        
+
         if (this.resizable) {
             this.bindDocumentResizeListeners();
         }
-        
+
         if (this.closeOnEscape && this.closable) {
             this.bindDocumentEscapeListener();
         }
@@ -550,7 +564,7 @@ export class Dialog implements OnDestroy {
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
-                
+
                 if (this.modal) {
                     this.enableModality();
                 }
@@ -558,7 +572,7 @@ export class Dialog implements OnDestroy {
                 if (!this.modal && this.blockScroll) {
                     DomHandler.addClass(document.body, 'ui-overflow-hidden');
                 }
-        
+
                 if (this.focusOnShow) {
                     this.focus();
                 }
@@ -585,7 +599,7 @@ export class Dialog implements OnDestroy {
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.maximized = false;
         }
-        
+
         if (this.modal) {
             this.disableModality();
         }
