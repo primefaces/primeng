@@ -126,7 +126,6 @@ describe('Dialog', () => {
         
         tick(300);
         const maximizeSpy = spyOn(dialog,'maximize').and.callThrough();
-        const revertMaximizSpy = spyOn(dialog,'revertMaximize').and.callThrough();
         const maximizableEl = fixture.nativeElement.querySelector('.ui-dialog-titlebar-maximize');
         expect(maximizableEl).toBeTruthy();
         maximizableEl.click();
@@ -143,7 +142,6 @@ describe('Dialog', () => {
         tick(350);
         fixture.detectChanges();
 
-        expect(revertMaximizSpy).toHaveBeenCalled();
         expect(dialog.maximized).toEqual(false);
     }));
 
