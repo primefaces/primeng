@@ -13,7 +13,7 @@ const showAnimation = animation([
 ]);
 
 const hideAnimation = animation([
-    animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))
+    animate('{{transition}}', style({ transform: '{{trasnformParams}}', opacity: 0 }))
 ]);
 
 @Component({
@@ -22,7 +22,7 @@ template: `
     <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
             [ngStyle]="style" [class]="styleClass" *ngIf="visible"
-            [@animation]="{value: 'visible', params: {showParams: transformShowOptions, hideParams: transformHideOptions, transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
+            [@animation]="{value: 'visible', params: {showParams: transformShowOptions, trasnformParams: transformOptions, transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
@@ -51,12 +51,12 @@ animations: [
     trigger('animation', [
         transition('void => visible', [
             useAnimation(showAnimation, {
-                params: { transform: '{{hideParams}}', transition: '{{transitionParams}}'}
+                params: { transform: '{{trasnformParams}}', transition: '{{transitionParams}}'}
             })
         ]),
         transition('visible => void', [
             useAnimation(hideAnimation, {
-                params: { transform: '{{hideParams}}', transition: '{{transitionParams}}' }
+                params: { transform: '{{trasnformParams}}', transition: '{{transitionParams}}' }
             })
         ])
     ])
@@ -134,8 +134,6 @@ export class Dialog implements OnDestroy {
 
     @Input() maximizeIcon: string = 'pi pi-window-maximize';
 
-    @Input() position: string = "center";
-
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
 
     @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
@@ -200,13 +198,13 @@ export class Dialog implements OnDestroy {
 
     _style: any = {};
 
+    _position: string = "center";
+
     originalStyle: any;
 
-    transformHideOptions: any;
+    transformOptions: any = "scale(0.7)";
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {
-        this.transformHideOptions = 'translate3d(-100%, 0px, 0px)';
-    }
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) { }
 
     @Input() get visible(): any {
         return this._visible;
@@ -226,6 +224,36 @@ export class Dialog implements OnDestroy {
         if (value) {
             this._style = {...value};
             this.originalStyle = value;
+        }
+    }
+
+    @Input() get position(): string {
+        return this._position;
+    };
+
+    set position(value: string) {
+        this._position = value;
+
+        switch (value) {
+            case 'topleft':
+            case 'bottomleft':
+            case 'left':
+                this.transformOptions = "translate3d(-100%, 0px, 0px)";
+            break;
+            case 'topright':
+            case 'bottomright':
+            case 'right':
+                this.transformOptions = "translate3d(100%, 0px, 0px)";
+            break;
+            case 'bottom':
+                this.transformOptions = "translate3d(0px, 100%, 0px)";
+            break;
+            case 'top':
+                this.transformOptions = "translate3d(0px, -100%, 0px)";
+            break;
+            default:
+                this.transformOptions = "scale(0.7)";
+            break;
         }
     }
 
