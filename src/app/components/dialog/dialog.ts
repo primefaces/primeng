@@ -621,13 +621,17 @@ export class Dialog implements OnDestroy {
 
         this.maskVisible = false;
 
-        if (this.maximized || this.blockScroll) {
+        if (this.maximized) {
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.maximized = false;
         }
 
         if (this.modal) {
             this.disableModality();
+        }
+
+        if (this.blockScroll) {
+            DomHandler.removeClass(document.body, 'ui-overflow-hidden');
         }
 
         this.container = null;
