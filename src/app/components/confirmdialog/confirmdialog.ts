@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild, ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -171,7 +171,7 @@ export class ConfirmDialog implements OnDestroy {
 
     transformOptions: any = "scale(0.7)";
                 
-    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
@@ -256,6 +256,8 @@ export class ConfirmDialog implements OnDestroy {
         if (this.blockScroll) {            
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
         }
+
+        this.cd.detectChanges();
     }
     
     close(event: Event) {
