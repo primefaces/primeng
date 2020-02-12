@@ -13,7 +13,7 @@ const showAnimation = animation([
 ]);
 
 const hideAnimation = animation([
-    animate('{{transition}}', style({ transform: '{{transformParams}}', opacity: 0 }))
+    animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))
 ]);
 
 @Component({
@@ -22,7 +22,7 @@ template: `
     <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
             [ngStyle]="style" [class]="styleClass" *ngIf="visible"
-            [@animation]="{value: 'visible', params: {transformParams: transformOptions, transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
+            [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
@@ -50,14 +50,10 @@ template: `
 animations: [
     trigger('animation', [
         transition('void => visible', [
-            useAnimation(showAnimation, {
-                params: { transform: '{{transformParams}}', transition: '{{transitionParams}}'}
-            })
+            useAnimation(showAnimation)
         ]),
         transition('visible => void', [
-            useAnimation(hideAnimation, {
-                params: { transform: '{{transformParams}}', transition: '{{transitionParams}}' }
-            })
+            useAnimation(hideAnimation)
         ])
     ])
 ]
