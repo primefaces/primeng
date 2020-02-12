@@ -76,17 +76,17 @@
             <button type="button" (click)="showPositionDialog('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"></button>
         </div>
         <div class="p-col">
-            <button type="button" (click)="showPositionDialog('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"></button>
             <button type="button" (click)="showPositionDialog('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"></button>
+            <button type="button" (click)="showPositionDialog('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"></button>
             <button type="button" (click)="showPositionDialog('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"></button>
         </div>
         <div class="p-col">
-            <button type="button" (click)="showPositionDialog('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"></button>
             <button type="button" (click)="showPositionDialog('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"></button>
+            <button type="button" (click)="showPositionDialog('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"></button>
             <button type="button" (click)="showPositionDialog('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"></button>
         </div>
     </div>
-    <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
+    <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
         [draggable]="false" [resizable]="false">
         <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
@@ -584,13 +584,13 @@ Content
         &lt;button type="button" (click)="showPositionDialog('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"&gt;&lt;/button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
+    &lt;button type="button" (click)="showPositionDialog('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"&gt;&lt;/button&gt;
         &lt;button type="button" (click)="showPositionDialog('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="showPositionDialog('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"&gt;&lt;/button&gt;
         &lt;button type="button" (click)="showPositionDialog('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"&gt;&lt;/button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
+    &lt;button type="button" (click)="showPositionDialog('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"&gt;&lt;/button&gt;
         &lt;button type="button" (click)="showPositionDialog('bottom')" pButton icon="pi pi-arrow-up" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="showPositionDialog('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"&gt;&lt;/button&gt;
         &lt;button type="button" (click)="showPositionDialog('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/div&gt;

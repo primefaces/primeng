@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild, ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -14,14 +14,14 @@ const showAnimation = animation([
 ]);
 
 const hideAnimation = animation([
-    animate('{{transition}}', style({ transform: '{{transformParams}}', opacity: 0 }))
+    animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))
 ]);
 @Component({
     selector: 'p-confirmDialog',
     template: `
         <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
             <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
-                [@animation]="{value: 'visible', params: {transformParams: transformOptions, transitionParams: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
+                [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
                 <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                     <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
                     <div class="ui-dialog-titlebar-icons">
@@ -47,14 +47,10 @@ const hideAnimation = animation([
     animations: [
         trigger('animation', [
             transition('void => visible', [
-                useAnimation(showAnimation, {
-                    params: { transform: '{{transformParams}}', transition: '{{transitionParams}}'}
-                })
+                useAnimation(showAnimation)
             ]),
             transition('visible => void', [
-                useAnimation(hideAnimation, {
-                    params: { transform: '{{transformParams}}', transition: '{{transitionParams}}' }
-                })
+                useAnimation(hideAnimation)
             ])
         ])
     ]
@@ -175,7 +171,7 @@ export class ConfirmDialog implements OnDestroy {
 
     transformOptions: any = "scale(0.7)";
                 
-    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
@@ -260,6 +256,8 @@ export class ConfirmDialog implements OnDestroy {
         if (this.blockScroll) {            
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
         }
+
+        this.cd.detectChanges();
     }
     
     close(event: Event) {
