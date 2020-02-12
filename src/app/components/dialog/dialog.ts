@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone} from '@angular/core';
+    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -200,7 +200,7 @@ export class Dialog implements OnDestroy {
 
     transformOptions: any = "scale(0.7)";
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef) { }
 
     @Input() get visible(): any {
         return this._visible;
@@ -290,6 +290,8 @@ export class Dialog implements OnDestroy {
             if (this.modal) {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
+
+            this.cd.detectChanges();
         }
     }
 
