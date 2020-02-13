@@ -88,6 +88,21 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.5) (2020-01-17)
+
+**Fixed bugs:**
+
+- Carousel allowes navigation if too less items available [\#8500](https://github.com/primefaces/primeng/issues/8500)
+- Carousel - Invalid Array Length error [\#8498](https://github.com/primefaces/primeng/issues/8498)
+- Autocomplete onShow onHide [\#8519](https://github.com/primefaces/primeng/issues/8519)
+- TypeError: Cannot read property 'childNodes' of null [\#8340](https://github.com/primefaces/primeng/issues/8340)
+- Table Sortable Column Cannot Used with Filter Input Elements (etc input multiselect...)  [\#8526](https://github.com/primefaces/primeng/issues/8526)
+- Galleria not updating as expected [\#7868](https://github.com/primefaces/primeng/issues/7868)
+- Add hide and show emitters to slidemenu [\#8497](https://github.com/primefaces/primeng/issues/8497)
+- TreeTable metakey selection not working with keyboard [\#8532](https://github.com/primefaces/primeng/issues/8532)
+- Dialog blockScroll property not working without modal [\#8533](https://github.com/primefaces/primeng/issues/8533)
+- Keyboard accessible Steps [\#8546](https://github.com/primefaces/primeng/issues/8546)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.4) (2020-01-17)
 
 **Fixed bugs:**
@@ -362,6 +377,21 @@
 **Unit Tests:**
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.7) (2020-01-27)
+
+**Fixed bugs:**
+
+- On table when filter change "first" is changed after onLazyLoad call [\#7795](https://github.com/primefaces/primeng/issues/7795)
+- Multiselect throws error at isAllChecked [\#7950](https://github.com/primefaces/primeng/issues/7950)
+- Calendar - Unexpected behaviour when date format contains whitespace characters and showTime is enabled [\#6521](https://github.com/primefaces/primeng/issues/6521)
+- p-calendar closes when clicking previous or next month from within editable table cell [\#7441](https://github.com/primefaces/primeng/issues/7441)
+- Calendar is not working correctly in overlayPanel [\#7939](https://github.com/primefaces/primeng/issues/7939)
+- Only inside p-overlayPanel, p-calendar has month/year navigation problem [\#7693](https://github.com/primefaces/primeng/issues/7693)
+- Calendar touchUI issue with tab key [\#7907](https://github.com/primefaces/primeng/issues/7907)
+- Selected item in drop-down with virtual scrolling does not always stay into view [\#7963](https://github.com/primefaces/primeng/issues/7963)
+- MultiSelect: selectionLimit causes options to be in disabled-state [\#8116](https://github.com/primefaces/primeng/issues/8116)
+- TabMenu Templating not working [\#8031](https://github.com/primefaces/primeng/issues/8031)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.6-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.6) (2020-01-27)
 
