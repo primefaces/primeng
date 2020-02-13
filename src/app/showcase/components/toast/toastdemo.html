@@ -5,14 +5,14 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast styleClass="top-toast"></p-toast>
 
-    <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+    <p-toast position="top-left" key="tl" styleClass="top-toast"></p-toast>
 
-    <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+    <p-toast position="top-center" key="tc" styleClass="top-toast"></p-toast>
 
-    <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
+    <p-toast styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
 
     <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
@@ -200,8 +200,8 @@ export class MyComponent &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-this.messageService.add(&#123;key: 'myKey1': severity:'success', summary: 'Summary Text', detail: 'Detail Text'&#125;);
-this.messageService.add(&#123;key: 'myKey2': severity:'success', summary: 'Summary Text', detail: 'Detail Text'&#125;);
+this.messageService.add(&#123;key: 'myKey1', severity:'success', summary: 'Summary Text', detail: 'Detail Text'&#125;);
+this.messageService.add(&#123;key: 'myKey2', severity:'success', summary: 'Summary Text', detail: 'Detail Text'&#125;);
 </code>
 </pre>
 

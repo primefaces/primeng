@@ -23,7 +23,7 @@ let idx: number = 0;
         </div>
         <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
-            role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
+            role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
             <div class="ui-accordion-content ui-widget-content">
                 <ng-content></ng-content>
                 <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
@@ -75,7 +75,7 @@ export class AccordionTab implements OnDestroy {
     set animating(val: boolean) {
         this._animating = val;
 
-        if(!(this.changeDetector as ViewRef).destroyed) {
+        if (!(this.changeDetector as ViewRef).destroyed) {
             this.changeDetector.detectChanges();
         }
     }

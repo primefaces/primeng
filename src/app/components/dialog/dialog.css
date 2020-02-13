@@ -1,6 +1,22 @@
+.ui-dialog-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
 .ui-dialog {
     position: fixed;
     padding: 0;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 90%;
 }
 
 .ui-dynamicdialog {
@@ -12,6 +28,7 @@
 	padding: .5em .75em;
     position: relative;
     border: 0;
+    flex-shrink: 0;
 }
 
 .ui-dialog .ui-dialog-content {
@@ -22,8 +39,28 @@
     zoom: 1;
 }
 
+.ui-dialog-maximized {
+    -webkit-transition: none;
+    transition: none;
+    transform: none;
+    width: 100vw !important;
+    max-height: 100%;
+    height: 100%;
+    left: 0px !important;
+    top: 0px !important;
+}
+
+.ui-dialog-maximized .ui-dialog-content {
+    flex-grow: 1;
+}
+
 .ui-dialog-resizable .ui-dialog-content {
     overflow: auto;
+}
+
+.ui-dialog-breakpoint {
+    left: 0px;
+    width: 100%;
 }
 
 .ui-dialog .ui-resizable-se {
@@ -31,17 +68,30 @@
     height: 14px;
     right: 3px;
     bottom: 3px;
+    position: absolute;
+    font-size: .1px;
+    display: block;
+    cursor: se-resize;
 }
 .ui-draggable .ui-dialog-titlebar {
     cursor: move;
 }
 
+.ui-dialog .ui-dialog-titlebar-icons {
+    float: right;
+}
+.ui-dialog .ui-dialog-titlebar-icons:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .ui-dialog .ui-dialog-titlebar-icon {
     text-decoration: none;
-    float: right;
-    float: right;
     padding: .125em;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
     border: 1px solid transparent;
 }
 
@@ -54,6 +104,7 @@
     padding: 1em;
     border-width: 1px 0 0 0;
     text-align: right;
+    flex-shrink: 0;
 }
 
 .ui-dialog-mask {
@@ -62,16 +113,55 @@
     height: 100%;
 }
 
-.ui-dialog-maximized {
-    -webkit-transition: left .3s, top .3s, width .3s,height .3s;
-    transition: left .3s, top .3s, width .3s,height .3s;
+.ui-dialog-wrapper.ui-dialog-mask {
+    pointer-events: auto;
+}
+
+/* Position */
+.ui-dialog-top .ui-dialog,
+.ui-dialog-bottom .ui-dialog,
+.ui-dialog-left .ui-dialog,
+.ui-dialog-right .ui-dialog,
+.ui-dialog-topleft .ui-dialog,
+.ui-dialog-topright .ui-dialog,
+.ui-dialog-bottomleft .ui-dialog,
+.ui-dialog-bottomright .ui-dialog {
+    margin: .75em;
+    position: relative;
+}
+
+.ui-dialog-left {
+    justify-content: flex-start;
+}
+.ui-dialog-right {
+    justify-content: flex-end;
+}
+.ui-dialog-top {
+    align-items: flex-start;
+}
+.ui-dialog-topleft {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.ui-dialog-topright {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.ui-dialog-bottom {
+    align-items: flex-end;
+}
+.ui-dialog-bottomleft {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.ui-dialog-bottomright {
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 /* ConfirmDialog */
 .ui-confirmdialog {
     width: 30em;
-    top: 50%;
-    left: 50%;
 }
 
 .ui-confirmdialog.ui-dialog .ui-dialog-content {

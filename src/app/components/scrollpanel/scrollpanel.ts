@@ -79,7 +79,7 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
         pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
 
         if (containerStyles['max-height'] != "none" && pureContainerHeight == 0) {
-            if(content.offsetHeight + parseInt(xBarStyles['height'], 10) > parseInt(containerStyles['max-height'], 10)) {
+            if (content.offsetHeight + parseInt(xBarStyles['height'], 10) > parseInt(containerStyles['max-height'], 10)) {
                 container.style.height = containerStyles['max-height'];
             }
             else {
@@ -152,10 +152,10 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     }
 
     onDocumentMouseMove(e: MouseEvent) {
-        if(this.isXBarClicked) {
+        if (this.isXBarClicked) {
             this.onMouseMoveForXBar(e);
         }
-        else if(this.isYBarClicked) {
+        else if (this.isYBarClicked) {
             this.onMouseMoveForYBar(e);
         }
         else {

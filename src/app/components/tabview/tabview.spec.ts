@@ -163,9 +163,9 @@ describe('TabView', () => {
       const firstTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[0].nativeElement;
       const secondTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[1].nativeElement;
       const thirdTabViewNavEl=fixture.debugElement.children[0].children[0].children[0].children[2].nativeElement;
-      expect(firstTabViewNavEl.className).not.toContain('ui-state-active ui-tabview-selected');
-      expect(secondTabViewNavEl.className).toContain('ui-state-active ui-tabview-selected');
-      expect(thirdTabViewNavEl.className).not.toContain('ui-state-active ui-tabview-selected');
+      expect(firstTabViewNavEl.className).not.toContain('ui-state-active');
+      expect(secondTabViewNavEl.className).toContain('ui-state-active');
+      expect(thirdTabViewNavEl.className).not.toContain('ui-state-active');
     });
 
     it('should change activeIndex', () => {

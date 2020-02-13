@@ -5,8 +5,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true, 'steps-demo': true}">
+    <p-toast></p-toast>
 
     <h3 class="first">Basic</h3>
     <p-steps [model]="items"></p-steps>
@@ -213,8 +213,8 @@ export class MenuDemo &#123;
         &#125;
 
         .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link &#123;
-            height: 10px;
             padding: 0 1em;
+            overflow: visible;
         &#125;
 
         .ui-steps.steps-custom .ui-steps-item .ui-steps-number &#123;

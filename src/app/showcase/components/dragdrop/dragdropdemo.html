@@ -306,7 +306,7 @@ export class DragDropDemo &#123;
     &#125;
 
     drop(event) &#123;
-        if(this.draggedCar) &#123;
+        if (this.draggedCar) &#123;
             let draggedCarIndex = this.findIndex(this.draggedCar);
             this.selectedCars = [...this.selectedCars, this.draggedCar];
             this.availableCars = this.availableCars.filter((val,i) => i!=draggedCarIndex);
@@ -321,7 +321,7 @@ export class DragDropDemo &#123;
     findIndex(car: Car) &#123;
         let index = -1;
         for(let i = 0; i < this.availableCars.length; i++) &#123;
-            if(car.vin === this.availableCars[i].vin) &#123;
+            if (car.vin === this.availableCars[i].vin) &#123;
                 index = i;
                 break;
             &#125;

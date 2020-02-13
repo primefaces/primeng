@@ -23,6 +23,13 @@
             </div>
         </ng-template>
     </p-tabMenu>
+
+    <h3>Router Outlet</h3>
+    <p-tabMenu [model]="items3">
+    </p-tabMenu>
+    <div style="padding: 0.5em;">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -216,6 +223,13 @@ export class TabMenuDemo &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-tabMenu&gt;
+
+&lt;h3&gt;Router Outlet&lt;/h3&gt;
+&lt;p-tabMenu [model]="items3"&gt;
+&lt;/p-tabMenu&gt;
+&lt;div style="padding: 0.5em;"&gt;
+    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
 </code>
 </pre>
 
@@ -226,6 +240,8 @@ export class TabMenuDemo &#123;
     items1: MenuItem[];
 
     items2: MenuItem[];
+
+    items3: MenuItem[];
 
     activeItem: MenuItem;
 
@@ -244,6 +260,11 @@ export class TabMenuDemo &#123;
             &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
             &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
             &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+        ];
+
+        this.items3 = [
+            &#123;label: 'Info', icon: 'fa fa-fw fa-bar-chart', routerLink:'info'&#125;,
+            &#123;label: 'Message', icon: 'fa fa-fw fa-calendar', routerLink:'message'&#125;
         ];
 
         this.activeItem = this.items2[0];

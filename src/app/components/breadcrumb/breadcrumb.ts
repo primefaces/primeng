@@ -20,7 +20,7 @@ import {RouterModule} from '@angular/router';
                 </li>
                 <li class="ui-breadcrumb-chevron pi pi-chevron-right" *ngIf="model&&home"></li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li role="menuitem">
+                    <li>
                         <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" 
                             [ngClass]="{'ui-state-disabled':item.disabled}" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'">
                             <span *ngIf="item.icon" class="ui-menuitem-icon" [ngClass]="item.icon"></span>

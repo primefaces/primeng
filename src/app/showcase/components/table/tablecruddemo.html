@@ -34,14 +34,14 @@
         </ng-template>
     </p-table>
     
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
         <div class="ui-g ui-fluid" *ngIf="car">
             <div class="ui-g-12">
                 <div class="ui-g-4">
                     <label for="vin">Vin</label>
                 </div>
                 <div class="ui-g-8">
-                    <input pInputText id="vin" [(ngModel)]="car.vin" />
+                    <input pInputText id="vin" [(ngModel)]="car.vin" autofocus />
                 </div>
             </div>
             <div class="ui-g-12">
@@ -190,14 +190,14 @@ export class TableCrudDemo implements OnInit &#123;
     &lt;/ng-template&gt;    
 &lt;/p-table&gt;
 
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="&#123;width: '300px'&#125;"&gt;
+&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="&#123;width: '300px'&#125;"&gt;
     &lt;div class="ui-g ui-fluid" *ngIf="car"&gt;
         &lt;div class="ui-g-12"&gt;
             &lt;div class="ui-g-4"&gt;
                 &lt;label for="vin"&gt;Vin&lt;/label&gt;
             &lt;/div&gt;
             &lt;div class="ui-g-8"&gt;
-                &lt;input pInputText id="vin" [(ngModel)]="car.vin" /&gt;
+                &lt;input pInputText id="vin" [(ngModel)]="car.vin" autofocus /&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-g-12"&gt;

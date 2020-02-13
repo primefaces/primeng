@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs';
                     [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}"
+                    'ui-messages-success':(value[0].severity === 'success')}" role="alert"
                     [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
             <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
                 <i class="pi pi-times"></i>
@@ -20,8 +20,14 @@ import {Subscription} from 'rxjs';
             <span class="ui-messages-icon pi" [ngClass]="icon"></span>
             <ul>
                 <li *ngFor="let msg of value">
-                    <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
-                    <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
+                    <div *ngIf="!escape; else escapeOut">
+                        <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
+                        <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
+                    </div>
+                    <ng-template #escapeOut> 
+                        <span *ngIf="msg.summary" class="ui-messages-summary">{{msg.summary}}</span>
+                        <span *ngIf="msg.detail" class="ui-messages-detail">{{msg.detail}}</span>
+                    </ng-template>
                 </li>
             </ul>
         </div>
@@ -59,6 +65,8 @@ export class Messages implements OnInit, OnDestroy {
 
     @Input() key: string;
 
+    @Input() escape: boolean = true;
+
     @Input() showTransitionOptions: string = '300ms ease-out';
 
     @Input() hideTransitionOptions: string = '250ms ease-in';
@@ -72,10 +80,10 @@ export class Messages implements OnInit, OnDestroy {
     constructor(@Optional() public messageService: MessageService) {}
 
     ngOnInit() {
-        if(this.messageService && this.enableService) {
+        if (this.messageService && this.enableService) {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
-                if(messages) {
-                    if(messages instanceof Array) {
+                if (messages) {
+                    if (messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
                         this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
                     }
@@ -115,7 +123,7 @@ export class Messages implements OnInit, OnDestroy {
 
     get icon(): string {
         let icon: string = null;
-        if(this.hasMessages()) {
+        if (this.hasMessages()) {
             let msg = this.value[0];
             switch(msg.severity) {
                 case 'success':

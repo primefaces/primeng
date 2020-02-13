@@ -3,14 +3,34 @@ import {DialogService} from '../../../components/dynamicdialog/dialogservice';
 import {MessageService} from 'primeng/api';
 import {CarsListDemo} from './carslistdemo';
 import {Car} from '../../components/domain/car';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService, MessageService]
+    providers: [DialogService, MessageService],
+    styles: [`
+        :host ::ng-deep .ui-toast {
+            top: 80px;
+        }
+
+        :host ::ng-deep .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-toast {
+                top: 110px;
+            }
+
+            :host ::ng-deep .news-active .ui-toast {
+                top: 180px;
+            }
+        }
+    `]
 })
 export class DynamicDialogDemo {
 
-    constructor(public dialogService: DialogService, public messageService: MessageService) {}
+    constructor(public dialogService: DialogService, public messageService: MessageService, private app: AppComponent) {}
 
     show() {
         const ref = this.dialogService.open(CarsListDemo, {
@@ -26,6 +46,9 @@ export class DynamicDialogDemo {
         });
     }
 
+    isNewsActive() {
+        return this.app.newsActive;
+    }
 }
 
 

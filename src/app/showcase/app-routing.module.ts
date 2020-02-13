@@ -50,6 +50,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'keyfilter', loadChildren: () => import('./components/keyfilter/keyfilterdemo.module').then(m => m.KeyFilterDemoModule)},
             {path: 'lightbox', loadChildren: () => import('./components/lightbox/lightboxdemo.module').then(m => m.LightboxDemoModule)},
             {path: 'listbox', loadChildren: () => import('./components/listbox/listboxdemo.module').then(m => m.ListboxDemoModule)},
+            {path: 'lts', loadChildren: () => import('./components/lts/lts.module').then(m => m.LTSModule)},
             {path: 'megamenu', loadChildren: () => import('./components/megamenu/megamenudemo.module').then(m => m.MegaMenuDemoModule)},
             {path: 'menu', loadChildren: () => import('./components/menu/menudemo.module').then(m => m.MenuDemoModule)},
             {path: 'menubar', loadChildren: () => import('./components/menubar/menubardemo.module').then(m => m.MenubarDemoModule)},

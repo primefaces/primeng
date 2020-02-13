@@ -53,7 +53,13 @@ gulp.task('clean', function() {
 	del(['dist/resources']);
 });
 
+//Copy readme
+gulp.task('readme', function() {
+    gulp.src(['README.md'])
+    .pipe(gulp.dest('dist'));
+});
+
 //Building project with run sequence
-gulp.task('build-assets', ['clean','copy-component-css', 'build-css-prod', 'images', 'themes']);
+gulp.task('build-assets', ['clean','copy-component-css', 'build-css-prod', 'images', 'themes', 'readme']);
 
         

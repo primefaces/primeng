@@ -151,7 +151,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
     
     unbindDocumentEscapeListener() {
-        if(this.documentEscapeListener) {
+        if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }

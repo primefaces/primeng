@@ -13,9 +13,9 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div [ngStyle]="style" [ngClass]="{'ui-chkbox ui-tristatechkbox ui-widget': true,'ui-chkbox-readonly': readonly}" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
-                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
+                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()" [attr.aria-labelledby]="ariaLabelledBy">
             </div>
-            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"
+            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"  role="checkbox" [attr.aria-checked]="value === true"
                 [ngClass]="{'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}">
                 <span class="ui-chkbox-icon pi ui-clickable" [ngClass]="{'pi-check':value==true,'pi-times':value==false}"></span>
             </div>
@@ -33,6 +33,8 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     @Input() disabled: boolean;
 
     @Input() name: string;
+
+    @Input() ariaLabelledBy: string;
 
     @Input() tabindex: number;
 
@@ -57,7 +59,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     onModelTouched: Function = () => {};
 
     onClick(event: Event, input: HTMLInputElement) {
-        if(!this.disabled && !this.readonly) {
+        if (!this.disabled && !this.readonly) {
             this.toggle(event);
             this.focus = true;
             input.focus();
@@ -65,24 +67,24 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if(event.keyCode == 32) {
+        if (event.keyCode == 32) {
             event.preventDefault();
         }
     }
 
     onKeyup(event: KeyboardEvent) {
-        if(event.keyCode == 32 && !this.readonly) {
+        if (event.keyCode == 32 && !this.readonly) {
             this.toggle(event);
             event.preventDefault();
         }
     }
 
     toggle(event: Event) {
-        if(this.value == null || this.value == undefined)
+        if (this.value == null || this.value == undefined)
             this.value = true;
-        else if(this.value == true)
+        else if (this.value == true)
             this.value = false;
-        else if(this.value == false)
+        else if (this.value == false)
             this.value = null;
 
         this.onModelChange(this.value);

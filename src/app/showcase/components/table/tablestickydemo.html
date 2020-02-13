@@ -10,7 +10,7 @@
 <div class="content-section implementation">
     <p-table [columns]="cols" [value]="cars">
         <ng-template pTemplate="header" let-columns>
-            <tr>
+            <tr [class]="isNewsActive() ? 'news-active' : ''">
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>

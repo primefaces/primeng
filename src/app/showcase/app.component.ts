@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DomHandler } from '../components/dom/domhandler';
 
 @Component({
   selector: 'app-root',
@@ -50,13 +51,45 @@ export class AppComponent implements OnInit{
 
     searchText:string;
 
-    constructor(private router:Router){}
+    newsActive: boolean;
+
+    resourcesMenuVisible: boolean;
+
+    resourcesMenuClick: boolean;
+
+    themesMenuVisible: boolean;
+
+    themesMenuClick: boolean;
+
+    templatesMenuVisible: boolean;
+
+    templatesMenuClick: boolean;
+
+    versionsMenuVisible: boolean;
+
+    versionsMenuClick: boolean;
+
+    themesMenuOutsideClickListener: any;
+
+    templatesMenuOutsideClickListener: any;
+
+    resourcesMenuOutsideClickListener: any;
+
+    versionsMenuOutsideClickListener: any;
+
+    configClick: boolean;
+
+    configActive: boolean;
+
+    constructor(private router:Router, public renderer: Renderer2){}
 
     ngOnInit() {
         let routes = this.router.config;
         for (let route of routes) {
             this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1)); 
         }
+
+        this.initNewsState();
     }
 
     onAnimationStart (event) {
@@ -75,17 +108,6 @@ export class AppComponent implements OnInit{
             case 'void':
                 event.element.style.display = 'none';
             break;
-        }
-    }
-
-    toggle(id:string) {
-        this.activeMenuId = (this.activeMenuId === id ? null : id);
-    }
-
-    onKeydown(event: KeyboardEvent,id:string) {
-        if (event.which === 32 || event.which === 13) {
-            this.toggle(id);
-            event.preventDefault();
         }
     }
 
@@ -112,7 +134,7 @@ export class AppComponent implements OnInit{
                 this.addClass(document.body, 'dark-theme');
             }
         }
-        else if(hasBodyDarkTheme) {
+        else if (hasBodyDarkTheme) {
             this.removeClass(document.body, 'dark-theme');
         }
         
@@ -143,5 +165,136 @@ export class AppComponent implements OnInit{
     onMenuButtonClick(event: Event) {
         this.menuActive = !this.menuActive;
         event.preventDefault();
+    }
+
+    initNewsState() {
+        this.newsActive = sessionStorage.getItem('primenews-hidden') ? false: true;
+    }
+
+    hideNews(event) {
+        this.newsActive = false;
+        sessionStorage.setItem('primenews-hidden', "true");
+        event.preventDefault();
+    } 
+
+    onResourcesMenuClick(event) {
+        if (!this.resourcesMenuVisible) {
+            this.resourcesMenuVisible = true;
+            this.resourcesMenuClick = true;
+            this.bindResourcesMenuOutsideClickListener();        
+        }
+    }
+
+    onThemesMenuClick(event) {
+        if (!this.themesMenuVisible) {
+            this.themesMenuVisible = true;
+            this.themesMenuClick = true;
+            this.bindThemesMenuOutsideClickListener();
+        }
+    }
+
+    onTemplatesMenuClick(event) {
+        if (!this.templatesMenuVisible) {
+            this.templatesMenuVisible = true;
+            this.templatesMenuClick = true;
+            this.bindTemplatesMenuOutsideClickListener();
+        }
+    }
+
+    onVersionsveMenuClick(event) {
+        if (!this.versionsMenuVisible) {
+            this.versionsMenuVisible = true;
+            this.versionsMenuClick = true;
+            this.bindVersionsMenuOutsideClickListener();
+        }
+    }
+
+    bindThemesMenuOutsideClickListener() {
+        if (!this.themesMenuOutsideClickListener) {
+            this.themesMenuOutsideClickListener = (event) => {
+                if (!this.themesMenuClick) {
+                    this.themesMenuVisible = false;
+                    this.unbindThemesMenuOutsideClickListener();
+                }
+
+                this.themesMenuClick = false;
+            };
+
+            document.addEventListener('click', this.themesMenuOutsideClickListener);
+        }
+    }
+
+    unbindThemesMenuOutsideClickListener() {
+        if (this.themesMenuOutsideClickListener) {
+            document.removeEventListener('click', this.themesMenuOutsideClickListener);
+            this.themesMenuOutsideClickListener = null;
+        }
+    }
+
+    bindTemplatesMenuOutsideClickListener() {
+        if (!this.templatesMenuOutsideClickListener) {
+            this.templatesMenuOutsideClickListener = (event) => {
+                if (!this.templatesMenuClick) {
+                    this.templatesMenuVisible = false;
+                    this.unbindTemplatesMenuOutsideClickListener();
+                }
+
+                this.templatesMenuClick = false;
+            };
+
+            document.addEventListener('click', this.templatesMenuOutsideClickListener);
+        }
+    }
+
+    unbindTemplatesMenuOutsideClickListener() {
+        if (this.templatesMenuOutsideClickListener) {
+            document.removeEventListener('click', this.templatesMenuOutsideClickListener);
+            this.templatesMenuOutsideClickListener = null;
+        }
+    }
+
+    
+    bindResourcesMenuOutsideClickListener() {
+        if (!this.resourcesMenuOutsideClickListener) {
+            this.resourcesMenuOutsideClickListener = (event) => {
+                if (!this.resourcesMenuClick) {
+                    this.resourcesMenuVisible = false;
+                    this.unbindResourcesMenuOutsideClickListener();
+                }
+
+                this.resourcesMenuClick = false;
+            };
+
+            document.addEventListener('click', this.resourcesMenuOutsideClickListener);
+        }
+    }
+    
+    unbindResourcesMenuOutsideClickListener() {
+        if (this.resourcesMenuOutsideClickListener) {
+            document.removeEventListener('click', this.resourcesMenuOutsideClickListener);
+            this.resourcesMenuOutsideClickListener = null;
+        }
+    }
+
+    bindVersionsMenuOutsideClickListener() {
+        if (!this.versionsMenuOutsideClickListener) {
+            this.versionsMenuOutsideClickListener = (event) => {
+                if (!this.versionsMenuClick) {
+                    this.versionsMenuVisible = false;
+                    this.unbindVersionsMenuOutsideClickListener();
+                }
+
+                this.versionsMenuClick = false;
+            };
+
+            document.addEventListener('click', this.versionsMenuOutsideClickListener);
+        }
+    }
+
+    unbindVersionsMenuOutsideClickListener() {
+        if (this.versionsMenuOutsideClickListener) {
+            document.removeEventListener('click', this.versionsMenuOutsideClickListener);
+            this.versionsMenuOutsideClickListener = null;
+        }
     }
 }

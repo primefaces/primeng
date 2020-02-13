@@ -2,10 +2,30 @@ import {Component,OnInit} from '@angular/core';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {SelectItem} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './validationdemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styles: [`
+        :host ::ng-deep .ui-toast {
+            top: 80px;
+        }
+
+        :host ::ng-deep .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-toast {
+                top: 110px;
+            }
+
+            :host ::ng-deep .news-active .ui-toast {
+                top: 180px;
+            }
+        }
+    `]
 })
 export class ValidationDemo implements OnInit {
     
@@ -17,7 +37,7 @@ export class ValidationDemo implements OnInit {
     
     description: string;
     
-    constructor(private fb: FormBuilder, private messageService: MessageService) {}
+    constructor(private fb: FormBuilder, private messageService: MessageService, private app: AppComponent) {}
     
     ngOnInit() {
         this.userform = this.fb.group({
@@ -39,6 +59,10 @@ export class ValidationDemo implements OnInit {
         this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted', sticky: true});
     }
     
+    isNewsActive() {
+        return this.app.newsActive;
+    }
+
     get diagnostic() { return JSON.stringify(this.userform.value); }
     
 }

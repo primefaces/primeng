@@ -119,7 +119,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
           scrollingContainer: this.scrollingContainer
         });
                 
-        if(this.value) {
+        if (this.value) {
             this.quill.pasteHTML(this.value);
         }
         
@@ -159,8 +159,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     writeValue(value: any) : void {
         this.value = value;
                 
-        if(this.quill) {
-            if(value)
+        if (this.quill) {
+            if (value)
                 this.quill.pasteHTML(value);
             else
                 this.quill.setText('');
@@ -186,8 +186,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     set readonly(val:boolean) {
         this._readonly = val;
         
-        if(this.quill) {
-            if(this._readonly)
+        if (this.quill) {
+            if (this._readonly)
                 this.quill.disable();
             else
                 this.quill.enable();

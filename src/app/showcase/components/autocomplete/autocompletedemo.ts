@@ -41,7 +41,7 @@ export class AutoCompleteDemo {
         let filtered : any[] = [];
         for(let i = 0; i < countries.length; i++) {
             let country = countries[i];
-            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
         }
@@ -52,7 +52,7 @@ export class AutoCompleteDemo {
         this.filteredBrands = [];
         for(let i = 0; i < this.brands.length; i++) {
             let brand = this.brands[i];
-            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+            if (brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
                 this.filteredBrands.push(brand);
             }
         }

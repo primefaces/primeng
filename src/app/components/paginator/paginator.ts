@@ -118,7 +118,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     updateRowsPerPageOptions() {
-        if(this.rowsPerPageOptions) {
+        if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
             for (let opt of this.rowsPerPageOptions) {
                 if (typeof opt == 'object' && opt['showAll']) {
@@ -172,7 +172,7 @@ export class Paginator implements OnInit, OnChanges {
     changePage(p :number) {
         var pc = this.getPageCount();
 
-        if(p >= 0 && p < pc) {
+        if (p >= 0 && p < pc) {
             this._first = this.rows * p;
             var state = {
                 page: p,
@@ -199,7 +199,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToFirst(event) {
-      if(!this.isFirstPage()){
+      if (!this.isFirstPage()){
           this.changePage(0);
       }
 
@@ -217,7 +217,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToLast(event) {
-      if(!this.isLastPage()){
+      if (!this.isLastPage()){
           this.changePage(this.getPageCount() - 1);
       }
 

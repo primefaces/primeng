@@ -13,7 +13,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #inputfield type="text" [attr.id]="inputId" [value]="formattedValue||null" [attr.name]="name"
+            <input #inputfield type="text" [attr.id]="inputId" [value]="formattedValue||null" [attr.name]="name" [attr.aria-valumin]="min" [attr.aria-valuemax]="max" [attr.aria-valuenow]="value" [attr.aria-labelledby]="ariaLabelledBy"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
             (keydown)="onInputKeydown($event)" (blur)="onInputBlur($event)" (input)="onInput($event)" (change)="onInputChange($event)" (focus)="onInputFocus($event)"
             [ngStyle]="inputStyle" [class]="inputStyleClass" [ngClass]="'ui-spinner-input ui-inputtext ui-widget ui-state-default ui-corner-all'">
@@ -65,6 +65,8 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
 
     @Input() name: string;
 
+    @Input() ariaLabelledBy: string;
+
     @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
@@ -106,10 +108,10 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
-        if(this.value && this.value.toString().indexOf('.') > 0) {
+        if (this.value && this.value.toString().indexOf('.') > 0) {
             this.precision = this.value.toString().split(/[.]/)[1].length;
         }
-        else if(this.step % 1 !== 0) {
+        else if (this.step % 1 !== 0) {
             // If step is not an integer then extract the length of the decimal part
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }

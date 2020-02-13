@@ -232,7 +232,7 @@ describe('Messages', () => {
         successButton.nativeElement.click();
         fixture.detectChanges();
 
-        const messageEl = fixture.debugElement.queryAll(By.css('.ui-messages'));
+        const messageEl = fixture.debugElement.queryAll(By.css('.ui-messages-icon'));
         expect(messageEl.length).toEqual(2);
     });
 
@@ -264,7 +264,7 @@ describe('Messages', () => {
         clearButton.nativeElement.click();
         fixture.detectChanges();
 
-        const messageEl = fixture.debugElement.queryAll(By.css('.ui-messages'));
+        const messageEl = fixture.debugElement.queryAll(By.css('.ui-messages-icon'));
         expect(messageEl.length).toEqual(1);
     });
 });

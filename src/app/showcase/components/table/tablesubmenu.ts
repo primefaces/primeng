@@ -6,6 +6,8 @@ import {Component} from '@angular/core';
         <div class="content-section content-submenu ui-helper-clearfix">
             <ul>
                 <li><a [routerLink]="['/table']">&#9679; Documentation</a></li>
+                <li><a [routerLink]="['/table/basic']">&#9679; Basic</a></li>
+                <li><a [routerLink]="['/table/dynamic']">&#9679; Dynamic</a></li>
                 <li><a [routerLink]="['/table/sections']">&#9679; Sections</a></li>
                 <li><a [routerLink]="['/table/page']">&#9679; Page</a></li>
                 <li><a [routerLink]="['/table/sort']">&#9679; Sort</a></li>

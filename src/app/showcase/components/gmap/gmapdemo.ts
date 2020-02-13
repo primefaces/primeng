@@ -1,5 +1,6 @@
 import {Component,OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 declare var google: any;
 
@@ -9,6 +10,24 @@ declare var google: any;
     styles: [`
         .ui-g-2 {
             padding-top: .75em;
+        }
+
+        :host ::ng-deep .ui-toast {
+            top: 80px;
+        }
+
+        :host ::ng-deep .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-toast {
+                top: 110px;
+            }
+
+            :host ::ng-deep .news-active .ui-toast {
+                top: 180px;
+            }
         }
     `]
 })
@@ -28,7 +47,7 @@ export class GMapDemo implements OnInit {
     
     draggable: boolean;
     
-    constructor(private messageService: MessageService) {}
+    constructor(private messageService: MessageService, private app: AppComponent) {}
 
     ngOnInit() {
         this.options = {
@@ -48,7 +67,7 @@ export class GMapDemo implements OnInit {
     handleOverlayClick(event) {
         let isMarker = event.overlay.getTitle != undefined;
         
-        if(isMarker) {
+        if (isMarker) {
             let title = event.overlay.getTitle();
             this.infoWindow.setContent('<div>' + title + '</div>');
             this.infoWindow.open(event.map, event.overlay);
@@ -72,7 +91,7 @@ export class GMapDemo implements OnInit {
     }
     
     initOverlays() {
-        if(!this.overlays||!this.overlays.length) {
+        if (!this.overlays||!this.overlays.length) {
             this.overlays = [
                 new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
                 new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
@@ -97,5 +116,9 @@ export class GMapDemo implements OnInit {
     
     clear() {
         this.overlays = [];
+    }
+    
+    isNewsActive() {
+        return this.app.newsActive;
     }
 }

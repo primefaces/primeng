@@ -528,6 +528,12 @@ export class MyModel &#123;
                             <td>Index of the element in tabbing order.</td>
                         </tr>
                         <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
+                        </tr>
+                        <tr>
                             <td>showSeconds</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -693,6 +699,17 @@ export class MyModel &#123;
                             <td>event: Close event
                             </td>
                             <td>Callback to invoke when datepicker panel is closed.</td>
+                        </tr>
+                        <tr>
+                            <td>onShow</td>
+                            <td>event: Animation event</td>
+                            <td>Callback to invoke when datepicker panel is visible.</td>
+                        </tr>
+                        <tr>
+                            <td>onClickOutside</td>
+                            <td>event: Click event
+                            </td>
+                            <td>Callback to invoke when click outside of datepicker panel.</td>
                         </tr>
                         <tr>
                             <td>onInput</td>
