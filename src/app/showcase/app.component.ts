@@ -1,7 +1,8 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { DomHandler } from '../components/dom/domhandler';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -81,7 +82,17 @@ export class AppComponent implements OnInit{
 
     configActive: boolean;
 
-    constructor(private router:Router, public renderer: Renderer2){}
+    constructor(private router: Router, public renderer: Renderer2) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                gtag('config', 'UA-93461466-1', 
+                      {
+                        'page_path': event.urlAfterRedirects
+                      }
+                );
+             }
+          });
+    }
 
     ngOnInit() {
         let routes = this.router.config;
