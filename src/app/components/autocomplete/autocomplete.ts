@@ -622,6 +622,12 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,DoCheck,C
                 this.onModelChange(this.value);
             }
         }
+        if (this.forceSelection && !this.suggestions) {
+            this.value = null;
+            this.inputEL.nativeElement.value = '';
+            this.onClear.emit(event);
+            this.onModelChange(this.value);
+        }
     }
 
     onInputPaste(event: ClipboardEvent) {
