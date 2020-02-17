@@ -94,6 +94,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
+
+    @Output() onChangeLayout: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(Header, { static: true }) header;
 
@@ -184,6 +186,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     
     changeLayout(layout: string) {
         this.layout = layout;
+        this.onChangeLayout.emit({
+            layout: this.layout
+        });
         this.updateItemTemplate();
     }
         

@@ -551,9 +551,14 @@ export class DataViewSortDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>onSort</td>
-                            <td>event.field: Name of the sort field.<br>
-                                event.order: Order of the sort.</td>
+                            <td>event.sortField: Name of the sort field.<br>
+                                event.sortOrder: Order of the sort.</td>
                             <td>Callback to invoke when sorting occurs.</td>
+                        </tr>
+                        <tr>
+                            <td>onChangeLayout</td>
+                            <td>event.layout: New layout</td>
+                            <td>Callback to invoke when changing layout.</td>
                         </tr>
                     </tbody>
                 </table>
