@@ -52,7 +52,7 @@
         </ng-template>
     </p-dataView>
 
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '225px'}" (onAfterHide)="onDialogHide()">
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" [style]="{width: '225px'}" (onAfterHide)="onDialogHide()">
         <div class="ui-g" *ngIf="selectedCar">
             <div class="ui-g-12" style="text-align:center">
                 <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
