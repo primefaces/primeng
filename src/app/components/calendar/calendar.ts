@@ -101,7 +101,7 @@ export interface LocaleSettings {
                         </div>
                     </div>
                     <div class="ui-monthpicker" *ngIf="view === 'month'">
-                        <a  *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i)}">
+                        <a  *ngFor="let m of monthPickerValues; let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event,i)" class="ui-monthpicker-month" [ngClass]="{'ui-state-active': isMonthSelected(i), 'ui-state-disabled':!isSelectable(1, i, this.currentYear, false)}">
                             {{m}}
                         </a>
                     </div>
@@ -718,6 +718,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (this.view === 'month') {
             this.decrementYear();
+            setTimeout(()=> {
+                this.updateFocus();
+            },1);
         }
         else {
             if (this.currentMonth === 0) {
@@ -745,6 +748,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
         if (this.view === 'month') {
             this.incrementYear();
+            setTimeout(()=> {
+                this.updateFocus();
+            },1);
         }
         else {
             if (this.currentMonth === 11) {
@@ -829,7 +835,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onMonthSelect(event, index) {
-        this.onDateSelect(event, {year: this.currentYear, month: index, day: 1, selectable: true});
+        if (!DomHandler.hasClass(event.target, 'ui-state-disabled')) {
+            this.onDateSelect(event, {year: this.currentYear, month: index, day: 1, selectable: true});
+        }
     }
     
     updateInputfield() {
@@ -1496,10 +1504,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     initFocusableCell() {
         let cell;
         if (this.view === 'month') {
-            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month');
+            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month:not(.ui-state-disabled)');
             let selectedCell= DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-highlight');
             cells.forEach(cell => cell.tabIndex = -1);
             cell = selectedCell || cells[0];
+
+            if (cells.length === 0) {
+                let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-disabled[tabindex = "0"]');
+                disabledCells.forEach(cell => cell.tabIndex = -1);
+            }
         }
         else {
             cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'a.ui-state-active');
