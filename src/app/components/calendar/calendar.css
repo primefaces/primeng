@@ -175,6 +175,10 @@
     cursor: pointer;
 }
 
+.ui-monthpicker-month.ui-state-disabled {
+    pointer-events: none;
+}
+
 .ui-datepicker-monthpicker select.ui-datepicker-year {
     width: auto;
 }
