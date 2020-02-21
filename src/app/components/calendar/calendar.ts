@@ -50,11 +50,11 @@ export interface LocaleSettings {
                                 <span class="ui-datepicker-prev-icon pi pi-chevron-left"></span>
                             </a>
                             <div class="ui-datepicker-title">
-                                <span class="ui-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
+                                <span class="ui-datepicker-month" (click)="onMonthHeaderClick.emit(month)" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
                                 <select tabindex="0" class="ui-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
                                     <option [value]="i" *ngFor="let monthName of locale.monthNames;let i = index" [selected]="i === month.month">{{monthName}}</option>
                                 </select>
-                                <select tabindex="0" class="ui-datepicker-year" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
+                                <select tabindex="0" class="ui-datepicker-year" (click)="onYearHeaderClick.emit({ dateObj: month, year: month.year })" *ngIf="yearNavigator && numberOfMonths === 1" (change)="onYearDropdownChange($event.target.value)">
                                     <option [value]="year" *ngFor="let year of yearOptions" [selected]="year === currentYear">{{year}}</option>
                                 </select>
                                 <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
@@ -70,14 +70,14 @@ export interface LocaleSettings {
                                         <th *ngIf="showWeek" class="ui-datepicker-weekheader">
                                             <span>{{locale['weekHeader']}}</span>
                                         </th>
-                                        <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
+                                        <th (click)="onWeekDayClick.emit({month: month.month, weekday: weekDay, year: month.year, dateobj: month})" scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
                                             <span>{{weekDay}}</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let week of month.dates; let j = index;">
-                                        <td *ngIf="showWeek" class="ui-datepicker-weeknumber ui-state-disabled">
+                                        <td *ngIf="showWeek" (click)="onWeekNumberClick.emit({month: month.month, weekNumber: month.weekNumbers[j], year: month.year, dateobj: month})" class="ui-datepicker-weeknumber ui-state-disabled">
                                             <span>
                                                 {{month.weekNumbers[j]}}
                                             </span>
@@ -339,6 +339,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     @Output() onClickOutside: EventEmitter<any> = new EventEmitter();
     
     @Output() onShow: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onMonthHeaderClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onWeekNumberClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onWeekDayClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onYearHeaderClick: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
