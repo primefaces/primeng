@@ -53,8 +53,6 @@ export class AccordionTab implements OnDestroy {
 
     @Input() header: string;
 
-    @Input() selected: boolean;
-
     @Input() disabled: boolean;
 
     @Input() cache: boolean = true;
@@ -67,7 +65,21 @@ export class AccordionTab implements OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    private _selected: boolean;
+
     private _animating: boolean;
+
+    @Input() get selected(): any {
+        return this._selected;
+    }
+
+    set selected(val: any) {
+        this._selected = val;
+        
+        if (!this.loaded) {
+            this.changeDetector.detectChanges();
+        }
+    }
 
     get animating(): boolean {
         return this._animating;
