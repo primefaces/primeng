@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
-        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef} from '@angular/core';
+        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
@@ -110,7 +110,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    constructor(public viewContainer: ViewContainerRef) {}
+    constructor(public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
     
     closed: boolean;
     
@@ -150,6 +150,10 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     set selected(val: boolean) {
         this._selected = val;
+        if (!this.loaded) {
+            this.cd.detectChanges();
+        }
+
         this.loaded = true;
     }
     
