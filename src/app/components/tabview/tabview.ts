@@ -150,6 +150,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     set selected(val: boolean) {
         this._selected = val;
+        
         if (!this.loaded) {
             this.cd.detectChanges();
         }
