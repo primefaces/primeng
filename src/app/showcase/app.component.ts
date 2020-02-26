@@ -87,7 +87,7 @@ export class AppComponent implements OnInit{
             if (event instanceof NavigationEnd) {
                 gtag('config', 'UA-93461466-1', 
                       {
-                        'page_path': event.urlAfterRedirects
+                        'page_path': '/primeng' + event.urlAfterRedirects
                       }
                 );
              }
