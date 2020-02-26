@@ -1,5 +1,38 @@
 # Change Log
 
+## [9.0.0](https://github.com/primefaces/primeng/tree/9.0.0) (2020-02-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc.4...9.0.0)
+
+**Implemented New Features and Enhancements:**
+
+- Keyboard accessible Steps [\#8546](https://github.com/primefaces/primeng/issues/8546)
+- Add position property to ConfirmDialog [\#8543](https://github.com/primefaces/primeng/issues/8543)
+- Add position property to Dialog [\#8535](https://github.com/primefaces/primeng/issues/8535)
+- Reimplement maximizable dialog [\#8534](https://github.com/primefaces/primeng/issues/8534)
+- Autocomplete onShow onHide [\#8519](https://github.com/primefaces/primeng/issues/8519)
+- Allow dragging popups outside of the viewport [\#8507](https://github.com/primefaces/primeng/issues/8507)
+- Add hide and show emitters to slidemenu [\#8497](https://github.com/primefaces/primeng/issues/8497)
+- Provide a callback on DataView format change [\#6953](https://github.com/primefaces/primeng/issues/6953)
+
+**Fixed bugs:**
+
+- ng update @angular/core &@angular/cli to latest fails [\#8542](https://github.com/primefaces/primeng/issues/8542)
+- ConfirmationDialog and Dialog leaves screen grayed on rejection [\#8538](https://github.com/primefaces/primeng/issues/8538)
+- Dialog blockScroll property not working without modal [\#8533](https://github.com/primefaces/primeng/issues/8533)
+- TreeTable metakey selection not working with keyboard [\#8532](https://github.com/primefaces/primeng/issues/8532)
+- Table Sortable Column Cannot Used with Filter Input Elements \(etc input multiselect...\) [\#8526](https://github.com/primefaces/primeng/issues/8526)
+- Table State not Saving Column Width When Column Reordered [\#8506](https://github.com/primefaces/primeng/issues/8506)
+- Carousel allowes navigation if too less items available [\#8500](https://github.com/primefaces/primeng/issues/8500)
+- Carousel - Invalid Array Length error [\#8498](https://github.com/primefaces/primeng/issues/8498)
+- TypeError: Cannot read property 'childNodes' of null   [\#8340](https://github.com/primefaces/primeng/issues/8340)
+- Galleria not updating as expected [\#7868](https://github.com/primefaces/primeng/issues/7868)
+- dialog’s contentStyle to fail to set the height. [\#7308](https://github.com/primefaces/primeng/issues/7308)
+- p-calendar doesn't disable months outside of minDate/maxDate with view="month" [\#7008](https://github.com/primefaces/primeng/issues/7008)
+- TabView/TabPanel ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ui-helper-hidden: true'. Current value: 'ui-helper-hidden: false' [\#5826](https://github.com/primefaces/primeng/issues/5826)
+- Accordion: \[activeIndex\] not bound when accordion tabs are created with \*ngFor [\#4458](https://github.com/primefaces/primeng/issues/4458)
+- p-spinner \[\(ngModel\)\]=”value” binding does not fire by paste via right click context menu [\#3970](https://github.com/primefaces/primeng/issues/3970)
+
 ## [9.0.0-rc.4](https://github.com/primefaces/primeng/tree/9.0.0-rc.4) (2020-01-27)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc.3...9.0.0-rc.4)
