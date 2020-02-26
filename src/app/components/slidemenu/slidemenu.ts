@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild,Output,EventEmitter, ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -183,7 +183,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     viewportUpdated: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngAfterViewChecked() {
         if (!this.viewportUpdated && !this.popup && this.containerViewChild) {
@@ -215,6 +215,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             this.show(event);
 
         this.preventDocumentDefault = true;
+        this.cd.detectChanges();
     }
     
     show(event) {
@@ -286,6 +287,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if (!this.preventDocumentDefault) {
                     this.hide();
+                    this.cd.detectChanges();
                 }
 
                 this.preventDocumentDefault = false;
