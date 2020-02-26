@@ -697,6 +697,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             case 40:
                 if (!this.overlayVisible && event.altKey) {
                     this.show();
+                    event.preventDefault();
                 }
             break;
     
