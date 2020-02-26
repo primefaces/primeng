@@ -359,7 +359,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                     this.onComplete.emit();
                 }
             }, 0);
-        } else {
+        } 
+        else {
             this.checkVal(true);
             while (pos.begin < this.len && !this.tests[pos.begin])
                 pos.begin++;
@@ -415,15 +416,19 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             this.clearBuffer(begin, end);
 			this.shiftL(begin, end - 1);
             this.updateModel(e);
+            this.onInput.emit(e);
 
             e.preventDefault();
-        } else if ( k === 13 ) { // enter
+        } 
+        else if ( k === 13 ) { // enter
             this.onInputBlur(e);
             this.updateModel(e);
-        } else if (k === 27) { // escape
+        } 
+        else if (k === 27) { // escape
             this.inputViewChild.nativeElement.value = this.focusText;
             this.caret(0, this.checkVal());
             this.updateModel(e);
+
             e.preventDefault();
         }
     }
@@ -458,7 +463,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                     this.writeBuffer();
                     next = this.seekNext(p);
 
-                    if (/android/i.test(DomHandler.getUserAgent())){
+                    if (/android/i.test(DomHandler.getUserAgent())) {
                         //Path for CSP Violation on FireFox OS 1.1
                         let proxy = () => {
                             this.caret(next);
@@ -469,9 +474,12 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                     else {
                         this.caret(next);
                     }
-                    if (pos.begin <= this.lastRequiredNonMaskPos){
-                         completed = this.isCompleted();
-                     }
+
+                    if (pos.begin <= this.lastRequiredNonMaskPos) {
+                        completed = this.isCompleted();
+                    }
+
+                    this.onInput.emit(e);
                 }
             }
             e.preventDefault();
