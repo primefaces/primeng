@@ -212,7 +212,7 @@ export class AppComponent implements OnInit{
         }
     }
 
-    onVersionsveMenuClick(event) {
+    onVersionsMenuClick(event) {
         if (!this.versionsMenuVisible) {
             this.versionsMenuVisible = true;
             this.versionsMenuClick = true;
