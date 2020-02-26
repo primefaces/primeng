@@ -3,6 +3,7 @@
     display:none;
     padding: .25em .5em;
     max-width: 12.5em;
+    pointer-events: none;
 }
 
 .ui-tooltip.ui-tooltip-right,
