@@ -121,6 +121,21 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.6-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.6) (2020-01-17)
+
+**Fixed bugs:**
+
+- Provide a callback on DataView format change [\#6953](https://github.com/primefaces/primeng/issues/6953)
+- p-calendar doesn't disable months outside of minDate/maxDate with view="month" [\#7008](https://github.com/primefaces/primeng/issues/7008)
+- TabView/TabPanel ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ui-helper-hidden: true'. Current value: 'ui-helper-hidden: false' [\#5826](https://github.com/primefaces/primeng/issues/5826)
+- dialog’s contentStyle to fail to set the height. [\#7308](https://github.com/primefaces/primeng/issues/7308)
+- Accordion: [activeIndex] not bound when accordion tabs are created with *ngFor [\#4458](https://github.com/primefaces/primeng/issues/4458)
+- Multiselect scrolling down page when opening with keyboard [\#8578](https://github.com/primefaces/primeng/issues/8578)
+- InputMask not dispatching onInput event [\#8569](https://github.com/primefaces/primeng/issues/8569)
+- Keyfilter paste not working [\#8579](https://github.com/primefaces/primeng/issues/8579)
+- Tooltip flickering [\#8335](https://github.com/primefaces/primeng/issues/8335)
+- SlideMenu: change detection not triggered when hidden [\#7820](https://github.com/primefaces/primeng/issues/7820)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.5-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.5) (2020-01-17)
 
 **Fixed bugs:**
@@ -410,6 +425,21 @@
 **Unit Tests:**
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.8-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.8) (2020-01-27)
+
+**Fixed bugs:**
+
+- Calendar overlay doesn't disappear in OnPush components. [\#8102](https://github.com/primefaces/primeng/issues/8102)
+- The yearRange's value is not set on Calendar [\#7996](https://github.com/primefaces/primeng/issues/7996)
+- Calendar view="month" does not highlight month unless manually clicked [\#8055](https://github.com/primefaces/primeng/issues/8055)
+- p-dropdown only sets `filled` on click, not on select (doesn't work with keyboard) [\#8059](https://github.com/primefaces/primeng/issues/8059)
+- The emptyMessage attribute is not working correctly with empty value array [\#8065](https://github.com/primefaces/primeng/issues/8065)
+- The left and right arrow keys not working on input elements inside Tree [\#8039](https://github.com/primefaces/primeng/issues/8039)
+- FocusTrap working only when dialog have a modal [\#8215](https://github.com/primefaces/primeng/issues/8215)
+- Fix error when moving between cells [\#8098](https://github.com/primefaces/primeng/pull/8098)
+- Turbotable - Multisort with null values doesn't quite work correctly [\#8001](https://github.com/primefaces/primeng/issues/8001)
+- Dropdown - ViewDestroyedError [\#7970](https://github.com/primefaces/primeng/issues/7970)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.7) (2020-01-27)
 
