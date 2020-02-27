@@ -58,7 +58,7 @@ describe('SplitButton', () => {
     });
 
     it('should close dropdown menu when click dropdown menu item and call itemClick', () => {
-      splitbutton.model = [{label: 'Update', icon: 'fa fa-refresh', command: () => {}}];
+      splitbutton.model = [{label: 'Update', icon: 'pi pi-refresh', command: () => {}}];
       const dropDownEl = fixture.debugElement.query(By.css('.ui-splitbutton-menubutton')).nativeElement;
       const itemClickSpy = spyOn(splitbutton, 'itemClick').and.callThrough();
       dropDownEl.click();
