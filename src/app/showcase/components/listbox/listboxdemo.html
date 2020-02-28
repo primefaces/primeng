@@ -14,7 +14,6 @@
   <h3>Advanced (Multiple, Checkbox and Filter)</h3>
   <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name">
     <p-header>
-      <i class="fa fa-car"></i>
       Cars
     </p-header>
   </p-listbox>
@@ -178,7 +177,6 @@ addOption() &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar"&gt;
     &lt;p-header&gt;
-      &lt;i class="fa fa-car"&gt;&lt;/i&gt;
       List of Car
     &lt;/p-header&gt;
     &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
@@ -418,7 +416,6 @@ export class MyModel &#123;
 
     <p-tabPanel header="Source">
       <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/listbox" class="btn-viewsource" target="_blank">
-        <i class="fa fa-github"></i>
         <span>View on GitHub</span>
       </a>
       <pre>
@@ -431,7 +428,6 @@ export class MyModel &#123;
 &lt;h3&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h3&gt;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name"&gt;
   &lt;p-header&gt;
-    &lt;i class="fa fa-car"&gt;&lt;/i&gt;
     Cars
   &lt;/p-header&gt;
 &lt;/p-listbox&gt;

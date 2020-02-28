@@ -22,7 +22,7 @@
             <ul style="margin:0;padding:0">
                 <li *ngFor="let car of availableCars" class="ui-helper-clearfix" pDraggable="cars"
                     (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)">
-                    <i class="fa fa-arrows fa-2x" style="float:right;margin-top:8px"></i>
+                    <i class="pi pi-plus" style="float:right;font-size: 32px;"></i>
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="float:left" draggable="false">
                     <div style="margin:8px 0 0 8px;float:left">{{car.vin}} - {{car.year}}</div>
                 </li>
@@ -232,7 +232,6 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
         </p-tabPanel>
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dragdrop" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -253,7 +252,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
         &lt;ul style="margin:0;padding:0"&gt;
             &lt;li *ngFor="let car of availableCars" class="ui-helper-clearfix" pDraggable="cars"
                 (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)"&gt;
-                &lt;i class="fa fa-arrows fa-2x" style="float:right;margin-top:8px"&gt;&lt;/i&gt;
+                &lt;i class="pi pi-plus" style="float:right;font-size: 32px;"&gt;&lt;/i&gt;
                 &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" style="float:left" draggable="false"&gt;
                 &lt;div style="margin:8px 0 0 8px;float:left"&gt;&#123;&#123;car.vin&#125;&#125; - &#123;&#123;car.year&#125;&#125;&lt;/div&gt;
             &lt;/li&gt;

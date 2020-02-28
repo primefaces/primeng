@@ -34,14 +34,14 @@ export class PanelDemo implements OnInit {
     
     ngOnInit() {
         this.items = [
-            {label: 'Update', icon: 'fa fa-fw fa-refresh', command: () => {
+            {label: 'Update', icon: 'pi pi-fw pi-refresh', command: () => {
                 this.update();
             }},
-            {label: 'Delete', icon: 'fa fa-fw fa-close', command: () => {
+            {label: 'Delete', icon: 'pi pi-fw pi-times', command: () => {
                 this.delete();
             }},
-            {label: 'Angular.io', icon: 'fa fa-fw fa-link', url: 'http://angular.io'},
-            {label: 'Theming', icon: 'fa fa-fw fa-paint-brush', routerLink: ['/theming']}
+            {label: 'Angular.io', icon: 'pi pi-fw pi-external-link', url: 'http://angular.io'},
+            {label: 'Theming', icon: 'pi pi-fw pi-cog', routerLink: ['/theming']}
         ];
     }
 

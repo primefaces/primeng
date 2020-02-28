@@ -16,7 +16,7 @@
     <button type="button" pButton label="Unblock" (click)="blockedPanel=false"></button>
     
     <p-blockUI [target]="pnl" [blocked]="blockedPanel">
-        <i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"></i>
+        <i class="pi pi-lock" style="position:absolute;top:35%;left:50%;font-size: 60px;font-weight: bold;"></i>
     </p-blockUI>
     <p-panel #pnl header="Godfather I" [style]="{'margin-top':'20px'}">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
@@ -73,7 +73,7 @@ export class BlockUIDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
-    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+    &lt;i class="pi pi-lock" style="position:absolute;top:35%;left:50%;font-size: 60px;font-weight: bold"&gt;&lt;/i&gt;
 &lt;/p-blockUI&gt;
 
 &lt;p-panel #pnl header="Panel Header"&gt;
@@ -148,7 +148,6 @@ export class BlockUIDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/blockui" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -181,7 +180,7 @@ export class BlockUIDemo &#123;
 &lt;button type="button" pButton label="Unblock" (click)="blockedPanel=false"&gt;&lt;/button&gt;
 
 &lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
-    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+    &lt;i class="pi pi-lock" style="position:absolute;top:35%;left:50%;font-size: 60px;font-weight: bold"&gt;&lt;/i&gt;
 &lt;/p-blockUI&gt;
 &lt;p-panel #pnl header="Godfather I" [style]="&#123;'margin-top':'20px'&#125;"&gt;
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 

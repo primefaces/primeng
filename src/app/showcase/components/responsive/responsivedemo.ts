@@ -127,25 +127,25 @@ export class ResponsiveDemo implements OnInit {
         this.items1 = [{
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa fa-fw fa-plus'},
-                {label: 'Open', icon: 'fa fa-fw fa-download'}
+                {label: 'New', icon: 'pi pi-fw pi-plus'},
+                {label: 'Open', icon: 'pi pi-fw pi-download'}
             ]
         },
         {
             label: 'Edit',
             items: [
-                {label: 'Undo', icon: 'fa fa-fw fa-refresh'},
-                {label: 'Redo', icon: 'fa fa-fw fa-repeat'}
+                {label: 'Undo', icon: 'pi pi-fw pi-undo'},
+                {label: 'Redo', icon: 'pi pi-fw pi-replay'}
             ]
         }];
         
         this.items2 = [
             {
                 label: 'File',
-                icon: 'fa fa-fw fa-file-o',
+                icon: 'pi pi-fw pi-file-o',
                 items: [{
                         label: 'New', 
-                        icon: 'fa fa-fw fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
                             {label: 'Project'},
                             {label: 'Other'},
@@ -157,22 +157,22 @@ export class ResponsiveDemo implements OnInit {
             },
             {
                 label: 'Edit',
-                icon: 'fa fa-fw fa-edit',
+                icon: 'pi pi-fw pi-palette',
                 items: [
-                    {label: 'Undo', icon: 'fa fa-fw fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa fa-fw fa-mail-reply'}
+                    {label: 'Undo', icon: 'pi pi-fw pi-undo'},
+                    {label: 'Redo', icon: 'pi pi-fw pi-replay'}
                 ]
             },
             {
                 label: 'Help',
-                icon: 'fa fa-fw fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     {
                         label: 'Contents'
                     },
                     {
                         label: 'Search', 
-                        icon: 'fa fa-fw fa-search', 
+                        icon: 'pi pi-fw pi-search', 
                         items: [
                             {
                                 label: 'Text', 
@@ -190,21 +190,21 @@ export class ResponsiveDemo implements OnInit {
             },
             {
                 label: 'Actions',
-                icon: 'fa fa-fw fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     {
                         label: 'Edit',
-                        icon: 'fa fa-fw fa-refresh',
+                        icon: 'pi pi-fw pi-refresh',
                         items: [
-                            {label: 'Save', icon: 'fa fa-fw fa-save'},
-                            {label: 'Update', icon: 'fa fa-fw fa-save'},
+                            {label: 'Save', icon: 'pi pi-fw pi-save'},
+                            {label: 'Update', icon: 'pi pi-fw pi-save'},
                         ]
                     },
                     {
                         label: 'Other',
-                        icon: 'fa fa-fw fa-phone',
+                        icon: 'pi pi-fw pi-mobile',
                         items: [
-                            {label: 'Delete', icon: 'fa fa-fw fa-minus'}
+                            {label: 'Delete', icon: 'pi pi-fw pi-minus'}
                         ]
                     }
                 ]
@@ -212,10 +212,10 @@ export class ResponsiveDemo implements OnInit {
         ];
         
         this.splitMenuItems = [
-            {label: 'Update', icon: 'fa fa-fw fa-refresh'},
-            {label: 'Delete', icon: 'fa fa-fw fa-close'},
-            {label: 'Angular.io', icon: 'fa fa-fw fa-link', url: 'http://angular.io'},
-            {label: 'Theming', icon: 'fa fa-fw fa-paint-brush', routerLink: ['/theming']}
+            {label: 'Update', icon: 'pi pi-fw pi-refresh'},
+            {label: 'Delete', icon: 'pi pi-fw pi-times'},
+            {label: 'Angular.io', icon: 'pi pi-fw pi-external-link', url: 'http://angular.io'},
+            {label: 'Theming', icon: 'pi pi-fw pi-palette', routerLink: ['/theming']}
         ];
     }
 

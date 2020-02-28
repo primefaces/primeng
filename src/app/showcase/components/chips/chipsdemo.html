@@ -12,7 +12,7 @@
     <h3>Template</h3>
     <p-chips [(ngModel)]="values2">
         <ng-template let-item pTemplate="item">
-            {{item}} - (active) <i class="fa fa-user" style="margin-right:2em"></i>
+            {{item}} - (active) <span class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle;"></span>
         </ng-template>
     </p-chips>
 </div>
@@ -58,7 +58,7 @@ export class MyModel &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-chips [(ngModel)]="values"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
-        &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </code>
@@ -250,7 +250,6 @@ export class MyModel &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chips" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -261,7 +260,7 @@ export class MyModel &#123;
 &lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-chips [(ngModel)]="values2"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
-        &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user" style="margin-right:2em"&gt;&lt;/i&gt;
+        &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </code>

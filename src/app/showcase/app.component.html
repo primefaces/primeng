@@ -15,7 +15,7 @@
 
     <div class="layout-topbar">
         <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
-            <i class="fa fa-bars"></i>
+            <i class="pi pi-bars"></i>
         </a>
 
         <a class="logo" [routerLink]="['/']">
@@ -41,9 +41,9 @@
                 <a (click)="onThemesMenuClick($event)">Themes</a>
                 <ul class="topbar-submenu-themes">
                     <li class="topbar-submenu-header">THEMING</li>
-                    <li><a [routerLink]="['./theming']"><span class="topbar-submenu-icon fa fa-book"></span>Guide</a></li>
-                    <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon fa fa-paint-brush"></span>Designer <span class="menuitem-badge">NEW</span></a></li>
-                    <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon fa fa-info-circle"></span>Icons <span class="menuitem-badge">NEW</span></a></li>
+                    <li><a [routerLink]="['./theming']"><span class="topbar-submenu-icon pi pi-fw pi-file"></span>Guide</a></li>
+                    <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon pi pi-fw pi-cog"></span>Designer <span class="menuitem-badge">NEW</span></a></li>
+                    <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon pi pi-fw pi-search"></span>Icons <span class="menuitem-badge">NEW</span></a></li>
                     <li class="topbar-submenu-header" style="margin-top:12px">FREE COMPONENT THEMES</li>
                     <li><a href="#" (click)="changeTheme($event, 'nova-light', false)"><img src="assets/showcase/images/themeswitcher-nova-light.png" alt="Nova Light"><span class="ui-text">Nova Light</span></a></li>
                     <li><a href="#" (click)="changeTheme($event, 'nova-dark', false)"><img src="assets/showcase/images/themeswitcher-nova-dark.png" alt="Nova Dark"><span class="ui-text">Nova Dark</span></a></li>
@@ -316,8 +316,6 @@
         <div class="content-section layout-footer clearfix">
             <span>PrimeNG 9.0.0 on Angular 9.0.2</span>
             <div class="footer-links">
-                <a href="https://github.com/primefaces/primeng"><i class="fa fa-github"></i></a>
-                <a href="https://twitter.com/prime_ng"><i class="fa fa-twitter"></i></a>
             <div>
         </div>
     </div>
