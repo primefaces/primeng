@@ -83,102 +83,102 @@ import { DomHandler } from '../components/dom/domhandler';
                         <div class="p-grid">
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/mirage-ng">
-                                    <img alt="Mirage" src="./assets/showcase/images/layouts/sqr/mirage-sqr-ng.jpg">
+                                    <img alt="Mirage" src="./assets/showcase/images/layouts/mirage-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/prestige-ng">
-                                    <img alt="Prestige" src="./assets/showcase/images/layouts/sqr/prestige-sqr-ng.jpg">
+                                    <img alt="Prestige" src="./assets/showcase/images/layouts/prestige-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/sapphire-ng">
-                                    <img alt="Sapphire" src="./assets/showcase/images/layouts/sqr/sapphire-sqr-ng.jpg">
+                                    <img alt="Sapphire" src="./assets/showcase/images/layouts/sapphire-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/serenity-ng">
-                                    <img alt="Serenity" src="./assets/showcase/images/layouts/sqr/serenity-sqr-ng.jpg">
+                                    <img alt="Serenity" src="./assets/showcase/images/layouts/serenity-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                    <img alt="Ultima" src="./assets/showcase/images/layouts/sqr/ultima-sqr-ng.jpg">
+                                    <img alt="Ultima" src="./assets/showcase/images/layouts/ultima-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/barcelona-ng">
-                                    <img alt="Barcelona" src="./assets/showcase/images/layouts/sqr/barcelona-sqr-ng.jpg">
+                                    <img alt="Barcelona" src="./assets/showcase/images/layouts/barcelona-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/babylon-ng">
-                                    <img alt="Babylon" src="./assets/showcase/images/layouts/sqr/babylon-sqr-ng.jpg">
+                                    <img alt="Babylon" src="./assets/showcase/images/layouts/babylon-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/roma-ng">
-                                    <img alt="Roma" src="./assets/showcase/images/layouts/sqr/roma-sqr-ng.jpg">
+                                    <img alt="Roma" src="./assets/showcase/images/layouts/roma-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/olympia-ng">
-                                    <img alt="Olympia" src="./assets/showcase/images/layouts/sqr/olympia-sqr-ng.jpg">
+                                    <img alt="Olympia" src="./assets/showcase/images/layouts/olympia-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/california-ng">
-                                    <img alt="California" src="./assets/showcase/images/layouts/sqr/california-sqr-ng.jpg">
+                                    <img alt="California" src="./assets/showcase/images/layouts/california-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/ecuador-ng">
-                                    <img alt="Ecuador" src="./assets/showcase/images/layouts/sqr/ecuador-sqr-ng.jpg">
+                                    <img alt="Ecuador" src="./assets/showcase/images/layouts/ecuador-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/apollo-ng">
-                                    <img alt="Apollo" src="./assets/showcase/images/layouts/sqr/apollo-sqr-ng.jpg">
+                                    <img alt="Apollo" src="./assets/showcase/images/layouts/apollo-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/manhattan-ng">
-                                    <img alt="Manhattan" src="./assets/showcase/images/layouts/sqr/manhattan-sqr-ng.jpg">
+                                    <img alt="Manhattan" src="./assets/showcase/images/layouts/manhattan-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/manhattan-ng">
-                                    <img alt="Harmony" src="./assets/showcase/images/layouts/sqr/harmony-sqr-ng.jpg">
+                                    <img alt="Harmony" src="./assets/showcase/images/layouts/harmony-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/verona-ng">
-                                    <img alt="Verona" src="./assets/showcase/images/layouts/sqr/verona-sqr-ng.jpg">
+                                    <img alt="Verona" src="./assets/showcase/images/layouts/verona-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/paradise-ng">
-                                    <img alt="Paradise" src="./assets/showcase/images/layouts/sqr/paradise-sqr-ng.jpg">
+                                    <img alt="Paradise" src="./assets/showcase/images/layouts/paradise-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/morpheus-ng">
-                                    <img alt="Morpheus" src="./assets/showcase/images/layouts/sqr/morpheus-sqr-ng.jpg">
+                                    <img alt="Morpheus" src="./assets/showcase/images/layouts/morpheus-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                    <img alt="Atlantis" src="./assets/showcase/images/layouts/sqr/atlantis-sqr-ng.jpg">
+                                    <img alt="Atlantis" src="./assets/showcase/images/layouts/atlantis-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/poseidon-ng">
-                                    <img alt="Poseidon" src="./assets/showcase/images/layouts/sqr/poseidon-sqr-ng.jpg">
+                                    <img alt="Poseidon" src="./assets/showcase/images/layouts/poseidon-ng.jpg">
                                 </a>
                             </div>
                             <div class="p-col-6">
                                 <a href="https://www.primefaces.org/layouts/omega-ng">
-                                    <img alt="Omega" src="./assets/showcase/images/layouts/sqr/omega-sqr-ng.jpg">
+                                    <img alt="Omega" src="./assets/showcase/images/layouts/omega-ng.jpg">
                                 </a>
                             </div>
                         </div>
