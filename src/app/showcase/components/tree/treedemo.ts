@@ -95,16 +95,16 @@ export class TreeDemo implements OnInit {
             {
                 label: "Backup",
                 data: "Backup Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
+                expandedIcon: "pi pi-folder-open",
+                collapsedIcon: "pi pi-folder"
             }
         ];
         this.filesTree9 = [
             {
                 label: "Storage",
                 data: "Storage Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
+                expandedIcon: "pi pi-folder-open",
+                collapsedIcon: "pi pi-folder"
             }
         ];
         this.nodeService.getFiles().then(files => this.filesTree10 = files);
@@ -120,8 +120,8 @@ export class TreeDemo implements OnInit {
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         
         this.items = [
-            {label: 'View', icon: 'fa fa-search', command: (event) => this.viewFile(this.selectedFile2)},
-            {label: 'Unselect', icon: 'fa fa-close', command: (event) => this.unselectFile()}
+            {label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile2)},
+            {label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile()}
         ];
     }
     

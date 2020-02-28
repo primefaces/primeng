@@ -15,24 +15,24 @@ export class TabMenuDemo {
 
     ngOnInit() {
         this.items1 = [
-            {label: 'Stats', icon: 'fa fa-fw fa-bar-chart'},
-            {label: 'Calendar', icon: 'fa fa-fw fa-calendar'},
-            {label: 'Documentation', icon: 'fa fa-fw fa-book'},
-            {label: 'Support', icon: 'fa fa-fw fa-support'},
-            {label: 'Social', icon: 'fa fa-fw fa-twitter'}
+            {label: 'Home', icon: 'pi pi-fw pi-home'},
+            {label: 'Calendar', icon: 'pi pi-fw pi-calendar'},
+            {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
+            {label: 'Documentation', icon: 'pi pi-fw pi-file'},
+            {label: 'Settings', icon: 'pi pi-fw pi-cog'}
         ];
 
         this.items2 = [
-            {label: 'Stats', icon: 'fa fa-fw fa-bar-chart'},
-            {label: 'Calendar', icon: 'fa fa-fw fa-calendar'},
-            {label: 'Documentation', icon: 'fa fa-fw fa-book'},
-            {label: 'Support', icon: 'fa fa-fw fa-support'},
-            {label: 'Social', icon: 'fa fa-fw fa-twitter'}
+            {label: 'Home', icon: 'pi pi-fw pi-home'},
+            {label: 'Calendar', icon: 'pi pi-fw pi-calendar'},
+            {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
+            {label: 'Documentation', icon: 'pi pi-fw pi-file'},
+            {label: 'Settings', icon: 'pi pi-fw pi-cog'}
         ];
         
         this.items3 = [
-            {label: 'Info', icon: 'fa fa-fw fa-bar-chart', routerLink:'info'},
-            {label: 'Message', icon: 'fa fa-fw fa-calendar', routerLink:'message'}
+            {label: 'Info', icon: 'pi pi-fw pi-chart-bar', routerLink:'info'},
+            {label: 'Message', icon: 'pi pi-fw pi-calendar', routerLink:'message'}
         ];
 
         this.activeItem = this.items2[0];

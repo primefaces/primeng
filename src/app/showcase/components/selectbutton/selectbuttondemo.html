@@ -15,10 +15,6 @@
     <p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"></p-selectButton>
     <p>Selected Types: <span style="font-weight: bold" *ngFor="let type of selectedTypes">{{type}} </span></p>
 
-    <h3>Icon Only</h3>
-    <p-selectButton [options]="modes" [(ngModel)]="selectedModes" multiple="multiple"></p-selectButton>
-    <p>Selected Modes: <span style="font-weight: bold" *ngFor="let mode of selectedModes">{{mode}} </span></p>
-
     <h3>Custom Template</h3>
     <p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name">
         <ng-template let-item>
@@ -152,10 +148,11 @@ export class SelectButtonDemo &#123;
     selectedType: string;
 
     constructor() &#123;
-        this.types = [];
-        this.types.push(&#123;title: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'&#125;);
-        this.types.push(&#123;title: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'&#125;);
-        this.types.push(&#123;title: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'&#125;);
+        this.types = [
+            &#123;label: 'Apartment', value: 'Apartment'&#125;,
+            &#123;label: 'House', value: 'House'&#125;,
+            &#123;label: 'Studio', value: 'Studio'&#125;
+        ];
     &#125;
 &#125;
 </code>
@@ -307,7 +304,6 @@ export class SelectButtonDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/selectbutton" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -361,15 +357,9 @@ export class SelectButtonDemo &#123;
 
     constructor() &#123;
         this.types = [
-            &#123;label: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'&#125;,
-            &#123;label: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'&#125;,
-            &#123;label: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'&#125;
-        ];
-
-        this.modes = [
-            &#123;value: 'Bold', title: 'Bold', icon: 'fa fa-fw fa-bold'&#125;,
-            &#123;value: 'Italic', title: 'Italic', icon: 'fa fa-fw fa-italic'&#125;,
-            &#123;value: 'Underline', title: 'Underline', icon: 'fa fa-fw fa-underline'&#125;
+            &#123;label: 'Apartment', value: 'Apartment'&#125;,
+            &#123;label: 'House', value: 'House'&#125;,
+            &#123;label: 'Studio', value: 'Studio'&#125;
         ];
 
         this.countries = [

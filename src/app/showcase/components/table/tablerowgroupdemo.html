@@ -24,7 +24,7 @@
             <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex">
                 <td colspan="3">
                     <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                        <i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-fw pi-chevron-circle-right'" style="vertical-align: middle;padding-bottom: .1em;"></i>
                         <span>{{rowData.brand}}</span>
                     </a>
                 </td>
@@ -90,7 +90,6 @@
     <p-tabView effect="fade">
         <p-tabPanel header="tablerowgroupdemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowgroupdemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -142,7 +141,6 @@ export class TableRowGroupDemo implements OnInit &#123;
 
         <p-tabPanel header="tablerowgroupdemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablerowgroupdemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -160,7 +158,7 @@ export class TableRowGroupDemo implements OnInit &#123;
         &lt;tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.brand].index === rowIndex"&gt;
             &lt;td colspan="3"&gt;
                 &lt;a href="#" [pRowToggler]="rowData"&gt;
-                    &lt;i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"&gt;&lt;/i&gt;
+                    &lt;i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-fw pi-chevron-circle-right'"  style="vertical-align: middle;padding-bottom: .1em;"&gt;&lt;/i&gt;
                     &lt;span&gt;&#123;&#123;rowData.brand&#125;&#125;&lt;/span&gt;
                 &lt;/a&gt;
             &lt;/td&gt;

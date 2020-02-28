@@ -47,7 +47,6 @@
                 "node_modules/quill/dist/quill.snow.css",
                 "node_modules/primeicons/primeicons.css",
                 "node_modules/primeflex/primeflex.css",
-                "node_modules/font-awesome/css/font-awesome.min.css",
                 "src/styles.scss"
               ],
               "scripts": [

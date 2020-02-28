@@ -473,34 +473,34 @@ export class ResponsiveDemo implements OnInit &#123;
     &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsMedium().then(cars => this.cars = cars);
-        this.nodeService.getFiles().then(files => this.files = files);
-        this.carService.getCarsSmall().then(cars1 => this.cars1 = cars1);
-        this.carService.getCarsSmall().then(cars3 => this.sourceCars = cars3);
+        this.carService.getCarsMedium().then(cars =&gt; this.cars = cars);
+        this.nodeService.getFiles().then(files =&gt; this.files = files);
+        this.carService.getCarsSmall().then(cars1 =&gt; this.cars1 = cars1);
+        this.carService.getCarsSmall().then(cars3 =&gt; this.sourceCars = cars3);
         this.targetCars = [];
         
         this.items1 = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa fa-fw fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa fa-fw fa-download'&#125;
+                &#123;label: 'New', icon: 'pi pi-fw pi-plus'&#125;,
+                &#123;label: 'Open', icon: 'pi pi-fw pi-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa fa-fw fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa fa-fw fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'pi pi-fw pi-undo'&#125;,
+                &#123;label: 'Redo', icon: 'pi pi-fw pi-replay'&#125;
             ]
         &#125;];
         
         this.items2 = [
             &#123;
                 label: 'File',
-                icon: 'fa fa-fw fa-file-o',
+                icon: 'pi pi-fw pi-file-o',
                 items: [&#123;
                         label: 'New', 
-                        icon: 'fa fa-fw fa-plus',
+                        icon: 'pi pi-fw pi-plus',
                         items: [
                             &#123;label: 'Project'&#125;,
                             &#123;label: 'Other'&#125;,
@@ -512,22 +512,22 @@ export class ResponsiveDemo implements OnInit &#123;
             &#125;,
             &#123;
                 label: 'Edit',
-                icon: 'fa fa-fw fa-edit',
+                icon: 'pi pi-fw pi-palette',
                 items: [
-                    &#123;label: 'Undo', icon: 'fa fa-fw fa-mail-forward'&#125;,
-                    &#123;label: 'Redo', icon: 'fa fa-fw fa-mail-reply'&#125;
+                    &#123;label: 'Undo', icon: 'pi pi-fw pi-undo'&#125;,
+                    &#123;label: 'Redo', icon: 'pi pi-fw pi-replay'&#125;
                 ]
             &#125;,
             &#123;
                 label: 'Help',
-                icon: 'fa fa-fw fa-question',
+                icon: 'pi pi-fw pi-question',
                 items: [
                     &#123;
                         label: 'Contents'
                     &#125;,
                     &#123;
                         label: 'Search', 
-                        icon: 'fa fa-fw fa-search', 
+                        icon: 'pi pi-fw pi-search', 
                         items: [
                             &#123;
                                 label: 'Text', 
@@ -545,21 +545,21 @@ export class ResponsiveDemo implements OnInit &#123;
             &#125;,
             &#123;
                 label: 'Actions',
-                icon: 'fa fa-fw fa-gear',
+                icon: 'pi pi-fw pi-cog',
                 items: [
                     &#123;
                         label: 'Edit',
-                        icon: 'fa fa-fw fa-refresh',
+                        icon: 'pi pi-fw pi-refresh',
                         items: [
-                            &#123;label: 'Save', icon: 'fa fa-fw fa-save'&#125;,
-                            &#123;label: 'Update', icon: 'fa fa-fw fa-save'&#125;,
+                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
+                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
                         ]
                     &#125;,
                     &#123;
                         label: 'Other',
-                        icon: 'fa fa-fw fa-phone',
+                        icon: 'pi pi-fw pi-mobile',
                         items: [
-                            &#123;label: 'Delete', icon: 'fa fa-fw fa-minus'&#125;
+                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
                         ]
                     &#125;
                 ]
@@ -567,32 +567,12 @@ export class ResponsiveDemo implements OnInit &#123;
         ];
         
         this.splitMenuItems = [
-            &#123;label: 'Update', icon: 'fa fa-fw fa-refresh'&#125;,
-            &#123;label: 'Delete', icon: 'fa fa-fw fa-close'&#125;,
-            &#123;label: 'Angular.io', icon: 'fa fa-fw fa-link', url: 'http://angular.io'&#125;,
-            &#123;label: 'Theming', icon: 'fa fa-fw fa-paint-brush', routerLink: ['/theming']&#125;
+            &#123;label: 'Update', icon: 'pi pi-fw pi-refresh'&#125;,
+            &#123;label: 'Delete', icon: 'pi pi-fw pi-times'&#125;,
+            &#123;label: 'Angular.io', icon: 'pi pi-fw pi-external-link', url: 'http://angular.io'&#125;,
+            &#123;label: 'Theming', icon: 'pi pi-fw pi-palette', routerLink: ['/theming']&#125;
         ];
     &#125;
-
-    filterCountrySingle(event) &#123;
-        let query = event.query;
-        this.countryService.getCountries().then(countries => &#123;
-            this.filteredCountriesSingle = this.filterCountry(query, countries);
-        &#125;);
-    &#125;
-
-    filterCountry(query, countries: any[]):any[] &#123;
-        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-        let filtered : any[] = [];
-        for(let i = 0; i < countries.length; i++) &#123;
-            let country = countries[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
-                filtered.push(country);
-            &#125;
-        &#125;
-        return filtered;
-    &#125;
-
 &#125;
 </code>
 </pre>

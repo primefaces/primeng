@@ -169,7 +169,7 @@ handleClose(e) &#123;
             <p>Icons can be placed at left and right of a header using leftIcon and rightIcon properties of tabPanel.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-tabPanel header="Header Text" leftIcon="fa-bell-o" rightIcon="fa-bookmark-o"&gt;;
+&lt;p-tabPanel header="Header Text" leftIcon="pi-bell-" rightIcon="pi-bookmark"&gt;;
     Content
 &lt;/p-tabPanel&gt;
 </code>
@@ -198,8 +198,8 @@ handleClose(e) &#123;
             <p>Tabs can be controlled programmatically using activeIndex property that defines the index of the active tab.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
-&lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
 
 &lt;p-tabView [activeIndex]="index"&gt;
     &lt;p-tabPanel header="Header 1"&gt;
@@ -473,7 +473,6 @@ handleChange(e) &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tabview" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

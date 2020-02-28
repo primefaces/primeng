@@ -13,7 +13,7 @@
     <p-tabMenu [model]="items2" [activeItem]="activeItem">
         <ng-template pTemplate="item" let-item let-i="index">
             <div style="position: relative; text-align: center; min-width: 10em">
-                <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
+                <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em; margin-right:.3em;"></div>
                 <div class="ui-menuitem-text">
                     {{item.label}}
                 </div>
@@ -62,11 +62,11 @@ export class TabMenuDemo &#123;
 
     ngOnInit() &#123;
         this.items = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
     &#125;
 &#125;
@@ -91,14 +91,14 @@ export class TabMenuDemo &#123;
 
     ngOnInit() &#123;
         this.items = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
         
-        this.activeItem = this.items[2];
+        this.activeItem = this.items[0];
     &#125;
 &#125;
 </code>
@@ -201,7 +201,6 @@ export class TabMenuDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tabmenu" class="btn-viewsource" target="_blank">
-                <i class="fa fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -247,24 +246,24 @@ export class TabMenuDemo &#123;
 
     ngOnInit() &#123;
         this.items1 = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
 
         this.items2 = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
 
         this.items3 = [
-            &#123;label: 'Info', icon: 'fa fa-fw fa-bar-chart', routerLink:'info'&#125;,
-            &#123;label: 'Message', icon: 'fa fa-fw fa-calendar', routerLink:'message'&#125;
+            &#123;label: 'Info', icon: 'pi pi-fw pi-chart-bar', routerLink:'info'&#125;,
+            &#123;label: 'Message', icon: 'pi pi-fw pi-calendar', routerLink:'message'&#125;
         ];
 
         this.activeItem = this.items2[0];

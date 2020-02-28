@@ -42,7 +42,6 @@
     "codelyzer": "^5.1.2",
     "del": "^2.2.0",
     "file-saver": "^2.0.2",
-    "font-awesome": "4.7.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.2.0",
