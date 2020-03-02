@@ -4,6 +4,8 @@
 [![npm version](https://badge.fury.io/js/primeng.svg)](https://badge.fury.io/js/primeng)
 [![Build Status](https://travis-ci.org/primefaces/primeng.svg?branch=master)](https://travis-ci.org/primefaces/primeng)
 
+[![PrimeNG Hero](https://www.primefaces.org/wp-content/uploads/2020/03/primeng-github-02032020.jpg "PrimeNG Hero")](https://www.primefaces.org/primeng)
+
 # PrimeNG
 
 UI Components for Angular
