@@ -2531,7 +2531,12 @@ export class SortableColumn implements OnInit, OnDestroy {
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         let targetNode = event.target;
-        if ((DomHandler.hasClass(targetNode, 'ui-sortable-column') || DomHandler.hasClass(targetNode, 'ui-sortable-column-icon')) && this.isEnabled()) {
+        if (
+          (DomHandler.parentHasClass(targetNode, 'ui-sortable-column')
+              || DomHandler.hasClass(targetNode, 'ui-sortable-column')
+              || DomHandler.hasClass(targetNode, 'ui-sortable-column-icon'))
+          && this.isEnabled()
+        ) {
             this.updateSortState();
             this.dt.sort({
                 originalEvent: event,

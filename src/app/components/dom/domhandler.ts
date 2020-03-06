@@ -54,6 +54,14 @@ export class DomHandler {
             return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
     }
 
+    public static parentHasClass(element: any, className: string): boolean {
+        if (element.parentNode) {
+            return this.hasClass(element.parentNode, className);
+        } else {
+            return false;
+        }
+    }
+
     public static siblings(element: any): any {
         return Array.prototype.filter.call(element.parentNode.children, function (child) {
             return child !== element;
