@@ -62,7 +62,7 @@ export class TableDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsHuge().then(cars => this.cars = cars);
+        this.carService.getCarsLarge().then(cars => this.cars = cars);
 
         this.cols = [
             { field: 'vin', header: 'Vin' },
