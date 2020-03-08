@@ -3009,7 +3009,7 @@ export class TableDemo implements OnInit &#123;
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsHuge().then(cars => this.cars = cars);
+        this.carService.getCarsLarge().then(cars => this.cars = cars);
 
         this.cols = [
             &#123; field: 'vin', header: 'Vin' &#125;,
