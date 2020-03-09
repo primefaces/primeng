@@ -22,11 +22,15 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)" 
-                    [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                    (input)="updateFilledState()" (paste)="updateFilledState()" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul>
         </div>
     `,
+    host: {
+        '[class.ui-inputwrapper-filled]': 'filled',
+        '[class.ui-inputwrapper-focus]': 'focus'
+    },
     providers: [CHIPS_VALUE_ACCESSOR]
 })
 export class Chips implements AfterContentInit,ControlValueAccessor {
@@ -84,6 +88,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     valueChanged: boolean;
     
     focus: boolean;
+
+    filled: boolean;
             
     constructor(public el: ElementRef) {}
     
@@ -103,6 +109,15 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     onClick(event) {
         this.inputViewChild.nativeElement.focus();
+    }
+
+    updateFilledState() {
+        if (!this.value || this.value.length === 0) {
+            this.filled = (this.inputViewChild.nativeElement && this.inputViewChild.nativeElement.value != '');
+        }
+        else {
+            this.filled = true;
+        }
     }
 
     onItemClick(event: Event, item: any) {
@@ -175,6 +190,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             originalEvent: event,
             value: removedItem
         });
+        this.updateFilledState();
         this.updateMaxedOut();
     }
     
@@ -190,6 +206,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                 });
             }
         }
+        this.updateFilledState();
         this.updateMaxedOut();
     }
     
@@ -205,6 +222,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                         originalEvent: event,
                         value: removedItem
                     });
+                    this.updateFilledState();
                 }
             break;
             
