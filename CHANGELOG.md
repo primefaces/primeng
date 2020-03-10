@@ -426,6 +426,22 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.8) (2020-01-27)
+
+**Fixed bugs:**
+
+- Turbotable export creates file with UTF-8-BOM instead of UTF-8 [\#6901](https://github.com/primefaces/primeng/issues/6901)
+- Multiselect Filter Issue [\#6891](https://github.com/primefaces/primeng/issues/6891)
+- Column Re-sizer blue line is appearing even after the mouse click is released in Table [\#6884](https://github.com/primefaces/primeng/issues/6884)
+- Multiselect arrow keys for selection is not working properly [\#8167](https://github.com/primefaces/primeng/issues/8167)
+- AccordionTab throwing ViewDestroyedError during unit testing [\#8044](https://github.com/primefaces/primeng/issues/8044)
+- Change of pDraggableDisabled property after ngAfterViewInit doesn't change element's behavior [\#6694](https://github.com/primefaces/primeng/issues/6694)
+- Chrome doesn't respect the autocomplete property of the p-autocomplete component [\#8096](https://github.com/primefaces/primeng/issues/8096)
+- p-button style property doesn't work at all [\#8184](https://github.com/primefaces/primeng/issues/8184)
+- Table: Error on multiple Sort with lazy Loading on using the Meta-Key (CRTL) [\#6804](https://github.com/primefaces/primeng/issues/6804)
+- Revert maximize should not remove modal blockScroll [\#6905](https://github.com/primefaces/primeng/issues/6905)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.8-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.8) (2020-01-27)
 
 **Fixed bugs:**
