@@ -569,15 +569,15 @@ export class Dialog implements OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body')
-                document.body.appendChild(this.container);
+                document.body.appendChild(this.wrapper);
             else
-                DomHandler.appendChild(this.container, this.appendTo);
+                DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
 
     restoreAppend() {
         if (this.container && this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
+            this.el.nativeElement.appendChild(this.wrapper);
         }
     }
 
