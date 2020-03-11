@@ -498,6 +498,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.selectedOption = this.optionsToDisplay[0];
         }
         this.selectedOptionUpdated = true;
+        this.updateFilledState();
     }
     
     registerOnChange(fn: Function): void {
