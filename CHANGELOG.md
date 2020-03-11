@@ -427,7 +427,7 @@
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.8) (2020-01-27)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.8) (2020-03-11)
 
 **Fixed bugs:**
 
