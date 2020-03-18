@@ -2199,7 +2199,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     footerScrollListener: Function;
 
-    frozenSiblingBody: Element;
+    frozenSiblingBody: HTMLDivElement;
 
     scrollableSiblingBody: Element;
 
@@ -2417,34 +2417,39 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     setScrollHeight() {
         if (this.scrollHeight && this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-            if (this.scrollHeight.indexOf('%') !== -1) {
-                let relativeHeight;
-                this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
-                this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
-                let containerHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-                
-                if (this.scrollHeight.includes("calc")) {
-                    let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
-                    let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
-                    relativeHeight = (DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
-                }
-                else {
-                    relativeHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
-                }
-                
-                let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
-                let scrollBodyHeight = (relativeHeight - staticHeight);
-
-                if (this.frozen) {
-                    scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
-                }
-                
-                this.scrollBodyViewChild.nativeElement.style.height = 'auto';
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
-                this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
+            if (this.frozenSiblingBody) {
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.frozenSiblingBody.style.maxHeight;
             }
-            else {    
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;          
+            else {
+                if (this.scrollHeight.indexOf('%') !== -1) {
+                    let relativeHeight;
+                    this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
+                    this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
+                    let containerHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
+                    
+                    if (this.scrollHeight.includes("calc")) {
+                        let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
+                        let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
+                        relativeHeight = (DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
+                    }
+                    else {
+                        relativeHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
+                    }
+                    
+                    let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
+                    let scrollBodyHeight = (relativeHeight - staticHeight);
+    
+                    if (this.frozen) {
+                        scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
+                    }
+                    
+                    this.scrollBodyViewChild.nativeElement.style.height = 'auto';
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
+                    this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
+                }
+                else {    
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;          
+                }
             }
         }
     }
