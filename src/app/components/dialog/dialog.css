@@ -73,7 +73,8 @@
     display: block;
     cursor: se-resize;
 }
-.ui-draggable .ui-dialog-titlebar {
+
+.ui-dialog-draggable .ui-dialog-titlebar {
     cursor: move;
 }
 

@@ -650,8 +650,8 @@ export class Dialog implements OnDestroy {
 }
 
 @NgModule({
-imports: [CommonModule],
-exports: [Dialog,SharedModule],
-declarations: [Dialog]
+    imports: [CommonModule],
+    exports: [Dialog,SharedModule],
+    declarations: [Dialog]
 })
 export class DialogModule { }
