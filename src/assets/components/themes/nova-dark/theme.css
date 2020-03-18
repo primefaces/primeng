@@ -429,6 +429,9 @@ body .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
 body .ui-dropdown .ui-dropdown-label {
   padding-right: 2em;
 }
+body .ui-dropdown .ui-dropdown-label .ui-placeholder {
+  color: #666666;
+}
 body .ui-dropdown .ui-dropdown-trigger {
   background-color: #ffffff;
   width: 2em;
@@ -512,6 +515,9 @@ body .ui-multiselect .ui-multiselect-label {
   padding: 0.429em;
   padding-right: 2em;
   color: #333333;
+}
+body .ui-multiselect .ui-multiselect-label .ui-placeholder {
+  color: #666666;
 }
 body .ui-multiselect .ui-multiselect-trigger {
   background-color: #ffffff;
@@ -1831,7 +1837,7 @@ body .ui-paginator .ui-paginator-last:focus {
   box-shadow: 0 0 0 0.2em #8dcdff;
 }
 body .ui-paginator .ui-paginator-current {
-  color: #737373;
+  color: #333333;
   height: 2.286em;
   min-width: 2.286em;
   line-height: 2.286em;

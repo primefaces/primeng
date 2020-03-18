@@ -429,6 +429,9 @@ body .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
 body .ui-dropdown .ui-dropdown-label {
   padding-right: 2em;
 }
+body .ui-dropdown .ui-dropdown-label .ui-placeholder {
+  color: #9b9b9b;
+}
 body .ui-dropdown .ui-dropdown-trigger {
   background-color: #585858;
   width: 2em;
@@ -512,6 +515,9 @@ body .ui-multiselect .ui-multiselect-label {
   padding: 0.429em;
   padding-right: 2em;
   color: #dedede;
+}
+body .ui-multiselect .ui-multiselect-label .ui-placeholder {
+  color: #9b9b9b;
 }
 body .ui-multiselect .ui-multiselect-trigger {
   background-color: #585858;
