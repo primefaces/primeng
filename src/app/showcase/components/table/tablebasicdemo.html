@@ -2,8 +2,8 @@
 
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Table - <span class="subitem">Edit</span></span>
-        <span>Cell and Row editing provides a rapid and user friendly way to manipulate data.</span>
+        <span class="feature-title">Table - <span class="subitem">Basic</span></span>
+        <span>Table requires a header and a body template to display data.</span>
     </div>
 </div>
 
@@ -24,6 +24,13 @@
                 <td>{{car.year}}</td>
                 <td>{{car.brand}}</td>
                 <td>{{car.color}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{col.header}}
+                </td>
             </tr>
         </ng-template>
     </p-table>
