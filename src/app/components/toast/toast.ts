@@ -19,7 +19,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                 <ng-container *ngIf="!template">
                     <span class="ui-toast-icon pi"
                         [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
-                            'pi-times': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
+                            'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
                     <div class="ui-toast-message-text-content">
                         <div class="ui-toast-summary">{{message.summary}}</div>
                         <div class="ui-toast-detail">{{message.detail}}</div>
