@@ -2108,9 +2108,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 </ng-container>
             </ng-template>
         </ng-container>
-        <ng-container *ngIf="dt.isEmpty()">
-            <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
+        <ng-container *ngIf="dt.loading; else empty">
+            <ng-container *ngTemplateOutlet="dt.loadingBodyTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
         </ng-container>
+        <ng-template #empty>
+            <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
+        </ng-template>
     `
 })
 export class TableBody {
