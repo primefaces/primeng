@@ -257,9 +257,10 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <p>In addition, cell contents can be templated using an ng-template with a pTemplate directive whose value is "date". This is a handy feature to highlight specific dates. Note that the implicit
+            <p>Cell contents can also be templated using an ng-template with a pTemplate directive whose value is "date". This is a handy feature to highlight specific dates. Note that the implicit
             variable passed to the template is not a date instance but a metadata object to represent a Date with "day", "month" and "year" properties. Example below
-            changes the background color of dates between 10th and 21st of each month.</p>
+            changes the background color of dates between 10th and 21st of each month. </p>
+            <p>In addition, "disabledDateTemplate" is provided in case you need to customize the content of disabled dates as well.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>

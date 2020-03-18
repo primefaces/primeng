@@ -91,7 +91,8 @@ export interface LocaleSettings {
                                                     <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
                                                 </a>
                                                 <span class="ui-state-default ui-state-disabled" [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today}" *ngIf="!date.selectable">
-                                                    {{date.day}}
+                                                    <ng-container *ngIf="!disabledDateTemplate">{{date.day}}</ng-container>
+                                                    <ng-container *ngTemplateOutlet="disabledDateTemplate; context: {$implicit: date}"></ng-container>
                                                 </span>
                                             </ng-container>
                                         </td>
@@ -438,6 +439,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     preventDocumentListener: boolean;
     
     dateTemplate: TemplateRef<any>;
+
+    disabledDateTemplate: TemplateRef<any>;
     
     _disabledDates: Array<Date>;
     
@@ -572,6 +575,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             switch (item.getType()) {
                 case 'date':
                     this.dateTemplate = item.template;
+                break;
+
+                case 'disabledDate':
+                    this.disabledDateTemplate = item.template;
                 break;
                 
                 default:
