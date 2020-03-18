@@ -3182,23 +3182,27 @@ export class EditableColumn implements AfterViewInit {
 
     moveToPreviousCell(event: KeyboardEvent) {
         let currentCell = this.findCell(event.target);
-        let targetCell = this.findPreviousEditableColumn(currentCell);
+        if (currentCell) {
+            let targetCell = this.findPreviousEditableColumn(currentCell);
 
-        if (targetCell) {
-            DomHandler.invokeElementMethod(event.target, 'blur');
-            DomHandler.invokeElementMethod(targetCell, 'click');
-            event.preventDefault();
+            if (targetCell) {
+                DomHandler.invokeElementMethod(event.target, 'blur');
+                DomHandler.invokeElementMethod(targetCell, 'click');
+                event.preventDefault();
+            }
         }
     }
 
     moveToNextCell(event: KeyboardEvent) {
         let currentCell = this.findCell(event.target);
-        let targetCell = this.findNextEditableColumn(currentCell);
+        if (currentCell) {
+            let targetCell = this.findNextEditableColumn(currentCell);
 
-        if (targetCell) {
-            DomHandler.invokeElementMethod(event.target, 'blur');
-            DomHandler.invokeElementMethod(targetCell, 'click');
-            event.preventDefault();
+            if (targetCell) {
+                DomHandler.invokeElementMethod(event.target, 'blur');
+                DomHandler.invokeElementMethod(targetCell, 'click');
+                event.preventDefault();
+            }
         }
     }
 
