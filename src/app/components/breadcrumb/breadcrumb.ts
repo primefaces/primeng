@@ -1,4 +1,4 @@
-import {NgModule,Component,Input} from '@angular/core';
+import {NgModule,Component,Input, Output, EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
@@ -47,6 +47,8 @@ export class Breadcrumb {
     @Input() styleClass: string;
     
     @Input() home: MenuItem;
+
+    @Output() onItemClick: EventEmitter<any> = new EventEmitter();
         
     itemClick(event, item: MenuItem) {
         if (item.disabled) {
@@ -64,6 +66,11 @@ export class Breadcrumb {
                 item: item
             });
         }
+
+        this.onItemClick.emit({
+            originalEvent: event,
+            item: item
+        })
     }
     
     onHomeClick(event) {
