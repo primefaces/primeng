@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <div class="ui-g ui-fluid">
+    <div class="ui-g ui-fluid" style="margin-top: -30px">
         <div class="ui-g-12 ui-md-4">
             <h3>Basic</h3>
             <p-calendar [(ngModel)]="date1"></p-calendar>
@@ -66,7 +66,7 @@
             <h3>Date Template</h3>
             <p-calendar [(ngModel)]="date10">
                 <ng-template pTemplate="date" let-date>
-                    <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
+                    <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">{{date.day}}</span>
                 </ng-template>
             </p-calendar>
         </div>
@@ -897,7 +897,7 @@ export class MyModel &#123;
         &lt;h3&gt;Date Template&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date11"&gt;
             &lt;ng-template pTemplate="date" let-date&gt;
-                &lt;span [ngStyle]="&#123;backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'&#125;" style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
+                &lt;span [ngStyle]="&#123;backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'&#125;" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
             &lt;/ng-template&gt;
         &lt;/p-calendar&gt;
     &lt;/div&gt;

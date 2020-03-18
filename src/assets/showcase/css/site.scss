@@ -142,7 +142,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+	z-index: 9997;
     height: 70px;
 	width: 100%;
 	background-image: url("assets/showcase/images/lts-topbar.jpg");
@@ -795,14 +795,17 @@ body {
 		margin-top: 30px;
 		color: #5C666A;
 		font-weight: 400;
-		font-size: 1.5em;
-		&:first-child {
-			margin-top: 0px !important;
-		}
-	}
+        font-size: 1.5em;
+    }
+
+    > h3:first-child {
+        margin-top: 0px;
+    }
+    
 	h3.first {
 		margin-top: 0px !important;
-	}
+    }
+    
 	h4 {
 		color: #5C666A;
 	}
