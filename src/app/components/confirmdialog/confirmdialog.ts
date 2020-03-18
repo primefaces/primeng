@@ -182,6 +182,8 @@ export class ConfirmDialog implements OnDestroy {
                 this.acceptVisible = this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible;
                 this.acceptLabel = this.confirmation.acceptLabel||this.acceptLabel;
                 this.rejectLabel = this.confirmation.rejectLabel||this.rejectLabel;
+                this.acceptIcon = this.confirmation.acceptIcon || this.acceptIcon;
+                this.rejectIcon = this.confirmation.rejectIcon || this.rejectIcon;
 
                 if (this.confirmation.accept) {
                     this.confirmation.acceptEvent = new EventEmitter();

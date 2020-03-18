@@ -9,6 +9,8 @@ export interface Confirmation {
     reject?: Function;
     acceptLabel?: string;
     rejectLabel?: string;
+    acceptIcon?: string;
+    rejectIcon?: string;
     acceptVisible?: boolean;
     rejectVisible?: boolean;
     blockScroll?: boolean;
