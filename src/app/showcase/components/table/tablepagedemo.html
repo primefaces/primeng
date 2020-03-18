@@ -8,7 +8,32 @@
 </div>
 
 <div class="content-section implementation">
+    <h3>Implicit Pagination</h3>
     <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <h3>Programmatic Control</h3>
+    <div style="margin-bottom: 1em">
+        <button type="button" pButton icon="pi pi-chevron-left" (click)="prev()" style="margin-right:.5em" [disabled]="isFirstPage()"></button>
+        <button type="button" pButton icon="pi pi-refresh" (click)="reset()" style="margin-right:.5em"></button>
+        <button type="button" pButton icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"></button>
+    </div>
+    <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -37,14 +62,18 @@
 <code class="language-typescript" pCode ngNonBindable>
 export class TablePageDemo implements OnInit &#123;
 
-    cars: Car[];
+cars: Car[];
 
     cols: any[];
+
+    first = 0;
+
+    rows = 10;
 
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
 
         this.cols = [
             &#123; field: 'vin', header: 'Vin' &#125;,
@@ -53,6 +82,27 @@ export class TablePageDemo implements OnInit &#123;
             &#123; field: 'color', header: 'Color' &#125;
         ];
     &#125;
+
+    next() &#123;
+        this.first = this.first + this.rows;
+    &#125;
+
+    prev() &#123;
+        this.first = this.first - this.rows;
+    &#125;
+
+    reset() &#123;
+        this.first = 0;
+    &#125;
+
+    isLastPage(): boolean &#123;
+        return this.first === (this.cars.length - this.rows);
+    &#125;
+
+    isFirstPage(): boolean &#123;
+        return this.first === 0;
+    &#125;
+
 &#125;
 </code>
 </pre>   
@@ -64,7 +114,32 @@ export class TablePageDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;Implicit Pagination&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Programmatic Control&lt;/h3&gt;
+&lt;div style="margin-bottom: 1em"&gt;
+    &lt;button type="button" pButton icon="pi pi-chevron-left" (click)="prev()" style="margin-right:.5em" [disabled]="isFirstPage()"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton icon="pi pi-refresh" (click)="reset()" style="margin-right:.5em"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
     currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
