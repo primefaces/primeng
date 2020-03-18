@@ -3,7 +3,12 @@ import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    templateUrl: './tablepagedemo.html'
+    templateUrl: './tablepagedemo.html',
+    styles: [`
+        :host ::ng-deep .ui-paginator-current {
+            float: left;
+        }
+    `]
 })
 export class TablePageDemo implements OnInit {
 
