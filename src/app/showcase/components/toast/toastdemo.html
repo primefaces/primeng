@@ -491,13 +491,16 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
         &#125;
 
         :host ::ng-deep .custom-toast .ui-toast-message &#123;
-            color: #ffffff;
             background: #FC466B;
             background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
             background: linear-gradient(to right, #3F5EFB, #FC466B);
         &#125;
 
-        :host ::ng-deep .custom-toast .ui-toast-close-icon &#123;
+        :host ::ng-deep .custom-toast .ui-toast-message div &#123;
+            color: #ffffff;
+        &#125;
+
+        :host ::ng-deep .custom-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon &#123;
             color: #ffffff;
         &#125;
     `],
