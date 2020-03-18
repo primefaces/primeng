@@ -167,8 +167,6 @@ export class ConfirmDialog implements OnDestroy {
 
     preWidth: number;
 
-    isDestroyed: boolean;
-
     _position: string = "center";
 
     transformOptions: any = "scale(0.7)";
@@ -259,7 +257,7 @@ export class ConfirmDialog implements OnDestroy {
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
         }
 
-        if (!this.isDestroyed) {
+        if (this.container) {
             this.cd.detectChanges();
         }
     }
@@ -351,7 +349,6 @@ export class ConfirmDialog implements OnDestroy {
     }
                 
     ngOnDestroy() {
-        this.isDestroyed = true;
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
