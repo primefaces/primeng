@@ -10,7 +10,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container class="ui-toast-message ui-shadow" [@messageState]="{value: 'visible', params: {showTranslateParams: showTranslateOptions, hideTranslateParams: hideTranslateOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
+        <div #container class="ui-toast-message ui-shadow" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
             [ngClass]="{'ui-toast-message-info': message.severity == 'info','ui-toast-message-warn': message.severity == 'warn',
                 'ui-toast-message-error': message.severity == 'error','ui-toast-message-success': message.severity == 'success'}"
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" role="alert" aria-live="assertive" aria-atomic="true">
@@ -36,14 +36,14 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                 opacity: 1
             })),
             transition('void => *', [
-                style({transform: '{{showTranslateParams}}', opacity: 0}),
+                style({transform: '{{showTransformParams}}', opacity: 0}),
                 animate('{{showTransitionParams}}')
             ]),
             transition('* => void', [
                 animate(('{{hideTransitionParams}}'), style({
                     height: 0,
                     opacity: 0,
-                    transform: '{{hideTranslateParams}}'
+                    transform: '{{hideTransformParams}}'
                 }))
             ])
         ])
@@ -57,9 +57,9 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Input() template: TemplateRef<any>;
 
-    @Input() showTranslateOptions: string;
+    @Input() showTransformOptions: string;
 
-    @Input() hideTranslateOptions: string;
+    @Input() hideTransformOptions: string;
 
     @Input() showTransitionOptions: string;
 
@@ -130,7 +130,9 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                 'ui-toast-center': position === 'center'}" 
                 [ngStyle]="style" [class]="styleClass">
             <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" [showTranslateOptions]="showTranslateOptions" [hideTranslateOptions]="hideTranslateOptions" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
+                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" 
+                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions" 
+                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
         </div>
     `,
     animations: [
@@ -157,9 +159,9 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() modal: boolean;
     
-    @Input() showTranslateOptions: string = 'translateY(100%)';
+    @Input() showTransformOptions: string = 'translateY(100%)';
 
-    @Input() hideTranslateOptions: string = 'translateY(-100%)';
+    @Input() hideTransformOptions: string = 'translateY(-100%)';
 
     @Input() showTransitionOptions: string = '300ms ease-out';
 
