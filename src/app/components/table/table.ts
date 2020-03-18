@@ -3182,7 +3182,6 @@ export class EditableColumn implements AfterViewInit {
 
     moveToPreviousCell(event: KeyboardEvent) {
         let currentCell = this.findCell(event.target);
-        let row = currentCell.parentElement;
         let targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {
@@ -3194,7 +3193,6 @@ export class EditableColumn implements AfterViewInit {
 
     moveToNextCell(event: KeyboardEvent) {
         let currentCell = this.findCell(event.target);
-        let row = currentCell.parentElement;
         let targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {
