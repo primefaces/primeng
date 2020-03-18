@@ -2185,9 +2185,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter', { static: true }) scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter', { static: false }) scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox', { static: true }) scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox', { static: false }) scrollFooterBoxViewChild: ElementRef;
 
     @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
 
