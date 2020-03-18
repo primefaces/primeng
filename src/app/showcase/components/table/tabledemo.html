@@ -603,7 +603,7 @@ export class TableRowGroupDemo implements OnInit &#123;
             <p>Paginator can also be controlled via model using a binding to the first property where changes trigger a pagination.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [first]="first"&gt;
+&lt;p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [(first)]="first"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
