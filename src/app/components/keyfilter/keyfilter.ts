@@ -18,7 +18,8 @@ const DEFAULT_MASKS = {
     hex: /[0-9a-f]/i,
     email: /[a-z0-9_\.\-@]/i,
     alpha: /[a-z_]/i,
-    alphanum: /[a-z0-9_]/i
+    alphanum: /[a-z0-9_]/i,
+    letter: /\p{L}/
 };
 
 const KEYS = {
@@ -59,7 +60,7 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(public el: ElementRef) { 
+    constructor(public el: ElementRef) {
         this.isAndroid = DomHandler.isAndroid();
     }
 
@@ -83,7 +84,7 @@ export class KeyFilter implements Validator {
         let k = e.keyCode;
         let c = e.charCode;
 
-        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 ||(k >= 18 && k <= 20) ||
+        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) ||
             (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
     }
 
@@ -97,13 +98,13 @@ export class KeyFilter implements Validator {
         return e.charCode || e.keyCode || e.which;
     }
 
-    findDelta(value: string, prevValue: string) { 
+    findDelta(value: string, prevValue: string) {
         let delta = '';
 
         for (let i = 0; i < value.length; i++) {
             let str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
 
-            if (str === prevValue) 
+            if (str === prevValue)
                 delta = value.substr(i, value.length - prevValue.length);
         }
 
@@ -125,7 +126,7 @@ export class KeyFilter implements Validator {
     }
 
     @HostListener('input', ['$event'])
-    onInput(e: KeyboardEvent) { 
+    onInput(e: KeyboardEvent) {
         if (this.isAndroid && !this.pValidateOnly) {
             let val = this.el.nativeElement.value;
             let lastVal = this.lastValue || '';
@@ -139,7 +140,7 @@ export class KeyFilter implements Validator {
                     this.el.nativeElement.value = lastVal;
                     this.ngModelChange.emit(lastVal);
                 }
-            } 
+            }
             else if (!removed) {
                 if (!this.isValidChar(inserted)) {
                     this.el.nativeElement.value = lastVal;
@@ -159,7 +160,7 @@ export class KeyFilter implements Validator {
         if (this.isAndroid || this.pValidateOnly) {
             return;
         }
-        
+
         let browser = DomHandler.getBrowser();
 
         if (e.ctrlKey || e.altKey) {
@@ -167,7 +168,7 @@ export class KeyFilter implements Validator {
         }
 
         let k = this.getKey(e);
-        
+
         if (k == 13) {
             return;
         }
@@ -215,7 +216,7 @@ export class KeyFilter implements Validator {
             }
         }
     }
-    
+
 }
 
 @NgModule({
