@@ -605,7 +605,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     onInputChange(event) {
-        if (this.forceSelection && this.suggestions) {
+        if (this.forceSelection) {
             let valid = false;
             let inputValue = event.target.value.trim();
 
@@ -744,6 +744,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     ngOnDestroy() {
+        if (this.forceSelectionUpdateModelTimeout) {
+            clearTimeout(this.forceSelectionUpdateModelTimeout);
+            this.forceSelectionUpdateModelTimeout = null;
+        }
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }
