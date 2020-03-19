@@ -666,8 +666,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.sortSingle();
 
             if (this.resetPageOnSort) {
-                this.first = 0;
-                this.firstChange.emit(this.first);
+                this._first = 0;
+                this.firstChange.emit(this._first);
             }
         }
         if (this.sortMode === 'multiple') {
@@ -676,7 +676,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (sortMeta) {
                 if (!metaKey) {
-                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
+                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }];
+
+                    if (this.resetPageOnSort) {
+                        this._first = 0;
+                        this.firstChange.emit(this._first);
+                    }
                 }
                 else {
                     sortMeta.order = sortMeta.order * -1;
@@ -685,6 +690,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             else {
                 if (!metaKey || !this.multiSortMeta) {
                     this._multiSortMeta = [];
+
+                    if (this.resetPageOnSort) {
+                        this._first = 0;
+                        this.firstChange.emit(this._first);
+                    }
                 }
                 this._multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
