@@ -26,6 +26,7 @@
     padding: .25em;
     display: block;
     position: relative;
+    cursor: pointer;
 }
 
 .ui-contextmenu .ui-menuitem-icon {

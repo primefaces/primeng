@@ -7,12 +7,12 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'p-contextMenuSub',
     template: `
-        <ul [ngClass]="{'ui-widget-content ui-corner-all ui-submenu-list ui-shadow':!root}" class="ui-menu-list" (click)="listClick($event)">
+        <ul [ngClass]="{'ui-widget-content ui-corner-all ui-submenu-list ui-shadow':!root}" class="ui-menu-list">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}" role="separator">
                 <li *ngIf="!child.separator" #item [ngClass]="{'ui-menuitem ui-corner-all':true,'ui-menuitem-active':item==activeItem,'ui-helper-hidden': child.visible === false}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" role="none">
-                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" (click)="itemClick($event, child)"
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" (click)="itemClick($event, child)"
                         [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass"
                         [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem">
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
@@ -69,11 +69,11 @@ export class ContextMenuSub {
             this.hideTimeout = null;
         }
 
-        this.activeItem = item;
-
         if (menuitem.disabled) {
             return;
-        }        
+        }
+        
+        this.activeItem = item;
         
         let nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
@@ -83,15 +83,10 @@ export class ContextMenuSub {
         }
     }
 
-
     itemClick(event, item: MenuItem)  {
         if (item.disabled) {
             event.preventDefault();
             return;
-        }
-
-        if (!item.url) {
-            event.preventDefault();
         }
 
         if (item.command) {
@@ -99,7 +94,13 @@ export class ContextMenuSub {
                 originalEvent: event,
                 item: item
             });
+            event.preventDefault();
         }
+
+        if (item.items)
+            event.preventDefault();
+        else
+            this.contextMenu.hide();
     }
 
     listClick(event) {
@@ -270,7 +271,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     bindGlobalListeners() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (this.containerViewChild.nativeElement.offsetParent && event.button !== 2) {
+                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && event.button !== 2) {
                     this.hide();
                 }
             });
@@ -300,6 +301,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.containerViewChild.nativeElement.offsetParent) {
             this.hide();
         }
+    }
+
+    isOutsideClicked(event: Event) {
+        return !(this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target));
     }
 
     ngOnDestroy() {
