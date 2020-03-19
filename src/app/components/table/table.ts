@@ -3169,10 +3169,6 @@ export class EditableColumn implements AfterViewInit {
     
             //tab
             else if (event.keyCode == 9) {
-                if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell(event, true);
-                }
-                
                 if (event.shiftKey)
                     this.moveToPreviousCell(event);
                 else
@@ -3201,6 +3197,10 @@ export class EditableColumn implements AfterViewInit {
             let targetCell = this.findPreviousEditableColumn(currentCell);
 
             if (targetCell) {
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(event, true);
+                }
+                
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
@@ -3214,6 +3214,10 @@ export class EditableColumn implements AfterViewInit {
             let targetCell = this.findNextEditableColumn(currentCell);
 
             if (targetCell) {
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(event, true);
+                }
+
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
