@@ -1,5 +1,51 @@
 # Change Log
 
+## [9.0.1](https://github.com/primefaces/primeng/tree/9.0.1) (2020-03-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0...9.0.1)
+
+**Implemented New Features and Enhancements:**
+
+- Use requestAnimationFrame in VirtualScroll [\#8635](https://github.com/primefaces/primeng/issues/8635)
+- Sortable columns should not be selectable [\#8634](https://github.com/primefaces/primeng/issues/8634)
+- Use loadingbody in regular table according to loading property [\#8633](https://github.com/primefaces/primeng/issues/8633)
+- currentPageReportTemplate support for TreeTable [\#8631](https://github.com/primefaces/primeng/issues/8631)
+- Chips cover 100% although input is visually smaller [\#8610](https://github.com/primefaces/primeng/issues/8610)
+- More options for currentPageReportTemplate [\#8605](https://github.com/primefaces/primeng/issues/8605)
+- Customizable Toast Transformations [\#8136](https://github.com/primefaces/primeng/issues/8136)
+- Add template for disabled dates of Calendar  [\#7259](https://github.com/primefaces/primeng/issues/7259)
+- Column toggle demo does not maintain column order [\#7234](https://github.com/primefaces/primeng/issues/7234)
+- Toasts use the same icon for both the severity \(error\) and close icon [\#7196](https://github.com/primefaces/primeng/issues/7196)
+- Context menu shouldn't close upon clicking an item with children [\#7076](https://github.com/primefaces/primeng/issues/7076)
+
+**Fixed bugs:**
+
+- Increase contract in currentPageReportTemplate [\#8632](https://github.com/primefaces/primeng/issues/8632)
+- Dropdown and MultiSelect placeholder color is inconsistent [\#8629](https://github.com/primefaces/primeng/issues/8629)
+- \[doc\] wrong demo code in Calendar doc [\#8627](https://github.com/primefaces/primeng/issues/8627)
+- DataTable scrollHeight doesn't calculate correctly with frozen columns [\#8618](https://github.com/primefaces/primeng/issues/8618)
+- Chips getting focus when clicking outside input [\#8606](https://github.com/primefaces/primeng/issues/8606)
+- Float Label doesn't work for Chips and Input Addons [\#8604](https://github.com/primefaces/primeng/issues/8604)
+- Click header containing tags does not toggle sorter [\#8597](https://github.com/primefaces/primeng/issues/8597)
+- Table and TreeTable footer with vertical scroll might be misaligned with header and body [\#8591](https://github.com/primefaces/primeng/issues/8591)
+- DynamicDialog close button alignment is broken [\#8587](https://github.com/primefaces/primeng/issues/8587)
+- ConfirmDialog throws exception during onDestroy on v9.0.0 [\#8585](https://github.com/primefaces/primeng/issues/8585)
+- Keyfilter paste not working [\#8579](https://github.com/primefaces/primeng/issues/8579)
+- Multiselect scrolling down page when opening with keyboard [\#8578](https://github.com/primefaces/primeng/issues/8578)
+- p-dialog and p-confirmDialog not centered when set appendTo body [\#8573](https://github.com/primefaces/primeng/issues/8573)
+- InputMask not dispatching onInput event [\#8569](https://github.com/primefaces/primeng/issues/8569)
+- Autocomplete doesn't clear input value if user tabs before suggestions are displayed [\#8511](https://github.com/primefaces/primeng/issues/8511)
+- Table EditableColumn crashing on Tab key when loose ui-editing-cell [\#8470](https://github.com/primefaces/primeng/issues/8470)
+- Incorrect position for scroll bars in scrollpanel [\#8400](https://github.com/primefaces/primeng/issues/8400)
+- Tooltip flickering [\#8335](https://github.com/primefaces/primeng/issues/8335)
+- pTable cell editing: onEditComplete not triggered when clicking other cells. [\#8049](https://github.com/primefaces/primeng/issues/8049)
+- SlideMenu: change detection not triggered when hidden [\#7820](https://github.com/primefaces/primeng/issues/7820)
+- Spinner buttons should not be focusable [\#7789](https://github.com/primefaces/primeng/issues/7789)
+- Dialog draggable wrong header style [\#7258](https://github.com/primefaces/primeng/issues/7258)
+- p-dropdown with ui-fluid and ui-inputgroup classes does not grow horizontally [\#7224](https://github.com/primefaces/primeng/issues/7224)
+- LazyLoad event triggered by moving horizontal scrollbar [\#7207](https://github.com/primefaces/primeng/issues/7207)
+- Pagination not reseting when using multiple sortMode [\#7141](https://github.com/primefaces/primeng/issues/7141)
+
 ## [9.0.0](https://github.com/primefaces/primeng/tree/9.0.0) (2020-02-26)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0-rc.4...9.0.0)
