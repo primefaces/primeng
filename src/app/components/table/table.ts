@@ -2230,6 +2230,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     loadingArray: number[] = [];
 
+    lastBodyScrollTop: number = 0;
+
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.zone.runOutsideAngular(() => {
@@ -2320,8 +2322,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     bindEvents() {
         this.zone.runOutsideAngular(() => {
-            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
-
             if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
                 this.scrollHeaderViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
@@ -2394,37 +2394,42 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
 
         if (this.dt.virtualScroll) {
-            let viewport = DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
-            let tableHeight = DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement);
-            let pageHeight = this.dt.virtualRowHeight * this.dt.rows;
-            let virtualTableHeight = DomHandler.getOuterHeight(this.virtualScrollerViewChild.nativeElement);
-            let pageCount = (virtualTableHeight / pageHeight)||1;
-            let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
+            requestAnimationFrame(() => {
+                if (this.lastBodyScrollTop !== this.scrollBodyViewChild.nativeElement.scrollTop) {
+                    this.lastBodyScrollTop = this.scrollBodyViewChild.nativeElement.scrollTop;
+                    let viewport = DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+                    let tableHeight = DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement);
+                    let pageHeight = this.dt.virtualRowHeight * this.dt.rows;
+                    let virtualTableHeight = DomHandler.getOuterHeight(this.virtualScrollerViewChild.nativeElement);
+                    let pageCount = (virtualTableHeight / pageHeight)||1;
+                    let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
 
-            if ((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
-                if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
-                    this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
-                    this.scrollLoadingTableViewChild.nativeElement.style.top = this.scrollBodyViewChild.nativeElement.scrollTop + 'px';
-                }
-
-                let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
-                this.dt.handleVirtualScroll({
-                    page: page,
-                    callback: () => {
+                    if ((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
                         if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
-                            this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
-                        }
-                        
-                        this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
-
-                        if (this.frozenSiblingBody) {
-                            (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
+                            this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
+                            this.scrollLoadingTableViewChild.nativeElement.style.top = this.scrollBodyViewChild.nativeElement.scrollTop + 'px';
                         }
 
-                        this.dt.anchorRowIndex = null;
+                        let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
+                        this.dt.handleVirtualScroll({
+                            page: page,
+                            callback: () => {
+                                if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
+                                    this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
+                                }
+                                
+                                this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
+
+                                if (this.frozenSiblingBody) {
+                                    (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
+                                }
+
+                                this.dt.anchorRowIndex = null;
+                            }
+                        });
                     }
-                });
-            }
+                }
+            });
         }
     }
 
