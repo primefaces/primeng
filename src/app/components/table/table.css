@@ -16,6 +16,7 @@
 
 .ui-table .ui-sortable-column {
     cursor: pointer;
+    user-select: none;
 }
 
 .ui-table p-sorticon {
