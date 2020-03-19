@@ -167,6 +167,21 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.7) (2020-03-19)
+
+**Fixed bugs:**
+
+- Chips getting focus when clicking outside input [\#8606](https://github.com/primefaces/primeng/issues/8606)
+- Chips cover 100% although input is visually smaller [\#8610](https://github.com/primefaces/primeng/issues/8610)
+- Float Label doesn't work for Chips and Input Addons [\#8604](https://github.com/primefaces/primeng/issues/8604)
+- Dropdown and MultiSelect placeholder color is inconsistent [\#8629](https://github.com/primefaces/primeng/issues/8629)
+- DataTable scrollHeight doesn't calculate correctly with frozen columns [\#8618](https://github.com/primefaces/primeng/issues/8618)
+- More options for currentPageReportTemplate [\#8605](https://github.com/primefaces/primeng/issues/8605)
+- currentPageReportTemplate support for TreeTable [\#8631](https://github.com/primefaces/primeng/issues/8631)
+- Increase contract in currentPageReportTemplate [\#8632](https://github.com/primefaces/primeng/issues/8632)
+- Toasts use the same icon for both the severity (error) and close icon [\#8632](https://github.com/primefaces/primeng/issues/8632)
+- Spinner buttons should not be focusable [\#7789](https://github.com/primefaces/primeng/issues/7789)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.6-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.6) (2020-01-17)
 
 **Fixed bugs:**
