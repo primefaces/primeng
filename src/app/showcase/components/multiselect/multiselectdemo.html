@@ -7,11 +7,11 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" filterBy="value.code"></p-multiSelect>
     <p>Selected Cars: {{selectedCars1}}</p>
 
     <h3>Templating</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2">
         <ng-template let-value pTemplate="selectedItems">
             <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
                 <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" />
@@ -27,7 +27,7 @@
     <p>Selected Cars: {{selectedCars2}}</p>
 
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
+    <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
 </div>
 
 <div class="content-section documentation">
@@ -121,7 +121,7 @@ export class MyModel &#123;
             <p>In addition selectedItems template can be used to customize the selected values display instead of the default comma separated list.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="&#123;minWidth:'12em'}"&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2"&gt;
     &lt;ng-template let-selectedCars pTemplate="selectedItems"&gt;
         &lt;span *ngFor="let selectedCar of selectedCars"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
@@ -548,11 +548,11 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="&#123;minWidth:'12em'}"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"&gt;&lt;/p-multiSelect&gt;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars1&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="&#123;minWidth:'12em'}"&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2"&gt;
     &lt;ng-template let-value pTemplate="selectedItems"&gt;
         &lt;div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all"&gt;
             &lt;img src="assets/showcase/images/demo/car/&#123;&#123;val&#125;&#125;.png" style="width:20px;vertical-align:middle;margin-right:.5em" /&gt;
@@ -568,7 +568,7 @@ export class MyModel &#123;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
-&lt;p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [panelStyle]="&#123;minWidth:'12em'&#125;" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
