@@ -173,6 +173,11 @@ export class ConfirmDialog implements OnDestroy {
                 
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
+            if (!confirmation) {
+                this.visible = false;
+                return;
+            }
+
             if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
                 this.message = this.confirmation.message||this.message;
