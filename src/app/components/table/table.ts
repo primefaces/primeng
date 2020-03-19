@@ -348,8 +348,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCellField: any;
 
-    editingCellClick: boolean;
-
     documentEditListener: any;
 
     _multiSortMeta: SortMeta[];
@@ -1461,7 +1459,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
             this.documentEditListener = (event) => {
-                if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
+                if (this.isOutsideClicked(event) && this.editingCell && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event });
@@ -1469,8 +1467,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.editingCellData = null;
                     this.unbindDocumentEditListener();
                 }
-
-                this.editingCellClick = false;
             };
             
             document.addEventListener('click', this.documentEditListener);
@@ -1482,6 +1478,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             document.removeEventListener('click', this.documentEditListener);
             this.documentEditListener = null;
         }
+    }
+
+    isOutsideClicked(event: Event) {
+        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target));
     }
 
     initRowEdit(rowData: any) {
@@ -3102,15 +3102,13 @@ export class EditableColumn implements AfterViewInit {
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
-            this.dt.editingCellClick = true;
-
             if (this.dt.editingCell) {
                 if (this.dt.editingCell !== this.el.nativeElement) {
                     if (!this.dt.isEditingCellValid()) {
                         return;
                     }
         
-                    DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                    this.closeEditingCell(true, event);
                     this.openCell();
                 }
             }
@@ -3136,7 +3134,11 @@ export class EditableColumn implements AfterViewInit {
         });
     }
 
-    closeEditingCell() {
+    closeEditingCell(completed, event) {
+        if (completed) {
+            this.dt.onEditComplete.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event});
+        }
+
         DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
         this.dt.editingCellData = null;
@@ -3150,8 +3152,7 @@ export class EditableColumn implements AfterViewInit {
             //enter
             if (event.keyCode == 13) {
                 if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell();
-                    this.dt.onEditComplete.emit({ field: this.field, data: this.data, originalEvent: event });
+                    this.closeEditingCell(event, true);
                 }
     
                 event.preventDefault();
@@ -3160,8 +3161,7 @@ export class EditableColumn implements AfterViewInit {
             //escape
             else if (event.keyCode == 27) {
                 if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell();
-                    this.dt.onEditCancel.emit({ field: this.field, data: this.data, originalEvent: event });
+                    this.closeEditingCell(event, false);
                 }
     
                 event.preventDefault();
@@ -3169,7 +3169,9 @@ export class EditableColumn implements AfterViewInit {
     
             //tab
             else if (event.keyCode == 9) {
-                this.dt.onEditComplete.emit({ field: this.field, data: this.data, originalEvent: event });
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(event, true);
+                }
                 
                 if (event.shiftKey)
                     this.moveToPreviousCell(event);
