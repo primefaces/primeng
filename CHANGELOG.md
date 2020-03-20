@@ -1,5 +1,19 @@
 # Change Log
 
+## [9.0.1](https://github.com/primefaces/primeng/tree/9.0.2) (2020-03-+20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.1...9.0.2)
+
+**Implemented New Features and Enhancements:**
+
+- Pass current files to FileUpload onSelect [\#7421](https://github.com/primefaces/primeng/issues/7421)
+
+**Fixed bugs:**
+
+- Bug: Calendar increasing/decreasing minutes does not clear Timeout [\#7342](https://github.com/primefaces/primeng/issues/7342)
+- pCellEditor not triggering edit when clicking on any element inside cell [\#8638](https://github.com/primefaces/primeng/issues/8638)
+- Turbo Table empty message always showing even when table has data [\#8637](https://github.com/primefaces/primeng/issues/8637)
+
 ## [9.0.1](https://github.com/primefaces/primeng/tree/9.0.1) (2020-03-19)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.0...9.0.1)
