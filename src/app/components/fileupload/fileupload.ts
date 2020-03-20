@@ -242,7 +242,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             }
         }
 
-        this.onSelect.emit({originalEvent: event, files: files});
+        this.onSelect.emit({originalEvent: event, files: files, currentFiles: this.files});
 
         if (this.fileLimit && this.mode == "advanced") {
             this.checkFileLimit();
