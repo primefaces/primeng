@@ -185,6 +185,12 @@
 
 **Fixed bugs:**
 
+- Turbo Table empty message always showing even when table has data [\#8637](https://github.com/primefaces/primeng/issues/8637)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.7) (2020-03-19)
+
+**Fixed bugs:**
+
 - Chips getting focus when clicking outside input [\#8606](https://github.com/primefaces/primeng/issues/8606)
 - Chips cover 100% although input is visually smaller [\#8610](https://github.com/primefaces/primeng/issues/8610)
 - Float Label doesn't work for Chips and Input Addons [\#8604](https://github.com/primefaces/primeng/issues/8604)
