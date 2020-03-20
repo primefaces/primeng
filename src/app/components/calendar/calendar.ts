@@ -1652,7 +1652,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     clearTimePickerTimer() {
         if (this.timePickerTimer) {
-            clearInterval(this.timePickerTimer);
+            clearTimeout(this.timePickerTimer);
         }
     }
     
