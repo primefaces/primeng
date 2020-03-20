@@ -348,6 +348,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCellField: any;
 
+    editingCellClick: boolean;
+
     documentEditListener: any;
 
     _multiSortMeta: SortMeta[];
@@ -1459,7 +1461,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
             this.documentEditListener = (event) => {
-                if (this.isOutsideClicked(event) && this.editingCell && this.isEditingCellValid()) {
+                if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event });
@@ -1467,6 +1469,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.editingCellData = null;
                     this.unbindDocumentEditListener();
                 }
+
+                this.editingCellClick = false;
             };
             
             document.addEventListener('click', this.documentEditListener);
@@ -1478,10 +1482,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             document.removeEventListener('click', this.documentEditListener);
             this.documentEditListener = null;
         }
-    }
-
-    isOutsideClicked(event: Event) {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target));
     }
 
     initRowEdit(rowData: any) {
@@ -3107,6 +3107,8 @@ export class EditableColumn implements AfterViewInit {
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
+            this.dt.editingCellClick = true;
+            
             if (this.dt.editingCell) {
                 if (this.dt.editingCell !== this.el.nativeElement) {
                     if (!this.dt.isEditingCellValid()) {
