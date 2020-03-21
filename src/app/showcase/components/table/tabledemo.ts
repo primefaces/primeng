@@ -6,16 +6,15 @@ import { SelectItem } from 'primeng/api';
 @Component({
     templateUrl: './tabledemo.html',
     styles: [`
+        .ui-table {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.19);
+        }
 
         .ui-table.ui-table-cars .ui-table-caption.ui-widget-header {
             border: 0 none;
             padding: 12px;
             text-align: left;
             font-size: 20px;
-        }
-
-        .ui-column-filter {
-            margin-top: 1em;
         }
 
         .ui-column-filter .ui-multiselect-label {
@@ -25,6 +24,10 @@ import { SelectItem } from 'primeng/api';
         .ui-table.ui-table-cars .ui-table-thead > tr > th {
             border: 0 none;
             text-align: left;
+        }
+
+        .ui-table.ui-table-cars .ui-table-thead > tr > th.filter-column {
+            border-top: 1px solid #c8c8c8;
         }
         
         .ui-table-globalfilter-container {

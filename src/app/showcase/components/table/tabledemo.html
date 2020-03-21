@@ -17,9 +17,14 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th style="width: 8em"></th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="filter-column">
                     <input *ngSwitchCase="'vin'" pInputText type="text" placeholder="Starts with" class="ui-column-filter" style="width: 100%;" (input)="dt.filter($event.target.value, col.field, 'startsWith')">
                     <input *ngSwitchCase="'year'" pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;" (input)="dt.filter($event.target.value, col.field, 'contains')">
                     <p-dropdown *ngSwitchCase="'brand'" [options]="brands" styleClass="ui-column-filter" [showClear]="true" [style]="{'min-width':'1em', 'width':'100%'}" placeholder="Select a Brand" (onChange)="dt.filter($event.value, col.field, 'equals')">
@@ -36,9 +41,7 @@
                     </p-dropdown>
                     <p-multiSelect *ngSwitchCase="'color'" [options]="colors" [filter]="false"  styleClass="ui-column-filter" [style]="{'width':'100%'}"  defaultLabel="Select a color" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
                 </th>
-                <th style="width: 8em; text-align: center;">
-                    <button pButton type="button" icon="pi pi-cog"></button>
-                </th>
+                <th class="filter-column"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -46,7 +49,7 @@
                 <td>{{rowData.vin}}</td>
                 <td>{{rowData.year}}</td>
                 <td>
-                    <img src="assets/showcase/images/demo/car/{{rowData.brand}}.png" style="width: 50px; margin-right: 1em; vertical-align: middle;">
+                    <img src="assets/showcase/images/demo/car/{{rowData.brand}}.png" style="width: 36px; margin-right: 1em; vertical-align: middle;">
                     {{rowData.brand}}
                 </td>
                 <td>{{rowData.color}}</td>
@@ -2907,12 +2910,17 @@ export class TableDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field"&gt;
+            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
                 &#123;&#123;col.header&#125;&#125;
                 &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
+            &lt;/th&gt;
+            &lt;th style="width: 8em"&gt;&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field" class="filter-column"&gt;
                 &lt;input *ngSwitchCase="'vin'" pInputText type="text" placeholder="Starts with" class="ui-column-filter" style="width: 100%;" (input)="dt.filter($event.target.value, col.field, 'startsWith')"&gt;
                 &lt;input *ngSwitchCase="'year'" pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;" (input)="dt.filter($event.target.value, col.field, 'contains')"&gt;
-                &lt;p-dropdown *ngSwitchCase="'brand'" [options]="brands" styleClass="ui-column-filter" [showClear]="true" [style]="&#123;'width':'100%'&#125;" placeholder="Select a Brand" (onChange)="dt.filter($event.value, col.field, 'equals')"&gt;
+                &lt;p-dropdown *ngSwitchCase="'brand'" [options]="brands" styleClass="ui-column-filter" [showClear]="true" [style]="&#123;'min-width':'1em', 'width':'100%'&#125;" placeholder="Select a Brand" (onChange)="dt.filter($event.value, col.field, 'equals')"&gt;
                     &lt;ng-template let-item pTemplate="selectedItem"&gt;
                         &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
                         &lt;span style="vertical-align:middle; margin-left: .5em"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
@@ -2926,9 +2934,7 @@ export class TableDemo implements OnInit &#123;
                 &lt;/p-dropdown&gt;
                 &lt;p-multiSelect *ngSwitchCase="'color'" [options]="colors" [filter]="false"  styleClass="ui-column-filter" [style]="&#123;'width':'100%'&#125;"  defaultLabel="Select a color" (onChange)="dt.filter($event.value, col.field, 'in')"&gt;&lt;/p-multiSelect&gt;
             &lt;/th&gt;
-            &lt;th style="width: 8em; text-align: center;"&gt;
-                &lt;button pButton type="button" icon="pi pi-cog"&gt;&lt;/button&gt;
-            &lt;/th&gt;
+            &lt;th class="filter-column"&gt;&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
@@ -2936,7 +2942,7 @@ export class TableDemo implements OnInit &#123;
             &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
             &lt;td&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;rowData.brand&#125;&#125;.png" style="width: 50px; margin-right: 1em; vertical-align: middle;"&gt;
+                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;rowData.brand&#125;&#125;.png" style="width: 36px; margin-right: 1em; vertical-align: middle;"&gt;
                 &#123;&#123;rowData.brand&#125;&#125;
             &lt;/td&gt;
             &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
@@ -2963,10 +2969,6 @@ export class TableDemo implements OnInit &#123;
             font-size: 20px;
         &#125;
 
-        .ui-column-filter &#123;
-            margin-top: 1em;
-        &#125;
-
         .ui-column-filter .ui-multiselect-label &#123;
             font-weight: 500;
         &#125;
@@ -2974,6 +2976,10 @@ export class TableDemo implements OnInit &#123;
         .ui-table.ui-table-cars .ui-table-thead > tr > th &#123;
             border: 0 none;
             text-align: left;
+        &#125;
+
+        .ui-table.ui-table-cars .ui-table-thead > tr > th.filter-column &#123;
+            border-top: 1px solid #c8c8c8;
         &#125;
         
         .ui-table-globalfilter-container &#123;
