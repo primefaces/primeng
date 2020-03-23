@@ -11,6 +11,7 @@ import {
     NgZone,
     OnDestroy,
     OnInit,
+    AfterContentInit,
     Output,
     QueryList,
     Renderer2,
@@ -50,7 +51,7 @@ export interface LocaleSettings {
               [ngStyle]="style"
               [class]="styleClass">
             <ng-template [ngIf]="!inline">
-                <input #inputfield type="text"
+                <input #inputField type="text"
                        [attr.id]="inputId"
                        [attr.name]="name"
                        [attr.required]="required"
@@ -73,7 +74,7 @@ export interface LocaleSettings {
                 ><button type="button"
                          [icon]="icon"
                          pButton *ngIf="showIcon"
-                         (click)="onButtonClick($event,inputfield)"
+                         (click)="onButtonClick($event,inputField)"
                          class="ui-datepicker-trigger ui-calendar-button"
                          [ngClass]="{'ui-state-disabled':disabled}"
                          [disabled]="disabled"
@@ -365,7 +366,119 @@ export interface LocaleSettings {
     ],
     providers: [CALENDAR_VALUE_ACCESSOR]
 })
-export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
+export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlValueAccessor {
+
+    @HostBinding('class.ui-inputwrapper-filled')
+    get inputWrapperFilled(): boolean {
+        return this.filled;
+    }
+
+    @HostBinding('class.ui-inputwrapper-focus')
+    get inputWrapperFocus(): boolean {
+        return this.focus;
+    }
+
+    @ViewChild('contentWrapper', {static: false}) set content(content: ElementRef) {
+        this.contentViewChild = content;
+
+        if (this.contentViewChild) {
+            if (this.isMonthNavigate) {
+                Promise.resolve(null).then(() => this.updateFocus());
+                this.isMonthNavigate = false;
+            } else {
+                this.initFocusableCell();
+            }
+        }
+    }
+
+    @Input() get minDate(): Date {
+        return this._minDate;
+    }
+
+    set minDate(date: Date) {
+        this._minDate = date;
+
+        this.monthsCreationLogic();
+    }
+
+    @Input() get maxDate(): Date {
+        return this._maxDate;
+    }
+
+    set maxDate(date: Date) {
+        this._maxDate = date;
+
+        this.monthsCreationLogic();
+    }
+
+    @Input() get disabledDates(): Date[] {
+        return this._disabledDates;
+    }
+
+    set disabledDates(disabledDates: Date[]) {
+        this._disabledDates = disabledDates;
+
+        this.monthsCreationLogic();
+    }
+
+    @Input() get disabledDays(): number[] {
+        return this._disabledDays;
+    }
+
+    set disabledDays(disabledDays: number[]) {
+        this._disabledDays = disabledDays;
+
+        this.monthsCreationLogic();
+    }
+
+    @Input() get yearRange(): string {
+        return this._yearRange;
+    }
+
+    set yearRange(yearRange: string) {
+        const defaultRadix = 10;
+        this._yearRange = yearRange;
+
+        if (yearRange) {
+            const years = yearRange.split(':');
+            const yearStart = parseInt(years[0], defaultRadix);
+            const yearEnd = parseInt(years[1], defaultRadix);
+
+            this.populateYearOptions(yearStart, yearEnd);
+        }
+    }
+
+    @Input() get showTime(): boolean {
+        return this._showTime;
+    }
+
+    set showTime(showTime: boolean) {
+        this._showTime = showTime;
+
+        if (this.currentHour === undefined) {
+            this.initTime(this.value || new Date());
+        }
+        this.updateInputfield();
+    }
+
+    get locale() {
+        return this._locale;
+    }
+
+    @Input()
+    set locale(newLocale: LocaleSettings) {
+        this._locale = newLocale;
+
+        if (this.view === 'date') {
+            this.createWeekDays();
+            this.createMonths(this.currentMonth, this.currentYear);
+        } else if (this.view === 'month') {
+            this.createMonthPickerValues();
+        }
+    }
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {
+    }
 
     @Input() defaultDate: Date;
 
@@ -387,21 +500,21 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() disabled: any;
 
-    @Input() dateFormat: string = 'mm/dd/yy';
+    @Input() dateFormat = 'mm/dd/yy';
 
-    @Input() multipleSeparator: string = ',';
+    @Input() multipleSeparator = ',';
 
-    @Input() rangeSeparator: string = '-';
+    @Input() rangeSeparator = '-';
 
-    @Input() inline: boolean = false;
+    @Input() inline = false;
 
-    @Input() showOtherMonths: boolean = true;
+    @Input() showOtherMonths = true;
 
     @Input() selectOtherMonths: boolean;
 
     @Input() showIcon: boolean;
 
-    @Input() icon: string = 'pi pi-calendar';
+    @Input() icon = 'pi pi-calendar';
 
     @Input() appendTo: any;
 
@@ -413,59 +526,59 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() yearNavigator: boolean;
 
-    @Input() hourFormat: string = '24';
+    @Input() hourFormat = '24';
 
     @Input() timeOnly: boolean;
 
-    @Input() stepHour: number = 1;
+    @Input() stepHour = 1;
 
-    @Input() stepMinute: number = 1;
+    @Input() stepMinute = 1;
 
-    @Input() stepSecond: number = 1;
+    @Input() stepSecond = 1;
 
-    @Input() showSeconds: boolean = false;
+    @Input() showSeconds = false;
 
     @Input() required: boolean;
 
-    @Input() showOnFocus: boolean = true;
+    @Input() showOnFocus = true;
 
-    @Input() showWeek: boolean = false;
+    @Input() showWeek = false;
 
-    @Input() dataType: string = 'date';
+    @Input() dataType = 'date';
 
-    @Input() selectionMode: string = 'single';
+    @Input() selectionMode = 'single';
 
     @Input() maxDateCount: number;
 
     @Input() showButtonBar: boolean;
 
-    @Input() todayButtonStyleClass: string = 'ui-button-secondary';
+    @Input() todayButtonStyleClass = 'ui-button-secondary';
 
-    @Input() clearButtonStyleClass: string = 'ui-button-secondary';
+    @Input() clearButtonStyleClass = 'ui-button-secondary';
 
-    @Input() autoZIndex: boolean = true;
+    @Input() autoZIndex = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input() baseZIndex = 0;
 
     @Input() panelStyleClass: string;
 
     @Input() panelStyle: any;
 
-    @Input() keepInvalid: boolean = false;
+    @Input() keepInvalid = false;
 
-    @Input() hideOnDateTimeSelect: boolean = false;
+    @Input() hideOnDateTimeSelect = false;
 
-    @Input() numberOfMonths: number = 1;
+    @Input() numberOfMonths = 1;
 
-    @Input() view: string = 'date';
+    @Input() view = 'date';
 
     @Input() touchUI: boolean;
 
-    @Input() timeSeparator: string = ":";
+    @Input() timeSeparator = ':';
 
-    @Input() showTransitionOptions: string = '225ms ease-out';
+    @Input() showTransitionOptions = '225ms ease-out';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() hideTransitionOptions = '195ms ease-in';
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
@@ -490,16 +603,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @HostBinding('class.ui-inputwrapper-filled')
-    get inputWrapperFilled(): boolean {
-        return this.filled;
-    }
-
-    @HostBinding('class.ui-inputwrapper-focus')
-    get inputWrapperFocus(): boolean {
-        return this.focus;
-    }
 
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
@@ -529,20 +632,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() tabindex: number;
 
-    @ViewChild('inputfield', {static: false}) inputfieldViewChild: ElementRef;
-
-    @ViewChild('contentWrapper', {static: false}) set content(content: ElementRef) {
-        this.contentViewChild = content;
-
-        if (this.contentViewChild) {
-            if (this.isMonthNavigate) {
-                Promise.resolve(null).then(() => this.updateFocus());
-                this.isMonthNavigate = false;
-            } else {
-                this.initFocusableCell();
-            }
-        }
-    };
+    @ViewChild('inputField', {static: false}) inputFieldViewChild: ElementRef;
 
     contentViewChild: ElementRef;
 
@@ -575,12 +665,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     overlay: HTMLDivElement;
 
     overlayVisible: boolean;
-
-    onModelChange: Function = () => {
-    };
-
-    onModelTouched: Function = () => {
-    };
 
     calendarElement: any;
 
@@ -628,100 +712,20 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isMonthNavigate: boolean;
 
-    @Input() get minDate(): Date {
-        return this._minDate;
+    onModelChange: Function = () => {
     }
 
-    set minDate(date: Date) {
-        this._minDate = date;
+    onModelTouched: Function = () => {
+    }
 
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+    /**
+     * Generation months of year logic,
+     * which executes during the minDate, maxDate, disableDates and disableDays input changes
+     */
+    private monthsCreationLogic(): void {
+        if (this.currentMonth !== undefined && this.currentMonth !== null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
-    }
-
-    @Input() get maxDate(): Date {
-        return this._maxDate;
-    }
-
-    set maxDate(date: Date) {
-        this._maxDate = date;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    @Input() get disabledDates(): Date[] {
-        return this._disabledDates;
-    }
-
-    set disabledDates(disabledDates: Date[]) {
-        this._disabledDates = disabledDates;
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    @Input() get disabledDays(): number[] {
-        return this._disabledDays;
-    }
-
-    set disabledDays(disabledDays: number[]) {
-        this._disabledDays = disabledDays;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    @Input() get yearRange(): string {
-        return this._yearRange;
-    }
-
-    set yearRange(yearRange: string) {
-        this._yearRange = yearRange;
-
-        if (yearRange) {
-            const years = yearRange.split(':');
-            const yearStart = parseInt(years[0]);
-            const yearEnd = parseInt(years[1]);
-
-            this.populateYearOptions(yearStart, yearEnd);
-        }
-    }
-
-    @Input() get showTime(): boolean {
-        return this._showTime;
-    }
-
-    set showTime(showTime: boolean) {
-        this._showTime = showTime;
-
-        if (this.currentHour === undefined) {
-            this.initTime(this.value || new Date());
-        }
-        this.updateInputfield();
-    }
-
-    get locale() {
-        return this._locale;
-    }
-
-    @Input()
-    set locale(newLocale: LocaleSettings) {
-        this._locale = newLocale;
-
-        if (this.view === 'date') {
-            this.createWeekDays();
-            this.createMonths(this.currentMonth, this.currentYear);
-        } else if (this.view === 'month') {
-            this.createMonthPickerValues();
-        }
-    }
-
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone) {
     }
 
     ngOnInit() {
@@ -733,7 +737,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.createWeekDays();
             this.initTime(date);
             this.createMonths(this.currentMonth, this.currentYear);
-            this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) + Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
+            this.ticksTo1970 = (
+                ((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) + Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000
+            );
         } else if (this.view === 'month') {
             this.createMonthPickerValues();
         }
@@ -764,14 +770,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     createWeekDays() {
         this.weekDays = [];
         let dayIndex = this.locale.firstDayOfWeek;
+
         for (let i = 0; i < 7; i++) {
             this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
-            dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
+            dayIndex = (dayIndex === 6) ? 0 : ++dayIndex;
         }
     }
 
     createMonthPickerValues() {
         this.monthPickerValues = [];
+
         for (let i = 0; i <= 11; i++) {
             this.monthPickerValues.push(this.locale.monthNamesShort[i]);
         }
@@ -782,6 +790,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         for (let i = 0; i < this.numberOfMonths; i++) {
             let m = month + i;
             let y = year;
+
             if (m > 11) {
                 m = m % 11 - 1;
                 y = year + 1;
@@ -792,30 +801,32 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getWeekNumber(date: Date) {
-        let checkDate = new Date(date.getTime());
+        const checkDate = new Date(date.getTime());
         checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
-        let time = checkDate.getTime();
+        const time = checkDate.getTime();
         checkDate.setMonth(0);
         checkDate.setDate(1);
+
         return Math.floor(Math.round((time - checkDate.getTime()) / 86400000) / 7) + 1;
     }
 
     createMonth(month: number, year: number) {
-        let dates = [];
-        let firstDay = this.getFirstDayOfMonthIndex(month, year);
-        let daysLength = this.getDaysCountInMonth(month, year);
-        let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
+        const dates = [];
+        const firstDay = this.getFirstDayOfMonthIndex(month, year);
+        const daysLength = this.getDaysCountInMonth(month, year);
+        const prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
         let dayNo = 1;
-        let today = new Date();
-        let weekNumbers = [];
-        let monthRows = Math.ceil((daysLength + firstDay) / 7);
+        const today = new Date();
+        const weekNumbers = [];
+        const monthRows = Math.ceil((daysLength + firstDay) / 7);
 
         for (let i = 0; i < monthRows; i++) {
-            let week = [];
+            const week = [];
 
-            if (i == 0) {
+            if (i === 0) {
                 for (let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
-                    let prev = this.getPreviousMonthAndYear(month, year);
+                    const prev = this.getPreviousMonthAndYear(month, year);
+
                     week.push({
                         day: j,
                         month: prev.month,
@@ -826,10 +837,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     });
                 }
 
-                let remainingDaysLength = 7 - week.length;
+                const remainingDaysLength = 7 - week.length;
                 for (let j = 0; j < remainingDaysLength; j++) {
                     week.push({
-                        day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
+                        day: dayNo,
+                        month,
+                        year,
+                        today: this.isToday(today, dayNo, month, year),
                         selectable: this.isSelectable(dayNo, month, year, false)
                     });
                     dayNo++;
@@ -837,7 +851,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             } else {
                 for (let j = 0; j < 7; j++) {
                     if (dayNo > daysLength) {
-                        let next = this.getNextMonthAndYear(month, year);
+                        const next = this.getNextMonthAndYear(month, year);
+
                         week.push({
                             day: dayNo - daysLength, month: next.month, year: next.year, otherMonth: true,
                             today: this.isToday(today, dayNo - daysLength, next.month, next.year),
@@ -845,7 +860,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                         });
                     } else {
                         week.push({
-                            day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
+                            day: dayNo, month, year, today: this.isToday(today, dayNo, month, year),
                             selectable: this.isSelectable(dayNo, month, year, false)
                         });
                     }
@@ -862,10 +877,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         return {
-            month: month,
-            year: year,
-            dates: dates,
-            weekNumbers: weekNumbers
+            month,
+            year,
+            dates,
+            weekNumbers
         };
     }
 
@@ -876,10 +891,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
 
-            if (this.hourFormat == '12')
+            if (this.hourFormat == '12') {
                 this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
-            else
+            } else {
                 this.currentHour = date.getHours();
+            }
         } else if (this.timeOnly) {
             this.currentMinute = 0;
             this.currentHour = 0;
@@ -947,7 +963,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.currentYear--;
 
         if (this.yearNavigator && this.currentYear < this.yearOptions[0]) {
-            let difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
+            const difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
             this.populateYearOptions(this.yearOptions[0] - difference, this.yearOptions[this.yearOptions.length - 1] - difference);
         }
     }
@@ -956,7 +972,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.currentYear++;
 
         if (this.yearNavigator && this.currentYear > this.yearOptions[this.yearOptions.length - 1]) {
-            let difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
+            const difference = this.yearOptions[this.yearOptions.length - 1] - this.yearOptions[0];
             this.populateYearOptions(this.yearOptions[0] + difference, this.yearOptions[this.yearOptions.length - 1] + difference);
         }
     }
@@ -1003,10 +1019,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     shouldSelectDate(dateMeta) {
-        if (this.isMultipleSelection())
+        if (this.isMultipleSelection()) {
             return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
-        else
+        } else {
             return true;
+        }
     }
 
     onMonthSelect(event, index) {
@@ -1044,8 +1061,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         this.inputFieldValue = formattedValue;
         this.updateFilledState();
-        if (this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
-            this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
+        if (this.inputFieldViewChild && this.inputFieldViewChild.nativeElement) {
+            this.inputFieldViewChild.nativeElement.value = this.inputFieldValue;
         }
     }
 
@@ -1070,10 +1087,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         if (this.showTime) {
             if (this.hourFormat == '12') {
-                if (this.currentHour === 12)
+                if (this.currentHour === 12) {
                     date.setHours(this.pm ? 12 : 0);
-                else
+                } else {
                     date.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
+                }
             } else {
                 date.setHours(this.currentHour);
             }
@@ -1140,12 +1158,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getFirstDayOfMonthIndex(month: number, year: number) {
-        let day = new Date();
+        const day = new Date();
         day.setDate(1);
         day.setMonth(month);
         day.setFullYear(year);
 
-        let dayIndex = day.getDay() + this.getSundayIndex();
+        const dayIndex = day.getDay() + this.getSundayIndex();
         return dayIndex >= 7 ? dayIndex - 7 : dayIndex;
     }
 
@@ -1154,7 +1172,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getDaysCountInPrevMonth(month: number, year: number) {
-        let prev = this.getPreviousMonthAndYear(month, year);
+        const prev = this.getPreviousMonthAndYear(month, year);
         return this.getDaysCountInMonth(prev.month, prev.year);
     }
 
@@ -1169,7 +1187,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             y = year;
         }
 
-        return {'month': m, 'year': y};
+        return {month: m, year: y};
     }
 
     getNextMonthAndYear(month: number, year: number) {
@@ -1183,7 +1201,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             y = year;
         }
 
-        return {'month': m, 'year': y};
+        return {month: m, year: y};
     }
 
     getSundayIndex() {
@@ -1196,7 +1214,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 return this.isDateEquals(this.value, dateMeta);
             } else if (this.isMultipleSelection()) {
                 let selected = false;
-                for (let date of this.value) {
+                for (const date of this.value) {
                     selected = this.isDateEquals(date, dateMeta);
                     if (selected) {
                         break;
@@ -1205,10 +1223,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
                 return selected;
             } else if (this.isRangeSelection()) {
-                if (this.value[1])
+                if (this.value[1]) {
                     return this.isDateEquals(this.value[0], dateMeta) || this.isDateEquals(this.value[1], dateMeta) || this.isDateBetween(this.value[0], this.value[1], dateMeta);
-                else
-                    return this.isDateEquals(this.value[0], dateMeta)
+                } else {
+                    return this.isDateEquals(this.value[0], dateMeta);
+                }
             }
         } else {
             return false;
@@ -1216,21 +1235,22 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isMonthSelected(month: number): boolean {
-        let day = this.value ? (Array.isArray(this.value) ? this.value[0].getDate() : this.value.getDate()) : 1;
-        return this.isSelected({year: this.currentYear, month: month, day: day, selectable: true});
+        const day = this.value ? (Array.isArray(this.value) ? this.value[0].getDate() : this.value.getDate()) : 1;
+        return this.isSelected({year: this.currentYear, month, day, selectable: true});
     }
 
     isDateEquals(value, dateMeta) {
-        if (value)
+        if (value) {
             return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
-        else
+        } else {
             return false;
+        }
     }
 
     isDateBetween(start, end, dateMeta) {
-        let between: boolean = false;
+        const between = false;
         if (start && end) {
-            let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            const date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
 
@@ -1296,7 +1316,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (this.disabledDays) {
-            validDay = !this.isDayDisabled(day, month, year)
+            validDay = !this.isDayDisabled(day, month, year);
         }
 
         return validMin && validMax && validDate && validDay;
@@ -1304,7 +1324,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isDateDisabled(day: number, month: number, year: number): boolean {
         if (this.disabledDates) {
-            for (let disabledDate of this.disabledDates) {
+            for (const disabledDate of this.disabledDates) {
                 if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
                     return true;
                 }
@@ -1316,8 +1336,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isDayDisabled(day: number, month: number, year: number): boolean {
         if (this.disabledDays) {
-            let weekday = new Date(year, month, day);
-            let weekdayNumber = weekday.getDay();
+            const weekday = new Date(year, month, day);
+            const weekdayNumber = weekday.getDay();
             return this.disabledDays.indexOf(weekdayNumber) !== -1;
         }
         return false;
@@ -1370,21 +1390,21 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     onContainerButtonKeydown(event) {
         switch (event.which) {
-            //tab
+            // tab
             case 9:
                 if (!this.inline) {
                     this.trapFocus(event);
                 }
                 break;
 
-            //escape
+            // escape
             case 27:
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
 
             default:
-                //Noop
+                // Noop
                 break;
         }
     }
@@ -1406,13 +1426,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const cell = cellContent.parentElement;
 
         switch (event.which) {
-            //down arrow
+            // down arrow
             case 40: {
                 cellContent.tabIndex = '-1';
-                let cellIndex = DomHandler.index(cell);
-                let nextRow = cell.parentElement.nextElementSibling;
+                const cellIndex = DomHandler.index(cell);
+                const nextRow = cell.parentElement.nextElementSibling;
                 if (nextRow) {
-                    let focusCell = nextRow.children[cellIndex].children[0];
+                    const focusCell = nextRow.children[cellIndex].children[0];
                     if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
                         this.navigationState = {backward: false};
                         this.navForward(event);
@@ -1428,13 +1448,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 break;
             }
 
-            //up arrow
+            // up arrow
             case 38: {
                 cellContent.tabIndex = '-1';
-                let cellIndex = DomHandler.index(cell);
-                let prevRow = cell.parentElement.previousElementSibling;
+                const cellIndex = DomHandler.index(cell);
+                const prevRow = cell.parentElement.previousElementSibling;
                 if (prevRow) {
-                    let focusCell = prevRow.children[cellIndex].children[0];
+                    const focusCell = prevRow.children[cellIndex].children[0];
                     if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
                         this.navigationState = {backward: true};
                         this.navBackward(event);
@@ -1450,12 +1470,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 break;
             }
 
-            //left arrow
+            // left arrow
             case 37: {
                 cellContent.tabIndex = '-1';
-                let prevCell = cell.previousElementSibling;
+                const prevCell = cell.previousElementSibling;
                 if (prevCell) {
-                    let focusCell = prevCell.children[0];
+                    const focusCell = prevCell.children[0];
                     if (DomHandler.hasClass(focusCell, 'ui-state-disabled') || DomHandler.hasClass(focusCell.parentElement, 'ui-datepicker-weeknumber')) {
                         this.navigateToMonth(true, groupIndex);
                     } else {
@@ -1469,12 +1489,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 break;
             }
 
-            //right arrow
+            // right arrow
             case 39: {
                 cellContent.tabIndex = '-1';
-                let nextCell = cell.nextElementSibling;
+                const nextCell = cell.nextElementSibling;
                 if (nextCell) {
-                    let focusCell = nextCell.children[0];
+                    const focusCell = nextCell.children[0];
                     if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
                         this.navigateToMonth(false, groupIndex);
                     } else {
@@ -1488,21 +1508,21 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 break;
             }
 
-            //enter
+            // enter
             case 13: {
                 this.onDateSelect(event, date);
                 event.preventDefault();
                 break;
             }
 
-            //escape
+            // escape
             case 27: {
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
             }
 
-            //tab
+            // tab
             case 9: {
                 if (!this.inline) {
                     this.trapFocus(event);
@@ -1511,7 +1531,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             default:
-                //no op
+                // no op
                 break;
         }
     }
@@ -1519,13 +1539,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     onMonthCellKeydown(event, index) {
         const cell = event.currentTarget;
         switch (event.which) {
-            //arrows
+            // arrows
             case 38:
             case 40: {
                 cell.tabIndex = '-1';
-                var cells = cell.parentElement.children;
-                var cellIndex = DomHandler.index(cell);
-                let nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex - 3];
+                const cells = cell.parentElement.children;
+                const cellIndex = DomHandler.index(cell);
+                const nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex - 3];
                 if (nextCell) {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
@@ -1534,10 +1554,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 break;
             }
 
-            //left arrow
+            // left arrow
             case 37: {
                 cell.tabIndex = '-1';
-                let prevCell = cell.previousElementSibling;
+                const prevCell = cell.previousElementSibling;
                 if (prevCell) {
                     prevCell.tabIndex = '0';
                     prevCell.focus();
@@ -1546,10 +1566,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 break;
             }
 
-            //right arrow
+            // right arrow
             case 39: {
                 cell.tabIndex = '-1';
-                let nextCell = cell.nextElementSibling;
+                const nextCell = cell.nextElementSibling;
                 if (nextCell) {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
@@ -1558,21 +1578,21 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 break;
             }
 
-            //enter
+            // enter
             case 13: {
                 this.onMonthSelect(event, index);
                 event.preventDefault();
                 break;
             }
 
-            //escape
+            // escape
             case 27: {
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
             }
 
-            //tab
+            // tab
             case 9: {
                 if (!this.inline) {
                     this.trapFocus(event);
@@ -1581,7 +1601,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             default:
-                //no op
+                // no op
                 break;
         }
     }
@@ -1592,9 +1612,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.navigationState = {backward: true};
                 this.navBackward(event);
             } else {
-                let prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
-                let cells = DomHandler.find(prevMonthContainer, '.ui-datepicker-calendar td a');
-                let focusCell = cells[cells.length - 1];
+                const prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
+                const cells = DomHandler.find(prevMonthContainer, '.ui-datepicker-calendar td a');
+                const focusCell = cells[cells.length - 1];
                 focusCell.tabIndex = '0';
                 focusCell.focus();
             }
@@ -1603,8 +1623,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.navigationState = {backward: false};
                 this.navForward(event);
             } else {
-                let nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
-                let focusCell = DomHandler.findSingle(nextMonthContainer, '.ui-datepicker-calendar td a');
+                const nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
+                const focusCell = DomHandler.findSingle(nextMonthContainer, '.ui-datepicker-calendar td a');
                 focusCell.tabIndex = '0';
                 focusCell.focus();
             }
@@ -1617,13 +1637,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.navigationState.button) {
                 this.initFocusableCell();
 
-                if (this.navigationState.backward)
+                if (this.navigationState.backward) {
                     DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-prev').focus();
-                else
+                } else {
                     DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-next').focus();
+                }
             } else {
                 if (this.navigationState.backward) {
-                    let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+                    const cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
                     cell = cells[cells.length - 1];
                 } else {
                     cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
@@ -1644,23 +1665,24 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     initFocusableCell() {
         let cell;
         if (this.view === 'month') {
-            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month:not(.ui-state-disabled)');
-            let selectedCell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-highlight');
+            const cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month:not(.ui-state-disabled)');
+            const selectedCell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-highlight');
             cells.forEach(cell => cell.tabIndex = -1);
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-disabled[tabindex = "0"]');
+                const disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-disabled[tabindex = "0"]');
                 disabledCells.forEach(cell => cell.tabIndex = -1);
             }
         } else {
             cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'a.ui-state-active');
             if (!cell) {
-                let todayCell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'td.ui-datepicker-today a:not(.ui-state-disabled)');
-                if (todayCell)
+                const todayCell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'td.ui-datepicker-today a:not(.ui-state-disabled)');
+                if (todayCell) {
                     cell = todayCell;
-                else
+                } else {
                     cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+                }
             }
         }
 
@@ -1671,24 +1693,26 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     trapFocus(event) {
         event.preventDefault();
-        let focusableElements = DomHandler.getFocusableElements(this.contentViewChild.nativeElement);
+        const focusableElements = DomHandler.getFocusableElements(this.contentViewChild.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
             if (!document.activeElement) {
                 focusableElements[0].focus();
             } else {
-                let focusedIndex = focusableElements.indexOf(document.activeElement);
+                const focusedIndex = focusableElements.indexOf(document.activeElement);
 
                 if (event.shiftKey) {
-                    if (focusedIndex == -1 || focusedIndex === 0)
+                    if (focusedIndex == -1 || focusedIndex === 0) {
                         focusableElements[focusableElements.length - 1].focus();
-                    else
+                    } else {
                         focusableElements[focusedIndex - 1].focus();
+                    }
                 } else {
-                    if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                    if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
                         focusableElements[0].focus();
-                    else
+                    } else {
                         focusableElements[focusedIndex + 1].focus();
+                    }
                 }
             }
         }
@@ -1711,9 +1735,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const newHour = this.currentHour + this.stepHour;
 
         if (this.validateHour(newHour)) {
-            if (this.hourFormat == '24')
+            if (this.hourFormat == '24') {
                 this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;
-            else if (this.hourFormat == '12') {
+            } else if (this.hourFormat == '12') {
                 // Before the AM/PM break, now after
                 if (prevHour < 12 && newHour > 11) {
                     this.pm = !this.pm;
@@ -1747,7 +1771,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     repeat(event: Event, interval: number, type: number, direction: number) {
-        let i = interval || 500;
+        const i = interval || 500;
 
         this.clearTimePickerTimer();
         this.timePickerTimer = setTimeout(() => {
@@ -1756,24 +1780,27 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         switch (type) {
             case 0:
-                if (direction === 1)
+                if (direction === 1) {
                     this.incrementHour(event);
-                else
+                } else {
                     this.decrementHour(event);
+                }
                 break;
 
             case 1:
-                if (direction === 1)
+                if (direction === 1) {
                     this.incrementMinute(event);
-                else
+                } else {
                     this.decrementMinute(event);
+                }
                 break;
 
             case 2:
-                if (direction === 1)
+                if (direction === 1) {
                     this.incrementSecond(event);
-                else
+                } else {
                     this.decrementSecond(event);
+                }
                 break;
         }
 
@@ -1790,9 +1817,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const newHour = this.currentHour - this.stepHour;
 
         if (this.validateHour(newHour)) {
-            if (this.hourFormat == '24')
+            if (this.hourFormat == '24') {
                 this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;
-            else if (this.hourFormat == '12') {
+            } else if (this.hourFormat == '12') {
                 // If we were at noon/midnight, then switch
                 if (this.currentHour === 12) {
                     this.pm = !this.pm;
@@ -1805,7 +1832,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     validateHour(hour): boolean {
-        let valid: boolean = true;
+        let valid = true;
         let value = this.value;
         if (this.isRangeSelection()) {
             value = this.value[1] || this.value[0];
@@ -1813,7 +1840,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.isMultipleSelection()) {
             value = this.value[this.value.length - 1];
         }
-        let valueDateString = value ? value.toDateString() : null;
+        const valueDateString = value ? value.toDateString() : null;
 
         if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if (this.minDate.getHours() > hour) {
@@ -1831,7 +1858,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     incrementMinute(event) {
-        let newMinute = this.currentMinute + this.stepMinute;
+        const newMinute = this.currentMinute + this.stepMinute;
         if (this.validateMinute(newMinute)) {
             this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
         }
@@ -1850,7 +1877,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     validateMinute(minute): boolean {
-        let valid: boolean = true;
+        let valid = true;
         let value = this.value;
         if (this.isRangeSelection()) {
             value = this.value[1] || this.value[0];
@@ -1858,7 +1885,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.isMultipleSelection()) {
             value = this.value[this.value.length - 1];
         }
-        let valueDateString = value ? value.toDateString() : null;
+        const valueDateString = value ? value.toDateString() : null;
         if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if (value.getHours() == this.minDate.getHours()) {
                 if (this.minDate.getMinutes() > minute) {
@@ -1879,7 +1906,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     incrementSecond(event) {
-        let newSecond = this.currentSecond + this.stepSecond;
+        const newSecond = this.currentSecond + this.stepSecond;
         if (this.validateSecond(newSecond)) {
             this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
         }
@@ -1898,7 +1925,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     validateSecond(second): boolean {
-        let valid: boolean = true;
+        let valid = true;
         let value = this.value;
         if (this.isRangeSelection()) {
             value = this.value[1] || this.value[0];
@@ -1906,7 +1933,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.isMultipleSelection()) {
             value = this.value[this.value.length - 1];
         }
-        let valueDateString = value ? value.toDateString() : null;
+        const valueDateString = value ? value.toDateString() : null;
 
         if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if (this.minDate.getSeconds() > second) {
@@ -1934,10 +1961,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         value = value ? new Date(value.getTime()) : new Date();
 
         if (this.hourFormat == '12') {
-            if (this.currentHour === 12)
+            if (this.currentHour === 12) {
                 value.setHours(this.pm ? 12 : 0);
-            else
+            } else {
                 value.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
+            }
         } else {
             value.setHours(this.currentHour);
         }
@@ -1945,10 +1973,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         value.setMinutes(this.currentMinute);
         value.setSeconds(this.currentSecond);
         if (this.isRangeSelection()) {
-            if (this.value[1])
+            if (this.value[1]) {
                 value = [this.value[0], value];
-            else
+            } else {
                 value = [value, null];
+            }
         }
 
         if (this.isMultipleSelection()) {
@@ -1973,15 +2002,15 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
         this.isKeydown = false;
 
-        let val = event.target.value;
+        const val = event.target.value;
         try {
-            let value = this.parseValueFromString(val);
+            const value = this.parseValueFromString(val);
             if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
             }
         } catch (err) {
-            //invalid date
+            // invalid date
             this.updateModel(null);
         }
 
@@ -2013,13 +2042,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.isSingleSelection()) {
             value = this.parseDateTime(text);
         } else if (this.isMultipleSelection()) {
-            let tokens = text.split(this.multipleSeparator);
+            const tokens = text.split(this.multipleSeparator);
             value = [];
-            for (let token of tokens) {
+            for (const token of tokens) {
                 value.push(this.parseDateTime(token.trim()));
             }
         } else if (this.isRangeSelection()) {
-            let tokens = text.split(' ' + this.rangeSeparator + ' ');
+            const tokens = text.split(' ' + this.rangeSeparator + ' ');
             value = [];
             for (let i = 0; i < tokens.length; i++) {
                 value[i] = this.parseDateTime(tokens[i].trim());
@@ -2031,7 +2060,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     parseDateTime(text): Date {
         let date: Date;
-        let parts: string[] = text.split(' ');
+        const parts: string[] = text.split(' ');
 
         if (this.timeOnly) {
             date = new Date();
@@ -2039,8 +2068,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else {
             const dateFormat = this.getDateFormat();
             if (this.showTime) {
-                let ampm = this.hourFormat == '12' ? parts.pop() : null;
-                let timeString = parts.pop();
+                const ampm = this.hourFormat == '12' ? parts.pop() : null;
+                const timeString = parts.pop();
 
                 date = this.parseDate(parts.join(' '), dateFormat);
                 this.populateTime(date, timeString, ampm);
@@ -2054,11 +2083,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     populateTime(value, timeString, ampm) {
         if (this.hourFormat == '12' && !ampm) {
-            throw 'Invalid Time';
+            throw new Error('Invalid Time');
         }
 
         this.pm = (ampm === 'PM' || ampm === 'pm');
-        let time = this.parseTime(timeString);
+        const time = this.parseTime(timeString);
         value.setHours(time.hour);
         value.setMinutes(time.minute);
         value.setSeconds(time.second);
@@ -2075,7 +2104,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createMonths(this.currentMonth, this.currentYear);
 
         if (this.showTime || this.timeOnly) {
-            let hours = val.getHours();
+            const hours = val.getHours();
 
             if (this.hourFormat == '12') {
                 this.pm = hours > 11;
@@ -2114,7 +2143,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (!this.inline) {
             if (!this.overlayVisible) {
                 this.showOverlay();
-                this.inputfieldViewChild.nativeElement.focus();
+                this.inputFieldViewChild.nativeElement.focus();
             } else {
                 this.hideOverlay();
             }
@@ -2157,10 +2186,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')
+            if (this.appendTo === 'body') {
                 document.body.appendChild(this.overlay);
-            else
+            } else {
                 DomHandler.appendChild(this.overlay, this.appendTo);
+            }
         }
     }
 
@@ -2174,10 +2204,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else {
-            if (this.appendTo)
-                DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
-            else
-                DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+            if (this.appendTo) {
+                DomHandler.absolutePosition(this.overlay, this.inputFieldViewChild.nativeElement);
+            } else {
+                DomHandler.relativePosition(this.overlay, this.inputFieldViewChild.nativeElement);
+            }
         }
     }
 
@@ -2185,7 +2216,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
-            let maskStyleClass = 'ui-widget-overlay ui-datepicker-mask ui-datepicker-mask-scrollblocker';
+            const maskStyleClass = 'ui-widget-overlay ui-datepicker-mask ui-datepicker-mask-scrollblocker';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -2199,10 +2230,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     disableModality() {
         if (this.mask) {
             document.body.removeChild(this.mask);
-            let bodyChildren = document.body.children;
+            const bodyChildren = document.body.children;
             let hasBlockerMasks: boolean;
             for (let i = 0; i < bodyChildren.length; i++) {
-                let bodyChild = bodyChildren[i];
+                const bodyChild = bodyChildren[i];
                 if (DomHandler.hasClass(bodyChild, 'ui-datepicker-mask-scrollblocker')) {
                     hasBlockerMasks = true;
                     break;
@@ -2341,8 +2372,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         let output = '';
         let hours = date.getHours();
-        let minutes = date.getMinutes();
-        let seconds = date.getSeconds();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
 
         if (this.hourFormat == '12' && hours > 11 && hours != 12) {
             hours -= 12;
@@ -2369,19 +2400,19 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     parseTime(value) {
-        let tokens: string[] = value.split(':');
-        let validTokenLength = this.showSeconds ? 3 : 2;
+        const tokens: string[] = value.split(':');
+        const validTokenLength = this.showSeconds ? 3 : 2;
 
         if (tokens.length !== validTokenLength) {
-            throw "Invalid time";
+            throw new Error('Invalid time');
         }
 
         let h = parseInt(tokens[0]);
-        let m = parseInt(tokens[1]);
-        let s = this.showSeconds ? parseInt(tokens[2]) : null;
+        const m = parseInt(tokens[1]);
+        const s = this.showSeconds ? parseInt(tokens[2]) : null;
 
         if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
-            throw "Invalid time";
+            throw new Error('Invalid time');
         } else {
             if (this.hourFormat == '12') {
                 if (h !== 12 && this.pm) {
@@ -2398,17 +2429,17 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     // Ported from jquery-ui datepicker parseDate
     parseDate(value, format) {
         if (format == null || value == null) {
-            throw "Invalid arguments";
+            throw new Error('Invalid arguments');
         }
 
-        value = (typeof value === "object" ? value.toString() : value + "");
-        if (value === "") {
+        value = (typeof value === 'object' ? value.toString() : value + '');
+        if (value === '') {
             return null;
         }
 
         let iFormat, dim, extra,
             iValue = 0,
-            shortYearCutoff = (typeof this.shortYearCutoff !== "string" ? this.shortYearCutoff : new Date().getFullYear() % 100 + parseInt(this.shortYearCutoff, 10)),
+            shortYearCutoff = (typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : new Date().getFullYear() % 100 + parseInt(this.shortYearCutoff, 10)),
             year = -1,
             month = -1,
             day = -1,
@@ -2416,29 +2447,29 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             literal = false,
             date,
             lookAhead = (match) => {
-                let matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
+                const matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
                 if (matches) {
                     iFormat++;
                 }
                 return matches;
             },
             getNumber = (match) => {
-                let isDoubled = lookAhead(match),
-                    size = (match === "@" ? 14 : (match === "!" ? 20 :
-                        (match === "y" && isDoubled ? 4 : (match === "o" ? 3 : 2)))),
-                    minSize = (match === "y" ? size : 1),
-                    digits = new RegExp("^\\d{" + minSize + "," + size + "}"),
+                const isDoubled = lookAhead(match),
+                    size = (match === '@' ? 14 : (match === '!' ? 20 :
+                        (match === 'y' && isDoubled ? 4 : (match === 'o' ? 3 : 2)))),
+                    minSize = (match === 'y' ? size : 1),
+                    digits = new RegExp('^\\d{' + minSize + ',' + size + '}'),
                     num = value.substring(iValue).match(digits);
                 if (!num) {
-                    throw "Missing number at position " + iValue;
+                    throw new Error('Missing number at position ' + iValue);
                 }
                 iValue += num[0].length;
                 return parseInt(num[0], 10);
             },
             getName = (match, shortNames, longNames) => {
                 let index = -1;
-                let arr = lookAhead(match) ? longNames : shortNames;
-                let names = [];
+                const arr = lookAhead(match) ? longNames : shortNames;
+                const names = [];
 
                 for (let i = 0; i < arr.length; i++) {
                     names.push([i, arr[i]]);
@@ -2448,7 +2479,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 });
 
                 for (let i = 0; i < names.length; i++) {
-                    let name = names[i][1];
+                    const name = names[i][1];
                     if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
                         index = names[i][0];
                         iValue += name.length;
@@ -2459,12 +2490,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 if (index !== -1) {
                     return index + 1;
                 } else {
-                    throw "Unknown name at position " + iValue;
+                    throw new Error('Unknown name at position ' + iValue);
                 }
             },
             checkLiteral = () => {
                 if (value.charAt(iValue) !== format.charAt(iFormat)) {
-                    throw "Unexpected literal at position " + iValue;
+                    throw new Error('Unexpected literal at position ' + iValue);
                 }
                 iValue++;
             };
@@ -2475,45 +2506,45 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         for (iFormat = 0; iFormat < format.length; iFormat++) {
             if (literal) {
-                if (format.charAt(iFormat) === "'" && !lookAhead("'")) {
+                if (format.charAt(iFormat) === '\'' && !lookAhead('\'')) {
                     literal = false;
                 } else {
                     checkLiteral();
                 }
             } else {
                 switch (format.charAt(iFormat)) {
-                    case "d":
-                        day = getNumber("d");
+                    case 'd':
+                        day = getNumber('d');
                         break;
-                    case "D":
-                        getName("D", this.locale.dayNamesShort, this.locale.dayNames);
+                    case 'D':
+                        getName('D', this.locale.dayNamesShort, this.locale.dayNames);
                         break;
-                    case "o":
-                        doy = getNumber("o");
+                    case 'o':
+                        doy = getNumber('o');
                         break;
-                    case "m":
-                        month = getNumber("m");
+                    case 'm':
+                        month = getNumber('m');
                         break;
-                    case "M":
-                        month = getName("M", this.locale.monthNamesShort, this.locale.monthNames);
+                    case 'M':
+                        month = getName('M', this.locale.monthNamesShort, this.locale.monthNames);
                         break;
-                    case "y":
-                        year = getNumber("y");
+                    case 'y':
+                        year = getNumber('y');
                         break;
-                    case "@":
-                        date = new Date(getNumber("@"));
+                    case '@':
+                        date = new Date(getNumber('@'));
                         year = date.getFullYear();
                         month = date.getMonth() + 1;
                         day = date.getDate();
                         break;
-                    case "!":
-                        date = new Date((getNumber("!") - this.ticksTo1970) / 10000);
+                    case '!':
+                        date = new Date((getNumber('!') - this.ticksTo1970) / 10000);
                         year = date.getFullYear();
                         month = date.getMonth() + 1;
                         day = date.getDate();
                         break;
-                    case "'":
-                        if (lookAhead("'")) {
+                    case '\'':
+                        if (lookAhead('\'')) {
                             checkLiteral();
                         } else {
                             literal = true;
@@ -2528,7 +2559,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (iValue < value.length) {
             extra = value.substr(iValue);
             if (!/^\s+/.test(extra)) {
-                throw "Extra/unparsed characters found in date: " + extra;
+                throw new Error('Extra/unparsed characters found in date: ' + extra);
             }
         }
 
@@ -2554,7 +2585,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         date = this.daylightSavingAdjust(new Date(year, month - 1, day));
         if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
-            throw "Invalid date"; // E.g. 31/02/00
+            throw new Error('Invalid date'); // E.g. 31/02/00
         }
 
         return date;
@@ -2575,8 +2606,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     onTodayButtonClick(event) {
-        let date: Date = new Date();
-        let dateMeta = {
+        const date: Date = new Date();
+        const dateMeta = {
             day: date.getDate(),
             month: date.getMonth(),
             year: date.getFullYear(),
@@ -2637,7 +2668,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isOutsideClicked(event: Event) {
         return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) ||
-            this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node>event.target)));
+            this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(event.target as Node)));
     }
 
     isNavIconClicked(event: Event) {
