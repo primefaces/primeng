@@ -9,8 +9,8 @@
 
 <div class="content-section implementation">
     <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
-        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+        [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
         [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
         <ng-template pTemplate="caption">
             List of Cars
@@ -43,8 +43,8 @@
                     <p-multiSelect [options]="representatives" placeholder="All" (onChange)="onRepresentativeChange($event)" styleClass="ui-column-filter" optionLabel="name">
                         <ng-template let-option pTemplate="item">
                             <div class="ui-multiselect-representative-option">
-                                <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.value.image}}" width="32" />
-                                <span>{{option.label}}</span>
+                                <img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" />
+                                <span>&#123;&#123;option.label&#125;&#125;</span>
                             </div>
                         </ng-template>
                     </p-multiSelect>
@@ -55,7 +55,7 @@
                 <th>
                     <p-dropdown [options]="statuses" (onChange)="dt.filter($event.value, 'status', 'equals')" styleClass="ui-column-filter" placeholder="Select a Status" [showClear]="true">
                         <ng-template let-option pTemplate="item">
-                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                            <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
                         </ng-template>
                     </p-dropdown>
                 </th>
@@ -72,25 +72,25 @@
                 </td>
                 <td>
                     <span class="ui-column-title">Name</span>
-                    {{customer.name}}
+                    &#123;&#123;customer.name&#125;&#125;
                 </td>
                 <td>
                     <span class="ui-column-title">Country</span>
                     <span [class]="'flag flag-' + customer.country.code"></span>
-                    <span style="vertical-align: middle; margin-left: .5em">{{customer.country.name}}</span>
+                    <span style="vertical-align: middle; margin-left: .5em">&#123;&#123;customer.country.name&#125;&#125;</span>
                 </td>
                 <td>
                     <span class="ui-column-title">Representative</span>
-                    <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                    <span style="vertical-align: middle; margin-left: .5em">{{customer.representative.name}}</span>
+                    <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" />
+                    <span style="vertical-align: middle; margin-left: .5em">&#123;&#123;customer.representative.name&#125;&#125;</span>
                 </td>
                 <td>
                     <span class="ui-column-title">Country</span>
-                    {{customer.date}}
+                    &#123;&#123;customer.date&#125;&#125;
                 </td>
                 <td>
                     <span class="ui-column-title">Status</span>
-                    <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    <span [class]="'customer-badge status-' + customer.status">&#123;&#123;customer.status&#125;&#125;</span>
                 </td>
                 <td>
                     <span class="ui-column-title">Activity</span>
@@ -100,6 +100,11 @@
                     <button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"></button>
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+           <tr>
+               <td colspan="8" style="text-align:left">No customers found.</td>
+           </tr>
         </ng-template>
     </p-table>
 </div>
@@ -2943,55 +2948,102 @@ export class TableDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table #dt [columns]="cols" styleClass="ui-table-cars" [value]="cars" [paginator]="true" [rows]="10" dataKey="vin" selectionMode="single" [(selection)]="selectedCar"&gt;
+&lt;p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
+    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+    [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
+    [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         List of Cars
         &lt;div class="ui-table-globalfilter-container"&gt;
-            &lt;input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:250px;"&gt;
+            &lt;input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
-                &#123;&#123;col.header&#125;&#125;
-                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
-            &lt;/th&gt;
-            &lt;th style="width: 8em"&gt;&lt;/th&gt;
+            &lt;th&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="name"&gt;Name &lt;p-sortIcon field="name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="country.name"&gt;Country &lt;p-sortIcon field="country.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="representative.name"&gt;Representative &lt;p-sortIcon field="representative.name"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="date"&gt;Date &lt;p-sortIcon field="date"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="status"&gt;Status &lt;p-sortIcon field="status"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th pSortableColumn="activity"&gt;Activity &lt;p-sortIcon field="activity"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+            &lt;th&gt;&lt;/th&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
-            &lt;th *ngFor="let col of columns" [ngSwitch]="col.field" class="filter-column"&gt;
-                &lt;input *ngSwitchCase="'vin'" pInputText type="text" placeholder="Starts with" class="ui-column-filter" style="width: 100%;" (input)="dt.filter($event.target.value, col.field, 'startsWith')"&gt;
-                &lt;input *ngSwitchCase="'year'" pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;" (input)="dt.filter($event.target.value, col.field, 'contains')"&gt;
-                &lt;p-dropdown *ngSwitchCase="'brand'" [options]="brands" styleClass="ui-column-filter" [showClear]="true" [style]="&#123;'min-width':'1em', 'width':'100%'&#125;" placeholder="Select a Brand" (onChange)="dt.filter($event.value, col.field, 'equals')"&gt;
-                    &lt;ng-template let-item pTemplate="selectedItem"&gt;
-                        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
-                        &lt;span style="vertical-align:middle; margin-left: .5em"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
-                    &lt;/ng-template&gt;
-                    &lt;ng-template let-car pTemplate="item"&gt;
-                        &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
-                            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
-                            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
+            &lt;th&gt;
+                &lt;p-tableHeaderCheckbox&gt;&lt;/p-tableHeaderCheckbox&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'startsWith')" placeholder="Search by Name" class="ui-column-filter"&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;input pInputText type="text" (input)="dt.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="ui-column-filter"&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;p-multiSelect [options]="representatives" placeholder="All" (onChange)="onRepresentativeChange($event)" styleClass="ui-column-filter" optionLabel="name"&gt;
+                    &lt;ng-template let-option pTemplate="item"&gt;
+                        &lt;div class="ui-multiselect-representative-option"&gt;
+                            &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" /&gt;
+                            &lt;span&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
                         &lt;/div&gt;
                     &lt;/ng-template&gt;
-                &lt;/p-dropdown&gt;
-                &lt;p-multiSelect *ngSwitchCase="'color'" [options]="colors" [filter]="false"  styleClass="ui-column-filter" [style]="&#123;'width':'100%'&#125;"  defaultLabel="Select a color" (onChange)="dt.filter($event.value, col.field, 'in')"&gt;&lt;/p-multiSelect&gt;
+                &lt;/p-multiSelect&gt;
             &lt;/th&gt;
-            &lt;th class="filter-column"&gt;&lt;/th&gt;
+            &lt;th&gt;
+                &lt;p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'date', 'equals')" [showButtonBar]="true" styleClass="ui-column-filter" placeholder="Registration Date" [readonlyInput]="true" dateFormat="yy-mm-dd"&gt;&lt;/p-calendar&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;p-dropdown [options]="statuses" (onChange)="dt.filter($event.value, 'status', 'equals')" styleClass="ui-column-filter" placeholder="Select a Status" [showClear]="true"&gt;
+                    &lt;ng-template let-option pTemplate="item"&gt;
+                        &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                    &lt;/ng-template&gt;
+                &lt;/p-dropdown&gt;
+            &lt;/th&gt;
+            &lt;th&gt;
+                &lt;input pInputText type="text" (input)="onActivityChange($event)" placeholder="Minimum" class="ui-column-filter" &gt;
+            &lt;/th&gt;
+            &lt;th&gt;&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr [pSelectableRow]="rowData" [pEditableRow]="rowData"&gt;
-            &lt;td&gt;&#123;&#123;rowData.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.year&#125;&#125;&lt;/td&gt;
+    &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;tr class="ui-selectable-row"&gt;
             &lt;td&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;rowData.brand&#125;&#125;.png" style="width: 36px; margin-right: 1em; vertical-align: middle;"&gt;
-                &#123;&#123;rowData.brand&#125;&#125;
+                &lt;p-tableCheckbox [value]="customer"&gt;&lt;/p-tableCheckbox&gt;
             &lt;/td&gt;
-            &lt;td&gt;&#123;&#123;rowData.color&#125;&#125;&lt;/td&gt;
             &lt;td&gt;
-                &lt;button pButton type="button" class="ui-button-success" icon="pi pi-search" style="margin-right: .5em"&gt;&lt;/button&gt;
-                &lt;button pButton type="button" class="ui-button-warning" icon="pi pi-pencil"&gt;&lt;/button&gt;
+                &lt;span class="ui-column-title"&gt;Name&lt;/span&gt;
+                &#123;&#123;customer.name&#125;&#125;
             &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Country&lt;/span&gt;
+                &lt;span [class]="'flag flag-' + customer.country.code"&gt;&lt;/span&gt;
+                &lt;span style="vertical-align: middle; margin-left: .5em"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Representative&lt;/span&gt;
+                &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                &lt;span style="vertical-align: middle; margin-left: .5em"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Country&lt;/span&gt;
+                &#123;&#123;customer.date&#125;&#125;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Status&lt;/span&gt;
+                &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;span class="ui-column-title"&gt;Activity&lt;/span&gt;
+                &lt;p-progressBar [value]="customer.activity" [showValue]="false"&gt;&lt;/p-progressBar&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"&gt;&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="emptymessage"&gt;
+        &lt;tr&gt;
+            &lt;td colspan="8" style="text-align:left"&gt;No customers found.&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
@@ -3000,97 +3052,278 @@ export class TableDemo implements OnInit &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './tabledemo.html',
-    styles: [`
-
-        .ui-table.ui-table-cars .ui-table-caption.ui-widget-header &#123;
-            border: 0 none;
-            padding: 12px;
-            text-align: left;
-            font-size: 20px;
-        &#125;
-
-        .ui-column-filter .ui-multiselect-label &#123;
-            font-weight: 500;
-        &#125;
-        
-        .ui-table.ui-table-cars .ui-table-thead > tr > th &#123;
-            border: 0 none;
-            text-align: left;
-        &#125;
-
-        .ui-table.ui-table-cars .ui-table-thead > tr > th.filter-column &#123;
-            border-top: 1px solid #c8c8c8;
-        &#125;
-        
-        .ui-table-globalfilter-container &#123;
-            float: right;
-            display: inline;
-        &#125;
-
-        .ui-table.ui-table-cars .ui-table-tbody > tr > td &#123;
-            border: 0 none;
-        &#125;
-
-        .ui-table.ui-table-cars .ui-table-tbody .ui-column-title &#123;
-            font-size: 16px;
-        &#125;
-
-        .ui-table.ui-table-cars .ui-paginator &#123;
-            border: 0 none;
-            padding: 1em;
-        &#125;
-    `],
-    encapsulation: ViewEncapsulation.None
-&#125;)
 export class TableDemo implements OnInit &#123;
 
-    cars: Car[];
+    customers: Customer[];
 
-    cols: any[];
+    selectedCustomers: Customer[];
 
-    selectedCar: Car;
+    representatives: Representative[];
 
-    brands: SelectItem[];
+    statuses: any[];
 
-    colors: SelectItem[];
+    loading: boolean = true;
 
-    constructor(private carService: CarService) &#123; &#125;
+    @ViewChild('dt') table: Table;
+
+    constructor(private customerService: CustomerService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsLarge().then(cars => this.cars = cars);
+        this.customerService.getCustomersLarge().then(customers => &#123;
+            this.customers = customers;
+            this.loading = false;
+        &#125;);
 
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
+        this.representatives = [
+            &#123;name: "Amy Elsner", image: 'amyelsner.png'&#125;,
+            &#123;name: "Anna Fali", image: 'annafali.png'&#125;,
+            &#123;name: "Asiya Javayant", image: 'asiyajavayant.png'&#125;,
+            &#123;name: "Bernardo Dominic", image: 'bernardodominic.png'&#125;,
+            &#123;name: "Elwin Sharvill", image: 'elwinsharvill.png'&#125;,
+            &#123;name: "Ioni Bowcher", image: 'ionibowcher.png'&#125;,
+            &#123;name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'&#125;,
+            &#123;name: "Onyama Limba", image: 'onyamalimba.png'&#125;,
+            &#123;name: "Stephen Shaw", image: 'stephenshaw.png'&#125;,
+            &#123;name: "XuXue Feng", image: 'xuxuefeng.png'&#125;
         ];
 
-        this.brands = [
-            &#123; label: 'Audi', value: 'Audi' &#125;,
-            &#123; label: 'BMW', value: 'BMW' &#125;,
-            &#123; label: 'Fiat', value: 'Fiat' &#125;,
-            &#123; label: 'Honda', value: 'Honda' &#125;,
-            &#123; label: 'Jaguar', value: 'Jaguar' &#125;,
-            &#123; label: 'Mercedes', value: 'Mercedes' &#125;,
-            &#123; label: 'Renault', value: 'Renault' &#125;,
-            &#123; label: 'VW', value: 'VW' &#125;,
-            &#123; label: 'Volvo', value: 'Volvo' &#125;
-        ];
+        this.statuses = [
+            &#123;label: 'Unqualified', value: 'unqualified'&#125;,
+            &#123;label: 'Qualified', value: 'qualified'&#125;,
+            &#123;label: 'New', value: 'new'&#125;,
+            &#123;label: 'Negotiation', value: 'negotiation'&#125;,
+            &#123;label: 'Renewal', value: 'renewal'&#125;,
+            &#123;label: 'Proposal', value: 'proposal'&#125;
+        ]
+    &#125;
 
-        this.colors = [
-            &#123; label: 'White', value: 'White' &#125;,
-            &#123; label: 'Green', value: 'Green' &#125;,
-            &#123; label: 'Silver', value: 'Silver' &#125;,
-            &#123; label: 'Black', value: 'Black' &#125;,
-            &#123; label: 'Red', value: 'Red' &#125;,
-            &#123; label: 'Maroon', value: 'Maroon' &#125;,
-            &#123; label: 'Brown', value: 'Brown' &#125;,
-            &#123; label: 'Orange', value: 'Orange' &#125;,
-            &#123; label: 'Blue', value: 'Blue' &#125;
-        ];
+    onActivityChange(event) &#123;
+        const value = event.target.value;
+        if (value && value.trim().length) &#123;
+            const activity = parseInt(value);
+
+            if (!isNaN(activity)) &#123;
+                this.table.filter(activity, 'activity', 'gte');
+            &#125;
+        &#125;
+    &#125;
+
+    onDateSelect(value) &#123;
+        this.table.filter(this.formatDate(value), 'date', 'equals')
+    &#125;
+
+    formatDate(date) &#123;
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month &lt; 10) &#123;
+            month = '0' + month;
+        &#125;
+
+        if (day &lt; 10) &#123;
+            day = '0' + day;
+        &#125;
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    &#125;
+
+    onRepresentativeChange(event) &#123;
+        debugger;
+        this.table.filter(event.value, 'representative', 'in')
+    &#125;
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-css" pCode ngNonBindable>
+:host ::ng-deep .ui-table-customers &#123;
+    .customer-badge &#123;
+        border-radius: 2px;
+        padding: .25em .5em;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: .3px;
+    
+        &.status-qualified &#123;
+            background-color: #C8E6C9;
+            color: #256029;
+        &#125;
+    
+        &.status-unqualified &#123;
+            background-color: #FFCDD2;
+            color: #C63737;
+        &#125;
+    
+        &.status-negotiation &#123;
+            background-color: #FEEDAF;
+            color: #8A5340;
+        &#125;
+    
+        &.status-new &#123;
+            background-color: #B3E5FC;
+            color: #23547B;
+        &#125;
+    
+        &.status-renewal &#123;
+            background-color: #ECCFFF;
+            color: #694382;
+        &#125;
+    
+        &.status-proposal &#123;
+            background-color: #FFD8B2;
+            color: #805B36;
+        &#125;
+    &#125;
+    
+    .flag &#123;
+        vertical-align: middle;
+        width: 30px;
+        height: 20px;
+    &#125;
+
+    .ui-multiselect-representative-option &#123;
+        display: inline-block;
+        vertical-align: middle;
+
+        img &#123;
+            vertical-align: middle;
+            width: 24px;
+        &#125;
+
+        span &#123;
+            margin-top: .125em;
+            vertical-align: middle; 
+            margin-left: .5em
+        &#125;
+    &#125;
+
+    .ui-paginator &#123;
+        .ui-dropdown &#123;
+            float: left;
+        &#125;
+    
+        .ui-paginator-current &#123;
+            float: right;
+        &#125;
+    &#125;
+
+    .ui-progressbar &#123;
+        height: 8px;
+        background-color: #D8DADC;
+    
+        .ui-progressbar-value &#123;
+            background-color: #00ACAD;
+        &#125;
+    &#125;
+
+    .ui-column-filter &#123;
+        display: block;
+    
+        input &#123;
+            width: 100%;
+        &#125;
+    &#125;
+
+    .ui-table-globalfilter-container &#123;
+        float: right;
+    
+        input &#123;
+            width: 200px;
+        &#125;
+    &#125;
+
+    .ui-datepicker &#123;
+        min-width: 25em;
+    
+        td &#123;
+            font-weight: 400;
+        &#125;
+    &#125;
+
+    .ui-table-caption &#123;
+        border: 0 none;
+        padding: 12px;
+        text-align: left;
+        font-size: 20px;
+    &#125;
+
+    .ui-paginator &#123;
+        border: 0 none;
+        padding: 1em;
+    &#125;
+
+    .ui-table-thead > tr > th &#123;
+        border: 0 none;
+        text-align: left;
+
+        &.ui-filter-column &#123;
+            border-top: 1px solid #c8c8c8;
+        &#125;
+
+        &:first-child &#123;
+            width: 5em;
+            text-align: center;
+        &#125;
+
+        &:last-child &#123;
+            width: 8em;
+            text-align: center;
+        &#125;
+    &#125;
+
+    .ui-table-tbody > tr > td &#123;
+        border: 0 none;
+        cursor: auto;
+
+        &:first-child &#123;
+            width: 3em;
+            text-align: center;
+        &#125;
+
+        &:last-child &#123;
+            width: 8em;
+            text-align: center;
+        &#125;
+    &#125;
+
+    .ui-dropdown-label:not(.ui-placeholder) &#123;
+        text-transform: uppercase;
+    &#125;
+
+    .ui-table-tbody > tr > td .ui-column-title &#123;
+        display: none;
+    &#125;
+&#125;
+
+/* Responsive */
+@media screen and (max-width: 64em) &#123;
+    :host ::ng-deep .ui-table &#123;
+        &.ui-table-customers &#123;
+            .ui-table-thead > tr > th,
+            .ui-table-tfoot > tr > td &#123;
+                display: none !important;
+            &#125;
+
+            .ui-table-tbody > tr > td &#123;
+                text-align: left;
+                display: block;
+                border: 0 none !important;
+                width: 100% !important;
+                float: left;
+                clear: left;
+                border: 0 none;
+
+                .ui-column-title &#123;
+                    padding: .4em;
+                    min-width: 30%;
+                    display: inline-block;
+                    margin: -.4em 1em -.4em -.4em;
+                    font-weight: bold;
+                &#125;
+            &#125;
+        &#125;
     &#125;
 &#125;
 </code>

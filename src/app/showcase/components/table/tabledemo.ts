@@ -17,12 +17,17 @@ export class TableDemo implements OnInit {
 
     statuses: any[];
 
+    loading: boolean = true;
+
     @ViewChild('dt') table: Table;
 
     constructor(private customerService: CustomerService) { }
 
     ngOnInit() {
-        this.customerService.getCustomersLarge().then(customers => this.customers = customers);
+        this.customerService.getCustomersLarge().then(customers => {
+            this.customers = customers;
+            this.loading = false;
+        });
 
         this.representatives = [
             {name: "Amy Elsner", image: 'amyelsner.png'},
