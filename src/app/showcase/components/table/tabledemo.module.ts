@@ -36,6 +36,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { TabViewModule } from 'primeng/tabview';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
 
@@ -52,7 +53,8 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		DropdownModule,
 		ButtonModule,
 		ToastModule,
-		InputTextModule,
+        InputTextModule,
+        ProgressBarModule,
 		TabViewModule,
 		CodeHighlighterModule
 	],

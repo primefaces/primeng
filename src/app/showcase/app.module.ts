@@ -15,6 +15,7 @@ import { CountryService } from './service/countryservice';
 import { EventService } from './service/eventservice';
 import { NodeService } from './service/nodeservice';
 import { IconService } from './service/iconservice';
+import { CustomerService } from './service/customerservice';
 import { AppConfigComponent } from './app.config.component';
 
 @NgModule({
@@ -34,7 +35,7 @@ import { AppConfigComponent } from './app.config.component';
   ],
   providers: [
       { provide: LocationStrategy, useClass: HashLocationStrategy },
-      CarService,CountryService,EventService,NodeService,IconService
+      CarService,CountryService,EventService,NodeService,IconService,CustomerService
   ],
   bootstrap: [AppComponent]
 })
