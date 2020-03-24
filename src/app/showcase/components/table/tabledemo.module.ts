@@ -33,6 +33,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -45,7 +46,8 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		CommonModule,
 		FormsModule,
 		TableDemoRoutingModule,
-		TableModule,
+        TableModule,
+        CalendarModule,
 		SliderModule,
 		DialogModule,
 		MultiSelectModule,

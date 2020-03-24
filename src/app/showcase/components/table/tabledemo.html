@@ -8,23 +8,60 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
+    <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
         [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
-        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
         <ng-template pTemplate="caption">
             List of Cars
+            <div class="ui-table-globalfilter-container">
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+            </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
+                <th></th>
                 <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
                 <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
                 <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
                 <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
                 <th pSortableColumn="activity">Activity <p-sortIcon field="activity"></p-sortIcon></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'startsWith')" placeholder="Search by Name" class="ui-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="ui-column-filter">
+                </th>
+                <th>
+                    <p-multiSelect [options]="representatives" placeholder="All" (onChange)="onRepresentativeChange($event)" styleClass="ui-column-filter" optionLabel="name">
+                        <ng-template let-option pTemplate="item">
+                            <div class="ui-multiselect-representative-option">
+                                <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.value.image}}" width="32" />
+                                <span>{{option.label}}</span>
+                            </div>
+                        </ng-template>
+                    </p-multiSelect>
+                </th>
+                <th>
+                    <p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'date', 'equals')" [showButtonBar]="true" styleClass="ui-column-filter" placeholder="Registration Date" [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+                </th>
+                <th>
+                    <p-dropdown [options]="statuses" (onChange)="dt.filter($event.value, 'status', 'equals')" styleClass="ui-column-filter" placeholder="Select a Status" [showClear]="true">
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="onActivityChange($event)" placeholder="Minimum" class="ui-column-filter" >
+                </th>
                 <th></th>
             </tr>
         </ng-template>

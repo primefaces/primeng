@@ -36,7 +36,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 })
 export class MultiSelectItem {
 
-    @Input() option: SelectItem;
+    @Input() option: any;
 
     @Input() selected: boolean;
 
