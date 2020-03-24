@@ -409,7 +409,7 @@ body {
 	background-color: #ffffff;
 	overflow-x: hidden;
 	overflow-y: auto;
-	width: 300px;
+	width: 250px;
 	-moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 	-webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
@@ -471,9 +471,8 @@ body {
 			background-color: #ffffff;
 			a {
 				width: 100%;
-				float: left;
+				display: block;
 				padding: 6px;
-				box-sizing: border-box;
 				cursor: pointer;
 				border-radius: 4px;
 				-webkit-border-radius: 4px;
@@ -495,7 +494,6 @@ body {
 			}
 		}
 		overflow-y: auto;
-		width: 300px;
 	}
 	.layout-menu-search {
 		i {
@@ -542,7 +540,7 @@ body {
 	background: linear-gradient(to bottom, #563D7C, #966BD8);
 }
 .layout-content {
-	margin-left: 300px;
+	margin-left: 250px;
 	padding-top: 70px;
 	background-color: #ffffff;
 }
@@ -1115,7 +1113,7 @@ body {
 	}
 	.layout-sidebar {
 		top: 100px;
-		left: -300px;
+		left: -250px;
 		transition: left .2s;
 		z-index: 9999;
 	}
