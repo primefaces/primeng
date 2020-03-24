@@ -181,7 +181,23 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.7) (2020-03-19)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.9) (2020-03-24)
+- Autocomplete doesn't clear input value if user tabs before suggestions are displayed [\#8511](https://github.com/primefaces/primeng/issues/8511)
+- Pagination not reseting when using multiple sortMode [\#7141](https://github.com/primefaces/primeng/issues/7141)
+- Use requestAnimationFrame in VirtualScroll [\#8635](https://github.com/primefaces/primeng/issues/8635)
+- LazyLoad event triggered by moving horizontal scrollbar [\#7207](https://github.com/primefaces/primeng/issues/7207)
+- Dialog draggable wrong header style [\#7258](https://github.com/primefaces/primeng/issues/7258)
+- p-dropdown with ui-fluid and ui-inputgroup classes does not grow horizontally [\#7224](https://github.com/primefaces/primeng/issues/7224)
+- pTable cell editing: onEditComplete not triggered when clicking other cells. [\#8049](https://github.com/primefaces/primeng/issues/8049)
+- Table EditableColumn crashing on Tab key when loose ui-editing-cell [\#8470](https://github.com/primefaces/primeng/issues/8470)
+- pCellEditor not triggering edit when clicking on any element inside cell [\#8638](https://github.com/primefaces/primeng/issues/8638)
+- Incorrect position for scroll bars in scrollpanel [\#8400](https://github.com/primefaces/primeng/issues/8400)
+
+**Fixed bugs:**
+
+- Turbo Table empty message always showing even when table has data [\#8637](https://github.com/primefaces/primeng/issues/8637)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.8) (2020-03-19)
 
 **Fixed bugs:**
 
@@ -507,6 +523,17 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.0-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.0) (2020-03-24)
+- Autocomplete doesn't clear input value if user tabs before suggestions are displayed [\#8511](https://github.com/primefaces/primeng/issues/8511)
+- Pagination not reseting when using multiple sortMode [\#7141](https://github.com/primefaces/primeng/issues/7141)
+- Use requestAnimationFrame in VirtualScroll [\#8635](https://github.com/primefaces/primeng/issues/8635)
+- LazyLoad event triggered by moving horizontal scrollbar [\#7207](https://github.com/primefaces/primeng/issues/7207)
+- Dialog draggable wrong header style [\#7258](https://github.com/primefaces/primeng/issues/7258)
+- p-dropdown with ui-fluid and ui-inputgroup classes does not grow horizontally [\#7224](https://github.com/primefaces/primeng/issues/7224)
+- pTable cell editing: onEditComplete not triggered when clicking other cells. [\#8049](https://github.com/primefaces/primeng/issues/8049)
+- Table EditableColumn crashing on Tab key when loose ui-editing-cell [\#8470](https://github.com/primefaces/primeng/issues/8470)
+- pCellEditor not triggering edit when clicking on any element inside cell [\#8638](https://github.com/primefaces/primeng/issues/8638)
+- Incorrect position for scroll bars in scrollpanel [\#8400](https://github.com/primefaces/primeng/issues/8400)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/7.1.8) (2020-03-11)
 
