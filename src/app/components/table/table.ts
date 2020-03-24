@@ -3159,7 +3159,7 @@ export class EditableColumn implements AfterViewInit {
             //enter
             if (event.keyCode == 13) {
                 if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell(event, true);
+                    this.closeEditingCell(true, event);
                 }
     
                 event.preventDefault();
@@ -3168,7 +3168,7 @@ export class EditableColumn implements AfterViewInit {
             //escape
             else if (event.keyCode == 27) {
                 if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell(event, false);
+                    this.closeEditingCell(false, event);
                 }
     
                 event.preventDefault();
@@ -3205,7 +3205,7 @@ export class EditableColumn implements AfterViewInit {
 
             if (targetCell) {
                 if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell(event, true);
+                    this.closeEditingCell(true, event);
                 }
                 
                 DomHandler.invokeElementMethod(event.target, 'blur');
@@ -3222,7 +3222,7 @@ export class EditableColumn implements AfterViewInit {
 
             if (targetCell) {
                 if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell(event, true);
+                    this.closeEditingCell(true, event);
                 }
 
                 DomHandler.invokeElementMethod(event.target, 'blur');
