@@ -124,7 +124,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	onAnimationEnd(event: AnimationEvent) {
 		if (event.toState === 'void') {
-			this.dialogRef.close();
+			this.dialogRef.destroy();
 		}
 	}
 
@@ -135,7 +135,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	}
 
 	close() {
-		this.visible = false;
+        this.visible = false;
 	}
 
 	onMaskClick() {
