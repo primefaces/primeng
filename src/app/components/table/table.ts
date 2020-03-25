@@ -1325,7 +1325,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.restoringFilter = false;
         }
 
-        this.cd.detectChanges();
+        this.cd.markForCheck();
     }
 
     hasFilter() {
