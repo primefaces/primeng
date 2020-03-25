@@ -33,7 +33,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           </div>
         </div>
         <div class="ui-listbox-filter-container" *ngIf="filter">
-          <input type="text" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.aria-label]="ariaFilterLabel">
+          <input type="text" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
           <span class="ui-listbox-filter-icon pi pi-search"></span>
         </div>
       </div>
@@ -88,6 +88,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     @Input() optionLabel: string;
 
     @Input() ariaFilterLabel: string;
+
+    @Input() filterPlaceHolder: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
