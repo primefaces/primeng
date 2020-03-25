@@ -385,22 +385,28 @@ show() &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class DynamicDialogDemo &#123;
+export class DynamicDialogDemo implements OnDestroy &#123;
 
     constructor(public dialogService: DialogService, public messageService: MessageService) &#123;&#125;
 
+    ref: DynamicDialogRef;
+    
     show() &#123;
-        const ref = this.dialogService.open(CarsListDemo, &#123;
+        this.ref = this.dialogService.open(CarsListDemo, &#123;
             header: 'Choose a Car',
             width: '70%',
             contentStyle: &#123;"max-height": "350px", "overflow": "auto"&#125;
         &#125;);
 
-        ref.onClose.subscribe((car: Car) =>&#123;
+        this.ref.onClose.subscribe((car: Car) =>&#123;
             if (car) &#123;
                 this.messageService.add(&#123;severity:'info', summary: 'Car Selected', detail:'Vin:' + car.vin&#125;);
             &#125;
         &#125;);
+    &#125;
+
+    ngOnDestroy() &#123;
+        this.ref.close();
     &#125;
 
 &#125;
