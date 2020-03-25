@@ -43,9 +43,9 @@
     <button type="button" (click)="showModalDialog()" pButton icon="pi pi-external-link" label="Show"></button>
     <p-dialog header="Godfather I" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
         [draggable]="false" [resizable]="false">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
            kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</p>
            <p-footer>
@@ -58,9 +58,9 @@
     <button type="button" (click)="showMaximizableDialog()" pButton icon="pi pi-external-link" label="Show"></button>
     <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
         [draggable]="false" [resizable]="false">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
            kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</p>
            <p-footer>
@@ -88,9 +88,9 @@
     </div>
     <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
         [draggable]="false" [resizable]="false">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
            kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</p>
            <p-footer>
@@ -112,7 +112,7 @@ import &#123;DialogModule&#125; from 'primeng/dialog';
 
             <h3>Getting Started</h3>
             <p>Dialog is used as a container and visibility is controlled with visible property.</p>
-                    
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
@@ -139,7 +139,7 @@ export class ModelComponent &#123;
 
             <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
-            
+
             <h3>Dimensions</h3>
             <p>Use style property to define the dimensions of the Dialog.</p>
 <pre>
@@ -202,7 +202,7 @@ Content
 </pre>
 
             <h3>Overlays Inside</h3>
-            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can 
+            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can
             either append the overlay to the body or allow overflow in dialog.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -232,7 +232,7 @@ Content
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>, 
+            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>,
                 example below disables the animation altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -347,6 +347,12 @@ Content
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>maskStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the mask.</td>
                         </tr>
                         <tr>
                             <td>showHeader</td>
@@ -551,9 +557,9 @@ Content
 &lt;button type="button" (click)="showModalDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
 &lt;p-dialog header="Godfather I" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"&gt;
-    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
         kind and benevolent to those who give respect,
         but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;p-footer&gt;
@@ -566,9 +572,9 @@ Content
 &lt;button type="button" (click)="showMaximizableDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
 &lt;p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"&gt;
-    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
         kind and benevolent to those who give respect,
         but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;p-footer&gt;
@@ -596,9 +602,9 @@ Content
 &lt;/div&gt;
 &lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"&gt;
-    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
         kind and benevolent to those who give respect,
         but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;p-footer&gt;
@@ -650,7 +656,7 @@ export class DialogDemo &#123;
     showBasicDialog2() &#123;
         this.displayBasic2 = true;
     &#125;
-    
+
     showMaximizableDialog() &#123;
         this.displayMaximizable = true;
     &#125;
