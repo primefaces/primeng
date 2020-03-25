@@ -740,7 +740,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.overlay = null;
-        this.onHide.emit(event);
+        this.onHide.emit();
     }
 
     ngOnDestroy() {
