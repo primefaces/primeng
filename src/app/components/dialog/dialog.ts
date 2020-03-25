@@ -19,7 +19,7 @@ const hideAnimation = animation([
 @Component({
 selector: 'p-dialog',
 template: `
-    <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
+    <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
             [ngStyle]="style" [class]="styleClass" *ngIf="visible"
             [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
@@ -93,6 +93,8 @@ export class Dialog implements OnDestroy {
     @Input() appendTo: any;
 
     @Input() styleClass: string;
+
+    @Input() maskStyleClass: string;
 
     @Input() showHeader: boolean = true;
 
@@ -320,10 +322,10 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    getWrapperClass() {
-        let wrapperClass = {'ui-widget-overlay ui-dialog-mask': this.modal, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll};
-        wrapperClass[this.getPositionClass().toString()] = true;
-        return wrapperClass;
+    getMaskClass() {
+        let maskClass = {'ui-dialog-mask': true, 'ui-widget-overlay': this.modal, 'ui-dialog-visible': this.maskVisible, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll};
+        maskClass[this.getPositionClass().toString()] = true;
+        return maskClass;
     }
 
     getPositionClass() {
