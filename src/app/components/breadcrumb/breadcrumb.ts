@@ -8,7 +8,7 @@ import {RouterModule} from '@angular/router';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'">
             <ul>
-                <li class="ui-breadcrumb-home" *ngIf="home">
+                <li [class]="home.styleClass" [ngClass]="'ui-breadcrumb-home'" [ngStyle]="home.style" *ngIf="home">
                     <a *ngIf="!home.routerLink" [href]="home.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, home)" 
                         [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target" [attr.title]="home.title" [attr.id]="home.id"[attr.tabindex]="home.tabindex ? home.tabindex : '0'">
                         <span [ngClass]="home.icon||'pi pi-home'"></span>
@@ -20,7 +20,7 @@ import {RouterModule} from '@angular/router';
                 </li>
                 <li class="ui-breadcrumb-chevron pi pi-chevron-right" *ngIf="model&&home"></li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li>
+                    <li [class]="item.styleClass" [ngStyle]="item.style">
                         <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" 
                             [ngClass]="{'ui-state-disabled':item.disabled}" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'">
                             <span *ngIf="item.icon" class="ui-menuitem-icon" [ngClass]="item.icon"></span>
