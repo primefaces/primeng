@@ -36,7 +36,8 @@ export class DynamicDialogDemo {
         const ref = this.dialogService.open(CarsListDemo, {
             header: 'Choose a Car',
             width: '70%',
-            contentStyle: {"max-height": "350px", "overflow": "auto"}
+            contentStyle: {"max-height": "350px", "overflow": "auto"},
+            baseZIndex: 10000
         });
 
         ref.onClose.subscribe((car: Car) =>{
