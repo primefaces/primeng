@@ -367,6 +367,7 @@ export interface LocaleSettings {
     providers: [CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlValueAccessor {
+    private static readonly parseIntRadix: number = 10;
 
     @HostBinding('class.ui-inputwrapper-filled')
     get inputWrapperFilled(): boolean {
@@ -436,13 +437,12 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     }
 
     set yearRange(yearRange: string) {
-        const defaultRadix = 10;
         this._yearRange = yearRange;
 
         if (yearRange) {
             const years = yearRange.split(':');
-            const yearStart = parseInt(years[0], defaultRadix);
-            const yearEnd = parseInt(years[1], defaultRadix);
+            const yearStart = parseInt(years[0], Calendar.parseIntRadix);
+            const yearEnd = parseInt(years[1], Calendar.parseIntRadix);
 
             this.populateYearOptions(yearStart, yearEnd);
         }
@@ -891,8 +891,8 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
 
-            if (this.hourFormat == '12') {
-                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
+            if (this.hourFormat === '12') {
+                this.currentHour = date.getHours() === 0 ? 12 : date.getHours() % 12;
             } else {
                 this.currentHour = date.getHours();
             }
@@ -1086,7 +1086,7 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
         let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
 
         if (this.showTime) {
-            if (this.hourFormat == '12') {
+            if (this.hourFormat === '12') {
                 if (this.currentHour === 12) {
                     date.setHours(this.pm ? 12 : 0);
                 } else {
@@ -1142,9 +1142,9 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     updateModel(value) {
         this.value = value;
 
-        if (this.dataType == 'date') {
+        if (this.dataType === 'date') {
             this.onModelChange(this.value);
-        } else if (this.dataType == 'string') {
+        } else if (this.dataType === 'string') {
             if (this.isSingleSelection()) {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
@@ -1177,7 +1177,8 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     }
 
     getPreviousMonthAndYear(month: number, year: number) {
-        let m, y;
+        let m: number;
+        let y: number;
 
         if (month === 0) {
             m = 11;
@@ -1191,7 +1192,8 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     }
 
     getNextMonthAndYear(month: number, year: number) {
-        let m, y;
+        let m: number;
+        let y: number;
 
         if (month === 11) {
             m = 0;
@@ -1223,11 +1225,13 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
 
                 return selected;
             } else if (this.isRangeSelection()) {
-                if (this.value[1]) {
-                    return this.isDateEquals(this.value[0], dateMeta) || this.isDateEquals(this.value[1], dateMeta) || this.isDateBetween(this.value[0], this.value[1], dateMeta);
-                } else {
-                    return this.isDateEquals(this.value[0], dateMeta);
-                }
+                return this.value[1]
+                    ? (
+                        this.isDateEquals(this.value[0], dateMeta)
+                        || this.isDateEquals(this.value[1], dateMeta)
+                        || this.isDateBetween(this.value[0], this.value[1], dateMeta)
+                    )
+                    : this.isDateEquals(this.value[0], dateMeta);
             }
         } else {
             return false;
@@ -1476,7 +1480,10 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
                 const prevCell = cell.previousElementSibling;
                 if (prevCell) {
                     const focusCell = prevCell.children[0];
-                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled') || DomHandler.hasClass(focusCell.parentElement, 'ui-datepicker-weeknumber')) {
+                    if (
+                        DomHandler.hasClass(focusCell, 'ui-state-disabled')
+                        || DomHandler.hasClass(focusCell.parentElement, 'ui-datepicker-weeknumber')
+                    ) {
                         this.navigateToMonth(true, groupIndex);
                     } else {
                         focusCell.tabIndex = '0';
@@ -1665,19 +1672,28 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     initFocusableCell() {
         let cell;
         if (this.view === 'month') {
-            const cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month:not(.ui-state-disabled)');
-            const selectedCell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-highlight');
-            cells.forEach(cell => cell.tabIndex = -1);
+            const cells = DomHandler.find(
+                this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month:not(.ui-state-disabled)'
+            );
+            const selectedCell = DomHandler.findSingle(
+                this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-highlight'
+            );
+            cells.forEach(cellItem => cellItem.tabIndex = -1);
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                const disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-disabled[tabindex = "0"]');
-                disabledCells.forEach(cell => cell.tabIndex = -1);
+                const disabledCells = DomHandler.find(
+                    this.contentViewChild.nativeElement,
+                    '.ui-monthpicker .ui-monthpicker-month.ui-state-disabled[tabindex = "0"]'
+                );
+                disabledCells.forEach(cellItem => cellItem.tabIndex = -1);
             }
         } else {
             cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'a.ui-state-active');
             if (!cell) {
-                const todayCell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'td.ui-datepicker-today a:not(.ui-state-disabled)');
+                const todayCell = DomHandler.findSingle(
+                    this.contentViewChild.nativeElement, 'td.ui-datepicker-today a:not(.ui-state-disabled)'
+                );
                 if (todayCell) {
                     cell = todayCell;
                 } else {
@@ -1702,13 +1718,13 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
                 const focusedIndex = focusableElements.indexOf(document.activeElement);
 
                 if (event.shiftKey) {
-                    if (focusedIndex == -1 || focusedIndex === 0) {
+                    if (focusedIndex === -1 || focusedIndex === 0) {
                         focusableElements[focusableElements.length - 1].focus();
                     } else {
                         focusableElements[focusedIndex - 1].focus();
                     }
                 } else {
-                    if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                    if (focusedIndex === -1 || focusedIndex === (focusableElements.length - 1)) {
                         focusableElements[0].focus();
                     } else {
                         focusableElements[focusedIndex + 1].focus();
@@ -1719,13 +1735,13 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     }
 
     onMonthDropdownChange(m: string) {
-        this.currentMonth = parseInt(m);
+        this.currentMonth = parseInt(m, Calendar.parseIntRadix);
         this.onMonthChange.emit({month: this.currentMonth + 1, year: this.currentYear});
         this.createMonths(this.currentMonth, this.currentYear);
     }
 
     onYearDropdownChange(y: string) {
-        this.currentYear = parseInt(y);
+        this.currentYear = parseInt(y, Calendar.parseIntRadix);
         this.onYearChange.emit({month: this.currentMonth + 1, year: this.currentYear});
         this.createMonths(this.currentMonth, this.currentYear);
     }
@@ -1735,9 +1751,9 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
         const newHour = this.currentHour + this.stepHour;
 
         if (this.validateHour(newHour)) {
-            if (this.hourFormat == '24') {
+            if (this.hourFormat === '24') {
                 this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;
-            } else if (this.hourFormat == '12') {
+            } else if (this.hourFormat === '12') {
                 // Before the AM/PM break, now after
                 if (prevHour < 12 && newHour > 11) {
                     this.pm = !this.pm;
@@ -1817,9 +1833,9 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
         const newHour = this.currentHour - this.stepHour;
 
         if (this.validateHour(newHour)) {
-            if (this.hourFormat == '24') {
+            if (this.hourFormat === '24') {
                 this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;
-            } else if (this.hourFormat == '12') {
+            } else if (this.hourFormat === '12') {
                 // If we were at noon/midnight, then switch
                 if (this.currentHour === 12) {
                     this.pm = !this.pm;
@@ -2026,7 +2042,7 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
             }
         } else if (value.every(v => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false))) {
             if (this.isRangeSelection()) {
-                isValid = value.length > 1 && value[1] > value[0] ? true : false;
+                isValid = value.length > 1 && value[1] > value[0];
             }
         }
         return isValid;
@@ -2068,7 +2084,7 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
         } else {
             const dateFormat = this.getDateFormat();
             if (this.showTime) {
-                const ampm = this.hourFormat == '12' ? parts.pop() : null;
+                const ampm = this.hourFormat === '12' ? parts.pop() : null;
                 const timeString = parts.pop();
 
                 date = this.parseDate(parts.join(' '), dateFormat);
@@ -2082,7 +2098,7 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     }
 
     populateTime(value, timeString, ampm) {
-        if (this.hourFormat == '12' && !ampm) {
+        if (this.hourFormat === '12' && !ampm) {
             throw new Error('Invalid Time');
         }
 
@@ -2106,13 +2122,13 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
         if (this.showTime || this.timeOnly) {
             const hours = val.getHours();
 
-            if (this.hourFormat == '12') {
+            if (this.hourFormat === '12') {
                 this.pm = hours > 11;
 
                 if (hours >= 12) {
-                    this.currentHour = (hours == 12) ? 12 : hours - 12;
+                    this.currentHour = (hours === 12) ? 12 : hours - 12;
                 } else {
-                    this.currentHour = (hours == 0) ? 12 : hours;
+                    this.currentHour = (hours === 0) ? 12 : hours;
                 }
             } else {
                 this.currentHour = val.getHours();
@@ -2215,7 +2231,7 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
     enableModality(element) {
         if (!this.mask) {
             this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
+            this.mask.style.zIndex = String(parseInt(element.style.zIndex, Calendar.parseIntRadix) - 1);
             const maskStyleClass = 'ui-widget-overlay ui-datepicker-mask ui-datepicker-mask-scrollblocker';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
@@ -2231,8 +2247,10 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
         if (this.mask) {
             document.body.removeChild(this.mask);
             const bodyChildren = document.body.children;
+            const bodyChildrenLength = bodyChildren && bodyChildren.length;
             let hasBlockerMasks: boolean;
-            for (let i = 0; i < bodyChildren.length; i++) {
+
+            for (let i = 0; i < bodyChildrenLength; i++) {
                 const bodyChild = bodyChildren[i];
                 if (DomHandler.hasClass(bodyChild, 'ui-datepicker-mask-scrollblocker')) {
                     hasBlockerMasks = true;
@@ -2291,29 +2309,30 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
 
         let iFormat;
         const lookAhead = (match) => {
-                const matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
-                if (matches) {
-                    iFormat++;
+            const matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
+            if (matches) {
+                iFormat++;
+            }
+            return matches;
+        };
+        const formatNumber = (match, value, len) => {
+            let num = '' + value;
+            if (lookAhead(match)) {
+                while (num.length < len) {
+                    num = '0' + num;
                 }
-                return matches;
-            },
-            formatNumber = (match, value, len) => {
-                let num = '' + value;
-                if (lookAhead(match)) {
-                    while (num.length < len) {
-                        num = '0' + num;
-                    }
-                }
-                return num;
-            },
-            formatName = (match, value, shortNames, longNames) => {
-                return (lookAhead(match) ? longNames[value] : shortNames[value]);
-            };
+            }
+            return num;
+        };
+        const formatName = (match, value, shortNames, longNames) => {
+            return (lookAhead(match) ? longNames[value] : shortNames[value]);
+        };
         let output = '';
         let literal = false;
 
         if (date) {
-            for (iFormat = 0; iFormat < format.length; iFormat++) {
+            const formatLength = format && format.length;
+            for (iFormat = 0; iFormat < formatLength; iFormat++) {
                 if (literal) {
                     if (format.charAt(iFormat) === '\'' && !lookAhead('\'')) {
                         literal = false;
@@ -2341,7 +2360,9 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
                             output += formatName('M', date.getMonth(), this.locale.monthNamesShort, this.locale.monthNames);
                             break;
                         case 'y':
-                            output += lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
+                            output += lookAhead('y')
+                                ? date.getFullYear()
+                                : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
                             break;
                         case '@':
                             output += date.getTime();
@@ -2375,11 +2396,11 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
 
-        if (this.hourFormat == '12' && hours > 11 && hours != 12) {
+        if (this.hourFormat === '12' && hours > 11 && hours != 12) {
             hours -= 12;
         }
 
-        if (this.hourFormat == '12') {
+        if (this.hourFormat === '12') {
             output += hours === 0 ? 12 : (hours < 10) ? '0' + hours : hours;
         } else {
             output += (hours < 10) ? '0' + hours : hours;
@@ -2392,7 +2413,7 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
             output += (seconds < 10) ? '0' + seconds : seconds;
         }
 
-        if (this.hourFormat == '12') {
+        if (this.hourFormat === '12') {
             output += date.getHours() > 11 ? ' PM' : ' AM';
         }
 
@@ -2407,9 +2428,9 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
             throw new Error('Invalid time');
         }
 
-        let h = parseInt(tokens[0]);
-        const m = parseInt(tokens[1]);
-        const s = this.showSeconds ? parseInt(tokens[2]) : null;
+        let h = parseInt(tokens[0], Calendar.parseIntRadix);
+        const m = parseInt(tokens[1], Calendar.parseIntRadix);
+        const s = this.showSeconds ? parseInt(tokens[2], Calendar.parseIntRadix) : null;
 
         if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
             throw new Error('Invalid time');
@@ -2437,74 +2458,86 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
             return null;
         }
 
-        let iFormat, dim, extra,
-            iValue = 0,
-            shortYearCutoff = (typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : new Date().getFullYear() % 100 + parseInt(this.shortYearCutoff, 10)),
-            year = -1,
-            month = -1,
-            day = -1,
-            doy = -1,
-            literal = false,
-            date,
-            lookAhead = (match) => {
-                const matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
-                if (matches) {
-                    iFormat++;
-                }
-                return matches;
-            },
-            getNumber = (match) => {
-                const isDoubled = lookAhead(match),
-                    size = (match === '@' ? 14 : (match === '!' ? 20 :
-                        (match === 'y' && isDoubled ? 4 : (match === 'o' ? 3 : 2)))),
-                    minSize = (match === 'y' ? size : 1),
-                    digits = new RegExp('^\\d{' + minSize + ',' + size + '}'),
-                    num = value.substring(iValue).match(digits);
-                if (!num) {
-                    throw new Error('Missing number at position ' + iValue);
-                }
-                iValue += num[0].length;
-                return parseInt(num[0], 10);
-            },
-            getName = (match, shortNames, longNames) => {
-                let index = -1;
-                const arr = lookAhead(match) ? longNames : shortNames;
-                const names = [];
+        let iFormat;
+        let dim;
+        let extra;
+        let iValue = 0;
+        const shortYearCutoff = (
+            typeof this.shortYearCutoff !== 'string'
+                ? this.shortYearCutoff
+                : new Date().getFullYear() % 100 + parseInt(this.shortYearCutoff, Calendar.parseIntRadix)
+        );
+        let year = -1;
+        let month = -1;
+        let day = -1;
+        let doy = -1;
+        let literal = false;
+        let date;
+        const lookAhead = (match) => {
+            const matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
+            if (matches) {
+                iFormat++;
+            }
+            return matches;
+        };
+        const getNumber = (match) => {
+            const isDoubled = lookAhead(match);
+            const size = (
+                match === '@'
+                    ? 14
+                    : (match === '!' ? 20 : (match === 'y' && isDoubled ? 4 : (match === 'o' ? 3 : 2)))
+            );
+            const minSize = (match === 'y' ? size : 1);
+            const digits = new RegExp('^\\d{' + minSize + ',' + size + '}');
+            const num = value.substring(iValue).match(digits);
+            if (!num) {
+                throw new Error('Missing number at position ' + iValue);
+            }
+            iValue += num[0].length;
+            return parseInt(num[0], 10);
+        };
+        const getName = (match, shortNames, longNames) => {
+            let index = -1;
+            const arr = lookAhead(match) ? longNames : shortNames;
+            const arrLength = arr && arr.length;
+            const names = [];
 
-                for (let i = 0; i < arr.length; i++) {
-                    names.push([i, arr[i]]);
-                }
-                names.sort((a, b) => {
-                    return -(a[1].length - b[1].length);
-                });
+            for (let i = 0; i < arrLength; i++) {
+                names.push([i, arr[i]]);
+            }
+            names.sort((a, b) => {
+                return -(a[1].length - b[1].length);
+            });
 
-                for (let i = 0; i < names.length; i++) {
-                    const name = names[i][1];
-                    if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
-                        index = names[i][0];
-                        iValue += name.length;
-                        break;
-                    }
+            const namesLength = names && names.length;
+            for (let i = 0; i < namesLength; i++) {
+                const name = names[i][1];
+                if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
+                    index = names[i][0];
+                    iValue += name.length;
+                    break;
                 }
+            }
 
-                if (index !== -1) {
-                    return index + 1;
-                } else {
-                    throw new Error('Unknown name at position ' + iValue);
-                }
-            },
-            checkLiteral = () => {
-                if (value.charAt(iValue) !== format.charAt(iFormat)) {
-                    throw new Error('Unexpected literal at position ' + iValue);
-                }
-                iValue++;
-            };
+            if (index !== -1) {
+                return index + 1;
+            } else {
+                throw new Error('Unknown name at position ' + iValue);
+            }
+        };
+        const checkLiteral = () => {
+            if (value.charAt(iValue) !== format.charAt(iFormat)) {
+                throw new Error('Unexpected literal at position ' + iValue);
+            }
+            iValue++;
+        };
 
         if (this.view === 'month') {
             day = 1;
         }
 
-        for (iFormat = 0; iFormat < format.length; iFormat++) {
+        const formatLength = format && format.length;
+        for (iFormat = 0; iFormat < formatLength; iFormat++) {
             if (literal) {
                 if (format.charAt(iFormat) === '\'' && !lookAhead('\'')) {
                     literal = false;
@@ -2671,9 +2704,15 @@ export class Calendar implements OnInit, OnDestroy, AfterContentInit, ControlVal
             this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(event.target as Node)));
     }
 
-    isNavIconClicked(event: Event) {
-        return (DomHandler.hasClass(event.target, 'ui-datepicker-prev') || DomHandler.hasClass(event.target, 'ui-datepicker-prev-icon')
-            || DomHandler.hasClass(event.target, 'ui-datepicker-next') || DomHandler.hasClass(event.target, 'ui-datepicker-next-icon'));
+    isNavIconClicked(event: Event): boolean {
+        const classNames: string[] = [
+            'ui-datepicker-prev',
+            'ui-datepicker-prev-icon',
+            'ui-datepicker-next',
+            'ui-datepicker-next-icon'
+        ];
+
+        return classNames.some((className: string): boolean => DomHandler.hasClass(event.target, className));
     }
 
     onWindowResize() {
