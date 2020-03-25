@@ -13,7 +13,7 @@ import {RouterModule} from '@angular/router';
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,'ui-state-disabled':item.disabled,
                         'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item,'ui-helper-hidden': item.visible === false}"
                         [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}">
-                    <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" role="presentation" (click)="itemClick($event,item)" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
+                    <a *ngIf="!item.routerLink" [attr.href]="item.url" class="ui-menuitem-link ui-corner-all" role="presentation" (click)="itemClick($event,item)" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                         [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id">
                         <ng-container *ngIf="!itemTemplate">
                             <span class="ui-menuitem-icon " [ngClass]="item.icon" *ngIf="item.icon"></span>
@@ -68,10 +68,6 @@ export class TabMenu implements AfterContentInit {
         if (item.disabled) {
             event.preventDefault();
             return;
-        }
-
-        if (!item.url) {
-            event.preventDefault();
         }
 
         if (item.command) {
