@@ -19,7 +19,7 @@ const hideAnimation = animation([
 @Component({
     selector: 'p-confirmDialog',
     template: `
-        <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
+        <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
             <div [ngClass]="{'ui-dialog ui-confirmdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [ngStyle]="style" [class]="styleClass" (mousedown)="moveOnTop()"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" *ngIf="visible">
                 <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
@@ -58,29 +58,29 @@ const hideAnimation = animation([
 export class ConfirmDialog implements OnDestroy {
 
     @Input() header: string;
-    
+
     @Input() icon: string;
-    
+
     @Input() message: string;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() acceptIcon: string = 'pi pi-check';
-    
+
     @Input() acceptLabel: string = 'Yes';
-    
+
     @Input() acceptVisible: boolean = true;
 
     @Input() rejectIcon: string = 'pi pi-times';
-    
+
     @Input() rejectLabel: string = 'No';
-    
+
     @Input() rejectVisible: boolean = true;
-    
+
     @Input() acceptButtonStyleClass: string;
-    
+
     @Input() rejectButtonStyleClass: string;
 
     @Input() closeOnEscape: boolean = true;
@@ -90,15 +90,15 @@ export class ConfirmDialog implements OnDestroy {
     @Input() rtl: boolean;
 
     @Input() closable: boolean = true;
-    
+
     @Input() appendTo: any;
-    
+
     @Input() key: string;
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
-    
+
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() focusTrap: boolean = true;
@@ -108,13 +108,13 @@ export class ConfirmDialog implements OnDestroy {
     }
     set visible(value:any) {
         this._visible = value;
-        
+
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
         }
     }
 
-    
+
     @Input() get position(): string {
         return this._position;
     };
@@ -148,21 +148,21 @@ export class ConfirmDialog implements OnDestroy {
     @ContentChild(Footer, { static: true }) footer;
 
     @ViewChild('content', { static: true }) contentViewChild: ElementRef;
-    
+
     confirmation: Confirmation;
-        
+
     _visible: boolean;
 
     maskVisible: boolean;
-    
+
     documentEscapeListener: any;
-        
+
     container: HTMLDivElement;
 
     wrapper: HTMLElement;
-        
+
     contentContainer: HTMLDivElement;
-      
+
     subscription: Subscription;
 
     preWidth: number;
@@ -170,7 +170,7 @@ export class ConfirmDialog implements OnDestroy {
     _position: string = "center";
 
     transformOptions: any = "scale(0.7)";
-                
+
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe(confirmation => {
             if (!confirmation) {
@@ -194,7 +194,7 @@ export class ConfirmDialog implements OnDestroy {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
                 }
-                
+
                 if (this.confirmation.reject) {
                     this.confirmation.rejectEvent = new EventEmitter();
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
@@ -206,7 +206,7 @@ export class ConfirmDialog implements OnDestroy {
 
                 this.visible = true;
             }
-        });         
+        });
     }
 
     onAnimationStart(event: AnimationEvent) {
@@ -215,7 +215,7 @@ export class ConfirmDialog implements OnDestroy {
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
                 this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
-                
+
                 if (this.acceptVisible || this.rejectVisible) {
                     DomHandler.findSingle(this.container, 'button').focus();
                 }
@@ -250,17 +250,17 @@ export class ConfirmDialog implements OnDestroy {
             this.el.nativeElement.appendChild(this.wrapper);
         }
     }
-        
+
     enableModality() {
         if (this.blockScroll) {
             DomHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
-    
+
     disableModality() {
         this.maskVisible = false;
 
-        if (this.blockScroll) {            
+        if (this.blockScroll) {
             DomHandler.removeClass(document.body, 'ui-overflow-hidden');
         }
 
@@ -268,20 +268,20 @@ export class ConfirmDialog implements OnDestroy {
             this.cd.detectChanges();
         }
     }
-    
+
     close(event: Event) {
         if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
-        
+
         this.hide();
         event.preventDefault();
     }
-    
+
     hide() {
         this.visible = false;
     }
-    
+
     moveOnTop() {
         if (this.autoZIndex) {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
@@ -289,10 +289,10 @@ export class ConfirmDialog implements OnDestroy {
         }
     }
 
-    getWrapperClass() {
-        let wrapperClass = {'ui-widget-overlay ui-dialog-mask': true, 'ui-dialog-mask-scrollblocker':this.blockScroll};
-        wrapperClass[this.getPositionClass().toString()] = true;
-        return wrapperClass;
+    getMaskClass() {
+        let maskClass = {'ui-widget-overlay ui-dialog-mask': true, 'ui-dialog-visible': this.maskVisible, 'ui-dialog-mask-scrollblocker': this.blockScroll};
+        maskClass[this.getPositionClass().toString()] = true;
+        return maskClass;
     }
 
     getPositionClass() {
@@ -301,7 +301,7 @@ export class ConfirmDialog implements OnDestroy {
 
         return pos ? `ui-dialog-${pos}` : '';
     }
-    
+
     bindGlobalListeners() {
         if ((this.closeOnEscape && this.closable) || this.focusTrap && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
@@ -313,16 +313,16 @@ export class ConfirmDialog implements OnDestroy {
 
                 if (event.which === 9 && this.focusTrap) {
                     event.preventDefault();
-                    
+
                     let focusableElements = DomHandler.getFocusableElements(this.container);
-    
+
                     if (focusableElements && focusableElements.length > 0) {
                         if (!document.activeElement) {
                             focusableElements[0].focus();
                         }
                         else {
                             let focusedIndex = focusableElements.indexOf(document.activeElement);
-    
+
                             if (event.shiftKey) {
                                 if (focusedIndex == -1 || focusedIndex === 0)
                                     focusableElements[focusableElements.length - 1].focus();
@@ -341,7 +341,7 @@ export class ConfirmDialog implements OnDestroy {
             });
         }
     }
-    
+
     unbindGlobalListeners() {
         if (this.documentEscapeListener) {
             this.documentEscapeListener();
@@ -354,27 +354,27 @@ export class ConfirmDialog implements OnDestroy {
         this.unbindGlobalListeners();
         this.container = null;
     }
-                
+
     ngOnDestroy() {
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();
     }
-    
+
     accept() {
         if (this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
-        
+
         this.hide();
         this.confirmation = null;
     }
-    
+
     reject() {
         if (this.confirmation.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
-        
+
         this.hide();
         this.confirmation = null;
     }
