@@ -8,9 +8,12 @@
 <div class="content-section implementation ui-fluid">
     <h3 class="first">Basic</h3>
     <p-chips [(ngModel)]="values1"></p-chips>
+
+    <h3>Comma Separator</h3>
+    <p-chips [(ngModel)]="values2" separator=","></p-chips>
     
     <h3>Template</h3>
-    <p-chips [(ngModel)]="values2">
+    <p-chips [(ngModel)]="values3">
         <ng-template let-item pTemplate="item">
             {{item}} - (active) <span class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle;"></span>
         </ng-template>
@@ -159,6 +162,12 @@ export class MyModel &#123;
                             <td>false</td>
                             <td>Whether to add an item when the input loses focus.</td>
                         </tr>
+                        <tr>
+                            <td>separator</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Separator char to add an item when pressed in addition to the enter key. Currently only possible value is ","</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -257,8 +266,11 @@ export class MyModel &#123;
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-chips [(ngModel)]="values1" &gt;&lt;/p-chips&gt;
 
+&lt;h3&gt;Comma Separator&lt;/h3&gt;
+&lt;p-chips [(ngModel)]="values2" separator=","&gt;&lt;/p-chips&gt;
+
 &lt;h3&gt;ng-template&lt;/h3&gt;
-&lt;p-chips [(ngModel)]="values2"&gt;
+&lt;p-chips [(ngModel)]="values3"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
@@ -273,6 +285,8 @@ export class ChipsDemo &#123;
     values1: string[];
     
     values2: string[];
+
+    values3: string[];
 &#125;
 </code>
 </pre>

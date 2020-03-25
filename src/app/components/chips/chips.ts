@@ -22,7 +22,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)" 
-                    (input)="updateFilledState()" (paste)="updateFilledState()" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                    (input)="onInput()" (paste)="onPaste($event)" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul>
         </div>
@@ -62,6 +62,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() addOnTab: boolean;
 
     @Input() addOnBlur: boolean;
+
+    @Input() separator: string;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
     
@@ -107,8 +109,23 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         });
     }
     
-    onClick(event) {
+    onClick() {
         this.inputViewChild.nativeElement.focus();
+    }
+
+    onInput() {
+        this.updateFilledState();
+    }
+
+    onPaste(event) {
+        if (this.separator) {
+            let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
+            pastedData.split(this.separator).forEach(val => {
+                this.addItem(event, val, true);
+            });
+            this.inputViewChild.nativeElement.value = '';
+        }
+        this.updateFilledState();
     }
 
     updateFilledState() {
@@ -129,6 +146,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     writeValue(value: any) : void {
         this.value = value;
+        console.log('Value:' + this.value);
         this.updateMaxedOut();
     }
     
@@ -171,8 +189,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     onInputBlur(event: FocusEvent) {
         this.focus = false;
         if (this.addOnBlur && this.inputViewChild.nativeElement.value) {
-            this.addItem(event, this.inputViewChild.nativeElement.value);
-            this.inputViewChild.nativeElement.value = '';
+            this.addItem(event, this.inputViewChild.nativeElement.value, false);
         }
         this.onModelTouched();
         this.onBlur.emit(event);
@@ -194,7 +211,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         this.updateMaxedOut();
     }
     
-    addItem(event: Event, item: string): void {
+    addItem(event: Event, item: string, preventDefault: boolean): void {
         this.value = this.value||[];
         if (item && item.trim().length) {
             if (this.allowDuplicate || this.value.indexOf(item) === -1) {
@@ -208,6 +225,11 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         }
         this.updateFilledState();
         this.updateMaxedOut();
+        this.inputViewChild.nativeElement.value = '';
+
+        if (preventDefault) {
+            event.preventDefault();
+        }
     }
     
     onKeydown(event: KeyboardEvent): void {
@@ -228,24 +250,23 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             
             //enter
             case 13:
-                this.addItem(event, this.inputViewChild.nativeElement.value);
-                this.inputViewChild.nativeElement.value = '';
-                
-                event.preventDefault();
+                this.addItem(event, this.inputViewChild.nativeElement.value, true);
             break;
             
             case 9:
                 if (this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
-                    this.addItem(event, this.inputViewChild.nativeElement.value);
-                    this.inputViewChild.nativeElement.value = '';
-
-                    event.preventDefault();
+                    this.addItem(event, this.inputViewChild.nativeElement.value, true);
                 }
             break;
             
             default:
                 if (this.max && this.value && this.max === this.value.length) {
                     event.preventDefault();
+                }
+                else if (this.separator) {
+                    if (this.separator === ',' && event.which === 188) {
+                        this.addItem(event, this.inputViewChild.nativeElement.value, true);
+                    }
                 }
             break;
         }
