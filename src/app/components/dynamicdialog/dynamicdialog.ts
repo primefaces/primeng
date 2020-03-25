@@ -58,7 +58,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	childComponentType: Type<any>;
 
-	container: HTMLDivElement;
+    container: HTMLDivElement;
+    
+    documentKeydownListener: any;
 
 	documentEscapeListener: Function;
 
@@ -101,7 +103,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 				this.container = event.element;
 				this.moveOnTop();
 				this.bindGlobalListeners();
-				DomHandler.addClass(document.body, 'ui-overflow-hidden');
+                DomHandler.addClass(document.body, 'ui-overflow-hidden');
+                this.focus();
 			break;
 
 			case 'void':
@@ -130,17 +133,73 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 		if (this.config.dismissableMask) {
 			this.close();
 		}
-	}
+    }
+    
+    onKeydown(event: KeyboardEvent) {
+        if (event.which === 9) {
+            event.preventDefault();
+
+            let focusableElements = DomHandler.getFocusableElements(this.container);
+
+            if (focusableElements && focusableElements.length > 0) {
+                if (!document.activeElement) {
+                    focusableElements[0].focus();
+                }
+                else {
+                    let focusedIndex = focusableElements.indexOf(document.activeElement);
+
+                    if (event.shiftKey) {
+                        if (focusedIndex == -1 || focusedIndex === 0)
+                            focusableElements[focusableElements.length - 1].focus();
+                        else
+                            focusableElements[focusedIndex - 1].focus();
+                    }
+                    else {
+                        if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
+                            focusableElements[0].focus();
+                        else
+                            focusableElements[focusedIndex + 1].focus();
+                    }
+                }
+            }
+        }
+    }
+
+    focus() {
+        let focusable = DomHandler.findSingle(this.container, 'a');
+        if (focusable) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => focusable.focus(), 5);
+            });
+        }
+    }
 
 	bindGlobalListeners() {
+        this.bindDocumentKeydownListener();
+
         if (this.config.closeOnEscape !== false && this.config.closable !== false) {
             this.bindDocumentEscapeListener();
         }
     }
     
     unbindGlobalListeners() {
+        this.unbindDocumentKeydownListener();
         this.unbindDocumentEscapeListener();
-	}
+    }
+    
+    bindDocumentKeydownListener() {
+        this.zone.runOutsideAngular(() => {
+            this.documentKeydownListener = this.onKeydown.bind(this);
+            window.document.addEventListener('keydown', this.documentKeydownListener);
+        });
+    }
+
+    unbindDocumentKeydownListener() {
+        if (this.documentKeydownListener) {
+            window.document.removeEventListener('keydown', this.documentKeydownListener);
+            this.documentKeydownListener = null;
+        }
+    }
 	
 	bindDocumentEscapeListener() {
         this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {

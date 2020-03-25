@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
     ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef} from '@angular/core';
-import {trigger,state,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
+import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule} from 'primeng/api';
