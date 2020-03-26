@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef} from '@angular/core';
+    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef, ViewRef} from '@angular/core';
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -293,7 +293,9 @@ export class Dialog implements OnDestroy {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
 
-            this.cd.detectChanges();
+            if (!(this.cd as ViewRef).destroyed) {
+                this.cd.detectChanges();
+            }
         }
     }
 
