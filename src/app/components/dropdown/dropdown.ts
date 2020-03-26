@@ -65,7 +65,7 @@ export class DropdownItem {
             <div class="ui-helper-hidden-accessible">
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox"
                     aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy" (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" 
-                    [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
+                    [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus" role="listbox">
             </div>
             <div class="ui-helper-hidden-accessible ui-dropdown-hidden-select">
                 <select [attr.required]="required" [attr.name]="name" tabindex="-1" aria-hidden="true">
