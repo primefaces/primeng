@@ -24,12 +24,12 @@ import {PrimeTemplate} from 'primeng/api';
                 </div>
             </td>
         </tr>
-        <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
+        <tr [ngClass]="!leaf&&node.expanded ? 'ui-organizationchart-node-visible' : 'ui-organizationchart-node-hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
             <td [attr.colspan]="colspan">
                 <div class="ui-organizationchart-line-down"></div>
             </td>
         </tr>
-        <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
+        <tr [ngClass]="!leaf&&node.expanded ? 'ui-organizationchart-node-visible' : 'ui-organizationchart-node-hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
             <ng-container *ngIf="node.children && node.children.length === 1">
                 <td [attr.colspan]="colspan">
                     <div class="ui-organizationchart-line-down"></div>
@@ -42,7 +42,7 @@ import {PrimeTemplate} from 'primeng/api';
                 </ng-template>
             </ng-container>
         </tr>
-        <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-nodes" [@childState]="'in'">
+        <tr [ngClass]="!leaf&&node.expanded ? 'ui-organizationchart-node-visible' : 'ui-organizationchart-node-hidden'" class="ui-organizationchart-nodes" [@childState]="'in'">
             <td *ngFor="let child of node.children" colspan="2">
                 <table class="ui-organizationchart-table" pOrganizationChartNode [node]="child"></table>
             </td>
@@ -107,7 +107,7 @@ export class OrganizationChartNode {
 @Component({
     selector: 'p-organizationChart',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-organizationchart ui-widget'">
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-organizationchart ui-widget': true, 'ui-organizationchart-preservespace': preserveSpace}">
             <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `
@@ -123,6 +123,8 @@ export class OrganizationChart implements AfterContentInit {
     @Input() selectionMode: string;
     
     @Input() selection: any;
+
+    @Input() preserveSpace: boolean = true;
     
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
