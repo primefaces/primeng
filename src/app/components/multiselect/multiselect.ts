@@ -77,7 +77,7 @@ export class MultiSelectItem {
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" [attr.name]="name" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
                        [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" 
-                       [attr.aria-labelledby]="ariaLabelledBy">
+                       [attr.aria-labelledby]="ariaLabelledBy" role="listbox">
             </div>
             <div class="ui-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
                 <span class="ui-multiselect-label ui-corner-all">

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,ViewChild, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -33,15 +33,13 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     },
     providers: [SPINNER_VALUE_ACCESSOR]
 })
-export class Spinner implements AfterViewInit,ControlValueAccessor {
+export class Spinner implements OnInit,ControlValueAccessor {
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Input() step: number = 1;
 
     @Input() min: number;
 
@@ -76,8 +74,12 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     @Input() decimalSeparator: string;
 
     @Input() thousandSeparator: string;
+
+    @Input() precision: number;
     
     value: any;
+
+    _step: number = 1;
 
     formattedValue: string;
         
@@ -86,9 +88,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     onModelTouched: Function = () => {};
     
     keyPattern: RegExp = /[0-9\+\-]/;
-    
-    public precision: number;
-    
+        
     public timer: any;
     
     public focus: boolean;
@@ -102,20 +102,22 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     localeThousandSeparator: string;
 
     thousandRegExp: RegExp;
+
+    calculatedPrecision: number;
     
     @ViewChild('inputfield', { static: true }) inputfieldViewChild: ElementRef;
+
+    @Input() get step(): number {
+        return this._step;
+    }
+    set step(val:number) {
+        this._step = val;
+        this.calculatedPrecision = this.step.toString().split(/[,]|[.]/)[1].length;
+    }
     
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
-    ngAfterViewInit() {
-        if (this.value && this.value.toString().indexOf('.') > 0) {
-            this.precision = this.value.toString().split(/[.]/)[1].length;
-        }
-        else if (this.step % 1 !== 0) {
-            // If step is not an integer then extract the length of the decimal part
-            this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
-        }
-
+    ngOnInit() {
         if (this.formatInput) {
             this.localeDecimalSeparator = (1.1).toLocaleString().substring(1, 2);
             this.localeThousandSeparator = (1000).toLocaleString().substring(1, 2);
@@ -141,14 +143,15 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     spin(event: Event, dir: number) {
         let step = this.step * dir;
         let currentValue: number;
+        let precision = this.getPrecision();
 
         if (this.value)
             currentValue = (typeof this.value === 'string') ? this.parseValue(this.value) : this.value;
         else
             currentValue = 0;
         
-        if (this.precision)
-            this.value = parseFloat(this.toFixed(currentValue + step, this.precision));
+        if (precision)
+            this.value = parseFloat(this.toFixed(currentValue + step, precision));
         else
             this.value = currentValue + step;
     
@@ -163,10 +166,14 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         if (this.max !== undefined && this.value > this.max) {
             this.value = this.max;
         }
-       
+        
         this.formatValue();
         this.onModelChange(this.value);
         this.onChange.emit(event);
+    }
+
+    getPrecision() {
+        return this.precision === undefined ? this.calculatedPrecision : this.precision;
     }
     
     toFixed(value: number, precision: number) {
@@ -251,6 +258,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     parseValue(val: string): number {
         let value: number;
+        let precision = this.getPrecision();
                 
         if (val.trim() === '') {
             value = null;
@@ -260,7 +268,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
                 val = val.replace(this.thousandRegExp, '');
             }
 
-            if (this.precision) {
+            if (precision) {
                 val = this.formatInput ? val.replace(this.decimalSeparator || this.localeDecimalSeparator, '.') : val.replace(',', '.');
                 value = parseFloat(val);
             }
@@ -287,6 +295,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
 
     formatValue() {
         let value = this.value;
+        let precision = this.getPrecision();
 
         if (value != null) {
             if (this.formatInput) {
@@ -295,7 +304,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
                 if (this.decimalSeparator && this.thousandSeparator) {
                     value = value.split(this.localeDecimalSeparator);
     
-                    if (this.precision && value[1]) {
+                    if (precision && value[1]) {
                         value[1] = (this.decimalSeparator || this.localeDecimalSeparator) + value[1];
                     }
     

@@ -16,12 +16,12 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="pi pi-plus" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled || isChooseDisabled()}"> 
+                <span class="ui-fileupload-choose" [label]="chooseLabel" [icon]="chooseIcon" pButton [ngClass]="{'ui-state-focus': focus, 'ui-state-disabled':disabled || isChooseDisabled()}"> 
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
-                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="pi pi-upload" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
-                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="pi pi-times" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
+                <p-button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()"></p-button>
+                <p-button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading"></p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -102,6 +102,12 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
     @Input() uploadLabel: string = 'Upload';
 
     @Input() cancelLabel: string = 'Cancel';
+
+    @Input() chooseIcon: string = 'pi pi-plus';
+
+    @Input() uploadIcon: string = 'pi pi-upload';
+
+    @Input() cancelIcon: string = 'pi pi-times';
 
     @Input() showUploadButton: boolean = true;
 
