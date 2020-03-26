@@ -67,12 +67,6 @@ export class DropdownItem {
                     aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy" (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" 
                     [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus" role="listbox">
             </div>
-            <div class="ui-helper-hidden-accessible ui-dropdown-hidden-select">
-                <select [attr.required]="required" [attr.name]="name" tabindex="-1" aria-hidden="true">
-                    <option *ngIf="placeholder" value="">{{placeholder}}</option>
-                    <option *ngIf="selectedOption" [value]="selectedOption.value" [selected]="true">{{selectedOption.label}}</option>
-                </select>
-            </div>
             <div class="ui-dropdown-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
                 <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label == null || label.length === 0)}" *ngIf="!editable && (label != null)">
                     <ng-container *ngIf="!selectedItemTemplate">{{label||'empty'}}</ng-container>
