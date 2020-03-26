@@ -100,7 +100,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	moveOnTop() {
         if (this.config.autoZIndex !== false) {
-			const zIndex = this.config.baseZIndex||0 + (++DomHandler.zindex);
+			const zIndex = (this.config.baseZIndex||0) + (++DomHandler.zindex);
 			this.container.style.zIndex = String(zIndex);
 			this.maskViewChild.nativeElement.style.zIndex = String(zIndex - 1);
 		}
@@ -213,7 +213,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	bindDocumentEscapeListener() {
         this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) == DomHandler.zindex) {
+                if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + this.config.baseZIndex)) {
 					this.close();
 				}
             }
