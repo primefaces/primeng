@@ -21,7 +21,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
                 </li>
                 <li class="ui-chips-input-token">
-                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)" 
+                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="(value && value.length ? null : placeholder)" [attr.tabindex]="tabindex" (keydown)="onKeydown($event)"
                     (input)="onInput()" (paste)="onPaste($event)" [attr.aria-labelledby]="ariaLabelledBy" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul>
@@ -38,13 +38,13 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() disabled: boolean;
-    
+
     @Input() field: string;
-    
+
     @Input() placeholder: string;
-    
+
     @Input() max: number;
 
     @Input() ariaLabelledBy: string;
@@ -52,13 +52,13 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() tabindex: number;
 
     @Input() inputId: string;
-    
+
     @Input() allowDuplicate: boolean = true;
-    
+
     @Input() inputStyle: any;
-    
+
     @Input() inputStyleClass: any;
-    
+
     @Input() addOnTab: boolean;
 
     @Input() addOnBlur: boolean;
@@ -66,49 +66,49 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() separator: string;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onChipClick: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('inputtext', { static: true }) inputViewChild: ElementRef;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     public itemTemplate: TemplateRef<any>;
-        
+
     value: any;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-        
+
     valueChanged: boolean;
-    
+
     focus: boolean;
 
     filled: boolean;
-            
+
     constructor(public el: ElementRef) {}
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
             }
         });
     }
-    
+
     onClick() {
         this.inputViewChild.nativeElement.focus();
     }
@@ -146,10 +146,9 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     writeValue(value: any) : void {
         this.value = value;
-        console.log('Value:' + this.value);
         this.updateMaxedOut();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -157,11 +156,11 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+
     resolveFieldData(data: any, field: string): any {
         if (data && field) {
             if (field.indexOf('.') == -1) {
@@ -180,7 +179,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             return null;
         }
     }
-    
+
     onInputFocus(event: FocusEvent) {
         this.focus = true;
         this.onFocus.emit(event);
@@ -194,12 +193,12 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         this.onModelTouched();
         this.onBlur.emit(event);
     }
-    
+
     removeItem(event: Event, index: number): void {
         if (this.disabled) {
             return;
         }
-        
+
         let removedItem = this.value[index];
         this.value = this.value.filter((val, i) => i!=index);
         this.onModelChange(this.value);
@@ -210,7 +209,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         this.updateFilledState();
         this.updateMaxedOut();
     }
-    
+
     addItem(event: Event, item: string, preventDefault: boolean): void {
         this.value = this.value||[];
         if (item && item.trim().length) {
@@ -231,7 +230,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             event.preventDefault();
         }
     }
-    
+
     onKeydown(event: KeyboardEvent): void {
         switch(event.which) {
             //backspace
@@ -247,18 +246,18 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                     this.updateFilledState();
                 }
             break;
-            
+
             //enter
             case 13:
                 this.addItem(event, this.inputViewChild.nativeElement.value, true);
             break;
-            
+
             case 9:
                 if (this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
                     this.addItem(event, this.inputViewChild.nativeElement.value, true);
                 }
             break;
-            
+
             default:
                 if (this.max && this.value && this.max === this.value.length) {
                     event.preventDefault();
@@ -271,7 +270,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             break;
         }
     }
-    
+
     updateMaxedOut() {
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
             if (this.max && this.value && this.max === this.value.length)
