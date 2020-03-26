@@ -57,10 +57,12 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
 </pre>
 
             <h3>Step</h3>
-            <p>Step factor is 1 by default and can be customized with step option.</p>
+            <p>Step factor is 1 by default and can be customized with step option. It is suggested to use the precision property 
+                when a step is defined, in case precision is not configured the value would be calculated from the step. For example precision of 0.25 would be 2.
+            </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-spinner [(ngModel)]="val" [step]="0.25"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner [(ngModel)]="val" [step]="0.25" precision="2"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -194,6 +196,12 @@ import &#123;SpinnerModule&#125; from 'primeng/spinner';
                             <td>string</td>
                             <td>null</td>
                             <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
+                        </tr>
+                        <tr>
+                            <td>precision</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Number of digits in the decimal section.</td>
                         </tr>
                     </tbody>
                 </table>
