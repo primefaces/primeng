@@ -148,6 +148,10 @@ export class Dialog implements OnDestroy {
 
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
 
+    @Output() onResizeInit: EventEmitter<any> = new EventEmitter();
+
+    @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
+
     _visible: boolean;
 
     maskVisible: boolean;
@@ -428,6 +432,7 @@ export class Dialog implements OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
             DomHandler.addClass(document.body, 'ui-unselectable-text');
+            this.onResizeInit.emit(event);
         }
     }
 
@@ -459,10 +464,11 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    onResizeEnd() {
+    resizeEnd(event) {
         if (this.resizing) {
             this.resizing = false;
             DomHandler.removeClass(document.body, 'ui-unselectable-text');
+            this.onResizeEnd.emit(event);
         }
     }
 
@@ -537,8 +543,8 @@ export class Dialog implements OnDestroy {
 
     bindDocumentResizeListeners() {
         this.zone.runOutsideAngular(() => {
-            this.documentResizeListener = this.onResize.bind(this);
-            this.documentResizeEndListener = this.onResizeEnd.bind(this);
+            this.documentResizeListener = this.resizeEnd.bind(this);
+            this.documentResizeEndListener = this.resizeEnd.bind(this);
             window.document.addEventListener('mousemove', this.documentResizeListener);
             window.document.addEventListener('mouseup', this.documentResizeEndListener);
         });
