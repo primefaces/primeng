@@ -543,7 +543,7 @@ export class Dialog implements OnDestroy {
 
     bindDocumentResizeListeners() {
         this.zone.runOutsideAngular(() => {
-            this.documentResizeListener = this.resizeEnd.bind(this);
+            this.documentResizeListener = this.onResize.bind(this);
             this.documentResizeEndListener = this.resizeEnd.bind(this);
             window.document.addEventListener('mousemove', this.documentResizeListener);
             window.document.addEventListener('mouseup', this.documentResizeEndListener);
