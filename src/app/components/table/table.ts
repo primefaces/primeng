@@ -72,7 +72,7 @@ export class TableService {
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
-            
+
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table role="grid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -90,12 +90,12 @@ export class TableService {
                <div class="ui-table-scrollable-view ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
                <div class="ui-table-scrollable-view" [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
             </div>
-            
+
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
-            
+
                 <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
@@ -109,7 +109,7 @@ export class TableService {
     providers: [TableService]
 })
 export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
-    
+
     @Input() frozenColumns: any[];
 
     @Input() frozenValue: any[];
@@ -117,9 +117,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() tableStyle: any;
-    
+
     @Input() tableStyleClass: string;
 
     @Input() paginator: boolean;
@@ -143,7 +143,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() defaultSortOrder: number = 1;
 
     @Input() sortMode: string = 'single';
-    
+
     @Input() resetPageOnSort: boolean = true;
 
     @Input() selectionMode: string;
@@ -199,7 +199,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() responsive: boolean;
 
     @Input() contextMenu: any;
-    
+
     @Input() resizableColumns: boolean;
 
     @Input() columnResizeMode: string = 'fit';
@@ -217,7 +217,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() customSort: boolean;
 
     @Input() autoLayout: boolean;
-    
+
     @Input() exportFunction;
 
     @Input() stateKey: string;
@@ -361,7 +361,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     _sortOrder: number = 1;
 
     virtualScrollTimer: any;
-    
+
     virtualScrollCallback: Function;
 
     preventSelectionSetterPropagation: boolean;
@@ -369,7 +369,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     _selection: any;
 
     anchorRowIndex: number;
-    
+
     rangeRowIndex: number;
 
     filterTimeout: any;
@@ -402,7 +402,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         this.initialized = true;
     }
- 
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
@@ -484,12 +484,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.isStateful() && !this.stateRestored) {
                 this.restoreState();
             }
-    
+
             this._value = simpleChange.value.currentValue;
-            
+
             if (!this.lazy) {
                 this.totalRecords = (this._value ? this._value.length : 0);
-                
+
                 if (this.sortMode == 'single' && this.sortField)
                     this.sortSingle();
                 else if (this.sortMode == 'multiple' && this.multiSortMeta)
@@ -497,11 +497,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 else if (this.hasFilter())       //sort already filters
                     this._filter();
             }
-    
+
             if (this.virtualScroll && this.virtualScrollCallback) {
                 this.virtualScrollCallback();
             }
-    
+
             this.tableService.onValueChange(simpleChange.value.currentValue);
         }
 
@@ -618,7 +618,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     set selection(val: any) {
-        this._selection = val;        
+        this._selection = val;
     }
 
     updateSelectionKeys() {
@@ -647,7 +647,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             first: this.first,
             rows: this.rows
         });
-        
+
         this.firstChange.emit(this.first);
         this.rowsChange.emit(this.rows);
         this.tableService.onValueChange(this.value);
@@ -700,7 +700,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
                 this._multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
-            
+
             this.sortMultiple();
         }
 
@@ -734,7 +734,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         let value1 = ObjectUtils.resolveFieldData(data1, this.sortField);
                         let value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
                         let result = null;
-        
+
                         if (value1 == null && value2 != null)
                             result = -1;
                         else if (value1 != null && value2 == null)
@@ -745,21 +745,21 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             result = value1.localeCompare(value2);
                         else
                             result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-        
+
                         return (this.sortOrder * result);
                     });
                 }
-                
+
                 if (this.hasFilter()) {
                     this._filter();
                 }
             }
-    
+
             let sortMeta: SortMeta = {
                 field: this.sortField,
                 order: this.sortOrder
             };
-    
+
             this.onSort.emit(sortMeta);
             this.tableService.onSort(sortMeta);
         }
@@ -788,7 +788,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this._filter();
                 }
             }
-            
+
             this.onSort.emit({
                 multisortmeta: this.multiSortMeta
             });
@@ -831,7 +831,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
         }
-       
+
         return null;
     }
 
@@ -857,7 +857,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let target = (<HTMLElement> event.originalEvent.target);
         let targetNode = target.nodeName;
         let parentNode = target.parentElement && target.parentElement.nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || 
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' ||
             parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' ||
             (DomHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
             return;
@@ -870,7 +870,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (this.rangeRowIndex != null) {
                     this.clearSelectionRange(event.originalEvent);
                 }
-                
+
                 this.rangeRowIndex = event.rowIndex;
                 this.selectRange(event.originalEvent, event.rowIndex);
             }
@@ -884,7 +884,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 if (metaSelection) {
                     let metaKey = event.originalEvent.metaKey||event.originalEvent.ctrlKey;
-                    
+
                     if (selected && metaKey) {
                         if (this.isSingleSelectionMode()) {
                             this._selection = null;
@@ -899,7 +899,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                                 delete this.selectionKeys[dataKeyValue];
                             }
                         }
-                        
+
                         this.onRowUnselect.emit({originalEvent: event.originalEvent, data: rowData, type: 'row'});
                     }
                     else {
@@ -999,7 +999,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.preventSelectionSetterPropagation = true;
                 let selected = this.isSelected(rowData);
                 let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
-                
+
                 if (!selected) {
                     if (this.isSingleSelectionMode()) {
                         this.selection = rowData;
@@ -1009,12 +1009,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         this.selection = [rowData];
                         this.selectionChange.emit(this.selection);
                     }
-                    
+
                     if (dataKeyValue) {
                         this.selectionKeys[dataKeyValue] = 1;
                     }
                 }
-    
+
                 this.contextMenu.show(event.originalEvent);
                 this.onContextMenuSelect.emit({originalEvent: event, data: rowData, index: event.rowIndex});
             }
@@ -1023,7 +1023,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     selectRange(event: MouseEvent, rowIndex: number) {
         let rangeStart, rangeEnd;
-        
+
         if (this.anchorRowIndex > rowIndex) {
             rangeStart = rowIndex;
             rangeEnd = this.anchorRowIndex;
@@ -1036,7 +1036,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             rangeStart = rowIndex;
             rangeEnd = rowIndex;
         }
-        
+
         if (this.lazy && this.paginator) {
             rangeStart -= this.first;
             rangeEnd -= this.first;
@@ -1072,7 +1072,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             rangeStart = this.rangeRowIndex;
             rangeEnd = this.rangeRowIndex;
         }
-        
+
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.value[i];
             let selectionIndex = this.findIndexInSelection(rangeRowData);
@@ -1122,7 +1122,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this._selection = rowData;
             this.selectionChange.emit(this.selection);
             this.onRowSelect.emit({originalEvent: event.originalEvent, index: event.rowIndex, data: rowData, type: 'radiobutton'});
-            
+
             if (this.dataKey) {
                 this.selectionKeys = {};
                 this.selectionKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] = 1;
@@ -1193,13 +1193,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
-        
+
         if (!this.isFilterBlank(value)) {
             this.filters[field] = { value: value, matchMode: matchMode };
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
-        
+
         this.filterTimeout = setTimeout(() => {
             this._filter();
             this.filterTimeout = null;
@@ -1250,14 +1250,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     else
                         globalFilterFieldsArray = this.globalFilterFields||this.columns;
                 }
-                
+
                 this.filteredValue = [];
 
                 for (let i = 0; i < this.value.length; i++) {
                     let localMatch = true;
                     let globalMatch = false;
                     let localFiltered = false;
-    
+
                     for (let prop in this.filters) {
                         if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
                             localFiltered = true;
@@ -1267,28 +1267,28 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             let filterMatchMode = filterMeta.matchMode || 'startsWith';
                             let dataFieldValue = ObjectUtils.resolveFieldData(this.value[i], filterField);
                             let filterConstraint = FilterUtils[filterMatchMode];
-    
+
                             if (!filterConstraint(dataFieldValue, filterValue)) {
                                 localMatch = false;
                             }
-    
+
                             if (!localMatch) {
                                 break;
                             }
                         }
                     }
-    
+
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
                             globalMatch = FilterUtils[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
-                            
+
                             if (globalMatch) {
                                 break;
                             }
                         }
                     }
-    
+
                     let matches: boolean;
                     if (this.filters['global']) {
                         matches = localFiltered ? (localFiltered && localMatch && globalMatch) : globalMatch;
@@ -1296,16 +1296,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     else {
                         matches = localFiltered && localMatch;
                     }
-    
+
                     if (matches) {
                         this.filteredValue.push(this.value[i]);
                     }
                 }
-    
+
                 if (this.filteredValue.length === this.value.length) {
                     this.filteredValue = null;
                 }
-    
+
                 if (this.paginator) {
                     this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
                 }
@@ -1359,13 +1359,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._sortOrder = this.defaultSortOrder;
         this._multiSortMeta = null;
         this.tableService.onSort(null);
-        
+
         this.filteredValue = null;
         this.filters = {};
-        
+
         this.first = 0;
         this.firstChange.emit(this.first);
-        
+
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -1381,7 +1381,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (options && options.selectionOnly) {
             data = this.selection || [];
         }
-        
+
         //headers
         for (let i = 0; i < this.columns.length; i++) {
             let column = this.columns[i];
@@ -1401,7 +1401,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 let column = this.columns[i];
                 if (column.exportable !== false && column.field) {
                     let cellData = ObjectUtils.resolveFieldData(record, column.field);
-                    
+
                     if (cellData != null) {
                         if (this.exportFunction) {
                             cellData = this.exportFunction({
@@ -1414,10 +1414,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     }
                     else
                         cellData = '';
-        
-        
+
+
                     csv += '"' + cellData + '"';
-        
+
                     if (i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
                     }
@@ -1476,11 +1476,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 this.editingCellClick = false;
             };
-            
+
             document.addEventListener('click', this.documentEditListener);
         }
     }
-     
+
     unbindDocumentEditListener() {
         if (this.documentEditListener) {
             document.removeEventListener('click', this.documentEditListener);
@@ -1577,13 +1577,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
         let columnWidth = column.offsetWidth;
         let minWidth = parseInt(column.style.minWidth || 15);
-        
+
         if (columnWidth + delta < minWidth) {
             delta = minWidth - columnWidth;
         }
-    
+
         const newColumnWidth = columnWidth + delta;
-    
+
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
                 let nextColumn = column.nextElementSibling;
@@ -1667,7 +1667,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         setWidth(scrollableBody, scrollableBodyTable, scrollableBodyTableWidth, isContainerInViewport);
         setWidth(scrollableHeader, scrollableHeaderTable, scrollableHeaderTableWidth, isContainerInViewport);
         setWidth(scrollableFooter, scrollableFooterTable, scrollableHeaderTableWidth, isContainerInViewport);
-    
+
         if (column) {
             let resizeColumnIndex = DomHandler.index(column);
 
@@ -1699,7 +1699,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 let col = colGroup.children[resizeColumnIndex];
                 let nextCol = col.nextElementSibling;
                 col.style.width = newColumnWidth + 'px';
-    
+
                 if (nextCol && nextColumnWidth) {
                     nextCol.style.width = nextColumnWidth + 'px';
                 }
@@ -1823,10 +1823,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let pageY = event.pageY;
             let rowMidY = rowY + DomHandler.getOuterHeight(rowElement) / 2;
             let prevRowElement = rowElement.previousElementSibling;
-            
+
             if (pageY < rowMidY) {
                 DomHandler.removeClass(rowElement, 'ui-table-dragpoint-bottom');
-    
+
                 this.droppedRowIndex = index;
                 if (prevRowElement)
                     DomHandler.addClass(prevRowElement, 'ui-table-dragpoint-bottom');
@@ -1838,7 +1838,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     DomHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
                 else
                     DomHandler.addClass(rowElement, 'ui-table-dragpoint-top');
-    
+
                 this.droppedRowIndex = index + 1;
                 DomHandler.addClass(rowElement, 'ui-table-dragpoint-bottom');
             }
@@ -1880,12 +1880,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.first = (event.page - 1) * this.rows;
         this.firstChange.emit(this.first);
         this.virtualScrollCallback = event.callback;
-        
+
         this.zone.run(() => {
             if (this.virtualScrollTimer) {
                 clearTimeout(this.virtualScrollTimer);
             }
-            
+
             this.virtualScrollTimer = setTimeout(() => {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }, this.virtualScrollDelay);
@@ -1921,7 +1921,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     saveState() {
         const storage = this.getStorage();
         let state: TableState = {};
-        
+
         if (this.paginator) {
             state.first = this.first;
             state.rows = this.rows;
@@ -1974,7 +1974,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     restoreState() {
         const storage = this.getStorage();
         const stateString = storage.getItem(this.stateKey);
-        
+
         if (stateString) {
             let state: TableState = JSON.parse(stateString);
 
@@ -2057,7 +2057,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 let headers = DomHandler.find(this.tableViewChild.nativeElement, '.ui-table-thead > tr:first-child > th');
                 headers.map((header, index) => header.style.width = widths[index] + 'px');
             }
-        } 
+        }
     }
 
     saveColumnOrder(state) {
@@ -2089,7 +2089,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     findColumnByKey(key) {
         if (this.columns) {
             for (let col of this.columns) {
-                if (col.key === key || col.field === key) 
+                if (col.key === key || col.field === key)
                     return col;
                 else
                     continue;
@@ -2136,7 +2136,7 @@ export class TableBody {
     @Input("pTableBody") columns: any[];
 
     @Input("pTableBodyTemplate") template: TemplateRef<any>;
- 
+
     @Input() frozen: boolean;
 
     constructor(public dt: Table) {}
@@ -2228,7 +2228,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     totalRecordsSubscription: Subscription;
 
     columnsSubscription: Subscription;
-    
+
     initialized: boolean;
 
     preventBodyScrollPropagation: boolean;
@@ -2261,7 +2261,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
 
         this.loadingArray = Array(this.dt.rows).fill(1);
-        
+
         this.initialized = false;
      }
 
@@ -2272,7 +2272,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         this._scrollHeight = val;
         this.setScrollHeight();
     }
-    
+
     ngAfterViewChecked() {
         if (!this.initialized && this.el.nativeElement.offsetParent) {
             this.alignScrollBar();
@@ -2422,7 +2422,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                                 if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
                                     this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
                                 }
-                                
+
                                 this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
 
                                 if (this.frozenSiblingBody) {
@@ -2449,7 +2449,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                     this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
                     this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
                     let containerHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-                    
+
                     if (this.scrollHeight.includes("calc")) {
                         let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
                         let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
@@ -2458,20 +2458,20 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                     else {
                         relativeHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
                     }
-                    
+
                     let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
                     let scrollBodyHeight = (relativeHeight - staticHeight);
-    
+
                     if (this.frozen) {
                         scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
                     }
-                    
+
                     this.scrollBodyViewChild.nativeElement.style.height = 'auto';
                     this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
                     this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
                 }
-                else {    
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;          
+                else {
+                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
                 }
             }
         }
@@ -2491,7 +2491,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         if (!this.frozen) {
             let scrollBarWidth = this.hasVerticalOverflow() ? DomHandler.calculateScrollbarWidth() : 0;
             this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
-            
+
             if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
                 this.scrollFooterBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
             }
@@ -2535,7 +2535,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     @Input() pSortableColumnDisabled: boolean;
 
     sorted: boolean;
-    
+
     subscription: Subscription;
 
     constructor(public dt: Table) {
@@ -2594,27 +2594,27 @@ export class SortableColumn implements OnInit, OnDestroy {
     `
 })
 export class SortIcon implements OnInit, OnDestroy {
-    
+
     @Input() field: string;
-        
+
     subscription: Subscription;
-    
+
     sortOrder: number;
-    
+
     constructor(public dt: Table) {
         this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
             this.updateSortState();
         });
     }
-    
+
     ngOnInit() {
         this.updateSortState();
     }
-    
+
     onClick(event){
         event.preventDefault();
     }
-    
+
     updateSortState() {
         if (this.dt.sortMode === 'single') {
             this.sortOrder = this.dt.isSorted(this.field) ? this.dt.sortOrder : 0;
@@ -2624,7 +2624,7 @@ export class SortIcon implements OnInit, OnDestroy {
             this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
     }
-    
+
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
@@ -2676,7 +2676,7 @@ export class SelectableRow implements OnInit, OnDestroy {
             });
         }
     }
-    
+
     @HostListener('touchend', ['$event'])
     onTouchEnd(event: Event) {
         if (this.isEnabled()) {
@@ -2690,7 +2690,7 @@ export class SelectableRow implements OnInit, OnDestroy {
             return;
         }
 
-        const row = <HTMLTableRowElement>event.target;
+        const row = <HTMLTableRowElement>event.currentTarget;
         const nextRow = this.findNextSelectableRow(row);
 
         if (nextRow) {
@@ -2706,7 +2706,7 @@ export class SelectableRow implements OnInit, OnDestroy {
             return;
         }
 
-        const row = <HTMLTableRowElement>event.target;
+        const row = <HTMLTableRowElement>event.currentTarget;
         const prevRow = this.findPrevSelectableRow(row);
 
         if (prevRow) {
@@ -2754,7 +2754,7 @@ export class SelectableRow implements OnInit, OnDestroy {
             return null;
         }
     }
-    
+
     isEnabled() {
         return this.pSelectableRowDisabled !== true;
     }
@@ -2810,7 +2810,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
             });
         }
     }
-    
+
     isEnabled() {
         return this.pSelectableRowDisabled !== true;
     }
@@ -2857,7 +2857,7 @@ export class ContextMenuRow {
                 rowData: this.data,
                 rowIndex: this.index
             });
-    
+
             event.preventDefault();
         }
     }
@@ -2921,7 +2921,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
             this.resizer = document.createElement('span');
             this.resizer.className = 'ui-column-resizer ui-clickable';
             this.el.nativeElement.appendChild(this.resizer);
-    
+
             this.zone.runOutsideAngular(() => {
                 this.resizerMouseDownListener = this.onMouseDown.bind(this);
                 this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
@@ -2955,7 +2955,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         if (event.which === 1) {
             this.dt.onColumnResizeBegin(event);
             this.bindDocumentEvents();
-        } 
+        }
     }
 
     onDocumentMouseMove(event: MouseEvent) {
@@ -2975,7 +2975,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         if (this.resizerMouseDownListener) {
             this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
         }
-        
+
         this.unbindDocumentEvents();
     }
 }
@@ -3118,13 +3118,13 @@ export class EditableColumn implements AfterViewInit {
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
             this.dt.editingCellClick = true;
-            
+
             if (this.dt.editingCell) {
                 if (this.dt.editingCell !== this.el.nativeElement) {
                     if (!this.dt.isEditingCellValid()) {
                         return;
                     }
-        
+
                     this.closeEditingCell(true, event);
                     this.openCell();
                 }
@@ -3221,7 +3221,7 @@ export class EditableColumn implements AfterViewInit {
                 if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell(true, event);
                 }
-                
+
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
@@ -3401,7 +3401,7 @@ export class CellEditor implements AfterContentInit {
     template: `
         <div class="ui-radiobutton ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
-                <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" 
+                <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="disabled" [attr.aria-label]="ariaLabel">
             </div>
             <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
@@ -3464,7 +3464,7 @@ export class TableRadioButton  {
             this.subscription.unsubscribe();
         }
     }
-   
+
 }
 
 @Component({
@@ -3495,7 +3495,7 @@ export class TableCheckbox  {
     @Input() name: string;
 
     @Input() required: boolean;
-    
+
     @Input() ariaLabel: string;
 
     @ViewChild('box') boxViewChild: ElementRef;
@@ -3537,7 +3537,7 @@ export class TableCheckbox  {
             this.subscription.unsubscribe();
         }
     }
-   
+
 }
 
 @Component({
@@ -3545,7 +3545,7 @@ export class TableCheckbox  {
     template: `
         <div class="ui-chkbox ui-widget" (click)="onClick($event)">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" 
+                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="isDisabled()" [attr.aria-label]="ariaLabel">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
@@ -3643,7 +3643,7 @@ export class TableHeaderCheckbox  {
             return true;
         }
     }
-   
+
 }
 
 @Directive({
@@ -3652,7 +3652,7 @@ export class TableHeaderCheckbox  {
 export class ReorderableRowHandle implements AfterViewInit {
 
     @Input("pReorderableRowHandle") index: number;
-    
+
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
@@ -3770,7 +3770,7 @@ export class ReorderableRow implements AfterViewInit {
         if (this.isEnabled() && this.dt.rowDragging) {
             this.dt.onRowDrop(event, this.el.nativeElement);
         }
-    
+
         event.preventDefault()
     }
 }
