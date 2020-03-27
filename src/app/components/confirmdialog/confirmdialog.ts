@@ -103,6 +103,8 @@ export class ConfirmDialog implements OnDestroy {
 
     @Input() focusTrap: boolean = true;
 
+    @Input() defaultFocus: string = 'accept';
+
     @Input() get visible(): any {
         return this._visible;
     }
@@ -191,6 +193,7 @@ export class ConfirmDialog implements OnDestroy {
                 this.rejectIcon = this.confirmation.rejectIcon || this.rejectIcon;
                 this.acceptButtonStyleClass = this.confirmation.acceptButtonStyleClass || this.acceptButtonStyleClass;
                 this.rejectButtonStyleClass = this.confirmation.rejectButtonStyleClass || this.rejectButtonStyleClass;
+                this.defaultFocus = this.confirmation.defaultFocus || this.defaultFocus;
 
                 if (this.confirmation.accept) {
                     this.confirmation.acceptEvent = new EventEmitter();
@@ -218,8 +221,9 @@ export class ConfirmDialog implements OnDestroy {
                 this.wrapper = this.container.parentElement;
                 this.contentContainer = DomHandler.findSingle(this.container, '.ui-dialog-content');
 
-                if (this.acceptVisible || this.rejectVisible) {
-                    DomHandler.findSingle(this.container, 'button').focus();
+                const element = this.getElementToFocus();
+                if (element) {
+                    element.focus();
                 }
 
                 this.appendContainer();
@@ -235,6 +239,26 @@ export class ConfirmDialog implements OnDestroy {
             case 'void':
                 this.onOverlayHide();
             break;
+        }
+    }
+
+    getElementToFocus() {
+        switch(this.defaultFocus) {
+            case 'accept':
+                return DomHandler.findSingle(this.container, 'button.ui-confirmdialog-acceptbutton');
+
+            case 'reject':
+                return DomHandler.findSingle(this.container, 'button.ui-confirmdialog-rejectbutton');
+
+            case 'close':
+                return DomHandler.findSingle(this.container, 'a.ui-dialog-titlebar-close');
+
+            case 'none':
+                return null;
+
+            //backward compatibility
+            default:
+                return DomHandler.findSingle(this.container, 'button.ui-confirmdialog-acceptbutton');
         }
     }
 
