@@ -35,7 +35,7 @@ export class Checkbox implements ControlValueAccessor {
 
     @Input() disabled: boolean;
     
-    @Input() binary: string;
+    @Input() binary: boolean;
     
     @Input() label: string;
 
