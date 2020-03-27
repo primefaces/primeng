@@ -248,9 +248,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @ViewChild('filterInput', { static: false }) filterInputChild: ElementRef;
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
 
-    @ContentChild(Header, { static: true }) headerFacet;
+    @ContentChild(Header) headerFacet;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
