@@ -55,7 +55,9 @@ export class DynamicDialogDemo implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.ref.close();
+        if (this.ref) {
+            this.ref.close();
+        }
     }
 }
 
