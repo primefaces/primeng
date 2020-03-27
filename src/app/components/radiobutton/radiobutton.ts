@@ -127,6 +127,10 @@ export class RadioButton implements ControlValueAccessor {
     onChange(event) {
         this.select(event);
     }
+
+    focus() {
+        this.inputViewChild.nativeElement.focus();
+    }
 }
 
 @NgModule({

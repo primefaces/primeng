@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl} from '@angular/forms';
 
@@ -56,6 +56,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() checkboxIcon: string = 'pi pi-check';
     
     @Input() readonly: boolean;
+
+    @ViewChild('cb') inputViewChild: ElementRef;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -131,15 +133,19 @@ export class Checkbox implements ControlValueAccessor {
             this.model = [this.value];
     }
     
-    onFocus(event) {
+    onFocus() {
         this.focused = true;
     }
 
-    onBlur(event) {
+    onBlur() {
         this.focused = false;
         this.onModelTouched();
     }
-    
+
+    focus() {
+        this.inputViewChild.nativeElement.focus();
+    }
+     
     writeValue(model: any) : void {
         this.model = model;
         this.checked = this.isChecked();
