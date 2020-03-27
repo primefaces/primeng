@@ -22,7 +22,8 @@ import {RouterModule} from '@angular/router';
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                     </a>
                     <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" role="presentation" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
-                        [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id">
+                        [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
+                        [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
                         <ng-container *ngIf="!itemTemplate">
                             <span class="ui-menuitem-icon " [ngClass]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>

@@ -23,7 +23,8 @@ import {RouterModule} from '@angular/router';
                         </a>
                         <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" [attr.tabindex]="category.tabindex ? category.tabindex : '0'" 
                             [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
-                            (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
+                            (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass"
+                            [fragment]="category.fragment" [queryParamsHandling]="category.queryParamsHandling" [preserveFragment]="category.preserveFragment" [skipLocationChange]="category.skipLocationChange" [replaceUrl]="category.replaceUrl" [state]="category.state">
                             <span class="ui-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="ui-menuitem-text">{{category.label}}</span>
                         </a>
@@ -46,7 +47,8 @@ import {RouterModule} from '@angular/router';
                                                         <a *ngIf="item.routerLink" role="menuitem" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
                                                              [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
-                                                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)"
+                                                            [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
                                                             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>
                                                         </a>

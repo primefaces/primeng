@@ -26,7 +26,8 @@ import {RouterModule} from '@angular/router';
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
                         [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" 
                         [ngClass]="{'ui-state-disabled':child.disabled}" 
-                        (click)="itemClick($event, child, listitem)">
+                        (click)="itemClick($event, child, listitem)"
+                        [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
