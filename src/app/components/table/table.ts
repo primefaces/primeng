@@ -1559,6 +1559,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onColumnResizeBegin(event) {
         let containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
+        this.onColumnResize(event);
         event.preventDefault();
     }
 
