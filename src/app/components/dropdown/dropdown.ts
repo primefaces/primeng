@@ -59,7 +59,7 @@ export class DropdownItem {
 @Component({
     selector: 'p-dropdown',
     template: `
-         <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
+         <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all':true,
             'ui-state-disabled':disabled, 'ui-dropdown-open':overlayVisible, 'ui-state-focus':focused, 'ui-dropdown-clearable': showClear && !disabled}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
