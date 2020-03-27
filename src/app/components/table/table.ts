@@ -2683,46 +2683,49 @@ export class SelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('keydown', ['$event'])
-    onKeyDown(event: KeyboardEvent) {
-        if (this.isEnabled()) {
-            const row = <HTMLTableRowElement> event.target;
-
-            switch (event.which) {
-                //down arrow
-                case 40:
-                    let nextRow = this.findNextSelectableRow(row);
-                    if (nextRow) {
-                        nextRow.focus();
-                    }
-
-                    event.preventDefault();
-                break;
-    
-                //up arrow
-                case 38:
-                    let prevRow = this.findPrevSelectableRow(row);
-                    if (prevRow) {
-                        prevRow.focus();
-                    }
-
-                    event.preventDefault();
-                break;
-    
-                //enter
-                case 13:
-                    this.dt.handleRowClick({
-                        originalEvent: event,
-                        rowData: this.data,
-                        rowIndex: this.index
-                    });
-                break;
-    
-                default:
-                //no op
-                break;
-            }
+    @HostListener('keydown.arrowdown', ['$event'])
+    onArrowDownKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled()) {
+            return;
         }
+
+        const row = <HTMLTableRowElement>event.target;
+        const nextRow = this.findNextSelectableRow(row);
+
+        if (nextRow) {
+            nextRow.focus();
+        }
+
+        event.preventDefault();
+    }
+
+    @HostListener('keydown.arrowup', ['$event'])
+    onArrowUpKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
+        const row = <HTMLTableRowElement>event.target;
+        const prevRow = this.findPrevSelectableRow(row);
+
+        if (prevRow) {
+            prevRow.focus();
+        }
+
+        event.preventDefault();
+    }
+
+    @HostListener('keydown.enter', ['$event'])
+    onEnterKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
+        this.dt.handleRowClick({
+            originalEvent: event,
+            rowData: this.data,
+            rowIndex: this.index
+        });
     }
 
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
@@ -3160,34 +3163,37 @@ export class EditableColumn implements AfterViewInit {
         this.dt.unbindDocumentEditListener();
     }
 
-    @HostListener('keydown', ['$event'])
-    onKeyDown(event: KeyboardEvent) {
+    @HostListener('keydown.enter', ['$event'])
+    onEnterKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
-            //enter
-            if (event.keyCode == 13) {
-                if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell(true, event);
-                }
-    
-                event.preventDefault();
+            if (this.dt.isEditingCellValid()) {
+                this.closeEditingCell(true, event);
             }
-    
-            //escape
-            else if (event.keyCode == 27) {
-                if (this.dt.isEditingCellValid()) {
-                    this.closeEditingCell(false, event);
-                }
-    
-                event.preventDefault();
+
+            event.preventDefault();
+        }
+    }
+
+    @HostListener('keydown.escape', ['$event'])
+    onEscapeKeyDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            if (this.dt.isEditingCellValid()) {
+                this.closeEditingCell(false, event);
             }
-    
-            //tab
-            else if (event.keyCode == 9) {
-                if (event.shiftKey)
-                    this.moveToPreviousCell(event);
-                else
-                    this.moveToNextCell(event);
-            }
+
+            event.preventDefault();
+        }
+    }
+
+    @HostListener('keydown.tab', ['$event'])
+    @HostListener('keydown.shift.tab', ['$event'])
+    @HostListener('keydown.meta.tab', ['$event'])
+    onShiftKeyDown(event: KeyboardEvent) {
+        if (this.isEnabled()) {
+            if (event.shiftKey)
+                this.moveToPreviousCell(event);
+            else
+                this.moveToNextCell(event);
         }
     }
 
