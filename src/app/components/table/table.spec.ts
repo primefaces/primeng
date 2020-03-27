@@ -1,7 +1,7 @@
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Table, TableModule } from './table';
+import { Table, TableModule, EditableColumn } from './table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { DropdownModule} from 'primeng/dropdown';
@@ -437,7 +437,8 @@ describe('Table', () => {
 
             ],
             declarations: [
-                TestBasicTableComponent
+                TestBasicTableComponent,
+                EditableColumn
             ]
         });
 
@@ -1107,6 +1108,7 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let cell = fixture.debugElement.query(By.css(".ui-editable-column"));
+        let editableDir = cell.parent.query(By.directive(EditableColumn)).injector.get(EditableColumn);
         cell.nativeElement.click();
         fixture.detectChanges();
 
@@ -1115,6 +1117,7 @@ describe('Table', () => {
         keydownEvent.keyCode = 13;
         keydownEvent.initEvent('keydown', true, true);
         cell.nativeElement.dispatchEvent(keydownEvent);
+        editableDir.onEnterKeyDown(keydownEvent);
         fixture.detectChanges();
 
         expect(editableTable.editingCell).toBeFalsy();
@@ -1124,6 +1127,7 @@ describe('Table', () => {
         expect(editableTable.editingCell).toBeTruthy();
         keydownEvent.keyCode = 27;
         cell.nativeElement.dispatchEvent(keydownEvent);
+        editableDir.onEscapeKeyDown(keydownEvent);
         fixture.detectChanges();
 
         expect(editableTable.editingCell).toBeFalsy();
@@ -1134,15 +1138,20 @@ describe('Table', () => {
 
         let cellEls = fixture.debugElement.queryAll(By.css(".ui-editable-column"));
         let cell = cellEls[0];
+        let editableDir = cell.parent.query(By.directive(EditableColumn)).injector.get(EditableColumn);
+        const moveToNextCellSpy = spyOn(editableDir, 'moveToNextCell').and.callThrough();
         cell.nativeElement.click();
         fixture.detectChanges();
 
         expect(editableTable.editingCell).toBeTruthy();
-        cell.triggerEventHandler("keydown",{target:cell.children[0].children[0].nativeElement,keyCode:9,preventDefault(){}})
+        const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.keyCode = 9;
+        keydownEvent.initEvent('keydown', true, true);
+        keydownEvent.shiftKey = false;
+        editableDir.onShiftKeyDown(keydownEvent);
         fixture.detectChanges();
 
-        expect(editableTable.editingCell).not.toEqual(cell.nativeElement);
-        expect(editableTable.editingCell).toEqual(cellEls[1].nativeElement);
+        expect(moveToNextCellSpy).toHaveBeenCalled();
     });
 
     it('should open prev cell', () => {
@@ -1154,11 +1163,16 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(editableTable.editingCell).toBeTruthy();
-        cell.triggerEventHandler("keydown",{target:cell.children[0].children[0].nativeElement,keyCode:9,shiftKey:true,preventDefault(){}})
+        let editableDir = cell.parent.query(By.directive(EditableColumn)).injector.get(EditableColumn);
+        const moveToPreviousCellSpy = spyOn(editableDir, 'moveToPreviousCell').and.callThrough();
+        const keydownEvent: any = document.createEvent('CustomEvent');
+        keydownEvent.keyCode = 9;
+        keydownEvent.initEvent('keydown', true, true);
+        keydownEvent.shiftKey = true;
+        editableDir.onShiftKeyDown(keydownEvent);
         fixture.detectChanges();
 
-        expect(editableTable.editingCell).not.toEqual(cell.nativeElement);
-        expect(editableTable.editingCell).toEqual(cellEls[0].nativeElement);
+        expect(moveToPreviousCellSpy).toHaveBeenCalled();
     });
 
     it('should open expansion', () => {

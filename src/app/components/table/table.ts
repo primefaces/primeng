@@ -3193,8 +3193,9 @@ export class EditableColumn implements AfterViewInit {
         if (this.isEnabled()) {
             if (event.shiftKey)
                 this.moveToPreviousCell(event);
-            else
+            else{
                 this.moveToNextCell(event);
+            }
         }
     }
 
