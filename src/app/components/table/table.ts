@@ -3148,9 +3148,10 @@ export class EditableColumn implements AfterViewInit {
     }
 
     closeEditingCell(completed, event) {
-        if (completed) {
+        if (completed)
             this.dt.onEditComplete.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.rowIndex});
-        }
+        else
+            this.dt.onEditCancel.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.rowIndex});
 
         DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
         this.dt.editingCell = null;
