@@ -38,8 +38,8 @@ const hideAnimation = animation([
                     <ng-content select="p-footer"></ng-content>
                 </div>
                 <div class="ui-dialog-footer ui-widget-content" *ngIf="!footer">
-                    <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" [class]="acceptButtonStyleClass" *ngIf="acceptVisible"></button>
-                    <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" [class]="rejectButtonStyleClass" *ngIf="rejectVisible"></button>
+                    <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" [ngClass]="'ui-confirmdialog-acceptbutton'" [class]="acceptButtonStyleClass" *ngIf="acceptVisible"></button>
+                    <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" [ngClass]="'ui-confirmdialog-rejectbutton'" [class]="rejectButtonStyleClass" *ngIf="rejectVisible"></button>
                 </div>
             </div>
         </div>
@@ -189,6 +189,8 @@ export class ConfirmDialog implements OnDestroy {
                 this.rejectLabel = this.confirmation.rejectLabel||this.rejectLabel;
                 this.acceptIcon = this.confirmation.acceptIcon || this.acceptIcon;
                 this.rejectIcon = this.confirmation.rejectIcon || this.rejectIcon;
+                this.acceptButtonStyleClass = this.confirmation.acceptButtonStyleClass || this.acceptButtonStyleClass;
+                this.rejectButtonStyleClass = this.confirmation.rejectButtonStyleClass || this.rejectButtonStyleClass;
 
                 if (this.confirmation.accept) {
                     this.confirmation.acceptEvent = new EventEmitter();

@@ -14,6 +14,8 @@ export interface Confirmation {
     acceptVisible?: boolean;
     rejectVisible?: boolean;
     blockScroll?: boolean;
+    acceptButtonStyleClass?: string;
+    rejectButtonStyleClass?: string;
     acceptEvent?: EventEmitter<any>;
     rejectEvent?: EventEmitter<any>;
 }
