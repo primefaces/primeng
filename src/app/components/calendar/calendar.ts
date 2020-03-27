@@ -305,7 +305,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
   
     @Input() keepInvalid: boolean = false;
 
-    @Input() hideOnDateTimeSelect: boolean = false;
+    @Input() hideOnDateTimeSelect: boolean = true;
 
     @Input() numberOfMonths: number = 1;
     
@@ -358,9 +358,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() tabindex: number;
 
-    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+    @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
 
-    @ViewChild('contentWrapper') set content (content: ElementRef) {
+    @ViewChild('contentWrapper', { static: false }) set content (content: ElementRef) {
         this.contentViewChild = content;
 
         if (this.contentViewChild) {
@@ -817,7 +817,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
         }
         
-        if (this.isSingleSelection() && (!this.showTime || this.hideOnDateTimeSelect)) {
+        if (this.isSingleSelection() && this.hideOnDateTimeSelect) {
             setTimeout(() => {
                 event.preventDefault();
                 this.hideOverlay();
