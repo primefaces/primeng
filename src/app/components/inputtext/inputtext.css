@@ -61,6 +61,16 @@
     width: auto;
 }
 
+.ui-inputgroup > p-button:not(:first-child) > .ui-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.ui-inputgroup > p-button:not(:last-child) > .ui-button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .ui-fluid .ui-inputgroup .ui-inputtext {
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
