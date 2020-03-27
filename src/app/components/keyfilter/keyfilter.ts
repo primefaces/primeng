@@ -59,7 +59,7 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(public el: ElementRef) { 
+    constructor(public el: ElementRef) {
         this.isAndroid = DomHandler.isAndroid();
     }
 
@@ -96,13 +96,13 @@ export class KeyFilter implements Validator {
         return e.charCode || e.keyCode || e.which;
     }
 
-    findDelta(value: string, prevValue: string) { 
+    findDelta(value: string, prevValue: string) {
         let delta = '';
 
         for (let i = 0; i < value.length; i++) {
             let str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
 
-            if (str === prevValue) 
+            if (str === prevValue)
                 delta = value.substr(i, value.length - prevValue.length);
         }
 
@@ -124,7 +124,7 @@ export class KeyFilter implements Validator {
     }
 
     @HostListener('input', ['$event'])
-    onInput(e: KeyboardEvent) { 
+    onInput(e: KeyboardEvent) {
         if (this.isAndroid && !this.pValidateOnly) {
             let val = this.el.nativeElement.value;
             let lastVal = this.lastValue || '';
@@ -138,7 +138,7 @@ export class KeyFilter implements Validator {
                     this.el.nativeElement.value = lastVal;
                     this.ngModelChange.emit(lastVal);
                 }
-            } 
+            }
             else if (!removed) {
                 if (!this.isValidChar(inserted)) {
                     this.el.nativeElement.value = lastVal;
@@ -158,20 +158,14 @@ export class KeyFilter implements Validator {
         if (this.isAndroid || this.pValidateOnly) {
             return;
         }
-        
+
         let browser = DomHandler.getBrowser();
-
-        if (e.ctrlKey || e.altKey) {
-            return;
-        }
-
         let k = this.getKey(e);
-        
-        if (k == 13) {
+
+        if (browser.mozilla && (e.ctrlKey || e.altKey)) {
             return;
         }
-
-        if (browser.mozilla && (this.isNavKeyPress(e) || k == KEYS.BACKSPACE || (k == KEYS.DELETE && e.charCode == 0))) {
+        else if (k == 17 || k == 18) {
             return;
         }
 
@@ -179,7 +173,7 @@ export class KeyFilter implements Validator {
         let cc = String.fromCharCode(c);
         let ok = true;
 
-        if (browser.mozilla && (this.isSpecialKey(e) || !cc)) {
+        if (!browser.mozilla && (this.isSpecialKey(e) || !cc)) {
             return;
         }
 
@@ -214,7 +208,7 @@ export class KeyFilter implements Validator {
             }
         }
     }
-    
+
 }
 
 @NgModule({
