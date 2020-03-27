@@ -348,6 +348,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     editingCellField: any;
 
+    editingCellRowIndex: number;
+
     editingCellClick: boolean;
 
     documentEditListener: any;
@@ -1447,10 +1449,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    updateEditingCell(cell, data, field) {
+    updateEditingCell(cell, data, field, index) {
         this.editingCell = cell;
         this.editingCellData = data;
         this.editingCellField = field;
+        this.editingCellRowIndex = index;
         this.bindDocumentEditListener();
     }
 
@@ -1464,9 +1467,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
                     this.editingCell = null;
-                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event });
+                    this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event, index: this.editingCellRowIndex });
                     this.editingCellField = null;
                     this.editingCellData = null;
+                    this.editingCellRowIndex = null;
                     this.unbindDocumentEditListener();
                 }
 
@@ -3092,6 +3096,8 @@ export class EditableColumn implements AfterViewInit {
 
     @Input("pEditableColumnField") field: any;
 
+    @Input("pEditableColumnRowIndex") rowIndex: number;
+
     @Input() pEditableColumnDisabled: boolean;
 
     @Input() pFocusCellSelector: string;
@@ -3126,9 +3132,9 @@ export class EditableColumn implements AfterViewInit {
     }
 
     openCell() {
-        this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field);
+        this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, this.rowIndex);
         DomHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
-        this.dt.onEditInit.emit({ field: this.field, data: this.data});
+        this.dt.onEditInit.emit({field: this.field, data: this.data, index: this.rowIndex});
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 let focusCellSelector = this.pFocusCellSelector || 'input, textarea, select';
@@ -3143,7 +3149,7 @@ export class EditableColumn implements AfterViewInit {
 
     closeEditingCell(completed, event) {
         if (completed) {
-            this.dt.onEditComplete.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event});
+            this.dt.onEditComplete.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.rowIndex});
         }
 
         DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');

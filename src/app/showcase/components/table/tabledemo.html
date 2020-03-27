@@ -1400,10 +1400,10 @@ export class TableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>If you require the edited row data or the selected field in the <i>onEditInit</i>, <i>onEditComplete</i>, and <i>onEditCancel</i> events, bind the row data to the pEditableColumn directive and the field to the pEditableColumnField directive.</p>
+            <p>If you require the edited row data, rowIndex and the selected field in the <i>onEditInit</i>, <i>onEditComplete</i>, and <i>onEditCancel</i> events, bind the row data to the pEditableColumn directive, the rowIndex pEditableColumnRowIndex property and field to the the field to the pEditableColumnField directive.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;td [pEditableColumn]="rowData" [pEditableColumnField]="'year'"&gt;
+&lt;td [pEditableColumn]="rowData" [pEditableColumnField]="'year'" [pEditableRowIndex]="index"&gt;
 </code>
 </pre>
 
