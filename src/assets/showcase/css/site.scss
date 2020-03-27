@@ -76,7 +76,7 @@
 	a {
 		user-select: none;
 		text-decoration: none;
-		color: #404C51;
+		color: #333333;
 		display: block;
 		cursor: pointer;
 		transition: all 0.5s ease;
@@ -110,7 +110,7 @@ body {
 	overflow-y: auto;
 	font-family: "Open Sans", "Helvetica Neue", sans-serif;
 	font-weight: normal;
-	color: #333c40;
+	color: #333333;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 14px;
@@ -477,7 +477,7 @@ body {
 				border-radius: 4px;
 				-webkit-border-radius: 4px;
 				font-size: 14px;
-				color: #484848;
+				color: #404C51;
 				&:focus {
 					z-index: 1;
 					outline: 0 none;
@@ -732,7 +732,7 @@ body {
 
     .free-themes {
         padding: 2em;
-        color: #484848;
+        color: #404C51;
         background-color: #ffffff;
 
         p {
@@ -791,7 +791,7 @@ body {
 	overflow: visible;
 	h3 {
 		margin-top: 30px;
-		color: #5C666A;
+		color: #333333;
 		font-weight: 400;
         font-size: 1.5em;
     }
@@ -805,7 +805,7 @@ body {
     }
     
 	h4 {
-		color: #5C666A;
+		color: #333333;
 	}
 }
 .implementation-charts {
@@ -845,7 +845,7 @@ body {
 /* Documentation Section */
 .documentation {
 	.ui-tabview-panel {
-		color: #404C51 !important;
+		color: #333333 !important;
     }
 
     /* Tabs Source */
@@ -853,12 +853,12 @@ body {
 		.ui-tabview-panels {
 			border: 0 none;
 			border-top: 1px solid #F5F6F7 !important;
-			color: #5C666A !important;
+			color: #333333 !important;
 			background: #F5F6F7;
 		}
 		background: none;
 		border: 0 none;
-		color: #5C666A;
+		color: #333333;
 		-moz-border-radius: 4px !important;
 		-webkit-border-radius: 4px !important;
 		border-radius: 4px !important;
@@ -902,7 +902,7 @@ body {
 			}
 			li.ui-state-active {
 				a {
-					color: #5C666A !important;
+					color: #333333 !important;
 					font-weight: normal !important;
 				}
 			}
@@ -967,14 +967,14 @@ body {
 	width: 100%;
 	th {
 		background-color: #dae8ef;
-		color: #404C51;
+		color: #333333;
 		border: solid 1px #C1D5DF;
 		padding: 8px 14px;
 		text-align: left;
 	}
 	tbody {
 		td {
-			color: #404C51;
+			color: #333333;
 			padding: 8px 14px;
 			border: 1px solid #E5EBF0;
 			opacity: .90;
@@ -1278,7 +1278,7 @@ pre {
 	-webkit-border-radius: 5px;
 	padding: 1em;
 	background-color: #CFD8DC;
-	color: #404C51;
+	color: #333333;
 	margin: 10px 0px;
 }
 .ui-tabview-left {
