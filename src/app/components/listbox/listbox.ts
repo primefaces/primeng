@@ -97,11 +97,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('headerchkbox', { static: true }) headerCheckboxViewChild: ElementRef;
+    @ViewChild('headerchkbox') headerCheckboxViewChild: ElementRef;
 
-    @ContentChild(Header, { static: true }) headerFacet;
+    @ContentChild(Header) headerFacet;
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

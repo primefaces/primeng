@@ -97,9 +97,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     @Output() onChangeLayout: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header, { static: true }) header;
+    @ContentChild(Header) header;
 
-    @ContentChild(Footer, { static: true }) footer;
+    @ContentChild(Footer) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

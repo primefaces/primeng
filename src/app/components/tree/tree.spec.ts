@@ -18,7 +18,7 @@ import { TreeDragDropService } from 'primeng/api';
   })
   class TestTreeComponent implements OnInit {
 
-	@ViewChild('cm', { static: true }) cm: ElementRef;
+	@ViewChild('cm') cm: ElementRef;
 
 	filesTree7: any;
 

@@ -105,7 +105,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
 
     calculatedPrecision: number;
     
-    @ViewChild('inputfield', { static: true }) inputfieldViewChild: ElementRef;
+    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
 
     @Input() get step(): number {
         return this._step;

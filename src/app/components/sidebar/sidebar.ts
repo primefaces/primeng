@@ -58,7 +58,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     @Input() closeOnEscape: boolean = true;
 
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 

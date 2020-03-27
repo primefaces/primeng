@@ -244,9 +244,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() tooltipStyleClass: string;
 
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
     
-    @ViewChild('filterInput', { static: false }) filterInputChild: ElementRef;
+    @ViewChild('filterInput') filterInputChild: ElementRef;
 
     @ContentChild(Footer) footerFacet;
 

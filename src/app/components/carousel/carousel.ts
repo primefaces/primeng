@@ -119,11 +119,11 @@ export class Carousel implements AfterContentInit {
 	
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
-	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
+	@ViewChild('itemsContainer') itemsContainer: ElementRef;
 
-	@ContentChild(Header, { static: true }) headerFacet;
+	@ContentChild(Header) headerFacet;
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

@@ -168,13 +168,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() autocomplete: string = 'off';
 
-    @ViewChild('in', { static: false }) inputEL: ElementRef;
+    @ViewChild('in') inputEL: ElementRef;
 
-    @ViewChild('multiIn', { static: false }) multiInputEL: ElementRef;
+    @ViewChild('multiIn') multiInputEL: ElementRef;
 
-    @ViewChild('multiContainer', { static: false }) multiContainerEL: ElementRef;
+    @ViewChild('multiContainer') multiContainerEL: ElementRef;
 
-    @ViewChild('ddBtn', { static: false }) dropdownButton: ElementRef;
+    @ViewChild('ddBtn') dropdownButton: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

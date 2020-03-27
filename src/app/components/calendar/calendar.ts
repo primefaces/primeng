@@ -358,9 +358,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() tabindex: number;
 
-    @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
+    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
 
-    @ViewChild('contentWrapper', { static: false }) set content (content: ElementRef) {
+    @ViewChild('contentWrapper') set content (content: ElementRef) {
         this.contentViewChild = content;
 
         if (this.contentViewChild) {
