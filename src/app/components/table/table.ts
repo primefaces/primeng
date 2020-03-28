@@ -2637,7 +2637,7 @@ export class SortIcon implements OnInit, OnDestroy {
     host: {
         '[class.ui-selectable-row]': 'isEnabled()',
         '[class.ui-state-highlight]': 'selected',
-        '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
 export class SelectableRow implements OnInit, OnDestroy {
@@ -2826,7 +2826,8 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[pContextMenuRow]',
     host: {
-        '[class.ui-contextmenu-selected]': 'selected'
+        '[class.ui-contextmenu-selected]': 'selected',
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
 export class ContextMenuRow {
@@ -2841,7 +2842,7 @@ export class ContextMenuRow {
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService) {
+    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.contextMenuSource$.subscribe((data) => {
                 this.selected = this.dt.equals(this.data, data);
@@ -2858,6 +2859,7 @@ export class ContextMenuRow {
                 rowIndex: this.index
             });
 
+            this.el.nativeElement.focus();
             event.preventDefault();
         }
     }
