@@ -1837,7 +1837,7 @@ body .ui-paginator .ui-paginator-last:focus {
   box-shadow: 0 0 0 0.2em #8dcdff;
 }
 body .ui-paginator .ui-paginator-current {
-  color: #333333;
+  color: #737373;
   height: 2.286em;
   min-width: 2.286em;
   line-height: 2.286em;
@@ -1982,20 +1982,24 @@ body .ui-table .ui-editable-column input:focus {
 body .ui-table .ui-table-tbody > tr {
   background-color: #ffffff;
   color: #333333;
+  -moz-transition: background-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 body .ui-table .ui-table-tbody > tr > td {
   background-color: inherit;
   border: 1px solid #c8c8c8;
+  -moz-transition: box-shadow 0.2s;
+  -o-transition: box-shadow 0.2s;
+  -webkit-transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s;
 }
 body .ui-table .ui-table-tbody > tr.ui-state-highlight {
   background-color: #007ad9;
   color: #ffffff;
 }
 body .ui-table .ui-table-tbody > tr.ui-state-highlight a {
-  color: #ffffff;
-}
-body .ui-table .ui-table-tbody > tr.ui-contextmenu-selected {
-  background-color: #007ad9;
   color: #ffffff;
 }
 body .ui-table .ui-table-tbody > tr.ui-table-dragpoint-top > td {
@@ -2008,6 +2012,21 @@ body .ui-table .ui-table-tbody > tr.ui-table-dragpoint-bottom > td {
   -moz-box-shadow: inset 0 -2px 0 0 #007ad9;
   box-shadow: inset 0 -2px 0 0 #007ad9;
 }
+body .ui-table .ui-table-tbody > tr:focus {
+  outline: none;
+}
+body .ui-table .ui-table-tbody > tr:focus + tr > td {
+  box-shadow: 0 -0.2em 0 0 #8dcdff;
+}
+body .ui-table .ui-table-tbody > tr:focus > td {
+  box-shadow: 0 -0.2em 0 0 #8dcdff, 0 0.2em 0 0 #8dcdff;
+}
+body .ui-table .ui-table-tbody > tr:focus > td:first-child {
+  box-shadow: 0 -0.2em 0 0 #8dcdff, 0 0.2em 0 0 #8dcdff, -0.1em -0.1em 0 0.1em #8dcdff;
+}
+body .ui-table .ui-table-tbody > tr:focus > td:last-child {
+  box-shadow: 0 -0.2em 0 0 #8dcdff, 0 0.2em 0 0 #8dcdff, 0.1em -0.1em 0 0.1em #8dcdff;
+}
 body .ui-table .ui-table-tbody > tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -2018,11 +2037,7 @@ body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight {
 body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight a {
   color: #ffffff;
 }
-body .ui-table .ui-table-tbody > tr:nth-child(even).ui-contextmenu-selected {
-  background-color: #007ad9;
-  color: #ffffff;
-}
-body .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+body .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr.ui-selectable-row:not(.ui-state-highlight):hover {
   cursor: pointer;
   background-color: #eaeaea;
   color: #333333;
@@ -2037,8 +2052,20 @@ body .ui-table .ui-column-resizer-helper {
   body .ui-table.ui-table-responsive .ui-paginator-bottom {
     border-top: 1px solid #c8c8c8;
   }
-  body .ui-table.ui-table-responsive .ui-table-tbody > tr > td {
+  body .ui-table.ui-table-responsive .ui-table-tbody > tr td {
     border: 0 none;
+  }
+  body .ui-table.ui-table-responsive .ui-table-tbody > tr:focus + tr > td {
+    box-shadow: none;
+  }
+  body .ui-table.ui-table-responsive .ui-table-tbody > tr:focus > td {
+    box-shadow: none;
+  }
+  body .ui-table.ui-table-responsive .ui-table-tbody > tr:focus > td:first-child {
+    box-shadow: none;
+  }
+  body .ui-table.ui-table-responsive .ui-table-tbody > tr:focus > td:last-child {
+    box-shadow: none;
   }
 }
 body .ui-datagrid .ui-datagrid-header {
@@ -2669,6 +2696,10 @@ body .ui-treetable .ui-treetable-tbody > tr {
 body .ui-treetable .ui-treetable-tbody > tr > td {
   background-color: inherit;
   border: 1px solid #c8c8c8;
+  -moz-transition: box-shadow 0.2s;
+  -o-transition: box-shadow 0.2s;
+  -webkit-transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s;
 }
 body .ui-treetable .ui-treetable-tbody > tr > td .ui-treetable-toggler {
   color: #737373;
@@ -2689,18 +2720,22 @@ body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td {
 body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td .ui-treetable-toggler {
   color: #ffffff;
 }
-body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected {
-  background-color: #007ad9;
-  color: #ffffff;
+body .ui-treetable .ui-treetable-tbody > tr:focus {
+  outline: none;
 }
-body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td {
-  background-color: inherit;
-  border: 1px solid #c8c8c8;
+body .ui-treetable .ui-treetable-tbody > tr:focus + tr > td {
+  box-shadow: 0 -0.2em 0 0 #8dcdff;
 }
-body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected > td .ui-treetable-toggler {
-  color: #ffffff;
+body .ui-treetable .ui-treetable-tbody > tr:focus > td {
+  box-shadow: 0 -0.2em 0 0 #8dcdff, 0 0.2em 0 0 #8dcdff;
 }
-body .ui-treetable.ui-treetable-hoverable-rows .ui-treetable-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+body .ui-treetable .ui-treetable-tbody > tr:focus > td:first-child {
+  box-shadow: 0 -0.2em 0 0 #8dcdff, 0 0.2em 0 0 #8dcdff, -0.1em -0.1em 0 0.1em #8dcdff;
+}
+body .ui-treetable .ui-treetable-tbody > tr:focus > td:last-child {
+  box-shadow: 0 -0.2em 0 0 #8dcdff, 0 0.2em 0 0 #8dcdff, 0.1em -0.1em 0 0.1em #8dcdff;
+}
+body .ui-treetable.ui-treetable-hoverable-rows .ui-treetable-tbody > tr:not(.ui-state-highlight):hover {
   cursor: pointer;
   background-color: #eaeaea;
   color: #333333;
@@ -3063,7 +3098,7 @@ body .ui-dialog .ui-dialog-footer {
   margin: 0;
   text-align: right;
   position: relative;
-  top: -1px;
+  border-top: 0 none;
 }
 body .ui-dialog .ui-dialog-footer button {
   margin: 0 0.5em 0 0;
@@ -3353,6 +3388,22 @@ body .ui-slidemenu .ui-menuitem-link:focus {
   -webkit-box-shadow: inset 0 0 0 0.2em #8dcdff;
   -moz-box-shadow: inset 0 0 0 0.2em #8dcdff;
   box-shadow: inset 0 0 0 0.2em #8dcdff;
+}
+body .ui-menu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text,
+body .ui-menubar .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text,
+body .ui-tieredmenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text,
+body .ui-contextmenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text,
+body .ui-megamenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text,
+body .ui-slidemenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text {
+  color: #007ad9;
+}
+body .ui-menu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-icon,
+body .ui-menubar .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-icon,
+body .ui-tieredmenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-icon,
+body .ui-contextmenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-icon,
+body .ui-megamenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-icon,
+body .ui-slidemenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-icon {
+  color: #007ad9;
 }
 body .ui-menu {
   padding: 0;
@@ -3721,6 +3772,12 @@ body .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .u
 }
 body .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .ui-menuitem-text {
   color: #333333;
+}
+body .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
+  color: #007ad9;
+}
+body .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link .ui-menuitem-icon {
+  color: #007ad9;
 }
 
 body .ui-progressbar {
