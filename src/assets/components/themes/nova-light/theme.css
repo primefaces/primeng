@@ -1837,7 +1837,7 @@ body .ui-paginator .ui-paginator-last:focus {
   box-shadow: 0 0 0 0.2em #8dcdff;
 }
 body .ui-paginator .ui-paginator-current {
-  color: #848484;
+  color: #333333;
   height: 2.286em;
   min-width: 2.286em;
   line-height: 2.286em;
