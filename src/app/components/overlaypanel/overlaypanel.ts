@@ -83,7 +83,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     documentResizeListener: any;
 
     contentTemplate: TemplateRef<any>;
-    
+
+    destroyCallback: Function;
+
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
         
     ngAfterContentInit() {
@@ -132,13 +134,12 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     toggle(event, target?) {
         if (this.overlayVisible) {
             if (this.hasTargetChanged(event, target)) {
-                this.target = target||event.currentTarget||event.target;
-                this.align();
-                this.show(event, this.target);
+                this.destroyCallback = () => {
+                    this.show(null, (target||event.currentTarget||event.target));
+                };
             }
-            else {
-                this.overlayVisible = false;
-            }
+
+            this.overlayVisible = false;
         }
         else {
             this.show(event, target);
@@ -196,10 +197,19 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onAnimationEnd(event: AnimationEvent) {
-        if (event.toState === 'close') {
-            this.onContainerDestroy();
-            this.onHide.emit({});
-            this.render = false;
+        switch (event.toState) {
+            case 'void':
+                if (this.destroyCallback) {
+                    this.destroyCallback();
+                    this.destroyCallback = null;
+                }
+            break;
+            
+            case 'close':
+                this.onContainerDestroy();
+                this.onHide.emit({});
+                this.render = false;
+            break;     
         }
     }
 
@@ -229,12 +239,14 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onContainerDestroy() {
+        this.target = null;
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
     }
 
     ngOnDestroy() {
         this.target = null;
+        this.destroyCallback = null;
         if (this.container) {
             this.restoreAppend();
             this.onContainerDestroy();
