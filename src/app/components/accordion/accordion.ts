@@ -144,6 +144,7 @@ export class AccordionTab implements OnDestroy {
         }
 
         this.selectedChange.emit(this.selected);
+        this.accordion.updateActiveIndex();
 
         event.preventDefault();
     }
@@ -202,12 +203,16 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
 
     @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
+
+    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
     tabListSubscription: Subscription;
     
     private _activeIndex: any;
+
+    preventActiveIndexPropagation: boolean;
     
     public tabs: AccordionTab[] = [];
 
@@ -237,6 +242,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     set activeIndex(val: any) {
         this._activeIndex = val;
+        if (this.preventActiveIndexPropagation) {
+            this.preventActiveIndexPropagation = false;
+            return;
+        }
+
         this.updateSelectionState();
     }
 
@@ -253,6 +263,24 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                 }
             }
         }
+    }
+
+    updateActiveIndex() {
+        let index: any = this.multiple ? [] : null;
+        this.tabs.forEach((tab, i) => {
+            if (tab.selected) {
+                if (this.multiple) {
+                    index.push(i);
+                }
+                else {
+                    index = i;
+                    return;
+                }
+            }
+        });
+
+        this.preventActiveIndexPropagation = true;
+        this.activeIndexChange.emit(index);
     }
 
     ngOnDestroy() {
