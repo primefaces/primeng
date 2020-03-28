@@ -158,6 +158,10 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     @Input() position: string = 'top-right';
 
     @Input() modal: boolean;
+
+    @Input() preventOpenDuplicates: boolean = false;
+
+    @Input() preventDuplicates: boolean = false;
     
     @Input() showTransformOptions: string = 'translateY(100%)';
 
@@ -179,6 +183,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     messages: Message[];
 
+    messagesArchieve: Message[];
+
     template: TemplateRef<any>;
 
     mask: HTMLDivElement;
@@ -189,11 +195,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
             if (messages) {
                 if (messages instanceof Array) {
-                    let filteredMessages = messages.filter(m => this.key === m.key);
-                    this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
+                    const filteredMessages = messages.filter(m => this.canAdd(m));
+                    this.add(filteredMessages);
                 }
-                else if (this.key === messages.key) {
-                    this.messages = this.messages ? [...this.messages, ...[messages]] : [messages];
+                else if (this.canAdd(messages)) {
+                    this.add([messages]);
                 }
 
                 if (this.modal && this.messages && this.messages.length) {
@@ -216,6 +222,38 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
                 this.disableModality();
             }
         });       
+    }
+
+    add(messages: Message[]): void {
+        this.messages = this.messages ? [...this.messages, ...messages] : [...messages];
+
+        if (this.preventDuplicates) {
+            this.messagesArchieve = this.messagesArchieve ? [...this.messagesArchieve, ...messages] : [...messages];
+        }
+    }
+
+    canAdd(message: Message): boolean {
+        let allow = this.key === message.key;
+
+        if (allow && this.preventOpenDuplicates) {
+            allow = !this.containsMessage(this.messages, message);
+        }
+
+        if (allow && this.preventDuplicates) {
+            allow = !this.containsMessage(this.messagesArchieve, message);
+        }
+
+        return allow;
+    }
+
+    containsMessage(collection: Message[], message: Message): boolean {
+        if (!collection) {
+            return false;
+        }
+
+        return collection.find(m => {
+           return (m.summary === message.summary && m.detail && message.detail && m.severity === message.severity);
+        }) != null;
     }
 
     ngAfterContentInit() {
