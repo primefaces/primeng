@@ -20,7 +20,7 @@ import {RouterModule} from '@angular/router';
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" role="menuitem" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" role="menuitem" [attr.tabindex]="child.tabindex ? child.tabindex : '0'"
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" role="menuitem" [queryParams]="child.queryParams" [routerLinkActive]="'ui-menuitem-link-active" role="menuitem" [attr.tabindex]="child.tabindex ? child.tabindex : '0'"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
                         class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, listItem, child)"
