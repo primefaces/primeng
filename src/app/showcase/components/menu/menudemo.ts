@@ -12,7 +12,7 @@ export class MenuDemo {
         this.items = [{
             label: 'File',
             items: [
-                {label: 'New', icon: 'pi pi-fw pi-plus'},
+                {label: 'New', icon: 'pi pi-fw pi-plus', routerLink: ['/menu']},
                 {label: 'Download', icon: 'pi pi-fw pi-download'}
             ]
         },
