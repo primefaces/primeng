@@ -2337,7 +2337,8 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttContextMenuRow]',
     host: {
-        '[class.ui-contextmenu-selected]': 'selected'
+        '[class.ui-contextmenu-selected]': 'selected',
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
 export class TTContextMenuRow {
@@ -2350,7 +2351,7 @@ export class TTContextMenuRow {
 
     subscription: Subscription;
 
-    constructor(public tt: TreeTable, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.contextMenuSource$.subscribe((node) => {
                 this.selected = this.tt.equals(this.rowNode.node, node);
@@ -2365,6 +2366,8 @@ export class TTContextMenuRow {
                 originalEvent: event,
                 rowNode: this.rowNode
             });
+
+            this.el.nativeElement.focus();
 
             event.preventDefault();
         }
