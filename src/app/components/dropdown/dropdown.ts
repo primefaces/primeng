@@ -334,6 +334,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     virtualScrollSelectedIndex: number;
 
     viewPortOffsetTop: number = 0;
+
+    preventModelTouched: boolean;
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public zone: NgZone) {}
     
@@ -577,6 +579,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 }
 
                 if (this.filterViewChild && this.filterViewChild.nativeElement) {
+                    this.preventModelTouched = true;
                     this.filterViewChild.nativeElement.focus();
                 }
 
@@ -660,8 +663,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onInputBlur(event) {
         this.focused = false;
-        this.onModelTouched();
         this.onBlur.emit(event);
+
+        if (!this.preventModelTouched) {
+            this.onModelTouched();
+        }
+        this.preventModelTouched = false;
     }
 
     findPrevEnabledOption(index) {
@@ -1096,6 +1103,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.unbindDocumentResizeListener();
         this.overlay = null;
         this.itemsWrapper = null;
+        this.onModelTouched();
     }
     
     ngOnDestroy() {

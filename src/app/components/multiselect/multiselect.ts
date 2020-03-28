@@ -305,6 +305,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     maxSelectionLimitReached: boolean;
 
     documentResizeListener: any;
+
+    preventModelTouched: boolean;
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
     
@@ -532,17 +534,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     show() {
         if (!this.overlayVisible){
             this.overlayVisible = true;
-        }
-    
-        if (this.filter) {
-            setTimeout(() => {
-                if (this.filterInputChild != undefined) {
-                    this.filterInputChild.nativeElement.focus();
-                }
-            }, 200);
-        }
-        this.bindDocumentClickListener();
-        
+        }      
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -556,6 +548,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.alignOverlay();
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
+                
+                if (this.filterInputChild && this.filterInputChild.nativeElement) {
+                    this.preventModelTouched = true;
+                    this.filterInputChild.nativeElement.focus();
+                }
+
                 this.onPanelShow.emit();
             break;
 
@@ -635,7 +633,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     onInputBlur(event) {
         this.focus = false;
         this.onBlur.emit({originalEvent: event});
-        this.onModelTouched();
+
+        if (!this.preventModelTouched) {
+            this.onModelTouched();
+        }
+        this.preventModelTouched = false;
     }
 
     onOptionKeydown(event) {
@@ -847,6 +849,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.overlay = null;
+        this.onModelTouched();
     }
 
     ngOnDestroy() {
