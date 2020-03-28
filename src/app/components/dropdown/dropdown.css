@@ -1,8 +1,8 @@
 .ui-dropdown {
-    display: inline-block;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
     position: relative;
     cursor: pointer;
-    vertical-align: middle;
     min-width: 12.5em;
 }
 

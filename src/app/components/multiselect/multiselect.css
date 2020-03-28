@@ -1,5 +1,6 @@
 .ui-multiselect {
-    display: inline-block;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
     position: relative;
     width: auto;
     cursor: pointer;
