@@ -11,7 +11,9 @@
     <button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>
 
     <p-overlayPanel #op1>
-        <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
+        <ng-template pTemplate>
+            <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
+        </ng-template>
     </p-overlayPanel>
     
     <h3>Customized</h3>
@@ -19,24 +21,26 @@
     <i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
-        <p-table [value]="cars1" [style]="{width: '500px'}" [paginator]="true" [rows]="5">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
-                    <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
-                    <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
-                    <th pSortableColumn="color">Color <p-sortIcon field="color"></p-sortIcon></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-car>
-                <tr>
-                    <td>{{car.vin}}</td>
-                    <td>{{car.year}}</td>
-                    <td>{{car.brand}}</td>
-                    <td>{{car.color}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+        <ng-template pTemplate>
+            <p-table [value]="cars1" [style]="{width: '500px'}" [paginator]="true" [rows]="5">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
+                        <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
+                        <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
+                        <th pSortableColumn="color">Color <p-sortIcon field="color"></p-sortIcon></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-car>
+                    <tr>
+                        <td>{{car.vin}}</td>
+                        <td>{{car.year}}</td>
+                        <td>{{car.brand}}</td>
+                        <td>{{car.color}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </ng-template>
     </p-overlayPanel>
     
     <h3>Table Integration</h3>
@@ -65,7 +69,9 @@
     </p-table>
     
     <p-overlayPanel #op3>
-        <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" width="120" height="120" *ngIf="selectedCar"/>
+        <ng-template pTemplate>
+            <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" width="120" height="120" *ngIf="selectedCar"/>
+        </ng-template>
     </p-overlayPanel>
 </div>
 
@@ -80,11 +86,13 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>OverlayPanel is defined using p-overlayPanel element and is displayed using the <i>show</i> or <i>toggle</i> method of a local ng-template variable.</p>
+            <p>Content is defined with an ng-template and overlay is displayed using the <i>show</i> or <i>toggle</i> method of a local ng-template variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-overlayPanel #op&gt;
-    Content
+    &lt;ng-template pTemplate&gt;
+        Content
+    &lt;/ng-template&gt;
 &lt;/p-overlayPanel&gt;
 
 &lt;button type="text" pButton label="Basic" (click)="op.toggle($event)"&gt;&lt;/button&gt;
@@ -97,7 +105,9 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-overlayPanel #op&gt;
-    Content
+    &lt;ng-template pTemplate&gt;
+        Content
+    &lt;/ng-template&gt;
 &lt;/p-overlayPanel&gt;
 
 &lt;button type="text" pButton label="Custom Target" (click)="op.show($event, actualTarget)"&gt;&lt;/button&gt;
@@ -112,7 +122,9 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true"&gt;
-    Content
+    &lt;ng-template pTemplate&gt;
+        Content
+    &lt;/ng-template&gt;
 &lt;/p-overlayPanel&gt;
 </code>
 </pre>
@@ -123,7 +135,9 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true"&gt;
-    Content
+    &lt;ng-template pTemplate&gt;
+        Content
+    &lt;/ng-template&gt;
 &lt;/p-overlayPanel&gt;
 </code>
 </pre>
@@ -305,7 +319,9 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 &lt;button type="text" pButton label="Basic" (click)="op1.toggle($event)"&gt;&lt;/button&gt;
 
 &lt;p-overlayPanel #op1&gt;
-    &lt;img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" /&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" /&gt;
+    &lt;/ng-template&gt;
 &lt;/p-overlayPanel&gt;
 
 &lt;h3&gt;Customized&lt;/h3&gt;
@@ -313,24 +329,26 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 &lt;i class="pi pi-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
 
 &lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
-    &lt;p-table [value]="cars1" [style]="&#123;width: '500px'&#125; [paginator]="true" [rows]="5""&gt;
-        &lt;ng-template pTemplate="header"&gt;
-            &lt;tr&gt;
-                &lt;th pSortableColumn="vin"&gt;Vin &lt;p-sortIcon field="vin"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="year"&gt;Year &lt;p-sortIcon field="year"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="brand"&gt;Brand &lt;p-sortIcon field="brand"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-                &lt;th pSortableColumn="color"&gt;Color &lt;p-sortIcon field="color"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-car&gt;
-            &lt;tr&gt;
-                &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-    &lt;/p-table&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;p-table [value]="cars1" [style]="&#123;width: '500px'&#125;" [paginator]="true" [rows]="5"&gt;
+            &lt;ng-template pTemplate="header"&gt;
+                &lt;tr&gt;
+                    &lt;th pSortableColumn="vin"&gt;Vin &lt;p-sortIcon field="vin"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                    &lt;th pSortableColumn="year"&gt;Year &lt;p-sortIcon field="year"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                    &lt;th pSortableColumn="brand"&gt;Brand &lt;p-sortIcon field="brand"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                    &lt;th pSortableColumn="color"&gt;Color &lt;p-sortIcon field="color"&gt;&lt;/p-sortIcon&gt;&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate="body" let-car&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+    &lt;/ng-template&gt;
 &lt;/p-overlayPanel&gt;
 
 &lt;h3&gt;Table Integration&lt;/h3&gt;
@@ -358,7 +376,9 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 &lt;/p-table&gt;
 
 &lt;p-overlayPanel #op3&gt;
-    &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png" *ngIf="selectedCar"/&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png" *ngIf="selectedCar"/&gt;
+    &lt;/ng-template&gt;
 &lt;/p-overlayPanel&gt;
 </code>
 </pre>
