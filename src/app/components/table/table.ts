@@ -2526,7 +2526,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     host: {
         '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted',
-        '[attr.tabindex]': 'isEnabled() ? "0" : null'
+        '[attr.tabindex]': 'isEnabled() ? "0" : null',
+        '[attr.role]': 'columnheader',
+        '[attr.aria-sort]': 'sortOrder'
     }
 })
 export class SortableColumn implements OnInit, OnDestroy {
@@ -2536,6 +2538,8 @@ export class SortableColumn implements OnInit, OnDestroy {
     @Input() pSortableColumnDisabled: boolean;
 
     sorted: boolean;
+
+    sortOrder: string;
 
     subscription: Subscription;
 
@@ -2555,6 +2559,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     updateSortState() {
         this.sorted = this.dt.isSorted(this.field);
+        this.sortOrder = this.sorted ? (this.dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none';
     }
 
     @HostListener('click', ['$event'])
