@@ -24,7 +24,7 @@ export class InplaceContent {}
             </div>
             <div class="ui-inplace-content" *ngIf="active">
                 <ng-content select="[pInplaceContent]"></ng-content>
-                <button type="button" icon="pi pi-times" pButton (click)="deactivate($event)" *ngIf="closable"></button>
+                <button type="button" [icon]="closeIcon" pButton (click)="deactivate($event)" *ngIf="closable"></button>
             </div>
         </div>
     `
@@ -40,6 +40,8 @@ export class Inplace {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() closeIcon: string = 'pi pi-times';
 
     @Output() onActivate: EventEmitter<any> = new EventEmitter();
 
