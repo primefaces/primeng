@@ -244,6 +244,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() tooltipStyleClass: string;
 
+    @Input() autofocusFilter: boolean = true;
+
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('filterInput') filterInputChild: ElementRef;
@@ -551,7 +553,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 
                 if (this.filterInputChild && this.filterInputChild.nativeElement) {
                     this.preventModelTouched = true;
-                    this.filterInputChild.nativeElement.focus();
+
+                    if (this.autofocusFilter) {
+                        this.filterInputChild.nativeElement.focus();
+                    }
                 }
 
                 this.onPanelShow.emit();

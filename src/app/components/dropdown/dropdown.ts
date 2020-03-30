@@ -226,6 +226,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() tooltipPositionStyle: string = 'absolute';
 
     @Input() tooltipStyleClass: string;
+
+    @Input() autofocusFilter: boolean = true;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -581,7 +583,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
                 if (this.filterViewChild && this.filterViewChild.nativeElement) {
                     this.preventModelTouched = true;
-                    this.filterViewChild.nativeElement.focus();
+
+                    if (this.autofocusFilter) {
+                        this.filterViewChild.nativeElement.focus();
+                    }
                 }
 
                 this.onShow.emit(event);
