@@ -73,7 +73,7 @@ export class Breadcrumb {
         this.onItemClick.emit({
             originalEvent: event,
             item: item
-        })
+        });
     }
     
     onHomeClick(event) {
