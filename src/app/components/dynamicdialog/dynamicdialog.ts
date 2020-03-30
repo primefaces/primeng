@@ -1,4 +1,4 @@
-import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef } from '@angular/core';
+import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { trigger,style,transition,animate,AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -49,7 +49,8 @@ const hideAnimation = animation([
                 useAnimation(hideAnimation)
             ])
         ])
-	]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 

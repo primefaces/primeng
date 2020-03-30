@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,Input,Output,AfterContentInit,EventEmitter,TemplateRef,
-        Inject,forwardRef,ContentChildren,QueryList} from '@angular/core';
+        Inject,forwardRef,ContentChildren,QueryList,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from 'primeng/api';
@@ -110,7 +110,8 @@ export class OrganizationChartNode {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-organizationchart ui-widget': true, 'ui-organizationchart-preservespace': preserveSpace}">
             <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class OrganizationChart implements AfterContentInit {
             

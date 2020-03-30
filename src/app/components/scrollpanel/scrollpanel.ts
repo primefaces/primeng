@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 
@@ -14,7 +14,8 @@ import { DomHandler } from 'primeng/dom';
             <div #xBar class="ui-scrollpanel-bar ui-scrollpanel-bar-x"></div>
             <div #yBar class="ui-scrollpanel-bar ui-scrollpanel-bar-y"></div>   
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ScrollPanel implements AfterViewInit, OnDestroy {
 

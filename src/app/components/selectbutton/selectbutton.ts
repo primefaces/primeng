@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ContentChild,TemplateRef, SimpleChanges, OnChanges} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ContentChild,TemplateRef,SimpleChanges,OnChanges,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
@@ -28,7 +28,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [SELECTBUTTON_VALUE_ACCESSOR]
+    providers: [SELECTBUTTON_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class SelectButton implements ControlValueAccessor, OnChanges {
 

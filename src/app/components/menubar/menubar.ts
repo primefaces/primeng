@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem } from 'primeng/api';
@@ -179,7 +179,6 @@ export class MenubarSub implements OnDestroy {
       }
 
     }
-
 }
 
 @Component({
@@ -193,7 +192,8 @@ export class MenubarSub implements OnDestroy {
                 <ng-content></ng-content>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Menubar {
 

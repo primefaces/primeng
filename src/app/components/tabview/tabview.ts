@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
-        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef, ChangeDetectorRef} from '@angular/core';
+        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
@@ -80,7 +80,8 @@ export class TabViewNav {
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </ng-container>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class TabPanel implements AfterContentInit,OnDestroy {
 

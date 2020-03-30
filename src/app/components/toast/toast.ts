@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
@@ -141,7 +141,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                 query('@*', animateChild())
             ])
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Toast implements OnInit,AfterContentInit,OnDestroy {
 

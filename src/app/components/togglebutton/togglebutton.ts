@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -25,7 +25,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             <span class="ui-button-text ui-unselectable-text">{{checked ? hasOnLabel ? onLabel : 'ui-btn' : hasOffLabel ? offLabel : 'ui-btn'}}</span>
         </div>
     `,
-    providers: [TOGGLEBUTTON_VALUE_ACCESSOR]
+    providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 

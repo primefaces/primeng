@@ -1,11 +1,12 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,DoCheck,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,DoCheck,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var google: any;
 
 @Component({
     selector: 'p-gmap',
-    template: `<div [ngStyle]="style" [class]="styleClass"></div>`
+    template: `<div [ngStyle]="style" [class]="styleClass"></div>`,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class GMap implements AfterViewChecked,DoCheck {
 

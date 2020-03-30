@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef, OnChanges, SimpleChanges} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
 import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
@@ -37,7 +37,8 @@ import {FilterUtils} from 'primeng/utils';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 

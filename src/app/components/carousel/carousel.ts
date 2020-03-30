@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
@@ -50,7 +50,8 @@ import { UniqueComponentId } from 'primeng/utils';
 				<ng-content select="p-footer"></ng-content>
 			</div>
 		</div>
-	`
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Carousel implements AfterContentInit {
 

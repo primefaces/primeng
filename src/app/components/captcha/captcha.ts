@@ -1,9 +1,10 @@
-import {NgModule,AfterViewInit,Component,EventEmitter,Input,NgZone,OnDestroy,Output,ElementRef} from '@angular/core';
+import {NgModule,AfterViewInit,Component,EventEmitter,Input,NgZone,OnDestroy,Output,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-captcha',
-    template: `<div></div>`
+    template: `<div></div>`,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Captcha implements AfterViewInit,OnDestroy {
 

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef, ChangeDetectorRef, AfterViewInit} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef,ChangeDetectorRef,AfterViewInit,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -190,7 +190,8 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class TieredMenu implements OnDestroy {
 

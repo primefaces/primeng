@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef, ViewRef} from '@angular/core';
+    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -18,46 +18,47 @@ const hideAnimation = animation([
 ]);
 
 @Component({
-selector: 'p-dialog',
-template: `
-    <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
-        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
-            [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
-            [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
-            <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
-                    <ng-content select="p-header"></ng-content>
-                </span>
-                <div class="ui-dialog-titlebar-icons">
-                    <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" tabindex="0" role="button" (click)="maximize()" (keydown.enter)="maximize()">
-                        <span [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                    </a>
-                    <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
-                        <span [class]="closeIcon"></span>
-                    </a>
+    selector: 'p-dialog',
+    template: `
+        <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
+            <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
+                [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
+                [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
+                <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                    <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
+                    <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
+                        <ng-content select="p-header"></ng-content>
+                    </span>
+                    <div class="ui-dialog-titlebar-icons">
+                        <a *ngIf="maximizable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all':true}" tabindex="0" role="button" (click)="maximize()" (keydown.enter)="maximize()">
+                            <span [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                        </a>
+                        <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
+                            <span [class]="closeIcon"></span>
+                        </a>
+                    </div>
                 </div>
+                <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
+                    <ng-content></ng-content>
+                </div>
+                <div #footer class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
+                    <ng-content select="p-footer"></ng-content>
+                </div>
+                <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;" (mousedown)="initResize($event)"></div>
             </div>
-            <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
-                <ng-content></ng-content>
-            </div>
-            <div #footer class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
-                <ng-content select="p-footer"></ng-content>
-            </div>
-            <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;" (mousedown)="initResize($event)"></div>
         </div>
-    </div>
-`,
-animations: [
-    trigger('animation', [
-        transition('void => visible', [
-            useAnimation(showAnimation)
-        ]),
-        transition('visible => void', [
-            useAnimation(hideAnimation)
+    `,
+    animations: [
+        trigger('animation', [
+            transition('void => visible', [
+                useAnimation(showAnimation)
+            ]),
+            transition('visible => void', [
+                useAnimation(hideAnimation)
+            ])
         ])
-    ])
-]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Dialog implements OnDestroy {
 

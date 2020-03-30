@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Footer} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
@@ -50,7 +50,8 @@ let idx: number = 0;
             transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Panel implements BlockableUI {
 

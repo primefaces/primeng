@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,
-    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef} from '@angular/core';
+    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy} from '@angular/core';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from 'primeng/api';
@@ -498,7 +498,8 @@ export class UITreeNode implements OnInit {
             </table>
             <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 

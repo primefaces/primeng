@@ -1,11 +1,11 @@
-import {NgModule,Component,Input,Output,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const RADIO_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => RadioButton),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => RadioButton),
+    multi: true
 };
 
 @Component({
@@ -26,7 +26,8 @@ export const RADIO_VALUE_ACCESSOR: any = {
             [ngClass]="{'ui-radiobutton-label':true, 'ui-label-active':rb.checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
-    providers: [RADIO_VALUE_ACCESSOR]
+    providers: [RADIO_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class RadioButton implements ControlValueAccessor {
 

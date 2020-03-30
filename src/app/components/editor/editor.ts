@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
@@ -62,7 +62,8 @@ export const EDITOR_VALUE_ACCESSOR: any = {
             <div class="ui-editor-content" [ngStyle]="style"></div>
         </div>
     `,
-    providers: [EDITOR_VALUE_ACCESSOR]
+    providers: [EDITOR_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
         

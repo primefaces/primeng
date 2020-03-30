@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild, ChangeDetectorRef} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
+import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Footer,SharedModule} from 'primeng/api';
@@ -16,6 +16,7 @@ const showAnimation = animation([
 const hideAnimation = animation([
     animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))
 ]);
+
 @Component({
     selector: 'p-confirmDialog',
     template: `
@@ -53,7 +54,8 @@ const hideAnimation = animation([
                 useAnimation(hideAnimation)
             ])
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ConfirmDialog implements OnDestroy {
 

@@ -1,5 +1,5 @@
 import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
-            ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
+            ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from 'primeng/button';
@@ -57,7 +57,8 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
             <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                    (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
 

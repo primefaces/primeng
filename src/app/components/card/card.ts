@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, ElementRef, ContentChild } from '@angular/core';
+import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header, Footer } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
@@ -21,7 +21,8 @@ import { BlockableUI } from 'primeng/api';
                 </div>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Card implements BlockableUI {
 

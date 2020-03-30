@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional, ElementRef} from '@angular/core';
+import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message} from 'primeng/api';
@@ -46,7 +46,8 @@ import {Subscription} from 'rxjs';
                 }))
             ])
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Messages implements OnInit, OnDestroy {
 

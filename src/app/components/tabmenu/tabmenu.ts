@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,TemplateRef} from '@angular/core';
+import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,TemplateRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {PrimeTemplate, SharedModule} from 'primeng/api';
@@ -33,7 +33,8 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ul>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class TabMenu implements AfterContentInit {
 

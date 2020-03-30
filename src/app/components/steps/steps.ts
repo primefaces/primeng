@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
@@ -27,7 +27,8 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ul>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Steps {
     

@@ -1,13 +1,13 @@
-import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => ColorPicker),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => ColorPicker),
+    multi: true
 };
 
 @Component({
@@ -46,7 +46,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    providers: [COLORPICKER_VALUE_ACCESSOR]
+    providers: [COLORPICKER_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
 

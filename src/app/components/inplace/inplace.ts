@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 
@@ -27,7 +27,8 @@ export class InplaceContent {}
                 <button type="button" [icon]="closeIcon" pButton (click)="deactivate($event)" *ngIf="closable"></button>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Inplace {
 

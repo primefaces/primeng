@@ -1,4 +1,4 @@
-import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter } from '@angular/core';
+import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter,ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem } from 'primeng/api';
@@ -140,7 +140,8 @@ export class ContextMenuSub {
             [class]="styleClass" [ngStyle]="style">
             <p-contextMenuSub [item]="model" [parentActive]="parentActive" root="root"></p-contextMenuSub>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ContextMenu implements AfterViewInit, OnDestroy {
 
