@@ -262,6 +262,19 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.0-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.0) (2020-03-30)
+- Customizable Toast Transformations [\#8136](https://github.com/primefaces/primeng/issues/8136)
+- Context menu shouldn't close upon clicking an item with children [\#7076](https://github.com/primefaces/primeng/issues/7076)
+- Sortable columns should not be selectable [\#8634](https://github.com/primefaces/primeng/issues/8634)
+- FileUpload size formatting is incorrect [\#8563](https://github.com/primefaces/primeng/issues/8563)
+- onItemClick event for Breadcrumb [\#8230](https://github.com/primefaces/primeng/issues/8230)
+- Accept and Reject icons to Confirmation [\#8414](https://github.com/primefaces/primeng/issues/8414)
+- ConfirmDialog close via service feature [\#8524](https://github.com/primefaces/primeng/issues/8524)
+- Pass current files to FileUpload onSelect [\#7421](https://github.com/primefaces/primeng/issues/7421)
+- Bug: Calendar increasing/decreasing minutes does not clear Timeout [\#7342](https://github.com/primefaces/primeng/issues/7342)
+- FilterUtils in filter should use deep object equality [\#8648](https://github.com/primefaces/primeng/issues/8648)
+
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.9) (2020-03-24)
 - Autocomplete doesn't clear input value if user tabs before suggestions are displayed [\#8511](https://github.com/primefaces/primeng/issues/8511)
 - Pagination not reseting when using multiple sortMode [\#7141](https://github.com/primefaces/primeng/issues/7141)
@@ -603,6 +616,18 @@
 **Unit Tests:**
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.1) (2020-03-30)
+- FileUpload size formatting is incorrect [\#8563](https://github.com/primefaces/primeng/issues/8563)
+- ConfirmDialog close via service feature [\#8524](https://github.com/primefaces/primeng/issues/8524)
+- Accept and Reject icons to Confirmation [\#8414](https://github.com/primefaces/primeng/issues/8414)
+- onItemClick event for Breadcrumb [\#8230](https://github.com/primefaces/primeng/issues/8230)
+- FilterUtils in filter should use deep object equality [\#8648](https://github.com/primefaces/primeng/issues/8648)
+- Sortable columns should not be selectable [\#8634](https://github.com/primefaces/primeng/issues/8634)
+- Customizable Toast Transformations [\#8136](https://github.com/primefaces/primeng/issues/8136)
+- Pass current files to FileUpload onSelect [\#7421](https://github.com/primefaces/primeng/issues/7421)
+- Bug: Calendar increasing/decreasing minutes does not clear Timeout [\#7342](https://github.com/primefaces/primeng/issues/7342)
+- Context menu shouldn't close upon clicking an item with children [\#7076](https://github.com/primefaces/primeng/issues/7076)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.0-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.0) (2020-03-24)
 - Autocomplete doesn't clear input value if user tabs before suggestions are displayed [\#8511](https://github.com/primefaces/primeng/issues/8511)
