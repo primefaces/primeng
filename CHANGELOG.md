@@ -1,6 +1,6 @@
 # Change Log
 
-## [9.0.1](https://github.com/primefaces/primeng/tree/9.0.2) (2020-03-+20)
+## [9.0.2](https://github.com/primefaces/primeng/tree/9.0.2) (2020-03-+20)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.1...9.0.2)
 
