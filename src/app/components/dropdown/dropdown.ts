@@ -430,7 +430,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             if (this.virtualScroll) {
                 setTimeout(() => {
-                    this.viewPortOffsetTop = this.viewPort.measureScrollOffset();
+                    this.viewPortOffsetTop = this.viewPort ? this.viewPort.measureScrollOffset() : 0;
                 }, 1);
             }
         }
