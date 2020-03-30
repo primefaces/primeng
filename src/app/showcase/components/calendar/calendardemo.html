@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <div class="ui-g ui-fluid">
+    <div class="ui-g ui-fluid" style="margin-top: -30px">
         <div class="ui-g-12 ui-md-4">
             <h3>Basic</h3>
             <p-calendar [(ngModel)]="date1"></p-calendar>
@@ -66,7 +66,7 @@
             <h3>Date Template</h3>
             <p-calendar [(ngModel)]="date10">
                 <ng-template pTemplate="date" let-date>
-                    <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
+                    <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">{{date.day}}</span>
                 </ng-template>
             </p-calendar>
         </div>
@@ -257,9 +257,10 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <p>In addition, cell contents can be templated using an ng-template with a pTemplate directive whose value is "date". This is a handy feature to highlight specific dates. Note that the implicit
+            <p>Cell contents can also be templated using an ng-template with a pTemplate directive whose value is "date". This is a handy feature to highlight specific dates. Note that the implicit
             variable passed to the template is not a date instance but a metadata object to represent a Date with "day", "month" and "year" properties. Example below
-            changes the background color of dates between 10th and 21st of each month.</p>
+            changes the background color of dates between 10th and 21st of each month. </p>
+            <p>In addition, "disabledDateTemplate" is provided in case you need to customize the content of disabled dates as well.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -423,7 +424,7 @@ export class MyModel &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>readonlyInput</td>
@@ -614,8 +615,8 @@ export class MyModel &#123;
                         <tr>
                             <td>hideOnDateTimeSelect</td>
                             <td>boolean</td>
-                            <td>false</td>
-                            <td>Whether to hide the overlay on date selection when showTime is enabled.</td>
+                            <td>true</td>
+                            <td>Whether to hide the overlay on date selection.</td>
                         </tr>
                         <tr>
                             <td>numberOfMonths</td>
@@ -896,7 +897,7 @@ export class MyModel &#123;
         &lt;h3&gt;Date Template&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date11"&gt;
             &lt;ng-template pTemplate="date" let-date&gt;
-                &lt;span [ngStyle]="&#123;backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'&#125;" style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
+                &lt;span [ngStyle]="&#123;backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'&#125;" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
             &lt;/ng-template&gt;
         &lt;/p-calendar&gt;
     &lt;/div&gt;
@@ -952,6 +953,8 @@ export class CalendarDemo &#123;
 
     date13: Date;
 
+    date14: Date;
+    
     dates: Date[];
 
     rangeDates: Date[];
@@ -974,10 +977,6 @@ export class CalendarDemo &#123;
             monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
             today: 'Hoy',
             clear: 'Borrar'
-        &#125;
-
-        this.tr = &#123;
-            firstDayOfWeek : 1
         &#125;
 
         let today = new Date();

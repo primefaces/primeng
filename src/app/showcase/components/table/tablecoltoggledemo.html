@@ -17,6 +17,7 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
+                <th>Vin</th>
                 <th *ngFor="let col of columns">
                     &#123;&#123;col.header&#125;&#125;
                 </th>
@@ -24,6 +25,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
+                <td>{{rowData.vin}}</td>
                 <td *ngFor="let col of columns">
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 </td>
@@ -46,7 +48,7 @@ export class TableColToggleDemo implements OnInit &#123;
 
     cols: any[];
 
-    selectedColumns: any[];
+    _selectedColumns: any[];
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -54,13 +56,21 @@ export class TableColToggleDemo implements OnInit &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
             &#123; field: 'year', header: 'Year' &#125;,
             &#123; field: 'brand', header: 'Brand' &#125;,
             &#123; field: 'color', header: 'Color' &#125;
         ];
 
-        this.selectedColumns = this.cols;
+        this._selectedColumns = this.cols;
+    &#125;
+
+    @Input() get selectedColumns(): any[] &#123;
+        return this._selectedColumns;
+    &#125;
+
+    set selectedColumns(val: any[]) &#123;
+        //restore original order
+        this._selectedColumns = this.cols.filter(col => val.includes(col));
     &#125;
 &#125;
 </code>

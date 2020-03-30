@@ -1,5 +1,6 @@
 .ui-multiselect {
-    display: inline-block;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
     position: relative;
     width: auto;
     cursor: pointer;
@@ -38,6 +39,8 @@
     cursor: pointer;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-weight: normal;
+    white-space: nowrap;
 }
 
 .ui-multiselect.ui-state-disabled .ui-multiselect-trigger,

@@ -124,6 +124,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() unique: boolean = true;
 
+    @Input() completeOnFocus: boolean = false;
+
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -168,13 +170,13 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     @Input() autocomplete: string = 'off';
 
-    @ViewChild('in', { static: false }) inputEL: ElementRef;
+    @ViewChild('in') inputEL: ElementRef;
 
-    @ViewChild('multiIn', { static: false }) multiInputEL: ElementRef;
+    @ViewChild('multiIn') multiInputEL: ElementRef;
 
-    @ViewChild('multiContainer', { static: false }) multiContainerEL: ElementRef;
+    @ViewChild('multiContainer') multiContainerEL: ElementRef;
 
-    @ViewChild('ddBtn', { static: false }) dropdownButton: ElementRef;
+    @ViewChild('ddBtn') dropdownButton: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -225,6 +227,8 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     forceSelectionUpdateModelTimeout: any;
 
     listId: string;
+    
+    itemClicked: boolean;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -406,6 +410,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.updateFilledState();
 
         if (focus) {
+            this.itemClicked = true;
             this.focusInput();
         }
     }
@@ -594,8 +599,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     onInputFocus(event) {
+        if (!this.itemClicked && this.completeOnFocus ) {
+            let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+            this.search(event, queryValue);
+        }
+
         this.focus = true;
         this.onFocus.emit(event);
+        this.itemClicked = false;
     }
 
     onInputBlur(event) {
@@ -605,7 +616,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     onInputChange(event) {
-        if (this.forceSelection && this.suggestions) {
+        if (this.forceSelection) {
             let valid = false;
             let inputValue = event.target.value.trim();
 
@@ -740,10 +751,14 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.overlay = null;
-        this.onHide.emit(event);
+        this.onHide.emit();
     }
 
     ngOnDestroy() {
+        if (this.forceSelectionUpdateModelTimeout) {
+            clearTimeout(this.forceSelectionUpdateModelTimeout);
+            this.forceSelectionUpdateModelTimeout = null;
+        }
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }

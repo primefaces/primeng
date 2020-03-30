@@ -119,11 +119,11 @@ export class Carousel implements AfterContentInit {
 	
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
-	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
+	@ViewChild('itemsContainer') itemsContainer: ElementRef;
 
-	@ContentChild(Header, { static: true }) headerFacet;
+	@ContentChild(Header) headerFacet;
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -258,7 +258,7 @@ export class Carousel implements AfterContentInit {
 			this.prevState.numVisible = this._numVisible;
 			this.prevState.value = this._value;
 
-			if (this.totalDots() > 0) {
+			if (this.totalDots() > 0 && this.itemsContainer && this.itemsContainer.nativeElement) {
 				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
 			}
 			

@@ -42,7 +42,7 @@ import { AppComponent } from '../../app.component';
 })
 export class TreeDemo implements OnInit {
 
-    @ViewChild('expandingTree', { static: false })
+    @ViewChild('expandingTree')
     expandingTree: Tree;
 
     filesTree0: TreeNode[];

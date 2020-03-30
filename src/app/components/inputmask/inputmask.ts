@@ -93,7 +93,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() autocomplete: string;
 
-    @ViewChild('input', { static: true }) inputViewChild: ElementRef;
+    @ViewChild('input') inputViewChild: ElementRef;
 
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
 

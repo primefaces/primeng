@@ -1,8 +1,8 @@
 .ui-dropdown {
-    display: inline-block;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
     position: relative;
     cursor: pointer;
-    vertical-align: middle;
     min-width: 12.5em;
 }
 
@@ -59,6 +59,7 @@
     font-weight: normal;
     width: 100%;
     padding-right: 2.5em;
+    font-weight: normal;
 }
 
 .ui-dropdown-item-empty,
@@ -137,7 +138,8 @@
 }
 
 /** Dropdown **/
-.ui-fluid .ui-dropdown {
+.ui-fluid .ui-dropdown,
+.ui-fluid p-dropdown {
     width: 100%;
     min-width: 100%;
 }

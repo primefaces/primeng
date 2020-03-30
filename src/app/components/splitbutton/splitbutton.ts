@@ -86,9 +86,9 @@ export class SplitButton implements OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
     
-    @ViewChild('defaultbtn', { static: true }) buttonViewChild: ElementRef;
+    @ViewChild('defaultbtn') buttonViewChild: ElementRef;
 
     overlay: HTMLDivElement;
                     

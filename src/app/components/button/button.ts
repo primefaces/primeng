@@ -30,6 +30,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         }
         
         let labelElement = document.createElement("span");
+        if (this.icon && !this.label) {
+            labelElement.setAttribute('aria-hidden', 'true');
+        }
         labelElement.className = 'ui-button-text ui-clickable';
         labelElement.appendChild(document.createTextNode(this.label||'ui-btn'));
         this.el.nativeElement.appendChild(labelElement);
@@ -123,8 +126,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <span [ngClass]="{'ui-clickable': true,
                         'ui-button-icon-left': (iconPos === 'left'), 
                         'ui-button-icon-right': (iconPos === 'right')}"
-                        [class]="icon" *ngIf="icon"></span>
-            <span class="ui-button-text ui-clickable">{{label||'ui-btn'}}</span>
+                        [class]="icon" *ngIf="icon" [attr.aria-hidden]="true"></span>
+            <span class="ui-button-text ui-clickable" [attr.aria-hidden]="icon && !label">{{label||'ui-btn'}}</span>
         </button>
     `
 })

@@ -107,7 +107,7 @@ export class FilterUtils {
         }
 
         for (let i = 0; i < filter.length; i++) {
-            if (filter[i] === value || (value.getTime && filter[i].getTime && value.getTime() === filter[i].getTime())) {
+            if (ObjectUtils.equals(value, filter[i])) {
                 return true;
             }
         }

@@ -62,7 +62,8 @@ export class TreeTableService {
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             
             <div class="ui-treetable-wrapper" *ngIf="!scrollable">
                 <table #table class="ui-treetable-table">
@@ -84,7 +85,8 @@ export class TreeTableService {
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
-                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"></p-paginator>
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             <div *ngIf="summaryTemplate" class="ui-treetable-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
@@ -124,6 +126,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Input() paginatorPosition: string = 'bottom';
 
     @Input() paginatorDropdownAppendTo: any;
+
+    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+
+    @Input() showCurrentPageReport: boolean;
 
     @Input() defaultSortOrder: number = 1;
 
@@ -221,15 +227,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
-    @ViewChild('resizeHelper', { static: false }) resizeHelperViewChild: ElementRef;
+    @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorUp', { static: false }) reorderIndicatorUpViewChild: ElementRef;
+    @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
 
-    @ViewChild('reorderIndicatorDown', { static: false }) reorderIndicatorDownViewChild: ElementRef;
+    @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
 
-    @ViewChild('table', { static: false }) tableViewChild: ElementRef;
+    @ViewChild('table') tableViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -1631,21 +1637,21 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     @Input() frozen: boolean;
 
-    @ViewChild('scrollHeader', { static: true }) scrollHeaderViewChild: ElementRef;
+    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
 
-    @ViewChild('scrollHeaderBox', { static: true }) scrollHeaderBoxViewChild: ElementRef;
+    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
 
-    @ViewChild('scrollBody', { static: true }) scrollBodyViewChild: ElementRef;
+    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
 
-    @ViewChild('scrollTable', { static: true }) scrollTableViewChild: ElementRef;
+    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
 
-    @ViewChild('loadingTable', { static: false }) scrollLoadingTableViewChild: ElementRef;
+    @ViewChild('loadingTable') scrollLoadingTableViewChild: ElementRef;
 
-    @ViewChild('scrollFooter', { static: true }) scrollFooterViewChild: ElementRef;
+    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
 
-    @ViewChild('scrollFooterBox', { static: true }) scrollFooterBoxViewChild: ElementRef;
+    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller', { static: false }) virtualScrollerViewChild: ElementRef;
+    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
 
     headerScrollListener: Function;
 
@@ -2331,7 +2337,8 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttContextMenuRow]',
     host: {
-        '[class.ui-contextmenu-selected]': 'selected'
+        '[class.ui-contextmenu-selected]': 'selected',
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
 export class TTContextMenuRow {
@@ -2344,7 +2351,7 @@ export class TTContextMenuRow {
 
     subscription: Subscription;
 
-    constructor(public tt: TreeTable, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.contextMenuSource$.subscribe((node) => {
                 this.selected = this.tt.equals(this.rowNode.node, node);
@@ -2359,6 +2366,8 @@ export class TTContextMenuRow {
                 originalEvent: event,
                 rowNode: this.rowNode
             });
+
+            this.el.nativeElement.focus();
 
             event.preventDefault();
         }
@@ -2396,7 +2405,7 @@ export class TTCheckbox  {
 
     @Input("value") rowNode: any;
 
-    @ViewChild('box', { static: true }) boxViewChild: ElementRef;
+    @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -2454,7 +2463,7 @@ export class TTCheckbox  {
 })
 export class TTHeaderCheckbox  {
 
-    @ViewChild('box', { static: true }) boxViewChild: ElementRef;
+    @ViewChild('box') boxViewChild: ElementRef;
 
     checked: boolean;
 
@@ -2831,7 +2840,7 @@ export class TTRow {
 @Component({
     selector: 'p-treeTableToggler',
     template: `
-        <a class="ui-treetable-toggler ui-unselectable-text" *ngIf="rowNode.node.leaf === false || rowNode.level !== 0 || rowNode.node.children && rowNode.node.children.length" (click)="onClick($event)"
+        <a class="ui-treetable-toggler ui-unselectable-text" (click)="onClick($event)"
             [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
             <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
         </a>

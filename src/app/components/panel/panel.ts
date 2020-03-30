@@ -80,7 +80,7 @@ export class Panel implements BlockableUI {
     
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
     
     animating: boolean;
     

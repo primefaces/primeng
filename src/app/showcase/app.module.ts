@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
@@ -15,6 +14,7 @@ import { CountryService } from './service/countryservice';
 import { EventService } from './service/eventservice';
 import { NodeService } from './service/nodeservice';
 import { IconService } from './service/iconservice';
+import { CustomerService } from './service/customerservice';
 import { AppConfigComponent } from './app.config.component';
 
 @NgModule({
@@ -24,7 +24,6 @@ import { AppConfigComponent } from './app.config.component';
     AppConfigComponent
   ],
   imports: [
-    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -34,7 +33,7 @@ import { AppConfigComponent } from './app.config.component';
   ],
   providers: [
       { provide: LocationStrategy, useClass: HashLocationStrategy },
-      CarService,CountryService,EventService,NodeService,IconService
+      CarService,CountryService,EventService,NodeService,IconService,CustomerService
   ],
   bootstrap: [AppComponent]
 })

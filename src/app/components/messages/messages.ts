@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional, ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message} from 'primeng/api';
@@ -9,11 +9,8 @@ import {Subscription} from 'rxjs';
     selector: 'p-messages',
     template: `
         <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all"
-                    [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
-                    'ui-messages-warn':(value[0].severity === 'warn'),
-                    'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}" role="alert"
-                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+                    [ngClass]="getSeverityClass()" role="alert" [ngStyle]="style" [class]="styleClass"
+                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
             <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
                 <i class="pi pi-times"></i>
             </a>
@@ -24,7 +21,7 @@ import {Subscription} from 'rxjs';
                         <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
                         <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
                     </div>
-                    <ng-template #escapeOut> 
+                    <ng-template #escapeOut>
                         <span *ngIf="msg.summary" class="ui-messages-summary">{{msg.summary}}</span>
                         <span *ngIf="msg.detail" class="ui-messages-detail">{{msg.detail}}</span>
                     </ng-template>
@@ -58,7 +55,7 @@ export class Messages implements OnInit, OnDestroy {
     @Input() closable: boolean = true;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() enableService: boolean = true;
@@ -72,12 +69,12 @@ export class Messages implements OnInit, OnDestroy {
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     messageSubscription: Subscription;
 
     clearSubscription: Subscription;
 
-    constructor(@Optional() public messageService: MessageService) {}
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef) {}
 
     ngOnInit() {
         if (this.messageService && this.enableService) {
@@ -107,11 +104,24 @@ export class Messages implements OnInit, OnDestroy {
     }
 
     hasMessages() {
-        return this.value && this.value.length > 0;
+        let parentEl = this.el.nativeElement.parentElement;
+        if (parentEl && parentEl.offsetParent) {
+            return this.value && this.value.length > 0;
+        }
+
+        return false;
     }
 
     getSeverityClass() {
-        return this.value[0].severity;
+        const msg = this.value[0];
+        if (msg) {
+            const severities = ['info', 'warn', 'error', 'success'];
+            const severity = severities.find(item => item === msg.severity);
+
+            return severity && `ui-messages-${severity}`;
+        }
+
+        return null;
     }
 
     clear(event) {
@@ -155,7 +165,7 @@ export class Messages implements OnInit, OnDestroy {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }

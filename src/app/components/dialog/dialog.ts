@@ -1,9 +1,10 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,
-    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef} from '@angular/core';
-import {trigger,state,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
+    ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef, ViewRef} from '@angular/core';
+import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule} from 'primeng/api';
+import {FocusTrapModule} from 'primeng/focustrap';
 
 let idx: number = 0;
 
@@ -19,9 +20,9 @@ const hideAnimation = animation([
 @Component({
 selector: 'p-dialog',
 template: `
-    <div class="ui-dialog-wrapper" [ngClass]="getWrapperClass()" *ngIf="maskVisible">
+    <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
-            [ngStyle]="style" [class]="styleClass" *ngIf="visible"
+            [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
             [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" (mousedown)="initDrag($event)" *ngIf="showHeader">
                 <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -94,6 +95,8 @@ export class Dialog implements OnDestroy {
 
     @Input() styleClass: string;
 
+    @Input() maskStyleClass: string;
+
     @Input() showHeader: boolean = true;
 
     @Input() get breakpoint(): number {
@@ -146,6 +149,10 @@ export class Dialog implements OnDestroy {
 
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
 
+    @Output() onResizeInit: EventEmitter<any> = new EventEmitter();
+
+    @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
+
     _visible: boolean;
 
     maskVisible: boolean;
@@ -157,8 +164,6 @@ export class Dialog implements OnDestroy {
     dragging: boolean;
 
     documentDragListener: any;
-
-    documentKeydownListener: any;
 
     documentDragEndListener: any;
 
@@ -291,7 +296,9 @@ export class Dialog implements OnDestroy {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
 
-            this.cd.detectChanges();
+            if (!(this.cd as ViewRef).destroyed) {
+                this.cd.detectChanges();
+            }
         }
     }
 
@@ -320,10 +327,10 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    getWrapperClass() {
-        let wrapperClass = {'ui-widget-overlay ui-dialog-mask': this.modal, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll};
-        wrapperClass[this.getPositionClass().toString()] = true;
-        return wrapperClass;
+    getMaskClass() {
+        let maskClass = {'ui-dialog-mask': true, 'ui-widget-overlay': this.modal, 'ui-dialog-visible': this.maskVisible, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll};
+        maskClass[this.getPositionClass().toString()] = true;
+        return maskClass;
     }
 
     getPositionClass() {
@@ -424,6 +431,7 @@ export class Dialog implements OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
             DomHandler.addClass(document.body, 'ui-unselectable-text');
+            this.onResizeInit.emit(event);
         }
     }
 
@@ -455,18 +463,15 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    onResizeEnd() {
+    resizeEnd(event) {
         if (this.resizing) {
             this.resizing = false;
             DomHandler.removeClass(document.body, 'ui-unselectable-text');
+            this.onResizeEnd.emit(event);
         }
     }
 
     bindGlobalListeners() {
-        if (this.focusTrap) {
-            this.bindDocumentKeydownListener();
-        }
-
         if (this.draggable) {
             this.bindDocumentDragListener();
             this.bindDocumentDragEndListener();
@@ -483,24 +488,9 @@ export class Dialog implements OnDestroy {
 
     unbindGlobalListeners() {
         this.unbindDocumentDragListener();
-        this.unbindDocumentKeydownListener();
         this.unbindDocumentDragEndListener();
         this.unbindDocumentResizeListeners();
         this.unbindDocumentEscapeListener();
-    }
-
-    bindDocumentKeydownListener() {
-        this.zone.runOutsideAngular(() => {
-            this.documentKeydownListener = this.onKeydown.bind(this);
-            window.document.addEventListener('keydown', this.documentKeydownListener);
-        });
-    }
-
-    unbindDocumentKeydownListener() {
-        if (this.documentKeydownListener) {
-            window.document.removeEventListener('keydown', this.documentKeydownListener);
-            this.documentKeydownListener = null;
-        }
     }
 
     bindDocumentDragListener() {
@@ -534,7 +524,7 @@ export class Dialog implements OnDestroy {
     bindDocumentResizeListeners() {
         this.zone.runOutsideAngular(() => {
             this.documentResizeListener = this.onResize.bind(this);
-            this.documentResizeEndListener = this.onResizeEnd.bind(this);
+            this.documentResizeEndListener = this.resizeEnd.bind(this);
             window.document.addEventListener('mousemove', this.documentResizeListener);
             window.document.addEventListener('mouseup', this.documentResizeEndListener);
         });
@@ -650,8 +640,8 @@ export class Dialog implements OnDestroy {
 }
 
 @NgModule({
-imports: [CommonModule],
-exports: [Dialog,SharedModule],
-declarations: [Dialog]
+    imports: [CommonModule,FocusTrapModule],
+    exports: [Dialog,SharedModule],
+    declarations: [Dialog]
 })
 export class DialogModule { }

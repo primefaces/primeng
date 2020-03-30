@@ -52,7 +52,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef, { static: true }) itemTemplate;
+    @ContentChild(TemplateRef) itemTemplate;
     
     value: any;
     

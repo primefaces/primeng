@@ -23,6 +23,7 @@
     margin-left: -8px;
     z-index: 2;
     left: 50%;
+    user-select: none;
 }
 
 .ui-organizationchart .ui-organizationchart-line-down {
@@ -44,4 +45,13 @@
 
 .ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node {
     cursor: pointer;
+}
+
+.ui-organizationchart .ui-organizationchart-node-hidden {
+    display: none;
+}
+
+.ui-organizationchart-preservespace .ui-organizationchart-node-hidden {
+    visibility: hidden;
+    display: inherit;
 }

@@ -56,7 +56,7 @@ export class RadioButton implements ControlValueAccessor {
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('rb', { static: true }) inputViewChild: ElementRef;
+    @ViewChild('rb') inputViewChild: ElementRef;
             
     public onModelChange: Function = () => {};
     
@@ -126,6 +126,10 @@ export class RadioButton implements ControlValueAccessor {
     
     onChange(event) {
         this.select(event);
+    }
+
+    focus() {
+        this.inputViewChild.nativeElement.focus();
     }
 }
 

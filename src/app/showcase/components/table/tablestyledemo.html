@@ -12,14 +12,14 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
-                    &#123;&#123;col.header&#125;&#125;
+                    {{col.header}}
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [ngClass]="rowData.year > 2010 ? 'new-car' : null">
                 <td *ngFor="let col of columns" [ngClass]="rowData[col.field] <= 2010 ? 'old-car' : null">
-                    &#123;&#123;rowData[col.field]&#125;&#125;
+                    {{rowData[col.field]}}
                 </td>
             </tr>
         </ng-template>

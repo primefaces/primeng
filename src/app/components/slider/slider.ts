@@ -60,11 +60,11 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild("sliderHandle", {static: false}) sliderHandle: ElementRef;
+    @ViewChild("sliderHandle") sliderHandle: ElementRef;
 
-    @ViewChild("sliderHandleStart", {static: false}) sliderHandleStart: ElementRef;
+    @ViewChild("sliderHandleStart") sliderHandleStart: ElementRef;
 
-    @ViewChild("sliderHandleEnd", {static: false}) sliderHandleEnd: ElementRef;
+    @ViewChild("sliderHandleEnd") sliderHandleEnd: ElementRef;
 
     public value: number;
     

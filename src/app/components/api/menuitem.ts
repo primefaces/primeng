@@ -1,12 +1,10 @@
-import {EventEmitter} from '@angular/core';
+import { QueryParamsHandling } from '@angular/router';
 
 export interface MenuItem {
     label?: string;
     icon?: string;
     command?: (event?: any) => void;
     url?: string;
-    routerLink?: any;
-    queryParams?: { [k: string]: any };
     items?: MenuItem[]|MenuItem[][];
     expanded?: boolean;
     disabled?: boolean;
@@ -22,4 +20,14 @@ export interface MenuItem {
     id?: string;
     automationId?: any;
     tabindex?: string;
+    routerLink?: any;
+    queryParams?: { [k: string]: any };
+    fragment?: string;
+    queryParamsHandling?: QueryParamsHandling;
+    preserveFragment?: boolean;
+    skipLocationChange?: boolean;
+    replaceUrl?: boolean;
+    state?: {
+        [k: string]: any;
+    }
 }

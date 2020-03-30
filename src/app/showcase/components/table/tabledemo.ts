@@ -1,98 +1,89 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Car } from '../../components/domain/car';
-import { CarService } from '../../service/carservice';
-import { SelectItem } from 'primeng/api';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Customer, Representative } from '../../domain/customer';
+import { CustomerService } from '../../service/customerservice';
+import { Table } from '../../../components/table/table';
 
 @Component({
     templateUrl: './tabledemo.html',
-    styles: [`
-
-        .ui-table.ui-table-cars .ui-table-caption.ui-widget-header {
-            border: 0 none;
-            padding: 12px;
-            text-align: left;
-            font-size: 20px;
-        }
-
-        .ui-column-filter {
-            margin-top: 1em;
-        }
-
-        .ui-column-filter .ui-multiselect-label {
-            font-weight: 500;
-        }
-        
-        .ui-table.ui-table-cars .ui-table-thead > tr > th {
-            border: 0 none;
-            text-align: left;
-        }
-        
-        .ui-table-globalfilter-container {
-            float: right;
-            display: inline;
-        }
-
-        .ui-table.ui-table-cars .ui-table-tbody > tr > td {
-            border: 0 none;
-        }
-
-        .ui-table.ui-table-cars .ui-table-tbody .ui-column-title {
-            font-size: 16px;
-        }
-
-        .ui-table.ui-table-cars .ui-paginator {
-            border: 0 none;
-            padding: 1em;
-        }
-    `],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./tabledemo.scss']
 })
 export class TableDemo implements OnInit {
 
-    cars: Car[];
+    customers: Customer[];
 
-    cols: any[];
+    selectedCustomers: Customer[];
 
-    selectedCar: Car;
+    representatives: Representative[];
 
-    brands: SelectItem[];
+    statuses: any[];
 
-    colors: SelectItem[];
+    loading: boolean = true;
 
-    constructor(private carService: CarService) { }
+    @ViewChild('dt') table: Table;
+
+    constructor(private customerService: CustomerService) { }
 
     ngOnInit() {
-        this.carService.getCarsLarge().then(cars => this.cars = cars);
+        this.customerService.getCustomersLarge().then(customers => {
+            this.customers = customers;
+            this.loading = false;
+        });
 
-        this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
+        this.representatives = [
+            {name: "Amy Elsner", image: 'amyelsner.png'},
+            {name: "Anna Fali", image: 'annafali.png'},
+            {name: "Asiya Javayant", image: 'asiyajavayant.png'},
+            {name: "Bernardo Dominic", image: 'bernardodominic.png'},
+            {name: "Elwin Sharvill", image: 'elwinsharvill.png'},
+            {name: "Ioni Bowcher", image: 'ionibowcher.png'},
+            {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
+            {name: "Onyama Limba", image: 'onyamalimba.png'},
+            {name: "Stephen Shaw", image: 'stephenshaw.png'},
+            {name: "XuXue Feng", image: 'xuxuefeng.png'}
         ];
 
-        this.brands = [
-            { label: 'Audi', value: 'Audi' },
-            { label: 'BMW', value: 'BMW' },
-            { label: 'Fiat', value: 'Fiat' },
-            { label: 'Honda', value: 'Honda' },
-            { label: 'Jaguar', value: 'Jaguar' },
-            { label: 'Mercedes', value: 'Mercedes' },
-            { label: 'Renault', value: 'Renault' },
-            { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
-        ];
+        this.statuses = [
+            {label: 'Unqualified', value: 'unqualified'},
+            {label: 'Qualified', value: 'qualified'},
+            {label: 'New', value: 'new'},
+            {label: 'Negotiation', value: 'negotiation'},
+            {label: 'Renewal', value: 'renewal'},
+            {label: 'Proposal', value: 'proposal'}
+        ]
+    }
 
-        this.colors = [
-            { label: 'White', value: 'White' },
-            { label: 'Green', value: 'Green' },
-            { label: 'Silver', value: 'Silver' },
-            { label: 'Black', value: 'Black' },
-            { label: 'Red', value: 'Red' },
-            { label: 'Maroon', value: 'Maroon' },
-            { label: 'Brown', value: 'Brown' },
-            { label: 'Orange', value: 'Orange' },
-            { label: 'Blue', value: 'Blue' }
-        ];
+    onActivityChange(event) {
+        const value = event.target.value;
+        if (value && value.trim().length) {
+            const activity = parseInt(value);
+
+            if (!isNaN(activity)) {
+                this.table.filter(activity, 'activity', 'gte');
+            }
+        }
+    }
+
+    onDateSelect(value) {
+        this.table.filter(this.formatDate(value), 'date', 'equals')
+    }
+
+    formatDate(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    }
+
+    onRepresentativeChange(event) {
+        debugger;
+        this.table.filter(event.value, 'representative', 'in')
     }
 }

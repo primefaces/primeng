@@ -81,8 +81,7 @@ export class KeyFilter implements Validator {
     };
 
     isSpecialKey(e: KeyboardEvent) {
-        let k = e.keyCode;
-        let c = e.charCode;
+        let k = e.keyCode || e.charCode;
 
         return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) ||
             (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
@@ -162,18 +161,12 @@ export class KeyFilter implements Validator {
         }
 
         let browser = DomHandler.getBrowser();
-
-        if (e.ctrlKey || e.altKey) {
-            return;
-        }
-
         let k = this.getKey(e);
 
-        if (k == 13) {
+        if (browser.mozilla && (e.ctrlKey || e.altKey)) {
             return;
         }
-
-        if (browser.mozilla && (this.isNavKeyPress(e) || k == KEYS.BACKSPACE || (k == KEYS.DELETE && e.charCode == 0))) {
+        else if (k == 17 || k == 18) {
             return;
         }
 
@@ -181,7 +174,7 @@ export class KeyFilter implements Validator {
         let cc = String.fromCharCode(c);
         let ok = true;
 
-        if (browser.mozilla && (this.isSpecialKey(e) || !cc)) {
+        if (!browser.mozilla && (this.isSpecialKey(e) || !cc)) {
             return;
         }
 

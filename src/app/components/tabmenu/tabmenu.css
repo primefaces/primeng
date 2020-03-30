@@ -20,6 +20,7 @@
     float: left; 
     padding: 0.5em 1em;
     text-decoration: none; 
+    cursor: pointer;
 }
 
 .ui-tabmenu .ui-tabmenu-nav a { 

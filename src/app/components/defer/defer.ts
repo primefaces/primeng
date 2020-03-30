@@ -9,7 +9,7 @@ export class DeferredLoader implements AfterViewInit,OnDestroy {
         
     @Output() onLoad: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+    @ContentChild(TemplateRef) template: TemplateRef<any>;
         
     documentScrollListener: Function;
     

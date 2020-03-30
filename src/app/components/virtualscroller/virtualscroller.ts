@@ -48,13 +48,13 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
-    @ContentChild(Header, { static: true }) header;
+    @ContentChild(Header) header;
 
-    @ContentChild(Footer, { static: true}) footer;
+    @ContentChild(Footer) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('viewport', { static: true }) viewPortViewChild: ElementRef;
+    @ViewChild('viewport') viewPortViewChild: ElementRef;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 

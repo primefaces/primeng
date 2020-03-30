@@ -8,4 +8,6 @@ export class ChipsDemo {
     values1: string[];
     
     values2: string[];
+
+    values3: string[];
 }
