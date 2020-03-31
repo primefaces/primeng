@@ -12,7 +12,7 @@
   <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
 
   <h3>Advanced (Multiple, Checkbox and Filter)</h3>
-  <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name">
+  <p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name">
     <p-header>
       Cars
     </p-header>
@@ -432,7 +432,7 @@ export class MyModel &#123;
 &lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name"&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name"&gt;
   &lt;p-header&gt;
     Cars
   &lt;/p-header&gt;
