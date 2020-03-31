@@ -12,7 +12,7 @@ import { CarService } from '../../service/carservice';
 })
 export class TablePageDemo implements OnInit {
 
-    cars: Car[];
+    cars: Car[] = [];
 
     cols: any[];
 
