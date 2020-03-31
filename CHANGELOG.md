@@ -49,8 +49,6 @@
 -  Prevent duplicates and Prevent open duplicates for Toast [\#7219](https://github.com/primefaces/primeng/issues/7219)
 - Chips Separator [\#5333](https://github.com/primefaces/primeng/issues/5333)
 - Missing common selection mode in TurboTable \(as in DataTable\) [\#4943](https://github.com/primefaces/primeng/issues/4943)
-- Lightbox: Custom Launch UI and Close Button [\#4789](https://github.com/primefaces/primeng/issues/4789)
-- Sticky Column Headers [\#4172](https://github.com/primefaces/primeng/issues/4172)
 - Add completeOnFocus option to AutoComplete [\#3976](https://github.com/primefaces/primeng/issues/3976)
 
 **Fixed bugs:**
