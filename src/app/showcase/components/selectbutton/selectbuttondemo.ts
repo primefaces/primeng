@@ -10,7 +10,7 @@ export class SelectButtonDemo {
 
     selectedType: string;
 
-    selectedTypes: string[] = ['PayPal','MasterCard'];
+    selectedTypes: string[] = ['Apartment','Studio'];
 
     selectedModes: string[];
 
