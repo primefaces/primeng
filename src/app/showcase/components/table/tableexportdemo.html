@@ -50,7 +50,7 @@ export class TableExportDemo implements OnInit &#123;
 
     cols: any[];
 
-    columns: any[];
+    exportColumns: any[];
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -71,12 +71,12 @@ export class TableExportDemo implements OnInit &#123;
         import("jspdf").then(jsPDF => &#123;
             import("jspdf-autotable").then(x => &#123;
                 const doc = new jsPDF.default(0,0);
-                doc.autoTable(this.columns, this.cars);
+                doc.autoTable(this.exportColumns, this.cars);
                 doc.save('primengTable.pdf');
             &#125;)
         &#125;)
     &#125;
-    
+
     exportExcel() &#123;
         import("xlsx").then(xlsx => &#123;
             const worksheet = xlsx.utils.json_to_sheet(this.getCars());
@@ -105,7 +105,7 @@ export class TableExportDemo implements OnInit &#123;
         &#125;
         return cars;
     &#125;
-&#125;
+&#125; 
 </code>
 </pre>   
         </p-tabPanel>
