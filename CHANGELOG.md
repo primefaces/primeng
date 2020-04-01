@@ -1,5 +1,15 @@
 # Change Log
 
+MaskStyleClass Does not found
+
+## [9.0.5](https://github.com/primefaces/primeng/tree/9.0.5) (2020-04-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.4...9.0.5)
+
+**Fixed bugs:**
+
+- MaskStyleClass Does not found [\#8704](https://github.com/primefaces/primeng/issues/8704)
+
 ## [9.0.4](https://github.com/primefaces/primeng/tree/9.0.4) (2020-04-01)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.3...9.0.4)
