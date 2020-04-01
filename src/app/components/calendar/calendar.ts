@@ -802,15 +802,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
         else {
             if (this.shouldSelectDate(dateMeta)) {
-                if (dateMeta.otherMonth) {
-                    this.currentMonth = dateMeta.month;
-                    this.currentYear = dateMeta.year;
-                    this.createMonths(this.currentMonth, this.currentYear);
-                    this.selectDate(dateMeta);
-                }
-                else {
-                     this.selectDate(dateMeta);
-                }
+                this.selectDate(dateMeta);
             }
         }
         
@@ -912,7 +904,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    
     selectDate(dateMeta) {
         let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
         
