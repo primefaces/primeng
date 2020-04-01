@@ -2528,7 +2528,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         '[class.ui-sortable-column]': 'isEnabled()',
         '[class.ui-state-highlight]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
-        '[attr.role]': 'columnheader',
+        '[attr.role]': '"columnheader"',
         '[attr.aria-sort]': 'sortOrder'
     }
 })
