@@ -69,6 +69,8 @@ export class ConfirmDialog implements OnDestroy {
 
     @Input() styleClass: string;
 
+    @Input() maskStyleClass: string;
+
     @Input() acceptIcon: string = 'pi pi-check';
 
     @Input() acceptLabel: string = 'Yes';
