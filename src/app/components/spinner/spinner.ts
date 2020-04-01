@@ -113,7 +113,11 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
     set step(val:number) {
         this._step = val;
-        this.calculatedPrecision = this.step.toString().split(/[,]|[.]/)[1].length;
+
+        if (this._step != null) {
+            let tokens = this.step.toString().split(/[,]|[.]/);
+            this.calculatedPrecision = tokens[1] ? tokens[1].length : undefined;
+        }
     }
     
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
