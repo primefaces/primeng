@@ -19,8 +19,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() tooltipZIndex: string = 'auto';
 
-    @Input("tooltipDisabled") disabled: boolean;
-
     @Input() escape: boolean = true;
 
     @Input() showDelay: number;
@@ -28,6 +26,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     @Input() hideDelay: number;
 
     @Input() life: number;
+
+    @Input("tooltipDisabled") get disabled(): boolean {
+        return this._disabled;
+    }
+    set disabled(val:boolean) {
+        this._disabled = val;
+        this.deactivate();
+    }
+
+    _disabled: boolean;
 
     container: any;
 
