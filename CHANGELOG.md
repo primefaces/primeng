@@ -1,5 +1,23 @@
 # Change Log
 
+## [9.0.4](https://github.com/primefaces/primeng/tree/9.0.4) (2020-04-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.3...9.0.4)
+
+**Implemented New Features and Enhancements:**
+
+- Nodes in p-tree can't have individual aria-labels (accessibility) [\#8276](https://github.com/primefaces/primeng/issues/8276)
+- Allow BlockUI individual styling [\#8326](https://github.com/primefaces/primeng/issues/8326)
+
+**Fixed bugs:**
+
+- selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
+- p-spinner does not work after upgrade to 9.0.3 [\8695](https://github.com/primefaces/primeng/issues/8695)
+- Property 'columnheader' does not exist on type 'SortableColumn' [\#8693](https://github.com/primefaces/primeng/issues/8693)
+- Change Tooltip disabled doesn't close it [\#8324](https://github.com/primefaces/primeng/issues/8324)
+- Incorrect sample code on demo page [\#8697](https://github.com/primefaces/primeng/issues/8697)
+- Site Example X Github Example (table/export) [\#8316](https://github.com/primefaces/primeng/issues/8316)
+
 ## [9.0.3](https://github.com/primefaces/primeng/tree/9.0.3) (2020-03-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.2...9.0.3)
