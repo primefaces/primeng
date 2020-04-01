@@ -5,7 +5,7 @@ import {DomHandler} from 'primeng/dom';
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
+        <div #mask [class]="styleClass" [ngClass]="{'ui-blockui-document':!target, 'ui-blockui ui-widget-overlay': true}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
             <ng-content></ng-content>
         </div>
     `,
@@ -18,6 +18,8 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
+    
+    @Input() styleClass: string;
     
     @ViewChild('mask') mask: ElementRef;
     
