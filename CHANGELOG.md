@@ -12,7 +12,7 @@
 **Fixed bugs:**
 
 - selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
-- p-spinner does not work after upgrade to 9.0.3 [\8695](https://github.com/primefaces/primeng/issues/8695)
+- p-spinner does not work after upgrade to 9.0.3 [\#8695](https://github.com/primefaces/primeng/issues/8695)
 - Property 'columnheader' does not exist on type 'SortableColumn' [\#8693](https://github.com/primefaces/primeng/issues/8693)
 - Change Tooltip disabled doesn't close it [\#8324](https://github.com/primefaces/primeng/issues/8324)
 - Incorrect sample code on demo page [\#8697](https://github.com/primefaces/primeng/issues/8697)
