@@ -123,7 +123,7 @@ export class Paginator implements OnInit, OnChanges {
             this.rowsPerPageItems = [];
             for (let opt of this.rowsPerPageOptions) {
                 if (typeof opt == 'object' && opt['showAll']) {
-                    this.rowsPerPageItems.push({label: opt['showAll'], value: this.totalRecords});
+                    this.rowsPerPageItems.unshift({label: opt['showAll'], value: this.totalRecords});
                 }
                 else {
                     this.rowsPerPageItems.push({label: String(opt), value: opt});
