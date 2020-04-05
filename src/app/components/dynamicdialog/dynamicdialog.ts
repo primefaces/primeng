@@ -18,7 +18,7 @@ const hideAnimation = animation([
 @Component({
 	selector: 'p-dynamicDialog',
 	template: `
-        <div #mask class="ui-widget-overlay ui-dialog-mask ui-dialog-visible ui-dialog-mask-scrollblocker">
+        <div #mask class="ui-widget-overlay ui-dialog-mask ui-dialog-visible ui-dialog-mask-scrollblocker" (click)="onMaskClick($event)">
             <div [ngClass]="{'ui-dialog ui-dynamicdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
@@ -139,8 +139,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.visible = false;
 	}
 
-	onMaskClick() {
-		if (this.config.dismissableMask) {
+	onMaskClick(event: Event) {
+        const isContainsDialog: boolean = (<HTMLDivElement>this.maskViewChild.nativeElement).children.item(0).contains(<Node>event.target);
+
+        if (this.config.dismissableMask && !isContainsDialog) {
 			this.close();
 		}
     }
