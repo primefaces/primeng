@@ -461,7 +461,6 @@ MaskStyleClass Does not found
 - TurboTable responsive with colgroup breaks column width [\#6757](https://github.com/primefaces/primeng/issues/6757)
 - Make leaf node not expandable in tree regardless of children [\#6743](https://github.com/primefaces/primeng/issues/6743)
 - Elements with editable portions should support native input attributes [\#6723](https://github.com/primefaces/primeng/issues/6723)
-- Datascroller direction to be customizable: up/down [\#6579](https://github.com/primefaces/primeng/issues/6579)
 - Calendar: Expose API to toggle calendar from component [\#6575](https://github.com/primefaces/primeng/issues/6575)
 
 **Fixed bugs:**
