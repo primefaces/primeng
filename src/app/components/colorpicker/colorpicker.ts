@@ -1,13 +1,13 @@
-import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => ColorPicker),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => ColorPicker),
+    multi: true
 };
 
 @Component({
@@ -46,7 +46,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    providers: [COLORPICKER_VALUE_ACCESSOR]
+    providers: [COLORPICKER_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
@@ -76,7 +77,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('input', { static: false }) inputViewChild: ElementRef;
+    @ViewChild('input') inputViewChild: ElementRef;
     
     value: any;
     
@@ -118,24 +119,24 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
                 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
         
-    @ViewChild('colorSelector', { static: false }) set colorSelector(element: ElementRef) {
+    @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
     }
 
-    @ViewChild('colorHandle', { static: false }) set colorHandle(element: ElementRef) {
+    @ViewChild('colorHandle') set colorHandle(element: ElementRef) {
         this.colorHandleViewChild = element;
     }
 
-    @ViewChild('hue', { static: false }) set hue(element: ElementRef) {
+    @ViewChild('hue') set hue(element: ElementRef) {
         this.hueViewChild = element;
     }
 
-    @ViewChild('hueHandle', { static: false }) set hueHandle(element: ElementRef) {
+    @ViewChild('hueHandle') set hueHandle(element: ElementRef) {
         this.hueHandleViewChild = element;
     }
 
     onHueMousedown(event: MouseEvent) {
-        if(this.disabled) {
+        if (this.disabled) {
             return;
         }
         
@@ -161,7 +162,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
     
     onColorMousedown(event: MouseEvent) {
-        if(this.disabled) {
+        if (this.disabled) {
             return;
         }
         
@@ -213,7 +214,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     writeValue(value: any): void {
-        if(value) {
+        if (value) {
             switch(this.format) {
                 case 'hex':
                     this.value = this.HEXtoHSB(value);
@@ -291,7 +292,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if(this.appendTo === 'body')
+            if (this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
                 DomHandler.appendChild(this.overlay, this.appendTo);
@@ -305,7 +306,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
     
     alignOverlay() {
-        if(this.appendTo)
+        if (this.appendTo)
             DomHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
         else
             DomHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
@@ -321,7 +322,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
     
     togglePanel() {
-        if(!this.overlayVisible)
+        if (!this.overlayVisible)
             this.show();
         else
             this.hide();
@@ -360,9 +361,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
     
     bindDocumentClickListener() {
-        if(!this.documentClickListener) {
+        if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.selfClick) {
+                if (!this.selfClick) {
                     this.overlayVisible = false;
                     this.unbindDocumentClickListener();
                 }
@@ -374,20 +375,20 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
     
     unbindDocumentClickListener() {
-        if(this.documentClickListener) {
+        if (this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
         }
     }
     
     bindDocumentMousemoveListener() {
-        if(!this.documentMousemoveListener) {
+        if (!this.documentMousemoveListener) {
             this.documentMousemoveListener = this.renderer.listen('document', 'mousemove', (event: MouseEvent) => {
-                if(this.colorDragging) {
+                if (this.colorDragging) {
                     this.pickColor(event);
                 }
                 
-                if(this.hueDragging) {
+                if (this.hueDragging) {
                     this.pickHue(event);
                 }
             });
@@ -395,14 +396,14 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
     
     unbindDocumentMousemoveListener() {
-        if(this.documentMousemoveListener) {
+        if (this.documentMousemoveListener) {
             this.documentMousemoveListener();
             this.documentMousemoveListener = null;
         }
     }
     
     bindDocumentMouseupListener() {
-        if(!this.documentMouseupListener) {
+        if (!this.documentMouseupListener) {
             this.documentMouseupListener = this.renderer.listen('document', 'mouseup', () => {
                 this.colorDragging = false;
                 this.hueDragging = false;
@@ -413,7 +414,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
     
     unbindDocumentMouseupListener() {
-        if(this.documentMouseupListener) {
+        if (this.documentMouseupListener) {
             this.documentMouseupListener();
             this.documentMouseupListener = null;
         }
@@ -467,9 +468,6 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         var max = Math.max(rgb.r, rgb.g, rgb.b);
         var delta = max - min;
         hsb.b = max;
-        if (max != 0) {
-            
-        }
         hsb.s = max != 0 ? 255 * delta / max : 0;
         if (hsb.s != 0) {
             if (rgb.r == max) {
@@ -498,7 +496,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         let h: number = hsb.h;
         let s: number = hsb.s*255/100;
         let v: number = hsb.b*255/100;
-        if(s == 0) {
+        if (s == 0) {
             rgb = {
                 r: v,
                 g: v,
@@ -509,13 +507,13 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             let t1: number = v;
             let t2: number = (255-s)*v/255;
             let t3: number = (t1-t2)*(h%60)/60;
-            if(h==360) h = 0;
-            if(h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
-            else if(h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}
-            else if(h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3}
-            else if(h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3}
-            else if(h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3}
-            else if(h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3}
+            if (h==360) h = 0;
+            if (h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
+            else if (h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}
+            else if (h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3}
+            else if (h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3}
+            else if (h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3}
+            else if (h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3}
             else {rgb.r=0; rgb.g=0;	rgb.b=0}
         }
         return {r:Math.round(rgb.r), g:Math.round(rgb.g), b:Math.round(rgb.b)};
@@ -529,7 +527,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         ];
         
         for(var key in hex) {
-            if(hex[key].length == 1) {
+            if (hex[key].length == 1) {
                 hex[key] = '0' + hex[key];
             }
         }        

@@ -105,22 +105,22 @@ export class Password implements OnDestroy,DoCheck {
             label = null,
             meterPos = null;
 
-            if(value.length === 0) {
+            if (value.length === 0) {
                 label = this.promptLabel;
                 meterPos = '0px 0px';
             }
             else {
                 var score = this.testStrength(value);
 
-                if(score < 30) {
+                if (score < 30) {
                     label = this.weakLabel;
                     meterPos = '0px -10px';
                 }
-                else if(score >= 30 && score < 80) {
+                else if (score >= 30 && score < 80) {
                     label = this.mediumLabel;
                     meterPos = '0px -20px';
                 } 
-                else if(score >= 80) {
+                else if (score >= 80) {
                     label = this.strongLabel;
                     meterPos = '0px -30px';
                 }
@@ -155,7 +155,7 @@ export class Password implements OnDestroy,DoCheck {
     normalize(x, y) {
         let diff = x - y;
 
-        if(diff <= 0)
+        if (diff <= 0)
             return x / y;
         else
             return 1 + 0.5 * (x / (x + y/4));

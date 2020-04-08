@@ -5,15 +5,14 @@
     </div>
 </div>
 
-<div class="content-section implementation-charts">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast></p-toast>
 
     <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
 </div>
 
 <div class="content-section documentation">
     <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/linechart/linechartdemo" class="btn-viewsource" target="_blank">
-        <i class="fa fa-github"></i>
         <span>View on GitHub</span>
     </a>
 

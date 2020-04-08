@@ -278,6 +278,12 @@ export class AutoCompleteDemo &#123;
                             <td>Delay between keystrokes to wait before sending a query.</td>
                         </tr>
                         <tr>
+                            <td>completeOnFocus</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to run a query when input receives focus.</td>
+                        </tr>
+                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -347,7 +353,7 @@ export class AutoCompleteDemo &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>tabindex</td>
@@ -439,7 +445,7 @@ export class AutoCompleteDemo &#123;
                             <td>ariaLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Define a string that labels the input field.</td>
+                            <td>Defines a string that labels the checkbox for accessibility.</td>
                         </tr>
                         <tr>
                             <td>ariaLabelledBy</td>
@@ -524,6 +530,16 @@ export class AutoCompleteDemo &#123;
                             <td>event: browser event</td>
                             <td>Callback to invoke when input field is cleared.</td>
                         </tr>
+                        <tr>
+                            <td>onShow</td>
+                            <td>event: Animation event</td>
+                            <td>Callback to invoke when autocomplete overlay gets visible.</td>
+                        </tr>
+                        <tr>
+                            <td>onHide</td>
+                            <td>-</td>
+                            <td>Callback to invoke when autocomplete overlay gets hidden.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -581,7 +597,6 @@ export class AutoCompleteDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/autocomplete" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -654,7 +669,7 @@ export class AutoCompleteDemo &#123;
         let filtered : any[] = [];
         for(let i = 0; i < countries.length; i++) &#123;
             let country = countries[i];
-            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
+            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
                 filtered.push(country);
             &#125;
         &#125;
@@ -665,7 +680,7 @@ export class AutoCompleteDemo &#123;
         this.filteredBrands = [];
         for(let i = 0; i < this.brands.length; i++) &#123;
             let brand = this.brands[i];
-            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) &#123;
+            if (brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) &#123;
                 this.filteredBrands.push(brand);
             &#125;
         &#125;

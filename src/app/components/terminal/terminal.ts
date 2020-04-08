@@ -1,4 +1,4 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -22,7 +22,8 @@ import {Subscription}   from 'rxjs';
                 <input #in type="text" [(ngModel)]="command" class="ui-terminal-input" autocomplete="off" (keydown)="handleCommand($event)" autofocus>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
 
@@ -56,7 +57,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngAfterViewChecked() {
-        if(this.commandProcessed) {
+        if (this.commandProcessed) {
             this.container.scrollTop = this.container.scrollHeight;
             this.commandProcessed = false;
         }
@@ -64,14 +65,14 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
                 
     @Input()
     set response(value: string) {
-        if(value) {
+        if (value) {
             this.commands[this.commands.length - 1].response = value;
             this.commandProcessed = true;
         }
     }
     
     handleCommand(event: KeyboardEvent) {
-        if(event.keyCode == 13) {
+        if (event.keyCode == 13) {
             this.commands.push({text: this.command});
             this.terminalService.sendCommand(this.command);
             this.command = '';
@@ -83,7 +84,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngOnDestroy() {
-        if(this.subscription) {
+        if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }

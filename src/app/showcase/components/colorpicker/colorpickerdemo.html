@@ -140,7 +140,7 @@ export class MyComponent &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>tabindex</td>
@@ -272,7 +272,6 @@ export class MyComponent &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/colorpicker" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

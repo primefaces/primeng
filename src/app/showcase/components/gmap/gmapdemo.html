@@ -6,8 +6,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast></p-toast>
 
     <p-gmap #gmap [style]="{'width':'100%','height':'320px', 'margin-bottom': '1em'}" [options]="options" [overlays]="overlays"
        (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"></p-gmap>
@@ -169,7 +169,7 @@ export class MyModel &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-gmap #gmap [options]="options"&gt;&lt;/p-gmap&gt;
 
-&lt;button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Zoom In" icon="pi-search-plus" (click)="zoomIn(gmap.getMap())"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -353,7 +353,6 @@ export class MyModel &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/gmap" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -383,7 +382,7 @@ export class MyModel &#123;
     &lt;/div&gt;
     &lt;p-footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton label="Add Marker" icon="fa-plus" (click)="addMarker()"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton label="Add Marker" icon="pi-plus" (click)="addMarker()"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
@@ -429,7 +428,7 @@ export class GMapDemo implements OnInit &#123;
     handleOverlayClick(event) &#123;
         let isMarker = event.overlay.getTitle != undefined;
 
-        if(isMarker) &#123;
+        if (isMarker) &#123;
             let title = event.overlay.getTitle();
             this.infoWindow.setContent('<div>' + title + '</div>');
             this.infoWindow.open(event.map, event.overlay);
@@ -453,7 +452,7 @@ export class GMapDemo implements OnInit &#123;
     &#125;
 
     initOverlays() &#123;
-        if(!this.overlays||!this.overlays.length) &#123;
+        if (!this.overlays||!this.overlays.length) &#123;
             this.overlays = [
                 new google.maps.Marker(&#123;position: &#123;lat: 36.879466, lng: 30.667648&#125;, title:"Konyaalti"&#125;),
                 new google.maps.Marker(&#123;position: &#123;lat: 36.883707, lng: 30.689216&#125;, title:"Ataturk Park"&#125;),

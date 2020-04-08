@@ -7,12 +7,12 @@
     </div>
 </div>
 
-<div class="content-section implementation">
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
     <div style="height:800px">
         Table is not loaded yet, scroll down to initialize it.
     </div>
 
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
 
     <div pDefer (onLoad)="initData()">
         <ng-template>
@@ -129,7 +129,6 @@ this.cars = //initialize
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/defer" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

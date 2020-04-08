@@ -50,7 +50,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;FilterUtils&#125; from 'primeng/api';
+import &#123;FilterUtils&#125; from 'primeng/utils';
 </code>
 </pre>
 
@@ -78,7 +78,7 @@ FilterUtils.in(value, ['PrimeFaces', 'PrimeNG']);           //true
 <code class="language-typescript" pCode ngNonBindable>
 FilterUtils['isPrimeNumber'] = (value): boolean => &#123;
     for(var i = 2; i &lt; num; i++)
-        if(num % i === 0) return false;
+        if (num % i === 0) return false;
     return num > 1;
 &#125;
 
@@ -177,7 +177,6 @@ FilterUtils['isPrimeNumber'](568985673);              //false
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/menu" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

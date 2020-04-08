@@ -47,15 +47,9 @@
                 "node_modules/quill/dist/quill.snow.css",
                 "node_modules/primeicons/primeicons.css",
                 "node_modules/primeflex/primeflex.css",
-                "node_modules/font-awesome/css/font-awesome.min.css",
                 "src/styles.scss"
               ],
               "scripts": [
-                "./node_modules/moment/moment.js",
-                "./node_modules/@fullcalendar/core/main.js",
-                "./node_modules/@fullcalendar/daygrid/main.js",
-                "./node_modules/@fullcalendar/timegrid/main.js",
-                "./node_modules/@fullcalendar/interaction/main.js",
                 "./node_modules/prismjs/prism.js",
                 "./node_modules/prismjs/components/prism-typescript.js"
               ]

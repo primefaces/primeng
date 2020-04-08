@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
@@ -29,7 +29,8 @@ import {DomHandler} from 'primeng/dom';
                 <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         
@@ -90,10 +91,12 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     constructor(public el: ElementRef) {}
     
     ngAfterViewChecked() {
-        if(this.imagesChanged) {
+        if (this.imagesChanged) {
             this.stopSlideshow();
-            this.render();
-            this.imagesChanged = false;
+            Promise.resolve(null).then(() => {
+                this.render();
+                this.imagesChanged = false;
+            });
         }
     }
 
@@ -114,12 +117,12 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         this.panelWrapper = DomHandler.findSingle(this.el.nativeElement, 'ul.ui-galleria-panel-wrapper');
         this.initialized = true;
         
-        if(this.showFilmstrip) {
+        if (this.showFilmstrip) {
             this.stripWrapper = DomHandler.findSingle(this.container,'div.ui-galleria-filmstrip-wrapper');
             this.strip = DomHandler.findSingle(this.stripWrapper,'ul.ui-galleria-filmstrip');
         }
         
-        if(this.images && this.images.length) {
+        if (this.images && this.images.length) {
             this.render();
         } 
     }
@@ -127,19 +130,19 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     render() {
         this.panels = DomHandler.find(this.panelWrapper, 'li.ui-galleria-panel'); 
         
-        if(this.showFilmstrip) {
+        if (this.showFilmstrip) {
             this.frames = DomHandler.find(this.strip,'li.ui-galleria-frame');
             this.stripWrapper.style.width = DomHandler.width(this.panelWrapper) - 50 + 'px';
             this.stripWrapper.style.height = this.frameHeight + 'px';
         }
         
-        if(this.showCaption) {
+        if (this.showCaption) {
             this.caption = DomHandler.findSingle(this.container,'div.ui-galleria-caption');
             this.caption.style.bottom = this.showFilmstrip ? DomHandler.getOuterHeight(this.stripWrapper,true) + 'px' : 0 + 'px';
             this.caption.style.width = DomHandler.width(this.panelWrapper) + 'px';
         }
    
-        if(this.autoPlay) {
+        if (this.autoPlay) {
             this.startSlideshow();
         }
         
@@ -155,7 +158,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
         
     stopSlideshow() {
-        if(this.interval) {
+        if (this.interval) {
             clearInterval(this.interval);
         }
         
@@ -163,21 +166,21 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
     
     clickNavRight() {
-        if(this.slideshowActive) {
+        if (this.slideshowActive) {
             this.stopSlideshow();
         }
         this.next();
     } 
     
     clickNavLeft() {
-        if(this.slideshowActive) {
+        if (this.slideshowActive) {
             this.stopSlideshow();
         }
         this.prev();
     }
     
     frameClick(frame) {
-        if(this.slideshowActive) {
+        if (this.slideshowActive) {
             this.stopSlideshow();
         }
         
@@ -185,13 +188,13 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
     
     prev() {
-        if(this.activeIndex !== 0) {
+        if (this.activeIndex !== 0) {
             this.select(this.activeIndex - 1, true);
         }
     }
     
     next() {
-        if(this.activeIndex !== (this.panels.length-1)) {
+        if (this.activeIndex !== (this.panels.length-1)) {
             this.select(this.activeIndex + 1, true);
         }
         else {
@@ -201,26 +204,26 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
         
     select(index, reposition) {
-        if(index !== this.activeIndex) {            
+        if (index !== this.activeIndex) {            
             let oldPanel = this.panels[this.activeIndex],
             newPanel = this.panels[index];
             
             DomHandler.fadeIn(newPanel, this.effectDuration);
             
-            if(this.showFilmstrip) {
+            if (this.showFilmstrip) {
                 let oldFrame = this.frames[this.activeIndex],
                 newFrame = this.frames[index];
                 
-                if(reposition === undefined || reposition === true) {
+                if (reposition === undefined || reposition === true) {
                     let frameLeft = newFrame.offsetLeft,
                     stepFactor = this.frameWidth + parseInt(getComputedStyle(newFrame)['margin-right'], 10),
                     stripLeft = this.strip.offsetLeft,
                     frameViewportLeft = frameLeft + stripLeft,
                     frameViewportRight = frameViewportLeft + this.frameWidth;
                     
-                    if(frameViewportRight > DomHandler.width(this.stripWrapper))
+                    if (frameViewportRight > DomHandler.width(this.stripWrapper))
                         this.stripLeft -= stepFactor;
-                    else if(frameViewportLeft < 0)
+                    else if (frameViewportLeft < 0)
                         this.stripLeft += stepFactor;
                 }
             }

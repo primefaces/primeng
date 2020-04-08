@@ -1,4 +1,4 @@
-import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter } from '@angular/core';
+import { NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild,NgZone,EventEmitter,ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem } from 'primeng/api';
@@ -7,21 +7,23 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'p-contextMenuSub',
     template: `
-        <ul [ngClass]="{'ui-widget-content ui-corner-all ui-submenu-list ui-shadow':!root}" class="ui-menu-list" (click)="listClick($event)">
+        <ul [ngClass]="{'ui-widget-content ui-corner-all ui-submenu-list ui-shadow':!root}" class="ui-menu-list">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}">
+                <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}" role="separator">
                 <li *ngIf="!child.separator" #item [ngClass]="{'ui-menuitem ui-corner-all':true,'ui-menuitem-active':item==activeItem,'ui-helper-hidden': child.visible === false}"
-                    (mouseenter)="onItemMouseEnter($event,item,child)">
-                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" (click)="itemClick($event, child)"
-                        [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
+                    (mouseenter)="onItemMouseEnter($event,item,child)" role="none">
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" (click)="itemClick($event, child)"
+                        [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass"
+                        [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem">
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'"
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-menuitem-link-active'" role="menuitem"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'"
                         (click)="itemClick($event, child)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}"
-                        [ngStyle]="child.style" [class]="child.styleClass">
+                        [ngStyle]="child.style" [class]="child.styleClass"
+                        [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -68,11 +70,11 @@ export class ContextMenuSub {
             this.hideTimeout = null;
         }
 
-        this.activeItem = item;
-
         if (menuitem.disabled) {
             return;
-        }        
+        }
+        
+        this.activeItem = item;
         
         let nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
@@ -82,15 +84,10 @@ export class ContextMenuSub {
         }
     }
 
-
     itemClick(event, item: MenuItem)  {
         if (item.disabled) {
             event.preventDefault();
             return;
-        }
-
-        if (!item.url) {
-            event.preventDefault();
         }
 
         if (item.command) {
@@ -98,7 +95,13 @@ export class ContextMenuSub {
                 originalEvent: event,
                 item: item
             });
+            event.preventDefault();
         }
+
+        if (item.items)
+            event.preventDefault();
+        else
+            this.contextMenu.hide();
     }
 
     listClick(event) {
@@ -137,7 +140,8 @@ export class ContextMenuSub {
             [class]="styleClass" [ngStyle]="style">
             <p-contextMenuSub [item]="model" [parentActive]="parentActive" root="root"></p-contextMenuSub>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ContextMenu implements AfterViewInit, OnDestroy {
 
@@ -163,7 +167,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
     parentActive: boolean;
 
@@ -269,7 +273,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     bindGlobalListeners() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (this.containerViewChild.nativeElement.offsetParent && event.button !== 2) {
+                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && event.button !== 2) {
                     this.hide();
                 }
             });
@@ -299,6 +303,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.containerViewChild.nativeElement.offsetParent) {
             this.hide();
         }
+    }
+
+    isOutsideClicked(event: Event) {
+        return !(this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target));
     }
 
     ngOnDestroy() {

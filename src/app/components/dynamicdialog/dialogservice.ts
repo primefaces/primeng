@@ -27,7 +27,12 @@ export class DialogService {
         map.set(DynamicDialogRef, dialogRef);
 
         const sub = dialogRef.onClose.subscribe(() => {
+            this.dialogComponentRef.instance.close();
+        });
+
+        const destroySub = dialogRef.onDestroy.subscribe(() => {
             this.removeDialogComponentFromBody();
+            destroySub.unsubscribe();
             sub.unsubscribe();
         });
 

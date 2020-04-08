@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectItem } from 'primeng/api';
 import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
@@ -33,15 +33,15 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           </div>
         </div>
         <div class="ui-listbox-filter-container" *ngIf="filter">
-          <input type="text" role="textbox" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.aria-label]="ariaFilterLabel">
+          <input type="text" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
           <span class="ui-listbox-filter-icon pi pi-search"></span>
         </div>
       </div>
       <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle">
-        <ul class="ui-listbox-list">
+        <ul class="ui-listbox-list" role="listbox" aria-multiselectable="multiple">
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'"
-              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}" [attr.aria-label]="option.label"
-              (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)" (keydown)="onOptionKeyDown($event,option)">
+              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}" role="option" [attr.aria-label]="option.label"
+              [attr.aria-selected]="isSelected(option)" (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)" (keydown)="onOptionKeyDown($event,option)">
             <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
               <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
@@ -57,7 +57,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       </div>
     </div>
   `,
-    providers: [LISTBOX_VALUE_ACCESSOR]
+    providers: [LISTBOX_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Listbox implements AfterContentInit, ControlValueAccessor {
 
@@ -89,17 +90,19 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() ariaFilterLabel: string;
 
+    @Input() filterPlaceHolder: string;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('headerchkbox', { static: true }) headerCheckboxViewChild: ElementRef;
+    @ViewChild('headerchkbox') headerCheckboxViewChild: ElementRef;
 
-    @ContentChild(Header, { static: true }) headerFacet;
+    @ContentChild(Header) headerFacet;
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -397,7 +400,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         }
 
         if (this.allChecked) {
-            if(this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
+            if (this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
                 let value = [];
                 value = [...this.disabledSelectedOptions];
                 this.value = value;
@@ -409,7 +412,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             if (this.options) {
                 this.value = [];
-                if(this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
+                if (this.disabledSelectedOptions && this.disabledSelectedOptions.length > 0) {
                     this.value = [...this.disabledSelectedOptions];
                 }
 
@@ -465,7 +468,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             //down
             case 40:
                 var nextItem = this.findNextItem(item);
-                if(nextItem) {
+                if (nextItem) {
                     nextItem.focus();
                 }
                 
@@ -475,7 +478,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             //up
             case 38:
                 var prevItem = this.findPrevItem(item);
-                if(prevItem) {
+                if (prevItem) {
                     prevItem.focus();
                 }
                 
@@ -510,7 +513,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     
     getFilteredOptions() {
         let filteredOptions = [];
-        if(this.filterValue) {
+        if (this.filterValue) {
             for (let i = 0; i < this.options.length; i++) {
                 let opt = this.options[i];
                 if (this.isItemVisible(opt) && !opt.disabled) {
@@ -535,7 +538,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     setDisabledSelectedOptions(){
         if (this.options) {
             this.disabledSelectedOptions = [];
-            if(this.value) {
+            if (this.value) {
                 for (let opt of this.options) {
                     if (opt.disabled && this.isSelected(opt)) {
                         this.disabledSelectedOptions.push(opt.value);

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Renderer2,ViewChild,Inject,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -9,13 +9,14 @@ import {RouterModule} from '@angular/router';
     selector: '[pMenuItemContent]',
     template: `
         <a *ngIf="!item.routerLink" [attr.href]="item.url||null" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.tabindex ? item.tabindex : '0'" [attr.data-automationid]="item.automationId" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
-            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)" >
+            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)" role="menuitem">
             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="ui-menuitem-text">{{item.label}}</span>
         </a>
-        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'"
+        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [attr.data-automationid]="item.automationId" [queryParams]="item.queryParams" [routerLinkActive]="'ui-menuitem-link-active'"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'" 
-             [attr.title]="item.title" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)">
+            [attr.title]="item.title" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="menu.itemClick($event, item)" role="menuitem"
+            [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="ui-menuitem-text">{{item.label}}</span>
         </a>
@@ -67,7 +68,8 @@ export class MenuItemContent {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Menu implements OnDestroy {
 
@@ -89,7 +91,7 @@ export class Menu implements OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
     
@@ -107,7 +109,7 @@ export class Menu implements OnDestroy {
 
     visible: boolean;
     
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
 
     toggle(event) {
         if (this.visible)
@@ -168,6 +170,7 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
+        this.cd.detectChanges();
     }
 
     onWindowResize() {

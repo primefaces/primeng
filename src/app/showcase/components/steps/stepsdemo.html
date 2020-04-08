@@ -5,17 +5,14 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true, 'steps-demo': true}">
+    <p-toast></p-toast>
 
     <h3 class="first">Basic</h3>
     <p-steps [model]="items"></p-steps>
 
     <h3>Clickable</h3>
     <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
-
-    <h3>Custom Style</h3>
-    <p-steps [model]="items" styleClass="steps-custom"></p-steps>
 </div>
 
 <div class="content-section documentation">
@@ -180,7 +177,6 @@ export class MenuDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/steps" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -213,8 +209,8 @@ export class MenuDemo &#123;
         &#125;
 
         .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link &#123;
-            height: 10px;
             padding: 0 1em;
+            overflow: visible;
         &#125;
 
         .ui-steps.steps-custom .ui-steps-item .ui-steps-number &#123;

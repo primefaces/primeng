@@ -12,10 +12,9 @@
   <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
 
   <h3>Advanced (Multiple, Checkbox and Filter)</h3>
-  <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name">
+  <p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name">
     <p-header>
-      <i class="fa fa-car"></i>
-      Cars
+      Cities
     </p-header>
   </p-listbox>
   <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c.name}}</span></p>
@@ -178,7 +177,6 @@ addOption() &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar"&gt;
     &lt;p-header&gt;
-      &lt;i class="fa fa-car"&gt;&lt;/i&gt;
       List of Car
     &lt;/p-header&gt;
     &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
@@ -334,6 +332,12 @@ export class MyModel &#123;
                     <td>null</td>
                     <td>Defines a string that labels the filter input.</td>
                 </tr>
+                <tr>
+                    <td>filterPlaceHolder</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>Defines placeholder of the filter input.</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -418,7 +422,6 @@ export class MyModel &#123;
 
     <p-tabPanel header="Source">
       <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/listbox" class="btn-viewsource" target="_blank">
-        <i class="fa fa-github"></i>
         <span>View on GitHub</span>
       </a>
       <pre>
@@ -429,9 +432,8 @@ export class MyModel &#123;
 &lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name"&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name"&gt;
   &lt;p-header&gt;
-    &lt;i class="fa fa-car"&gt;&lt;/i&gt;
     Cars
   &lt;/p-header&gt;
 &lt;/p-listbox&gt;

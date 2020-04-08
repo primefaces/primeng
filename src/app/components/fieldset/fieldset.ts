@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from 'primeng/api';
@@ -23,7 +23,7 @@ let idx: number = 0;
                 </ng-template>
             </legend>
             <div [attr.id]="id + '-content'" class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}" 
-                        [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}" [attr.aria-hidden]="collapsed"
+                        [attr.aria-labelledby]="id" [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}" [attr.aria-hidden]="collapsed"
                          (@fieldsetContent.done)="onToggleDone($event)" role="region">
                 <div class="ui-fieldset-content">
                     <ng-content></ng-content>
@@ -47,7 +47,8 @@ let idx: number = 0;
             transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Fieldset implements BlockableUI {
 
@@ -76,14 +77,14 @@ export class Fieldset implements BlockableUI {
     id: string = `ui-fieldset-${idx++}`;
         
     toggle(event) {
-        if(this.animating) {
+        if (this.animating) {
             return false;
         }
         
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
         
-        if(this.collapsed)
+        if (this.collapsed)
             this.expand(event);
         else
             this.collapse(event);

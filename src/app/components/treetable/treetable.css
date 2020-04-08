@@ -25,6 +25,7 @@
 
 .ui-treetable .ui-sortable-column {
     cursor: pointer;
+    user-select: none;
 }
 
 .ui-treetable p-treetablesorticon {

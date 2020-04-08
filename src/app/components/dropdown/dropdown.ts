@@ -1,6 +1,6 @@
 import {ScrollingModule, CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
-        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef} from '@angular/core';
+        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from 'primeng/api';
@@ -21,7 +21,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     selector: 'p-dropdownItem',
     template: `
         <li (click)="onOptionClick($event)" role="option"
-            [attr.aria-label]="option.label"
+            [attr.aria-label]="option.label" [attr.aria-selected]="selected"
             [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'ui-dropdown-item ui-corner-all':true,
                                                 'ui-state-highlight': selected,
@@ -59,18 +59,13 @@ export class DropdownItem {
 @Component({
     selector: 'p-dropdown',
     template: `
-         <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
+         <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all':true,
             'ui-state-disabled':disabled, 'ui-dropdown-open':overlayVisible, 'ui-state-focus':focused, 'ui-dropdown-clearable': showClear && !disabled}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox"
-                    (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
-            </div>
-            <div class="ui-helper-hidden-accessible ui-dropdown-hidden-select">
-                <select [attr.required]="required" [attr.name]="name" tabindex="-1" aria-hidden="true">
-                    <option *ngIf="placeholder" value="">{{placeholder}}</option>
-                    <option *ngIf="selectedOption" [value]="selectedOption.value" [selected]="true">{{selectedOption.label}}</option>
-                </select>
+                    aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.aria-labelledby]="ariaLabelledBy" (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" 
+                    [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus" role="listbox">
             </div>
             <div class="ui-dropdown-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
                 <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label == null || label.length === 0)}" *ngIf="!editable && (label != null)">
@@ -79,10 +74,10 @@ export class DropdownItem {
                 </label>
                 <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true,'ui-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</label>
                 <input #editableInput type="text" [attr.maxlength]="maxlength" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
-                            (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
+                    aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
                 <i class="ui-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
             </div>
-            <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
+            <div class="ui-dropdown-trigger ui-state-default ui-corner-right" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <span class="ui-dropdown-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div *ngIf="overlayVisible" [ngClass]="'ui-dropdown-panel  ui-widget ui-widget-content ui-corner-all ui-shadow'" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)" [ngStyle]="panelStyle" [class]="panelStyleClass">
@@ -124,7 +119,7 @@ export class DropdownItem {
                                 </cdk-virtual-scroll-viewport>
                             </ng-template>
                         </ng-template>
-                        <li *ngIf="filter && optionsToDisplay && optionsToDisplay.length === 0" class="ui-dropdown-empty-message">{{emptyFilterMessage}}</li>
+                        <li *ngIf="filter && (!optionsToDisplay || (optionsToDisplay && optionsToDisplay.length === 0))" class="ui-dropdown-empty-message">{{emptyFilterMessage}}</li>
                     </ul>
                 </div>
             </div>
@@ -148,7 +143,8 @@ export class DropdownItem {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focused'
     },
-    providers: [DROPDOWN_VALUE_ACCESSOR]
+    providers: [DROPDOWN_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
@@ -218,6 +214,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() ariaFilterLabel: string;
 
+    @Input() ariaLabelledBy: string;
+
     @Input() filterMatchMode: string = "contains";
 
     @Input() maxlength: number;
@@ -229,6 +227,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() tooltipPositionStyle: string = 'absolute';
 
     @Input() tooltipStyleClass: string;
+
+    @Input() autofocusFilter: boolean = true;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -242,15 +242,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('container', { static: true }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
     
-    @ViewChild('filter', { static: false }) filterViewChild: ElementRef;
+    @ViewChild('filter') filterViewChild: ElementRef;
     
-    @ViewChild('in', { static: true }) focusViewChild: ElementRef;
+    @ViewChild('in') focusViewChild: ElementRef;
 
-    @ViewChild(CdkVirtualScrollViewport, {static: false }) viewPort: CdkVirtualScrollViewport;
+    @ViewChild(CdkVirtualScrollViewport) viewPort: CdkVirtualScrollViewport;
 
-    @ViewChild('editableInput', { static: false }) editableInputViewChild: ElementRef;
+    @ViewChild('editableInput') editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -261,11 +261,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     };
 
     set disabled(_disabled: boolean) {
-        if(_disabled)
+        if (_disabled)
             this.focused = false;
         
         this._disabled = _disabled;
-        if(!(this.cd as ViewRef).destroyed) {
+        if (!(this.cd as ViewRef).destroyed) {
             this.cd.detectChanges();
         }
     }
@@ -337,6 +337,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     virtualScrollSelectedIndex: number;
 
     viewPortOffsetTop: number = 0;
+
+    preventModelTouched: boolean;
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public zone: NgZone) {}
     
@@ -377,6 +379,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
+        this.updateFilledState();
         
         if (this.filterValue && this.filterValue.length) {
             this.activateFilter();
@@ -428,7 +431,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             if (this.virtualScroll) {
                 setTimeout(() => {
-                    this.viewPortOffsetTop = this.viewPort.measureScrollOffset();
+                    this.viewPortOffsetTop = this.viewPort ? this.viewPort.measureScrollOffset() : 0;
                 }, 1);
             }
         }
@@ -471,7 +474,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.filter) {
             this.resetFilter();
         }
-        
+
         this.value = value;
         this.updateSelectedOption(value);
         this.updateEditableLabel();
@@ -571,7 +574,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.bindDocumentResizeListener();
 
                 if (this.options && this.options.length) {
-                    if(!this.virtualScroll) {
+                    if (!this.virtualScroll) {
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
                         if (selectedListItem) {
                             DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
@@ -580,7 +583,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 }
 
                 if (this.filterViewChild && this.filterViewChild.nativeElement) {
-                    this.filterViewChild.nativeElement.focus();
+                    this.preventModelTouched = true;
+
+                    if (this.autofocusFilter) {
+                        this.filterViewChild.nativeElement.focus();
+                    }
                 }
 
                 this.onShow.emit(event);
@@ -639,7 +646,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.resetFilter();
         }
 
-        if(this.virtualScroll) {
+        if (this.virtualScroll) {
             this.virtualAutoScrolled = false;
         }
 
@@ -663,8 +670,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onInputBlur(event) {
         this.focused = false;
-        this.onModelTouched();
         this.onBlur.emit(event);
+
+        if (!this.preventModelTouched) {
+            this.onModelTouched();
+        }
+        this.preventModelTouched = false;
     }
 
     findPrevEnabledOption(index) {
@@ -1099,6 +1110,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.unbindDocumentResizeListener();
         this.overlay = null;
         this.itemsWrapper = null;
+        this.onModelTouched();
     }
     
     ngOnDestroy() {

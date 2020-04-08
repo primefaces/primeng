@@ -46,7 +46,7 @@ describe('MegaMenu', () => {
     it('should horizontal by default', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -85,7 +85,7 @@ describe('MegaMenu', () => {
         megamenu.orientation = "vertical"
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -123,7 +123,7 @@ describe('MegaMenu', () => {
     it('should call onItemMouseEnter', fakeAsync(() => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -138,7 +138,7 @@ describe('MegaMenu', () => {
             ]
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -178,7 +178,7 @@ describe('MegaMenu', () => {
     it('should call onItemMouseEnter twice and call', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -193,7 +193,7 @@ describe('MegaMenu', () => {
             ]
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -230,7 +230,7 @@ describe('MegaMenu', () => {
     it('should call onItemMouseLeave', fakeAsync(() => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -245,7 +245,7 @@ describe('MegaMenu', () => {
             ]
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -281,7 +281,7 @@ describe('MegaMenu', () => {
     it('should  call itemClick ', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -296,7 +296,7 @@ describe('MegaMenu', () => {
             ]
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -332,7 +332,7 @@ describe('MegaMenu', () => {
     it('should  call onItemMouseEnter and not show submenu ', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -348,7 +348,7 @@ describe('MegaMenu', () => {
             disabled:true
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -382,7 +382,7 @@ describe('MegaMenu', () => {
     it('should  call onItemMouseEnter and not show submenu ', () => {
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -397,7 +397,7 @@ describe('MegaMenu', () => {
             ],
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -429,7 +429,7 @@ describe('MegaMenu', () => {
         megamenu.orientation = "vertical"
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -444,7 +444,7 @@ describe('MegaMenu', () => {
             ],
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -481,7 +481,7 @@ describe('MegaMenu', () => {
         let item;
         megamenu.model  = [
         {
-            label: 'TV', icon: 'fa fa-fw fa-check',
+            label: 'TV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -498,7 +498,7 @@ describe('MegaMenu', () => {
             ],
         },
         {
-            label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
+            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
             items: [
                 [
                     {
@@ -532,7 +532,7 @@ describe('MegaMenu', () => {
     it('should item get ui-g-4', () => {
         megamenu.model  = [
         {
-            label: 'TVV', icon: 'fa fa-fw fa-check',
+            label: 'TVV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -571,7 +571,7 @@ describe('MegaMenu', () => {
     it('should item get ui-g-3', () => {
         megamenu.model  = [
         {
-            label: 'TVV', icon: 'fa fa-fw fa-check',
+            label: 'TVV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {
@@ -616,7 +616,7 @@ describe('MegaMenu', () => {
     it('should item get ui-g-2', () => {
         megamenu.model  = [
         {
-            label: 'TVV', icon: 'fa fa-fw fa-check',
+            label: 'TVV', icon: 'pi pi-fw pi-check',
             items: [
                 [
                     {

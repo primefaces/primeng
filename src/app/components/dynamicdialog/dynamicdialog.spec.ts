@@ -93,7 +93,7 @@ describe('DynamicDialog', () => {
         let dynamicDialogTitlebarIconEl = document.querySelector(".ui-dialog-titlebar-icon") as HTMLElement;
         dynamicDialogTitlebarIconEl.click();
         fixture.detectChanges();
-        tick(300);
+        tick(700);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
@@ -117,10 +117,10 @@ describe('DynamicDialog', () => {
         escapeEvent.initEvent('keydown', true, true);
         document.dispatchEvent(escapeEvent);
         fixture.detectChanges();
-        tick(300);
+        tick(700);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
-        expect(dynamicDialogEl).toBeUndefined();
+        expect(dynamicDialogEl).toBeTruthy();
     }));
 
     it('should close dialog with mask click', fakeAsync(() => {
@@ -139,9 +139,9 @@ describe('DynamicDialog', () => {
         let maskEl = document.querySelector(".ui-dialog-mask") as HTMLElement;
         maskEl.click();
         fixture.detectChanges();
-        tick(300);
+        tick(700);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
-        expect(dynamicDialogEl).toBeUndefined();
+        expect(dynamicDialogEl).toBeTruthy();
     }));
 });

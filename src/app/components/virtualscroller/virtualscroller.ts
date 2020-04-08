@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -26,7 +26,8 @@ import {BlockableUI} from 'primeng/api';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class VirtualScroller implements AfterContentInit,BlockableUI {
 
@@ -48,13 +49,13 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
-    @ContentChild(Header, { static: true }) header;
+    @ContentChild(Header) header;
 
-    @ContentChild(Footer, { static: true}) footer;
+    @ContentChild(Footer) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('viewport', { static: true }) viewPortViewChild: ElementRef;
+    @ViewChild('viewport') viewPortViewChild: ElementRef;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 

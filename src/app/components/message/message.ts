@@ -1,4 +1,4 @@
-import {NgModule,Component,Input} from '@angular/core';
+import {NgModule,Component,Input,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -17,7 +17,8 @@ import {CommonModule} from '@angular/common';
                 <span *ngIf="escape" class="ui-message-text">{{text}}</span>
             </ng-template>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UIMessage {
 
@@ -30,7 +31,7 @@ export class UIMessage {
     get icon(): string {
         let icon: string = null;
 
-        if(this.severity) {
+        if (this.severity) {
             switch(this.severity) {
                 case 'success':
                     icon = 'pi pi-check';

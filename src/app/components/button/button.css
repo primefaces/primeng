@@ -28,6 +28,7 @@ p-button {
 .ui-button-text-empty .ui-button-text {
     padding: .25em;
     text-indent: -9999999px;
+    visibility: hidden;
 }
 
 .ui-button-text-icon-left .ui-button-text {

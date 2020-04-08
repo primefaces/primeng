@@ -59,7 +59,7 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(public el: ElementRef) { 
+    constructor(public el: ElementRef) {
         this.isAndroid = DomHandler.isAndroid();
     }
 
@@ -80,8 +80,7 @@ export class KeyFilter implements Validator {
     };
 
     isSpecialKey(e: KeyboardEvent) {
-        let k = e.keyCode;
-        let c = e.charCode;
+        let k = e.keyCode || e.charCode;
 
         return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 ||(k >= 18 && k <= 20) ||
             (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
@@ -97,13 +96,13 @@ export class KeyFilter implements Validator {
         return e.charCode || e.keyCode || e.which;
     }
 
-    findDelta(value: string, prevValue: string) { 
+    findDelta(value: string, prevValue: string) {
         let delta = '';
 
         for (let i = 0; i < value.length; i++) {
             let str = value.substr(0, i) + value.substr(i + value.length - prevValue.length);
 
-            if (str === prevValue) 
+            if (str === prevValue)
                 delta = value.substr(i, value.length - prevValue.length);
         }
 
@@ -125,7 +124,7 @@ export class KeyFilter implements Validator {
     }
 
     @HostListener('input', ['$event'])
-    onInput(e: KeyboardEvent) { 
+    onInput(e: KeyboardEvent) {
         if (this.isAndroid && !this.pValidateOnly) {
             let val = this.el.nativeElement.value;
             let lastVal = this.lastValue || '';
@@ -139,7 +138,7 @@ export class KeyFilter implements Validator {
                     this.el.nativeElement.value = lastVal;
                     this.ngModelChange.emit(lastVal);
                 }
-            } 
+            }
             else if (!removed) {
                 if (!this.isValidChar(inserted)) {
                     this.el.nativeElement.value = lastVal;
@@ -159,20 +158,14 @@ export class KeyFilter implements Validator {
         if (this.isAndroid || this.pValidateOnly) {
             return;
         }
-        
+
         let browser = DomHandler.getBrowser();
-
-        if (e.ctrlKey || e.altKey) {
-            return;
-        }
-
         let k = this.getKey(e);
-        
-        if (k == 13) {
+
+        if (browser.mozilla && (e.ctrlKey || e.altKey)) {
             return;
         }
-
-        if (browser.mozilla && (this.isNavKeyPress(e) || k == KEYS.BACKSPACE || (k == KEYS.DELETE && e.charCode == 0))) {
+        else if (k == 17 || k == 18) {
             return;
         }
 
@@ -180,7 +173,7 @@ export class KeyFilter implements Validator {
         let cc = String.fromCharCode(c);
         let ok = true;
 
-        if (browser.mozilla && (this.isSpecialKey(e) || !cc)) {
+        if (!browser.mozilla && (this.isSpecialKey(e) || !cc)) {
             return;
         }
 
@@ -196,14 +189,17 @@ export class KeyFilter implements Validator {
         const clipboardData = e.clipboardData || (<any>window).clipboardData.getData('text');
         if (clipboardData) {
             const pastedText = clipboardData.getData('text');
-            if (!this.regex.test(pastedText)) {
-                e.preventDefault();
+            for (let char of pastedText.toString()) {
+                if (!this.regex.test(char)) {
+                    e.preventDefault();
+                    return;
+                }
             }
         }
     }
 
     validate(c: AbstractControl): { [key: string]: any } {
-        if(this.pValidateOnly) {
+        if (this.pValidateOnly) {
             let value = this.el.nativeElement.value;
             if (value && !this.regex.test(value)) {
                 return {
@@ -212,7 +208,7 @@ export class KeyFilter implements Validator {
             }
         }
     }
-    
+
 }
 
 @NgModule({

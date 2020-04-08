@@ -4,6 +4,7 @@ import {MenuItem,TreeNode} from 'primeng/api';
 import {Tree} from '../../../components/tree/tree';
 import {TreeDragDropService} from 'primeng/api';
 import {MessageService} from 'primeng/api';
+import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './treedemo.html',
@@ -18,12 +19,30 @@ import {MessageService} from 'primeng/api';
             padding-bottom: 0;
             font-size: 12px;
         }
+
+        :host ::ng-deep .ui-toast {
+            top: 80px;
+        }
+
+        :host ::ng-deep .news-active .ui-toast {
+            top: 150px;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-toast {
+                top: 110px;
+            }
+
+            :host ::ng-deep .news-active .ui-toast {
+                top: 180px;
+            }
+        }
     `],
     providers: [TreeDragDropService,MessageService]
 })
 export class TreeDemo implements OnInit {
 
-    @ViewChild('expandingTree', { static: false })
+    @ViewChild('expandingTree')
     expandingTree: Tree;
 
     filesTree0: TreeNode[];
@@ -57,7 +76,7 @@ export class TreeDemo implements OnInit {
     
     loading: boolean;
     
-    constructor(private nodeService: NodeService, private messageService: MessageService) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService, private app: AppComponent) { }
 
     ngOnInit() {
         this.loading = true;
@@ -76,16 +95,16 @@ export class TreeDemo implements OnInit {
             {
                 label: "Backup",
                 data: "Backup Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
+                expandedIcon: "pi pi-folder-open",
+                collapsedIcon: "pi pi-folder"
             }
         ];
         this.filesTree9 = [
             {
                 label: "Storage",
                 data: "Storage Folder",
-                expandedIcon: "fa fa-folder-open",
-                collapsedIcon: "fa fa-folder"
+                expandedIcon: "pi pi-folder-open",
+                collapsedIcon: "pi pi-folder"
             }
         ];
         this.nodeService.getFiles().then(files => this.filesTree10 = files);
@@ -101,8 +120,8 @@ export class TreeDemo implements OnInit {
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         
         this.items = [
-            {label: 'View', icon: 'fa fa-search', command: (event) => this.viewFile(this.selectedFile2)},
-            {label: 'Unselect', icon: 'fa fa-close', command: (event) => this.unselectFile()}
+            {label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile2)},
+            {label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile()}
         ];
     }
     
@@ -119,7 +138,7 @@ export class TreeDemo implements OnInit {
     }
     
     nodeExpand(event) {
-        if(event.node) {
+        if (event.node) {
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
         }
@@ -144,10 +163,14 @@ export class TreeDemo implements OnInit {
             this.expandRecursive(node, false);
         } );
     }
+
+    isNewsActive() {
+        return this.app.newsActive;
+    }
     
     private expandRecursive(node:TreeNode, isExpand:boolean){
         node.expanded = isExpand;
-        if(node.children){
+        if (node.children){
             node.children.forEach( childNode => {
                 this.expandRecursive(childNode, isExpand);
             } );

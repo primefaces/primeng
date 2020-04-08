@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
@@ -50,7 +50,8 @@ import { UniqueComponentId } from 'primeng/utils';
 				<ng-content select="p-footer"></ng-content>
 			</div>
 		</div>
-	`
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Carousel implements AfterContentInit {
 
@@ -119,11 +120,11 @@ export class Carousel implements AfterContentInit {
 	
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
-	@ViewChild('itemsContainer', { static: true }) itemsContainer: ElementRef;
+	@ViewChild('itemsContainer') itemsContainer: ElementRef;
 
-	@ContentChild(Header, { static: true }) headerFacet;
+	@ContentChild(Header) headerFacet;
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
 
 	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -176,6 +177,8 @@ export class Carousel implements AfterContentInit {
 	interval: any;
 
 	isCreated: boolean;
+
+	swipeThreshold: number = 20;
 
 	public itemTemplate: TemplateRef<any>;
 
@@ -258,7 +261,10 @@ export class Carousel implements AfterContentInit {
 			this.prevState.numVisible = this._numVisible;
 			this.prevState.value = this._value;
 
-			this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+			if (this.totalDots() > 0 && this.itemsContainer && this.itemsContainer.nativeElement) {
+				this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100/ this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numVisible)}%, 0, 0)`;
+			}
+			
 			this.isCreated = true;
 
 			if (this.autoplayInterval && this.isAutoplay()) {
@@ -394,9 +400,10 @@ export class Carousel implements AfterContentInit {
 	totalDots() {
 		return this.value ? Math.ceil((this.value.length - this._numVisible) / this._numScroll) + 1 : 0;
 	}
+
 	totalDotsArray() {
-		let totalDots = this.totalDots();
-		return totalDots === 0 ? [] : Array(totalDots).fill(0);
+		const totalDots = this.totalDots();
+		return totalDots <= 0 ? [] : Array(totalDots).fill(0);
 	}
 
 	containerClass() {
@@ -428,11 +435,11 @@ export class Carousel implements AfterContentInit {
 	}
 
 	isForwardNavDisabled() {
-		return this.isEmpty() || (this._page === this.totalDots() - 1 && !this.circular);
+		return this.isEmpty() || (this._page >= (this.totalDots() - 1) && !this.isCircular());
 	}
 
 	isBackwardNavDisabled() {
-		return this.isEmpty() || (this._page === 0  && !this.circular);
+		return this.isEmpty() || (this._page <= 0  && !this.isCircular());
 	}
 
 	isEmpty() {
@@ -440,7 +447,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	navForward(e,index?) {
-		if (this.circular || this._page < (this.totalDots() - 1)) {
+		if (this.isCircular() || this._page < (this.totalDots() - 1)) {
 			this.step(-1, index);
 		}
 
@@ -455,7 +462,7 @@ export class Carousel implements AfterContentInit {
 	}
 
 	navBackward(e,index?) {
-		if (this.circular || this._page !== 0) {
+		if (this.isCircular() || this._page !== 0) {
 			this.step(1, index);
 		}
 
@@ -536,11 +543,13 @@ export class Carousel implements AfterContentInit {
 
 	startAutoplay() {
 		this.interval = setInterval(() => {
-			if (this.page === (this.totalDots() - 1)) {
-				this.step(-1, 0);
-			}
-			else {
-				this.step(-1, this.page + 1);
+			if (this.totalDots() > 0) {
+				if (this.page === (this.totalDots() - 1)) {
+					this.step(-1, 0);
+				}
+				else {
+					this.step(-1, this.page + 1);
+				}
 			}
 		}, 
 		this.autoplayInterval);
@@ -588,11 +597,14 @@ export class Carousel implements AfterContentInit {
 	}
 
 	changePageOnTouch(e, diff) {
-		if (diff < 0) {
-			this.navForward(e);
-		}
-		else {
-			this.navBackward(e);
+		if (Math.abs(diff) > this.swipeThreshold) {
+			if (diff < 0) {
+				this.navForward(e);
+			}
+			else {
+				this.navBackward(e);
+
+			}
 		}
 	}
 

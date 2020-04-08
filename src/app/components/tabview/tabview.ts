@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
-        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef} from '@angular/core';
+        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
@@ -21,7 +21,8 @@ let idx: number = 0;
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="presentation"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
                 (click)="clickTab($event,tab)" *ngIf="!tab.closed" tabindex="0" (keydown.enter)="clickTab($event,tab)">
-                <a [attr.id]="tab.id + '-label'" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass">
+                <a [attr.id]="tab.id + '-label'" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
+                    [attr.aria-selected]="tab.selected" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass">
                     <ng-container *ngIf="!tab.headerTemplate" >
                         <span class="ui-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                         <span class="ui-tabview-title">{{tab.header}}</span>
@@ -48,7 +49,7 @@ export class TabViewNav {
     
     getDefaultHeaderClass(tab:TabPanel) {
         let styleClass = 'ui-state-default ui-corner-' + this.orientation;
-        if(tab.headerStyleClass) {
+        if (tab.headerStyleClass) {
             styleClass = styleClass + " " + tab.headerStyleClass;
         }
         return styleClass;
@@ -79,7 +80,8 @@ export class TabViewNav {
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </ng-container>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class TabPanel implements AfterContentInit,OnDestroy {
 
@@ -109,7 +111,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    constructor(public viewContainer: ViewContainerRef) {}
+    constructor(public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
     
     closed: boolean;
     
@@ -149,6 +151,11 @@ export class TabPanel implements AfterContentInit,OnDestroy {
 
     set selected(val: boolean) {
         this._selected = val;
+        
+        if (!this.loaded) {
+            this.cd.detectChanges();
+        }
+
         this.loaded = true;
     }
     
@@ -210,8 +217,8 @@ export class TabView implements AfterContentInit,BlockableUI {
     initTabs(): void {
         this.tabs = this.tabPanels.toArray();
         let selectedTab: TabPanel = this.findSelectedTab();
-        if(!selectedTab && this.tabs.length) {
-            if(this.activeIndex != null && this.tabs.length > this.activeIndex)
+        if (!selectedTab && this.tabs.length) {
+            if (this.activeIndex != null && this.tabs.length > this.activeIndex)
                 this.tabs[this.activeIndex].selected = true;
             else
                 this.tabs[0].selected = true;
@@ -219,16 +226,16 @@ export class TabView implements AfterContentInit,BlockableUI {
     }
     
     open(event: Event, tab: TabPanel) {
-        if(tab.disabled) {
-            if(event) {
+        if (tab.disabled) {
+            if (event) {
                 event.preventDefault();
             }
             return;
         }
         
-        if(!tab.selected) {
+        if (!tab.selected) {
             let selectedTab: TabPanel = this.findSelectedTab();
-            if(selectedTab) {
+            if (selectedTab) {
                 selectedTab.selected = false
             }
             
@@ -239,13 +246,13 @@ export class TabView implements AfterContentInit,BlockableUI {
             this.onChange.emit({originalEvent: event, index: selectedTabIndex});
         }
         
-        if(event) {
+        if (event) {
             event.preventDefault();
         }
     }
     
     close(event: Event, tab: TabPanel) {
-        if(this.controlClose) {
+        if (this.controlClose) {
             this.onClose.emit({
                 originalEvent: event,
                 index: this.findTabIndex(tab),
@@ -266,14 +273,14 @@ export class TabView implements AfterContentInit,BlockableUI {
     }
     
     closeTab(tab: TabPanel) {
-        if(tab.disabled) {
+        if (tab.disabled) {
             return;
         }
-        if(tab.selected) {
+        if (tab.selected) {
             tab.selected = false;
             for(let i = 0; i < this.tabs.length; i++) {
                 let tabPanel = this.tabs[i];
-                if(!tabPanel.closed&&!tab.disabled) {
+                if (!tabPanel.closed&&!tab.disabled) {
                     tabPanel.selected = true;
                     break;
                 }
@@ -285,7 +292,7 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     findSelectedTab() {
         for(let i = 0; i < this.tabs.length; i++) {
-            if(this.tabs[i].selected) {
+            if (this.tabs[i].selected) {
                 return this.tabs[i];
             }
         }
@@ -295,7 +302,7 @@ export class TabView implements AfterContentInit,BlockableUI {
     findTabIndex(tab: TabPanel) {
         let index = -1;
         for(let i = 0; i < this.tabs.length; i++) {
-            if(this.tabs[i] == tab) {
+            if (this.tabs[i] == tab) {
                 index = i;
                 break;
             }
@@ -313,12 +320,12 @@ export class TabView implements AfterContentInit,BlockableUI {
 
     set activeIndex(val:number) {
         this._activeIndex = val;
-        if(this.preventActiveIndexPropagation) {
+        if (this.preventActiveIndexPropagation) {
             this.preventActiveIndexPropagation = false;
             return;
         }
 
-        if(this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
+        if (this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
             this.findSelectedTab().selected = false;
             this.tabs[this._activeIndex].selected = true;
         }

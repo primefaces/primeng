@@ -5,8 +5,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast></p-toast>
 
     <p-panel header="Godfather I" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
@@ -234,7 +234,6 @@ import &#123;PanelModule&#125; from 'primeng/panel';
 
         <p-tabPanel header="Source">
         <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/panel" class="btn-viewsource" target="_blank">
-            <i class="fa fa-github"></i>
             <span>View on GitHub</span>
         </a>
 

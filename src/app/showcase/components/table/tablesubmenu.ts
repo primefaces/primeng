@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
+import { AppComponent } from '../../app.component';
 
 @Component({
     selector: 'table-submenu',
     template: `
-        <div class="content-section content-submenu ui-helper-clearfix">
+        <div class="content-section content-submenu ui-helper-clearfix" [ngStyle]="{paddingTop: isNewsActive() ? '35px' : ''}">
             <ul>
                 <li><a [routerLink]="['/table']">&#9679; Documentation</a></li>
+                <li><a [routerLink]="['/table/basic']">&#9679; Basic</a></li>
+                <li><a [routerLink]="['/table/dynamic']">&#9679; Dynamic</a></li>
                 <li><a [routerLink]="['/table/sections']">&#9679; Sections</a></li>
                 <li><a [routerLink]="['/table/page']">&#9679; Page</a></li>
                 <li><a [routerLink]="['/table/sort']">&#9679; Sort</a></li>
@@ -31,4 +34,10 @@ import {Component} from '@angular/core';
         </div>
     `
 })
-export class TableSubmenu {}
+export class TableSubmenu {
+    constructor(private app: AppComponent) { }
+
+    isNewsActive() {
+        return this.app.newsActive;
+    }
+}

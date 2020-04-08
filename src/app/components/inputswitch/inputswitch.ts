@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 
@@ -12,15 +12,16 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     selector: 'p-inputSwitch',
     template: `
         <div [ngClass]="{'ui-inputswitch ui-widget': true, 'ui-inputswitch-checked': checked, 'ui-state-disabled': disabled, 'ui-inputswitch-readonly': readonly, 'ui-inputswitch-focus': focused}" 
-            [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)" role="checkbox" [attr.aria-checked]="checked">
+            [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [attr.tabindex]="tabindex" [checked]="checked" (change)="onInputChange($event)"
-                        (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" />
+                    (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" role="switch" [attr.aria-checked]="checked" [attr.aria-labelledby]="ariaLabelledBy"/>
             </div>
             <span class="ui-inputswitch-slider"></span>
         </div>
     `,
-    providers: [INPUTSWITCH_VALUE_ACCESSOR]
+    providers: [INPUTSWITCH_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class InputSwitch implements ControlValueAccessor {
 
@@ -37,6 +38,8 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() disabled: boolean;
 
     @Input() readonly: boolean;
+
+    @Input() ariaLabelledBy: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -51,7 +54,8 @@ export class InputSwitch implements ControlValueAccessor {
     constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event: Event, cb: HTMLInputElement) {
-        if (!this.disabled && !this.readonly) {  
+        if (!this.disabled && !this.readonly) {
+            event.preventDefault();
             this.toggle(event);
             cb.focus();
         }

@@ -115,10 +115,8 @@ describe('Menu', () => {
       }]; 
       fixture.detectChanges();
       
-      const menuItemsEl = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
-      expect(menuItemsEl.length).toEqual(2);
-      for(let menuItem of menuItemsEl)
-        expect(menuItem.nativeElement.className).toContain("ui-helper-hidden");
+      const menuItemsEl = fixture.debugElement.queryAll(By.css('.ui-helper-hidden'));
+      expect(menuItemsEl.length).toEqual(3);
     });
 
     it('should not show items (subMenu visible false)', () => {
@@ -131,10 +129,8 @@ describe('Menu', () => {
       }]; 
       fixture.detectChanges();
       
-      const menuItemsEl = fixture.debugElement.queryAll(By.css('.ui-menuitem'));
+      const menuItemsEl = fixture.debugElement.queryAll(By.css('.ui-helper-hidden'));
       expect(menuItemsEl.length).toEqual(2);
-      for(let menuItem of menuItemsEl)
-        expect(menuItem.nativeElement.className).toContain("ui-helper-hidden");
     });
 
     it('should change menuItemStyle and menuItemStyleClass', () => {

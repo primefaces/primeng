@@ -22,12 +22,16 @@ import { TableEditDemo } from './tableeditdemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
 import { TableStateDemo } from './tablestatedemo';
 import { TableStickyDemo } from './tablestickydemo';
+import { TableBasicDemo } from './tablebasicdemo';
+import { TableDynamicDemo } from './tabledynamicdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
 			{ path: '', component: TableDemo },
 			{ path: 'page', component: TablePageDemo },
+			{ path: 'basic', component: TableBasicDemo },
+			{ path: 'dynamic', component: TableDynamicDemo },
 			{ path: 'sort', component: TableSortDemo },
 			{ path: 'selection', component: TableSelectionDemo },
 			{ path: 'filter', component: TableFilterDemo },

@@ -11,7 +11,7 @@
     <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
         <ng-template pTemplate="caption">
             <div style="text-align: right">
-                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
             </div>
         </ng-template>
@@ -26,7 +26,7 @@
                     <input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                     <div *ngSwitchCase="'year'">
                         Value > {{yearFilter}}
-                        <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                        <i class="pi pi-times" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
                         <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider>
                     </div>
                     <p-dropdown *ngSwitchCase="'brand'" [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
@@ -49,7 +49,6 @@
     <p-tabView effect="fade">
         <p-tabPanel header="tablefilterdemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablefilterdemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -134,7 +133,6 @@ export class TableFilterDemo implements OnInit &#123;
 
         <p-tabPanel header="tablefilterdemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablefilterdemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -142,7 +140,7 @@ export class TableFilterDemo implements OnInit &#123;
 &lt;p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         &lt;div style="text-align: right"&gt;        
-            &lt;i class="fa fa-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
+            &lt;i class="pi pi-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
             &lt;input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -157,7 +155,7 @@ export class TableFilterDemo implements OnInit &#123;
                 &lt;input *ngSwitchCase="'vin'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"&gt;
                 &lt;div *ngSwitchCase="'year'"&gt;
                     Value &gt; &#123;&#123;yearFilter&#125;&#125;
-                    &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"&gt;&lt;/i&gt;
+                    &lt;i class="pi pi-times" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"&gt;&lt;/i&gt;
                     &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"&gt;&lt;/p-slider&gt;
                 &lt;/div&gt;
                 &lt;p-dropdown *ngSwitchCase="'brand'" [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value, col.field, 'equals')"&gt;&lt;/p-dropdown&gt;

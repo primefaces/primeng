@@ -1,4 +1,4 @@
-import {NgModule,Component,Input} from '@angular/core';
+import {NgModule,Component,Input,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -9,7 +9,8 @@ import {CommonModule} from '@angular/common';
             <div class="ui-progressbar-value ui-progressbar-value-animate ui-widget-header ui-corner-all" [style.width]="value + '%'" style="display:block"></div>
             <div class="ui-progressbar-label" [style.display]="value != null ? 'block' : 'none'" *ngIf="showValue">{{value}}{{unit}}</div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ProgressBar {
 

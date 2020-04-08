@@ -43,13 +43,13 @@
 .ui-inputgroup .ui-inputtext:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-left: 0 none;
+    border-left-width: 0px;
 }
 
 .ui-inputgroup .ui-inputtext:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-right: 0 none;
+    border-right-width: 0px;
 }
 
 .ui-inputgroup .ui-button {
@@ -59,6 +59,16 @@
 
 .ui-fluid .ui-inputgroup .ui-button {
     width: auto;
+}
+
+.ui-inputgroup > p-button:not(:first-child) > .ui-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.ui-inputgroup > p-button:not(:last-child) > .ui-button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .ui-fluid .ui-inputgroup .ui-inputtext {
@@ -92,6 +102,25 @@
   -webkit-transition: 0.3s ease all;
   color: #898989;
   line-height: 1;
+}
+.ui-fluid .ui-inputgroup .ui-float-label {
+    width: 100%;
+}
+
+.ui-inputgroup .ui-float-label .ui-inputtext {
+    height: 100%;
+}
+
+.ui-inputgroup .ui-float-label:last-child .ui-inputtext {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-right-width: 1px;
+}
+
+.ui-inputgroup .ui-float-label:not(:first-child) .ui-inputtext {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-width: 0px;
 }
 
 /* breaks firefox so defined separately */

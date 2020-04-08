@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef, OnChanges, SimpleChanges} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
 import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
@@ -37,7 +37,8 @@ import {FilterUtils} from 'primeng/utils';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
@@ -94,10 +95,12 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
-    
-    @ContentChild(Header, { static: true }) header;
 
-    @ContentChild(Footer, { static: true }) footer;
+    @Output() onChangeLayout: EventEmitter<any> = new EventEmitter();
+    
+    @ContentChild(Header) header;
+
+    @ContentChild(Footer) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -122,7 +125,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     constructor(public el: ElementRef) {}
 
     ngOnInit() {
-        if(this.lazy) {
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         this.initialized = true;
@@ -184,6 +187,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     
     changeLayout(layout: string) {
         this.layout = layout;
+        this.onChangeLayout.emit({
+            layout: this.layout
+        });
         this.updateItemTemplate();
     }
         
@@ -208,7 +214,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     sort() {
         this.first = 0;
 
-        if(this.lazy) {
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else if (this.value) {

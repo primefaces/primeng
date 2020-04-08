@@ -7,8 +7,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast></p-toast>
 
     <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
         <ng-template pTemplate="header" let-columns>
@@ -35,7 +35,6 @@
     <p-tabView effect="fade">
         <p-tabPanel header="treetablecontextmenudemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecontextmenudemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -82,7 +81,6 @@ export class TreeTableContextMenuDemo &#123;
 
         <p-tabPanel header="treetablecontextmenudemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecontextmenudemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

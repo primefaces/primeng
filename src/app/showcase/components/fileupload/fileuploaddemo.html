@@ -6,8 +6,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
+    <p-toast></p-toast>
 
     <h3 class="first">Advanced</h3>
     <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
@@ -276,6 +276,24 @@ myUploader(event) &#123;
                             <td>Label of the cancel button.</td>
                         </tr>
                         <tr>
+                            <td>chooseIcon</td>
+                            <td>string</td>
+                            <td>pi pi-plus</td>
+                            <td>Icon of the choose button.</td>
+                        </tr>
+                        <tr>
+                            <td>uploadIcon</td>
+                            <td>string</td>
+                            <td>pi pi-upload</td>
+                            <td>Icon of the upload button.</td>
+                        </tr>
+                        <tr>
+                            <td>cancelIcon</td>
+                            <td>string</td>
+                            <td>pi pi-times</td>
+                            <td>Icon of the cancel button.</td>
+                        </tr>
+                        <tr>
                             <td>withCredentials</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -369,7 +387,8 @@ myUploader(event) &#123;
                         <tr>
                             <td>onSelect</td>
                             <td>event.originalEvent: Original browser event. <br />
-                                event.files: List of selected files.</td>
+                                event.files: Selected files of the select event.
+                                event.currentFiles: All files to be uploaded.</td>
                             <td>Callback to invoke when files are selected.</td>
                         </tr>
                         <tr>
@@ -445,7 +464,6 @@ myUploader(event) &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fileupload" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

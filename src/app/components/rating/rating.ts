@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -23,7 +23,8 @@ export const RATING_VALUE_ACCESSOR: any = {
             </a>
         </div>
     `,
-    providers: [RATING_VALUE_ACCESSOR]
+    providers: [RATING_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Rating implements OnInit,ControlValueAccessor {
 
@@ -69,7 +70,7 @@ export class Rating implements OnInit,ControlValueAccessor {
     }
     
     rate(event, i: number): void {
-        if(!this.readonly&&!this.disabled) {
+        if (!this.readonly&&!this.disabled) {
             this.value = (i + 1);
             this.onModelChange(this.value);
             this.onModelTouched();
@@ -82,7 +83,7 @@ export class Rating implements OnInit,ControlValueAccessor {
     }
     
     clear(event): void {
-        if(!this.readonly&&!this.disabled) {
+        if (!this.readonly&&!this.disabled) {
             this.value = null;
             this.onModelChange(this.value);
             this.onModelTouched();

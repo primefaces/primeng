@@ -1,3 +1,7 @@
+.ui-chips {
+    display: inline-block;
+}
+
 .ui-chips > ul.ui-inputtext {
     clear: left;
     cursor: text;
@@ -56,4 +60,8 @@
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+}
+
+.ui-fluid .ui-chips {
+    display: block;
 }

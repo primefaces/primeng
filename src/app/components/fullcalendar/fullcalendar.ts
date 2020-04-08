@@ -1,10 +1,11 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,OnInit,AfterViewChecked} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,OnInit,AfterViewChecked,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Calendar} from '@fullcalendar/core';
 
 @Component({
     selector: 'p-fullCalendar',
-    template: '<div [ngStyle]="style" [class]="styleClass"></div>'
+    template: '<div [ngStyle]="style" [class]="styleClass"></div>',
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
         

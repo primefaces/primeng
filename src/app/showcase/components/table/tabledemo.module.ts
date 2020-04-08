@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableDemo } from './tabledemo';
+import { TableBasicDemo } from './tablebasicdemo';
+import { TableDynamicDemo } from './tabledynamicdemo';
 import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
@@ -31,9 +33,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { TabViewModule } from 'primeng/tabview';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
 
@@ -42,7 +46,8 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		CommonModule,
 		FormsModule,
 		TableDemoRoutingModule,
-		TableModule,
+        TableModule,
+        CalendarModule,
 		SliderModule,
 		DialogModule,
 		MultiSelectModule,
@@ -50,13 +55,16 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		DropdownModule,
 		ButtonModule,
 		ToastModule,
-		InputTextModule,
+        InputTextModule,
+        ProgressBarModule,
 		TabViewModule,
 		CodeHighlighterModule
 	],
 	declarations: [
 		TableSubmenu,
 		TableDemo,
+		TableBasicDemo,
+		TableDynamicDemo,
 		TablePageDemo,
 		TableSortDemo,
 		TableSelectionDemo,

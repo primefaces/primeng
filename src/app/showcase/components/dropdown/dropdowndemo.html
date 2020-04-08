@@ -358,6 +358,12 @@ export class MyModel &#123;
                             <td>When present, it specifies that the component cannot be edited.</td>
                         </tr>
                         <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
+                        </tr>
+                        <tr>
                             <td>editable</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -373,7 +379,7 @@ export class MyModel &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>tabindex</td>
@@ -410,6 +416,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the component should automatically get focus on load.</td>
+                        </tr>
+                        <tr>
+                            <td>autofocusFilter</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Applies focus to the filter element when the overlay is shown.</td>
                         </tr>
                         <tr>
                             <td>resetFilterOnHide</td>
@@ -657,7 +669,6 @@ clearFilter(dropdown: Dropdown) &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dropdown" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Renderer2} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {MenuItem} from 'primeng/api';
@@ -9,7 +9,7 @@ import {RouterModule} from '@angular/router';
     template: `
         <div [class]="styleClass" [ngStyle]="style"
             [ngClass]="{'ui-megamenu ui-widget ui-widget-content ui-corner-all':true,'ui-megamenu-horizontal': orientation == 'horizontal','ui-megamenu-vertical': orientation == 'vertical'}">
-            <ul class="ui-megamenu-root-list">
+            <ul class="ui-megamenu-root-list" role="menubar">
                 <ng-template ngFor let-category [ngForOf]="model">
                     <li *ngIf="category.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': category.visible === false}">
                     <li *ngIf="!category.separator" #item [ngClass]="{'ui-menuitem ui-corner-all':true,'ui-menuitem-active':item==activeItem, 'ui-helper-hidden': category.visible === false}"
@@ -21,9 +21,10 @@ import {RouterModule} from '@angular/router';
                             <span class="ui-menuitem-text">{{category.label}}</span>
                             <span *ngIf="category.items" class="ui-submenu-icon pi pi-fw" [ngClass]="{'pi-caret-down':orientation=='horizontal','pi-caret-right':orientation=='vertical'}"></span>
                         </a>
-                        <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" [attr.tabindex]="category.tabindex ? category.tabindex : '0'" 
+                        <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'ui-menuitem-link-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" [attr.tabindex]="category.tabindex ? category.tabindex : '0'" 
                             [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
-                            (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
+                            (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass"
+                            [fragment]="category.fragment" [queryParamsHandling]="category.queryParamsHandling" [preserveFragment]="category.preserveFragment" [skipLocationChange]="category.skipLocationChange" [replaceUrl]="category.replaceUrl" [state]="category.state">
                             <span class="ui-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="ui-menuitem-text">{{category.label}}</span>
                         </a>
@@ -33,20 +34,21 @@ import {RouterModule} from '@angular/router';
                                 <ng-template ngFor let-column [ngForOf]="category.items">
                                     <div [class]="getColumnClass(category)">
                                         <ng-template ngFor let-submenu [ngForOf]="column">
-                                            <ul class="ui-megamenu-submenu">
+                                            <ul class="ui-megamenu-submenu" role="menu">
                                                 <li class="ui-widget-header ui-megamenu-submenu-header ui-corner-all">{{submenu.label}}</li>
                                                 <ng-template ngFor let-item [ngForOf]="submenu.items">
-                                                    <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': item.visible === false}">
-                                                    <li *ngIf="!item.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-helper-hidden': item.visible === false}">
-                                                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
+                                                    <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': item.visible === false}" role="separator">
+                                                    <li *ngIf="!item.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-helper-hidden': item.visible === false}" role="none">
+                                                        <a *ngIf="!item.routerLink" role="menuitem" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>
                                                         </a>
-                                                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-state-active'" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
+                                                        <a *ngIf="item.routerLink" role="menuitem" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'ui-menuitem-link-active'" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
                                                              [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
-                                                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)"
+                                                            [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
                                                             <span class="ui-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>
                                                         </a>
@@ -65,7 +67,8 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ul>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class MegaMenu {
 
@@ -88,18 +91,18 @@ export class MegaMenu {
     constructor(public el: ElementRef, public renderer: Renderer2) {}
     
     onItemMouseEnter(event, item, menuitem: MenuItem) {
-        if(menuitem.disabled) {
+        if (menuitem.disabled) {
             return;
         }
 
-        if(this.hideTimeout) {
+        if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
         
         this.activeItem = item;
 
-        if(menuitem.items) {
+        if (menuitem.items) {
             let submenu = item.children[0].nextElementSibling;
             if (submenu) {
                 if (this.autoZIndex) {
@@ -125,16 +128,16 @@ export class MegaMenu {
     }
     
     itemClick(event, item: MenuItem) {
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return;
         }
         
-        if(!item.url) {
+        if (!item.url) {
             event.preventDefault();
         }
         
-        if(item.command) {
+        if (item.command) {
             item.command({
                 originalEvent: event,
                 item: item

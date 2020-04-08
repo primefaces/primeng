@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,AfterContentInit,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,AfterContentInit,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
@@ -30,7 +30,7 @@ import { FilterUtils } from 'primeng/utils';
                         <li class="ui-orderlist-item" tabindex="0"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
-                            [style.display]="isItemVisible(item) ? 'block' : 'none'"
+                            [style.display]="isItemVisible(item) ? 'block' : 'none'" role="option" [attr.aria-selected]="isSelected(item)"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
@@ -40,7 +40,8 @@ import { FilterUtils } from 'primeng/utils';
                 </ul>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
     
@@ -78,7 +79,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Output() onFilterEvent: EventEmitter<any> = new EventEmitter();
     
-    @ViewChild('listelement', { static: true }) listViewChild: ElementRef;
+    @ViewChild('listelement') listViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

@@ -5,8 +5,8 @@
     </div>
 </div>
 
-<div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true, 'organization-chart-demo': true}">
+    <p-toast></p-toast>
 
     <h3 class="first">Advanced</h3>
     <p>Organization with advanced customization.</p>
@@ -241,6 +241,12 @@ export class MyComponents implements OnInit &#123;
                             <td>null</td>
                             <td>A single treenode instance or an array to refer to the selections.</td>
                         </tr>
+                        <tr>
+                            <td>preserveSpace</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether the space allocated by a node is preserved when hidden.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -334,7 +340,6 @@ export class MyComponents implements OnInit &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/organizationchart" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

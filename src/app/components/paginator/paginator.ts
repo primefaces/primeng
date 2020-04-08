@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef, OnChanges, SimpleChanges} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
@@ -40,7 +40,8 @@ import {SharedModule} from 'primeng/api';
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Paginator implements OnInit, OnChanges {
 
@@ -118,11 +119,11 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     updateRowsPerPageOptions() {
-        if(this.rowsPerPageOptions) {
+        if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
             for (let opt of this.rowsPerPageOptions) {
                 if (typeof opt == 'object' && opt['showAll']) {
-                    this.rowsPerPageItems.push({label: opt['showAll'], value: this.totalRecords});
+                    this.rowsPerPageItems.unshift({label: opt['showAll'], value: this.totalRecords});
                 }
                 else {
                     this.rowsPerPageItems.push({label: String(opt), value: opt});
@@ -172,7 +173,7 @@ export class Paginator implements OnInit, OnChanges {
     changePage(p :number) {
         var pc = this.getPageCount();
 
-        if(p >= 0 && p < pc) {
+        if (p >= 0 && p < pc) {
             this._first = this.rows * p;
             var state = {
                 page: p,
@@ -199,7 +200,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToFirst(event) {
-      if(!this.isFirstPage()){
+      if (!this.isFirstPage()){
           this.changePage(0);
       }
 
@@ -217,7 +218,7 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePageToLast(event) {
-      if(!this.isLastPage()){
+      if (!this.isLastPage()){
           this.changePage(this.getPageCount() - 1);
       }
 
@@ -245,8 +246,12 @@ export class Paginator implements OnInit, OnChanges {
 
     get currentPageReport() {
         return this.currentPageReportTemplate
-            .replace("{currentPage}", (this.getPage() + 1).toString())
-            .replace("{totalPages}", this.getPageCount().toString());
+                .replace("{currentPage}", String(this.getPage() + 1))
+                .replace("{totalPages}", String(this.getPageCount()))
+                .replace("{first}", String(this._first + 1))
+                .replace("{last}", String(Math.min(this._first + this.rows, this.totalRecords)))
+                .replace("{rows}", String(this.rows))
+                .replace("{totalRecords}", String(this.totalRecords));
     }
 }
 
