@@ -350,6 +350,8 @@ export class Dialog implements OnDestroy {
             this.dragging = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
+            this.container.style.position = 'fixed';
+            this.container.style.margin = '0';
             DomHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
