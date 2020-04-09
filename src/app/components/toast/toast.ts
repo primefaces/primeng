@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
@@ -71,18 +71,22 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
+    constructor(private zone: NgZone) {}
+    
     ngAfterViewInit() {
         this.initTimeout();
     }
 
     initTimeout() {
         if (!this.message.sticky) {
-            this.timeout = setTimeout(() => {
-                this.onClose.emit({
-                    index: this.index,
-                    message: this.message
-                });
-            }, this.message.life || 3000);
+            this.zone.runOutsideAngular(() => {
+                this.timeout = setTimeout(() => {
+                    this.onClose.emit({
+                        index: this.index,
+                        message: this.message
+                    });
+                }, this.message.life || 3000);
+            });
         }
     }
 
@@ -190,7 +194,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     mask: HTMLDivElement;
     
-    constructor(public messageService: MessageService) {}
+    constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe(messages => {
@@ -281,6 +285,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         this.onClose.emit({
             message: event.message
         });
+
+        this.cd.detectChanges();
     }
 
     enableModality() {
