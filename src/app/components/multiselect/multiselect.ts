@@ -378,6 +378,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         if (this.selectionLimit && (this.value && this.value.length === this.selectionLimit)) {
             this.maxSelectionLimitReached = true;
         }
+        else {
+            this.maxSelectionLimitReached = false;
+        }
     }
 
     updateFilledState() {

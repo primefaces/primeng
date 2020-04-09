@@ -14,7 +14,7 @@
   <h3>Advanced (Multiple, Checkbox and Filter)</h3>
   <p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name">
     <p-header>
-      Cars
+      Cities
     </p-header>
   </p-listbox>
   <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c.name}}</span></p>

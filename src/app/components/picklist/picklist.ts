@@ -317,6 +317,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     
     onFilter(event: KeyboardEvent, data: any[], listType: number) {
         let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
+        this.filter(query, data, listType);
+    }
+    
+    filter(query: string, data: any[], listType: number) {
         let searchFields = this.filterBy.split(',');
 
         if (listType === this.SOURCE_LIST) {
@@ -330,7 +334,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.onTargetFilter.emit({query: this.filterValueTarget, value: this.visibleOptionsTarget});
         }
     }
-        
+
     isItemVisible(item: any, listType: number): boolean {
         if (listType == this.SOURCE_LIST)
             return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);
@@ -466,6 +470,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 items: this.selectedItemsSource
             });
             this.selectedItemsSource = [];
+            
+            if (this.filterValueTarget) {
+                this.filter(this.filterValueTarget, this.target, this.TARGET_LIST);
+            }
         }
     }
 
@@ -491,6 +499,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             });
             
             this.selectedItemsSource = [];
+
+            if (this.filterValueTarget) {
+                this.filter(this.filterValueTarget, this.target, this.TARGET_LIST);
+            }
         }
     }
 
@@ -507,6 +519,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             });
             
             this.selectedItemsTarget = [];
+
+            if (this.filterValueSource) {
+                this.filter(this.filterValueSource, this.source, this.SOURCE_LIST);
+            }
         }
     }
 
@@ -532,6 +548,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             });
             
             this.selectedItemsTarget = [];
+            
+            if (this.filterValueSource) {
+                this.filter(this.filterValueSource, this.source, this.SOURCE_LIST);
+            }
         }
     }
 

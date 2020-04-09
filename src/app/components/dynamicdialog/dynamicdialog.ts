@@ -1,4 +1,4 @@
-import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef } from '@angular/core';
 import { trigger,style,transition,animate,AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -18,7 +18,7 @@ const hideAnimation = animation([
 @Component({
 	selector: 'p-dynamicDialog',
 	template: `
-        <div #mask class="ui-widget-overlay ui-dialog-mask ui-dialog-visible ui-dialog-mask-scrollblocker">
+        <div #mask [ngClass]="{'ui-dialog-mask ui-dialog-visible':true, 'ui-widget-overlay ui-dialog-mask-scrollblocker': config.modal !== false}">
             <div [ngClass]="{'ui-dialog ui-dynamicdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl': config.rtl}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
@@ -68,9 +68,13 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     container: HTMLDivElement;
 
+    wrapper: HTMLElement;
+
     documentKeydownListener: any;
 
     documentEscapeListener: Function;
+
+    maskClickListener: Function;
 
     transformOptions: string = "scale(0.7)";
 
@@ -80,14 +84,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	ngAfterViewInit() {
 		this.loadChildComponent(this.childComponentType);
 		this.cd.detectChanges();
-	}
-
-	onOverlayClicked(evt: MouseEvent) {
-		this.dialogRef.close();
-	}
-
-	onDialogClicked(evt: MouseEvent) {
-		evt.stopPropagation();
 	}
 
 	loadChildComponent(componentType: Type<any>) {
@@ -110,10 +106,14 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	onAnimationStart(event: AnimationEvent) {
 		switch(event.toState) {
 			case 'visible':
-				this.container = event.element;
+                this.container = event.element;
+                this.wrapper = this.container.parentElement;
 				this.moveOnTop();
-				this.bindGlobalListeners();
-                DomHandler.addClass(document.body, 'ui-overflow-hidden');
+                this.bindGlobalListeners();
+
+                if (this.config.modal !== false) {
+                    this.enableModality();
+                }
                 this.focus();
 			break;
 
@@ -130,8 +130,11 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	}
 
 	onContainerDestroy() {
-		DomHandler.removeClass(document.body, 'ui-overflow-hidden');
 		this.unbindGlobalListeners();
+        
+        if (this.config.modal !== false) {
+            this.disableModality();
+        }
         this.container = null;
 	}
 
@@ -139,10 +142,34 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.visible = false;
 	}
 
-	onMaskClick() {
-		if (this.config.dismissableMask) {
-			this.close();
-		}
+    enableModality() {
+        if (this.config.closable !== false && this.config.dismissableMask !== false) {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
+                if (this.container && !this.container.isSameNode(event.target) && !this.container.contains(event.target)) {
+                    this.close();
+                }
+            });
+        }
+
+        if (this.config.modal !== false) {
+            DomHandler.addClass(document.body, 'ui-overflow-hidden');
+        }
+    }
+
+    disableModality() {
+        if (this.wrapper) {
+            if (this.config.dismissableMask) {
+                this.unbindMaskClickListener();
+            }
+
+            if (this.config.modal !== false) {
+                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+            }
+
+            if (!(this.cd as ViewRef).destroyed) {
+                this.cd.detectChanges();
+            }
+        }
     }
 
     onKeydown(event: KeyboardEvent) {
@@ -225,6 +252,13 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
+        }
+    }
+
+    unbindMaskClickListener() {
+        if (this.maskClickListener) {
+            this.maskClickListener();
+            this.maskClickListener = null;
         }
     }
 

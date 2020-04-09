@@ -178,6 +178,8 @@ export class Carousel implements AfterContentInit {
 
 	isCreated: boolean;
 
+	swipeThreshold: number = 20;
+
 	public itemTemplate: TemplateRef<any>;
 
 	constructor(public el: ElementRef, public zone: NgZone) { 
@@ -595,11 +597,14 @@ export class Carousel implements AfterContentInit {
 	}
 
 	changePageOnTouch(e, diff) {
-		if (diff < 0) {
-			this.navForward(e);
-		}
-		else {
-			this.navBackward(e);
+		if (Math.abs(diff) > this.swipeThreshold) {
+			if (diff < 0) {
+				this.navForward(e);
+			}
+			else {
+				this.navBackward(e);
+
+			}
 		}
 	}
 

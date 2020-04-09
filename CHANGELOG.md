@@ -288,6 +288,19 @@ MaskStyleClass Does not found
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.1) (2020-04-08)
+- TreeTable top level nodes not aligned [\#7297](https://github.com/primefaces/primeng/issues/7297)
+- Table filter change detection race condition [\#7842](https://github.com/primefaces/primeng/issues/7842)
+- TabMenu: support Ctrl+click for open link tab with routerLink [\#7434](https://github.com/primefaces/primeng/issues/7434)
+- Breadcrumb should support Menuitem style/styleClass of MenuModel [\#7364](https://github.com/primefaces/primeng/issues/7364)
+- Autocomplete - Not Defined Event Error [\#8645](https://github.com/primefaces/primeng/issues/8645)
+- Refactor icon only buttons for Aria [\#7463](https://github.com/primefaces/primeng/issues/7463)
+- filterPlaceholder for Listbox [\#7801](https://github.com/primefaces/primeng/issues/7801)
+- Dynamic Dialog doesn't animate on hide only when showing [\#7728](https://github.com/primefaces/primeng/issues/7728)
+- Spinner silently discards manually entered decimal value if step value is a whole number [\#3853](https://github.com/primefaces/primeng/issues/3853)
+- Add precision property to Spinner [\#8662](https://github.com/primefaces/primeng/issues/8662)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.0-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.0) (2020-03-30)
 - Customizable Toast Transformations [\#8136](https://github.com/primefaces/primeng/issues/8136)
 - Context menu shouldn't close upon clicking an item with children [\#7076](https://github.com/primefaces/primeng/issues/7076)
@@ -461,7 +474,6 @@ MaskStyleClass Does not found
 - TurboTable responsive with colgroup breaks column width [\#6757](https://github.com/primefaces/primeng/issues/6757)
 - Make leaf node not expandable in tree regardless of children [\#6743](https://github.com/primefaces/primeng/issues/6743)
 - Elements with editable portions should support native input attributes [\#6723](https://github.com/primefaces/primeng/issues/6723)
-- Datascroller direction to be customizable: up/down [\#6579](https://github.com/primefaces/primeng/issues/6579)
 - Calendar: Expose API to toggle calendar from component [\#6575](https://github.com/primefaces/primeng/issues/6575)
 
 **Fixed bugs:**
@@ -642,6 +654,18 @@ MaskStyleClass Does not found
 **Unit Tests:**
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.2) (2020-04-08)
+- TreeTable top level nodes not aligned [\#7297](https://github.com/primefaces/primeng/issues/7297)
+- Table filter change detection race condition [\#7842](https://github.com/primefaces/primeng/issues/7842)
+- TabMenu: support Ctrl+click for open link tab with routerLink [\#7434](https://github.com/primefaces/primeng/issues/7434)
+- Breadcrumb should support Menuitem style/styleClass of MenuModel [\#7364](https://github.com/primefaces/primeng/issues/7364)
+- Autocomplete - Not Defined Event Error [\#8645](https://github.com/primefaces/primeng/issues/8645)
+- Refactor icon only buttons for Aria [\#7463](https://github.com/primefaces/primeng/issues/7463)
+- filterPlaceholder for Listbox [\#7801](https://github.com/primefaces/primeng/issues/7801)
+- Dynamic Dialog doesn't animate on hide only when showing [\#7728](https://github.com/primefaces/primeng/issues/7728)
+- Autocomplete onShow onHide [\#8519](https://github.com/primefaces/primeng/issues/8519)
+- Listbox "toggle all" checkbox deselects all disabled options [\#8149](https://github.com/primefaces/primeng/issues/8149)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.1) (2020-03-30)
 - FileUpload size formatting is incorrect [\#8563](https://github.com/primefaces/primeng/issues/8563)

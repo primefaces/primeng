@@ -68,9 +68,22 @@ export class Dialog implements OnDestroy {
 
     @Input() resizable: boolean = true;
 
-    @Input() positionLeft: number;
 
-    @Input() positionTop: number;
+    @Input() get positionLeft(): number {
+        return 0;
+    };
+
+    set positionLeft(_positionLeft: number) {
+        console.log("positionLeft property is deprecated.");
+    }
+
+    @Input() get positionTop(): number {
+        return 0;
+    };
+
+    set positionTop(_positionTop: number) {
+        console.log("positionTop property is deprecated.");
+    }
 
     @Input() contentStyle: any;
 
@@ -350,6 +363,8 @@ export class Dialog implements OnDestroy {
             this.dragging = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
+            this.container.style.position = 'fixed';
+            this.container.style.margin = '0';
             DomHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
