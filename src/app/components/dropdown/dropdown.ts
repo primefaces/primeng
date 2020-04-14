@@ -874,7 +874,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             newOption = this.searchOption(++searchIndex);
         }
         
-        if (newOption) {
+        if (newOption && !newOption.disabled) {
             this.selectItem(event, newOption);
             this.selectedOptionUpdated = true;
         }
