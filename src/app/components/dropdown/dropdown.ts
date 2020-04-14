@@ -901,7 +901,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     searchOptionInRange(start, end) {
         for (let i = start; i < end; i++) {
             let opt = this.optionsToDisplay[i];
-            if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase())) {
+            if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase()) && !opt.disabled) {
                 return opt;
             }
         }
@@ -916,7 +916,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             for (let i = index.groupIndex; i < this.optionsToDisplay.length; i++) {
                 for (let j = (index.groupIndex === i) ? (index.itemIndex + 1) : 0; j < this.optionsToDisplay[i].items.length; j++) {
                     let opt = this.optionsToDisplay[i].items[j];
-                    if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase())) {
+                    if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase()) && !opt.disabled) {
                         return opt;
                     }
                 }
@@ -926,7 +926,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 for (let i = 0; i <= index.groupIndex; i++) {
                     for (let j = 0; j < ((index.groupIndex === i) ? index.itemIndex : this.optionsToDisplay[i].items.length); j++) {
                         let opt = this.optionsToDisplay[i].items[j];
-                        if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase())) {
+                        if (opt.label.toLowerCase().startsWith(this.searchValue.toLowerCase()) && !opt.disabled) {
                             return opt;
                         }
                     }
