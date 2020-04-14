@@ -293,6 +293,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
+            this.mask.style.display = 'block';
             let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
             document.body.appendChild(this.mask);
