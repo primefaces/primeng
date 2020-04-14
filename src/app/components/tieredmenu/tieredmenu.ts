@@ -110,7 +110,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
         if (menuitem.command) {            
             menuitem.command({
                 originalEvent: event,
-                item: item
+                item: menuitem
             });
         }
 
