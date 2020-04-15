@@ -90,7 +90,7 @@ MaskStyleClass Does not found
 - Autocomplete - Not Defined Event Error [\#8645](https://github.com/primefaces/primeng/issues/8645)
 - Dropdown floating label ui-inputwrapper-filled css class not applied [\#8614](https://github.com/primefaces/primeng/issues/8614)
 - bug in dropdown : TypeError: Cannot read property 'measureScrollOffset' of undefined [\#8140](https://github.com/primefaces/primeng/issues/8140)
-- MultiSelect role type is not appropriate [\#7844](https://github.com/primefaces/primeng/issues/7844)
+- MultiSelect and Dropdown role type is not appropriate [\#7844](https://github.com/primefaces/primeng/issues/7844)
 - Table filter change detection race condition [\#7842](https://github.com/primefaces/primeng/issues/7842)
 - p-dialog tabbing problem: focus always in the first elemets if two dialogs are opened [\#7754](https://github.com/primefaces/primeng/issues/7754)
 - Dynamic Dialog doesn't animate on hide only when showing [\#7728](https://github.com/primefaces/primeng/issues/7728)
@@ -288,6 +288,17 @@ MaskStyleClass Does not found
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.2) (2020-04-15)
+- Calendar incorrect time validation [\#7381](https://github.com/primefaces/primeng/issues/7381)
+- id selector is not being set on toast message [\#7449](https://github.com/primefaces/primeng/issues/7449)
+- PrimeNG KeyFilter alphanum allows !#$%&( in Firefox and IE [\#7570](https://github.com/primefaces/primeng/issues/7570)
+- Dropdown/MultiSelect control should be marked as touched after hiding the list [\#7629](https://github.com/primefaces/primeng/issues/7629)
+- hideOnDateTimeSelect is not respected when showTime is false [\#7642](https://github.com/primefaces/primeng/issues/7642)
+- bug in dropdown : TypeError: Cannot read property 'measureScrollOffset' of undefined [\#8140](https://github.com/primefaces/primeng/issues/8140)
+- Keyboard navigation not working in IE11 after click on table row [\#7703](https://github.com/primefaces/primeng/issues/7703)
+- MultiSelect and Dropdown role type is not appropriate [\#7703](https://github.com/primefaces/primeng/issues/7844)
+- Checkbox binary property is treated like a boolean, declared as string and documented as boolean [\#7681](https://github.com/primefaces/primeng/issues/7681)
+- Dropdown floating label ui-inputwrapper-filled css class not applied [\#8614](https://github.com/primefaces/primeng/issues/8614)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.1) (2020-04-08)
 - TreeTable top level nodes not aligned [\#7297](https://github.com/primefaces/primeng/issues/7297)
@@ -654,6 +665,19 @@ MaskStyleClass Does not found
 **Unit Tests:**
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
+
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.3) (2020-04-15)
+- Calendar incorrect time validation [\#7381](https://github.com/primefaces/primeng/issues/7381)
+- id selector is not being set on toast message [\#7449](https://github.com/primefaces/primeng/issues/7449)
+- PrimeNG KeyFilter alphanum allows !#$%&( in Firefox and IE [\#7570](https://github.com/primefaces/primeng/issues/7570)
+- Dropdown/MultiSelect control should be marked as touched after hiding the list [\#7629](https://github.com/primefaces/primeng/issues/7629)
+- hideOnDateTimeSelect is not respected when showTime is false [\#7642](https://github.com/primefaces/primeng/issues/7642)
+- bug in dropdown : TypeError: Cannot read property 'measureScrollOffset' of undefined [\#8140](https://github.com/primefaces/primeng/issues/8140)
+- Keyboard navigation not working in IE11 after click on table row [\#7703](https://github.com/primefaces/primeng/issues/7703)
+- MultiSelect and Dropdown role type is not appropriate [\#7703](https://github.com/primefaces/primeng/issues/7844)
+- Checkbox binary property is treated like a boolean, declared as string and documented as boolean [\#7681](https://github.com/primefaces/primeng/issues/7681)
+- Dropdown floating label ui-inputwrapper-filled css class not applied [\#8614](https://github.com/primefaces/primeng/issues/8614)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.2) (2020-04-08)
 - TreeTable top level nodes not aligned [\#7297](https://github.com/primefaces/primeng/issues/7297)
