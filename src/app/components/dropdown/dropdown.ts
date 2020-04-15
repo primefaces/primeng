@@ -513,6 +513,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onMouseclick(event) {
+        event.preventDefault();
+
         if (this.disabled||this.readonly) {
             return;
         }
