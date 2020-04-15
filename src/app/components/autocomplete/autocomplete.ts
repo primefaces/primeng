@@ -485,18 +485,23 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     }
 
     handleDropdownClick(event) {
-        this.focusInput();
-        let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+        if (!this.overlayVisible) {
+            this.focusInput();
+            let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
 
-        if (this.dropdownMode === 'blank')
-            this.search(event, '');
-        else if (this.dropdownMode === 'current')
-            this.search(event, queryValue);
+            if (this.dropdownMode === 'blank')
+                this.search(event, '');
+            else if (this.dropdownMode === 'current')
+                this.search(event, queryValue);
 
-        this.onDropdownClick.emit({
-            originalEvent: event,
-            query: queryValue
-        });
+            this.onDropdownClick.emit({
+                originalEvent: event,
+                query: queryValue
+            });
+        }
+        else {
+            this.hide();
+        }
     }
 
     focusInput() {
