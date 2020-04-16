@@ -442,7 +442,7 @@ export class Dialog implements OnDestroy {
         }
     }
 
-    rePosition() {
+    resetPosition() {
         this.container.style.left = '';
         this.container.style.top = '';
         this.container.style.margin = '';
