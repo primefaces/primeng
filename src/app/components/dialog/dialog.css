@@ -19,7 +19,6 @@
 }
 
 .ui-dialog {
-    position: fixed;
     padding: 0;
     pointer-events: auto;
     display: flex;
