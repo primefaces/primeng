@@ -438,7 +438,14 @@ export class Dialog implements OnDestroy {
         if (this.draggable) {
             this.dragging = false;
             DomHandler.removeClass(document.body, 'ui-unselectable-text');
+            this.cd.detectChanges();
         }
+    }
+
+    rePosition() {
+        this.container.style.left = '';
+        this.container.style.top = '';
+        this.container.style.margin = '';
     }
 
     initResize(event: MouseEvent) {
