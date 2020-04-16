@@ -363,7 +363,11 @@ export class Dialog implements OnDestroy {
             this.dragging = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-            this.container.style.position = 'fixed';
+
+            if (!DomHandler.isIE()) {
+                this.container.style.position = 'fixed';
+            }
+
             this.container.style.margin = '0';
             DomHandler.addClass(document.body, 'ui-unselectable-text');
         }
@@ -430,6 +434,10 @@ export class Dialog implements OnDestroy {
                 this.container.style.left = leftPos + 'px';
                 this.lastPageY = event.pageY;
                 this.container.style.top = topPos + 'px';
+            }
+
+            if (DomHandler.isIE() && this.container.style.position != 'fixed' && this.container.style.top && this.container.style.left) {
+                this.container.style.position = 'fixed';
             }
         }
     }
