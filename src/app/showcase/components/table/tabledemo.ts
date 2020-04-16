@@ -83,7 +83,6 @@ export class TableDemo implements OnInit {
     }
 
     onRepresentativeChange(event) {
-        debugger;
         this.table.filter(event.value, 'representative', 'in')
     }
 }
