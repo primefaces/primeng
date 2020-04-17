@@ -174,7 +174,9 @@ export class SplitButton implements OnDestroy {
             else
                 DomHandler.appendChild(this.overlay, this.appendTo);
 
-            this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+            if (!this.overlay.style.minWidth) {
+                this.overlay.style.minWidth = DomHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+            }
         }
     }
 
