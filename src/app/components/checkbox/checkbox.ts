@@ -84,14 +84,14 @@ export class Checkbox implements ControlValueAccessor {
         }
         
         this.checked = !this.checked;
-        this.updateModel();
+        this.updateModel(event);
         
         if (focus) {
             checkbox.focus();
         }
     }
     
-    updateModel() {
+    updateModel(event) {
         if (!this.binary) {
             if (this.checked)
                 this.addValue();
@@ -108,13 +108,13 @@ export class Checkbox implements ControlValueAccessor {
             this.onModelChange(this.checked);
         }
         
-        this.onChange.emit(this.checked);
+        this.onChange.emit({checked:this.checked, originalEvent: event});
     }
     
     handleChange(event) {
         if (!this.readonly) {
             this.checked = event.target.checked;
-            this.updateModel();
+            this.updateModel(event);
         }
     }
 
