@@ -10,7 +10,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
   <button type="button" (click)="visibleSidebar1 = false" label="Save" class="ui-button-success"></button>
   <button type="button" (click)="visibleSidebar1 = false" label="Cancel" class="ui-button-secondary"></button>
   </p-sidebar>
-  <button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"></button>`
+  <button type="button" (click)="visibleSidebar1 = true"></button>`
 })
 class TestSideBarComponent {
   visibleSidebar1;

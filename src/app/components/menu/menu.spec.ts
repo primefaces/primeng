@@ -4,7 +4,7 @@ import { Menu, MenuItemContent } from './menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
-import { Button } from '../button/button';
+import { ButtonModule } from '../button/button';
 
 @Component({
   template: `<p-menu #menu></p-menu>
@@ -23,13 +23,13 @@ describe('Menu', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          RouterTestingModule
+          RouterTestingModule,
+          ButtonModule
         ],
         declarations: [
           Menu,
           MenuItemContent,
-          TestMenuComponent,
-          Button
+          TestMenuComponent
         ]
       });
       

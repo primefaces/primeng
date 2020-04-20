@@ -4,6 +4,7 @@ import { Card } from './card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Footer, Header } from 'primeng/api';
+import { ButtonModule } from '../button/button';
 
 @Component({
   template: `<p-card>
@@ -30,7 +31,8 @@ describe('Card', () => {
       TestBed.configureTestingModule({
         schemas: [NO_ERRORS_SCHEMA],
         imports: [
-          NoopAnimationsModule
+          NoopAnimationsModule,
+          ButtonModule
         ],
         declarations: [
           Card,

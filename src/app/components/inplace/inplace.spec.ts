@@ -2,6 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Inplace } from './inplace';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from '../button/button';
 
 describe('Inplace', () => {
   
@@ -11,10 +12,11 @@ describe('Inplace', () => {
     beforeEach(() => {
     TestBed.configureTestingModule({
         imports: [
-        NoopAnimationsModule
+            NoopAnimationsModule,
+            ButtonModule
         ],
         declarations: [
-        Inplace
+            Inplace
         ]
     });
 

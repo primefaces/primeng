@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ButtonModule } from '../button/button';
 
 @Component({
   template: `<p-slideMenu #menu></p-slideMenu>
@@ -26,6 +27,7 @@ describe('SlideMenu', () => {
         imports: [
           NoopAnimationsModule,
           RouterTestingModule,
+          ButtonModule
         ],
         declarations: [
           SlideMenu,

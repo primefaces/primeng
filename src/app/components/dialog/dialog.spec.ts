@@ -4,6 +4,8 @@ import { Dialog } from './dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { Footer } from 'primeng/api';
+import { FocusTrapModule } from '../focustrap/focustrap';
+import { ButtonModule } from '../button/button';
 
 @Component({
     template: `
@@ -33,7 +35,9 @@ describe('Dialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                NoopAnimationsModule    
+                NoopAnimationsModule,
+                FocusTrapModule,
+                ButtonModule 
             ],
             declarations: [
                 Dialog,

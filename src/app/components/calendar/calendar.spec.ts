@@ -1418,7 +1418,7 @@ describe('Calendar', () => {
       dates[0].nativeElement.click();
       fixture.detectChanges();
 
-      expect(calendar.currentMonth).toEqual(7);
+      expect(calendar.value.getMonth()).toEqual(7);
     });
 
     it('should change showOtherMonths', () => {

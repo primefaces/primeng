@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Toolbar } from './toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ButtonModule } from '../button/button';
 
 @Component({
   template: `<p-toolbar>
@@ -29,7 +30,8 @@ describe('Toolbar', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
-          NoopAnimationsModule
+          NoopAnimationsModule,
+          ButtonModule
         ],
         declarations: [
           Toolbar,
