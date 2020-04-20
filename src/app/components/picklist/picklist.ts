@@ -318,7 +318,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
 
     onFilter(event: KeyboardEvent, data: any[], listType: number) {
-        let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
+        let query = ((<HTMLInputElement> event.target).value.trim() as any).toLocaleLowerCase(this.filterLocale);
         this.filter(query, data, listType);
     }
 
