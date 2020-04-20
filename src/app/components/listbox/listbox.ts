@@ -80,6 +80,8 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Input() filterMode: string = 'contains';
 
+    @Input() filterLocale: string;
+
     @Input() metaKeySelection: boolean = true;
 
     @Input() dataKey: string;
@@ -127,7 +129,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     public headerCheckboxFocus: boolean;
 
     public disabledSelectedOptions: SelectItem[] = [];
-    
+
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
 
     @Input() get options(): any[] {
@@ -138,11 +140,11 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let opts = this.optionLabel ? ObjectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
     }
-    
+
     @Input() get filterValue(): string {
         return this._filterValue;
     }
-    
+
     set filterValue(val: string) {
         this._filterValue = val;
     }
@@ -433,10 +435,9 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     isItemVisible(option: SelectItem): boolean {
         if (this.filterValue) {
             let visible;
-            let filterText = ObjectUtils.removeAccents(this.filterValue).toLowerCase();
 
             if (this.filterMode) {
-                visible = FilterUtils[this.filterMode](option.label,this.filterValue);
+                visible = FilterUtils[this.filterMode](option.label, this.filterValue, this.filterLocale);
             }
             else {
                 visible = true;
@@ -456,14 +457,14 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
     onInputBlur(event) {
         this.focus = false;
     }
-    
+
     onOptionKeyDown(event:KeyboardEvent, option) {
         if (this.readonly) {
             return;
         }
-        
+
         let item = <HTMLLIElement> event.currentTarget;
-        
+
         switch(event.which) {
             //down
             case 40:
@@ -471,20 +472,20 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
                 if (nextItem) {
                     nextItem.focus();
                 }
-                
+
                 event.preventDefault();
             break;
-            
+
             //up
             case 38:
                 var prevItem = this.findPrevItem(item);
                 if (prevItem) {
                     prevItem.focus();
                 }
-                
+
                 event.preventDefault();
             break;
-            
+
             //enter
             case 13:
                 this.onOptionClick(event, option);
@@ -492,7 +493,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             break;
         }
     }
-    
+
     findNextItem(item) {
         let nextItem = item.nextElementSibling;
 
@@ -504,13 +505,13 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     findPrevItem(item) {
         let prevItem = item.previousElementSibling;
-        
+
         if (prevItem)
             return DomHandler.hasClass(prevItem, 'ui-state-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else
             return null;
-    } 
-    
+    }
+
     getFilteredOptions() {
         let filteredOptions = [];
         if (this.filterValue) {

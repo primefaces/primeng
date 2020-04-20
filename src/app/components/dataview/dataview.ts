@@ -47,15 +47,15 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     @Input() paginator: boolean;
 
     @Input() rows: number;
-    
+
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
-    
+
     @Input() rowsPerPageOptions: any[];
 
     @Input() paginatorPosition: string = 'bottom';
-    
+
     @Input() alwaysShowPaginator: boolean = true;
 
     @Input() paginatorDropdownAppendTo: any;
@@ -69,7 +69,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     @Input() lazy: boolean;
 
     @Input() emptyMessage: string = 'No records found';
-    
+
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     @Input() style: any;
@@ -79,7 +79,9 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Input() filterBy: string;
-    
+
+    @Input() filterLocale: string;
+
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'pi pi-spinner';
@@ -97,15 +99,15 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     @Output() onSort: EventEmitter<any> = new EventEmitter();
 
     @Output() onChangeLayout: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     _value: any[];
-    
+
     listItemTemplate: TemplateRef<any>;
 
     gridItemTemplate: TemplateRef<any>;
@@ -115,13 +117,13 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
     paginatorLeftTemplate: TemplateRef<any>;
 
     paginatorRightTemplate: TemplateRef<any>;
-    
+
     filteredValue: any[];
 
     filterValue: string;
 
     initialized: boolean;
-    
+
     constructor(public el: ElementRef) {}
 
     ngOnInit() {
@@ -135,7 +137,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         if (simpleChanges.value) {
             this._value = simpleChanges.value.currentValue;
             this.updateTotalRecords();
-            
+
             if (!this.lazy && this.hasFilter()) {
                 this.filter(this.filterValue);
             }
@@ -148,14 +150,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
             }
         }
     }
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'listItem':
                     this.listItemTemplate = item.template;
                 break;
-                
+
                 case 'gridItem':
                     this.gridItemTemplate = item.template;
                 break;
@@ -178,13 +180,13 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
             case 'list':
                 this.itemTemplate = this.listItemTemplate;
             break;
-            
+
             case 'grid':
                 this.itemTemplate = this.gridItemTemplate;
             break;
         }
     }
-    
+
     changeLayout(layout: string) {
         this.layout = layout;
         this.onChangeLayout.emit({
@@ -192,7 +194,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         });
         this.updateItemTemplate();
     }
-        
+
     updateTotalRecords() {
         this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
     }
@@ -252,7 +254,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
         let data = this.filteredValue||this.value;
         return data == null || data.length == 0;
     }
-    
+
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
@@ -261,7 +263,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
             sortOrder: this.sortOrder
         };
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
@@ -271,17 +273,17 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode);
-    
+            this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
+
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;
             }
-    
+
             if (this.paginator) {
                 this.first = 0;
                 this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
             }
-        }       
+        }
     }
 
     hasFilter() {

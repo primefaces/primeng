@@ -21,7 +21,7 @@ import {DomHandler} from 'primeng/dom';
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" [attr.tabindex]="0"
-                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" 
+                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}"
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()" [attr.aria-label]="node.label">
                     <span class="ui-tree-toggler pi pi-fw ui-unselectable-text" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
@@ -162,7 +162,7 @@ export class UITreeNode implements OnInit {
         if (event.which === 13) {
             this.tree.onNodeClick(event, this.node);
         }
-    } 
+    }
 
     onNodeTouchEnd() {
         this.tree.onNodeTouchEnd();
@@ -299,7 +299,7 @@ export class UITreeNode implements OnInit {
                             this.processNodeDrop(dragNode);
                         }
                     });
-                }   
+                }
                 else {
                     this.processNodeDrop(dragNode);
                     this.tree.onNodeDrop.emit({
@@ -308,7 +308,7 @@ export class UITreeNode implements OnInit {
                         dropNode: this.node,
                         index: this.index
                     });
-                } 
+                }
             }
         }
 
@@ -330,7 +330,7 @@ export class UITreeNode implements OnInit {
             index: this.tree.dragNodeIndex
         });
 
-        
+
     }
 
     onDropNodeDragEnter(event) {
@@ -416,7 +416,7 @@ export class UITreeNode implements OnInit {
 
                 event.preventDefault();
             break;
-            
+
             //enter
             case 13:
                 this.tree.onNodeClick(event, this.node);
@@ -564,6 +564,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() filterMode: string = 'lenient';
 
     @Input() filterPlaceholder: string;
+
+    @Input() filterLocale: string;
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
@@ -792,7 +794,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 
     syncNodeOption(node, parentNodes, option, value?: any) {
-        // to synchronize the node option between the filtered nodes and the original nodes(this.value) 
+        // to synchronize the node option between the filtered nodes and the original nodes(this.value)
         const _node = this.hasFilteredNodes() ? this.getNodeWithKey(node.key, parentNodes) : null;
         if (_node) {
             _node[option] = value||node[option];
@@ -902,13 +904,13 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     getRootNode() {
         return this.filteredNodes ? this.filteredNodes : this.value;
     }
-    
+
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
         if (this.templateMap)
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else
             return null;
-    }    
+    }
 
     onDragOver(event) {
         if (this.droppableNodes && (!this.value || this.value.length === 0)) {
@@ -1018,7 +1020,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         else {
             this.filteredNodes = [];
             const searchFields: string[] = this.filterBy.split(',');
-            const filterText = ObjectUtils.removeAccents(filterValue).toLowerCase();
+            const filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(this.filterLocale);
             const isStrictMode = this.filterMode === 'strict';
             for(let node of this.value) {
                 let copyNode = {...node};
@@ -1028,7 +1030,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
                     this.filteredNodes.push(copyNode);
                 }
             }
-        }  
+        }
     }
 
     findFilteredNodes(node, paramsWithoutNode) {
@@ -1045,7 +1047,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
                     }
                 }
             }
-            
+
             if (matched) {
                 node.expanded = true;
                 return true;
@@ -1056,7 +1058,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     isFilterMatched(node, {searchFields, filterText, isStrictMode}) {
         let matched = false;
         for(let field of searchFields) {
-            let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLowerCase();
+            let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLocaleLowerCase(this.filterLocale);
             if (fieldValue.indexOf(filterText) > -1) {
                 matched = true;
             }

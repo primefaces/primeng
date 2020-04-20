@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit, 
+import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit,
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -179,6 +179,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() globalFilterFields: string[];
 
     @Input() filterDelay: number = 300;
+
+    @Input() filterLocale: string;
 
     @Input() expandedRowKeys: { [s: string]: boolean; } = {};
 
@@ -1270,7 +1272,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             let dataFieldValue = ObjectUtils.resolveFieldData(this.value[i], filterField);
                             let filterConstraint = FilterUtils[filterMatchMode];
 
-                            if (!filterConstraint(dataFieldValue, filterValue)) {
+                            if (!filterConstraint(dataFieldValue, filterValue, this.filterLocale)) {
                                 localMatch = false;
                             }
 
@@ -1283,7 +1285,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for(let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field||globalFilterFieldsArray[j];
-                            globalMatch = FilterUtils[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value);
+                            globalMatch = FilterUtils[this.filters['global'].matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), this.filters['global'].value, this.filterLocale);
 
                             if (globalMatch) {
                                 break;
