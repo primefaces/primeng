@@ -5,7 +5,7 @@ export class DynamicDialogConfig {
 	width?: string;
 	height?: string;
 	closeOnEscape?: boolean;
-	baseZIndex?: number = 0;
+	baseZIndex?: number;
 	autoZIndex?: boolean;
 	dismissableMask?: boolean;
 	rtl?: boolean;
