@@ -276,6 +276,12 @@ export class MyModel &#123;
                     <td>When specified, filter displays with this value.</td>
                 </tr>
                 <tr>
+                    <td>filterLocale</td>
+                    <td>string</td>
+                    <td>undefined</td>
+                    <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                </tr>
+                <tr>
                     <td>readonly</td>
                     <td>boolean</td>
                     <td>false</td>
@@ -379,7 +385,7 @@ export class MyModel &#123;
             </tbody>
         </table>
     </div>
-    
+
     <h3>Styling</h3>
     <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming
             page</a>.</p>

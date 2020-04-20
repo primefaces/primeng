@@ -1369,7 +1369,7 @@ export class TableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>By default context menu uses a different property called contextMenuSelection as above, this means when row selection mode is also enabled, the two properties, both selection and contextMenuSelection need to be maintained. 
+            <p>By default context menu uses a different property called contextMenuSelection as above, this means when row selection mode is also enabled, the two properties, both selection and contextMenuSelection need to be maintained.
                 In case you prefer to configure Table to manage the same selection property both on row click and context menu, set contextMenuSelectionMode as "joint". Table below has both selectionMode and contextMenu enabled where
                 both of these features update the same selection object.</p>
 
@@ -1483,10 +1483,10 @@ export class TableDemo implements OnInit &#123;
             </p>
             <p>
                 Save and Cancel functionality implementation is left to the page author to provide more control over the editing business logic, example below utilizes
-                a simple implementation where a row is cloned when editing is initialized and is saved or restored depending on the result of the editing. An implicit variable called "editing" is passed to the body template 
+                a simple implementation where a row is cloned when editing is initialized and is saved or restored depending on the result of the editing. An implicit variable called "editing" is passed to the body template
                 so you may come up with your own UI controls that implement editing based on your own requirements such as adding validations and styling. Note that <b>pSaveEditableRow</b> only switches the row to back view mode when there are no validation errors.
             </p>
-            <p>Moreover you may use setting <b>pEditableRowDisabled</b> property as true to disable editing for that particular row and 
+            <p>Moreover you may use setting <b>pEditableRowDisabled</b> property as true to disable editing for that particular row and
                 in case you need to display rows in edit mode by default use <b>editingRowKeys</b> property which is a map whose key is the dataKey of the record where value is any arbitrary number greater than zero.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1875,7 +1875,7 @@ export class TableExportDemo implements OnInit &#123;
             &#125;)
         &#125;)
     &#125;
-    
+
     exportExcel() &#123;
         import("xlsx").then(xlsx => &#123;
             const worksheet = xlsx.utils.json_to_sheet(this.getCars());
@@ -2682,6 +2682,12 @@ export class TableDemo implements OnInit &#123;
                             <td>An array of fields as string to use in global filtering.</td>
                         </tr>
                         <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
+                        <tr>
                             <td>expandedRowKeys</td>
                             <td>&#123;[s: string]: boolean;&#125;</td>
                             <td>null</td>
@@ -3297,38 +3303,38 @@ export class TableDemo implements OnInit &#123;
         font-weight: 700;
         font-size: 12px;
         letter-spacing: .3px;
-    
+
         &.status-qualified &#123;
             background-color: #C8E6C9;
             color: #256029;
         &#125;
-    
+
         &.status-unqualified &#123;
             background-color: #FFCDD2;
             color: #C63737;
         &#125;
-    
+
         &.status-negotiation &#123;
             background-color: #FEEDAF;
             color: #8A5340;
         &#125;
-    
+
         &.status-new &#123;
             background-color: #B3E5FC;
             color: #23547B;
         &#125;
-    
+
         &.status-renewal &#123;
             background-color: #ECCFFF;
             color: #694382;
         &#125;
-    
+
         &.status-proposal &#123;
             background-color: #FFD8B2;
             color: #805B36;
         &#125;
     &#125;
-    
+
     .flag &#123;
         vertical-align: middle;
         width: 30px;
@@ -3346,7 +3352,7 @@ export class TableDemo implements OnInit &#123;
 
         span &#123;
             margin-top: .125em;
-            vertical-align: middle; 
+            vertical-align: middle;
             margin-left: .5em
         &#125;
     &#125;
@@ -3355,7 +3361,7 @@ export class TableDemo implements OnInit &#123;
         .ui-dropdown &#123;
             float: left;
         &#125;
-    
+
         .ui-paginator-current &#123;
             float: right;
         &#125;
@@ -3364,7 +3370,7 @@ export class TableDemo implements OnInit &#123;
     .ui-progressbar &#123;
         height: 8px;
         background-color: #D8DADC;
-    
+
         .ui-progressbar-value &#123;
             background-color: #00ACAD;
         &#125;
@@ -3372,7 +3378,7 @@ export class TableDemo implements OnInit &#123;
 
     .ui-column-filter &#123;
         display: block;
-    
+
         input &#123;
             width: 100%;
         &#125;
@@ -3380,7 +3386,7 @@ export class TableDemo implements OnInit &#123;
 
     .ui-table-globalfilter-container &#123;
         float: right;
-    
+
         input &#123;
             width: 200px;
         &#125;
@@ -3388,7 +3394,7 @@ export class TableDemo implements OnInit &#123;
 
     .ui-datepicker &#123;
         min-width: 25em;
-    
+
         td &#123;
             font-weight: 400;
         &#125;

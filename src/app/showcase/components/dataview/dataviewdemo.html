@@ -343,9 +343,9 @@ export class DataViewSortDemo implements OnInit &#123;
 </code>
 </pre>
             <h3>Filtering</h3>
-            <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component, 
-                for flexibility there is no built-in UI available so that a custom UI can be used for the filter element. 
-                Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".  
+            <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component,
+                for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
+                Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
                 Here is an example that uses an input field. filterBy is a string and multiple fields can be defined with a comma separated list.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -505,6 +505,12 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Comma separated list of fields in the object graph to search against.</td>
+                        </tr>
+                        <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
                         </tr>
                         <tr>
                             <td>loading</td>

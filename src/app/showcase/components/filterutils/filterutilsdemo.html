@@ -16,7 +16,7 @@
             </div>
         </ng-template>
     </p-autoComplete>
-    
+
     <h3>Custom</h3>
     <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
         <ng-template pTemplate="header" let-columns>
@@ -102,61 +102,71 @@ FilterUtils['isPrimeNumber'](568985673);              //false
                         <tr>
                             <td>startsWith</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value starts with the filter value</td>
                         </tr>
                         <tr>
                             <td>contains</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value contains the filter value</td>
                         </tr>
                         <tr>
                             <td>endsWith</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value ends with the filter value</td>
                         </tr>
                         <tr>
                             <td>equals</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value equals the filter value</td>
                         </tr>
                         <tr>
                             <td>notEquals</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value does not equal the filter value</td>
                         </tr>
                         <tr>
                             <td>in</td>
                             <td>value: Value to filter<br />
-                                filter[]: An array of filter values</td>
+                                filter[]: An array of filter values<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value contains the filter value</td>
                         </tr>
                         <tr>
                             <td>lt</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value is less than the filter value</td>
                         </tr>
                         <tr>
                             <td>lte</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value is less than or equals to the filter value</td>
                         </tr>
                         <tr>
                             <td>gt</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value is greater than the filter value</td>
                         </tr>
                         <tr>
                             <td>gte</td>
                             <td>value: Value to filter<br />
-                                filter: Filter value</td>
+                                filter: Filter value<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the value is greater than or equals to the filter value</td>
                         </tr>
                         <tr>
@@ -164,12 +174,13 @@ FilterUtils['isPrimeNumber'](568985673);              //false
                             <td>value[]: An array of values to filter<br />
                                 fields[]: An array of properties in the value object<br />
                                 filterValue: Filter value<br />
-                                filterMatchMode: Constraint</td>
+                                filterMatchMode: Constraint<br />
+                                filterLocale: Locale to use in filtering</td>
                             <td>Whether the property values of the given value collection matches the filter.</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>            
+            </div>
 
             <h3>Dependencies</h3>
             <p>None.</p>
@@ -250,11 +261,11 @@ export class FilterUtilsDemo &#123;
             if (filter === undefined || filter === null || filter.trim() === '') &#123;
                 return true;
             &#125;
-    
+
             if (value === undefined || value === null) &#123;
                 return false;
             &#125;
-            
+
             return value.toString() === filter.toString();
         &#125;
 
