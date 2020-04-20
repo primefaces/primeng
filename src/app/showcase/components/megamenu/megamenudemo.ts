@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import {MegaMenuItem} from 'primeng/api';
 
 @Component({
     templateUrl: './megamenudemo.html'
 })
 export class MegaMenuDemo {
 
-    items: MenuItem[];
+    items: MegaMenuItem[];
 
     ngOnInit() {
         this.items = [

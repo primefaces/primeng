@@ -20,6 +20,7 @@
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;MenuModule&#125; from 'primeng/menu';
 import &#123;MenuItem&#125; from 'primeng/api';
+import &#123;MegaMenuItem&#125; from 'primeng/api';  //required when using MegaMenu
 </code>
 </pre>
 
@@ -48,6 +49,10 @@ export class MenuDemo &#123;
 &#125;
 </code>
 </pre>
+
+    <h3>MegaMenu</h3>
+    <p>All menu components except MegaMenu uses MenuItem[] as the model, in the case of MegaMenu root level items should be MegaMenuItem[] whereas
+        nested submenus can be MenuItem[]. See the <a [routerLink]="['/menumodel']">MegaMenu</a> documentation for samples.</p>
 
     <p>MenuItem provides the following properties. Note that not all of them may be utilized by the menu component.</p>
     <div class="doc-tablewrapper">

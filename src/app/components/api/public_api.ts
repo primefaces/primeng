@@ -3,6 +3,7 @@ export * from './confirmation';
 export * from './confirmationservice';
 export * from './filtermetadata';
 export * from './lazyloadevent';
+export * from './megamenuitem';
 export * from './menuitem';
 export * from './message';
 export * from './messageservice';

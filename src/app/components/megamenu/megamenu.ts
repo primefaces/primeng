@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {MenuItem} from 'primeng/api';
+import {MegaMenuItem,MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -72,7 +72,7 @@ import {RouterModule} from '@angular/router';
 })
 export class MegaMenu {
 
-    @Input() model: MenuItem[];
+    @Input() model: MegaMenuItem[];
 
     @Input() style: any;
 
@@ -90,7 +90,7 @@ export class MegaMenu {
                 
     constructor(public el: ElementRef, public renderer: Renderer2) {}
     
-    onItemMouseEnter(event, item, menuitem: MenuItem) {
+    onItemMouseEnter(event, item, menuitem: MegaMenuItem) {
         if (menuitem.disabled) {
             return;
         }
@@ -127,7 +127,7 @@ export class MegaMenu {
         }, 1000);
     }
     
-    itemClick(event, item: MenuItem) {
+    itemClick(event, item: MenuItem | MegaMenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -147,7 +147,7 @@ export class MegaMenu {
         this.activeItem = null;
     }
     
-    getColumnClass(menuitem: MenuItem) {
+    getColumnClass(menuitem: MegaMenuItem) {
         let length = menuitem.items ? menuitem.items.length: 0;
         let columnClass;
         switch(length) {

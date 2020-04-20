@@ -1,11 +1,12 @@
 import { QueryParamsHandling } from '@angular/router';
+import { MenuItem } from './menuitem';
 
-export interface MenuItem {
+export interface MegaMenuItem {
     label?: string;
     icon?: string;
     command?: (event?: any) => void;
     url?: string;
-    items?: MenuItem[];
+    items?: MenuItem[][];
     expanded?: boolean;
     disabled?: boolean;
     visible?: boolean;
