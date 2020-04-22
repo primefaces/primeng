@@ -112,6 +112,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() lazy: boolean = false;
 
+    @Input() lazyLoadOnInit: boolean = true;
+
     @Input() paginator: boolean;
 
     @Input() rows: number;
@@ -319,7 +321,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     toggleRowIndex: number;
 
     ngOnInit() {
-        if (this.lazy) {
+        if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         this.initialized = true;
