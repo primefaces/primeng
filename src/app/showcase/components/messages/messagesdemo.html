@@ -20,6 +20,14 @@
     
     <h3>Message Service</h3>
     <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
+
+    <h3>Static Content</h3>
+    <p-messages severity="info">
+        <ng-template pTemplate>
+            <img src="assets/showcase/images/demo/organization/walter.jpg" width="32" />
+            <span class="custom-message">I am the one who knocks.</span>
+        </ng-template>
+    </p-messages>
     
     <h3>Inline Message CSS</h3>
     <p>p-message component is used to display inline messages mostly within forms.</p>
@@ -136,7 +144,12 @@ import &#123;MessageService&#125; from 'primeng/api';
             does not need to update its value.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
+&lt;p-messages severity="info"&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;img src="assets/showcase/images/demo/organization/walter.jpg" width="32" /&gt;
+        &lt;span class="custom-message"&gt;I am the one who knocks.&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-messages&gt;
 </code>
 </pre>
 
@@ -148,6 +161,16 @@ import &#123;MessageService&#125; from 'primeng/api';
                 <li>warn</li>
                 <li>error</li>
             </ul>
+
+            <h3>Static Content</h3>
+            <p>Alternative way to provide the content for the messages is templating. In this case value property and message service is ignored and only static
+                is displayed.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
+</code>
+</pre>
             
             <h3>Message Component</h3>
             <p>Message component is useful in cases where messages need to be displayed related to an element such as forms. It has two property, severity and text of the message.</p>
@@ -316,6 +339,14 @@ import &#123;MessageService&#125; from 'primeng/api';
 &lt;h3&gt;Message Service&lt;/h3&gt;
 &lt;button type="button" pButton (click)="showViaService()" label="Use Service"&gt;&lt;/button&gt;
 
+&lt;h3&gt;Static Content&lt;/h3&gt;
+&lt;p-messages severity="info"&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;img src="assets/showcase/images/demo/organization/walter.jpg" width="32" /&gt;
+        &lt;span class="custom-message"&gt;I am the one who knocks.&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-messages&gt;
+
 &lt;h3&gt;Inline Message CSS&lt;/h3&gt;
 &lt;p&gt;CSS helpers to display inline messages mostly within forms.&lt;/p&gt;
 &lt;p-message severity="info" text="PrimeNG Rocks"&gt;&lt;/p-message&gt;
@@ -351,6 +382,13 @@ import &#123;MessageService&#125; from 'primeng/api';
         :host ::ng-deep .ui-message,
         :host ::ng-deep .ui-inputtext &#123;
             margin-right: .25em;
+        &#125;
+
+        :host ::ng-deep .custom-message,
+        :host ::ng-deep img  &#123;
+            align-self: center;
+            font-size: 16px;
+            margin-left: .5em;
         &#125;
     `],
     providers: [MessageService]

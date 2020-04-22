@@ -12,6 +12,13 @@ import {Message,MessageService} from 'primeng/api';
         :host ::ng-deep .ui-inputtext {
             margin-right: .25em;
         }
+
+        :host ::ng-deep .custom-message,
+        :host ::ng-deep img {
+            align-self: center;
+            font-size: 16px;
+            margin-left: .5em;
+        }
     `],
     providers: [MessageService]
 })
