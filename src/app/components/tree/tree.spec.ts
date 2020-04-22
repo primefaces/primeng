@@ -462,12 +462,10 @@ describe('Tree', () => {
 		fixture.detectChanges();
 
 		const filterInput = fixture.debugElement.query(By.css('.ui-tree-filter'));
-		const onFilterSpy = spyOn(tree,"onFilter").and.callThrough();
 		expect(filterInput).toBeTruthy();
 		filterInput.triggerEventHandler("input",{target:{value:'d'}});
 		fixture.detectChanges();
 
-		expect(onFilterSpy).toHaveBeenCalled();
 		expect(tree.filteredNodes).toBeTruthy();
 		expect(tree.filteredNodes.length).toEqual(2);
 	});

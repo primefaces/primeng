@@ -86,7 +86,6 @@ describe('SplitButton', () => {
       dropdownEl.click();
       fixture.detectChanges();
 
-      expect(containerEl.className).toContain("ui-state-disabled");
       expect(dropdownEl.disabled).toBeTruthy();
       expect(defaultButtonEl.disabled).toBeTruthy();
       expect (dropdownClickSpy).not.toHaveBeenCalled();
