@@ -257,7 +257,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         }
 
         return collection.find(m => {
-           return (m.summary === message.summary && m.detail && message.detail && m.severity === message.severity);
+           return ((m.summary === message.summary) && (m.detail == message.detail) && (m.severity === message.severity));
         }) != null;
     }
 
