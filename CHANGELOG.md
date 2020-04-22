@@ -1,6 +1,62 @@
 # Change Log
 
-MaskStyleClass Does not found
+## [9.0.6](https://github.com/primefaces/primeng/tree/9.0.6) (2020-04-22)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.5...9.0.6)
+
+**Implemented New Features and Enhancements:**
+
+- Enhance shiftkey support for Table [\#8600](https://github.com/primefaces/primeng/issues/8600)
+- Calendar should not use ui-g [\#8769](https://github.com/primefaces/primeng/issues/8769)
+- filterLocale for components with filtering [\#8754](https://github.com/primefaces/primeng/issues/8754)
+- Update sort icons [\#8753](https://github.com/primefaces/primeng/issues/8753)
+- Add modal property to DynamicDialog [\#8726](https://github.com/primefaces/primeng/issues/8726)
+- Add onFilter to Tree [\#8710](https://github.com/primefaces/primeng/issues/8710)
+- Nested multiple sort support for TreeTable [\#8530](https://github.com/primefaces/primeng/issues/8530)
+- Add LazyLoadOnInit flag for Tree Table [\#8527](https://github.com/primefaces/primeng/issues/8527)
+- p-autoComplete dropdown menu does not toggle closed on click of menu disclosure button [\#8523](https://github.com/primefaces/primeng/issues/8523)
+- Remove zoom css property [\#8440](https://github.com/primefaces/primeng/issues/8440)
+- Paginator showAll - Pre-Selecting All Inconsistent [\#8360](https://github.com/primefaces/primeng/issues/8360)
+- Original browser event of p-checkbox is not exposed [\#8221](https://github.com/primefaces/primeng/issues/8221)
+- Allow static HTML in the messages component [\#1795](https://github.com/primefaces/primeng/issues/1795)
+
+**Fixed bugs:**
+
+- Multiple messages should wrap [\#8768](https://github.com/primefaces/primeng/issues/8768)
+- The dynamicDialog can't be closed using the ESC key if the dynamicDialog hasn't the baseZIndex property [\#8760](https://github.com/primefaces/primeng/issues/8760)
+- TabMenu RouterLinkActive doesn't work since @9.0.3 [\#8748](https://github.com/primefaces/primeng/issues/8748)
+- p-dialog drag not working IE 11 [\#8745](https://github.com/primefaces/primeng/issues/8745)
+- Add rePosition Function to Dialog [\#8744](https://github.com/primefaces/primeng/issues/8744)
+- All links are highlighted instead of using text color in PanelMenu [\#8731](https://github.com/primefaces/primeng/issues/8731)
+- Toast - preventOpenDuplicates does not work - Detail Message is not compared properly [\#8717](https://github.com/primefaces/primeng/issues/8717)
+- Toast modal property is not active. [\#8716](https://github.com/primefaces/primeng/issues/8716)
+- dismissableMask not working in dynamic dialog [\#8714](https://github.com/primefaces/primeng/issues/8714)
+- Typo error in documentation [\#8711](https://github.com/primefaces/primeng/issues/8711)
+- Pressing arrow up key in drag and drop enabled tree selects wrong node [\#8623](https://github.com/primefaces/primeng/issues/8623)
+- Tiered Menu command does not receive MenuItem in event [\#8592](https://github.com/primefaces/primeng/issues/8592)
+- Hovering on timepicker arrows acting like select [\#8584](https://github.com/primefaces/primeng/issues/8584)
+- Drag does not work on Dialogs with position set [\#8581](https://github.com/primefaces/primeng/issues/8581)
+- p-dialog not centered in IE and overflows on maximize [\#8545](https://github.com/primefaces/primeng/issues/8545)
+- Tooltip - new tooltip created without removing old tooltip [\#8516](https://github.com/primefaces/primeng/issues/8516)
+- PickList - items dissapear when items are moved and filters are set [\#8514](https://github.com/primefaces/primeng/issues/8514)
+- p-calendar selectionMode="multiple" After unselect date, the calendar breaks.  [\#8457](https://github.com/primefaces/primeng/issues/8457)
+- Dropdown allows selecting disabled options [\#8448](https://github.com/primefaces/primeng/issues/8448)
+- Button and SplitButton have different brightness when disabled [\#8416](https://github.com/primefaces/primeng/issues/8416)
+- Carousel  - Button inside carousel-item is not clickable in mobile phones [\#8377](https://github.com/primefaces/primeng/issues/8377)
+- multiselect applies disabled UI state to all items when selectionLimit is reached and selection is reset [\#8374](https://github.com/primefaces/primeng/issues/8374)
+- MenuItem items property type error [\#8339](https://github.com/primefaces/primeng/issues/8339)
+- Panel: aria-labelledby points to not existing id when toggleable equals false [\#8272](https://github.com/primefaces/primeng/issues/8272)
+- \[p-tree\] \[bug\] right arrow key tries to expand a leaf if onNodeExpand function is defined [\#8271](https://github.com/primefaces/primeng/issues/8271)
+- Dropdown panelStyle min width overridden when appendTo body is used [\#8218](https://github.com/primefaces/primeng/issues/8218)
+- Toast blocks protractor [\#8122](https://github.com/primefaces/primeng/issues/8122)
+- fieldset: don't animate into collapse !... when collapse is default [\#8022](https://github.com/primefaces/primeng/issues/8022)
+- "no file chosen" tooltip appears after selecting file [\#7957](https://github.com/primefaces/primeng/issues/7957)
+- Slider doesn't works properly with ChangeDetectionStrategy.OnPush / reactive forms [\#7692](https://github.com/primefaces/primeng/issues/7692)
+
+**Deprecated:**
+
+- Deprecate positionTop and positionLeft properties [\#8730](https://github.com/primefaces/primeng/issues/8730)
+
 
 ## [9.0.5](https://github.com/primefaces/primeng/tree/9.0.5) (2020-04-01)
 
