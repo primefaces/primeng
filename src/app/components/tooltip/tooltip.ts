@@ -158,6 +158,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     create() {
         if (this.container) {
+            this.clearHideTimeout();
             this.remove();
         }
 
