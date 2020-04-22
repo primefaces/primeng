@@ -443,7 +443,8 @@ export class UITreeNode implements OnInit {
     }
 
     findLastVisibleDescendant(nodeElement) {
-        const childrenListElement = nodeElement.children[0].children[1];
+        const listElement = <HTMLElement> Array.from(nodeElement.children).find(el => DomHandler.hasClass(el, 'ui-treenode'));
+        const childrenListElement = listElement.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
 
