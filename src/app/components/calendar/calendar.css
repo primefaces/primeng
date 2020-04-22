@@ -140,7 +140,9 @@
     border-left: 0 none;
     border-right: 0 none;
     border-bottom: 0 none;
-	padding: .5em;
+    padding: .5em;
+    display: flex;
+    justify-content: space-between;
 }
 
 .ui-datepicker .ui-datepicker-buttonbar > .ui-g > div:last-child {
