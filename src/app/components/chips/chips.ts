@@ -32,7 +32,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-focus]': 'focus'
     },
     providers: [CHIPS_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Chips implements AfterContentInit,ControlValueAccessor {
 

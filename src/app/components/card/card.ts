@@ -22,7 +22,7 @@ import { BlockableUI } from 'primeng/api';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Card implements BlockableUI {
 

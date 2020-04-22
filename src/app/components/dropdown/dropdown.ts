@@ -144,7 +144,7 @@ export class DropdownItem {
         '[class.ui-inputwrapper-focus]': 'focused'
     },
     providers: [DROPDOWN_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 

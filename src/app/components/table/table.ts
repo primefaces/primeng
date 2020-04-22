@@ -108,7 +108,7 @@ export class TableService {
         </div>
     `,
     providers: [TableService],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
 

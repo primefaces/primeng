@@ -127,7 +127,7 @@ export class SlideMenuSub implements OnDestroy {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SlideMenu implements AfterViewChecked, OnDestroy {
 

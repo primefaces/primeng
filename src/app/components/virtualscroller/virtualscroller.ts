@@ -27,7 +27,7 @@ import {BlockableUI} from 'primeng/api';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScroller implements AfterContentInit,BlockableUI {
 

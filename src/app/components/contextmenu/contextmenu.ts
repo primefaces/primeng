@@ -141,7 +141,7 @@ export class ContextMenuSub {
             <p-contextMenuSub [item]="model" [parentActive]="parentActive" root="root"></p-contextMenuSub>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContextMenu implements AfterViewInit, OnDestroy {
 

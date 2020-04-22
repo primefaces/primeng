@@ -28,7 +28,7 @@ import {RouterModule} from '@angular/router';
             </ul>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Steps {
     

@@ -30,7 +30,7 @@ import {DomHandler} from 'primeng/dom';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         

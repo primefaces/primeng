@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-captcha',
     template: `<div></div>`,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Captcha implements AfterViewInit,OnDestroy {
 

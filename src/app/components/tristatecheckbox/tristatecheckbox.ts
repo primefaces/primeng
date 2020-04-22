@@ -25,7 +25,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
 

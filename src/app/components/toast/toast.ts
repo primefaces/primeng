@@ -146,7 +146,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Toast implements OnInit,AfterContentInit,OnDestroy {
 

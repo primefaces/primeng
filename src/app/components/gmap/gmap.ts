@@ -6,7 +6,7 @@ declare var google: any;
 @Component({
     selector: 'p-gmap',
     template: `<div [ngStyle]="style" [class]="styleClass"></div>`,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GMap implements AfterViewChecked,DoCheck {
 

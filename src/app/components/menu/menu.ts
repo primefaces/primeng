@@ -69,7 +69,7 @@ export class MenuItemContent {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Menu implements OnDestroy {
 

@@ -41,7 +41,7 @@ import { FilterUtils } from 'primeng/utils';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
 

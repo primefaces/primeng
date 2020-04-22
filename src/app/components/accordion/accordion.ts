@@ -48,7 +48,7 @@ let idx: number = 0;
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccordionTab implements OnDestroy {
 

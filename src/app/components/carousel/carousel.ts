@@ -51,7 +51,7 @@ import { UniqueComponentId } from 'primeng/utils';
 			</div>
 		</div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Carousel implements AfterContentInit {
 

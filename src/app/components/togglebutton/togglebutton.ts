@@ -26,7 +26,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 

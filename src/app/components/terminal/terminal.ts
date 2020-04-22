@@ -23,7 +23,7 @@ import {Subscription}   from 'rxjs';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
 

@@ -137,7 +137,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PanelMenu extends BasePanelMenuItem {
     

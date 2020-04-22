@@ -98,7 +98,7 @@ export class TreeTableService {
         </div>
     `,
     providers: [TreeTableService],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
 
