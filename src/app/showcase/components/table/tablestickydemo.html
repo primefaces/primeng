@@ -10,7 +10,7 @@
 <div class="content-section implementation">
     <p-table [columns]="cols" [value]="cars">
         <ng-template pTemplate="header" let-columns>
-            <tr [class]="isNewsActive() ? 'news-active' : ''">
+            <tr>
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
@@ -40,12 +40,13 @@
         :host ::ng-deep .ui-table .ui-table-thead > tr > th &#123;
             position: -webkit-sticky;
             position: sticky;
-            top: 70px;
+            top: 69px;
+            box-shadow: 1px 3px 6px 0 rgba(32,33,36,0.10);
         &#125;
 
         @media screen and (max-width: 64em) &#123;
             :host ::ng-deep .ui-table .ui-table-thead > tr > th &#123;
-                top: 100px;
+                top: 99px;
             &#125;
         &#125;
 `]

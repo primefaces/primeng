@@ -11,24 +11,6 @@ declare var google: any;
         .ui-g-2 {
             padding-top: .75em;
         }
-
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
     `]
 })
 export class GMapDemo implements OnInit {
@@ -116,9 +98,5 @@ export class GMapDemo implements OnInit {
     
     clear() {
         this.overlays = [];
-    }
-    
-    isNewsActive() {
-        return this.app.newsActive;
     }
 }

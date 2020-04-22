@@ -6,26 +6,7 @@ import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './validationdemo.html',
-    providers: [MessageService],
-    styles: [`
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
-    `]
+    providers: [MessageService]
 })
 export class ValidationDemo implements OnInit {
     
@@ -57,10 +38,6 @@ export class ValidationDemo implements OnInit {
     onSubmit(value: string) {
         this.submitted = true;
         this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted', sticky: true});
-    }
-    
-    isNewsActive() {
-        return this.app.newsActive;
     }
 
     get diagnostic() { return JSON.stringify(this.userform.value); }

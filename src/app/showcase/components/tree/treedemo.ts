@@ -19,24 +19,6 @@ import { AppComponent } from '../../app.component';
             padding-bottom: 0;
             font-size: 12px;
         }
-
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
     `],
     providers: [TreeDragDropService,MessageService]
 })
@@ -162,10 +144,6 @@ export class TreeDemo implements OnInit {
         this.filesTree10.forEach( node => {
             this.expandRecursive(node, false);
         } );
-    }
-
-    isNewsActive() {
-        return this.app.newsActive;
     }
     
     private expandRecursive(node:TreeNode, isExpand:boolean){

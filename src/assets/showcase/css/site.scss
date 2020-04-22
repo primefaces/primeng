@@ -117,6 +117,12 @@ body {
 }
 
 .layout-wrapper {
+    .ui-toast-top-right,
+    .ui-toast-top-left,
+    .ui-toast-top-center {
+        top: 80px;
+    }
+
     &.layout-news-active {
         .layout-topbar {
             top: 70px;
@@ -134,6 +140,12 @@ body {
 
         .layout-content {
             padding-top: 140px;
+        }
+
+        .ui-toast-top-right,
+        .ui-toast-top-left,
+        .ui-toast-top-center {
+            top: 150px;
         }
     }
 }
@@ -991,6 +1003,12 @@ body {
 }
 @media screen and (max-width: 64em) {
     .layout-wrapper {
+        .ui-toast-top-right,
+        .ui-toast-top-left,
+        .ui-toast-top-center {
+            top: 110px;
+        }
+
         &.layout-news-active {
             .layout-sidebar {
                 top: 170px;
@@ -1000,11 +1018,21 @@ body {
 			.layout-config {
 				top: 170px;
                 height: calc(100% - 170px);
-			}
+            }
+            
+            .layout-content {
+                padding-top: 170px;
+            }
 
             .layout-mask {
                 top: 170px;
-			}
+            }
+            
+            .ui-toast-top-right,
+            .ui-toast-top-left,
+            .ui-toast-top-center {
+                top: 180px;
+            }
 			
 			.topbar-menu {
 				>li.topbar-submenu {

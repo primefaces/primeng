@@ -6,26 +6,7 @@ import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './tableselectiondemo.html',
-    providers: [MessageService],
-    styles: [`
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
-    `]
+    providers: [MessageService]
 })
 export class TableSelectionDemo implements OnInit {
 
@@ -73,8 +54,4 @@ export class TableSelectionDemo implements OnInit {
         this.messageService.add({severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin});
     }
 
-
-    isNewsActive() {
-        return this.app.newsActive;
-    }
 }

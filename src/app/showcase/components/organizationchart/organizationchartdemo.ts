@@ -52,24 +52,6 @@ import { AppComponent } from '../../app.component';
         .department-cto .ui-node-toggler {
             color: #8a0a39 !important;
         }
-
-        .organization-chart-demo .ui-toast {
-            top: 80px;
-        }
-
-        .news-active.organization-chart-demo .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            .organization-chart-demo .ui-toast {
-                top: 110px;
-            }
-
-            .news-active.organization-chart-demo .ui-toast {
-                top: 180px;
-            }
-        }
     `],
     encapsulation: ViewEncapsulation.None
 })
@@ -188,8 +170,4 @@ export class OrganizationChartDemo implements OnInit {
         this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
     }
 
-
-    isNewsActive() {
-        return this.app.newsActive;
-    }
 }

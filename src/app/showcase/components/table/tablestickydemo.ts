@@ -13,14 +13,7 @@ import { AppComponent } from '../../app.component';
             box-shadow: 1px 3px 6px 0 rgba(32,33,36,0.10);
         }
 
-        :host ::ng-deep .ui-table .ui-table-thead > tr > th {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 69px;
-            box-shadow: 1px 3px 6px 0 rgba(32,33,36,0.10);
-        }
-
-        tr.news-active > th {
+        .layout-news-active :host ::ng-deep .ui-table tr > th {
             top: 139px;
         }
 
@@ -29,7 +22,7 @@ import { AppComponent } from '../../app.component';
                 top: 99px;
             }
 
-            tr.news-active > th {
+            .layout-news-active :host ::ng-deep .ui-table tr > th {
                 top: 169px;
             }
         }
@@ -54,7 +47,4 @@ export class TableStickyDemo implements OnInit {
         ];
     }
 
-    isNewsActive() {
-        return this.app.newsActive;
-    }
 }

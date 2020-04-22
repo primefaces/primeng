@@ -10,24 +10,6 @@ import { AppComponent } from '../../app.component';
         :host ::ng-deep .ui-splitbutton {
             margin-right: .25em;
         }
-
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
     `]
 })
 export class SplitButtonDemo implements OnInit {
@@ -62,7 +44,4 @@ export class SplitButtonDemo implements OnInit {
         this.messageService.add({severity:'success', summary:'Success', detail:'Data Deleted'});
     }
 
-    isNewsActive() {
-        return this.app.newsActive;
-    }
 }

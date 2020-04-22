@@ -5,12 +5,12 @@
     </div>
 </div>
 
-<div [ngClass]="{'news-active': isNewsActive(), 'content-section implementation': true}">
-    <p-toast styleClass="top-toast"></p-toast>
+<div class="content-section implementation">
+    <p-toast></p-toast>
 
-    <p-toast position="top-left" key="tl" styleClass="top-toast"></p-toast>
+    <p-toast position="top-left" key="tl"></p-toast>
 
-    <p-toast position="top-center" key="tc" styleClass="top-toast"></p-toast>
+    <p-toast position="top-center" key="tc"></p-toast>
 
     <p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"></p-toast>
 
@@ -466,13 +466,13 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+&lt;p-toast&gt;&lt;/p-toast&gt;
 
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;" position="top-left" key="tl"&gt;&lt;/p-toast&gt;
+&lt;p-toast position="top-left" key="tl"&gt;&lt;/p-toast&gt;
 
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;" position="top-center" key="tc"&gt;&lt;/p-toast&gt;
+&lt;p-toast position="top-center" key="tc"&gt;&lt;/p-toast&gt;
 
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;" styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"&gt;&lt;/p-toast&gt;
+&lt;p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"&gt;&lt;/p-toast&gt;
 
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
@@ -497,6 +497,8 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 &lt;button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
 &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
 &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
+&lt;button type="button" pButton (click)="showCustom()" label="Custom"&gt;&lt;/button&gt;
+
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;

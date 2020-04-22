@@ -33,24 +33,6 @@ import { AppComponent } from '../../app.component';
         .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
             color: #555555;
         }
-
-        .steps-demo .ui-toast {
-            top: 80px;
-        }
-
-        .news-active.steps-demo .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            .steps-demo .ui-toast {
-                top: 110px;
-            }
-
-            .news-active.steps-demo .ui-toast {
-                top: 180px;
-            }
-        }
     `],
     encapsulation: ViewEncapsulation.None
 })
@@ -94,7 +76,4 @@ export class StepsDemo implements OnInit {
         ];
     }
 
-    isNewsActive() {
-        return this.app.newsActive;
-    }
 }

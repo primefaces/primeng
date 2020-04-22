@@ -6,26 +6,7 @@ import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './deferdemo.html',
-    providers: [MessageService],
-    styles: [`
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
-    `]
+    providers: [MessageService]
 })
 export class DeferDemo {
 
@@ -36,9 +17,5 @@ export class DeferDemo {
     initData() {
         this.messageService.add({severity:'success', summary:'Data Initialized', detail:'Render Completed'});
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
-
-    isNewsActive() {
-        return this.app.newsActive;
     }
 }

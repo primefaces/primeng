@@ -4,26 +4,7 @@ import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './accordiondemo.html',
-    providers: [MessageService],
-    styles: [`
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
-    `]
+    providers: [MessageService]
 })
 export class AccordionDemo {
     
@@ -45,9 +26,5 @@ export class AccordionDemo {
     
     openPrev() {
         this.index = (this.index <= 0) ? 3 : this.index - 1;
-    }
-
-    isNewsActive() {
-        return this.app.newsActive;
     }
 }

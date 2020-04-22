@@ -8,26 +8,7 @@ import { DynamicDialogRef } from '../../../components/dynamicdialog/dynamicdialo
 
 @Component({
     templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService, MessageService],
-    styles: [`
-        :host ::ng-deep .ui-toast {
-            top: 80px;
-        }
-
-        :host ::ng-deep .news-active .ui-toast {
-            top: 150px;
-        }
-
-        @media screen and (max-width: 64em) {
-            :host ::ng-deep .ui-toast {
-                top: 110px;
-            }
-
-            :host ::ng-deep .news-active .ui-toast {
-                top: 180px;
-            }
-        }
-    `]
+    providers: [DialogService, MessageService]
 })
 export class DynamicDialogDemo implements OnDestroy {
 
@@ -48,10 +29,6 @@ export class DynamicDialogDemo implements OnDestroy {
                 this.messageService.add({severity:'info', summary: 'Car Selected', detail:'Vin:' + car.vin});
             }
         });
-    }
-
-    isNewsActive() {
-        return this.app.newsActive;
     }
 
     ngOnDestroy() {
