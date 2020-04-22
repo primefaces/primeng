@@ -480,7 +480,7 @@ export class UITreeNode implements OnInit {
             </div>
             <div *ngIf="filter" class="ui-tree-filter-container">
                 <input #filter type="text" autocomplete="off" class="ui-tree-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (input)="onFilter($event)">
+                    (keydown.enter)="$event.preventDefault()" (input)="_filter($event)">
                     <span class="ui-tree-filter-icon pi pi-search"></span>
             </div>
             <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
@@ -567,6 +567,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() filterPlaceholder: string;
 
     @Input() filterLocale: string;
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
@@ -1013,7 +1015,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         }
     }
 
-    onFilter(event) {
+    _filter(event) {
         let filterValue = event.target.value;
         if (filterValue === '') {
             this.filteredNodes = null;
@@ -1032,6 +1034,11 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
                 }
             }
         }
+
+        this.onFilter.emit({
+            filter: filterValue,
+            filteredValue: this.filteredNodes
+        });
     }
 
     findFilteredNodes(node, paramsWithoutNode) {
