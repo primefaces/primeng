@@ -44,7 +44,6 @@ let idx: number = 0;
             })),
             transition('visible => hidden', animate('{{transitionParams}}')),
             transition('hidden => visible', animate('{{transitionParams}}')),
-            transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
