@@ -1671,7 +1671,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onTimePickerElementMouseOut(event: Event) {
-        if (!this.disabled) {
+        if (!this.disabled && this.timePickerTimer) {
             this.clearTimePickerTimer();
             this.updateTime();
         }
