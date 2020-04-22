@@ -2599,7 +2599,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-up': sortOrder === 1, 'pi-sort-down': sortOrder === -1, 'pi-sort': sortOrder === 0}"></i>
+        <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
     `
 })
 export class SortIcon implements OnInit, OnDestroy {
