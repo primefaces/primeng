@@ -29,7 +29,7 @@
     display: inline-block;
     vertical-align: middle;
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .ui-messages ul > li {
