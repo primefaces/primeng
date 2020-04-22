@@ -395,7 +395,7 @@ export class UITreeNode implements OnInit {
 
             //right arrow
             case 39:
-                if (!this.node.expanded) {
+                if (!this.node.expanded && !this.tree.isNodeLeaf(this.node)) {
                     this.expand(event);
                 }
 
