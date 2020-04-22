@@ -36,9 +36,6 @@
 .ui-helper-clearfix::after {
     clear: both;
 }
-.ui-helper-clearfix {
-    zoom: 1;
-}
 .ui-helper-zfix {
     width: 100%;
     height: 100%;

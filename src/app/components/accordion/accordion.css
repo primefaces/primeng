@@ -6,7 +6,6 @@
     cursor: pointer; 
     position: relative; 
     margin-top: 1px; 
-    zoom: 1; 
 }
 
 .ui-accordion .ui-accordion-header a { 
@@ -23,7 +22,6 @@
     padding: 1em;
     border-top: 0; 
     overflow: visible;
-    zoom: 1; 
 }
 
 .ui-accordion .ui-accordion-header.ui-state-disabled, 
