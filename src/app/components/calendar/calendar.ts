@@ -31,7 +31,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true, 'ui-calendar-w-btn': showIcon, 'ui-calendar-timeonly': timeOnly}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [attr.aria-required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick($event)" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [attr.aria-required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="onInputClick()" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" autocomplete="off" [attr.aria-labelledby]="ariaLabelledBy"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button"
@@ -792,6 +792,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             this.value = this.value.filter((date, i) => {
                 return !this.isDateEquals(date, dateMeta);
             });
+            if (this.value.length === 0) {
+                this.value = null;
+            }
             this.updateModel(this.value);
         }
         else {
@@ -1180,10 +1183,11 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.onFocus.emit(event);
     }
     
-    onInputClick(event: Event) {
+    onInputClick() {
         if (this.overlay && this.autoZIndex) {
             this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
+
         if (this.showOnFocus && !this.overlayVisible) {
             this.showOverlay();
         }
