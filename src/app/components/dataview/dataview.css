@@ -35,10 +35,6 @@
     border-top: 0 none;
 }
 
-.ui-dataview.ui-dataview-list > .ui-dataview-content > div.ui-g > div {
-    width: 100%;
-}
-
 .ui-dataview .ui-dataview-emptymessage {
     padding: .5em .75em;
 }
