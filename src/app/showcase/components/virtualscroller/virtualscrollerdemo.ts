@@ -6,20 +6,20 @@ import {LazyLoadEvent,SelectItem} from 'primeng/api';
 @Component({
     templateUrl: './virtualscrollerdemo.html',
     styles: [`
-        .car-item .p-md-3 {
-            text-align: center;
-        }
-        
-        .car-item .p-col-10 {
-            font-weight: bold;
+        .car-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
         }
 
-        .empty-car-item-index {
-            background-color: #f1f1f1;
-            width: 60px;
-            height: 60px;
-            margin: 36px auto 0 auto;
-            animation: pulse 1s infinite ease-in-out;
+        .car-details > div {
+            display: flex;
+            align-items: center;
+        }
+
+        .car-details > div img {
+            margin-right: 14px;
         }
 
         .empty-car-item-image {
