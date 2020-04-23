@@ -80,8 +80,7 @@ export class TabViewNav {
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </ng-container>
         </div>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    `
 })
 export class TabPanel implements AfterContentInit,OnDestroy {
 
@@ -177,6 +176,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                 (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)"></ul>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabView implements AfterContentInit,BlockableUI {
 
