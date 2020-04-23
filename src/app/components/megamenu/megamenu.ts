@@ -30,7 +30,7 @@ import {RouterModule} from '@angular/router';
                         </a>
 
                         <div class="ui-megamenu-panel ui-widget-content ui-corner-all ui-shadow" *ngIf="category.items">
-                            <div class="ui-g">
+                            <div class="ui-megamenu-grid">
                                 <ng-template ngFor let-column [ngForOf]="category.items">
                                     <div [class]="getColumnClass(category)">
                                         <ng-template ngFor let-submenu [ngForOf]="column">
@@ -152,23 +152,23 @@ export class MegaMenu {
         let columnClass;
         switch(length) {
             case 2:
-                columnClass= 'ui-g-6';
+                columnClass= 'ui-megamenu-col-6';
             break;
             
             case 3:
-                columnClass= 'ui-g-4';
+                columnClass= 'ui-megamenu-col-4';
             break;
             
             case 4:
-                columnClass= 'ui-g-3';
+                columnClass= 'ui-megamenu-col-3';
             break;
             
             case 6:
-                columnClass= 'ui-g-2';
+                columnClass= 'ui-megamenu-col-2';
             break;
                         
             default:
-                columnClass= 'ui-g-12';
+                columnClass= 'ui-megamenu-col-12';
             break;
         }
         
