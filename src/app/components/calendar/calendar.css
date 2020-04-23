@@ -145,14 +145,6 @@
     justify-content: space-between;
 }
 
-.ui-datepicker .ui-datepicker-buttonbar > .ui-g > div:last-child {
-    text-align: right;
-}
-
-.ui-datepicker .ui-datepicker-buttonbar > .ui-g > div {
-    padding: 0;
-}
-
 .ui-calendar.ui-calendar-w-btn input {
     -moz-border-radius-topright: 0px;
     -webkit-border-top-right-radius: 0px;

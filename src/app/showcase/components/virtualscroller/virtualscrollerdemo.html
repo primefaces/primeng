@@ -13,44 +13,44 @@
             List of Cars
         </p-header>
         <ng-template let-car pTemplate="item" let-i="index">
-            <div class="ui-g car-item">
-                <div class="ui-g-12 ui-md-2">
+            <div class="p-grid car-item">
+                <div class="p-col-12 p-md-2">
                     <div style="font-size: 24px; text-align: center; padding-top: 48px">{{i}}</div>
                 </div>
-                <div class="ui-g-12 ui-md-2">
+                <div class="p-col-12 p-md-2">
                     <img src="assets/showcase/images/demo/car/{{car?.brand}}.png">
                 </div>
-                <div class="ui-g-12 ui-md-8">
-                    <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">Vin: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.vin}}</div>
+                <div class="p-col-12 p-md-8">
+                    <div class="p-grid">
+                        <div class="p-col-2 p-sm-6">Vin: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.vin}}</div>
             
-                        <div class="ui-g-2 ui-sm-6">Year: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.year}}</div>
+                        <div class="p-col-2 p-sm-6">Year: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.year}}</div>
             
-                        <div class="ui-g-2 ui-sm-6">Brand: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.brand}}</div>
+                        <div class="p-col-2 p-sm-6">Brand: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.brand}}</div>
             
-                        <div class="ui-g-2 ui-sm-6">Color: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.color}}</div>
+                        <div class="p-col-2 p-sm-6">Color: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.color}}</div>
                     </div>
                 </div>
             </div>
         </ng-template>
         <ng-template let-car pTemplate="loadingItem">
-            <div class="ui-g car-item empty-car-item">
-                <div class="ui-g-12 ui-md-2">
+            <div class="p-grid car-item empty-car-item">
+                <div class="p-col-12 p-md-2">
                     <div class="empty-car-item-index"></div>
                 </div>
-                <div class="ui-g-12 ui-md-2">
+                <div class="p-col-12 p-md-2">
                     <div class="empty-car-item-image"></div>
                 </div>
-                <div class="ui-g-12 ui-md-8">
-                    <div class="ui-g">
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
-                        <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                <div class="p-col-12 p-md-8">
+                    <div class="p-grid">
+                        <div class="p-col-12"><div class="empty-car-item-text"></div></div>
+                        <div class="p-col-12"><div class="empty-car-item-text"></div></div>
+                        <div class="p-col-12"><div class="empty-car-item-text"></div></div>
+                        <div class="p-col-12"><div class="empty-car-item-text"></div></div>
                     </div>
                 </div>
             </div>
@@ -60,36 +60,36 @@
     <h3>Prepopulated List</h3>
     <p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150">
         <p-header>
-            <div class="ui-g">
-                <div class="ui-g-6 sort-container">
+            <div class="p-grid">
+                <div class="p-col-6 sort-container">
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width':'140px'}"></p-dropdown>
                 </div>
-                <div class="ui-g-6 title-container">
+                <div class="p-col-6 title-container">
                     List of Cars
                 </div>
             </div>
         </p-header>
         <ng-template let-car pTemplate="item" let-i="index">
-            <div class="ui-g car-item">
-                <div class="ui-g-12 ui-md-2">
+            <div class="p-grid car-item">
+                <div class="p-col-12 p-md-2">
                     <div style="font-size: 24px; text-align: center; padding-top: 48px">{{i}}</div>
                 </div>
-                <div class="ui-g-12 ui-md-2">
+                <div class="p-col-12 p-md-2">
                     <img src="assets/showcase/images/demo/car/{{car?.brand}}.png">
                 </div>
-                <div class="ui-g-12 ui-md-8">
-                    <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">Vin: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.vin}}</div>
+                <div class="p-col-12 p-md-8">
+                    <div class="p-grid">
+                        <div class="p-col-2 p-sm-6">Vin: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.vin}}</div>
             
-                        <div class="ui-g-2 ui-sm-6">Year: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.year}}</div>
+                        <div class="p-col-2 p-sm-6">Year: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.year}}</div>
             
-                        <div class="ui-g-2 ui-sm-6">Brand: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.brand}}</div>
+                        <div class="p-col-2 p-sm-6">Brand: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.brand}}</div>
             
-                        <div class="ui-g-2 ui-sm-6">Color: </div>
-                        <div class="ui-g-10 ui-sm-6">{{car?.color}}</div>
+                        <div class="p-col-2 p-sm-6">Color: </div>
+                        <div class="p-col-10 p-sm-6">{{car?.color}}</div>
                     </div>
                 </div>
             </div>
@@ -394,44 +394,44 @@ loadData(event) &#123;
         List of Cars
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="item" let-i="index"&gt;
-        &lt;div class="ui-g car-item"&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
+        &lt;div class="p-grid car-item"&gt;
+            &lt;div class="p-col-12 p-md-2"&gt;
                 &lt;div style="font-size: 24px; text-align: center; padding-top: 48px"&gt;&#123;&#123;i&#125;&#125;&lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
+            &lt;div class="p-col-12 p-md-2"&gt;
                 &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car?.brand&#125;&#125;.png"&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-8"&gt;
-                &lt;div class="ui-g"&gt;
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.vin&#125;&#125;&lt;/div&gt;
+            &lt;div class="p-col-12 p-md-8"&gt;
+                &lt;div class="p-grid"&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Vin: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.vin&#125;&#125;&lt;/div&gt;
         
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.year&#125;&#125;&lt;/div&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Year: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.year&#125;&#125;&lt;/div&gt;
         
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.brand&#125;&#125;&lt;/div&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Brand: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.brand&#125;&#125;&lt;/div&gt;
         
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.color&#125;&#125;&lt;/div&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Color: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.color&#125;&#125;&lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="loadingItem"&gt;
-        &lt;div class="ui-g car-item empty-car-item"&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
+        &lt;div class="p-grid car-item empty-car-item"&gt;
+            &lt;div class="p-col-12 p-md-2"&gt;
                 &lt;div class="empty-car-item-index"&gt;&lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
+            &lt;div class="p-col-12 p-md-2"&gt;
                 &lt;div class="empty-car-item-image"&gt;&lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-8"&gt;
-                &lt;div class="ui-g"&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
-                    &lt;div class="ui-g-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class="p-col-12 p-md-8"&gt;
+                &lt;div class="p-grid"&gt;
+                    &lt;div class="p-col-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
+                    &lt;div class="p-col-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
+                    &lt;div class="p-col-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
+                    &lt;div class="p-col-12"&gt;&lt;div class="empty-car-item-text"&gt;&lt;/div&gt;&lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -441,36 +441,36 @@ loadData(event) &#123;
 &lt;h3&gt;Prepopulated List&lt;/h3&gt;
 &lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150"&gt;
     &lt;p-header&gt;
-        &lt;div class="ui-g"&gt;
-            &lt;div class="ui-g-6 sort-container"&gt;
+        &lt;div class="p-grid"&gt;
+            &lt;div class="p-col-6 sort-container"&gt;
                 &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="&#123;'min-width':'140px'&#125;"&gt;&lt;/p-dropdown&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-6 title-container"&gt;
+            &lt;div class="p-col-6 title-container"&gt;
                 List of Cars
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="item" let-i="index"&gt;
-        &lt;div class="ui-g car-item"&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
+        &lt;div class="p-grid car-item"&gt;
+            &lt;div class="p-col-12 p-md-2"&gt;
                 &lt;div style="font-size: 24px; text-align: center; padding-top: 48px"&gt;&#123;&#123;i&#125;&#125;&lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-2"&gt;
+            &lt;div class="p-col-12 p-md-2"&gt;
                 &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car?.brand&#125;&#125;.png"&gt;
             &lt;/div&gt;
-            &lt;div class="ui-g-12 ui-md-8"&gt;
-                &lt;div class="ui-g"&gt;
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.vin&#125;&#125;&lt;/div&gt;
+            &lt;div class="p-col-12 p-md-8"&gt;
+                &lt;div class="p-grid"&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Vin: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.vin&#125;&#125;&lt;/div&gt;
         
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.year&#125;&#125;&lt;/div&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Year: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.year&#125;&#125;&lt;/div&gt;
         
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.brand&#125;&#125;&lt;/div&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Brand: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.brand&#125;&#125;&lt;/div&gt;
         
-                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
-                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car?.color&#125;&#125;&lt;/div&gt;
+                    &lt;div class="p-col-2 p-sm-6"&gt;Color: &lt;/div&gt;
+                    &lt;div class="p-col-10 p-sm-6"&gt;&#123;&#123;car?.color&#125;&#125;&lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -483,11 +483,11 @@ loadData(event) &#123;
 @Component(&#123;
     templateUrl: './virtualscrollerdemo.html',
     styles: [`
-        .car-item .ui-md-3 &#123;
+        .car-item .p-md-3 &#123;
             text-align: center;
         &#125;
         
-        .car-item .ui-g-10 &#123;
+        .car-item .p-col-10 &#123;
             font-weight: bold;
         &#125;
 

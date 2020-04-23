@@ -8,11 +8,18 @@ import {SelectItem,MenuItem,TreeNode} from 'primeng/api';
 @Component({
     templateUrl: './responsivedemo.html',
     styles: [`
-        .radiobuttons > * {
+        :host ::ng-deep .forms-grid .p-md-6 {
+            padding: 1em;
+        }
+        
+        :host ::ng-deep .forms-grid .p-md-6 > div {
+            margin-bottom: .5em;
+        }
+        
+        :host ::ng-deep .radiobuttons > * {
             vertical-align: middle;
         }
-    `],
-    encapsulation: ViewEncapsulation.None
+    `]
 })
 export class ResponsiveDemo implements OnInit {
 

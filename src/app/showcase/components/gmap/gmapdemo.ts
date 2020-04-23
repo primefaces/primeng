@@ -8,8 +8,9 @@ declare var google: any;
     templateUrl: './gmapdemo.html',
     providers: [MessageService],
     styles: [`
-        .ui-g-2 {
-            padding-top: .75em;
+        .p-col-2 {
+            display: flex;
+            align-self: center;
         }
     `]
 })

@@ -1,12 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: './calendardemo.html',
-    styles: [`
-        .ui-grid {
-            margin-top: -30px;
-        }
-    `]
+    templateUrl: './calendardemo.html'
 })
 export class CalendarDemo {
 
