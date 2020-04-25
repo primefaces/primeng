@@ -133,6 +133,10 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     }
     
     onBlur(event) {
+        if (this.disabled) {
+            return;
+        }
+        
         this.focusedItem = null;
         this.onModelTouched();
     }
