@@ -99,12 +99,15 @@ export class ObjectUtils {
         }
     }
 
-    public static generateSelectItems(val: any[], field: string): SelectItem[] {
+    public static generateSelectItems(val: any[], field: string, valueField: string): SelectItem[] {
         let selectItems: SelectItem[];
         if (val && val.length) {
             selectItems = [];
             for(let item of val) {
-                selectItems.push({label: this.resolveFieldData(item, field), value: item});
+                selectItems.push({
+                    label: field ? `${this.resolveFieldData(item, field)}` : item.label,
+                    value: valueField ? this.resolveFieldData(item, valueField) : item
+                });
             }
         }
 

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import {LazyLoadEvent, SelectItem} from 'primeng/api';
 import {SelectItemGroup} from 'primeng/api';
+import {Observable, of} from 'rxjs';
 
 interface City {
     name: string,
@@ -15,7 +16,7 @@ export class DropdownDemo {
 
     cities: City[];
 
-    selectedCity1: City;
+    selectedCity1: string;
 
     selectedCity2: City;
 
@@ -29,7 +30,13 @@ export class DropdownDemo {
 
     items: SelectItem[];
 
+    lazyItems: SelectItem[];
+
     item: string;
+
+    selectedLazy: SelectItem;
+
+    filterValue: string;
 
     constructor() {
         this.items = [];
@@ -47,7 +54,7 @@ export class DropdownDemo {
 
         this.groupedCities = [
             {
-                label: 'Germany', value: 'de', 
+                label: 'Germany', value: 'de',
                 items: [
                     {label: 'Berlin', value: 'Berlin'},
                     {label: 'Frankfurt', value: 'Frankfurt'},
@@ -56,7 +63,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'USA', value: 'us', 
+                label: 'USA', value: 'us',
                 items: [
                     {label: 'Chicago', value: 'Chicago'},
                     {label: 'Los Angeles', value: 'Los Angeles'},
@@ -65,7 +72,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'Japan', value: 'jp', 
+                label: 'Japan', value: 'jp',
                 items: [
                     {label: 'Kyoto', value: 'Kyoto'},
                     {label: 'Osaka', value: 'Osaka'},
@@ -87,5 +94,27 @@ export class DropdownDemo {
             {name: 'Spain', code: 'ES'},
             {name: 'United States', code: 'US'}
         ];
+        this.selectedLazy = this.items[43].value;
+        this.filterValue =  this.items[43].label;
+    }
+
+    onLazyLoadEvent(event: LazyLoadEvent) {
+        this.loadBatch(event).subscribe(res => {
+            this.lazyItems = res;
+        });
+    }
+
+    loadBatch(event: LazyLoadEvent): Observable<SelectItem[]> {
+        // simulate server response
+        const res = [];
+        for (let i = 0; i < this.items.length; i++) {
+            if (!event.globalFilter || (event.globalFilter && this.items[i].label.includes(event.globalFilter))) {
+                res.push({...this.items[i]});
+            }
+            if (event.rows === res.length) {
+                break;
+            }
+        }
+        return of(res);
     }
 }

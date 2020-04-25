@@ -10,7 +10,7 @@
     <div class="card">
         <h5>Basic</h5>
         <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
-    
+
         <h5>Templating</h5>
         <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
             <ng-template let-value pTemplate="selectedItems">
@@ -29,9 +29,9 @@
                 </div>
             </ng-template>
         </p-multiSelect>
-    
+
         <h5>Virtual Scroll (10000 Items)</h5>
-        <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
+        <p-multiSelect [options]="countries2" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" />
@@ -39,6 +39,11 @@
                 </div>
             </ng-template>
         </p-multiSelect>
+
+
+        <h5>Lazy Loading</h5>
+        <p-multiSelect [lazy]="true" [lazyLoadOnInit]="true" [rows]="10" [options]="lazyItems" [(ngModel)]="selectedItems" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"
+                       (onLazyLoad)="onLazyLoadEvent($event)"></p-multiSelect>
     </div>
 </div>
 
@@ -58,8 +63,8 @@ import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
 </app-code>
 
             <h5>Getting Started</h5>
-            <p>MultiSelect requires a value to bind and a collection of options. There are two alternatives of how to define the <i>options</i> property; one way is providing a collection of SelectItem
-            instances whereas other way is providing an array of arbitrary objects along with the <i>optionLabel</i> property to specify the field name of the option. SelectItem API is designed to have more control on how
+            <p>MultiSelect requires a value to bind and a collection of <i>options</i>. There are two alternatives of how to define the <i>options</i> property; one way is providing a collection of SelectItem
+                instances whereas other way is providing an array of arbitrary objects along with the <i>optionLabel</i> or <i>optionValue</i> property to specify the field name of the label or the value of the option. SelectItem API is designed to have more control on how
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-multiSelect [options]="cities1" [(ngModel)]="selectedCities1"&gt;&lt;/p-multiSelect&gt;
@@ -196,8 +201,14 @@ export class MyModel &#123;
                         <tr>
                             <td>optionLabel</td>
                             <td>string</td>
-                            <td>null</td>
+                            <td>label</td>
                             <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
+                        </tr>
+                        <tr>
+                            <td>optionValue</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the value field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
                         </tr>
                         <tr>
                             <td>disabled</td>
@@ -597,7 +608,7 @@ export class MyModel &#123;
 export class MultiSelectDemo &#123;
 
     selectedCities: string[] = [];
-    
+
     selectedCountries1: string[] = [];
 
     selectedCountries2: string[] = [];
@@ -611,7 +622,7 @@ export class MultiSelectDemo &#123;
     countries: any[];
 
     constructor(private countryService: CountryService) &#123;
-        
+
         this.items = [];
 
         this.countryService.getCountries().then(countries => &#123;
@@ -645,17 +656,17 @@ export class MultiSelectDemo &#123;
     :host ::ng-deep .p-multiselect &#123;
         min-width: 15rem;
     &#125;
-    
+
     :host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect &#123;
         min-width: 20rem;
     &#125;
-    
+
     :host ::ng-deep .multiselect-custom &#123;
         .p-multiselect-label &#123;
             padding-top: .25rem;
             padding-bottom: .25rem;
         &#125;
-    
+
         .country-item-value &#123;
             padding: .25rem .5rem;
             border-radius: 3px;
@@ -663,12 +674,12 @@ export class MultiSelectDemo &#123;
             margin-right: .5rem;
             background-color: var(--primary-color);
             color: var(--primary-color-text);
-    
+
             img.flag &#123;
                 width: 17px;
             &#125;
         &#125;
-    
+
         .country-placeholder &#123;
             padding: 0.25rem;
         &#125;

@@ -32,7 +32,7 @@ import &#123;SelectButtonModule&#125; from 'primeng/selectbutton';
 
             <h5>Getting Started</h5>
             <p>SelectButton requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
-            instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how 
+            instances whereas other way is providing an array of arbitrary objects along with the optionLabel or optionValue property to specify the field name of the label or the value of the option. SelectItem API is designed to have more control on how
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-selectButton&gt;
@@ -191,8 +191,14 @@ export class SelectButtonDemo &#123;
                         <tr>
                             <td>optionLabel</td>
                             <td>string</td>
-                            <td>null</td>
+                            <td>label</td>
                             <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
+                        </tr>
+                        <tr>
+                            <td>optionValue</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the value field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
                         </tr>
                         <tr>
                             <td>multiple</td>

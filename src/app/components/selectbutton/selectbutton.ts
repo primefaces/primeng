@@ -51,7 +51,9 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     @Input() dataKey: string
     
     @Input() optionLabel: string;
-    
+
+    @Input() optionValue: string;
+
     @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -78,7 +80,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.options) {
-            this._options = this.optionLabel ? ObjectUtils.generateSelectItems(simpleChange.options.currentValue, this.optionLabel) : simpleChange.options.currentValue;
+            this._options = (this.optionLabel || this.optionValue) ? ObjectUtils.generateSelectItems(simpleChange.options.currentValue, this.optionLabel, this.optionValue) : simpleChange.options.currentValue;
         }
     }
     

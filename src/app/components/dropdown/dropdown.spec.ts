@@ -261,6 +261,41 @@ describe('Dropdown', () => {
 		expect(items.nativeElement.children.length).toEqual(3);
 	}));
 
+    it('should filter even using both value/ngModel and filterValue', async(() => {
+        dropdown.filter = true;
+        dropdown.filterValue = "n";
+        fixture.detectChanges();
+
+        dropdown.options = [
+            {label: 'New York', code: 'NY'},
+            {label: 'Rome', code: 'RM'},
+            {label: 'London', code: 'LDN'},
+            {label: 'Istanbul', code: 'IST'},
+            {label: 'Paris', code: 'PRS'}
+        ];
+        fixture.detectChanges();
+        dropdown.writeValue('NY');
+
+        expect(dropdown.filterValue).toEqual('n');
+        const container = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
+        container.click();
+        fixture.detectChanges();
+
+        let items=fixture.debugElement.query(By.css('.p-dropdown-items'));
+        expect(items.nativeElement.children.length).toEqual(3);
+        const filterDiv = fixture.debugElement.query(By.css('.p-dropdown-filter-container'));
+        expect(filterDiv).toBeTruthy();
+        const filterInputEl = fixture.debugElement.query(By.css('.p-dropdown-filter'));
+        filterInputEl.nativeElement.value = "n";
+        filterInputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        const event = {'target':{'value':'n'}};
+        dropdown.onFilter(event)
+        fixture.detectChanges();
+
+        items=fixture.debugElement.query(By.css('.p-dropdown-items'));
+        expect(items.nativeElement.children.length).toEqual(3);
+    }));
+
 	it('should filtered and display not found warning', async(() => {
 		dropdown.options = [
 			{label: 'New York', code: 'NY'},
