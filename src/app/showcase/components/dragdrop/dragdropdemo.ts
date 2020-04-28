@@ -14,7 +14,7 @@ import {CarService} from '../../service/carservice';
             background-color: #ffffff;
         }
 
-        .ui-g li {
+        .p-grid li {
             list-style-type: none;
             padding: 10px;
             margin-bottom: 5px;

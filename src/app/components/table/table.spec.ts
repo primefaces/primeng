@@ -232,21 +232,21 @@ import { RouterTestingModule } from '@angular/router/testing';
         <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
             <tr>
                 <td [attr.colspan]="columns.length + 1">
-                    <div class="ui-g ui-fluid expandedRow" style="font-size:16px;padding:20px">
-                        <div class="ui-g-12 ui-md-3" style="text-align:center">
+                    <div class="p-grid ui-fluid expandedRow" style="font-size:16px;padding:20px">
+                        <div class="p-col-12 p-md-3" style="text-align:center">
                         </div>
-                        <div class="ui-g-12 ui-md-9">
-                            <div class="ui-g">
-                                <div class="ui-g-12">
+                        <div class="p-col-12 p-md-9">
+                            <div class="p-grid">
+                                <div class="p-col-12">
                                     <b>Vin:</b> {{rowData.vin}}
                                 </div>
-                                <div class="ui-g-12">
+                                <div class="p-col-12">
                                     <b>Year:</b> {{rowData.year}}
                                 </div>
-                                <div class="ui-g-12">
+                                <div class="p-col-12">
                                     <b>Brand:</b> {{rowData.brand}}
                                 </div>
-                                <div class="ui-g-12">
+                                <div class="p-col-12">
                                     <b>Color:</b> {{rowData.color}}
                                 </div>
                             </div>

@@ -35,38 +35,30 @@
     </p-table>
     
     <p-dialog header="Car Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '300px'}">
-        <div class="ui-g ui-fluid" *ngIf="car">
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="vin">Vin</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText id="vin" [(ngModel)]="car.vin" autofocus />
-                </div>
+        <div class="p-grid ui-fluid" *ngIf="car">
+            <div class="p-col-4">
+                <label for="vin">Vin</label>
             </div>
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="year">Year</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText id="year" [(ngModel)]="car.year" />
-                </div>
+            <div class="p-col-8">
+                <input pInputText id="vin" [(ngModel)]="car.vin" autofocus />
             </div>
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="brand">Brand</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText id="brand" [(ngModel)]="car.brand" />
-                </div>
+            <div class="p-col-4">
+                <label for="year">Year</label>
             </div>
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="color">Color</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText id="color" [(ngModel)]="car.color" />
-                </div>
+            <div class="p-col-8">
+                <input pInputText id="year" [(ngModel)]="car.year" />
+            </div>
+            <div class="p-col-4">
+                <label for="brand">Brand</label>
+            </div>
+            <div class="p-col-8">
+                <input pInputText id="brand" [(ngModel)]="car.brand" />
+            </div>
+            <div class="p-col-4">
+                <label for="color">Color</label>
+            </div>
+            <div class="p-col-8">
+                <input pInputText id="color" [(ngModel)]="car.color" />
             </div>
         </div>
         <p-footer>
@@ -189,38 +181,30 @@ export class TableCrudDemo implements OnInit &#123;
 &lt;/p-table&gt;
 
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="&#123;width: '300px'&#125;"&gt;
-    &lt;div class="ui-g ui-fluid" *ngIf="car"&gt;
-        &lt;div class="ui-g-12"&gt;
-            &lt;div class="ui-g-4"&gt;
-                &lt;label for="vin"&gt;Vin&lt;/label&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-8"&gt;
-                &lt;input pInputText id="vin" [(ngModel)]="car.vin" autofocus /&gt;
-            &lt;/div&gt;
+    &lt;div class="p-grid ui-fluid" *ngIf="car"&gt;
+        &lt;div class="p-col-4"&gt;
+            &lt;label for="vin"&gt;Vin&lt;/label&gt;
         &lt;/div&gt;
-        &lt;div class="ui-g-12"&gt;
-            &lt;div class="ui-g-4"&gt;
-                &lt;label for="year"&gt;Year&lt;/label&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-8"&gt;
-                &lt;input pInputText id="year" [(ngModel)]="car.year" /&gt;
-            &lt;/div&gt;
+        &lt;div class="p-col-8"&gt;
+            &lt;input pInputText id="vin" [(ngModel)]="car.vin" autofocus /&gt;
         &lt;/div&gt;
-        &lt;div class="ui-g-12"&gt;
-            &lt;div class="ui-g-4"&gt;
-                &lt;label for="brand"&gt;Brand&lt;/label&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-8"&gt;
-                &lt;input pInputText id="brand" [(ngModel)]="car.brand" /&gt;
-            &lt;/div&gt;
+        &lt;div class="p-col-4"&gt;
+            &lt;label for="year"&gt;Year&lt;/label&gt;
         &lt;/div&gt;
-        &lt;div class="ui-g-12"&gt;
-            &lt;div class="ui-g-4"&gt;
-                &lt;label for="color"&gt;Color&lt;/label&gt;
-            &lt;/div&gt;
-            &lt;div class="ui-g-8"&gt;
-                &lt;input pInputText id="color" [(ngModel)]="car.color" /&gt;
-            &lt;/div&gt;
+        &lt;div class="p-col-8"&gt;
+            &lt;input pInputText id="year" [(ngModel)]="car.year" /&gt;
+        &lt;/div&gt;
+        &lt;div class="p-col-4"&gt;
+            &lt;label for="brand"&gt;Brand&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class="p-col-8"&gt;
+            &lt;input pInputText id="brand" [(ngModel)]="car.brand" /&gt;
+        &lt;/div&gt;
+        &lt;div class="p-col-4"&gt;
+            &lt;label for="color"&gt;Color&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class="p-col-8"&gt;
+            &lt;input pInputText id="color" [(ngModel)]="car.color" /&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;p-footer&gt;

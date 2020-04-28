@@ -10,31 +10,31 @@
         [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix">
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-md-4">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-4">
                         <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                     </div>
-                    <div class="ui-g-6 ui-md-4 filter-container">
+                    <div class="p-col-6 p-md-4 filter-container">
                         <div style="position:relative">
                             <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
                         </div>
                     </div>
-                    <div class="ui-g-6 ui-md-4" style="text-align:right">
+                    <div class="p-col-6 p-md-4" style="text-align:right">
                         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                     </div>
                 </div>
             </div>
         </p-header>
         <ng-template let-car pTemplate="listItem">
-            <div class="ui-g-12">
+            <div class="p-col-12">
                 <div class="car-details">
                     <div>
                         <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
-                        <div class="ui-g">
-                            <div class="ui-g-12">Vin: <b>{{car.vin}}</b></div>
-                            <div class="ui-g-12">Year: <b>{{car.year}}</b></div>
-                            <div class="ui-g-12">Brand: <b>{{car.brand}}</b></div>
-                            <div class="ui-g-12">Color: <b>{{car.color}}</b></div>
+                        <div class="p-grid">
+                            <div class="p-col-12">Vin: <b>{{car.vin}}</b></div>
+                            <div class="p-col-12">Year: <b>{{car.year}}</b></div>
+                            <div class="p-col-12">Brand: <b>{{car.brand}}</b></div>
+                            <div class="p-col-12">Color: <b>{{car.color}}</b></div>
                         </div>
                     </div>
                     <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"></button>
@@ -42,7 +42,7 @@
             </div>
         </ng-template>
         <ng-template let-car pTemplate="gridItem">
-            <div style="padding:.5em" class="ui-g-12 ui-md-3">
+            <div style="padding:.5em" class="p-col-12 p-md-3">
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>
@@ -52,22 +52,11 @@
         </ng-template>
     </p-dataView>
 
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" [style]="{width: '225px'}" (onAfterHide)="onDialogHide()">
-        <div class="ui-g" *ngIf="selectedCar">
-            <div class="ui-g-12" style="text-align:center">
-                <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
-            </div>
-            <div class="ui-g-4">Vin: </div>
-            <div class="ui-g-8">{{selectedCar.vin}}</div>
-
-            <div class="ui-g-4">Brand: </div>
-            <div class="ui-g-8">{{selectedCar.brand}}</div>
-
-            <div class="ui-g-4">Year: </div>
-            <div class="ui-g-8">{{selectedCar.year}}</div>
-
-            <div class="ui-g-4">Color: </div>
-            <div class="ui-g-8">{{selectedCar.color}}</div>
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" 
+        [style]="{width: '225px'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em', textAlign: 'center'}">
+        <div *ngIf="selectedCar">
+            <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
+            <strong>{{selectedCar.vin}} - {{selectedCar.year}}</strong>
         </div>
     </p-dialog>
 </div>
@@ -81,6 +70,9 @@
 import &#123;DataViewModule&#125; from 'primeng/dataview';
 </code>
 </pre>
+
+            <h3>PrimeFlex</h3>
+            <p>DataView utilizes PrimeFlex so it is required to be installed in your application. Refer to the <a [routerLink]="['/flexgrid']">documentation</a> for details.</p>
 
             <h3>Getting Started</h3>
             <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. list and grid.</p>
@@ -147,7 +139,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Layouts</h3>
             <p>DataView has two layout modes; "list" and "grid" where a separate template is used to render an item in each mode. In list mode name of the template is "listItem" whereas
-                in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/grid']">Grid CSS</a> style class of your choice.</p>
+                in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/flexgrid']">PrimeFlex</a> style class of your choice.</p>
             <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -158,7 +150,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -180,7 +172,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -210,7 +202,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -230,7 +222,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -260,7 +252,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -293,7 +285,7 @@ loadData(event) &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -620,7 +612,7 @@ export class DataViewSortDemo implements OnInit &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>None.</p>
+            <p>PrimeFlex.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -629,35 +621,35 @@ export class DataViewSortDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-    &lt;p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
+&lt;p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
     [sortField]="sortField" [sortOrder]="sortOrder"&gt;
     &lt;p-header&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;div class="ui-g"&gt;
-                &lt;div class="ui-g-12 ui-md-4"&gt;
+            &lt;div class="p-grid"&gt;
+                &lt;div class="p-col-12 p-md-4"&gt;
                     &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="&#123;'min-width':'140px'&#125;"&gt;&lt;/p-dropdown&gt;
                 &lt;/div&gt;
-                &lt;div class="ui-g-6 ui-md-4 filter-container"&gt;
+                &lt;div class="p-col-6 p-md-4 filter-container"&gt;
                     &lt;div style="position:relative"&gt;
                         &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)"&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
-                &lt;div class="ui-g-6 ui-md-4" style="text-align:right"&gt;
+                &lt;div class="p-col-6 p-md-4" style="text-align:right"&gt;
                     &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
-        &lt;div class="ui-g-12"&gt;
+        &lt;div class="p-col-12"&gt;
             &lt;div class="car-details"&gt;
                 &lt;div&gt;
                     &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
-                    &lt;div class="ui-g"&gt;
-                        &lt;div class="ui-g-12"&gt;Vin: &lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="ui-g-12"&gt;Year: &lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="ui-g-12"&gt;Brand: &lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="ui-g-12"&gt;Color: &lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                    &lt;div class="p-grid"&gt;
+                        &lt;div class="p-col-12"&gt;Vin: &lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="p-col-12"&gt;Year: &lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="p-col-12"&gt;Brand: &lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="p-col-12"&gt;Color: &lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
                 &lt;button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"&gt;&lt;/button&gt;
@@ -665,33 +657,21 @@ export class DataViewSortDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div style="padding:.5em" class="ui-g-12 ui-md-3"&gt;
+        &lt;div style="padding:.5em" class="p-col-12 p-md-3"&gt;
             &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
                 &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" width="60"&gt;
                 &lt;div class="car-detail"&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
-                &lt;hr class="ui-widget-content" style="border-top:0"&gt;
                 &lt;button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"&gt;&lt;/button&gt;
             &lt;/p-panel&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="&#123;width: '225px'&#125;"  (onAfterHide)="onDialogHide()"&gt;
-    &lt;div class="ui-g" *ngIf="selectedCar"&gt;
-        &lt;div class="ui-g-12" style="text-align:center"&gt;
-            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png"&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-g-4"&gt;Vin: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.vin&#125;&#125;&lt;/div&gt;
-
-        &lt;div class="ui-g-4"&gt;Brand: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.brand&#125;&#125;&lt;/div&gt;
-
-        &lt;div class="ui-g-4"&gt;Year: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.year&#125;&#125;&lt;/div&gt;
-
-        &lt;div class="ui-g-4"&gt;Color: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.color&#125;&#125;&lt;/div&gt;
+&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" 
+    [style]="&#123;width: '225px'&#125;" (onAfterHide)="onDialogHide()" [contentStyle]="&#123;padding: '2em', textAlign: 'center'&#125;"&gt;
+    &lt;div *ngIf="selectedCar"&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png"&gt;
+        &lt;strong&gt;&#123;&#123;selectedCar.vin&#125;&#125; - &#123;&#123;selectedCar.year&#125;&#125;&lt;/strong&gt;
     &lt;/div&gt;
 &lt;/p-dialog&gt;
 </code>

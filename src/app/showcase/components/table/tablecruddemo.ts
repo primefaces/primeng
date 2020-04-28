@@ -5,7 +5,7 @@ import { CarService } from '../../service/carservice';
 @Component({
     templateUrl: './tablecruddemo.html',
     styles: [`        
-        .ui-g label {
+        .p-grid label {
           font-weight: bold;
           margin-top: .25em;
           display: block;

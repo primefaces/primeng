@@ -6,63 +6,63 @@
 </div>
 
 <div class="content-section implementation">
-    <div class="ui-g ui-fluid" style="margin-top: -30px">
-        <div class="ui-g-12 ui-md-4">
+    <div class="p-grid ui-fluid" style="margin-top: -30px">
+        <div class="p-col-12 p-md-4">
             <h3>Basic</h3>
             <p-calendar [(ngModel)]="date1"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Spanish</h3>
             <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Icon</h3>
             <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Min-Max</h3>
             <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Disable Days</h3>
             <p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Navigators</h3>
             <p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Time</h3>
             <p-calendar [(ngModel)]="date7" [showTime]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Time Only</h3>
             <p-calendar [(ngModel)]="date8" [timeOnly]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Multiple</h3>
             <p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Range</h3>
             <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Button Bar</h3>
             <p-calendar [(ngModel)]="date9" showButtonBar="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Date Template</h3>
             <p-calendar [(ngModel)]="date10">
                 <ng-template pTemplate="date" let-date>
@@ -71,17 +71,17 @@
             </p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Multiple Months</h3>
             <p-calendar [(ngModel)]="date11" [numberOfMonths]="3"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Month Picker</h3>
             <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"></p-calendar>
         </div>
 
-        <div class="ui-g-12 ui-md-4">
+        <div class="p-col-12 p-md-4">
             <h3>Touch UI</h3>
             <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true"></p-calendar>
         </div>
@@ -837,63 +837,63 @@ export class MyModel &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="ui-g ui-fluid"&gt;
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+&lt;div class="p-grid ui-fluid"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Basic&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Spanish&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Icon&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date3" [showIcon]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Min-Max&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Disable Days&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Navigators&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Time&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date7" [showTime]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Time Only &lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date8" [timeOnly]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Multiple &lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Range&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Button Bar&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date9" showButtonBar="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Date Template&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date11"&gt;
             &lt;ng-template pTemplate="date" let-date&gt;
@@ -902,17 +902,17 @@ export class MyModel &#123;
         &lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Multiple Months&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date11" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Month Picker&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-4"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h3&gt;Touch UI&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;

@@ -1202,7 +1202,7 @@ body {
 			>div {
 				width: 100%;
 			}
-			.ui-g-12 {
+			.p-col-12 {
 				&:last-child {
 					text-align: center !important;
 				}
@@ -1219,8 +1219,9 @@ body {
 	}
 	.support {
 		.support-image {
-			text-align: center;
-			.ui-md-6 {
+            text-align: center;
+            
+			.p-md-6 {
 				&:last-child {
 					text-align: center;
 					padding-top: 2em;
@@ -1327,9 +1328,6 @@ pre {
 	img {
 		width: 100%;
 	}
-}
-.ui-growl {
-	top: 100px;
 }
 a {
 	text-decoration: none;
@@ -1535,8 +1533,9 @@ a {
 			font-weight: bold;
 			font-size: 18px;
 			margin-top: 1em;
-		}
-		.ui-g {
+        }
+        
+		.p-grid {
 			p {
 				color: #535d62;
 				font-size: 16px;
@@ -1557,8 +1556,9 @@ a {
 		}
 		p {
 			margin-bottom: 30px;
-		}
-		.ui-g {
+        }
+        
+		.p-grid {
 			>div {
 				padding: 1em 2em;
 			}
@@ -1570,9 +1570,10 @@ a {
 	.testimonials {
 		border-top: 1px solid #4c5254;
 		padding-top: 20px;
-		margin-top: 30px;
-		.ui-g {
-			>div {
+        margin-top: 30px;
+        
+		.p-grid {
+			> div {
 				margin-left: -1px;
 				margin-top: -1px;
 				border: 1px solid #333D41;
@@ -1607,7 +1608,7 @@ a {
 		padding: 30px;
 		box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
 		color: #ffffff;
-		.ui-g-12 {
+		.p-col-12 {
 			&:last-child {
 				text-align: center;
 			}
@@ -1639,7 +1640,7 @@ a {
 			width: 100%;
 			margin-bottom: 30px;
 		}
-		.ui-g {
+		.p-grid {
 			>div {
 				padding: .5em 1em;
 			}
@@ -1747,7 +1748,7 @@ a {
 	img {
 		width: 100%;
 	}
-	.ui-g {
+	.p-grid {
 		>div {
 			padding: 1em;
 			img {
@@ -1771,8 +1772,9 @@ a {
 .support-image {
 	background-color: rgba(79,41,64,.8);
 	padding: 30px;
-	color: #ffffff;
-	.ui-md-6 {
+    color: #ffffff;
+    
+	.p-md-6 {
 		&:last-child {
 			text-align: right;
 		}

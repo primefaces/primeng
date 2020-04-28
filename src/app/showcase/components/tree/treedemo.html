@@ -43,23 +43,23 @@
     <p-contextMenu #cm [model]="items"></p-contextMenu>
 
     <h3>DragDrop</h3>
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-3">
+    <div class="p-grid ui-fluid">
+        <div class="p-col-12 p-md-3">
             <h4>Files</h4>
             <p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2" ></p-tree>
         </div>
 
-        <div class="ui-g-12 ui-md-3">
+        <div class="p-col-12 p-md-3">
             <h4>Server 1</h4>
             <p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true"  droppableScope="server1" draggableScope="files"></p-tree>
         </div>
 
-        <div class="ui-g-12 ui-md-3">
+        <div class="p-col-12 p-md-3">
             <h4>Server 2</h4>
             <p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true"  droppableScope="server2" draggableScope="server1"></p-tree>
         </div>
 
-        <div class="ui-g-12 ui-md-1">
+        <div class="p-col-12 p-md-1">
 
         </div>
     </div>
@@ -879,23 +879,23 @@ onDrop(event) {
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 
 &lt;h3&gt;DragDrop&lt;/h3&gt;
-&lt;div class="ui-g ui-fluid"&gt;
-    &lt;div class="ui-g-12 ui-md-3"&gt;
+&lt;div class="p-grid ui-fluid"&gt;
+    &lt;div class="p-col-12 p-md-3"&gt;
         &lt;h4&gt;Files&lt;/h4&gt;
         &lt;p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-3"&gt;
+    &lt;div class="p-col-12 p-md-3"&gt;
         &lt;h4&gt;Server 1&lt;/h4&gt;
         &lt;p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-3"&gt;
+    &lt;div class="p-col-12 p-md-3"&gt;
         &lt;h4&gt;Server 2&lt;/h4&gt;
         &lt;p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-g-12 ui-md-1"&gt;
+    &lt;div class="p-col-12 p-md-1"&gt;
 
     &lt;/div&gt;
 &lt;/div&gt;

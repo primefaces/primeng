@@ -84,7 +84,35 @@
     margin-top: -.5em;
 }
 
-.ui-megamenu .ui-g {
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
+.ui-megamenu-grid {
+    display: flex;
+}
+
+.ui-megamenu-col-2,
+.ui-megamenu-col-3,
+.ui-megamenu-col-4,
+.ui-megamenu-col-6,
+.ui-megamenu-col-12 {
+    flex: 0 0 auto;
+    padding: 0.5em;
+}
+
+.ui-megamenu-col-2 {
+    width: 16.6667%;
+}
+
+.ui-megamenu-col-3 {
+    width: 25%;
+}
+
+.ui-megamenu-col-4 {
+    width: 33.3333%;
+}
+
+.ui-megamenu-col-6 {
+    width: 50%;
+}
+
+.ui-megamenu-col-12 {
+    width: 100%;
 }
