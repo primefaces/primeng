@@ -344,6 +344,18 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.3) (2020-04-28)
+- selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
+- Change Tooltip disabled doesn't close it [\#8324](https://github.com/primefaces/primeng/issues/8324)
+- The dynamicDialog can't be closed using the ESC key if the dynamicDialog has the baseZIndex property [\#8666](https://github.com/primefaces/primeng/issues/8666)
+- The dynamicDialog can't be closed using the ESC key if the dynamicDialog hasn't the baseZIndex property [\#8760](https://github.com/primefaces/primeng/issues/8760)
+- Pressing arrow up key in drag and drop enabled tree selects wrong node [\#8623](https://github.com/primefaces/primeng/issues/8623)
+- Tiered Menu command does not receive MenuItem in event [\#8592](https://github.com/primefaces/primeng/issues/8592)
+- Tooltip - new tooltip created without removing old tooltip [\#8516](https://github.com/primefaces/primeng/issues/8516)
+- PickList - items dissapear when items are moved and filters are set [\#8514](https://github.com/primefaces/primeng/issues/8514)
+- p-calendar selectionMode="multiple" After unselect date, the calendar breaks. [\#8457](https://github.com/primefaces/primeng/issues/8457)
+- Dropdown allows selecting disabled options [\#8448](https://github.com/primefaces/primeng/issues/8448)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.2) (2020-04-15)
 - Calendar incorrect time validation [\#7381](https://github.com/primefaces/primeng/issues/7381)
 - id selector is not being set on toast message [\#7449](https://github.com/primefaces/primeng/issues/7449)
@@ -722,6 +734,18 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.4) (2020-04-28)
+- selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
+- Change Tooltip disabled doesn't close it [\#8324](https://github.com/primefaces/primeng/issues/8324)
+- The dynamicDialog can't be closed using the ESC key if the dynamicDialog has the baseZIndex property [\#8666](https://github.com/primefaces/primeng/issues/8666)
+- The dynamicDialog can't be closed using the ESC key if the dynamicDialog hasn't the baseZIndex property [\#8760](https://github.com/primefaces/primeng/issues/8760)
+- Pressing arrow up key in drag and drop enabled tree selects wrong node [\#8623](https://github.com/primefaces/primeng/issues/8623)
+- Tiered Menu command does not receive MenuItem in event [\#8592](https://github.com/primefaces/primeng/issues/8592)
+- Tooltip - new tooltip created without removing old tooltip [\#8516](https://github.com/primefaces/primeng/issues/8516)
+- PickList - items dissapear when items are moved and filters are set [\#8514](https://github.com/primefaces/primeng/issues/8514)
+- p-calendar selectionMode="multiple" After unselect date, the calendar breaks. [\#8457](https://github.com/primefaces/primeng/issues/8457)
+- Dropdown allows selecting disabled options [\#8448](https://github.com/primefaces/primeng/issues/8448)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.3) (2020-04-15)
 - Calendar incorrect time validation [\#7381](https://github.com/primefaces/primeng/issues/7381)
