@@ -344,7 +344,7 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.3) (2020-04-28)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.3) (2020-04-28)
 - selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
 - Change Tooltip disabled doesn't close it [\#8324](https://github.com/primefaces/primeng/issues/8324)
 - The dynamicDialog can't be closed using the ESC key if the dynamicDialog has the baseZIndex property [\#8666](https://github.com/primefaces/primeng/issues/8666)
