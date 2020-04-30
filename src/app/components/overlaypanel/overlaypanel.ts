@@ -116,11 +116,12 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                     if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.isContainerClicked) {
                         this.zone.run(() => {
                             this.hide();
+
+                            this.cd.markForCheck();
                         });
                     }
 
                     this.isContainerClicked = false;
-                    this.cd.markForCheck();
                 });
             });
         }
