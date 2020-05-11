@@ -1,25 +1,123 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
+import { ImageService } from '../../service/imageservice';
+import { Galleria } from 'primeng/galleria';
 
 @Component({
-    templateUrl: './galleriademo.html'
+    templateUrl: './galleriademo.html',
+    styleUrls: ['./galleriademo.scss']
 })
-export class GalleriaDemo {
+export class GalleriaDemo implements OnInit, OnDestroy {
     
     images: any[];
+
+    showThumbnails: boolean;
+
+    isPreviewFullScreen: boolean = false;
     
-    constructor() {
-        this.images = [];
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria2.jpg', alt:'Description for Image 2', title:'Title 2'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria3.jpg', alt:'Description for Image 3', title:'Title 3'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria4.jpg', alt:'Description for Image 4', title:'Title 4'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria5.jpg', alt:'Description for Image 5', title:'Title 5'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria6.jpg', alt:'Description for Image 6', title:'Title 6'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria7.jpg', alt:'Description for Image 7', title:'Title 7'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria8.jpg', alt:'Description for Image 8', title:'Title 8'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria9.jpg', alt:'Description for Image 9', title:'Title 9'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'});
-        this.images.push({source:'assets/showcase/images/demo/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'});
+    activeIndex: number = 0;
+    
+    onFullScreenListener: any;
+
+    @ViewChild('galleria') galleria: Galleria;
+
+    
+    constructor(private imageService: ImageService) { }
+
+    responsiveOptions:any[] = [
+        {
+            breakpoint: '1024px',
+            numVisible: 5
+        },
+        {
+            breakpoint: '768px',
+            numVisible: 3
+        },
+        {
+            breakpoint: '560px',
+            numVisible: 1
+        }
+    ];
+    ngOnInit() {
+        this.imageService.getImages().then(images => this.images = images);
+        this.bindDocumentListeners();
+    }
+
+    onThumbnailButtonClick() {
+        this.showThumbnails = !this.showThumbnails;
+    }
+
+    toggleFullScreen() {
+        if (this.isPreviewFullScreen) {
+            this.closePreviewFullScreen();
+        }
+        else {
+            this.openPreviewFullScreen();
+        }
+    }
+
+    openPreviewFullScreen() {
+        let elem = this.galleria.element.nativeElement.querySelector(".ui-galleria");
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        }
+        else if (elem['mozRequestFullScreen']) { /* Firefox */
+            elem['mozRequestFullScreen']();
+        }
+        else if (elem['webkitRequestFullscreen']) { /* Chrome, Safari & Opera */
+            elem['webkitRequestFullscreen']();
+        }
+        else if (elem['msRequestFullscreen']) { /* IE/Edge */
+            elem['msRequestFullscreen']();
+        }
+    }
+
+    onFullScreenChange() {
+        this.isPreviewFullScreen = !this.isPreviewFullScreen;
+    }
+
+    closePreviewFullScreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+        else if (document['mozCancelFullScreen']) {
+            document['mozCancelFullScreen']();
+        }
+        else if (document['webkitExitFullscreen']) {
+            document['webkitExitFullscreen']();
+        }
+        else if (document['msExitFullscreen']) {
+            document['msExitFullscreen']();
+        }
+    }
+
+    hey() {
+        console.log(this.isPreviewFullScreen);
+    }
+    bindDocumentListeners() {
+        this.onFullScreenListener = this.onFullScreenChange.bind(this);
+        document.addEventListener("fullscreenchange", this.onFullScreenListener);
+        document.addEventListener("mozfullscreenchange", this.onFullScreenListener);
+        document.addEventListener("webkitfullscreenchange", this.onFullScreenListener);
+        document.addEventListener("msfullscreenchange", this.onFullScreenListener);
+    }
+
+    unbindDocumentListeners() {
+        document.removeEventListener("fullscreenchange", this.onFullScreenListener);
+        document.removeEventListener("mozfullscreenchange", this.onFullScreenListener);
+        document.removeEventListener("webkitfullscreenchange", this.onFullScreenListener);
+        document.removeEventListener("msfullscreenchange", this.onFullScreenListener);
+        this.onFullScreenListener = null;
+    }
+
+    ngOnDestroy() {
+        this.unbindDocumentListeners();
+    }
+
+    galleriaClass() {
+        return `custom-galleria ${this.isPreviewFullScreen ? 'preview-fullscreen' : ''}`;
+    }
+
+    fullScreenIcon() {
+        return `pi ${this.isPreviewFullScreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
     }
 }

@@ -1,0 +1,198 @@
+<galleria-submenu></galleria-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Galleria - Thumbnail</span>
+        <span></span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Basic</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"> 
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" style="width: 100%;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.thumbnailImageSrc" />
+            </div>
+        </ng-template>
+    </p-galleria>
+    <h3>Position</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px'}" [numVisible]="4"
+        thumbnailsPosition="left"> 
+        <ng-template pTemplate="header">
+            Left
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" style="width: 100%;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.thumbnailImageSrc" />
+            </div>
+        </ng-template>
+    </p-galleria>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px', 'margin-top':'2em'}" [numVisible]="4"
+        thumbnailsPosition="right"> 
+        <ng-template pTemplate="header">
+            Right
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" style="width: 100%;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.thumbnailImageSrc" />
+            </div>
+        </ng-template>
+    </p-galleria>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px', 'margin-top':'2em'}" [numVisible]="5"
+        thumbnailsPosition="top"> 
+        <ng-template pTemplate="header">
+            Top
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" style="width: 100%;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.thumbnailImageSrc" />
+            </div>
+        </ng-template>
+    </p-galleria>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px', 'margin-top':'2em'}" [numVisible]="5"
+        thumbnailsPosition="bottom"> 
+        <ng-template pTemplate="header">
+            Bottom
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" style="width: 100%;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.thumbnailImageSrc" />
+            </div>
+        </ng-template>
+    </p-galleria>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="galleriabasicdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class GalleriaDemo implements OnInit &#123;
+    images: any[];
+
+    responsiveOptions:any[] = [
+        &#125;
+            breakpoint: '1024px',
+            numVisible: 5
+        &#125;,
+        &#125;
+            breakpoint: '768px',
+            numVisible: 3
+        &#125;,
+        &#125;
+            breakpoint: '560px',
+            numVisible: 1
+        &#125;
+    ];
+
+    constructor(private imageService: ImageService) &#125; &#125;
+
+    ngOnInit() &#125;
+        this.imageService.getImages().then(images =>&#125; 
+            this.images = images
+        &#125;)
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+        <p-tabPanel header="galleriabasicdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;h3&gt;Position&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px'&#125;" [numVisible]="4"
+    thumbnailsPosition="left"&gt; 
+    &lt;ng-template pTemplate="header"&gt;
+        Left
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px', 'margin-top':'2em'&#125;" [numVisible]="4"
+    thumbnailsPosition="right"&gt; 
+    &lt;ng-template pTemplate="header"&gt;
+        Right
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px', 'margin-top':'2em'&#125;" [numVisible]="5"
+    thumbnailsPosition="top"&gt; 
+    &lt;ng-template pTemplate="header"&gt;
+        Top
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px', 'margin-top':'2em'&#125;" [numVisible]="5"
+    thumbnailsPosition="bottom"&gt; 
+    &lt;ng-template pTemplate="header"&gt;
+        Bottom
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+</code>
+</pre>
+
+        </p-tabPanel>
+    </p-tabView>
+</div>
+

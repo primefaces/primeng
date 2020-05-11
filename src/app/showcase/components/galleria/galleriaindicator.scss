@@ -1,0 +1,83 @@
+:host ::ng-deep {
+    &.custom-indicator-galleria {
+        &.ui-galleria-indicators-left {
+            .ui-galleria-preview-content {
+                .ui-galleria-indicator-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0;
+
+                    .ui-galleria-indicator-item {
+                        margin-left: 0;
+                        height: 100%;
+                        padding-left: .5em !important;
+                        padding-right: .5em !important;
+                        background-color: rgba(0, 0, 0, 0.6);
+                        color: #ffffff;
+                        border-top-width: 0 !important;
+                        border-radius: 0;
+                        min-width: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        transition: all .2s;
+
+                        &:first-child {
+                            border-top-width: 1px !important;
+                        }
+
+                        &.ui-state-highlight {
+                            color: var(--primaryTextColor);
+                            background-color: var(--primaryColor);
+                            border-color: var(--primaryColor);
+                        }
+                    }
+                }
+            }
+        }
+
+        &:not(.ui-galleria-indicator-onpreview) {
+            &.ui-galleria-indicators-left {
+                .ui-galleria-preview-content {
+                    align-items: stretch;
+
+                    .ui-galleria-preview-container {
+                        border: 1px solid #c8c8c8; /* for IE */
+                        border: var(--panelContentBorder);
+                        border-left-width: 0;
+                    }
+
+                    .ui-galleria-indicator-container {
+                        .ui-galleria-indicator-item {
+                            background-color: #ffffff;
+                            border: 1px solid #c8c8c8; /* for IE */
+                            border: var(--panelContentBorder);
+                            color: #333333;
+
+                            &.ui-state-highlight {
+                                color: var(--primaryTextColor);
+                                background-color: var(--primaryColor);
+                                border-color: var(--primaryColor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.custom-indicator-galleria2 {
+        &.ui-galleria-indicators-left {
+            .ui-galleria-content {
+                .ui-galleria-preview-content {
+                    .ui-galleria-indicator-container {
+                        .ui-galleria-indicator-item {
+                            padding-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

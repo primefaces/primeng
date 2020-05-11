@@ -1,3 +1,4 @@
+<galleria-submenu></galleria-submenu>
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Galleria</span>
@@ -6,7 +7,28 @@
 </div>
 
 <div class="content-section implementation">
-    <p-galleria [images]="images" panelWidth="500" panelHeight="313"></p-galleria>
+    <p-galleria #galleria [(value)]="images" [(activeItemIndex)]="activeIndex" [numVisible]="5" [containerStyle]="{'max-width':'520px'}" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
+        [showPreviewNavButtons]="true" [showNavButtonsOnPreviewHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"> 
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" [ngStyle]="{'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''}" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.thumbnailImageSrc" />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer" let-item>
+            <div class="custom-galleria-footer">
+                <button pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+                <span *ngIf="images">
+                    <span>{{activeIndex + 1}}/{{images.length}}</span>
+                    <span class="title">{{images[activeIndex].title}}</span>
+                    <span>{{images[activeIndex].alt}}</span>
+                </span>
+                <button pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()"></button>
+            </div>
+        </ng-template>
+    </p-galleria>
 </div>
 
 <div class="content-section documentation">
@@ -20,36 +42,105 @@ import &#123;GalleriaModule&#125; from 'primeng/galleria';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Galleria requires a set of images to display. Source attribute defines the path of the image whereas title and alt attributes are used in the caption section
-                to display summary and description about an image.</p>
+            <p>Galleria requires item template and a value as an array of objects</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" [showCaption]="true"&gt;&lt;/p-galleria&gt;
+&lt;p-galleria [value]="images"&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
+    &lt;/template&gt;
+&lt;/p-galleria&gt;
+</code>
+</pre>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+    images: any[];
+
+    constructor(private imageService: ImageService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.imageService.getImages().then(images => this.images = images)
+    &#125;
 </code>
 </pre>
 
+            <h3>Items per page</h3>
+            <p>Number of items per page is defined using the <i>numVisible</i> property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-galleria [value]="images" [numVisible]="5"&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
+    &lt;/template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+</code>
+</pre>
+
+            <h3>Responsive</h3>
+            <p>For responsive design, <i>numVisible</i> can be defined using the <i>responsiveOptions</i> property that should be an array of
+                objects whose breakpoint defines the max-width to apply the settings.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [numVisible]="5"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" style="display: block;"/&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+</code>
+</pre>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class GalleriaDemo implements OnInit &#123;
-    
-    images: any[];
-    
-    ngOnInit() &#123;
-        this.images = [];
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria2.jpg', alt:'Description for Image 2', title:'Title 2'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria3.jpg', alt:'Description for Image 3', title:'Title 3'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria4.jpg', alt:'Description for Image 4', title:'Title 4'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria5.jpg', alt:'Description for Image 5', title:'Title 5'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria6.jpg', alt:'Description for Image 6', title:'Title 6'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria7.jpg', alt:'Description for Image 7', title:'Title 7'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria8.jpg', alt:'Description for Image 8', title:'Title 8'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria9.jpg', alt:'Description for Image 9', title:'Title 9'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'&#125;);
+responsiveOptions:any[] = [
+    &#123;
+        breakpoint: '1024px',
+        numVisible: 5
+    &#125;,
+    &#123;
+        breakpoint: '768px',
+        numVisible: 3
+    &#125;,
+    &#123;
+        breakpoint: '560px',
+        numVisible: 1
     &#125;
-&#125;
+];
+</code>
+</pre>
+
+            <h3>Header and Footer</h3>
+            <p>Custom content projection is available using the <i>header</i> and <i>footer</i> properties.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'" [numVisible]="5"&gt; 
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;h1&gt;
+            Header
+        &lt;/h1&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;h1&gt;
+            Footer
+        &lt;/h1&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
 </code>
 </pre>
 
@@ -66,95 +157,148 @@ export class GalleriaDemo implements OnInit &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>panelWidth</td>
-                            <td>number</td>
-                            <td>600</td>
-                            <td>Width of the content panel.</td>
+                            <td>id</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Unique identifier of the element.</td>
                         </tr>
                         <tr>
-                            <td>panelHeight</td>
-                            <td>number</td>
-                            <td>400</td>
-                            <td>Height of the content panel.</td>
-                        </tr>
-                        <tr>
-                            <td>frameWidth</td>
-                            <td>number</td>
-                            <td>60</td>
-                            <td>Width of the filmstrip frames.</td>
-                        </tr>
-                        <tr>
-                            <td>frameHeight</td>
-                            <td>number</td>
-                            <td>40</td>
-                            <td>Height of the filmstrip frames.</td>
-                        </tr>
-                        <tr>
-                            <td>showFilmstrip</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Defines visibility of filmstrip.</td>
-                        </tr>
-                        <tr>
-                            <td>autoPlay</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Images are displayed with a slideshow in autoPlay mode.</td>
-                        </tr>
-                        <tr>
-                            <td>transitionInterval</td>
-                            <td>number</td>
-                            <td>4000</td>
-                            <td>Time in milliseconds between each slide in autoPlay mode.</td>
-                        </tr>
-                        <tr>
-                            <td>effectDuration</td>
-                            <td>number</td>
-                            <td>250</td>
-                            <td>Duration of animation in milliseconds.</td>
-                        </tr>
-                        <tr>
-                            <td>showCaption</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Displays information retrieved from title and alt attributes of images in content caption.</td>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to display.</td>
                         </tr>
                         <tr>
                             <td>activeIndex</td>
                             <td>number</td>
                             <td>0</td>
-                            <td>Index of the current active image of galleria images.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h4>Events</h4>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Parameters</th>
-                        <th>Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>onImageClicked</td>
-                            <td>
-                                event.image: Image Object<br>
-                                event.originalEvent: Click Object<br>
-                                event.index: Index of the image
-                            </td>
-                            <td>Callback to invoke when the displayed image is clicked.</td>
+                            <td>Index of the first item.</td>
                         </tr>
                         <tr>
-                            <td>onImageChange</td>
-                            <td>
-                                event.index: Index of the image
-                            </td>
-                            <td>Callback to invoke when an image changes.</td>
+                            <td>fullScreen</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display the component on fullscreen.</td>
+                        </tr>
+                        <tr>
+                            <td>visible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifies the visibility of the mask on fullscreen mode.</td>
+                        </tr>
+                        <tr>
+                            <td>numVisible</td>
+                            <td>number</td>
+                            <td>3</td>
+                            <td>Number of items per page.</td>
+                        </tr>
+                        <tr>
+                            <td>responsiveOptions</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>An array of options for responsive design.</td>
+                        </tr>
+                        <tr>
+                            <td>showPreviewNavButtons</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display navigation buttons in preview container.</td>
+                        </tr>
+                        <tr>
+                            <td>showThumbnailNavButtons</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to display navigation buttons in thumbnail container.</td>
+                        </tr>
+                        <tr>
+                            <td>showNavButtonsOnPreviewHover</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display navigation buttons on preview container's hover.</td>
+                        </tr>
+                        <tr>
+                            <td>changePreviewOnIndicatorHover</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, preview item is changed on indicator item's hover.</td>
+                        </tr>
+                        <tr>
+                            <td>circular</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if scrolling would be infinite.</td>
+                        </tr>
+                        <tr>
+                            <td>autoPlay</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Items are displayed with a slideshow in autoPlay mode.</td>
+                        </tr>
+                        <tr>
+                            <td>transitionInterval</td>
+                            <td>number</td>
+                            <td>4000</td>
+                            <td>Time in milliseconds to scroll items.</td>
+                        </tr>
+                        <tr>
+                            <td>showThumbnails</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to display thumbnail container.</td>
+                        </tr>
+                        <tr>
+                            <td>thumbnailsPosition</td>
+                            <td>string</td>
+                            <td>bottom</td>
+                            <td>Position of thumbnails. Valid values are "bottom", "top", "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>verticalThumbnailViewPortHeight</td>
+                            <td>string</td>
+                            <td>300px</td>
+                            <td>Height of the viewport in vertical thumbnail.</td>
+                        </tr>
+                        <tr>
+                            <td>showIndicators</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display indicator container.</td>
+                        </tr>
+                        <tr>
+                            <td>showIndicatorsOnPreview</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, indicator container is displayed on preview container.</td>
+                        </tr>
+                        <tr>
+                            <td>indicatorsPosition</td>
+                            <td>string</td>
+                            <td>bottom</td>
+                            <td>Position of indicators. Valid values are "bottom", "top", "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>baseZIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Base zIndex value to use in layering.</td>
+                        </tr>
+                        <tr>
+                            <td>maskClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the mask on fullscreen mode.</td>
+                        </tr>
+                        <tr>
+                            <td>containerStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used.</td>
+                        </tr>
+                        <tr>
+                            <td>galleriaClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -173,35 +317,39 @@ export class GalleriaDemo implements OnInit &#123;
                     <tbody>
                         <tr>
                             <td>ui-galleria</td>
-                            <td>Container element</td>
+                            <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-panel-wrapper</td>
-                            <td>Parent of item containers.</td>
+                            <td>ui-galleria-header</td>
+                            <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-filmstrip-wrapper</td>
-                            <td>Container of filmstrip.</td>
+                            <td>ui-galleria-footer</td>
+                            <td>Footer section.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-filmstrip</td>
-                            <td>Filmstrip element</td>
+                            <td>ui-galleria-preview-content</td>
+                            <td>Preview content element. It contains preview and indicator containers.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-frame</td>
-                            <td>Frame element of thumbnail</td>
+                            <td>ui-galleria-preview-container</td>
+                            <td>Container of the preview content. It contains navigation buttons, preview item and caption content.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-nav-next</td>
-                            <td>Icon to navigate to next item</td>
+                            <td>ui-galleria-indicator-container</td>
+                            <td>Container of the indicators. It contains indicator items.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-nav-prev</td>
-                            <td>Icon to navigate to previous item</td>
+                            <td>ui-galleria-thumbnail-content</td>
+                            <td>Thumbnail content element.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-caption</td>
-                            <td>Caption element that displays title and description of an item</td>
+                            <td>ui-galleria-thumbnail-container</td>
+                            <td>Container of the thumbnail content. It contains navigation buttons and thumbnail items.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-galleria-preview-caption</td>
+                            <td>Content of the preview caption.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -218,29 +366,75 @@ export class GalleriaDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
+&lt;p-galleria #galleria [(value)]="images" [(activeItemIndex)]="activeIndex" [numVisible]="5" [containerStyle]="&#123;'max-width':'520px'&#125;" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
+    [showPreviewNavButtons]="true" [showNavButtonsOnPreviewHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" [ngStyle]="&#123;'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''&#125;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="footer" let-item&gt;
+        &lt;div class="custom-galleria-footer"&gt;
+            &lt;button pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"&gt;&lt;/button&gt;
+            &lt;span *ngIf="images"&gt;
+                &lt;span&gt;&#123;&#123;activeIndex + 1&#125;&#125;/&#123;&#123;images.length&#125;&#125;&lt;/span&gt;
+                &lt;span class="title"&gt;&#123;&#123;images[activeIndex].title&#125;&#125;&lt;/span&gt;
+                &lt;span&gt;&#123;&#123;images[activeIndex].alt&#125;&#125;&lt;/span&gt;
+            &lt;/span&gt;
+            &lt;button pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()"&gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class GalleriaDemo implements OnInit &#123;
-    
     images: any[];
+
+    get activeIndex(): number &#123;
+        return this._activeIndex;
+      &#125;
     
+    set activeIndex(newValue) &#123;
+        if (this.images && 0 <= newValue && newValue <= (this.images.length - 1)) &#123;
+            this._activeIndex = newValue;
+        &#125;
+    &#125;
+
+    _activeIndex: number = 2;
+    
+    responsiveOptions:any[] = [
+        &#123;
+            breakpoint: '1024px',
+            numVisible: 5
+        &#125;,
+        &#123;
+            breakpoint: '768px',
+            numVisible: 3
+        &#125;,
+        &#123;
+            breakpoint: '560px',
+            numVisible: 1
+        &#125;
+    ];
+
+    constructor(private imageService: ImageService) &#123; &#125;
+
     ngOnInit() &#123;
-        this.images = [];
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria2.jpg', alt:'Description for Image 2', title:'Title 2'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria3.jpg', alt:'Description for Image 3', title:'Title 3'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria4.jpg', alt:'Description for Image 4', title:'Title 4'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria5.jpg', alt:'Description for Image 5', title:'Title 5'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria6.jpg', alt:'Description for Image 6', title:'Title 6'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria7.jpg', alt:'Description for Image 7', title:'Title 7'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria8.jpg', alt:'Description for Image 8', title:'Title 8'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria9.jpg', alt:'Description for Image 9', title:'Title 9'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'&#125;);
-        this.images.push(&#123;source:'assets/showcase/images/demo/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'&#125;);
+        this.imageService.getImages().then(images => this.images = images)
+    &#125;
+
+    next() &#123;
+        this.activeIndex++;
+    &#125;
+
+    prev() &#123;
+        this.activeIndex--;
     &#125;
 &#125;
 </code>
