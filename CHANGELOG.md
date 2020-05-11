@@ -344,6 +344,19 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.4) (2020-05-11)
+- Slider doesn't works properly with ChangeDetectionStrategy.OnPush / reactive forms [\#7692](https://github.com/primefaces/primeng/issues/7692)
+- "no file chosen" tooltip appears after selecting file [\#7957](https://github.com/primefaces/primeng/issues/7957)
+- fieldset: don't animate into collapse !... when collapse is default [\#8022](https://github.com/primefaces/primeng/issues/8022)
+- Dropdown panelStyle min width overridden when appendTo body is used [\#8218](https://github.com/primefaces/primeng/issues/8218)
+- Toast blocks protractor [\#8122](https://github.com/primefaces/primeng/issues/8122)
+- [p-tree] [bug] right arrow key tries to expand a leaf if onNodeExpand function is defined [\#8271](https://github.com/primefaces/primeng/issues/8271)
+- Panel: aria-labelledby points to not existing id when toggleable equals false [\#8272](https://github.com/primefaces/primeng/issues/8272)
+- MenuItem items property type error [\#8339](https://github.com/primefaces/primeng/issues/8339)
+- Multiple messages should wrap [\#8768](https://github.com/primefaces/primeng/issues/8768)
+- Button and SplitButton have different brightness when disabled [\#8416](https://github.com/primefaces/primeng/issues/8416)
+- p-spinner does not work after upgrade to 9.0.3 [\#8695](https://github.com/primefaces/primeng/issues/8695)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.3) (2020-04-28)
 - selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
 - Change Tooltip disabled doesn't close it [\#8324](https://github.com/primefaces/primeng/issues/8324)
@@ -734,6 +747,18 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.5) (2020-05-11)
+- Slider doesn't works properly with ChangeDetectionStrategy.OnPush / reactive forms [\#7692](https://github.com/primefaces/primeng/issues/7692)
+- "no file chosen" tooltip appears after selecting file [\#7957](https://github.com/primefaces/primeng/issues/7957)
+- fieldset: don't animate into collapse !... when collapse is default [\#8022](https://github.com/primefaces/primeng/issues/8022)
+- Dropdown panelStyle min width overridden when appendTo body is used [\#8218](https://github.com/primefaces/primeng/issues/8218)
+- Toast blocks protractor [\#8122](https://github.com/primefaces/primeng/issues/8122)
+- [p-tree] [bug] right arrow key tries to expand a leaf if onNodeExpand function is defined [\#8271](https://github.com/primefaces/primeng/issues/8271)
+- Panel: aria-labelledby points to not existing id when toggleable equals false [\#8272](https://github.com/primefaces/primeng/issues/8272)
+- MenuItem items property type error [\#8339](https://github.com/primefaces/primeng/issues/8339)
+- Multiple messages should wrap [\#8768](https://github.com/primefaces/primeng/issues/8768)
+- Button and SplitButton have different brightness when disabled [\#8416](https://github.com/primefaces/primeng/issues/8416)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.4) (2020-04-28)
 - selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
