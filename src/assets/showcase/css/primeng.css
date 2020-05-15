@@ -21,6 +21,7 @@
 @import '../../../app/components/grid/grid.css';
 @import '../../../app/components/inplace/inplace.css';
 @import '../../../app/components/inputmask/inputmask.css';
+@import '../../../app/components/inputnumber/inputnumber.css';
 @import '../../../app/components/inputswitch/inputswitch.css';
 @import '../../../app/components/inputtext/inputtext.css';
 @import '../../../app/components/inputtextarea/inputtextarea.css';

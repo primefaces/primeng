@@ -1,0 +1,100 @@
+.ui-inputnumber {
+    display: inline-flex;
+}
+
+.ui-inputnumber-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.ui-inputnumber-buttons-stacked .ui-inputnumber-button .ui-button-text,
+.ui-inputnumber-buttons-horizontal .ui-inputnumber-button .ui-button-text {
+    display: none;
+}
+
+.ui-inputnumber-buttons-stacked .ui-inputnumber-button-up {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 0;
+}
+
+.ui-inputnumber-buttons-stacked .ui-inputnumber-input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.ui-inputnumber-buttons-stacked .ui-inputnumber-button-down {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 0;
+}
+
+.ui-inputnumber-buttons-stacked .ui-inputnumber-button-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.ui-inputnumber-buttons-stacked .ui-inputnumber-button-group .ui-inputnumber-button {
+    flex: 1 1 auto;
+}
+
+.ui-inputnumber-buttons-horizontal .ui-inputnumber-button-up {
+    order: 3;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.ui-inputnumber-buttons-horizontal .ui-inputnumber-input {
+    order: 2;
+    border-radius: 0;
+}
+
+.ui-inputnumber-buttons-horizontal .ui-inputnumber-button-down {
+    order: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.ui-inputnumber-buttons-vertical {
+    flex-direction: column;
+}
+
+.ui-inputnumber-buttons-vertical .ui-inputnumber-button-up.ui-button-icon-only {
+    order: 1;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+}
+
+.ui-inputnumber-buttons-vertical .ui-inputnumber-input {
+    order: 2;
+    border-radius: 0;
+    text-align: center;
+}
+
+.ui-inputnumber-buttons-vertical .ui-inputnumber-button-down.ui-button-icon-only {
+    order: 3;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 100%;
+}
+
+.ui-inputnumber-input {
+    flex: 1 1 auto;
+}
+
+.ui-fluid .ui-inputnumber {
+    width: 100%;
+}
+
+.ui-fluid .ui-inputnumber .ui-inputnumber-input {
+    width: 1%;
+}
+
+.ui-fluid .ui-inputnumber-buttons-vertical .ui-inputnumber-input {
+    width: 100%;
+}
