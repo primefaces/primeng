@@ -51,7 +51,7 @@ import { UniqueComponentId } from 'primeng/utils';
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class SplitButton implements OnDestroy {
 

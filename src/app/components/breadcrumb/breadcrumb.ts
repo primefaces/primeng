@@ -39,7 +39,7 @@ import {RouterModule} from '@angular/router';
             </ul>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Breadcrumb {
 

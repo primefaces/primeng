@@ -50,7 +50,7 @@ const hideAnimation = animation([
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 

@@ -28,7 +28,7 @@ export class InplaceContent {}
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Inplace {
 

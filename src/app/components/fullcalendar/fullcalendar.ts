@@ -5,7 +5,7 @@ import {Calendar} from '@fullcalendar/core';
 @Component({
     selector: 'p-fullCalendar',
     template: '<div [ngStyle]="style" [class]="styleClass"></div>',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class FullCalendar implements OnDestroy,OnInit,AfterViewChecked {
         

@@ -193,7 +193,7 @@ export class MenubarSub implements OnDestroy {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Menubar {
 

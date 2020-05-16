@@ -21,7 +21,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [INPUTSWITCH_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class InputSwitch implements ControlValueAccessor {
 

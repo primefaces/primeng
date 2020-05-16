@@ -500,7 +500,7 @@ export class UITreeNode implements OnInit {
             <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 

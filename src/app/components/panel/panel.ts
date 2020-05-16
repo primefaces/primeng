@@ -51,7 +51,7 @@ let idx: number = 0;
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Panel implements BlockableUI {
 

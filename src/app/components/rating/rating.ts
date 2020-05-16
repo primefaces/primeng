@@ -24,7 +24,7 @@ export const RATING_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [RATING_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Rating implements OnInit,ControlValueAccessor {
 

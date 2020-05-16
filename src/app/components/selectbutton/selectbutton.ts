@@ -29,7 +29,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class SelectButton implements ControlValueAccessor, OnChanges {
 

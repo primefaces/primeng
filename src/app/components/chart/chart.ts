@@ -9,7 +9,7 @@ import * as Chart from 'chart.js';
             <canvas [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UIChart implements AfterViewInit, OnDestroy {
 

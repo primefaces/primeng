@@ -152,7 +152,7 @@ export class MultiSelectItem {
         '[class.ui-inputwrapper-focus]': 'focus'
     },
     providers: [MULTISELECT_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 

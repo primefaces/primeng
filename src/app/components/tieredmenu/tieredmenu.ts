@@ -191,7 +191,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class TieredMenu implements OnDestroy {
 

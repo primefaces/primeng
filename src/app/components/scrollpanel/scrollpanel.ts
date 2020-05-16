@@ -15,7 +15,7 @@ import { DomHandler } from 'primeng/dom';
             <div #yBar class="ui-scrollpanel-bar ui-scrollpanel-bar-y"></div>   
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ScrollPanel implements AfterViewInit, OnDestroy {
 

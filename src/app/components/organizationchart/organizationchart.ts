@@ -111,7 +111,7 @@ export class OrganizationChartNode {
             <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class OrganizationChart implements AfterContentInit {
             

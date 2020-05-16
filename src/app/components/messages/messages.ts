@@ -47,7 +47,7 @@ import {Subscription} from 'rxjs';
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Messages implements AfterContentInit, OnDestroy {
 

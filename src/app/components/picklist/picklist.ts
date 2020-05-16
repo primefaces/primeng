@@ -90,7 +90,7 @@ import { FilterUtils } from 'primeng/utils';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class PickList implements AfterViewChecked,AfterContentInit {
 

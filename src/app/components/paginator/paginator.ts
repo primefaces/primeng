@@ -41,7 +41,7 @@ import {SharedModule} from 'primeng/api';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Paginator implements OnInit, OnChanges {
 

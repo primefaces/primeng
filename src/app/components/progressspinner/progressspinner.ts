@@ -10,7 +10,7 @@ import {CommonModule} from '@angular/common';
             </svg>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ProgressSpinner {
 

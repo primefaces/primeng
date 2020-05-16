@@ -176,7 +176,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                 (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)"></ul>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class TabView implements AfterContentInit,BlockableUI {
 

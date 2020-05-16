@@ -59,7 +59,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                    (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
 

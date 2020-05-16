@@ -9,7 +9,7 @@ import {DomHandler} from 'primeng/dom';
             <ng-content></ng-content>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class BlockUI implements AfterViewInit,OnDestroy {
 

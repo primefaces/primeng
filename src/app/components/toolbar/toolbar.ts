@@ -9,7 +9,7 @@ import {BlockableUI} from 'primeng/api';
             <ng-content></ng-content>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Toolbar implements BlockableUI {
 

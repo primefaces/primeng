@@ -18,7 +18,7 @@ import {CommonModule} from '@angular/common';
             </ng-template>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UIMessage {
 

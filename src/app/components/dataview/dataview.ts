@@ -38,7 +38,7 @@ import {FilterUtils} from 'primeng/utils';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 

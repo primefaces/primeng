@@ -38,7 +38,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             transition('open => close', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
 

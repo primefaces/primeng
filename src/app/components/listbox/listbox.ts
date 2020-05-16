@@ -58,7 +58,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     </div>
   `,
     providers: [LISTBOX_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Listbox implements AfterContentInit, ControlValueAccessor {
 

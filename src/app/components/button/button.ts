@@ -130,7 +130,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <span class="ui-button-text ui-clickable" [attr.aria-hidden]="icon && !label">{{label||'ui-btn'}}</span>
         </button>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Button {
 
