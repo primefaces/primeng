@@ -779,13 +779,61 @@ onDrop(event) &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;Basic&lt;/h3&gt;
+&lt;p-tree [value]="files1"&gt;&lt;/p-tree&gt;
 
+&lt;h3&gt;Programatic&lt;/h3&gt;
+&lt;div style="margin-bottom: 1rem"&gt;
+    &lt;button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .5rem"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;p-tree [value]="files2"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;NodeService&#125; from '../../service/nodeservice';
+import &#123;TreeNode&#125; from 'primeng/api';
 
+@Component(&#123;
+    templateUrl: './treebasicdemo.html'
+&#125;)
+export class TreeBasicDemo implements OnInit &#123;
+
+    files1: TreeNode[];
+    
+    files2: TreeNode[];
+    
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files1 = files);
+        this.nodeService.getFiles().then(files => this.files2 = files);
+    &#125;
+    
+    expandAll()&#123;
+        this.files2.forEach( node => &#123;
+            this.expandRecursive(node, true);
+        &#125; );
+    &#125;
+
+    collapseAll()&#123;
+        this.files2.forEach( node => &#123;
+            this.expandRecursive(node, false);
+        &#125; );
+    &#125;
+    
+    private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
+        node.expanded = isExpand;
+        if (node.children)&#123;
+            node.children.forEach( childNode => &#123;
+                this.expandRecursive(childNode, isExpand);
+            &#125; );
+        &#125;
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

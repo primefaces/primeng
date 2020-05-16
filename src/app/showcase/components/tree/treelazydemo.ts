@@ -20,7 +20,7 @@ export class TreeLazyDemo implements OnInit {
         setTimeout(() => {
             this.nodeService.getLazyFiles().then(files => this.files = files);
             this.loading = false;
-        }, 2000);
+        }, 1000);
     }
 
     nodeExpand(event) {

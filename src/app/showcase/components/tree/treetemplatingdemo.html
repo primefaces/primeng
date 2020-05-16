@@ -3,7 +3,7 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Tree - <span class="subitem">Templating</span></span>
-        <span>.</span>
+        <span>Custom content support inside node content is provided via templating.</span>
     </div>
 </div>
 
@@ -23,7 +23,30 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;NodeService&#125; from '../../service/nodeservice';
+import &#123;TreeNode&#125; from 'primeng/api';
 
+@Component(&#123;
+    templateUrl: './treetemplatingdemo.html',
+    styles:[`
+        .ui-inputtext &#123;
+            padding-top: 0;
+            padding-bottom: 0;
+            font-size: 12px;
+        &#125;
+    `]
+&#125;)
+export class TreeTemplatingDemo implements OnInit &#123;
+
+    files: TreeNode[];
+    
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files = files);
+    &#125;
+&#125;
 </code>
 </pre>   
         </p-tabPanel>
@@ -34,7 +57,11 @@
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-
+&lt;p-tree [value]="files"&gt;
+    &lt;ng-template let-node pTemplate="default"&gt;
+        &lt;input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext"&gt;
+    &lt;/ng-template&gt;
+&lt;/p-tree&gt;
 </code>
 </pre>
         </p-tabPanel>
