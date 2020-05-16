@@ -1,3 +1,5 @@
+<tree-submenu></tree-submenu>
+
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Tree</span>
@@ -6,80 +8,15 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast></p-toast>
+    <h3>Basic</h3>
+    <p-tree [value]="files1"></p-tree>
 
-    <h3 class="first">Basic</h3>
-    <p-tree [value]="filesTree0"></p-tree>
-
-    <h3>Loader</h3>
-    <p-tree [value]="filesTree1" [loading]="loading"></p-tree>
-
-    <h3>Single Selection</h3>
-    <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile"
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    <div style="margin-top:8px">Selected Node: {{selectedFile ? selectedFile.label : 'none'}}</div>
-
-    <h3>Multiple Selection with Metakey</h3>
-    <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles"
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    <div>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}}</span></div>
-
-    <h3>Multiple Selection with Checkbox</h3>
-    <p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
-    <div>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.label}}</span></div>
-
-    <h3>Lazy Loading</h3>
-    <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="{'max-height':'200px','overflow':'auto'}"></p-tree>
-
-    <h3>Template</h3>
-    <p-tree [value]="filesTree5">
-        <ng-template let-node pTemplate="default">
-            <input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext">
-        </ng-template>
-    </p-tree>
-
-    <h3>Context Menu</h3>
-    <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
-
-    <h3>DragDrop</h3>
-    <div class="p-grid ui-fluid">
-        <div class="p-col-12 p-md-3">
-            <h4>Files</h4>
-            <p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2" ></p-tree>
-        </div>
-
-        <div class="p-col-12 p-md-3">
-            <h4>Server 1</h4>
-            <p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true"  droppableScope="server1" draggableScope="files"></p-tree>
-        </div>
-
-        <div class="p-col-12 p-md-3">
-            <h4>Server 2</h4>
-            <p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true"  droppableScope="server2" draggableScope="server1"></p-tree>
-        </div>
-
-        <div class="p-col-12 p-md-1">
-
-        </div>
-    </div>
-
-    <h3>Programatic Tree Expansion</h3>
-    <p-tree #expandingTree [value]="filesTree10"></p-tree>
-    <div style="margin-top: 8px">
-        <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .25em"></button>
+    <h3>Programatic</h3>
+    <div style="margin-bottom: 1rem">
+        <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .5rem"></button>
         <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
     </div>
-
-    <h3>Lenient Filter Mode</h3>
-    <p-tree [value]="filesTree11" [filter]="true"></p-tree>
-
-    <h3>Strict Filter Mode</h3>
-    <p-tree [value]="filesTree12" [filter]="true" filterMode="strict"></p-tree>
-
-    <h3>Horizontal Tree</h3>
-    <p-tree [value]="filesTree13" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
-    <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
+    <p-tree [value]="files2"></p-tree>
 </div>
 
 <div class="content-section documentation">
@@ -567,11 +504,11 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-onDrop(event) {
-    if (condition) {
+onDrop(event) &#123;
+    if (condition) &#123;
         event.accept();
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -842,213 +779,13 @@ onDrop(event) {
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-tree [value]="filesTree0"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Loader&lt;/h3&gt;
-&lt;p-tree [value]="filesTree1" [loading]="loading"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Single Selection&lt;/h3&gt;
-&lt;p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile"
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-&lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile ? selectedFile.label : 'none'&#125;&lt;/div&gt;
-
-&lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
-&lt;p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles"
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;file.label&#125; &lt;/span&gt;&lt;/div&gt;
-
-&lt;h3&gt;Multiple Selection with Checkbox&lt;/h3&gt;
-&lt;p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"&gt;&lt;/p-tree&gt;
-&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles2"&gt;&#123;file.label&#125; &lt;/span&gt;&lt;/div&gt;
-
-&lt;h3&gt;Lazy Loading&lt;/h3&gt;
-&lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="filesTree5"&gt;
-    &lt;ng-template let-node pTemplate="default"&gt;
-        &lt;input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext"&gt;
-    &lt;/ng-template&gt;
-&lt;/p-tree&gt;
-
-&lt;h3&gt;Context Menu&lt;/h3&gt;
-&lt;p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
-&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
-
-&lt;h3&gt;DragDrop&lt;/h3&gt;
-&lt;div class="p-grid ui-fluid"&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        &lt;h4&gt;Files&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"&gt;&lt;/p-tree&gt;
-    &lt;/div&gt;
-
-    &lt;div class="p-col-12 p-md-3"&gt;
-        &lt;h4&gt;Server 1&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
-    &lt;/div&gt;
-
-    &lt;div class="p-col-12 p-md-3"&gt;
-        &lt;h4&gt;Server 2&lt;/h4&gt;
-        &lt;p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;
-    &lt;/div&gt;
-
-    &lt;div class="p-col-12 p-md-1"&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h3&gt;Programatic Tree Expansion&lt;/h3&gt;
-&lt;p-tree #expandingTree [value]="filesTree10"&gt;&lt;/p-tree&gt;
-&lt;div style="margin-top: 8px"&gt;
-    &lt;button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .25em"&gt;&lt;/button&gt;
-    &lt;button pButton type="button" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
-&lt;/div&gt;
-
-&lt;h3&gt;Lenient Filter Mode&lt;/h3&gt;
-&lt;p-tree [value]="filesTree11" [filter]="true"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Strict Filter Mode&lt;/h3&gt;
-&lt;p-tree [value]="filesTree12" [filter]="true" filterMode="strict"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Horizontal Tree&lt;/h3&gt;
-&lt;p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
-&lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&lt;/div&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class TreeDemo implements OnInit &#123;
 
-    @ViewChild('expandingTree')
-    expandingTree: Tree;
-
-    filesTree1: TreeNode[];
-    filesTree2: TreeNode[];
-    filesTree3: TreeNode[];
-    filesTree4: TreeNode[];
-    filesTree5: TreeNode[];
-    filesTree6: TreeNode[];
-    filesTree7: TreeNode[];
-    filesTree8: TreeNode[];
-    filesTree9: TreeNode[];
-    filesTree10: TreeNode[];
-    filesTree11: TreeNode[];
-
-    lazyFiles: TreeNode[];
-
-    selectedFile: TreeNode;
-
-    selectedFile2: TreeNode;
-
-    selectedFile3: TreeNode;
-
-    selectedFiles: TreeNode[];
-
-    selectedFiles2: TreeNode[];
-
-    items: MenuItem[];
-
-    loading: boolean;
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.loading = true;
-        this.nodeService.getFiles().then(files => this.filesTree0 = files);
-        setTimeout(() => {
-            this.nodeService.getFiles().then(files => this.filesTree1 = files);
-            this.loading = false;
-        }, 3000);
-        this.nodeService.getFiles().then(files => this.filesTree2 = files);
-        this.nodeService.getFiles().then(files => this.filesTree3 = files);
-        this.nodeService.getFiles().then(files => this.filesTree4 = files);
-        this.nodeService.getFiles().then(files => this.filesTree5 = files);
-        this.nodeService.getFiles().then(files => this.filesTree6 = files);
-        this.nodeService.getFiles().then(files => this.filesTree7 = files);
-        this.filesTree8 = [
-            &#123;
-                label: "Backup",
-                data: "Backup Folder",
-                expandedIcon: "pi pi-folder-open",
-                collapsedIcon: "pi pi-folder"
-            &#125;
-        ];
-        this.filesTree9 = [
-            &#123;
-                label: "Storage",
-                data: "Storage Folder",
-                expandedIcon: "pi pi-folder-open",
-                collapsedIcon: "pi pi-folder"
-            &#125;
-        ];
-        this.nodeService.getFiles().then(files => this.filesTree10 = files);
-        this.nodeService.getFiles().then(files => &#123;
-            this.filesTree11 = [&#123;
-                label: 'Root',
-                children: files
-            &#125;];
-        &#125;);
-
-        this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
-
-        this.items = [
-            &#123;label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile2)&#125;,
-            &#123;label: 'Unselect', icon: 'pi pi-close', command: (event) => this.unselectFile()&#125;
-        ];
-    &#125;
-
-    nodeSelect(event) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.label&#125;);
-    &#125;
-
-    nodeUnselect(event) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.label&#125;);
-    &#125;
-
-    nodeExpandMessage(event) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Expanded', detail: event.node.label&#125;);
-    &#125;
-
-    nodeExpand(event) &#123;
-        if (event.node) &#123;
-            //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
-            this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
-        &#125;
-    &#125;
-
-    viewFile(file: TreeNode) &#123;
-        this.messageService.add(&#123;severity: 'info', summary: 'Node Selected with Right Click', detail: file.label&#125;);
-    &#125;
-
-    unselectFile() &#123;
-        this.selectedFile2 = null;
-    &#125;
-
-    expandAll()&#123;
-        this.filesTree6.forEach( node => &#123;
-            this.expandRecursive(node, true);
-        &#125; );
-    &#125;
-
-    collapseAll()&#123;
-        this.filesTree6.forEach( node => &#123;
-            this.expandRecursive(node, false);
-        &#125; );
-    &#125;
-
-    private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
-        node.expanded = isExpand;
-        if (node.children)&#123;
-            node.children.forEach( childNode => &#123;
-                this.expandRecursive(childNode, isExpand);
-            &#125; );
-        &#125;
-    &#125;
-&#125;
 </code>
 </pre>
         </p-tabPanel>

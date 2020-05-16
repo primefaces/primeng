@@ -1,0 +1,40 @@
+<tree-submenu></tree-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Tree - <span class="subitem">Lazy</span></span>
+        <span>.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-tree [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
+
+    <p-toast></p-toast>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="treelazydemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treelazydemo.ts" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="treelazydemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treelazydemo.html" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

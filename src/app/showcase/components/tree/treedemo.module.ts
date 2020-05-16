@@ -1,7 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule}  from '@angular/forms';
-import {TreeDemo} from './treedemo';
+import {TreeBasicDemo} from './treebasicdemo';
+import {TreeTemplatingDemo} from './treetemplatingdemo';
+import {TreeSelectionDemo} from './treeselectiondemo';
+import {TreeFilterDemo} from './treefilterdemo';
+import {TreeLazyDemo} from './treelazydemo';
+import {TreeContextMenuDemo} from './treecontextmenudemo';
+import {TreeDragDropDemo} from './treedragdropdemo';
+import {TreeHorizontalDemo} from './treehorizontaldemo';
+import {TreeSubmenu} from './treesubmenu';
 import {TreeDemoRoutingModule} from './treedemo-routing.module';
 import {TreeModule} from 'primeng/tree';
 import {ToastModule} from 'primeng/toast';
@@ -23,7 +31,15 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         CodeHighlighterModule
 	],
 	declarations: [
-		TreeDemo
+        TreeBasicDemo,
+        TreeTemplatingDemo,
+        TreeSelectionDemo,
+        TreeFilterDemo,
+        TreeLazyDemo,
+        TreeContextMenuDemo,
+        TreeDragDropDemo,
+        TreeHorizontalDemo,
+        TreeSubmenu
 	]
 })
 export class TreeDemoModule {}
