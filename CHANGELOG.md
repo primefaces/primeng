@@ -2271,7 +2271,7 @@
 - MegaMenu doesn't compile with TypeScript 2.4 [\#3640](https://github.com/primefaces/primeng/issues/3640)
 - AutoComplete broken with ui-fluid and inputGroup [\#3629](https://github.com/primefaces/primeng/issues/3629)
 - paginatorPosition not working [\#3619](https://github.com/primefaces/primeng/issues/3619)
-- programatic element \(pre-\)selection on datatable fails when using dataKey [\#3618](https://github.com/primefaces/primeng/issues/3618)
+- programmatic element \(pre-\)selection on datatable fails when using dataKey [\#3618](https://github.com/primefaces/primeng/issues/3618)
 - p-calendar doesn't display correct date when utc="true"  [\#3611](https://github.com/primefaces/primeng/issues/3611)
 - Range handles overlap on click of the slider bar for the first time. [\#3606](https://github.com/primefaces/primeng/issues/3606)
 - Orderlist: drag&drop in Firefox navigates to the value of dragdropscope [\#3605](https://github.com/primefaces/primeng/issues/3605)
