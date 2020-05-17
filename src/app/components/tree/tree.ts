@@ -1,5 +1,6 @@
-import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,
-    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,OnChanges,
+    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy,SimpleChanges} from '@angular/core';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from 'primeng/api';
@@ -23,7 +24,7 @@ import {DomHandler} from 'primeng/dom';
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" [attr.tabindex]="0"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}"
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()" [attr.aria-label]="node.label">
-                    <span class="ui-tree-toggler pi pi-fw ui-unselectable-text" [ngClass]="{'pi-caret-right':!node.expanded,'pi-caret-down':node.expanded}"
+                    <span class="ui-tree-toggler pi pi-fw ui-unselectable-text" [ngClass]="{'pi-angle-right':!node.expanded,'pi-angle-down':node.expanded}"
                             (click)="toggle($event)"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-disabled': node.selectable === false}">
                         <span class="ui-chkbox-icon ui-clickable pi"
@@ -37,9 +38,9 @@ import {DomHandler} from 'primeng/dom';
                             </span>
                     </span>
                 </div>
-                <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
+                <ul class="ui-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
                     <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index; trackBy: tree.nodeTrackBy" [node]="childNode" [parentNode]="node"
-                        [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
+                        [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [style.height.px]="tree.virtualNodeHeight"></p-treeNode>
                 </ul>
             </li>
             <li *ngIf="tree.droppableNodes&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"
@@ -89,6 +90,8 @@ import {DomHandler} from 'primeng/dom';
 export class UITreeNode implements OnInit {
 
     static ICON_CLASS: string = 'ui-treenode-icon ';
+
+    @Input() rowNode: any;
 
     @Input() node: TreeNode;
 
@@ -146,11 +149,17 @@ export class UITreeNode implements OnInit {
 
     expand(event: Event) {
         this.node.expanded = true;
+        if (this.tree.virtualScroll) {
+            this.tree.updateSerializedValue();
+        }
         this.tree.onNodeExpand.emit({originalEvent: event, node: this.node});
     }
 
     collapse(event: Event) {
         this.node.expanded = false;
+        if (this.tree.virtualScroll) {
+            this.tree.updateSerializedValue();
+        }
         this.tree.onNodeCollapse.emit({originalEvent: event, node: this.node});
     }
 
@@ -483,10 +492,22 @@ export class UITreeNode implements OnInit {
                     (keydown.enter)="$event.preventDefault()" (input)="_filter($event)">
                     <span class="ui-tree-filter-icon pi pi-search"></span>
             </div>
-            <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
-                [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
-            </ul>
+            <ng-container *ngIf="!virtualScroll; else virtualScrollList">
+                <div class="ui-tree-wrapper" [style.max-height]="scrollHeight">
+                    <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                        <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
+                                    [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
+                    </ul>
+                </div>
+            </ng-container>
+            <ng-template #virtualScrollList>
+                <cdk-virtual-scroll-viewport class="ui-tree-wrapper" [style.height]="scrollHeight" [itemSize]="virtualNodeHeight">
+                    <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                        <p-treeNode *cdkVirtualFor="let rowNode of serializedValue; let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" 
+                                    [rowNode]="rowNode" [node]="rowNode.node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [style.height.px]="virtualNodeHeight"></p-treeNode>
+                    </ul>
+                </cdk-virtual-scroll-viewport>
+            </ng-template>
             <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
         <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
@@ -502,7 +523,7 @@ export class UITreeNode implements OnInit {
     `,
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
+export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,BlockableUI {
 
     @Input() value: TreeNode[];
 
@@ -568,11 +589,19 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() filterLocale: string;
 
+    @Input() scrollHeight: string;
+
+    @Input() virtualScroll: boolean;
+
+    @Input() virtualNodeHeight: string;
+
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Input() nodeTrackBy: Function = (index: number, item: any) => item;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    serializedValue: any[];
 
     public templateMap: any;
 
@@ -621,6 +650,12 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         }
     }
 
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if (simpleChange.value) {
+            this.updateSerializedValue();
+        }
+    }
+
     get horizontal(): boolean {
         return this.layout == 'horizontal';
     }
@@ -633,6 +668,30 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
         this.templates.forEach((item) => {
             this.templateMap[item.name] = item.template;
         });
+    }
+
+    updateSerializedValue() {
+        this.serializedValue = [];
+        this.serializeNodes(null, this.getRootNode(), 0, true);
+    }
+
+    serializeNodes(parent, nodes, level, visible) {
+        if (nodes && nodes.length) {
+            for(let node of nodes) {
+                node.parent = parent;
+                const rowNode = {
+                    node: node,
+                    parent: parent,
+                    level: level,
+                    visible: visible && (parent ? parent.expanded : true)
+                };
+                this.serializedValue.push(rowNode);
+
+                if (rowNode.visible && node.expanded) {
+                    this.serializeNodes(node, node.children, level + 1, rowNode.visible);
+                }
+            }
+        }
     }
 
     onNodeClick(event, node: TreeNode) {
@@ -1094,8 +1153,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 }
 @NgModule({
-    imports: [CommonModule],
-    exports: [Tree,SharedModule],
+    imports: [CommonModule,ScrollingModule],
+    exports: [Tree,SharedModule,ScrollingModule],
     declarations: [Tree,UITreeNode]
 })
 export class TreeModule { }

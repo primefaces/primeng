@@ -1,9 +1,17 @@
 .ui-tree {
-    width: 18em;
+    width: 20em;
+}
+
+.p-treenode {
+    display: block;
 }
 
 .ui-tree .ui-treenode-selectable.ui-treenode-content {
     cursor: pointer;
+}
+
+.ui-tree .ui-tree-wrapper {
+    overflow: auto;
 }
 
 .ui-tree .ui-tree-container {

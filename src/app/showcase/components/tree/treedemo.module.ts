@@ -5,6 +5,7 @@ import {TreeBasicDemo} from './treebasicdemo';
 import {TreeTemplatingDemo} from './treetemplatingdemo';
 import {TreeSelectionDemo} from './treeselectiondemo';
 import {TreeFilterDemo} from './treefilterdemo';
+import {TreeScrollDemo} from './treescrolldemo';
 import {TreeLazyDemo} from './treelazydemo';
 import {TreeContextMenuDemo} from './treecontextmenudemo';
 import {TreeDragDropDemo} from './treedragdropdemo';
@@ -36,6 +37,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         TreeSelectionDemo,
         TreeFilterDemo,
         TreeLazyDemo,
+        TreeScrollDemo,
         TreeContextMenuDemo,
         TreeDragDropDemo,
         TreeHorizontalDemo,

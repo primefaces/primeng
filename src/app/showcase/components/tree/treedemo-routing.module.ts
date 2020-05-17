@@ -5,6 +5,7 @@ import {TreeTemplatingDemo} from './treetemplatingdemo';
 import {TreeSelectionDemo} from './treeselectiondemo';
 import {TreeFilterDemo} from './treefilterdemo';
 import {TreeLazyDemo} from './treelazydemo';
+import {TreeScrollDemo} from './treescrolldemo';
 import {TreeContextMenuDemo} from './treecontextmenudemo';
 import {TreeDragDropDemo} from './treedragdropdemo';
 import {TreeHorizontalDemo} from './treehorizontaldemo';
@@ -17,6 +18,7 @@ import {TreeHorizontalDemo} from './treehorizontaldemo';
             {path:'selection',component: TreeSelectionDemo},
             {path:'filter',component: TreeFilterDemo},
             {path:'lazy',component: TreeLazyDemo},
+            {path:'scroll',component: TreeScrollDemo},
             {path:'contextmenu',component: TreeContextMenuDemo},
             {path:'dragdrop',component: TreeDragDropDemo},
             {path:'horizontal',component: TreeHorizontalDemo}

@@ -10,6 +10,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/tree/selection']">&#9679; Selection</a></li>
                 <li><a [routerLink]="['/tree/filter']">&#9679; Filter</a></li>
                 <li><a [routerLink]="['/tree/lazy']">&#9679; Lazy</a></li>
+                <li><a [routerLink]="['/tree/scroll']">&#9679; Scroll</a></li>
                 <li><a [routerLink]="['/tree/contextmenu']">&#9679; ContextMenu</a></li>
                 <li><a [routerLink]="['/tree/dragdrop']">&#9679; DragDrop</a></li>
                 <li><a [routerLink]="['/tree/horizontal']">&#9679; Horizontal</a></li>

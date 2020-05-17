@@ -1,0 +1,45 @@
+<tree-submenu></tree-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Tree - <span class="subitem">Scroll</span></span>
+        <span>Regular scrolling is used to preserve space as content of the tree is dynamic whereas virtual scrolling is a performant approach to large data rendering.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3>Virtual Scroll</h3>
+    <p-tree [value]="files1" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"></p-tree>
+
+    <h3>Regular Scroll</h3>
+    <p-tree [value]="files2" scrollHeight="200px"></p-tree>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="treefilterdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treescrolldemo.ts" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+
+</code>
+</pre>
+        </p-tabPanel>
+
+        <p-tabPanel header="treefilterdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treescrolldemo.html" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;Lenient Filter Mode&lt;/h3&gt;
+&lt;p-tree [value]="files1" [filter]="true"&gt;&lt;/p-tree&gt;
+
+&lt;h3&gt;Strict Filter Mode&lt;/h3&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
