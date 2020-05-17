@@ -1014,7 +1014,6 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 
     allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
-        debugger;
         if (!dragNode) {
             //prevent random html elements to be dragged
             return false;

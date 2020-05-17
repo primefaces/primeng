@@ -585,6 +585,30 @@ onDrop(event) &#123;
                             <td>Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.</td>
                         </tr>
                         <tr>
+                            <td>draggableScope</td>
+                            <td>string/array</td>
+                            <td>null</td>
+                            <td>Scope of the draggable nodes to match a droppableScope.</td>
+                        </tr>
+                        <tr>
+                            <td>droppableScope</td>
+                            <td>string/array</td>
+                            <td>null</td>
+                            <td>Scope of the droppable nodes to match a draggableScope.</td>
+                        </tr>
+                        <tr>
+                            <td>draggableNodes</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the nodes are draggable.</td>
+                        </tr>
+                        <tr>
+                            <td>droppableNodes</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the nodes are droppable.</td>
+                        </tr>
+                        <tr>
                             <td>metaKeySelection</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -614,6 +638,24 @@ onDrop(event) &#123;
                             <td>string</td>
                             <td>pi pi-spinner</td>
                             <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found</td>
+                            <td>Text to display when there is no data.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabel</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>Used to define a string that labels the tree.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>pi pi-spinner</td>
+                            <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
                         </tr>
                         <tr>
                             <td>validateDrop</td>
@@ -650,6 +692,24 @@ onDrop(event) &#123;
                             <td>string</td>
                             <td>undefined</td>
                             <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollHeight</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Height of the scrollable viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be rendered on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualNodeHeight</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of a node to use in calculations of virtual scrolling.</td>
                         </tr>
                     </tbody>
                 </table>
