@@ -8,11 +8,11 @@
 </div>
 
 <div class="content-section implementation">
-    <h3>Virtual Scroll</h3>
-    <p-tree [value]="files1" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"></p-tree>
-
     <h3>Regular Scroll</h3>
-    <p-tree [value]="files2" scrollHeight="200px"></p-tree>
+    <p-tree [value]="files1" scrollHeight="200px"></p-tree>
+
+    <h3>Virtual Scroll with Prepopulated Data</h3>
+    <p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"></p-tree>
 </div>
 
 <div class="content-section documentation">
@@ -23,7 +23,11 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+&lt;h3&gt;Regular Scroll&lt;/h3&gt;
+&lt;p-tree [value]="files1" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 
+&lt;h3&gt;Virtual Scroll with Prepopulated Data&lt;/h3&gt;
+&lt;p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
         </p-tabPanel>
@@ -34,10 +38,46 @@
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3&gt;Lenient Filter Mode&lt;/h3&gt;
-&lt;p-tree [value]="files1" [filter]="true"&gt;&lt;/p-tree&gt;
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;NodeService&#125; from '../../service/nodeservice';
+import &#123;TreeNode&#125; from 'primeng/api';
 
-&lt;h3&gt;Strict Filter Mode&lt;/h3&gt;
+@Component(&#123;
+    templateUrl: './treescrolldemo.html'
+&#125;)
+export class TreeScrollDemo implements OnInit &#123;
+
+    files1: TreeNode[];
+
+    files2: TreeNode[];
+
+    files3: TreeNode[];
+    
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123; 
+        this.nodeService.getFiles().then(files => this.files1 = files);
+        this.files2 = Array.from(&#123;length: 50&#125;).map((_,i) => this.createNode(i));
+    &#125;
+
+    createNode(i: Number): TreeNode &#123;
+        let node: TreeNode = &#123;
+            label: 'Node ' + i,
+            data: 'Node ' + i,
+            expandedIcon: 'pi pi-folder-open',
+            collapsedIcon: 'pi pi-folder',
+            children: Array.from(&#123;length: 1000&#125;).map((_,j) => &#123;
+                return &#123;
+                    label: 'Node ' + i + '.' + j, 
+                    data: 'Node ' + i + '.' + j, 
+                    icon: 'pi pi-file-o'
+                &#125;
+            &#125;)
+        &#125;;
+
+        return node;
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

@@ -10,15 +10,14 @@ export class TreeScrollDemo implements OnInit {
     files1: TreeNode[];
 
     files2: TreeNode[];
+
+    files3: TreeNode[];
     
     constructor(private nodeService: NodeService) { }
 
-    ngOnInit() {
-        this.files1 = [];
-        for (let i = 0; i < 50; i++) {
-            this.files1.push(this.createNode(i));
-        }
-        this.nodeService.getFiles().then(files => this.files2 = files);
+    ngOnInit() { 
+        this.nodeService.getFiles().then(files => this.files1 = files);
+        this.files2 = Array.from({length: 50}).map((_,i) => this.createNode(i));
     }
 
     createNode(i: Number): TreeNode {
@@ -26,14 +25,15 @@ export class TreeScrollDemo implements OnInit {
             label: 'Node ' + i,
             data: 'Node ' + i,
             expandedIcon: 'pi pi-folder-open',
-            collapsedIcon: 'pi pi-folder'
+            collapsedIcon: 'pi pi-folder',
+            children: Array.from({length: 1000}).map((_,j) => {
+                return {
+                    label: 'Node ' + i + '.' + j, 
+                    data: 'Node ' + i + '.' + j, 
+                    icon: 'pi pi-file-o'
+                }
+            })
         };
-
-        let children = [];
-        for (let j = 0; j < 1000; j++) {
-            children.push({label: 'Node ' + i + '.' + j, data: 'Node ' + i + '.' + j, icon: 'pi pi-file-o'});
-        }
-        node.children = children;
 
         return node;
     }
