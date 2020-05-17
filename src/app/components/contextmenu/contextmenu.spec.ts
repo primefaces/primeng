@@ -173,7 +173,7 @@ describe('ConextMenu', () => {
         expect(hideSpy).toHaveBeenCalled();
     });
 
-    it('should open and close programaticly', () => {
+    it('should open and close programmaticlaly', () => {
         fixture.detectChanges();
 
         const showSpy = spyOn(contextmenu,"show").and.callThrough();
