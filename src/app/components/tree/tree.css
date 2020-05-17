@@ -28,7 +28,7 @@
 
 .ui-tree .ui-treenode-children {
     margin: 0;
-    padding: 0 0 0 1em;
+    padding: 0;
 }
 
 .ui-tree .ui-treenode {
@@ -72,10 +72,6 @@
 .ui-tree .ui-treenode-label.ui-state-highlight {
     font-weight: normal;
     border: 0 none;
-}
-
-.ui-tree .ui-treenode.ui-treenode-leaf > .ui-treenode-content > .ui-tree-toggler {
-    visibility: hidden;
 }
 
 .ui-tree .ui-chkbox-box {

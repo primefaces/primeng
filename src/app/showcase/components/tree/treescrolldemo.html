@@ -17,27 +17,13 @@
 
 <div class="content-section documentation">
     <p-tabView>
-        <p-tabPanel header="treefilterdemo.ts">
+        <p-tabPanel header="treescrolldemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treescrolldemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-&lt;h3&gt;Regular Scroll&lt;/h3&gt;
-&lt;p-tree [value]="files1" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 
-&lt;h3&gt;Virtual Scroll with Prepopulated Data&lt;/h3&gt;
-&lt;p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
-</code>
-</pre>
-        </p-tabPanel>
-
-        <p-tabPanel header="treefilterdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treescrolldemo.html" class="btn-viewsource" target="_blank">
-                <span>View on GitHub</span>
-            </a>
 <pre>
-<code class="language-markup" pCode ngNonBindable>
+<code class="language-javascript" pCode ngNonBindable>
 import &#123;Component,OnInit&#125; from '@angular/core';
 import &#123;NodeService&#125; from '../../service/nodeservice';
 import &#123;TreeNode&#125; from 'primeng/api';
@@ -78,6 +64,21 @@ export class TreeScrollDemo implements OnInit &#123;
         return node;
     &#125;
 &#125;
+</code>
+</pre>
+        </p-tabPanel>
+
+        <p-tabPanel header="treescrolldemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treescrolldemo.html" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;Regular Scroll&lt;/h3&gt;
+&lt;p-tree [value]="files1" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+
+&lt;h3&gt;Virtual Scroll with Prepopulated Data&lt;/h3&gt;
+&lt;p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
         </p-tabPanel>
