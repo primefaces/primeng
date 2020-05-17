@@ -8,25 +8,29 @@
 </div>
 
 <div class="content-section implementation">
-    <h3>DragDrop</h3>
+    <h3>Single Tree</h3>
+    <p>Node reordering within a tree.</p>
+    <p-tree [value]="files1" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"></p-tree>
+
+    <h3>Multiple Trees</h3>
+    <p>Node reordering between multiple tree based on scope constraints.</p>
     <div class="p-grid ui-fluid">
-        <div class="p-col-12 p-md-3">
+        <div class="p-col-12 p-md-4">
             <h4>Files</h4>
-            <p-tree [value]="files1" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2" ></p-tree>
+            <p>Can transfer to Server 2.</p>
+            <p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2"></p-tree>
         </div>
 
-        <div class="p-col-12 p-md-3">
+        <div class="p-col-12 p-md-4">
             <h4>Server 1</h4>
-            <p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"></p-tree>
+            <p>Can transfer to Files.</p>
+            <p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"></p-tree>
         </div>
 
-        <div class="p-col-12 p-md-3">
+        <div class="p-col-12 p-md-4">
             <h4>Server 2</h4>
-            <p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"></p-tree>
-        </div>
-
-        <div class="p-col-12 p-md-1">
-
+            <p>Can transfer to Server 1.</p>
+            <p-tree [value]="files4" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"></p-tree>
         </div>
     </div>
 </div>
@@ -62,12 +66,15 @@ export class TreeDragDropDemo implements OnInit &#123;
     files2: TreeNode[];
 
     files3: TreeNode[];
+
+    files4: TreeNode[];
     
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files1 = files);
-        this.files2 = [&#123;
+        this.nodeService.getFiles().then(files => this.files2 = files);
+        this.files3 = [&#123;
                 label: "Backup",
                 data: "Backup Folder",
                 expandedIcon: "pi pi-folder-open",
@@ -75,7 +82,7 @@ export class TreeDragDropDemo implements OnInit &#123;
             &#125;
         ];
 
-        this.files3 = [&#123;
+        this.files4 = [&#123;
                 label: "Storage",
                 data: "Storage Folder",
                 expandedIcon: "pi pi-folder-open",
@@ -94,25 +101,29 @@ export class TreeDragDropDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3&gt;DragDrop&lt;/h3&gt;
+&lt;h3&gt;Single Tree&lt;/h3&gt;
+&lt;p&gt;Node reordering within a tree.&lt;/p&gt;
+&lt;p-tree [value]="files1" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"&gt;&lt;/p-tree&gt;
+
+&lt;h3&gt;Multiple Trees&lt;/h3&gt;
+&lt;p&gt;Node reordering between multiple tree based on scope constraints.&lt;/p&gt;
 &lt;div class="p-grid ui-fluid"&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h4&gt;Files&lt;/h4&gt;
-        &lt;p-tree [value]="files1" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2" &gt;&lt;/p-tree&gt;
+        &lt;p&gt;Can transfer to Server 2.&lt;/p&gt;
+        &lt;p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="files" draggableScope="server2"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-3"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h4&gt;Server 1&lt;/h4&gt;
-        &lt;p-tree [value]="files2" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
+        &lt;p&gt;Can transfer to Files.&lt;/p&gt;
+        &lt;p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server1" draggableScope="files"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-3"&gt;
+    &lt;div class="p-col-12 p-md-4"&gt;
         &lt;h4&gt;Server 2&lt;/h4&gt;
-        &lt;p-tree [value]="files3" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;
-    &lt;/div&gt;
-
-    &lt;div class="p-col-12 p-md-1"&gt;
-
+        &lt;p&gt;Can transfer to Server 1.&lt;/p&gt;
+        &lt;p-tree [value]="files4" [draggableNodes]="true" [droppableNodes]="true" droppableScope="server2" draggableScope="server1"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </code>

@@ -21,12 +21,15 @@ export class TreeDragDropDemo implements OnInit {
     files2: TreeNode[];
 
     files3: TreeNode[];
+
+    files4: TreeNode[];
     
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
         this.nodeService.getFiles().then(files => this.files1 = files);
-        this.files2 = [{
+        this.nodeService.getFiles().then(files => this.files2 = files);
+        this.files3 = [{
                 label: "Backup",
                 data: "Backup Folder",
                 expandedIcon: "pi pi-folder-open",
@@ -34,7 +37,7 @@ export class TreeDragDropDemo implements OnInit {
             }
         ];
 
-        this.files3 = [{
+        this.files4 = [{
                 label: "Storage",
                 data: "Storage Folder",
                 expandedIcon: "pi pi-folder-open",
