@@ -468,6 +468,22 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
+            <h3>Scrolling</h3>
+            <p>Regular scrolling is used to preserve space as content of the tree is dynamic whereas virtual scrolling is a performant approach to large data rendering. </p>
+            <p>Using <i>scrollHeight</i> would be enough to enable scrolling.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tree [value]="files" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+
+            <p>VirtualScrolling on the other hand requires <i>virtualScroll</i> property to be enabled and <i>virtualNodeHeight</i> to be set.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+
             <h3>Drag and Drop</h3>
             <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set draggableNodes to true and to allow
             dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>

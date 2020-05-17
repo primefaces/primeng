@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule}  from '@angular/forms';
-import {TreeBasicDemo} from './treebasicdemo';
+import {TreeDemo} from './treedemo';
 import {TreeTemplatingDemo} from './treetemplatingdemo';
 import {TreeSelectionDemo} from './treeselectiondemo';
 import {TreeFilterDemo} from './treefilterdemo';
@@ -32,7 +32,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         CodeHighlighterModule
 	],
 	declarations: [
-        TreeBasicDemo,
+        TreeDemo,
         TreeTemplatingDemo,
         TreeSelectionDemo,
         TreeFilterDemo,

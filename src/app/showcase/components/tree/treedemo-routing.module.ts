@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router'
-import {TreeBasicDemo} from './treebasicdemo';
+import {TreeDemo} from './treedemo';
 import {TreeTemplatingDemo} from './treetemplatingdemo';
 import {TreeSelectionDemo} from './treeselectiondemo';
 import {TreeFilterDemo} from './treefilterdemo';
@@ -13,7 +13,7 @@ import {TreeHorizontalDemo} from './treehorizontaldemo';
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-            {path:'',component: TreeBasicDemo},
+            {path:'',component: TreeDemo},
             {path:'templating',component: TreeTemplatingDemo},
             {path:'selection',component: TreeSelectionDemo},
             {path:'filter',component: TreeFilterDemo},
