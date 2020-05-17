@@ -38,7 +38,7 @@ import {DomHandler} from 'primeng/dom';
                     </span>
                 </div>
                 <ul class="ui-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
-                    <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index; trackBy: tree.nodeTrackBy" [node]="childNode" [parentNode]="node"
+                    <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index; trackBy: tree.trackBy" [node]="childNode" [parentNode]="node"
                         [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [style.height.px]="tree.virtualNodeHeight" [level]="level + 1"></p-treeNode>
                 </ul>
             </li>
@@ -76,7 +76,7 @@ import {DomHandler} from 'primeng/dom';
                         </td>
                         <td class="ui-treenode-children-container" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
                             <div class="ui-treenode-children">
-                                <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; trackBy: tree.nodeTrackBy" [node]="childNode"
+                                <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; trackBy: tree.trackBy" [node]="childNode"
                                         [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
                             </div>
                         </td>
@@ -496,15 +496,15 @@ export class UITreeNode implements OnInit {
             <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                 <div class="ui-tree-wrapper" [style.max-height]="scrollHeight">
                     <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                        <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy" [node]="node"
+                        <p-treeNode *ngFor="let node of getRootNode(); let firstChild=first;let lastChild=last; let index=index; trackBy: trackBy" [node]="node"
                                     [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [level]="0"></p-treeNode>
                     </ul>
                 </div>
             </ng-container>
             <ng-template #virtualScrollList>
-                <cdk-virtual-scroll-viewport class="ui-tree-wrapper" [style.height]="scrollHeight" [itemSize]="virtualNodeHeight">
+                <cdk-virtual-scroll-viewport class="ui-tree-wrapper" [style.height]="scrollHeight" [itemSize]="virtualNodeHeight" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx">
                     <ul class="ui-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
-                        <p-treeNode *cdkVirtualFor="let rowNode of serializedValue; let firstChild=first;let lastChild=last; let index=index; trackBy: nodeTrackBy"  [level]="rowNode.level"
+                        <p-treeNode *cdkVirtualFor="let rowNode of serializedValue; let firstChild=first; let lastChild=last; let index=index; trackBy: trackBy"  [level]="rowNode.level"
                                     [rowNode]="rowNode" [node]="rowNode.node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [style.height.px]="virtualNodeHeight"></p-treeNode>
                     </ul>
                 </cdk-virtual-scroll-viewport>
@@ -596,9 +596,13 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
 
     @Input() virtualNodeHeight: string;
 
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    @Input() minBufferPx: number;
 
-    @Input() nodeTrackBy: Function = (index: number, item: any) => item;
+    @Input() maxBufferPx: number;
+
+    @Input() trackBy: Function = (index: number, item: any) => item;
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 

@@ -711,6 +711,24 @@ onDrop(event) &#123;
                             <td>null</td>
                             <td>Height of a node to use in calculations of virtual scrolling.</td>
                         </tr>
+                        <tr>
+                            <td>minBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
+                        </tr>
+                        <tr>
+                            <td>maxBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
+                        </tr>
+                        <tr>
+                            <td>trackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the node list rendering, default algoritm checks for object identity.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
