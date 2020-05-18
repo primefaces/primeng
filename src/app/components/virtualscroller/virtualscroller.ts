@@ -124,7 +124,6 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     set scrollIndex(val:number) {
         this._scrollIndex = val;
         this.scrollToIndex(this._scrollIndex, this.scrollMode);
-        console.log("first property is deprecated, use scrollToIndex function to scroll a specific item");
     }
 
     ngAfterContentInit() {
