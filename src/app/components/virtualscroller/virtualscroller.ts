@@ -53,9 +53,9 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
-    @ContentChild(Header) header;
+    @ContentChild(Header) header: Header;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer) footer: Footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
