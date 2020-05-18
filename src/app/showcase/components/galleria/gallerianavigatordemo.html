@@ -22,7 +22,7 @@
     </p-galleria>
     <h3>Navigation Buttons</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
-        [circular]="true" [showPreviewNavButtons]="true"> 
+        [circular]="true" [showItemNavigators]="true"> 
         <ng-template pTemplate="header">
             With Thumbnails
         </ng-template>
@@ -36,7 +36,7 @@
         </ng-template>
     </p-galleria>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px', 'margin-top':'2em'}" [numVisible]="5"
-        [circular]="true" [showPreviewNavButtons]="true" [showThumbnails]="false"> 
+        [circular]="true" [showItemNavigators]="true" [showThumbnails]="false"> 
         <ng-template pTemplate="header">
             Without Thumbnails
         </ng-template>
@@ -51,7 +51,7 @@
     </p-galleria>
     <h3>Show Navigation Buttons on Preview Hover</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
-        [circular]="true" [showPreviewNavButtons]="true" [showNavButtonsOnPreviewHover]="true"> 
+        [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"> 
         <ng-template pTemplate="header">
             With Thumbnails
         </ng-template>
@@ -65,7 +65,7 @@
         </ng-template>
     </p-galleria>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px', 'margin-top':'2em'}" [numVisible]="5"
-        [circular]="true" [showPreviewNavButtons]="true" [showThumbnails]="false" [showNavButtonsOnPreviewHover]="true"> 
+        [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showItemNavigatorsOnHover]="true"> 
         <ng-template pTemplate="header">
             Without Thumbnails
         </ng-template>
@@ -80,8 +80,8 @@
     </p-galleria>
     <h3>Advanced</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px', 'margin-top':'2em'}" [numVisible]="5"
-        [circular]="true" [showPreviewNavButtons]="true" [showThumbnails]="false" [showIndicators]="true" [showNavButtonsOnPreviewHover]="true"
-        [showIndicatorsOnPreview]="true"> 
+        [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
+        [showIndicatorsOnItem]="true"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -150,7 +150,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
 &lt;/p-galleria&gt;
 &lt;h3&gt;Navigation Buttons&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
-    [circular]="true" [showPreviewNavButtons]="true"&gt; 
+    [circular]="true" [showItemNavigators]="true"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         With Thumbnails
     &lt;/ng-template&gt;
@@ -164,7 +164,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px', 'margin-top':'2em'&#125;" [numVisible]="5"
-    [circular]="true" [showPreviewNavButtons]="true" [showThumbnails]="false"&gt; 
+    [circular]="true" [showItemNavigators]="true" [showThumbnails]="false"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         Without Thumbnails
     &lt;/ng-template&gt;
@@ -179,7 +179,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
 &lt;/p-galleria&gt;
 &lt;h3&gt;Show Navigation Buttons on Preview Hover&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
-    [circular]="true" [showPreviewNavButtons]="true" [showNavButtonsOnPreviewHover]="true"&gt; 
+    [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         With Thumbnails
     &lt;/ng-template&gt;
@@ -193,7 +193,7 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px', 'margin-top':'2em'&#125;" [numVisible]="5"
-    [circular]="true" [showPreviewNavButtons]="true" [showThumbnails]="false" [showNavButtonsOnPreviewHover]="true"&gt; 
+    [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showItemNavigatorsOnHover]="true"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         Without Thumbnails
     &lt;/ng-template&gt;
@@ -208,8 +208,8 @@ export class GalleriaNavigatorDemo implements OnInit &#123;
 &lt;/p-galleria&gt;
 &lt;h3&gt;Advanced&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px', 'margin-top':'2em'&#125;" [numVisible]="5"
-    [circular]="true" [showPreviewNavButtons]="true" [showThumbnails]="false" [showIndicators]="true" [showNavButtonsOnPreviewHover]="true"
-    [showIndicatorsOnPreview]="true"&gt; 
+    [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
+    [showIndicatorsOnItem]="true"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;

@@ -16,7 +16,7 @@
     <h3>Multiple Selection with Metakey</h3>
     <p-tree [value]="files2" selectionMode="multiple" [(selection)]="selectedFiles1"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    <div>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}}</span></div>
+    <div>Selected Nodes: <span *ngFor="let file of selectedFiles1">{{file.label}}</span></div>
 
     <h3>Multiple Selection with Checkbox</h3>
     <p-tree [value]="files3" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
@@ -90,7 +90,7 @@ export class TreeSelectionDemo implements OnInit &#123;
 &lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
 &lt;p-tree [value]="files2" selectionMode="multiple" [(selection)]="selectedFiles1"
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;&#123;file.label&#125;&#125;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles1"&gt;&#123;&#123;file.label&#125;&#125;&lt;/span&gt;&lt;/div&gt;
 
 &lt;h3&gt;Multiple Selection with Checkbox&lt;/h3&gt;
 &lt;p-tree [value]="files3" selectionMode="checkbox" [(selection)]="selectedFiles2"&gt;&lt;/p-tree&gt;

@@ -344,6 +344,9 @@
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.5) (2020-05-18)
+- VirtualScrolling for Tree [\#8257](https://github.com/primefaces/primeng/issues/8257)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.4) (2020-05-11)
 - Slider doesn't works properly with ChangeDetectionStrategy.OnPush / reactive forms [\#7692](https://github.com/primefaces/primeng/issues/7692)
 - "no file chosen" tooltip appears after selecting file [\#7957](https://github.com/primefaces/primeng/issues/7957)
@@ -747,6 +750,8 @@
 
 - Inputmask Unit Test [\#7680](https://github.com/primefaces/primeng/issues/7680)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.6-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.6) (2020-05-18)
+- VirtualScrolling for Tree [\#8257](https://github.com/primefaces/primeng/issues/8257)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [7.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/7.2.5) (2020-05-11)
 - Slider doesn't works properly with ChangeDetectionStrategy.OnPush / reactive forms [\#7692](https://github.com/primefaces/primeng/issues/7692)

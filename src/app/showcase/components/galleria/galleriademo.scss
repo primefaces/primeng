@@ -5,14 +5,14 @@
             overflow: hidden;
             position: relative;
 
-            .ui-galleria-thumbnail-content {
+            .ui-galleria-thumbnail-wrapper {
                 position: absolute;
                 width: 100%;
                 bottom: 0;
                 background-image: linear-gradient(180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.50) 70%);
 
                 .ui-galleria-thumbnail-container {
-                    .ui-galleria-thumbnail-items-content {
+                    .ui-galleria-thumbnail-items-container {
                         .ui-galleria-thumbnail-items-container {
                             .ui-galleria-thumbnail-item {
                                 opacity: .6;
@@ -68,8 +68,8 @@
         }
 
         &.preview-fullscreen {
-            .ui-galleria-preview-container {
-                .ui-galleria-preview-nav-button {
+            .ui-galleria-item-container {
+                .ui-galleria-item-nav {
                     top: 50%;
                     height: 20em;
                     width: 4em;
