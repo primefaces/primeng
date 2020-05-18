@@ -7,15 +7,15 @@ import {ButtonModule} from 'primeng/button';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 import {GalleriaDemo} from './galleriademo';
-import {GalleriaBasicDemo} from './galleriabasicdemo';
+import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
 import {GalleriaSubmenu} from './galleriasubmenu';
-import { GalleriaIndicatorDemo } from './galleriaindicatordemo';
-import { GalleriaThumbnailDemo } from './galleriathumbnaildemo';
-import { GalleriaPreviewDemo } from './galleriapreviewdemo';
-import { GalleriaResponsiveDemo } from './galleriaresponsivedemo';
-import { GalleriaFullscreenDemo } from './galleriafullscreendemo';
-import { GalleriaCircularDemo } from './galleriacirculardemo';
-import { GalleriaCaptionDemo } from './galleriacaptiondemo';
+import {GalleriaIndicatorDemo} from './galleriaindicatordemo';
+import {GalleriaThumbnailDemo} from './galleriathumbnaildemo';
+import {GalleriaNavigatorDemo} from './gallerianavigatordemo';
+import {GalleriaResponsiveDemo} from './galleriaresponsivedemo';
+import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
+import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
+import {GalleriaCaptionDemo} from './galleriacaptiondemo';
 
 @NgModule({
 	imports: [
@@ -29,13 +29,13 @@ import { GalleriaCaptionDemo } from './galleriacaptiondemo';
 	declarations: [
 		GalleriaSubmenu,
 		GalleriaDemo,
-		GalleriaBasicDemo,
+		GalleriaProgrammaticDemo,
 		GalleriaIndicatorDemo,
 		GalleriaThumbnailDemo,
-		GalleriaPreviewDemo,
+		GalleriaNavigatorDemo,
 		GalleriaResponsiveDemo,
 		GalleriaFullscreenDemo,
-		GalleriaCircularDemo,
+		GalleriaAutoPlayDemo,
 		GalleriaCaptionDemo
 	]
 })

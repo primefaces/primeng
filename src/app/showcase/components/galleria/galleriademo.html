@@ -56,10 +56,10 @@ import &#123;GalleriaModule&#125; from 'primeng/galleria';
 <code class="language-typescript" pCode ngNonBindable>
     images: any[];
 
-    constructor(private imageService: ImageService) &#123; &#125;
+    constructor(private photoService: PhotoService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.imageService.getImages().then(images => this.images = images)
+        this.photoService.getImages().then(images => this.images = images)
     &#125;
 </code>
 </pre>
@@ -423,10 +423,10 @@ export class GalleriaDemo implements OnInit &#123;
         &#125;
     ];
 
-    constructor(private imageService: ImageService) &#123; &#125;
+    constructor(private photoService: PhotoService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.imageService.getImages().then(images => this.images = images)
+        this.photoService.getImages().then(images => this.images = images)
     &#125;
 
     next() &#123;

@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { ImageService } from '../../service/imageservice';
-
+import { PhotoService } from '../../service/photoservice';
 @Component({
-    templateUrl: './galleriabasicdemo.html'
+    templateUrl: './galleriaprogrammaticdemo.html'
 })
-export class GalleriaBasicDemo implements OnInit {
+export class GalleriaProgrammaticDemo implements OnInit {
     
     images: any[];
 
@@ -35,10 +34,10 @@ export class GalleriaBasicDemo implements OnInit {
         }
     ];
 
-    constructor(private imageService: ImageService) { }
+    constructor(private photoService: PhotoService) { }
 
     ngOnInit() {
-        this.imageService.getImages().then(images => this.images = images)
+        this.photoService.getImages().then(images => this.images = images)
     }
 
     next() {

@@ -101,7 +101,7 @@
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class GalleriaDemo implements OnInit &#123;
+export class GalleriaNavigatorDemo implements OnInit &#123;
     images: any[];
 
     responsiveOptions:any[] = [
@@ -119,10 +119,10 @@ export class GalleriaDemo implements OnInit &#123;
         &#125;
     ];
 
-    constructor(private imageService: ImageService) &#123; &#125;
+    constructor(private photoService: PhotoService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.imageService.getImages().then(images =>&#123; 
+        this.photoService.getImages().then(images =>&#123; 
             this.images = images
         &#125;)
     &#125;

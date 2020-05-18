@@ -104,10 +104,10 @@ export class GalleriaDemo implements OnInit &#123;
         &#125;
     ];
 
-    constructor(private imageService: ImageService) &#125; &#125;
+    constructor(private photoService: PhotoService) &#125; &#125;
 
     ngOnInit() &#125;
-        this.imageService.getImages().then(images =>&#125; 
+        this.photoService.getImages().then(images =>&#125; 
             this.images = images
         &#125;)
     &#125;

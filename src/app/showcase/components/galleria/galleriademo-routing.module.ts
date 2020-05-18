@@ -1,26 +1,26 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router'
 import {GalleriaDemo} from './galleriademo';
-import { GalleriaBasicDemo } from './galleriabasicdemo';
-import { GalleriaIndicatorDemo } from './galleriaindicatordemo';
-import { GalleriaThumbnailDemo } from './galleriathumbnaildemo';
-import { GalleriaPreviewDemo } from './galleriapreviewdemo';
-import { GalleriaResponsiveDemo } from './galleriaresponsivedemo';
-import { GalleriaFullscreenDemo } from './galleriafullscreendemo';
-import { GalleriaCircularDemo } from './galleriacirculardemo';
-import { GalleriaCaptionDemo } from './galleriacaptiondemo';
+import {GalleriaIndicatorDemo} from './galleriaindicatordemo';
+import {GalleriaThumbnailDemo} from './galleriathumbnaildemo';
+import {GalleriaNavigatorDemo} from './gallerianavigatordemo';
+import {GalleriaResponsiveDemo} from './galleriaresponsivedemo';
+import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
+import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
+import {GalleriaCaptionDemo} from './galleriacaptiondemo';
+import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
 			{path:'',component: GalleriaDemo},
-			{path:'basic', component: GalleriaBasicDemo},
+			{path:'programmatic', component: GalleriaProgrammaticDemo},
 			{path:'indicator', component: GalleriaIndicatorDemo},
 			{path:'thumbnail', component: GalleriaThumbnailDemo},
-			{path:'preview', component: GalleriaPreviewDemo},
+			{path:'navigator', component: GalleriaNavigatorDemo},
 			{path:'responsive', component: GalleriaResponsiveDemo},
 			{path:'fullscreen', component: GalleriaFullscreenDemo},
-			{path:'circular', component: GalleriaCircularDemo},
+			{path:'autoplay', component: GalleriaAutoPlayDemo},
 			{path:'caption', component: GalleriaCaptionDemo}
 		])
 	],
