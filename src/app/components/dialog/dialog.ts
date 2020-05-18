@@ -451,6 +451,11 @@ export class Dialog implements OnDestroy {
         this.container.style.margin = '';
     }
 
+    //backward compatibility
+    center() {
+        this.resetPosition();
+    }
+
     initResize(event: MouseEvent) {
         if (this.resizable) {
             this.resizing = true;
