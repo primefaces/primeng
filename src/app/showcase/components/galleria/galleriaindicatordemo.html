@@ -23,7 +23,7 @@
     <br>
     <h3>Change Preview On Indicator Hover</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true"> 
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -36,7 +36,7 @@
     <br>
     <h3>Show Indicator On Preview</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true"> 
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -48,7 +48,7 @@
     </p-galleria>
     <h3>Position</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="bottom"> 
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="bottom"> 
         <ng-template pTemplate="header">
             Bottom
         </ng-template>
@@ -62,7 +62,7 @@
         </ng-template>
     </p-galleria>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="top"> 
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top"> 
         <ng-template pTemplate="header">
             Top
         </ng-template>
@@ -76,7 +76,7 @@
         </ng-template>
     </p-galleria>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="left"> 
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"> 
         <ng-template pTemplate="header">
             Left
         </ng-template>
@@ -90,7 +90,7 @@
         </ng-template>
     </p-galleria>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="right"> 
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right"> 
         <ng-template pTemplate="header">
             Right
         </ng-template>
@@ -105,7 +105,7 @@
     </p-galleria>
     <h3>Template</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="left">
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -119,7 +119,7 @@
         </ng-template>
     </p-galleria>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" indicatorsPosition="left">
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -133,7 +133,7 @@
         </ng-template>
     </p-galleria>
     <p-galleria [(value)]="images2" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria2'" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" indicatorsPosition="left">
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -211,7 +211,7 @@ export class GalleriaDemo implements OnInit &#123;
 &lt;br&gt;
 &lt;h3&gt;Change Preview On Indicator Hover&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true"&gt; 
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
@@ -224,7 +224,7 @@ export class GalleriaDemo implements OnInit &#123;
 &lt;br&gt;
 &lt;h3&gt;Show Indicator On Preview&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true"&gt; 
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
@@ -236,7 +236,7 @@ export class GalleriaDemo implements OnInit &#123;
 &lt;/p-galleria&gt;
 &lt;h3&gt;Position&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="bottom"&gt; 
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="bottom"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         Bottom
     &lt;/ng-template&gt;
@@ -250,7 +250,7 @@ export class GalleriaDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="top"&gt; 
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         Top
     &lt;/ng-template&gt;
@@ -264,7 +264,7 @@ export class GalleriaDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="left"&gt; 
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         Left
     &lt;/ng-template&gt;
@@ -278,7 +278,7 @@ export class GalleriaDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="right"&gt; 
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         Right
     &lt;/ng-template&gt;
@@ -293,7 +293,7 @@ export class GalleriaDemo implements OnInit &#123;
 &lt;/p-galleria&gt;
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" [showIndicatorsOnPreview]="true" indicatorsPosition="left"&gt;
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
@@ -307,7 +307,7 @@ export class GalleriaDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" indicatorsPosition="left"&gt;
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
@@ -321,7 +321,7 @@ export class GalleriaDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;p-galleria [(value)]="images2" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria2'" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changePreviewOnIndicatorHover]="true" indicatorsPosition="left"&gt;
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;

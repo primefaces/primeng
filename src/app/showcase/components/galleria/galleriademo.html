@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <p-galleria #galleria [(value)]="images" [(activeItemIndex)]="activeIndex" [numVisible]="5" [containerStyle]="{'max-width':'520px'}" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
-        [showPreviewNavButtons]="true" [showNavButtonsOnPreviewHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"> 
+        [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" [ngStyle]="{'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''}" />
         </ng-template>
@@ -199,25 +199,25 @@ responsiveOptions:any[] = [
                             <td>An array of options for responsive design.</td>
                         </tr>
                         <tr>
-                            <td>showPreviewNavButtons</td>
+                            <td>showItemNavigators</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether to display navigation buttons in preview container.</td>
                         </tr>
                         <tr>
-                            <td>showThumbnailNavButtons</td>
+                            <td>showThumbnailNavigators</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to display navigation buttons in thumbnail container.</td>
                         </tr>
                         <tr>
-                            <td>showNavButtonsOnPreviewHover</td>
+                            <td>showItemNavigatorsOnHover</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether to display navigation buttons on preview container's hover.</td>
                         </tr>
                         <tr>
-                            <td>changePreviewOnIndicatorHover</td>
+                            <td>changeItemOnIndicatorHover</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>When enabled, preview item is changed on indicator item's hover.</td>
@@ -265,7 +265,7 @@ responsiveOptions:any[] = [
                             <td>Whether to display indicator container.</td>
                         </tr>
                         <tr>
-                            <td>showIndicatorsOnPreview</td>
+                            <td>showIndicatorsOnItem</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>When enabled, indicator container is displayed on preview container.</td>
@@ -328,19 +328,19 @@ responsiveOptions:any[] = [
                             <td>Footer section.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-preview-content</td>
+                            <td>ui-galleria-item-wrapper</td>
                             <td>Preview content element. It contains preview and indicator containers.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-preview-container</td>
+                            <td>ui-galleria-item-container</td>
                             <td>Container of the preview content. It contains navigation buttons, preview item and caption content.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-indicator-container</td>
+                            <td>ui-galleria-indicators</td>
                             <td>Container of the indicators. It contains indicator items.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-thumbnail-content</td>
+                            <td>ui-galleria-thumbnail-wrapper</td>
                             <td>Thumbnail content element.</td>
                         </tr>
                         <tr>
@@ -348,7 +348,7 @@ responsiveOptions:any[] = [
                             <td>Container of the thumbnail content. It contains navigation buttons and thumbnail items.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-preview-caption</td>
+                            <td>ui-galleria-caption</td>
                             <td>Content of the preview caption.</td>
                         </tr>
                     </tbody>
@@ -367,7 +367,7 @@ responsiveOptions:any[] = [
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
 &lt;p-galleria #galleria [(value)]="images" [(activeItemIndex)]="activeIndex" [numVisible]="5" [containerStyle]="&#123;'max-width':'520px'&#125;" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
-    [showPreviewNavButtons]="true" [showNavButtonsOnPreviewHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"&gt; 
+    [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [ngStyle]="&#123;'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''&#125;" /&gt;
     &lt;/ng-template&gt;

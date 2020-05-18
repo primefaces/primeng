@@ -1,8 +1,8 @@
 :host ::ng-deep {
     &.custom-indicator-galleria {
         &.ui-galleria-indicators-left {
-            .ui-galleria-preview-content {
-                .ui-galleria-indicator-container {
+            .ui-galleria-item-wrapper {
+                .ui-galleria-indicators {
                     display: flex;
                     justify-content: space-between;
                     padding: 0;
@@ -37,18 +37,18 @@
             }
         }
 
-        &:not(.ui-galleria-indicator-onpreview) {
+        &:not(.ui-galleria-indicator-onitem) {
             &.ui-galleria-indicators-left {
-                .ui-galleria-preview-content {
+                .ui-galleria-item-wrapper {
                     align-items: stretch;
 
-                    .ui-galleria-preview-container {
+                    .ui-galleria-item-container {
                         border: 1px solid #c8c8c8; /* for IE */
                         border: var(--panelContentBorder);
                         border-left-width: 0;
                     }
 
-                    .ui-galleria-indicator-container {
+                    .ui-galleria-indicators {
                         .ui-galleria-indicator-item {
                             background-color: #ffffff;
                             border: 1px solid #c8c8c8; /* for IE */
@@ -70,8 +70,8 @@
     &.custom-indicator-galleria2 {
         &.ui-galleria-indicators-left {
             .ui-galleria-content {
-                .ui-galleria-preview-content {
-                    .ui-galleria-indicator-container {
+                .ui-galleria-item-wrapper {
+                    .ui-galleria-indicators {
                         .ui-galleria-indicator-item {
                             padding-right: 0;
                         }

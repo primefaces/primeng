@@ -8,7 +8,7 @@ import { DomHandler } from 'primeng/dom';
     selector: 'p-galleria',
     template: `
         <div *ngIf="fullScreen;else windowed">
-            <div *ngIf="visible"  #mask [ngClass]="maskContentClass()" [ngStyle]="{'zIndex':zIndex}">
+            <div *ngIf="visible"  #mask [ngClass]="{'ui-galleria-mask ui-widget-overlay':true, 'ui-galleria-visible': this.visible}" [class]="maskClass" [ngStyle]="{'zIndex':zIndex}">
                 <p-galleriaContent (maskHide)="onMaskHide()" (activeItemChange)="onActiveItemChange($event)" [ngStyle]="containerStyle"></p-galleriaContent>
             </div>
         </div>
@@ -39,13 +39,13 @@ export class Galleria implements OnChanges, OnDestroy {
 
     @Input() responsiveOptions: any[];
 
-    @Input() showPreviewNavButtons: boolean = false;
+    @Input() showItemNavigators: boolean = false;
 
-    @Input() showThumbnailNavButtons: boolean = true;
+    @Input() showThumbnailNavigators: boolean = true;
 
-    @Input() showNavButtonsOnPreviewHover: boolean = false;
+    @Input() showItemNavigatorsOnHover: boolean = false;
 
-    @Input() changePreviewOnIndicatorHover: boolean = false;
+    @Input() changeItemOnIndicatorHover: boolean = false;
 
     @Input() circular: boolean = false;
 
@@ -61,7 +61,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     @Input() showIndicators: boolean = false;
 
-    @Input() showIndicatorsOnPreview: boolean = false;
+    @Input() showIndicatorsOnItem: boolean = false;
 
     @Input() indicatorsPosition: string = "bottom";
 
@@ -132,14 +132,6 @@ export class Galleria implements OnChanges, OnDestroy {
             }
         }
     }
-
-    maskContentClass() {
-		return {
-			'ui-galleria-mask ui-widget-overlay':true, 
-            'ui-galleria-visible': this.visible,
-            [this.maskClass ? this.maskClass : '']: true
-		};
-    }
     
     onMaskHide() {
         this.visible = false;
@@ -163,7 +155,9 @@ export class Galleria implements OnChanges, OnDestroy {
 @Component({
     selector: 'p-galleriaContent',
     template: `
-        <div [attr.id]="id" *ngIf="galleria.value && galleria.value.length > 0" [ngClass]="galleriaClass()" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}">
+        <div [attr.id]="id" *ngIf="galleria.value && galleria.value.length > 0" [ngClass]="{'ui-galleria ui-component': true, 'ui-galleria-fullscreen': this.galleria.fullScreen, 
+            'ui-galleria-indicator-onitem': this.galleria.showIndicatorsOnItem, 'ui-galleria-item-nav-onhover': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen}"
+            [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" [class]="galleriaClass()">
             <button *ngIf="galleria.fullScreen" type="button" class="ui-galleria-close ui-button ui-widget ui-state-default ui-corner-all" (click)="maskHide.emit()">
                 <span class="ui-galleria-close-icon pi pi-times"></span>
             </button>
@@ -171,14 +165,14 @@ export class Galleria implements OnChanges, OnDestroy {
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
             <div class="ui-galleria-content">
-                <p-galleriaPreview [value]="galleria.value" [activeItemIndex]="galleria.activeItemIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
-                    [showIndicators]="galleria.showIndicators" [changePreviewOnIndicatorHover]="galleria.changePreviewOnIndicatorHover" [indicatorFacet]="galleria.indicatorFacet"
-                    [showPreviewNavButtons]="galleria.showPreviewNavButtons" [autoPlay]="galleria.autoPlay" [slideShowActive]="slideShowActive"
-                    (startSlideShow)="startSlideShow()" (stopSlideShow)="stopSlideShow()"></p-galleriaPreview>
+                <p-galleriaItem [value]="galleria.value" [activeItemIndex]="galleria.activeItemIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
+                    [showIndicators]="galleria.showIndicators" [changeItemOnIndicatorHover]="galleria.changeItemOnIndicatorHover" [indicatorFacet]="galleria.indicatorFacet"
+                    [showItemNavigators]="galleria.showItemNavigators" [autoPlay]="galleria.autoPlay" [slideShowActive]="slideShowActive"
+                    (startSlideShow)="startSlideShow()" (stopSlideShow)="stopSlideShow()"></p-galleriaItem>
 
                 <p-galleriaThumbnails *ngIf="galleria.showThumbnails" [containerId]="id" [value]="galleria.value" (onActiveIndexChange)="onActiveIndexChange($event)" [activeItemIndex]="galleria.activeItemIndex" [templates]="galleria.templates"
                     [numVisible]="galleria.numVisible" [responsiveOptions]="galleria.responsiveOptions" [circular]="galleria.circular"
-                    [isVertical]="isVertical()" [contentHeight]="galleria.verticalThumbnailViewPortHeight" [showThumbnailNavButtons]="galleria.showThumbnailNavButtons"
+                    [isVertical]="isVertical()" [contentHeight]="galleria.verticalThumbnailViewPortHeight" [showThumbnailNavigators]="galleria.showThumbnailNavigators"
                     [slideShowActive]="slideShowActive" (stopSlideShow)="stopSlideShow()"></p-galleriaThumbnails>
             </div>
             <div *ngIf="galleria.templates && galleria.footerFacet" class="ui-galleria-footer">
@@ -212,22 +206,15 @@ export class GalleriaContent {
 
     interval: any;
 
-    constructor(public galleria: Galleria) { }
+    styleClass: string;
 
+    constructor(public galleria: Galleria) { }
 
     galleriaClass() {
         const thumbnailsPosClass = this.galleria.showThumbnails && this.getPositionClass('ui-galleria-thumbnails', this.galleria.thumbnailsPosition);
         const indicatorPosClass = this.galleria.showIndicators && this.getPositionClass('ui-galleria-indicators', this.galleria.indicatorsPosition);
 
-        return {
-            'ui-galleria ui-component': true, 
-            'ui-galleria-fullscreen': this.galleria.fullScreen,
-            'ui-galleria-indicator-onpreview': this.galleria.showIndicatorsOnPreview,
-            'ui-galleria-preview-nav-onhover': this.galleria.showNavButtonsOnPreviewHover && !this.galleria.fullScreen,
-            [thumbnailsPosClass ? thumbnailsPosClass : '']: true,
-            [indicatorPosClass ? indicatorPosClass : '']: true,
-            [this.galleria.containerClass ? this.galleria.containerClass : '']: true
-        }
+        return (this.galleria.containerClass ? this.galleria.containerClass + " " : '') + (thumbnailsPosClass ? thumbnailsPosClass + " " : '') + (indicatorPosClass ? indicatorPosClass + " " : '');
     }
 
     startSlideShow() {
@@ -291,7 +278,7 @@ export class GalleriaItemSlot {
             if (item.getType() === this.type) {
                 switch(this.type) {
                     case 'item':
-                    case 'previewCaption':
+                    case 'caption':
                     case 'thumbnail':
                         this.context = {$implicit: this.item};
                         this.contentTemplate = item.template;
@@ -314,7 +301,7 @@ export class GalleriaItemSlot {
             if (item.getType() === this.type) {
                 switch(this.type) {
                     case 'item':
-                    case 'previewCaption':
+                    case 'caption':
                     case 'thumbnail':
                         this.context = {$implicit: this.item};
                         this.contentTemplate = item.template;
@@ -334,21 +321,23 @@ export class GalleriaItemSlot {
 }
 
 @Component({
-    selector: 'p-galleriaPreview',
+    selector: 'p-galleriaItem',
     template: `
-        <div class="ui-galleria-preview-container">
-            <button *ngIf="showPreviewNavButtons" type="button" [ngClass]="navBackwardClass()" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()">
-                <span class="ui-galleria-preview-prev-icon pi pi-chevron-left"></span>
+        <div class="ui-galleria-item-container">
+            <button *ngIf="showItemNavigators" type="button" [ngClass]="{'ui-galleria-item-prev ui-galleria-item-nav ui-button': true, 'ui-state-disabled': this.isNavBackwardDisabled()}" (click)="navBackward($event)" 
+                [disabled]="isNavBackwardDisabled()">
+                <span class="ui-galleria-item-prev-icon pi pi-chevron-left"></span>
             </button>
-            <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="ui-galleria-preview-items-content"></p-galleriaItemSlot>
-            <button *ngIf="showPreviewNavButtons" type="button" [ngClass]="navForwardClass()" (click)="navForward($event)" [disabled]="isNavForwardDisabled()">
-                <span class="ui-galleria-preview-next-icon pi pi-chevron-right"></span>
+            <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="ui-galleria-item"></p-galleriaItemSlot>
+            <button *ngIf="showItemNavigators" type="button" [ngClass]="{'ui-galleria-item-next ui-galleria-item-nav ui-button': true,'ui-state-disabled': this.isNavForwardDisabled()}" (click)="navForward($event)" 
+                [disabled]="isNavForwardDisabled()">
+                <span class="ui-galleria-item-next-icon pi pi-chevron-right"></span>
             </button>
-            <div class="ui-galleria-preview-caption">
-                <p-galleriaItemSlot type="previewCaption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
+            <div class="ui-galleria-caption">
+                <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
             </div>
         </div>
-        <ul *ngIf="showIndicators" class="ui-galleria-indicator-container ui-helper-reset">
+        <ul *ngIf="showIndicators" class="ui-galleria-indicators ui-helper-reset">
             <li *ngFor="let item of value; let index = index;" tabindex="0"
                 (click)="onIndicatorClick(index)" (mouseenter)="onIndicatorMouseEnter(index)" (keydown.enter)="onIndicatorKeyDown(index)"
                 [ngClass]="{'ui-galleria-indicator-item': true,'ui-state-highlight': isIndicatorItemActive(index)}">
@@ -362,23 +351,23 @@ export class GalleriaItemSlot {
         </ul>
     `,
     host: {
-        '[class.ui-galleria-preview-content]': 'true',
+        '[class.ui-galleria-item-wrapper]': 'true',
     },
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class GalleriaPreview implements OnInit {
+export class GalleriaItem implements OnInit {
 
     @Input() circular: boolean = false;
 
     @Input() value: any[];
 
-    @Input() showPreviewNavButtons: boolean = false;
+    @Input() showItemNavigators: boolean = false;
 
     @Input() showIndicators: boolean = true;
 
     @Input() slideShowActive: boolean = true;
 
-    @Input() changePreviewOnIndicatorHover: boolean = true;
+    @Input() changeItemOnIndicatorHover: boolean = true;
 
     @Input() autoPlay: boolean = false;
 
@@ -457,7 +446,7 @@ export class GalleriaPreview implements OnInit {
     }
 
     onIndicatorMouseEnter(index) {
-        if (this.changePreviewOnIndicatorHover) {
+        if (this.changeItemOnIndicatorHover) {
             this.stopTheSlideShow();
             this.onActiveIndexChange.emit(index);
         }
@@ -466,20 +455,6 @@ export class GalleriaPreview implements OnInit {
     onIndicatorKeyDown(index) {
         this.stopTheSlideShow();
         this.onActiveIndexChange.emit(index);
-    }
-
-    navForwardClass() {
-        return {
-            'ui-galleria-preview-next ui-galleria-preview-nav-button ui-button': true, 
-            'ui-state-disabled': this.isNavForwardDisabled()
-        };
-    }
-
-    navBackwardClass() {
-        return {
-            'ui-galleria-preview-prev ui-galleria-preview-nav-button ui-button': true,
-            'ui-state-disabled': this.isNavBackwardDisabled()
-        };
     }
 
     isNavForwardDisabled() {
@@ -498,27 +473,24 @@ export class GalleriaPreview implements OnInit {
 @Component({
     selector: 'p-galleriaThumbnails',
     template: `
-        <div class="ui-galleria-thumbnail-content">
+        <div class="ui-galleria-thumbnail-wrapper">
             <div class="ui-galleria-thumbnail-container">
-                <button *ngIf="showThumbnailNavButtons" [ngClass]="navBackwardClass()" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()">
-                    <span [ngClass]="navBackwardIconClass()"></span>
+                <button *ngIf="showThumbnailNavigators" [ngClass]="{'ui-galleria-thumbnail-prev ui-button': true, 'ui-state-disabled': this.isNavBackwardDisabled()}" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()">
+                    <span [ngClass]="{'ui-galleria-thumbnail-prev-icon pi': true, 'pi-chevron-left': !this.isVertical, 'pi-chevron-up': this.isVertical}"></span>
                 </button>
-                <div class="ui-galleria-thumbnail-items-content" [ngStyle]="{'height': isVertical ? contentHeight : ''}">
-                    <div #itemsContainer class="ui-galleria-thumbnail-items-container" (transitionend)="onTransitionEnd()"
+                <div class="ui-galleria-thumbnail-items-container" [ngStyle]="{'height': isVertical ? contentHeight : ''}">
+                    <div #itemsContainer class="ui-galleria-thumbnail-items" (transitionend)="onTransitionEnd()"
                         (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
-                        <div *ngFor="let item of value; let index = index;" [ngClass]="{'ui-galleria-thumbnail-item': true, 
-                            'ui-galleria-thumbnail-item-current': activeItemIndex === index,
-                            'ui-galleria-thumbnail-item-active': isItemActive(index),
-                            'ui-galleria-thumbnail-item-start': firstItemAciveIndex() === index,
-                            'ui-galleria-thumbnail-item-end': lastItemActiveIndex() === index }">
+                        <div *ngFor="let item of value; let index = index;" [ngClass]="{'ui-galleria-thumbnail-item': true, 'ui-galleria-thumbnail-item-current': activeItemIndex === index, 'ui-galleria-thumbnail-item-active': isItemActive(index),
+                            'ui-galleria-thumbnail-item-start': firstItemAciveIndex() === index, 'ui-galleria-thumbnail-item-end': lastItemActiveIndex() === index }">
                             <div class="ui-galleria-thumbnail-item-content" [attr.tabindex]="getTabIndex(index)" (click)="onItemClick(index)" (keydown.enter)="onItemClick(index)">
                                 <p-galleriaItemSlot type="thumbnail" [item]="item" [templates]="templates"></p-galleriaItemSlot>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button *ngIf="showThumbnailNavButtons" [ngClass]="navForwardClass()" (click)="navForward($event)" [disabled]="isNavForwardDisabled()">
-                    <span [ngClass]="navForwardIconClass()"></span>
+                <button *ngIf="showThumbnailNavigators" [ngClass]="{'ui-galleria-thumbnail-next ui-button': true, 'ui-state-disabled': this.isNavForwardDisabled()}" (click)="navForward($event)" [disabled]="isNavForwardDisabled()">
+                    <span [ngClass]="{'ui-galleria-thumbnail-next-icon pi': true, 'pi-chevron-right': !this.isVertical, 'pi-chevron-down': this.isVertical}"></span>
                 </button>
             </div>
         </div>
@@ -541,7 +513,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     @Input() contentHeight: string = "300px";
 
-    @Input() showThumbnailNavButtons = true;
+    @Input() showThumbnailNavigators = true;
 
     @Input() templates: QueryList<any>;
 
@@ -875,34 +847,6 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
         return this.firstItemAciveIndex() <= index && this.lastItemActiveIndex() >= index;
     }
 
-    navBackwardClass() {
-        return {
-            'ui-galleria-thumbnail-prev ui-button': true,
-            'ui-state-disabled': this.isNavBackwardDisabled()
-        };
-    }
-
-    navForwardClass() {
-        return {'ui-galleria-thumbnail-next ui-button': true,
-            'ui-state-disabled': this.isNavForwardDisabled()
-        };
-    }
-
-    navBackwardIconClass() {
-        return {
-            'ui-galleria-thumbnail-prev-icon pi': true, 
-            'pi-chevron-left': !this.isVertical,
-            'pi-chevron-up': this.isVertical
-        };
-    }
-
-    navForwardIconClass() {
-        return {'ui-galleria-thumbnail-next-icon pi': true,
-            'pi-chevron-right': !this.isVertical,
-            'pi-chevron-down': this.isVertical
-        }
-    }
-
     bindDocumentListeners() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = () => {
@@ -933,7 +877,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
 @NgModule({
     imports: [CommonModule, SharedModule],
-    exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaPreview, GalleriaThumbnails, SharedModule],
-    declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaPreview, GalleriaThumbnails]
+    exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
+    declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })
 export class GalleriaModule { }
