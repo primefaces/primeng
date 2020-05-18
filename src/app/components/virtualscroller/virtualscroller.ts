@@ -45,11 +45,11 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     @Input() rows: number;
 
-    @Input() first: number = 0;
-
     @Input() minBufferPx: number;
 
     @Input() maxBufferPx: number;
+
+    @Input() scrollMode: string = 'auto';
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
@@ -75,6 +75,10 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     page: number = 0;
 
+    _first: number = 0;
+
+    _scrollIndex: number = 0;
+
     constructor(public el: ElementRef) {}
 
     @Input() get totalRecords(): number {
@@ -83,8 +87,8 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     set totalRecords(val: number) {
         this._totalRecords = val;
         this.lazyValue = Array.from({length: this._totalRecords});
-        this.first = 0;
-        this.scrollTo(0);
+        this._first = 0;
+        this.scrollToIndex(0);
         this.onLazyLoad.emit(this.createLazyLoadMetadata());
     }
 
@@ -104,6 +108,23 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
         else {
             this._value = val;
         }
+    }
+
+    @Input() get first(): number {
+        return this._first;
+    }
+    set first(val:number) {
+        this._first = val;
+        console.log("first property is deprecated, use scrollIndex property or scrollToIndex function to scroll a specific item");
+    }
+
+    @Input() get scrollIndex(): number {
+        return this._scrollIndex;
+    }
+    set scrollIndex(val:number) {
+        this._scrollIndex = val;
+        this.scrollToIndex(this._scrollIndex, this.scrollMode);
+        console.log("first property is deprecated, use scrollToIndex function to scroll a specific item");
     }
 
     ngAfterContentInit() {
@@ -128,7 +149,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
         let p = Math.floor(index / this.rows);
         if (p !== this.page) {
             this.page = p;
-            this.first = this.page * this.rows;
+            this._first = this.page * this.rows;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
     }
@@ -144,13 +165,14 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    scrollTo(index: number): void {
-        this.scrollToIndex(index);
+    //@deprecated
+    scrollTo(index: number, mode?: string): void {
+        this.scrollToIndex(index, mode);
     }
 
-    scrollToIndex(index: number): void {
+    scrollToIndex(index: number, mode?: string): void {
         if (this.viewport) {
-            this.viewport.scrollToIndex(index);
+            this.viewport.scrollToIndex(index, mode);
         }
     }
 }
