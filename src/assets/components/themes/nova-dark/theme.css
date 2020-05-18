@@ -2399,8 +2399,8 @@ body .ui-virtualscroller .ui-virtualscroller-content {
   background-color: #ffffff;
   color: #333333;
 }
-body .ui-virtualscroller .ui-virtualscroller-content .ui-virtualscroller-list li {
-  border-bottom: 1px solid #333333;
+body .ui-virtualscroller .ui-virtualscroller-content .ui-virtualscroller-list .ui-virtualscroller-item {
+  border-bottom: 1px solid #d8dae2;
 }
 body .ui-virtualscroller .ui-virtualscroller-footer {
   background-color: #ffffff;
