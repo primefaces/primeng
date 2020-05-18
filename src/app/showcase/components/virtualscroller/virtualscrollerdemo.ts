@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
 import {LazyLoadEvent,SelectItem} from 'primeng/api';
 
 @Component({
@@ -88,8 +87,6 @@ export class VirtualScrollerDemo implements OnInit {
     sortKey: string;
 
     sortOptions: SelectItem[];
-
-    constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.brands = [

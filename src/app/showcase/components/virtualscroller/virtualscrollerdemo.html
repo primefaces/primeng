@@ -493,7 +493,6 @@ reset() &#123;
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component,OnInit&#125; from '@angular/core';
 import &#123;Car&#125; from '../../components/domain/car';
-import &#123;CarService&#125; from '../../service/carservice';
 import &#123;LazyLoadEvent,SelectItem&#125; from 'primeng/api';
 
 @Component(&#123;
@@ -516,8 +515,6 @@ export class VirtualScrollerDemo implements OnInit &#123;
     sortKey: string;
 
     sortOptions: SelectItem[];
-
-    constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.brands = [
