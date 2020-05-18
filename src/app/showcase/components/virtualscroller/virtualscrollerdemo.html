@@ -212,22 +212,10 @@ loadData(event) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>value</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of objects to display.</td>
-                        </tr>
-                        <tr>
-                            <td>itemSize</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Height of an item in the list.</td>
-                        </tr>
-                        <tr>
-                            <td>rows</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Number of rows to display per page.</td>
+                            <td>cache</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to cache the already loaded data in lazy loading.</td>
                         </tr>
                         <tr>
                             <td>first</td>
@@ -236,16 +224,34 @@ loadData(event) &#123;
                             <td>Index of the first row to be displayed.</td>
                         </tr>
                         <tr>
-                            <td>totalRecords</td>
+                            <td>itemSize</td>
                             <td>number</td>
                             <td>null</td>
-                            <td>Number of total records, defaults to length of value when not defined.</td>
+                            <td>Height of an item in the list.</td>
                         </tr>
                         <tr>
                             <td>lazy</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
+                            <td>minBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
+                        </tr>
+                        <tr>
+                            <td>maxBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
+                        </tr>
+                        <tr>
+                            <td>rows</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of rows to display per page.</td>
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
@@ -266,10 +272,22 @@ loadData(event) &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
+                            <td>totalRecords</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of total records, defaults to length of value when not defined.</td>
+                        </tr>
+                        <tr>
                             <td>trackBy</td>
                             <td>Function</td>
                             <td>null</td>
                             <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to display.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -308,7 +326,7 @@ loadData(event) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>scrollTo</td>
+                            <td>scrollToIndex</td>
                             <td>index: Index of the item</td>
                             <td>Scrolls to the item with the given index.</td>
                         </tr>

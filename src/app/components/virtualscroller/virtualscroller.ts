@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import {ScrollingModule,CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {BlockableUI} from 'primeng/api';
 
 @Component({
@@ -13,7 +13,7 @@ import {BlockableUI} from 'primeng/api';
             </div>
             <div #content class="ui-virtualscroller-content ui-widget-content">
                 <ul class="ui-virtualscroller-list">
-                    <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" (scrolledIndexChange)="onScrollIndexChange($event)">
+                    <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)">
                         <ng-container *cdkVirtualFor="let item of value; trackBy: trackBy; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd; ">
                             <li [ngStyle]="{'height': itemSize + 'px'}">
                                 <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: {$implicit: item, index: i, count: c, first: f, last: l, even: e, odd: o}"></ng-container>
@@ -46,6 +46,10 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     @Input() rows: number;
 
     @Input() first: number = 0;
+
+    @Input() minBufferPx: number;
+
+    @Input() maxBufferPx: number;
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
@@ -55,7 +59,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    @ViewChild('viewport') viewPortViewChild: ElementRef;
+    @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -141,11 +145,12 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
 
     scrollTo(index: number): void {
-        if (this.viewPortViewChild && this.viewPortViewChild['elementRef'] && this.viewPortViewChild['elementRef'].nativeElement) {
-            this.viewPortViewChild['elementRef'].nativeElement.scrollTop = index * this.itemSize;
-        }
+        this.scrollToIndex(index);
     }
-    
+
+    scrollToIndex(index: number): void {
+        this.viewport.scrollToIndex(index);
+    }
 }
 
 @NgModule({
