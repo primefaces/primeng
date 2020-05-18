@@ -7,14 +7,13 @@
 
 <div class="content-section implementation">
     <h3>Lazy Loading</h3>
-    <p-virtualScroller [value]="lazyCars" scrollHeight="500px" [itemSize]="100" [rows]="100" [cache]="false" 
-            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalLazyCarsLength">
+    <p-virtualScroller [value]="virtualCars" scrollHeight="450px" [itemSize]="100" [rows]="100" 
+            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
         <p-header>
             List of Cars
         </p-header>
         <ng-template let-car pTemplate="item" let-i="index">
             <div class="car-details">
-                {{i}}
                 <div>
                     <img class="car-item-image" src="assets/showcase/images/demo/car/{{car.brand}}.png">
                     <div>
@@ -431,15 +430,15 @@ reset() &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3&gt;Lazy Loading&lt;/h3&gt;
-&lt;p-virtualScroller [value]="lazyCars" scrollHeight="500px" [itemSize]="100" [rows]="100" [cache]="false" 
-    [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalLazyCarsLength"&gt;
+&lt;p-virtualScroller [value]="virtualCars" scrollHeight="450px" [itemSize]="100" [rows]="100" 
+        [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;p-header&gt;
         List of Cars
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="item" let-i="index"&gt;
         &lt;div class="car-details"&gt;
             &lt;div&gt;
-                &lt;img class="car-item-image" src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
+                &lt;img class="car-item-image" src="assets/showcase/images/demo/car/&#123;&#123;car.brands#125;&#125;.png"&gt;
                 &lt;div&gt;
                     &lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;
                     &lt;div&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt; 
@@ -501,37 +500,24 @@ import &#123;LazyLoadEvent,SelectItem&#125; from 'primeng/api';
 &#125;)
 export class VirtualScrollerDemo implements OnInit &#123;
 
-    cars: Car[] = [];
+    cars: Car[];
 
-    lazyCars: Car[];
+    virtualCars: Car[];
     
     brands: string[];
 
     colors: string[];
-
-    totalLazyCarsLength: number;
-
-    timeout: any;
 
     sortKey: string;
 
     sortOptions: SelectItem[];
 
     ngOnInit() &#123;
-        this.brands = [
-            'Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'
-        ];
+        this.brands = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
+        this.colors = ['Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'];
 
-        this.colors = [
-            'Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'
-        ];
-
-        for (let i = 0; i &lt; 10000; i++) &#123;
-            this.cars.push(this.generateCar());
-        &#125;
-
-        //in a real application, make a remote request to retrieve the number of records only, not the actual records
-        this.totalLazyCarsLength = 10000;
+        this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.generateCar());
+        this.virtualCars =  Array.from(&#123;length: 10000&#125;);
 
         this.sortOptions = [
             &#123;label: 'Newest First', value: '!year'&#125;,
@@ -571,21 +557,18 @@ export class VirtualScrollerDemo implements OnInit &#123;
         return 2000 + Math.floor(Math.random() * Math.floor(19));
     &#125;
 
-    loadCarsLazy(event: LazyLoadEvent) &#123;
-        //in a real application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
+    loadCarsLazy(event: LazyLoadEvent) &#123;       
+        //simulate remote connection with a timeout 
+        setTimeout(() => &#123;
+            console.log('Loading:' + event.first + '-' + (event.first + event.rows));
+            //load data of required page
+            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
 
-        //imitate db connection over a network
-        if (this.timeout) &#123;
-            clearTimeout(this.timeout);
-        &#125;
-        
-        this.timeout = setTimeout(() => &#123;
-            this.lazyCars = [];
-            if (this.cars) &#123;
-                this.lazyCars = this.cars.slice(event.first, (event.first + event.rows));
-            &#125;
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
+            
+            //trigger change detection
+            this.virtualCars = [...this.virtualCars];
         &#125;, 1000);
     &#125;
 
@@ -608,6 +591,7 @@ export class VirtualScrollerDemo implements OnInit &#123;
 
         this.cars = cars;
     &#125;
+
 &#125;
 </code>
 </pre>

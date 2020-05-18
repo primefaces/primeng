@@ -72,37 +72,24 @@ import {LazyLoadEvent,SelectItem} from 'primeng/api';
 })
 export class VirtualScrollerDemo implements OnInit {
 
-    cars: Car[] = [];
+    cars: Car[];
 
-    lazyCars: Car[];
+    virtualCars: Car[];
     
     brands: string[];
 
     colors: string[];
-
-    totalLazyCarsLength: number;
-
-    timeout: any;
 
     sortKey: string;
 
     sortOptions: SelectItem[];
 
     ngOnInit() {
-        this.brands = [
-            'Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'
-        ];
+        this.brands = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
+        this.colors = ['Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'];
 
-        this.colors = [
-            'Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'
-        ];
-
-        for (let i = 0; i < 10000; i++) {
-            this.cars.push(this.generateCar());
-        }
-
-        //in a real application, make a remote request to retrieve the number of records only, not the actual records
-        this.totalLazyCarsLength = 10000;
+        this.cars = Array.from({length: 10000}).map(() => this.generateCar());
+        this.virtualCars =  Array.from({length: 10000});
 
         this.sortOptions = [
             {label: 'Newest First', value: '!year'},
@@ -142,21 +129,18 @@ export class VirtualScrollerDemo implements OnInit {
         return 2000 + Math.floor(Math.random() * Math.floor(19));
     }
 
-    loadCarsLazy(event: LazyLoadEvent) {
-        //in a real application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
+    loadCarsLazy(event: LazyLoadEvent) {       
+        //simulate remote connection with a timeout 
+        setTimeout(() => {
+            console.log('Loading:' + event.first + '-' + (event.first + event.rows));
+            //load data of required page
+            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
 
-        //imitate db connection over a network
-        if (this.timeout) {
-            clearTimeout(this.timeout);
-        }
-        
-        this.timeout = setTimeout(() => {
-            this.lazyCars = [];
-            if (this.cars) {
-                this.lazyCars = this.cars.slice(event.first, (event.first + event.rows));
-            }
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
+            
+            //trigger change detection
+            this.virtualCars = [...this.virtualCars];
         }, 1000);
     }
 

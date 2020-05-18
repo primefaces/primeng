@@ -31,6 +31,8 @@ import {BlockableUI} from 'primeng/api';
 })
 export class VirtualScroller implements AfterContentInit,BlockableUI {
 
+    @Input() value: any[];
+
     @Input() itemSize: number; 
 
     @Input() style: any;
@@ -69,10 +71,6 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     _totalRecords: number = 0;
 
-    _value: any[];
-
-    lazyValue: any[] = [];
-
     page: number = 0;
 
     _first: number = 0;
@@ -88,23 +86,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
     set totalRecords(val: number) {
         this._totalRecords = val;
-        this.lazyValue = Array.from({length: this._totalRecords});
-        this._first = 0;
-        this.scrollToIndex(0);
-        this.onLazyLoad.emit(this.createLazyLoadMetadata());
-    }
-
-    @Input() get value(): any[] {
-        return this.lazy ? this.lazyValue : this._value;
-    }
-    set value(val: any[]) {
-        if (this.lazy) {
-            Array.prototype.splice.apply(this.lazyValue, [this.first, this.rows].concat(val));
-            this.lazyValue = [...this.lazyValue];
-        }
-        else {
-            this._value = val;
-        }            
+        console.log("totalRecords is deprecated, provide a value with the length of virtual items instead.");
     }
 
     @Input() get first(): number {
@@ -112,7 +94,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
     set first(val:number) {
         this._first = val;
-        console.log("first property is deprecated, use scrollIndex property or scrollToIndex function to scroll a specific item");
+        console.log("first property is deprecated, use scrollIndex property or scrollToIndex function to scroll a specific item.");
     }
 
     @Input() get scrollIndex(): number {
@@ -120,7 +102,10 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
     set scrollIndex(val:number) {
         this._scrollIndex = val;
-        this.scrollToIndex(this._scrollIndex, this.scrollMode);
+
+        if (this._scrollIndex >= 0) {
+            this.scrollToIndex(this._scrollIndex, this.scrollMode);
+        }
     }
 
     ngAfterContentInit() {
@@ -142,23 +127,31 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
 
     onScrollIndexChange(index: number) {
-        let p = Math.floor(index / this.rows);
-        if (p !== this.page) {
-            this.page = p;
-            this._first = this.page * this.rows;
-
-            if (!this.cache || !this.loadedPages.includes(this.page)) {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-                this.loadedPages.push(this.page);
-            }
+        if (this.lazy) {
+            let pageRange = this.createPageRange(Math.floor(index / this.rows));
+            pageRange.forEach(page => this.loadPage(page));
         }
     }
 
-    createLazyLoadMetadata(): any {
-        return {
-            first: this.first,
-            rows: this.rows
-        };
+    createPageRange(page: number) {
+        let range: number[] = [];
+
+        if (page !== 0) {
+            range.push(page - 1);
+        }
+        range.push(page);
+        if (page !== (Math.ceil(this.value.length / this.rows) - 1)) {
+            range.push(page + 1);
+        }
+
+        return range;
+    }
+
+    loadPage(page: number) {
+        if (!this.loadedPages.includes(page)) {
+            this.onLazyLoad.emit({first: this.rows * page, rows: this.rows});
+            this.loadedPages.push(page);
+        }
     }
 
     getBlockableElement(): HTMLElement {
