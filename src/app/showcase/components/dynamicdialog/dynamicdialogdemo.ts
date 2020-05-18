@@ -3,7 +3,6 @@ import {DialogService} from '../../../components/dynamicdialog/dialogservice';
 import {MessageService} from 'primeng/api';
 import {CarsListDemo} from './carslistdemo';
 import {Car} from '../../components/domain/car';
-import { AppComponent } from '../../app.component';
 import { DynamicDialogRef } from '../../../components/dynamicdialog/dynamicdialog-ref';
 
 @Component({
@@ -12,7 +11,7 @@ import { DynamicDialogRef } from '../../../components/dynamicdialog/dynamicdialo
 })
 export class DynamicDialogDemo implements OnDestroy {
 
-    constructor(public dialogService: DialogService, public messageService: MessageService, private app: AppComponent) {}
+    constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef;
 

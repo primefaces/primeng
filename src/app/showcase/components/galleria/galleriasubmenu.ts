@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import { AppComponent } from '../../app.component';
 
 @Component({
     selector: 'galleria-submenu',
@@ -20,5 +19,5 @@ import { AppComponent } from '../../app.component';
     `
 })
 export class GalleriaSubmenu {
-    constructor(private app: AppComponent) { }
+
 }

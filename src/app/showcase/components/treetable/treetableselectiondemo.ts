@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
-import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './treetableselectiondemo.html',
@@ -32,7 +31,7 @@ export class TreeTableSelectionDemo {
 
     cols: any[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService, private app: AppComponent) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.nodeService.getFilesystem().then(files => this.files1 = files);

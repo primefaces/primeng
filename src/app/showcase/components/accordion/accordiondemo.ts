@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './accordiondemo.html',
@@ -10,7 +9,7 @@ export class AccordionDemo {
     
     index: number = -1;
 
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
 
     onTabClose(event) {
         this.messageService.add({severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index})

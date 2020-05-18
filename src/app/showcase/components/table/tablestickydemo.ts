@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './tablestickydemo.html',
@@ -34,7 +33,7 @@ export class TableStickyDemo implements OnInit {
 
     cols: any[];
 
-    constructor(private carService: CarService, private app: AppComponent) { }
+    constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);

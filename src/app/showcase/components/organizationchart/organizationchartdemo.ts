@@ -1,7 +1,6 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
 import {TreeNode} from 'primeng/api';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
@@ -63,7 +62,7 @@ export class OrganizationChartDemo implements OnInit {
     
     selectedNode: TreeNode;
     
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
     
     ngOnInit() {
         this.data1 = [{

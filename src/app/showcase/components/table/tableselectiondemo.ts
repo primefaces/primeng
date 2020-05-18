@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './tableselectiondemo.html',
@@ -28,7 +27,7 @@ export class TableSelectionDemo implements OnInit {
 
     selectedCars3: Car[];
 
-    constructor(private carService: CarService, private messageService: MessageService, private app: AppComponent) { }
+    constructor(private carService: CarService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);

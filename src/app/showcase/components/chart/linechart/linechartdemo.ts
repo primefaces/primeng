@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../../app.component';
 
 @Component({
     templateUrl: './linechartdemo.html',
@@ -10,7 +9,7 @@ export class LineChartDemo {
 
     data: any;
 
-    constructor(private messageService: MessageService, private app: AppComponent) {
+    constructor(private messageService: MessageService) {
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [

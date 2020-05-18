@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './toastdemo.html',
@@ -27,7 +26,7 @@ import { AppComponent } from '../../app.component';
 })
 export class ToastDemo {
 
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
 
     showSuccess() {
         this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});

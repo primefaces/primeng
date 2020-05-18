@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import { AppComponent } from '../../app.component';
 
 @Component({
     selector: 'table-submenu',
@@ -34,6 +33,4 @@ import { AppComponent } from '../../app.component';
         </div>
     `
 })
-export class TableSubmenu {
-    constructor(private app: AppComponent) { }
-}
+export class TableSubmenu {}

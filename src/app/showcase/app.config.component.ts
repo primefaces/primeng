@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import { AppComponent } from './app.component';
-import { DomHandler } from '../components/dom/domhandler';
-// import { AppMainComponent } from './app.main.component';
+import {Component} from '@angular/core';
+import {DomHandler} from '../components/dom/domhandler';
 
 @Component({
     selector: 'app-config',

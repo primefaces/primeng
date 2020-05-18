@@ -2,7 +2,6 @@ import {Component,OnInit} from '@angular/core';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {SelectItem} from 'primeng/api';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './validationdemo.html',
@@ -43,7 +42,7 @@ export class ValidationDemo implements OnInit {
     
     description: string;
     
-    constructor(private fb: FormBuilder, private messageService: MessageService, private app: AppComponent) {}
+    constructor(private fb: FormBuilder, private messageService: MessageService) {}
     
     ngOnInit() {
         this.userform = this.fb.group({

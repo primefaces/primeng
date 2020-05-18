@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './captchademo.html',
@@ -8,7 +7,7 @@ import { AppComponent } from '../../app.component';
 })
 export class CaptchaDemo {
     
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
     
     showResponse(event) {
         this.messageService.add({severity:'info', summary:'Success', detail: 'User Responsed',sticky: true});

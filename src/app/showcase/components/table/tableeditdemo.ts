@@ -3,7 +3,6 @@ import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 import { SelectItem } from 'primeng/api';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './tableeditdemo.html',
@@ -19,7 +18,7 @@ export class TableEditDemo implements OnInit {
 
     clonedCars: { [s: string]: Car; } = {};
 
-    constructor(private carService: CarService, private messageService: MessageService, private app: AppComponent) { }
+    constructor(private carService: CarService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars1 = cars);

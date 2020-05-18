@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './progressbardemo.html',
@@ -10,7 +9,7 @@ export class ProgressBarDemo {
 
     value: number = 0;
     
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         let interval = setInterval(() => {

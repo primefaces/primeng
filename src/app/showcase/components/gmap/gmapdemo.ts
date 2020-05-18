@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 declare var google: any;
 
@@ -30,7 +29,7 @@ export class GMapDemo implements OnInit {
     
     draggable: boolean;
     
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.options = {

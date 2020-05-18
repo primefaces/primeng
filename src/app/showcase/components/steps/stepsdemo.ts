@@ -1,7 +1,6 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './stepsdemo.html',
@@ -42,7 +41,7 @@ export class StepsDemo implements OnInit {
     
     activeIndex: number = 1;
     
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [{

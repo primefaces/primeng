@@ -1,7 +1,6 @@
 import {Component,OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
 import {MenuItem} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './paneldemo.html',
@@ -11,7 +10,7 @@ export class PanelDemo implements OnInit {
     
     items: MenuItem[];
     
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
     
     ngOnInit() {
         this.items = [

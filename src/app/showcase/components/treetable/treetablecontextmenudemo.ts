@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { TreeNode, MenuItem } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
-import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './treetablecontextmenudemo.html',
@@ -18,7 +17,7 @@ export class TreeTableContextMenuDemo {
 
     items: MenuItem[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService, private app: AppComponent) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.nodeService.getFilesystem().then(files => this.files = files);

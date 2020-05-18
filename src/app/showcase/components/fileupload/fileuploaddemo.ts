@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import { AppComponent } from '../../app.component';
 
 @Component({
     templateUrl: './fileuploaddemo.html',
@@ -10,7 +9,7 @@ export class FileUploadDemo {
     
     uploadedFiles: any[] = [];
     
-    constructor(private messageService: MessageService, private app: AppComponent) {}
+    constructor(private messageService: MessageService) {}
 
     onUpload(event) {
         for(let file of event.files) {
