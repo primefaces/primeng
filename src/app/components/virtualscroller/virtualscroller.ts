@@ -12,15 +12,15 @@ import {BlockableUI} from 'primeng/api';
                 <ng-content select="p-header"></ng-content>
             </div>
             <div #content class="ui-virtualscroller-content ui-widget-content">
-                <ul class="ui-virtualscroller-list">
+                <div class="ui-virtualscroller-list">
                     <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)">
                         <ng-container *cdkVirtualFor="let item of value; trackBy: trackBy; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd; ">
-                            <li [ngStyle]="{'height': itemSize + 'px'}">
+                            <div [ngStyle]="{'height': itemSize + 'px'}" class="ui-virtualscroller-item">
                                 <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: {$implicit: item, index: i, count: c, first: f, last: l, even: e, odd: o}"></ng-container>
-                            </li>
+                            </div>
                         </ng-container>
                     </cdk-virtual-scroll-viewport>
-                </ul>
+                </div>
             </div>
             <div class="ui-virtualscroller-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
@@ -149,7 +149,9 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
 
     scrollToIndex(index: number): void {
-        this.viewport.scrollToIndex(index);
+        if (this.viewport) {
+            this.viewport.scrollToIndex(index);
+        }
     }
 }
 

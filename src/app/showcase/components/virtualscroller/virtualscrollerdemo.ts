@@ -10,7 +10,7 @@ import {LazyLoadEvent,SelectItem} from 'primeng/api';
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 20px;
         }
 
         .car-details > div {
@@ -18,30 +18,50 @@ import {LazyLoadEvent,SelectItem} from 'primeng/api';
             align-items: center;
         }
 
-        .car-details > div img {
+        .car-item-image {
             margin-right: 14px;
+            width: 60px;
+            height: 60px;
         }
 
         .empty-car-item-image {
             background-color: #f1f1f1;
-            width: 120px;
-            height: 120px;
             animation: pulse 1s infinite ease-in-out;
+            margin-right: 14px;
+            border-radius: 3px;
         }
 
         .empty-car-item-text {
             background-color: #f1f1f1;
-            height: 18px;
+            height: 19px;
             animation: pulse 1s infinite ease-in-out;
+            display: block;
+            width: 100px;
+            margin-bottom: 2px;
+            border-radius: 3px;
+        }
+
+        .empty-car-item-button {
+            background-color: #f1f1f1;
+            height: 33px;
+            width: 33px;
+            animation: pulse 1s infinite ease-in-out;
+            display: block;
+            border-radius: 3px;
+        }
+
+        .list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .title-container {
-            padding: 1em;
-            text-align: right;
+            text-align: left;
         }
 
         .sort-container {
-            text-align: left;
+            text-align: right;
         }
 
         @media (max-width: 40em) {
