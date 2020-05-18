@@ -1,6 +1,5 @@
 import {Component, OnInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
-import { ImageService } from '../../service/imageservice';
-import { Galleria } from 'primeng/galleria';
+import { PhotoService } from '../../service/photoservice';import { Galleria } from 'primeng/galleria';
 
 @Component({
     templateUrl: './galleriademo.html',
@@ -21,7 +20,7 @@ export class GalleriaDemo implements OnInit, OnDestroy {
     @ViewChild('galleria') galleria: Galleria;
 
     
-    constructor(private imageService: ImageService) { }
+    constructor(private photoService: PhotoService) { }
 
     responsiveOptions:any[] = [
         {
@@ -38,7 +37,7 @@ export class GalleriaDemo implements OnInit, OnDestroy {
         }
     ];
     ngOnInit() {
-        this.imageService.getImages().then(images => this.images = images);
+        this.photoService.getImages().then(images => this.images = images);
         this.bindDocumentListeners();
     }
 

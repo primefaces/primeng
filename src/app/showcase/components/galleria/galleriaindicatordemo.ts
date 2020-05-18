@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { ImageService } from '../../service/imageservice';
-
+import { PhotoService } from '../../service/photoservice';
 @Component({
     templateUrl: './galleriaindicatordemo.html',
     styleUrls: ['./galleriaindicator.scss']
@@ -26,10 +25,10 @@ export class GalleriaIndicatorDemo implements OnInit {
         }
     ];
 
-    constructor(private imageService: ImageService) { }
+    constructor(private photoService: PhotoService) { }
 
     ngOnInit() {
-        this.imageService.getImages().then(images =>{ 
+        this.photoService.getImages().then(images =>{ 
             this.images = images
             this.images2 = images.slice(0, 5);
         })

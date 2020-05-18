@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { ImageService } from '../../service/imageservice';
-
+import { PhotoService } from '../../service/photoservice';
 @Component({
     templateUrl: './galleriaresponsivedemo.html'
 })
@@ -27,10 +26,10 @@ export class GalleriaResponsiveDemo implements OnInit {
         }
     ];
 
-    constructor(private imageService: ImageService) { }
+    constructor(private photoService: PhotoService) { }
 
     ngOnInit() {
-        this.imageService.getImages().then(images =>{ 
+        this.photoService.getImages().then(images =>{ 
             this.images = images
         })
     }
