@@ -83,9 +83,9 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     set totalRecords(val: number) {
         this._totalRecords = val;
         this.lazyValue = Array.from({length: this._totalRecords});
-        this.onLazyLoad.emit(this.createLazyLoadMetadata());
         this.first = 0;
         this.scrollTo(0);
+        this.onLazyLoad.emit(this.createLazyLoadMetadata());
     }
 
     @Input() get value(): any[] {
