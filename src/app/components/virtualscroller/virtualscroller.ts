@@ -49,7 +49,7 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     @Input() maxBufferPx: number;
 
-    @Input() scrollMode: string = 'auto';
+    @Input() scrollMode: ScrollBehavior = 'auto';
     
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
@@ -79,6 +79,8 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     _scrollIndex: number = 0;
 
+    loadedPages: number[] = [];
+
     constructor(public el: ElementRef) {}
 
     @Input() get totalRecords(): number {
@@ -97,17 +99,12 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
     set value(val: any[]) {
         if (this.lazy) {
-            if (val) {
-                let arr = this.cache ? [...this.lazyValue] : Array.from({length: this._totalRecords});
-                for (let i = this.first, j = 0; i < (this.first + this.rows); i++, j++) {
-                    arr[i] = val[j];
-                }
-                this.lazyValue = arr;
-            }
+            Array.prototype.splice.apply(this.lazyValue, [this.first, this.rows].concat(val));
+            this.lazyValue = [...this.lazyValue];
         }
         else {
             this._value = val;
-        }
+        }            
     }
 
     @Input() get first(): number {
@@ -149,7 +146,11 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
         if (p !== this.page) {
             this.page = p;
             this._first = this.page * this.rows;
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+
+            if (!this.cache || !this.loadedPages.includes(this.page)) {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
+                this.loadedPages.push(this.page);
+            }
         }
     }
 
@@ -165,11 +166,11 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
 
     //@deprecated
-    scrollTo(index: number, mode?: string): void {
+    scrollTo(index: number, mode?: ScrollBehavior): void {
         this.scrollToIndex(index, mode);
     }
 
-    scrollToIndex(index: number, mode?: string): void {
+    scrollToIndex(index: number, mode?: ScrollBehavior): void {
         if (this.viewport) {
             this.viewport.scrollToIndex(index, mode);
         }
