@@ -132,7 +132,6 @@ export class VirtualScrollerDemo implements OnInit {
     loadCarsLazy(event: LazyLoadEvent) {       
         //simulate remote connection with a timeout 
         setTimeout(() => {
-            console.log('Loading:' + event.first + '-' + (event.first + event.rows));
             //load data of required page
             let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
 
