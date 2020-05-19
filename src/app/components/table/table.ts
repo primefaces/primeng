@@ -1,5 +1,5 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit,
-    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
+    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
@@ -89,8 +89,8 @@ export class TableService {
             </div>
 
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-table-scrollable-view ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div class="ui-table-scrollable-view" [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
+               <div class="ui-table-scrollable-view ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-table-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
             </div>
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -282,6 +282,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
 
     @ViewChild('table') tableViewChild: ElementRef;
+
+    @ViewChild('scrollableView') scrollableViewChild;
+
+    @ViewChild('scrollableFrozenView') scrollableFrozenViewChild;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -670,6 +674,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.resetPageOnSort) {
                 this._first = 0;
                 this.firstChange.emit(this._first);
+
+                if (this.scrollable) {
+                    this.resetScroll();
+                }
             }
         }
         if (this.sortMode === 'multiple') {
@@ -683,6 +691,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.resetPageOnSort) {
                         this._first = 0;
                         this.firstChange.emit(this._first);
+                        
+                        if (this.scrollable) {
+                            this.resetScroll();
+                        }
                     }
                 }
                 else {
@@ -1328,6 +1340,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.cd.markForCheck();
+
+        if (this.scrollable) {
+            this.resetScroll();
+        }
     }
 
     hasFilter() {
@@ -1446,6 +1462,33 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 window.open(encodeURI(csv));
             }
             document.body.removeChild(link);
+        }
+    }
+
+    public resetScroll() {
+        if (this.virtualScroll)
+            this.scrollToVirtualIndex(0);
+        else
+            this.scrollTo(0, 0);
+    }
+
+    public scrollToVirtualIndex(index: number) {
+        if (this.scrollableViewChild) {
+            (<ScrollableView> this.scrollableViewChild).scrollToVirtualIndex(index);
+        }
+
+        if (this.scrollableFrozenViewChild) {
+            this.scrollableFrozenViewChild.scrollToVirtualIndex(index);
+        }
+    }
+
+    public scrollTo(x: number, y:number) {
+        if (this.scrollableViewChild) {
+            (<ScrollableView> this.scrollableViewChild).scrollTo(x, y);
+        }
+
+        if (this.scrollableFrozenViewChild) {
+            this.scrollableFrozenViewChild.scrollTop = y;
         }
     }
 
@@ -2445,6 +2488,18 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
                 }
             }
         }
+    }
+
+    scrollToVirtualIndex(index: number): void {
+        if (this.dt.virtualScroll) {
+            this.virtualScrollBody.scrollToIndex(index);
+        }
+    }
+
+    scrollTo(x: number, y: number): void {
+        if (this.scrollBodyViewChild) {
+            this.scrollBodyViewChild.nativeElement.scrollTo(x, y);
+        }          
     }
 
     hasVerticalOverflow() {
