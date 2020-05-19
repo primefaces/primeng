@@ -504,57 +504,18 @@ export class VirtualScrollerDemo implements OnInit &#123;
 
     virtualCars: Car[];
     
-    brands: string[];
-
-    colors: string[];
-
     sortKey: string;
 
     sortOptions: SelectItem[];
 
     ngOnInit() &#123;
-        this.brands = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
-        this.colors = ['Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'];
-
-        this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.generateCar());
+        this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.carService.generateCar());
         this.virtualCars =  Array.from(&#123;length: 10000&#125;);
 
         this.sortOptions = [
             &#123;label: 'Newest First', value: '!year'&#125;,
             &#123;label: 'Oldest First', value: 'year'&#125;
         ];
-    &#125;
-
-    generateCar(): Car &#123;
-        return &#123;
-            vin: this.generateVin(),
-            brand: this.generateBrand(),
-            color: this.generateColor(),
-            year: this.generateYear()
-        &#125;
-    &#125;
-
-    generateVin() &#123;
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        
-        for (var i = 0; i &lt; 5; i++) &#123;
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        &#125;
-        
-        return text;
-    &#125;
-
-    generateBrand() &#123;
-        return this.brands[Math.floor(Math.random() * Math.floor(10))];
-    &#125;
-
-    generateColor() &#123;
-        return this.colors[Math.floor(Math.random() * Math.floor(7))];
-    &#125;
-
-    generateYear() &#123;
-        return 2000 + Math.floor(Math.random() * Math.floor(19));
     &#125;
 
     loadCarsLazy(event: LazyLoadEvent) &#123;       
