@@ -2249,11 +2249,11 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
 
-    headerScrollListener: Function;
+    headerScrollListener: any;
 
-    bodyScrollListener: Function;
+    bodyScrollListener: any;
 
-    footerScrollListener: Function;
+    footerScrollListener: any;
 
     frozenSiblingBody: HTMLDivElement;
 
@@ -2350,9 +2350,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
             if (!this.frozen) {
                 this.bodyScrollListener = this.onBodyScroll.bind(this);
 
-                if (!this.dt.virtualScroll) {
+                if (this.dt.virtualScroll)
+                    this.virtualScrollBody.getElementRef().nativeElement.addEventListener('scroll', this.bodyScrollListener);
+                else
                     this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
-                }
             }
         });
     }
@@ -2394,22 +2395,22 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         this.preventBodyScrollPropagation = true;
     }
 
-    onBodyScroll() {
+    onBodyScroll(event) {
         if (this.preventBodyScrollPropagation) {
             this.preventBodyScrollPropagation = false;
             return;
         }
 
         if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+            this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
         }
 
         if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+            this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
         }
 
         if (this.frozenSiblingBody) {
-            this.frozenSiblingBody.scrollTop = this.scrollBodyViewChild.nativeElement.scrollTop;
+            this.frozenSiblingBody.scrollTop = event.target.scrollTop;
         }
     }
 
@@ -2517,7 +2518,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     hasVerticalOverflow() {
         if (this.dt.virtualScroll)
-            return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > this.virtualScrollBody.getViewportSize();
+            return (this.virtualScrollBody.getDataLength() * this.dt.virtualRowHeight) > this.virtualScrollBody.getViewportSize();
         else
             return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
     }
