@@ -2109,6 +2109,16 @@ body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight {
 body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight a {
   color: #ffffff;
 }
+body .ui-table .ui-table-virtual-scrollable-body .ui-table-tbody > tr:nth-child(even) {
+  background-color: #323232;
+}
+body .ui-table .ui-table-virtual-scrollable-body .ui-table-tbody > tr:nth-child(even).ui-state-highlight {
+  background-color: #cc285c;
+  color: #ffffff;
+}
+body .ui-table .ui-table-virtual-scrollable-body .ui-table-tbody > tr:nth-child(even).ui-state-highlight a {
+  color: #ffffff;
+}
 body .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr.ui-selectable-row:not(.ui-state-highlight):hover {
   cursor: pointer;
   background-color: #4c4c4c;
