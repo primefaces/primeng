@@ -35,7 +35,7 @@
     </p-galleria>
     <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic2 = true"></button>
     <h3>Custom Contents</h3>
-    <p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeItemIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
+    <p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
         [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
@@ -155,7 +155,7 @@ export class GalleriaDemo implements OnInit &#123;
 &lt;/p-galleria&gt;
 &lt;button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic2 = true"&gt;&lt;/button&gt;
 &lt;h3&gt;Custom Contents&lt;/h3&gt;
-&lt;p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeItemIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '850px'&#125;" [numVisible]="7"
+&lt;p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '850px'&#125;" [numVisible]="7"
     [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;

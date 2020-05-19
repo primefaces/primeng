@@ -7,7 +7,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-galleria #galleria [(value)]="images" [(activeItemIndex)]="activeIndex" [numVisible]="5" [containerStyle]="{'max-width':'520px'}" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
+    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [containerStyle]="{'max-width':'520px'}" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
         [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" [ngStyle]="{'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''}" />
@@ -366,7 +366,7 @@ responsiveOptions:any[] = [
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
-&lt;p-galleria #galleria [(value)]="images" [(activeItemIndex)]="activeIndex" [numVisible]="5" [containerStyle]="&#123;'max-width':'520px'&#125;" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
+&lt;p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [containerStyle]="&#123;'max-width':'520px'&#125;" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
     [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [ngStyle]="&#123;'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''&#125;" /&gt;
