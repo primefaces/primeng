@@ -3027,8 +3027,10 @@ export class TableDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>scrollTo</td>
-                            <td>x: number, y: numbner</td>
-                            <td>Scrolls to the given xAxis, yAxis positions of a scrollable table. Use scrollToVirtualIndex for virtual scrolling instead.</td>
+                            <td>options.left: Specifies the number of pixels along the X axis<br/>
+                                options.top: Specifies the number of pixels along the Y axis<br />
+                                options.behavior: Specifies whether the scrolling should animate smoothly (smooth), or happen instantly in a single jump (auto).</td>
+                            <td>Scrolls to the position defined by the options.</td>
                         </tr>
                     </tbody>
                 </table>

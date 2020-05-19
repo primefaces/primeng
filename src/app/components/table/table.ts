@@ -676,7 +676,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.firstChange.emit(this._first);
 
                 if (this.scrollable) {
-                    this.resetScroll();
+                    this.resetScrollTop();
                 }
             }
         }
@@ -693,7 +693,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         this.firstChange.emit(this._first);
                         
                         if (this.scrollable) {
-                            this.resetScroll();
+                            this.resetScrollTop();
                         }
                     }
                 }
@@ -1342,7 +1342,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.cd.markForCheck();
 
         if (this.scrollable) {
-            this.resetScroll();
+            this.resetScrollTop();
         }
     }
 
@@ -1465,16 +1465,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    public resetScroll() {
+    public resetScrollTop() {
         if (this.virtualScroll)
             this.scrollToVirtualIndex(0);
         else
-            this.scrollTo(0, 0);
+            this.scrollTo({top: 0});
     }
 
     public scrollToVirtualIndex(index: number) {
         if (this.scrollableViewChild) {
-            (<ScrollableView> this.scrollableViewChild).scrollToVirtualIndex(index);
+            this.scrollableViewChild.scrollToVirtualIndex(index);
         }
 
         if (this.scrollableFrozenViewChild) {
@@ -1482,13 +1482,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    public scrollTo(x: number, y:number) {
+    public scrollTo(options) {
         if (this.scrollableViewChild) {
-            (<ScrollableView> this.scrollableViewChild).scrollTo(x, y);
+            this.scrollableViewChild.scrollTo(options);
         }
 
         if (this.scrollableFrozenViewChild) {
-            this.scrollableFrozenViewChild.scrollTop = y;
+            this.scrollableFrozenViewChild.scrollTo(options);
         }
     }
 
@@ -2491,15 +2491,24 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     }
 
     scrollToVirtualIndex(index: number): void {
-        if (this.dt.virtualScroll) {
+        if (this.virtualScrollBody) {
             this.virtualScrollBody.scrollToIndex(index);
         }
     }
 
-    scrollTo(x: number, y: number): void {
-        if (this.scrollBodyViewChild) {
-            this.scrollBodyViewChild.nativeElement.scrollTo(x, y);
-        }          
+    scrollTo(options): void {
+        if (this.virtualScrollBody) {
+            this.virtualScrollBody.scrollTo(options);
+        }
+        else {
+            if (this.scrollBodyViewChild.nativeElement.scrollTo) {
+                this.scrollBodyViewChild.nativeElement.scrollTo(options);
+            }
+            else {
+                this.scrollBodyViewChild.nativeElement.scrollLeft = options.left;
+                this.scrollBodyViewChild.nativeElement.scrollTop = options.top;
+            }
+        }
     }
 
     hasVerticalOverflow() {
