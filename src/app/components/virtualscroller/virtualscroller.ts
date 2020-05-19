@@ -43,16 +43,12 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     @Input() lazy: boolean;
 
-    @Input() cache: boolean = true;
-
     @Input() rows: number;
 
     @Input() minBufferPx: number;
 
     @Input() maxBufferPx: number;
-
-    @Input() scrollMode: ScrollBehavior = 'auto';
-    
+  
     @Input() trackBy: Function = (index: number, item: any) => item;
                 
     @ContentChild(Header) header: Header;
@@ -75,9 +71,9 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
 
     _first: number = 0;
 
-    _scrollIndex: number = 0;
-
     loadedPages: number[] = [];
+
+    _cache: boolean;
 
     constructor(public el: ElementRef) {}
 
@@ -94,18 +90,15 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     }
     set first(val:number) {
         this._first = val;
-        console.log("first property is deprecated, use scrollIndex property or scrollToIndex function to scroll a specific item.");
+        console.log("first property is deprecated, use scrollToIndex function to scroll a specific item.");
     }
 
-    @Input() get scrollIndex(): number {
-        return this._scrollIndex;
+    @Input() get cache(): boolean {
+        return this._cache;
     }
-    set scrollIndex(val:number) {
-        this._scrollIndex = val;
-
-        if (this._scrollIndex >= 0) {
-            this.scrollToIndex(this._scrollIndex, this.scrollMode);
-        }
+    set cache(val: boolean) {
+        this._cache = val;
+        console.log("cache is deprecated as it is always on.");
     }
 
     ngAfterContentInit() {

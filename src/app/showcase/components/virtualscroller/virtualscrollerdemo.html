@@ -167,12 +167,12 @@ export class VirtualScrollerDemo implements OnInit &#123;
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking
              onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,
-            enable lazy attribute, initialize the number of logical rows with a query and finally implement a method callback using onLazyLoad that actually loads a chunk from a datasource. onLazyLoad gets an event object
+            enable lazy attribute, initialize your as an empty collection as a placeholder with a length and finally implement a method callback using onLazyLoad that actually loads a chunk from a datasource. onLazyLoad gets an event object
             that contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-virtualScroller [value]="lazyCars" scrollHeight="500px" [itemSize]="150" [rows]="100" [cache]="false" 
-    [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalLazyCarsLength"&gt;
+&lt;p-virtualScroller [value]="virtualCars" scrollHeight="500px" [itemSize]="150" [rows]="100"
+    [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
     &lt;/ng-template&gt;
@@ -185,38 +185,35 @@ export class VirtualScrollerDemo implements OnInit &#123;
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-loadData(event) &#123;
-    //event.first = First row offset
-    //event.rows = Number of rows per page
-    //this.lazyCars = load new chunk between first index and (first + rows) last index
+export class LazyVirtualScrollerDemo implements OnInit &#123;
+
+    virtualCars: Car[];
+   
+    ngOnInit() &#123;
+        this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.carService.generateCar());
+        this.virtualCars =  Array.from(&#123;length: 10000&#125;);
+    &#125;
+
+    loadCarsLazy(event: LazyLoadEvent) &#123;       
+        //simulate remote connection with a timeout 
+        setTimeout(() => &#123;
+            //load data of required page
+            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
+
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
+            
+            //trigger change detection
+            this.virtualCars = [...this.virtualCars];
+        &#125;, 1000);
+    &#125;
+
 &#125;
 </code>
 </pre>
 
             <h3>Programmatic Scroll</h3>
-            <p>Scrolling to a specific index can be done in two ways. First approach is binding to the <i>scrollIndex</i> property where you may also use the <i>scrollMode</i>
-            property to define the behavior of scrolling. Default value is 'auto' for instant scrolling and alternative is 'smooth' for smooth scrolling.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;button pButton label="Reset" (click)="reset"&gt;&lt;/button&gt;
-
-&lt;p-virtualScroller [value]="cars" scrollHeight="500px" [itemSize]="150" [scrollIndex]="scrollIndex"&gt;
-    &lt;ng-template pTemplate="item" let-car&gt;
-        Car content
-    &lt;/ng-template&gt;
-&lt;/p-virtualScroller&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-reset() &#123;
-    this.scrollIndex = 0;
-&#125;
-</code>
-</pre>
-
-            <p>Second approach is using the <i>scrollToIndex</i> function.</p>
+            <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;button pButton label="Reset" (click)="reset"&gt;&lt;/button&gt;
@@ -237,9 +234,7 @@ reset() &#123;
     this.vs.scrollToIndex(0, 'smooth');
 &#125;
 </code>
-</pre>
-
-            
+</pre>      
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -294,18 +289,6 @@ reset() &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Max height of the content area in inline mode.</td>
-                        </tr>
-                        <tr>
-                            <td>scrollIndex</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Index of the item to scroll to.</td>
-                        </tr>
-                        <tr>
-                            <td>scrollMode</td>
-                            <td>ScrollBehavior</td>
-                            <td>auto</td>
-                            <td>Behavior of the scroll change when scrollIndex changes, valid values are 'auto' (instant) or 'smooth'.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -521,7 +504,6 @@ export class VirtualScrollerDemo implements OnInit &#123;
     loadCarsLazy(event: LazyLoadEvent) &#123;       
         //simulate remote connection with a timeout 
         setTimeout(() => &#123;
-            console.log('Loading:' + event.first + '-' + (event.first + event.rows));
             //load data of required page
             let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
 
