@@ -164,3 +164,13 @@ button {
     -webkit-border-radius: 0;
     border-radius: 0;
 }
+
+.ui-link {
+	text-align: left;
+	background-color: transparent;
+	margin: 0;
+	padding: 0;
+	border: none;
+    cursor: pointer;
+    user-select: none;
+}

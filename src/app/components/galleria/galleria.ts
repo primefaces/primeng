@@ -21,12 +21,12 @@ import { DomHandler } from 'primeng/dom';
 })
 export class Galleria implements OnChanges, OnDestroy {
 
-    @Input() get activeItemIndex(): number {
-        return this._activeItemIndex;
+    @Input() get activeIndex(): number {
+        return this._activeIndex;
     };
 
-    set activeItemIndex(activeItemIndex) {
-        this._activeItemIndex = activeItemIndex;
+    set activeIndex(activeIndex) {
+        this._activeIndex = activeIndex;
     }
 
     @Input() fullScreen: boolean = false;
@@ -83,7 +83,7 @@ export class Galleria implements OnChanges, OnDestroy {
         this._visible = visible;
     }
 
-    @Output() activeItemIndexChange: EventEmitter<any> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
     @Output() visibleChange: EventEmitter<any> = new EventEmitter();
     
@@ -92,13 +92,15 @@ export class Galleria implements OnChanges, OnDestroy {
 
     _visible: boolean = false;
 
-    _activeItemIndex: number = 0;
+    _activeIndex: number = 0;
 
     headerFacet: any;
 
     footerFacet: any;
 
     indicatorFacet: any;
+
+    captionFacet: any;
 
     zIndex: string;
 
@@ -115,6 +117,9 @@ export class Galleria implements OnChanges, OnDestroy {
                 break;
                 case 'indicator':
                     this.indicatorFacet = item.template;
+                break;
+                case 'caption':
+                    this.captionFacet = item.template;
                 break;
             }
         });
@@ -139,9 +144,9 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     onActiveItemChange(index) {
-        if (this.activeItemIndex !== index) {
-            this.activeItemIndex = index;
-            this.activeItemIndexChange.emit(index);
+        if (this.activeIndex !== index) {
+            this.activeIndex = index;
+            this.activeIndexChange.emit(index);
         }
     }
 
@@ -155,22 +160,22 @@ export class Galleria implements OnChanges, OnDestroy {
 @Component({
     selector: 'p-galleriaContent',
     template: `
-        <div [attr.id]="id" *ngIf="galleria.value && galleria.value.length > 0" [ngClass]="{'ui-galleria ui-component': true, 'ui-galleria-fullscreen': this.galleria.fullScreen, 
+        <div [attr.id]="id" *ngIf="galleria.value && galleria.value.length > 0" [ngClass]="{'ui-galleria ui-widget': true, 'ui-galleria-fullscreen': this.galleria.fullScreen, 
             'ui-galleria-indicator-onitem': this.galleria.showIndicatorsOnItem, 'ui-galleria-item-nav-onhover': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen}"
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" [class]="galleriaClass()">
-            <button *ngIf="galleria.fullScreen" type="button" class="ui-galleria-close ui-button ui-widget ui-state-default ui-corner-all" (click)="maskHide.emit()">
+            <button *ngIf="galleria.fullScreen" type="button" class="ui-galleria-close ui-link ui-widget ui-state-default ui-corner-all" (click)="maskHide.emit()">
                 <span class="ui-galleria-close-icon pi pi-times"></span>
             </button>
             <div *ngIf="galleria.templates && galleria.headerFacet" class="ui-galleria-header">
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
             <div class="ui-galleria-content">
-                <p-galleriaItem [value]="galleria.value" [activeItemIndex]="galleria.activeItemIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
+                <p-galleriaItem [value]="galleria.value" [activeIndex]="galleria.activeIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
                     [showIndicators]="galleria.showIndicators" [changeItemOnIndicatorHover]="galleria.changeItemOnIndicatorHover" [indicatorFacet]="galleria.indicatorFacet"
-                    [showItemNavigators]="galleria.showItemNavigators" [autoPlay]="galleria.autoPlay" [slideShowActive]="slideShowActive"
+                    [captionFacet]="galleria.captionFacet" [showItemNavigators]="galleria.showItemNavigators" [autoPlay]="galleria.autoPlay" [slideShowActive]="slideShowActive"
                     (startSlideShow)="startSlideShow()" (stopSlideShow)="stopSlideShow()"></p-galleriaItem>
 
-                <p-galleriaThumbnails *ngIf="galleria.showThumbnails" [containerId]="id" [value]="galleria.value" (onActiveIndexChange)="onActiveIndexChange($event)" [activeItemIndex]="galleria.activeItemIndex" [templates]="galleria.templates"
+                <p-galleriaThumbnails *ngIf="galleria.showThumbnails" [containerId]="id" [value]="galleria.value" (onActiveIndexChange)="onActiveIndexChange($event)" [activeIndex]="galleria.activeIndex" [templates]="galleria.templates"
                     [numVisible]="galleria.numVisible" [responsiveOptions]="galleria.responsiveOptions" [circular]="galleria.circular"
                     [isVertical]="isVertical()" [contentHeight]="galleria.verticalThumbnailViewPortHeight" [showThumbnailNavigators]="galleria.showThumbnailNavigators"
                     [slideShowActive]="slideShowActive" (stopSlideShow)="stopSlideShow()"></p-galleriaThumbnails>
@@ -184,12 +189,12 @@ export class Galleria implements OnChanges, OnDestroy {
 })
 export class GalleriaContent {
 
-    @Input() get activeItemIndex(): number {
-        return this._activeItemIndex;
+    @Input() get activeIndex(): number {
+        return this._activeIndex;
     };
 
-    set activeItemIndex(activeItemIndex: number) {
-        this._activeItemIndex = activeItemIndex;
+    set activeIndex(activeIndex: number) {
+        this._activeIndex = activeIndex;
     }
 
     @Output() maskHide: EventEmitter<any> = new EventEmitter();
@@ -200,7 +205,7 @@ export class GalleriaContent {
 
     slideShowActicve: boolean = false;
 
-    _activeItemIndex: number = 0;
+    _activeIndex: number = 0;
 
     slideShowActive: boolean = true;
 
@@ -219,9 +224,9 @@ export class GalleriaContent {
 
     startSlideShow() {
         this.interval = setInterval(() => {
-            let activeIndex = (this.galleria.circular && (this.galleria.value.length - 1) === this.galleria.activeItemIndex) ? 0 : (this.galleria.activeItemIndex + 1);
+            let activeIndex = (this.galleria.circular && (this.galleria.value.length - 1) === this.galleria.activeIndex) ? 0 : (this.galleria.activeIndex + 1);
             this.onActiveIndexChange(activeIndex);
-            this.activeItemIndex = activeIndex;
+            this.activeIndex = activeIndex;
         }, this.galleria.transitionInterval);
 
         this.slideShowActive = true;
@@ -247,9 +252,9 @@ export class GalleriaContent {
     }
 
     onActiveIndexChange(index) {
-        if (this.activeItemIndex !== index) {
-            this.activeItemIndex = index;
-            this.activeItemChange.emit(this.activeItemIndex);
+        if (this.activeIndex !== index) {
+            this.activeIndex = index;
+            this.activeItemChange.emit(this.activeIndex);
         }
     }
 }
@@ -324,27 +329,24 @@ export class GalleriaItemSlot {
     selector: 'p-galleriaItem',
     template: `
         <div class="ui-galleria-item-container">
-            <button *ngIf="showItemNavigators" type="button" [ngClass]="{'ui-galleria-item-prev ui-galleria-item-nav ui-button': true, 'ui-state-disabled': this.isNavBackwardDisabled()}" (click)="navBackward($event)" 
+            <button *ngIf="showItemNavigators" type="button" [ngClass]="{'ui-galleria-item-prev ui-galleria-item-nav ui-link': true, 'ui-state-disabled': this.isNavBackwardDisabled()}" (click)="navBackward($event)" 
                 [disabled]="isNavBackwardDisabled()">
                 <span class="ui-galleria-item-prev-icon pi pi-chevron-left"></span>
             </button>
             <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="ui-galleria-item"></p-galleriaItemSlot>
-            <button *ngIf="showItemNavigators" type="button" [ngClass]="{'ui-galleria-item-next ui-galleria-item-nav ui-button': true,'ui-state-disabled': this.isNavForwardDisabled()}" (click)="navForward($event)" 
+            <button *ngIf="showItemNavigators" type="button" [ngClass]="{'ui-galleria-item-next ui-galleria-item-nav ui-link': true,'ui-state-disabled': this.isNavForwardDisabled()}" (click)="navForward($event)" 
                 [disabled]="isNavForwardDisabled()">
                 <span class="ui-galleria-item-next-icon pi pi-chevron-right"></span>
             </button>
-            <div class="ui-galleria-caption">
+            <div class="ui-galleria-caption" *ngIf="captionFacet">
                 <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
             </div>
         </div>
         <ul *ngIf="showIndicators" class="ui-galleria-indicators ui-helper-reset">
             <li *ngFor="let item of value; let index = index;" tabindex="0"
                 (click)="onIndicatorClick(index)" (mouseenter)="onIndicatorMouseEnter(index)" (keydown.enter)="onIndicatorKeyDown(index)"
-                [ngClass]="{'ui-galleria-indicator-item': true,'ui-state-highlight': isIndicatorItemActive(index)}">
-                <button type="button" tabIndex="-1" class="ui-button" *ngIf="!indicatorFacet">
-                    <span [ngClass]="{'ui-galleria-indicator-icon pi': true,
-                        'pi-circle-on': isIndicatorItemActive(index),
-                        'pi-circle-off': !isIndicatorItemActive(index)}"></span>
+                [ngClass]="{'ui-galleria-indicator': true,'ui-state-highlight': isIndicatorItemActive(index)}">
+                <button type="button" tabIndex="-1" class="ui-link" *ngIf="!indicatorFacet">
                 </button>
                 <p-galleriaItemSlot type="indicator" [index]="index" [templates]="templates"></p-galleriaItemSlot>
             </li>
@@ -375,22 +377,24 @@ export class GalleriaItem implements OnInit {
 
     @Input() indicatorFacet: any;
 
+    @Input() captionFacet: any;
+
     @Output() startSlideShow: EventEmitter<any> = new EventEmitter();
 
     @Output() stopSlideShow: EventEmitter<any> = new EventEmitter();
     
     @Output() onActiveIndexChange: EventEmitter<any> = new EventEmitter();
 
-    @Input() get activeItemIndex(): number {
-        return this._activeItemIndex;
+    @Input() get activeIndex(): number {
+        return this._activeIndex;
     };
 
-    set activeItemIndex(activeItemIndex) {
-        this._activeItemIndex = activeItemIndex;
-        this.activeItem = this.value[this._activeItemIndex];
+    set activeIndex(activeIndex) {
+        this._activeIndex = activeIndex;
+        this.activeItem = this.value[this._activeIndex];
     }
 
-    _activeItemIndex: number = 0;
+    _activeIndex: number = 0;
 
     activeItem: any;
 
@@ -401,16 +405,16 @@ export class GalleriaItem implements OnInit {
     }
 
     next() {
-        let nextItemIndex = this.activeItemIndex + 1;
-        let activeIndex = this.circular && this.value.length - 1 === this.activeItemIndex
+        let nextItemIndex = this.activeIndex + 1;
+        let activeIndex = this.circular && this.value.length - 1 === this.activeIndex
                     ? 0
                     : nextItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
     }
 
     prev() {
-        let prevItemIndex = this.activeItemIndex !== 0 ? this.activeItemIndex - 1 : 0;
-        let activeIndex = this.circular && this.activeItemIndex === 0
+        let prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
+        let activeIndex = this.circular && this.activeIndex === 0
                 ? this.value.length - 1
                 : prevItemIndex
         this.onActiveIndexChange.emit(activeIndex);
@@ -458,15 +462,15 @@ export class GalleriaItem implements OnInit {
     }
 
     isNavForwardDisabled() {
-        return !this.circular && this.activeItemIndex === (this.value.length - 1);
+        return !this.circular && this.activeIndex === (this.value.length - 1);
     }
 
     isNavBackwardDisabled() {
-        return !this.circular && this.activeItemIndex === 0;
+        return !this.circular && this.activeIndex === 0;
     }
 
     isIndicatorItemActive(index) {
-        return this.activeItemIndex === index;
+        return this.activeIndex === index;
     }
 }
 
@@ -475,13 +479,13 @@ export class GalleriaItem implements OnInit {
     template: `
         <div class="ui-galleria-thumbnail-wrapper">
             <div class="ui-galleria-thumbnail-container">
-                <button *ngIf="showThumbnailNavigators" [ngClass]="{'ui-galleria-thumbnail-prev ui-button': true, 'ui-state-disabled': this.isNavBackwardDisabled()}" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()">
+                <button *ngIf="showThumbnailNavigators" [ngClass]="{'ui-galleria-thumbnail-prev ui-link': true, 'ui-state-disabled': this.isNavBackwardDisabled()}" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()">
                     <span [ngClass]="{'ui-galleria-thumbnail-prev-icon pi': true, 'pi-chevron-left': !this.isVertical, 'pi-chevron-up': this.isVertical}"></span>
                 </button>
                 <div class="ui-galleria-thumbnail-items-container" [ngStyle]="{'height': isVertical ? contentHeight : ''}">
                     <div #itemsContainer class="ui-galleria-thumbnail-items" (transitionend)="onTransitionEnd()"
                         (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
-                        <div *ngFor="let item of value; let index = index;" [ngClass]="{'ui-galleria-thumbnail-item': true, 'ui-galleria-thumbnail-item-current': activeItemIndex === index, 'ui-galleria-thumbnail-item-active': isItemActive(index),
+                        <div *ngFor="let item of value; let index = index;" [ngClass]="{'ui-galleria-thumbnail-item': true, 'ui-galleria-thumbnail-item-current': activeIndex === index, 'ui-galleria-thumbnail-item-active': isItemActive(index),
                             'ui-galleria-thumbnail-item-start': firstItemAciveIndex() === index, 'ui-galleria-thumbnail-item-end': lastItemActiveIndex() === index }">
                             <div class="ui-galleria-thumbnail-item-content" [attr.tabindex]="getTabIndex(index)" (click)="onItemClick(index)" (keydown.enter)="onItemClick(index)">
                                 <p-galleriaItemSlot type="thumbnail" [item]="item" [templates]="templates"></p-galleriaItemSlot>
@@ -489,7 +493,7 @@ export class GalleriaItem implements OnInit {
                         </div>
                     </div>
                 </div>
-                <button *ngIf="showThumbnailNavigators" [ngClass]="{'ui-galleria-thumbnail-next ui-button': true, 'ui-state-disabled': this.isNavForwardDisabled()}" (click)="navForward($event)" [disabled]="isNavForwardDisabled()">
+                <button *ngIf="showThumbnailNavigators" [ngClass]="{'ui-galleria-thumbnail-next ui-link': true, 'ui-state-disabled': this.isNavForwardDisabled()}" (click)="navForward($event)" [disabled]="isNavForwardDisabled()">
                     <span [ngClass]="{'ui-galleria-thumbnail-next-icon pi': true, 'pi-chevron-right': !this.isVertical, 'pi-chevron-down': this.isVertical}"></span>
                 </button>
             </div>
@@ -524,22 +528,22 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     @ViewChild('itemsContainer') itemsContainer: ElementRef;
 
     @Input() get numVisible(): number {
-        return this._numvisible;
+        return this._numVisible;
     };
 
     set numVisible(numVisible) {
-        this._oldNumVisible = this._numvisible;
-        this._numvisible = numVisible;
+        this._numVisible = numVisible;
+        this._oldNumVisible = this.d_numVisible;
+        this.d_numVisible = numVisible;
     }
 
-
-    @Input() get activeItemIndex(): number {
-        return this._activeItemIndex;
+    @Input() get activeIndex(): number {
+        return this._activeIndex;
     };
 
-    set activeItemIndex(activeItemIndex) {
-        this._oldActiveItemIndex = this._activeItemIndex;
-        this._activeItemIndex = activeItemIndex;
+    set activeIndex(activeIndex) {
+        this._oldactiveIndex = this._activeIndex;
+        this._activeIndex = activeIndex;
     }
     
     index: number;
@@ -556,13 +560,15 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
     documentResizeListener: any;
 
-    _numvisible:number = 0;
+    _numVisible:number = 0;
+
+    d_numVisible: number = 0;
 
     _oldNumVisible: number = 0;
 
-    _activeItemIndex: number = 0;
+    _activeIndex: number = 0;
     
-    _oldActiveItemIndex: number = 0;
+    _oldactiveIndex: number = 0;
 
     ngOnInit() {
         this.createStyle();
@@ -576,18 +582,18 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     ngAfterContentChecked() {
         let totalShiftedItems = this.totalShiftedItems;
 
-        if ((this._oldNumVisible !== this._numvisible || this._oldActiveItemIndex !== this._activeItemIndex) && this.itemsContainer) {
-            if (this._activeItemIndex <= this.getMedianItemIndex()) {
+        if ((this._oldNumVisible !== this.d_numVisible || this._oldactiveIndex !== this._activeIndex) && this.itemsContainer) {
+            if (this._activeIndex <= this.getMedianItemIndex()) {
                 totalShiftedItems = 0;
             }
-            else if (this.value.length - this._numvisible + this.getMedianItemIndex() < this._activeItemIndex) {
-                totalShiftedItems = this._numvisible - this.value.length;
+            else if (this.value.length - this.d_numVisible + this.getMedianItemIndex() < this._activeIndex) {
+                totalShiftedItems = this.d_numVisible - this.value.length;
             }
-            else if (this.value.length - this._numvisible < this._activeItemIndex && this._numvisible % 2 === 0) {
-                totalShiftedItems = (this._activeItemIndex * -1) + this.getMedianItemIndex() + 1;
+            else if (this.value.length - this.d_numVisible < this._activeIndex && this.d_numVisible % 2 === 0) {
+                totalShiftedItems = (this._activeIndex * -1) + this.getMedianItemIndex() + 1;
             }
             else {
-                totalShiftedItems = (this._activeItemIndex * -1) + this.getMedianItemIndex();
+                totalShiftedItems = (this._activeIndex * -1) + this.getMedianItemIndex();
             }
 
             if (totalShiftedItems !== this.totalShiftedItems) {
@@ -595,16 +601,16 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
             }
 
             if (this.itemsContainer && this.itemsContainer.nativeElement) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100/ this._numvisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numvisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100/ this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this.d_numVisible)}%, 0, 0)`;
             }
 
-            if (this._oldActiveItemIndex !== this._activeItemIndex) {
+            if (this._oldactiveIndex !== this._activeIndex) {
                 DomHandler.removeClass(this.itemsContainer.nativeElement, 'ui-items-hidden');
                 this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
             }
 
-            this._oldActiveItemIndex = this._activeItemIndex;
-            this._oldNumVisible = this._numvisible;
+            this._oldactiveIndex = this._activeIndex;
+            this._oldNumVisible = this.d_numVisible;
         }
     }
 
@@ -617,7 +623,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
 
         let innerHTML = `
             #${this.containerId} .ui-galleria-thumbnail-item {
-                flex: 1 0 ${ (100/ this._numvisible) }%
+                flex: 1 0 ${ (100/ this.d_numVisible) }%
             }
         `;
 
@@ -662,7 +668,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
         if (this.itemsContainer && this.sortedResponsiveOptions) {
             let windowWidth = window.innerWidth;
             let matchedResponsiveData = {
-                numVisible: this.numVisible
+                numVisible: this._numVisible
             };
 
             for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
@@ -673,8 +679,8 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
                 }
             }
 
-            if (this._numvisible !== matchedResponsiveData.numVisible) {
-                this._numvisible = matchedResponsiveData.numVisible;
+            if (this.d_numVisible !== matchedResponsiveData.numVisible) {
+                this.d_numVisible = matchedResponsiveData.numVisible;
             }
         }
     }
@@ -686,12 +692,12 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     navForward(e) {
         this.stopTheSlideShow();
 
-        let nextItemIndex = this._activeItemIndex + 1;
+        let nextItemIndex = this._activeIndex + 1;
         if (nextItemIndex + this.totalShiftedItems > this.getMedianItemIndex() && ((-1 * this.totalShiftedItems) < this.getTotalPageNumber() - 1 || this.circular)) {
             this.step(-1);
         }
 
-        let activeIndex = this.circular && (this.value.length - 1) === this._activeItemIndex ? 0 : nextItemIndex;
+        let activeIndex = this.circular && (this.value.length - 1) === this._activeIndex ? 0 : nextItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
 
         if (e.cancelable) {
@@ -702,13 +708,13 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     navBackward(e) {
         this.stopTheSlideShow();
 
-        let prevItemIndex = this._activeItemIndex !== 0 ? this._activeItemIndex - 1 : 0;
+        let prevItemIndex = this._activeIndex !== 0 ? this._activeIndex - 1 : 0;
         let diff = prevItemIndex + this.totalShiftedItems;
-        if ((this._numvisible - diff - 1) > this.getMedianItemIndex() && ((-1 * this.totalShiftedItems) !== 0 || this.circular)) {
+        if ((this.d_numVisible - diff - 1) > this.getMedianItemIndex() && ((-1 * this.totalShiftedItems) !== 0 || this.circular)) {
             this.step(1);
         }
 
-        let activeIndex = this.circular && this._activeItemIndex === 0 ? this.value.length - 1 : prevItemIndex;
+        let activeIndex = this.circular && this._activeIndex === 0 ? this.value.length - 1 : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
 
         if (e.cancelable) {
@@ -720,11 +726,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
         this.stopTheSlideShow();
 
         let selectedItemIndex = index;
-        if (selectedItemIndex !== this._activeItemIndex) {
+        if (selectedItemIndex !== this._activeIndex) {
             const diff = selectedItemIndex + this.totalShiftedItems;
             let dir = 0;
-            if (selectedItemIndex < this._activeItemIndex) {
-                dir = (this._numvisible - diff - 1) - this.getMedianItemIndex();
+            if (selectedItemIndex < this._activeIndex) {
+                dir = (this.d_numVisible - diff - 1) - this.getMedianItemIndex();
                 if (dir > 0 && (-1 * this.totalShiftedItems) !== 0) {
                     this.step(dir);
                 }
@@ -736,33 +742,33 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
                 }
             }
 
-            this.activeItemIndex = selectedItemIndex;
-            this.onActiveIndexChange.emit(this.activeItemIndex);
+            this.activeIndex = selectedItemIndex;
+            this.onActiveIndexChange.emit(this.activeIndex);
         }
     }
 
     step(dir) {
         let totalShiftedItems = this.totalShiftedItems + dir;
 
-        if (dir < 0 && (-1 * totalShiftedItems) + this._numvisible > (this.value.length - 1)) {
-            totalShiftedItems = this._numvisible - this.value.length;
+        if (dir < 0 && (-1 * totalShiftedItems) + this.d_numVisible > (this.value.length - 1)) {
+            totalShiftedItems = this.d_numVisible - this.value.length;
         }
         else if (dir > 0 && totalShiftedItems > 0) {
             totalShiftedItems = 0;
         }
 
         if (this.circular) {
-            if (dir < 0 && this.value.length - 1 === this._activeItemIndex) {
+            if (dir < 0 && this.value.length - 1 === this._activeIndex) {
                 totalShiftedItems = 0;
             }
-            else if (dir > 0 && this._activeItemIndex === 0) {
-                totalShiftedItems = this._numvisible - this.value.length;
+            else if (dir > 0 && this._activeIndex === 0) {
+                totalShiftedItems = this.d_numVisible - this.value.length;
             }
         }
 
         if (this.itemsContainer) {
             DomHandler.removeClass(this.itemsContainer.nativeElement, 'ui-items-hidden');
-            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100/ this._numvisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this._numvisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100/ this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100/ this.d_numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
@@ -785,13 +791,13 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     }
     
     getTotalPageNumber() {
-        return this.value.length > this._numvisible ? (this.value.length - this._numvisible) + 1 : 0;
+        return this.value.length > this.d_numVisible ? (this.value.length - this.d_numVisible) + 1 : 0;
     }
 
     getMedianItemIndex() {
-        let index = Math.floor(this._numvisible / 2);
+        let index = Math.floor(this.d_numVisible / 2);
 
-        return (this._numvisible % 2) ? index : index - 1;
+        return (this.d_numVisible % 2) ? index : index - 1;
     }
 
     onTransitionEnd() {
@@ -828,11 +834,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     }
 
     isNavBackwardDisabled() {
-        return (!this.circular && this._activeItemIndex === 0) || (this.value.length <= this._numvisible);
+        return (!this.circular && this._activeIndex === 0) || (this.value.length <= this.d_numVisible);
     }
 
     isNavForwardDisabled() {
-        return (!this.circular && this._activeItemIndex === (this.value.length - 1)) || (this.value.length <= this._numvisible);
+        return (!this.circular && this._activeIndex === (this.value.length - 1)) || (this.value.length <= this.d_numVisible);
     }
 
     firstItemAciveIndex() {
@@ -840,7 +846,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestro
     }
 
     lastItemActiveIndex() {
-        return this.firstItemAciveIndex() + this._numvisible - 1;
+        return this.firstItemAciveIndex() + this.d_numVisible - 1;
     }
 
     isItemActive(index) {
