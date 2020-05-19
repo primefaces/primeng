@@ -80,11 +80,13 @@
 }
 
 /* Frozen Columns */
-.ui-table-frozen-view .ui-table-scrollable-body {
+.ui-table-frozen-view .ui-table-scrollable-body,
+.ui-table-frozen-view .ui-table-virtual-scrollable-body {
     overflow: hidden;
 }
 
-.ui-table-frozen-view > .ui-table-scrollable-body > table > .ui-table-tbody > tr > td:last-child {
+.ui-table-frozen-view > .ui-table-scrollable-body > table > .ui-table-tbody > tr > td:last-child,
+.ui-table-frozen-view > .ui-table-virtual-scrollable-body > table > .ui-table-tbody > tr > td:last-child {
     border-right: 0 none;
 }
 

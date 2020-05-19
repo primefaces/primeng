@@ -2206,11 +2206,12 @@ export class TableBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [style.height]="scrollHeight" [itemSize]="dt.virtualRowHeight" (scrolledIndexChange)="onScrollIndexChange($event)">
+            <cdk-virtual-scroll-viewport [style.height]="scrollHeight" [itemSize]="dt.virtualRowHeight" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
                 </table>
+                <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
             </cdk-virtual-scroll-viewport>
         </ng-template>
         <div #scrollFooter class="ui-table-scrollable-footer ui-widget-header">
@@ -2307,7 +2308,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
             let frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
-                this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-table-scrollable-body');
+                if (this.dt.virtualScroll)
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-table-virtual-scrollable-body');
+                else
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-table-scrollable-body');
             }
         }
         else {
