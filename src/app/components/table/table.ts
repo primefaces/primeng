@@ -365,10 +365,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     _sortOrder: number = 1;
 
-    virtualScrollTimer: any;
-
-    virtualScrollCallback: Function;
-
     preventSelectionSetterPropagation: boolean;
 
     _selection: any;
@@ -504,10 +500,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.sortMultiple();
                 else if (this.hasFilter())       //sort already filters
                     this._filter();
-            }
-
-            if (this.virtualScroll && this.virtualScrollCallback) {
-                this.virtualScrollCallback();
             }
 
             this.tableService.onValueChange(simpleChange.value.currentValue);
@@ -1353,7 +1345,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
-            rows: this.virtualScroll ? this.rows * 2: this.rows,
+            rows: this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
@@ -1882,22 +1874,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         //cleanup
         this.onRowDragLeave(event, rowElement);
         this.onRowDragEnd(event);
-    }
-
-    handleVirtualScroll(event) {
-        this.first = (event.page - 1) * this.rows;
-        this.firstChange.emit(this.first);
-        this.virtualScrollCallback = event.callback;
-
-        this.zone.run(() => {
-            if (this.virtualScrollTimer) {
-                clearTimeout(this.virtualScrollTimer);
-            }
-
-            this.virtualScrollTimer = setTimeout(() => {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            }, this.virtualScrollDelay);
-        });
     }
 
     isEmpty() {
