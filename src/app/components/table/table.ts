@@ -2210,7 +2210,7 @@ export class TableBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [style.height]="scrollHeight" [itemSize]="dt.virtualRowHeight" [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
+            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
@@ -2378,6 +2378,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
             this.scrollBodyViewChild.nativeElement.removeEventListener('scroll', this.bodyScrollListener);
         }
+
+        if (this.virtualScrollBody && this.virtualScrollBody.getElementRef()) {
+            this.virtualScrollBody.getElementRef().nativeElement.removeEventListener('scroll', this.bodyScrollListener);
+        }
     }
 
     onHeaderScroll() {
@@ -2464,43 +2468,48 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         return Math.ceil(dataLength / this.dt.rows);
     }
 
-    setScrollHeight() {
-        if (this.scrollHeight && this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-            if (this.frozenSiblingBody) {
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.frozenSiblingBody.style.maxHeight;
+    calculateScrollHeight(): string {
+        if (this.scrollHeight && this.scrollHeight.indexOf('%') !== -1) {
+            let viewport =  this.virtualScrollBody ? this.virtualScrollBody.getElementRef() : this.scrollBodyViewChild;
+            if (!viewport) {
+                return '0';
+            }
+
+            let relativeHeight;
+            viewport.nativeElement.style.visibility = 'hidden';
+            viewport.nativeElement.style.height = '100px';          //temporary height to calculate static height
+            let containerHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
+
+            if (this.scrollHeight.includes("calc")) {
+                let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
+                let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
+                relativeHeight = (DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
             }
             else {
-                if (this.scrollHeight.indexOf('%') !== -1) {
-                    let relativeHeight;
-                    this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
-                    this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
-                    let containerHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-
-                    if (this.scrollHeight.includes("calc")) {
-                        let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
-                        let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
-                        relativeHeight = (DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
-                    }
-                    else {
-                        relativeHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
-                    }
-
-                    let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
-                    let scrollBodyHeight = (relativeHeight - staticHeight);
-
-                    if (this.frozen) {
-                        scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
-                    }
-
-                    this.scrollBodyViewChild.nativeElement.style.height = 'auto';
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
-                    this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
-                }
-                else {
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
-                }
+                relativeHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
             }
+
+            let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
+            let scrollBodyHeight = (relativeHeight - staticHeight);
+
+            if (this.frozen) {
+                scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
+            }
+
+            viewport.nativeElement.style.height = 'auto';
+            viewport.nativeElement.style.visibility = 'visible';
+
+            return scrollBodyHeight + 'px';
         }
+
+        return this.scrollHeight;
+    }
+
+    setScrollHeight() {
+        if (this.virtualScrollBody)
+            this.virtualScrollBody.getElementRef().nativeElement.style.height = this.calculateScrollHeight();
+        else if (this.scrollBodyViewChild)
+            this.scrollBodyViewChild.nativeElement.style.maxHeight = this.calculateScrollHeight();
     }
 
     scrollToVirtualIndex(index: number): void {
