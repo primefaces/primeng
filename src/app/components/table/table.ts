@@ -661,6 +661,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.anchorRowIndex = null;
+
+        if (this.scrollable) {
+            this.resetScrollTop();
+        }
     }
 
     sort(event) {
