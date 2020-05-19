@@ -1,5 +1,6 @@
 import {Component,OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
+import {CarService} from '../../service/carservice';
 import {LazyLoadEvent,SelectItem} from 'primeng/api';
 
 @Component({
@@ -75,58 +76,21 @@ export class VirtualScrollerDemo implements OnInit {
     cars: Car[];
 
     virtualCars: Car[];
-    
-    brands: string[];
-
-    colors: string[];
 
     sortKey: string;
 
     sortOptions: SelectItem[];
 
-    ngOnInit() {
-        this.brands = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
-        this.colors = ['Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'];
+    constructor(private carService: CarService) {}
 
-        this.cars = Array.from({length: 10000}).map(() => this.generateCar());
-        this.virtualCars =  Array.from({length: 10000});
+    ngOnInit() {
+        this.cars = Array.from({length: 10000}).map(() => this.carService.generateCar());
+        this.virtualCars = Array.from({length: 10000});
 
         this.sortOptions = [
             {label: 'Newest First', value: '!year'},
             {label: 'Oldest First', value: 'year'}
         ];
-    }
-
-    generateCar(): Car {
-        return {
-            vin: this.generateVin(),
-            brand: this.generateBrand(),
-            color: this.generateColor(),
-            year: this.generateYear()
-        }
-    }
-
-    generateVin() {
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        
-        for (var i = 0; i < 5; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        
-        return text;
-    }
-
-    generateBrand() {
-        return this.brands[Math.floor(Math.random() * Math.floor(10))];
-    }
-
-    generateColor() {
-        return this.colors[Math.floor(Math.random() * Math.floor(7))];
-    }
-
-    generateYear() {
-        return 2000 + Math.floor(Math.random() * Math.floor(19));
     }
 
     loadCarsLazy(event: LazyLoadEvent) {       

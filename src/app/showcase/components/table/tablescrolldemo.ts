@@ -28,10 +28,6 @@ export class TableScrollDemo implements OnInit {
 
     cars5: Car[];
 
-    virtualCars: Car[];
-
-    totalRecords: number;
-
     cols: any[];
 
     frozenCars: Car[];
@@ -41,10 +37,6 @@ export class TableScrollDemo implements OnInit {
     scrollableCols: any[];
 
     sales: any[];
-
-    loading: boolean;
-
-    inmemoryData: Car[];
 
     constructor(private carService: CarService) {}
 
@@ -92,76 +84,5 @@ export class TableScrollDemo implements OnInit {
             { brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' },
             { brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' }
         ];
-
-        this.totalRecords = 250000;
-        this.loading = true;
-
-        this.inmemoryData = [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"},
-            {"brand": "BMW", "year": 2003, "color": "Blue"},
-            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
-            {"brand": "Volvo", "year": 2005, "color": "Black"},
-            {"brand": "Honda", "year": 2012, "color": "Yellow"},
-            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
-            {"brand": "Ford", "year": 2000, "color": "Black"},
-            {"brand": "Fiat", "year": 2013, "color": "Red"},
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"},
-            {"brand": "BMW", "year": 2003, "color": "Blue"},
-            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
-            {"brand": "Volvo", "year": 2005, "color": "Black"},
-            {"brand": "Honda", "year": 2012, "color": "Yellow"},
-            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
-            {"brand": "Ford", "year": 2000, "color": "Black"},
-            {"brand": "Fiat", "year": 2013, "color": "Red"},
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"},
-            {"brand": "BMW", "year": 2003, "color": "Blue"},
-            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
-            {"brand": "Volvo", "year": 2005, "color": "Black"},
-            {"brand": "Honda", "year": 2012, "color": "Yellow"},
-            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
-            {"brand": "Ford", "year": 2000, "color": "Black"},
-            {"brand": "Fiat", "year": 2013, "color": "Red"},
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"},
-            {"brand": "BMW", "year": 2003, "color": "Blue"},
-            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
-            {"brand": "Volvo", "year": 2005, "color": "Black"},
-            {"brand": "Honda", "year": 2012, "color": "Yellow"},
-            {"brand": "Jaguar", "year": 2013, "color": "Orange"},
-            {"brand": "Ford", "year": 2000, "color": "Black"},
-            {"brand": "Fiat", "year": 2013, "color": "Red"}
-        ];
-    }
-
-    loadDataOnScroll(event: LazyLoadEvent) {      
-        this.loading = true;   
-
-        //for demo purposes keep loading the same dataset 
-        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
-        setTimeout(() => {
-            //last chunk
-            if (event.first === 249980)
-                this.virtualCars = this.loadChunk(event.first, 20);
-            else
-                this.virtualCars = this.loadChunk(event.first, event.rows);        
-            
-            this.loading = false;  
-        }, 250);   
-    }
-
-    loadChunk(index, length): Car[] {
-        let chunk: Car[] = [];
-        for (let i = 0; i < length; i++) {
-            chunk[i] = {...this.inmemoryData[i], ...{vin: (index + i)}};
-        } 
-
-        return chunk;
     }
 }
