@@ -231,6 +231,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @Input() editMode: string = 'cell';
 
+    @Input() minBufferPx: number;
+
+    @Input() maxBufferPx: number;
+
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
@@ -2206,7 +2210,7 @@ export class TableBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [style.height]="scrollHeight" [itemSize]="dt.virtualRowHeight" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
+            <cdk-virtual-scroll-viewport [style.height]="scrollHeight" [itemSize]="dt.virtualRowHeight" [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
