@@ -1,15 +1,11 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 @Component({
-    templateUrl: './galleriaindicatordemo.html',
-    styleUrls: ['./galleriaindicator.scss']
+    templateUrl: './galleriaindicatordemo.html'
 })
 export class GalleriaIndicatorDemo implements OnInit {
-    
     images: any[];
 
-    images2: any[];
-    
     responsiveOptions:any[] = [
         {
             breakpoint: '1024px',
@@ -30,7 +26,6 @@ export class GalleriaIndicatorDemo implements OnInit {
     ngOnInit() {
         this.photoService.getImages().then(images =>{ 
             this.images = images
-            this.images2 = images.slice(0, 5);
-        })
+        });
     }
 }

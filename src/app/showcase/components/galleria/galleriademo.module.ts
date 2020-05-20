@@ -16,6 +16,7 @@ import {GalleriaResponsiveDemo} from './galleriaresponsivedemo';
 import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
 import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
 import {GalleriaCaptionDemo} from './galleriacaptiondemo';
+import {GalleriaAdvancedDemo} from './galleriadvanceddemo';
 
 @NgModule({
 	imports: [
@@ -36,7 +37,8 @@ import {GalleriaCaptionDemo} from './galleriacaptiondemo';
 		GalleriaResponsiveDemo,
 		GalleriaFullscreenDemo,
 		GalleriaAutoPlayDemo,
-		GalleriaCaptionDemo
+		GalleriaCaptionDemo,
+		GalleriaAdvancedDemo
 	]
 })
 export class GalleriaDemoModule {}

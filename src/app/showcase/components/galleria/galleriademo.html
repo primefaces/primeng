@@ -2,30 +2,18 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Galleria</span>
-        <span>Galleria is a content gallery component.</span>
+        <span>Galleria is an advanced content gallery component.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [containerStyle]="{'max-width':'520px'}" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
-        [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"> 
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"> 
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" [ngStyle]="{'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''}" />
+            <img [src]="item.previewImageSrc" style="width: 100%;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="p-grid p-nogutter p-justify-center">
                 <img [src]="item.thumbnailImageSrc" />
-            </div>
-        </ng-template>
-        <ng-template pTemplate="footer" let-item>
-            <div class="custom-galleria-footer">
-                <button pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
-                <span *ngIf="images">
-                    <span>{{activeIndex + 1}}/{{images.length}}</span>
-                    <span class="title">{{images[activeIndex].title}}</span>
-                    <span>{{images[activeIndex].alt}}</span>
-                </span>
-                <button pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()"></button>
             </div>
         </ng-template>
     </p-galleria>
@@ -52,18 +40,151 @@ import &#123;GalleriaModule&#125; from 'primeng/galleria';
 &lt;/p-galleria&gt;
 </code>
 </pre>
+            <p>For the rest of the documentation, sample data below would be return from an example service e.g. PhotoService.</p>
+<div style="overflow: auto; height: 400px; margin-bottom: 1em;">
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+&#123;
+    "data":[
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria1.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria1s.jpg",
+            "alt": "Description for Image 1",
+            "title": "Title 1"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria2.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria2s.jpg",
+            "alt": "Description for Image 2",
+            "title": "Title 2"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria3.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria3s.jpg",
+            "alt": "Description for Image 3",
+            "title": "Title 3"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria4.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria4s.jpg",
+            "alt": "Description for Image 4",
+            "title": "Title 4"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria5.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria5s.jpg",
+            "alt": "Description for Image 5",
+            "title": "Title 5"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria6.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria6s.jpg",
+            "alt": "Description for Image 6",
+            "title": "Title 6"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria7.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria7s.jpg",
+            "alt": "Description for Image 7",
+            "title": "Title 7"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria8.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria8s.jpg",
+            "alt": "Description for Image 8",
+            "title": "Title 8"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria9.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria9s.jpg",
+            "alt": "Description for Image 9",
+            "title": "Title 9"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria10.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria10s.jpg",
+            "alt": "Description for Image 10",
+            "title": "Title 10"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria11.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria11s.jpg",
+            "alt": "Description for Image 11",
+            "title": "Title 11"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria12.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria12s.jpg",
+            "alt": "Description for Image 12",
+            "title": "Title 12"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria13.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria13s.jpg",
+            "alt": "Description for Image 13",
+            "title": "Title 13"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria14.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria14s.jpg",
+            "alt": "Description for Image 14",
+            "title": "Title 14"
+        &#125;,
+        &#123;
+            "previewImageSrc": "demo/images/galleria/galleria15.jpg",
+            "thumbnailImageSrc": "demo/images/galleria/galleria15s.jpg",
+            "alt": "Description for Image 15",
+            "title": "Title 15"
+        &#125;
+    ]
+&#125;
+</code>
+</pre>
+</div>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+@Injectable()
+export class PhotoService &#123;
+
+    constructor(private http: HttpClient) &#123; &#125;
+
+    getImages() &#123;
+    return this.http.get&lt;any&gt;('assets/showcase/data/photos.json')
+      .toPromise()
+      .then(res =&gt; &lt;Image[]&gt;res.data)
+      .then(data =&gt; &#123; return data; &#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class GalleriaDemo implements OnInit &#123;
+
     images: any[];
 
     constructor(private photoService: PhotoService) &#123; &#125;
 
+    responsiveOptions:any[] = [
+        &#123;
+            breakpoint: '1024px',
+            numVisible: 5
+        &#125;,
+        &#123;
+            breakpoint: '768px',
+            numVisible: 3
+        &#125;,
+        &#123;
+            breakpoint: '560px',
+            numVisible: 1
+        &#125;
+    ];
     ngOnInit() &#123;
-        this.photoService.getImages().then(images => this.images = images)
+        this.photoService.getImages().then(images =&gt; this.images = images);
     &#125;
+&#125;
 </code>
 </pre>
-
             <h3>Items per page</h3>
             <p>Number of items per page is defined using the <i>numVisible</i> property.</p>
 <pre>
@@ -365,26 +486,13 @@ responsiveOptions:any[] = [
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
-&lt;p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [containerStyle]="&#123;'max-width':'520px'&#125;" [containerClass]="galleriaClass()" [showThumbnails]="showThumbnails"
-    [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000"&gt; 
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
-        &lt;img [src]="item.previewImageSrc" [ngStyle]="&#123;'width': !isPreviewFullScreen ? '100%' : '', 'display': !isPreviewFullScreen ? 'block' : ''&#125;" /&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="thumbnail" let-item&gt;
         &lt;div class="p-grid p-nogutter p-justify-center"&gt;
             &lt;img [src]="item.thumbnailImageSrc" /&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="footer" let-item&gt;
-        &lt;div class="custom-galleria-footer"&gt;
-            &lt;button pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"&gt;&lt;/button&gt;
-            &lt;span *ngIf="images"&gt;
-                &lt;span&gt;&#123;&#123;activeIndex + 1&#125;&#125;/&#123;&#123;images.length&#125;&#125;&lt;/span&gt;
-                &lt;span class="title"&gt;&#123;&#123;images[activeIndex].title&#125;&#125;&lt;/span&gt;
-                &lt;span&gt;&#123;&#123;images[activeIndex].alt&#125;&#125;&lt;/span&gt;
-            &lt;/span&gt;
-            &lt;button pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
@@ -393,21 +501,12 @@ responsiveOptions:any[] = [
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class GalleriaDemo implements OnInit &#123;
+export class GalleriaDemo &#123;
+        
     images: any[];
+        
+    constructor(private photoService: PhotoService) &#123; &#125;
 
-    get activeIndex(): number &#123;
-        return this._activeIndex;
-      &#125;
-    
-    set activeIndex(newValue) &#123;
-        if (this.images && 0 <= newValue && newValue <= (this.images.length - 1)) &#123;
-            this._activeIndex = newValue;
-        &#125;
-    &#125;
-
-    _activeIndex: number = 2;
-    
     responsiveOptions:any[] = [
         &#123;
             breakpoint: '1024px',
@@ -422,19 +521,8 @@ export class GalleriaDemo implements OnInit &#123;
             numVisible: 1
         &#125;
     ];
-
-    constructor(private photoService: PhotoService) &#123; &#125;
-
     ngOnInit() &#123;
-        this.photoService.getImages().then(images => this.images = images)
-    &#125;
-
-    next() &#123;
-        this.activeIndex++;
-    &#125;
-
-    prev() &#123;
-        this.activeIndex--;
+        this.photoService.getImages().then(images => this.images = images);
     &#125;
 &#125;
 </code>
