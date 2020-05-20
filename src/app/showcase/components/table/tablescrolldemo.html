@@ -25,14 +25,14 @@
             </tr>
         </ng-template>
     </p-table>
-
+    
     <h3>Vertical with Flexible Viewport</h3>
     <p>Flex scroll makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
         to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
 
     <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
     <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '300px'}">
-        <p-table [columns]="cols" [value]="cars1" [scrollable]="true" [flexScroll]="true">
+        <p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="flex">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
