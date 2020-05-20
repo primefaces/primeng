@@ -37,6 +37,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'filterutils', loadChildren: () => import('./components/filterutils/filterutilsdemo.module').then(m => m.FilterUtilsDemoModule)},
             {path: 'flexgrid', loadChildren: () => import('./components/flexgrid/flexgriddemo.module').then(m => m.FlexGridDemoModule)},
             {path: 'focustrap', loadChildren: () => import('./components/focustrap/focustrapdemo.module').then(m => m.FocusTrapDemoModule)},
+            {path: 'formlayout', loadChildren: () => import('./components/formlayout/formlayoutdemo.module').then(m => m.FormLayoutDemoModule)},
             {path: 'fullcalendar', loadChildren: () => import('./components/fullcalendar/fullcalendardemo.module').then(m => m.FullCalendarDemoModule)},
             {path: 'galleria', loadChildren: () => import('./components/galleria/galleriademo.module').then(m => m.GalleriaDemoModule)},
             {path: 'gmap', loadChildren: () => import('./components/gmap/gmapdemo.module').then(m => m.GMapDemoModule)},
