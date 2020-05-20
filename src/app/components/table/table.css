@@ -84,7 +84,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 100%;
+    max-height: 100%;
 }
 
 .ui-table-flex-scrollable .ui-table-scrollable-wrapper,
@@ -92,14 +92,15 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-height: 100%;
 }
 
 .ui-table-flex-scrollable .ui-table-scrollable-header,
 .ui-table-flex-scrollable .ui-table-scrollable-footer {
-    flex: 0;
+    flex-shrink: 0;
 }
 
-.ui-table-flex-scrollable .ui-table-scrollable-body, 
+.ui-table-flex-scrollable .ui-table-scrollable-body,
 .ui-table-flex-scrollable .ui-table-virtual-scrollable-body {
     flex: 1;
 }

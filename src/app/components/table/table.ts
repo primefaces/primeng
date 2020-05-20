@@ -2204,7 +2204,7 @@ export class TableBody {
             </div>
         </div>
         <ng-container *ngIf="!dt.virtualScroll; else virtualScrollTemplate">
-            <div #scrollBody class="ui-table-scrollable-body" [ngStyle]="{'max-height': !dt.flexScroll ? scrollHeight : undefined, 'flex-basis': dt.flexScroll ? scrollHeight : undefined}">
+            <div #scrollBody class="ui-table-scrollable-body" [ngStyle]="{'max-height': !dt.flexScroll ? scrollHeight : ''}">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
