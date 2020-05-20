@@ -3,12 +3,12 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Galleria - Thumbnail</span>
-        <span></span>
+        <span>Thumbnails represent a smaller version of the actual content.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic</h3>
+    <h3 class="first">Positioned at Bottom</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%;" />
@@ -19,12 +19,9 @@
             </div>
         </ng-template>
     </p-galleria>
-    <h3>Position</h3>
+    <h3>Positioned at Left</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px'}" [numVisible]="4"
-        thumbnailsPosition="left"> 
-        <ng-template pTemplate="header">
-            Left
-        </ng-template>
+        thumbnailsPosition="left">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%;" />
         </ng-template>
@@ -34,11 +31,9 @@
             </div>
         </ng-template>
     </p-galleria>
+    <h3>Positioned at Right</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px', 'margin-top':'2em'}" [numVisible]="4"
         thumbnailsPosition="right"> 
-        <ng-template pTemplate="header">
-            Right
-        </ng-template>
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%;" />
         </ng-template>
@@ -48,11 +43,9 @@
             </div>
         </ng-template>
     </p-galleria>
+    <h3>Positioned at Top</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px', 'margin-top':'2em'}" [numVisible]="5"
-        thumbnailsPosition="top"> 
-        <ng-template pTemplate="header">
-            Top
-        </ng-template>
+        thumbnailsPosition="top">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%;" />
         </ng-template>
@@ -62,11 +55,9 @@
             </div>
         </ng-template>
     </p-galleria>
+    <h3>Positioned at Bottom</h3>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '610px', 'margin-top':'2em'}" [numVisible]="5"
-        thumbnailsPosition="bottom"> 
-        <ng-template pTemplate="header">
-            Bottom
-        </ng-template>
+        thumbnailsPosition="bottom">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%;" />
         </ng-template>
@@ -80,8 +71,8 @@
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
-        <p-tabPanel header="galleriabasicdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="galleriathumbnaildemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriathumbnaildemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -115,13 +106,13 @@ export class GalleriaDemo implements OnInit &#123;
 </code>
 </pre>
         </p-tabPanel>
-        <p-tabPanel header="galleriabasicdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="galleriathumbnaildemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriathumbnaildemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;h3 class="first"&gt;Positioned at Bottom&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
@@ -132,12 +123,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;h3&gt;Position&lt;/h3&gt;
+&lt;h3&gt;Positioned at Left&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px'&#125;" [numVisible]="4"
-    thumbnailsPosition="left"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Left
-    &lt;/ng-template&gt;
+    thumbnailsPosition="left"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
     &lt;/ng-template&gt;
@@ -147,11 +135,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
+&lt;h3&gt;Positioned at Right&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px', 'margin-top':'2em'&#125;" [numVisible]="4"
     thumbnailsPosition="right"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Right
-    &lt;/ng-template&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
     &lt;/ng-template&gt;
@@ -161,11 +147,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
+&lt;h3&gt;Positioned at Top&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px', 'margin-top':'2em'&#125;" [numVisible]="5"
-    thumbnailsPosition="top"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Top
-    &lt;/ng-template&gt;
+    thumbnailsPosition="top"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
     &lt;/ng-template&gt;
@@ -175,11 +159,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
+&lt;h3&gt;Positioned at Bottom&lt;/h3&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '610px', 'margin-top':'2em'&#125;" [numVisible]="5"
-    thumbnailsPosition="bottom"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Bottom
-    &lt;/ng-template&gt;
+    thumbnailsPosition="bottom"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
     &lt;/ng-template&gt;

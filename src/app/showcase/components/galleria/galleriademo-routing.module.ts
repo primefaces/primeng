@@ -9,6 +9,7 @@ import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
 import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
 import {GalleriaCaptionDemo} from './galleriacaptiondemo';
 import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
+import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
 			{path:'responsive', component: GalleriaResponsiveDemo},
 			{path:'fullscreen', component: GalleriaFullscreenDemo},
 			{path:'autoplay', component: GalleriaAutoPlayDemo},
-			{path:'caption', component: GalleriaCaptionDemo}
+			{path:'caption', component: GalleriaCaptionDemo},
+			{path:'advanced', component: GalleriaAdvancedDemo}
 		])
 	],
 	exports: [

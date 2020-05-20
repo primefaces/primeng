@@ -2,30 +2,17 @@
 
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Galleria - Basic</span>
-        <span></span>
+        <span class="feature-title">Galleria - Programmatic</span>
+        <span>Galleria can be controlled programmatically using the <b>activeIndex</b> property.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Default</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"> 
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" />
-            </div>
-        </ng-template>
-    </p-galleria>
-
-    <h3>Programmatic</h3>
     <div style="padding: .5em 0">
         <button pButton icon="pi pi-plus" (click)="next()" class="ui-button-secondary"></button>
         <button pButton icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"></button>
     </div>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5" [(activeItemIndex)]="activeIndex"> 
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5" [(activeIndex)]="activeIndex"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%;" />
         </ng-template>
@@ -39,8 +26,8 @@
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
-        <p-tabPanel header="galleriabasicdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="galleriaprogrammaticdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaprogrammaticdemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -92,32 +79,20 @@ export class GalleriaProgrammaticDemo implements OnInit &#123;
 </code>
 </pre>
         </p-tabPanel>
-        <p-tabPanel header="galleriabasicdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="galleriaprogrammaticdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaprogrammaticdemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"&gt; 
-    &lt;ng-template pTemplate="item" let-item&gt;
-        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
-            &lt;img [src]="item.thumbnailImageSrc" /&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-galleria&gt;
-
-&lt;h3&gt;Programmatic&lt;/h3&gt;
 &lt;div style="padding: .5em 0"&gt;
     &lt;button pButton icon="pi pi-plus" (click)="next()" class="ui-button-secondary"&gt;&lt;/button&gt;
     &lt;button pButton icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/div&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5" 
-    [(activeItemIndex)]="activeIndex"&gt; 
+    [(activeIndex)]="activeIndex"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
     &lt;/ng-template&gt;

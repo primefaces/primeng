@@ -3,13 +3,13 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Galleria - Indicator</span>
-        <span></span>
+        <span>Indicators allow quick navigation between the items.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
+    <h3>Indicators with Click Event</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
         [showThumbnails]="false" [showIndicators]="true"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
@@ -20,9 +20,8 @@
             </div>
         </ng-template>
     </p-galleria>
-    <br>
-    <h3>Change Preview On Indicator Hover</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
+    <h3>Indicators with Hover Event</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
         [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
@@ -33,9 +32,8 @@
             </div>
         </ng-template>
     </p-galleria>
-    <br>
-    <h3>Show Indicator On Preview</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
+    <h3>Inside Content</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
         [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
@@ -46,12 +44,9 @@
             </div>
         </ng-template>
     </p-galleria>
-    <h3>Position</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="bottom"> 
-        <ng-template pTemplate="header">
-            Bottom
-        </ng-template>
+    <h3>Positioned at Top</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -61,11 +56,9 @@
             </div>
         </ng-template>
     </p-galleria>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top"> 
-        <ng-template pTemplate="header">
-            Top
-        </ng-template>
+    <h3>Positioned at Left</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -75,25 +68,9 @@
             </div>
         </ng-template>
     </p-galleria>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"> 
-        <ng-template pTemplate="header">
-            Left
-        </ng-template>
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-    </p-galleria>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right"> 
-        <ng-template pTemplate="header">
-            Right
-        </ng-template>
+    <h3>Positioned at Right</h3>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
+        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -104,7 +81,7 @@
         </ng-template>
     </p-galleria>
     <h3>Template</h3>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px','margin-top': '2em'}" [numVisible]="5"
         [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
@@ -115,53 +92,23 @@
             </div>
         </ng-template>
         <ng-template pTemplate="indicator" let-index>
-            {{index + 1}}
-        </ng-template>
-    </p-galleria>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-        <ng-template pTemplate="indicator" let-index>
-            {{index + 1}}
-        </ng-template>
-    </p-galleria>
-    <p-galleria [(value)]="images2" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria2'" [containerStyle]="{'max-width': '520px','margin-top': '2em'}" [numVisible]="5"
-        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-        <ng-template pTemplate="indicator" let-index>
-            <div style="padding: .2em; cursor: pointer">
-                <img [src]="images2[index].thumbnailImageSrc" [alt]="images2[index].alt" style="display: block"/>
-            </div>
+            <span style="color: #e9ecef; cursor: pointer">
+                {{index + 1}}
+            </span>
         </ng-template>
     </p-galleria>
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
-        <p-tabPanel header="galleriabasicdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="galleriaindicatordemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaindicatordemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class GalleriaDemo implements OnInit &#123;
+export class GalleriaIndicatorDemo implements OnInit &#123;
     images: any[];
-
-    images2: any[];
 
     responsiveOptions:any[] = [
         &#123;
@@ -183,21 +130,21 @@ export class GalleriaDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.photoService.getImages().then(images =>&#123; 
             this.images = images
-            this.images2 = images.slice(0, 5);
         &#125;)
     &#125;
 &#125;
 </code>
 </pre>
         </p-tabPanel>
-        <p-tabPanel header="galleriabasicdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="galleriaindicatordemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaindicatordemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
+&lt;h3&gt;Indicators with Click Event&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
     [showThumbnails]="false" [showIndicators]="true"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
@@ -208,9 +155,8 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;br&gt;
-&lt;h3&gt;Change Preview On Indicator Hover&lt;/h3&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
+&lt;h3&gt;Indicators with Hover Event&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
     [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
@@ -221,9 +167,8 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;br&gt;
-&lt;h3&gt;Show Indicator On Preview&lt;/h3&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
+&lt;h3&gt;Inside Content&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"
     [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
@@ -234,12 +179,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;h3&gt;Position&lt;/h3&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="bottom"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Bottom
-    &lt;/ng-template&gt;
+&lt;h3&gt;Positioned at Top&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
@@ -249,11 +191,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="top"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Top
-    &lt;/ng-template&gt;
+&lt;h3&gt;Positioned at Left&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
@@ -263,25 +203,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Left
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="item" let-item&gt;
-        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
-            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-galleria&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right"&gt; 
-    &lt;ng-template pTemplate="header"&gt;
-        Right
-    &lt;/ng-template&gt;
+&lt;h3&gt;Positioned at Right&lt;/h3&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="right"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
     &lt;/ng-template&gt;
@@ -292,7 +216,7 @@ export class GalleriaDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px','margin-top': '2em'&#125;" [numVisible]="5"
     [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true" indicatorsPosition="left"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
@@ -303,37 +227,9 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="indicator" let-index&gt;
-        &#123;&#123;index + 1&#125;&#125;
-    &lt;/ng-template&gt;
-&lt;/p-galleria&gt;
-&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria'" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left"&gt;
-    &lt;ng-template pTemplate="item" let-item&gt;
-        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
-            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="indicator" let-index&gt;
-        &#123;&#123;index + 1&#125;&#125;
-    &lt;/ng-template&gt;
-&lt;/p-galleria&gt;
-&lt;p-galleria [(value)]="images2" [responsiveOptions]="responsiveOptions" [containerClass]="'custom-indicator-galleria2'" [containerStyle]="&#123;'max-width': '520px','margin-top': '2em'&#125;" [numVisible]="5"
-    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" indicatorsPosition="left"&gt;
-    &lt;ng-template pTemplate="item" let-item&gt;
-        &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="thumbnail" let-item&gt;
-        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
-            &lt;img [src]="item.thumbnailImageSrc" style="display: block;" /&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="indicator" let-index&gt;
-        &lt;div style="padding: .2em; cursor: pointer"&gt;
-            &lt;img [src]="images2[index].thumbnailImageSrc" [alt]="images2[index].alt" style="display: block"/&gt;
-        &lt;/div&gt;
+        &lt;span style="color: #e9ecef; cursor: pointer"&gt;
+            &#123;&#123;index + 1&#125;&#125;
+        &lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
 </code>

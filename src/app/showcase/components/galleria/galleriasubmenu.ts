@@ -14,6 +14,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/galleria/fullscreen']">&#9679; Fullscreen</a></li>
                 <li><a [routerLink]="['/galleria/autoplay']">&#9679; AutoPlay</a></li>
                 <li><a [routerLink]="['/galleria/caption']">&#9679; Caption</a></li>
+                <li><a [routerLink]="['/galleria/advanced']">&#9679; Advanced</a></li>
             </ul>
         </div>
     `
