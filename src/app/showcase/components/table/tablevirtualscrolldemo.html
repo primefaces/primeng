@@ -29,7 +29,7 @@
 
     <h3>Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)</h3>
     <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
-        [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" >
+        [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -147,7 +147,7 @@ export class TableVirtualScrollDemo implements OnInit &#123;
 
 &lt;h3&gt;Virtual Scroll with Lazy Loading from a Remote Datasource (10000 Rows)&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
-    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" &gt;
+    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;

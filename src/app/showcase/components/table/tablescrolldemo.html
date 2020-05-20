@@ -47,13 +47,6 @@
                     </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="footer" let-columns>
-                <tr>
-                    <td *ngFor="let col of columns">
-                        {{col.header}}
-                    </td>
-                </tr>
-            </ng-template>
         </p-table>
         <p-footer>
             <button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"></button>
@@ -306,13 +299,6 @@ export class TableScrollDemo implements OnInit &#123;
             &lt;tr&gt;
                 &lt;td *ngFor="let col of columns"&gt;
                     &#123;&#123;rowData[col.field]&#125;&#125;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="footer" let-columns&gt;
-            &lt;tr&gt;
-                &lt;td *ngFor="let col of columns"&gt;
-                    &#123;&#123;col.header&#125;&#125;
                 &lt;/td&gt;
             &lt;/tr&gt;
         &lt;/ng-template&gt;

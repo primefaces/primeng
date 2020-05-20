@@ -1934,7 +1934,39 @@ export class TableExportDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
-            <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
+
+            <p>In cases where viewport should adjust itself according to the parent's table height instead of a fixed viewport height, enable <i>flexScroll</i> option. In example below,
+            table is inside a Dialog where viewport size dynamically responds to the Dialog size changes such as resizing or maximizing.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
+    &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" [flexScroll]="true" scrollHeight="200px"&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+            &lt;tr&gt;
+                &lt;td *ngFor="let col of columns"&gt;
+                    &#123;&#123;rowData[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+    &lt;p-footer&gt;
+        &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;/p-footer&gt;        
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+            <p>In horizontal scrolling on the other hand, it is required to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
                 use colgroup as below to avoid misalignment issues as it will apply both the header, body and footer sections which are different separate elements internally.</p>
 
 <pre>
@@ -2090,13 +2122,16 @@ export class TableExportDemo implements OnInit &#123;
 </pre>
 
             <p>When frozen columns are enabled, frozen and scrollable cells may have content with varying height which leads to misalignment. To avoid a performance hit, Table avoids expensive calculations
-                to align the row heights as it can be easily done with CSS manually.</p>
+                to align the row heights as it can be easily done with templating.</p>
 <pre>
-<code class="language-css" pCode ngNonBindable>
-.ui-table .ui-table-frozen-view .ui-table-tbody > tr > td,
-.ui-table .ui-table-unfrozen-view .ui-table-tbody > tr > td &#123;
-    height: 24px !important;
-&#125;
+<code class="language-markup" pCode ngNonBindable>
+&lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+    &lt;tr [style.height.px]="30"&gt;
+        &lt;td *ngFor="let col of columns"&gt;
+            &#123;&#123;rowData[col.field]&#125;&#125;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/ng-template&gt;
 </code>
 </pre>
 
@@ -2128,15 +2163,13 @@ export class TableExportDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
-                on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight
-                property which defaults to 28px, in your row template also assign the height of the row with the same value for smooth scrolling.
-                Note that variable row height is not supported due to the nature of the virtual scrolling behavior.
-            </p>
+            <h3>Virtual Scrolling</h3>
+            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
+            would be enough to enable this functionality.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualRowHeight]="30"
-    [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [lazy]="true" [totalRecords]="totalRecords"&gt;
+&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+    [virtualScroll]="true" [virtualRowHeight]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -2145,7 +2178,7 @@ export class TableExportDemo implements OnInit &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr style="height:30px"&gt;
+        &lt;tr style="height:34px"&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
@@ -2155,14 +2188,40 @@ export class TableExportDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Instead of using the built-in loading mask indicator, an special "loadingbody" template is available to provide feedback to the users
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableVirtualScrollDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    cols: any[];
+
+    constructor(private carService: CarService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.cols = [
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
+        ];
+
+        this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.carService.generateCar());
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <p>Example above uses preloaded data, to load data on demand lazy mode should be enabled where chunks of data are loaded on scroll. To implement lazy loading,
+               enable <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using onLazyLoad that actually loads a chunk from a datasource. onLazyLoad gets an event object
+               that contains information about the chunk of data to load such as the index and number of items to load. Notice that a special "loadingbody" template is available to provide feedback to the users
                 about the loading status of a scroll event.
             </p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
-    [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34" [showLoader]="false"&gt;
+&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
+    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -2185,6 +2244,47 @@ export class TableExportDemo implements OnInit &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableVirtualScrollDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    virtualCars: Car[];
+
+    cols: any[];
+
+    constructor(private carService: CarService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.cols = [
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
+        ];
+
+        this.cars = Array.from(&#123;length: 10000&#125;).map(() => this.carService.generateCar());
+        this.virtualCars = Array.from(&#123;length: 10000&#125;);
+    &#125;
+
+    loadCarsLazy(event: LazyLoadEvent) &#123;       
+        //simulate remote connection with a timeout 
+        setTimeout(() => &#123;
+            //load data of required page
+            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
+
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
+            
+            //trigger change detection
+            this.virtualCars = [...this.virtualCars];
+        &#125;, Math.random() * 1000 + 250);
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -2712,16 +2812,16 @@ export class TableDemo implements OnInit &#123;
                             <td>Height of the scroll viewport in fixed pixels, percentage or a calc expression.</td>
                         </tr>
                         <tr>
+                            <td>flexScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, scrollable viewport height adjusts relative to the size of table's parent .</td>
+                        </tr>
+                        <tr>
                             <td>virtualScroll</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
-                        </tr>
-                        <tr>
-                            <td>virtualScrollDelay</td>
-                            <td>number</td>
-                            <td>150</td>
-                            <td>Delay in virtual scroll before doing a call to lazy load.</td>
                         </tr>
                         <tr>
                             <td>virtualRowHeight</td>
@@ -3028,9 +3128,9 @@ export class TableDemo implements OnInit &#123;
                             <td>Closes the editing cell.</td>
                         </tr>
                         <tr>
-                            <td>resetScroll</td>
+                            <td>resetScrollTop</td>
                             <td>-</td>
-                            <td>Resets the scrollable table scroll position.</td>
+                            <td>Resets the scrollable table scroll position to the beginning.</td>
                         </tr>
                         <tr>
                             <td>scrollToVirtualIndex</td>
@@ -3042,7 +3142,7 @@ export class TableDemo implements OnInit &#123;
                             <td>options.left: Specifies the number of pixels along the X axis<br/>
                                 options.top: Specifies the number of pixels along the Y axis<br />
                                 options.behavior: Specifies whether the scrolling should animate smoothly (smooth), or happen instantly in a single jump (auto).</td>
-                            <td>Scrolls to the position defined by the options.</td>
+                            <td>Scrolls to a position of a scrollable table viewport.</td>
                         </tr>
                     </tbody>
                 </table>
