@@ -9,7 +9,7 @@ import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
 import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
 import {GalleriaCaptionDemo} from './galleriacaptiondemo';
 import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
-import {GalleriaAdvancedDemo} from './galleriadvanceddemo';
+import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 
 @NgModule({
 	imports: [

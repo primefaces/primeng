@@ -16,7 +16,7 @@ import {GalleriaResponsiveDemo} from './galleriaresponsivedemo';
 import {GalleriaFullscreenDemo} from './galleriafullscreendemo';
 import {GalleriaAutoPlayDemo} from './galleriaautoplaydemo';
 import {GalleriaCaptionDemo} from './galleriacaptiondemo';
-import {GalleriaAdvancedDemo} from './galleriadvanceddemo';
+import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 
 @NgModule({
 	imports: [
