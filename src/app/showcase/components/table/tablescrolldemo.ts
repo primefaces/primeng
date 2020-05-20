@@ -1,20 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
-import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
-    templateUrl: './tablescrolldemo.html',
-    styles: [`
-        .loading-text {
-            display: block;
-            background-color: #f1f1f1;
-            min-height: 19px;
-            animation: pulse 1s infinite ease-in-out;
-            text-indent: -99999px;
-            overflow: hidden;
-        }
-    `]
+    templateUrl: './tablescrolldemo.html'
 })
 export class TableScrollDemo implements OnInit {
 
