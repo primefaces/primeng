@@ -62,7 +62,8 @@ export class TableService {
         <div #container [ngStyle]="style" [class]="styleClass"
             [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns,
                 'ui-table-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
-                'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout}">
+                'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout,
+                'ui-table-flex-scrollable': (scrollable && flexScroll)}">
             <div class="ui-table-loading ui-widget-overlay" *ngIf="loading && showLoader"></div>
             <div class="ui-table-loading-content" *ngIf="loading && showLoader">
                 <i [class]="'ui-table-loading-icon pi-spin ' + loadingIcon"></i>
@@ -198,6 +199,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() virtualScrollDelay: number = 150;
 
     @Input() virtualRowHeight: number = 28;
+
+    @Input() flexScroll: boolean;
 
     @Input() frozenWidth: string;
 
@@ -2201,7 +2204,7 @@ export class TableBody {
             </div>
         </div>
         <ng-container *ngIf="!dt.virtualScroll; else virtualScrollTemplate">
-            <div #scrollBody class="ui-table-scrollable-body">
+            <div #scrollBody class="ui-table-scrollable-body" [ngStyle]="{'max-height': !dt.flexScroll ? scrollHeight : undefined, 'flex-basis': dt.flexScroll ? scrollHeight : undefined}">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
@@ -2210,7 +2213,8 @@ export class TableBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
+            <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [style.height]="scrollHeight" 
+                    [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
@@ -2264,8 +2268,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     scrollableSiblingBody: Element;
 
-    _scrollHeight: string;
-
     subscription: Subscription;
 
     columnsSubscription: Subscription;
@@ -2275,6 +2277,18 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     preventBodyScrollPropagation: boolean;
 
     loadedPages: number[] = [];
+
+    _scrollHeight: string;
+
+    @Input() get scrollHeight(): string {
+        return this._scrollHeight;
+    }
+    set scrollHeight(val: string) {
+        this._scrollHeight = val;
+        if (val != null && (val.includes('%') || val.includes('calc'))) {
+            console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.')
+        }
+    }
 
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
@@ -2288,18 +2302,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         this.initialized = false;
      }
 
-    @Input() get scrollHeight(): string {
-        return this._scrollHeight;
-    }
-    set scrollHeight(val: string) {
-        this._scrollHeight = val;
-        this.setScrollHeight();
-    }
-
     ngAfterViewChecked() {
         if (!this.initialized && this.el.nativeElement.offsetParent) {
             this.alignScrollBar();
-            this.setScrollHeight();
             this.initialized = true;
         }
     }
@@ -2329,18 +2334,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         }
 
         this.bindEvents();
-        this.setScrollHeight();
         this.alignScrollBar();
-
-        if (this.frozen) {
-            this.columnsSubscription = this.dt.tableService.columnsSource$.subscribe(() => {
-                this.zone.runOutsideAngular(() => {
-                    setTimeout(() => {
-                        this.setScrollHeight();
-                    }, 50);
-                });
-            });
-        }
     }
 
     bindEvents() {
@@ -2466,50 +2460,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         let dataToRender = this.dt.filteredValue || this.dt.value;
         let dataLength = dataToRender ? dataToRender.length: 0;
         return Math.ceil(dataLength / this.dt.rows);
-    }
-
-    calculateScrollHeight(): string {
-        if (this.scrollHeight && this.scrollHeight.indexOf('%') !== -1) {
-            let viewport =  this.virtualScrollBody ? this.virtualScrollBody.getElementRef() : this.scrollBodyViewChild;
-            if (!viewport) {
-                return '0';
-            }
-
-            let relativeHeight;
-            viewport.nativeElement.style.visibility = 'hidden';
-            viewport.nativeElement.style.height = '100px';          //temporary height to calculate static height
-            let containerHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
-
-            if (this.scrollHeight.includes("calc")) {
-                let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
-                let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
-                relativeHeight = (DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
-            }
-            else {
-                relativeHeight = DomHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
-            }
-
-            let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
-            let scrollBodyHeight = (relativeHeight - staticHeight);
-
-            if (this.frozen) {
-                scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
-            }
-
-            viewport.nativeElement.style.height = 'auto';
-            viewport.nativeElement.style.visibility = 'visible';
-
-            return scrollBodyHeight + 'px';
-        }
-
-        return this.scrollHeight;
-    }
-
-    setScrollHeight() {
-        if (this.virtualScrollBody)
-            this.virtualScrollBody.getElementRef().nativeElement.style.height = this.calculateScrollHeight();
-        else if (this.scrollBodyViewChild)
-            this.scrollBodyViewChild.nativeElement.style.maxHeight = this.calculateScrollHeight();
     }
 
     scrollToVirtualIndex(index: number): void {

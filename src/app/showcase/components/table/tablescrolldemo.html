@@ -9,7 +9,7 @@
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Vertical</h3>
+    <h3 class="first">Vertical with Fixed Viewport</h3>
     <p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="200px">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -26,6 +26,41 @@
             </tr>
         </ng-template>
     </p-table>
+
+    <h3>Vertical with Flexible Viewport</h3>
+    <p>Flex scroll makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+        to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
+
+    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+    <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true">
+        <p-table [columns]="cols" [value]="cars1" [scrollable]="true" [flexScroll]="true" scrollHeight="200px">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer" let-columns>
+                <tr>
+                    <td *ngFor="let col of columns">
+                        {{col.header}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"></button>
+        </p-footer>        
+    </p-dialog>
 
     <h3>Horizontal</h3>
     <p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="{width:'500px'}">

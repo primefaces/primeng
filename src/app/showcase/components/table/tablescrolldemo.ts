@@ -26,6 +26,8 @@ export class TableScrollDemo implements OnInit {
     scrollableCols: any[];
 
     sales: any[];
+    
+    dialogVisible: boolean;
 
     constructor(private carService: CarService) {}
 
@@ -73,5 +75,9 @@ export class TableScrollDemo implements OnInit {
             { brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' },
             { brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' }
         ];
+    }
+
+    showDialog() {
+        this.dialogVisible = true;
     }
 }

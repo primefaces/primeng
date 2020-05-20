@@ -9,7 +9,7 @@
 
 <div class="content-section implementation">
     <h3>Virtual Scroll with Preloaded Data (10000 Rows)</h3>
-    <p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="10" scrollHeight="250px" 
+    <p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
         [virtualScroll]="true" [virtualRowHeight]="34">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -127,7 +127,7 @@ export class TableVirtualScrollDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3&gt;Virtual Scroll with Preloaded Data (10000 Rows)&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="10" scrollHeight="250px" 
+&lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
     [virtualScroll]="true" [virtualRowHeight]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
