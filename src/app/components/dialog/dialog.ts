@@ -20,7 +20,16 @@ const hideAnimation = animation([
 @Component({
     selector: 'p-dialog',
     template: `
-        <div [class]="maskStyleClass" [ngClass]="getMaskClass()" *ngIf="maskVisible">
+        <div *ngIf="maskVisible" [class]="maskStyleClass" 
+            [ngClass]="{'ui-dialog-mask': true, 'ui-widget-overlay': this.modal, 'ui-dialog-visible': this.maskVisible, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll,
+                'ui-dialog-left': position === 'left',
+                'ui-dialog-right': position === 'right',
+                'ui-dialog-top': position === 'top',
+                'ui-dialog-topleft': position === 'topleft',
+                'ui-dialog-topright': position === 'topright',
+                'ui-dialog-bottom': position === 'bottom',
+                'ui-dialog-bottomleft': position === 'bottomleft',
+                'ui-dialog-bottomright': position === 'bottomright'}" >
             <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable,'ui-dialog-resizable':resizable, 'ui-dialog-maximized': maximized}"
                 [ngStyle]="style" [class]="styleClass" *ngIf="visible" pFocusTrap [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: transitionOptions}}" (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" [attr.aria-labelledby]="id + '-label'">
@@ -339,19 +348,6 @@ export class Dialog implements OnDestroy {
             this.container.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
             this.wrapper.style.zIndex = String(this.baseZIndex + (DomHandler.zindex - 1));
         }
-    }
-
-    getMaskClass() {
-        let maskClass = {'ui-dialog-mask': true, 'ui-widget-overlay': this.modal, 'ui-dialog-visible': this.maskVisible, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll};
-        maskClass[this.getPositionClass().toString()] = true;
-        return maskClass;
-    }
-
-    getPositionClass() {
-        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
-        const pos = positions.find(item => item === this.position);
-
-        return pos ? `ui-dialog-${pos}` : '';
     }
 
     initDrag(event: MouseEvent) {
