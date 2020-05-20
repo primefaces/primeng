@@ -1942,7 +1942,7 @@ export class TableExportDemo implements OnInit &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
 &lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
-    &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" [flexScroll]="true" scrollHeight="200px"&gt;
+    &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" [flexScroll]="true"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
                 &lt;th *ngFor="let col of columns"&gt;
