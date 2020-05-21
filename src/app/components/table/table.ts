@@ -2262,8 +2262,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     frozenSiblingBody: HTMLDivElement;
 
-    scrollableSiblingBody: Element;
-
     subscription: Subscription;
 
     initialized: boolean;
@@ -2320,10 +2318,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
         else {
             if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
                 this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
-            }
-            let scrollableView = this.el.nativeElement.nextElementSibling;
-            if (scrollableView) {
-                this.scrollableSiblingBody = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
             }
         }
 
