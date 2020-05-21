@@ -1466,7 +1466,7 @@ a {
 		background-image: url('assets/showcase/images/home/introduction.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
-		color: #ffffff;
+		color: #20272a;
 		padding: 80px 30px 80px 50px;
 		>div {
 			padding: 100px 100px 0 100px;
@@ -1492,7 +1492,8 @@ a {
             margin-left: -50px;
             padding: 2px 50px 2px 50px;
             font-size: 1.5em;
-            background-image: linear-gradient(270deg, rgba(148,163,194,0.10) 0%, #283249 100%);
+			background-image: linear-gradient(270deg, rgba(32,39,42,0.10) 0%, #20272a 100%);
+			color: white;
         }
     }
 
