@@ -1614,7 +1614,7 @@ export class TTBody {
         </ng-container>
         <ng-template #virtualScrollTemplate>
             <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="!tt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
-                    [minBufferPx]="tt.minBufferPx" [maxBufferPx]="tt.maxBufferPx" class="ui-table-virtual-scrollable-body">
+                    [minBufferPx]="tt.minBufferPx" [maxBufferPx]="tt.maxBufferPx" class="ui-treetable-virtual-scrollable-body">
                 <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate" [frozen]="frozen"></tbody>
