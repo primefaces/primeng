@@ -100,7 +100,7 @@ export class AppComponent implements OnInit{
             this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1)); 
         }
 
-        this.initNewsState();
+        //this.initNewsState();
     }
 
     onAnimationStart (event) {
