@@ -2166,7 +2166,7 @@ export class TableExportDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-    &lt;tr [style.height.px]="30"&gt;
+    &lt;tr style="30px"&gt;
         &lt;td *ngFor="let col of columns"&gt;
             &#123;&#123;rowData[col.field]&#125;&#125;
         &lt;/td&gt;
@@ -2205,7 +2205,7 @@ export class TableExportDemo implements OnInit &#123;
 
             <h3>Virtual Scrolling</h3>
             <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
-            would be enough to enable this functionality.</p>
+            would be enough to enable this functionality. It is also suggested to use the same virtualRowHeight value on the tr element inside the body template.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars" [scrollable]="true" [rows]="100" scrollHeight="250px" 
