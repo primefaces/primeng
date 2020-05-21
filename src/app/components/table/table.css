@@ -71,14 +71,6 @@
     position: relative;
 }
 
-.ui-table-virtual-table {
-    position: absolute;
-}
-
-.ui-table-loading-virtual-table {
-    display: none;
-}
-
 /* Flex Scrollable */
 .ui-table-flex-scrollable {
     display: flex;
