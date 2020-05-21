@@ -1936,7 +1936,7 @@ export class TableExportDemo implements OnInit &#123;
 </pre>
 
             <h3>Flex Scroll</h3>
-            <p>In cases where viewport should adjust itself according to the parent's table height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
+            <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
             table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
 
 <pre>
@@ -2849,13 +2849,7 @@ export class TableDemo implements OnInit &#123;
                             <td>scrollHeight</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Height of the scroll viewport in fixed pixels, percentage or a calc expression.</td>
-                        </tr>
-                        <tr>
-                            <td>flexScroll</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When enabled, scrollable viewport height adjusts relative to the size of table's parent .</td>
+                            <td>Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size.</td>
                         </tr>
                         <tr>
                             <td>virtualScroll</td>
