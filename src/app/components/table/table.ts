@@ -2250,8 +2250,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
-
     @ViewChild('scrollableAligner') scrollableAlignerViewChild: ElementRef;
 
     @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
