@@ -21,6 +21,8 @@ import { TreeTableReorderDemo } from './treetablereorderdemo';
 import { TreeTableEditDemo } from './treetableeditdemo';
 import { TreeTableFilterDemo } from './treetablefilterdemo';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
@@ -34,6 +36,8 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		TreeTableDemoRoutingModule,
         TreeTableModule,
         ToastModule,
+        DialogModule,
+        ButtonModule,
         TabViewModule,
         MultiSelectModule,
         InputTextModule,

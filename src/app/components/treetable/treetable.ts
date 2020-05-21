@@ -10,6 +10,7 @@ import { BlockableUI } from 'primeng/api';
 import { FilterMetadata } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { FilterUtils } from 'primeng/utils';
+import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Injectable()
 export class TreeTableService {
@@ -52,7 +53,7 @@ export class TreeTableService {
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
                 [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-auto-layout': autoLayout, 'ui-treetable-hoverable-rows': (rowHover||(selectionMode === 'single' || selectionMode === 'multiple')),
-                'ui-treetable-resizable': resizableColumns, 'ui-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit')}">
+                'ui-treetable-resizable': resizableColumns, 'ui-treetable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'), 'ui-treetable-flex-scrollable': (scrollable && scrollHeight === 'flex')}">
             <div class="ui-treetable-loading ui-widget-overlay" *ngIf="loading && showLoader"></div>
             <div class="ui-treetable-loading-content" *ngIf="loading && showLoader">
                 <i [class]="'ui-treetable-loading-icon pi-spin ' + loadingIcon"></i>
@@ -80,7 +81,7 @@ export class TreeTableService {
 
             <div class="ui-treetable-scrollable-wrapper" *ngIf="scrollable">
                <div class="ui-treetable-scrollable-view ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div class="ui-treetable-scrollable-view" [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-treetable-scrollable-view" [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
             </div>
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -176,6 +177,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() virtualRowHeight: number = 28;
 
+    @Input() minBufferPx: number;
+
+    @Input() maxBufferPx: number;
+
     @Input() frozenWidth: string;
 
     @Input() frozenColumns: any[];
@@ -255,10 +260,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     _sortField: string;
 
     _sortOrder: number = 1;
-
-    virtualScrollTimer: any;
-
-    virtualScrollCallback: Function;
 
     filteredNodes: any[];
 
@@ -404,10 +405,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.sortMultiple();
                 else if (this.hasFilter())       //sort already filters
                     this._filter();
-            }
-
-            if (this.virtualScroll && this.virtualScrollCallback) {
-                this.virtualScrollCallback();
             }
 
             this.updateSerializedValue();
@@ -783,28 +780,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
-            rows: this.virtualScroll ? this.rows * 2 : this.rows,
+            rows: this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
             globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
             multiSortMeta: this.multiSortMeta
         };
-    }
-
-    handleVirtualScroll(event) {
-        this.first = (event.page - 1) * this.rows;
-        this.virtualScrollCallback = event.callback;
-
-        this.zone.run(() => {
-            if (this.virtualScrollTimer) {
-                clearTimeout(this.virtualScrollTimer);
-            }
-
-            this.virtualScrollTimer = setTimeout(() => {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            }, this.virtualScrollDelay);
-        });
     }
 
     isEmpty() {
@@ -1578,11 +1560,20 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 @Component({
     selector: '[pTreeTableBody]',
     template: `
-        <ng-template ngFor let-serializedNode let-rowIndex="index" [ngForOf]="tt.serializedValue" [ngForTrackBy]="tt.rowTrackBy">
-            <ng-container *ngIf="serializedNode.visible">
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: serializedNode, node: serializedNode.node, rowData: serializedNode.node.data, columns: columns}"></ng-container>
-            </ng-container>
-        </ng-template>
+        <ng-container *ngIf="!tt.virtualScroll">
+            <ng-template ngFor let-serializedNode let-rowIndex="index" [ngForOf]="tt.serializedValue" [ngForTrackBy]="tt.rowTrackBy">
+                <ng-container *ngIf="serializedNode.visible">
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: serializedNode, node: serializedNode.node, rowData: serializedNode.node.data, columns: columns}"></ng-container>
+                </ng-container>
+            </ng-template>
+        </ng-container>
+        <ng-container *ngIf="tt.virtualScroll">
+            <ng-template cdkVirtualFor let-serializedNode let-rowIndex="index" [cdkVirtualForOf]="tt.serializedValue" [cdkVirtualForTrackBy]="tt.rowTrackBy">
+                <ng-container *ngIf="serializedNode.visible">
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: serializedNode, node: serializedNode.node, rowData: serializedNode.node.data, columns: columns}"></ng-container>
+                </ng-container>
+            </ng-template>
+        </ng-container>
         <ng-container *ngIf="tt.isEmpty()">
             <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: {$implicit: columns}"></ng-container>
         </ng-container>
@@ -1593,6 +1584,8 @@ export class TTBody {
     @Input("pTreeTableBody") columns: any[];
 
     @Input("pTreeTableBodyTemplate") template: TemplateRef<any>;
+
+    @Input() frozen: boolean;
 
     constructor(public tt: TreeTable) {}
 }
@@ -1610,20 +1603,25 @@ export class TTBody {
                 </table>
             </div>
         </div>
-        <div #scrollBody class="ui-treetable-scrollable-body">
-            <table #scrollTable [ngClass]="{'ui-treetable-scrollable-body-table': true, 'ui-treetable-virtual-table': tt.virtualScroll}">
-                <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate"></tbody>
-            </table>
-            <table #loadingTable *ngIf="tt.virtualScroll && tt.loadingBodyTemplate != null" [ngClass]="{'ui-treetable-scrollable-body-table ui-treetable-loading-virtual-table': true, 'ui-treetable-virtual-table': tt.virtualScroll}">
-                <tbody class="ui-treetable-tbody">
-                    <ng-template ngFor [ngForOf]="loadingArray">
-                        <ng-container *ngTemplateOutlet="tt.loadingBodyTemplate; context: {columns: columns}"></ng-container>
-                    </ng-template>
-                </tbody>
-            </table>
-            <div #virtualScroller class="ui-treetable-virtual-scroller" *ngIf="tt.virtualScroll"></div>
-        </div>
+        <ng-container *ngIf="!tt.virtualScroll; else virtualScrollTemplate">
+            <div #scrollBody class="ui-treetable-scrollable-body" [ngStyle]="{'max-height': !tt.scrollHeight !== 'flex' ? scrollHeight : undefined}">
+                <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
+                    <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                    <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate" [frozen]="frozen"></tbody>
+                </table>
+                <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
+            </div>
+        </ng-container>
+        <ng-template #virtualScrollTemplate>
+            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="!tt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
+                    [minBufferPx]="tt.minBufferPx" [maxBufferPx]="tt.maxBufferPx" class="ui-table-virtual-scrollable-body">
+                <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
+                    <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                    <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate" [frozen]="frozen"></tbody>
+                </table>
+                <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
+            </cdk-virtual-scroll-viewport>
+        </ng-template>
         <div #scrollFooter *ngIf="tt.footerTemplate" class="ui-treetable-scrollable-footer ui-widget-header">
             <div #scrollFooterBox class="ui-treetable-scrollable-footer-box">
                 <table class="ui-treetable-scrollable-footer-table">
@@ -1656,17 +1654,17 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
-    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
+    @ViewChild('scrollableAligner') scrollableAlignerViewChild: ElementRef;
 
-    headerScrollListener: Function;
+    @ViewChild(CdkVirtualScrollViewport) virtualScrollBody: CdkVirtualScrollViewport;
 
-    bodyScrollListener: Function;
+    headerScrollListener;
 
-    footerScrollListener: Function;
+    bodyScrollListener;
+
+    footerScrollListener;
 
     frozenSiblingBody: Element;
-
-    _scrollHeight: string;
 
     subscription: Subscription;
 
@@ -1674,7 +1672,19 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
     initialized: boolean;
 
-    loadingArray: number[] = [];
+    _scrollHeight: string;
+
+    preventBodyScrollPropagation: boolean;
+
+    @Input() get scrollHeight(): string {
+        return this._scrollHeight;
+    }
+    set scrollHeight(val: string) {
+        this._scrollHeight = val;
+        if (val != null && (val.includes('%') || val.includes('calc'))) {
+            console.log('Percentage scroll height calculation is removed in favor of the more performant CSS based flex mode, use scrollHeight="flex" instead.')
+        }
+    }
 
     constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {
         this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
@@ -1682,36 +1692,12 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
                 setTimeout(() => {
                     this.alignScrollBar();
                     this.initialized = true;
-
-                    if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
-                        this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
-                    }
                 }, 50);
             });
         });
 
-        if (this.tt.virtualScroll) {
-            this.totalRecordsSubscription = this.tt.tableService.totalRecordsSource$.subscribe(() => {
-                this.zone.runOutsideAngular(() => {
-                    setTimeout(() => {
-                        this.setVirtualScrollerHeight();
-                    }, 50);
-                });
-            });
-        }
-
-        this.loadingArray = Array(this.tt.rows).fill(1);
-
         this.initialized = false;
      }
-
-    @Input() get scrollHeight(): string {
-        return this._scrollHeight;
-    }
-    set scrollHeight(val: string) {
-        this._scrollHeight = val;
-        this.setScrollHeight();
-    }
 
     ngAfterViewChecked() {
         if (!this.initialized && this.el.nativeElement.offsetParent) {
@@ -1721,36 +1707,27 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
     }
 
     ngAfterViewInit() {
-        this.bindEvents();
-        this.setScrollHeight();
-        this.alignScrollBar();
-
         if (!this.frozen) {
             if (this.tt.frozenColumns || this.tt.frozenBodyTemplate) {
                 DomHandler.addClass(this.el.nativeElement, 'ui-treetable-unfrozen-view');
             }
 
-            if (this.tt.frozenWidth) {
-                this.el.nativeElement.style.left = this.tt.frozenWidth;
-                this.el.nativeElement.style.width = 'calc(100% - ' + this.tt.frozenWidth + ')';
-            }
-
             let frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
-                this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-treetable-scrollable-body');
+                if (this.tt.virtualScroll)
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-treetable-virtual-scrollable-body');
+                else
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-treetable-scrollable-body');
             }
         }
         else {
-            this.scrollBodyViewChild.nativeElement.style.paddingBottom = DomHandler.calculateScrollbarWidth() + 'px';
-        }
-
-        if (this.tt.virtualScroll) {
-            this.setVirtualScrollerHeight();
-
-            if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
-                this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
+            if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
+                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
             }
         }
+
+        this.bindEvents();
+        this.alignScrollBar();
     }
 
     bindEvents() {
@@ -1769,7 +1746,11 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
             if (!this.frozen) {
                 this.bodyScrollListener = this.onBodyScroll.bind(this);
-                this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+
+                if (this.tt.virtualScroll)
+                    this.virtualScrollBody.getElementRef().nativeElement.addEventListener('scroll', this.bodyScrollListener);
+                else
+                    this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
             }
         });
     }
@@ -1783,108 +1764,62 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
             this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
         }
 
-        this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
+        if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
+            this.scrollBodyViewChild.nativeElement.removeEventListener('scroll', this.bodyScrollListener);
+        }
+
+        if (this.virtualScrollBody && this.virtualScrollBody.getElementRef()) {
+            this.virtualScrollBody.getElementRef().nativeElement.removeEventListener('scroll', this.bodyScrollListener);
+        }
     }
 
-    onHeaderScroll(event) {
-        this.scrollHeaderViewChild.nativeElement.scrollLeft = 0;
+    onHeaderScroll() {
+        const scrollLeft = this.scrollHeaderViewChild.nativeElement.scrollLeft;
+
+        this.scrollBodyViewChild.nativeElement.scrollLeft = scrollLeft;
+
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+            this.scrollFooterViewChild.nativeElement.scrollLeft = scrollLeft;
+        }
+
+        this.preventBodyScrollPropagation = true;
     }
 
-    onFooterScroll(event) {
-        this.scrollFooterViewChild.nativeElement.scrollLeft = 0;
+    onFooterScroll() {
+        const scrollLeft = this.scrollFooterViewChild.nativeElement.scrollLeft;
+        this.scrollBodyViewChild.nativeElement.scrollLeft = scrollLeft;
+
+        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+            this.scrollHeaderViewChild.nativeElement.scrollLeft = scrollLeft;
+        }
+
+        this.preventBodyScrollPropagation = true;
     }
 
     onBodyScroll(event) {
+        if (this.preventBodyScrollPropagation) {
+            this.preventBodyScrollPropagation = false;
+            return;
+        }
+
         if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+            this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
         }
 
         if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+            this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * event.target.scrollLeft + 'px';
         }
 
         if (this.frozenSiblingBody) {
-            this.frozenSiblingBody.scrollTop = this.scrollBodyViewChild.nativeElement.scrollTop;
-        }
-
-        if (this.tt.virtualScroll) {
-            let viewport = DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
-            let tableHeight = DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement);
-            let pageHeight = this.tt.virtualRowHeight * this.tt.rows;
-            let virtualTableHeight = DomHandler.getOuterHeight(this.virtualScrollerViewChild.nativeElement);
-            let pageCount = (virtualTableHeight / pageHeight)||1;
-            let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
-
-            if ((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
-                if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
-                    this.scrollLoadingTableViewChild.nativeElement.style.display = 'table';
-                    this.scrollLoadingTableViewChild.nativeElement.style.top = this.scrollBodyViewChild.nativeElement.scrollTop + 'px';
-                }
-
-                let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
-                this.tt.handleVirtualScroll({
-                    page: page,
-                    callback: () => {
-                        if (this.scrollLoadingTableViewChild && this.scrollLoadingTableViewChild.nativeElement) {
-                            this.scrollLoadingTableViewChild.nativeElement.style.display = 'none';
-                        }
-
-                        this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
-
-                        if (this.frozenSiblingBody) {
-                            (<HTMLElement> this.frozenSiblingBody.children[0]).style.top = this.scrollTableViewChild.nativeElement.style.top;
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    setScrollHeight() {
-        if (this.scrollHeight && this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-            if (this.scrollHeight.indexOf('%') !== -1) {
-                let relativeHeight;
-                this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
-                this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
-                let containerHeight = DomHandler.getOuterHeight(this.tt.el.nativeElement.children[0]);
-
-                if (this.scrollHeight.includes("calc")) {
-                    let percentHeight = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("(") + 1, this.scrollHeight.indexOf("%")));
-                    let diffValue = parseInt(this.scrollHeight.slice(this.scrollHeight.indexOf("-") + 1, this.scrollHeight.indexOf(")")));
-                    relativeHeight = (DomHandler.getOuterHeight(this.tt.el.nativeElement.parentElement) * percentHeight / 100) - diffValue;
-                }
-                else {
-                    relativeHeight = DomHandler.getOuterHeight(this.tt.el.nativeElement.parentElement) * parseInt(this.scrollHeight) / 100;
-                }
-
-                let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
-                let scrollBodyHeight = (relativeHeight - staticHeight);
-
-                if (this.frozen) {
-                    scrollBodyHeight -= DomHandler.calculateScrollbarWidth();
-                }
-
-                this.scrollBodyViewChild.nativeElement.style.height = 'auto';
-                this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
-                this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
-            }
-            else {
-                if (this.frozen)
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = (parseInt(this.scrollHeight) - DomHandler.calculateScrollbarWidth()) + 'px';
-                else
-                    this.scrollBodyViewChild.nativeElement.style.maxHeight = this.scrollHeight;
-            }
-        }
-    }
-
-    setVirtualScrollerHeight() {
-        if (this.virtualScrollerViewChild.nativeElement) {
-            this.virtualScrollerViewChild.nativeElement.style.height = this.tt.totalRecords * this.tt.virtualRowHeight + 'px';
+            this.frozenSiblingBody.scrollTop = event.target.scrollTop;
         }
     }
 
     hasVerticalOverflow() {
-        return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+        if (this.tt.virtualScroll)
+            return (this.virtualScrollBody.getDataLength() * this.tt.virtualRowHeight) > this.virtualScrollBody.getViewportSize();
+        else
+            return DomHandler.getOuterHeight(this.scrollTableViewChild.nativeElement) > DomHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
     }
 
     alignScrollBar() {
@@ -1906,10 +1841,6 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
         if (this.subscription) {
             this.subscription.unsubscribe();
-        }
-
-        if (this.totalRecordsSubscription) {
-            this.totalRecordsSubscription.unsubscribe();
         }
 
         this.initialized = false;
@@ -2881,8 +2812,8 @@ export class TreeTableToggler {
 }
 
 @NgModule({
-    imports: [CommonModule,PaginatorModule],
-    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor],
+    imports: [CommonModule,PaginatorModule,ScrollingModule],
+    exports: [TreeTable,SharedModule,TreeTableToggler,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor,ScrollingModule],
     declarations: [TreeTable,TreeTableToggler,TTScrollableView,TTBody,TTSortableColumn,TTSortIcon,TTResizableColumn,TTRow,TTReorderableColumn,TTSelectableRow,TTSelectableRowDblClick,TTContextMenuRow,TTCheckbox,TTHeaderCheckbox,TTEditableColumn,TreeTableCellEditor]
 })
 export class TreeTableModule { }
