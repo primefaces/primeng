@@ -18,6 +18,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/table/edit']">&#9679; Edit</a></li>
                 <li><a [routerLink]="['/table/scroll']">&#9679; Scroll</a></li>
                 <li><a [routerLink]="['/table/virtualscroll']">&#9679; VirtualScroll</a></li>
+                <li><a [routerLink]="['/table/flexscroll']" target="_blank">&#9679; FlexScroll</a></li>
                 <li><a [routerLink]="['/table/rowexpansion']">&#9679; RowExpand</a></li>
                 <li><a [routerLink]="['/table/rowgroup']">&#9679; RowGroup</a></li>
                 <li><a [routerLink]="['/table/colresize']">&#9679; Resize</a></li>

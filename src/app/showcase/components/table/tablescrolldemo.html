@@ -26,8 +26,8 @@
         </ng-template>
     </p-table>
     
-    <h3>Vertical with Flexible Viewport</h3>
-    <p>Flex scroll makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+    <h3>Flexible Viewport</h3>
+    <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
         to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
 
     <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
@@ -53,6 +53,9 @@
             <button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"></button>
         </p-footer>        
     </p-dialog>
+
+    <h3>Full Page Scroll</h3>
+    <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/table/flexscroll']">Full Page</a> demo for an example.</p>
 
     <h3>Horizontal</h3>
     <p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="{width:'500px'}">
@@ -281,13 +284,13 @@ export class TableScrollDemo implements OnInit &#123;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
 
-&lt;h3&gt;Vertical with Flexible Viewport&lt;/h3&gt;
-&lt;p&gt;Flex scroll makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+&lt;h3&gt;Flexible Viewport&lt;/h3&gt;
+&lt;p&gt;Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
     to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
 
 &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
 &lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
-    &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" [flexScroll]="true"&gt;
+    &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="flex"&gt;
         &lt;ng-template pTemplate="header" let-columns&gt;
             &lt;tr&gt;
                 &lt;th *ngFor="let col of columns"&gt;
@@ -308,6 +311,9 @@ export class TableScrollDemo implements OnInit &#123;
         &lt;button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
     &lt;/p-footer&gt;        
 &lt;/p-dialog&gt;
+
+&lt;h3&gt;Full Page Scroll&lt;/h3&gt;
+&lt;p&gt;FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the &lt;a [routerLink]="['/table/flexscroll']"&gt;Full Page&lt;/a&gt; demo for an example.&lt;/p&gt;
 
 &lt;h3&gt;Horizontal&lt;/h3&gt;
 &lt;p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="&#123;width:'500px'&#125;"&gt;

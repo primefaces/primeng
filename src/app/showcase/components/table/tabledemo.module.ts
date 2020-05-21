@@ -17,6 +17,7 @@ import { TableColGroupDemo } from './tablecolgroupdemo';
 import { TableRowExpansionDemo } from './tablerowexpansiondemo';
 import { TableScrollDemo } from './tablescrolldemo';
 import { TableVirtualScrollDemo } from './tablevirtualscrolldemo';
+import { TableFlexScrollDemo } from './tableflexscrolldemo';
 import { TableColToggleDemo } from './tablecoltoggledemo';
 import { TableCrudDemo } from './tablecruddemo';
 import { TableResponsiveDemo } from './tableresponsivedemo';
@@ -78,6 +79,7 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		TableRowExpansionDemo,
         TableScrollDemo,
         TableVirtualScrollDemo,
+        TableFlexScrollDemo,
 		TableColToggleDemo,
 		TableCrudDemo,
 		TableResponsiveDemo,
