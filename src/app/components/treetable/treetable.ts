@@ -80,8 +80,8 @@ export class TreeTableService {
             </div>
 
             <div class="ui-treetable-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-treetable-scrollable-view ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div class="ui-treetable-scrollable-view" [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
+               <div class="ui-treetable-scrollable-view ui-treetable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [ttScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div class="ui-treetable-scrollable-view" #scrollableView [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
             </div>
 
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
@@ -246,6 +246,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
 
     @ViewChild('table') tableViewChild: ElementRef;
+
+    @ViewChild('scrollableView') scrollableViewChild;
+
+    @ViewChild('scrollableFrozenView') scrollableFrozenViewChild;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -576,6 +580,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
 
         this.tableService.onUIUpdate(this.value);
+
+        if (this.scrollable) {
+            this.resetScrollTop();
+        }
     }
 
     sort(event) {
@@ -585,6 +593,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             this._sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this._sortField = event.field;
             this.sortSingle();
+
+            if (this.resetPageOnSort && this.scrollable) {
+                this.resetScrollTop();
+            }
         }
         if (this.sortMode === 'multiple') {
             let metaKey = originalEvent.metaKey || originalEvent.ctrlKey;
@@ -593,6 +605,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             if (sortMeta) {
                 if (!metaKey) {
                     this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
+                
+                    if (this.resetPageOnSort && this.scrollable) {
+                        this.resetScrollTop();
+                    }
                 }
                 else {
                     sortMeta.order = sortMeta.order * -1;
@@ -601,6 +617,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             else {
                 if (!metaKey || !this.multiSortMeta) {
                     this._multiSortMeta = [];
+
+                    if (this.resetPageOnSort && this.scrollable) {
+                        this.resetScrollTop();
+                    }
                 }
                 this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
@@ -611,10 +631,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     sortSingle() {
         if (this.sortField && this.sortOrder) {
-            if (this.resetPageOnSort) {
-                this.first = 0;
-            }
-
             if (this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
@@ -787,6 +803,33 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
             multiSortMeta: this.multiSortMeta
         };
+    }
+
+    public resetScrollTop() {
+        if (this.virtualScroll)
+            this.scrollToVirtualIndex(0);
+        else
+            this.scrollTo({top: 0});
+    }
+
+    public scrollToVirtualIndex(index: number) {
+        if (this.scrollableViewChild) {
+            this.scrollableViewChild.scrollToVirtualIndex(index);
+        }
+
+        if (this.scrollableFrozenViewChild) {
+            this.scrollableFrozenViewChild.scrollToVirtualIndex(index);
+        }
+    }
+
+    public scrollTo(options) {
+        if (this.scrollableViewChild) {
+            this.scrollableViewChild.scrollTo(options);
+        }
+
+        if (this.scrollableFrozenViewChild) {
+            this.scrollableFrozenViewChild.scrollTo(options);
+        }
     }
 
     isEmpty() {
@@ -1445,6 +1488,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
         this.tableService.onUIUpdate(filteredValue);
         this.updateSerializedValue();
+
+        if (this.scrollable) {
+            this.resetScrollTop();
+        }
     }
 
     findFilteredNodes(node, paramsWithoutNode) {
@@ -1812,6 +1859,27 @@ export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChec
 
         if (this.frozenSiblingBody) {
             this.frozenSiblingBody.scrollTop = event.target.scrollTop;
+        }
+    }
+
+    scrollToVirtualIndex(index: number): void {
+        if (this.virtualScrollBody) {
+            this.virtualScrollBody.scrollToIndex(index);
+        }
+    }
+
+    scrollTo(options): void {
+        if (this.virtualScrollBody) {
+            this.virtualScrollBody.scrollTo(options);
+        }
+        else {
+            if (this.scrollBodyViewChild.nativeElement.scrollTo) {
+                this.scrollBodyViewChild.nativeElement.scrollTo(options);
+            }
+            else {
+                this.scrollBodyViewChild.nativeElement.scrollLeft = options.left;
+                this.scrollBodyViewChild.nativeElement.scrollTop = options.top;
+            }
         }
     }
 
