@@ -2266,8 +2266,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
     subscription: Subscription;
 
-    columnsSubscription: Subscription;
-
     initialized: boolean;
 
     preventBodyScrollPropagation: boolean;
@@ -2505,10 +2503,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 
         if (this.subscription) {
             this.subscription.unsubscribe();
-        }
-
-        if (this.columnsSubscription) {
-            this.columnsSubscription.unsubscribe();
         }
 
         this.initialized = false;
