@@ -70,17 +70,10 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
+            <tr style="height:34px">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                     {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="loadingbody" let-columns="columns">
-            <tr style="height:34px">
-                <td *ngFor="let col of columns;">
-                    <div class="loading-text"></div>
                 </td>
             </tr>
         </ng-template>

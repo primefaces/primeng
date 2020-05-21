@@ -1,11 +1,5 @@
-<div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table - <span class="subitem">FlexScroll</span></span>
-        <span>FlexScroll allows scrollable viewport to be dynamic instead of fixed size.</span>
-    </div>
-</div>
-
-<div class="content-section implementation" style="height: calc(100vh - 298px)">
+<div class="content-section implementation" style="height: calc(100vh - 149px)">
+    {{virtualCars}}
     <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="100" scrollHeight="flex" 
         [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
         <ng-template pTemplate="caption">

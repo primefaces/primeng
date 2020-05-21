@@ -89,8 +89,25 @@
     border-top: 0 none;
 }
 
-.ui-treetable-virtual-table {
-    position: absolute;
+/* Flex Scrollable */
+.ui-treetable-flex-scrollable {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.ui-treetable-flex-scrollable .ui-treetable-scrollable-wrapper,
+.ui-treetable-flex-scrollable .ui-treetable-scrollable-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.ui-treetable-flex-scrollable .ui-treetable-scrollable-body,
+.ui-treetable-flex-scrollable .ui-treetable-virtual-scrollable-body {
+    flex: 1;
 }
 
 /* Frozen Columns */
