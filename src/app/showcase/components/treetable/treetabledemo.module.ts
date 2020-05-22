@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { TreeTableDemo } from './treetabledemo';
 import { TreeTableDemoRoutingModule } from './treetabledemo-routing.module';
 import { TreeTableModule } from 'primeng/treetable';
-import { TreeTableSubmenu } from './treetablesubmenu';
 import { TreeTablePageDemo } from './treetablepagedemo';
 import { TreeTableSortDemo } from './treetablesortdemo';
 import { TreeTableSelectionDemo } from './treetableselectiondemo';
@@ -62,8 +61,7 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
         TreeTableColResizeDemo,
         TreeTableReorderDemo,
         TreeTableEditDemo,
-        TreeTableFilterDemo,
-        TreeTableSubmenu
+        TreeTableFilterDemo
 	]
 })
 export class TreeTableDemoModule {}

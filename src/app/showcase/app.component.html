@@ -113,17 +113,15 @@
     <div class="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <div class="layout-menu-search ui-fluid">
-                    <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)"
+                <p-autoComplete [(ngModel)]="searchText" [suggestions]="filteredRoutes" (completeMethod)="filterRoutes($event)"
                     (onSelect)="selectRoute($event)" placeholder="Search"></p-autoComplete>
-                    <i class="pi pi-search"></i>
+                <i class="pi pi-search"></i>
             </div>
-            <a id="menu_input" tabindex="0">
-                <img src="assets/showcase/images/icons/input-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/input.svg" class="layout-menu-icon-inactive"/>
-                <span>Input</span>
-            </a>
+            <span>
+                <i class="pi pi-id-card"></i>
+                <span>Form</span>
+            </span>
             <div>
-                
                 <a [routerLink]="['/autocomplete']" (click)="menuActive = false">AutoComplete</a>
                 <a [routerLink]="['/calendar']" (click)="menuActive = false">Calendar</a>
                 <a [routerLink]="['/checkbox']" (click)="menuActive = false">Checkbox</a>
@@ -151,21 +149,19 @@
                 <a [routerLink]="['/tristatecheckbox']" (click)="menuActive = false">TriCheckbox</a>
             </div>
 
-            <a id="button_menutitle" tabindex="0">
-                <img src="assets/showcase/images/icons/button-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/button.svg" class="layout-menu-icon-inactive"/>
+            <span>
+                <i class="pi pi-mobile" style="transform: rotate(90deg);"></i>
                 <span>Button</span>
-            </a>
+            </span>
             <div>
                 <a [routerLink]="['/button']" (click)="menuActive = false">Button</a>
                 <a [routerLink]="['/splitbutton']" (click)="menuActive = false">SplitButton</a>
             </div>
 
-            <a id="data_menutitle" tabindex="0">
-                <img src="assets/showcase/images/icons/data-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/data.svg" class="layout-menu-icon-inactive"/>
+            <span>
+                <i class="pi pi-list"></i>
                 <span>Data</span>
-            </a>
+            </span>
             <div>
                 <a [routerLink]="['/carousel']" (click)="menuActive = false">Carousel</a>
                 <a [routerLink]="['/dataview']" (click)="menuActive = false">DataView</a>
@@ -175,17 +171,88 @@
                 <a [routerLink]="['/gmap']" (click)="menuActive = false">GMap</a>
                 <a [routerLink]="['/paginator']" (click)="menuActive = false">Paginator</a>
                 <a [routerLink]="['/picklist']" (click)="menuActive = false">PickList</a>
-                <a [routerLink]="['/table']" (click)="menuActive = false">Table</a>
-                <a [routerLink]="['/tree']" (click)="menuActive = false">Tree</a>
-                <a [routerLink]="['/treetable']" (click)="menuActive = false">TreeTable </a>
+                <div>
+                    <a tabindex="0" (click)="toggleSubmenu($event, '/table')">Table</a>
+                    <div [@submenu]="isSubmenuActive('/table') ? 'visible': 'hidden'">
+                        <ul>
+                            <li><a [routerLink]="['/table']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
+                            <li><a [routerLink]="['/table/basic']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Basic</a></li>
+                            <li><a [routerLink]="['/table/dynamic']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Dynamic</a></li>
+                            <li><a [routerLink]="['/table/sections']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Sections</a></li>
+                            <li><a [routerLink]="['/table/page']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Page</a></li>
+                            <li><a [routerLink]="['/table/sort']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Sort</a></li>
+                            <li><a [routerLink]="['/table/selection']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Selection</a></li>
+                            <li><a [routerLink]="['/table/filter']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Filter</a></li>
+                            <li><a [routerLink]="['/table/colgroup']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">ColGroup</a></li>
+                            <li><a [routerLink]="['/table/lazy']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Lazy</a></li>
+                            <li><a [routerLink]="['/table/edit']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Edit</a></li>
+                            <li><a [routerLink]="['/table/scroll']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
+                            <li><a [routerLink]="['/table/virtualscroll']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">VirtualScroll</a></li>
+                            <li><a [routerLink]="['/table/flexscroll']" target="_blank" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">FlexScroll</a></li>
+                            <li><a [routerLink]="['/table/rowexpansion']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">RowExpand</a></li>
+                            <li><a [routerLink]="['/table/rowgroup']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">RowGroup</a></li>
+                            <li><a [routerLink]="['/table/colresize']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Resize</a></li>
+                            <li><a [routerLink]="['/table/reorder']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Reorder</a></li>
+                            <li><a [routerLink]="['/table/coltoggle']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Toggle</a></li>
+                            <li><a [routerLink]="['/table/style']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Style</a></li>
+                            <li><a [routerLink]="['/table/export']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Export</a></li>
+                            <li><a [routerLink]="['/table/contextmenu']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">ContextMenu</a></li>
+                            <li><a [routerLink]="['/table/responsive']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Responsive</a></li>
+                            <li><a [routerLink]="['/table/crud']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Crud</a></li>
+                            <li><a [routerLink]="['/table/state']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">State</a></li>
+                            <li><a [routerLink]="['/table/sticky']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Sticky</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <a tabindex="0" (click)="toggleSubmenu($event, '/tree')">Tree</a>
+                    <div [@submenu]="isSubmenuActive('/tree') ? 'visible': 'hidden'">
+                        <ul>
+                            <li><a [routerLink]="['/tree']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
+                            <li><a [routerLink]="['/tree/templating']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Templating</a></li>
+                            <li><a [routerLink]="['/tree/selection']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Selection</a></li>
+                            <li><a [routerLink]="['/tree/filter']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Filter</a></li>
+                            <li><a [routerLink]="['/tree/lazy']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Lazy</a></li>
+                            <li><a [routerLink]="['/tree/scroll']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
+                            <li><a [routerLink]="['/tree/contextmenu']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">ContextMenu</a></li>
+                            <li><a [routerLink]="['/tree/dragdrop']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">DragDrop</a></li>
+                            <li><a [routerLink]="['/tree/horizontal']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Horizontal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <a tabindex="0" (click)="toggleSubmenu($event, '/treetable')">TreeTable</a>
+                    <div [@submenu]="isSubmenuActive('/treetable') ? 'visible': 'hidden'">
+                        <ul>
+                            <li><a [routerLink]="['/treetable']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
+                            <li><a [routerLink]="['/treetable/sections']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Sections</a></li>
+                            <li><a [routerLink]="['/treetable/page']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Page</a></li>
+                            <li><a [routerLink]="['/treetable/sort']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Sort</a></li>
+                            <li><a [routerLink]="['/treetable/selection']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Selection</a></li>
+                            <li><a [routerLink]="['/treetable/colgroup']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">ColGroup</a></li>
+                            <li><a [routerLink]="['/treetable/lazy']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Lazy</a></li>
+                            <li><a [routerLink]="['/treetable/edit']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Edit</a></li>
+                            <li><a [routerLink]="['/treetable/scroll']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
+                            <li><a [routerLink]="['/treetable/colresize']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Resize</a></li>
+                            <li><a [routerLink]="['/treetable/reorder']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Reorder</a></li>
+                            <li><a [routerLink]="['/treetable/coltoggle']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Toggle</a></li>
+                            <li><a [routerLink]="['/treetable/style']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Style</a></li>
+                            <li><a [routerLink]="['/treetable/contextmenu']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">ContextMenu</a></li>
+                            <li><a [routerLink]="['/treetable/responsive']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Responsive</a></li>
+                            <li><a [routerLink]="['/treetable/filter']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Filter</a></li>
+                        </ul>
+                    </div>
+                </div>
+
                 <a [routerLink]="['/virtualscroller']" (click)="menuActive = false">VirtualScroller</a>
             </div>
 
-            <a id="menu_panel" tabindex="0">
-                <img src="assets/showcase/images/icons/panel-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/panel.svg" class="layout-menu-icon-inactive"/>
-                <span>Panel</span>
-            </a>
+            <span>
+                <i class="pi pi-th-large"></i>
+                 <span>Panel</span>
+             </span>
             <div>
                 <a [routerLink]="['/accordion']" (click)="menuActive = false">Accordion</a>
                 <a [routerLink]="['/card']" (click)="menuActive = false">Card</a>
@@ -197,11 +264,10 @@
                 <a [routerLink]="['/toolbar']" (click)="menuActive = false">Toolbar</a>
             </div>
 
-            <a id="menu_overlay" tabindex="0">
-                <img src="assets/showcase/images/icons/overlay-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/overlay.svg" class="layout-menu-icon-inactive"/>
+            <span>
+                <i class="pi pi-clone"></i>
                 <span>Overlay</span>
-            </a>
+            </span>
             <div>
                 <a [routerLink]="['/confirmdialog']" (click)="menuActive = false">ConfirmDialog</a>
                 <a [routerLink]="['/dialog']" (click)="menuActive = false">Dialog</a>
@@ -212,20 +278,18 @@
                 <a [routerLink]="['/tooltip']" (click)="menuActive = false">Tooltip</a>
             </div>
 
-            <a id="menu_file" tabindex="0">
-                <img src="assets/showcase/images/icons/file-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/file.svg" class="layout-menu-icon-inactive"/>
+            <span>
+                <i class="pi pi-file-o"></i>
                 <span>File</span>
-            </a>
+            </span>
             <div>
                 <a [routerLink]="['/fileupload']" (click)="menuActive = false">Upload</a>
             </div>
 
-            <a id="menu_menu" tabindex="0">
-                <img src="assets/showcase/images/icons/menu-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/menu.svg" class="layout-menu-icon-inactive"/>
+            <span>
+                <i class="pi pi-bars"></i>
                 <span>Menu</span>
-            </a>
+            </span>
             <div>
                 <a [routerLink]="['/menumodel']" (click)="menuActive = false">MenuModel</a>
                 <a [routerLink]="['/breadcrumb']" (click)="menuActive = false">Breadcrumb</a>
@@ -240,11 +304,10 @@
                 <a [routerLink]="['/tieredmenu']" (click)="menuActive = false">TieredMenu</a>
             </div>
 
-            <a id="menu_chart" tabindex="0">
-                <img src="assets/showcase/images/icons/charts-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/charts.svg" class="layout-menu-icon-inactive"/>
-                <span>Charts</span>
-            </a>
+            <span>
+                <i class="pi pi-chart-bar"></i>
+                <span>Chart</span>
+            </span>
             <div>
                 <a [routerLink]="['/chart']" (click)="menuActive = false">ChartModel</a>
                 <a [routerLink]="['/chart/bar']" (click)="menuActive = false">Bar</a>
@@ -255,30 +318,43 @@
                 <a [routerLink]="['/chart/radar']" (click)="menuActive = false">Radar</a>
             </div>
 
-            <a id="menu_messages" tabindex="0">
-                <img src="assets/showcase/images/icons/message-active.svg" class="layout-menu-icon-active"/>
-                <img src="assets/showcase/images/icons/message.svg" class="layout-menu-icon-inactive"/>
+            <span>
+                <i class="pi pi-comment"></i>
                 <span>Messages</span>
-            </a>
+            </span>
             <div>
                 <a [routerLink]="['/messages']" (click)="menuActive = false">Messages</a>
                 <a [routerLink]="['/toast']" (click)="menuActive = false">Toast</a>
             </div>
 
-            <a id="menu_multimedia" tabindex="0">
-                    <img src="assets/showcase/images/icons/multimedia-active.svg" class="layout-menu-icon-active"/>
-                    <img src="assets/showcase/images/icons/multimedia.svg" class="layout-menu-icon-inactive"/>
-                    <span>Multimedia</span>
-            </a>
+            <span>
+                <i class="pi pi-image"></i>
+                <span>Image</span>
+            </span>
             <div>
-                <a [routerLink]="['/galleria']" (click)="menuActive = false">Galleria</a>
+                <div>
+                    <a tabindex="0" (click)="toggleSubmenu($event, '/galleria')">Galleria</a>
+                    <div [@submenu]="isSubmenuActive('/galleria') ? 'visible': 'hidden'">
+                        <ul>
+                            <li><a [routerLink]="['/galleria']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
+                            <li><a [routerLink]="['/galleria/programmatic']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Programmatic</a></li>
+                            <li><a [routerLink]="['/galleria/indicator']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Indicator</a></li>
+                            <li><a [routerLink]="['/galleria/thumbnail']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Thumbnail</a></li>
+                            <li><a [routerLink]="['/galleria/navigator']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Navigator</a></li>
+                            <li><a [routerLink]="['/galleria/responsive']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Responsive</a></li>
+                            <li><a [routerLink]="['/galleria/fullscreen']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Fullscreen</a></li>
+                            <li><a [routerLink]="['/galleria/autoplay']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">AutoPlay</a></li>
+                            <li><a [routerLink]="['/galleria/caption']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Caption</a></li>
+                            <li><a [routerLink]="['/galleria/advanced']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Advanced</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <a id="menu_dnd" tabindex="0">
-                    <img src="assets/showcase/images/icons/dragdrop-active.svg" class="layout-menu-icon-active"/>
-                    <img src="assets/showcase/images/icons/dragdrop.svg" class="layout-menu-icon-inactive"/>
-                    <span>DragDrop</span>
-            </a>
+            <span>
+                <i class="pi pi-share-alt"></i>
+                <span>Misc</span>
+            </span>
             <div>
                 <a [routerLink]="['/dragdrop']" (click)="menuActive = false">Drag&amp;Drop</a>
             </div>

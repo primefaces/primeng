@@ -10,7 +10,6 @@ import {TreeLazyDemo} from './treelazydemo';
 import {TreeContextMenuDemo} from './treecontextmenudemo';
 import {TreeDragDropDemo} from './treedragdropdemo';
 import {TreeHorizontalDemo} from './treehorizontaldemo';
-import {TreeSubmenu} from './treesubmenu';
 import {TreeDemoRoutingModule} from './treedemo-routing.module';
 import {TreeModule} from 'primeng/tree';
 import {ToastModule} from 'primeng/toast';
@@ -42,8 +41,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         TreeScrollDemo,
         TreeContextMenuDemo,
         TreeDragDropDemo,
-        TreeHorizontalDemo,
-        TreeSubmenu
+        TreeHorizontalDemo
 	]
 })
 export class TreeDemoModule {}

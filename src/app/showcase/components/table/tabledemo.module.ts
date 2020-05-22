@@ -9,7 +9,6 @@ import { TableSortDemo } from './tablesortdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
 import { TableFilterDemo } from './tablefilterdemo';
 import { TableSectionsDemo } from './tablesectionsdemo';
-import { TableSubmenu } from './tablesubmenu';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
@@ -63,7 +62,6 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		CodeHighlighterModule
 	],
 	declarations: [
-		TableSubmenu,
 		TableDemo,
 		TableBasicDemo,
 		TableDynamicDemo,

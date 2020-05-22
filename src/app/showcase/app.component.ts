@@ -9,32 +9,17 @@ declare let gtag: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-    trigger('animation', [
+    trigger('submenu', [
         state('hidden', style({
             height: '0',
             overflow: 'hidden',
-            maxHeight: '0',
-            paddingTop: '0',
-            paddingBottom: '0',
-            marginTop: '0',
-            marginBottom: '0',
-            opacity: '0',
-        })),
-        state('void', style({
-            height: '0',
-            overflow: 'hidden',
-            maxHeight: '0',
-            paddingTop: '0',
-            paddingBottom: '0',
-            marginTop: '0',
-            marginBottom: '0',
+            opacity: 0,
         })),
         state('visible', style({
-            height: '*'
+            height: '*',
+            opacity: 1
         })),
-        transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-        transition('void => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-        transition('void => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
     ])
 ]
 })
@@ -81,6 +66,8 @@ export class AppComponent implements OnInit{
     configClick: boolean;
 
     configActive: boolean;
+
+    activeSubmenus: {[key: string]: boolean} = {};
 
     constructor(private router: Router, public renderer: Renderer2) {
         this.router.events.subscribe(event => {
@@ -307,5 +294,14 @@ export class AppComponent implements OnInit{
             document.removeEventListener('click', this.versionsMenuOutsideClickListener);
             this.versionsMenuOutsideClickListener = null;
         }
+    }
+
+    toggleSubmenu(event, name) {
+        this.activeSubmenus[name] = this.activeSubmenus[name] ? false: true;
+        event.preventDefault();
+    }
+
+    isSubmenuActive(name) {
+        return this.activeSubmenus.hasOwnProperty(name) ? this.activeSubmenus[name] : this.router.isActive(name, false);
     }
 }

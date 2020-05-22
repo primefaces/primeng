@@ -8,7 +8,6 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 import {GalleriaDemo} from './galleriademo';
 import {GalleriaProgrammaticDemo} from './galleriaprogrammaticdemo';
-import {GalleriaSubmenu} from './galleriasubmenu';
 import {GalleriaIndicatorDemo} from './galleriaindicatordemo';
 import {GalleriaThumbnailDemo} from './galleriathumbnaildemo';
 import {GalleriaNavigatorDemo} from './gallerianavigatordemo';
@@ -28,7 +27,6 @@ import {GalleriaAdvancedDemo} from './galleriaadvanceddemo';
 		ButtonModule
 	],
 	declarations: [
-		GalleriaSubmenu,
 		GalleriaDemo,
 		GalleriaProgrammaticDemo,
 		GalleriaIndicatorDemo,
