@@ -248,7 +248,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @ViewChild('filter') filterViewChild: ElementRef;
 
-    @ViewChild('in') focusViewChild: ElementRef;
+    @ViewChild('in') accessibleViewChild: ElementRef;
 
     @ViewChild(CdkVirtualScrollViewport) viewPort: CdkVirtualScrollViewport;
 
@@ -309,12 +309,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     panel: HTMLDivElement;
 
     dimensionsUpdated: boolean;
-
-    selfClick: boolean;
-
-    itemClick: boolean;
-
-    clearClick: boolean;
 
     hoveredItem: any;
 
@@ -406,11 +400,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     onItemClick(event) {
         const option = event.option;
-        this.itemClick = true;
 
         if (!option.disabled) {
             this.selectItem(event, option);
-            this.focusViewChild.nativeElement.focus();
+            this.accessibleViewChild.nativeElement.focus();
         }
 
         setTimeout(() => {
@@ -515,29 +508,32 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     onMouseclick(event) {
-        if (this.disabled||this.readonly) {
+        if (this.disabled || this.readonly || this.isInputClick(event)) {
             return;
         }
 
         this.onClick.emit(event);
+        this.accessibleViewChild.nativeElement.focus();
 
-        this.selfClick = true;
-        this.clearClick = DomHandler.hasClass(event.target, 'ui-dropdown-clear-icon');
+        if (this.overlayVisible)
+            this.hide(event);
+        else
+            this.show();
 
-        if (!this.itemClick && !this.clearClick) {
-            this.focusViewChild.nativeElement.focus();
-
-            if (this.overlayVisible)
-                this.hide(event);
-            else
-                this.show();
-
-            this.cd.detectChanges();
-        }
+        this.cd.detectChanges();
     }
 
-    onEditableInputClick(event) {
-        this.itemClick = true;
+    isInputClick(event): boolean {
+        return DomHandler.hasClass(event.target, 'ui-dropdown-clear-icon') || 
+            event.target.isSameNode(this.accessibleViewChild.nativeElement) || 
+            (this.editableInputViewChild && event.target.isSameNode(this.editableInputViewChild.nativeElement));
+    }
+
+    isOutsideClicked(event: Event): boolean {
+        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node> event.target)));
+    }
+
+    onEditableInputClick() {
         this.bindDocumentClickListener();
     }
 
@@ -1051,20 +1047,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (!this.selfClick && !this.itemClick) {
+                if (this.isOutsideClicked(event)) {
                     this.hide(event);
                     this.unbindDocumentClickListener();
                 }
 
-                this.clearClickState();
                 this.cd.markForCheck();
             });
         }
-    }
-
-    clearClickState() {
-        this.selfClick = false;
-        this.itemClick = false;
     }
 
     unbindDocumentClickListener() {
@@ -1097,7 +1087,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     clear(event: Event) {
-        this.clearClick = true;
         this.value = null;
         this.onModelChange(this.value);
         this.onChange.emit({

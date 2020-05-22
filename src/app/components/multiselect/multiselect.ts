@@ -89,7 +89,7 @@ export class MultiSelectItem {
                 <span class="ui-multiselect-trigger-icon ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div *ngIf="overlayVisible" [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow']" [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                [ngStyle]="panelStyle" [class]="panelStyleClass" (click)="panelClick=true" (keydown)="onKeydown($event)">
+                [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix" [ngClass]="{'ui-multiselect-header-no-toggleall': !showToggleAll}" *ngIf="showHeader">
                 <ng-content select="p-header"></ng-content>
                 <div class="ui-chkbox ui-widget" *ngIf="showToggleAll && !selectionLimit">
@@ -253,6 +253,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @ViewChild('filterInput') filterInputChild: ElementRef;
 
+    @ViewChild('in') accessibleViewChild: ElementRef;
+
     @ContentChild(Footer) footerFacet;
 
     @ContentChild(Header) headerFacet;
@@ -286,10 +288,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     filled: boolean;
 
     public documentClickListener: any;
-
-    public selfClick: boolean;
-
-    public panelClick: boolean;
 
     public filterValue: string;
 
@@ -619,13 +617,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     onMouseclick(event,input) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || this.readonly || event.target.isSameNode(this.accessibleViewChild.nativeElement)) {
             return;
         }
 
         this.onClick.emit(event);
 
-        if (!this.panelClick) {
+        if (!this.isOverlayClick(event)) {
             if (this.overlayVisible) {
                 this.hide();
             }
@@ -634,8 +632,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.show();
             }
         }
+    }
 
-        this.selfClick = true;
+    isOverlayClick(event) {
+        return (this.overlay && this.overlay.contains(<Node> event.target));
+    }
+
+    isOutsideClicked(event: Event): boolean {
+        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || this.isOverlayClick(event));
     }
 
     onInputFocus(event) {
@@ -821,13 +825,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if (!this.selfClick && !this.panelClick && this.overlayVisible) {
+            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+                if (this.isOutsideClicked(event)) {
                     this.hide();
                 }
 
-                this.selfClick = false;
-                this.panelClick = false;
                 this.cd.markForCheck();
             });
         }
