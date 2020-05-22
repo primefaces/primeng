@@ -55,15 +55,12 @@
 
 @mixin submenuList() {
 	position: absolute;
-	top: 70px;
+	top: 40px;
 	background-color: #ffffff;
-	-moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 	overflow: auto;
 	margin: 0;
 	border-radius: 3px;
-	-webkit-animation-name: fadeInDown;
 	animation-name: fadeInDown;
 	animation-duration: .3s;
 	>li.topbar-submenu-header {
@@ -125,7 +122,7 @@ body {
 
     &.layout-news-active {
         .layout-topbar {
-            top: 70px;
+            top: 64px;
         }
 
         .layout-sidebar {
@@ -155,7 +152,7 @@ body {
     top: 0;
     left: 0;
 	z-index: 9997;
-    height: 70px;
+    height: 64px;
 	width: 100%;
 	background-image: url("assets/showcase/images/lts-topbar.jpg");
     display: -webkit-box;
@@ -211,7 +208,7 @@ body {
         }
 
         img {
-            height: 70px;
+            height: 64px;
             position: absolute;
             -webkit-animation: customSlide 20s linear infinite;
             animation: customSlide 20s linear infinite;
@@ -271,19 +268,17 @@ body {
 }
 
 .layout-topbar {
-	background-color: #20272a;
+	background-color: #1976d2;
 	box-sizing: border-box;
 	display: block;
 	padding: 0;
-	height: 70px;
+	height: 64px;
 	box-sizing: border-box;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 9997;
-	-moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 	.menu-button {
 		display: none;
@@ -298,7 +293,7 @@ body {
 		text-align: center;
 		transition: background-color .2s;
 		&:hover {
-			background-color: #4a4f52;
+			background-color: rgba(255,255,255,0.2);
 		}
 		i {
 			line-height: inherit;
@@ -306,7 +301,7 @@ body {
 	}
 	.logo {
 		margin-left: 45px;
-		margin-top: 15px;
+		margin-top: 11px;
 		display: inline-block;
 		img {
 			height: 42px;
@@ -321,13 +316,13 @@ body {
 	display: inline-block;
 	list-style-type: none;
 	float: right;
-	margin: 0 60px 0 0;
+	margin: 15px 60px 0 0;
 	padding: 0;
-	height: 100%;
-	>li {
+    
+	> li {
 		display: inline-block;
-		height: 100%;
-		>a {
+
+		> a {
 			text-decoration: none;
 			color: #ffffff;
 			transition: background-color .2s;
@@ -335,21 +330,26 @@ body {
 			display: inline-block;
 			text-align: center;
 			box-sizing: border-box;
-			height: 100%;
-			line-height: 70px;
 			font-size: 16px;
-			user-select: none;
+            user-select: none;
+            padding: 6px;
+            border-radius: 4px;
+            height: 34px;
+            
 			&:hover {
-				background-color: #4a4f52;
+				background-color: rgba(255,255,255,0.2);
 			}
-		}
-		>ul {
+        }
+        
+		> ul {
 			display: none;
 		}
-	}
+    }
+    
 	>li.topbar-submenu {
-		position: relative;
-		>ul {
+        position: relative;
+        
+		> ul {
 			@include submenuList();
 
 			&.topbar-submenu-themes {
@@ -416,8 +416,8 @@ body {
 .layout-sidebar {
 	position: fixed;
 	left: 0;
-	top: 70px;
-	height: calc(100% - 70px);
+	top: 64px;
+	height: calc(100% - 64px);
 	background-color: #ffffff;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -544,7 +544,7 @@ body {
 }
 .layout-content {
 	margin-left: 250px;
-	padding-top: 70px;
+	padding-top: 64px;
 	background-color: #ffffff;
 }
 .layout-mask {
@@ -561,8 +561,8 @@ body {
 .content-section {
 	display: block;
 	padding: 30px;
-	overflow: hidden;
-	background-color: #f5f7f8;
+    overflow: hidden;
+    
 	&:first-of-type {
 		>div {
 			>span {
@@ -578,11 +578,17 @@ body {
 	}
 }
 .content-section.introduction {
-	background-image: linear-gradient(to left, #2bc0ec, #1b81d7);
-	color: #ffffff;
+	background: #f5f7f8;
+    color: #333333;
+    border-bottom: 1px solid #dcdedf;
+    
 	a {
-		color: #ffffff;
+		color: #333333;
 		font-weight: 700;
+    }
+
+    + .content-section {
+        border-top: 0 none;
     }
 }
 .feature-title {
@@ -606,12 +612,12 @@ body {
 .layout-config {
     position: fixed;
     padding: 0;
-    top: 70px;
+    top: 64px;
     display: block;
     right: 0;
     width: 550px;
     z-index: 996;
-    height: calc(100% - 70px);
+    height: calc(100% - 64px);
     @include transition(transform .3s);
     transform: translate3d(550px,0,0);
     background-color: #ffffff;
@@ -815,38 +821,12 @@ body {
 	background-color: #FFFFFF;
 	overflow: visible;
 }
-.content-submenu {
-	background-image: linear-gradient(to left, #20272a, #20272a);
-	padding: 15px 30px;
-	border-bottom: 1px solid #1b81d7;
-	ul {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		li {
-			list-style: none;
-			width: 20%;
-			display: inline-block;
-			margin-top: 5px;
-			a {
-				color: #cac6c6;
-				display: block;
-				width: 90%;
-				border: 1px solid transparent;
-				transition: border-color .1s;
-				padding: 6px 12px;
-				border-radius: 3px;
-				&:hover {
-					border: 1px solid #ffffff;
-					color: #ffffff;
-				}
-			}
-		}
-	}
-}
 
 /* Documentation Section */
 .documentation {
+    background-color: #f5f7f8;
+    border-top: 1px solid #dcdedf;
+
 	.ui-tabview-panel {
 		color: #333333 !important;
     }
@@ -1002,21 +982,21 @@ body {
 
         &.layout-news-active {
             .layout-sidebar {
-                top: 170px;
-                height: calc(100% - 170px);
+                top: 164px;
+                height: calc(100% - 164px);
 			}
 			
 			.layout-config {
-				top: 170px;
-                height: calc(100% - 170px);
+				top: 164px;
+                height: calc(100% - 164px);
             }
             
             .layout-content {
-                padding-top: 170px;
+                padding-top: 164px;
             }
 
             .layout-mask {
-                top: 170px;
+                top: 164px;
             }
             
             .ui-toast-top-right,
@@ -1029,7 +1009,7 @@ body {
 				>li.topbar-submenu {
 					>ul {
 						&.topbar-submenu-themes, &.topbar-submenu-resources {
-							top: 170px;
+							top: 164px;
 						}
 					}
 				}
@@ -1067,7 +1047,7 @@ body {
 					min-width: 40px;
 				}
 				&:hover {
-					background-color: #4a4f52;
+					background-color: rgba(255,255,255,0.2);
 				}
 			}
 			>ul {
@@ -1143,9 +1123,6 @@ body {
 		margin-left: 0;
 		padding-top: 100px;
 	}
-	.layout-content .content-section.content-submenu ul li {
-        width: 50%;
-    }
 
     .layout-config {
         top: 100px;
@@ -1217,13 +1194,6 @@ body {
 					text-align: center;
 					padding-top: 2em;
 				}
-			}
-		}
-	}
-	.content-submenu {
-		ul {
-			li {
-				width: 50%;
 			}
 		}
 	}
