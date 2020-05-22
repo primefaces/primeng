@@ -467,7 +467,6 @@ body {
 				padding: 6px;
 				cursor: pointer;
 				border-radius: 4px;
-				-webkit-border-radius: 4px;
 				font-size: 14px;
 				color: #404C51;
 				&:focus {
@@ -842,55 +841,52 @@ body {
 		background: none;
 		border: 0 none;
 		color: #333333;
-		-moz-border-radius: 4px !important;
-		-webkit-border-radius: 4px !important;
-		border-radius: 4px !important;
+        border-radius: 4px !important;
+        
 		.ui-tabview-nav {
-			background: #1976D2 !important;
-			margin-bottom: -1px;
+			background: transparent !important;
+			margin-bottom: 0px !important;
 			padding: 3px 3px 0px 3px !important;
 			border-top-right-radius: 4px !important;
 			border-top-left-radius: 4px !important;
 			border-bottom-right-radius: 0px;
-			border-bottom-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-bottom: 1px solid #dcdedf !important;
+
 			li {
 				border: 0px none !important;
-				background: #3F94E9 !important;
-				border-color: #3F94E9 !important;
+				background: transparent !important;
+				background: transparent !important;
 				box-shadow: none !important;
 				border-top-right-radius: 4px !important;
-				border-top-left-radius: 4px !important;
+                border-top-left-radius: 4px !important;
+                margin: 0 !important;
+                top: 0 !important;
+               
 				a {
-					padding: .5em 1em !important;
-				}
-			}
-			li.ui-state-hover {
-				border: 0px none !important;
-				background: #3F94E9 !important;
-				border-color: #3F94E9 !important;
-				box-shadow: none !important;
-				border-top-right-radius: 4px !important;
-				border-top-left-radius: 4px !important;
-				box-shadow: none !important;
+                    padding: .5em 1em !important;
+                    font-weight: normal !important;
+                    color: #333333 !important;
+                    transition: border-color .3s;
+                    border-bottom: 1px solid transparent;
+                    margin-bottom: -1px;
+                }
+
+                &:hover:not(.ui-tabview-selected) {
+                    a {
+                        border-bottom-color: #9e9fa0;
+                    }
+                }
+                
+                &.ui-tabview-selected {
+                    a {
+                        border-bottom-color: #1a76d3;
+                        color: #1a76d3 !important;
+                    }
+                }
 			}
 			li.tab-doc {
 				margin-right: 0;
-			}
-			li.ui-state-default {
-				a {
-					color: #fff !important;
-					font-weight: normal !important;
-					text-shadow: none;
-				}
-			}
-			li.ui-state-active {
-				a {
-					color: #333333 !important;
-					font-weight: normal !important;
-				}
-			}
-			li.ui-tabview-selected {
-				background: #F5F6F7 !important;
 			}
 		}
 	}
