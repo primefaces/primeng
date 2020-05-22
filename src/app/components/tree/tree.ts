@@ -194,6 +194,8 @@ export class UITreeNode implements OnInit {
         let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? (position === 1 || dragNodeIndex !== this.index - 1) : true;
 
         if (this.tree.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
+            let dropParams = {...this.createDropPointEventMetadata(position)};
+
             if (this.tree.validateDrop) {
                 this.tree.onNodeDrop.emit({
                     originalEvent: event,
@@ -201,12 +203,12 @@ export class UITreeNode implements OnInit {
                     dropNode: this.node,
                     dropIndex: this.index,
                     accept: () => {
-                        this.processPointDrop(dragNode, dragNodeIndex, position);
+                        this.processPointDrop(dropParams);
                     }
                 });
             }
             else {
-                this.processPointDrop(dragNode, dragNodeIndex, position);
+                this.processPointDrop(dropParams);
                 this.tree.onNodeDrop.emit({
                     originalEvent: event,
                     dragNode: dragNode,
@@ -220,25 +222,36 @@ export class UITreeNode implements OnInit {
         this.draghoverNext = false;
     }
 
-    processPointDrop(dragNode, dragNodeIndex, position) {
-        let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
-        this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
+    processPointDrop(event) {
+        let newNodeList = event.dropNode.parent ? event.dropNode.parent.children : this.tree.value;
+        event.dragNodeSubNodes.splice(event.dragNodeIndex, 1);
         let dropIndex = this.index;
 
-        if (position < 0) {
-            dropIndex = (this.tree.dragNodeSubNodes === newNodeList) ? ((this.tree.dragNodeIndex > this.index) ? this.index : this.index - 1) : this.index;
-            newNodeList.splice(dropIndex, 0, dragNode);
+        if (event.position < 0) {
+            dropIndex = (event.dragNodeSubNodes === newNodeList) ? ((event.dragNodeIndex > event.index) ? event.index : event.index - 1) : event.index;
+            newNodeList.splice(dropIndex, 0, event.dragNode);
         }
         else {
             dropIndex = newNodeList.length;
-            newNodeList.push(dragNode);
+            newNodeList.push(event.dragNode);
         }
 
         this.tree.dragDropService.stopDrag({
-            node: dragNode,
-            subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
-            index: dragNodeIndex
+            node: event.dragNode,
+            subNodes: event.dropNode.parent ? event.dropNode.parent.children : this.tree.value,
+            index: event.dragNodeIndex
         });
+    }
+
+    createDropPointEventMetadata(position) {
+        return {
+            dragNode: this.tree.dragNode,
+            dragNodeIndex:  this.tree.dragNodeIndex,
+            dragNodeSubNodes: this.tree.dragNodeSubNodes,
+            dropNode: this.node,
+            index: this.index,
+            position: position
+        };
     }
 
     onDropPointDragOver(event) {
@@ -298,7 +311,10 @@ export class UITreeNode implements OnInit {
             event.preventDefault();
             event.stopPropagation();
             let dragNode = this.tree.dragNode;
+
             if (this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
+                let dropParams = {...this.createDropNodeEventMetadata()};
+
                 if (this.tree.validateDrop) {
                     this.tree.onNodeDrop.emit({
                         originalEvent: event,
@@ -306,12 +322,12 @@ export class UITreeNode implements OnInit {
                         dropNode: this.node,
                         index: this.index,
                         accept: () => {
-                            this.processNodeDrop(dragNode);
+                            this.processNodeDrop(dropParams);
                         }
                     });
                 }
                 else {
-                    this.processNodeDrop(dragNode);
+                    this.processNodeDrop(dropParams);
                     this.tree.onNodeDrop.emit({
                         originalEvent: event,
                         dragNode: dragNode,
@@ -325,19 +341,28 @@ export class UITreeNode implements OnInit {
         this.draghoverNode = false;
     }
 
-    processNodeDrop(dragNode) {
-        let dragNodeIndex = this.tree.dragNodeIndex;
-        this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
+    createDropNodeEventMetadata() {
+        return {
+            dragNode: this.tree.dragNode,
+            dragNodeIndex:  this.tree.dragNodeIndex,
+            dragNodeSubNodes: this.tree.dragNodeSubNodes,
+            dropNode: this.node
+        };
+    }
 
-        if (this.node.children)
-            this.node.children.push(dragNode);
+    processNodeDrop(event) {
+        let dragNodeIndex = event.dragNodeIndex;
+        event.dragNodeSubNodes.splice(dragNodeIndex, 1);
+
+        if (event.dropNode.children)
+            event.dropNode.children.push(event.dragNode);
         else
-            this.node.children = [dragNode];
+            event.dropNode.children = [event.dragNode];
 
         this.tree.dragDropService.stopDrag({
-            node: dragNode,
-            subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
-            index: this.tree.dragNodeIndex
+            node: event.dragNode,
+            subNodes: event.dropNode.parent ? event.dropNode.parent.children : this.tree.value,
+            index: dragNodeIndex
         });
 
 
