@@ -468,19 +468,33 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-            <h3>Scrolling</h3>
-            <p>Regular scrolling is used to preserve space as content of the tree is dynamic whereas virtual scrolling is a performant approach to large data rendering. </p>
-            <p>Using <i>scrollHeight</i> would be enough to enable scrolling.</p>
+                <h3>Scrolling</h3>
+                <p>Scrolling is used to preserve space as content of the tree is dynamic and enabled by <i>scrollHeight</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 
-            <p>VirtualScrolling on the other hand requires <i>virtualScroll</i> property to be enabled and <i>virtualNodeHeight</i> to be set.</p>
+                <h3>Flex Scroll</h3>
+                <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
+                table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+    [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="ui-fluid"&gt;
+    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+                <h3>Virtual Scrolling</h3>
+                <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualNodeHeight</i> in pixels would be enough to enable this functionality.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-tree [value]="files" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 

@@ -107,12 +107,21 @@
     right: 1em;
 }
 
-/** Fluid **/
+.ui-tree-flex-scrollable {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+}
+
+.ui-tree-flex-scrollable .ui-tree-wrapper {
+    flex: 1;
+}
+
 .ui-fluid .ui-tree {
     width: 100%;
 }
 
-/** Horizontal Tree **/
 .ui-tree-horizontal {
     width:auto;
     padding: .5em 0;

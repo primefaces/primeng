@@ -15,6 +15,7 @@ import {TreeDemoRoutingModule} from './treedemo-routing.module';
 import {TreeModule} from 'primeng/tree';
 import {ToastModule} from 'primeng/toast';
 import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
@@ -27,6 +28,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         TreeModule,
         ToastModule,
         ButtonModule,
+        DialogModule,
         ContextMenuModule,
         TabViewModule,
         CodeHighlighterModule

@@ -12,21 +12,24 @@ export class TreeScrollDemo implements OnInit {
     files2: TreeNode[];
 
     files3: TreeNode[];
+
+    dialogVisible: boolean;
     
     constructor(private nodeService: NodeService) { }
 
-    ngOnInit() { 
+    ngOnInit() {
         this.nodeService.getFiles().then(files => this.files1 = files);
-        this.files2 = Array.from({length: 50}).map((_,i) => this.createNode(i));
+        this.files2 = Array.from({length: 100}).map((_,i) => this.createNode(i, 2));
+        this.files3 = Array.from({length: 50}).map((_,i) => this.createNode(i, 1000));
     }
 
-    createNode(i: Number): TreeNode {
+    createNode(i: number, children: number): TreeNode {
         let node: TreeNode = {
             label: 'Node ' + i,
             data: 'Node ' + i,
             expandedIcon: 'pi pi-folder-open',
             collapsedIcon: 'pi pi-folder',
-            children: Array.from({length: 1000}).map((_,j) => {
+            children: Array.from({length: children}).map((_,j) => {
                 return {
                     label: 'Node ' + i + '.' + j, 
                     data: 'Node ' + i + '.' + j, 
@@ -36,5 +39,9 @@ export class TreeScrollDemo implements OnInit {
         };
 
         return node;
+    }
+
+    showDialog() {
+        this.dialogVisible = true;
     }
 }

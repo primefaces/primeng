@@ -11,8 +11,18 @@
     <h3>Regular Scroll</h3>
     <p-tree [value]="files1" scrollHeight="200px"></p-tree>
 
+    <h3>Flexible Viewport</h3>
+    <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the tree. Click the button below
+        to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
+
+    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+    <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+        [resizable]="true" [contentStyle]="{height: '300px'}" styleClass="ui-fluid">
+        <p-tree [value]="files2" scrollHeight="flex"></p-tree>   
+    </p-dialog>
+
     <h3>Virtual Scroll</h3>
-    <p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"></p-tree>
+    <p-tree [value]="files3" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"></p-tree>
 </div>
 
 <div class="content-section documentation">
@@ -38,21 +48,24 @@ export class TreeScrollDemo implements OnInit &#123;
     files2: TreeNode[];
 
     files3: TreeNode[];
+
+    dialogVisible: boolean;
     
     constructor(private nodeService: NodeService) &#123; &#125;
 
-    ngOnInit() &#123; 
+    ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files1 = files);
-        this.files2 = Array.from(&#123;length: 50&#125;).map((_,i) => this.createNode(i));
+        this.files2 = Array.from(&#123;length: 100&#125;).map((_,i) => this.createNode(i, 2));
+        this.files3 = Array.from(&#123;length: 50&#125;).map((_,i) => this.createNode(i, 1000));
     &#125;
 
-    createNode(i: Number): TreeNode &#123;
+    createNode(i: number, children: number): TreeNode &#123;
         let node: TreeNode = &#123;
             label: 'Node ' + i,
             data: 'Node ' + i,
             expandedIcon: 'pi pi-folder-open',
             collapsedIcon: 'pi pi-folder',
-            children: Array.from(&#123;length: 1000&#125;).map((_,j) => &#123;
+            children: Array.from(&#123;length: children&#125;).map((_,j) => &#123;
                 return &#123;
                     label: 'Node ' + i + '.' + j, 
                     data: 'Node ' + i + '.' + j, 
@@ -62,6 +75,10 @@ export class TreeScrollDemo implements OnInit &#123;
         &#125;;
 
         return node;
+    &#125;
+
+    showDialog() &#123;
+        this.dialogVisible = true;
     &#125;
 &#125;
 </code>
@@ -77,8 +94,18 @@ export class TreeScrollDemo implements OnInit &#123;
 &lt;h3&gt;Regular Scroll&lt;/h3&gt;
 &lt;p-tree [value]="files1" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 
+&lt;h3&gt;Flexible Viewport&lt;/h3&gt;
+&lt;p&gt;Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the tree. Click the button below
+    to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
+
+&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
+    [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="ui-fluid"&gt;
+    &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+&lt;/p-dialog&gt;
+
 &lt;h3&gt;Virtual Scroll&lt;/h3&gt;
-&lt;p-tree [value]="files2" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="files3" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
         </p-tabPanel>
