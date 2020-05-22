@@ -90,12 +90,12 @@ export class ContextMenuDemo {
         
         this.items2 = [
             {
-                label: 'Next',
-                icon: 'pi pi-fw pi-chevron-right'
+                label: 'Family',
+                icon: 'pi pi-fw pi-users'
             },
             {
-                label: 'Prev',
-                icon: 'pi pi-fw pi-chevron-left'
+                label: 'Business',
+                icon: 'pi pi-fw pi-briefcase'
             }
         ];
     }
