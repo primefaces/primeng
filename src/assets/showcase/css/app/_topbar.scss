@@ -1,0 +1,125 @@
+.layout-topbar {
+	background-color: #1976d2;
+	box-sizing: border-box;
+	display: block;
+	padding: 0;
+	height: 64px;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 9997;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+    
+	.menu-button {
+		display: none;
+		color: #ffffff;
+		font-size: 24px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 60px;
+		height: 60px;
+		line-height: 58px;
+		text-align: center;
+		transition: background-color .2s;
+		&:hover {
+			background-color: rgba(255,255,255,0.2);
+		}
+		i {
+			line-height: inherit;
+		}
+    }
+    
+	.logo {
+		margin-left: 25px;
+		margin-top: 11px;
+        display: inline-block;
+        
+		img {
+			height: 42px;
+		}
+	}
+}
+
+.topbar-menu {
+	display: inline-block;
+	list-style-type: none;
+	float: right;
+	margin: 15px 60px 0 0;
+	padding: 0;
+    
+	> li {
+		display: inline-block;
+
+		> a {
+			text-decoration: none;
+			color: #ffffff;
+			transition: background-color .2s;
+			min-width: 120px;
+			display: inline-block;
+			text-align: center;
+			box-sizing: border-box;
+			font-size: 16px;
+            user-select: none;
+            padding: 6px;
+            border-radius: 3px;
+            height: 34px;
+            
+			&:hover {
+				background-color: rgba(255,255,255,0.2);
+			}
+        }
+        
+		> ul {
+			display: none;
+		}
+    }
+    
+	>li.topbar-submenu {
+        position: relative;
+        
+		> ul {
+			@include submenuList();
+
+			&.topbar-submenu-themes {
+				right: 0px;
+				width: 250px;
+				max-height: 300px;
+				list-style-type: none;
+			}
+
+			&.topbar-submenu-versions {
+				width: 40px;
+				max-height: 300px;
+				list-style-type: none;
+				a {
+					padding: 6px 12px;
+				}
+			}
+
+			&.topbar-submenu-resources {
+				right: 0px;
+				width: 275px;
+				max-height: 450px;
+                list-style: none;
+                
+				a {
+					user-select: none;
+				}
+			}
+		}
+		a {
+			cursor: pointer;
+			&.topbar-submenu-versions-header {
+				min-width: 40px;
+			}
+		}
+		&.topbar-menu-active {
+			>ul {
+				display: block;
+			}
+		}
+	}
+}

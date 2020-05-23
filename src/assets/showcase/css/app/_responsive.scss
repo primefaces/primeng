@@ -1,0 +1,241 @@
+@media screen and (max-width: 64em) {
+    .layout-wrapper {
+        .ui-toast-top-right,
+        .ui-toast-top-left,
+        .ui-toast-top-center {
+            top: 110px;
+        }
+
+        &.layout-news-active {
+            .layout-sidebar {
+                top: 164px;
+                height: calc(100% - 164px);
+			}
+			
+			.layout-config {
+				top: 164px;
+                height: calc(100% - 164px);
+            }
+            
+            .layout-content {
+                padding-top: 164px;
+            }
+
+            .layout-mask {
+                top: 164px;
+            }
+            
+            .ui-toast-top-right,
+            .ui-toast-top-left,
+            .ui-toast-top-center {
+                top: 180px;
+            }
+			
+			.topbar-menu {
+				>li.topbar-submenu {
+					>ul {
+						&.topbar-submenu-themes, &.topbar-submenu-resources {
+							top: 164px;
+						}
+					}
+				}
+			}
+        }
+    }
+
+	.layout-mask {
+		display: block;
+    }
+    
+	.layout-topbar {
+        text-align: center;
+        
+		.menu-button {
+			display: inline-block;
+		}
+        
+        .logo {
+			margin: 7px 0 7px 0;
+		}
+    }
+    
+	.topbar-menu {
+		background-color: #363c3f;
+		float: none;
+		width: 100%;
+		height: 40px;
+		margin: 0;
+		text-align: center;
+		>li {
+			width: 25%;
+			>a {
+				min-width: 0px;
+				width: 100%;
+				padding-bottom: 0;
+				line-height: 40px;
+				font-size: 14px;
+			}
+		}
+		>li.topbar-submenu {
+			&:last-of-type {
+				display: none;
+			}
+
+			>ul {
+				top: 40px;
+				text-align: left;
+
+				&.topbar-submenu-themes, &.topbar-submenu-resources {
+					width: 100vw;
+					position: fixed;
+					left: 0px;
+					top: 100px;
+					right: auto;
+				}
+			}
+		}
+	}
+	.layout-sidebar {
+		top: 100px;
+		left: -250px;
+		transition: left .2s;
+		z-index: 9999;
+	}
+	.layout-sidebar.active {
+		left: 0;
+	}
+	.layout-content {
+		margin-left: 0;
+		padding-top: 100px;
+	}
+
+    .layout-config {
+        top: 100px;
+        height: calc(100% - 100px);
+        transform: translate3d(100%,0,0);
+        
+        .layout-config-button {
+            left: auto;
+            right: -52px;
+        }
+
+        &.layout-config-active {
+            width: 100%;
+            transform: translate3d(0,0,0);
+        }
+    }
+	.home {
+		.introduction {
+			>div {
+				width: 100%;
+			}
+		}
+		.features {
+			>div {
+				width: 100%;
+			}
+		}
+		.whouses {
+			>div {
+				width: 100%;
+			}
+		}
+		.templates {
+			>div {
+				width: 100%;
+			}
+		}
+		.prosupport {
+			>div {
+				width: 100%;
+				text-align: center;
+			}
+		}
+		.book {
+			>div {
+				width: 100%;
+			}
+			.p-col-12 {
+				&:last-child {
+					text-align: center !important;
+				}
+				&:first-child {
+					text-align: center !important;
+				}
+			}
+		}
+		.testimonials {
+			>div {
+				width: 100%;
+			}
+		}
+	}
+	.support {
+		.support-image {
+            text-align: center;
+            
+			.p-md-6 {
+				&:last-child {
+					text-align: center;
+					padding-top: 2em;
+				}
+			}
+		}
+	}
+}
+@media (max-width: 768px) {
+	.doc-table {
+		tbody {
+			td {
+				word-break: break-word;
+			}
+		}
+	}
+	.layout-notification {
+		a {
+			font-size: 16px;
+		}
+	}
+	.layout-notification-details {
+		.rate {
+			font-size: 21px;
+		}
+    }
+    
+    .layout-wrapper {
+        .layout-news {
+            display: block;
+
+            .layout-news-details {
+                display: block;
+                font-size: 16px;
+                padding: 0 55px;
+
+                .rate {
+                    margin: 0;
+                    font-size: 21px;
+                }
+            }
+
+            img {
+                margin-left: 14px;
+            }
+
+            .layout-news-button {
+                opacity: 0;
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                top: 0;
+                left: 0;
+            }
+
+            .layout-news-close {
+                top: 50%;
+                margin-top: -.65em;
+            }
+        }
+    }
+}
