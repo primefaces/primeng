@@ -1,6 +1,6 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 
 declare let gtag: Function;
 
@@ -20,8 +20,19 @@ declare let gtag: Function;
             opacity: 1
         })),
         transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-    ])
-]
+    ]),
+    trigger('topbarSubmenu', [
+        state('void', style({
+            transform: 'translateY(5%)',
+            opacity: 0
+        })),
+        state('visible', style({
+            transform: 'translateY(0)',
+            opacity: 1
+        })),
+        transition('* <=> *', animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')),
+    ]) 
+    ]
 })
 export class AppComponent implements OnInit{
 
@@ -39,35 +50,17 @@ export class AppComponent implements OnInit{
 
     newsActive: boolean;
 
-    resourcesMenuVisible: boolean;
-
-    resourcesMenuClick: boolean;
-
-    themesMenuVisible: boolean;
-
-    themesMenuClick: boolean;
-
-    templatesMenuVisible: boolean;
-
-    templatesMenuClick: boolean;
-
-    versionsMenuVisible: boolean;
-
-    versionsMenuClick: boolean;
-
-    themesMenuOutsideClickListener: any;
-
-    templatesMenuOutsideClickListener: any;
-
-    resourcesMenuOutsideClickListener: any;
-
-    versionsMenuOutsideClickListener: any;
-
     configClick: boolean;
 
     configActive: boolean;
 
     activeSubmenus: {[key: string]: boolean} = {};
+
+    activeTopbarSubmenu: number;
+
+    topbarSubmenuOutsideClickListener;
+
+    @ViewChild('topbarMenu') topbarMenu: ElementRef;
 
     constructor(private router: Router, public renderer: Renderer2) {
         this.router.events.subscribe(event => {
@@ -97,6 +90,7 @@ export class AppComponent implements OnInit{
             break;
         }
     }
+
     onAnimationDone (event) {
         switch (event.toState) {
             case 'hidden':
@@ -173,127 +167,6 @@ export class AppComponent implements OnInit{
         this.newsActive = false;
         sessionStorage.setItem('primenews-hidden', "true");
         event.preventDefault();
-    } 
-
-    onResourcesMenuClick(event) {
-        if (!this.resourcesMenuVisible) {
-            this.resourcesMenuVisible = true;
-            this.resourcesMenuClick = true;
-            this.bindResourcesMenuOutsideClickListener();        
-        }
-    }
-
-    onThemesMenuClick(event) {
-        if (!this.themesMenuVisible) {
-            this.themesMenuVisible = true;
-            this.themesMenuClick = true;
-            this.bindThemesMenuOutsideClickListener();
-        }
-    }
-
-    onTemplatesMenuClick(event) {
-        if (!this.templatesMenuVisible) {
-            this.templatesMenuVisible = true;
-            this.templatesMenuClick = true;
-            this.bindTemplatesMenuOutsideClickListener();
-        }
-    }
-
-    onVersionsMenuClick(event) {
-        if (!this.versionsMenuVisible) {
-            this.versionsMenuVisible = true;
-            this.versionsMenuClick = true;
-            this.bindVersionsMenuOutsideClickListener();
-        }
-    }
-
-    bindThemesMenuOutsideClickListener() {
-        if (!this.themesMenuOutsideClickListener) {
-            this.themesMenuOutsideClickListener = (event) => {
-                if (!this.themesMenuClick) {
-                    this.themesMenuVisible = false;
-                    this.unbindThemesMenuOutsideClickListener();
-                }
-
-                this.themesMenuClick = false;
-            };
-
-            document.addEventListener('click', this.themesMenuOutsideClickListener);
-        }
-    }
-
-    unbindThemesMenuOutsideClickListener() {
-        if (this.themesMenuOutsideClickListener) {
-            document.removeEventListener('click', this.themesMenuOutsideClickListener);
-            this.themesMenuOutsideClickListener = null;
-        }
-    }
-
-    bindTemplatesMenuOutsideClickListener() {
-        if (!this.templatesMenuOutsideClickListener) {
-            this.templatesMenuOutsideClickListener = (event) => {
-                if (!this.templatesMenuClick) {
-                    this.templatesMenuVisible = false;
-                    this.unbindTemplatesMenuOutsideClickListener();
-                }
-
-                this.templatesMenuClick = false;
-            };
-
-            document.addEventListener('click', this.templatesMenuOutsideClickListener);
-        }
-    }
-
-    unbindTemplatesMenuOutsideClickListener() {
-        if (this.templatesMenuOutsideClickListener) {
-            document.removeEventListener('click', this.templatesMenuOutsideClickListener);
-            this.templatesMenuOutsideClickListener = null;
-        }
-    }
-
-    
-    bindResourcesMenuOutsideClickListener() {
-        if (!this.resourcesMenuOutsideClickListener) {
-            this.resourcesMenuOutsideClickListener = (event) => {
-                if (!this.resourcesMenuClick) {
-                    this.resourcesMenuVisible = false;
-                    this.unbindResourcesMenuOutsideClickListener();
-                }
-
-                this.resourcesMenuClick = false;
-            };
-
-            document.addEventListener('click', this.resourcesMenuOutsideClickListener);
-        }
-    }
-    
-    unbindResourcesMenuOutsideClickListener() {
-        if (this.resourcesMenuOutsideClickListener) {
-            document.removeEventListener('click', this.resourcesMenuOutsideClickListener);
-            this.resourcesMenuOutsideClickListener = null;
-        }
-    }
-
-    bindVersionsMenuOutsideClickListener() {
-        if (!this.versionsMenuOutsideClickListener) {
-            this.versionsMenuOutsideClickListener = (event) => {
-                if (!this.versionsMenuClick) {
-                    this.versionsMenuVisible = false;
-                    this.unbindVersionsMenuOutsideClickListener();
-                }
-
-                this.versionsMenuClick = false;
-            };
-
-            document.addEventListener('click', this.versionsMenuOutsideClickListener);
-        }
-    }
-
-    unbindVersionsMenuOutsideClickListener() {
-        if (this.versionsMenuOutsideClickListener) {
-            document.removeEventListener('click', this.versionsMenuOutsideClickListener);
-            this.versionsMenuOutsideClickListener = null;
-        }
     }
 
     toggleSubmenu(event, name) {
@@ -303,5 +176,45 @@ export class AppComponent implements OnInit{
 
     isSubmenuActive(name) {
         return this.activeSubmenus.hasOwnProperty(name) ? this.activeSubmenus[name] : this.router.isActive(name, false);
+    }
+
+    bindTopbarSubmenuOutsideClickListener() {
+        if (!this.topbarSubmenuOutsideClickListener) {
+            this.topbarSubmenuOutsideClickListener = (event) => {
+                if (this.isOutsideTopbarMenuClicked(event)) {
+                    this.activeTopbarSubmenu =  null;
+                }
+            };
+
+            document.addEventListener('click', this.topbarSubmenuOutsideClickListener);
+        }
+    }
+
+    unbindTopbarSubmenuOutsideClickListener() {
+        if (this.topbarSubmenuOutsideClickListener) {
+            document.removeEventListener('click', this.topbarSubmenuOutsideClickListener);
+            this.topbarSubmenuOutsideClickListener = null;
+        }
+    }
+
+    toggleTopbarSubmenu(event: Event, index: number) {
+        this.activeTopbarSubmenu = this.activeTopbarSubmenu === index ? null : index;
+        event.preventDefault();
+    }
+
+    isOutsideTopbarMenuClicked(event): boolean {
+        return !(this.topbarMenu.nativeElement.isSameNode(event.target) || this.topbarMenu.nativeElement.contains(event.target));
+    }
+
+    onTopbarSubmenuAnimationStart(event: AnimationEvent) {
+        switch(event.toState) {
+            case 'visible':
+                this.bindTopbarSubmenuOutsideClickListener();
+            break;
+
+            case 'void':
+                this.unbindTopbarSubmenuOutsideClickListener();
+            break;
+        }
     }
 }

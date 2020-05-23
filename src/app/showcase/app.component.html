@@ -22,24 +22,10 @@
             <img alt="logo" src="assets/showcase/images/primeng-logo.svg" />
         </a>
 
-        <div [ngClass]="{'topbar-submenu-mobile-version': true, 'topbar-menu-active': versionsMenuVisible}">
-            <a class="topbar-submenu-versions-header" (click)="onVersionsMenuClick($event)">v9</a>
-            <ul class="topbar-submenu-versions">
-                <li><a href="https://www.primefaces.org/primeng-8.1.5">v8</a></li>
-                <li><a href="https://www.primefaces.org/primeng-7.1.3">v7</a></li>
-                <li><a href="https://www.primefaces.org/primeng-6.1.6">v6</a></li>
-                <li><a href="https://www.primefaces.org/primeng-5.2.7">v5</a></li>
-                <li><a href="https://www.primefaces.org/primeng-4.3.0">v4</a></li>
-            </ul>
-        </div>
-
-        <ul class="topbar-menu">
+        <ul class="topbar-menu" #topbarMenu>
             <li>
-                <a [routerLink]="['/setup']">Get Started</a>
-            </li>
-            <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': themesMenuVisible}">
-                <a (click)="onThemesMenuClick($event)">Themes</a>
-                <ul class="topbar-submenu-themes">
+                <a tabindex="0" (click)="toggleTopbarSubmenu($event, 0)">Themes</a>
+                <ul [@topbarSubmenu]="'visible'" *ngIf="activeTopbarSubmenu === 0" (@topbarSubmenu.start)="onTopbarSubmenuAnimationStart($event)">
                     <li class="topbar-submenu-header">Theming</li>
                     <li><a [routerLink]="['./theming']"><span class="topbar-submenu-icon pi pi-fw pi-file"></span>Guide</a></li>
                     <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon pi pi-fw pi-cog"></span>Designer</a></li>
@@ -55,9 +41,9 @@
                     <li><a href="#" (click)="changeTheme($event, 'rhea', false)"><img src="assets/showcase/images/themeswitcher-rhea.png" alt="Luna Pink"><span class="ui-text">Rhea</span></a></li>
                 </ul>
             </li>
-            <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': templatesMenuVisible}">
-                <a (click)="onTemplatesMenuClick($event)">Templates</a>
-                <ul class="topbar-submenu-themes">
+            <li>
+                <a tabindex="0" (click)="toggleTopbarSubmenu($event, 1)">Templates</a>
+                <ul [@topbarSubmenu]="'visible'" *ngIf="activeTopbarSubmenu === 1" (@topbarSubmenu.start)="onTopbarSubmenuAnimationStart($event)">
                     <li class="topbar-submenu-header">Premium CLI Templates</li>
                     <li><a href="http://www.primefaces.org/layouts/mirage-ng"><img src="assets/showcase/images/themeswitcher-mirage.png" alt="Mirage"><span class="ui-text">Mirage </span><span class="theme-badge bootstrap">bootstrap</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/prestige-ng"><img src="assets/showcase/images/themeswitcher-prestige.png" alt="Prestige"><span class="ui-text">Prestige </span></a></li>
@@ -82,9 +68,9 @@
                     <li><a href="http://www.primefaces.org/layouts/omega-ng"><img src="assets/showcase/images/themeswitcher-omega.png" alt="Omega"><span class="ui-text">Omega</span></a></li>
                 </ul>
             </li>
-            <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': resourcesMenuVisible}">
-                <a (click)="onResourcesMenuClick($event)">Resources</a>
-                <ul class="topbar-submenu-resources">
+            <li>
+                <a tabindex="0" (click)="toggleTopbarSubmenu($event, 2)">Resources</a>
+                <ul [@topbarSubmenu]="'visible'" *ngIf="activeTopbarSubmenu === 2" (@topbarSubmenu.start)="onTopbarSubmenuAnimationStart($event)">
                     <li><a [routerLink]="['/lts']"><span>Long Term Support</span></a></li>
                     <li><a [routerLink]="['/support']"><span>PRO Support</span></a></li>
                     <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Community Support</span></a></li>
@@ -97,9 +83,9 @@
                     <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
                 </ul>
             </li>
-            <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': versionsMenuVisible}">
-                <a class="topbar-submenu-versions-header" (click)="onVersionsMenuClick($event)">v9.1.0</a>
-                <ul class="topbar-submenu-versions">
+            <li>
+                <a tabindex="0" (click)="toggleTopbarSubmenu($event, 3)">v9.1.0</a>
+                <ul [@topbarSubmenu]="'visible'" *ngIf="activeTopbarSubmenu === 3" class="topbar-submenu-versions" (@topbarSubmenu.start)="onTopbarSubmenuAnimationStart($event)">
                     <li><a href="https://www.primefaces.org/primeng-8.1.5">v8.1.5</a></li>
                     <li><a href="https://www.primefaces.org/primeng-7.1.3">v7.1.3</a></li>
                     <li><a href="https://www.primefaces.org/primeng-6.1.6">v6.1.6</a></li>
@@ -117,6 +103,18 @@
                     (onSelect)="selectRoute($event)" placeholder="Search"></p-autoComplete>
                 <i class="pi pi-search"></i>
             </div>
+            <span>
+                <i class="pi pi-home"></i>
+                <span>General</span>
+            </span>
+            <div>
+                <a [routerLink]="['/setup']" (click)="menuActive = false">Get Started</a>
+                <a [routerLink]="['/theming']" (click)="menuActive = false">Theming</a>
+                <a href="https://www.primefaces.org/designer/primeng">Designer</a>
+                <a [routerLink]="['/flexgrid']" (click)="menuActive = false">PrimeFlex</a>
+                <a [routerLink]="['/icons']" (click)="menuActive = false">Icons</a>
+            </div>
+
             <span>
                 <i class="pi pi-id-card"></i>
                 <span>Form</span>
@@ -257,7 +255,6 @@
                 <a [routerLink]="['/accordion']" (click)="menuActive = false">Accordion</a>
                 <a [routerLink]="['/card']" (click)="menuActive = false">Card</a>
                 <a [routerLink]="['/fieldset']" (click)="menuActive = false">Fieldset</a>
-                <a [routerLink]="['/flexgrid']" (click)="menuActive = false">FlexGrid</a>
                 <a [routerLink]="['/panel']" (click)="menuActive = false">Panel</a>
                 <a [routerLink]="['/scrollpanel']" (click)="menuActive = false">ScrollPanel</a>
                 <a [routerLink]="['/tabview']" (click)="menuActive = false">TabView</a>
