@@ -184,7 +184,15 @@ export class AppComponent implements OnInit{
     }
 
     isSubmenuActive(name) {
-        return this.activeSubmenus.hasOwnProperty(name) ? this.activeSubmenus[name] : this.router.isActive(name, false);
+        if (this.activeSubmenus.hasOwnProperty(name)) {
+            return this.activeSubmenus[name];
+        }
+        else if (this.router.isActive(name, false)) {
+            this.activeSubmenus[name] = true;
+            return true;
+        }
+
+        return false;
     }
 
     bindTopbarSubmenuOutsideClickListener() {
