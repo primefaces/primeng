@@ -14,7 +14,7 @@ import { DomHandler } from 'primeng/dom';
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent (activeItemChange)="onActiveItemChange($event)" [ngStyle]="containerStyle"></p-galleriaContent>
+            <p-galleriaContent (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
         </ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.Default
