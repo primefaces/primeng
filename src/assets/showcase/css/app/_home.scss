@@ -14,7 +14,8 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		color: #20272a;
-		padding: 80px 30px 80px 50px;
+        padding: 80px 30px 80px 50px;
+        
 		>div {
 			padding: 100px 100px 0 100px;
 			height: 200px;
@@ -39,7 +40,7 @@
             margin-left: -50px;
             padding: 2px 50px 2px 50px;
             font-size: 1.5em;
-			background-image: linear-gradient(270deg, rgba(32,39,42,0.10) 0%, #20272a 100%);
+			background-image:linear-gradient(270deg, rgba(255, 152, 0, 50%), #F57C00 100%);
 			color: white;
         }
     }
@@ -256,7 +257,7 @@
 
     /* PRO */
 	.prosupport {
-		background-color: rgba(79,41,64,.8);
+		background-color: #FF9800;
 		padding: 30px;
 		color: #ffffff;
 		p {
@@ -275,17 +276,18 @@
 }
 .home-button {
 	font-weight: bold;
-	background-color: #FBD17B;
-	color: #B27800;
+	background-color: #1976d2;
+	color: #ffffff;
 	padding: 8px 14px;
 	border-radius: 3px;
 	transition: background-color .2s;
 	display: inline-block;
 	min-width: 120px;
-	text-align: center;
+    text-align: center;
+    
 	&:hover {
-		background-color: #f9c55a;
-		color: #B27800;
+		background-color: #1E88E5;
+		color: #ffffff;
 	}
 }
 

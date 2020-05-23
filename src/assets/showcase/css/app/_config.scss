@@ -7,14 +7,14 @@
     width: 550px;
     z-index: 996;
     height: calc(100% - 64px);
-    @include transition(transform .3s);
-    transform: translate3d(550px,0,0);
+    transform: translateX(100%);
     background-color: #ffffff;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    @include transition(transform .3s);
     
     &.layout-config-active {
-        transform: translate3d(0,0,0);
+        transform: translateX(0);
         
         .layout-config-content-wrapper {
             .layout-config-button {
@@ -37,7 +37,7 @@
             width: 52px;
             height: 52px;
             line-height: 52px;
-            background-color: #007ad9;
+            background-color: #1976d2;
             text-align: center;
             color: #fafafa;
             top: 200px;
@@ -45,8 +45,9 @@
             z-index: -1;
             overflow: hidden;
             cursor: pointer;
-            @include border-radius-left(3px);
-            @include transition(background-color .2s, box-shadow .2s);
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            transition: background-color .2s, box-shadow .2s;
             box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
                         0 5px 22px 4px rgba(0, 0, 0, 0.12), 
                         0 12px 17px 2px rgba(0, 0, 0, 0.14);
@@ -60,7 +61,7 @@
             }
 
             &:hover {
-                background-color: #116fbf;
+                background-color: #1E88E5;
             }
         }
     }
@@ -89,7 +90,7 @@
         right: 20px;
         top: 20px;
         z-index: 999;
-        background-color: #007ad9;
+        background-color: #1976d2;
         @include border-radius(50%);
         @include transition(background-color .2s, box-shadow .2s);
 
@@ -100,7 +101,7 @@
         }
 
         &:hover {
-            background-color: #116fbf;
+            background-color: #1E88E5;
         }
 
         &:focus {
@@ -132,10 +133,6 @@
         padding: 2em;
         color: #404C51;
         background-color: #ffffff;
-
-        p {
-            color: #727272;
-		}
 		
 		a {
 			text-align: center;
