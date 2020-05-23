@@ -1,4 +1,4 @@
-@media screen and (max-width: 64em) {
+@media screen and (max-width: 1024px) {
     .layout-wrapper {
         .ui-toast-top-right,
         .ui-toast-top-left,
@@ -19,10 +19,6 @@
             
             .layout-content {
                 padding-top: 164px;
-            }
-
-            .layout-mask {
-                top: 164px;
             }
             
             .ui-toast-top-right,
@@ -49,61 +45,62 @@
     
 	.layout-topbar {
         text-align: center;
+        height: 100px;
         
 		.menu-button {
-			display: inline-block;
-		}
+			display: block;
+        }
         
         .logo {
-			margin: 7px 0 7px 0;
-		}
+            margin-left: 0;
+        }
     }
     
 	.topbar-menu {
-		background-color: #363c3f;
+		background-color: #1976d2;
 		float: none;
 		width: 100%;
-		height: 40px;
 		margin: 0;
-		text-align: center;
-		>li {
-			width: 25%;
-			>a {
+        text-align: center;
+        display: flex;
+        margin-top: 6px;
+        
+		 > li {
+            width: 25%;
+            margin-left: 0;
+            display: block;
+            
+			> a {
 				min-width: 0px;
 				width: 100%;
-				padding-bottom: 0;
-				line-height: 40px;
-				font-size: 14px;
+                font-size: 14px;
+                border-radius: 0;
+			}
+        }
+        
+		> li {
+			> ul {
+                width: 100vw;
+                position: fixed;
+                left: 0px;
+                top: 100px;
+                right: auto;
 			}
 		}
-		>li.topbar-submenu {
-			&:last-of-type {
-				display: none;
-			}
-
-			>ul {
-				top: 40px;
-				text-align: left;
-
-				&.topbar-submenu-themes, &.topbar-submenu-resources {
-					width: 100vw;
-					position: fixed;
-					left: 0px;
-					top: 100px;
-					right: auto;
-				}
-			}
-		}
-	}
+    }
+    
 	.layout-sidebar {
-		top: 100px;
+		top: 0;
 		left: -250px;
 		transition: left .2s;
-		z-index: 9999;
-	}
+        z-index: 9999;
+        height: 100%;
+    }
+    
 	.layout-sidebar.active {
 		left: 0;
-	}
+    }
+    
 	.layout-content {
 		margin-left: 0;
 		padding-top: 100px;
@@ -124,37 +121,44 @@
             transform: translate3d(0,0,0);
         }
     }
+
 	.home {
 		.introduction {
-			>div {
+			> div {
 				width: 100%;
 			}
-		}
+        }
+        
 		.features {
-			>div {
+			> div {
 				width: 100%;
 			}
-		}
+        }
+        
 		.whouses {
-			>div {
+			> div {
 				width: 100%;
 			}
-		}
+        }
+        
 		.templates {
-			>div {
+			> div {
 				width: 100%;
 			}
-		}
+        }
+        
 		.prosupport {
-			>div {
+			> div {
 				width: 100%;
 				text-align: center;
 			}
-		}
+        }
+        
 		.book {
-			>div {
+			> div {
 				width: 100%;
-			}
+            }
+            
 			.p-col-12 {
 				&:last-child {
 					text-align: center !important;
@@ -163,13 +167,15 @@
 					text-align: center !important;
 				}
 			}
-		}
+        }
+        
 		.testimonials {
-			>div {
+			> div {
 				width: 100%;
 			}
 		}
-	}
+    }
+    
 	.support {
 		.support-image {
             text-align: center;
@@ -181,10 +187,9 @@
 				}
 			}
 		}
-	}
-}
-@media (max-width: 768px) {
-	.doc-table {
+    }
+    
+    .doc-table {
 		tbody {
 			td {
 				word-break: break-word;

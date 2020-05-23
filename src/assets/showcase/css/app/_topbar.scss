@@ -23,10 +23,12 @@
 		height: 60px;
 		line-height: 58px;
 		text-align: center;
-		transition: background-color .2s;
+        transition: background-color .2s;
+        
 		&:hover {
 			background-color: rgba(255,255,255,0.2);
-		}
+        }
+        
 		i {
 			line-height: inherit;
 		}

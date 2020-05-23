@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { VersionService } from './service/versionservice';
 
 declare let gtag: Function;
 
@@ -60,9 +61,11 @@ export class AppComponent implements OnInit{
 
     topbarSubmenuOutsideClickListener;
 
+    versions: any[];
+
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
 
-    constructor(private router: Router, public renderer: Renderer2) {
+    constructor(private router: Router, private renderer: Renderer2, private versionService: VersionService) {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 gtag('config', 'UA-93461466-1', 
@@ -74,7 +77,9 @@ export class AppComponent implements OnInit{
                 this.activeTopbarSubmenu = null;
                 this.menuActive = false;
              }
-          });
+        });
+
+        this.versionService.getVersions().then(data => this.versions = data);
     }
 
     ngOnInit() {

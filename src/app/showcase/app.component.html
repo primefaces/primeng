@@ -84,13 +84,11 @@
                 </ul>
             </li>
             <li>
-                <a tabindex="0" (click)="toggleTopbarSubmenu($event, 3)">v9.1.0</a>
+                <a tabindex="0" (click)="toggleTopbarSubmenu($event, 3)">{{versions ? versions[0].version : 'Latest'}}</a>
                 <ul [@topbarSubmenu]="'visible'" *ngIf="activeTopbarSubmenu === 3" class="topbar-submenu-versions" (@topbarSubmenu.start)="onTopbarSubmenuAnimationStart($event)">
-                    <li><a href="https://www.primefaces.org/primeng-8.1.5">v8.1.5</a></li>
-                    <li><a href="https://www.primefaces.org/primeng-7.1.3">v7.1.3</a></li>
-                    <li><a href="https://www.primefaces.org/primeng-6.1.6">v6.1.6</a></li>
-                    <li><a href="https://www.primefaces.org/primeng-5.2.7">v5.2.7</a></li>
-                    <li><a href="https://www.primefaces.org/primeng-4.3.0">v4.3.0</a></li>
+                    <li *ngFor="let v of versions">
+                        <a [href]="v.url">{{v.version}}</a>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -378,7 +376,7 @@
         </div>
     </div>
 
-    <div class="layout-mask" *ngIf="menuActive">
+    <div class="layout-mask" *ngIf="menuActive" (click)="menuActive = false">
     </div>
 
     <app-config></app-config>
