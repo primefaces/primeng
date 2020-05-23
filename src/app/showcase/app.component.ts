@@ -70,6 +70,9 @@ export class AppComponent implements OnInit{
                         'page_path': '/primeng' + event.urlAfterRedirects
                       }
                 );
+
+                this.activeTopbarSubmenu = null;
+                this.menuActive = false;
              }
           });
     }
@@ -130,6 +133,7 @@ export class AppComponent implements OnInit{
             this.removeClass(document.body, 'dark-theme');
         }
         
+        this.activeTopbarSubmenu = null;
         event.preventDefault();
     }
 

@@ -7,7 +7,8 @@
 
 	.footer-links {
 		float: right;
-		font-size: 24px;
+        font-size: 24px;
+        
 		a {
 			color: #707070;
 			margin-left: 16px;
@@ -21,25 +22,28 @@
     overflow: hidden;
     
 	&:first-of-type {
-		>div {
-			>span {
-				line-height: 1.5em;
+		> div {
+			> span {
+                line-height: 1.5em;
+                
 				&:last-child {
 					font-size: 16px;
 				}
 			}
 		}
-	}
+    }
+    
 	h2 {
 		margin-top: 0;
 	}
 }
+
 .content-section.introduction {
 	background: #378fe7;
     color: #ffffff;
     
 	a {
-		color: #333333;
+		color: #ffffff;
         font-weight: 700;
         
         &:hover {
@@ -49,7 +53,7 @@
 
     .subitem {
         font-weight: normal;
-        color: #707070;
+        color: rgba(255,255,255,0.7);
     }
 
     + .content-section {

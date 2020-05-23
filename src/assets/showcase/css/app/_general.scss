@@ -49,17 +49,6 @@ body {
     }
 }
 
-.menuitem-badge {
-	background: #00b09b;
-	background: -webkit-linear-gradient(to bottom, #96c93d, #00b09b);
-	background: linear-gradient(to bottom, #96c93d, #00b09b);
-	padding: 2px 4px;
-	vertical-align: middle;
-	border-radius: 3px;
-	color: #ffffff;
-	font-weight: 700;
-	font-size: 11px;
-}
 .theme-badge {
 	padding: 2px 4px;
 	border-radius: 3px;
@@ -67,22 +56,22 @@ body {
 	font-weight: 700;
     font-size: 11px;
     margin-left: .25rem;
+
+    &.material {
+        background: #2196F3;
+    }
+
+    &.bootstrap {
+        background: #563D7C;
+    }
 }
-.theme-badge.material {
-	background: #00b09b;
-	background: -webkit-linear-gradient(to bottom, #202124, #404147);
-	background: linear-gradient(to bottom, #202124, #404147);
-}
-.theme-badge.bootstrap {
-	background: #563D7C;
-	background: -webkit-linear-gradient(to bottom, #563D7C, #966BD8);
-	background: linear-gradient(to bottom, #563D7C, #966BD8);
-}
+
 .layout-content {
 	margin-left: 250px;
 	padding-top: 64px;
 	background-color: #ffffff;
 }
+
 .layout-mask {
 	z-index: 9998;
 	width: 100%;
@@ -95,50 +84,6 @@ body {
 	opacity: .7;
 }
 
-
-/* Animation */
-@-webkit-keyframes fadeInDown {
-	from {
-		opacity: 0;
-		-webkit-transform: translate3d(0, 20px, 0);
-		transform: translate3d(0, 20px, 0);
-	}
-	to {
-		opacity: 1;
-		-webkit-transform: none;
-		transform: none;
-	}
-}
-@keyframes fadeInDown {
-	from {
-		opacity: 0;
-		transform: translate3d(0, 20px, 0);
-	}
-	to {
-		opacity: 1;
-		transform: none;
-	}
-}
-@-webkit-keyframes fadeOutUp {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-		-webkit-transform: translate3d(0, -20px, 0);
-		transform: translate3d(0, -20px, 0);
-	}
-}
-@keyframes fadeOutUp {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-		-webkit-transform: translate3d(0, -20px, 0);
-		transform: translate3d(0, -20px, 0);
-	}
-}
 @keyframes pulse {
 	0% {
 		background-color: rgba(165, 165, 165, 0.1);
@@ -214,7 +159,6 @@ body {
     to { background-position: 0 400px; }
 }
 
-
 .ui-tabview-left {
 	>.ui-tabview-nav {
 		height: 150px;
@@ -238,7 +182,6 @@ a {
 	text-decoration: none;
 	color: #1b82d7;
 }
-
 
 @media (max-width: 450px) {
 	.notification-topbar {
