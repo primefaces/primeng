@@ -62,37 +62,53 @@
 	margin: 0;
 	border-radius: 3px;
 	animation-name: fadeInDown;
-	animation-duration: .3s;
-	>li.topbar-submenu-header {
-		padding: 6px 12px;
-		font-weight: bold;
+    animation-duration: .3s;
+    padding: 1rem;
+    
+	> li.topbar-submenu-header {
+		padding: .5rem;
+		font-weight: 700;
 		text-align: left;
-		background-image: linear-gradient(to left, #2bc0ec, #1b81d7);
-		color: #ffffff;
-	}
+		background-color: #f8f9fa;
+        color: #6c757c;
+        margin: .5rem 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
 	a {
 		user-select: none;
 		text-decoration: none;
-		color: #333333;
-		display: block;
+		color: #404C51;
+        display: flex;
+        align-items: center;
 		cursor: pointer;
-		transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        padding: .5rem;
+        
 		&:hover {
-			background-color: #eeeeee;
+			background-color: #e9ecef;
 			cursor: pointer;
 		}
 		img {
 			width: 32px;
 			vertical-align: middle;
-		}
+        }
+        
 		.topbar-submenu-icon {
-			font-size: 20px;
-			vertical-align: middle;
-			margin-right: 8px;
-		}
+            font-size: 18px;
+            margin-right: .25rem;
+        }
+        
 		.ui-text {
-			vertical-align: middle;
-			margin-left: 8px;
+			line-height: 1;
+			margin-left: .5rem;
 		}
 	}
 }
@@ -358,18 +374,12 @@ body {
 				width: 250px;
 				max-height: 300px;
 				list-style-type: none;
-				padding: 0px;
-				padding-bottom: 6px;
-				a {
-					padding: 6px 12px;
-				}
 			}
 
 			&.topbar-submenu-versions {
 				width: 40px;
 				max-height: 300px;
 				list-style-type: none;
-				padding: 15px 0;
 				a {
 					padding: 6px 12px;
 				}
@@ -379,7 +389,6 @@ body {
 				right: 0px;
 				width: 275px;
 				max-height: 450px;
-				padding: 6px 12px;
 				list-style: none;
 				a {
 					span {
@@ -431,15 +440,15 @@ body {
 			height: 50px;
 			display: block;
 			padding: 1rem;
-			background-color: #f4f4f4;
-			user-select: none;
+			background-color: #f8f9fa;
+            user-select: none;
+            color: #6c757c;
 			font-weight: 700;
             outline: none;
             display: flex;
             align-items: center;
 			
 			span {
-				color: #767676;
                 display: block;
                 margin-left: .25rem;
                 line-height: 1;
@@ -452,7 +461,7 @@ body {
             
         }
         
-		>div.layout-menu-search {
+		> div.layout-menu-search {
 			padding: 1.5em;
 			overflow: visible;
 			position: relative;
@@ -469,7 +478,8 @@ body {
 				cursor: pointer;
 				border-radius: 4px;
 				font-size: 14px;
-				color: #404C51;
+                color: #404C51;
+                
 				&:focus {
 					z-index: 1;
 					outline: 0 none;
@@ -478,7 +488,7 @@ body {
 					box-shadow: inset 0 0 0 0.2em #8dcdff;
 				}
 				&:hover {
-					background-color: #eeeeee;
+					background-color: #e9ecef;
                 }
                 &.router-link-active {
                     font-weight: 700;
@@ -591,6 +601,11 @@ body {
         }
     }
 
+    .subitem {
+        font-weight: normal;
+        color: #707070;
+    }
+
     + .content-section {
         border-top: 0 none;
     }
@@ -602,13 +617,16 @@ body {
     font-weight: 700;
 }
 .layout-footer {
-	color: #000000;
-	font-weight: bold;
+	color: #707070;
+    font-weight: bold;
+    background-color: #f5f7f8;
+    border-top: 1px solid #dcdedf;
+
 	.footer-links {
 		float: right;
 		font-size: 24px;
 		a {
-			color: #000000;
+			color: #707070;
 			margin-left: 16px;
 		}
 	}
@@ -1040,7 +1058,7 @@ body {
 			height: 60px;
 			position: absolute;
     		right: 0px;
-			>a {
+			> a {
 				color: #ffffff;
 				padding-top: 19px;
 				padding-bottom: 20px;
@@ -1055,10 +1073,10 @@ body {
 				&:hover {
 					background-color: rgba(255,255,255,0.2);
 				}
-			}
-			>ul {
+            }
+            
+			> ul {
 				@include submenuList();
-
 				display: none;
 				top: 60px;
 
@@ -1066,10 +1084,6 @@ body {
 					width: 40px;
 					max-height: 300px;
 					list-style-type: none;
-					padding: 15px 0;
-					a {
-						padding: 6px 12px;
-					}
 				}
 			}
 
@@ -1429,7 +1443,7 @@ a {
 		font-size: 20px;
 	}
 	.introduction {
-		background-color: #1976d2;
+		background-color: #f5f7f8;
 		background-image: url('assets/showcase/images/home/introduction.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;

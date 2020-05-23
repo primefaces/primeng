@@ -40,11 +40,11 @@
             <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': themesMenuVisible}">
                 <a (click)="onThemesMenuClick($event)">Themes</a>
                 <ul class="topbar-submenu-themes">
-                    <li class="topbar-submenu-header">THEMING</li>
+                    <li class="topbar-submenu-header">Theming</li>
                     <li><a [routerLink]="['./theming']"><span class="topbar-submenu-icon pi pi-fw pi-file"></span>Guide</a></li>
-                    <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon pi pi-fw pi-cog"></span>Designer <span class="menuitem-badge">NEW</span></a></li>
-                    <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon pi pi-fw pi-search"></span>Icons <span class="menuitem-badge">NEW</span></a></li>
-                    <li class="topbar-submenu-header" style="margin-top:12px">FREE COMPONENT THEMES</li>
+                    <li><a href="https://www.primefaces.org/designer/primeng"><span class="topbar-submenu-icon pi pi-fw pi-cog"></span>Designer</a></li>
+                    <li><a [routerLink]="['./icons']"><span class="topbar-submenu-icon pi pi-fw pi-search"></span>Icons</a></li>
+                    <li class="topbar-submenu-header">Free Themes</li>
                     <li><a href="#" (click)="changeTheme($event, 'nova-light', false)"><img src="assets/showcase/images/themeswitcher-nova-light.png" alt="Nova Light"><span class="ui-text">Nova Light</span></a></li>
                     <li><a href="#" (click)="changeTheme($event, 'nova-dark', false)"><img src="assets/showcase/images/themeswitcher-nova-dark.png" alt="Nova Dark"><span class="ui-text">Nova Dark</span></a></li>
                     <li><a href="#" (click)="changeTheme($event, 'nova-colored', false)"><img src="assets/showcase/images/themeswitcher-nova-colored.png" alt="Nova Colored"><span class="ui-text">Nova Colored</span></a></li>
@@ -58,7 +58,7 @@
             <li [ngClass]="{'topbar-submenu':true, 'topbar-menu-active': templatesMenuVisible}">
                 <a (click)="onTemplatesMenuClick($event)">Templates</a>
                 <ul class="topbar-submenu-themes">
-                    <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
+                    <li class="topbar-submenu-header">Premium CLI Templates</li>
                     <li><a href="http://www.primefaces.org/layouts/mirage-ng"><img src="assets/showcase/images/themeswitcher-mirage.png" alt="Mirage"><span class="ui-text">Mirage </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/prestige-ng"><img src="assets/showcase/images/themeswitcher-prestige.png" alt="Prestige"><span class="ui-text">Prestige </span><span class="menuitem-badge">NEW</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/sapphire-ng"><img src="assets/showcase/images/themeswitcher-sapphire.png" alt="Sapphire (Material)"><span class="ui-text">Sapphire <span class="theme-badge material">material</span></span></a></li>
@@ -352,18 +352,17 @@
             </div>
 
             <span>
-                <i class="pi pi-share-alt"></i>
-                <span>Misc</span>
+                <i class="pi pi-copy"></i>
+                <span>DragDrop</span>
             </span>
             <div>
                 <a [routerLink]="['/dragdrop']" (click)="menuActive = false">Drag&amp;Drop</a>
             </div>
-
-            <a id="menu_misc" #misctitle tabindex="0">
-                    <img src="assets/showcase/images/icons/misc-active.svg" class="layout-menu-icon-active"/>
-                    <img src="assets/showcase/images/icons/misc.svg" class="layout-menu-icon-inactive"/>
-                    <span>Misc</span>
-            </a>
+            
+            <span>
+                <i class="pi pi-share-alt"></i>
+                <span>Misc</span>
+            </span>
             <div>
                 <a [routerLink]="['/blockui']" (click)="menuActive = false">BlockUI</a>
                 <a [routerLink]="['/captcha']" (click)="menuActive = false">Captcha</a>
