@@ -584,7 +584,11 @@ body {
     
 	a {
 		color: #333333;
-		font-weight: 700;
+        font-weight: 700;
+        
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     + .content-section {
@@ -594,7 +598,8 @@ body {
 .feature-title {
 	font-size: 30px;
 	margin-bottom: 20px;
-	display: block;
+    display: block;
+    font-weight: 700;
 }
 .layout-footer {
 	color: #000000;
@@ -911,7 +916,11 @@ body {
 		margin: 10px 0;
 	}
 	a {
-		color: #0273D4;
+        color: #0273D4;
+        
+        &:hover {
+            text-decoration: underline;
+        }
 	}
 	.btn-viewsource {
 		background-color: #444444;
