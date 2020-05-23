@@ -6,12 +6,11 @@ import { PhotoService } from '../../service/photoservice';import { Galleria } fr
     styleUrls: ['./galleriaadvanceddemo.scss']
 })
 export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
-    
     images: any[];
 
     showThumbnails: boolean;
 
-    isPreviewFullScreen: boolean = false;
+    fullscreen: boolean = false;
     
     activeIndex: number = 0;
     
@@ -46,7 +45,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     toggleFullScreen() {
-        if (this.isPreviewFullScreen) {
+        if (this.fullscreen) {
             this.closePreviewFullScreen();
         }
         else {
@@ -71,7 +70,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     onFullScreenChange() {
-        this.isPreviewFullScreen = !this.isPreviewFullScreen;
+        this.fullscreen = !this.fullscreen;
     }
 
     closePreviewFullScreen() {
@@ -110,10 +109,10 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     galleriaClass() {
-        return `custom-galleria ${this.isPreviewFullScreen ? 'preview-fullscreen' : ''}`;
+        return `custom-galleria ${this.fullscreen ? 'fullscreen' : ''}`;
     }
 
     fullScreenIcon() {
-        return `pi ${this.isPreviewFullScreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
+        return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
     }
 }
