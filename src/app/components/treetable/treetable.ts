@@ -877,7 +877,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
+                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.ui-treetable-scrollable-body table');
                             let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
                             let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
                             let resizeColumnIndex = DomHandler.index(column);
@@ -898,7 +898,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
                     let scrollableView = this.findParentScrollableView(column);
-                    let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-body-table');
+                    let scrollableBody = DomHandler.findSingle(scrollableView, '.ui-treetable-scrollable-body');
+                    let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.ui-treetable-scrollable-body table');
+                    let scrollableHeader = DomHandler.findSingle(scrollableView, '.ui-treetable-scrollable-header');
+                    let scrollableFooter = DomHandler.findSingle(scrollableView, '.ui-treetable-scrollable-footer');
                     let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-header-table');
                     let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-treetable-scrollable-footer-table');
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
@@ -907,6 +910,21 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         scrollableFooterTable.style.width = scrollableFooterTable.offsetWidth + delta + 'px';
                     }
                     let resizeColumnIndex = DomHandler.index(column);
+
+                    const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
+                    const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
+                    const isContainerInViewport = this.containerViewChild.nativeElement.offsetWidth >= scrollableBodyTableWidth;
+
+                    let setWidth = (container, table, width, isContainerInViewport) => {
+                        if (container && table) {
+                            container.style.width = isContainerInViewport ? width + DomHandler.calculateScrollbarWidth(scrollableBody) + 'px' : 'auto'
+                            table.style.width = width + 'px';
+                        }
+                    };
+            
+                    setWidth(scrollableBody, scrollableBodyTable, scrollableBodyTableWidth, isContainerInViewport);
+                    setWidth(scrollableHeader, scrollableHeaderTable, scrollableHeaderTableWidth, isContainerInViewport);
+                    setWidth(scrollableFooter, scrollableFooterTable, scrollableHeaderTableWidth, isContainerInViewport);
 
                     this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
                     this.resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
