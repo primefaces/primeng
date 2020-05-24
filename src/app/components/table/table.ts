@@ -1650,7 +1650,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-body-table');
+                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body table');
                             let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-header-table');
                             let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
                             let resizeColumnIndex = DomHandler.index(column);
@@ -1701,7 +1701,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let scrollableBody = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
         let scrollableHeader = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-header');
         let scrollableFooter = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-footer');
-        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, 'table.ui-table-scrollable-body-table');
+        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.ui-table-scrollable-body table');
         let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.ui-table-scrollable-header-table');
         let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.ui-table-scrollable-footer-table');
 
@@ -2084,7 +2084,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (this.scrollable) {
                 let headerCols = DomHandler.find(this.containerViewChild.nativeElement, '.ui-table-scrollable-header-table > colgroup > col');
-                let bodyCols = DomHandler.find(this.containerViewChild.nativeElement, '.ui-table-scrollable-body-table > colgroup > col');
+                let bodyCols = DomHandler.find(this.containerViewChild.nativeElement, '.ui-table-scrollable-body table > colgroup > col');
 
                 headerCols.map((col, index) => col.style.width = widths[index] + 'px');
                 bodyCols.map((col, index) => col.style.width = widths[index] + 'px');
