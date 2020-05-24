@@ -313,7 +313,7 @@ export class DataViewLayoutOptions  {
 
     @Input() styleClass: string;
 
-    constructor(private dv: DataView) {}
+    constructor(public dv: DataView) {}
 
     changeLayout(event: Event, layout: string) {
         this.dv.changeLayout(layout);
