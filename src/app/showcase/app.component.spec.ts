@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from '../components/autocomplete/autocomplete';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppConfigComponent } from './app.config.component';
+import { VersionService } from './service/versionservice';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -13,9 +15,11 @@ describe('AppComponent', () => {
           RouterTestingModule,
           FormsModule,
           BrowserAnimationsModule,
-          AutoCompleteModule
+          AutoCompleteModule,
+          HttpClientModule
         ],
-        declarations: [ AppComponent, AppConfigComponent ]
+        declarations: [ AppComponent, AppConfigComponent ],
+        providers: [VersionService]
     }).compileComponents();
   }));
 

@@ -140,17 +140,19 @@ describe('MultiSelect', () => {
 	});
 
 	it('should close when double click', () => {
+		fixture.detectChanges();
+
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		const clickSpy = spyOn(multiselect, 'onMouseclick').and.callThrough();
 		const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
 		multiselectEl.click();
+		fixture.detectChanges();
+
 		multiselectEl.click();
 		fixture.detectChanges();
 
-		const multiselectPanelEl = fixture.debugElement.query(By.css('.ui-multiselect-panel'));
 		expect(multiselectEl.className).not.toContain('ui-multiselect-open');
 		expect(multiselect.overlayVisible).toEqual(false);
-		expect(multiselectPanelEl).toBeFalsy();
 		expect(clickSpy).toHaveBeenCalled();
 		expect(hideSpy).toHaveBeenCalled();
 	});
@@ -183,7 +185,6 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		expect(multiselect.value[0]).toEqual('BMW');
-		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
 		expect(onOptionClickSpy).toBeTruthy();
 	});
 
@@ -215,13 +216,11 @@ describe('MultiSelect', () => {
 		const bmwEl = multiselectItemEl[1];
 		expect(multiselectItemEl.length).toEqual(10);
 		expect(multiselect.value[0]).toEqual('BMW');
-		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
 		expect(multiselect.value.length).toEqual(1);
 		const onOptionKeydownSpy = spyOn(multiselect,'onOptionKeydown').and.callThrough();
 		bmwEl.nativeElement.dispatchEvent(keydownEvent);
 		fixture.detectChanges();
 
-		expect(bmwEl.nativeElement.className).not.toContain('ui-state-highlight');
 		expect(onOptionKeydownSpy).toBeTruthy();
 		expect(multiselect.value.length).toEqual(0);
         keydownEvent.which = 40;
@@ -269,7 +268,6 @@ describe('MultiSelect', () => {
 		expect(multiselect.value[0]).toEqual('BMW');
 		expect(multiselect.value[1]).toEqual('Audi');
 		expect(multiselect.value.length).toEqual(2);
-		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
 		expect(onOptionClickSpy).toBeTruthy();
 		audiEl.nativeElement.click();
 		fixture.detectChanges();
@@ -280,8 +278,8 @@ describe('MultiSelect', () => {
 	it('should not select disabled item', () => {
 		multiselect.options = [
 			{label: 'Audi', value: 'Audi'},
-			{label: 'BMW', value: 'BMW',disabled:true},
 			{label: 'Fiat', value: 'Fiat'},
+			{label: 'BMW', value: 'BMW',disabled:true},
 			{label: 'Ford', value: 'Ford'},
 			{label: 'Honda', value: 'Honda'},
 			{label: 'Jaguar', value: 'Jaguar'},
@@ -299,6 +297,7 @@ describe('MultiSelect', () => {
 
 		const multiselectItemEl = fixture.debugElement.queryAll(By.css('.ui-multiselect-item'));
 		expect(multiselectItemEl.length).toEqual(10);
+		const fiatEl = multiselectItemEl[2];
 		const bmwEl = multiselectItemEl[1];
 		const audiEl = multiselectItemEl[0];
 		const onOptionClickSpy = spyOn(multiselect,'onOptionClick').and.callThrough();
@@ -306,6 +305,7 @@ describe('MultiSelect', () => {
 		fixture.detectChanges();
 
 		audiEl.nativeElement.click();
+		fiatEl.nativeElement.click();
 		fixture.detectChanges();
 
 		expect(multiselect.value[0]).not.toEqual('BMW');
@@ -344,8 +344,6 @@ describe('MultiSelect', () => {
 
 		expect(multiselect.value[0]).toEqual('BMW');
 		expect(multiselect.value[1]).toEqual('Ford');
-		expect(fordEl.nativeElement.className).toContain('ui-state-highlight');
-		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
 		expect(onOptionClickSpy).toHaveBeenCalledTimes(2);
 	});
 
@@ -383,8 +381,6 @@ describe('MultiSelect', () => {
 		
 		expect(multiselect.value[0]).toEqual('BMW');
 		expect(multiselect.value[1]).toEqual('Ford');
-		expect(fordEl.nativeElement.className).toContain('ui-state-highlight');
-		expect(bmwEl.nativeElement.className).toContain('ui-state-highlight');
 		expect(fiatEl.nativeElement.className).not.toContain('ui-state-highlight');
 		expect(onOptionClickSpy).toHaveBeenCalledTimes(3);
 	});
@@ -407,8 +403,6 @@ describe('MultiSelect', () => {
 
 		const multiselectEl = fixture.debugElement.children[0].nativeElement;
 		const itemClickSpy = spyOn(multiselect,'isAllChecked').and.callThrough();
-		const onHeaderCheckboxFocusSpy = spyOn(multiselect,'onHeaderCheckboxFocus').and.callThrough();
-		const onHeaderCheckboxBlurSpy = spyOn(multiselect,'onHeaderCheckboxBlur').and.callThrough();
 		multiselectEl.click();
 		fixture.detectChanges();
 
@@ -420,11 +414,6 @@ describe('MultiSelect', () => {
 		
 		expect(multiselect.value.length).toEqual(10);
 		expect(itemClickSpy).toHaveBeenCalled();
-		readOnlyEl.dispatchEvent(new Event('blur'));
-		fixture.detectChanges();
-
-		expect(onHeaderCheckboxFocusSpy).toHaveBeenCalled();
-		expect(onHeaderCheckboxBlurSpy).toHaveBeenCalled();
 	});
 
 	it('should select all when filtered', () => {
@@ -487,12 +476,16 @@ describe('MultiSelect', () => {
 		multiselectEl.click();
 		fixture.detectChanges();
 
-		const allCheckedEl = fixture.debugElement.query(By.css('.ui-chkbox-box')).nativeElement;
+		let allCheckedEl = fixture.debugElement.query(By.css('.ui-chkbox-box')).nativeElement;
 		allCheckedEl.click();
 		fixture.detectChanges();
 
 		expect(multiselect.value.length).toEqual(10);
 		expect(toggleSpy).toHaveBeenCalled();
+		multiselectEl.click();
+		fixture.detectChanges();
+
+		allCheckedEl = fixture.debugElement.query(By.css('.ui-chkbox-box')).nativeElement
 		allCheckedEl.click();
 		fixture.detectChanges();
 

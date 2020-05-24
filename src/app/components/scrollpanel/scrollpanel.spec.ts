@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 
 @Component({
 	template: `
-	<div>
+	<div style="width: 300px;">
         <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custombar1">
             <div style="padding:1em;line-height:1.5;width:600px;">
                 The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved

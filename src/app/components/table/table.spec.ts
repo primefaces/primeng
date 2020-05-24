@@ -1192,40 +1192,9 @@ describe('Table', () => {
         expect(expandedRow.nativeElement).toBeTruthy();
     });
 
-    it('should call resize (fit)', () => {
-        fixture.detectChanges();
-
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
-        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
-        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
-        const event: any = document.createEvent('CustomEvent');
-        event.pageX = 450;
-        event.initEvent('mousedown');
-        event.which = 1;
-        let firstWidth = resizerEls[0].parentElement.clientWidth;
-        resizerEls[0].dispatchEvent(event as MouseEvent);
-        fixture.detectChanges();
-
-        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
-        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
-        event.initEvent("mousemove");
-        event.pageX = 420;
-        document.dispatchEvent(event as MouseEvent);
-        fixture.detectChanges();
-
-        expect(onColumnResizeSpy).toHaveBeenCalled();
-        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
-        event.initEvent("mouseup");
-        document.dispatchEvent(event as MouseEvent);
-        fixture.detectChanges();
-
-        expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
-        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
-        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
-    });
-
     it('should call resize (expand)', () => {
+        fixture.detectChanges();
+
         colResizeTable.columnResizeMode = "expand";
         fixture.detectChanges();
 
@@ -1258,6 +1227,78 @@ describe('Table', () => {
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
+    });
+
+    it('should call resize and resizeColGroup with scrollableTable (expand)', () => {
+        fixture.detectChanges();
+
+        colResizeTable.columnResizeMode = "expand";
+        colResizeTable.scrollable = true;
+        colResizeTable.scrollHeight = "50px";
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
+        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.which = 1;
+        event.initEvent('mousedown');
+        let firstWidth = resizerEls[0].parentElement.clientWidth;
+        resizerEls[0].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
+        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
+        expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
+        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
+    });
+
+    it('should call resize (fit)', () => {
+        fixture.detectChanges();
+
+        let resizerEls = document.getElementsByClassName("ui-column-resizer");
+        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
+        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
+        const event: any = document.createEvent('CustomEvent');
+        event.pageX = 450;
+        event.initEvent('mousedown');
+        event.which = 1;
+        let firstWidth = resizerEls[0].parentElement.clientWidth;
+        resizerEls[0].dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
+        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
+        event.initEvent("mousemove");
+        event.pageX = 420;
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeSpy).toHaveBeenCalled();
+        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
+        event.initEvent("mouseup");
+        document.dispatchEvent(event as MouseEvent);
+        fixture.detectChanges();
+
+        expect(onColumnResizeEndSpy).toHaveBeenCalled();
+        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
+        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
+        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
     });
 
     it('should call resize and resizeColGroup with scrollableTable (fit)', () => {
@@ -1295,45 +1336,6 @@ describe('Table', () => {
         expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
         expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
         expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
-    });
-
-    it('should call resize and resizeColGroup with scrollableTable (expand)', () => {
-        colResizeTable.columnResizeMode = "expand";
-        colResizeTable.scrollable = true;
-        colResizeTable.scrollHeight = "50px";
-        fixture.detectChanges();
-
-        let resizerEls = document.getElementsByClassName("ui-column-resizer");
-        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
-        const onColumnResizeBeginSpy = spyOn(colResizeTable,"onColumnResizeBegin").and.callThrough();
-        const event: any = document.createEvent('CustomEvent');
-        event.pageX = 450;
-        event.which = 1;
-        event.initEvent('mousedown');
-        let firstWidth = resizerEls[0].parentElement.clientWidth;
-        resizerEls[0].dispatchEvent(event as MouseEvent);
-        fixture.detectChanges();
-
-        expect(onColumnResizeBeginSpy).toHaveBeenCalled();
-        const onColumnResizeSpy = spyOn(colResizeTable,"onColumnResize").and.callThrough();
-        event.initEvent("mousemove");
-        event.pageX = 420;
-        document.dispatchEvent(event as MouseEvent);
-        fixture.detectChanges();
-
-        expect(onColumnResizeSpy).toHaveBeenCalled();
-        const onColumnResizeEndSpy = spyOn(colResizeTable,"onColumnResizeEnd").and.callThrough();
-        const resizeColGroupSpy = spyOn(colResizeTable,"resizeColGroup").and.callThrough();
-        event.initEvent("mouseup");
-        document.dispatchEvent(event as MouseEvent);
-        fixture.detectChanges();
-
-        expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizeColGroupSpy).toHaveBeenCalled();
-        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
-        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
-        expect(defaultWidth).not.toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
-        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth + 30);
     });
 
     it('should reorder column (dropPosition -1)', () => {
