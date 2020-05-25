@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy,OnChanges,SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
 import {ScrollingModule,CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
@@ -29,7 +29,7 @@ import {BlockableUI} from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class VirtualScroller implements AfterContentInit,BlockableUI {
+export class VirtualScroller implements AfterContentInit,BlockableUI,OnChanges {
 
     @Input() value: any[];
 
@@ -159,6 +159,18 @@ export class VirtualScroller implements AfterContentInit,BlockableUI {
     scrollToIndex(index: number, mode?: ScrollBehavior): void {
         if (this.viewport) {
             this.viewport.scrollToIndex(index, mode);
+        }
+    }
+
+    clearCache() {
+        this.loadedPages = [];
+    }
+
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if (simpleChange.value) {
+            if (!this.lazy) {
+                this.clearCache();
+            }
         }
     }
 }
