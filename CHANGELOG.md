@@ -1,5 +1,51 @@
 # Change Log
 
+## [9.1.0](https://github.com/primefaces/primeng/tree/9.1.0) (2020-05-25)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.0.6...9.1.0)
+
+**Implemented New Features and Enhancements:**
+
+- Filtering for DataGrid [\#2457](https://github.com/primefaces/primeng/issues/2457)
+- Add clearCache method to VirtualScroller and Table [\#8881](https://github.com/primefaces/primeng/issues/8881)
+- Deprecate Spinner [\#8873](https://github.com/primefaces/primeng/issues/8873)
+- Deprecate Lightbox [\#8872](https://github.com/primefaces/primeng/issues/8872)
+- Reimplement DataTable-TreeTable-VirtualScroller Lazy Loading Implementation [\#8865](https://github.com/primefaces/primeng/issues/8865)
+- minBufferPx and maxBufferPx for Table [\#8860](https://github.com/primefaces/primeng/issues/8860)
+- Add scrollToIndex function to VirtualScroller [\#8859](https://github.com/primefaces/primeng/issues/8859)
+- Add scrollToVirtualIndex and scrollTo functions to DataTable [\#8857](https://github.com/primefaces/primeng/issues/8857)
+- Reimplement TreeTable VirtualScroll  [\#8856](https://github.com/primefaces/primeng/issues/8856)
+- Reimplement Table VirtualScroll [\#8855](https://github.com/primefaces/primeng/issues/8855)
+- Table/TreeTable virtualscroller should reset scroll position after sort and filter [\#8854](https://github.com/primefaces/primeng/issues/8854)
+- Deprecate first, cache and totalRecords props of VirtualScroller [\#8850](https://github.com/primefaces/primeng/issues/8850)
+- Remove ul-li pair from VirtualScroller  [\#8849](https://github.com/primefaces/primeng/issues/8849)
+- VirtualScroller Demo Update [\#8848](https://github.com/primefaces/primeng/issues/8848)
+- minBufferX and maxBufferX for VirtualScroller [\#8847](https://github.com/primefaces/primeng/issues/8847)
+- New FormLayout Utility [\#8843](https://github.com/primefaces/primeng/issues/8843)
+- Re-Add center method to Dialog [\#8792](https://github.com/primefaces/primeng/issues/8792)
+- Remove ui-g usage from Demos [\#8782](https://github.com/primefaces/primeng/issues/8782)
+- Remove ui-g from MegaMenu [\#8762](https://github.com/primefaces/primeng/issues/8762)
+- VirtualScrolling for Tree [\#8257](https://github.com/primefaces/primeng/issues/8257)
+- Virtual scrolling support without lazy loading [\#7419](https://github.com/primefaces/primeng/issues/7419)
+- Pagination Support for Virtual Scrolling [\#6961](https://github.com/primefaces/primeng/issues/6961)
+- New Flex mode for Table ScrollHeight [\#5235](https://github.com/primefaces/primeng/issues/5235)
+- New Galleria [\#3105](https://github.com/primefaces/primeng/issues/3105)
+- New Component: InputNumber [\#1109](https://github.com/primefaces/primeng/issues/1109)
+
+**Fixed bugs:**
+
+- Resizable Dialog is broken [\#8863](https://github.com/primefaces/primeng/issues/8863)
+- p-dialog performance degraded after 9.0.0-rc.4 [\#8846](https://github.com/primefaces/primeng/issues/8846)
+- Tree missing property documentation [\#8844](https://github.com/primefaces/primeng/issues/8844)
+- p-tree validateDrop throws error in subscribe [\#8827](https://github.com/primefaces/primeng/issues/8827)
+- VirtualScroller does not display items at page boundaries [\#8733](https://github.com/primefaces/primeng/issues/8733)
+- TurboTable reload data automaticly scrolls down [\#8574](https://github.com/primefaces/primeng/issues/8574)
+- Dropdowns and MultiSelects open inconsistently or not at all when using a wrapped-label layout [\#8455](https://github.com/primefaces/primeng/issues/8455)
+- Virtualscroller cache not working [\#8306](https://github.com/primefaces/primeng/issues/8306)
+- Virtual scroll with radio- Incorrect radio\(s\) selected on scroll. [\#8238](https://github.com/primefaces/primeng/issues/8238)
+- PrimeNG table lazy loading not working properly on setting the property first [\#7819](https://github.com/primefaces/primeng/issues/7819)
+- DataTable virtual scrolling with onLazyLoad: event.first is 0 when sorting [\#7546](https://github.com/primefaces/primeng/issues/7546)
+
 ## [9.0.6](https://github.com/primefaces/primeng/tree/9.0.6) (2020-04-22)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.5...9.0.6)
