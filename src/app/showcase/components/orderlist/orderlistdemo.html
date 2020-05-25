@@ -31,7 +31,7 @@ import &#123;OrderListModule&#125; from 'primeng/orderlist';
 
             <h3>Getting Started</h3>
             <p>OrderList requires an array as its value and a ng-template for its content where each item in the array
-                 can be accessed inside the ng-template using a local ng-template variable.</p>
+                 can be accessed inside the ng-template using a local <i>ng-template</i> variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-orderList [value]="cars"&gt;
@@ -59,11 +59,11 @@ export class MyComponent &#123;
 </pre>
 
             <h3>Multiple Selection</h3>
-            <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+            <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
             devices metaKeySelection is turned off automatically.</p>
 
             <h3>Selection Binding</h3>
-            <p>The optional <b>selection</b> property is provided in case you'd like to a two-way binding to the selections.</p>
+            <p>The optional <i>selection</i> property is provided in case you'd like to a two-way binding to the selections.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
@@ -93,7 +93,7 @@ export class MyComponent &#123;
 </pre>
 
             <h3>Filtering</h3>
-            <p>Items can be filtered using an input field by enabling the filterBy property that specifies the fields to use in filtering.</p>
+            <p>Items can be filtered using an input field by enabling the <i>filterBy</i> property that specifies the fields to use in filtering.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-orderList [value]="cars" filterBy="brand"&gt;&lt;/p-orderList&gt;
@@ -108,7 +108,7 @@ export class MyComponent &#123;
 </pre>
 
             <h3>DragDrop</h3>
-            <p>Items can be reordered using drag and drop by enabling dragdrop property.</p>
+            <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-orderList [value]="cars" dragdrop="true"&gt;
@@ -116,7 +116,7 @@ export class MyComponent &#123;
 </pre>
 
             <h3>Buttons Location</h3>
-            <p>Buttons that control the ordering are displayed at the left side of the list by default, controlsPosition property enables customizing the location. Currently
+            <p>Buttons that control the ordering are displayed at the left side of the list by default, <i>controlsPosition</i> property enables customizing the location. Currently
                 right is the available alternative.
             </p>
 <pre>

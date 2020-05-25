@@ -263,7 +263,18 @@ responsiveOptions:any[] = [
 &lt;/p-galleria&gt;
 </code>
 </pre>
-
+                <h3>Indicators</h3>
+                <p>Indicators allow quick navigation between the items. Set <i>showIndicators</i> to display indicators which can be customized further
+                with the <i>changeItemOnIndicatorHover</i>, <i>showIndicatorsOnItem</i> and <i>indicatorsPosition</i> properties.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-galleria [value]="images" [indicators]="true"&gt;
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
+    &lt;/template&gt;
+&lt;/p-galleria&gt;
+</code>
+</pre>
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">

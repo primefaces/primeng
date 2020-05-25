@@ -32,7 +32,7 @@ import &#123;PickListModule&#125; from 'primeng/picklist';
 
             <h3>Getting Started</h3>
             <p>PickList requires two arrays as its lists and a ng-template for the item content where each item in the array
-                can be accessed inside the ng-template using a local ng-template variable.</p>
+                can be accessed inside the ng-template using a local <i>ng-template</i> variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList [source]="list1" [target]="list2"&gt;
@@ -62,7 +62,7 @@ export class MyComponent &#123;
 </code>
 </pre>
             <h3>Responsive</h3>
-            <p>In responsive mode, picklist adjusts its controls based on screen size. To activate this mode, set responsive as true.</p>
+            <p>In responsive mode, picklist adjusts its controls based on screen size. To activate this mode, set <i>responsive</i> as true.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList [responsive]="true"&gt;
@@ -70,7 +70,7 @@ export class MyComponent &#123;
 </pre>
 
             <h3>Headers</h3>
-            <p>sourceHeader and targetHeader attributes are used to define captions for the lists.</p>
+            <p><i>sourceHeader</i> and <i>targetHeader</i> attributes are used to define captions for the lists.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList sourceHeader="Source List" targetHeader="Target List"&gt;
@@ -78,12 +78,12 @@ export class MyComponent &#123;
 </pre>
 
             <h3>Multiple Selection</h3>
-            <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+            <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
             devices metaKeySelection is turned off automatically.</p>
 
             <h3>Filtering</h3>
             <p>Options can be filtered using an input field in the overlay by enabling the filterBy property.
-                This filterBy property decides which field to search(Accepts multiple fields with a comma).</p>
+                This <i>filterBy</i> property decides which field to search(Accepts multiple fields with a comma).</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" filterBy="brand"&gt;&lt;/p-pickList&gt;
@@ -91,7 +91,7 @@ export class MyComponent &#123;
 </pre>
 
 <h3>DragDrop</h3>
-<p>Items can be reordered using drag and drop by enabling dragdrop property along with dragdropScope to avoid conflict with other drag drop events on view.
+<p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property along with dragdropScope to avoid conflict with other drag drop events on view.
 This dragdrop property also supports cross list actions.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>

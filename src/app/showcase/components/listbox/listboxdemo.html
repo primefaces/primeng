@@ -102,7 +102,7 @@ export class MyModel &#123;
       <h3>Selection</h3>
       <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection.
         In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
-        using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+        using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
         devices metaKeySelection is turned off automatically.</p>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -150,11 +150,11 @@ addOption() &#123;
 </pre>
 
         <h3>Disabled Options</h3>
-        <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
+        <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
 
       <h3>Filter</h3>
       <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
-        mode is "contains" and alternative is "startsWith" configuted by filterMode property.</p>
+        mode is "contains" and alternative is "startsWith" configuted by <i>filterMode</i> property.</p>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
@@ -172,7 +172,7 @@ addOption() &#123;
       <h3>Custom Content</h3>
       <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template where
         the local ng-template variable refers to an option in the options collection. Additionally a custom header and footer can be provided
-        using p-header and p-footer element.</p>
+        using <i>p-header</i> and <i>p-footer</i> element.</p>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar"&gt;

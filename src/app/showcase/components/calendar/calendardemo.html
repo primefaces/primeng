@@ -130,7 +130,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Popup and Inline</h3>
-            <p>Calendar is displayed in a popup by default and inline property needs to be enabled for inline mode.</p>
+            <p>Calendar is displayed in a <i>popup</i> by default and <i>inline</i> property needs to be enabled for inline mode.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="value" [inline]="true"&gt;&lt;/p-calendar&gt;
@@ -144,7 +144,7 @@ export class MyModel &#123;
             is the end date.</p>
 
             <h3>DateFormat</h3>
-            <p>Default date format is mm/dd/yy, to customize this use dateFormat property or define it at locale settings. Note that standalone property overrides the value in locale settings.</p>
+            <p>Default date format is mm/dd/yy, to customize this use <i>dateFormat</i> property or define it at locale settings. Note that standalone property overrides the value in locale settings.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
@@ -173,7 +173,7 @@ export class MyModel &#123;
 		    </ul>
 
             <h3>Time</h3>
-            <p>TimePicker is enabled with showTime property and 24 (default) or 12 hour mode is configured using hourFormat option.</p>
+            <p>TimePicker is enabled with  <i>showTime</i> property and 24 (default) or 12 hour mode is configured using <i>hourFormat</i> option.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="value" showTime="true" hourFormat="12"&gt;&lt;/p-calendar&gt;
@@ -182,8 +182,8 @@ export class MyModel &#123;
 </pre>
 
             <h3>Date Restriction</h3>
-            <p>To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use minDate
-                and maxDate options.</p>
+            <p>To disable entering dates manually, set <i>readonlyInput</i> to true and to restrict selectable dates use <i>minDate</i>
+                and <i>maxDate</i> options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
@@ -191,7 +191,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Disable specific dates and/or days</h3>
-            <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use disabledDates and/or disabledDays options.</p>
+            <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use <i>disabledDates</i> and/or <i>disabledDays</i> options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
@@ -199,7 +199,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Button Bar</h3>
-            <p>Button bar displays today and clear buttons and enabled using showButtonBar property.</p>
+            <p>Button bar displays today and clear buttons and enabled using <i>showButtonBar</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" showButtonBar="true"&gt;&lt;/p-calendar&gt;
@@ -207,7 +207,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Multiple Months</h3>
-            <p>Displaying multiple months is enabled by setting numberOfMonths property to a value greater than 1.</p>
+            <p>Displaying multiple months is enabled by setting <i>numberOfMonths</i> property to a value greater than 1.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
@@ -215,7 +215,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Localization</h3>
-            <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.</p>
+            <p>Localization for different languages and formats is defined by binding the locale settings object to the <i>locale</i> property. Following is the default values for English.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-calendar&gt;
@@ -292,7 +292,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
                 example below disables the animations altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>

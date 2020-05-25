@@ -95,6 +95,20 @@
 	overflow: visible;
 }
 
+i:not([class~="pi"]) {
+	background-color: var(--layer-0);
+	color: #2196f3;
+	font-family: Monaco, courier, monospace;
+	font-style: normal;
+	font-size: 12px;
+	font-weight: 500;
+	padding: 2px 4px;
+	letter-spacing: .5px;
+	border-radius: 3px;
+	font-weight: 600;
+	margin: 0 2px;
+}
+
 
 /* Dark Theme such as luna-amber, luna-blue, luna-green and luna-pink */
 .dark-theme {

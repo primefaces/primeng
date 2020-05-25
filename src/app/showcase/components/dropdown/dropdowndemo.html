@@ -125,8 +125,8 @@ export class MyModel &#123;
 </pre>
 
             <h3>Filtering</h3>
-            <p>Options can be filtered using an input field in the overlay by enabling the filter property. By default filtering is done against
-                label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
+            <p>Options can be filtered using an input field in the overlay by enabling the <i>filter</i> property. By default filtering is done against
+                label of the SelectItem and <i>filterBy</i> property is available to choose one or more properties of the SelectItem API.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-dropdown&gt;
@@ -135,7 +135,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Grouping</h3>
-            <p>Displaying options as grouped is enabled by providing a collection of SelectItemGroup instances and setting group property to true.</p>
+            <p>Displaying options as grouped is enabled by providing a collection of SelectItemGroup instances and setting <i>group</i> property to true.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar" placeholder="Select a Car" [group]="true"&gt;&lt;/p-dropdown&gt;
@@ -187,10 +187,10 @@ export class GroupDemo &#123;
 </pre>
 
             <h3>Disabled Options</h3>
-            <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
+            <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
 
             <h3>Custom Content</h3>
-            <p>Both the selected option and the options list can be templated to provide customization on the default behavior which is displaying label property of an option. Use
+            <p>Both the selected option and the options list can be templated to provide customization on the default behavior which is displaying <i>label</i> property of an option. Use
                 "selectedItem" template to customize the selected label display and the "item" template to change the content of the options in the dropdown panel. In addition when grouping is enabled, "group" template is available
                 to customize the option groups. All templates get the option instance as the default local template variable. If the options are custom objects not SelectItem instances, use value property to access the custom object.
             </p>

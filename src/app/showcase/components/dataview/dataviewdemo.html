@@ -75,7 +75,7 @@ import &#123;DataViewModule&#125; from 'primeng/dataview';
             <p>DataView utilizes PrimeFlex so it is required to be installed in your application. Refer to the <a [routerLink]="['/flexgrid']">documentation</a> for details.</p>
 
             <h3>Getting Started</h3>
-            <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. list and grid.</p>
+            <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. <i>list</i> and <i>grid</i>.</p>
 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
 <pre>
@@ -181,8 +181,8 @@ export class DataViewDemo implements OnInit &#123;
 </pre>
 
             <h3>DataViewLayoutOptions</h3>
-            <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. p-dataViewLayoutOptions is a helper component
-                to display a buttonset to choose the layout mode in DataView. Location of the p-dataViewLayoutOptions should be inside the DataView component. If you prefer a different UI element
+            <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. <i>p-dataViewLayoutOptions</i> is a helper component
+                to display a buttonset to choose the layout mode in DataView. Location of the <i>p-dataViewLayoutOptions</i> should be inside the DataView component. If you prefer a different UI element
                 you can create your own that updates the layout property of the DataView.
             </p>
 
@@ -212,7 +212,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Paginator</h3>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
-                of page links to display. To customize the left and right side of the paginators, use "paginatorLeftTemplate" and "paginatorRightTemplate" templates.</p>
+                of page links to display. To customize the left and right side of the paginators, use <i>paginatorLeftTemplate</i> and <i>paginatorRightTemplate</i> templates.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"&gt;
@@ -239,7 +239,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
-             onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object
+             onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using <i>onLazyLoad</i> that actually loads the data from a remote datasource. <i>onLazyLoad</i> gets an event object
             that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
@@ -270,8 +270,8 @@ loadData(event) &#123;
 </pre>
 
             <h3>Sorting</h3>
-            <p>sortField and sortOrder properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
-                Here is an example that uses a dropdown where simply updating the sortField-sortOrder bindings of the DataView initiates sorting.</p>
+            <p><i>sortField</i> and <i>sortOrder</i> properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
+                Here is an example that uses a dropdown where simply updating the <i>sortField</i> - <i>sortOrder</i> bindings of the DataView initiates sorting.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;

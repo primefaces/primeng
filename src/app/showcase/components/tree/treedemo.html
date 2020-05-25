@@ -255,7 +255,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>
 
             <h3>Selection</h3>
-            <p>Tree supports 3 selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            <p>Tree supports 3 selection methods, single, multiple and checkbox. Selection is enabled by setting <i>selectionMode</i> property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -308,8 +308,8 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned off by propagateSelectionDown and
-            propagateSelectionUp properties.</p>
+            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned off by <i>propagateSelectionDown</i> and
+            <i>propagateSelectionUp</i> properties.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
@@ -317,10 +317,10 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Tree provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
+            <p>Tree provides <i>onNodeSelect</i> and <i>onNodeUnselect</i> options as callbacks for selection feature.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 
@@ -346,11 +346,11 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
+            <p>Selection of a particular node can be disabled by setting the <i>selectable</i> property of the node to false.</p>
 
             <h3>Icons</h3>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
-                expandedIcon and collapsedIcon instead.</p>
+                <i>expandedIcon</i> and <i>collapsedIcon</i> instead.</p>
 
             <h3>Templating</h3>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets
@@ -367,7 +367,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>
 
             <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node has no type,
-            then default ng-template is used.</p>
+            then default <i>ng-template</i> is used.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files"&gt;
@@ -382,10 +382,10 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>
 
             <h3>Filtering</h3>
-            <p>Filtering is enabled by setting the <b>filter</b> property to true, by default label property of a node
-                is used to compare against the value in the text field, in order to customize which field(s) should be used during search define <b>filterBy</b> property.</p>
+            <p>Filtering is enabled by setting the <i>filter</i> property to true, by default label property of a node
+                is used to compare against the value in the text field, in order to customize which field(s) should be used during search define <i>filterBy</i> property.</p>
 
-            <p>In addition <b>filterMode</b> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand,
+            <p>In addition <i>filterMode</i> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand,
                     in <b>strict</b> mode when the query matches a node, filtering continues on all descendants.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -406,7 +406,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>
 
             <h3>Lazy Loading</h3>
-            <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at onNodeExpand event.
+            <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at <i>onNodeExpand</i> event.
             Important part of implementing lazy loading is defining leaf property of a node as false, this will instruct tree to display an arrow icon
             to indicate there are children of this node although they are not loaded yet. When the lazy node is expanded, onNodeExpand is called
             and a remote call can be made to add the children to the expanded node.</p>
@@ -505,8 +505,8 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>
 
             <h3>Drag and Drop</h3>
-            <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set draggableNodes to true and to allow
-            dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>
+            <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set <i>draggableNodes</i> to true and to allow
+            dropping enable <i>droppableNodes</i> property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;TreeDragDropService&#125; from 'primeng/api';
@@ -529,8 +529,8 @@ import &#123;TreeDragDropService&#125; from 'primeng/api';
 </code>
 </pre>
 
-            <p>In case, a drop should be accepted based on a condition, enable validateDrop property, define an event handler for onNodeDrop where the passed event and call the accept callback of the event
-                to accept a drop. Simply omitting the call of accept() will reject the drop.
+            <p>In case, a drop should be accepted based on a condition, enable validateDrop property, define an event handler for <i>onNodeDrop</i> where the passed event and call the accept callback of the event
+                to accept a drop. Simply emitting the call of <i>accept()</i> will reject the drop.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
