@@ -5,6 +5,7 @@ import {ButtonDemoRoutingModule} from './buttondemo-routing.module';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
 	imports: [
@@ -12,7 +13,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		ButtonDemoRoutingModule,
         ButtonModule,
         TabViewModule,
-        CodeHighlighterModule
+		CodeHighlighterModule,
+		ProgressSpinnerModule
 	],
 	declarations: [
 		ButtonDemo

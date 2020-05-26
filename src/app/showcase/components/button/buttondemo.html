@@ -274,6 +274,9 @@ export class Model &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/button" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/button-showcase" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in Stackblitz</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Button Component&lt;/h3&gt;
@@ -327,6 +330,12 @@ export class ButtonDemo &#123;
 &#125;
 </code>
 </pre>
+        </ p-tabPanel>
+        <p-tabPanel header="Stackblitz">
+            <ng-template pTemplate="content">
+                <p-progressSpinner [style]="{'position':'absolute','left':'50%'}" *ngIf="!loaded"></p-progressSpinner>
+                <iframe src="https://stackblitz.com/edit/button-showcase?ctl=1&embed=1&file=src/app/app.component.html" [ngStyle]="{'visibility': loaded ? 'visible' : 'hidden'}" style="width: 100%; height: 1080px; border: none;" (load)="onLoad()"></iframe>
+            </ng-template>
         </ p-tabPanel>
      </p-tabView >
 </div>
