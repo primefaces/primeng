@@ -12,13 +12,7 @@ export class ButtonDemo {
 
     clicks: number = 0;
 
-    loaded: boolean = false;
-
     count() {
         this.clicks++;
-    }
-
-    onLoad() {
-        this.loaded = true;
     }
 }
