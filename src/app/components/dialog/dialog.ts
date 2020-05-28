@@ -483,6 +483,11 @@ export class Dialog implements OnDestroy {
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
+
+                if (this._style.height) {
+                    this._style.height = newHeight + 'px';
+                    this.container.style.height = this._style.height;
+                }
             }
 
             this.lastPageX = event.pageX;
