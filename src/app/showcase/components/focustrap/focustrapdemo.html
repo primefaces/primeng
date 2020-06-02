@@ -106,6 +106,9 @@ import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/focustrap" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-focustrap-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div pFocusTrap&gt;
@@ -167,6 +170,11 @@ export class FocusTrapDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-focustrap-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

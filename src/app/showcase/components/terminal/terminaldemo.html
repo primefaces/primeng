@@ -117,48 +117,53 @@ export class TerminalDemo &#123;
             <h3>Dependencies</h3>
             <p>None.</p>
         </p-tabPanel>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/terminal" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-terminal-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
+        <pre>
+        <code class="language-markup" pCode ngNonBindable>
+        &lt;p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"&gt;&lt;/p-terminal&gt;
+        </code>
+        </pre>
+            
+        <pre>
+        <code class="language-typescript" pCode ngNonBindable>
+        import &#123;Component&#125; from '@angular/core';
+        import &#123;TerminalService&#125; from 'primeng/components/terminal/terminalservice';
+        import &#123;Subscription&#125; from 'rxjs/Subscription';
 
-<p-tabPanel header="Source">
-    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/terminal" class="btn-viewsource" target="_blank">
-        <span>View on GitHub</span>
-    </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"&gt;&lt;/p-terminal&gt;
-</code>
-</pre>
-    
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-import &#123;Component&#125; from '@angular/core';
-import &#123;TerminalService&#125; from 'primeng/components/terminal/terminalservice';
-import &#123;Subscription&#125; from 'rxjs/Subscription';
+        @Component(&#123;
+            templateUrl: './terminaldemo.html',
+            providers: [TerminalService]
+        &#125;)
+        export class TerminalDemo &#123;
 
-@Component(&#123;
-    templateUrl: './terminaldemo.html',
-    providers: [TerminalService]
-&#125;)
-export class TerminalDemo &#123;
-
-    subscription: Subscription;
-    
-    constructor(private terminalService: TerminalService) &#123;
-        this.terminalService.commandHandler.subscribe(command => &#123;
-            let response = (command === 'date') ? new Date().toDateString() : 'Unknown command: ' + command;
-            this.terminalService.sendResponse(response);
-        &#125;);
-    &#125;
-    
-    ngOnDestroy() &#123;
-        if (this.subscription) &#123;
-            this.subscription.unsubscribe();
+            subscription: Subscription;
+            
+            constructor(private terminalService: TerminalService) &#123;
+                this.terminalService.commandHandler.subscribe(command => &#123;
+                    let response = (command === 'date') ? new Date().toDateString() : 'Unknown command: ' + command;
+                    this.terminalService.sendResponse(response);
+                &#125;);
+            &#125;
+            
+            ngOnDestroy() &#123;
+                if (this.subscription) &#123;
+                    this.subscription.unsubscribe();
+                &#125;
+            &#125;
         &#125;
-    &#125;
-&#125;
-</code>
-</pre>
-</p-tabPanel>
-
-
+        </code>
+        </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-terminal-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
     </p-tabView>
 </div>

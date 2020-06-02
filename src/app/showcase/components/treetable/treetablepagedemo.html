@@ -31,6 +31,9 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablepagedemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treetablepage-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeTablePageDemo implements OnInit &#123;
@@ -79,6 +82,9 @@ export class TreeTablePageDemo implements OnInit &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablepagedemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treetablepage-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10"&gt;
@@ -100,6 +106,11 @@ export class TreeTablePageDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetablepage-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>
