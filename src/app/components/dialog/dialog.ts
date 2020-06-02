@@ -475,6 +475,12 @@ export class Dialog implements OnDestroy {
             let minHeight = this.container.style.minHeight;
             let offset = DomHandler.getOffset(this.container);
             let viewport = DomHandler.getViewport();
+            let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
+
+            if (hasBeenDragged) {
+                newWidth += deltaX;
+                newHeight += deltaY;
+            }
 
             if ((!minWidth || newWidth > parseInt(minWidth)) && (offset.left + newWidth) < viewport.width) {
                 this._style.width = newWidth + 'px';
@@ -482,7 +488,7 @@ export class Dialog implements OnDestroy {
             }
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && (offset.top + newHeight) < viewport.height) {
-                this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
+                this.contentViewChild.nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
                     this._style.height = newHeight + 'px';
