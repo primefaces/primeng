@@ -15,6 +15,9 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treehorizontaldemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treehorizontal-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component,OnInit&#125; from '@angular/core';
@@ -49,11 +52,19 @@ export class TreeHorizontalDemo implements OnInit &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treehorizontaldemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treehorizontal-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" layout="horizontal" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treehorizontal-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -30,6 +30,9 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablepagedemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-tablesticky-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
@@ -76,6 +79,9 @@ export class TableStickyDemo implements OnInit &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablepagedemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-tablesticky-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars"&gt;
@@ -96,6 +102,11 @@ export class TableStickyDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablesticky-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

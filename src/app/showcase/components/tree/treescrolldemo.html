@@ -29,6 +29,9 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treescrolldemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treescroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 
 <pre>
 <code class="language-javascript" pCode ngNonBindable>
@@ -87,6 +90,9 @@ export class TreeScrollDemo implements OnInit &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treescrolldemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treescroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3&gt;Regular Scroll&lt;/h3&gt;
@@ -106,6 +112,11 @@ export class TreeScrollDemo implements OnInit &#123;
 &lt;p-tree [value]="files3" [virtualScroll]="true" [virtualNodeHeight]="33" scrollHeight="200px"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treescroll-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

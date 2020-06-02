@@ -18,6 +18,9 @@
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treecontextmenudemo.ts" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treecontextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component,OnInit&#125; from '@angular/core';
@@ -64,6 +67,9 @@ export class TreeContextMenuDemo implements OnInit &#123;
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treecontextmenudemo.html" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
+            <a href="https://stackblitz.com/edit/primeng-treecontextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
@@ -72,6 +78,11 @@ export class TreeContextMenuDemo implements OnInit &#123;
 &lt;p-toast&gt;&lt;/p-toast&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treecontextmenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>
