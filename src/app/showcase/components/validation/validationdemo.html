@@ -10,7 +10,7 @@
 
     <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
         <p-panel header="Validate">
-            <div class="p-fluid forms-grid" style="margin: 1em 0">
+            <div class="ui-fluid forms-grid" style="margin: 1em 0">
                 <div>
                     <div>First Name *</div>
                     <input pInputText type="text" formControlName="firstname" placeholder="Required"/>
@@ -26,6 +26,15 @@
                     <input pInputText type="password" formControlName="password" placeholder="Required - Min(6)"/>
                     <p-message severity="error" [text]="userform.controls['password'].errors['required'] ? 'Password is required' : userform.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
                     *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
+                </div>
+                <div>
+                    <div>Brand *</div>
+                    <p-autoComplete formControlName="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30" [minLength]="1" placeholder="Brand">
+                    </p-autoComplete>
+                </div>
+                <div style="min-width: 100%;">
+                    <div>City *</div>
+                    <p-dropdown [options]="cities" formControlName="city" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
                 </div>
                 <div>
                     <div>Description</div>

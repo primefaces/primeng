@@ -9,6 +9,7 @@ import {PanelModule} from 'primeng/panel';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
@@ -26,6 +27,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         InputTextModule,
         InputTextareaModule,
         ButtonModule,
+        DropdownModule,
+        AutoCompleteModule,
         TabViewModule,
         CodeHighlighterModule
 	],

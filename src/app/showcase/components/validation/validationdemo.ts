@@ -41,6 +41,18 @@ export class ValidationDemo implements OnInit {
     genders: SelectItem[];
     
     description: string;
+
+    brands: string[] = ['Audi','BMW','Fiat','Ford','Honda','Jaguar','Mercedes','Renault','Volvo','VW'];
+    
+    filteredBrands: any[];
+
+    cities = [
+        {name: 'New York', code: 'NY'},
+        {name: 'Rome', code: 'RM'},
+        {name: 'London', code: 'LDN'},
+        {name: 'Istanbul', code: 'IST'},
+        {name: 'Paris', code: 'PRS'}
+    ];
     
     constructor(private fb: FormBuilder, private messageService: MessageService) {}
     
@@ -49,8 +61,20 @@ export class ValidationDemo implements OnInit {
             'firstname': new FormControl('', Validators.required),
             'lastname': new FormControl('', Validators.required),
             'password': new FormControl('', [Validators.required, Validators.minLength(6)]),
+            'brand' : new FormControl(''),
+            'city' : new FormControl(''),
             'description': new FormControl('')
         });
+    }
+
+    filterBrands(event) {
+        this.filteredBrands = [];
+        for(let i = 0; i < this.brands.length; i++) {
+            let brand = this.brands[i];
+            if (brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+                this.filteredBrands.push(brand);
+            }
+        }
     }
     
     onSubmit(value: string) {
