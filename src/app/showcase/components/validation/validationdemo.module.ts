@@ -27,7 +27,6 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         InputTextModule,
         InputTextareaModule,
         ButtonModule,
-        DropdownModule,
         AutoCompleteModule,
         TabViewModule,
         CodeHighlighterModule
