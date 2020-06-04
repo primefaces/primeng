@@ -32,7 +32,7 @@
                     <p-autoComplete formControlName="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30" [minLength]="1" placeholder="Brand">
                     </p-autoComplete>
                 </div>
-                <div style="min-width: 100%;">
+                <div>
                     <div>City *</div>
                     <p-dropdown [options]="cities" formControlName="city" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
                 </div>
