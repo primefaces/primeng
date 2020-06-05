@@ -23,14 +23,14 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
             <span class="ui-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
                 <button pButton [ngClass]="{'ui-inputnumber-button ui-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" [disabled]="disabled"
-                    (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp($event)" (mouseleave)="onUpButtonMouseLeave($event)" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp($event)"></button>
+                    (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp()"></button>
                 <button pButton [ngClass]="{'ui-inputnumber-button ui-inputnumber-button-down': true}" [class]="decrementButtonClass" [icon]="decrementButtonIcon" [disabled]="disabled"
-                    (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp($event)" (mouseleave)="onDownButtonMouseLeave($event)" (keydown)="onDownButtonKeyDown($event)" (keyup)="onDownButtonKeyUp($event)"></button>
+                    (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp()" (mouseleave)="onDownButtonMouseLeave()" (keydown)="onDownButtonKeyDown()" (keyup)="onDownButtonKeyUp()"></button>
             </span>
             <button pButton [ngClass]="{'ui-inputnumber-button ui-inputnumber-button-up': true}" [class]="incrementButtonClass" [icon]="incrementButtonIcon" *ngIf="showButtons && buttonLayout !== 'stacked'" [disabled]="disabled"
-                (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp($event)" (mouseleave)="onUpButtonMouseLeave($event)" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp($event)"></button>
+                (mousedown)="this.onUpButtonMouseDown($event)" (mouseup)="onUpButtonMouseUp()" (mouseleave)="onUpButtonMouseLeave()" (keydown)="onUpButtonKeyDown($event)" (keyup)="onUpButtonKeyUp($event)"></button>
             <button pButton [ngClass]="{'ui-inputnumber-button ui-inputnumber-button-down': true}" [class]="decrementButtonClass" [icon]="decrementButtonIcon" *ngIf="showButtons && buttonLayout !== 'stacked'" [disabled]="disabled"
-                (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp($event)" (mouseleave)="onDownButtonMouseLeave($event)" (keydown)="onDownButtonKeyDown($event)" (keyup)="onDownButtonKeyUp($event)"></button>
+                (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp()" (mouseleave)="onDownButtonMouseLeave()" (keydown)="onDownButtonKeyDown()" (keyup)="onDownButtonKeyUp()"></button>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
