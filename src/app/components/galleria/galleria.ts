@@ -279,18 +279,20 @@ export class GalleriaItemSlot {
 
     set item(item:any) {
         this._item = item;
-        this.templates.forEach((item) => {
-            if (item.getType() === this.type) {
-                switch(this.type) {
-                    case 'item':
-                    case 'caption':
-                    case 'thumbnail':
-                        this.context = {$implicit: this.item};
-                        this.contentTemplate = item.template;
-                    break;
+        if (this.templates) {
+            this.templates.forEach((item) => {
+                if (item.getType() === this.type) {
+                    switch(this.type) {
+                        case 'item':
+                        case 'caption':
+                        case 'thumbnail':
+                            this.context = {$implicit: this.item};
+                            this.contentTemplate = item.template;
+                        break;
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Input() type: string;
