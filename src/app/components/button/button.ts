@@ -42,7 +42,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     getStyleClass(): string {
         let styleClass = 'ui-button ui-widget ui-state-default ' + this.cornerStyleClass;
         if (this.icon) {
-            if (this.label != null && this.label != undefined) {
+            if (this.label != null && this.label != undefined && this.label != "") {
                 if (this.iconPos == 'left')
                     styleClass = styleClass + ' ui-button-text-icon-left';
                 else
@@ -63,6 +63,11 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         
         return styleClass;
     }
+
+    setStyleClass() {
+        let styleClass = this.getStyleClass();
+        this.el.nativeElement.className = styleClass;
+    }
     
     @Input() get label(): string {
         return this._label;
@@ -72,7 +77,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._label = val;
         
         if (this.initialized) {
-            DomHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
+            DomHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label || 'ui-btn';
 
             if (!this.icon) {
                 if (this._label) {
@@ -84,6 +89,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                     DomHandler.removeClass(this.el.nativeElement, 'ui-button-text-only');
                 }
             }
+
+            this.setStyleClass();
         }
     }
     
@@ -98,6 +105,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
             DomHandler.findSingle(this.el.nativeElement, '.ui-clickable').className =
                 iconPosClass + ' ui-clickable ' + this.icon;
+            this.setStyleClass();
         }
     }
         
