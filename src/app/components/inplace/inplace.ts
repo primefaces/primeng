@@ -18,13 +18,13 @@ export class InplaceContent {}
     selector: 'p-inplace',
     template: `
         <div [ngClass]="{'ui-inplace ui-widget': true, 'ui-inplace-closable': closable}" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-inplace-display" (click)="activate($event)" tabindex="0" (keydown)="onKeydown($event)"   
+            <div class="ui-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"   
                 [ngClass]="{'ui-state-disabled':disabled}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
             </div>
             <div class="ui-inplace-content" *ngIf="active">
                 <ng-content select="[pInplaceContent]"></ng-content>
-                <button type="button" [icon]="closeIcon" pButton (click)="deactivate($event)" *ngIf="closable"></button>
+                <button type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)" *ngIf="closable"></button>
             </div>
         </div>
     `,
@@ -38,6 +38,8 @@ export class Inplace {
 
     @Input() disabled: boolean;
 
+    @Input() preventClick: boolean;
+
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -49,6 +51,16 @@ export class Inplace {
     @Output() onDeactivate: EventEmitter<any> = new EventEmitter();
 
     hover: boolean;
+
+    onActivateClick($event) {
+        if (!this.preventClick)
+            this.activate(event);
+    }
+
+    onDeactivateClick(event) {
+        if (!this.preventClick)
+            this.deactivate(event);
+    }
 
     activate(event?: Event) {
         if (!this.disabled) {
