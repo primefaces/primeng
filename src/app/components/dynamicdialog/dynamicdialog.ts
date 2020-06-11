@@ -145,7 +145,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     enableModality() {
         if (this.config.closable !== false && this.config.dismissableMask !== false) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
-                if (this.container && !this.container.isSameNode(event.target) && !this.container.contains(event.target)) {
+                if (this.container && this.wrapper.isSameNode(event.target)) {
                     this.close();
                 }
             });
