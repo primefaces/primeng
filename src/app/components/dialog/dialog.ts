@@ -298,7 +298,7 @@ export class Dialog implements OnDestroy {
     enableModality() {
         if (this.closable && this.dismissableMask) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) => {
-                if (!this.container.isSameNode(event.target) && !this.container.contains(event.target)) {
+                if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.close(event);
                 }
             });
