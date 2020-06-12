@@ -47,7 +47,7 @@ const hideAnimation = animation([
                         </a>
                     </div>
                 </div>
-                <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
+                <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle" [class]="contentStyleClass">
                     <ng-content></ng-content>
                 </div>
                 <div #footer class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
@@ -95,6 +95,8 @@ export class Dialog implements OnDestroy {
     }
 
     @Input() contentStyle: any;
+
+    @Input() contentStyleClass: string;
 
     @Input() modal: boolean;
 
