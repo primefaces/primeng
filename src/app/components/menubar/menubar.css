@@ -18,6 +18,7 @@
     display: block;
     padding: .25em;
     position: relative;
+    cursor: pointer;
     text-decoration: none;
 }
 
