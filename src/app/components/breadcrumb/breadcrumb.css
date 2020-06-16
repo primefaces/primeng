@@ -21,6 +21,8 @@
 
 .ui-breadcrumb ul li .ui-menuitem-link {
     text-decoration: none;
+    cursor: pointer;
+    user-select: none;
 }
 
 .ui-breadcrumb .ui-menuitem-icon {

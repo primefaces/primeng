@@ -18,6 +18,7 @@
     padding: .5em;
     display: block;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .ui-panelmenu .ui-panelmenu-icon {
@@ -59,4 +60,5 @@
     padding: .25em;
     display: block;
     text-decoration: none;
+    cursor: pointer;
 }
