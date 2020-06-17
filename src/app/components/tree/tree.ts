@@ -1126,6 +1126,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
             }
         }
 
+        this.updateSerializedValue();
         this.onFilter.emit({
             filter: filterValue,
             filteredValue: this.filteredNodes
