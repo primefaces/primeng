@@ -18,7 +18,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                 (click)="toggle($event)" (keydown.enter)="toggle($event)">
             <div class="ui-helper-hidden-accessible">
                 <input #checkbox type="checkbox" [attr.id]="inputId" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex"
-                    role="button" [attr.aria-pressed]="checked" [attr.aria-labelledby]="ariaLabelledBy">
+                    role="button" [attr.aria-pressed]="checked" [attr.aria-labelledby]="ariaLabelledBy" [disabled]="disabled">
             </div>
             <span *ngIf="onIcon||offIcon" class="ui-button-icon-left" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'ui-button-icon-left': (iconPos === 'left'), 
             'ui-button-icon-right': (iconPos === 'right')}"></span>
