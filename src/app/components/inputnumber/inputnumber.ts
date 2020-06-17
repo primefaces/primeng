@@ -17,7 +17,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 'ui-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked', 'ui-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
                 'ui-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'}">
             <input #input class="ui-inputnumber-input" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
-                [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" 
+                [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel"
                 [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.aria-valumin]="min" [attr.aria-valuemax]="max"
                 (input)="onInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
                 (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
@@ -86,7 +86,7 @@ export class InputNumber implements OnInit {
     @Input() min: number;
 
     @Input() max: number;
-    
+
     @Input() minFractionDigits: number;
 
     @Input() maxFractionDigits: number;
@@ -114,9 +114,9 @@ export class InputNumber implements OnInit {
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
-    
+
     focused: boolean;
-    
+
     isSpecialChar: boolean;
 
     timer: any;
@@ -132,7 +132,7 @@ export class InputNumber implements OnInit {
     _group: any;
 
     _minusSign: any;
-    
+
     _currency: any;
 
     _prefix: any;
@@ -140,7 +140,7 @@ export class InputNumber implements OnInit {
     _suffix: any;
 
     _index: any;
-    
+
 
     ngOnInit() {
         this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
@@ -307,6 +307,12 @@ export class InputNumber implements OnInit {
 
     onInputBlur(event) {
         this.focused = false;
+
+        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
+        this.input.nativeElement.value = this.formatValue(newValue);
+        this.input.nativeElement.setAttribute('aria-valuenow', newValue);
+        this.updateModel(event, newValue);
+
         this.onBlur.emit(event);
     }
 
@@ -360,16 +366,8 @@ export class InputNumber implements OnInit {
 
     spin(event, dir) {
         let step = this.step * dir;
-        let currentValue = this.value || 0;
-        let newValue = currentValue + step;
-
-        if (this.min !== null && newValue < this.min) {
-            newValue = this.min;
-        }
-
-        if (this.max !== null && newValue > this.max) {
-            newValue = this.max;
-        }
+        let currentValue = this.parseValue(this.input.nativeElement.value) || 0;
+        let newValue = this.validateValue(currentValue + step);
 
         this.updateInput(newValue, 'spin');
         this.updateModel(event, newValue);
@@ -516,13 +514,20 @@ export class InputNumber implements OnInit {
     updateValue(event, valueStr, operation) {
         if (valueStr != null) {
             let newValue = this.parseValue(valueStr);
-            let valid = this.isWithinRange(newValue);
-
-            if (valid) {
-                this.updateInput(newValue, operation);
-                this.updateModel(event, newValue);
-            }
+            this.updateInput(newValue, operation);
         }
+    }
+
+    validateValue(value) {
+        if (this.min !== null && value < this.min) {
+            return this.min;
+        }
+
+        if (this.max !== null && value > this.max) {
+            return this.max;
+        }
+
+        return value;
     }
 
     deleteRange(value, start, end) {
@@ -538,10 +543,6 @@ export class InputNumber implements OnInit {
             newValueStr = value.slice(0, start) + value.slice(end);
 
         return newValueStr;
-    }
-
-    isWithinRange(value) {
-        return value == null || ((this.min == null || value > this.min) && (this.max == null || value < this.max));
     }
 
     isNumeralChar(char) {
