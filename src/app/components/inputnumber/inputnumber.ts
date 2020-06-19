@@ -3,7 +3,7 @@ import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -36,7 +36,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.Default,
     providers: [INPUTNUMBER_VALUE_ACCESSOR]
 })
-export class InputNumber implements OnInit {
+export class InputNumber implements OnInit,ControlValueAccessor {
     @Input() showButtons: boolean = false;
 
     @Input() format: boolean = true;
@@ -141,6 +141,7 @@ export class InputNumber implements OnInit {
 
     _index: any;
 
+    constructor(public el: ElementRef) {}
 
     ngOnInit() {
         this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
@@ -592,6 +593,10 @@ export class InputNumber implements OnInit {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+    }
+
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
     }
 
     getOptions() {
