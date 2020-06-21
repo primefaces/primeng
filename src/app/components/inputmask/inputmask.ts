@@ -159,8 +159,20 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         this._mask = val;
 
         this.initMask();
-        this.writeValue('');
-        this.onModelChange(this.value);
+
+        if (this.inputViewChild && this.inputViewChild.nativeElement) {
+            const previousValue = this.inputViewChild.nativeElement.value;
+            // try to salvage the current input, leaving as much of it as allowed by the new mask
+            this.checkVal();
+            // if tne input is changed, update states and notify form
+            const currentValue = this.inputViewChild.nativeElement.value;
+            if (previousValue !== currentValue) {
+                this.value = currentValue;
+                this.focusText = currentValue;
+                this.updateFilledState();
+                this.onModelChange(this.value);
+            }
+        }
     }
 
     initMask() {
