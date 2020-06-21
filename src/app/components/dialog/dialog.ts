@@ -20,7 +20,7 @@ const hideAnimation = animation([
 @Component({
     selector: 'p-dialog',
     template: `
-        <div *ngIf="maskVisible" [class]="maskStyleClass" 
+        <div *ngIf="maskVisible" [class]="maskStyleClass"
             [ngClass]="{'ui-dialog-mask': true, 'ui-widget-overlay': this.modal, 'ui-dialog-visible': this.maskVisible, 'ui-dialog-mask-scrollblocker': this.modal || this.blockScroll,
                 'ui-dialog-left': position === 'left',
                 'ui-dialog-right': position === 'right',
@@ -177,6 +177,10 @@ export class Dialog implements OnDestroy {
     @Output() onResizeInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
+
+    @Output() onDragInit: EventEmitter<any> = new EventEmitter();
+
+    @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
 
     _visible: boolean;
 
@@ -364,6 +368,7 @@ export class Dialog implements OnDestroy {
 
             this.container.style.margin = '0';
             DomHandler.addClass(document.body, 'ui-unselectable-text');
+            this.onDragInit.emit(event);
         }
     }
 
@@ -435,9 +440,10 @@ export class Dialog implements OnDestroy {
     }
 
     endDrag(event: MouseEvent) {
-        if (this.draggable) {
+        if (this.dragging) {
             this.dragging = false;
             DomHandler.removeClass(document.body, 'ui-unselectable-text');
+            this.onDragEnd.emit(event);
             this.cd.detectChanges();
         }
     }
@@ -457,6 +463,15 @@ export class Dialog implements OnDestroy {
     initResize(event: MouseEvent) {
         if (this.resizable) {
             this.resizing = true;
+
+            this.container.style.position = 'fixed';
+
+            let offset = DomHandler.getOffset(this.container);
+            this._style.top = offset.top + 'px';
+            this.container.style.top = offset.top + 'px';
+            this._style.left = offset.left + 'px';
+            this.container.style.left = offset.left + 'px';
+
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
             DomHandler.addClass(document.body, 'ui-unselectable-text');
@@ -640,7 +655,7 @@ export class Dialog implements OnDestroy {
         switch(event.toState) {
             case 'void':
                 this.onContainerDestroy();
-                this.onHide.emit({});
+                this.onHide.emit(event);
             break;
         }
     }
