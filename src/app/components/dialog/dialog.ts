@@ -178,6 +178,8 @@ export class Dialog implements OnDestroy {
 
     @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
 
+    @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
+
     _visible: boolean;
 
     maskVisible: boolean;
@@ -435,10 +437,11 @@ export class Dialog implements OnDestroy {
     }
 
     endDrag(event: MouseEvent) {
-        if (this.draggable) {
+        if (this.dragging) {
             this.dragging = false;
             DomHandler.removeClass(document.body, 'ui-unselectable-text');
             this.cd.detectChanges();
+            this.onDragEnd.emit(event);
         }
     }
 
