@@ -37,7 +37,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           <span class="ui-listbox-filter-icon pi pi-search"></span>
         </div>
       </div>
-      <div class="ui-listbox-list-wrapper" [ngStyle]="listStyle" [class]="listStyleClass">
+      <div [ngClass]="'ui-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass">
         <ul class="ui-listbox-list" role="listbox" aria-multiselectable="multiple">
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'"
               [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}" role="option" [attr.aria-label]="option.label"
