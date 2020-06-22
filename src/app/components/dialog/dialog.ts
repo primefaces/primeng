@@ -47,7 +47,7 @@ const hideAnimation = animation([
                         </a>
                     </div>
                 </div>
-                <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle" [class]="contentStyleClass">
+                <div #content [ngClass]="'ui-dialog-content ui-widget-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
                     <ng-content></ng-content>
                 </div>
                 <div #footer class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
