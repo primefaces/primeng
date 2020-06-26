@@ -310,6 +310,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() timeSeparator: string = ":";
 
+    @Input() focusTrap: boolean = true;
+
     @Input() showTransitionOptions: string = '225ms ease-out';
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
@@ -418,7 +420,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     focus: boolean;
     
     isKeydown: boolean;
-    
+
     filled: boolean;
 
     inputFieldValue: string = null;
@@ -1540,7 +1542,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     trapFocus(event) {
-        event.preventDefault();
         let focusableElements = DomHandler.getFocusableElements(this.contentViewChild.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
@@ -1551,19 +1552,36 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 let focusedIndex = focusableElements.indexOf(document.activeElement);
 
                 if (event.shiftKey) {
-                    if (focusedIndex == -1 || focusedIndex === 0)
-                        focusableElements[focusableElements.length - 1].focus();
-                    else
+                    if (focusedIndex == -1 || focusedIndex === 0) {
+                        if (this.focusTrap){
+                            focusableElements[focusableElements.length - 1].focus();
+                        }
+                        else {
+                            if (focusedIndex === -1)
+                                return this.hideOverlay();
+                            else if (focusedIndex === 0)
+                                return;
+                        }
+                    }
+                    else {
                         focusableElements[focusedIndex - 1].focus();
+                    }
                 }
                 else {
-                    if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
-                        focusableElements[0].focus();
-                    else
+                    if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1)) {
+                        if (!this.focusTrap && focusedIndex != -1)
+                            return this.hideOverlay();
+                        else
+                            focusableElements[0].focus();
+                    }
+                    else {
                         focusableElements[focusedIndex + 1].focus();
+                    }
                 }
             }
         }
+
+        event.preventDefault();
     }
     
     onMonthDropdownChange(m: string) {
