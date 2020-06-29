@@ -369,7 +369,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         let step = this.step * dir;
         let currentValue = this.parseValue(this.input.nativeElement.value) || 0;
         let newValue = this.validateValue(currentValue + step);
-
+        if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
+            return;
+        }
+        
         this.updateInput(newValue, 'spin');
         this.updateModel(event, newValue);
     }
@@ -485,6 +488,11 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         else {
             let selectionStart = this.input.nativeElement.selectionEnd;
             let selectionEnd = this.input.nativeElement.selectionEnd;
+            let formattedValue = this.formatValue(value);
+            if (this.maxlength && this.maxlength < formattedValue.length) {
+                return;
+            }
+            
             this.input.nativeElement.value = this.formatValue(value);
             let newLength = this.input.nativeElement.value.length;
 
