@@ -94,7 +94,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     @Input() autocomplete: string;
 
-    @ViewChild('input') inputViewChild: ElementRef;
+    @ViewChild('input', { static: true }) inputViewChild: ElementRef;
 
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
 
@@ -360,7 +360,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                     this.onComplete.emit();
                 }
             }, 0);
-        } 
+        }
         else {
             this.checkVal(true);
             while (pos.begin < this.len && !this.tests[pos.begin])
@@ -420,11 +420,11 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             this.onInput.emit(e);
 
             e.preventDefault();
-        } 
+        }
         else if ( k === 13 ) { // enter
             this.onInputBlur(e);
             this.updateModel(e);
-        } 
+        }
         else if (k === 27) { // escape
             this.inputViewChild.nativeElement.value = this.focusText;
             this.caret(0, this.checkVal());
