@@ -66,12 +66,12 @@
     "rxjs": "~6.5.3",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.6.4",
+    "typescript": "~3.9.5",
     "web-animations-js": "^2.3.2",
     "xlsx": "^0.15.1",
     "zone.js": "~0.10.2"
   },
   "dependencies": {
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   }
 }
