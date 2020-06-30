@@ -1,5 +1,49 @@
 # Change Log
 
+# Changelog
+
+## [9.1.2](https://github.com/primefaces/primeng/tree/9.1.2) (2020-06-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.1.1...9.1.2)
+
+**Implemented New Features and Enhancements:**
+
+- Add focusTrap attribute to Calendar [\#8968](https://github.com/primefaces/primeng/issues/8968)
+- Bug in dialog.ts - variable naming and improvement [\#8964](https://github.com/primefaces/primeng/issues/8964)
+- ToggleButton disabled doesn't correctly disable the accessibility input [\#8955](https://github.com/primefaces/primeng/issues/8955)
+- Don't close menu components when clicking the disabled option [\#8950](https://github.com/primefaces/primeng/issues/8950)
+- Add contentStyleClass to Dialog [\#8945](https://github.com/primefaces/primeng/issues/8945)
+- Add listStyleClass to ListBox [\#8944](https://github.com/primefaces/primeng/issues/8944)
+- Feature Request: Make activate-on-click optional for Inplace [\#8931](https://github.com/primefaces/primeng/issues/8931)
+
+**Fixed bugs:**
+
+- inputnumber :  "spinner button click submitting the form"   [\#8984](https://github.com/primefaces/primeng/issues/8984)
+- inputnumber : "maxlength" property doesn't work  [\#8983](https://github.com/primefaces/primeng/issues/8983)
+- 9.1.0 Popup slidemenu item doubleclick causes page to reload [\#8976](https://github.com/primefaces/primeng/issues/8976)
+- Incorrect property  pEditableRowIndex in Table docs [\#8972](https://github.com/primefaces/primeng/issues/8972)
+- InputNumber prevents min key number [\#8956](https://github.com/primefaces/primeng/issues/8956)
+- Menu Components getting hover and focus even when disabled [\#8951](https://github.com/primefaces/primeng/issues/8951)
+- Angular i18n error [\#8943](https://github.com/primefaces/primeng/issues/8943)
+- Filter in p-tree is not working with virtual scroll in primeng 9.1.0 [\#8941](https://github.com/primefaces/primeng/issues/8941)
+- Tabview: disabled tab control can be focused [\#8939](https://github.com/primefaces/primeng/issues/8939)
+- DynamicDialog and Dialog Closed by clear button on drop down or chips inside [\#8934](https://github.com/primefaces/primeng/issues/8934)
+- Button with icon shows no label after change [\#8918](https://github.com/primefaces/primeng/issues/8918)
+- 9.1.0 InputNumber node\_modules errors [\#8916](https://github.com/primefaces/primeng/issues/8916)
+- ui-fluid not working with dropdown [\#8914](https://github.com/primefaces/primeng/issues/8914)
+- p-inputNumber ignores disabled state in reactive forms [\#8901](https://github.com/primefaces/primeng/issues/8901)
+- Dialog Resize not working when set height [\#8899](https://github.com/primefaces/primeng/issues/8899)
+- javascript error in gallery [\#8897](https://github.com/primefaces/primeng/issues/8897)
+-  \[PR\] Fix 9.1.0 p-dialog resize bug miscalculates drag position [\#8892](https://github.com/primefaces/primeng/issues/8892)
+- DynamicDialog dismissableMask working when it shouldn't [\#8891](https://github.com/primefaces/primeng/issues/8891)
+- Typo in the documentation of inputNumber [\#8882](https://github.com/primefaces/primeng/issues/8882)
+- SET value to InputMask doesn't work on PrimeNG 9.0.3 - 9.1 [\#8727](https://github.com/primefaces/primeng/issues/8727)
+
+## [9.1.1](https://github.com/primefaces/primeng/tree/9.1.1) (2020-06-30)
+
+Invalid release, use 9.1.2 instead.
+
+
 ## [9.1.0](https://github.com/primefaces/primeng/tree/9.1.0) (2020-05-25)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.0.6...9.1.0)
@@ -391,9 +435,15 @@
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.5) (2020-05-18)
+
+**Fixed bugs:**
+
 - VirtualScrolling for Tree [\#8257](https://github.com/primefaces/primeng/issues/8257)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.4-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.4) (2020-05-11)
+
+**Fixed bugs:**
+
 - Slider doesn't works properly with ChangeDetectionStrategy.OnPush / reactive forms [\#7692](https://github.com/primefaces/primeng/issues/7692)
 - "no file chosen" tooltip appears after selecting file [\#7957](https://github.com/primefaces/primeng/issues/7957)
 - fieldset: don't animate into collapse !... when collapse is default [\#8022](https://github.com/primefaces/primeng/issues/8022)
@@ -407,6 +457,9 @@
 - p-spinner does not work after upgrade to 9.0.3 [\#8695](https://github.com/primefaces/primeng/issues/8695)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.3-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.3) (2020-04-28)
+
+**Fixed bugs:**
+
 - selectOtherMonths is broken in multiple and range mode [\#8349](https://github.com/primefaces/primeng/issues/8349)
 - Change Tooltip disabled doesn't close it [\#8324](https://github.com/primefaces/primeng/issues/8324)
 - The dynamicDialog can't be closed using the ESC key if the dynamicDialog has the baseZIndex property [\#8666](https://github.com/primefaces/primeng/issues/8666)
@@ -419,6 +472,9 @@
 - Dropdown allows selecting disabled options [\#8448](https://github.com/primefaces/primeng/issues/8448)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.2-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.2) (2020-04-15)
+
+**Fixed bugs:**
+
 - Calendar incorrect time validation [\#7381](https://github.com/primefaces/primeng/issues/7381)
 - id selector is not being set on toast message [\#7449](https://github.com/primefaces/primeng/issues/7449)
 - PrimeNG KeyFilter alphanum allows !#$%&( in Firefox and IE [\#7570](https://github.com/primefaces/primeng/issues/7570)
@@ -431,6 +487,9 @@
 - Dropdown floating label ui-inputwrapper-filled css class not applied [\#8614](https://github.com/primefaces/primeng/issues/8614)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.1-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.1) (2020-04-08)
+
+**Fixed bugs:**
+
 - TreeTable top level nodes not aligned [\#7297](https://github.com/primefaces/primeng/issues/7297)
 - Table filter change detection race condition [\#7842](https://github.com/primefaces/primeng/issues/7842)
 - TabMenu: support Ctrl+click for open link tab with routerLink [\#7434](https://github.com/primefaces/primeng/issues/7434)
@@ -443,6 +502,9 @@
 - Add precision property to Spinner [\#8662](https://github.com/primefaces/primeng/issues/8662)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.0-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.0) (2020-03-30)
+
+**Fixed bugs:**
+
 - Customizable Toast Transformations [\#8136](https://github.com/primefaces/primeng/issues/8136)
 - Context menu shouldn't close upon clicking an item with children [\#7076](https://github.com/primefaces/primeng/issues/7076)
 - Sortable columns should not be selectable [\#8634](https://github.com/primefaces/primeng/issues/8634)
@@ -456,6 +518,9 @@
 
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.9-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.9) (2020-03-24)
+
+**Fixed bugs:**
+
 - Autocomplete doesn't clear input value if user tabs before suggestions are displayed [\#8511](https://github.com/primefaces/primeng/issues/8511)
 - Pagination not reseting when using multiple sortMode [\#7141](https://github.com/primefaces/primeng/issues/7141)
 - Use requestAnimationFrame in VirtualScroll [\#8635](https://github.com/primefaces/primeng/issues/8635)
@@ -466,10 +531,6 @@
 - Table EditableColumn crashing on Tab key when loose ui-editing-cell [\#8470](https://github.com/primefaces/primeng/issues/8470)
 - pCellEditor not triggering edit when clicking on any element inside cell [\#8638](https://github.com/primefaces/primeng/issues/8638)
 - Incorrect position for scroll bars in scrollpanel [\#8400](https://github.com/primefaces/primeng/issues/8400)
-
-**Fixed bugs:**
-
-- Turbo Table empty message always showing even when table has data [\#8637](https://github.com/primefaces/primeng/issues/8637)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.1.7-LTS](https://www.npmjs.com/package/primeng-lts/v/8.1.8) (2020-03-19)
 
