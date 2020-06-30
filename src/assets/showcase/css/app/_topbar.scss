@@ -28,10 +28,6 @@
 		&:hover {
 			background-color: rgba(255,255,255,0.2);
         }
-
-        &:focus {
-			background-color: rgba(255,255,255,0.2);
-        }
         
 		i {
 			line-height: inherit;
@@ -52,6 +48,7 @@
 .topbar-menu {
 	display: inline-block;
 	list-style-type: none;
+	float: right;
 	margin: 15px 60px 0 0;
 	padding: 0;
     
