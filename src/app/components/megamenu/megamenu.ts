@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {MegaMenuItem,MenuItem} from 'primeng/api';
@@ -68,7 +68,9 @@ import {RouterModule} from '@angular/router';
             </ul>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./megamenu.css']
 })
 export class MegaMenu {
 

@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
@@ -73,7 +73,8 @@ export class BasePanelMenuItem {
             transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
         ])
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 export class PanelMenuSub extends BasePanelMenuItem {
     
@@ -137,7 +138,9 @@ export class PanelMenuSub extends BasePanelMenuItem {
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./panelmenu.css']
 })
 export class PanelMenu extends BasePanelMenuItem {
     
