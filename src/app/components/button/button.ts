@@ -1,4 +1,4 @@
-import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
 
@@ -138,7 +138,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <span class="ui-button-text ui-clickable" [attr.aria-hidden]="icon && !label">{{label||'ui-btn'}}</span>
         </button>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None
 })
 export class Button {
 
