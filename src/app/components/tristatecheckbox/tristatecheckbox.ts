@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -25,7 +25,8 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
 

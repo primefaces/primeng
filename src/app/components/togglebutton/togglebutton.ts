@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -26,7 +26,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None
 })
 export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 

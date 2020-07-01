@@ -25,7 +25,7 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {InputTextModule} from 'primeng/inputtext';
@@ -48,7 +48,9 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-focus]': 'focused'
     },
     providers: [INPUTMASK_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./inputmask.css']
 })
 export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 

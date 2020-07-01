@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ViewChild,ElementRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ViewChild,ElementRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl} from '@angular/forms';
 
@@ -26,7 +26,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./checkbox.css']
 })
 export class Checkbox implements ControlValueAccessor {
 

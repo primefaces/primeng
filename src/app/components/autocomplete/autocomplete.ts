@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewChecked,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {InputTextModule} from 'primeng/inputtext';
@@ -69,7 +69,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-focus]': 'focus && !disabled'
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./autocomplete.css']
 })
 export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy,ControlValueAccessor {
 

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
@@ -32,7 +32,9 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-focus]': 'focus'
     },
     providers: [CHIPS_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./chips.css']
 })
 export class Chips implements AfterContentInit,ControlValueAccessor {
 

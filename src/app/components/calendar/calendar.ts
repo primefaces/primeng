@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,OnInit,Input,Output,EventEmitter,forwardRef,Renderer2,
-        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,NgZone,ChangeDetectionStrategy} from '@angular/core';
+        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,NgZone,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
@@ -210,7 +210,9 @@ export interface LocaleSettings {
         '[class.ui-inputwrapper-focus]': 'focus'
     },
     providers: [CALENDAR_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./calendar.css']
 })
 export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     

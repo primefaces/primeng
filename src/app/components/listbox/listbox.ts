@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild, QueryList, TemplateRef,forwardRef, ChangeDetectorRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectItem } from 'primeng/api';
 import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
@@ -58,7 +58,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     </div>
   `,
     providers: [LISTBOX_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./listbox.css']
 })
 export class Listbox implements AfterContentInit, ControlValueAccessor {
 

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
@@ -63,7 +63,8 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
         

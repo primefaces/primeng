@@ -1,5 +1,5 @@
 import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy, Input, Output, Renderer2, EventEmitter,
-    forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, ChangeDetectionStrategy } from '@angular/core';
+    forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { SelectItem } from 'primeng/api';
@@ -32,7 +32,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <span *ngIf="!template">{{option.label}}</span>
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class MultiSelectItem {
 
@@ -152,7 +153,9 @@ export class MultiSelectItem {
         '[class.ui-inputwrapper-focus]': 'focus'
     },
     providers: [MULTISELECT_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./multiselect.css']
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 

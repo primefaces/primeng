@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 
@@ -21,7 +21,9 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [INPUTSWITCH_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./inputswitch.css']
 })
 export class InputSwitch implements ControlValueAccessor {
 

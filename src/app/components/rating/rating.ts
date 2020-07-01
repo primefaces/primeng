@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -24,7 +24,9 @@ export const RATING_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [RATING_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./rating.css']
 })
 export class Rating implements OnInit,ControlValueAccessor {
 

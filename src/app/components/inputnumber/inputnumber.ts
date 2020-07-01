@@ -1,5 +1,5 @@
 
-import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef} from '@angular/core';
+import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -34,7 +34,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
-    providers: [INPUTNUMBER_VALUE_ACCESSOR]
+    providers: [INPUTNUMBER_VALUE_ACCESSOR],
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./inputnumber.css']
 })
 export class InputNumber implements OnInit,ControlValueAccessor {
     @Input() showButtons: boolean = false;
