@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { UniqueComponentId } from 'primeng/utils';
@@ -17,7 +17,9 @@ import { DomHandler } from 'primeng/dom';
             <p-galleriaContent (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
         </ng-template>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./galleria.css']
 })
 export class Galleria implements OnChanges, OnDestroy {
 
