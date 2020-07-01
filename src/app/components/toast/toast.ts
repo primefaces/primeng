@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
@@ -47,7 +47,8 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                 }))
             ])
         ])
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
 
@@ -146,7 +147,12 @@ export class ToastItem implements AfterViewInit, OnDestroy {
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: [
+        './toast.css',
+        '../dialog/dialog.css'
+    ]
 })
 export class Toast implements OnInit,AfterContentInit,OnDestroy {
 

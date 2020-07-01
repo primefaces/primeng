@@ -35,7 +35,10 @@ import {DomHandler} from 'primeng/dom';
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./lightbox.css']
+    styleUrls: [
+        './lightbox.css',
+        '../dialog/dialog.css'
+    ]
 })
 export class Lightbox implements AfterViewInit,OnDestroy {
 
