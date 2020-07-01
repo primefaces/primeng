@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 
@@ -28,7 +28,9 @@ export class InplaceContent {}
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./inplace.css']
 })
 export class Inplace {
 

@@ -1,4 +1,4 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -23,7 +23,9 @@ import {Subscription}   from 'rxjs';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./terminal.css']
 })
 export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
 

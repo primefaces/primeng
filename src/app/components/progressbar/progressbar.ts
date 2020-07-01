@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -10,7 +10,9 @@ import {CommonModule} from '@angular/common';
             <div class="ui-progressbar-label" [style.display]="value != null ? 'block' : 'none'" *ngIf="showValue">{{value}}{{unit}}</div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./progressbar.css']
 })
 export class ProgressBar {
 
