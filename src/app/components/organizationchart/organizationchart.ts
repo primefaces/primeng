@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,Input,Output,AfterContentInit,EventEmitter,TemplateRef,
-        Inject,forwardRef,ContentChildren,QueryList,ChangeDetectionStrategy} from '@angular/core';
+        Inject,forwardRef,ContentChildren,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from 'primeng/api';
@@ -59,7 +59,9 @@ import {PrimeTemplate} from 'primeng/api';
              animate(150, style({opacity:0}))
            ])
         ])
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./organizationchart.css']
 })
 export class OrganizationChartNode {
 

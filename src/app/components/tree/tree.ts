@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,OnChanges,
-    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy,SimpleChanges} from '@angular/core';
+    ContentChildren,QueryList,TemplateRef,Inject,ElementRef,forwardRef,ChangeDetectionStrategy,SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -84,7 +84,8 @@ import {DomHandler} from 'primeng/dom';
                 </tbody>
             </table>
         </ng-template>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class UITreeNode implements OnInit {
 
@@ -549,7 +550,9 @@ export class UITreeNode implements OnInit {
             <div class="ui-tree-empty-message" *ngIf="!loading && (value == null || value.length === 0)">{{emptyMessage}}</div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./tree.css']
 })
 export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,BlockableUI {
 

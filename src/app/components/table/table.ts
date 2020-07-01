@@ -1,5 +1,5 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit,
-    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query} from '@angular/core';
+    Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
@@ -110,7 +110,9 @@ export class TableService {
         </div>
     `,
     providers: [TableService],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./table.css']
 })
 export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
 
@@ -2183,7 +2185,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         <ng-container *ngIf="dt.isEmpty() && !dt.loading">
             <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
         </ng-container>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TableBody {
 
@@ -2243,7 +2246,8 @@ export class TableBody {
                 </table>
             </div>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked {
 
@@ -2596,7 +2600,8 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class SortIcon implements OnInit, OnDestroy {
 
@@ -3371,7 +3376,8 @@ export class CancelEditableRow {
         <ng-container *ngIf="!editing">
             <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class CellEditor implements AfterContentInit {
 
@@ -3417,7 +3423,8 @@ export class CellEditor implements AfterContentInit {
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':checked}"></span>
             </div>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TableRadioButton  {
 
@@ -3488,7 +3495,8 @@ export class TableRadioButton  {
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TableCheckbox  {
 
@@ -3561,7 +3569,8 @@ export class TableCheckbox  {
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TableHeaderCheckbox  {
 

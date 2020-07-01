@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ObjectUtils} from 'primeng/utils';
 import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
@@ -38,7 +38,9 @@ import {FilterUtils} from 'primeng/utils';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./dataview.css']
 })
 export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
@@ -305,7 +307,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
                 <span class="ui-button-text ui-clickable">ui-btn</span>
             </a>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class DataViewLayoutOptions  {
 

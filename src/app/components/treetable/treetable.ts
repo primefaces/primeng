@@ -1,4 +1,4 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
@@ -99,7 +99,9 @@ export class TreeTableService {
         </div>
     `,
     providers: [TreeTableService],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./treetable.css']
 })
 export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
 
@@ -1642,7 +1644,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         <ng-container *ngIf="tt.isEmpty()">
             <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: {$implicit: columns}"></ng-container>
         </ng-container>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TTBody {
 
@@ -1697,7 +1700,8 @@ export class TTBody {
                 </table>
             </div>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TTScrollableView implements AfterViewInit, OnDestroy, AfterViewChecked {
 
@@ -2002,7 +2006,8 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     selector: 'p-treeTableSortIcon',
     template: `
         <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TTSortIcon implements OnInit, OnDestroy {
 
@@ -2419,7 +2424,8 @@ export class TTContextMenuRow {
                 <span class="ui-chkbox-icon ui-clickable pi" [ngClass]="{'pi-check':checked, 'pi-minus': rowNode.node.partialSelected}"></span>
             </div>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TTCheckbox  {
 
@@ -2481,7 +2487,8 @@ export class TTCheckbox  {
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TTHeaderCheckbox  {
 
@@ -2749,7 +2756,8 @@ export class TTEditableColumn implements AfterViewInit {
         <ng-container *ngIf="!tt.editingCell || tt.editingCell !== editableColumn.el.nativeElement">
             <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TreeTableCellEditor implements AfterContentInit {
 
@@ -2866,7 +2874,8 @@ export class TTRow {
             [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'" [style.marginLeft]="rowNode.level * 16 + 'px'">
             <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
         </a>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class TreeTableToggler {
 
