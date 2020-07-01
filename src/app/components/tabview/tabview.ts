@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
-        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
+        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
@@ -36,6 +36,8 @@ let idx: number = 0;
             </li>
         </ng-template>
     `,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./tabview.css']
 })
 export class TabViewNav {
     

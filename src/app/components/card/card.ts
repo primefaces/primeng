@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionStrategy } from '@angular/core';
+import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header, Footer } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
@@ -22,7 +22,9 @@ import { BlockableUI } from 'primeng/api';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./card.css']
 })
 export class Card implements BlockableUI {
 

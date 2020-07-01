@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,ElementRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,Input,ElementRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BlockableUI} from 'primeng/api';
 
@@ -9,7 +9,9 @@ import {BlockableUI} from 'primeng/api';
             <ng-content></ng-content>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./toolbar.css']
 })
 export class Toolbar implements BlockableUI {
 
