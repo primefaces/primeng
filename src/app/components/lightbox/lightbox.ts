@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,AfterViewInit,OnDestroy,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Renderer2,AfterViewInit,OnDestroy,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
@@ -33,7 +33,9 @@ import {DomHandler} from 'primeng/dom';
            </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./lightbox.css']
 })
 export class Lightbox implements AfterViewInit,OnDestroy {
 

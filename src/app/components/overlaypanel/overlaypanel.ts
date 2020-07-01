@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,
-        ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy} from '@angular/core';
+        ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate} from 'primeng/api';
@@ -38,7 +38,9 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             transition('open => close', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./overlaypanel.css']
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
 
