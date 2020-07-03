@@ -31,7 +31,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./slider.css']
 })

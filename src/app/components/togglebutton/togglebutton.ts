@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -18,7 +18,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                 (click)="toggle($event)" (keydown.enter)="toggle($event)">
             <div class="ui-helper-hidden-accessible">
                 <input #checkbox type="checkbox" [attr.id]="inputId" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex"
-                    role="button" [attr.aria-pressed]="checked" [attr.aria-labelledby]="ariaLabelledBy" [disabled]="disabled">
+                    role="button" [attr.aria-pressed]="checked" [attr.aria-labelledby]="ariaLabelledBy">
             </div>
             <span *ngIf="onIcon||offIcon" class="ui-button-icon-left" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'ui-button-icon-left': (iconPos === 'left'), 
             'ui-button-icon-right': (iconPos === 'right')}"></span>
@@ -26,8 +26,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.None
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 
@@ -72,6 +71,8 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
             this.checkbox = <HTMLInputElement> this.checkboxViewChild.nativeElement;
         }
     }
+
+    constructor(private cd: ChangeDetectorRef) { }
     
     toggle(event: Event) {
         if (!this.disabled) {
@@ -85,6 +86,8 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
             if (this.checkbox) {
                 this.checkbox.focus();
             }
+
+            this.cd.markForCheck();
         }
     }
 

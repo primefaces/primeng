@@ -47,7 +47,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
         ])
     ],
     providers: [COLORPICKER_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
@@ -236,6 +236,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         
         this.updateColorSelector();
         this.updateUI();
+        this.cd.markForCheck();
     }
     
     updateColorSelector() {

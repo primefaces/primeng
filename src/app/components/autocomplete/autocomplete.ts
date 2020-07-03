@@ -69,7 +69,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         '[class.ui-inputwrapper-focus]': 'focus && !disabled'
     },
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./autocomplete.css']
 })

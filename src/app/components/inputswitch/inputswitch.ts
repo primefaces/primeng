@@ -21,7 +21,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [INPUTSWITCH_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inputswitch.css']
 })

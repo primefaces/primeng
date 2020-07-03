@@ -29,7 +29,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./selectbutton.css']
 })

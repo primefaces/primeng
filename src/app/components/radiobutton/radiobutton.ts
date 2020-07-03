@@ -27,7 +27,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioButton implements ControlValueAccessor {
 

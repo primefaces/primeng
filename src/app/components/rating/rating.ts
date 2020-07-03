@@ -24,7 +24,7 @@ export const RATING_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [RATING_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./rating.css']
 })

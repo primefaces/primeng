@@ -63,7 +63,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         </div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
