@@ -434,6 +434,16 @@ Invalid release, use 9.1.2 instead.
 
 - Angular 9 Compatibility for Unit Tests [\#8352](https://github.com/primefaces/primeng/issues/8352)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.6-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.6) (2020-07-02)
+
+**Fixed bugs:**
+
+- Add contentStyleClass to Dialog [\#8945](https://github.com/primefaces/primeng/issues/8945)
+- DataTable scrollHeight doesn't calculate correctly with frozen columns [\#8618](https://github.com/primefaces/primeng/issues/8618)
+- Button with icon shows no label after change [\#8918](https://github.com/primefaces/primeng/issues/8918)
+- Add listStyleClass to ListBox [\#8944](https://github.com/primefaces/primeng/issues/8944)
+- ToggleButton disabled doesn't correctly disable the accessibility input [\#8955](https://github.com/primefaces/primeng/issues/8955)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [8.2.5-LTS](https://www.npmjs.com/package/primeng-lts/v/8.2.5) (2020-05-18)
 
 **Fixed bugs:**
