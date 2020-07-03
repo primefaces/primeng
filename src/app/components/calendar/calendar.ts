@@ -210,7 +210,7 @@ export interface LocaleSettings {
         '[class.ui-inputwrapper-focus]': 'focus'
     },
     providers: [CALENDAR_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./calendar.css']
 })
@@ -1703,6 +1703,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         this.clearTimePickerTimer();
         this.timePickerTimer = setTimeout(() => {
             this.repeat(event, 100, type, direction);
+            this.cd.markForCheck();
         }, i);
 
         switch(type) {
