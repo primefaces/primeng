@@ -1,5 +1,5 @@
 
-import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ChangeDetectionStrategy, Input, ElementRef, ViewChild, OnInit, EventEmitter, Output, forwardRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -33,7 +33,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mousedown)="this.onDownButtonMouseDown($event)" (mouseup)="onDownButtonMouseUp()" (mouseleave)="onDownButtonMouseLeave()" (keydown)="onDownButtonKeyDown()" (keyup)="onDownButtonKeyUp()"></button>
         </span>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [INPUTNUMBER_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inputnumber.css']
@@ -143,7 +143,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     _index: any;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, private cd: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
@@ -595,6 +595,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
 
     writeValue(value: any) : void {
         this.value = value;
+        this.cd.markForCheck();
     }
 
     registerOnChange(fn: Function): void {
