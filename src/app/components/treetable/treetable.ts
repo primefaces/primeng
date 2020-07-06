@@ -1672,8 +1672,8 @@ export class TTBody {
             </div>
         </div>
         <ng-container *ngIf="!tt.virtualScroll; else virtualScrollTemplate">
-            <div #scrollBody class="ui-treetable-scrollable-body" [ngStyle]="{'max-height': !tt.scrollHeight !== 'flex' ? scrollHeight : undefined}">
-                <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
+            <div #scrollBody class="ui-treetable-scrollable-body" [ngStyle]="{'max-height': tt.scrollHeight !== 'flex' ? scrollHeight : undefined}">
+                <table #scrollTable [class]="tt.styleClass" [ngStyle]="tt.style">
                     <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate" [frozen]="frozen"></tbody>
                 </table>
@@ -1681,9 +1681,9 @@ export class TTBody {
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
-            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="!tt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
+            <cdk-virtual-scroll-viewport [itemSize]="tt.virtualRowHeight" [style.height]="tt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
                     [minBufferPx]="tt.minBufferPx" [maxBufferPx]="tt.maxBufferPx" class="ui-treetable-virtual-scrollable-body">
-                <table #scrollTable [class]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
+                <table #scrollTable [class]="tt.styleClass" [ngStyle]="tt.style">
                     <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate||tt.colGroupTemplate : tt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tbody class="ui-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate||tt.bodyTemplate : tt.bodyTemplate" [frozen]="frozen"></tbody>
                 </table>
