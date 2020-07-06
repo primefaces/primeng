@@ -1981,6 +1981,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (this.touchUI) {
             this.disableModality();
         }
+        
+        this.cd.markForCheck();
     }
 
     toggle() {
@@ -1991,7 +1993,6 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
             else {
                 this.hideOverlay();
-                this.cd.markForCheck();
             }
         }
     }

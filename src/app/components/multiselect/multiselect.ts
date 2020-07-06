@@ -611,6 +611,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.onFilter();
         }
         this.onPanelHide.emit();
+        this.cd.markForCheck();
     }
 
     close(event) {
@@ -832,8 +833,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 if (this.isOutsideClicked(event)) {
                     this.hide();
                 }
-
-                this.cd.markForCheck();
             });
         }
     }

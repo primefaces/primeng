@@ -51,9 +51,9 @@ import { UniqueComponentId } from 'primeng/utils';
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./splitbutton.css']
+    styleUrls: ['./splitbutton.css', '../menu/menu.css']
 })
 export class SplitButton implements OnDestroy {
 
@@ -224,6 +224,7 @@ export class SplitButton implements OnDestroy {
 
     onWindowResize() {
         this.overlayVisible = false;
+        this.cd.markForCheck();
     }
 
     onOverlayHide() {

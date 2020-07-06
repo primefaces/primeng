@@ -26,7 +26,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.Default,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./checkbox.css']
 })

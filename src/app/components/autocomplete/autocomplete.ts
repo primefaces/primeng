@@ -486,6 +486,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     hide() {
         this.overlayVisible = false;
+        this.cd.markForCheck();
     }
 
     handleDropdownClick(event) {
