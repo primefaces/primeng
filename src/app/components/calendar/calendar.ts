@@ -1991,6 +1991,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
             else {
                 this.hideOverlay();
+                this.cd.markForCheck();
             }
         }
     }
