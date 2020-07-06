@@ -38,7 +38,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             transition('open => close', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./overlaypanel.css']
 })
@@ -103,6 +103,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                     this.contentTemplate = item.template;
                 break;
             }
+
+            this.cd.markForCheck();
         });
     }
 
@@ -143,7 +145,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 };
             }
 
-            this.overlayVisible = false;
+            this.hide();
         }
         else {
             this.show(event, target);
@@ -154,6 +156,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.target = target||event.currentTarget||event.target;
         this.overlayVisible = true;
         this.render = true;
+        this.cd.markForCheck();
     }
 
     hasTargetChanged(event, target) {
@@ -219,6 +222,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     hide() {
         this.overlayVisible = false;
+        this.cd.markForCheck();
     }
 
     onCloseClick(event) {
