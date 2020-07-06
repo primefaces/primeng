@@ -50,7 +50,7 @@ const hideAnimation = animation([
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
@@ -142,6 +142,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	close() {
         this.visible = false;
+        this.cd.markForCheck();
 	}
 
     enableModality() {

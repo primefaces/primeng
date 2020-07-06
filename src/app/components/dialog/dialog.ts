@@ -67,7 +67,7 @@ const hideAnimation = animation([
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })

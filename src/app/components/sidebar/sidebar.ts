@@ -29,7 +29,7 @@ import {DomHandler} from 'primeng/dom';
             transition('hidden => visible', animate('300ms ease-out'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./sidebar.css']
 })
