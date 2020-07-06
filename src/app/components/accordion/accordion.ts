@@ -48,7 +48,7 @@ let idx: number = 0;
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./accordion.css']
 })
@@ -80,7 +80,7 @@ export class AccordionTab implements OnDestroy {
         this._selected = val;
         
         if (!this.loaded) {
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForCheck();
         }
     }
 
@@ -91,7 +91,7 @@ export class AccordionTab implements OnDestroy {
         this._animating = val;
 
         if (!(this.changeDetector as ViewRef).destroyed) {
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForCheck();
         }
     }
 
@@ -138,6 +138,7 @@ export class AccordionTab implements OnDestroy {
                 for (var i = 0; i < this.accordion.tabs.length; i++) {
                     this.accordion.tabs[i].selected = false;
                     this.accordion.tabs[i].selectedChange.emit(false);
+                    this.accordion.tabs[i].changeDetector.markForCheck();
                 }
             }
 
@@ -148,9 +149,12 @@ export class AccordionTab implements OnDestroy {
 
         this.selectedChange.emit(this.selected);
         this.accordion.updateActiveIndex();
+        this.changeDetector.markForCheck();
 
         event.preventDefault();
     }
+
+
 
     findTabIndex() {
         let index = -1;
@@ -189,7 +193,8 @@ export class AccordionTab implements OnDestroy {
         <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass" role="tablist">
             <ng-content></ng-content>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     
