@@ -1,4 +1,4 @@
-import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,AfterContentInit,Optional,ElementRef,ChangeDetectionStrategy,ContentChildren,QueryList,TemplateRef, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,AfterContentInit,Optional,ElementRef,ChangeDetectionStrategy,ContentChildren,QueryList,TemplateRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message,PrimeTemplate,MessageService} from 'primeng/api';
@@ -47,7 +47,7 @@ import {Subscription} from 'rxjs';
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./messages.css']
 })
@@ -83,7 +83,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    constructor(@Optional() public messageService: MessageService, public el: ElementRef) {}
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -108,6 +108,8 @@ export class Messages implements AfterContentInit, OnDestroy {
                     else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
                     }
+
+                    this.cd.markForCheck();
                 }
             });
 
@@ -120,6 +122,8 @@ export class Messages implements AfterContentInit, OnDestroy {
                 else {
                     this.value = null;
                 }
+
+                this.cd.markForCheck();
             });
         }
     }

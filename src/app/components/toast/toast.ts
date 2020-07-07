@@ -48,7 +48,8 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
             ])
         ])
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
 
@@ -147,7 +148,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
         './toast.css',
@@ -232,6 +233,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
             if (this.modal) {
                 this.disableModality();
             }
+
+            this.cd.markForCheck();
         });       
     }
 
@@ -241,6 +244,8 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         if (this.preventDuplicates) {
             this.messagesArchieve = this.messagesArchieve ? [...this.messagesArchieve, ...messages] : [...messages];
         }
+
+        this.cd.markForCheck();
     }
 
     canAdd(message: Message): boolean {
