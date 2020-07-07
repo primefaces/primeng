@@ -70,7 +70,7 @@ export class MenuItemContent {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./menu.css']
 })
@@ -112,7 +112,7 @@ export class Menu implements OnDestroy {
 
     visible: boolean;
     
-    constructor(public el: ElementRef, public renderer: Renderer2,private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     toggle(event) {
         if (this.visible)
@@ -127,6 +127,7 @@ export class Menu implements OnDestroy {
         this.target = event.currentTarget;
         this.visible = true;
         this.preventDocumentDefault = true;
+        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -173,7 +174,7 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
-        this.cd.detectChanges();
+        this.cd.markForCheck();
     }
 
     onWindowResize() {

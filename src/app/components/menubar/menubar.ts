@@ -114,6 +114,7 @@ export class MenubarSub implements OnDestroy {
                     this.activeItem = null;
                     this.menuHoverActive = false;
                     this.activeMenu = false;
+                    this.cd.markForCheck();
                 }
                 this.menuClick = false;
             });
@@ -195,7 +196,7 @@ export class MenubarSub implements OnDestroy {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./menubar.css']
 })
@@ -216,7 +217,7 @@ export class Menubar {
     @Input() get autoDisplay(): boolean {
         return this._autoDisplay;
     }
-    set utc(_utc: boolean) {
+    set autoDisplay(_autoDisplay: boolean) {
         console.log("AutoDisplay property is deprecated and functionality is not available.");
     }
 

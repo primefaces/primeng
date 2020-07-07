@@ -128,7 +128,7 @@ export class SlideMenuSub implements OnDestroy {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./slidemenu.css']
 })
@@ -220,13 +220,13 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             this.show(event);
 
         this.preventDocumentDefault = true;
-        this.cd.detectChanges();
     }
     
     show(event) {
         this.target = event.currentTarget;
         this.visible = true;
         this.preventDocumentDefault = true;
+        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -273,6 +273,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     hide() {
         this.visible = false;
+        this.cd.markForCheck();
     }
 
     onWindowResize() {

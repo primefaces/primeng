@@ -138,7 +138,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./panelmenu.css']
 })

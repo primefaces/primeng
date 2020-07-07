@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {MegaMenuItem,MenuItem} from 'primeng/api';
@@ -68,7 +68,7 @@ import {RouterModule} from '@angular/router';
             </ul>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./megamenu.css']
 })
@@ -90,7 +90,7 @@ export class MegaMenu {
 
     hideTimeout: any;
                 
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
     onItemMouseEnter(event, item, menuitem: MegaMenuItem) {
         if (menuitem.disabled) {
@@ -126,6 +126,7 @@ export class MegaMenu {
     onItemMouseLeave(event, link) {
         this.hideTimeout = setTimeout(() => {
             this.activeItem = null;
+            this.cd.markForCheck();
         }, 1000);
     }
     

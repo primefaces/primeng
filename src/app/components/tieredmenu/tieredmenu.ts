@@ -194,7 +194,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TieredMenu implements OnDestroy {
@@ -231,7 +231,7 @@ export class TieredMenu implements OnDestroy {
 
     visible: boolean;
     
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
     toggle(event) {
         if (this.visible)
@@ -247,6 +247,7 @@ export class TieredMenu implements OnDestroy {
         this.visible = true;
         this.parentActive = true;
         this.preventDocumentDefault = true;
+        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -292,6 +293,7 @@ export class TieredMenu implements OnDestroy {
     hide() {
         this.visible = false;
         this.parentActive = false;
+        this.cd.markForCheck();
     }
 
     onWindowResize() {
