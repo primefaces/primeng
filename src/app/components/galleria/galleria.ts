@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewChild, ContentChildren, QueryList, TemplateRef, OnInit, OnChanges, AfterContentChecked, SimpleChanges, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { UniqueComponentId } from 'primeng/utils';
@@ -9,15 +9,15 @@ import { DomHandler } from 'primeng/dom';
     template: `
         <div *ngIf="fullScreen;else windowed">
             <div *ngIf="visible"  #mask [ngClass]="{'ui-galleria-mask ui-widget-overlay':true, 'ui-galleria-visible': this.visible}" [class]="maskClass" [ngStyle]="{'zIndex':zIndex}">
-                <p-galleriaContent (maskHide)="onMaskHide()" (activeItemChange)="onActiveItemChange($event)" [ngStyle]="containerStyle"></p-galleriaContent>
+                <p-galleriaContent [value]="value" [activeIndex]="activeIndex" (maskHide)="onMaskHide()" (activeItemChange)="onActiveItemChange($event)" [ngStyle]="containerStyle"></p-galleriaContent>
             </div>
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
+            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
         </ng-template>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./galleria.css']
 })
@@ -106,7 +106,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     zIndex: string;
 
-    constructor(public element: ElementRef) { }
+    constructor(public element: ElementRef, public cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -162,7 +162,7 @@ export class Galleria implements OnChanges, OnDestroy {
 @Component({
     selector: 'p-galleriaContent',
     template: `
-        <div [attr.id]="id" *ngIf="galleria.value && galleria.value.length > 0" [ngClass]="{'ui-galleria ui-widget': true, 'ui-galleria-fullscreen': this.galleria.fullScreen, 
+        <div [attr.id]="id" *ngIf="value && value.length > 0" [ngClass]="{'ui-galleria ui-widget': true, 'ui-galleria-fullscreen': this.galleria.fullScreen, 
             'ui-galleria-indicator-onitem': this.galleria.showIndicatorsOnItem, 'ui-galleria-item-nav-onhover': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen}"
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" [class]="galleriaClass()">
             <button *ngIf="galleria.fullScreen" type="button" class="ui-galleria-close ui-link ui-widget ui-state-default ui-corner-all" (click)="maskHide.emit()">
@@ -172,12 +172,12 @@ export class Galleria implements OnChanges, OnDestroy {
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
             <div class="ui-galleria-content">
-                <p-galleriaItem [value]="galleria.value" [activeIndex]="galleria.activeIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
+                <p-galleriaItem [value]="value" [activeIndex]="activeIndex" [circular]="galleria.circular" [templates]="galleria.templates" (onActiveIndexChange)="onActiveIndexChange($event)" 
                     [showIndicators]="galleria.showIndicators" [changeItemOnIndicatorHover]="galleria.changeItemOnIndicatorHover" [indicatorFacet]="galleria.indicatorFacet"
                     [captionFacet]="galleria.captionFacet" [showItemNavigators]="galleria.showItemNavigators" [autoPlay]="galleria.autoPlay" [slideShowActive]="slideShowActive"
                     (startSlideShow)="startSlideShow()" (stopSlideShow)="stopSlideShow()"></p-galleriaItem>
 
-                <p-galleriaThumbnails *ngIf="galleria.showThumbnails" [containerId]="id" [value]="galleria.value" (onActiveIndexChange)="onActiveIndexChange($event)" [activeIndex]="galleria.activeIndex" [templates]="galleria.templates"
+                <p-galleriaThumbnails *ngIf="galleria.showThumbnails" [containerId]="id" [value]="value" (onActiveIndexChange)="onActiveIndexChange($event)" [activeIndex]="activeIndex" [templates]="galleria.templates"
                     [numVisible]="galleria.numVisible" [responsiveOptions]="galleria.responsiveOptions" [circular]="galleria.circular"
                     [isVertical]="isVertical()" [contentHeight]="galleria.verticalThumbnailViewPortHeight" [showThumbnailNavigators]="galleria.showThumbnailNavigators"
                     [slideShowActive]="slideShowActive" (stopSlideShow)="stopSlideShow()"></p-galleriaThumbnails>
@@ -187,7 +187,7 @@ export class Galleria implements OnChanges, OnDestroy {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaContent {
 
@@ -198,6 +198,8 @@ export class GalleriaContent {
     set activeIndex(activeIndex: number) {
         this._activeIndex = activeIndex;
     }
+
+    @Input() value: any[] = [];
 
     @Output() maskHide: EventEmitter<any> = new EventEmitter();
 
@@ -215,7 +217,7 @@ export class GalleriaContent {
 
     styleClass: string;
 
-    constructor(public galleria: Galleria) { }
+    constructor(public galleria: Galleria, public cd: ChangeDetectorRef) { }
 
     galleriaClass() {
         const thumbnailsPosClass = this.galleria.showThumbnails && this.getPositionClass('ui-galleria-thumbnails', this.galleria.thumbnailsPosition);
@@ -226,7 +228,7 @@ export class GalleriaContent {
 
     startSlideShow() {
         this.interval = setInterval(() => {
-            let activeIndex = (this.galleria.circular && (this.galleria.value.length - 1) === this.galleria.activeIndex) ? 0 : (this.galleria.activeIndex + 1);
+            let activeIndex = (this.galleria.circular && (this.value.length - 1) === this.activeIndex) ? 0 : (this.activeIndex + 1);
             this.onActiveIndexChange(activeIndex);
             this.activeIndex = activeIndex;
         }, this.galleria.transitionInterval);
@@ -268,7 +270,7 @@ export class GalleriaContent {
             <ng-container *ngTemplateOutlet="contentTemplate; context: context"></ng-container>
         </ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaItemSlot {
     @Input() templates: QueryList<any>;
@@ -359,7 +361,7 @@ export class GalleriaItemSlot {
     host: {
         '[class.ui-galleria-item-wrapper]': 'true',
     },
-    changeDetection: ChangeDetectionStrategy.Default
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaItem implements OnInit {
 
@@ -503,7 +505,7 @@ export class GalleriaItem implements OnInit {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleriaThumbnails implements OnInit, AfterContentChecked, OnDestroy {
 

@@ -1,9 +1,10 @@
-import {Component, OnInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import { PhotoService } from '../../service/photoservice';import { Galleria } from 'primeng/galleria';
 
 @Component({
     templateUrl: './galleriaadvanceddemo.html',
     styleUrls: ['./galleriaadvanceddemo.scss']
+    
 })
 export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     images: any[];
@@ -19,7 +20,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     @ViewChild('galleria') galleria: Galleria;
 
     
-    constructor(private photoService: PhotoService) { }
+    constructor(private photoService: PhotoService, private cd: ChangeDetectorRef) { }
 
     responsiveOptions:any[] = [
         {
@@ -51,6 +52,8 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
         else {
             this.openPreviewFullScreen();
         }
+
+        this.cd.detach();
     }
 
     openPreviewFullScreen() {
@@ -71,6 +74,8 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     onFullScreenChange() {
         this.fullscreen = !this.fullscreen;
+        this.cd.detectChanges();
+        this.cd.reattach();
     }
 
     closePreviewFullScreen() {
