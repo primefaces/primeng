@@ -38,7 +38,7 @@ import {FilterUtils} from 'primeng/utils';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./dataview.css']
 })
@@ -126,7 +126,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     initialized: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.lazy) {
@@ -195,6 +195,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
             layout: this.layout
         });
         this.updateItemTemplate();
+
+        this.cd.markForCheck();
     }
 
     updateTotalRecords() {
@@ -285,6 +287,8 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
                 this.first = 0;
                 this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
             }
+
+            this.cd.markForCheck();
         }
     }
 
