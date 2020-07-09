@@ -1,5 +1,5 @@
 import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
-            ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+            ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from 'primeng/button';
@@ -59,7 +59,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
                    (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./fileupload.css']
 })
@@ -193,7 +193,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 
     duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
-    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient){}
+    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef){}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -348,6 +348,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
             this.uploadHandler.emit({
                 files: this.files
             });
+
+            this.cd.markForCheck();
         }
         else {
             this.uploading = true;
@@ -397,6 +399,8 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
                             break;
                         }
                     }
+
+                    this.cd.markForCheck();
                 },
                 error => {
                     this.uploading = false;
@@ -409,6 +413,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
         this.files = [];
         this.onClear.emit();
         this.clearInputElement();
+        this.cd.markForCheck();
     }
 
     remove(event: Event, index: number) {
