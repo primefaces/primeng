@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
@@ -27,7 +27,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     
     _blocked: boolean;
         
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
     
     @Input() get blocked(): boolean {
         return this._blocked;
@@ -53,9 +53,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     block() {
         if (this.target) {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
-            let style = this.target.style||{};
-            style.position = 'relative';
-            this.target.style = style;
+            this.target.getBlockableElement().style.position = 'relative';
         }
         else {
             document.body.appendChild(this.mask.nativeElement);
