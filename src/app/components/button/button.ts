@@ -69,7 +69,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     setStyleClass() {
         let styleClass = this.getStyleClass();
-        this.el.nativeElement.className = styleClass + this._initialStyleClass;
+        this.el.nativeElement.className = styleClass + ' ' + this._initialStyleClass;
     }
     
     @Input() get label(): string {
