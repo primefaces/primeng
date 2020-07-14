@@ -218,12 +218,6 @@ export class InputNumber implements OnInit,ControlValueAccessor {
                 event.preventDefault();
             break;
 
-            //enter
-            case 13:
-                this.spin(event, 0);
-                event.preventDefault();
-            break;
-
             //down
             case 40:
                 this.spin(event, -1);
