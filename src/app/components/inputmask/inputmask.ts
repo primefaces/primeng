@@ -25,8 +25,8 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID} from '@angular/core';
+import {CommonModule, isPlatformBrowser} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {InputTextModule} from 'primeng/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -144,11 +144,15 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
     focused: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef,@Inject(PLATFORM_ID) private platformId: Object) {}
 
     ngOnInit() {
-        let ua = DomHandler.getUserAgent();
-        this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
+        if (isPlatformBrowser(this.platformId)) {
+            let ua = DomHandler.getUserAgent();
+            this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
+        } else {
+            this.androidChrome = false;
+        }
 
         this.initMask();
     }

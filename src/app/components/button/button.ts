@@ -1,6 +1,7 @@
 import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
     selector: '[pButton]'
@@ -17,24 +18,24 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             
     public initialized: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, @Inject(DOCUMENT) private doc) {}
     
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
         if (this.icon) {
-            let iconElement = document.createElement("span");
+            let iconElement = this.doc.createElement("span");
             iconElement.setAttribute("aria-hidden", "true");
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
             iconElement.className = iconPosClass  + ' ui-clickable ' + this.icon;
             this.el.nativeElement.appendChild(iconElement);
         }
         
-        let labelElement = document.createElement("span");
+        let labelElement = this.doc.createElement("span");
         if (this.icon && !this.label) {
             labelElement.setAttribute('aria-hidden', 'true');
         }
         labelElement.className = 'ui-button-text ui-clickable';
-        labelElement.appendChild(document.createTextNode(this.label||'ui-btn'));
+        labelElement.appendChild(this.doc.createTextNode(this.label||'ui-btn'));
         this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     }
