@@ -18,7 +18,7 @@ import {CommonModule} from '@angular/common';
             </ng-template>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./message.css']
 })

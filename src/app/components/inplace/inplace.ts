@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 
@@ -28,7 +28,7 @@ export class InplaceContent {}
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inplace.css']
 })
@@ -54,7 +54,9 @@ export class Inplace {
 
     hover: boolean;
 
-    onActivateClick($event) {
+    constructor(public cd: ChangeDetectorRef) {}
+
+    onActivateClick(event) {
         if (!this.preventClick)
             this.activate(event);
     }
@@ -68,6 +70,7 @@ export class Inplace {
         if (!this.disabled) {
             this.active = true;
             this.onActivate.emit(event);
+            this.cd.markForCheck();
         }
     }
 
@@ -76,6 +79,7 @@ export class Inplace {
             this.active = false;
             this.hover = false;
             this.onDeactivate.emit(event);
+            this.cd.markForCheck();
         }
     }
 

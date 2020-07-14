@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
@@ -51,7 +51,7 @@ import { UniqueComponentId } from 'primeng/utils';
 			</div>
 		</div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./carousel.css']
 })
@@ -184,7 +184,7 @@ export class Carousel implements AfterContentInit {
 
 	public itemTemplate: TemplateRef<any>;
 
-	constructor(public el: ElementRef, public zone: NgZone) { 
+	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) { 
 		this.totalShiftedItems = this.page * this.numScroll * -1; 
 	}
 
@@ -379,6 +379,8 @@ export class Carousel implements AfterContentInit {
 				this._numVisible = matchedResponsiveData.numVisible;
 				this.setCloneItems();
 			}
+
+			this.cd.markForCheck();
 		}
 	}
 	

@@ -2186,6 +2186,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: {$implicit: columns, frozen: frozen}"></ng-container>
         </ng-container>
     `,
+    changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None
 })
 export class TableBody {
@@ -2247,6 +2248,7 @@ export class TableBody {
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None
 })
 export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked {
@@ -2601,6 +2603,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     template: `
         <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class SortIcon implements OnInit, OnDestroy {
@@ -2611,7 +2614,7 @@ export class SortIcon implements OnInit, OnDestroy {
 
     sortOrder: number;
 
-    constructor(public dt: Table) {
+    constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
             this.updateSortState();
         });
@@ -2633,6 +2636,8 @@ export class SortIcon implements OnInit, OnDestroy {
             let sortMeta = this.dt.getSortMeta(this.field);
             this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
+
+        this.cd.markForCheck();
     }
 
     ngOnDestroy() {
@@ -3424,6 +3429,7 @@ export class CellEditor implements AfterContentInit {
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableRadioButton  {
@@ -3446,9 +3452,10 @@ export class TableRadioButton  {
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
+            this.cd.markForCheck();
         });
     }
 
@@ -3496,6 +3503,7 @@ export class TableRadioButton  {
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableCheckbox  {
@@ -3520,9 +3528,10 @@ export class TableCheckbox  {
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
+            this.cd.markForCheck();
         });
     }
 
@@ -3570,6 +3579,7 @@ export class TableCheckbox  {
             </div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableHeaderCheckbox  {
@@ -3590,7 +3600,7 @@ export class TableHeaderCheckbox  {
 
     valueChangeSubscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
         });
@@ -3637,6 +3647,8 @@ export class TableHeaderCheckbox  {
     }
 
     updateCheckedState() {
+        this.cd.markForCheck();
+
         if (this.dt.filteredValue) {
             const val = this.dt.filteredValue;
             return (val && val.length > 0 && this.dt.selection && this.dt.selection.length > 0 && this.isAllFilteredValuesChecked());

@@ -1,4 +1,4 @@
-import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
@@ -99,7 +99,6 @@ export class TreeTableService {
         </div>
     `,
     providers: [TreeTableService],
-    changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./treetable.css', '../table/table.css']
 })
@@ -714,8 +713,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             this.onSort.emit({
                 multisortmeta: this.multiSortMeta
             });
-            this.tableService.onSort(this.multiSortMeta);
             this.updateSerializedValue();
+            this.tableService.onSort(this.multiSortMeta);
         }
     }
 
@@ -2011,7 +2010,8 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     template: `
         <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TTSortIcon implements OnInit, OnDestroy {
 
@@ -2025,9 +2025,10 @@ export class TTSortIcon implements OnInit, OnDestroy {
 
     sortOrder: number;
 
-    constructor(public tt: TreeTable) {
+    constructor(public tt: TreeTable, public cd: ChangeDetectorRef) {
         this.subscription = this.tt.tableService.sortSource$.subscribe(sortMeta => {
             this.updateSortState();
+            this.cd.markForCheck();
         });
     }
 
@@ -2429,7 +2430,8 @@ export class TTContextMenuRow {
             </div>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TTCheckbox  {
 
@@ -2443,9 +2445,10 @@ export class TTCheckbox  {
 
     subscription: Subscription;
 
-    constructor(public tt: TreeTable, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService, public cd: ChangeDetectorRef) {
         this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.tt.isSelected(this.rowNode.node);
+            this.cd.markForCheck();
         });
     }
 
@@ -2492,7 +2495,8 @@ export class TTCheckbox  {
             </div>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TTHeaderCheckbox  {
 
@@ -2506,7 +2510,7 @@ export class TTHeaderCheckbox  {
 
     valueChangeSubscription: Subscription;
 
-    constructor(public tt: TreeTable, public tableService: TreeTableService) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService, private cd: ChangeDetectorRef) {
         this.valueChangeSubscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
         });
@@ -2547,6 +2551,7 @@ export class TTHeaderCheckbox  {
     }
 
     updateCheckedState() {
+        this.cd.markForCheck();
         let checked: boolean;
         const data = this.tt.filteredNodes||this.tt.value;
 

@@ -16,7 +16,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <span [ngClass]="{'ui-inputnumber ui-widget': true, 'ui-inputwrapper-filled': this.filled(), 'ui-inputwrapper-focus': this.focused,
                 'ui-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked', 'ui-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
                 'ui-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'}">
-            <input #input class="ui-inputnumber-input" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
+            <input #input [ngClass]="'ui-inputnumber-input'" [ngStyle]="inputStyle" [class]="inputStyleClass" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
                 [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel"
                 [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.aria-valumin]="min" [attr.aria-valuemax]="max"
                 (input)="onInput($event)" (keydown)="onInputKeyDown($event)" (keypress)="onInputKeyPress($event)" (paste)="onPaste($event)" (click)="onInputClick()"
@@ -104,6 +104,10 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     @Input() mode: string = "decimal";
 
     @Input() step: number = 1;
+
+    @Input() inputStyle: any;
+
+    @Input() inputStyleClass: string;
 
     @ViewChild('input') input: ElementRef;
 
