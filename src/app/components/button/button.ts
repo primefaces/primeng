@@ -17,7 +17,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             
     public initialized: boolean;
     
-    private _initialStyleClass: string;
+    public _initialStyleClass: string;
 
     constructor(public el: ElementRef) {}
     
