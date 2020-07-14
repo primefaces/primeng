@@ -5,12 +5,11 @@ import {CommonModule} from '@angular/common';
 @Directive({
     selector: '[pInputTextarea]',
     host: {
-        '[class.ui-inputtext]': 'true',
-        '[class.ui-corner-all]': 'true',
-        '[class.ui-inputtextarea-resizable]': 'autoResize',
-        '[class.ui-state-default]': 'true',
-        '[class.ui-widget]': 'true',
-        '[class.ui-state-filled]': 'filled'
+        '[class.p-inputtextarea]': 'true',
+        '[class.p-inputtext]': 'true',
+        '[class.p-component]': 'true',
+        '[class.p-filled]': 'filled',
+        '[class.p-inputtextarea-resizable]': 'autoResize'
     }
 })
 export class InputTextarea implements DoCheck {
