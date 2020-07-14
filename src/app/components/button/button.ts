@@ -16,10 +16,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     public _icon: string;
             
     public initialized: boolean;
+    
+    private _initialStyleClass: string;
 
     constructor(public el: ElementRef) {}
     
     ngAfterViewInit() {
+        this._initialStyleClass = this.el.nativeElement.className;
         DomHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
         if (this.icon) {
             let iconElement = document.createElement("span");
@@ -66,7 +69,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     setStyleClass() {
         let styleClass = this.getStyleClass();
-        this.el.nativeElement.className = styleClass;
+        this.el.nativeElement.className = styleClass + this._initialStyleClass;
     }
     
     @Input() get label(): string {
