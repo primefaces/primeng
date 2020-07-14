@@ -5,11 +5,9 @@ import {CommonModule} from '@angular/common';
 @Directive({
     selector: '[pInputText]',
     host: {
-        '[class.ui-inputtext]': 'true',
-        '[class.ui-corner-all]': 'true',
-        '[class.ui-state-default]': 'true',
-        '[class.ui-widget]': 'true',
-        '[class.ui-state-filled]': 'filled'
+        '[class.p-inputtext]': 'true',
+        '[class.p-component]': 'true',
+        '[class.p-filled]': 'filled'
     }
 })
 export class InputText implements DoCheck {
