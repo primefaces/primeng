@@ -1,6 +1,6 @@
-import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
 
 @Component({
@@ -184,7 +184,8 @@ export class Carousel implements AfterContentInit {
 
 	public itemTemplate: TemplateRef<any>;
 
-	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) { 
+	constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef,
+		@Inject(DOCUMENT) private doc) { 
 		this.totalShiftedItems = this.page * this.numScroll * -1; 
 	}
 
@@ -293,9 +294,9 @@ export class Carousel implements AfterContentInit {
 
 	createStyle() {
 			if (!this.carouselStyle) {
-				this.carouselStyle = document.createElement('style');
+				this.carouselStyle = this.doc.createElement('style');
 				this.carouselStyle.type = 'text/css';
-				document.body.appendChild(this.carouselStyle);
+				this.doc.body.appendChild(this.carouselStyle);
 			}
 
 			let innerHTML = `
