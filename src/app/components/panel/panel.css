@@ -1,37 +1,19 @@
-.ui-panel {
-	padding: 0.2em;
+.p-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.ui-panel .ui-panel-titlebar {
-	padding: .5em .75em;
+.p-panel-title {
+    line-height: 1;
 }
 
-.ui-panel .ui-panel-titlebar.ui-panel-titlebar-clickable {
+.p-panel-header-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-}
-
-.ui-panel .ui-panel-titlebar-icon {
-	float: right;
-    cursor: pointer;
-}
-
-.ui-panel .ui-panel-titlebar-icon {
-	margin-left: 0.2em;
-    margin-top: -0.1em;
-}
-
-.ui-panel .ui-panel-content {
-	border: 0;
-    background: none;
-    padding: .5em .75em;
-}
-
-.ui-panel .ui-panel-footer {
-	border-width: 1px 0 0;
-	padding: .25em .5em;
-	text-align:left;
-}
-  
-.ui-panel-content-wrapper-overflown {
+    text-decoration: none;
     overflow: hidden;
-}     
+    position: relative;
+}

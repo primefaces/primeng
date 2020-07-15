@@ -5,7 +5,7 @@ import {BlockableUI} from 'primeng/api';
 @Component({
     selector: 'p-toolbar',
     template: `
-        <div [ngClass]="'ui-toolbar ui-widget ui-widget-header ui-corner-all ui-helper-clearfix'" [ngStyle]="style" [class]="styleClass" role="toolbar">
+        <div [ngClass]="'p-toolbar p-component'" [ngStyle]="style" [class]="styleClass" role="toolbar">
             <ng-content></ng-content>
         </div>
     `,

@@ -11,31 +11,33 @@ let idx: number = 0;
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}">
-            <a [attr.tabindex]="disabled ? -1 : 0" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" 
-                (keydown)="onKeydown($event)">
-                <span class="ui-accordion-toggle-icon" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
-                <span class="ui-accordion-header-text" *ngIf="!hasHeaderFacet">
-                    {{header}}
-                </span>
-                <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
-            </a>
-        </div>
-        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}" (@tabContent.done)="onToggleDone($event)"
-            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
-            role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
-            <div class="ui-accordion-content ui-widget-content">
-                <ng-content></ng-content>
-                <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                </ng-container>
+        <div class="p-accordion-tab" [ngClass]="{'p-accordion-tab-active': selected}">
+            <div class="p-accordion-header" [ngClass]="{'p-highlight': selected, 'p-disabled': disabled}">
+                <a role="tab" class="p-accordion-header-link" (click)="toggle($event)" (keydown)="onKeydown($event)" [attr.tabindex]="disabled ? null : 0"
+                    [attr.id]="id" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="selected">
+                    <span class="p-accordion-toggle-icon" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
+                    <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
+                        {{header}}
+                    </span>
+                    <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
+                </a>
+            </div>
+            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}" (@tabContent.done)="onToggleDone($event)"
+                role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
+                <div class="p-accordion-content">
+                    <ng-content></ng-content>
+                    <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </ng-container>
+                </div>
             </div>
         </div>
     `,
     animations: [
         trigger('tabContent', [
             state('hidden', style({
-                height: '0'
+                height: '0',
+                overflow: 'hidden'
             })),
             state('void', style({
                 height: '{{height}}'
@@ -43,7 +45,7 @@ let idx: number = 0;
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', animate('{{transitionParams}}')),
+            transition('visible <=> hidden', [style({ overflow: 'hidden'}), animate('{{transitionParams}}')]),
             transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
         ])
@@ -190,7 +192,7 @@ export class AccordionTab implements OnDestroy {
 @Component({
     selector: 'p-accordion',
     template: `
-        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass" role="tablist">
+        <div [ngClass]="'p-accordion p-component'" [ngStyle]="style" [class]="styleClass" role="tablist">
             <ng-content></ng-content>
         </div>
     `,

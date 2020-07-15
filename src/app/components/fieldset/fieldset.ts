@@ -9,23 +9,23 @@ let idx: number = 0;
 @Component({
     selector: 'p-fieldset',
     template: `
-        <fieldset [attr.id]="id" [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
-            <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text">
+        <fieldset [attr.id]="id" [ngClass]="{'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
+            <legend class="p-fieldset-legend">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed">
+                        <span class="p-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{'pi-minus': !collapsed,'pi-plus':collapsed}"></span>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </a>
                 </ng-container>
                 <ng-template #legendContent>
-                    <span class="ui-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{'pi-minus': !collapsed,'pi-plus':collapsed}"></span>
-                    <span class="ui-fieldset-legend-text">{{legend}}</span>
+                    <span class="p-fieldset-legend-text">{{legend}}</span>
                     <ng-content select="p-header"></ng-content>
                 </ng-template>
             </legend>
-            <div [attr.id]="id + '-content'" class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}" 
-                        [attr.aria-labelledby]="id" [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}" [attr.aria-hidden]="collapsed"
+            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}" 
+                        [attr.aria-labelledby]="id" [attr.aria-hidden]="collapsed"
                          (@fieldsetContent.done)="onToggleDone($event)" role="region">
-                <div class="ui-fieldset-content">
+                <div class="p-fieldset-content">
                     <ng-content></ng-content>
                 </div>
             </div>
@@ -34,7 +34,8 @@ let idx: number = 0;
     animations: [
         trigger('fieldsetContent', [
             state('hidden', style({
-                height: '0'
+                height: '0',
+                overflow: 'hidden'
             })),
             state('void', style({
                 height: '{{height}}'
@@ -42,8 +43,8 @@ let idx: number = 0;
             state('visible', style({
                 height: '*'
             })),
-            transition('visible => hidden', animate('{{transitionParams}}')),
-            transition('hidden => visible', animate('{{transitionParams}}')),
+            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],

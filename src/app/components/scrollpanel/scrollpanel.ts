@@ -5,14 +5,14 @@ import { DomHandler } from 'primeng/dom';
 @Component({
     selector: 'p-scrollPanel',
     template: `
-        <div #container [ngClass]="'ui-scrollpanel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-scrollpanel-wrapper">
-                <div #content class="ui-scrollpanel-content">
+        <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass">
+            <div class="p-scrollpanel-wrapper">
+                <div #content class="p-scrollpanel-content">
                     <ng-content></ng-content>
                 </div>
             </div>
-            <div #xBar class="ui-scrollpanel-bar ui-scrollpanel-bar-x"></div>
-            <div #yBar class="ui-scrollpanel-bar ui-scrollpanel-bar-y"></div>   
+            <div #xBar class="p-scrollpanel-bar p-scrollpanel-bar-x"></div>
+            <div #yBar class="p-scrollpanel-bar p-scrollpanel-bar-y"></div>   
         </div>
     `,
 //    changeDetection: ChangeDetectionStrategy.OnPush,

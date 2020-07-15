@@ -1,4 +1,4 @@
-.ui-scrollpanel-wrapper {
+.p-scrollpanel-wrapper {
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -7,7 +7,7 @@
     float: left;
 }
 
-.ui-scrollpanel-content {
+.p-scrollpanel-content {
     height: calc(100% + 18px);
     width: calc(100% + 18px);
     padding: 0 18px 18px 0;
@@ -16,7 +16,7 @@
     box-sizing: border-box;
 }
 
-.ui-scrollpanel-bar {
+.p-scrollpanel-bar {
     position: relative;
     background: #c1c1c1;
     border-radius: 3px;
@@ -26,29 +26,25 @@
     transition: opacity 0.25s linear;
 }
 
-.ui-scrollpanel-bar-y {
+.p-scrollpanel-bar-y {
     width: 9px;
     top: 0;
 }
 
-.ui-scrollpanel-bar-x {
+.p-scrollpanel-bar-x {
     height: 9px;
     bottom: 0;
 }
 
-.ui-scrollpanel-hidden {
+.p-scrollpanel-hidden {
     visibility: hidden;
 }
 
-.ui-scrollpanel:hover .ui-scrollpanel-bar,
-.ui-scrollpanel:active .ui-scrollpanel-bar {
+.p-scrollpanel:hover .p-scrollpanel-bar,
+.p-scrollpanel:active .p-scrollpanel-bar {
     opacity: 1;
 }
 
-.ui-scrollpanel-grabbed {
-    -o-user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+.p-scrollpanel-grabbed {
     user-select: none;
 }
