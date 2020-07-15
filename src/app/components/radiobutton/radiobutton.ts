@@ -11,19 +11,19 @@ export const RADIO_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-radioButton',
     template: `
-        <div [ngStyle]="style" [ngClass]="'ui-radiobutton ui-widget'" [class]="styleClass">
-            <div class="ui-helper-hidden-accessible">
+        <div [ngStyle]="style" [ngClass]="{'p-radiobutton p-component':true,'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled, 'p-radiobutton-focused': focused}" [class]="styleClass">
+            <div class="p-hidden-accessible">
                 <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy"
                     [checked]="checked" (change)="onChange($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled">
             </div>
             <div (click)="handleClick($event, rb, true)" role="radio" [attr.aria-checked]="checked"
-                [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
-                'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
-                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':rb.checked}"></span>
+                [ngClass]="{'p-radiobutton-box':true,
+                'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused}">
+                <span class="p-radiobutton-icon"></span>
             </div>
         </div>
         <label (click)="select($event)" [class]="labelStyleClass"
-            [ngClass]="{'ui-radiobutton-label':true, 'ui-label-active':rb.checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
+            [ngClass]="{'p-radiobutton-label':true, 'p-label-active':rb.checked, 'p-label-disabled':disabled, 'p-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR],

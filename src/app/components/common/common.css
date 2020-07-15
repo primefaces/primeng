@@ -83,7 +83,7 @@ button {
     user-select: none;
 }
 
-/* Non vue overlay animations */
+/* Non ng overlay animations */
 .p-connected-overlay {
     opacity: 0;
     transform: scaleY(0.8);
@@ -101,7 +101,7 @@ button {
     transition: opacity .1s linear;
 }
 
-/* Vue based overlay animations */
+/* Ng based overlay animations */
 .p-connected-overlay-enter {
     opacity: 0;
     transform: scaleY(0.8);

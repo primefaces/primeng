@@ -14,11 +14,11 @@ export const EDITOR_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-editor',
     template: `
-        <div [ngClass]="'ui-widget ui-editor-container ui-corner-all'" [class]="styleClass">
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
+        <div [ngClass]="'p-editor-container'" [class]="styleClass">
+            <div class="p-editor-toolbar" *ngIf="toolbar">
                 <ng-content select="p-header"></ng-content>
             </div>
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
+            <div class="p-editor-toolbar" *ngIf="!toolbar">
                 <span class="ql-formats">
                     <select class="ql-header">
                       <option value="1">Heading</option>
@@ -59,7 +59,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     <button class="ql-clean" aria-label="Remove Styles"></button>
                 </span>
             </div>
-            <div class="ui-editor-content" [ngStyle]="style"></div>
+            <div class="p-editor-content" [ngStyle]="style"></div>
         </div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR],
@@ -105,8 +105,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
-        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
-        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
+        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-content'); 
+        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-toolbar'); 
         let defaultModule  = {toolbar: toolbarElement};
         let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
 

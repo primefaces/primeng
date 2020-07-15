@@ -16,35 +16,32 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox',
     template: `
-    <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled,'ui-state-focus':focus}" [ngStyle]="style" [class]="styleClass">
-      <div class="ui-helper-hidden-accessible">
-        <input type="text" readonly="readonly" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
-      </div>
-      <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="headerFacet">
+    <div [ngClass]="'p-listbox p-component'" [ngStyle]="style" [class]="styleClass">
+      <div class="p-listbox-header" *ngIf="headerFacet">
         <ng-content select="p-header"></ng-content>
       </div>
-      <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple && showToggleAll) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
-        <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple && showToggleAll">
-          <div class="ui-helper-hidden-accessible">
+      <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
+        <div class="p-checkbox p-component" *ngIf="checkbox && multiple && showToggleAll">
+          <div class="p-hidden-accessible">
             <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
           </div>
-          <div #headerchkbox class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active': allChecked, 'ui-state-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
-            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':allChecked}"></span>
+          <div #headerchkbox class="p-checkbox-box" [ngClass]="{'p-highlight': allChecked, 'p-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
+            <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
           </div>
         </div>
-        <div class="ui-listbox-filter-container" *ngIf="filter">
-          <input type="text" [value]="filterValue||''" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
-          <span class="ui-listbox-filter-icon pi pi-search"></span>
+        <div class="p-listbox-filter-container" *ngIf="filter">
+          <input type="text" [value]="filterValue||''" (input)="onFilter($event)" class="p-listbox-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
+          <span class="p-listbox-filter-icon pi pi-search"></span>
         </div>
       </div>
-      <div [ngClass]="'ui-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass">
-        <ul class="ui-listbox-list" role="listbox" aria-multiselectable="multiple">
+      <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass">
+        <ul class="p-listbox-list" role="listbox" aria-multiselectable="multiple">
           <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'"
-              [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option), 'ui-state-disabled': option.disabled}" role="option" [attr.aria-label]="option.label"
+              [ngClass]="{'p-listbox-item':true,'p-highlight':isSelected(option), 'p-disabled': option.disabled}" role="option" [attr.aria-label]="option.label"
               [attr.aria-selected]="isSelected(option)" (click)="onOptionClick($event,option)" (dblclick)="onOptionDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)" (keydown)="onOptionKeyDown($event,option)">
-            <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
-              <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
+            <div class="p-checkbox p-component" *ngIf="checkbox && multiple">
+              <div class="p-checkbox-box" [ngClass]="{'p-highlight':isSelected(option)}">
+                <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':isSelected(option)}"></span>
               </div>
             </div>
             <span *ngIf="!itemTemplate">{{option.label}}</span>
@@ -52,7 +49,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           </li>
         </ul>
       </div>
-      <div class="ui-listbox-footer ui-widget-header ui-corner-all" *ngIf="footerFacet">
+      <div class="p-listbox-footer" *ngIf="footerFacet">
         <ng-content select="p-footer"></ng-content>
       </div>
     </div>
@@ -452,14 +449,6 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             return true;
         }
-    }
-
-    onInputFocus(event) {
-        this.focus = true;
-    }
-
-    onInputBlur(event) {
-        this.focus = false;
     }
 
     onOptionKeyDown(event:KeyboardEvent, option) {

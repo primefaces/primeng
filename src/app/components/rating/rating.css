@@ -1,3 +1,7 @@
-.ui-rating {
-    font-size: 1.25em;
+.p-rating-icon {
+    cursor: pointer;
+}
+
+.p-rating.p-rating-readonly .p-rating-icon {
+    cursor: default;
 }

@@ -11,16 +11,11 @@ export const RATING_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-rating',
     template: `
-        <div class="ui-rating" [ngClass]="{'ui-state-disabled': disabled}">
-            <a [attr.tabindex]="disabled ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)"  class="ui-rating-cancel">
-                <span class="ui-rating-icon" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-            </a>
-            <a [attr.tabindex]="disabled ? null : '0'" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)" (keydown.enter)="rate($event,i)">
-                <span class="ui-rating-icon" 
-                    [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
-                    [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"
-                ></span>
-            </a>
+        <div class="p-rating" [ngClass]="{'p-rating-readonly': readonly, 'p-disabled': disabled}">
+            <span [attr.tabindex]="(disabled || readonly) ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
+            <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'"  (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
+                [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"
+                [ngStyle]="(!value || i >= value) ? iconOffStyle : iconOnStyle"></span>
         </div>
     `,
     providers: [RATING_VALUE_ACCESSOR],

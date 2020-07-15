@@ -1,37 +1,34 @@
-.ui-colorpicker {
+.p-colorpicker {
     display: inline-block;
-} 
+}
 
-.ui-colorpicker-dragging {
+.p-colorpicker-dragging {
     cursor: pointer;
-} 
+}
 
-.ui-colorpicker-overlay {
+.p-colorpicker-overlay {
     position: relative;
-} 
+}
 
-.ui-colorpicker-panel {
+.p-colorpicker-panel {
     position: relative;
     width: 193px;
     height: 166px;
-    background-color: #323232;
-    border-color: #191919;
 }
 
-.ui-colorpicker-overlay-panel {
+.p-colorpicker-overlay-panel {
     position: absolute;
-} 
+}
 
-.ui-colorpicker-preview {
-    width: 2em;
+.p-colorpicker-preview {
     cursor: pointer;
 }
 
-.ui-colorpicker-panel .ui-colorpicker-content {
+.p-colorpicker-panel .p-colorpicker-content {
     position: relative;
 }
 
-.ui-colorpicker-panel .ui-colorpicker-color-selector {
+.p-colorpicker-panel .p-colorpicker-color-selector {
     width: 150px;
     height: 150px;
     top: 8px;
@@ -39,26 +36,26 @@
     position: absolute;
 }
 
-.ui-colorpicker-panel .ui-colorpicker-color {
+.p-colorpicker-panel .p-colorpicker-color {
      width: 150px;
      height: 150px;
-     background: transparent url("./images/color.png") no-repeat left top; 
 }
 
-.ui-colorpicker-panel .ui-colorpicker-color-handle {
+.p-colorpicker-panel .p-colorpicker-color-handle {
      position: absolute;
      top: 0px;
      left: 150px;
      border-radius: 100%;
      width: 10px;
      height: 10px;
-     border: 1px solid #ffffff;
+     border-width: 1px;
+     border-style: solid;
      margin: -5px 0 0 -5px;
      cursor: pointer;
+     opacity: .85;
 }
 
-.ui-colorpicker-panel .ui-colorpicker-hue {
-    background: transparent url("./images/hue.png") no-repeat left top; 
+.p-colorpicker-panel .p-colorpicker-hue {
     width: 17px;
     height: 150px;
     top: 8px;
@@ -67,7 +64,7 @@
     opacity: .85;
 }
 
-.ui-colorpicker-panel .ui-colorpicker-hue-handle {
+.p-colorpicker-panel .p-colorpicker-hue-handle {
      position: absolute;
      top: 150px;
      left: 0px;
@@ -75,12 +72,8 @@
      margin-left: -2px;
      margin-top: -5px;
      height: 10px;
-     border: 2px solid #ffffff;
+     border-width: 2px;
+     border-style: solid;
      opacity: .85;
      cursor: pointer;
- }
- 
- .ui-colorpicker-panel.ui-state-disabled .ui-colorpicker-hue-handle,
- .ui-colorpicker-panel.ui-state-disabled .ui-colorpicker-color-handle  {
-      opacity: .5;
- }
+}

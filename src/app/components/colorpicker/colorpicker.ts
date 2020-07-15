@@ -13,20 +13,20 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-colorpicker ui-widget':true,'ui-colorpicker-overlay':!inline,'ui-colorpicker-dragging':colorDragging||hueDragging}">
-            <input #input type="text" *ngIf="!inline" class="ui-colorpicker-preview ui-inputtext ui-state-default ui-corner-all" readonly="readonly" [ngClass]="{'ui-state-disabled': disabled}"
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'p-colorpicker p-component':true,'p-colorpicker-overlay':!inline,'p-colorpicker-dragging':colorDragging||hueDragging}">
+            <input #input type="text" *ngIf="!inline" class="p-colorpicker-preview p-inputtext" readonly="readonly" [ngClass]="{'p-disabled': disabled}"
                 (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)" [attr.id]="inputId" [attr.tabindex]="tabindex" [disabled]="disabled"
                 [style.backgroundColor]="inputBgColor">
-            <div *ngIf="inline || overlayVisible" [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay-panel ui-shadow':!inline, 'ui-state-disabled': disabled}" (click)="onPanelClick()"
+            <div *ngIf="inline || overlayVisible" [ngClass]="{'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel':!inline, 'p-disabled': disabled}" (click)="onPanelClick()"
                 [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="inline === true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
-                <div class="ui-colorpicker-content">
-                    <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
-                        <div class="ui-colorpicker-color">
-                            <div #colorHandle class="ui-colorpicker-color-handle"></div>
+                <div class="p-colorpicker-content">
+                    <div #colorSelector class="p-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
+                        <div class="p-colorpicker-color">
+                            <div #colorHandle class="p-colorpicker-color-handle"></div>
                         </div>
                     </div>
-                    <div #hue class="ui-colorpicker-hue" (mousedown)="onHueMousedown($event)">
-                        <div #hueHandle class="ui-colorpicker-hue-handle"></div>
+                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)">
+                        <div #hueHandle class="p-colorpicker-hue-handle"></div>
                     </div>
                 </div>
             </div>
@@ -49,6 +49,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     providers: [COLORPICKER_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./colorpicker.css']
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
