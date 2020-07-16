@@ -1,16 +1,18 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">ToggleButton</span>
-        <span>ToggleButton is used to select a boolean value using a button.</span>
+    <div class="feature-intro">
+        <h1>ToggleButton</h1>
+        <p>ToggleButton is used to select a boolean value using a button.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic - ({{checked1}})</h3>
-    <p-toggleButton [(ngModel)]="checked1" [style]="{'width':'150px'}"></p-toggleButton>
+    <div class="card">
+        <h3 class="first">Basic</h3>
+        <p-toggleButton [(ngModel)]="checked1" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
 
-    <h3>Customized - ({{checked2}})</h3>
-    <p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'150px'}"></p-toggleButton>
+        <h3>Customized</h3>
+        <p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '10em'}"></p-toggleButton>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -93,13 +95,13 @@ export class ModelComponent &#123;
                          <tr>
                             <td>onLabel</td>
                             <td>string</td>
-                            <td>Yes</td>
+                            <td>null</td>
                             <td>Label for the on state.</td>
                         </tr>
                         <tr>
                             <td>offLabel</td>
                             <td>string</td>
-                            <td>No</td>
+                            <td>null</td>
                             <td>Label for the off state.</td>
                         </tr>
                         <tr>
@@ -240,11 +242,11 @@ export class ModelComponent &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic - ({{checked1}})&lt;/h3&gt;
-&lt;p-toggleButton [(ngModel)]="checked1" [style]="&#123;'width':'150px'&#125;"&gt;&lt;/p-toggleButton&gt;
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-toggleButton [(ngModel)]="checked1" onIcon="pi pi-check" offIcon="pi pi-times"&gt;&lt;/p-toggleButton&gt;
 
-&lt;h3&gt;Customized - ({{checked2}})&lt;/h3&gt;
-&lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="&#123;'width':'150px'&#125;"&gt;&lt;/p-toggleButton&gt;
+&lt;h3&gt;Customized&lt;/h3&gt;
+&lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="&#123;'width': '10em'&#125;"&gt;&lt;/p-toggleButton&gt;&lt;/code&gt;
 </code>
 </pre>
 
