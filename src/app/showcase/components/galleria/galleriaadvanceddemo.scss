@@ -1,5 +1,5 @@
 :host ::ng-deep .custom-galleria {
-    &.ui-galleria {
+    &.p-galleria {
         &.fullscreen {
             display: flex;
             flex-direction: column;
@@ -10,18 +10,18 @@
             }
         }
 
-        .ui-galleria-content {
+        .p-galleria-content {
             position: relative;
         }
 
-        .ui-galleria-thumbnail-wrapper {
+        .p-galleria-thumbnail-wrapper {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
         }
 
-        .ui-galleria-thumbnail-items-container {
+        .p-galleria-thumbnail-items-container {
             width: 100%;
         }
 
