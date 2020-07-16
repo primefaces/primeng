@@ -1,108 +1,112 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Calendar</span>
-        <span>Calendar is an input component to select a date.</span>
+    <div class="feature-intro">
+        <h1>Calendar</h1>
+        <p>Calendar is an input component to select a date.</p>
     </div>
+    <app-inputStyleSwitch></app-inputStyleSwitch>
 </div>
 
 <div class="content-section implementation">
-    <div class="p-grid ui-fluid" style="margin-top: -30px">
-        <div class="p-col-12 p-md-4">
-            <h3>Basic</h3>
-            <p-calendar [(ngModel)]="date1"></p-calendar>
+    <div class="card">
+        <h5>Popup</h5>
+        <div class="p-fluid p-grid p-formgrid">
+            <div class="p-field p-col-12 p-md-4">
+                <label for="basic">Basic</label>
+                <p-calendar inputId="basic" [(ngModel)]="date1"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="spanish">Spanish</label>
+                <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy" inputId="spanish"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="icon">Icon</label>
+                <p-calendar [(ngModel)]="date3" [showIcon]="true" inputId="icon"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="min-max">Min-Max</label>
+                <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" inputId="min-max"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="disabledays">Disable Days</label>
+                <p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true" inputId="disabledays"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="navigators">Navigators</label>
+                <p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" inputId="navigators"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="time">Time</label>
+                <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="timeonly">Time Only</label>
+                <p-calendar [(ngModel)]="date8" [timeOnly]="true" inputId="timeonly"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="multiple">Multiple</label>
+                <p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" inputId="multiple"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="range">Range</label>
+                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="buttonbar">Button Bar</label>
+                <p-calendar [(ngModel)]="date9" showButtonBar="true" inputId="buttonbar"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="template">Date Template</label>
+                <p-calendar [(ngModel)]="date10" inputId="template">
+                    <ng-template pTemplate="date" let-date>
+                        <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">{{date.day}}</span>
+                    </ng-template>
+                </p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="multiplemonths">Multiple Months</label>
+                <p-calendar [(ngModel)]="date11" [numberOfMonths]="3" inputId="multiplemonths"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="monthpicker">Month Picker</label>
+                <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="touchui">Touch UI</label>
+                <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true" inputId="touchui"></p-calendar>
+            </div>
         </div>
 
-        <div class="p-col-12 p-md-4">
-            <h3>Spanish</h3>
-            <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Icon</h3>
-            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Min-Max</h3>
-            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Disable Days</h3>
-            <p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Navigators</h3>
-            <p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Time</h3>
-            <p-calendar [(ngModel)]="date7" [showTime]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Time Only</h3>
-            <p-calendar [(ngModel)]="date8" [timeOnly]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Multiple</h3>
-            <p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Range</h3>
-            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Button Bar</h3>
-            <p-calendar [(ngModel)]="date9" showButtonBar="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Date Template</h3>
-            <p-calendar [(ngModel)]="date10">
-                <ng-template pTemplate="date" let-date>
-                    <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">{{date.day}}</span>
-                </ng-template>
-            </p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Multiple Months</h3>
-            <p-calendar [(ngModel)]="date11" [numberOfMonths]="3"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Month Picker</h3>
-            <p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"></p-calendar>
-        </div>
-
-        <div class="p-col-12 p-md-4">
-            <h3>Touch UI</h3>
-            <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true"></p-calendar>
-        </div>
+        <h5>Inline</h5>
+        <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"></p-calendar>
     </div>
-
-    <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"></p-calendar>
 
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
+            <h5>Import</h5>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;CalendarModule&#125; from 'primeng/calendar';
 </code>
 </pre>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Two-way value binding is defined using the standard ngModel directive referencing to a Date property.</p>
 
 <pre>
@@ -121,7 +125,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>Calendar can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -129,7 +133,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Popup and Inline</h3>
+            <h5>Popup and Inline</h5>
             <p>Calendar is displayed in a <i>popup</i> by default and <i>inline</i> property needs to be enabled for inline mode.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -137,13 +141,13 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Selection Mode</h3>
+            <h5>Selection Mode</h5>
             <p>By default calendar allows selecting one date and multiple dates can be selected by setting selectionMode to multiple. In this
             case calendar updates the value with an array of dates where optionally number of selectable dates can be restricted with maxDateCount property.
             Third alternative is the range mode that allows selecting a range based on an array of two values where first value is the start date and second value
             is the end date.</p>
 
-            <h3>DateFormat</h3>
+            <h5>DateFormat</h5>
             <p>Default date format is mm/dd/yy, to customize this use <i>dateFormat</i> property or define it at locale settings. Note that standalone property overrides the value in locale settings.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -172,7 +176,7 @@ export class MyModel &#123;
     			<li>anything else - literal text</li>
 		    </ul>
 
-            <h3>Time</h3>
+            <h5>Time</h5>
             <p>TimePicker is enabled with  <i>showTime</i> property and 24 (default) or 12 hour mode is configured using <i>hourFormat</i> option.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -181,7 +185,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Date Restriction</h3>
+            <h5>Date Restriction</h5>
             <p>To disable entering dates manually, set <i>readonlyInput</i> to true and to restrict selectable dates use <i>minDate</i>
                 and <i>maxDate</i> options.</p>
 <pre>
@@ -190,7 +194,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Disable specific dates and/or days</h3>
+            <h5>Disable specific dates and/or days</h5>
             <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use <i>disabledDates</i> and/or <i>disabledDays</i> options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -198,7 +202,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Button Bar</h3>
+            <h5>Button Bar</h5>
             <p>Button bar displays today and clear buttons and enabled using <i>showButtonBar</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -206,7 +210,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Multiple Months</h3>
+            <h5>Multiple Months</h5>
             <p>Displaying multiple months is enabled by setting <i>numberOfMonths</i> property to a value greater than 1.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -214,7 +218,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Localization</h3>
+            <h5>Localization</h5>
             <p>Localization for different languages and formats is defined by binding the locale settings object to the <i>locale</i> property. Following is the default values for English.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -246,7 +250,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Custom Content</h3>
+            <h5>Custom Content</h5>
             <p>Calendar UI accepts custom content using p-header and p-footer components.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -272,7 +276,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Month Picker</h3>
+            <h5>Month Picker</h5>
             <p>Month picker is used to select month and year only without the date, set view mode as "month" to activate month picker.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -280,7 +284,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Touch UI</h3>
+            <h5>Touch UI</h5>
             <p>
                 Touch UI mode displays the calendar overlay at the center of the screen as optimized for touch devices. 
                 When using Touch UI mode you will typically want to set readonlyInput to prevent keyboard popup for mobile users.
@@ -291,7 +295,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Animation Configuration</h3>
+            <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
                 example below disables the animations altogether.</p>
 <pre>
@@ -300,7 +304,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -670,7 +674,7 @@ export class MyModel &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -754,7 +758,7 @@ export class MyModel &#123;
                 </table>
             </div>
 
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -774,7 +778,7 @@ export class MyModel &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -833,7 +837,7 @@ export class MyModel &#123;
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -846,88 +850,89 @@ export class MyModel &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="p-grid ui-fluid"&gt;
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Basic&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt;
+&lt;h5&gt;Popup&lt;/h5&gt;
+&lt;div class="p-fluid p-grid p-formgrid"&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="basic"&gt;Basic&lt;/label&gt;
+        &lt;p-calendar inputId="basic" [(ngModel)]="date1"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Spanish&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="spanish"&gt;Spanish&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy" inputId="spanish"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Icon&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date3" [showIcon]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="icon"&gt;Icon&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date3" [showIcon]="true" inputId="icon"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Min-Max&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="min-max"&gt;Min-Max&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" inputId="min-max"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Disable Days&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="disabledays"&gt;Disable Days&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true" inputId="disabledays"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Navigators&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="navigators"&gt;Navigators&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" inputId="navigators"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Time&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date7" [showTime]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="time"&gt;Time&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Time Only &lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date8" [timeOnly]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="timeonly"&gt;Time Only&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date8" [timeOnly]="true" inputId="timeonly"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Multiple &lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="multiple"&gt;Multiple&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" inputId="multiple"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Range&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="range"&gt;Range&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Button Bar&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date9" showButtonBar="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="buttonbar"&gt;Button Bar&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date9" showButtonBar="true" inputId="buttonbar"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Date Template&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date11"&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="template"&gt;Date Template&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date10" inputId="template"&gt;
             &lt;ng-template pTemplate="date" let-date&gt;
-                &lt;span [ngStyle]="&#123;backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'&#125;" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block">&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
+                &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#81C784' : 'inherit'&#125;" style="border-radius:50%; padding: .25em; width: 2em; height: 2em; display:block"&gt;&#123;&#123;date.day&#125;&#125;&lt;/span&gt;
             &lt;/ng-template&gt;
         &lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Multiple Months&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date11" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="multiplemonths"&gt;Multiple Months&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date11" [numberOfMonths]="3" inputId="multiplemonths"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Month Picker&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="monthpicker"&gt;Month Picker&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date12" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 
-    &lt;div class="p-col-12 p-md-4"&gt;
-        &lt;h3&gt;Touch UI&lt;/h3&gt;
-        &lt;p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true"&gt;&lt;/p-calendar&gt;
+    &lt;div class="p-field p-col-12 p-md-4"&gt;
+        &lt;label for="touchui"&gt;Touch UI&lt;/label&gt;
+        &lt;p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true" inputId="touchui"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Inline&lt;/h3&gt;
+&lt;h5&gt;Inline&lt;/h5&gt;
 &lt;p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
