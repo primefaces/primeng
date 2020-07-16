@@ -11,22 +11,21 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton',
     template: `
-        <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon && !offIcon), 
-                'ui-button-text-icon-left': (onIcon && offIcon && hasOnLabel && hasOffLabel && iconPos === 'left'), 
-                'ui-button-text-icon-right': (onIcon && offIcon && hasOnLabel && hasOffLabel && iconPos === 'right'),'ui-button-icon-only': (onIcon && offIcon && !hasOnLabel && !hasOffLabel),
-                'ui-state-active': checked,'ui-state-focus':focus,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass" 
-                (click)="toggle($event)" (keydown.enter)="toggle($event)">
-            <div class="ui-helper-hidden-accessible">
+        <div [ngClass]="{'p-button p-togglebutton p-component': true, 'ui-button-text-only': (!onIcon && !offIcon),
+                        'p-button-icon-only': (onIcon && offIcon && !hasOnLabel && !hasOffLabel),'p-highlight': checked, 'p-disabled':disabled}" 
+                        [ngStyle]="style" [class]="styleClass" (click)="toggle($event)" (keydown.enter)="toggle($event)">
+            <div class="p-hidden-accessible">
                 <input #checkbox type="checkbox" [attr.id]="inputId" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex"
                     role="button" [attr.aria-pressed]="checked" [attr.aria-labelledby]="ariaLabelledBy">
             </div>
-            <span *ngIf="onIcon||offIcon" class="ui-button-icon-left" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'ui-button-icon-left': (iconPos === 'left'), 
-            'ui-button-icon-right': (iconPos === 'right')}"></span>
-            <span class="ui-button-text ui-unselectable-text">{{checked ? hasOnLabel ? onLabel : 'ui-btn' : hasOffLabel ? offLabel : 'ui-btn'}}</span>
+            <span *ngIf="onIcon||offIcon" class="p-button-icon" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'p-button-icon-left': (iconPos === 'left'), 
+            'p-button-icon-right': (iconPos === 'right')}"></span>
+            <span class="ui-button-text ui-unselectable-text">{{checked ? hasOnLabel ? onLabel : 'p-btn' : hasOffLabel ? offLabel : 'p-btn'}}</span>
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['../button/button.css']
 })
 export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 
@@ -102,6 +101,7 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     
     writeValue(value: any) : void {
         this.checked = value;
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {
