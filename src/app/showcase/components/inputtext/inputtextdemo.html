@@ -92,6 +92,26 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 &lt;/span&gt;
 </code>
 </pre>
+
+            <h5>Addons</h5>
+            <p>Text, icon, buttons and other content can be grouped next to an input by wrapping the addons and input inside
+                <i>.ui-inputgroup element</i>. Multiple addons can be used within the same group as well.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-inputgroup"&gt;
+    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-user"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;input type="text" pInputText placeholder="Username"&gt;         
+&lt;/div&gt;
+
+&lt;div class="ui-inputgroup"&gt;
+    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-tags"&gt;&lt;/i&gt;&lt;/span&gt;  
+    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-shopping-cart"&gt;&lt;/i&gt;&lt;/span&gt;   
+    &lt;input type="text" pInputText placeholder="Price"&gt; 
+    &lt;span class="p-inputgroup-addon"&gt;$&lt;/span&gt;  
+    &lt;span class="p-inputgroup-addon"&gt;.00&lt;/span&gt;      
+&lt;/div&gt;
+</code>
+</pre>
             <h5>Icons</h5>
             <p>An icon can be integrated within an input field by wrapping the input and the icon with an element having either <i>p-input-icon-right</i>
             or <i>p-input-icon-left</i> class depending on the icon location.</p>
