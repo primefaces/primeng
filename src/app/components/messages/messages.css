@@ -1,48 +1,45 @@
-.ui-messages {
-    border: 1px solid;
-    margin: .5em 0;
-    padding: 1em 1em 1em .5em;
+.p-message-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.p-message-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-message-close.p-link {
+    margin-left: auto;
+    overflow: hidden;
     position: relative;
-    display: flex;
 }
 
-.ui-messages .ui-messages-icon {
-    display:inline-block;
-    padding: 0;
-    vertical-align: middle;
-    font-size: 2em;
+.p-message-enter {
+    opacity: 0;
 }
 
-.ui-messages .ui-messages-summary {
-    font-weight: bold;
-    margin-left: .25em;
+.p-message-enter-active {
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
 }
 
-.ui-messages .ui-messages-detail {
-    margin-left: .25em;
+.p-message.p-message-leave {
+    max-height: 1000px;
 }
 
-.ui-messages ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    display: inline-block;
-    vertical-align: middle;
-    display: flex;
-    flex-direction: column;
+.p-message.p-message-leave-to {
+    max-height: 0;
+    opacity: 0;
+    margin: 0 !important;
 }
 
-.ui-messages ul > li {
-    padding: .25em;
+.p-message-leave-active {
+    overflow: hidden;
+    -webkit-transition: max-height .3s cubic-bezier(0, 1, 0, 1), opacity .3s, margin .3s;
+    transition: max-height .3 cubic-bezier(0, 1, 0, 1), opacity .3s, margin .3s;
 }
 
-.ui-messages.ui-messages-noicon ul {
-    margin: 0 1.5em 0 0;
-}
-
-.ui-messages .ui-messages-close {
-    cursor: pointer;
-    position: absolute;
-    top: 5px;
-    right: 5px;
+.p-message-leave-active .p-message-close {
+    display: none;
 }

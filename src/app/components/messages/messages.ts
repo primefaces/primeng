@@ -7,27 +7,37 @@ import {Subscription} from 'rxjs';
 @Component({
     selector: 'p-messages',
     template: `
-        <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all"
-                    [ngClass]="getSeverityClass()" role="alert" [ngStyle]="style" [class]="styleClass"
+        <div *ngIf="hasMessages()" class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass"
                     [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
-            <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
-                <i class="pi pi-times"></i>
-            </a>
-            <span class="ui-messages-icon pi" [ngClass]="icon"></span>
-            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-            <ul *ngIf="value && value.length">
-                <li *ngFor="let msg of value">
-                    <div *ngIf="!escape; else escapeOut">
-                        <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
-                        <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
+            <ng-container *ngIf="!contentTemplate; else staticMessage">
+                <div *ngFor="let msg of value" [ngClass]="'p-message p-message-' + msg.severity" role="alert">
+                    <div class="p-message-wrapper">
+                        <span class="p-message-icon pi" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
+                            'pi-check': msg.severity === 'success',
+                            'pi-exclamation-triangle': msg.severity === 'warn',
+                            'pi-times-circle': msg.severity === 'error'}"></span>
+                        <ng-container *ngIf="!escape; else escapeOut">
+                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary"></span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail"></span>
+                        </ng-container>
+                        <ng-template #escapeOut>
+                            <span *ngIf="msg.summary" class="p-message-summary">{{msg.summary}}</span>
+                            <span *ngIf="msg.detail" class="p-message-detail">{{msg.detail}}</span>
+                        </ng-template>
+                        <button class="p-message-close p-link" (click)="clear($event)" *ngIf="closable" type="button">
+                            <i class="p-message-close-icon pi pi-times"></i>
+                        </button>
                     </div>
-                    <ng-template #escapeOut>
-                        <span *ngIf="msg.summary" class="ui-messages-summary">{{msg.summary}}</span>
-                        <span *ngIf="msg.detail" class="ui-messages-detail">{{msg.detail}}</span>
-                    </ng-template>
-                </li>
-            </ul>
-        </div>
+                </div>
+            </ng-container>
+            <ng-template #staticMessage>
+                <div [ngClass]="'p-message p-message-' + severity" role="alert">
+                    <div class="p-message-wrapper">
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </div>
+                </div>
+            </ng-template>
+            </div>
     `,
     animations: [
         trigger('messageAnimation', [

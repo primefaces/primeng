@@ -1,16 +1,15 @@
-.ui-message {
-    border: 1px solid;
-    margin: 0px .25em;
-    padding: .25em .5em;
-    display: inline-block;
+.p-inline-message {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     vertical-align: top;
 }
 
-.ui-message .ui-message-icon,
-.ui-message .ui-message-text {
-    vertical-align: middle;
+.p-inline-message-icon-only .p-inline-message-text {
+    visibility: hidden;
+    width: 0;
 }
 
-.ui-fluid .ui-message {
-    display: block;
+.p-fluid .p-inline-message {
+    display: flex;
 }
