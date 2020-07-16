@@ -8,18 +8,18 @@ import {Subscription}   from 'rxjs';
 @Component({
     selector: 'p-terminal',
     template: `
-        <div [ngClass]="'ui-terminal ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
+        <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
             <div *ngIf="welcomeMessage">{{welcomeMessage}}</div>
-            <div class="ui-terminal-content">
+            <div class="p-terminal-content">
                 <div *ngFor="let command of commands">
-                    <span>{{prompt}}</span>
-                    <span class="ui-terminal-command">{{command.text}}</span>
-                    <div>{{command.response}}</div>
+                    <span class="p-terminal-prompt">{{prompt}}</span>
+                    <span class="p-terminal-command">{{command.text}}</span>
+                    <div class="p-terminal-response">{{command.response}}</div>
                 </div>
             </div>
-            <div>
-                <span class="ui-terminal-content-prompt">{{prompt}}</span>
-                <input #in type="text" [(ngModel)]="command" class="ui-terminal-input" autocomplete="off" (keydown)="handleCommand($event)" autofocus>
+            <div class="p-terminal-prompt-container">
+                <span class="p-terminal-content-prompt">{{prompt}}</span>
+                <input #in type="text" [(ngModel)]="command" class="p-terminal-input" autocomplete="off" (keydown)="handleCommand($event)" autofocus>
             </div>
         </div>
     `,

@@ -1,4 +1,4 @@
-.ui-progress-spinner {
+.p-progress-spinner {
     position: relative;
     margin: 0 auto;
     width: 100px;
@@ -6,14 +6,14 @@
     display: inline-block;
 }
 
-.ui-progress-spinner::before {
-    content: '';
-    display: block;
-    padding-top: 100%;
+.p-progress-spinner::before {
+     content: '';
+     display: block;
+     padding-top: 100%;
 }
 
-.ui-progress-spinner-svg {
-    animation: ui-progress-spinner-rotate 2s linear infinite;
+.p-progress-spinner-svg {
+    animation: p-progress-spinner-rotate 2s linear infinite;
     height: 100%;
     transform-origin: center center;
     width: 100%;
@@ -25,21 +25,21 @@
     margin: auto;
 }
 
-.ui-progress-spinner-circle {
-    stroke-dasharray: 89,200;
+.p-progress-spinner-circle {
+    stroke-dasharray: 89, 200;
     stroke-dashoffset: 0;
     stroke: #d62d20;
-    animation: ui-progress-spinner-dash 1.5s ease-in-out infinite, ui-progress-spinner-color 6s ease-in-out infinite;
+    animation: p-progress-spinner-dash 1.5s ease-in-out infinite, p-progress-spinner-color 6s ease-in-out infinite;
     stroke-linecap: round;
 }
 
-@keyframes ui-progress-spinner-rotate {
+@keyframes p-progress-spinner-rotate {
     100% {
         transform: rotate(360deg);
     }
 }
 
-@keyframes ui-progress-spinner-dash {
+@keyframes p-progress-spinner-dash {
     0% {
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
@@ -54,7 +54,7 @@
     }
 }
 
-@keyframes ui-progress-spinner-color {
+@keyframes p-progress-spinner-color {
     100%,
     0% {
         stroke: #d62d20;

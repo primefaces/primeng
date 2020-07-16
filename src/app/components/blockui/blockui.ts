@@ -5,7 +5,7 @@ import {DomHandler} from 'primeng/dom';
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask [class]="styleClass" [ngClass]="{'ui-blockui-document':!target, 'ui-blockui ui-widget-overlay': true}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
+        <div #mask [class]="styleClass" [ngClass]="{'p-blockui-document':!target, 'p-blockui p-component-overlay': true}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
             <ng-content></ng-content>
         </div>
     `,
