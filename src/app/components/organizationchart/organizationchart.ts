@@ -1,10 +1,11 @@
 import {NgModule,Component,ElementRef,Input,Output,AfterContentInit,EventEmitter,TemplateRef,
-        Inject,forwardRef,ContentChildren,QueryList,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+        Inject,forwardRef,ContentChildren,QueryList,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from 'primeng/api';
 import {TreeNode} from 'primeng/api';
 import {PrimeTemplate} from 'primeng/api';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: '[pOrganizationChartNode]',
@@ -61,9 +62,10 @@ import {PrimeTemplate} from 'primeng/api';
         ])
     ],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./organizationchart.css']
 })
-export class OrganizationChartNode {
+export class OrganizationChartNode implements OnDestroy{
 
     @Input() node: TreeNode;
         
@@ -74,9 +76,14 @@ export class OrganizationChartNode {
     @Input() last: boolean;
 
     chart: OrganizationChart;
+
+    subscription: Subscription;
         
-    constructor(@Inject(forwardRef(() => OrganizationChart)) chart) {
+    constructor(@Inject(forwardRef(() => OrganizationChart)) chart, public cd: ChangeDetectorRef) {
         this.chart = chart as OrganizationChart;
+        this.subscription = this.chart.selectionSource$.subscribe(() =>{
+            this.cd.markForCheck();
+        })
     }
                 
     get leaf(): boolean {
@@ -104,6 +111,10 @@ export class OrganizationChartNode {
     isSelected() {
         return this.chart.isSelected(this.node);
     }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }
 
 @Component({
@@ -113,7 +124,7 @@ export class OrganizationChartNode {
             <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrganizationChart implements AfterContentInit {
             
@@ -125,10 +136,19 @@ export class OrganizationChart implements AfterContentInit {
     
     @Input() selectionMode: string;
     
-    @Input() selection: any;
-
     @Input() preserveSpace: boolean = true;
     
+    @Input()  get selection(): any {
+        return this._selection;
+    }
+
+    set selection(val:any) {
+        this._selection = val;
+        
+        if (this.initialized)
+            this.selectionSource.next();
+    }
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
@@ -142,8 +162,16 @@ export class OrganizationChart implements AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public templateMap: any;
+
+    private selectionSource = new Subject<any>();
+
+    _selection: any;
+
+    initialized: boolean;
+
+    selectionSource$ = this.selectionSource.asObservable();
     
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd:ChangeDetectorRef) {}
     
     get root(): TreeNode {
         return this.value && this.value.length ? this.value[0] : null;
@@ -157,6 +185,8 @@ export class OrganizationChart implements AfterContentInit {
         this.templates.forEach((item) => {
             this.templateMap[item.getType()] = item.template;
         });
+
+        this.initialized = true;
     }
     
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
@@ -202,6 +232,7 @@ export class OrganizationChart implements AfterContentInit {
             }
             
             this.selectionChange.emit(this.selection);
+            this.selectionSource.next();
         }
     }
     
