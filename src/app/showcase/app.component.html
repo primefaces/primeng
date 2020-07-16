@@ -139,7 +139,6 @@
                 <a [routerLink]="['/radiobutton']" routerLinkActive="router-link-active">RadioButton</a>
                 <a [routerLink]="['/rating']" routerLinkActive="router-link-active">Rating</a>
                 <a [routerLink]="['/slider']" routerLinkActive="router-link-active">Slider</a>
-                <a [routerLink]="['/spinner']" routerLinkActive="router-link-active">Spinner</a>
                 <a [routerLink]="['/selectbutton']" routerLinkActive="router-link-active">SelectButton</a>
                 <a [routerLink]="['/togglebutton']" routerLinkActive="router-link-active">ToggleButton</a>
                 <a [routerLink]="['/tristatecheckbox']" routerLinkActive="router-link-active">TriCheckbox</a>
@@ -159,7 +158,6 @@
                 <span>Data</span>
             </span>
             <div>
-                <a [routerLink]="['/carousel']" routerLinkActive="router-link-active">Carousel</a>
                 <a [routerLink]="['/dataview']" routerLinkActive="router-link-active">DataView</a>
                 <a [routerLink]="['/fullcalendar']" routerLinkActive="router-link-active">FullCalendar</a>
                 <a [routerLink]="['/gmap']" routerLinkActive="router-link-active">GMap</a>
@@ -267,7 +265,6 @@
                 <a [routerLink]="['/confirmdialog']" routerLinkActive="router-link-active">ConfirmDialog</a>
                 <a [routerLink]="['/dialog']" routerLinkActive="router-link-active">Dialog</a>
                 <a [routerLink]="['/dynamicdialog']" routerLinkActive="router-link-active">DynamicDialog</a>
-                <a [routerLink]="['/lightbox']" routerLinkActive="router-link-active">Lightbox</a>
                 <a [routerLink]="['/overlaypanel']" routerLinkActive="router-link-active">OverlayPanel</a>
                 <a [routerLink]="['/sidebar']" routerLinkActive="router-link-active">Sidebar</a>
                 <a [routerLink]="['/tooltip']" routerLinkActive="router-link-active">Tooltip</a>
@@ -304,7 +301,7 @@
                 <span>Chart</span>
             </span>
             <div>
-                <a [routerLink]="['/chart']" routerLinkActive="router-link-active">ChartModel</a>
+                <a [routerLink]="['/chart']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">ChartModel</a>
                 <a [routerLink]="['/chart/bar']" routerLinkActive="router-link-active">Bar</a>
                 <a [routerLink]="['/chart/doughnut']" routerLinkActive="router-link-active">Doughnut</a>
                 <a [routerLink]="['/chart/line']" routerLinkActive="router-link-active">Line</a>
@@ -324,23 +321,24 @@
 
             <span>
                 <i class="pi pi-image"></i>
-                <span>Image</span>
+                <span>Media</span>
             </span>
             <div>
+                <a [routerLink]="['/carousel']" routerLinkActive="router-link-active">Carousel</a>
                 <div>
                     <a tabindex="0" (click)="toggleSubmenu($event, '/galleria')">Galleria</a>
                     <div [@submenu]="isSubmenuActive('/galleria') ? 'visible': 'hidden'">
                         <ul>
-                            <li><a [routerLink]="['/galleria']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
-                            <li><a [routerLink]="['/galleria/programmatic']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Programmatic</a></li>
-                            <li><a [routerLink]="['/galleria/indicator']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Indicator</a></li>
-                            <li><a [routerLink]="['/galleria/thumbnail']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Thumbnail</a></li>
-                            <li><a [routerLink]="['/galleria/navigator']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Navigator</a></li>
-                            <li><a [routerLink]="['/galleria/responsive']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Responsive</a></li>
-                            <li><a [routerLink]="['/galleria/fullscreen']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Fullscreen</a></li>
-                            <li><a [routerLink]="['/galleria/autoplay']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">AutoPlay</a></li>
-                            <li><a [routerLink]="['/galleria/caption']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Caption</a></li>
-                            <li><a [routerLink]="['/galleria/advanced']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Advanced</a></li>
+                            <li><a [routerLink]="['/galleria']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
+                            <li><a [routerLink]="['/galleria/programmatic']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Programmatic</a></li>
+                            <li><a [routerLink]="['/galleria/indicator']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Indicator</a></li>
+                            <li><a [routerLink]="['/galleria/thumbnail']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Thumbnail</a></li>
+                            <li><a [routerLink]="['/galleria/navigator']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Navigator</a></li>
+                            <li><a [routerLink]="['/galleria/responsive']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Responsive</a></li>
+                            <li><a [routerLink]="['/galleria/fullscreen']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Fullscreen</a></li>
+                            <li><a [routerLink]="['/galleria/autoplay']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">AutoPlay</a></li>
+                            <li><a [routerLink]="['/galleria/caption']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Caption</a></li>
+                            <li><a [routerLink]="['/galleria/advanced']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">Advanced</a></li>
                         </ul>
                     </div>
                 </div>
