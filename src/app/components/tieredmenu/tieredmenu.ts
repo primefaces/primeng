@@ -174,7 +174,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-tieredMenu',
     template: `
-        <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-dynamic p-menu-overlay':popup}" [class]="styleClass" [ngStyle]="style"
+        <div [ngClass]="{'p-tieredmenu p-component':true, 'p-tieredmenu-overlay':popup}" [class]="styleClass" [ngStyle]="style"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" 
             (@overlayAnimation.start)="onOverlayAnimationStart($event)" (click)="preventDocumentDefault=true" *ngIf="!popup || visible">
             <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-tieredMenuSub>

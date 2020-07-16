@@ -11,7 +11,7 @@ export const RATING_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-rating',
     template: `
-        <div class="p-rating" [ngClass]="{'p-rating-readonly': readonly, 'p-disabled': disabled}">
+        <div class="p-rating" [ngClass]="{'p-readonly': readonly, 'p-disabled': disabled}">
             <span [attr.tabindex]="(disabled || readonly) ? null : '0'" *ngIf="cancel" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
             <span *ngFor="let star of starsArray;let i=index" class="p-rating-icon" [attr.tabindex]="(disabled || readonly) ? null : '0'"  (click)="rate($event,i)" (keydown.enter)="rate($event,i)"
                 [ngClass]="(!value || i >= value) ? iconOffClass : iconOnClass"

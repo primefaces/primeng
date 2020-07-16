@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 @Component({
     selector: 'p-steps',
     template: `
-        <div [ngClass]="{'p-steps p-component':true,'p-steps-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'p-steps p-component':true,'p-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
             <ul role="tablist">
                 <li *ngFor="let item of model; let i = index" class="p-steps-item" #menuitem [ngStyle]="item.style" [class]="item.styleClass" role="tab" [attr.aria-selected]="i === activeIndex" [attr.aria-expanded]="i === activeIndex"
                     [ngClass]="{'p-highlight p-steps-current':(i === activeIndex), 'p-disabled':item.disabled}">
