@@ -2,8 +2,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
     templateUrl: './inputtextdemo.html',
-    styleUrls: ['./inputtextdemo.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./inputtextdemo.scss']
 })
 export class InputTextDemo {
 
