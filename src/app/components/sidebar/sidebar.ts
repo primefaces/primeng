@@ -6,15 +6,17 @@ import {DomHandler} from 'primeng/dom';
 @Component({
     selector: 'p-sidebar',
     template: `
-        <div #container [ngClass]="{'ui-sidebar ui-widget ui-widget-content ui-shadow':true, 'ui-sidebar-active': visible, 
-            'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'),
-            'ui-sidebar-top': (position === 'top'), 'ui-sidebar-bottom': (position === 'bottom'), 
-            'ui-sidebar-full': fullScreen}"
+        <div #container [ngClass]="{'p-sidebar':true, 'p-sidebar-active': visible, 
+            'p-sidebar-left': (position === 'left'), 'p-sidebar-right': (position === 'right'),
+            'p-sidebar-top': (position === 'top'), 'p-sidebar-bottom': (position === 'bottom'), 
+            'p-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
-            <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" *ngIf="showCloseIcon" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel">
-                <span class="pi pi-times"></span>
-            </a>
-            <ng-content></ng-content>
+            <div class="p-sidebar-content">
+                <button class="p-sidebar-close p-link" *ngIf="showCloseIcon" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel">
+                    <span class="p-sidebar-close-icon pi pi-times"></span>
+                </button>
+                <ng-content></ng-content>
+            </div>
         </div>
     `,
     animations: [
@@ -156,7 +158,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
         if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
-            DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-sidebar-mask');
+            DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask');
             
             if (this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -168,7 +170,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
             document.body.appendChild(this.mask);
             if (this.blockScroll) {
-                DomHandler.addClass(document.body, 'ui-overflow-hidden');
+                DomHandler.addClass(document.body, 'p-overflow-hidden');
             }
         }
     }
@@ -178,7 +180,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             this.unbindMaskClickListener();
             document.body.removeChild(this.mask);
             if (this.blockScroll) {
-                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+                DomHandler.removeClass(document.body, 'p-overflow-hidden');
             }
             this.mask = null;
         }

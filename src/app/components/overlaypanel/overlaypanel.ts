@@ -8,16 +8,16 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 @Component({
     selector: 'p-overlayPanel',
     template: `
-        <div *ngIf="render" [ngClass]="'ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow'" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick()"
+        <div *ngIf="render" [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick()"
             [@animation]="{value: (overlayVisible ? 'open': 'close'), params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" 
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
-            <div class="ui-overlaypanel-content">
+            <div class="p-overlaypanel-content">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <a tabindex="0" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel">
-                <span class="ui-overlaypanel-close-icon pi pi-times"></span>
-            </a>
+            <button *ngIf="showCloseIcon" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel">
+                <span class="p-overlaypanel-close-icon pi pi-times"></span>
+            </button>
         </div>
     `,
     animations: [
@@ -184,11 +184,11 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         }
         DomHandler.absolutePosition(this.container, this.target);
         if (DomHandler.getOffset(this.container).top < DomHandler.getOffset(this.target).top) {
-            DomHandler.addClass(this.container, 'ui-overlaypanel-flipped');
+            DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
         }
         if (Math.floor(DomHandler.getOffset(this.container).left) < Math.floor(DomHandler.getOffset(this.target).left) &&
             DomHandler.getOffset(this.container).left > 0) {
-            DomHandler.addClass(this.container, 'ui-overlaypanel-shifted');
+            DomHandler.addClass(this.container, 'p-overlaypanel-shifted');
         }
     }
 

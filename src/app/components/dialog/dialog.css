@@ -1,193 +1,186 @@
-.ui-dialog-mask {
+.p-dialog-mask {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: none;
-    pointer-events: none;
-}
-
-.ui-dialog-mask.ui-widget-overlay {
-    pointer-events: auto;
-}
-
-.ui-dialog-visible {
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
+    background-color: transparent;
+    transition-property: background-color;
 }
 
-.ui-dialog {
-    padding: 0;
+.p-dialog-mask.p-component-overlay {
     pointer-events: auto;
+}
+
+.p-dialog {
     display: flex;
     flex-direction: column;
+    pointer-events: auto;
     max-height: 90%;
+    transform: scale(1);
     position: relative;
 }
 
-.ui-dialog .ui-dialog-titlebar {
-	padding: .5em .75em;
-    position: relative;
-    border: 0;
-    flex-shrink: 0;
-}
-
-.ui-dialog .ui-dialog-content {
-    position: relative;
-    border: 0;
-    padding: .5em .75em;
-    background: none;
+.p-dialog-content {
     overflow-y: auto;
 }
 
-.ui-dialog-maximized {
+.p-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p-dialog-title {
+    list-style: 1;
+}
+
+.p-dialog .p-dialog-header-icons {
+    display: flex;
+    align-items: center;
+}
+
+.p-dialog .p-dialog-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Fluid */
+.p-fluid .p-dialog-footer .p-button {
+    width: auto;
+}
+
+/* Animation */
+/* Center */
+.p-dialog-enter-active {
+    transition: all 150ms cubic-bezier(0, 0, 0.2, 1);
+}
+.p-dialog-leave-active {
+    transition: all 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+.p-dialog-enter,
+.p-dialog-leave-to {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+.p-dialog-mask.p-dialog-mask-leave {
+    background-color: transparent;
+}
+
+/* Top, Bottom, Left, Right, Top* and Bottom* */
+.p-dialog-top .p-dialog,
+.p-dialog-bottom .p-dialog,
+.p-dialog-left .p-dialog,
+.p-dialog-right .p-dialog,
+.p-dialog-topleft .p-dialog,
+.p-dialog-topright .p-dialog,
+.p-dialog-bottomleft .p-dialog,
+.p-dialog-bottomright .p-dialog {
+    margin: .75rem;
+    transform: translate3d(0px, 0px, 0px);
+}
+.p-dialog-top .p-dialog-enter-active,
+.p-dialog-top .p-dialog-leave-active,
+.p-dialog-bottom .p-dialog-enter-active,
+.p-dialog-bottom .p-dialog-leave-active,
+.p-dialog-left .p-dialog-enter-active,
+.p-dialog-left .p-dialog-leave-active,
+.p-dialog-right .p-dialog-enter-active,
+.p-dialog-right .p-dialog-leave-active,
+.p-dialog-topleft .p-dialog-enter-active,
+.p-dialog-topleft .p-dialog-leave-active,
+.p-dialog-topright .p-dialog-enter-active,
+.p-dialog-topright .p-dialog-leave-active,
+.p-dialog-bottomleft .p-dialog-enter-active,
+.p-dialog-bottomleft .p-dialog-leave-active,
+.p-dialog-bottomright .p-dialog-enter-active,
+.p-dialog-bottomright .p-dialog-leave-active {
+    transition: all .3s ease-out;
+}
+.p-dialog-top .p-dialog-enter,
+.p-dialog-top .p-dialog-leave-to {
+    transform: translate3d(0px, -100%, 0px);
+}
+.p-dialog-bottom .p-dialog-enter,
+.p-dialog-bottom .p-dialog-leave-to {
+    transform: translate3d(0px, 100%, 0px);
+}
+.p-dialog-left .p-dialog-enter,
+.p-dialog-left .p-dialog-leave-to,
+.p-dialog-topleft .p-dialog-enter,
+.p-dialog-topleft .p-dialog-leave-to,
+.p-dialog-bottomleft .p-dialog-enter,
+.p-dialog-bottomleft .p-dialog-leave-to {
+    transform: translate3d(-100%, 0px, 0px);
+}
+.p-dialog-right .p-dialog-enter,
+.p-dialog-right .p-dialog-leave-to,
+.p-dialog-topright .p-dialog-enter,
+.p-dialog-topright .p-dialog-leave-to,
+.p-dialog-bottomright .p-dialog-enter,
+.p-dialog-bottomright .p-dialog-leave-to {
+    transform: translate3d(100%, 0px, 0px);
+}
+
+/* Maximize */
+.p-dialog-maximized {
     -webkit-transition: none;
     transition: none;
     transform: none;
     width: 100vw !important;
     max-height: 100%;
     height: 100%;
-    left: 0px !important;
-    top: 0px !important;
 }
-
-.ui-dialog-maximized .ui-dialog-content {
+.p-dialog-maximized .p-dialog-content {
     flex-grow: 1;
 }
 
-.ui-dialog-resizable .ui-dialog-content {
-    overflow: auto;
+/* Position */
+.p-dialog-left {
+    justify-content: flex-start;
+}
+.p-dialog-right {
+    justify-content: flex-end;
+}
+.p-dialog-top {
+    align-items: flex-start;
+}
+.p-dialog-topleft {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.p-dialog-topright {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.p-dialog-bottom {
+    align-items: flex-end;
+}
+.p-dialog-bottomleft {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.p-dialog-bottomright {
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
-.ui-dialog-breakpoint {
-    left: 0px;
-    width: 100%;
-}
-
-.ui-dialog .ui-resizable-se {
-    width: 14px;
-    height: 14px;
-    right: 3px;
-    bottom: 3px;
+/* Resizable */
+.p-dialog .p-resizable-handle {
     position: absolute;
-    font-size: .1px;
+    font-size: 0.1px;
     display: block;
     cursor: se-resize;
-}
-
-.ui-dialog-draggable .ui-dialog-titlebar {
-    cursor: move;
-}
-
-.ui-dialog .ui-dialog-titlebar-icons {
-    float: right;
-}
-.ui-dialog .ui-dialog-titlebar-icons:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.ui-dialog .ui-dialog-titlebar-icon {
-    text-decoration: none;
-    padding: .125em;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-    border: 1px solid transparent;
-}
-
-.ui-dialog .ui-dialog-titlebar-icon span {
-    display: block;
-    margin: 0;
-}
-
-.ui-dialog-footer {
-    padding: 1em;
-    border-width: 1px 0 0 0;
-    text-align: right;
-    flex-shrink: 0;
-}
-
-/* Position */
-.ui-dialog-top .ui-dialog,
-.ui-dialog-bottom .ui-dialog,
-.ui-dialog-left .ui-dialog,
-.ui-dialog-right .ui-dialog,
-.ui-dialog-topleft .ui-dialog,
-.ui-dialog-topright .ui-dialog,
-.ui-dialog-bottomleft .ui-dialog,
-.ui-dialog-bottomright .ui-dialog {
-    margin: .75em;
-    position: relative;
-}
-
-.ui-dialog-left {
-    justify-content: flex-start;
-}
-.ui-dialog-right {
-    justify-content: flex-end;
-}
-.ui-dialog-top {
-    align-items: flex-start;
-}
-.ui-dialog-topleft {
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-.ui-dialog-topright {
-    justify-content: flex-end;
-    align-items: flex-start;
-}
-.ui-dialog-bottom {
-    align-items: flex-end;
-}
-.ui-dialog-bottomleft {
-    justify-content: flex-start;
-    align-items: flex-end;
-}
-.ui-dialog-bottomright {
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-/* ConfirmDialog */
-.ui-confirmdialog {
-    width: 30em;
-}
-
-.ui-confirmdialog.ui-dialog .ui-dialog-content {
-    padding: 1em 2em;
-}
-.ui-confirmdialog .ui-dialog-content .ui-confirmdialog-icon {
-    font-size: 1.5em;
-    margin-right: .5em;
-    position: relative;
-    top: .2em;
-}
-
-.ui-dialog-footer .ui-button {
-    margin-right: .25em;
-}
-
-/* Fluid */
-.ui-fluid .ui-dialog-footer .ui-button {
-    width: auto;
-}
-
-/* RTL */
-.ui-rtl .ui-dialog .ui-dialog-titlebar-close  {
-    float: left;
-}
-
-.ui-rtl .ui-dialog .ui-dialog-buttonpane button {
-    text-align: right;
-}
-
-@media screen and (max-width: 40em) {
-    .ui-confirmdialog {
-        width: 90%;
-    }
+    width: 12px;
+    height: 12px;
+    right: 1px;
+    bottom: 1px;
 }
