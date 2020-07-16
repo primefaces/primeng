@@ -19,7 +19,7 @@ export class BreadcrumbDemo implements OnInit {
             {label:'Spain'},
             {label:'F.C. Barcelona'},
             {label:'Squad'},
-            {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link'}
+            {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'}
         ];
         
         this.home = {icon: 'pi pi-home'};

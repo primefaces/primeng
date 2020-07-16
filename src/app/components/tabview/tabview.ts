@@ -121,7 +121,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                         </a>
                         <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event,tab)"></span>
                     </li>
-                    </ng-template>
+                </ng-template>
                 <li ref="inkbar" class="p-tabview-ink-bar"></li>
             </ul>
             <div class="p-tabview-panels">

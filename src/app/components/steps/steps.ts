@@ -6,23 +6,20 @@ import {RouterModule} from '@angular/router';
 @Component({
     selector: 'p-steps',
     template: `
-        <div [ngClass]="{'ui-steps ui-widget ui-helper-clearfix':true,'ui-steps-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'p-steps p-component':true,'p-steps-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
             <ul role="tablist">
-                <li *ngFor="let item of model; let i = index" class="ui-steps-item" #menuitem [ngStyle]="item.style" [class]="item.styleClass" role="tab" [attr.aria-selected]="i === activeIndex" [attr.aria-expanded]="i === activeIndex"
-                    [ngClass]="{'ui-state-highlight ui-steps-current':(i === activeIndex),
-                        'ui-state-default':(i !== activeIndex),
-                        'ui-state-complete':(i < activeIndex),
-                        'ui-state-disabled ui-steps-incomplete':item.disabled||(i !== activeIndex && readonly)}">
-                    <a *ngIf="!item.routerLink" [attr.href]="item.url" class="ui-menuitem-link" role="presentation" (click)="itemClick($event, item, i)" (keydown.enter)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" 
+                <li *ngFor="let item of model; let i = index" class="p-steps-item" #menuitem [ngStyle]="item.style" [class]="item.styleClass" role="tab" [attr.aria-selected]="i === activeIndex" [attr.aria-expanded]="i === activeIndex"
+                    [ngClass]="{'p-highlight p-steps-current':(i === activeIndex), 'p-disabled':item.disabled}">
+                    <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event, item, i)" (keydown.enter)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" 
                         [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
-                        <span class="ui-steps-number">{{i + 1}}</span>
-                        <span class="ui-steps-title">{{item.label}}</span>
+                        <span class="p-steps-number">{{i + 1}}</span>
+                        <span class="p-steps-title">{{item.label}}</span>
                     </a>
-                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" role="presentation" [routerLinkActive]="'ui-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link" 
+                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" role="presentation" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" 
                         (click)="itemClick($event, item, i)" (keydown.enter)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')"
                         [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
-                        <span class="ui-steps-number">{{i + 1}}</span>
-                        <span class="ui-steps-title">{{item.label}}</span>
+                        <span class="p-steps-number">{{i + 1}}</span>
+                        <span class="p-steps-title">{{item.label}}</span>
                     </a>
                 </li>
             </ul>
