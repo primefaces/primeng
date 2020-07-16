@@ -26,7 +26,7 @@ const hideAnimation = animation([
                 'p-dialog-right': position === 'right',
                 'p-dialog-top': position === 'top',
                 'p-dialog-topleft': position === 'topleft',
-                'p-dialog-topright': position === 'topright',p
+                'p-dialog-topright': position === 'topright',
                 'p-dialog-bottom': position === 'bottom',
                 'p-dialog-bottomleft': position === 'bottomleft',
                 'p-dialog-bottomright': position === 'bottomright'}">
