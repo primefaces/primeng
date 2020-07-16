@@ -3,7 +3,12 @@
     width: 25rem;
 }
 
-.p-toast-message {
+.p-toast-message-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.p-toast-message-text {
     flex: 1 1 auto;
 }
 
@@ -46,11 +51,6 @@
     transform: translate(-50%, -50%);
 }
 
-.p-toast-item {
-    display: flex;
-    align-items: flex-start;
-}
-
 .p-toast-icon-close {
     display: flex;
     align-items: center;
@@ -75,7 +75,7 @@
     max-height: 1000px;
 }
 
-.p-toast .p-toast-item-container.p-toast-message-leave-to {
+.p-toast .p-toast-message.p-toast-message-leave-to {
     max-height: 0;
     opacity: 0;
     margin-bottom: 0;
