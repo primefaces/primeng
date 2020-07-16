@@ -63,6 +63,8 @@ export class AppComponent implements OnInit{
 
     versions: any[];
 
+    appState: any = {inputStyle: 'outlined', darkTheme: false};
+
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
 
     constructor(private router: Router, private renderer: Renderer2, private versionService: VersionService) {

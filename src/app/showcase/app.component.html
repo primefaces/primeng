@@ -1,4 +1,4 @@
-<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive}">
+<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive, 'p-input-filled': appState.inputStyle === 'filled'}">
     <div class="layout-news" *ngIf="newsActive">
         <div class="layout-news-container">
             <span class="layout-news-details">
