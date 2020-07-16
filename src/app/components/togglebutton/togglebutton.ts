@@ -20,7 +20,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             </div>
             <span *ngIf="onIcon||offIcon" class="p-button-icon" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'p-button-icon-left': (iconPos === 'left'), 
             'p-button-icon-right': (iconPos === 'right')}"></span>
-            <span class="ui-button-text ui-unselectable-text">{{checked ? hasOnLabel ? onLabel : 'p-btn' : hasOffLabel ? offLabel : 'p-btn'}}</span>
+            <span class="p-button-label p-unselectable-text">{{checked ? hasOnLabel ? onLabel : '' : hasOffLabel ? offLabel : ''}}</span>
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
@@ -29,9 +29,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 })
 export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 
-    @Input() onLabel: string = 'Yes';
+    @Input() onLabel: string;
 
-    @Input() offLabel: string = 'No';
+    @Input() offLabel: string;
 
     @Input() onIcon: string;
 
