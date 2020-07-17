@@ -7,10 +7,10 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h3 class="first">Basic</h3>
+        <h5 class="first">Basic</h5>
         <p-toggleButton [(ngModel)]="checked1" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
 
-        <h3>Customized</h3>
+        <h5>Customized</h5>
         <p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '10em'}"></p-toggleButton>
     </div>
 </div>
@@ -18,14 +18,14 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
+            <h5>Import</h5>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;ToggleButtonModule&#125; from 'primeng/togglebutton';
 </code>
 </pre>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
 
 <pre>
@@ -55,7 +55,7 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>ToggleButton can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -63,7 +63,7 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Labels</h3>
+            <h5>Labels</h5>
             <p>Labels are customized using onLabel and <i>offLabel</i> properties.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -72,7 +72,7 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Icons</h3>
+            <h5>Icons</h5>
             <p>Icon on a ToggleButton is specified with the <i>onIcon</i> and <i>offIcon</i> properties and position is customized using the <i>iconPos</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -80,7 +80,7 @@ export class ModelComponent &#123;
             onIcon="pi pi-check" offIcon="pi pi-times" iconPos="right" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
 </code>
 </pre>
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -162,7 +162,7 @@ export class ModelComponent &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -198,7 +198,7 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -229,7 +229,7 @@ export class ModelComponent &#123;
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -242,10 +242,10 @@ export class ModelComponent &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;h5 class="first"&gt;Basic&lt;/h5&gt;
 &lt;p-toggleButton [(ngModel)]="checked1" onIcon="pi pi-check" offIcon="pi pi-times"&gt;&lt;/p-toggleButton&gt;
 
-&lt;h3&gt;Customized&lt;/h3&gt;
+&lt;h5&gt;Customized&lt;/h5&gt;
 &lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="&#123;'width': '10em'&#125;"&gt;&lt;/p-toggleButton&gt;&lt;/code&gt;
 </code>
 </pre>
