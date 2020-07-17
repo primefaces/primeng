@@ -7,18 +7,20 @@
 </div>
 
 <div class="content-section implementation p-fluid">
-    <h5 class="first">Basic</h5>
-    <p-chips [(ngModel)]="values1"></p-chips>
+    <div class="card">
+        <h5 class="first">Basic</h5>
+        <p-chips [(ngModel)]="values1"></p-chips>
 
-    <h5>Comma Separator</h5>
-    <p-chips [(ngModel)]="values2" separator=","></p-chips>
-    
-    <h5>Template</h5>
-    <p-chips [(ngModel)]="values3">
-        <ng-template let-item pTemplate="item">
-            {{item}} - (active) <span class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle;"></span>
-        </ng-template>
-    </p-chips>
+        <h5>Comma Separator</h5>
+        <p-chips [(ngModel)]="values2" separator=","></p-chips>
+        
+        <h5>Template</h5>
+        <p-chips [(ngModel)]="values3">
+            <ng-template let-item pTemplate="item">
+                {{item}} - (active) <span class="pi pi-user" style="margin-right:2em; padding-bottom: 2px;vertical-align: middle;"></span>
+            </ng-template>
+        </p-chips>
+    </div>
 </div>
 
 <div class="content-section documentation">

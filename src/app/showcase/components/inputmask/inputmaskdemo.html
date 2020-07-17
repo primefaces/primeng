@@ -1,57 +1,58 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">InputMask</span>
-        <span>InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.</span>
+    <div class="feature-intro">
+        <h1>InputGroup</h1>
+        <p>Text, icon, buttons and other content can be grouped next to an input.</p>
     </div>
+    <app-inputStyleSwitch></app-inputStyleSwitch>
 </div>
 
 <div class="content-section implementation">
-
-    <div class="p-grid ui-fluid">
-        <div class="p-col-12 p-md-6 p-lg-4">
-            <span>Basic</span>
-            <p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"></p-inputMask>
-        </div>
-        
-        <div class="p-col-12 p-md-6 p-lg-4">
-            <span>SSN</span>
-            <p-inputMask mask="999-99-9999" [(ngModel)]="val2" placeholder="999-99-9999"></p-inputMask>
-        </div>
-        
-        <div class="p-col-12 p-md-6 p-lg-4">
-            <span>Date</span>
-            <p-inputMask mask="99/99/9999" [(ngModel)]="val3" placeholder="99/99/9999" slotChar="mm/dd/yyyy"></p-inputMask>
-        </div>
-        
-        <div class="p-col-12 p-md-6 p-lg-4">
-            <span>Phone</span>
-            <p-inputMask mask="(999) 999-9999" [(ngModel)]="val4" placeholder="(999) 999-9999"></p-inputMask>
-        </div>
-        
-        <div class="p-col-12 p-md-6 p-lg-4">
-            <span>Phone Ext</span>
-            <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="val5" placeholder="(999) 999-9999? x99999"></p-inputMask>
-        </div>
-        
-        <div class="p-col-12 p-md-6 p-lg-4">
-            <span>Serial Number</span>
-            <p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"></p-inputMask>
+    <div class="card">
+        <div class="p-grid p-fluid">
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <span>Basic</span>
+                <p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"></p-inputMask>
+            </div>
+            
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <span>SSN</span>
+                <p-inputMask mask="999-99-9999" [(ngModel)]="val2" placeholder="999-99-9999"></p-inputMask>
+            </div>
+            
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <span>Date</span>
+                <p-inputMask mask="99/99/9999" [(ngModel)]="val3" placeholder="99/99/9999" slotChar="mm/dd/yyyy"></p-inputMask>
+            </div>
+            
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <span>Phone</span>
+                <p-inputMask mask="(999) 999-9999" [(ngModel)]="val4" placeholder="(999) 999-9999"></p-inputMask>
+            </div>
+            
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <span>Phone Ext</span>
+                <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="val5" placeholder="(999) 999-9999? x99999"></p-inputMask>
+            </div>
+            
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <span>Serial Number</span>
+                <p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"></p-inputMask>
+            </div>
         </div>
     </div>
-    
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
+            <h5>Import</h5>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;InputMaskModule&#125; from 'primeng/inputmask';
 </code>
 </pre>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Component is defined using p-inputMask element with a mask and two-way value binding is enabled with standard ngModel directive.</p>   
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -59,7 +60,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
 </code>
 </pre>
 
-            <h3>Mask</h3>
+            <h5>Mask</h5>
             <p>Mask format can be a combination of the the following built-in definitions.</p>
             <ul>
                 <li>a - Alpha character (defaut: A-Z,a-z)</li>
@@ -78,7 +79,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
 </code>
 </pre>
             
-            <h3>SlotChar</h3>
+            <h5>SlotChar</h5>
             <p>Underscore is the default placeholder for a mask and this can be customized using <i>slotChart</i> option.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -86,11 +87,11 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
 </code>
 </pre>
             
-            <h3>Optional Values</h3>
+            <h5>Optional Values</h5>
             <p>If the input does not complete the mask definition, it is cleared by default. Use <i>autoClear</i> property to control this behavior. In addition,
             certain part of a mask can be made optional by using ? symbol where anything after the question mark becomes optional.</p>
                         
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>InputMask can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -98,7 +99,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
 </code>
 </pre>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -246,7 +247,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                 </table>
             </div>
             
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -281,7 +282,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                 </table>
             </div>
 
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -301,10 +302,10 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Styling is same as <a href="#" [routerLink]="['/inputtext']">inputtext component</a>, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -317,7 +318,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="p-grid ui-fluid"&gt;
+&lt;div class="p-grid p-fluid"&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
         &lt;span&gt;Basic&lt;/span&gt;
         &lt;p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"&gt;&lt;/p-inputMask&gt;

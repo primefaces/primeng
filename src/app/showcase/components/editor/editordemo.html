@@ -6,19 +6,21 @@
 </div>
 
 <div class="content-section implementation">
-    <h5 class="first">Default</h5>
-    <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
-    
-    <h5>Custom Toolbar</h5>
-    <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
-        <p-header>
-            <span class="ql-formats">
-                <button class="ql-bold" aria-label="Bold"></button>
-                <button class="ql-italic" aria-label="Italic"></button>
-                <button class="ql-underline" aria-label="Underline"></button>
-            </span>
-        </p-header>
-    </p-editor>
+    <div class="card">
+        <h5 class="first">Default</h5>
+        <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
+        
+        <h5>Custom Toolbar</h5>
+        <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
+            <p-header>
+                <span class="ql-formats">
+                    <button class="ql-bold" aria-label="Bold"></button>
+                    <button class="ql-italic" aria-label="Italic"></button>
+                    <button class="ql-underline" aria-label="Underline"></button>
+                </span>
+            </p-header>
+        </p-editor>
+    </div>
 </div>
 
 <div class="content-section documentation">
