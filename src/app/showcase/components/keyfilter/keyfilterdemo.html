@@ -7,40 +7,42 @@
 </div>
 
 <div class="content-section implementation">
-    <h5>Filtering</h5>
-    <div class="p-grid p-fluid">
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText pKeyFilter="int" placeholder="Integers">
+    <div class="card">
+        <h5>Filtering</h5>
+        <div class="p-grid p-fluid">
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="int" placeholder="Integers">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="num" placeholder="Numbers">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="money" placeholder="Money">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="hex" placeholder="Hex">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="alpha" placeholder="Alphabetic">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText pKeyFilter="alphanum" placeholder="Alphanumeric">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText [pKeyFilter]="blockSpecial" placeholder="Block # < > * !">
+            </div>
+            <div class="p-col-12 p-md-4">
+                <input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key">
+            </div>
         </div>
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText pKeyFilter="num" placeholder="Numbers">
-        </div>
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText pKeyFilter="money" placeholder="Money">
-        </div>
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText pKeyFilter="hex" placeholder="Hex">
-        </div>
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText pKeyFilter="alpha" placeholder="Alphabetic">
-        </div>
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText pKeyFilter="alphanum" placeholder="Alphanumeric">
-        </div>
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText [pKeyFilter]="blockSpecial" placeholder="Block # < > * !">
-        </div>
-        <div class="p-col-12 p-md-4">
-            <input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key">
-        </div>
-    </div>
 
-    <h5>Validation Mode</h5>
-    <form #form="ngForm">
-        <label for="cc" style="display:block;margin-bottom:4px">Credit Card</label>
-        <input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em">
-        <p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"></p-message>
-    </form>
+        <h5>Validation Mode</h5>
+        <form #form="ngForm">
+            <label for="cc" style="display:block;margin-bottom:4px">Credit Card</label>
+            <input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em">
+            <p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"></p-message>
+        </form>
+    </div>
 </div>
 
 <div class="content-section documentation">
