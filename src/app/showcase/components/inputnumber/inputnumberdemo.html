@@ -1,122 +1,125 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">InputNumber</span>
-        <span>InputNumber is an input component to provide numerical input.</span>
+    <div class="feature-intro">
+        <h1>InputNumber</h1>
+        <p>InputNumber is an input component to provide numerical input.</p>
     </div>
+    <app-inputStyleSwitch></app-inputStyleSwitch>
 </div>
 
 <div class="content-section implementation">
-    <h3>Numerals</h3>
-    <div class="p-grid ui-fluid">
-        <div class="p-col-12 p-md-3">
-            Integer Only
-            <p-inputNumber [(ngModel)]="value1">
-            </p-inputNumber>
+    <div class="card">
+        <h5>Numerals</h5>
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 p-md-3">
+                <label for="integeronly">Integer Only</label>
+                <p-inputNumber inputId="integeronly" [(ngModel)]="value1">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="withoutgrouping">Without Grouping</label>
+                <p-inputNumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="minmaxfraction">Min-Max Fraction Digits</label>
+                <p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="minmax">Min-Max Boundaries</label>
+                <p-inputNumber [(ngModel)]="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="locale-user">User Locale</label>
+                <p-inputNumber [(ngModel)]="value5" inputId="locale-user" [minFractionDigits]="2">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="locale-us">United States Locale</label>
+                <p-inputNumber [(ngModel)]="value6" inpudId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="locale-german">German Locale</label>
+                <p-inputNumber [(ngModel)]="value7" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="locale-indian">Indian Locale</label>
+                <p-inputNumber [(ngModel)]="value8" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2">
+                </p-inputNumber>
+            </div>
         </div>
-        <div class="p-col-12 p-md-3">
-            Without Grouping
-            <p-inputNumber [(ngModel)]="value2" mode="decimal" [useGrouping]="false">
-            </p-inputNumber>
+        <h5>Currency</h5>
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 p-md-3">
+                <label for="currency-us">United States</label>
+                <p-inputNumber [(ngModel)]="value9" inputId="currency-us" mode="currency" currency="USD" locale="en-US">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="currency-germany">Germany</label>
+                <p-inputNumber [(ngModel)]="value10" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="currency-india">India</label>
+                <p-inputNumber [(ngModel)]="value11" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="currency-japan">Japan</label>
+                <p-inputNumber [(ngModel)]="value12" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP">
+                </p-inputNumber>
+            </div>
         </div>
-        <div class="p-col-12 p-md-3">
-            Min-Max Fraction Digits
-            <p-inputNumber [(ngModel)]="value3" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5">
-            </p-inputNumber>
+        <h5>Prefix and Suffix</h5>
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 p-md-3">
+                <label for="mile">Mile</label>
+                <p-inputNumber [(ngModel)]="value13" inputId="mile" suffix=" mi">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="percent">Percent</label>
+                <p-inputNumber [(ngModel)]="value14" inputId="percent" prefix="%">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="expiry">Expiry</label>
+                <p-inputNumber [(ngModel)]="value15" inputId="expiry" prefix="Expires in " suffix=" days">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="temperature">Temperature</label>
+                <p-inputNumber [(ngModel)]="value16" prefix="&uarr; " inputId="temperature" suffix="℃" [min]="0" [max]="40">
+                </p-inputNumber>
+            </div>
         </div>
-        <div class="p-col-12 p-md-3">
-            Min-Max Boundaries
-            <p-inputNumber [(ngModel)]="value4" mode="decimal" [min]="0" [max]="100">
-            </p-inputNumber>
+        <h5>Buttons</h5>
+        <div class="p-grid p-fluid">
+            <div class="p-field p-col-12 p-md-3">
+                <label for="stacked">Stacked</label>
+                <p-inputNumber [(ngModel)]="value17" [showButtons]="true" inputId="stacked" mode="currency" currency="USD">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="horizontal">Horizontal with Step</label>
+                <p-inputNumber [(ngModel)]="value18" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25"
+                decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR">
+                </p-inputNumber>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="minmax-buttons">Min-Max Boundaries</label>
+                <p-inputNumber [(ngModel)]="value20" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100">
+                </p-inputNumber>
+            </div>
         </div>
-        <div class="p-col-12 p-md-3">
-            User Locale
-            <p-inputNumber [(ngModel)]="value5" [minFractionDigits]="2">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            United State Locale
-            <p-inputNumber [(ngModel)]="value6" mode="decimal" locale="en-US" [minFractionDigits]="2">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            German Locale
-            <p-inputNumber [(ngModel)]="value7" mode="decimal" locale="de-DE" [minFractionDigits]="2">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Indian Locale
-            <p-inputNumber [(ngModel)]="value8" mode="decimal" locale="en-IN" [minFractionDigits]="2">
-            </p-inputNumber>
-        </div>
-    </div>
-    <h3>Currency</h3>
-    <div class="p-grid ui-fluid">
-        <div class="p-col-12 p-md-3">
-            United States
-            <p-inputNumber [(ngModel)]="value9" mode="currency" currency="USD" locale="en-US">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Germany
-            <p-inputNumber [(ngModel)]="value10" mode="currency" currency="EUR" locale="de-DE">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            India
-            <p-inputNumber [(ngModel)]="value11" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Japan
-            <p-inputNumber [(ngModel)]="value12" mode="currency" currency="JPY" locale="jp-JP">
-            </p-inputNumber>
-        </div>
-    </div>
-    <h3>Prefix and Suffix</h3>
-    <div class="p-grid ui-fluid">
-        <div class="p-col-12 p-md-3">
-            Mile
-            <p-inputNumber [(ngModel)]="value13" suffix=" mi">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Percent
-            <p-inputNumber [(ngModel)]="value14" prefix="%">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Expiry
-            <p-inputNumber [(ngModel)]="value15" prefix="Expires in " suffix=" days">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Temperature
-            <p-inputNumber [(ngModel)]="value16" prefix="&uarr; " suffix="℃" [min]="0" [max]="40">
-            </p-inputNumber>
-        </div>
-    </div>
-    <h3>Buttons</h3>
-    <div class="p-grid ui-fluid">
-        <div class="p-col-12 p-md-3">
-            Stacked
-            <p-inputNumber [(ngModel)]="value17" [showButtons]="true" mode="currency" currency="USD">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Horizontal with Step
-            <p-inputNumber [(ngModel)]="value18" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="0.25"
-            decrementButtonClass="ui-button-danger" incrementButtonClass="ui-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            <div>Vertical</div>
-            <p-inputNumber [(ngModel)]="value19" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
-            decrementButtonClass="ui-button-secondary" incrementButtonClass="ui-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
-            </p-inputNumber>
-        </div>
-        <div class="p-col-12 p-md-3">
-            Min-Max Boundaries
-            <p-inputNumber [(ngModel)]="value20" mode="decimal" [showButtons]="true" [min]="0" [max]="100">
+        <div class="p-field p-col-12 p-md-3">
+            <label for="vertical" style="display: block">Vertical</label>
+            <p-inputNumber [(ngModel)]="value19" [style]="{'width':'4rem'}" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
+            decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
             </p-inputNumber>
         </div>
     </div>
@@ -125,14 +128,14 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
+            <h5>Import</h5>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;InputNumberModule&#125; from 'primeng/inputnumber';
 </code>
 </pre>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>InputNumber is used with the standard v-model directive. Component always provides a number type although formatting on the input is a string.</p>   
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -140,7 +143,7 @@ import &#123;InputNumberModule&#125; from 'primeng/inputnumber';
 </code>
 </pre>
 
-            <h3>Decimal Mode</h3>
+            <h5>Decimal Mode</h5>
             <p>Format is defined using the <i>mode</i> property, "decimal" is the default value allowing only integers when there is no other configuration.</p>   
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -172,7 +175,7 @@ Indian Locale
 </code>
 </pre>
 
-            <h3>Currency</h3>
+            <h5>Currency</h5>
             <p>Currency formatting is specified by setting the <i>mode</i> option to currency and <i>currency</i> property. In addition <i>currencyDisplay</i> option
                 allows how the currency is displayed, valid values are "symbol" (default) or "code".</p> 
 <pre>
@@ -191,7 +194,7 @@ Indian Locale
 </code>
 </pre>
 
-            <h3>Prefix and Suffix</h3>
+            <h5>Prefix and Suffix</h5>
             <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p> 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -209,7 +212,7 @@ Temperature
 </code>
 </pre>
 
-            <h3>Buttons</h3>
+            <h5>Buttons</h5>
             <p>Spinner buttons is enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default value is "stacked" whereas
                 "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down arrow keys can be used to spin the values with keyboard.</p> 
 <pre>
@@ -219,15 +222,15 @@ Stacked
 
 Horizontal
 &lt;p-inputNumber [(ngModel)]="value2" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
-    decrementButtonClass="ui-button-danger" incrementButtonClass="ui-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR"&gt;&lt;/p-inputNumber&gt;
+    decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR"&gt;&lt;/p-inputNumber&gt;
 
 Vertical
 &lt;p-inputNumber [(ngModel)]="value3" mode="decimal" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
-    decrementButtonClass="ui-button-secondary" incrementButtonClass="ui-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"&gt;&lt;/p-inputNumber&gt;
+    decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"&gt;&lt;/p-inputNumber&gt;
 </code>
 </pre>
 
-            <h3>Step</h3>
+            <h5>Step</h5>
             <p>Step factor is 1 by default and can be customized with <i>step</i> option.</p> 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -235,7 +238,7 @@ Vertical
 </code>
 </pre>
     
-            <h3>Min and Max Boundaries</h3>
+            <h5>Min and Max Boundaries</h5>
             <p>Value to be entered can be restricted by configuring the <i>min</i> and <i>max</i> options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -243,7 +246,7 @@ Vertical
 </code>
 </pre>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -391,6 +394,18 @@ Vertical
                             <td>Step factor to increment/decrement the value.</td>
                         </tr>
                         <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the input field.</td>
+                        </tr>
+                        <tr>
                             <td>inputId</td>
                             <td>string</td>
                             <td>null</td>
@@ -466,7 +481,7 @@ Vertical
                 </table>
             </div>
             
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -491,7 +506,7 @@ Vertical
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -503,45 +518,45 @@ Vertical
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-inputnumber</td>
+                            <td>p-inputnumber</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-stacked</td>
+                            <td>p-inputnumber-stacked</td>
                             <td>Container element with stacked buttons.</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-horizontal</td>
+                            <td>p-inputnumber-horizontal</td>
                             <td>Container element with horizontal buttons.</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-vertical</td>
+                            <td>p-inputnumber-vertical</td>
                             <td>Container element with vertical buttons.</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-input</td>
+                            <td>p-inputnumber-input</td>
                             <td>Input element</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-button</td>
+                            <td>p-inputnumber-button</td>
                             <td>Input element</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-button-up</td>
+                            <td>p-inputnumber-button-up</td>
                             <td>Increment button</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-button-down</td>
+                            <td>p-inputnumber-button-down</td>
                             <td>Decrement button</td>
                         </tr>
                         <tr>
-                            <td>ui-inputnumber-button-icon</td>
+                            <td>p-inputnumber-button-icon</td>
                             <td>Button icon</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -554,122 +569,121 @@ Vertical
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="p-grid ui-fluid"&gt;
-&lt;h3&gt;Numerals&lt;/h3&gt;
-&lt;div class="p-grid ui-fluid"&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Integer Only
-        &lt;p-inputNumber [(ngModel)]="value1"&gt;
-        &lt;/p-inputNumber&gt;
-        &#123;&#123;value1&#125;&#125;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Without Grouping
-        &lt;p-inputNumber [(ngModel)]="value2" mode="decimal" [useGrouping]="false"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Min-Max Fraction Digits
-        &lt;p-inputNumber [(ngModel)]="value3" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Min-Max Boundaries
-        &lt;p-inputNumber [(ngModel)]="value4" mode="decimal" [min]="0" [max]="100"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        User Locale
-        &lt;p-inputNumber [(ngModel)]="value5" [minFractionDigits]="2"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        United State Locale
-        &lt;p-inputNumber [(ngModel)]="value6" mode="decimal" locale="en-US" [minFractionDigits]="2"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        German Locale
-        &lt;p-inputNumber [(ngModel)]="value7" mode="decimal" locale="de-DE" [minFractionDigits]="2"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Indian Locale
-        &lt;p-inputNumber [(ngModel)]="value8" mode="decimal" locale="en-IN" [minFractionDigits]="2"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3&gt;Currency&lt;/h3&gt;
-&lt;div class="p-grid ui-fluid"&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        United States
-        &lt;p-inputNumber [(ngModel)]="value9" mode="currency" currency="USD" locale="en-US"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Germany
-        &lt;p-inputNumber [(ngModel)]="value10" mode="currency" currency="EUR" locale="de-DE"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        India
-        &lt;p-inputNumber [(ngModel)]="value11" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Japan
-        &lt;p-inputNumber [(ngModel)]="value12" mode="currency" currency="JPY" locale="jp-JP"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3&gt;Prefix and Suffix&lt;/h3&gt;
-&lt;div class="p-grid ui-fluid"&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Mile
-        &lt;p-inputNumber [(ngModel)]="value13" suffix=" mi"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Percent
-        &lt;p-inputNumber [(ngModel)]="value14" prefix="%"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Expiry
-        &lt;p-inputNumber [(ngModel)]="value15" prefix="Expires in " suffix=" days"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Temperature
-        &lt;p-inputNumber [(ngModel)]="value16" prefix="&uarr; " suffix="℃" [min]="0" [max]="40"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3&gt;Buttons&lt;/h3&gt;
-&lt;div class="p-grid ui-fluid"&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Stacked
-        &lt;p-inputNumber [(ngModel)]="value17" [showButtons]="true" mode="currency" currency="USD"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Horizontal with Step
-        &lt;p-inputNumber [(ngModel)]="value18" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="0.25"
-        decrementButtonClass="ui-button-danger" incrementButtonClass="ui-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        &lt;div&gt;Vertical&lt;/div&gt;
-        &lt;p-inputNumber [(ngModel)]="value19" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
-        decrementButtonClass="ui-button-secondary" incrementButtonClass="ui-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-3"&gt;
-        Min-Max Boundaries
-        &lt;p-inputNumber [(ngModel)]="value20" mode="decimal" [showButtons]="true" [min]="0" [max]="100"&gt;
-        &lt;/p-inputNumber&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
+&lt;div class="p-grid p-fluid"&gt;
+&lt;h5>Numerals&lt;/h5>
+&lt;div class="p-grid p-fluid">
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="integeronly">Integer Only&lt;/label>
+        &lt;p-inputNumber inputId="integeronly" [(ngModel)]="value1">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="withoutgrouping">Without Grouping&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="minmaxfraction">Min-Max Fraction Digits&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="minmax">Min-Max Boundaries&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="locale-user">User Locale&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value5" inputId="locale-user" [minFractionDigits]="2">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="locale-us">United States Locale&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value6" inpudId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="locale-german">German Locale&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value7" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="locale-indian">Indian Locale&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value8" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2">
+        &lt;/p-inputNumber>
+    &lt;/div>
+&lt;/div>
+&lt;h5>Currency&lt;/h5>
+&lt;div class="p-grid p-fluid">
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="currency-us">United States&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value9" inputId="currency-us" mode="currency" currency="USD" locale="en-US">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="currency-germany">Germany&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value10" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="currency-india">India&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value11" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="currency-japan">Japan&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value12" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP">
+        &lt;/p-inputNumber>
+    &lt;/div>
+&lt;/div>
+&lt;h5>Prefix and Suffix&lt;/h5>
+&lt;div class="p-grid p-fluid">
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="mile">Mile&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value13" inputId="mile" suffix=" mi">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="percent">Percent&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value14" inputId="percent" prefix="%">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="expiry">Expiry&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value15" inputId="expiry" prefix="Expires in " suffix=" days">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="temperature">Temperature&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value16" prefix="&uarr; " inputId="temperature" suffix="℃" [min]="0" [max]="40">
+        &lt;/p-inputNumber>
+    &lt;/div>
+&lt;/div>
+&lt;h5>Buttons&lt;/h5>
+&lt;div class="p-grid p-fluid">
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="stacked">Stacked&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value17" [showButtons]="true" inputId="stacked" mode="currency" currency="USD">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="horizontal">Horizontal with Step&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value18" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25"
+        decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR">
+        &lt;/p-inputNumber>
+    &lt;/div>
+    &lt;div class="p-field p-col-12 p-md-3">
+        &lt;label for="minmax-buttons">Min-Max Boundaries&lt;/label>
+        &lt;p-inputNumber [(ngModel)]="value20" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100">
+        &lt;/p-inputNumber>
+    &lt;/div>
+&lt;/div>
+&lt;div class="p-field p-col-12 p-md-3">
+    &lt;label for="vertical" style="display: block">Vertical&lt;/label>
+    &lt;p-inputNumber [(ngModel)]="value19" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
+    decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+    &lt;/p-inputNumber>
+&lt;/div>
 </code>
 </pre>
 
