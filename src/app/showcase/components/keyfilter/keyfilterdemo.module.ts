@@ -8,6 +8,7 @@ import {KeyFilterModule} from 'primeng/keyfilter';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 
 @NgModule({
 	imports: [
@@ -17,7 +18,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		KeyFilterModule,
 		InputTextModule,
 		MessageModule,
-        TabViewModule,
+		TabViewModule,
+		AppInputStyleSwitchModule,
         CodeHighlighterModule
 	],
 	declarations: [
