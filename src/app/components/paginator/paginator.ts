@@ -8,35 +8,34 @@ import {SharedModule} from 'primeng/api';
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text ui-helper-clearfix'"
-            *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
-            <div class="ui-paginator-left-content" *ngIf="templateLeft">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-paginator p-component'" *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
+            <div class="p-paginator-left-content" *ngIf="templateLeft">
                 <ng-container *ngTemplateOutlet="templateLeft; context: {$implicit: paginatorState}"></ng-container>
             </div>
-            <span class="ui-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
-            <a [attr.tabindex]="isFirstPage() ? null : '0'" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToFirst($event)" (keydown.enter)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
-                <span class="ui-paginator-icon pi pi-step-backward"></span>
-            </a>
-            <a tabindex="0" [attr.tabindex]="isFirstPage() ? null : '0'" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToPrev($event)" (keydown.enter)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
-                <span class="ui-paginator-icon pi pi-caret-left"></span>
-            </a>
-            <span class="ui-paginator-pages">
-                <a tabindex="0" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="onPageLinkClick($event, pageLink - 1)" (keydown.enter)="onPageLinkClick($event, pageLink - 1)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
+            <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{currentPageReport}}</span>
+            <button type="button" [disabled]="isFirstPage()" (click)="changePageToFirst($event)"
+                    class="p-paginator-first p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
+                <span class="p-paginator-icon pi pi-angle-double-left"></span>
+            </button>
+            <button type="button" [disabled]="isFirstPage()" (click)="changePageToPrev($event)" 
+                    class="p-paginator-prev p-paginator-element p-link" [ngClass]="{'p-disabled':isFirstPage()}">
+                <span class="p-paginator-icon pi pi-angle-left"></span>
+            </button>
+            <span class="p-paginator-pages">
+                <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{'p-highlight': (pageLink-1 == getPage())}"
+                    (click)="onPageLinkClick($event, pageLink - 1)">{{pageLink}}</button>
             </span>
-            <a [attr.tabindex]="isLastPage() ? null : '0'" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToNext($event)" (keydown.enter)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
-                <span class="ui-paginator-icon pi pi-caret-right"></span>
-            </a>
-            <a [attr.tabindex]="isLastPage() ? null : '0'" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePageToLast($event)" (keydown.enter)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
-                <span class="ui-paginator-icon pi pi-step-forward"></span>
-            </a>
+            <button type="button" [disabled]="isLastPage()" (click)="changePageToNext($event)"
+                    class="p-paginator-next p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
+                <span class="p-paginator-icon pi pi-angle-right"></span>
+            </button>
+            <button type="button" [disabled]="isLastPage()" (click)="changePageToLast($event)"
+                    class="p-paginator-last p-paginator-element p-link" [ngClass]="{'p-disabled':isLastPage()}">
+                <span class="p-paginator-icon pi pi-angle-double-right"></span>
+            </button>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
                 (onChange)="onRppChange($event)" [appendTo]="dropdownAppendTo" [scrollHeight]="dropdownScrollHeight"></p-dropdown>
-            <div class="ui-paginator-right-content" *ngIf="templateRight">
+            <div class="p-paginator-right-content" *ngIf="templateRight">
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
         </div>
