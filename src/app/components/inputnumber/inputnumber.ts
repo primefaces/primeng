@@ -15,7 +15,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     template: `
         <span [ngClass]="{'p-inputnumber p-component': true, 'p-inputwrapper-filled': this.filled(), 'p-inputwrapper-focus': this.focused,
                 'p-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked', 'p-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
-                'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'}">
+                'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'}" [ngStyle]="style" [class]="styleClass">
             <input #input [ngClass]="'p-inputnumber-input'" [ngStyle]="inputStyle" [class]="inputStyleClass" pInputText [value]="formattedValue()" [attr.placeholder]="placeholder" [attr.title]="title" [attr.id]="inputId"
                 [attr.size]="size" [attr.name]="name" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel"
                 [attr.aria-required]="ariaRequired" [disabled]="disabled" [attr.required]="required" [attr.aria-valumin]="min" [attr.aria-valuemax]="max"
@@ -64,6 +64,8 @@ export class InputNumber implements OnInit,ControlValueAccessor {
     @Input() inputId: string;
 
     @Input() styleClass: string;
+
+    @Input() style: any;
 
     @Input() placeholder: string;
 
