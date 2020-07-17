@@ -9,6 +9,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 
 @NgModule({
 	imports: [
@@ -20,6 +21,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         CheckboxModule,
         RadioButtonModule,
         TabViewModule,
+        AppInputStyleSwitchModule,
         CodeHighlighterModule
 	],
 	declarations: [
