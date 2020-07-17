@@ -5,7 +5,13 @@ import {Component} from '@angular/core';
 })
 export class RadioButtonDemo {
 
-    val1: string;
+    city: string;
 
-    val2: string = 'Option 2';
+    selectedCategory: any = null;
+
+    categories: any[] = [{name: 'Accounting', key: 'A'}, {name: 'Marketing', key: 'M'}, {name: 'Production', key: 'P'}, {name: 'Research', key: 'R'}];
+
+    ngOnInit() {
+        this.selectedCategory = this.categories[1];
+    }
 }
