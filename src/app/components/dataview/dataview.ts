@@ -9,31 +9,31 @@ import {FilterUtils} from 'primeng/utils';
 @Component({
     selector: 'p-dataView',
     template: `
-        <div [ngClass]="{'ui-dataview ui-widget': true, 'ui-dataview-list': (layout === 'list'), 'ui-dataview-grid': (layout === 'grid')}" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-dataview-loading ui-widget-overlay" *ngIf="loading"></div>
-            <div class="ui-dataview-loading-content" *ngIf="loading">
-                <i [class]="'ui-dataview-loading-icon pi-spin ' + loadingIcon"></i>
+        <div [ngClass]="{'p-dataview p-component': true, 'p-dataview-list': (layout === 'list'), 'p-dataview-grid': (layout === 'grid')}" [ngStyle]="style" [class]="styleClass">
+            <div class="p-dataview-loading p-component-overlay" *ngIf="loading"></div>
+            <div class="p-dataview-loading-content" *ngIf="loading">
+                <i [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
-            <div class="ui-dataview-header ui-widget-header ui-corner-top">
+            <div class="p-dataview-header">
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" styleClass="ui-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+                (onPageChange)="paginate($event)" styleClass="p-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
-            <div class="ui-dataview-content ui-widget-content">
-                <div class="p-grid">
+            <div class="p-dataview-content">
+                <div class="p-grid p-nogutter">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                     </ng-template>
-                    <div *ngIf="isEmpty()" class="p-col-12 ui-dataview-emptymessage">{{emptyMessage}}</div>
+                    <div *ngIf="isEmpty()" class="p-col-12 p-dataview-emptymessage">{{emptyMessage}}</div>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
+                (onPageChange)="paginate($event)" styleClass="p-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
-            <div class="ui-dataview-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
+            <div class="p-dataview-footer" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
@@ -300,16 +300,13 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 @Component({
     selector: 'p-dataViewLayoutOptions',
     template: `
-        <div [ngClass]="'ui-dataview-layout-options ui-selectbutton ui-buttonset'" [ngStyle]="style" [class]="styleClass">
-            <a tabindex="0" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'list')" (keydown.enter)="changeLayout($event, 'list')"
-                [ngClass]="{'ui-state-active': dv.layout === 'list'}">
-                <i class="pi pi-bars ui-button-icon-left"></i>
-                <span class="ui-button-text ui-clickable">ui-btn</span>
-            </a><a tabindex="0" class="ui-button ui-button-icon-only ui-state-default" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')"
-                [ngClass]="{'ui-state-active': dv.layout === 'grid'}">
-                <i class="pi pi-th-large ui-button-icon-left"></i>
-                <span class="ui-button-text ui-clickable">ui-btn</span>
-            </a>
+        <div [ngClass]="'p-dataview-layout-options p-selectbutton p-buttonset'" [ngStyle]="style" [class]="styleClass">
+            <button type="button" class="p-button p-button-icon-only" [ngClass]="{'p-highlight': dv.layout === 'list'}" (click)="changeLayout($event, 'list')" (keydown.enter)="changeLayout($event, 'list')">
+                <i class="pi pi-bars"></i>
+            </button>
+            <button type="button" class="p-button p-button-icon-only" [ngClass]="{'p-highlight': dv.layout === 'grid'}" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')">
+                <i class="pi pi-th-large"></i>
+            </button>
         </div>
     `,
     encapsulation: ViewEncapsulation.None
