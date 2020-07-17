@@ -10,44 +10,45 @@ import { Subject, Subscription } from 'rxjs';
 @Component({
     selector: '[pOrganizationChartNode]',
     template: `
-        <tr *ngIf="node">
-            <td [attr.colspan]="colspan">
-                <div class="ui-organizationchart-node-content ui-widget-content ui-corner-all {{node.styleClass}}" 
-                    [ngClass]="{'ui-organizationchart-selectable-node': chart.selectionMode && node.selectable !== false,'ui-state-highlight':isSelected()}"
-                    (click)="onNodeClick($event,node)">
-                    <div *ngIf="!chart.getTemplateForNode(node)">{{node.label}}</div>
-                    <div *ngIf="chart.getTemplateForNode(node)">
-                        <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
-                    </div>
-                    <a *ngIf="!leaf" tabindex="0" class="ui-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)">
-                        <i class="ui-node-toggler-icon pi" [ngClass]="{'pi-chevron-down': node.expanded, 'pi-chevron-up': !node.expanded}"></i>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr [ngClass]="!leaf&&node.expanded ? 'ui-organizationchart-node-visible' : 'ui-organizationchart-node-hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
-            <td [attr.colspan]="colspan">
-                <div class="ui-organizationchart-line-down"></div>
-            </td>
-        </tr>
-        <tr [ngClass]="!leaf&&node.expanded ? 'ui-organizationchart-node-visible' : 'ui-organizationchart-node-hidden'" class="ui-organizationchart-lines" [@childState]="'in'">
-            <ng-container *ngIf="node.children && node.children.length === 1">
+        <tbody *ngIf="node">
+            <tr>
                 <td [attr.colspan]="colspan">
-                    <div class="ui-organizationchart-line-down"></div>
+                    <div [class]="node.styleClass" [ngClass]="{'p-organizationchart-node-content': true, 'p-organizationchart-selectable-node': chart.selectionMode && node.selectable !== false,'p-highlight':isSelected()}"
+                        (click)="onNodeClick($event,node)">
+                        <div *ngIf="!chart.getTemplateForNode(node)">{{node.label}}</div>
+                        <div *ngIf="chart.getTemplateForNode(node)">
+                            <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
+                        </div>
+                        <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)">
+                            <i class="p-node-toggler-icon pi" [ngClass]="{'pi-chevron-down': node.expanded, 'pi-chevron-up': !node.expanded}"></i>
+                        </a>
+                    </div>
                 </td>
-            </ng-container>
-            <ng-container *ngIf="node.children && node.children.length > 1">
-                <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
-                    <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
-                    <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
-                </ng-template>
-            </ng-container>
-        </tr>
-        <tr [ngClass]="!leaf&&node.expanded ? 'ui-organizationchart-node-visible' : 'ui-organizationchart-node-hidden'" class="ui-organizationchart-nodes" [@childState]="'in'">
-            <td *ngFor="let child of node.children" colspan="2">
-                <table class="ui-organizationchart-table" pOrganizationChartNode [node]="child"></table>
-            </td>
-        </tr>
+            </tr>
+            <tr [ngClass]="!leaf&&node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-lines" [@childState]="'in'">
+                <td [attr.colspan]="colspan">
+                    <div class="p-organizationchart-line-down"></div>
+                </td>
+            </tr>
+            <tr [ngClass]="!leaf&&node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-lines" [@childState]="'in'">
+                <ng-container *ngIf="node.children && node.children.length === 1">
+                    <td [attr.colspan]="colspan">
+                        <div class="p-organizationchart-line-down"></div>
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="node.children && node.children.length > 1">
+                    <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
+                        <td class="p-organizationchart-line-left" [ngClass]="{'p-organizationchart-line-top':!first}">&nbsp;</td>
+                        <td class="p-organizationchart-line-right" [ngClass]="{'p-organizationchart-line-top':!last}">&nbsp;</td>
+                    </ng-template>
+                </ng-container>
+            </tr>
+            <tr [ngClass]="!leaf&&node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-nodes" [@childState]="'in'">
+                <td *ngFor="let child of node.children" colspan="2">
+                    <table class="p-organizationchart-table" pOrganizationChartNode [node]="child"></table>
+                </td>
+            </tr>
+        </tbody>
     `,
     animations: [
         trigger('childState', [
@@ -120,8 +121,8 @@ export class OrganizationChartNode implements OnDestroy{
 @Component({
     selector: 'p-organizationChart',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-organizationchart ui-widget': true, 'ui-organizationchart-preservespace': preserveSpace}">
-            <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'p-organizationchart p-component': true, 'p-organizationchart-preservespace': preserveSpace}">
+            <table class="p-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
    changeDetection: ChangeDetectionStrategy.OnPush
@@ -199,7 +200,7 @@ export class OrganizationChart implements AfterContentInit {
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = (<Element> event.target);
         
-        if (eventTarget.className && (eventTarget.className.indexOf('ui-node-toggler') !== -1 || eventTarget.className.indexOf('ui-node-toggler-icon') !== -1)) {
+        if (eventTarget.className && (eventTarget.className.indexOf('p-node-toggler') !== -1 || eventTarget.className.indexOf('p-node-toggler-icon') !== -1)) {
             return;
         }
         else if (this.selectionMode) {
