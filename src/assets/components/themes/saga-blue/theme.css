@@ -1261,6 +1261,17 @@
   color: #2196F3;
   border-color: transparent;
 }
+.p-button.p-button-text.p-button-plain {
+  color: #6c757d;
+}
+.p-button.p-button-text.p-button-plain:enabled:hover {
+  background: #e9ecef;
+  color: #6c757d;
+}
+.p-button.p-button-text.p-button-plain:enabled:active {
+  background: #dee2e6;
+  color: #6c757d;
+}
 .p-button:focus {
   outline: 0 none;
   outline-offset: 0;
@@ -1659,7 +1670,7 @@
   background: transparent;
   border-radius: 50%;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-  margin: 0 0.5rem;
+  margin: 0.5rem;
 }
 .p-carousel .p-carousel-content .p-carousel-prev:enabled:hover,
 .p-carousel .p-carousel-content .p-carousel-next:enabled:hover {
