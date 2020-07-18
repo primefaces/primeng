@@ -86,10 +86,11 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this._icon = val;
         
         if (this.initialized) {
-            let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
-            if (iconPosClass) {
-                DomHandler.findSingle(this.el.nativeElement, '.p-button-icon').className = 'p-button-icon ' + iconPosClass + ' ' + this._icon;
-            }
+            if (this.iconPos)
+                DomHandler.findSingle(this.el.nativeElement, '.p-button-icon').className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this._icon;
+            else
+                DomHandler.findSingle(this.el.nativeElement, '.p-button-icon').className = 'p-button-icon ' + this._icon;
+
             this.setStyleClass();
         }
     }
