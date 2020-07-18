@@ -3576,7 +3576,7 @@ export class TableCheckbox  {
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="isDisabled()" [attr.aria-label]="ariaLabel">
             </div>
-            <div #box [ngClass]="{'p-checkbox-box p-component':true,
+            <div #box [ngClass]="{'p-checkbox-box':true,
                 'p-highlight':checked, 'p-disabled': isDisabled()}" role="checkbox" [attr.aria-checked]="checked">
                 <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
