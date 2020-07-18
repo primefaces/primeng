@@ -111,9 +111,9 @@
                     </p-cellEditor>
                 </td>
                 <td style="text-align:center">
-                    <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
-                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData)"></button>
-                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
+                    <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(rowData)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" style="margin-right: .5em" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text"></button>
                 </td>
             </tr>
         </ng-template>
@@ -296,9 +296,9 @@ export class TableEditDemo implements OnInit &#123;
                 &lt;/p-cellEditor&gt;
             &lt;/td&gt;
             &lt;td style="text-align:center"&gt;
-                &lt;button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"&gt;&lt;/button&gt;
-                &lt;button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData)"&gt;&lt;/button&gt;
-                &lt;button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"&gt;&lt;/button&gt;
+                &lt;button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(rowData)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
+                &lt;button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" style="margin-right: .5em" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
+                &lt;button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;

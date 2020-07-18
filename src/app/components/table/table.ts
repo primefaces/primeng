@@ -60,53 +60,56 @@ export class TableService {
     selector: 'p-table',
     template: `
         <div #container [ngStyle]="style" [class]="styleClass"
-            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns,
-                'ui-table-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
-                'ui-table-hoverable-rows': (rowHover||selectionMode), 'ui-table-auto-layout': autoLayout,
-                'ui-table-flex-scrollable': (scrollable && scrollHeight === 'flex')}">
-            <div class="ui-table-loading ui-widget-overlay" *ngIf="loading && showLoader"></div>
-            <div class="ui-table-loading-content" *ngIf="loading && showLoader">
-                <i [class]="'ui-table-loading-icon pi-spin ' + loadingIcon"></i>
+            [ngClass]="{'p-datatable p-component': true, 
+                'p-datatable-hoverable-rows': (rowHover||selectionMode),
+                'p-datatable-auto-layout': autoLayout, 
+                'p-datatable-resizable': resizableColumns,
+                'p-datatable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
+                'p-datatable-scrollable': scrollable,
+                'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex')}">
+            <div class="p-datatable-loading" *ngIf="loading && showLoader">
+                <div class="p-datatable-loading-overlay p-component-overlay">
+                    <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
+                </div>
             </div>
-            <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
+            <div *ngIf="captionTemplate" class="p-datatable-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
 
-            <div class="ui-table-wrapper" *ngIf="!scrollable">
+            <div class="p-datatable-wrapper" *ngIf="!scrollable">
                 <table role="grid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <thead class="ui-table-thead">
+                    <thead class="p-datatable-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
-                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
-                    <tfoot *ngIf="footerTemplate" class="ui-table-tfoot">
+                    <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
+                    <tfoot *ngIf="footerTemplate" class="p-datatable-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                 </table>
             </div>
 
-            <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-               <div class="ui-table-scrollable-view ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
-               <div class="ui-table-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
+            <div class="p-datatable-scrollable-wrapper" *ngIf="scrollable">
+               <div class="p-datatable-scrollable-view p-datatable-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" #scrollableFrozenView [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}" [scrollHeight]="scrollHeight"></div>
+               <div class="p-datatable-scrollable-view" #scrollableView [pScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{left: frozenWidth, width: 'calc(100% - '+frozenWidth+')'}"></div>
             </div>
 
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="p-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate" [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
 
-                <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
+            <div *ngIf="summaryTemplate" class="p-datatable-footer">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
 
-            <div #resizeHelper class="ui-column-resizer-helper ui-state-highlight" style="display:none" *ngIf="resizableColumns"></div>
-
-            <span #reorderIndicatorUp class="pi pi-arrow-down ui-table-reorder-indicator-up" style="display:none" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up ui-table-reorder-indicator-down" style="display:none" *ngIf="reorderableColumns"></span>
+            <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
+            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display:none" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display:none" *ngIf="reorderableColumns"></span>
         </div>
     `,
     providers: [TableService],
@@ -895,7 +898,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let parentNode = target.parentElement && target.parentElement.nodeName;
         if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' ||
             parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' ||
-            (DomHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
+            (DomHandler.hasClass(event.originalEvent.target, 'p-clickable'))) {
             return;
         }
 
@@ -1532,7 +1535,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (!this.documentEditListener) {
             this.documentEditListener = (event) => {
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
-                    DomHandler.removeClass(this.editingCell, 'ui-editing-cell');
+                    DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event, index: this.editingCellRowIndex });
                     this.editingCellField = null;
@@ -1632,7 +1635,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onColumnResize(event) {
         let containerLeft = DomHandler.getOffset(this.containerViewChild.nativeElement).left;
-        DomHandler.addClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+        DomHandler.addClass(this.containerViewChild.nativeElement, 'p-unselectable-text');
         this.resizeHelperViewChild.nativeElement.style.height = this.containerViewChild.nativeElement.offsetHeight + 'px';
         this.resizeHelperViewChild.nativeElement.style.top = 0 + 'px';
         this.resizeHelperViewChild.nativeElement.style.left = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft) + 'px';
@@ -1665,9 +1668,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body table');
-                            let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-header-table');
-                            let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.ui-table-scrollable-footer-table');
+                            let scrollableBodyTable = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body table');
+                            let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-header-table');
+                            let scrollableFooterTable = DomHandler.findSingle(scrollableView, 'table.p-datatable-scrollable-footer-table');
                             let resizeColumnIndex = DomHandler.index(column);
 
                             this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
@@ -1708,17 +1711,17 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         this.resizeHelperViewChild.nativeElement.style.display = 'none';
-        DomHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+        DomHandler.removeClass(this.containerViewChild.nativeElement, 'p-unselectable-text');
     }
 
     setScrollableItemsWidthOnExpandResize(column, newColumnWidth, delta) {
         let scrollableView = column ? this.findParentScrollableView(column) : this.containerViewChild.nativeElement;
-        let scrollableBody = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-body');
-        let scrollableHeader = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-header');
-        let scrollableFooter = DomHandler.findSingle(scrollableView, '.ui-table-scrollable-footer');
-        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.ui-table-scrollable-body table');
-        let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.ui-table-scrollable-header-table');
-        let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.ui-table-scrollable-footer-table');
+        let scrollableBody = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-body');
+        let scrollableHeader = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-header');
+        let scrollableFooter = DomHandler.findSingle(scrollableView, '.p-datatable-scrollable-footer');
+        let scrollableBodyTable = DomHandler.findSingle(scrollableBody, '.p-datatable-scrollable-body table');
+        let scrollableHeaderTable = DomHandler.findSingle(scrollableHeader, 'table.p-datatable-scrollable-header-table');
+        let scrollableFooterTable = DomHandler.findSingle(scrollableFooter, 'table.p-datatable-scrollable-footer-table');
 
         const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
         const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
@@ -1747,7 +1750,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     findParentScrollableView(column) {
         if (column) {
             let parent = column.parentElement;
-            while (parent && !DomHandler.hasClass(parent, 'ui-table-scrollable-view')) {
+            while (parent && !DomHandler.hasClass(parent, 'p-datatable-scrollable-view')) {
                 parent = parent.parentElement;
             }
 
@@ -1892,22 +1895,22 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             let prevRowElement = rowElement.previousElementSibling;
 
             if (pageY < rowMidY) {
-                DomHandler.removeClass(rowElement, 'ui-table-dragpoint-bottom');
+                DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
 
                 this.droppedRowIndex = index;
                 if (prevRowElement)
-                    DomHandler.addClass(prevRowElement, 'ui-table-dragpoint-bottom');
+                    DomHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
                 else
-                    DomHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+                    DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
             }
             else {
                 if (prevRowElement)
-                    DomHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
+                    DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
                 else
-                    DomHandler.addClass(rowElement, 'ui-table-dragpoint-top');
+                    DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
 
                 this.droppedRowIndex = index + 1;
-                DomHandler.addClass(rowElement, 'ui-table-dragpoint-bottom');
+                DomHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
             }
         }
     }
@@ -1915,11 +1918,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onRowDragLeave(event, rowElement) {
         let prevRowElement = rowElement.previousElementSibling;
         if (prevRowElement) {
-            DomHandler.removeClass(prevRowElement, 'ui-table-dragpoint-bottom');
+            DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
         }
 
-        DomHandler.removeClass(rowElement, 'ui-table-dragpoint-bottom');
-        DomHandler.removeClass(rowElement, 'ui-table-dragpoint-top');
+        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
+        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
     }
 
     onRowDragEnd(event) {
@@ -2073,12 +2076,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     saveColumnWidths(state) {
         let widths = [];
-        let headers = DomHandler.find(this.containerViewChild.nativeElement, '.ui-table-thead > tr:first-child > th');
+        let headers = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-thead > tr:first-child > th');
         headers.map(header => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = this.scrollable ? DomHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-scrollable-header-table').style.width :
+            state.tableWidth = this.scrollable ? DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-scrollable-header-table').style.width :
                                                 DomHandler.getOuterWidth(this.tableViewChild.nativeElement) + 'px';
         }
     }
@@ -2098,14 +2101,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
 
             if (this.scrollable) {
-                let headerCols = DomHandler.find(this.containerViewChild.nativeElement, '.ui-table-scrollable-header-table > colgroup > col');
-                let bodyCols = DomHandler.find(this.containerViewChild.nativeElement, '.ui-table-scrollable-body table > colgroup > col');
+                let headerCols = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-scrollable-header-table > colgroup > col');
+                let bodyCols = DomHandler.find(this.containerViewChild.nativeElement, '.p-datatable-scrollable-body table > colgroup > col');
 
                 headerCols.map((col, index) => col.style.width = widths[index] + 'px');
                 bodyCols.map((col, index) => col.style.width = widths[index] + 'px');
             }
             else {
-                let headers = DomHandler.find(this.tableViewChild.nativeElement, '.ui-table-thead > tr:first-child > th');
+                let headers = DomHandler.find(this.tableViewChild.nativeElement, '.p-datatable-thead > tr:first-child > th');
                 headers.map((header, index) => header.style.width = widths[index] + 'px');
             }
         }
@@ -2203,14 +2206,14 @@ export class TableBody {
 @Component({
     selector: '[pScrollableView]',
     template: `
-        <div #scrollHeader class="ui-table-scrollable-header ui-widget-header">
-            <div #scrollHeaderBox class="ui-table-scrollable-header-box">
-                <table class="ui-table-scrollable-header-table" [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
+        <div #scrollHeader class="p-datatable-scrollable-header">
+            <div #scrollHeaderBox class="p-datatable-scrollable-header-box">
+                <table class="p-datatable-scrollable-header-table" [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <thead class="ui-table-thead">
+                    <thead class="p-datatable-thead">
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenHeaderTemplate||dt.headerTemplate : dt.headerTemplate; context {$implicit: columns}"></ng-container>
                     </thead>
-                    <tbody class="ui-table-tbody">
+                    <tbody class="p-datatable-tbody">
                         <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
                             <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
                         </ng-template>
@@ -2219,29 +2222,29 @@ export class TableBody {
             </div>
         </div>
         <ng-container *ngIf="!dt.virtualScroll; else virtualScrollTemplate">
-            <div #scrollBody class="ui-table-scrollable-body" [ngStyle]="{'max-height': dt.scrollHeight !== 'flex' ? scrollHeight : undefined}">
+            <div #scrollBody class="p-datatable-scrollable-body" [ngStyle]="{'max-height': dt.scrollHeight !== 'flex' ? scrollHeight : undefined}">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
+                    <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
                 </table>
                 <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
             </div>
         </ng-container>
         <ng-template #virtualScrollTemplate>
             <cdk-virtual-scroll-viewport [itemSize]="dt.virtualRowHeight" [style.height]="dt.scrollHeight !== 'flex' ? scrollHeight : undefined" 
-                    [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="ui-table-virtual-scrollable-body">
+                    [minBufferPx]="dt.minBufferPx" [maxBufferPx]="dt.maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)" class="p-datatable-virtual-scrollable-body">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
+                    <tbody class="p-datatable-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate" [frozen]="frozen"></tbody>
                 </table>
                 <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
             </cdk-virtual-scroll-viewport>
         </ng-template>
-        <div #scrollFooter class="ui-table-scrollable-footer ui-widget-header">
-            <div #scrollFooterBox class="ui-table-scrollable-footer-box">
-                <table class="ui-table-scrollable-footer-table" [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
+        <div #scrollFooter class="p-datatable-scrollable-footer">
+            <div #scrollFooterBox class="p-datatable-scrollable-footer-box">
+                <table class="p-datatable-scrollable-footer-table" [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <tfoot class="ui-table-tfoot">
+                    <tfoot class="p-datatable-tfoot">
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenFooterTemplate||dt.footerTemplate : dt.footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                 </table>
@@ -2323,15 +2326,15 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
     ngAfterViewInit() {
         if (!this.frozen) {
             if (this.dt.frozenColumns || this.dt.frozenBodyTemplate) {
-                DomHandler.addClass(this.el.nativeElement, 'ui-table-unfrozen-view');
+                DomHandler.addClass(this.el.nativeElement, 'p-datatable-unfrozen-view');
             }
 
             let frozenView = this.el.nativeElement.previousElementSibling;
             if (frozenView) {
                 if (this.dt.virtualScroll)
-                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-table-virtual-scrollable-body');
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatabe-virtual-scrollable-body');
                 else
-                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.ui-table-scrollable-body');
+                    this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-datatable-scrollable-body');
             }
         }
         else {
@@ -2529,8 +2532,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy,AfterViewChecked 
 @Directive({
     selector: '[pSortableColumn]',
     host: {
-        '[class.ui-sortable-column]': 'isEnabled()',
-        '[class.ui-state-highlight]': 'sorted',
+        '[class.p-sortable-column]': 'isEnabled()',
+        '[class.p-highlight]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
         '[attr.role]': '"columnheader"',
         '[attr.aria-sort]': 'sortOrder'
@@ -2601,7 +2604,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-sortIcon',
     template: `
-        <i class="ui-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
+        <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0}"></i>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -2650,8 +2653,8 @@ export class SortIcon implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRow]',
     host: {
-        '[class.ui-selectable-row]': 'isEnabled()',
-        '[class.ui-state-highlight]': 'selected',
+        '[class.p-selectable-row]': 'isEnabled()',
+        '[class.p-highlight]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
@@ -2747,7 +2750,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let nextRow = <HTMLTableRowElement> row.nextElementSibling;
         if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'ui-selectable-row'))
+            if (DomHandler.hasClass(nextRow, 'p-datatable-selectable-row'))
                 return nextRow;
             else
                 return this.findNextSelectableRow(nextRow);
@@ -2760,7 +2763,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
         let prevRow = <HTMLTableRowElement> row.previousElementSibling;
         if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'ui-selectable-row'))
+            if (DomHandler.hasClass(prevRow, 'p-datatable-selectable-row'))
                 return prevRow;
             else
                 return this.findPrevSelectableRow(prevRow);
@@ -2785,8 +2788,8 @@ export class SelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRowDblClick]',
     host: {
-        '[class.ui-selectable-row]': 'isEnabled()',
-        '[class.ui-state-highlight]': 'selected'
+        '[class.p-datatable-selectable-row]': 'isEnabled()',
+        '[class.p-highlight]': 'selected'
     }
 })
 export class SelectableRowDblClick implements OnInit, OnDestroy {
@@ -2841,7 +2844,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[pContextMenuRow]',
     host: {
-        '[class.ui-contextmenu-selected]': 'selected',
+        '[class.p-highlight-contextmenu]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
@@ -2934,9 +2937,9 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'ui-resizable-column');
+            DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
             this.resizer = document.createElement('span');
-            this.resizer.className = 'ui-column-resizer ui-clickable';
+            this.resizer.className = 'p-column-resizer';
             this.el.nativeElement.appendChild(this.resizer);
 
             this.zone.runOutsideAngular(() => {
@@ -3069,7 +3072,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     onMouseDown(event) {
-        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'ui-column-resizer'))
+        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'p-column-resizer'))
             this.el.nativeElement.draggable = false;
         else
             this.el.nativeElement.draggable = true;
@@ -3127,7 +3130,7 @@ export class EditableColumn implements AfterViewInit {
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'ui-editable-column');
+            DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
         }
     }
 
@@ -3154,7 +3157,7 @@ export class EditableColumn implements AfterViewInit {
 
     openCell() {
         this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, this.rowIndex);
-        DomHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
+        DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         this.dt.onEditInit.emit({field: this.field, data: this.data, index: this.rowIndex});
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
@@ -3174,7 +3177,7 @@ export class EditableColumn implements AfterViewInit {
         else
             this.dt.onEditCancel.emit({field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.rowIndex});
 
-        DomHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+        DomHandler.removeClass(this.dt.editingCell, 'p-cell-editing');
         this.dt.editingCell = null;
         this.dt.editingCellData = null;
         this.dt.editingCellField = null;
@@ -3219,7 +3222,7 @@ export class EditableColumn implements AfterViewInit {
     findCell(element) {
         if (element) {
             let cell = element;
-            while (cell && !DomHandler.hasClass(cell, 'ui-editing-cell')) {
+            while (cell && !DomHandler.hasClass(cell, 'p-cell-editing')) {
                 cell = cell.parentElement;
             }
 
@@ -3275,7 +3278,7 @@ export class EditableColumn implements AfterViewInit {
         }
 
         if (prevCell) {
-            if (DomHandler.hasClass(prevCell, 'ui-editable-column'))
+            if (DomHandler.hasClass(prevCell, 'p-editable-column'))
                 return prevCell;
             else
                 return this.findPreviousEditableColumn(prevCell);
@@ -3296,7 +3299,7 @@ export class EditableColumn implements AfterViewInit {
         }
 
         if (nextCell) {
-            if (DomHandler.hasClass(nextCell, 'ui-editable-column'))
+            if (DomHandler.hasClass(nextCell, 'p-editable-column'))
                 return nextCell;
             else
                 return this.findNextEditableColumn(nextCell);
@@ -3418,14 +3421,14 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     template: `
-        <div class="ui-radiobutton ui-widget" (click)="onClick($event)">
-            <div class="ui-helper-hidden-accessible">
+        <div class="p-radiobutton p-component" (click)="onClick($event)">
+            <div class="p-hidden-accessible">
                 <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="disabled" [attr.aria-label]="ariaLabel">
             </div>
-            <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled':disabled}" role="radio" [attr.aria-checked]="checked">
-                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'pi pi-circle-on':checked}"></span>
+            <div #box [ngClass]="{'p-radiobutton-box p-component':true,
+                'p-highlight':checked, 'p-disabled':disabled}" role="radio" [attr.aria-checked]="checked">
+                <div class="p-radiobutton-icon"></div>
             </div>
         </div>
     `,
@@ -3474,11 +3477,11 @@ export class TableRadioButton  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
     }
 
     ngOnDestroy() {
@@ -3492,14 +3495,14 @@ export class TableRadioButton  {
 @Component({
     selector: 'p-tableCheckbox',
     template: `
-        <div class="ui-chkbox ui-widget" (click)="onClick($event)">
-            <div class="ui-helper-hidden-accessible">
+        <div class="p-checkbox p-component" (click)="onClick($event)">
+            <div class="p-hidden-accessible">
                 <input type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled"
                 [attr.required]="required" [attr.aria-label]="ariaLabel">
             </div>
-            <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled':disabled}" role="checkbox" [attr.aria-checked]="checked">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
+            <div #box [ngClass]="{'p-checkbox-box p-component':true,
+                'p-highlight':checked, 'p-disabled':disabled}" role="checkbox" [attr.aria-checked]="checked">
+                <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `,
@@ -3550,11 +3553,11 @@ export class TableCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
     }
 
     ngOnDestroy() {
@@ -3568,14 +3571,14 @@ export class TableCheckbox  {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <div class="ui-chkbox ui-widget" (click)="onClick($event)">
-            <div class="ui-helper-hidden-accessible">
+        <div class="p-checkbox p-component" (click)="onClick($event)">
+            <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()"
                 [disabled]="isDisabled()" [attr.aria-label]="ariaLabel">
             </div>
-            <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled': isDisabled()}" role="checkbox" [attr.aria-checked]="checked">
-                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'pi pi-check':checked}"></span>
+            <div #box [ngClass]="{'p-checkbox-box p-component':true,
+                'p-highlight':checked, 'p-disabled': isDisabled()}" role="checkbox" [attr.aria-checked]="checked">
+                <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':checked}"></span>
             </div>
         </div>
     `,
@@ -3625,11 +3628,11 @@ export class TableHeaderCheckbox  {
     }
 
     onFocus() {
-        DomHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.addClass(this.boxViewChild.nativeElement, 'p-focus');
     }
 
     onBlur() {
-        DomHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+        DomHandler.removeClass(this.boxViewChild.nativeElement, 'p-focus');
     }
 
     isDisabled() {
@@ -3685,7 +3688,7 @@ export class ReorderableRowHandle implements AfterViewInit {
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
-        DomHandler.addClass(this.el.nativeElement, 'ui-table-reorderablerow-handle');
+        DomHandler.addClass(this.el.nativeElement, 'p-datatable-reorderablerow-handle');
     }
 }
 
@@ -3766,7 +3769,7 @@ export class ReorderableRow implements AfterViewInit {
     }
 
     onMouseDown(event) {
-        if (DomHandler.hasClass(event.target, 'ui-table-reorderablerow-handle'))
+        if (DomHandler.hasClass(event.target, 'p-datatable-reorderablerow-handle'))
             this.el.nativeElement.draggable = true;
         else
             this.el.nativeElement.draggable = false;

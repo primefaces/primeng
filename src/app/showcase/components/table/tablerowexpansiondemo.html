@@ -18,9 +18,7 @@
         <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
             <tr>
                 <td>
-                    <a href="#" [pRowToggler]="rowData">
-                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                    </a>
+                    <button type="button" pButton [pRowToggler]="rowData" class="p-button-text p-button-rounded" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                 </td>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
