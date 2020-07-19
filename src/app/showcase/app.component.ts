@@ -1,6 +1,5 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { VersionService } from './service/versionservice';
 
 declare let gtag: Function;
@@ -8,32 +7,7 @@ declare let gtag: Function;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  animations: [
-    trigger('submenu', [
-        state('hidden', style({
-            height: '0',
-            overflow: 'hidden',
-            opacity: 0,
-        })),
-        state('visible', style({
-            height: '*',
-            opacity: 1
-        })),
-        transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-    ]),
-    trigger('topbarSubmenu', [
-        state('void', style({
-            transform: 'translateY(5%)',
-            opacity: 0
-        })),
-        state('visible', style({
-            transform: 'translateY(0)',
-            opacity: 1
-        })),
-        transition('* <=> *', animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')),
-    ]) 
-    ]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
 
@@ -63,9 +37,9 @@ export class AppComponent implements OnInit{
 
     versions: any[];
 
-    appState: any = {inputStyle: 'outlined', darkTheme: false};
+    theme= 'saga-blue';
 
-    @ViewChild('topbarMenu') topbarMenu: ElementRef;
+    appState: any = {inputStyle: 'outlined', darkTheme: false};
 
     constructor(private router: Router, private renderer: Renderer2, private versionService: VersionService) {
         this.router.events.subscribe(event => {
@@ -85,30 +59,23 @@ export class AppComponent implements OnInit{
     }
 
     ngOnInit() {
-        let routes = this.router.config;
-        for (let route of routes) {
-            this.routes.push(route.path.charAt(0).toUpperCase() + route.path.substr(1)); 
-        }
-
         //this.initNewsState();
+    }
+
+    onMenuButtonClick() {
+        this.menuActive = true;
+        this.addClass(document.body, 'blocked-scroll');
+    }
+
+    onMaskClick() {
+        this.menuActive = false;
+        this.removeClass(document.body, 'blocked-scroll');
     }
 
     onAnimationStart (event) {
         switch (event.toState) {
             case 'visible':
                 event.element.style.display = 'block';
-            break;
-        }
-    }
-
-    onAnimationDone (event) {
-        switch (event.toState) {
-            case 'hidden':
-                event.element.style.display = 'none';
-            break;
-
-            case 'void':
-                event.element.style.display = 'none';
             break;
         }
     }
@@ -165,11 +132,6 @@ export class AppComponent implements OnInit{
             return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
     }
 
-    onMenuButtonClick(event: Event) {
-        this.menuActive = !this.menuActive;
-        event.preventDefault();
-    }
-
     initNewsState() {
         this.newsActive = sessionStorage.getItem('primenews-hidden') ? false: true;
     }
@@ -178,62 +140,5 @@ export class AppComponent implements OnInit{
         this.newsActive = false;
         sessionStorage.setItem('primenews-hidden', "true");
         event.preventDefault();
-    }
-
-    toggleSubmenu(event, name) {
-        this.activeSubmenus[name] = this.activeSubmenus[name] ? false: true;
-        event.preventDefault();
-    }
-
-    isSubmenuActive(name) {
-        if (this.activeSubmenus.hasOwnProperty(name)) {
-            return this.activeSubmenus[name];
-        }
-        else if (this.router.isActive(name, false)) {
-            this.activeSubmenus[name] = true;
-            return true;
-        }
-
-        return false;
-    }
-
-    bindTopbarSubmenuOutsideClickListener() {
-        if (!this.topbarSubmenuOutsideClickListener) {
-            this.topbarSubmenuOutsideClickListener = (event) => {
-                if (this.isOutsideTopbarMenuClicked(event)) {
-                    this.activeTopbarSubmenu =  null;
-                }
-            };
-
-            document.addEventListener('click', this.topbarSubmenuOutsideClickListener);
-        }
-    }
-
-    unbindTopbarSubmenuOutsideClickListener() {
-        if (this.topbarSubmenuOutsideClickListener) {
-            document.removeEventListener('click', this.topbarSubmenuOutsideClickListener);
-            this.topbarSubmenuOutsideClickListener = null;
-        }
-    }
-
-    toggleTopbarSubmenu(event: Event, index: number) {
-        this.activeTopbarSubmenu = this.activeTopbarSubmenu === index ? null : index;
-        event.preventDefault();
-    }
-
-    isOutsideTopbarMenuClicked(event): boolean {
-        return !(this.topbarMenu.nativeElement.isSameNode(event.target) || this.topbarMenu.nativeElement.contains(event.target));
-    }
-
-    onTopbarSubmenuAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
-            case 'visible':
-                this.bindTopbarSubmenuOutsideClickListener();
-            break;
-
-            case 'void':
-                this.unbindTopbarSubmenuOutsideClickListener();
-            break;
-        }
     }
 }

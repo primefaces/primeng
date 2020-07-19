@@ -228,7 +228,6 @@ export class AppConfigComponent {
         event.preventDefault();
     }
 
-
     onConfigClick() {
         this.configClick = true;
     }
