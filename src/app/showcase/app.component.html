@@ -6,9 +6,7 @@
     <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
 
     <div class="layout-content">
-        <div>
-            <router-outlet></router-outlet>
-            <app-footer></app-footer>
-        </div>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
     </div>
 </div>

@@ -41,12 +41,6 @@
                 "src/upload.php"
               ],
               "styles": [
-                "node_modules/@fullcalendar/core/main.min.css",
-                "node_modules/@fullcalendar/daygrid/main.min.css",
-                "node_modules/@fullcalendar/timegrid/main.min.css",
-                "node_modules/quill/dist/quill.snow.css",
-                "node_modules/primeicons/primeicons.css",
-                "node_modules/primeflex/primeflex.css",
                 "src/styles.scss"
               ],
               "scripts": [
