@@ -9,13 +9,13 @@
     <p-menubar [model]="items">
         <div>
             <input type="text" pInputText placeholder="Search">
-            <button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"></button>
+            <button pButton label="Logout" icon="pi pi-power-off" style="margin-left:.25em"></button>
         </div>
     </p-menubar>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -79,7 +79,7 @@ export class MenubarDemo &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-menubar [model]="items"&gt;
     &lt;input type="text" pInputText placeholder="Search"&gt;
-    &lt;button pButton label="Logout" icon="fa fa-sign-out"&gt;&lt;/button&gt;
+    &lt;button pButton label="Logout" icon="pi pi-power-off"&gt;&lt;/button&gt;
 &lt;/p-menubar&gt;
 </code>
 </pre>
@@ -175,15 +175,17 @@ export class MenubarDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/menubar" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-menubar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-menubar [model]="items"&gt;
     &lt;div&gt;
         &lt;input type="text" pInputText placeholder="Search"&gt;
-        &lt;button pButton label="Logout" icon="fa fa-sign-out" style="margin-left:.25em"&gt;&lt;/button&gt;
+        &lt;button pButton label="Logout" icon="pi pi-power-off" style="margin-left:.25em"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/p-menubar&gt;
 </code>
@@ -276,6 +278,11 @@ export class MenubarDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-menubar-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

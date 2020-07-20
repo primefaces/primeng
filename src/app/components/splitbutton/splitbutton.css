@@ -1,30 +1,27 @@
-.ui-splitbutton {
+.p-splitbutton {
+    display: inline-flex;
     position: relative;
-    display: inline-block;
-    zoom: 1;
 }
 
-.ui-splitbutton .ui-button.ui-splitbutton-menubutton {
-    width: 2em;
-    vertical-align: top;
+.p-splitbutton .p-splitbutton-defaultbutton {
+    flex: 1 1 auto;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0 none;
 }
 
-.ui-splitbutton.ui-state-disabled button {
-    cursor: default;
+.p-splitbutton-menubutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
-.ui-fluid .ui-splitbutton {
-    width: 100%;
+.p-splitbutton .p-menu {
+    min-width: 100%;
 }
 
-.ui-fluid .ui-splitbutton .ui-button:first-child {
-    width: calc(100% - 2em);
-}
-
-.ui-fluid .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
-    width: 2em;
-}
-
-.ui-splitbutton .ui-menuitem-link {
-    cursor: pointer;
+.p-fluid .p-splitbutton  {
+    display: flex;
 }

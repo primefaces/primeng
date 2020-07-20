@@ -9,13 +9,16 @@ import {MessageService} from 'primeng/api';
         }
 
         :host ::ng-deep .custom-toast .ui-toast-message {
-            color: #ffffff;
             background: #FC466B;
             background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
             background: linear-gradient(to right, #3F5EFB, #FC466B);
         }
 
-        :host ::ng-deep .custom-toast .ui-toast-close-icon {
+        :host ::ng-deep .custom-toast .ui-toast-message div {
+            color: #ffffff;
+        }
+
+        :host ::ng-deep .custom-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon {
             color: #ffffff;
         }
     `],

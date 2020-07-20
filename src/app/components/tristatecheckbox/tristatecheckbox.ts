@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -11,20 +11,22 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-triStateCheckbox',
     template: `
-        <div [ngStyle]="style" [ngClass]="{'ui-chkbox ui-tristatechkbox ui-widget': true,'ui-chkbox-readonly': readonly}" [class]="styleClass">
-            <div class="ui-helper-hidden-accessible">
-                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
+        <div [ngStyle]="style" [ngClass]="{'p-checkbox p-component': true,'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused}" [class]="styleClass">
+            <div class="p-hidden-accessible">
+                <input #input type="text" [attr.id]="inputId" [name]="name" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()" [attr.aria-labelledby]="ariaLabelledBy">
             </div>
-            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"
-                [ngClass]="{'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}">
-                <span class="ui-chkbox-icon pi ui-clickable" [ngClass]="{'pi-check':value==true,'pi-times':value==false}"></span>
+            <div class="p-checkbox-box" (click)="onClick($event,input)"  role="checkbox" [attr.aria-checked]="value === true"
+                [ngClass]="{'p-highlight':value!=null,'p-disabled':disabled,'p-focus':focus}">
+                <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':value==true,'pi-times':value==false}"></span>
             </div>
         </div>
-        <label class="ui-chkbox-label" (click)="onClick($event,input)"
-               [ngClass]="{'ui-label-active':value!=null, 'ui-label-disabled':disabled, 'ui-label-focus':focus}"
+        <label class="p-chkbox-label" (click)="onClick($event,input)"
+               [ngClass]="{'p-label-active':value!=null, 'p-label-disabled':disabled, 'p-label-focus':focus}"
                *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
-    providers: [TRISTATECHECKBOX_VALUE_ACCESSOR]
+    providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
 
@@ -33,6 +35,8 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     @Input() disabled: boolean;
 
     @Input() name: string;
+
+    @Input() ariaLabelledBy: string;
 
     @Input() tabindex: number;
 
@@ -57,7 +61,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     onModelTouched: Function = () => {};
 
     onClick(event: Event, input: HTMLInputElement) {
-        if(!this.disabled && !this.readonly) {
+        if (!this.disabled && !this.readonly) {
             this.toggle(event);
             this.focus = true;
             input.focus();
@@ -65,24 +69,24 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if(event.keyCode == 32) {
+        if (event.keyCode == 32) {
             event.preventDefault();
         }
     }
 
     onKeyup(event: KeyboardEvent) {
-        if(event.keyCode == 32 && !this.readonly) {
+        if (event.keyCode == 32 && !this.readonly) {
             this.toggle(event);
             event.preventDefault();
         }
     }
 
     toggle(event: Event) {
-        if(this.value == null || this.value == undefined)
+        if (this.value == null || this.value == undefined)
             this.value = true;
-        else if(this.value == true)
+        else if (this.value == true)
             this.value = false;
-        else if(this.value == false)
+        else if (this.value == false)
             this.value = null;
 
         this.onModelChange(this.value);

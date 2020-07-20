@@ -1,8 +1,6 @@
-<treetable-submenu></treetable-submenu>
-
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">TreeTable - <span class="subitem">Column Toggle</span></span>
+        <span class="feature-title">TreeTable <span class="subitem">Column Toggle</span></span>
         <span>This demo uses a multiselect component to implement toggleable columns.</span>
     </div>
 </div>
@@ -34,11 +32,13 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="treetablecoltoggle.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecoltoggle.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treetabletoggle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -67,11 +67,12 @@ export class TreeTableColToggleDemo &#123;
 </code>
 </pre>   
         </p-tabPanel>
-
         <p-tabPanel header="treetablecoltoggle.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetablecoltoggle.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treetabletoggle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -100,6 +101,11 @@ export class TreeTableColToggleDemo &#123;
 &lt;/p-treeTable&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetabletoggle-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -7,6 +7,7 @@ import {SliderModule} from 'primeng/slider';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 
 @NgModule({
 	imports: [
@@ -15,7 +16,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		SliderDemoRoutingModule,
         SliderModule,
         InputTextModule,
-        TabViewModule,
+		TabViewModule,
+		AppInputStyleSwitchModule,
         CodeHighlighterModule
 	],
 	declarations: [

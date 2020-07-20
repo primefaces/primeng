@@ -9,6 +9,7 @@ import { TreeTableStyleDemo } from './treetablestyledemo';
 import { TreeTableLazyDemo } from './treetablelazydemo';
 import { TreeTableColGroupDemo } from './treetablecolgroupdemo';
 import { TreeTableScrollDemo } from './treetablescrolldemo';
+import { TreeTableFlexScrollDemo } from './treetableflexscrolldemo';
 import { TreeTableColToggleDemo } from './treetablecoltoggledemo';
 import { TreeTableResponsiveDemo } from './treetableresponsivedemo';
 import { TreeTableContextMenuDemo } from './treetablecontextmenudemo';
@@ -28,7 +29,8 @@ import { TreeTableFilterDemo } from './treetablefilterdemo';
 			{ path: 'style', component: TreeTableStyleDemo },
 			{ path: 'lazy', component: TreeTableLazyDemo },
 			{ path: 'colgroup', component: TreeTableColGroupDemo },
-			{ path: 'scroll', component: TreeTableScrollDemo },
+            { path: 'scroll', component: TreeTableScrollDemo },
+            { path: 'flexscroll', component: TreeTableFlexScrollDemo },
 			{ path: 'coltoggle', component: TreeTableColToggleDemo },
 			{ path: 'responsive', component: TreeTableResponsiveDemo },
 			{ path: 'contextmenu', component: TreeTableContextMenuDemo },

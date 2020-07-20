@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
 
     <h3 class="first">Default</h3>
     <p-tabView>
@@ -65,7 +65,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header ="Documentation">
             <h3>Import</h3>
 <pre>
@@ -75,7 +75,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using header attribute.</p>
+            <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using <i>header</i> attribute.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -94,7 +94,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 </pre>
 
             <h3>Dynamic Tabs</h3>
-            <p>p-tabPanel components can be generated dynamically using ngFor, note that in this case due to an Angular issue selected property must be enabled manually.</p>
+            <p>p-tabPanel components can be generated dynamically using ngFor, note that in this case due to an Angular issue <i>selected</i> property must be enabled manually.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView&gt;
@@ -106,7 +106,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 </pre>
 
             <h3>Selection</h3>
-            <p>First tab is selected by default, to customize this enable selected property on another panel.</p>
+            <p>First tab is selected by default, to customize this enable <i>selected</i> property on another panel.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView&gt;
@@ -124,7 +124,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 </pre>
 
             <h3>Closable</h3>
-            <p>When closable attribute is enabled, an icon is displayed to close the tab. onClose event is fired when a tab is closed.</p>
+            <p>When <i>closable</i> attribute is enabled, an icon is displayed to close the tab. <i>onClose</i> event is fired when a tab is closed.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
@@ -134,7 +134,7 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 </pre>
 
             <p>If you'd like to control whether a tab can be closed, enable controlClose property which gives you the control
-            to decide at onClose event. In this case, the event gets a 3rd parameter called close callback and invoking this function
+            to decide at <i>onClose</i> event. In this case, the event gets a 3rd parameter called close callback and invoking this function
             actually closes the tab.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -149,14 +149,14 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 handleClose(e) &#123;
-   if(condition)
+   if (condition)
        e.close();
 &#125;
 </code>
 </pre>
 
             <h3>Disabled</h3>
-            <p>A tab can be disabled to prevent the content to be displayed by setting the disabled property on a panel.</p>
+            <p>A tab can be disabled to prevent the content to be displayed by setting the <i>disabled</i> property on a panel.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabPanel header="Header Text" [disabled]="true"&gt;
@@ -166,10 +166,10 @@ handleClose(e) &#123;
 </pre>
 
             <h3>Icons</h3>
-            <p>Icons can be placed at left and right of a header using leftIcon and rightIcon properties of tabPanel.</p>
+            <p>Icons can be placed at left and right of a header using <i>leftIcon</i> and <i>rightIcon</i> properties of tabPanel.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-tabPanel header="Header Text" leftIcon="fa-bell-o" rightIcon="fa-bookmark-o"&gt;;
+&lt;p-tabPanel header="Header Text" leftIcon="pi-bell-" rightIcon="pi-bookmark"&gt;;
     Content
 &lt;/p-tabPanel&gt;
 </code>
@@ -187,7 +187,7 @@ handleClose(e) &#123;
 
             <h3>Orientation</h3>
             <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
-            and this can be changed using orientation attribute.</p>
+            and this can be changed using <i>orientation</i> attribute.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView orientation="left"&gt;
@@ -195,11 +195,11 @@ handleClose(e) &#123;
 </pre>
 
             <h3>Programmatic Control</h3>
-            <p>Tabs can be controlled programmatically using activeIndex property that defines the index of the active tab.</p>
+            <p>Tabs can be controlled programmatically using <i>activeIndex</i> property that defines the index of the active tab.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
-&lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
 
 &lt;p-tabView [activeIndex]="index"&gt;
     &lt;p-tabPanel header="Header 1"&gt;
@@ -236,7 +236,7 @@ export class TabViewDemo &#123;
             <h3>Lazy Loading</h3>
             <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy
             loaded tabpanel contents are cached by default so that upon reselection, they are not created again. You may use cache property on TabPanel to
-            configure this behavior. A TabPanel is specified as lazy when there is a ngTemplate with pTemplate="content" in it.</p>
+            configure this behavior. A TabPanel is specified as lazy when there is a ngTemplate with <i>pTemplate</i>="content" in it.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView&gt;
@@ -473,8 +473,10 @@ handleChange(e) &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tabview" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tabview-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -549,6 +551,11 @@ export class TabViewDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tabview-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -22,33 +22,33 @@
 
     <h3>Severity Buttons</h3>
     <button pButton type="button" label="Primary"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-danger"></button>
+    <button pButton type="button" label="Secondary" class="p-button-secondary"></button>
+    <button pButton type="button" label="Success" class="p-button-success"></button>
+    <button pButton type="button" label="Info" class="p-button-info"></button>
+    <button pButton type="button" label="Warning" class="p-button-warning"></button>
+    <button pButton type="button" label="Danger" class="p-button-danger"></button>
 
     <h3>Raised Buttons</h3>
-    <button pButton type="button" label="Primary" class="ui-button-raised"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-raised ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-raised ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-raised ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-raised ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger"></button>
+    <button pButton type="button" label="Primary" class="p-button-raised"></button>
+    <button pButton type="button" label="Secondary" class="p-button-raised p-button-secondary"></button>
+    <button pButton type="button" label="Success" class="p-button-raised p-button-success"></button>
+    <button pButton type="button" label="Info" class="p-button-raised p-button-info"></button>
+    <button pButton type="button" label="Warning" class="p-button-raised p-button-warning"></button>
+    <button pButton type="button" label="Danger" class="p-button-raised p-button-danger"></button>
 
     <h3>Rounded Buttons</h3>
-    <button pButton type="button" label="Primary" class="ui-button-rounded"></button>
-    <button pButton type="button" label="Secondary" class="ui-button-rounded ui-button-secondary"></button>
-    <button pButton type="button" label="Success" class="ui-button-rounded ui-button-success"></button>
-    <button pButton type="button" label="Info" class="ui-button-rounded ui-button-info"></button>
-    <button pButton type="button" label="Warning" class="ui-button-rounded ui-button-warning"></button>
-    <button pButton type="button" label="Danger" class="ui-button-rounded ui-button-danger"></button>
+    <button pButton type="button" label="Primary" class="p-button-rounded"></button>
+    <button pButton type="button" label="Secondary" class="p-button-rounded p-button-secondary"></button>
+    <button pButton type="button" label="Success" class="p-button-rounded p-button-success"></button>
+    <button pButton type="button" label="Info" class="p-button-rounded p-button-info"></button>
+    <button pButton type="button" label="Warning" class="p-button-rounded p-button-warning"></button>
+    <button pButton type="button" label="Danger" class="p-button-rounded p-button-danger"></button>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-                    <h3>Import</h3>
+            <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;ButtonModule&#125; from 'primeng/button';
@@ -89,7 +89,7 @@ export class Model &#123;
 </pre>
 
             <h3>Icons</h3>
-            <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
+            <p>Icon on a button is specified with <i>icon</i> attribute and position is customized using <i>iconPos</i> attribute. Default
             icon position is left. To display only an icon, leave label as undefined.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -270,11 +270,15 @@ export class Model &#123;
             <h3>Dependencies</h3>
             <p>None.</p>
         </p-tabPanel>
+        
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/button" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
+            <ng-template pTemplate="content">
+                <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/button" class="btn-viewsource" target="_blank">
+                    <span>View on GitHub</span>
+                </a>
+                <a href="https://stackblitz.com/edit/primeng-button-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                    <span>Edit in StackBlitz</span>
+                </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Button Component&lt;/h3&gt;
@@ -328,6 +332,12 @@ export class ButtonDemo &#123;
 &#125;
 </code>
 </pre>
-        </ p-tabPanel>
-     </p-tabView >
+            </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-button-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
+        </p-tabPanel>
+     </p-tabView>
 </div>

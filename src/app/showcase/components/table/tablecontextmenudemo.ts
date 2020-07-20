@@ -54,4 +54,5 @@ export class TableContextMenuDemo implements OnInit {
         
         this.messageService.add({ severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand });
     }
+
 }

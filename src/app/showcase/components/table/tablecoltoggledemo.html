@@ -1,8 +1,6 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Table - <span class="subitem">Column Toggle</span></span>
+        <span class="feature-title">Table <span class="subitem">Column Toggle</span></span>
         <span>This demo uses a multiselect component to implement toggleable columns.</span>
     </div>
 </div>
@@ -17,6 +15,7 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
+                <th>Vin</th>
                 <th *ngFor="let col of columns">
                     &#123;&#123;col.header&#125;&#125;
                 </th>
@@ -24,6 +23,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
+                <td>{{rowData.vin}}</td>
                 <td *ngFor="let col of columns">
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 </td>
@@ -33,11 +33,13 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="tablecoltoggle.ts">
             <a href="https://github.com/primefaces/primeng/blob/master/src/app/showcase/components/table/tablecoltoggledemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablecoltoggle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -47,7 +49,7 @@ export class TableColToggleDemo implements OnInit &#123;
 
     cols: any[];
 
-    selectedColumns: any[];
+    _selectedColumns: any[];
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -55,13 +57,21 @@ export class TableColToggleDemo implements OnInit &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
             &#123; field: 'year', header: 'Year' &#125;,
             &#123; field: 'brand', header: 'Brand' &#125;,
             &#123; field: 'color', header: 'Color' &#125;
         ];
 
-        this.selectedColumns = this.cols;
+        this._selectedColumns = this.cols;
+    &#125;
+
+    @Input() get selectedColumns(): any[] &#123;
+        return this._selectedColumns;
+    &#125;
+
+    set selectedColumns(val: any[]) &#123;
+        //restore original order
+        this._selectedColumns = this.cols.filter(col => val.includes(col));
     &#125;
 &#125;
 </code>
@@ -70,8 +80,10 @@ export class TableColToggleDemo implements OnInit &#123;
 
         <p-tabPanel header="tablecoltoggle.html">
             <a href="https://github.com/primefaces/primeng/blob/master/src/app/showcase/components/table/tablecoltoggledemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablecoltoggle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -99,6 +111,11 @@ export class TableColToggleDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablecoltoggle-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

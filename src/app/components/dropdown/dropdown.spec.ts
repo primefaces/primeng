@@ -191,7 +191,6 @@ describe('Dropdown', () => {
 		items.children[2].children[0].nativeElement.click();
 		fixture.detectChanges();
 		expect(dropdown.selectedOption.name).toEqual('London');
-		expect(items.children[2].children[0].nativeElement.className).toContain('ui-state-highlight')
 	});
 
 	it('should item clear', () => {

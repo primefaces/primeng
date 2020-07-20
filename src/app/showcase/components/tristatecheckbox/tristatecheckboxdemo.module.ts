@@ -6,6 +6,7 @@ import {TriStateCheckboxDemoRoutingModule} from './tristatecheckboxdemo-routing.
 import {TriStateCheckboxModule} from 'primeng/tristatecheckbox';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 
 @NgModule({
 	imports: [
@@ -13,7 +14,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         FormsModule,
 		TriStateCheckboxDemoRoutingModule,
         TriStateCheckboxModule,
-        TabViewModule,
+		TabViewModule,
+		AppInputStyleSwitchModule,
         CodeHighlighterModule
 	],
 	declarations: [

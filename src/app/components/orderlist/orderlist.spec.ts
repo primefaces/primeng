@@ -295,7 +295,7 @@ describe('OrderList', () => {
       expect(orderlist.visibleOptions[0].brand).toEqual("VW");
       expect(orderlist.visibleOptions[1].brand).toEqual("Volvo");
       for(let i =0; i<itemsEl.length;i++){
-        if(i==0 || i==5)
+        if (i==0 || i==5)
           expect(itemsEl[i].nativeElement.style.display).toEqual("block");
         else
           expect(itemsEl[i].nativeElement.style.display).not.toEqual("block");
@@ -317,7 +317,7 @@ describe('OrderList', () => {
       expect(orderlist.visibleOptions[0].brand).toEqual("VW");
       expect(orderlist.visibleOptions[1].brand).toEqual("Volvo");
       for(let i =0; i<itemsEl.length;i++){
-        if(i==0 || i==5)
+        if (i==0 || i==5)
           expect(itemsEl[i].nativeElement.style.display).toEqual("block");
         else
           expect(itemsEl[i].nativeElement.style.display).not.toEqual("block");

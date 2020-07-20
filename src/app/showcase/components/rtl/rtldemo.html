@@ -25,7 +25,7 @@
             </p-footer>
         </p-dialog>
 
-        <button type="button" (click)="visible=true" pButton icon="fa fa-plus" label="Show"></button>
+        <button type="button" (click)="visible=true" pButton icon="pi pi-plus" label="Show"></button>
         
         <h3>Accordion</h3>
         <p-accordion>
@@ -56,11 +56,13 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/rtl" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-rtl-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -123,6 +125,11 @@
     &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-rtl-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

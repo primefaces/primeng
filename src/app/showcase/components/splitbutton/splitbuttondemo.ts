@@ -42,4 +42,5 @@ export class SplitButtonDemo implements OnInit {
     delete() {
         this.messageService.add({severity:'success', summary:'Success', detail:'Data Deleted'});
     }
+
 }

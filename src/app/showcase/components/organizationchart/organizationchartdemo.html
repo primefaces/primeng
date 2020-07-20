@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
 
     <h3 class="first">Advanced</h3>
     <p>Organization with advanced customization.</p>
@@ -30,7 +30,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header ="Documentation">
             <h3>Import</h3>
 <pre>
@@ -40,7 +40,7 @@ import &#123;OrganizationChartModule&#125; from 'primeng/organizationchart';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>OrganizationChart requires a model of TreeNode as its value. More information about TreeNode API is available at documentation of <a href="#" [routerLink]="['/tree']">tree</a> component.</p>
+            <p>OrganizationChart requires a model of TreeNode as its <i>value</i>. More information about TreeNode API is available at documentation of <a href="#" [routerLink]="['/tree']">tree</a> component.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;TreeNode&#125; from 'primeng/api';
@@ -94,7 +94,7 @@ export class MyComponents implements OnInit &#123;
 
             <h3>Templating</h3>
             <p>Label of the treenode is displayed inside the node content by default and templating enables enhanced customization. TreeNode API has type property which is
-            used to match the pTemplate type so templating can be done per node as well. In example below, nodes with type "leaf" are displayed with bold text. Note that a pTemplate
+            used to match the <i>pTemplate</i> type so templating can be done per node as well. In example below, nodes with type "leaf" are displayed with bold text. Note that a pTemplate
             whose type is "default" applies to all nodes that have no type property defined.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -149,10 +149,10 @@ export class MyComponents implements OnInit &#123;
 </pre>
 
             <h3>Expand/Collapse State</h3>
-            <p>In order to display a treenode as expanded by default, set "expanded" property as true in your model.</p>
+            <p>In order to display a treenode as <i>expanded</i> by default, set "expanded" property as true in your model.</p>
 
             <h3>Selection</h3>
-            <p>OrganizationChart supports 2 selection methods; single or multiple. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            <p>OrganizationChart supports 2 selection methods; single or multiple. Selection is enabled by setting <i>selectionMode</i> property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 
 <pre>
@@ -240,6 +240,12 @@ export class MyComponents implements OnInit &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>A single treenode instance or an array to refer to the selections.</td>
+                        </tr>
+                        <tr>
+                            <td>preserveSpace</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether the space allocated by a node is preserved when hidden.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -334,8 +340,10 @@ export class MyComponents implements OnInit &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/organizationchart" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-organizationchart-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -534,6 +542,11 @@ export class OrganizationChartDemo implements OnInit &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-organizationchart-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

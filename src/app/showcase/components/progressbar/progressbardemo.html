@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
 
     <h3 class="first">Dynamic</h3>
     <p-progressBar [value]="value"></p-progressBar>
@@ -19,7 +19,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -46,7 +46,7 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <p>Indeterminate has no such a requirement and is simple enabled using mode property.</p>
+            <p>Indeterminate has no such a requirement and is simple enabled using <i>mode</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-progressBar mode="indeterminate"&gt;&lt;/p-progressBar&gt;
@@ -134,8 +134,10 @@ export class ModelComponent &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/progressbar" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-progressbar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -163,7 +165,7 @@ export class ProgressBarDemo &#123;
     ngOnInit() &#123;
         let interval = setInterval(() => &#123;
             this.value = this.value + Math.floor(Math.random() * 10) + 1;
-            if(this.value >= 100) &#123;
+            if (this.value >= 100) &#123;
                 this.value = 100;
                 this.messageService.add(&#123;severity: 'info', summary: 'Success', detail: 'Process Completed'&#125;);
                 clearInterval(interval);
@@ -174,6 +176,11 @@ export class ProgressBarDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-progressbar-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

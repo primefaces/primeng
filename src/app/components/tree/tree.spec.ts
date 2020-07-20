@@ -18,7 +18,7 @@ import { TreeDragDropService } from 'primeng/api';
   })
   class TestTreeComponent implements OnInit {
 
-	@ViewChild('cm', { static: true }) cm: ElementRef;
+	@ViewChild('cm') cm: ElementRef;
 
 	filesTree7: any;
 
@@ -32,47 +32,47 @@ import { TreeDragDropService } from 'primeng/api';
 			{
 				"label": "Documents",
 				"data": "Documents Folder",
-				"expandedIcon": "fa fa-folder-open",
-				"collapsedIcon": "fa fa-folder",
+				"expandedIcon": "pi pi-folder-open",
+				"collapsedIcon": "pi pi-folder",
 				"children": [{
 						"label": "Work",
 						"data": "Work Folder",
-						"expandedIcon": "fa fa-folder-open",
-						"collapsedIcon": "fa fa-folder",
-						"children": [{"label": "Expenses.doc", "icon": "fa fa-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "fa fa-file-word-o", "data": "Resume Document"}]
+						"expandedIcon": "pi pi-folder-open",
+						"collapsedIcon": "pi pi-folder",
+						"children": [{"label": "Expenses.doc", "icon": "pi pi-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "pi pi-file-word-o", "data": "Resume Document"}]
 					},
 					{
 						"label": "Home",
 						"data": "Home Folder",
-						"expandedIcon": "fa fa-folder-open",
-						"collapsedIcon": "fa fa-folder",
-						"children": [{"label": "Invoices.txt", "icon": "fa fa-file-word-o", "data": "Invoices for this month"}]
+						"expandedIcon": "pi pi-folder-open",
+						"collapsedIcon": "pi pi-folder",
+						"children": [{"label": "Invoices.txt", "icon": "pi pi-file-word-o", "data": "Invoices for this month"}]
 					}]
 			},
 			{
 				"label": "Pictures",
 				"data": "Pictures Folder",
-				"expandedIcon": "fa fa-folder-open",
-				"collapsedIcon": "fa fa-folder",
+				"expandedIcon": "pi pi-folder-open",
+				"collapsedIcon": "pi pi-folder",
 				"children": [
-					{"label": "barcelona.jpg", "icon": "fa fa-file-image-o", "data": "Barcelona Photo"},
-					{"label": "logo.jpg", "icon": "fa fa-file-image-o", "data": "PrimeFaces Logo"},
-					{"label": "primeui.png", "icon": "fa fa-file-image-o", "data": "PrimeUI Logo"}]
+					{"label": "barcelona.jpg", "icon": "pi pi-file-image-o", "data": "Barcelona Photo"},
+					{"label": "logo.jpg", "icon": "pi pi-file-image-o", "data": "PrimeFaces Logo"},
+					{"label": "primeui.png", "icon": "pi pi-file-image-o", "data": "PrimeUI Logo"}]
 			},
 			{
 				"label": "Movies",
 				"data": "Movies Folder",
-				"expandedIcon": "fa fa-folder-open",
-				"collapsedIcon": "fa fa-folder",
+				"expandedIcon": "pi pi-folder-open",
+				"collapsedIcon": "pi pi-folder",
 				"children": [{
 						"label": "Al Pacino",
 						"data": "Pacino Movies",
-						"children": [{"label": "Scarface", "icon": "fa fa-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "fa fa-file-video-o", "data": "Serpico Movie"}]
+						"children": [{"label": "Scarface", "icon": "pi pi-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "pi pi-file-video-o", "data": "Serpico Movie"}]
 					},
 					{
 						"label": "Robert De Niro",
 						"data": "De Niro Movies",
-						"children": [{"label": "Goodfellas", "icon": "fa fa-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "fa fa-file-video-o", "data": "Untouchables Movie"}]
+						"children": [{"label": "Goodfellas", "icon": "pi pi-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "pi pi-file-video-o", "data": "Untouchables Movie"}]
 					}]
 			}
 		];
@@ -81,8 +81,8 @@ import { TreeDragDropService } from 'primeng/api';
 			{
 				label: "Backup",
 				data: "Backup Folder",
-				expandedIcon: "fa fa-folder-open",
-				collapsedIcon: "fa fa-folder"
+				expandedIcon: "pi pi-folder-open",
+				collapsedIcon: "pi pi-folder"
 			}
 		];
 		
@@ -90,14 +90,14 @@ import { TreeDragDropService } from 'primeng/api';
 			{
 				label: "Storage",
 				data: "Storage Folder",
-				expandedIcon: "fa fa-folder-open",
-				collapsedIcon: "fa fa-folder"
+				expandedIcon: "pi pi-folder-open",
+				collapsedIcon: "pi pi-folder"
 			}
 		];
 	
 		this.items = [
-			{label: 'View', icon: 'fa fa-search'},
-			{label: 'Unselect', icon: 'fa fa-close'}
+			{label: 'View', icon: 'pi pi-search'},
+			{label: 'Unselect', icon: 'pi pi-close'}
 		];
 	}
 	
@@ -142,47 +142,47 @@ describe('Tree', () => {
 			{
 				"label": "Documents",
 				"data": "Documents Folder",
-				"expandedIcon": "fa fa-folder-open",
-				"collapsedIcon": "fa fa-folder",
+				"expandedIcon": "pi pi-folder-open",
+				"collapsedIcon": "pi pi-folder",
 				"children": [{
 						"label": "Work",
 						"data": "Work Folder",
-						"expandedIcon": "fa fa-folder-open",
-						"collapsedIcon": "fa fa-folder",
-						"children": [{"label": "Expenses.doc", "icon": "fa fa-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "fa fa-file-word-o", "data": "Resume Document"}]
+						"expandedIcon": "pi pi-folder-open",
+						"collapsedIcon": "pi pi-folder",
+						"children": [{"label": "Expenses.doc", "icon": "pi pi-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "pi pi-file-word-o", "data": "Resume Document"}]
 					},
 					{
 						"label": "Home",
 						"data": "Home Folder",
-						"expandedIcon": "fa fa-folder-open",
-						"collapsedIcon": "fa fa-folder",
-						"children": [{"label": "Invoices.txt", "icon": "fa fa-file-word-o", "data": "Invoices for this month"}]
+						"expandedIcon": "pi pi-folder-open",
+						"collapsedIcon": "pi pi-folder",
+						"children": [{"label": "Invoices.txt", "icon": "pi pi-file-word-o", "data": "Invoices for this month"}]
 					}]
 			},
 			{
 				"label": "Pictures",
 				"data": "Pictures Folder",
-				"expandedIcon": "fa fa-folder-open",
-				"collapsedIcon": "fa fa-folder",
+				"expandedIcon": "pi pi-folder-open",
+				"collapsedIcon": "pi pi-folder",
 				"children": [
-					{"label": "barcelona.jpg", "icon": "fa fa-file-image-o", "data": "Barcelona Photo"},
-					{"label": "logo.jpg", "icon": "fa fa-file-image-o", "data": "PrimeFaces Logo"},
-					{"label": "primeui.png", "icon": "fa fa-file-image-o", "data": "PrimeUI Logo"}]
+					{"label": "barcelona.jpg", "icon": "pi pi-file-image-o", "data": "Barcelona Photo"},
+					{"label": "logo.jpg", "icon": "pi pi-file-image-o", "data": "PrimeFaces Logo"},
+					{"label": "primeui.png", "icon": "pi pi-file-image-o", "data": "PrimeUI Logo"}]
 			},
 			{
 				"label": "Movies",
 				"data": "Movies Folder",
-				"expandedIcon": "fa fa-folder-open",
-				"collapsedIcon": "fa fa-folder",
+				"expandedIcon": "pi pi-folder-open",
+				"collapsedIcon": "pi pi-folder",
 				"children": [{
 						"label": "Al Pacino",
 						"data": "Pacino Movies",
-						"children": [{"label": "Scarface", "icon": "fa fa-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "fa fa-file-video-o", "data": "Serpico Movie"}]
+						"children": [{"label": "Scarface", "icon": "pi pi-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "pi pi-file-video-o", "data": "Serpico Movie"}]
 					},
 					{
 						"label": "Robert De Niro",
 						"data": "De Niro Movies",
-						"children": [{"label": "Goodfellas", "icon": "fa fa-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "fa fa-file-video-o", "data": "Untouchables Movie"}]
+						"children": [{"label": "Goodfellas", "icon": "pi pi-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "pi pi-file-video-o", "data": "Untouchables Movie"}]
 					}]
 			}
 		];
@@ -462,12 +462,10 @@ describe('Tree', () => {
 		fixture.detectChanges();
 
 		const filterInput = fixture.debugElement.query(By.css('.ui-tree-filter'));
-		const onFilterSpy = spyOn(tree,"onFilter").and.callThrough();
 		expect(filterInput).toBeTruthy();
 		filterInput.triggerEventHandler("input",{target:{value:'d'}});
 		fixture.detectChanges();
 
-		expect(onFilterSpy).toHaveBeenCalled();
 		expect(tree.filteredNodes).toBeTruthy();
 		expect(tree.filteredNodes.length).toEqual(2);
 	});

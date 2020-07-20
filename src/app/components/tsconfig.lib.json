@@ -11,7 +11,7 @@
       "outDir": "../build",
       "rootDir": ".",
       "lib": [
-        "es2015",
+        "es2016",
         "dom"
       ],
       "skipLibCheck": true,

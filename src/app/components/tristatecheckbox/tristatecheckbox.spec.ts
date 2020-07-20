@@ -162,7 +162,7 @@ describe('TriStateCheckbox', () => {
       expect(tristate.value).toEqual(null);
       expect(value.value).toEqual(tristate.value);
       expect(checkBoxEl.className).not.toContain("ui-state-active");
-      expect(checkBoxIconEl.className).toEqual("pi ui-chkbox-icon ui-clickable");
+      expect(checkBoxIconEl.className).toContain("ui-clickable");
       expect(labeEl.className).not.toContain("ui-label-active");
       expect(onClickSpy).toHaveBeenCalledTimes(3);
     });

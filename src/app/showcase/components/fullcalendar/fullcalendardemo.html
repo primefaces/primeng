@@ -10,7 +10,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -26,7 +26,8 @@ import &#123;FullCalendarModule&#125; from 'primeng/fullcalendar';
 npm install @fullcalendar/core --save
 </code>
 </pre>
-
+    
+            <h3>Plugins</h3>
             <p>FullCalendar is plugin based so install the plugins you require and define them with the options property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -36,50 +37,22 @@ npm install @fullcalendar/interaction --save
 </code>
 </pre>
 
-            <p>Events should be an array and defined using the events property.</p>
+            <p>Styles of the core and plugins required can be defined in angular.json or with CSS imports.</p>
+
 <pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-fullCalendar [events]="events"&gt;&lt;/p-fullCalendar&gt;
+<code class="language-javascript" pCode ngNonBindable>
+"styles": [
+    "node_modules/@fullcalendar/core/main.min.css",
+    "node_modules/@fullcalendar/daygrid/main.min.css",
+    "node_modules/@fullcalendar/timegrid/main.min.css",
+    //...
 </code>
 </pre>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class MyModel &#123;
+            <h3>Event API</h3>
+            <p>Events should be an array and defined using the events property. In this example, we'll be utilizing a service to load our data. See the <a href="https://fullcalendar.io/docs">documentation</a> for 
+            more information about the Event API.</p>
 
-    events: any[];
-
-    ngOnInit() &#123;
-        this.events = [
-            &#123;
-                "title": "All Day Event",
-                "start": "2016-01-01"
-            &#125;,
-            &#123;
-                "title": "Long Event",
-                "start": "2016-01-07",
-                "end": "2016-01-10"
-            &#125;,
-            &#123;
-                "title": "Repeating Event",
-                "start": "2016-01-09T16:00:00"
-            &#125;,
-            &#123;
-                "title": "Repeating Event",
-                "start": "2016-01-16T16:00:00"
-            &#125;,
-            &#123;
-                "title": "Conference",
-                "start": "2016-01-11",
-                "end": "2016-01-13"
-            &#125;
-        ];
-    &#125;
-    
-&#125;
-</code>
-</pre>
-            <p>In a real application, it is likely to populate the events by making a service call, when the events are updated, the component will detect the change and render them.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 @Injectable()
@@ -97,22 +70,40 @@ export class EventService &#123;
 </code>
 </pre>
 
+            <p>Sample events data as JSON.</p>
 <pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class MyModel &#123;
-
-    events: any[];
-
-    ngOnInit() &#123;
-        this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
-    &#125;
-    
-&#125;
+    <code class="language-typescript" pCode ngNonBindable>
+&#123;
+    "data": [
+        &#123;
+            "id": 1,
+    		"title": "All Day Event",
+    		"start": "2017-02-01"
+        &#125;,
+    	&#123;
+            "id": 2,
+    		"title": "Long Event",
+    		"start": "2017-02-07",
+    		"end": "2017-02-10"
+        &#125;,
+    	&#123;
+    		"id": 3,
+    		"title": "Repeating Event",
+    		"start": "2017-02-09T16:00:00"
+        &#125;,
+        //...
 </code>
 </pre>
 
-            <h3>Options</h3>
-            <p>FullCalendar has a long list of customization parameters that are defined with the options property. Example below customizes the header property.</p>
+        <h3>Putting It Together</h3>
+        <p>FullCalendar has a long list of customization parameters that are defined with the options property. Example below customizes the views, defaultDate and header.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
+</code>
+</pre>
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -138,16 +129,10 @@ export class FullCalendarDemo implements OnInit &#123;
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             &#125;
-        &#123;;
+        &#125;
     &#125;
 
 &#125;
-</code>
-</pre>
-
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-fullCalendar [events]="events" [options]="options"&gt;&lt;/p-fullCalendar&gt;
 </code>
 </pre>
 
@@ -245,11 +230,12 @@ gotoDate(date: Date) &#123;
             <h3>Dependencies</h3>
             <p><a href="https://fullcalendar.io/docs/v4">FullCalendar</a>.</p>
         </p-tabPanel>
-
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fullcalendar" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-fullcalendar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -306,6 +292,11 @@ export class EventService &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-fullcalendar-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

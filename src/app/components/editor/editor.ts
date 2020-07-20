@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header} from 'primeng/api'
 import {DomHandler} from 'primeng/dom';
@@ -14,11 +14,11 @@ export const EDITOR_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-editor',
     template: `
-        <div [ngClass]="'ui-widget ui-editor-container ui-corner-all'" [class]="styleClass">
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
+        <div [ngClass]="'p-editor-container'" [class]="styleClass">
+            <div class="p-editor-toolbar" *ngIf="toolbar">
                 <ng-content select="p-header"></ng-content>
             </div>
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
+            <div class="p-editor-toolbar" *ngIf="!toolbar">
                 <span class="ql-formats">
                     <select class="ql-header">
                       <option value="1">Heading</option>
@@ -59,10 +59,12 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     <button class="ql-clean" aria-label="Remove Styles"></button>
                 </span>
             </div>
-            <div class="ui-editor-content" [ngStyle]="style"></div>
+            <div class="p-editor-content" [ngStyle]="style"></div>
         </div>
     `,
-    providers: [EDITOR_VALUE_ACCESSOR]
+    providers: [EDITOR_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
         
@@ -70,7 +72,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Header, { static: true }) toolbar;
+    @ContentChild(Header) toolbar;
     
     @Input() style: any;
         
@@ -103,8 +105,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
-        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
-        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
+        let editorElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-content'); 
+        let toolbarElement = DomHandler.findSingle(this.el.nativeElement ,'div.p-editor-toolbar'); 
         let defaultModule  = {toolbar: toolbarElement};
         let modules = this.modules ? {...defaultModule, ...this.modules} : defaultModule;
 
@@ -119,7 +121,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
           scrollingContainer: this.scrollingContainer
         });
                 
-        if(this.value) {
+        if (this.value) {
             this.quill.pasteHTML(this.value);
         }
         
@@ -159,8 +161,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     writeValue(value: any) : void {
         this.value = value;
                 
-        if(this.quill) {
-            if(value)
+        if (this.quill) {
+            if (value)
                 this.quill.pasteHTML(value);
             else
                 this.quill.setText('');
@@ -186,8 +188,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     set readonly(val:boolean) {
         this._readonly = val;
         
-        if(this.quill) {
-            if(this._readonly)
+        if (this.quill) {
+            if (this._readonly)
                 this.quill.disable();
             else
                 this.quill.enable();

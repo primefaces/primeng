@@ -19,7 +19,7 @@
     <h3>Image</h3>
     <p-inplace>
         <span pInplaceDisplay>
-            <span class="fa fa-picture-o"></span><span style="margin-left:8px">View Picture</span>
+            <span class="pi pi-image" style="vertical-align: middle; padding-bottom: .1em"></span><span style="margin-left:4px">View Picture</span>
         </span>
         <span pInplaceContent>
             <img src="assets/showcase/images/demo/galleria/galleria5.jpg" alt="Nature">
@@ -29,7 +29,7 @@
     <h3>Data</h3>
     <p-inplace>
         <span pInplaceDisplay>
-            <span class="fa fa-table"></span><span style="margin-left:8px">View Data</span>
+            <span class="pi pi-table" style="vertical-align: middle; padding-bottom: .1em"></span><span style="margin-left:4px">View Data</span>
         </span>
         <span pInplaceContent>
             <p-table [value]="cars">
@@ -55,7 +55,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -111,6 +111,12 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                             <td>Displays a button to switch back to display mode.</td>
                         </tr>
                         <tr>
+                            <td>preventClick</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, instead of click events, the component can be controlled full programmatic with activate() and deactivate() functions.</td>
+                        </tr>
+                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -121,6 +127,12 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>closeIcon</td>
+                            <td>string</td>
+                            <td>pi pi-times</td>
+                            <td>Icon of the close icon.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -168,7 +180,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
                             <td>Activates the content.</td>
                         </tr>
                         <tr>
-                            <td>deactive</td>
+                            <td>deactivate</td>
                             <td>-</td>
                             <td>Deactivates the content.</td>
                         </tr>
@@ -209,8 +221,10 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/inplace" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-inplace-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -227,7 +241,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
 &lt;h3&gt;Image&lt;/h3&gt;
 &lt;p-inplace&gt;
     &lt;span pInplaceDisplay&gt;
-        &lt;span class="fa fa-picture-o"&gt;&lt;/span&gt;&lt;span style="margin-left:8px"&gt;View Picture&lt;/span&gt;
+        &lt;span class="pi pi-image" style="vertical-align: middle; padding-bottom: .1em"&gt;&lt;/span&gt;&lt;span style="margin-left:4px"&gt;View Picture&lt;/span&gt;
     &lt;/span&gt;
     &lt;span pInplaceContent&gt;
         &lt;img src="assets/showcase/images/demo/galleria/galleria5.jpg" alt="Nature"&gt;
@@ -237,7 +251,7 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
 &lt;h3&gt;Data&lt;/h3&gt;
 &lt;p-inplace&gt;
     &lt;span pInplaceDisplay&gt;
-        &lt;span class="fa fa-table"&gt;&lt;/span&gt;&lt;span style="margin-left:8px"&gt;View Data&lt;/span&gt;
+        &lt;span class="pi pi-table" style="vertical-align: middle; padding-bottom: .1em"&gt;&lt;/span&gt;&lt;span style="margin-left:4px"&gt;View Data&lt;/span&gt;
     &lt;/span&gt;
     &lt;span pInplaceContent&gt;
         &lt;p-table [value]="cars"&gt;
@@ -262,6 +276,11 @@ import &#123;InplaceModule&#125; from 'primeng/inplace';
 &lt;/p-inplace&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-inplace-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -13,7 +13,7 @@
     <p-tabMenu [model]="items2" [activeItem]="activeItem">
         <ng-template pTemplate="item" let-item let-i="index">
             <div style="position: relative; text-align: center; min-width: 10em">
-                <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em"></div>
+                <div class="ui-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em; margin-right:.3em;"></div>
                 <div class="ui-menuitem-text">
                     {{item.label}}
                 </div>
@@ -23,10 +23,17 @@
             </div>
         </ng-template>
     </p-tabMenu>
+
+    <h3>Router Outlet</h3>
+    <p-tabMenu [model]="items3">
+    </p-tabMenu>
+    <div style="padding: 0.5em;">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -40,7 +47,7 @@ import &#123;MenuItem&#125; from 'primeng/api';
             <p>TabMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
             <h3>Getting Started</h3>
-            <p>TabMenu requires a collection of menuitems as its model.</p>
+            <p>TabMenu requires a collection of menuitems as its <i>model</i>.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;
@@ -55,11 +62,11 @@ export class TabMenuDemo &#123;
 
     ngOnInit() &#123;
         this.items = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
     &#125;
 &#125;
@@ -67,7 +74,7 @@ export class TabMenuDemo &#123;
 </pre>
 
             <h3>ActiveItem</h3>
-            <p>By default item that matches the active route is highlighted, alternatively activeItem property can be used choose the initial active item.</p>
+            <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;
@@ -84,14 +91,14 @@ export class TabMenuDemo &#123;
 
     ngOnInit() &#123;
         this.items = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
         
-        this.activeItem = this.items[2];
+        this.activeItem = this.items[0];
     &#125;
 &#125;
 </code>
@@ -194,8 +201,10 @@ export class TabMenuDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tabmenu" class="btn-viewsource" target="_blank">
-                <i class="fa fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tabmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -216,6 +225,13 @@ export class TabMenuDemo &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-tabMenu&gt;
+
+&lt;h3&gt;Router Outlet&lt;/h3&gt;
+&lt;p-tabMenu [model]="items3"&gt;
+&lt;/p-tabMenu&gt;
+&lt;div style="padding: 0.5em;"&gt;
+    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
 </code>
 </pre>
 
@@ -227,23 +243,30 @@ export class TabMenuDemo &#123;
 
     items2: MenuItem[];
 
+    items3: MenuItem[];
+
     activeItem: MenuItem;
 
     ngOnInit() &#123;
         this.items1 = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
         ];
 
         this.items2 = [
-            &#123;label: 'Stats', icon: 'fa fa-fw fa-bar-chart'&#125;,
-            &#123;label: 'Calendar', icon: 'fa fa-fw fa-calendar'&#125;,
-            &#123;label: 'Documentation', icon: 'fa fa-fw fa-book'&#125;,
-            &#123;label: 'Support', icon: 'fa fa-fw fa-support'&#125;,
-            &#123;label: 'Social', icon: 'fa fa-fw fa-twitter'&#125;
+            &#123;label: 'Home', icon: 'pi pi-fw pi-home'&#125;,
+            &#123;label: 'Calendar', icon: 'pi pi-fw pi-calendar'&#125;,
+            &#123;label: 'Edit', icon: 'pi pi-fw pi-pencil'&#125;,
+            &#123;label: 'Documentation', icon: 'pi pi-fw pi-file'&#125;,
+            &#123;label: 'Settings', icon: 'pi pi-fw pi-cog'&#125;
+        ];
+
+        this.items3 = [
+            &#123;label: 'Info', icon: 'pi pi-fw pi-chart-bar', routerLink:'info'&#125;,
+            &#123;label: 'Message', icon: 'pi pi-fw pi-calendar', routerLink:'message'&#125;
         ];
 
         this.activeItem = this.items2[0];
@@ -257,6 +280,11 @@ export class TabMenuDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tabmenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -12,10 +12,9 @@
   <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
 
   <h3>Advanced (Multiple, Checkbox and Filter)</h3>
-  <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name">
+  <p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name">
     <p-header>
-      <i class="fa fa-car"></i>
-      Cars
+      Cities
     </p-header>
   </p-listbox>
   <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c.name}}</span></p>
@@ -39,7 +38,7 @@
 </div>
 
 <div class="content-section documentation">
-  <p-tabView effect="fade">
+  <p-tabView>
     <p-tabPanel header="Documentation">
       <h3>Import</h3>
       <pre>
@@ -103,7 +102,7 @@ export class MyModel &#123;
       <h3>Selection</h3>
       <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection.
         In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
-        using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+        using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
         devices metaKeySelection is turned off automatically.</p>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -151,11 +150,11 @@ addOption() &#123;
 </pre>
 
         <h3>Disabled Options</h3>
-        <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
+        <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
 
       <h3>Filter</h3>
       <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
-        mode is "contains" and alternative is "startsWith" configuted by filterMode property.</p>
+        mode is "contains" and alternative is "startsWith" configuted by <i>filterMode</i> property.</p>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
@@ -173,12 +172,11 @@ addOption() &#123;
       <h3>Custom Content</h3>
       <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template where
         the local ng-template variable refers to an option in the options collection. Additionally a custom header and footer can be provided
-        using p-header and p-footer element.</p>
+        using <i>p-header</i> and <i>p-footer</i> element.</p>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar"&gt;
     &lt;p-header&gt;
-      &lt;i class="fa fa-car"&gt;&lt;/i&gt;
       List of Car
     &lt;/p-header&gt;
     &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
@@ -278,6 +276,12 @@ export class MyModel &#123;
                     <td>When specified, filter displays with this value.</td>
                 </tr>
                 <tr>
+                    <td>filterLocale</td>
+                    <td>string</td>
+                    <td>undefined</td>
+                    <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                </tr>
+                <tr>
                     <td>readonly</td>
                     <td>boolean</td>
                     <td>false</td>
@@ -308,6 +312,12 @@ export class MyModel &#123;
                     <td>Inline style of the list element.</td>
                 </tr>
                 <tr>
+                    <td>listStyleClass</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>Style class of the list element.</td>
+                </tr>
+                <tr>
                     <td>metaKeySelection</td>
                     <td>boolean</td>
                     <td>true</td>
@@ -333,6 +343,12 @@ export class MyModel &#123;
                     <td>string</td>
                     <td>null</td>
                     <td>Defines a string that labels the filter input.</td>
+                </tr>
+                <tr>
+                    <td>filterPlaceHolder</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>Defines placeholder of the filter input.</td>
                 </tr>
             </tbody>
         </table>
@@ -375,7 +391,7 @@ export class MyModel &#123;
             </tbody>
         </table>
     </div>
-    
+
     <h3>Styling</h3>
     <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming
             page</a>.</p>
@@ -418,8 +434,10 @@ export class MyModel &#123;
 
     <p-tabPanel header="Source">
       <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/listbox" class="btn-viewsource" target="_blank">
-        <i class="fa fa-github"></i>
         <span>View on GitHub</span>
+      </a>
+      <a href="https://stackblitz.com/edit/primeng-listbox-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+        <span>Edit in StackBlitz</span>
       </a>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -429,9 +447,8 @@ export class MyModel &#123;
 &lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name"&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name"&gt;
   &lt;p-header&gt;
-    &lt;i class="fa fa-car"&gt;&lt;/i&gt;
     Cars
   &lt;/p-header&gt;
 &lt;/p-listbox&gt;
@@ -493,6 +510,11 @@ export class ListboxDemo &#123;
 &#125;
 </code>
 </pre>
+    </p-tabPanel>
+    <p-tabPanel header="StackBlitz">
+        <ng-template pTemplate="content">
+            <iframe src="https://stackblitz.com/edit/primeng-listbox-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+        </ng-template>
     </p-tabPanel>
   </p-tabView>
 </div>

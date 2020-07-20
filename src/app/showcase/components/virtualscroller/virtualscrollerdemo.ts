@@ -6,42 +6,62 @@ import {LazyLoadEvent,SelectItem} from 'primeng/api';
 @Component({
     templateUrl: './virtualscrollerdemo.html',
     styles: [`
-        .car-item .ui-md-3 {
-            text-align: center;
-        }
-        
-        .car-item .ui-g-10 {
-            font-weight: bold;
+        .car-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
         }
 
-        .empty-car-item-index {
-            background-color: #f1f1f1;
+        .car-details > div {
+            display: flex;
+            align-items: center;
+        }
+
+        .car-item-image {
+            margin-right: 14px;
             width: 60px;
             height: 60px;
-            margin: 36px auto 0 auto;
-            animation: pulse 1s infinite ease-in-out;
         }
 
         .empty-car-item-image {
             background-color: #f1f1f1;
-            width: 120px;
-            height: 120px;
             animation: pulse 1s infinite ease-in-out;
+            margin-right: 14px;
+            border-radius: 3px;
         }
 
         .empty-car-item-text {
             background-color: #f1f1f1;
-            height: 18px;
+            height: 19px;
             animation: pulse 1s infinite ease-in-out;
+            display: block;
+            width: 100px;
+            margin-bottom: 2px;
+            border-radius: 3px;
+        }
+
+        .empty-car-item-button {
+            background-color: #f1f1f1;
+            height: 33px;
+            width: 33px;
+            animation: pulse 1s infinite ease-in-out;
+            display: block;
+            border-radius: 3px;
+        }
+
+        .list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .title-container {
-            padding: 1em;
-            text-align: right;
+            text-align: left;
         }
 
         .sort-container {
-            text-align: left;
+            text-align: right;
         }
 
         @media (max-width: 40em) {
@@ -53,39 +73,19 @@ import {LazyLoadEvent,SelectItem} from 'primeng/api';
 })
 export class VirtualScrollerDemo implements OnInit {
 
-    cars: Car[] = [];
+    cars: Car[];
 
-    lazyCars: Car[];
-    
-    brands: string[];
-
-    colors: string[];
-
-    totalLazyCarsLength: number;
-
-    timeout: any;
+    virtualCars: Car[];
 
     sortKey: string;
 
     sortOptions: SelectItem[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) {}
 
     ngOnInit() {
-        this.brands = [
-            'Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'
-        ];
-
-        this.colors = [
-            'Black', 'White', 'Red', 'Blue', 'Silver', 'Green', 'Yellow'
-        ];
-
-        for (let i = 0; i < 10000; i++) {
-            this.cars.push(this.generateCar());
-        }
-
-        //in a real application, make a remote request to retrieve the number of records only, not the actual records
-        this.totalLazyCarsLength = 10000;
+        this.cars = Array.from({length: 10000}).map(() => this.carService.generateCar());
+        this.virtualCars = Array.from({length: 10000});
 
         this.sortOptions = [
             {label: 'Newest First', value: '!year'},
@@ -93,53 +93,17 @@ export class VirtualScrollerDemo implements OnInit {
         ];
     }
 
-    generateCar(): Car {
-        return {
-            vin: this.generateVin(),
-            brand: this.generateBrand(),
-            color: this.generateColor(),
-            year: this.generateYear()
-        }
-    }
+    loadCarsLazy(event: LazyLoadEvent) {       
+        //simulate remote connection with a timeout 
+        setTimeout(() => {
+            //load data of required page
+            let loadedCars = this.cars.slice(event.first, (event.first + event.rows));
 
-    generateVin() {
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        
-        for (var i = 0; i < 5; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        
-        return text;
-    }
-
-    generateBrand() {
-        return this.brands[Math.floor(Math.random() * Math.floor(10))];
-    }
-
-    generateColor() {
-        return this.colors[Math.floor(Math.random() * Math.floor(7))];
-    }
-
-    generateYear() {
-        return 2000 + Math.floor(Math.random() * Math.floor(19));
-    }
-
-    loadCarsLazy(event: LazyLoadEvent) {
-        //in a real application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-
-        //imitate db connection over a network
-        if (this.timeout) {
-            clearTimeout(this.timeout);
-        }
-        
-        this.timeout = setTimeout(() => {
-            this.lazyCars = [];
-            if (this.cars) {
-                this.lazyCars = this.cars.slice(event.first, (event.first + event.rows));
-            }
+            //populate page of virtual cars
+            Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
+            
+            //trigger change detection
+            this.virtualCars = [...this.virtualCars];
         }, 1000);
     }
 

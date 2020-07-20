@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Footer} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
@@ -9,24 +9,24 @@ let idx: number = 0;
 @Component({
     selector: 'p-panel',
     template: `
-        <div [attr.id]="id" [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div [ngClass]="{'ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all': true, 'ui-panel-titlebar-clickable': (toggleable && toggler === 'header')}" 
-                *ngIf="showHeader" (click)="onHeaderClick($event)">
-                <span class="ui-panel-title" *ngIf="header">{{header}}</span>
+        <div [attr.id]="id" [ngClass]="{'p-panel p-component': true, 'p-panel-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
+            <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
+                <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
-                <a *ngIf="toggleable" [attr.id]="id + '-label'" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" tabindex="0"
-                    (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
-                    <span [class]="collapsed ? expandIcon : collapseIcon"></span>
-                </a>
+                <div class="p-panel-icons">
+                    <button *ngIf="toggleable" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link"
+                        (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
+                        <span [class]="collapsed ? expandIcon : collapseIcon"></span>
+                    </button>
+                </div>
             </div>
-            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity:'0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1'}}" (@panelContent.done)="onToggleDone($event)"
-                [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}"
-                role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-label'">
-                <div class="ui-panel-content ui-widget-content">
+            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@panelContent]="collapsed ? {value: 'hidden', params: {transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity:'0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1'}}" (@panelContent.done)="onToggleDone($event)"
+                role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id  + '-titlebar'">
+                <div class="p-panel-content">
                     <ng-content></ng-content>
                 </div>
                 
-                <div class="ui-panel-footer ui-widget-content" *ngIf="footerFacet">
+                <div class="p-panel-footer" *ngIf="footerFacet">
                     <ng-content select="p-footer"></ng-content>
                 </div>
             </div>
@@ -36,21 +36,22 @@ let idx: number = 0;
         trigger('panelContent', [
             state('hidden', style({
                 height: '0',
-                opacity: 0
+                overflow: 'hidden'
             })),
             state('void', style({
-                height: '{{height}}',
-                opacity: '{{opacity}}'
-            }), {params: {height: '0', opacity: '0'}}),
+                height: '{{height}}'
+            }), {params: {height: '0'}}),
             state('visible', style({
-                height: '*',
-                opacity: 1
+                height: '*'
             })),
-            transition('visible <=> hidden', animate('{{transitionParams}}')),
+            transition('visible <=> hidden', [style({ overflow: 'hidden'}), animate('{{transitionParams}}')]),
             transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
         ])
-    ]
+    ],
+   changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./panel.css']
 })
 export class Panel implements BlockableUI {
 
@@ -80,7 +81,7 @@ export class Panel implements BlockableUI {
     
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    @ContentChild(Footer) footerFacet;
     
     animating: boolean;
     
@@ -101,15 +102,15 @@ export class Panel implements BlockableUI {
     }
     
     toggle(event: Event) {
-        if(this.animating) {
+        if (this.animating) {
             return false;
         }
         
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
         
-        if(this.toggleable) {
-            if(this.collapsed)
+        if (this.toggleable) {
+            if (this.collapsed)
                 this.expand(event);
             else
                 this.collapse(event);

@@ -96,8 +96,10 @@ describe('Toast', () => {
         closeEl.nativeElement.click();
         fixture.detectChanges();
 
-        toastMessage = fixture.debugElement.query(By.css('.ui-toast-message'));
-        expect(toastMessage).toBeFalsy();
+        Promise.resolve(null).then(() => {
+            toastMessage = fixture.debugElement.query(By.css('.ui-toast-message'));
+            expect(toastMessage).toBeFalsy();
+        });
         
     });
 
@@ -126,8 +128,10 @@ describe('Toast', () => {
         component.onClear();
         fixture.detectChanges();
 
-        toastMessage = fixture.debugElement.query(By.css('.ui-toast-message'));
-        expect(toastMessage).toBeFalsy();
+        Promise.resolve(null).then(() => {
+            toastMessage = fixture.debugElement.query(By.css('.ui-toast-message'));
+            expect(toastMessage).toBeFalsy();
+        });
     });
 
     it('should clear toast with key', () => {
@@ -144,8 +148,10 @@ describe('Toast', () => {
         component.onClearWithKey('vv');
         fixture.detectChanges();
 
-        toastMessage = fixture.debugElement.query(By.css('.ui-toast-message'));
-        expect(toastMessage).toBeFalsy();
+        Promise.resolve(null).then(() => {
+            toastMessage = fixture.debugElement.query(By.css('.ui-toast-message'));
+            expect(toastMessage).toBeFalsy();
+        });
     });
 
     it('should create multiple toast', () => {

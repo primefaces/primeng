@@ -1,9 +1,7 @@
-<treetable-submenu></treetable-submenu>
-
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">TreeTable - <span class="subitem">Edit</span></span>
-        <span>Incell editing provides a quick and user friendly way to manipulate data.</span>
+        <span class="feature-title">TreeTable <span class="subitem">Edit</span></span>
+        <span>In-cell editing provides a quick and user friendly way to manipulate data.</span>
     </div>
 </div>
 
@@ -33,11 +31,13 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="treetableeditdemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetableeditdemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treetableedit-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -74,11 +74,12 @@ export class TreeTableEditDemo &#123;
 </code>
 </pre>   
         </p-tabPanel>
-
         <p-tabPanel header="treetableeditdemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable/treetableeditdemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treetableedit-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -106,6 +107,11 @@ export class TreeTableEditDemo &#123;
 &lt;/p-treeTable&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetableedit-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -35,6 +35,7 @@
     display: block;
     position: relative;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .ui-slidemenu .ui-menuitem-icon {

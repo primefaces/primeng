@@ -7,11 +7,11 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"></p-multiSelect>
     <p>Selected Cars: {{selectedCars1}}</p>
 
     <h3>Templating</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2">
         <ng-template let-value pTemplate="selectedItems">
             <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
                 <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" />
@@ -27,11 +27,11 @@
     <p>Selected Cars: {{selectedCars2}}</p>
 
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
+    <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>CDK</h3>
             <p>Virtual Scrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
@@ -49,8 +49,8 @@ import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>MultiSelect requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
-            instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how
+            <p>MultiSelect requires a value to bind and a collection of options. There are two alternatives of how to define the <i>options</i> property; one way is providing a collection of SelectItem
+            instances whereas other way is providing an array of arbitrary objects along with the <i>optionLabel</i> property to specify the field name of the option. SelectItem API is designed to have more control on how
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -112,7 +112,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Disabled Options</h3>
-            <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
+            <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
 
             <h3>Templating</h3>
             <p>Label of a selectitem is displayed by default next to the checkbox in the overlay panel and it is possible to customize
@@ -121,7 +121,7 @@ export class MyModel &#123;
             <p>In addition selectedItems template can be used to customize the selected values display instead of the default comma separated list.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="&#123;minWidth:'12em'}"&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2"&gt;
     &lt;ng-template let-selectedCars pTemplate="selectedItems"&gt;
         &lt;span *ngFor="let selectedCar of selectedCars"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
@@ -136,7 +136,7 @@ export class MyModel &#123;
 </pre>
 
             <h3>Filtering</h3>
-            <p>Options can be filtered using an input field in the overlay by enabling the filter property. By default filtering is done against
+            <p>Options can be filtered using an input field in the overlay by enabling the <i>filter</i> property. By default filtering is done against
                 label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -150,7 +150,7 @@ export class MyModel &#123;
                 prefer creating a new array reference instead of manipulating an existing array.</p>
 
             <h3>Header and Footer</h3>
-            <p>p-header and p-footer elements can be used display custom content inside the header and footer sections.</p>
+            <p><i>p-header</i> and <i>p-footer</i> elements can be used display custom content inside the header and footer sections.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
@@ -166,7 +166,7 @@ export class MyModel &#123;
 
             <h3>Virtual Scrolling</h3>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
-                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item.</p>
+                to avoid performance issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining itemSize to specify the height of an item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
@@ -243,6 +243,12 @@ export class MyModel &#123;
                             <td>Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</td>
                         </tr>
                         <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
+                        <tr>
                             <td>defaultLabel</td>
                             <td>string</td>
                             <td>Choose</td>
@@ -252,7 +258,7 @@ export class MyModel &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -301,6 +307,12 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Name of the input element.</td>
+                        </tr>
+                        <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
                         </tr>
                         <tr>
                             <td>inputId</td>
@@ -428,6 +440,12 @@ export class MyModel &#123;
                             <td>absolute</td>
                             <td>Type of CSS position.</td>
                         </tr>
+                        <tr>
+                            <td>autofocusFilter</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Applies focus to the filter element when the overlay is shown.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -537,17 +555,19 @@ export class MyModel &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/multiselect" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-multiselect-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="&#123;minWidth:'12em'}"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"&gt;&lt;/p-multiSelect&gt;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars1&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="&#123;minWidth:'12em'}"&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2"&gt;
     &lt;ng-template let-value pTemplate="selectedItems"&gt;
         &lt;div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all"&gt;
             &lt;img src="assets/showcase/images/demo/car/&#123;&#123;val&#125;&#125;.png" style="width:20px;vertical-align:middle;margin-right:.5em" /&gt;
@@ -563,7 +583,7 @@ export class MyModel &#123;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
-&lt;p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="&#123;minWidth:'12em'&#125;" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
@@ -597,7 +617,7 @@ export class MultiSelectDemo &#123;
     cars: SelectItem[];
 
     selectedCars1: string[] = [];
-    
+
     selectedCars2: string[] = [];
 
     items: SelectItem[];
@@ -626,6 +646,11 @@ export class MultiSelectDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-multiselect-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

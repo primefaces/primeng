@@ -19,8 +19,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() tooltipZIndex: string = 'auto';
 
-    @Input("tooltipDisabled") disabled: boolean;
-
     @Input() escape: boolean = true;
 
     @Input() showDelay: number;
@@ -28,6 +26,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     @Input() hideDelay: number;
 
     @Input() life: number;
+
+    @Input("tooltipDisabled") get disabled(): boolean {
+        return this._disabled;
+    }
+    set disabled(val:boolean) {
+        this._disabled = val;
+        this.deactivate();
+    }
+
+    _disabled: boolean;
 
     container: any;
 
@@ -149,14 +157,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     create() {
+        if (this.container) {
+            this.clearHideTimeout();
+            this.remove();
+        }
+
         this.container = document.createElement('div');
 
         let tooltipArrow = document.createElement('div');
-        tooltipArrow.className = 'ui-tooltip-arrow';
+        tooltipArrow.className = 'p-tooltip-arrow';
         this.container.appendChild(tooltipArrow);
 
         this.tooltipText = document.createElement('div');
-        this.tooltipText.className = 'ui-tooltip-text ui-shadow ui-corner-all';
+        this.tooltipText.className = 'p-tooltip-text';
 
         this.updateText();
 
@@ -272,7 +285,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getHostOffset() {
-        if(this.appendTo === 'body' || this.appendTo === 'target') {
+        if (this.appendTo === 'body' || this.appendTo === 'target') {
             let offset = this.el.nativeElement.getBoundingClientRect();
             let targetLeft = offset.left + DomHandler.getWindowScrollLeft();
             let targetTop = offset.top + DomHandler.getWindowScrollTop();
@@ -324,7 +337,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
 
-        let defaultClassName = 'ui-tooltip ui-widget ui-tooltip-' + position;
+        let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
         this.container.className = this.tooltipStyleClass ? defaultClassName + ' ' + this.tooltipStyleClass : defaultClassName;
     }
 

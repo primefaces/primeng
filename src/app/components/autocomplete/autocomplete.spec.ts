@@ -25,7 +25,7 @@ class TestAutocompleteComponent {
         this.filteredBrands = [];
         for(let i = 0; i < this.brands.length; i++) {
             let brand = this.brands[i];
-            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+            if (brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
                 this.filteredBrands.push(brand);
             }
         }
@@ -35,7 +35,7 @@ class TestAutocompleteComponent {
       this.filteredCars = [];
       for(let i = 0; i < this.cars.length; i++) {
           let car = this.cars[i];
-          if(car.brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+          if (car.brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
               this.filteredCars.push(car);
           }
       }

@@ -1,0 +1,109 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Galleria - Programmatic</span>
+        <span>Galleria can be controlled programmatically using the <b>activeIndex</b> property.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div style="padding: .5em 0">
+        <button pButton icon="pi pi-plus" (click)="next()" class="ui-button-secondary"></button>
+        <button pButton icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"></button>
+    </div>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5" [(activeIndex)]="activeIndex"> 
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" style="width: 100%;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.thumbnailImageSrc" />
+            </div>
+        </ng-template>
+    </p-galleria>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="galleriaprogrammaticdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaprogrammaticdemo.ts" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class GalleriaProgrammaticDemo implements OnInit &#123;
+    images: any[];
+
+    get activeIndex(): number &#123;
+        return this._activeIndex;
+    &#125;
+
+    set activeIndex(newValue) &#123;
+        if (this.images && 0 <= newValue && newValue <= (this.images.length - 1)) &#123;
+            this._activeIndex = newValue;
+        &#125;
+    &#125;
+
+    _activeIndex: number = 2;
+
+    responsiveOptions:any[] = [
+        &#123;
+            breakpoint: '1024px',
+            numVisible: 5
+        &#125;,
+        &#123;
+            breakpoint: '768px',
+            numVisible: 3
+        &#125;,
+        &#123;
+            breakpoint: '560px',
+            numVisible: 1
+        &#125;
+    ];
+
+    constructor(private photoService: PhotoService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.photoService.getImages().then(images => this.images = images)
+    &#125;
+
+    next() &#123;
+        this.activeIndex++;
+    &#125;
+
+    prev() &#123;
+        this.activeIndex--;
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+        <p-tabPanel header="galleriaprogrammaticdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria/galleriaprogrammaticdemo.html" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
+&lt;h3 class="first"&gt;Default&lt;/h3&gt;
+&lt;div style="padding: .5em 0"&gt;
+    &lt;button pButton icon="pi pi-plus" (click)="next()" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;button pButton icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5" 
+    [(activeIndex)]="activeIndex"&gt; 
+    &lt;ng-template pTemplate="item" let-item&gt;
+        &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="thumbnail" let-item&gt;
+        &lt;div class="p-grid p-nogutter p-justify-center"&gt;
+            &lt;img [src]="item.thumbnailImageSrc" /&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-galleria&gt;
+</code>
+</pre>
+
+        </p-tabPanel>
+    </p-tabView>
+</div>
+

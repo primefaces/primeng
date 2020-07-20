@@ -1,0 +1,191 @@
+:host ::ng-deep .ui-table-customers {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    
+    .customer-badge {
+        border-radius: 2px;
+        padding: .25em .5em;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: .3px;
+    
+        &.status-qualified {
+            background-color: #C8E6C9;
+            color: #256029;
+        }
+    
+        &.status-unqualified {
+            background-color: #FFCDD2;
+            color: #C63737;
+        }
+    
+        &.status-negotiation {
+            background-color: #FEEDAF;
+            color: #8A5340;
+        }
+    
+        &.status-new {
+            background-color: #B3E5FC;
+            color: #23547B;
+        }
+    
+        &.status-renewal {
+            background-color: #ECCFFF;
+            color: #694382;
+        }
+    
+        &.status-proposal {
+            background-color: #FFD8B2;
+            color: #805B36;
+        }
+    }
+    
+    .flag {
+        vertical-align: middle;
+        width: 30px;
+        height: 20px;
+    }
+
+    .ui-multiselect-representative-option {
+        display: inline-block;
+        vertical-align: middle;
+
+        img {
+            vertical-align: middle;
+            width: 24px;
+        }
+
+        span {
+            margin-top: .125em;
+            vertical-align: middle; 
+            margin-left: .5em
+        }
+    }
+
+    .ui-paginator {
+        .ui-dropdown {
+            float: left;
+        }
+    
+        .ui-paginator-current {
+            float: right;
+        }
+    }
+
+    .ui-progressbar {
+        height: 8px;
+        background-color: #D8DADC;
+    
+        .ui-progressbar-value {
+            background-color: #00ACAD;
+        }
+    }
+
+    .ui-column-filter {
+        display: block;
+    
+        input {
+            width: 100%;
+        }
+    }
+
+    .ui-table-globalfilter-container {
+        float: right;
+    
+        input {
+            width: 200px;
+        }
+    }
+
+    .ui-datepicker {
+        min-width: 25em;
+    
+        td {
+            font-weight: 400;
+        }
+    }
+
+    .ui-table-caption {
+        border: 0 none;
+        padding: 12px;
+        text-align: left;
+        font-size: 20px;
+    }
+
+    .ui-paginator {
+        border: 0 none;
+        padding: 1em;
+    }
+
+    .ui-table-thead > tr > th {
+        border: 0 none;
+        text-align: left;
+
+        &.ui-filter-column {
+            border-top: 1px solid #c8c8c8;
+        }
+
+        &:first-child {
+            width: 5em;
+            text-align: center;
+        }
+
+        &:last-child {
+            width: 8em;
+            text-align: center;
+        }
+    }
+
+    .ui-table-tbody > tr > td {
+        border: 0 none;
+        cursor: auto;
+
+        &:first-child {
+            width: 3em;
+            text-align: center;
+        }
+
+        &:last-child {
+            width: 8em;
+            text-align: center;
+        }
+    }
+
+    .ui-dropdown-label:not(.ui-placeholder) {
+        text-transform: uppercase;
+    }
+
+    .ui-table-tbody > tr > td .ui-column-title {
+        display: none;
+    }
+}
+
+/* Responsive */
+@media screen and (max-width: 64em) {
+    :host ::ng-deep .ui-table {
+        &.ui-table-customers {
+            .ui-table-thead > tr > th,
+            .ui-table-tfoot > tr > td {
+                display: none !important;
+            }
+
+            .ui-table-tbody > tr > td {
+                text-align: left;
+                display: block;
+                border: 0 none !important;
+                width: 100% !important;
+                float: left;
+                clear: left;
+                border: 0 none;
+
+                .ui-column-title {
+                    padding: .4em;
+                    min-width: 30%;
+                    display: inline-block;
+                    margin: -.4em 1em -.4em -.4em;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

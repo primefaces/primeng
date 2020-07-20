@@ -16,7 +16,7 @@
     <button type="button" pButton label="Unblock" (click)="blockedPanel=false"></button>
     
     <p-blockUI [target]="pnl" [blocked]="blockedPanel">
-        <i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"></i>
+        <i class="pi pi-lock" style="position:absolute;top:35%;left:50%;font-size: 60px;font-weight: bold;"></i>
     </p-blockUI>
     <p-panel #pnl header="Godfather I" [style]="{'margin-top':'20px'}">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
@@ -27,7 +27,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -37,7 +37,7 @@ import &#123;BlockUIModule&#125; from 'primeng/blockui';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>BlockUI is controlled using the blocked property and component to block is defined as target. If target is not provided, document
+            <p>BlockUI is controlled using the <i>blocked</i>  property and component to block is defined as target. If target is not provided, document
             itself is selected as the block target.</p>
             
 <pre>
@@ -73,7 +73,7 @@ export class BlockUIDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
-    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+    &lt;i class="pi pi-lock" style="position:absolute;top:35%;left:50%;font-size: 60px;font-weight: bold"&gt;&lt;/i&gt;
 &lt;/p-blockUI&gt;
 
 &lt;p-panel #pnl header="Panel Header"&gt;
@@ -119,6 +119,12 @@ export class BlockUIDemo &#123;
                             <td>true</td>
                             <td>Whether to automatically manage layering.</td>
                         </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>false</td>
+                            <td>Style class of the component.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -148,8 +154,10 @@ export class BlockUIDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/blockui" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-blockui-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -181,7 +189,7 @@ export class BlockUIDemo &#123;
 &lt;button type="button" pButton label="Unblock" (click)="blockedPanel=false"&gt;&lt;/button&gt;
 
 &lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
-    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+    &lt;i class="pi pi-lock" style="position:absolute;top:35%;left:50%;font-size: 60px;font-weight: bold"&gt;&lt;/i&gt;
 &lt;/p-blockUI&gt;
 &lt;p-panel #pnl header="Godfather I" [style]="&#123;'margin-top':'20px'&#125;"&gt;
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
@@ -191,6 +199,11 @@ export class BlockUIDemo &#123;
 &lt;/p-panel&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-blockui-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

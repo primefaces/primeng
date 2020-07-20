@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="60px" viewBox="0 0 50 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>lts-icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="PrimeNG-LTS-3" transform="translate(-769.000000, -273.000000)">
+            <g id="primeng-logo-x" transform="translate(359.000000, 150.000000)">
+                <g id="lts" transform="translate(410.000000, 123.000000)">
+                    <g id="lts-icon" transform="translate(0.000000, 0.000000)">
+                        <rect id="Rectangle" fill="#20272A" x="0" y="0" width="50" height="60"></rect>
+                        <rect id="Rectangle" fill="#DD0031" x="0" y="0" width="50" height="10"></rect>
+                        <rect id="Rectangle" fill="#FFFFFF" transform="translate(25.000000, 25.000000) rotate(-270.000000) translate(-25.000000, -25.000000) " x="10" y="20" width="30" height="10"></rect>
+                        <rect id="Rectangle" fill="#FFFFFF" x="21" y="30" width="29" height="10"></rect>
+                        <circle id="Oval" stroke="#FFFFFF" stroke-width="8" fill="#20272A" cx="25" cy="35" r="10"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

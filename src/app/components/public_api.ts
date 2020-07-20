@@ -30,6 +30,7 @@ export * from 'primeng/galleria';
 export * from 'primeng/gmap';
 export * from 'primeng/inplace';
 export * from 'primeng/inputmask';
+export * from 'primeng/inputnumber';
 export * from 'primeng/inputswitch';
 export * from 'primeng/inputtext';
 export * from 'primeng/inputtextarea';

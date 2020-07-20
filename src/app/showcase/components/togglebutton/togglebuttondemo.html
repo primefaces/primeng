@@ -1,29 +1,31 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">ToggleButton</span>
-        <span>ToggleButton is used to select a boolean value using a button.</span>
+    <div class="feature-intro">
+        <h1>ToggleButton</h1>
+        <p>ToggleButton is used to select a boolean value using a button.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic - ({{checked1}})</h3>
-    <p-toggleButton [(ngModel)]="checked1" [style]="{'width':'150px'}"></p-toggleButton>
+    <div class="card">
+        <h5 class="first">Basic</h5>
+        <p-toggleButton [(ngModel)]="checked1" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
 
-    <h3>Customized - ({{checked2}})</h3>
-    <p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'150px'}"></p-toggleButton>
+        <h5>Customized</h5>
+        <p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '10em'}"></p-toggleButton>
+    </div>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
+            <h5>Import</h5>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;ToggleButtonModule&#125; from 'primeng/togglebutton';
 </code>
 </pre>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
 
 <pre>
@@ -53,7 +55,7 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>ToggleButton can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -61,8 +63,8 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Labels</h3>
-            <p>Labels are customized using onLabel and offLabel properties.</p>
+            <h5>Labels</h5>
+            <p>Labels are customized using onLabel and <i>offLabel</i> properties.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject"
@@ -70,15 +72,15 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Icons</h3>
-            <p>Icon on a ToggleButton is specified with the onIcon and offIcon properties and position is customized using the iconPos property.</p>
+            <h5>Icons</h5>
+            <p>Icon on a ToggleButton is specified with the <i>onIcon</i> and <i>offIcon</i> properties and position is customized using the <i>iconPos</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject" 
-            onIcon="fa fa-check" offIcon="fa fa-times" iconPos="right" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
+            onIcon="pi pi-check" offIcon="pi pi-times" iconPos="right" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
 </code>
 </pre>
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -93,13 +95,13 @@ export class ModelComponent &#123;
                          <tr>
                             <td>onLabel</td>
                             <td>string</td>
-                            <td>Yes</td>
+                            <td>null</td>
                             <td>Label for the on state.</td>
                         </tr>
                         <tr>
                             <td>offLabel</td>
                             <td>string</td>
-                            <td>No</td>
+                            <td>null</td>
                             <td>Label for the off state.</td>
                         </tr>
                         <tr>
@@ -150,11 +152,17 @@ export class ModelComponent &#123;
                             <td>null</td>
                             <td>Identifier of the focus input to match a label defined for the component.</td>
                         </tr>
+                        <tr>
+                            <td>ariaLabelledBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -190,7 +198,7 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -202,41 +210,43 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-togglebutton</td>
+                            <td>p-togglebutton</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-button-icon-left</td>
+                            <td>p-button-icon-left</td>
                             <td>Icon element.</td>
                         </tr>
                         <tr>
-                            <td>ui-button-icon-right</td>
+                            <td>p-button-icon-right</td>
                             <td>Icon element.</td>
                         </tr>
                         <tr>
-                            <td>ui-button-text</td>
+                            <td>p-button-text</td>
                             <td>Label element.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/togglebutton" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-togglebutton-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic - ({{checked1}})&lt;/h3&gt;
-&lt;p-toggleButton [(ngModel)]="checked1" [style]="&#123;'width':'150px'&#125;"&gt;&lt;/p-toggleButton&gt;
+&lt;h5 class="first"&gt;Basic&lt;/h5&gt;
+&lt;p-toggleButton [(ngModel)]="checked1" onIcon="pi pi-check" offIcon="pi pi-times"&gt;&lt;/p-toggleButton&gt;
 
-&lt;h3&gt;Customized - ({{checked2}})&lt;/h3&gt;
-&lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="&#123;'width':'150px'&#125;"&gt;&lt;/p-toggleButton&gt;
+&lt;h5&gt;Customized&lt;/h5&gt;
+&lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="&#123;'width': '10em'&#125;"&gt;&lt;/p-toggleButton&gt;&lt;/code&gt;
 </code>
 </pre>
 
@@ -250,6 +260,11 @@ export class ToggleButtonDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-togglebutton-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

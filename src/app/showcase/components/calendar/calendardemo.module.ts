@@ -6,6 +6,7 @@ import {CalendarDemoRoutingModule} from './calendardemo-routing.module';
 import {CalendarModule} from 'primeng/calendar';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
 
 @NgModule({
 	imports: [
@@ -13,7 +14,8 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         FormsModule,
 		CalendarDemoRoutingModule,
         CalendarModule,
-        TabViewModule,
+		TabViewModule,
+		AppInputStyleSwitchModule,
         CodeHighlighterModule
 	],
 	declarations: [

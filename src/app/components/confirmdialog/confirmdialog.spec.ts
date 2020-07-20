@@ -86,7 +86,7 @@ describe('ConfirmDialog', () => {
 		confirmDialog.rtl = true;
 		fixture.detectChanges();
 
-		expect(fixture.debugElement.query(By.css('div')).classes['ui-dialog-rtl']).toEqual(true);
+		expect(fixture.debugElement.query(By.css('.ui-dialog')).classes['ui-dialog-rtl']).toEqual(true);
     });
 
     it('should not have a close icon', () => {
@@ -165,7 +165,7 @@ describe('ConfirmDialog', () => {
 		tick(300);
 		fixture.detectChanges();
 		
-		const confirmDialogEl = fixture.debugElement.query(By.css("div"));
+		const confirmDialogEl = fixture.debugElement.query(By.css(".iui-dialog"));
 		expect(confirmDialogEl).toBeFalsy();
 	}));
 

@@ -19,7 +19,14 @@ gulp.task('build-css', function() {
 gulp.task('build-css-prod', function() {
     gulp.src([
         'src/app/components/common/common.css',
-        'src/app/components/**/*.css'
+        'src/app/components/button/button.css',
+        'src/app/components/checkbox/checkbox.css',
+        'src/app/components/colorpicker/colorpicker-images.css',
+        'src/app/components/inputtext/inputtext.css',
+        'src/app/components/inputtextarea/inputtextarea.css',
+        'src/app/components/password/password.css',
+        'src/app/components/radiobutton/radiobutton.css',
+        'src/app/components/tooltip/tooltip.css'
     ])
     .pipe(concat('primeng.css'))
     .pipe(gulp.dest('dist/resources'))

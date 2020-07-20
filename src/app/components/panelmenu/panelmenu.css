@@ -1,63 +1,30 @@
-.ui-panelmenu {
-    width: auto;
-}
-
-.ui-panelmenu .ui-menu-separator {
-    border-width: 1px 0 0 0;
-}
-
-.ui-panelmenu .ui-panelmenu-content-wrapper {
-    overflow: hidden;
-}
-
-.ui-panelmenu .ui-panelmenu-header {
-    margin: -1px 0 0 0;
-    zoom: 1;
-}
-
-.ui-panelmenu .ui-panelmenu-header-link {
-    padding: .5em;
-    display: block;
+.p-panelmenu .p-panelmenu-header-link {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
     text-decoration: none;
 }
 
-.ui-panelmenu .ui-panelmenu-icon {
-    vertical-align: middle;
+.p-panelmenu .p-panelmenu-header-link:focus {
+    z-index: 1;
 }
 
-.ui-panelmenu .ui-menuitem-text {
-    vertical-align: middle;
-}
-
-.ui-panelmenu .ui-menuitem-icon {
-    margin-right: .25em;
-    vertical-align: middle;
-}
-
-.ui-panelmenu .ui-panelmenu-content {
-    padding: 0.25em;
-    border-top: 0;
-    margin-bottom: 1px;
-}
-
-.ui-panelmenu .ui-submenu-list {
+.p-panelmenu .p-submenu-list {
     margin: 0;
     padding: 0;
     list-style: none;
-    margin-left: 1.5em;
 }
 
-.ui-panelmenu .ui-panelmenu-content > .ui-panelmenu-root-submenu >.ui-submenu-list {
-    margin-left: 0;
-}
-
-.ui-panelmenu .ui-menuitem {
-    overflow: hidden;
-    margin: .125em 0;
-}
-
-.ui-panelmenu .ui-menuitem-link {
-    padding: .25em;
-    display: block;
+.p-panelmenu .p-menuitem-link {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
     text-decoration: none;
+}
+
+.p-panelmenu .p-menuitem-text {
+    line-height: 1;
 }

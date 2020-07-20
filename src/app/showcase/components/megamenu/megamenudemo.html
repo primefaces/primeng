@@ -14,7 +14,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -36,76 +36,127 @@ import &#123;MegaMenuModule&#125; from 'primeng/megamenu';
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-    export class MegaMenuDemo &#123;
+import &#123;MegaMenuItem,MenuItem&#125; from 'primeng/api';
 
-        items: MenuItem[];
+export class MegaMenuDemo &#123;
 
-        ngOnInit() &#123;
-            this.items = [
-                &#123;
-                    label: 'TV', icon: 'fa fa-fw fa-check',
-                    items: [
-                        [
-                            &#123;
-                                label: 'TV 1',
-                                items: [&#123;label: 'TV 1.1'&#125;,&#123;label: 'TV 1.2'&#125;]
-                            &#125;,
-                            &#123;
-                                label: 'TV 2',
-                                items: [&#123;label: 'TV 2.1'&#125;,&#123;label: 'TV 2.2'&#125;]
-                            &#125;
-                        ],
-                        [
-                            &#123;
-                                label: 'TV 3',
-                                items: [&#123;label: 'TV 3.1'&#125;,&#123;label: 'TV 3.2'&#125;]
-                            &#125;,
-                            &#123;
-                                label: 'TV 4',
-                                items: [&#123;label: 'TV 4.1'&#125;,&#123;label: 'TV 4.2'&#125;]
-                            &#125;    
-                        ]
+    items: MegaMenuItem[];
+
+    ngOnInit() &#123;
+        this.items = [
+            &#123;
+                label: 'Videos', icon: 'pi pi-fw pi-video',
+                items: [
+                    [
+                        &#123;
+                            label: 'Video 1',
+                            items: [&#123;label: 'Video 1.1'&#125;, &#123;label: 'Video 1.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Video 2',
+                            items: [&#123;label: 'Video 2.1'&#125;, &#123;label: 'Video 2.2'&#125;]
+                        &#125;
+                    ],
+                    [
+                        &#123;
+                            label: 'Video 3',
+                            items: [&#123;label: 'Video 3.1'&#125;, &#123;label: 'Video 3.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Video 4',
+                            items: [&#123;label: 'Video 4.1'&#125;, &#123;label: 'Video 4.2'&#125;]
+                        &#125;
                     ]
-                &#125;,
-                &#123;
-                    label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-                    items: [
-                        [
-                            &#123;
-                                label: 'Sports 1',
-                                items: [&#123;label: 'Sports 1.1'&#125;,&#123;label: 'Sports 1.2'&#125;]
-                            &#125;,
-                            &#123;
-                                label: 'Sports 2',
-                                items: [&#123;label: 'Sports 2.1'&#125;,&#123;label: 'Sports 2.2'&#125;]
-                            &#125;,
-
-                        ],
-                        [
-                            &#123;
-                                label: 'Sports 3',
-                                items: [&#123;label: 'Sports 3.1'&#125;,&#123;label: 'Sports 3.2'&#125;]
-                            &#125;,
-                            &#123;
-                                label: 'Sports 4',
-                                items: [&#123;label: 'Sports 4.1'&#125;,&#123;label: 'Sports 4.2'&#125;]
-                            &#125;
-                        ],
-                        [
-                            &#123;
-                                label: 'Sports 5',
-                                items: [&#123;label: 'Sports 5.1'&#125;,&#123;label: 'Sports 5.2'&#125;]
-                            &#125;,
-                            &#123;
-                                label: 'Sports 6',
-                                items: [&#123;label: 'Sports 6.1'&#125;,&#123;label: 'Sports 6.2'&#125;]
-                            &#125;
-                        ]
+                ]
+            &#125;,
+            &#123;
+                label: 'Users', icon: 'pi pi-fw pi-users',
+                items: [
+                    [
+                        &#123;
+                            label: 'User 1',
+                            items: [&#123;label: 'User 1.1'&#125;, &#123;label: 'User 1.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'User 2',
+                            items: [&#123;label: 'User 2.1'&#125;, &#123;label: 'User 2.2'&#125;]
+                        &#125;,
+                    ],
+                    [
+                        &#123;
+                            label: 'User 3',
+                            items: [&#123;label: 'User 3.1'&#125;, &#123;label: 'User 3.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'User 4',
+                            items: [&#123;label: 'User 4.1'&#125;, &#123;label: 'User 4.2'&#125;]
+                        &#125;
+                    ],
+                    [
+                        &#123;
+                            label: 'User 5',
+                            items: [&#123;label: 'User 5.1'&#125;, &#123;label: 'User 5.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'User 6',
+                            items: [&#123;label: 'User 6.1'&#125;, &#123;label: 'User 6.2'&#125;]
+                        &#125;
                     ]
-                &#125;
-            ];
-        &#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Events', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    [
+                        &#123;
+                            label: 'Event 1',
+                            items: [&#123;label: 'Event 1.1'&#125;, &#123;label: 'Event 1.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Event 2',
+                            items: [&#123;label: 'Event 2.1'&#125;, &#123;label: 'Event 2.2'&#125;]
+                        &#125;
+                    ],
+                    [
+                        &#123;
+                            label: 'Event 3',
+                            items: [&#123;label: 'Event 3.1'&#125;, &#123;label: 'Event 3.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Event 4',
+                            items: [&#123;label: 'Event 4.1'&#125;, &#123;label: 'Event 4.2'&#125;]
+                        &#125;
+                    ]
+                ]
+            &#125;,
+            &#123;
+                label: 'Settings', icon: 'pi pi-fw pi-cog',
+                items: [
+                    [
+                        &#123;
+                            label: 'Setting 1',
+                            items: [&#123;label: 'Setting 1.1'&#125;, &#123;label: 'Setting 1.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Setting 2',
+                            items: [&#123;label: 'Setting 2.1'&#125;, &#123;label: 'Setting 2.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Setting 3',
+                            items: [&#123;label: 'Setting 3.1'&#125;, &#123;label: 'Setting 3.2'&#125;]
+                        &#125;
+                    ],
+                    [
+                        &#123;
+                            label: 'Technology 4',
+                            items: [&#123;label: 'Setting 4.1'&#125;, &#123;label: 'Setting 4.2'&#125;]
+                        &#125;
+                    ]
+                ]
+            &#125;
+        ]
     &#125;
+&#125;
 </code>
 </pre>
 
@@ -116,7 +167,7 @@ import &#123;MegaMenuModule&#125; from 'primeng/megamenu';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-megaMenu [model]="items"&gt;
     &lt;input type="text" pInputText placeholder="Search"&gt;
-    &lt;button pButton label="Logout" icon="fa fa-sign-out"&gt;&lt;/button&gt;
+    &lt;button pButton label="Logout" icon="pi pi-sign-out"&gt;&lt;/button&gt;
 &lt;/p-megaMenu&gt;
 </code>
 </pre>
@@ -219,8 +270,10 @@ import &#123;MegaMenuModule&#125; from 'primeng/megamenu';
 
 <p-tabPanel header="Source">
     <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/megamenu" class="btn-viewsource" target="_blank">
-        <i class="fa fa-github"></i>
         <span>View on GitHub</span>
+    </a>
+    <a href="https://stackblitz.com/edit/primeng-megamenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+        <span>Edit in StackBlitz</span>
     </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -230,128 +283,134 @@ import &#123;MegaMenuModule&#125; from 'primeng/megamenu';
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import &#123;MegaMenuItem,MenuItem&#125; from 'primeng/api';
+
 export class MegaMenuDemo &#123;
 
-    items: MenuItem[];
+    items: MegaMenuItem[];
 
     ngOnInit() &#123;
         this.items = [
             &#123;
-                label: 'TV', icon: 'fa fa-fw fa-check',
+                label: 'Videos', icon: 'pi pi-fw pi-video',
                 items: [
                     [
                         &#123;
-                            label: 'TV 1',
-                            items: [&#123;label: 'TV 1.1'&#125;,&#123;label: 'TV 1.2'&#125;]
+                            label: 'Video 1',
+                            items: [&#123;label: 'Video 1.1'&#125;, &#123;label: 'Video 1.2'&#125;]
                         &#125;,
                         &#123;
-                            label: 'TV 2',
-                            items: [&#123;label: 'TV 2.1'&#125;,&#123;label: 'TV 2.2'&#125;]
+                            label: 'Video 2',
+                            items: [&#123;label: 'Video 2.1'&#125;, &#123;label: 'Video 2.2'&#125;]
                         &#125;
                     ],
                     [
                         &#123;
-                            label: 'TV 3',
-                            items: [&#123;label: 'TV 3.1'&#125;,&#123;label: 'TV 3.2'&#125;]
+                            label: 'Video 3',
+                            items: [&#123;label: 'Video 3.1'&#125;, &#123;label: 'Video 3.2'&#125;]
                         &#125;,
                         &#123;
-                            label: 'TV 4',
-                            items: [&#123;label: 'TV 4.1'&#125;,&#123;label: 'TV 4.2'&#125;]
-                        &#125;    
-                    ]
-                ]
-            &#125;,
-            &#123;
-                label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-                items: [
-                    [
-                        &#123;
-                            label: 'Sports 1',
-                            items: [&#123;label: 'Sports 1.1'&#125;,&#123;label: 'Sports 1.2'&#125;]
-                        &#125;,
-                        &#123;
-                            label: 'Sports 2',
-                            items: [&#123;label: 'Sports 2.1'&#125;,&#123;label: 'Sports 2.2'&#125;]
-                        &#125;,
-
-                    ],
-                    [
-                        &#123;
-                            label: 'Sports 3',
-                            items: [&#123;label: 'Sports 3.1'&#125;,&#123;label: 'Sports 3.2'&#125;]
-                        &#125;,
-                        &#123;
-                            label: 'Sports 4',
-                            items: [&#123;label: 'Sports 4.1'&#125;,&#123;label: 'Sports 4.2'&#125;]
-                        &#125;
-                    ],
-                    [
-                        &#123;
-                            label: 'Sports 5',
-                            items: [&#123;label: 'Sports 5.1'&#125;,&#123;label: 'Sports 5.2'&#125;]
-                        &#125;,
-                        &#123;
-                            label: 'Sports 6',
-                            items: [&#123;label: 'Sports 6.1'&#125;,&#123;label: 'Sports 6.2'&#125;]
+                            label: 'Video 4',
+                            items: [&#123;label: 'Video 4.1'&#125;, &#123;label: 'Video 4.2'&#125;]
                         &#125;
                     ]
                 ]
             &#125;,
             &#123;
-                label: 'Entertainment', icon: 'fa fa-fw fa-child',
+                label: 'Users', icon: 'pi pi-fw pi-users',
                 items: [
                     [
                         &#123;
-                            label: 'Entertainment 1',
-                            items: [&#123;label: 'Entertainment 1.1'&#125;,&#123;label: 'Entertainment 1.2'&#125;]
+                            label: 'User 1',
+                            items: [&#123;label: 'User 1.1'&#125;, &#123;label: 'User 1.2'&#125;]
                         &#125;,
                         &#123;
-                            label: 'Entertainment 2',
-                            items: [&#123;label: 'Entertainment 2.1'&#125;,&#123;label: 'Entertainment 2.2'&#125;]
+                            label: 'User 2',
+                            items: [&#123;label: 'User 2.1'&#125;, &#123;label: 'User 2.2'&#125;]
+                        &#125;,
+                    ],
+                    [
+                        &#123;
+                            label: 'User 3',
+                            items: [&#123;label: 'User 3.1'&#125;, &#123;label: 'User 3.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'User 4',
+                            items: [&#123;label: 'User 4.1'&#125;, &#123;label: 'User 4.2'&#125;]
                         &#125;
                     ],
                     [
                         &#123;
-                            label: 'Entertainment 3',
-                            items: [&#123;label: 'Entertainment 3.1'&#125;,&#123;label: 'Entertainment 3.2'&#125;]
+                            label: 'User 5',
+                            items: [&#123;label: 'User 5.1'&#125;, &#123;label: 'User 5.2'&#125;]
                         &#125;,
                         &#123;
-                            label: 'Entertainment 4',
-                            items: [&#123;label: 'Entertainment 4.1'&#125;,&#123;label: 'Entertainment 4.2'&#125;]
-                        &#125;    
+                            label: 'User 6',
+                            items: [&#123;label: 'User 6.1'&#125;, &#123;label: 'User 6.2'&#125;]
+                        &#125;
                     ]
                 ]
             &#125;,
             &#123;
-                label: 'Technology', icon: 'fa fa-fw fa-gears',
+                label: 'Events', icon: 'pi pi-fw pi-calendar',
                 items: [
                     [
                         &#123;
-                            label: 'Technology 1',
-                            items: [&#123;label: 'Technology 1.1'&#125;,&#123;label: 'Technology 1.2'&#125;]
+                            label: 'Event 1',
+                            items: [&#123;label: 'Event 1.1'&#125;, &#123;label: 'Event 1.2'&#125;]
                         &#125;,
                         &#123;
-                            label: 'Technology 2',
-                            items: [&#123;label: 'Technology 2.1'&#125;,&#123;label: 'Technology 2.2'&#125;]
+                            label: 'Event 2',
+                            items: [&#123;label: 'Event 2.1'&#125;, &#123;label: 'Event 2.2'&#125;]
+                        &#125;
+                    ],
+                    [
+                        &#123;
+                            label: 'Event 3',
+                            items: [&#123;label: 'Event 3.1'&#125;, &#123;label: 'Event 3.2'&#125;]
                         &#125;,
                         &#123;
-                            label: 'Technology 3',
-                            items: [&#123;label: 'Technology 3.1'&#125;,&#123;label: 'Technology 3.2'&#125;]
+                            label: 'Event 4',
+                            items: [&#123;label: 'Event 4.1'&#125;, &#123;label: 'Event 4.2'&#125;]
+                        &#125;
+                    ]
+                ]
+            &#125;,
+            &#123;
+                label: 'Settings', icon: 'pi pi-fw pi-cog',
+                items: [
+                    [
+                        &#123;
+                            label: 'Setting 1',
+                            items: [&#123;label: 'Setting 1.1'&#125;, &#123;label: 'Setting 1.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Setting 2',
+                            items: [&#123;label: 'Setting 2.1'&#125;, &#123;label: 'Setting 2.2'&#125;]
+                        &#125;,
+                        &#123;
+                            label: 'Setting 3',
+                            items: [&#123;label: 'Setting 3.1'&#125;, &#123;label: 'Setting 3.2'&#125;]
                         &#125;
                     ],
                     [
                         &#123;
                             label: 'Technology 4',
-                            items: [&#123;label: 'Technology 4.1'&#125;,&#123;label: 'Technology 4.2'&#125;]
-                        &#125;  
+                            items: [&#123;label: 'Setting 4.1'&#125;, &#123;label: 'Setting 4.2'&#125;]
+                        &#125;
                     ]
                 ]
             &#125;
-        ];
+        ]
     &#125;
 &#125;
 </code>
 </pre>
+</p-tabPanel>
+<p-tabPanel header="StackBlitz">
+    <ng-template pTemplate="content">
+        <iframe src="https://stackblitz.com/edit/primeng-megamenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+    </ng-template>
 </p-tabPanel>
 </p-tabView>
 </div>

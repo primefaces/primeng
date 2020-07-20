@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<div class="content-section documentation">
+<div class="content-section documentation implementation">
     <h3 class="first">MenuItem</h3>
     <p>Core of the api is MenuItem class that defines various options such as the label, icon and children of an item in a menu. Example below
     is a sample configuration with Menu component.</p>
@@ -20,6 +20,7 @@
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;MenuModule&#125; from 'primeng/menu';
 import &#123;MenuItem&#125; from 'primeng/api';
+import &#123;MegaMenuItem&#125; from 'primeng/api';  //required when using MegaMenu
 </code>
 </pre>
 
@@ -33,21 +34,25 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa fa-plus'&#125;,
-                &#123;label: 'Open', icon: 'fa fa-download'&#125;
+                &#123;label: 'New', icon: 'pi pi-plus'&#125;,
+                &#123;label: 'Open', icon: 'pi pi-download'&#125;
             ]
         &#125;,
         &#123;
             label: 'Edit',
             items: [
-                &#123;label: 'Undo', icon: 'fa fa-refresh'&#125;,
-                &#123;label: 'Redo', icon: 'fa fa-repeat'&#125;
+                &#123;label: 'Undo', icon: 'pi pi-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'pi pi-repeat'&#125;
             ]
         &#125;];
     &#125;
 &#125;
 </code>
 </pre>
+
+    <h3>MegaMenu</h3>
+    <p>All menu components except MegaMenu uses MenuItem[] as the model, in the case of MegaMenu root level items should be MegaMenuItem[] whereas
+        nested submenus can be MenuItem[]. See the <a [routerLink]="['/menumodel']">MegaMenu</a> documentation for samples.</p>
 
     <p>MenuItem provides the following properties. Note that not all of them may be utilized by the menu component.</p>
     <div class="doc-tablewrapper">
@@ -108,6 +113,45 @@ export class MenuDemo &#123;
                     <td>object</td>
                     <td>null</td>
                     <td>Query parameters for internal navigation via routerLink.</td>
+                </tr>
+                <tr>
+                    <td>fragment</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>Sets the hash fragment for the URL.</td>
+                </tr>
+                <tr>
+                    <td>queryParamsHandling</td>
+                    <td>QueryParamsHandling</td>
+                    <td>null</td>
+                    <td>How to handle query parameters in the router link for the next navigation. One of:<br /><br />
+
+                        merge : Merge new with current parameters.<br />
+                        preserve : Preserve current parameters.k.</td>
+                </tr>
+                <tr>
+                    <td>preserveFragment</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>When true, preserves the URL fragment for the next navigation.</td>
+                </tr>
+                <tr>
+                    <td>skipLocationChange</td>
+                    <td>boolean</td>
+                    <td>null</td>
+                    <td>When true, navigates without pushing a new state into history.</td>
+                </tr>
+                <tr>
+                    <td>replaceUrl</td>
+                    <td>boolean</td>
+                    <td>null</td>
+                    <td>When true, navigates while replacing the current state in history.</td>
+                </tr>
+                <tr>
+                    <td>state</td>
+                    <td>object</td>
+                    <td>null</td>
+                    <td>Developer-defined state that can be passed to any navigation.</td>
                 </tr>
                 <tr>
                     <td>items</td>
@@ -192,7 +236,7 @@ export class MenuDemo &#123;
     </div>
 
     <h4>Command</h4>
-    <p>The function to invoke when an item is clicked is defined using the command property.</p>
+    <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
@@ -203,7 +247,7 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa fa-plus', command: (event) => &#123;
+                &#123;label: 'New', icon: 'pi pi-plus', command: (event) => &#123;
                     //event.originalEvent: Browser event
                     //event.item: menuitem metadata
                 }}
@@ -215,8 +259,8 @@ export class MenuDemo &#123;
 </pre>
 
     <h4>Navigation</h4>
-    <p>Navigation is specified using url property for external links and with routerLink for internal ones. If a menuitem has an active route, <i>ui-state-active</i> style class is added as an indicator. Active route link can be
-    configured with routerLinkActiveOptions property of MenuItem API.</p>
+    <p>Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem has an active route, <i>ui-state-active</i> style class is added as an indicator. Active route link can be
+    configured with <i>routerLinkActiveOptions</i> property of MenuItem API.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
@@ -227,9 +271,9 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa fa-plus', url: 'http://www.primefaces.org/primeng'&#125;,
-                &#123;label: 'Open', icon: 'fa fa-download', routerLink: ['/pagename']&#125;
-                &#123;label: 'Recent Files', icon: 'fa fa-download', routerLink: ['/pagename'], queryParams: &#123;'recent': 'true'&#125;&#125;
+                &#123;label: 'New', icon: 'pi pi-plus', url: 'http://www.primefaces.org/primeng'&#125;,
+                &#123;label: 'Open', icon: 'pi pi-download', routerLink: ['/pagename']&#125;
+                &#123;label: 'Recent Files', icon: 'pi pi-download', routerLink: ['/pagename'], queryParams: &#123;'recent': 'true'&#125;&#125;
             ]
         &#125;
     &#125;

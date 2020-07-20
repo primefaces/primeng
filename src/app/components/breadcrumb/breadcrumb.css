@@ -1,33 +1,16 @@
-/** Breadcrumb **/
-.ui-breadcrumb {
+.p-breadcrumb ul {
     margin: 0;
     padding: 0;
-    padding: .5em;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.ui-breadcrumb ul {
-    margin: 0;
-    padding: 0;
+.p-breadcrumb .p-menuitem-text {
+    line-height: 1;
 }
 
-.ui-breadcrumb ul li {
-    display: inline-block;
-    margin: 0 .25em;
-}
-
-.ui-breadcrumb-chevron, .ui-breadcrumb-home {
-    vertical-align: middle;
-}
-
-.ui-breadcrumb ul li .ui-menuitem-link {
+.p-breadcrumb .p-menuitem-link {
     text-decoration: none;
-}
-
-.ui-breadcrumb .ui-menuitem-icon {
-    margin-right: .25em;
-    vertical-align: middle;
-}
-
-.ui-breadcrumb .ui-menuitem-text {
-    vertical-align: middle;
 }

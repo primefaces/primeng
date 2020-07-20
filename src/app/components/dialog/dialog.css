@@ -1,109 +1,186 @@
-.ui-dialog {
+.p-dialog-mask {
     position: fixed;
-    padding: 0;
-}
-
-.ui-dynamicdialog {
-    top: 50%;
-    left: 50%;
-}
-
-.ui-dialog .ui-dialog-titlebar {
-	padding: .5em .75em;
-    position: relative;
-    border: 0;
-}
-
-.ui-dialog .ui-dialog-content {
-    position: relative;
-    border: 0;
-    padding: .5em .75em;
-    background: none;
-    zoom: 1;
-}
-
-.ui-dialog-resizable .ui-dialog-content {
-    overflow: auto;
-}
-
-.ui-dialog .ui-resizable-se {
-    width: 14px;
-    height: 14px;
-    right: 3px;
-    bottom: 3px;
-}
-.ui-draggable .ui-dialog-titlebar {
-    cursor: move;
-}
-
-.ui-dialog .ui-dialog-titlebar-icon {
-    text-decoration: none;
-    float: right;
-    float: right;
-    padding: .125em;
-    cursor: pointer;
-    border: 1px solid transparent;
-}
-
-.ui-dialog .ui-dialog-titlebar-icon span {
-    display: block;
-    margin: 0;
-}
-
-.ui-dialog-footer {
-    padding: 1em;
-    border-width: 1px 0 0 0;
-    text-align: right;
-}
-
-.ui-dialog-mask {
-    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    background-color: transparent;
+    transition-property: background-color;
 }
 
-.ui-dialog-maximized {
-    -webkit-transition: left .3s, top .3s, width .3s,height .3s;
-    transition: left .3s, top .3s, width .3s,height .3s;
+.p-dialog-mask.p-component-overlay {
+    pointer-events: auto;
 }
 
-/* ConfirmDialog */
-.ui-confirmdialog {
-    width: 30em;
-    top: 50%;
-    left: 50%;
-}
-
-.ui-confirmdialog.ui-dialog .ui-dialog-content {
-    padding: 1em 2em;
-}
-.ui-confirmdialog .ui-dialog-content .ui-confirmdialog-icon {
-    font-size: 1.5em;
-    margin-right: .5em;
+.p-dialog {
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    max-height: 90%;
+    transform: scale(1);
     position: relative;
-    top: .2em;
 }
 
-.ui-dialog-footer .ui-button {
-    margin-right: .25em;
+.p-dialog-content {
+    overflow-y: auto;
+}
+
+.p-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p-dialog-title {
+    list-style: 1;
+}
+
+.p-dialog .p-dialog-header-icons {
+    display: flex;
+    align-items: center;
+}
+
+.p-dialog .p-dialog-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
 }
 
 /* Fluid */
-.ui-fluid .ui-dialog-footer .ui-button {
+.p-fluid .p-dialog-footer .p-button {
     width: auto;
 }
 
-/* RTL */
-.ui-rtl .ui-dialog .ui-dialog-titlebar-close  {
-    float: left;
+/* Animation */
+/* Center */
+.p-dialog-enter-active {
+    transition: all 150ms cubic-bezier(0, 0, 0.2, 1);
+}
+.p-dialog-leave-active {
+    transition: all 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+.p-dialog-enter,
+.p-dialog-leave-to {
+    opacity: 0;
+    transform: scale(0.7);
 }
 
-.ui-rtl .ui-dialog .ui-dialog-buttonpane button {
-    text-align: right;
+.p-dialog-mask.p-dialog-mask-leave {
+    background-color: transparent;
 }
 
-@media screen and (max-width: 40em) {
-    .ui-confirmdialog {
-        width: 90%;
-    }
+/* Top, Bottom, Left, Right, Top* and Bottom* */
+.p-dialog-top .p-dialog,
+.p-dialog-bottom .p-dialog,
+.p-dialog-left .p-dialog,
+.p-dialog-right .p-dialog,
+.p-dialog-topleft .p-dialog,
+.p-dialog-topright .p-dialog,
+.p-dialog-bottomleft .p-dialog,
+.p-dialog-bottomright .p-dialog {
+    margin: .75rem;
+    transform: translate3d(0px, 0px, 0px);
+}
+.p-dialog-top .p-dialog-enter-active,
+.p-dialog-top .p-dialog-leave-active,
+.p-dialog-bottom .p-dialog-enter-active,
+.p-dialog-bottom .p-dialog-leave-active,
+.p-dialog-left .p-dialog-enter-active,
+.p-dialog-left .p-dialog-leave-active,
+.p-dialog-right .p-dialog-enter-active,
+.p-dialog-right .p-dialog-leave-active,
+.p-dialog-topleft .p-dialog-enter-active,
+.p-dialog-topleft .p-dialog-leave-active,
+.p-dialog-topright .p-dialog-enter-active,
+.p-dialog-topright .p-dialog-leave-active,
+.p-dialog-bottomleft .p-dialog-enter-active,
+.p-dialog-bottomleft .p-dialog-leave-active,
+.p-dialog-bottomright .p-dialog-enter-active,
+.p-dialog-bottomright .p-dialog-leave-active {
+    transition: all .3s ease-out;
+}
+.p-dialog-top .p-dialog-enter,
+.p-dialog-top .p-dialog-leave-to {
+    transform: translate3d(0px, -100%, 0px);
+}
+.p-dialog-bottom .p-dialog-enter,
+.p-dialog-bottom .p-dialog-leave-to {
+    transform: translate3d(0px, 100%, 0px);
+}
+.p-dialog-left .p-dialog-enter,
+.p-dialog-left .p-dialog-leave-to,
+.p-dialog-topleft .p-dialog-enter,
+.p-dialog-topleft .p-dialog-leave-to,
+.p-dialog-bottomleft .p-dialog-enter,
+.p-dialog-bottomleft .p-dialog-leave-to {
+    transform: translate3d(-100%, 0px, 0px);
+}
+.p-dialog-right .p-dialog-enter,
+.p-dialog-right .p-dialog-leave-to,
+.p-dialog-topright .p-dialog-enter,
+.p-dialog-topright .p-dialog-leave-to,
+.p-dialog-bottomright .p-dialog-enter,
+.p-dialog-bottomright .p-dialog-leave-to {
+    transform: translate3d(100%, 0px, 0px);
+}
+
+/* Maximize */
+.p-dialog-maximized {
+    -webkit-transition: none;
+    transition: none;
+    transform: none;
+    width: 100vw !important;
+    max-height: 100%;
+    height: 100%;
+}
+.p-dialog-maximized .p-dialog-content {
+    flex-grow: 1;
+}
+
+/* Position */
+.p-dialog-left {
+    justify-content: flex-start;
+}
+.p-dialog-right {
+    justify-content: flex-end;
+}
+.p-dialog-top {
+    align-items: flex-start;
+}
+.p-dialog-topleft {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.p-dialog-topright {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.p-dialog-bottom {
+    align-items: flex-end;
+}
+.p-dialog-bottomleft {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.p-dialog-bottomright {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+/* Resizable */
+.p-dialog .p-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+    cursor: se-resize;
+    width: 12px;
+    height: 12px;
+    right: 1px;
+    bottom: 1px;
 }

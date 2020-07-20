@@ -1,11 +1,9 @@
-.ui-progressbar { 
-    height: 1.2em; 
-    text-align: left; 
+.p-progressbar {
     position: relative;
     overflow: hidden;
 }
 
-.ui-progressbar-determinate .ui-progressbar-value {
+.p-progressbar-determinate .p-progressbar-value {
     height: 100%;
     width: 0%;
     position: absolute;
@@ -13,31 +11,19 @@
     border: 0 none;
 }
 
-.ui-progressbar-determinate .ui-progressbar-value-animate {
-    -webkit-transition: width 1s ease-in-out;
-    -moz-transition: width 1s ease-in-out;
-    -o-transition: width 1s ease-in-out;
+.p-progressbar-determinate .p-progressbar-value-animate {
     transition: width 1s ease-in-out;
 }
 
-.ui-progressbar-determinate .ui-progressbar-label {
+.p-progressbar-determinate .p-progressbar-label {
     text-align: center;
     height: 100%;
     width: 100%;
     position: absolute;
-    display: none;
     font-weight: bold;
 }
 
-.ui-progressbar-indeterminate {
-    height: .5em;
-}
-
-.ui-progressbar-indeterminate .ui-progressbar-value {
-    border: 0 none;
-}
-
-.ui-progressbar-indeterminate .ui-progressbar-value::before {
+.p-progressbar-indeterminate .p-progressbar-value::before {
       content: '';
       position: absolute;
       background-color: inherit;
@@ -45,11 +31,11 @@
       left: 0;
       bottom: 0;
       will-change: left, right;
-      -webkit-animation: ui-progressbar-indeterminate-anim 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-              animation: ui-progressbar-indeterminate-anim 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+      -webkit-animation: p-progressbar-indeterminate-anim 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+              animation: p-progressbar-indeterminate-anim 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
 
-.ui-progressbar-indeterminate .ui-progressbar-value::after {
+.p-progressbar-indeterminate .p-progressbar-value::after {
     content: '';
     position: absolute;
     background-color: inherit;
@@ -57,13 +43,13 @@
     left: 0;
     bottom: 0;
     will-change: left, right;
-    -webkit-animation: ui-progressbar-indeterminate-anim-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-            animation: ui-progressbar-indeterminate-anim-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+    -webkit-animation: p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+            animation: p-progressbar-indeterminate-anim-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
     -webkit-animation-delay: 1.15s;
             animation-delay: 1.15s;
 }
-    
-@-webkit-keyframes ui-progressbar-indeterminate-anim {
+
+@-webkit-keyframes p-progressbar-indeterminate-anim {
   0% {
     left: -35%;
     right: 100%; }
@@ -72,9 +58,9 @@
     right: -90%; }
   100% {
     left: 100%;
-    right: -90%; } 
+    right: -90%; }
 }
-@keyframes ui-progressbar-indeterminate-anim {
+@keyframes p-progressbar-indeterminate-anim {
   0% {
     left: -35%;
     right: 100%; }
@@ -83,10 +69,10 @@
     right: -90%; }
   100% {
     left: 100%;
-    right: -90%; } 
+    right: -90%; }
 }
 
-@-webkit-keyframes ui-progressbar-indeterminate-anim-short {
+@-webkit-keyframes p-progressbar-indeterminate-anim-short {
   0% {
     left: -200%;
     right: 100%; }
@@ -95,9 +81,9 @@
     right: -8%; }
   100% {
     left: 107%;
-    right: -8%; } 
+    right: -8%; }
 }
-@keyframes ui-progressbar-indeterminate-anim-short {
+@keyframes p-progressbar-indeterminate-anim-short {
   0% {
     left: -200%;
     right: 100%; }
@@ -106,5 +92,5 @@
     right: -8%; }
   100% {
     left: 107%;
-    right: -8%; } 
+    right: -8%; }
 }

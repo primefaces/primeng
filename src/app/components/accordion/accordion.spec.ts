@@ -104,11 +104,11 @@ describe('Accordion', () => {
       fixture.detectChanges();
 
       const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.ui-accordion-toggle-icon')).nativeElement;
-      expect(firstAccordionTabOpenEl.className).toContain('pi pi-caret-up pi-fw');
+      expect(firstAccordionTabOpenEl.className).toContain('pi-caret-up');
       firstAccordionTab.selected = true;
       fixture.detectChanges();
 
-      expect(firstAccordionTabOpenEl.className).toContain('pi pi-caret-left pi-fw');
+      expect(firstAccordionTabOpenEl.className).toContain('pi-caret-left');
     });
 
     it('should get styleClass', () => {

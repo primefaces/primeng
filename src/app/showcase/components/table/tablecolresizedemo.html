@@ -1,8 +1,6 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Table - <span class="subitem">Column Resize</span></span>
+        <span class="feature-title">Table <span class="subitem">Column Resize</span></span>
         <span>Columns can be resized using drag drop by setting the resizableColumns to true. There are two resize modes; "fit" and "expand". Fit is the default one and 
             the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width.</span>
     </div>
@@ -93,11 +91,13 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="tablecolresizedemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecolresizedemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablecolresize-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -129,8 +129,10 @@ export class TableColResizeDemo implements OnInit &#123;
 
         <p-tabPanel header="tablecolresizedemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecolresizedemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablecolresize-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -216,6 +218,11 @@ export class TableColResizeDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablecolresize-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

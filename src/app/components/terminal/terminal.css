@@ -1,25 +1,22 @@
-.ui-terminal {
-    height: 18em;
+.p-terminal {
+    height: 18rem;
     overflow: auto;
-    padding: .25em;
 }
 
-.ui-terminal-input {
+.p-terminal-prompt-container {
+    display: flex;
+    align-items: center;
+}
+
+.p-terminal-input {
+    flex: 1 1 auto;
     border: 0 none;
     background-color: transparent;
     color: inherit;
     padding: 0;
-    margin: 0 0 0 .125em;
-    width: 75%;
-    outline: none;
-    vertical-align: baseline;
+    outline: 0 none;
 }
 
-.ui-terminal-command {
-    margin-left: .125em;
-    -moz-margin-start: .125em;
-}
-
-.ui-terminal-input::-ms-clear {
+.p-terminal-input::-ms-clear {
     display: none;
 }

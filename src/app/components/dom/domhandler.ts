@@ -82,7 +82,7 @@ export class DomHandler {
     }
     
     public static indexWithinGroup(element: any, attributeName: string): number {
-        let children = element.parentNode.childNodes;
+        let children = element.parentNode ? element.parentNode.childNodes : [];
         let num = 0;
         for (var i = 0; i < children.length; i++) {
             if (children[i] == element) return num;
@@ -139,7 +139,7 @@ export class DomHandler {
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
-            if(top < 0) {
+            if (top < 0) {
                 top = windowScrollTop;
             }
         } 
@@ -358,7 +358,7 @@ export class DomHandler {
 
     public static replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
-        if(!parentNode) 
+        if (!parentNode) 
             throw `Can't replace element`;
         return parentNode.replaceChild(replacementElement, element);
     }
@@ -402,18 +402,18 @@ export class DomHandler {
     }
      
     public static appendChild(element: any, target: any) {
-        if(this.isElement(target))
+        if (this.isElement(target))
             target.appendChild(element);
-        else if(target.el && target.el.nativeElement)
+        else if (target.el && target.el.nativeElement)
             target.el.nativeElement.appendChild(element);
         else
             throw 'Cannot append ' + target + ' to ' + element;
     }
     
     public static removeChild(element: any, target: any) {
-        if(this.isElement(target))
+        if (this.isElement(target))
             target.removeChild(element);
-        else if(target.el && target.el.nativeElement)
+        else if (target.el && target.el.nativeElement)
             target.el.nativeElement.removeChild(element);
         else
             throw 'Cannot remove ' + element + ' from ' + target;
@@ -431,7 +431,7 @@ export class DomHandler {
             return (el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth));
         }
         else {
-            if(this.calculatedScrollbarWidth !== null)
+            if (this.calculatedScrollbarWidth !== null)
                 return this.calculatedScrollbarWidth;
             
             let scrollDiv = document.createElement("div");
@@ -448,7 +448,7 @@ export class DomHandler {
     }
 
     public static calculateScrollbarHeight(): number {
-        if(this.calculatedScrollbarHeight !== null)
+        if (this.calculatedScrollbarHeight !== null)
             return this.calculatedScrollbarHeight;
         
         let scrollDiv = document.createElement("div");
@@ -468,14 +468,14 @@ export class DomHandler {
     }
     
     public static clearSelection(): void {
-        if(window.getSelection) {
-            if(window.getSelection().empty) {
+        if (window.getSelection) {
+            if (window.getSelection().empty) {
                 window.getSelection().empty();
-            } else if(window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
+            } else if (window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
                 window.getSelection().removeAllRanges();
             }
         }
-        else if(document['selection'] && document['selection'].empty) {
+        else if (document['selection'] && document['selection'].empty) {
             try {
                 document['selection'].empty();
             } catch(error) {
@@ -485,7 +485,7 @@ export class DomHandler {
     }
 
     public static getBrowser() {
-        if(!this.browser) {
+        if (!this.browser) {
             let matched = this.resolveUserAgent();
             this.browser = {};
 
@@ -520,7 +520,7 @@ export class DomHandler {
     }
 
     public static isInteger(value): boolean {
-        if(Number.isInteger) {
+        if (Number.isInteger) {
             return Number.isInteger(value);
         }
         else {
@@ -542,7 +542,7 @@ export class DomHandler {
 
             let visibleFocusableElements = [];
             for(let focusableElement of focusableElements) {
-                if(getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
+                if (getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
                     visibleFocusableElements.push(focusableElement);
             }
         return visibleFocusableElements;

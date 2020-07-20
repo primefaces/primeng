@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild,Output,EventEmitter,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
@@ -15,18 +15,19 @@ import {RouterModule} from '@angular/router';
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}">
                 <li *ngIf="!child.separator" #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menuitem-active':listitem==activeItem,'ui-helper-hidden': child.visible === false}"
                     [class]="child.styleClass" [ngStyle]="child.style">
-                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                        [ngClass]="{'ui-state-disabled':child.disabled}" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" 
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
+                        [ngClass]="{'ui-state-disabled':child.disabled}" [attr.tabindex]="child.disabled ? null : '0'" 
                         (click)="itemClick($event, child, listitem)">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" 
-                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                        [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'" 
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-menuitem-link-active'" 
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url" class="ui-menuitem-link ui-corner-all" 
+                        [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" 
                         [ngClass]="{'ui-state-disabled':child.disabled}" 
-                        (click)="itemClick($event, child, listitem)">
+                        (click)="itemClick($event, child, listitem)"
+                        [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
                         <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                         <span class="ui-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
@@ -35,7 +36,8 @@ import {RouterModule} from '@angular/router';
                 </li>
             </ng-template>
         </ul>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class SlideMenuSub implements OnDestroy {
 
@@ -125,7 +127,10 @@ export class SlideMenuSub implements OnDestroy {
             transition('void => visible', animate('{{showTransitionParams}}')),
             transition('visible => void', animate('{{hideTransitionParams}}'))
         ])
-    ]
+    ],
+   changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./slidemenu.css']
 })
 export class SlideMenu implements AfterViewChecked, OnDestroy {
 
@@ -157,6 +162,10 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     @Input() hideTransitionOptions: string = '195ms ease-in';
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
     containerViewChild: ElementRef;
     
     backwardViewChild: ElementRef;
@@ -179,7 +188,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     viewportUpdated: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngAfterViewChecked() {
         if (!this.viewportUpdated && !this.popup && this.containerViewChild) {
@@ -188,15 +197,15 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
-    @ViewChild('container', { static: false }) set container(element: ElementRef) {
+    @ViewChild('container') set container(element: ElementRef) {
         this.containerViewChild = element;
     }
 
-    @ViewChild('backward', { static: false }) set backward(element: ElementRef) {
+    @ViewChild('backward') set backward(element: ElementRef) {
         this.backwardViewChild = element;
     }
 
-    @ViewChild('slideMenuContent', { static: false }) set slideMenuContent(element: ElementRef) {
+    @ViewChild('slideMenuContent') set slideMenuContent(element: ElementRef) {
         this.slideMenuContentViewChild = element;
     }
 
@@ -217,6 +226,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         this.target = event.currentTarget;
         this.visible = true;
         this.preventDocumentDefault = true;
+        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -225,6 +235,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
                 if (this.popup) {
                     this.updateViewPort();
                     this.moveOnTop();
+                    this.onShow.emit({});
                     this.appendOverlay();
                     DomHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
                     this.bindDocumentClickListener();
@@ -234,6 +245,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
             case 'void':
                 this.onOverlayHide();
+                this.onHide.emit({});
             break;
         }
     }
@@ -261,6 +273,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     hide() {
         this.visible = false;
+        this.cd.markForCheck();
     }
 
     onWindowResize() {
@@ -280,6 +293,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if (!this.preventDocumentDefault) {
                     this.hide();
+                    this.cd.detectChanges();
                 }
 
                 this.preventDocumentDefault = false;

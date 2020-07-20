@@ -3,9 +3,9 @@ import {Component} from '@angular/core';
 @Component({
     templateUrl: './inputmaskdemo.html',
     styles: [`
-        .ui-g-12 > span {
+        .p-col-12 > span {
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: .5em;
         }
     `]
 })

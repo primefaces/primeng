@@ -1,30 +1,43 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,AfterContentInit,Optional,ElementRef,ChangeDetectionStrategy,ContentChildren,QueryList,TemplateRef, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Message} from 'primeng/api';
-import {MessageService} from 'primeng/api';
+import {Message,PrimeTemplate,MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'p-messages',
     template: `
-        <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all"
-                    [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
-                    'ui-messages-warn':(value[0].severity === 'warn'),
-                    'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}"
-                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
-            <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
-                <i class="pi pi-times"></i>
-            </a>
-            <span class="ui-messages-icon pi" [ngClass]="icon"></span>
-            <ul>
-                <li *ngFor="let msg of value">
-                    <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
-                    <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
-                </li>
-            </ul>
-        </div>
+        <div *ngIf="hasMessages()" class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass"
+                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+            <ng-container *ngIf="!contentTemplate; else staticMessage">
+                <div *ngFor="let msg of value" [ngClass]="'p-message p-message-' + msg.severity" role="alert">
+                    <div class="p-message-wrapper">
+                        <span class="p-message-icon pi" [ngClass]="{'pi-info-circle': msg.severity === 'info', 
+                            'pi-check': msg.severity === 'success',
+                            'pi-exclamation-triangle': msg.severity === 'warn',
+                            'pi-times-circle': msg.severity === 'error'}"></span>
+                        <ng-container *ngIf="!escape; else escapeOut">
+                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary"></span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail"></span>
+                        </ng-container>
+                        <ng-template #escapeOut>
+                            <span *ngIf="msg.summary" class="p-message-summary">{{msg.summary}}</span>
+                            <span *ngIf="msg.detail" class="p-message-detail">{{msg.detail}}</span>
+                        </ng-template>
+                        <button class="p-message-close p-link" (click)="clear($event)" *ngIf="closable" type="button">
+                            <i class="p-message-close-icon pi pi-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #staticMessage>
+                <div [ngClass]="'p-message p-message-' + severity" role="alert">
+                    <div class="p-message-wrapper">
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </div>
+                </div>
+            </ng-template>
+            </div>
     `,
     animations: [
         trigger('messageAnimation', [
@@ -43,45 +56,70 @@ import {Subscription} from 'rxjs';
                 }))
             ])
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./messages.css']
 })
-export class Messages implements OnInit, OnDestroy {
+export class Messages implements AfterContentInit, OnDestroy {
 
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() enableService: boolean = true;
 
     @Input() key: string;
 
+    @Input() escape: boolean = true;
+
+    @Input() severity: string;
+
     @Input() showTransitionOptions: string = '300ms ease-out';
 
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     messageSubscription: Subscription;
 
     clearSubscription: Subscription;
 
-    constructor(@Optional() public messageService: MessageService) {}
+    contentTemplate: TemplateRef<any>;
 
-    ngOnInit() {
-        if(this.messageService && this.enableService) {
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+
+        if (this.messageService && this.enableService && !this.contentTemplate) {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
-                if(messages) {
-                    if(messages instanceof Array) {
+                if (messages) {
+                    if (messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
                         this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
                     }
                     else if (this.key === messages.key) {
                         this.value = this.value ? [...this.value, ...[messages]] : [messages];
                     }
+
+                    this.cd.markForCheck();
                 }
             });
 
@@ -94,16 +132,36 @@ export class Messages implements OnInit, OnDestroy {
                 else {
                     this.value = null;
                 }
+
+                this.cd.markForCheck();
             });
         }
     }
 
     hasMessages() {
-        return this.value && this.value.length > 0;
+        let parentEl = this.el.nativeElement.parentElement;
+        if (parentEl && parentEl.offsetParent) {
+            return this.contentTemplate != null || this.value && this.value.length > 0;
+        }
+
+        return false;
     }
 
     getSeverityClass() {
-        return this.value[0].severity;
+        if (this.severity) {
+            return 'ui-messages-' + this.severity;
+        }
+        else {
+            const msg = this.value[0];
+            if (msg) {
+                const severities = ['info', 'warn', 'error', 'success'];
+                const severity = severities.find(item => item === msg.severity);
+
+                return severity && `ui-messages-${severity}`;
+            }
+        }
+
+        return null;
     }
 
     clear(event) {
@@ -114,40 +172,40 @@ export class Messages implements OnInit, OnDestroy {
     }
 
     get icon(): string {
-        let icon: string = null;
-        if(this.hasMessages()) {
-            let msg = this.value[0];
-            switch(msg.severity) {
+        const severity = this.severity || (this.hasMessages() ? this.value[0].severity : null);
+
+        if (this.hasMessages()) {
+            switch(severity) {
                 case 'success':
-                    icon = 'pi-check';
+                    return 'pi-check';
                 break;
 
                 case 'info':
-                    icon = 'pi-info-circle';
+                    return 'pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'pi-times';
+                    return 'pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'pi-exclamation-triangle';
+                    return 'pi-exclamation-triangle';
                 break;
 
                 default:
-                    icon = 'pi-info-circle';
+                    return 'pi-info-circle';
                 break;
             }
         }
 
-        return icon;
+        return null;
     }
 
     ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }

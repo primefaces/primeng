@@ -1,40 +1,31 @@
-/** TabMenu **/
-.ui-tabmenu .ui-tabmenu-nav { 
+.p-tabmenu-nav {
+    display: flex;
     margin: 0;
-    padding: .25em .5em 0 .25em; 
+    padding: 0;
+    list-style-type: none;
+    flex-wrap: wrap;
 }
 
-.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem { 
-    list-style: none; 
-    float: left; 
-    position: relative; 
-    margin: 0 .2em 1px 0;  
-    padding: 0; 
-    white-space: nowrap;
-    display: block;
-    border-bottom: 0;
-    top: 1px; 
+.p-tabmenu-nav a {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    text-decoration: none;
+    overflow: hidden;
 }
 
-.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem a { 
-    float: left; 
-    padding: 0.5em 1em;
-    text-decoration: none; 
+.p-tabmenu-nav a:focus {
+    z-index: 1;
 }
 
-.ui-tabmenu .ui-tabmenu-nav a { 
-    padding: 0.5em 1em;
+.p-tabmenu-nav .p-menuitem-text {
+    line-height: 1;
 }
 
-.ui-tabmenu .ui-menuitem-icon  { 
-    margin-right: .25em;
-    vertical-align: middle;
+.p-tabmenu-ink-bar {
+    display: none;
+    z-index: 1;
 }
-
-.ui-tabmenu .ui-menuitem-text  { 
-    vertical-align: middle;
-}
-
-.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-disabled a {
-     cursor: default;
-} 

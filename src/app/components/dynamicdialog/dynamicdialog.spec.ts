@@ -7,6 +7,7 @@ import { DialogService } from './dialogservice';
 import { DynamicDialogRef} from './dynamicdialog-ref';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
 
 
 @Component({
@@ -32,16 +33,12 @@ export class TestDynamicDialogComponent {
     constructor(public dialogService: DialogService) {}
 
     show() {
-        const ref = this.dialogService.open(TestComponent, {
+        this.dialogService.open(TestComponent, {
             header: 'Demo Header',
             width: '70%',
             contentStyle: {"max-height": "350px", "overflow": "auto"},
-            dismissableMask:true
-        });
-
-        ref.onClose.subscribe((car: any) =>{
-            if (car) {
-            }
+            dismissableMask:true,
+            baseZIndex: 0
         });
     }
 }
@@ -93,10 +90,12 @@ describe('DynamicDialog', () => {
         let dynamicDialogTitlebarIconEl = document.querySelector(".ui-dialog-titlebar-icon") as HTMLElement;
         dynamicDialogTitlebarIconEl.click();
         fixture.detectChanges();
-        tick(300);
+        tick(700);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
+        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
+        fixture.detectChanges();
     }));
 
     it('should close dialog with esc key', fakeAsync(() => {
@@ -114,13 +113,16 @@ describe('DynamicDialog', () => {
         expect(testComponentHeader.textContent).toEqual(" PrimeNG ROCKS! ");
         const escapeEvent: any = document.createEvent('CustomEvent');
         escapeEvent.which = 27;
-        escapeEvent.initEvent('keydown', true, true);
+        escapeEvent.initEvent('keydown');
+        (dynamicDialogEl as HTMLDivElement).style.zIndex = DomHandler.zindex.toString();
         document.dispatchEvent(escapeEvent);
         fixture.detectChanges();
-        tick(300);
+        tick(700);
 
-        dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
+        dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0] as HTMLDivElement;
         expect(dynamicDialogEl).toBeUndefined();
+        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
+        fixture.detectChanges();
     }));
 
     it('should close dialog with mask click', fakeAsync(() => {
@@ -139,9 +141,11 @@ describe('DynamicDialog', () => {
         let maskEl = document.querySelector(".ui-dialog-mask") as HTMLElement;
         maskEl.click();
         fixture.detectChanges();
-        tick(300);
+        tick(700);
 
         dynamicDialogEl = document.getElementsByClassName("ui-dynamicdialog")[0];
         expect(dynamicDialogEl).toBeUndefined();
+        testDynamicDialogComponent.dialogService.dialogComponentRef.destroy();
+        fixture.detectChanges();
     }));
 });

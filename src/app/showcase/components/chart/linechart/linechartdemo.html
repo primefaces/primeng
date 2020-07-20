@@ -5,19 +5,21 @@
     </div>
 </div>
 
-<div class="content-section implementation-charts">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="content-section implementation">
+    <p-toast></p-toast>
 
     <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
 </div>
 
 <div class="content-section documentation">
     <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/linechart/linechartdemo" class="btn-viewsource" target="_blank">
-        <i class="fa fa-github"></i>
         <span>View on GitHub</span>
     </a>
+    <a href="https://stackblitz.com/edit/primeng-linechart-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+        <span>Edit in StackBlitz</span>
+    </a>
 
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="linechartdemo.ts">
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -61,6 +63,11 @@ export class LineChartDemo &#123;
 &lt;p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"&gt;&lt;/p-chart&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-linechart-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

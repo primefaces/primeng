@@ -15,7 +15,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -29,7 +29,7 @@ import &#123;MenuItem&#125; from 'primeng/api';
             <p>TieredMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
             <h3>Getting Started</h3>
-            <p>TieredMenu requires nested menuitems as its model.</p>
+            <p>TieredMenu requires nested menuitems as its <i>model</i>.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tieredMenu [model]="items"&gt;&lt;/p-tieredMenu&gt;
@@ -73,22 +73,22 @@ export class TieredMenuDemo &#123;
 </pre>
 
             <h3>Popup Mode</h3>
-            <p>Menu is inline by default, popup mode is also supported by enabling popup property and calling toggle method by passing the event 
+            <p>Menu is inline by default, popup mode is also supported by enabling <i>popup</i> property and calling toggle method by passing the event 
                     from the anchor element.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tieredMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa fa-fw fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button #btn type="button" pButton icon="pi pi-fw pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
+            <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, 
                 example below disables the animations altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tieredMenu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [model]="items" [popup]="true"&gt;&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa fa-fw fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button #btn type="button" pButton icon="pi pi-fw pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
             <h3>Properties</h3>
@@ -237,8 +237,10 @@ export class TieredMenuDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tieredmenu" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tieredmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -338,6 +340,11 @@ export class TieredMenuDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tieredmenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

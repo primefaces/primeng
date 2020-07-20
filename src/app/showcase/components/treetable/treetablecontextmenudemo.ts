@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TreeNode, MenuItem } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 @Component({
     templateUrl: './treetablecontextmenudemo.html',
@@ -42,4 +42,5 @@ export class TreeTableContextMenuDemo {
         node.expanded = !node.expanded;
         this.files = [...this.files];
     }
+
 }

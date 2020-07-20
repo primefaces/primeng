@@ -11,7 +11,7 @@ export class DeferDemo {
 
     cars: Car[];
     
-    constructor(private carService: CarService, private messageService: MessageService) { }
+    constructor(private carService: CarService, private messageService: MessageService) {}
     
     initData() {
         this.messageService.add({severity:'success', summary:'Data Initialized', detail:'Render Completed'});

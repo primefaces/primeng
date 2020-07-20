@@ -12,6 +12,8 @@ import { TableExportDemo } from './tableexportdemo';
 import { TableColGroupDemo } from './tablecolgroupdemo';
 import { TableRowExpansionDemo } from './tablerowexpansiondemo';
 import { TableScrollDemo } from './tablescrolldemo';
+import { TableVirtualScrollDemo } from './tablevirtualscrolldemo';
+import { TableFlexScrollDemo } from './tableflexscrolldemo';
 import { TableColToggleDemo } from './tablecoltoggledemo';
 import { TableCrudDemo } from './tablecruddemo';
 import { TableResponsiveDemo } from './tableresponsivedemo';
@@ -22,12 +24,16 @@ import { TableEditDemo } from './tableeditdemo';
 import { TableRowGroupDemo } from './tablerowgroupdemo';
 import { TableStateDemo } from './tablestatedemo';
 import { TableStickyDemo } from './tablestickydemo';
+import { TableBasicDemo } from './tablebasicdemo';
+import { TableDynamicDemo } from './tabledynamicdemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
 			{ path: '', component: TableDemo },
 			{ path: 'page', component: TablePageDemo },
+			{ path: 'basic', component: TableBasicDemo },
+			{ path: 'dynamic', component: TableDynamicDemo },
 			{ path: 'sort', component: TableSortDemo },
 			{ path: 'selection', component: TableSelectionDemo },
 			{ path: 'filter', component: TableFilterDemo },
@@ -37,7 +43,9 @@ import { TableStickyDemo } from './tablestickydemo';
 			{ path: 'export', component: TableExportDemo },
 			{ path: 'colgroup', component: TableColGroupDemo },
 			{ path: 'rowexpansion', component: TableRowExpansionDemo },
-			{ path: 'scroll', component: TableScrollDemo },
+            { path: 'scroll', component: TableScrollDemo },
+            { path: 'virtualscroll', component: TableVirtualScrollDemo },
+            { path: 'flexscroll', component: TableFlexScrollDemo },
 			{ path: 'coltoggle', component: TableColToggleDemo },
 			{ path: 'crud', component: TableCrudDemo },
 			{ path: 'responsive', component: TableResponsiveDemo },

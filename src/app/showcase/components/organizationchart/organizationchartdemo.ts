@@ -168,4 +168,5 @@ export class OrganizationChartDemo implements OnInit {
     onNodeSelect(event) {
         this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
     }
+
 }

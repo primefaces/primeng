@@ -189,32 +189,6 @@ import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
                 </tr>            
             </ng-template>
         </p-treeTable>
-        <p-treeTable class="lazyScrollTable" [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
-            [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
-            [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns">
-                        {{col.header}}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr>
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                        {{rowData[col.field]}}
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="loadingbody" let-columns="columns">
-                <tr style="height:34px">
-                    <td *ngFor="let col of columns;">
-                        <div class="loading-text"></div>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-treeTable>
         <p-treeTable class="resizableTreeTable" [value]="files" [columns]="cols" [resizableColumns]="true">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -677,7 +651,6 @@ describe('TreeTable', () => {
     let checkboxSelectionTreeTable: TreeTable;
     let editableTreeTable: TreeTable;
     let basicScrollTable: TreeTable;
-    let lazyScrollTable: TreeTable;
     let resizableTreeTable: TreeTable;
     let reorderableTreeTable: TreeTable;
     let contextMenuTreeTable: TreeTable;
@@ -709,11 +682,10 @@ describe('TreeTable', () => {
         checkboxSelectionTreeTable = fixture.debugElement.children[6].componentInstance;
         editableTreeTable = fixture.debugElement.children[7].componentInstance;
         basicScrollTable = fixture.debugElement.children[8].componentInstance;resizableTreeTable
-        lazyScrollTable = fixture.debugElement.children[9].componentInstance;
-        resizableTreeTable = fixture.debugElement.children[10].componentInstance;
-        reorderableTreeTable = fixture.debugElement.children[11].componentInstance;
-        contextMenuTreeTable = fixture.debugElement.children[12].componentInstance;
-        filterTreeTable = fixture.debugElement.children[14].componentInstance;
+        resizableTreeTable = fixture.debugElement.children[9].componentInstance;
+        reorderableTreeTable = fixture.debugElement.children[10].componentInstance;
+        contextMenuTreeTable = fixture.debugElement.children[11].componentInstance;
+        filterTreeTable = fixture.debugElement.children[13].componentInstance;
     });
 
     it('should show 11 rows', () => {
@@ -1207,48 +1179,6 @@ describe('TreeTable', () => {
         expect(scrollEl).toBeTruthy();
         expect(scrollBody).toBeTruthy();
     });
-
-    it('should scroll lazy',  async(() => {
-        const loadNodesSpy = spyOn(testcomponent, "loadNodes").and.callThrough();
-        const onNodeExpandSpy = spyOn(testcomponent, "onNodeExpand").and.callThrough();
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            fixture.detectChanges();
-
-            
-            const lazyScrollTableEl = fixture.debugElement.query(By.css(".lazyScrollTable"));
-            let scrollBody = lazyScrollTableEl.query(By.css(".ui-treetable-scrollable-body"));
-            let rowEls = lazyScrollTableEl.queryAll(By.css("tr"));
-            expect(rowEls.length).toEqual(61);
-            expect(rowEls[1].queryAll(By.css("td"))[0].nativeElement.innerText).toContain("Item 0");
-            expect(loadNodesSpy).toHaveBeenCalled();
-            fixture.detectChanges();
-
-            const toggleEls = lazyScrollTableEl.queryAll(By.css(".ui-treetable-toggler"));
-            toggleEls[0].nativeElement.click();
-            scrollBody.nativeElement.scrollTop = 1700;
-            scrollBody.nativeElement.dispatchEvent(new Event("scroll"));
-            fixture.whenStable().then(() => {
-                fixture.detectChanges();
-
-                rowEls = lazyScrollTableEl.queryAll(By.css("tr"));
-                expect(rowEls[1].queryAll(By.css("td"))[0].nativeElement.innerText).toContain("Item 40");
-                expect(testcomponent.virtualFiles[0].data.name).toBe("Item 40");
-                expect(loadNodesSpy).toHaveBeenCalledTimes(2);
-                expect(onNodeExpandSpy).toHaveBeenCalled();
-                scrollBody.nativeElement.scrollTop = 700;
-                scrollBody.nativeElement.dispatchEvent(new Event("scroll"));
-                fixture.whenStable().then(() => {
-                    fixture.detectChanges();
-
-                    rowEls = lazyScrollTableEl.queryAll(By.css("tr"));
-                    expect(rowEls[1].queryAll(By.css("td"))[0].nativeElement.innerText).toContain("Item 20");
-                    expect(loadNodesSpy).toHaveBeenCalledTimes(3);
-                    expect(testcomponent.virtualFiles[0].data.name).toBe("Item 20")
-                });
-            });
-        });
-    }));
 
     it('should resize (Fit Mode)',  () => {
         fixture.detectChanges();

@@ -7,16 +7,15 @@
 </div>
 
 <div class="content-section implementation">    
-    <img #img src="assets/showcase/images/primeng-text.svg" alt="Logo">
+    <img #img src="assets/showcase/images/demo/sopranos/sopranos1.jpg" alt="Logo">
 
     <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
     
     <p-contextMenu [target]="img" [model]="items2"></p-contextMenu>
-    
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -38,7 +37,7 @@ import &#123;MenuItem&#125; from 'primeng/api';
 </pre>
 
             <h3>Target</h3>
-            <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the target property.</p>
+            <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
@@ -133,7 +132,7 @@ export class ContextMenuDemo &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>baseZIndex</td>
@@ -257,12 +256,14 @@ export class ContextMenuDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/contextmenu" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-contextmenu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;img #img src="assets/showcase/images/primeng-text.svg" alt="Logo"&gt;
+&lt;img #img src="assets/showcase/images/demo/sopranos/sopranos1.jpg" alt="Logo"&gt;
 
 &lt;p-contextMenu [global]="true" [model]="items1"&gt;&lt;/p-contextMenu&gt;
 
@@ -358,18 +359,23 @@ export class ContextMenuDemo &#123;
 
         this.items2 = [
             &#123;
-                label: 'Next',
-                icon: 'pi pi-fw pi-chevron-right'
+                label: 'Family',
+                icon: 'pi pi-fw pi-users'
             &#125;,
             &#123;
-                label: 'Prev',
-                icon: 'pi pi-fw pi-chevron-left'
+                label: 'Business',
+                icon: 'pi pi-fw pi-briefcase'
             &#125;
         ];
     &#125;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-contextmenu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

@@ -1,8 +1,6 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Table - <span class="subitem">Reorder</span></span>
+        <span class="feature-title">Table <span class="subitem">Reorder</span></span>
         <span>Order of the columns and rows can be changed using drag and drop.</span>
     </div>
 </div>
@@ -20,7 +18,7 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
             <tr [pReorderableRow]="index">
                 <td>
-                    <i class="fa fa-bars" pReorderableRowHandle></i>
+                    <i class="pi pi-bars" style="display: flex;justify-content: center;" pReorderableRowHandle></i>
                 </td>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -31,11 +29,13 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="tablecolreorder.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecolreorder.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablereorder-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -64,8 +64,10 @@ export class TableColReorderDemo implements OnInit &#123;
 
         <p-tabPanel header="tablecolreorder.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablecolreorder.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablereorder-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -81,7 +83,7 @@ export class TableColReorderDemo implements OnInit &#123;
     &lt;ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"&gt;
         &lt;tr [pReorderableRow]="index"&gt;
             &lt;td&gt;
-                &lt;i class="fa fa-bars" pReorderableRowHandle&gt;&lt;/i&gt;
+                &lt;i class="pi pi-bars" style="display: flex;justify-content: center;" pReorderableRowHandle&gt;&lt;/i&gt;
             &lt;/td&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
@@ -91,6 +93,11 @@ export class TableColReorderDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablereorder-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

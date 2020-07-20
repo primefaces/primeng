@@ -10,31 +10,31 @@
         [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix">
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-md-4">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-4">
                         <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                     </div>
-                    <div class="ui-g-6 ui-md-4 filter-container">
+                    <div class="p-col-6 p-md-4 filter-container">
                         <div style="position:relative">
                             <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
                         </div>
                     </div>
-                    <div class="ui-g-6 ui-md-4" style="text-align:right">
+                    <div class="p-col-6 p-md-4" style="text-align:right">
                         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                     </div>
                 </div>
             </div>
         </p-header>
         <ng-template let-car pTemplate="listItem">
-            <div class="ui-g-12">
+            <div class="p-col-12">
                 <div class="car-details">
                     <div>
                         <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
-                        <div class="ui-g">
-                            <div class="ui-g-12">Vin: <b>{{car.vin}}</b></div>
-                            <div class="ui-g-12">Year: <b>{{car.year}}</b></div>
-                            <div class="ui-g-12">Brand: <b>{{car.brand}}</b></div>
-                            <div class="ui-g-12">Color: <b>{{car.color}}</b></div>
+                        <div class="p-grid">
+                            <div class="p-col-12">Vin: <b>{{car.vin}}</b></div>
+                            <div class="p-col-12">Year: <b>{{car.year}}</b></div>
+                            <div class="p-col-12">Brand: <b>{{car.brand}}</b></div>
+                            <div class="p-col-12">Color: <b>{{car.color}}</b></div>
                         </div>
                     </div>
                     <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"></button>
@@ -42,7 +42,7 @@
             </div>
         </ng-template>
         <ng-template let-car pTemplate="gridItem">
-            <div style="padding:.5em" class="ui-g-12 ui-md-3">
+            <div style="padding:.5em" class="p-col-12 p-md-3">
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>
@@ -52,28 +52,17 @@
         </ng-template>
     </p-dataView>
 
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '225px'}" (onAfterHide)="onDialogHide()">
-        <div class="ui-g" *ngIf="selectedCar">
-            <div class="ui-g-12" style="text-align:center">
-                <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
-            </div>
-            <div class="ui-g-4">Vin: </div>
-            <div class="ui-g-8">{{selectedCar.vin}}</div>
-
-            <div class="ui-g-4">Brand: </div>
-            <div class="ui-g-8">{{selectedCar.brand}}</div>
-
-            <div class="ui-g-4">Year: </div>
-            <div class="ui-g-8">{{selectedCar.year}}</div>
-
-            <div class="ui-g-4">Color: </div>
-            <div class="ui-g-8">{{selectedCar.color}}</div>
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" 
+        [style]="{width: '225px'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em', textAlign: 'center'}">
+        <div *ngIf="selectedCar">
+            <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
+            <strong>{{selectedCar.vin}} - {{selectedCar.year}}</strong>
         </div>
     </p-dialog>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -82,8 +71,11 @@ import &#123;DataViewModule&#125; from 'primeng/dataview';
 </code>
 </pre>
 
+            <h3>PrimeFlex</h3>
+            <p>DataView utilizes PrimeFlex so it is required to be installed in your application. Refer to the <a [routerLink]="['/flexgrid']">documentation</a> for details.</p>
+
             <h3>Getting Started</h3>
-            <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. list and grid.</p>
+            <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. <i>list</i> and <i>grid</i>.</p>
 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
 <pre>
@@ -147,7 +139,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Layouts</h3>
             <p>DataView has two layout modes; "list" and "grid" where a separate template is used to render an item in each mode. In list mode name of the template is "listItem" whereas
-                in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/grid']">Grid CSS</a> style class of your choice.</p>
+                in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/flexgrid']">PrimeFlex</a> style class of your choice.</p>
             <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -158,7 +150,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -180,7 +172,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -189,8 +181,8 @@ export class DataViewDemo implements OnInit &#123;
 </pre>
 
             <h3>DataViewLayoutOptions</h3>
-            <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. p-dataViewLayoutOptions is a helper component
-                to display a buttonset to choose the layout mode in DataView. Location of the p-dataViewLayoutOptions should be inside the DataView component. If you prefer a different UI element
+            <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. <i>p-dataViewLayoutOptions</i> is a helper component
+                to display a buttonset to choose the layout mode in DataView. Location of the <i>p-dataViewLayoutOptions</i> should be inside the DataView component. If you prefer a different UI element
                 you can create your own that updates the layout property of the DataView.
             </p>
 
@@ -210,7 +202,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -220,7 +212,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Paginator</h3>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
-                of page links to display. To customize the left and right side of the paginators, use "paginatorLeftTemplate" and "paginatorRightTemplate" templates.</p>
+                of page links to display. To customize the left and right side of the paginators, use <i>paginatorLeftTemplate</i> and <i>paginatorRightTemplate</i> templates.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"&gt;
@@ -230,16 +222,16 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="paginatorleft" let-state&gt;
         &#123;&#123;state.first&#125;&#125;
-        &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi-refresh"&gt;&lt;/button&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="paginatorright"&gt;
-        &lt;button type="button" pButton icon="fa-cloud-upload"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi-cloud-upload"&gt;&lt;/button&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 </code>
@@ -247,7 +239,7 @@ export class DataViewDemo implements OnInit &#123;
 
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
-             onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object
+             onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using <i>onLazyLoad</i> that actually loads the data from a remote datasource. <i>onLazyLoad</i> gets an event object
             that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
@@ -260,7 +252,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -278,8 +270,8 @@ loadData(event) &#123;
 </pre>
 
             <h3>Sorting</h3>
-            <p>sortField and sortOrder properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
-                Here is an example that uses a dropdown where simply updating the sortField-sortOrder bindings of the DataView initiates sorting.</p>
+            <p><i>sortField</i> and <i>sortOrder</i> properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
+                Here is an example that uses a dropdown where simply updating the <i>sortField</i> - <i>sortOrder</i> bindings of the DataView initiates sorting.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;
@@ -293,7 +285,7 @@ loadData(event) &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;div class="p-col-12 p-md-3"&gt;
             &#123;&#123;car.year&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -343,9 +335,9 @@ export class DataViewSortDemo implements OnInit &#123;
 </code>
 </pre>
             <h3>Filtering</h3>
-            <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component, 
-                for flexibility there is no built-in UI available so that a custom UI can be used for the filter element. 
-                Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".  
+            <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component,
+                for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
+                Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
                 Here is an example that uses an input field. filterBy is a string and multiple fields can be defined with a comma separated list.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -448,7 +440,7 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>paginatorDropdownAppendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>paginatorDropdownScrollHeight</td>
@@ -459,8 +451,10 @@ export class DataViewSortDemo implements OnInit &#123;
                         <tr>
                             <td>currentPageReportTemplate</td>
                             <td>string</td>
-                            <td>&#123;currentPage&#125; of &#123;totalPages&#125;</td>
-                            <td>Text to display the current page information.</td>
+                            <td>(&#123;currentPage&#125; of &#123;totalPages&#125;)</td>
+                            <td>Template of the current page report element. Available placeholders are
+                                &#123;currentPage&#125;,&#123;totalPages&#125;,&#123;rows&#125;,&#123;first&#125;,&#123;last&#125; and &#123;totalRecords&#125;
+                            </td>
                         </tr>
                         <tr>
                             <td>showCurrentPageReport</td>
@@ -505,6 +499,12 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>Comma separated list of fields in the object graph to search against.</td>
                         </tr>
                         <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
+                        <tr>
                             <td>loading</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -513,7 +513,7 @@ export class DataViewSortDemo implements OnInit &#123;
                         <tr>
                             <td>loadingIcon</td>
                             <td>string</td>
-                            <td>fa-circle-o-notch</td>
+                            <td>pi pi-spinner</td>
                             <td>The icon to show while indicating data load is in progress.</td>
                         </tr>
                         <tr>
@@ -551,9 +551,14 @@ export class DataViewSortDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>onSort</td>
-                            <td>event.field: Name of the sort field.<br>
-                                event.order: Order of the sort.</td>
+                            <td>event.sortField: Name of the sort field.<br>
+                                event.sortOrder: Order of the sort.</td>
                             <td>Callback to invoke when sorting occurs.</td>
+                        </tr>
+                        <tr>
+                            <td>onChangeLayout</td>
+                            <td>event.layout: New layout</td>
+                            <td>Callback to invoke when changing layout.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -607,45 +612,47 @@ export class DataViewSortDemo implements OnInit &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>None.</p>
+            <p>PrimeFlex.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dataview" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-dataview-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-    &lt;p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
+&lt;p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
     [sortField]="sortField" [sortOrder]="sortOrder"&gt;
     &lt;p-header&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;div class="ui-g"&gt;
-                &lt;div class="ui-g-12 ui-md-4"&gt;
+            &lt;div class="p-grid"&gt;
+                &lt;div class="p-col-12 p-md-4"&gt;
                     &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="&#123;'min-width':'140px'&#125;"&gt;&lt;/p-dropdown&gt;
                 &lt;/div&gt;
-                &lt;div class="ui-g-6 ui-md-4 filter-container"&gt;
+                &lt;div class="p-col-6 p-md-4 filter-container"&gt;
                     &lt;div style="position:relative"&gt;
                         &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)"&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
-                &lt;div class="ui-g-6 ui-md-4" style="text-align:right"&gt;
+                &lt;div class="p-col-6 p-md-4" style="text-align:right"&gt;
                     &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
-        &lt;div class="ui-g-12"&gt;
+        &lt;div class="p-col-12"&gt;
             &lt;div class="car-details"&gt;
                 &lt;div&gt;
                     &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
-                    &lt;div class="ui-g"&gt;
-                        &lt;div class="ui-g-12"&gt;Vin: &lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="ui-g-12"&gt;Year: &lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="ui-g-12"&gt;Brand: &lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="ui-g-12"&gt;Color: &lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                    &lt;div class="p-grid"&gt;
+                        &lt;div class="p-col-12"&gt;Vin: &lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="p-col-12"&gt;Year: &lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="p-col-12"&gt;Brand: &lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+                        &lt;div class="p-col-12"&gt;Color: &lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
                 &lt;button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"&gt;&lt;/button&gt;
@@ -653,33 +660,21 @@ export class DataViewSortDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
     &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div style="padding:.5em" class="ui-g-12 ui-md-3"&gt;
+        &lt;div style="padding:.5em" class="p-col-12 p-md-3"&gt;
             &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
                 &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" width="60"&gt;
                 &lt;div class="car-detail"&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
-                &lt;hr class="ui-widget-content" style="border-top:0"&gt;
                 &lt;button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"&gt;&lt;/button&gt;
             &lt;/p-panel&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
 
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="&#123;width: '225px'&#125;"  (onAfterHide)="onDialogHide()"&gt;
-    &lt;div class="ui-g" *ngIf="selectedCar"&gt;
-        &lt;div class="ui-g-12" style="text-align:center"&gt;
-            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png"&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-g-4"&gt;Vin: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.vin&#125;&#125;&lt;/div&gt;
-
-        &lt;div class="ui-g-4"&gt;Brand: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.brand&#125;&#125;&lt;/div&gt;
-
-        &lt;div class="ui-g-4"&gt;Year: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.year&#125;&#125;&lt;/div&gt;
-
-        &lt;div class="ui-g-4"&gt;Color: &lt;/div&gt;
-        &lt;div class="ui-g-8"&gt;&#123;&#123;selectedCar.color&#125;&#125;&lt;/div&gt;
+&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" 
+    [style]="&#123;width: '225px'&#125;" (onAfterHide)="onDialogHide()" [contentStyle]="&#123;padding: '2em', textAlign: 'center'&#125;"&gt;
+    &lt;div *ngIf="selectedCar"&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png"&gt;
+        &lt;strong&gt;&#123;&#123;selectedCar.vin&#125;&#125; - &#123;&#123;selectedCar.year&#125;&#125;&lt;/strong&gt;
     &lt;/div&gt;
 &lt;/p-dialog&gt;
 </code>
@@ -742,6 +737,11 @@ export class DataViewDemo implements OnInit &#123;
 </pre>
 
 
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-dataview-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

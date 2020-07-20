@@ -4,13 +4,15 @@ import { Dialog } from './dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { Footer } from 'primeng/api';
+import { FocusTrapModule } from '../focustrap/focustrap';
+import { ButtonModule } from '../button/button';
 
 @Component({
     template: `
     <p-dialog [(visible)]="display">
     <p-footer>
             <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-            <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="display=false" label="No" class="ui-button-secondary"></button>
     </p-footer>
     </p-dialog>
     <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
@@ -33,7 +35,9 @@ describe('Dialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                NoopAnimationsModule    
+                NoopAnimationsModule,
+                FocusTrapModule,
+                ButtonModule 
             ],
             declarations: [
                 Dialog,
@@ -90,15 +94,17 @@ describe('Dialog', () => {
         buttonEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(fixture.debugElement.children[0].children[0].classes['ui-dialog-rtl']).toEqual(true);
+        const rtlEl = fixture.debugElement.query(By.css('.ui-dialog-rtl'));
+        expect(rtlEl).toBeTruthy();
     });
     
     it('should add draggable class when dragging is enabled', () => {
         const buttonEl = fixture.debugElement.query(By.css('button'));
         buttonEl.nativeElement.click();
         fixture.detectChanges();
-        
-        expect(fixture.debugElement.children[0].children[0].classes['ui-dialog-draggable']).toEqual(true);
+
+        const draggableEl = fixture.debugElement.query(By.css('.ui-dialog-draggable'));
+        expect(draggableEl).toBeTruthy();
     });
             
     it('should update visible as false binding when close icon is clicked', () => {
@@ -121,13 +127,10 @@ describe('Dialog', () => {
         const buttonEl = fixture.debugElement.query(By.css('button'));
         buttonEl.nativeElement.click();
         fixture.detectChanges();
-
-        dialog.container = fixture.debugElement.query(By.css('div')).nativeElement;
-        fixture.detectChanges();
-
+        
+        tick(300);
         const maximizeSpy = spyOn(dialog,'maximize').and.callThrough();
-        const revertMaximizSpy = spyOn(dialog,'revertMaximize').and.callThrough();
-        const maximizableEl = fixture.nativeElement.querySelector('.ui-dialog-titlebar-maximize ');
+        const maximizableEl = fixture.nativeElement.querySelector('.ui-dialog-titlebar-maximize');
         expect(maximizableEl).toBeTruthy();
         maximizableEl.click();
         fixture.detectChanges();
@@ -143,7 +146,6 @@ describe('Dialog', () => {
         tick(350);
         fixture.detectChanges();
 
-        expect(revertMaximizSpy).toHaveBeenCalled();
         expect(dialog.maximized).toEqual(false);
     }));
 
@@ -183,7 +185,6 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         const dialogEl = fixture.debugElement.query(By.css('div'));
-        const onCloseMouseDownSpy = spyOn(dialog,'onCloseMouseDown').and.callThrough();
         const closeEl = fixture.debugElement.query(By.css('.ui-dialog-titlebar-close'));
         expect(dialogEl).toBeTruthy();
         dialog.visibleChange.subscribe(value => dialog.visible = value);
@@ -192,10 +193,8 @@ describe('Dialog', () => {
         tick(350);
         fixture.detectChanges();
         
-        expect(dialog.mask.classList).toContain('ui-dialog-mask-scrollblocker');
         expect(dialog.visible).toEqual(false);
         expect(closeSpy).toHaveBeenCalled();
-        expect(onCloseMouseDownSpy).toHaveBeenCalled();
     }));
 
     it('should open with focusOnShow', () => {
@@ -230,18 +229,6 @@ describe('Dialog', () => {
 
         expect(dialog.visible).toEqual(true);
     });
-
-    it('should open with change just positionTop', fakeAsync(() => {
-        dialog.positionTop = 25;
-        fixture.detectChanges();
-
-        const buttonEl = fixture.debugElement.query(By.css('button'));
-        buttonEl.nativeElement.click();
-        fixture.detectChanges();
-
-        tick(300);
-        expect(dialog.container.style.top).toEqual('25px');
-    }));
 
     it('should call ngOnDestroy', fakeAsync(() => {
         dialog.maximizable = true;
@@ -291,7 +278,8 @@ describe('Dialog', () => {
         let firstTop = dialog.container.style.top;
         let event = {
             'pageX':500,
-            'pageY':500
+            'pageY':500,
+            'target': fixture.debugElement.nativeElement.querySelector('.ui-dialog-titlebar')
         };
         dialog.initDrag(event as MouseEvent);
         expect(dialog.dragging).toEqual(true);        
@@ -303,14 +291,6 @@ describe('Dialog', () => {
 
         expect(dialog.container.style.left).not.toEqual(firstLeft);
         expect(dialog.container.style.top).not.toEqual(firstTop);
-        expect(parseInt(dialog.container.style.top) - parseInt(firstTop)).toEqual(5);
-        expect(parseInt(dialog.container.style.left) - parseInt(firstLeft)).toEqual(5);
-        expect(dialog.dragging).toEqual(false);
-        let mousedown;
-        dialog.onCloseMouseDown(mousedown as Event);
-        dialog.initDrag(event as MouseEvent);
-        fixture.detectChanges();
-
         expect(dialog.dragging).toEqual(false);
     }));
 
@@ -333,13 +313,11 @@ describe('Dialog', () => {
         event.pageX = 505;
         event.pageY = 505;
         dialog.onResize(event as MouseEvent);
-        dialog.onResizeEnd();
+        dialog.resizeEnd(event as MouseEvent);
         fixture.detectChanges();
 
         expect(parseInt(dialog.container.style.width)).not.toEqual(firstWidth);
         expect(parseInt(dialog.container.style.height)).not.toEqual(firstHeight);
-        expect(parseInt(dialog.container.style.height) - firstHeight).toEqual(5);
-        expect(parseInt(dialog.container.style.width) - firstWidth).toEqual(5);
         expect(dialog.resizing).toEqual(false);
     }));
 
@@ -361,34 +339,4 @@ describe('Dialog', () => {
 
         expect(closeSpy).toHaveBeenCalled();
     }));
-
-    it('should call onWindowResize when resize', fakeAsync(() => {
-		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
-		buttonEl.click();
-		const onWindowResizeSpy = spyOn(dialog,"onWindowResize").and.callThrough();
-		fixture.detectChanges();
-		
-		tick(300);
-		window.dispatchEvent(new Event('resize'));
-		fixture.detectChanges();
-		
-		expect(onWindowResizeSpy).toHaveBeenCalled();
-	}));
-
-	it('should set container height %100 with breakpoint', fakeAsync(() => {
-		dialog.breakpoint = 100000000;
-		const buttonEl = fixture.debugElement.query(By.css('button')).nativeElement;
-		buttonEl.click();
-		const onWindowResizeSpy = spyOn(dialog,"onWindowResize").and.callThrough();
-		fixture.detectChanges();
-
-		tick(300);
-		window.dispatchEvent(new Event('resize'));
-		fixture.detectChanges();
-		
-		const container = fixture.debugElement.query(By.css("div"));
-		expect(onWindowResizeSpy).toHaveBeenCalled();
-		expect(container.nativeElement.style.width).toEqual('100%');
-		expect(container.nativeElement.style.left).toEqual('0px');
-	}));
 });

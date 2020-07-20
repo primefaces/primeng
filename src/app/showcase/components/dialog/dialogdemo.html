@@ -6,23 +6,102 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    <h3>Basic</h3>
+    <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-external-link" label="Show"></button>
+    <p-dialog header="Godfather I" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+            kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+
+    <button type="button" (click)="showBasicDialog2()" pButton icon="pi pi-external-link" label="Long Content"></button>
+    <p-dialog header="Godfather Casting" [(visible)]="displayBasic2" [style]="{width: '50vw'}" [baseZIndex]="10000">
+        Puzo was first to show interest in having Marlon Brando portray Don Vito Corleone by sending a letter to Brando in which he stated Brando was the "only actor who can play the Godfather." Despite Puzo's wishes, the executives at Paramount were against having Brando, partly due to the poor performance of his recent films and also his short temper. Coppola favored Brando or Laurence Olivier for the role, but Olivier's agent refused the role claiming Olivier was sick; however, Olivier went on to star in Sleuth later that year. The studio mainly pushed for Ernest Borgnine to receive the part. Other considerations were George C. Scott, Richard Conte, Anthony Quinn, and Orson Welles.
+        <br><br>
+        After months of debate between Coppola and Paramount over Brando, the two finalists for the role were Borgnine and Brando, the latter of whom Paramount president Stanley Jaffe required to perform a screen test. Coppola did not want to offend Brando and stated that he needed to test equipment in order to set up the screen test at Brando's California residence. For make-up, Brando stuck cotton balls in his cheeks, put shoe polish in his hair to darken it, and rolled his collar. Coppola placed Brando's audition tape in the middle of the videos of the audition tapes as the Paramount executives watched them. The executives were impressed with Brando's efforts and allowed Coppola to cast Brando for the role if Brando accepted a lower salary and put up a bond to ensure he would not cause any delays in production. Brando earned $1.6 million from a net participation deal.
+        <br><br>
+        From the start of production, Coppola wanted Robert Duvall to play the part of Tom Hagen. After screen testing several other actors, Coppola eventually got his wish and Duvall was awarded the part of Tom Hagen. Al Martino, a then famed singer in nightclubs, was notified of the character Johnny Fontane by a friend who read the eponymous novel and felt Martino represented the character of Johnny Fontane. Martino then contacted producer Albert S. Ruddy, who gave him the part. However, Martino was stripped of the part after Coppola became director and then awarded the role to singer Vic Damone. According to Martino, after being stripped of the role, he went to Russell Bufalino, his godfather and a crime boss, who then orchestrated the publication of various news articles that claimed Coppola was unaware of Ruddy giving Martino the part. Damone eventually dropped the role because he did not want to provoke the mob, in addition to being paid too little. Ultimately, the part of Johnny Fontane was given to Martino.
+        <br><br>
+        Robert De Niro originally was given the part of Paulie Gatto. A spot in The Gang That Couldn't Shoot Straight opened up after Al Pacino quit the project in favor of The Godfather, which led De Niro to audition for the role and leave The Godfather after receiving the part. After De Niro quit, Johnny Martino was given the role of Gatto. Coppola cast Diane Keaton for the role of Kay Adams due to her reputation for being eccentric. John Cazale was given the part of Fredo Corleone after Coppola saw him perform in an Off Broadway production. Gianni Russo was given the role of Carlo Rizzi after he was asked to perform a screen test in which he acted out the fight between Rizzi and Connie.
+        <br><br>
+        Nearing the start of filming on March 29, Michael Corleone had yet to be cast. Paramount executives wanted a popular actor, either Warren Beatty or Robert Redford. Producer Robert Evans wanted Ryan O'Neal to receive the role in part due to his recent success in Love Story. Pacino was Coppola's favorite for the role as he could picture him roaming the Sicilian countryside, and wanted an unknown actor who looked like an Italian-American. However, Paramount executives found Pacino to be too short to play Michael. Dustin Hoffman, Martin Sheen, and James Caan also auditioned. Caan was well received by the Paramount executives and was given the part of Michael initially, while the role of Sonny Corleone was awarded to Carmine Caridi. Coppola still pushed for Pacino to play Michael after the fact and Evans eventually conceded, allowing Pacino to have the role of Michael as long as Caan played Sonny. Evans preferred Caan over Caridi because Caan was seven inches shorter than Caridi, which was much closer to Pacino's height. Despite agreeing to play Michael Corleone, Pacino was contracted to star in MGM's The Gang That Couldn't Shoot Straight, but the two studios agreed on a settlement and Pacino was signed by Paramount three weeks before shooting began.
+        <br><br>
+        Coppola gave several roles in the film to family members. He gave his sister, Talia Shire, the role of Connie Corleone. His daughter Sofia played Michael Francis Rizzi, Connie's and Carlo's newborn son. Carmine Coppola, his father, appeared in the film as an extra playing a piano during a scene. Coppola's wife, mother, and two sons all appeared as extras in the picture. Several smaller roles, like Luca Brasi, were cast after the filming had started.
+        <br><br>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="displayBasic2=false" label="Yes"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayBasic2=false" label="No" class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+
+    <h3>Modal</h3>
+    <button type="button" (click)="showModalDialog()" pButton icon="pi pi-external-link" label="Show"></button>
+    <p-dialog header="Godfather I" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+        [draggable]="false" [resizable]="false">
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
            kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</p>
            <p-footer>
-               <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-               <button type="button" pButton icon="pi pi-times" (click)="display=false" label="No" class="ui-button-secondary"></button>
+               <button type="button" pButton icon="pi pi-check" (click)="displayModal=false" label="Yes"></button>
+               <button type="button" pButton icon="pi pi-times" (click)="displayModal=false" label="No" class="ui-button-secondary"></button>
            </p-footer>
     </p-dialog>
 
-    <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
+    <h3>Maximizable</h3>
+    <button type="button" (click)="showMaximizableDialog()" pButton icon="pi pi-external-link" label="Show"></button>
+    <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
+        [draggable]="false" [resizable]="false">
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+           kind and benevolent to those who give respect,
+           but given to ruthless violence whenever anything stands against the good of the family.</p>
+           <p-footer>
+               <button type="button" pButton icon="pi pi-check" (click)="displayMaximizable=false" label="Yes"></button>
+               <button type="button" pButton icon="pi pi-times" (click)="displayMaximizable=false" label="No" class="ui-button-secondary"></button>
+           </p-footer>
+    </p-dialog>
+
+    <h3>Position</h3>
+    <div class="p-grid p-dir-col">
+        <div class="p-col">
+            <button type="button" (click)="showPositionDialog('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"></button>
+            <button type="button" (click)="showPositionDialog('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"></button>
+        </div>
+        <div class="p-col">
+            <button type="button" (click)="showPositionDialog('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"></button>
+            <button type="button" (click)="showPositionDialog('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"></button>
+            <button type="button" (click)="showPositionDialog('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"></button>
+        </div>
+        <div class="p-col">
+            <button type="button" (click)="showPositionDialog('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"></button>
+            <button type="button" (click)="showPositionDialog('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"></button>
+            <button type="button" (click)="showPositionDialog('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"></button>
+        </div>
+    </div>
+    <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+        [draggable]="false" [resizable]="false">
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+           kind and benevolent to those who give respect,
+           but given to ruthless violence whenever anything stands against the good of the family.</p>
+           <p-footer>
+               <button type="button" pButton icon="pi pi-check" (click)="displayPosition=false" label="Yes"></button>
+               <button type="button" pButton icon="pi pi-times" (click)="displayPosition=false" label="No" class="ui-button-secondary"></button>
+           </p-footer>
+    </p-dialog>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -33,7 +112,7 @@ import &#123;DialogModule&#125; from 'primeng/dialog';
 
             <h3>Getting Started</h3>
             <p>Dialog is used as a container and visibility is controlled with visible property.</p>
-                    
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
@@ -58,21 +137,45 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-            <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
+            <p>By default dialog is hidden and enabling the <i>visible</i> property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
-            
+
             <h3>Dimensions</h3>
             <p>Use style property to define the dimensions of the Dialog.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog header="Title" [(visible)]="display" [style]="&#123;width: '300px', height: '200px'&#125;"&gt;
+&lt;p-dialog header="Title" [(visible)]="display" [style]="&#123;width: '50vw'&#125;"&gt;
     Content
 &lt;/p-dialog&gt;
 </code>
 </pre>
 
+            <h3>Responsive</h3>
+            <p>Responsiveness can easily be implemented using media queries.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog header="Title" [(visible)]="display" styleClass="mydialog"&gt;
+Content
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-css" pCode ngNonBindable>
+.mydialog &#123;
+    width: 50vw;
+&#125;
+
+@media screen and (max-width: 40em) &#123;
+    .mydialog &#123;
+        width: 75vw;
+    &#125;
+&#125;
+</code>
+</pre>
+
             <h3>Header and Footer</h3>
-            <p>Header and Footer sections are useful to include custom content. Note that Header and Footer components should be imported and defined
+            <p>Header and Footer sections are useful to include custom content. Note that <i>Header</i> and <i>Footer</i> components should be imported and defined
             at directives section of your component for this to work.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -88,8 +191,18 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
+            <h3>Positioning</h3>
+            <p>Dialog location is controlled with the <i>position</i> property whose default value is center. Other valid values are top", "bottom", "left", "right", "topleft", "topright", "bottomleft" and "bottomright". You may also call the resetPosition() method of Dialog to re-position it after the content or position changes.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog position="top" [(visible)]="display"&gt;
+Content
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
             <h3>Overlays Inside</h3>
-            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can 
+            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can
             either append the overlay to the body or allow overflow in dialog.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -99,27 +212,6 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog [contentStyle]="&#123;'overflow':'visible'&#125;"&gt;
-    &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
-&lt;/p-dialog&gt;
-</code>
-</pre>
-
-            <h3>Dynamic Content</h3>
-            <p>Dynamic content may move the dialog boundaries outside of the viewport. Common solution is defining max-height at content section to let the content overflow. You may also call the center() method
-                of Dialog to re-center it after the content changes.</p>
-
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog [contentStyle]="&#123;'max-height':'200px'&#125;"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="let item of items"&gt;&#123;&#123;item&#125;&#125;&lt;li&gt;
-    &lt;/ul&gt;
-&lt;/p-dialog&gt;
-</code>
-</pre>
 
             <h3>RTL Support</h3>
             <p>RTL orientation is enabled by adding "ui-rtl" to an ancestor element of dialog in combination with standard dir="rtl" option.</p>
@@ -140,7 +232,7 @@ export class ModelComponent &#123;
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>, 
+            <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>,
                 example below disables the animation altogether.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -173,6 +265,12 @@ export class ModelComponent &#123;
                             <td>Enables dragging to change the position using header.</td>
                         </tr>
                         <tr>
+                            <td>keepInViewport</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Keeps dialog in the viewport.</td>
+                        </tr>
+                        <tr>
                             <td>resizable</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -195,6 +293,12 @@ export class ModelComponent &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if background should be blocked when dialog is displayed.</td>
+                        </tr>
+                        <tr>
+                            <td>position</td>
+                            <td>string</td>
+                            <td>center</td>
+                            <td>Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright".</td>
                         </tr>
                         <tr>
                             <td>blockScroll</td>
@@ -227,22 +331,10 @@ export class ModelComponent &#123;
                             <td>Adds a close icon to the header to hide the dialog.</td>
                         </tr>
                         <tr>
-                            <td>responsive</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>In responsive mode, dialog adjusts itself to screen width.</td>
-                        </tr>
-                        <tr>
-                            <td>breakpoint</td>
-                            <td>number</td>
-                            <td>640</td>
-                            <td>Maximum screen width to display the dialog with 100% width in responsive mode.</td>
-                        </tr>
-                        <tr>
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -257,22 +349,28 @@ export class ModelComponent &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
+                            <td>maskStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the mask.</td>
+                        </tr>
+                        <tr>
+                            <td>contentStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Inline style of the content.</td>
+                        </tr>
+                        <tr>
+                            <td>contentStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the content.</td>
+                        </tr>
+                        <tr>
                             <td>showHeader</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show the header or not.</td>
-                        </tr>
-                        <tr>
-                            <td>positionLeft</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Left coordinate value of the dialog.</td>
-                        </tr>
-                        <tr>
-                            <td>positionTop</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Top coordinate value of the dialog.</td>
                         </tr>
                         <tr>
                             <td>baseZIndex</td>
@@ -365,6 +463,21 @@ export class ModelComponent &#123;
                             <td>event: Event object</td>
                             <td>Callback to invoke when dialog is hidden.</td>
                         </tr>
+                        <tr>
+                            <td>onResizeInit</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog resizing is initiated.</td>
+                        </tr>
+                        <tr>
+                            <td>onResizeEnd</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog resizing is completed.</td>
+                        </tr>
+                        <tr>
+                            <td>onDragEnd</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog dragging is completed.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -418,41 +531,166 @@ export class ModelComponent &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dialog" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-dialog-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="&#123;width: '350px', minWidth: '200px'&#125;" [minY]="70" 
-        [maximizable]="true" [baseZIndex]="10000"&gt;
-    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+&lt;h3&gt;Basic&lt;/h3&gt;
+&lt;button type="button" (click)="showBasicDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="displayBasic" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;p-footer&gt;
+        &lt;button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;/p-footer&gt;
+&lt;/p-dialog&gt;
+
+&lt;button type="button" (click)="showBasicDialog2()" pButton icon="pi pi-external-link" label="Long Content"&gt;&lt;/button&gt;
+&lt;p-dialog header="Godfather Casting" [(visible)]="displayBasic2" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+    Puzo was first to show interest in having Marlon Brando portray Don Vito Corleone by sending a letter to Brando in which he stated Brando was the "only actor who can play the Godfather." Despite Puzo's wishes, the executives at Paramount were against having Brando, partly due to the poor performance of his recent films and also his short temper. Coppola favored Brando or Laurence Olivier for the role, but Olivier's agent refused the role claiming Olivier was sick; however, Olivier went on to star in Sleuth later that year. The studio mainly pushed for Ernest Borgnine to receive the part. Other considerations were George C. Scott, Richard Conte, Anthony Quinn, and Orson Welles.
+    &lt;br&gt;&lt;br&gt;
+    After months of debate between Coppola and Paramount over Brando, the two finalists for the role were Borgnine and Brando, the latter of whom Paramount president Stanley Jaffe required to perform a screen test. Coppola did not want to offend Brando and stated that he needed to test equipment in order to set up the screen test at Brando's California residence. For make-up, Brando stuck cotton balls in his cheeks, put shoe polish in his hair to darken it, and rolled his collar. Coppola placed Brando's audition tape in the middle of the videos of the audition tapes as the Paramount executives watched them. The executives were impressed with Brando's efforts and allowed Coppola to cast Brando for the role if Brando accepted a lower salary and put up a bond to ensure he would not cause any delays in production. Brando earned $1.6 million from a net participation deal.
+    &lt;br&gt;&lt;br&gt;
+    From the start of production, Coppola wanted Robert Duvall to play the part of Tom Hagen. After screen testing several other actors, Coppola eventually got his wish and Duvall was awarded the part of Tom Hagen. Al Martino, a then famed singer in nightclubs, was notified of the character Johnny Fontane by a friend who read the eponymous novel and felt Martino represented the character of Johnny Fontane. Martino then contacted producer Albert S. Ruddy, who gave him the part. However, Martino was stripped of the part after Coppola became director and then awarded the role to singer Vic Damone. According to Martino, after being stripped of the role, he went to Russell Bufalino, his godfather and a crime boss, who then orchestrated the publication of various news articles that claimed Coppola was unaware of Ruddy giving Martino the part. Damone eventually dropped the role because he did not want to provoke the mob, in addition to being paid too little. Ultimately, the part of Johnny Fontane was given to Martino.
+    &lt;br&gt;&lt;br&gt;
+    Robert De Niro originally was given the part of Paulie Gatto. A spot in The Gang That Couldn't Shoot Straight opened up after Al Pacino quit the project in favor of The Godfather, which led De Niro to audition for the role and leave The Godfather after receiving the part. After De Niro quit, Johnny Martino was given the role of Gatto. Coppola cast Diane Keaton for the role of Kay Adams due to her reputation for being eccentric. John Cazale was given the part of Fredo Corleone after Coppola saw him perform in an Off Broadway production. Gianni Russo was given the role of Carlo Rizzi after he was asked to perform a screen test in which he acted out the fight between Rizzi and Connie.
+    &lt;br&gt;&lt;br&gt;
+    Nearing the start of filming on March 29, Michael Corleone had yet to be cast. Paramount executives wanted a popular actor, either Warren Beatty or Robert Redford. Producer Robert Evans wanted Ryan O'Neal to receive the role in part due to his recent success in Love Story. Pacino was Coppola's favorite for the role as he could picture him roaming the Sicilian countryside, and wanted an unknown actor who looked like an Italian-American. However, Paramount executives found Pacino to be too short to play Michael. Dustin Hoffman, Martin Sheen, and James Caan also auditioned. Caan was well received by the Paramount executives and was given the part of Michael initially, while the role of Sonny Corleone was awarded to Carmine Caridi. Coppola still pushed for Pacino to play Michael after the fact and Evans eventually conceded, allowing Pacino to have the role of Michael as long as Caan played Sonny. Evans preferred Caan over Caridi because Caan was seven inches shorter than Caridi, which was much closer to Pacino's height. Despite agreeing to play Michael Corleone, Pacino was contracted to star in MGM's The Gang That Couldn't Shoot Straight, but the two studios agreed on a settlement and Pacino was signed by Paramount three weeks before shooting began.
+    &lt;br&gt;&lt;br&gt;
+    Coppola gave several roles in the film to family members. He gave his sister, Talia Shire, the role of Connie Corleone. His daughter Sofia played Michael Francis Rizzi, Connie's and Carlo's newborn son. Carmine Coppola, his father, appeared in the film as an extra playing a piano during a scene. Coppola's wife, mother, and two sons all appeared as extras in the picture. Several smaller roles, like Luca Brasi, were cast after the filming had started.
+    &lt;br&gt;&lt;br&gt;
+    &lt;p-footer&gt;
+        &lt;button type="button" pButton icon="pi pi-check" (click)="displayBasic2=false" label="Yes"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-times" (click)="displayBasic2=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;/p-footer&gt;
+&lt;/p-dialog&gt;
+
+&lt;h3&gt;Modal&lt;/h3&gt;
+&lt;button type="button" (click)="showModalDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"&gt;
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
         kind and benevolent to those who give respect,
         but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;p-footer&gt;
-            &lt;button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-check" (click)="displayModal=false" label="Yes"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-times" (click)="displayModal=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
         &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
-&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
+&lt;h3&gt;Maximizable&lt;/h3&gt;
+&lt;button type="button" (click)="showMaximizableDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"&gt;
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+        kind and benevolent to those who give respect,
+        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+        &lt;p-footer&gt;
+            &lt;button type="button" pButton icon="pi pi-check" (click)="displayMaximizable=false" label="Yes"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-times" (click)="displayMaximizable=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+        &lt;/p-footer&gt;
+&lt;/p-dialog&gt;
+
+&lt;h3&gt;Position&lt;/h3&gt;
+&lt;div class="p-grid p-dir-col"&gt;
+    &lt;div class="p-col"&gt;
+        &lt;button type="button" (click)="showPositionDialog('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="showPositionDialog('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col"&gt;
+    &lt;button type="button" (click)="showPositionDialog('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="showPositionDialog('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="showPositionDialog('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="p-col"&gt;
+    &lt;button type="button" (click)="showPositionDialog('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="showPositionDialog('bottom')" pButton icon="pi pi-arrow-up" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;button type="button" (click)="showPositionDialog('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"&gt;
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+        kind and benevolent to those who give respect,
+        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+        &lt;p-footer&gt;
+            &lt;button type="button" pButton icon="pi pi-check" (click)="displayPosition=false" label="Yes"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="pi pi-times" (click)="displayPosition=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+        &lt;/p-footer&gt;
+&lt;/p-dialog&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+@Component(&#123;
+    templateUrl: './dialogdemo.html',
+    styles: [`
+        :host ::ng-deep .ui-button &#123;
+            margin: .5em .5em .5em 0;
+            width: 140px;
+        &#125;
+        @media screen and (max-width: 40em) &#123;
+            :host ::ng-deep .ui-dialog &#123;
+                width: 75vw !important;
+            &#125;
+        &#125;
+    `]
+&#125;)
 export class DialogDemo &#123;
 
-    display: boolean = false;
+    displayModal: boolean;
 
-    showDialog() &#123;
-        this.display = true;
+    displayBasic: boolean;
+
+    displayBasic2: boolean;
+
+    displayMaximizable: boolean;
+
+    displayPosition: boolean;
+
+    position: string;
+
+    showModalDialog() &#123;
+        this.displayModal = true;
     &#125;
 
+    showBasicDialog() &#123;
+        this.displayBasic = true;
+    &#125;
+
+    showBasicDialog2() &#123;
+        this.displayBasic2 = true;
+    &#125;
+
+    showMaximizableDialog() &#123;
+        this.displayMaximizable = true;
+    &#125;
+
+    showPositionDialog(position: string) &#123;
+        this.position = position;
+        this.displayPosition = true;
+    &#125;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-dialog-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

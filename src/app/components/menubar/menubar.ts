@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { MenuItem } from 'primeng/api';
@@ -7,31 +7,33 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'p-menubarSub',
     template: `
-        <ul [ngClass]="{'ui-menubar-root-list':root, 'ui-widget-content ui-corner-all ui-submenu-list ui-shadow':!root}"
+        <ul [ngClass]="{'p-submenu-list': !root, 'p-menubar-root-list': root}"
             (click)="listClick($event)">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': child.visible === false}">
-                <li *ngIf="!child.separator" #listItem [ngClass]="{'ui-menuitem ui-corner-all':true,
-                        'ui-menu-parent':child.items,'ui-menuitem-active':listItem==activeItem,'ui-helper-hidden': child.visible === false}"
+                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{'p-hidden': child.visible === false}">
+                <li *ngIf="!child.separator" #listItem [ngClass]="{'p-menuitem':true, 'p-menuitem-active':listItem==activeItem, 'p-hidden': child.visible === false}"
                         (mouseenter)="onItemMouseEnter($event,listItem,child)" (click)="onItemMenuClick($event, listItem, child)">
-                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="itemClick($event, child)"
-                         [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" [attr.tabindex]="child.tabindex ? child.tabindex : '0'">
-                        <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
-                        <span class="ui-menuitem-text">{{child.label}}</span>
-                        <span class="ui-submenu-icon pi pi-fw" *ngIf="child.items" [ngClass]="{'pi-caret-down':root,'pi-caret-right':!root}"></span>
+                    <a *ngIf="!child.routerLink" [attr.href]="child.url" [attr.data-automationid]="child.automationId" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="itemClick($event, child)"
+                         [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass" 
+                         [attr.tabindex]="child.disabled ? null : '0'" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem">
+                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="p-menuitem-text">{{child.label}}</span>
+                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{'pi-angle-down':root,'pi-angle-right':!root}"></span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
-                        [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.tabindex ? child.tabindex : '0'"
-                        (click)="itemClick($event, child)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
-                        <span class="ui-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
-                        <span class="ui-menuitem-text">{{child.label}}</span>
-                        <span class="ui-submenu-icon pi pi-fw" *ngIf="child.items" [ngClass]="{'pi-caret-down':root,'pi-caret-right':!root}"></span>
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [attr.data-automationid]="child.automationId" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
+                        [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" [attr.tabindex]="child.disabled ? null : '0'" role="menuitem"
+                        (click)="itemClick($event, child)" [ngClass]="{'p-menuitem-link':true,'p-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass"
+                        [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
+                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="p-menuitem-text">{{child.label}}</span>
+                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{'pi-angle-down':root,'pi-angle-right':!root}"></span>
                     </a>
-                    <p-menubarSub class="ui-submenu" [parentActive]="listItem==activeItem" [item]="child" *ngIf="child.items" [autoDisplay]="true"></p-menubarSub>
+                    <p-menubarSub [parentActive]="listItem==activeItem" [item]="child" *ngIf="child.items" [autoDisplay]="true"></p-menubarSub>
                 </li>
             </ng-template>
         </ul>
-    `
+    `,
+    encapsulation: ViewEncapsulation.None
 })
 export class MenubarSub implements OnDestroy {
 
@@ -73,6 +75,8 @@ export class MenubarSub implements OnDestroy {
     constructor(public renderer: Renderer2, private cd: ChangeDetectorRef) { }
 
     onItemMenuClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
+            this.menuClick = true;
+
         if (!this.autoDisplay) {
             if (menuitem.disabled) {
                 return;
@@ -96,7 +100,6 @@ export class MenubarSub implements OnDestroy {
                 }
             }
 
-            this.menuClick = true;
             this.menuHoverActive = this.activeMenu ? (!this.activeMenu.isEqualNode(item)) : true;
             this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) ? null: item) : item;
             this.bindEventListener();
@@ -110,6 +113,7 @@ export class MenubarSub implements OnDestroy {
                     this.activeItem = null;
                     this.menuHoverActive = false;
                     this.activeMenu = false;
+                    this.cd.markForCheck();
                 }
                 this.menuClick = false;
             });
@@ -171,27 +175,27 @@ export class MenubarSub implements OnDestroy {
     }
 
     ngOnDestroy() {
-      if(this.documentClickListener) {
+      if (this.documentClickListener) {
         this.documentClickListener();
         this.documentClickListener = null;
       }
 
     }
-
 }
 
 @Component({
     selector: 'p-menubar',
     template: `
-        <div [ngClass]="{'ui-menubar ui-widget ui-widget-content ui-corner-all':true}" [class]="styleClass" [ngStyle]="style">
-            <p-menubarSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex">
-                <ng-content></ng-content>
-            </p-menubarSub>
-            <div class="ui-menubar-custom">
+        <div [ngClass]="{'p-menubar p-component':true}" [class]="styleClass" [ngStyle]="style">
+            <p-menubarSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-menubarSub>
+            <div class="p-menubar-end">
                 <ng-content></ng-content>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./menubar.css']
 })
 export class Menubar {
 
@@ -210,7 +214,7 @@ export class Menubar {
     @Input() get autoDisplay(): boolean {
         return this._autoDisplay;
     }
-    set utc(_utc: boolean) {
+    set autoDisplay(_autoDisplay: boolean) {
         console.log("AutoDisplay property is deprecated and functionality is not available.");
     }
 

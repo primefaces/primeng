@@ -1,11 +1,5 @@
-.ui-toolbar {
-    padding: .25em .5em;
-}
-
-.ui-toolbar-group-left {
-    float:left
-}
-
-.ui-toolbar-group-right {
-    float:right
+.p-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

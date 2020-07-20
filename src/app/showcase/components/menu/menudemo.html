@@ -10,12 +10,12 @@
     <p-menu [model]="items"></p-menu>
 
     <h3>Popup</h3>
-    <p-menu #menu [popup]="true" [model]="items"></p-menu>
     <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
@@ -87,7 +87,7 @@ export class MenuDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-menu #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
-&lt;button type="button" pButton icon="fa fa-fw fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -97,7 +97,7 @@ export class MenuDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true" [model]="items"&gt;&lt;/p-menu&gt;
-&lt;button type="button" pButton icon="fa fa-fw fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="pi pi-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>       
             <h3>Properties</h3>
@@ -140,7 +140,7 @@ export class MenuDemo &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
                         </tr>
                         <tr>
                             <td>baseZIndex</td>
@@ -266,8 +266,10 @@ export class MenuDemo &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/menu" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-menu-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -305,6 +307,11 @@ export class MenuDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-menu-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

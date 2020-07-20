@@ -1,14 +1,17 @@
-import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild} from '@angular/core';
+import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
+        <div #mask [class]="styleClass" [ngClass]="{'p-blockui-document':!target, 'p-blockui p-component-overlay': true}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
             <ng-content></ng-content>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./blockui.css']
 })
 export class BlockUI implements AfterViewInit,OnDestroy {
 
@@ -18,11 +21,13 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     
     @Input() baseZIndex: number = 0;
     
-    @ViewChild('mask', { static: true }) mask: ElementRef;
+    @Input() styleClass: string;
+    
+    @ViewChild('mask') mask: ElementRef;
     
     _blocked: boolean;
         
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
     
     @Input() get blocked(): boolean {
         return this._blocked;
@@ -48,9 +53,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     block() {
         if (this.target) {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
-            let style = this.target.style||{};
-            style.position = 'relative';
-            this.target.style = style;
+            this.target.getBlockableElement().style.position = 'relative';
         }
         else {
             document.body.appendChild(this.mask.nativeElement);

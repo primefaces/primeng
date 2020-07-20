@@ -1,8 +1,6 @@
-<table-submenu></table-submenu>
-
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Table - <span class="subitem">Style</span></span>
+        <span class="feature-title">Table <span class="subitem">Style</span></span>
         <span>Certain rows or cell can easily be styled based on conditions.</span>
     </div>
 </div>
@@ -12,14 +10,14 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
-                    &#123;&#123;col.header&#125;&#125;
+                    {{col.header}}
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [ngClass]="rowData.year > 2010 ? 'new-car' : null">
                 <td *ngFor="let col of columns" [ngClass]="rowData[col.field] <= 2010 ? 'old-car' : null">
-                    &#123;&#123;rowData[col.field]&#125;&#125;
+                    {{rowData[col.field]}}
                 </td>
             </tr>
         </ng-template>
@@ -27,11 +25,13 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="tablestyledemo.ts">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestyledemo.ts" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablestyle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -75,8 +75,10 @@ export class TableStyleDemo implements OnInit &#123;
 
         <p-tabPanel header="tablestyledemo.html">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablestyledemo.html" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-tablestyle-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -98,6 +100,11 @@ export class TableStyleDemo implements OnInit &#123;
 &lt;/p-table&gt;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-tablestyle-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

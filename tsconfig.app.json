@@ -12,7 +12,8 @@
       "src/**/*.spec.ts"
     ],
     "angularCompilerOptions": {
-        "enableIvy": false
+        "enableIvy": false,
+        "preserveWhitespaces": true
     }
   }
   

@@ -81,7 +81,7 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
@@ -94,34 +94,34 @@ import &#123;CarouselModule&#125; from 'primeng/carousel';
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;carousel [value]="cars"&gt;
+&lt;p-carousel [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;
-&lt;/carousel&gt;
+&lt;/p-carousel&gt;
 </code>
 </pre>
             <h3>Items Per Page and Scroll Items</h3>
             <p>Number of items per page is defined using the <i>numVisible</i> property whereas number of items to scroll is defined with the <i>numScroll</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;carousel [value]="cars" [numVisible]="3" [numScroll]="1"&gt;
+&lt;p-carousel [value]="cars" [numVisible]="3" [numScroll]="1"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;
-&lt;/carousel&gt;
+&lt;/p-carousel&gt;
 </code>
 </pre>
 
             <h3>Responsive</h3>
-            <p>For responsive design, numVisible and numScroll can be defined using the responsiveOptions property that should be an array of objects whose breakpoint defines the max-width to apply the settings.</p>
+            <p>For responsive design, <i>numVisible</i> and <i>numScroll</i> can be defined using the <i>responsiveOptions</i> property that should be an array of objects whose breakpoint defines the max-width to apply the settings.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;carousel [value]="cars" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions"&gt;
+&lt;p-carousel [value]="cars" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;
-&lt;/carousel&gt;
+&lt;/p-carousel&gt;
 </code>
 </pre>
 
@@ -161,14 +161,14 @@ export class CarouselDemo &#123;
             <p>Custom content projection is available using the <i>p-header</i> and <i>p-footer</i> components.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;carousel [value]="cars"&gt;
+&lt;p-carousel [value]="cars"&gt;
     &lt;p-header&gt;
         &lt;h3&gt;Vertical&lt;/h3&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;
-&lt;/carousel&gt;
+&lt;/p-carousel&gt;
 </code>
 </pre>
 
@@ -176,11 +176,11 @@ export class CarouselDemo &#123;
 <p>Default layout of the Carousel is horizontal, other possible option is the vertical mode that is configured with the <i>orientation</i> property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;carousel [value]="cars" orientation="vertical"&gt;
+&lt;p-carousel [value]="cars" orientation="vertical"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;
-&lt;/carousel&gt;
+&lt;/p-carousel&gt;
 </code>
 </pre>
 
@@ -188,14 +188,14 @@ export class CarouselDemo &#123;
             <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be enabled. Note that in autoplay mode, circular is enabled by default.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;carousel [value]="cars" [autoplayIntervla]="3000" [circular]="true"&gt;
+&lt;p-carousel [value]="cars" [autoplayInterval]="3000" [circular]="true"&gt;
     &lt;p-header&gt;
         &lt;h3&gt;Vertical&lt;/h3&gt;
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Content to display
     &lt;/ng-template&gt;
-&lt;/carousel&gt;
+&lt;/p-carousel&gt;
 </code>
 </pre>
             <h3>Properties</h3>
@@ -367,8 +367,10 @@ export class CarouselDemo &#123;
         </p-tabPanel>
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/carousel" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-carousel-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -523,6 +525,11 @@ export class CarouselDemo &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-carousel-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
      </p-tabView >
 </div>

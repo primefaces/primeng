@@ -45,8 +45,8 @@ describe('TabMenu', () => {
 
     it('should not show items ', () => {
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', visible:false},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', visible:false}
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart', visible:false},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', visible:false}
       ]; 
       fixture.detectChanges();
 
@@ -57,8 +57,8 @@ describe('TabMenu', () => {
 
     it('should show disabled items ', () => {
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', disabled:true},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', disabled:true}
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled:true},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', disabled:true}
       ]; 
       fixture.detectChanges();
 
@@ -69,11 +69,11 @@ describe('TabMenu', () => {
 
     it('should show items and icons (url)', () => {
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart'},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar'},
-        {label: 'Documentation', icon: 'fa fa-fw fa-book'},
-        {label: 'Support', icon: 'fa fa-fw fa-support'},
-        {label: 'Social', icon: 'fa fa-fw fa-twitter'}
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart'},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar'},
+        {label: 'Documentation', icon: 'pi pi-fw pi-book'},
+        {label: 'Support', icon: 'pi pi-fw pi-support'},
+        {label: 'Social', icon: 'pi pi-fw pi-twitter'}
       ]; 
       fixture.detectChanges();
 
@@ -85,11 +85,11 @@ describe('TabMenu', () => {
 
     it('should show items and icons (routerLink)', () => {
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', routerLink: 'test'},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', routerLink: 'test'},
-        {label: 'Documentation', icon: 'fa fa-fw fa-book', routerLink: 'test'},
-        {label: 'Support', icon: 'fa fa-fw fa-support', routerLink: 'test'},
-        {label: 'Social', icon: 'fa fa-fw fa-twitter', routerLink: 'test'}
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart', routerLink: 'test'},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: 'test'},
+        {label: 'Documentation', icon: 'pi pi-fw pi-book', routerLink: 'test'},
+        {label: 'Support', icon: 'pi pi-fw pi-support', routerLink: 'test'},
+        {label: 'Social', icon: 'pi pi-fw pi-twitter', routerLink: 'test'}
       ]; 
       fixture.detectChanges();
 
@@ -104,11 +104,11 @@ describe('TabMenu', () => {
 
     it('should select item when click (url)', () => {
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart'},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar'},
-        {label: 'Documentation', icon: 'fa fa-fw fa-book'},
-        {label: 'Support', icon: 'fa fa-fw fa-support'},
-        {label: 'Social', icon: 'fa fa-fw fa-twitter'}
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart'},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar'},
+        {label: 'Documentation', icon: 'pi pi-fw pi-book'},
+        {label: 'Support', icon: 'pi pi-fw pi-support'},
+        {label: 'Social', icon: 'pi pi-fw pi-twitter'}
       ]; 
       const itemClickSpy = spyOn(tabmenu, 'itemClick').and.callThrough();
       fixture.detectChanges();
@@ -120,17 +120,17 @@ describe('TabMenu', () => {
 
       expect(itemList.children[1].nativeElement.className).toContain("ui-state-active")
       expect(tabmenu.activeItem.label).toEqual('Calendar');
-      expect(tabmenu.activeItem.icon).toContain('fa-calendar');
+      expect(tabmenu.activeItem.icon).toContain('pi-calendar');
       expect(itemClickSpy).toHaveBeenCalled();
     });
 
     it('should select item and highlight with routerLinkActive when click (routerLink)', () => {
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', routerLink: 'test'},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', routerLink: 'test'},
-        {label: 'Documentation', icon: 'fa fa-fw fa-book', routerLink: 'test'},
-        {label: 'Support', icon: 'fa fa-fw fa-support', routerLink: 'test'},
-        {label: 'Social', icon: 'fa fa-fw fa-twitter', routerLink: 'test'}
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart', routerLink: 'test'},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: 'test'},
+        {label: 'Documentation', icon: 'pi pi-fw pi-book', routerLink: 'test'},
+        {label: 'Support', icon: 'pi pi-fw pi-support', routerLink: 'test'},
+        {label: 'Social', icon: 'pi pi-fw pi-twitter', routerLink: 'test'}
       ]; 
       const itemClickSpy = spyOn(tabmenu, 'itemClick').and.callThrough();
       fixture.detectChanges();
@@ -142,14 +142,14 @@ describe('TabMenu', () => {
 
       expect(itemList.children[1].nativeElement.className).toContain("ui-state-active")
       expect(tabmenu.activeItem.label).toEqual('Calendar');
-      expect(tabmenu.activeItem.icon).toContain('fa-calendar');
+      expect(tabmenu.activeItem.icon).toContain('pi-calendar');
       expect(itemClickSpy).toHaveBeenCalled();
     });
 
     it('shouldn\'t show content', () => {
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', disabled:true},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', disabled:true}
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled:true},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', disabled:true}
       ]; 
       fixture.detectChanges();
 
@@ -166,8 +166,8 @@ describe('TabMenu', () => {
     it('should use command', () => {
       let x;
       tabmenu.model = [
-        {label: 'Stats', icon: 'fa fa-fw fa-bar-chart', disabled:true},
-        {label: 'Calendar', icon: 'fa fa-fw fa-calendar', command:()=>{
+        {label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled:true},
+        {label: 'Calendar', icon: 'pi pi-fw pi-calendar', command:()=>{
           x = "PRIMENG!"
         }}
       ]; 

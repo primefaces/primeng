@@ -10,6 +10,10 @@ import {TreeNode} from 'primeng/api';
             color: #ffffff !important;
         }
 
+        :host ::ng-deep .kb-row .ui-treetable-toggler {
+            color: #ffffff !important;
+        }
+
         .kb-cell {
             background-color: #2CA8B1 !important;
             color: #ffffff !important;

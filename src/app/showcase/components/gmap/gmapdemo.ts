@@ -7,8 +7,9 @@ declare var google: any;
     templateUrl: './gmapdemo.html',
     providers: [MessageService],
     styles: [`
-        .ui-g-2 {
-            padding-top: .75em;
+        .p-col-2 {
+            display: flex;
+            align-self: center;
         }
     `]
 })
@@ -48,7 +49,7 @@ export class GMapDemo implements OnInit {
     handleOverlayClick(event) {
         let isMarker = event.overlay.getTitle != undefined;
         
-        if(isMarker) {
+        if (isMarker) {
             let title = event.overlay.getTitle();
             this.infoWindow.setContent('<div>' + title + '</div>');
             this.infoWindow.open(event.map, event.overlay);
@@ -72,7 +73,7 @@ export class GMapDemo implements OnInit {
     }
     
     initOverlays() {
-        if(!this.overlays||!this.overlays.length) {
+        if (!this.overlays||!this.overlays.length) {
             this.overlays = [
                 new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
                 new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),

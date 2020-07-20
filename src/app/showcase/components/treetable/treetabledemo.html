@@ -1,5 +1,3 @@
-<treetable-submenu></treetable-submenu>
-
 <div class="content-section introduction">
     <div>
         <span class="feature-title">TreeTable</span>
@@ -17,7 +15,7 @@
                 <th>Type</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
@@ -50,8 +48,16 @@
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
+    <p-tabView>
         <p-tabPanel header="Documentation">
+            <h3>CDK</h3>
+            <p>VirtualScrolling depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+npm install @angular/cdk --save
+</code>
+</pre>
+
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -179,7 +185,7 @@ export class NodeService &#123;
 </code>
 </pre>
 
-<p>Files get loaded from a service and then bound to the value property whereas <i>header</i> and <i>body</i> templates are used to define the content of these sections.</p>
+<p>Files get loaded from a service and then bound to the <i>value</i> property whereas <i>header</i> and <i>body</i> templates are used to define the content of these sections.</p>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -282,7 +288,7 @@ export class TreeTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Other alternative is binding the cols array to the columns property and then defining a template variable to access it within your templates.
+            <p>Other alternative is binding the cols array to the <i>columns</i> property and then defining a template variable to access it within your templates.
                 There is only 1 case where this is required which is reorderable columns.
             </p>
 <pre>
@@ -412,12 +418,6 @@ export class TreeTableDemo implements OnInit &#123;
                             </td>
                             <td>Content to display when there is no value to display.</td>
                         </tr>
-                        <tr>
-                            <td>loadingbody</td>
-                            <td>columns: Columns collection <br>
-                            </td>
-                            <td>Content of the tbody element to show when data is being loaded in virtual scroll mode.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -434,7 +434,7 @@ this.value = [...this.value];
 </pre>
 
             <h3>Keyboard Navigation</h3>
-            <p>Nodes can be navigated and toggles using arrow keys if the optional ttRow directive is applied to the body row element.</p>
+            <p>Nodes can be navigated and toggles using arrow keys if the optional <i>ttRow</i> directive is applied to the body row element.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
@@ -449,7 +449,7 @@ this.value = [...this.value];
 </pre>
 
             <h3>Sections</h3>
-            <p>Table offers various templates to display additional information about the data such as a caption, header, summary and footer.</p>
+            <p>Table offers various templates to display additional information about the data such as a caption, <i>header</i>, <i>summary</i> and <i>footer</i>.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols"&gt;
@@ -672,7 +672,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/treetable/colgroup']">live example.</a></p>
 
             <h3>Paginator</h3>
-            <p>Pagination is enabled by setting paginator property to true, rows property defines the number of rows per page and pageLinks specify the the number
+            <p>Pagination is enabled by setting <i>paginator</i> property to true, rows property defines the number of rows per page and pageLinks specify the the number
                 of page links to display. See <a [routerLink]="['/paginator']">paginator</a> component for more information.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -717,10 +717,10 @@ export class TreeTableColGroupDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="paginatorleft" let-state&gt;
         &#123;&#123;state.first&#125;&#125;
-        &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi-refresh"&gt;&lt;/button&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="paginatorright"&gt;
-        &lt;button type="button" pButton icon="fa-cloud-upload"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi-cloud-upload"&gt;&lt;/button&gt;
     &lt;/ng-template&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -737,8 +737,8 @@ export class TreeTableColGroupDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/treetable/page']">live example.</a></p>
 
             <h3>Sorting</h3>
-            <p>A column can be made sortable by adding the <strong>ttSortableColumn</strong> directive whose value is the field to sort against and a sort indicator via <strong>p-treeTableSortIcon</strong> component. For dynamic columns,
-                setting <strong>ttSortableColumnDisabled</strong> property as true disables sorting for that particular column.
+            <p>A column can be made sortable by adding the <i>ttSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-treeTableSortIcon</i> component. For dynamic columns,
+                setting <i>ttSortableColumnDisabled</i> property as true disables sorting for that particular column.
             </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -762,7 +762,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </code>
 </pre>
-            <p>Default sorting is executed on a single column, in order to enable multiple field sorting, set <strong>sortMode</strong> property to "multiple" and use metakey
+            <p>Default sorting is executed on a single column, in order to enable multiple field sorting, set <i>sortMode</i> property to "multiple" and use metakey
             when clicking on another column.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -770,7 +770,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>In case you'd like to display the table as sorted by default initially on load, use the <strong>sortField</strong>-<strong>sortOrder</strong> properties in single mode.</p>
+            <p>In case you'd like to display the table as sorted by default initially on load, use the <i>sortField</i>-<i>sortOrder</i> properties in single mode.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols" sortField="year"&gt;
@@ -793,7 +793,7 @@ export class TreeTableColGroupDemo implements OnInit &#123;
 &lt;/p-treeTable&gt;
 </code>
 </pre>
-            <p>In multiple mode, use the <strong>multiSortMeta</strong> property and bind an array of SortMeta objects.</p>
+            <p>In multiple mode, use the <i>multiSortMeta</i> property and bind an array of SortMeta objects.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols" sortMode="multiple" [multiSortMeta]="multiSortMeta"&gt;
@@ -825,7 +825,7 @@ this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
 </code>
 </pre>
 
-            <p>Instead of using the built-in sorting algorithm a custom sort can be attached by enabling <strong>customSort</strong> property and defining a <strong>sortFunction</strong> implementation. This function gets a SortEvent instance
+            <p>Instead of using the built-in sorting algorithm a custom sort can be attached by enabling <i>customSort</i> property and defining a <i>sortFunction</i> implementation. This function gets a SortEvent instance
                 that provides the data to sort, sortField, sortOrder and multiSortMeta.
             </p>
 <pre>
@@ -901,7 +901,7 @@ export class TreeTableSortDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>For screen reader support of sortable headers, use ariaLabelDesc and ariaLabelAsc properties
+            <p>For screen reader support of sortable headers, use <i>ariaLabelDesc</i> and <i>ariaLabelAsc</i> properties
                 on p-sortIcon directive.</p>
 
             <p>See the <a [routerLink]="['/treetable/sort']">live example.</a></p>
@@ -910,9 +910,9 @@ export class TreeTableSortDemo implements OnInit &#123;
             <p>Filtering is enabled by defining the filter elements and calling filter method on the local template variable of the table with value, column field and match mode parameters. Available match modes are
             "startsWith", "contains", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".</p>
 
-            <p>An optional global filter feature is available to search all fields with the same query, to enable this place an input component and call the filterGlobal function with value and match mode properties on your event of choice.</p>
+            <p>An optional global filter feature is available to search all fields with the same query, to enable this place an input component and call the <i>filterGlobal</i> function with value and match mode properties on your event of choice.</p>
 
-            <p>In addition <b>filterMode</b> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, 
+            <p>In addition <i>filterMode</i> specifies the filtering strategy. In <b>lenient</b> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand,
                 in <b>strict</b> mode when the query matches a node, filtering continues on all descendants.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1083,7 +1083,7 @@ export class TreeTableSelectionDemo &#123;
 </code>
 </pre>
 
-                <p>Checkbox selection utilizes p-treeTableCheckbox component whose value should be the rowNode. Optionally p-treeTableHeaderCheckbox is available to select or unselect all the nodes.</p>
+                <p>Checkbox selection utilizes p-treeTableCheckbox component whose value should be the rowNode. Optionally <i>p-treeTableHeaderCheckbox</i> is available to select or unselect all the nodes.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes"&gt;
@@ -1116,9 +1116,9 @@ export class TreeTableSelectionDemo &#123;
             <p>See the <a [routerLink]="['/treetable/selection']">live example.</a></p>
 
             <h3>ContextMenu</h3>
-            <p>TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a treetable, add ttContextMenuRow directive to the rows that can be selected with context menu, define a local template
-            variable for the menu and bind it to the contextMenu property of the treetable. This enables displaying the menu whenever a row is right clicked. A separate <strong>contextMenuSelection</strong>
-            property is used to get a hold of the right clicked row. For dynamic columns, setting <strong>ttContextMenuRowDisabled</strong> property as true disables context menu for that particular row.</p>
+            <p>TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a treetable, add <i>ttContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template
+            variable for the menu and bind it to the contextMenu property of the treetable. This enables displaying the menu whenever a row is right clicked. A separate <i>contextMenuSelection</i>
+            property is used to get a hold of the right clicked row. For dynamic columns, setting <i>ttContextMenuRowDisabled</i> property as true disables context menu for that particular row.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
@@ -1148,7 +1148,7 @@ export class TreeTableSelectionDemo &#123;
             <p>See the <a [routerLink]="['/treetable/contextmenu']">live example.</a></p>
 
             <h3>Editing</h3>
-            <p>Incell editing is enabled by adding <strong>ttEditableColumn</strong> directive to an editable cell that has a p:treeTableCellEditor helper
+            <p>Incell editing is enabled by adding <i>ttEditableColumn</i> directive to an editable cell that has a <i>p-treeTableCellEditor</i> helper
                 component to define the input-output templates for the edit and view modes respectively.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1179,7 +1179,7 @@ export class TreeTableSelectionDemo &#123;
 </code>
 </pre>
 
-            <p>If you require the edited row data and the field at onEditComplete event, bind the data to the ttEditableColumn directive and the field to the ttEditableColumnField directive</p>
+            <p>If you require the edited row data and the field at onEditComplete event, bind the data to the <i>ttEditableColumn</i> directive and the field to the <i>ttEditableColumnField</i> directive</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;td [ttEditableColumn]="rowData" [ttEditableColumnField]="'year'"&gt;
@@ -1189,9 +1189,9 @@ export class TreeTableSelectionDemo &#123;
             <p>See the <a [routerLink]="['/treetable/editable']">live example.</a></p>
 
             <h3>Column Resize</h3>
-            <p>Columns can be resized using drag drop by setting the <strong>resizableColumns</strong> to true. There are two resize modes; "fit" and "expand". Fit is the default one and
-            the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width. <strong>onColumnResize</strong>
-            is a callback that passes the resized column header as a parameter. For dynamic columns, setting <strong>ttResizableColumnDisabled</strong> property as true disables resizing for that particular column.
+            <p>Columns can be resized using drag drop by setting the <i>resizableColumns</i> to true. There are two resize modes; "fit" and "expand". Fit is the default one and
+            the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width. <i>onColumnResize</i>
+            is a callback that passes the resized column header as a parameter. For dynamic columns, setting <i>ttResizableColumnDisabled</i> property as true disables resizing for that particular column.
             When you need to change column widths, since table width is 100%, giving fixed pixel widths does not work well as browsers scale them, instead give percentage widths.
             </p>
 
@@ -1248,8 +1248,8 @@ export class TreeTableSelectionDemo &#123;
             <p>See the <a [routerLink]="['/treetable/colresize']">live example.</a></p>
 
             <h3>Column Reordering</h3>
-            <p>Columns can be reordered using drag drop by setting the <strong>reorderableColumns</strong> to true and adding <strong>ttReorderableColumn</strong> directive to the columns that can be dragged. Note that
-                columns should be dynamic for reordering to work. For dynamic columns, setting <strong>ttReorderableColumnDisabled</strong> property as true disables reordering for that particular column.</p>
+            <p>Columns can be reordered using drag drop by setting the <i>reorderableColumns</i> to true and adding <i>ttReorderableColumn</i> directive to the columns that can be dragged. Note that
+                columns should be dynamic for reordering to work. For dynamic columns, setting <i>ttReorderableColumnDisabled</i> property as true disables reordering for that particular column.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols" [reorderableColumns]="true"&gt;
@@ -1274,9 +1274,9 @@ export class TreeTableSelectionDemo &#123;
             <p>See the <a [routerLink]="['/treetable/colreorder']">live example.</a></p>
 
             <h3>Scrolling</h3>
-            <p>TreeTable supports both horizontal and vertical scrolling as well as frozen columns. Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
+            <p>TreeTable supports both horizontal and vertical scrolling as well as frozen columns and rows. Additionally, virtualScroll mode enables dealing with large datasets by rendering data on demand during scrolling.</p>
 
-            <p>Sample below uses vertical scrolling where headers are fixed and data is scrollable.</p>
+            <p>Sample below uses vertical scrolling where headers are fixed and data is <i>scrollable</i>.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px"&gt;
@@ -1298,6 +1298,72 @@ export class TreeTableSelectionDemo &#123;
 &lt;/p-treeTable&gt;
 </code>
 </pre>
+
+            <h3>Flex Scroll</h3>
+            <p>In cases where viewport should adjust itself according to the table parent's height instead of a fixed viewport height, set <i>scrollHeight</i> option as <b>flex</b>. In example below,
+            table is inside a Dialog where viewport size dynamically responds to the dialog size changes such as resizing or maximizing.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
+    &lt;p-treeTable [value]="files2" [columns]="cols" [scrollable]="true" scrollHeight="flex"&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+            &lt;tr&gt;
+                &lt;td *ngFor="let col of columns; let i = index"&gt;
+                    &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                    &#123;&#123;rowData[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;            
+        &lt;/ng-template&gt;
+    &lt;/p-treeTable&gt;
+    &lt;p-footer&gt;
+        &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;/p-footer&gt;        
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+            <h3>Full Page Scroll</h3>
+            <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/treetable/flexscroll']">Full Page</a> demo for an example.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="content-section implementation" style="height: calc(100vh - 149px)"&gt;
+    &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="flex"
+        [virtualScroll]="true" [virtualRowHeight]="34"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            Virtual Scrolling with Full Page Viewport 
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
+            &lt;tr style="height:34px"&gt;
+                &lt;td *ngFor="let col of columns; let i = index"&gt;
+                    &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                    &#123;&#123;rowData[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-treeTable&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+            <h3>Horizontal Scrolling</h3>
             <p>In horizontal scrolling on the other hand, it is important to give fixed widths to columns. In general when customizing the column widths of scrollable tables,
                 use colgroup as below to avoid misalignment issues as it will apply both the header, body and footer sections which are different separate elements internally.</p>
 
@@ -1356,8 +1422,9 @@ export class TreeTableSelectionDemo &#123;
 </code>
 </pre>
 
+        <h3>Frozen Columns</h3>
         <p>Particular columns can be made fixed where others remain scrollable, there are to ways to implement this functionality, either
-            define a frozenColumns property if your frozen columns are dynamic or use frozenbody template. The width of the frozen section also
+            define a <i>frozenColumns</i> property if your frozen columns are dynamic or use frozenbody template. The width of the frozen section also
             must be defined with frozenWidth property. Templates including header, body and footer apply to the frozen section as well, however
             if require different content for the frozen section use frozenheader, frozenbody and frozenfooter instead.
         </p>
@@ -1396,27 +1463,27 @@ export class TreeTableSelectionDemo &#123;
 </code>
 </pre>
 
-            <p>When frozen columns are enabled, frozen and scrollable cells may have content with varying height which leads to misalignment. To avoid a performance hit, TreeTable avoids expensive calculations
-                to align the row heights as it can be easily done with CSS manually.</p>
+            <p>When frozen columns are enabled, frozen and scrollable cells may have content with varying height which leads to misalignment. To avoid a performance hit, Table avoids expensive calculations
+             to align the row heights as it can be easily done with templating.</p>
 <pre>
-<code class="language-css" pCode ngNonBindable>
-.ui-treetable .ui-treetable-frozen-view .ui-treetable-tbody > tr > td,
-.ui-treetable .ui-treetable-unfrozen-view .ui-treetable-tbody > tr > td &#123;
-    height: 24px !important;
-&#125;
+<code class="language-markup" pCode ngNonBindable>
+&lt;ng-template pTemplate="body" let-rowData="rowData" let-columns="columns"&gt;
+    &lt;tr style="30px"&gt;
+        &lt;td *ngFor="let col of columns; let i = index"&gt;
+            &#123;&#123;rowData[col.field]&#125;&#125;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/ng-template&gt;
 </code>
 </pre>
 
-            <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
-                on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight
-                property which defaults to 28px, in your row template also assign the height of the row with the same value for smooth scrolling.
-                Note that variable row height is not supported due to the nature of the virtual scrolling behavior.
-            </p>
+            <h3>Virtual Scrolling</h3>
+            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualRowHeight</i> in pixels
+                would be enough to enable this functionality. It is also suggested to use the same virtualRowHeight value on the tr element inside the body template.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
-    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
-    [totalRecords]="totalRecords" [loading]="loading" (onNodeExpand)="onNodeExpand($event)"&gt;
+&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="100" scrollHeight="200px"
+    [virtualScroll]="true" [virtualRowHeight]="34"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;
@@ -1425,45 +1492,10 @@ export class TreeTableSelectionDemo &#123;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-treeTable&gt;
-</code>
-</pre>
-
-            <p>Instead of using the built-in loading mask indicator, an special "loadingbody" template is available to provide feedback to the users
-                about the loading status of a scroll event.
-            </p>
-
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" [rows]="20" scrollHeight="200px"
-    [virtualScroll]="true" [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadNodes($event)" 
-    [totalRecords]="totalRecords" (onNodeExpand)="onNodeExpand($event)" [loading]="true" [showLoader]="showLoader"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns; let i = index"&gt;
-                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="loadingbody" let-columns="columns"&gt;
         &lt;tr style="height:34px"&gt;
-            &lt;td *ngFor="let col of columns;"&gt;
-                &lt;div class="loading-text"&gt;&lt;/div&gt;
+            &lt;td *ngFor="let col of columns; let i = index"&gt;
+                &lt;p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"&gt;&lt;/p-treeTableToggler&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -1471,12 +1503,12 @@ export class TreeTableSelectionDemo &#123;
 </code>
 </pre>
 
-            <p>See the <a [routerLink]="['/treetable/scroll']">live example.</a></p>
+            <p>See the <a [routerLink]="['/treetable/scroll']">scroll</a> and <a [routerLink]="['/treetable/virtualscroll']">virtual scroll</a> examples.</p>
 
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
             onLazyLoad callback everytime paging and sorting. To implement lazy loading,
-            enable <strong>lazy</strong> attribute and provide a method callback using <strong>onLazyLoad</strong> that actually loads the data from a remote datasource. onLazyLoad gets an event object
+            enable <i>lazy</i> attribute and provide a method callback using <i>onLazyLoad</i> that actually loads the data from a remote datasource. onLazyLoad gets an event object
             that contains information about how the data should be loaded. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 
@@ -1519,7 +1551,7 @@ loadNodes(event: LazyLoadEvent) &#123;
 </code>
 </pre>
 
-            <p>Lazy loading applies to the first level nodes in the tree hierarchy, instead if you need to lazy load the children of a node, set <strong>leaf</strong> as true on that node
+            <p>Lazy loading applies to the first level nodes in the tree hierarchy, instead if you need to lazy load the children of a node, set <i>leaf</i> as true on that node
                 and use onNodeExpand event to load children when a node is expanded only.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -1640,7 +1672,7 @@ export class TreeTableResponsiveDemo &#123;
             <p>See the <a [routerLink]="['/treetable/responsive']">live example.</a></p>
 
             <h3>EmptyMessage</h3>
-            <p>When there is no data, emptymessage template can be used to display a message.</p>
+            <p>When there is no data, <i>emptymessage</i> template can be used to display a message.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files"&gt;
@@ -1673,8 +1705,8 @@ export class TreeTableResponsiveDemo &#123;
 </pre>
 
             <h3>Loading Status</h3>
-            <p>TreeTable has a <strong>loading</strong> property, when enabled a spinner icon is displayed to indicate data load.
-                An optional <strong>loadingIcon</strong> property can be passed in case you'd like a different loading icon.</p>
+            <p>TreeTable has a <i>loading</i> property, when enabled a spinner icon is displayed to indicate data load.
+                An optional <i>loadingIcon</i> property can be passed in case you'd like a different loading icon.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" [columns]="cols" [loading]="loading"&gt;
@@ -1798,6 +1830,18 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
+                            <td>tableStyle</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Inline style of the table.</td>
+                        </tr>
+                        <tr>
+                            <td>tableStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the table.</td>
+                        </tr>
+                        <tr>
                             <td>autoLayout</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -1808,6 +1852,12 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
+                            <td>lazyLoadOnInit</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to call lazy loading on initialization.</td>
                         </tr>
                         <tr>
                             <td>paginator</td>
@@ -1861,7 +1911,21 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>paginatorDropdownAppendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).</td>
+                        </tr>
+                        <tr>
+                            <td>currentPageReportTemplate</td>
+                            <td>string</td>
+                            <td>(&#123;currentPage&#125; of &#123;totalPages&#125;)</td>
+                            <td>Template of the current page report element. Available placeholders are
+                                &#123;currentPage&#125;,&#123;totalPages&#125;,&#123;rows&#125;,&#123;first&#125;,&#123;last&#125; and &#123;totalRecords&#125;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>showCurrentPageReport</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display current page report.</td>
                         </tr>
                         <tr>
                             <td>defaultSortOrder</td>
@@ -1936,6 +2000,12 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>Mode for filtering valid values are "lenient" and "strict". Default is lenient.</td>
                         </tr>
                         <tr>
+                            <td>filterLocale</td>
+                            <td>string</td>
+                            <td>undefined</td>
+                            <td>Locale to use in filtering. The default locale is the host environment's current locale.</td>
+                        </tr>
+                        <tr>
                             <td>selectionMode</td>
                             <td>string</td>
                             <td>null</td>
@@ -1986,7 +2056,7 @@ export class TreeTableDemo implements OnInit &#123;
                         <tr>
                             <td>loadingIcon</td>
                             <td>string</td>
-                            <td>fa-circle-o-notch</td>
+                            <td>pi pi-spinner</td>
                             <td>The icon to show while indicating data load is in progress.</td>
                         </tr>
                         <tr>
@@ -2005,7 +2075,7 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>scrollHeight</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Height of the scroll viewport in fixed pixels, percentage or a calc expression.</td>
+                            <td>Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size.</td>
                         </tr>
                         <tr>
                             <td>virtualScroll</td>
@@ -2014,16 +2084,22 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                         <tr>
-                            <td>virtualScrollDelay</td>
-                            <td>number</td>
-                            <td>150</td>
-                            <td>Delay in virtual scroll before doing a call to lazy load.</td>
-                        </tr>
-                        <tr>
                             <td>virtualRowHeight</td>
                             <td>number</td>
                             <td>28</td>
                             <td>Height of a row to use in calculations of virtual scrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>minBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Minimum amount of content buffer (in pixels) that the viewport must render.</td>
+                        </tr>
+                        <tr>
+                            <td>maxBufferPx</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
                         </tr>
                         <tr>
                             <td>frozenWidth</td>
@@ -2278,11 +2354,12 @@ export class TreeTableDemo implements OnInit &#123;
             <h3>Dependencies</h3>
             <p>None.</p>
         </p-tabPanel>
-
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
+            </a>
+            <a href="https://stackblitz.com/edit/primeng-treetable-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
+                <span>Edit in StackBlitz</span>
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -2353,6 +2430,11 @@ export class TreeTableDemo implements OnInit &#123;
 &#125;
 </code>
 </pre>
+        </p-tabPanel>
+        <p-tabPanel header="StackBlitz">
+            <ng-template pTemplate="content">
+                <iframe src="https://stackblitz.com/edit/primeng-treetable-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>

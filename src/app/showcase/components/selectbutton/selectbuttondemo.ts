@@ -10,11 +10,9 @@ export class SelectButtonDemo {
 
     selectedType: string;
 
-    selectedTypes: string[] = ['PayPal','MasterCard'];
+    selectedTypes: string[] = ['Apartment','Studio'];
 
     selectedModes: string[];
-
-    modes: SelectItem[];
 
     countries: any[];
 
@@ -22,15 +20,9 @@ export class SelectButtonDemo {
 
     constructor() {
         this.types = [
-            {label: 'Paypal', value: 'PayPal', icon: 'fa fa-fw fa-cc-paypal'},
-            {label: 'Visa', value: 'Visa', icon: 'fa fa-fw fa-cc-visa'},
-            {label: 'MasterCard', value: 'MasterCard', icon: 'fa fa-fw fa-cc-mastercard'}
-        ];
-
-        this.modes = [
-            {value: 'Bold', title: 'Bold', icon: 'fa fa-fw fa-bold'},
-            {value: 'Italic', title: 'Italic', icon: 'fa fa-fw fa-italic'},
-            {value: 'Underline', title: 'Underline', icon: 'fa fa-fw fa-underline'}
+            {label: 'Apartment', value: 'Apartment'},
+            {label: 'House', value: 'House'},
+            {label: 'Studio', value: 'Studio'}
         ];
 
         this.countries = [

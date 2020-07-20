@@ -1,111 +1,68 @@
-/* Button */
-.ui-button {
-    display: inline-block;
-    position: relative;
-    padding: 0;
-    text-decoration: none !important;
+.p-button {
+    margin: 0;
+    display: inline-flex;
     cursor: pointer;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
     text-align: center;
-    zoom: 1;
-    overflow: visible; /* the overflow property removes extra width in IE */
+    overflow: hidden;
+    position: relative;
 }
 
-p-button {
-    display: inline-block;
+.p-button-label {
+    flex: 1 1 auto;
 }
 
-/*button text element */
-.ui-button .ui-button-text {
-    display: block;
-    line-height: normal;
+.p-button-icon-right {
+    order: 1;
 }
 
-.ui-button-text-only .ui-button-text {
-    padding: .25em 1em;
+.p-button:disabled {
+    cursor: default;
 }
 
-.ui-button-icon-only .ui-button-text,
-.ui-button-text-empty .ui-button-text {
-    padding: .25em;
-    text-indent: -9999999px;
+.p-button-icon-only {
+    justify-content: center;
 }
 
-.ui-button-text-icon-left .ui-button-text {
-    padding: .25em 1em .25em 2.1em;
+.p-button-icon-only .p-button-label {
+    visibility: hidden;
+    width: 0;
+    flex: 0 0 auto;
 }
 
-.ui-button-text-icon-right .ui-button-text {
-    padding: .25em 2.1em .25em 1em;
+.p-button-vertical {
+    flex-direction: column;
 }
 
-/*button icon element(s) */
-.ui-button-icon-only .ui-button-icon-left,
-.ui-button-text-icon-left .ui-button-icon-left,
-.ui-button-text-icon-right .ui-button-icon-right {
-    position: absolute;
-    top: 50%;
-    margin-top: -.5em;
-    height: 1em;
+.p-button-icon-bottom {
+    order: 2;
 }
 
-.ui-button-icon-only .ui-button-icon-left {
-    top: 50%;
-    left: 50%;
-    margin-top: -.5em;
-    margin-left: -.5em;
-    width: 1em;
-    height: 1em;
+.p-buttonset .p-button {
+    margin: 0;
 }
 
-.ui-button-icon-left {
-    left: .5em;
+.p-buttonset .p-button:not(:last-child) {
+    border-right: 0 none;
 }
 
-.ui-button-icon-right {
-    right: .5em;
+.p-buttonset .p-button:not(:first-of-type):not(:last-of-type) {
+    border-radius: 0;
 }
 
-/*button sets*/
-.ui-buttonset .ui-button {
-    margin-left: 0;
-    margin-right: 0;
+.p-buttonset .p-button:first-of-type {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
-/* workarounds */
-button.ui-button::-moz-focus-inner {
-    border: 0; padding: 0; /* reset extra padding in Firefox */
+.p-buttonset .p-button:last-of-type {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
-/** Fluid **/
-.ui-fluid .ui-button {
-    width: 100%;
-}
-
-.ui-fluid .ui-button-text-icon-left .ui-button-text,
-.ui-fluid .ui-button-text-icon-right .ui-button-text {
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-/** ButtonSet **/
-.ui-fluid .ui-buttonset {
-    width: 100%;
-}
-
-.ui-fluid .ui-buttonset.ui-buttonset-1 .ui-button {width: 100%;}
-.ui-fluid .ui-buttonset.ui-buttonset-2 .ui-button {width: 50%;}
-.ui-fluid .ui-buttonset.ui-buttonset-3 .ui-button {width: 33.3%;}
-.ui-fluid .ui-buttonset.ui-buttonset-4 .ui-button {width: 25%;}
-.ui-fluid .ui-buttonset.ui-buttonset-5 .ui-button {width: 20%;}
-.ui-fluid .ui-buttonset.ui-buttonset-6 .ui-button {width: 16.6%;}
-
-@media (max-width: 640px) {
-    .ui-fluid .ui-buttonset.ui-buttonset-1 .ui-button,
-    .ui-fluid .ui-buttonset.ui-buttonset-2 .ui-button,
-    .ui-fluid .ui-buttonset.ui-buttonset-3 .ui-button,
-    .ui-fluid .ui-buttonset.ui-buttonset-4 .ui-button,
-    .ui-fluid .ui-buttonset.ui-buttonset-5 .ui-button,
-    .ui-fluid .ui-buttonset.ui-buttonset-6 .ui-button {
-        width: 100%;
-    }
+.p-buttonset .p-button:focus {
+    position: relative;
+    z-index: 1;
 }
