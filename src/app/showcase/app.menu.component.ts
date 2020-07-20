@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Router } from '@angular/router';
 
 declare let gtag: Function;
 
@@ -285,27 +285,14 @@ export class AppMenuComponent {
 
     activeSubmenus: {[key: string]: boolean} = {};
 
-    constructor(private router: Router) {
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                gtag('config', 'UA-93461466-1', 
-                      {
-                        'page_path': '/primeng' + event.urlAfterRedirects
-                      }
-                );
+    constructor(private router: Router) {}
 
-                //this.activeTopbarSubmenu = null;
-                //this.menuActive = false;
-             }
-        });
-    }
-
-    toggleSubmenu(event, name) {
+    toggleSubmenu(event: Event, name: string) {
         this.activeSubmenus[name] = this.activeSubmenus[name] ? false: true;
         event.preventDefault();
     }
 
-    isSubmenuActive(name) {
+    isSubmenuActive(name: string) {
         if (this.activeSubmenus.hasOwnProperty(name)) {
             return this.activeSubmenus[name];
         }

@@ -1,182 +1,358 @@
-import {Component} from '@angular/core';
-import {DomHandler} from '../components/dom/domhandler';
+import {Component, ElementRef} from '@angular/core';
 
 @Component({
     selector: 'app-config',
     template: `
-        <div class="layout-config" [ngClass]="{'layout-config-active': configActive}" (click)="onConfigClick()">
+        <div class="layout-config" [ngClass]="{'layout-config-active': active}">
             <div class="layout-config-content-wrapper">
-                <a style="cursor: pointer" id="layout-config-button" class="layout-config-button" (click)="onConfigButtonClick($event)">
+                <a tabindex="0" class="layout-config-button" (click)="toggleConfigurator($event)">
                     <i class="pi pi-cog"></i>
                 </a>
-                <a style="cursor: pointer" class="layout-config-close" (click)="onConfigCloseClick($event)">
+                <a tabindex="0"  class="layout-config-close" (click)="hideConfigurator($event)">
                     <i class="pi pi-times"></i>
                 </a>
+
                 <div class="layout-config-content">
-                    <div class="free-themes">
-                        <h1 style="margin-top: 0">FREE THEMES</h1>
+                    <div>
+                        <h4>Component Scale</h4>
+                        <div class="config-scale">
+                            <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text" [disabled]="scale === scales[0]"></button>
+                            <i class="pi pi-circle-on" *ngFor="let s of scales" [ngClass]="{'scale-active': s === scale}"></i>
+                            <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text" [disabled]="scale === scales[scales.length - 1]"></button>
+                        </div>
+
+                        <app-inputStyleSwitch></app-inputStyleSwitch>
+
+                        <h4>Ripple Effect</h4>
+                        <b>TODO</b>
+
+                        <h4>Free Themes</h4>
                         <p>Built-in component themes created by the <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a>.</p>
-                        <div class="p-grid">
+
+                        <h5>Bootstrap</h5>
+                        <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-nova-light.png" alt="Nova Light" (click)="changeTheme($event, 'nova-light', false)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'nova-light'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-blue')">
+                                    <img src="assets/showcase/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap Light Blue" />
                                 </a>
-                                <span>Nova-Light</span>
+                                <span>Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-nova-dark.png" alt="Nova Dark" (click)="changeTheme($event, 'nova-dark', false)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'nova-dark'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-purple')">
+                                    <img src="assets/showcase/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Blue" />
                                 </a>
-                                <span>Nova-Dark</span>
+                                <span>Purple</span>
                             </div>
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-nova-colored.png" alt="Nova Colored" (click)="changeTheme($event, 'nova-colored', false)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'nova-colored'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-dark-blue', true)">
+                                    <img src="assets/showcase/images/themes/bootstrap4-dark-blue.svg" alt="Bootstrap Dark Blue" />
                                 </a>
-                                <span>Nova-Colored</span>
+                                <span>Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-luna-blue.png" alt="Luna Blue" (click)="changeTheme($event, 'luna-blue', true)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'luna-blue'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-dark-purple', true)">
+                                    <img src="assets/showcase/images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Blue" />
                                 </a>
-                                <span>Luna-Blue</span>
+                                <span>Purple</span>
+                            </div>
+                        </div>
+
+                        <h5>Material Design</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'md-light-indigo')">
+                                    <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Light Indigo" />
+                                </a>
+                                <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-luna-green.png" alt="Luna Green" (click)="changeTheme($event, 'luna-green', true)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'luna-green'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'md-light-deeppurple')">
+                                    <img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Material Light Deep Purple" />
                                 </a>
-                                <span>Luna-Green</span>
+                                <span>Deep Purple</span>
                             </div>
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-luna-amber.png" alt="Luna Amber" (click)="changeTheme($event, 'luna-amber', true)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'luna-amber'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'md-dark-indigo', true)">
+                                    <img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Material Dark Indigo" />
                                 </a>
-                                <span>Luna-Amber</span>
+                                <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-luna-pink.png" alt="Luna Pink" (click)="changeTheme($event, 'luna-pink', true)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'luna-pink'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'md-dark-deeppurple', true)">
+                                    <img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Material Dark Deep Purple" />
                                 </a>
-                                <span>Luna-Pink</span>
+                                <span>Deep Purple</span>
+                            </div>
+                        </div>
+
+                        <h5>Material Design Compact</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-indigo')">
+                                    <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo"/>
+                                </a>
+                                <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a style="cursor: pointer">
-                                    <img src="./assets/showcase/images/layouts/themeswitcher-rhea.png" alt="Rhea" (click)="changeTheme($event, 'rhea', false)"/>
-                                    <i class="pi pi-check" *ngIf="theme === 'rhea'"></i>
+                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-deeppurple')">
+                                    <img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Material Compact Deep Purple" />
+                                </a>
+                                <span>Deep Purple</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'mdc-dark-indigo', true)">
+                                    <img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Material Compact Dark Indigo" />
+                                </a>
+                                <span>Indigo</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'mdc-dark-deeppurple', true)">
+                                    <img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Material Compact Dark Deep Purple" />
+                                </a>
+                                <span>Deep Purple</span>
+                            </div>
+                        </div>
+
+                        <h5>PrimeOne Design</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-blue')">
+                                    <img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" />
+                                </a>
+                                <span>Saga Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-green')">
+                                    <img src="assets/showcase/images/themes/saga-green.png" alt="Saga Green" />
+                                </a>
+                                <span>Saga Green</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-orange')">
+                                    <img src="assets/showcase/images/themes/saga-orange.png" alt="Saga Orange" />
+                                </a>
+                                <span>Saga Orange</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-purple')">
+                                    <img src="assets/showcase/images/themes/saga-purple.png" alt="Saga Purple" />
+                                </a>
+                                <span>Saga Purple</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'vela-blue', true)">
+                                    <img src="assets/showcase/images/themes/vela-blue.png" alt="Vela Blue" />
+                                </a>
+                                <span>Vela Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'vela-green', true)">
+                                    <img src="assets/showcase/images/themes/vela-green.png" alt="Vela Green" />
+                                </a>
+                                <span>Vela Green</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'vela-orange', true)">
+                                    <img src="assets/showcase/images/themes/vela-orange.png" alt="Vela Orange" />
+                                </a>
+                                <span>Vela Orange</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'vela-purple', true)">
+                                    <img src="assets/showcase/images/themes/vela-purple.png" alt="Vela Purple" />
+                                </a>
+                                <span>Vela Purple</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'arya-blue', true)">
+                                    <img src="assets/showcase/images/themes/arya-blue.png" alt="Arya Blue" />
+                                </a>
+                                <span>Arya Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'arya-green', true)">
+                                    <img src="assets/showcase/images/themes/arya-green.png" alt="Arya Green" />
+                                </a>
+                                <span>Arya Green</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'arya-orange', true)">
+                                    <img src="assets/showcase/images/themes/arya-orange.png" alt="Arya Orange" />
+                                </a>
+                                <span>Arya Orange</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'arya-purple', true)">
+                                    <img src="assets/showcase/images/themes/arya-purple.png" alt="Arya Purple" />
+                                </a>
+                                <span>Arya Purple</span>
+                            </div>
+                        </div>
+
+                        <h5>Legacy</h5>
+                        <div class="p-grid free-themes">
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'nova')">
+                                    <img src="assets/showcase/images/themes/nova.png" alt="Nova" />
+                                </a>
+                                <span>Nova</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'nova-alt')">
+                                    <img src="assets/showcase/images/themes/nova-alt.png" alt="Nova Alt" />
+                                </a>
+                                <span>Nova Alt</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'nova-accent')">
+                                    <img src="assets/showcase/images/themes/nova-accent.png" alt="Nova Accent" />
+                                </a>
+                                <span>Nova Accent</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'nova-vue')">
+                                    <img src="assets/showcase/images/themes/nova-vue.png" alt="Nova Colored" />
+                                </a>
+                                <span>Nova Vue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'luna-blue', true)">
+                                    <img src="assets/showcase/images/themes/luna-blue.png" alt="Luna Blue" />
+                                </a>
+                                <span>Luna Blue</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'luna-green', true)">
+                                    <img src="assets/showcase/images/themes/luna-green.png" alt="Luna Green" />
+                                </a>
+                                <span>Luna Green</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'luna-amber', true)">
+                                    <img src="assets/showcase/images/themes/luna-amber.png" alt="Luna Amber" />
+                                </a>
+                                <span>Luna Amber</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'luna-pink', true)">
+                                    <img src="assets/showcase/images/themes/luna-pink.png" alt="Luna Pink" />
+                                </a>
+                                <span>Luna Pink</span>
+                            </div>
+                            <div class="p-col-3">
+                                <a tabindex="0" (click)="changeTheme($event, 'rhea', false)">
+                                    <img src="assets/showcase/images/themes/rhea.png" alt="Rhea" />
                                 </a>
                                 <span>Rhea</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="premium-themes">
-                        <h1>PREMIUM ANGULAR CLI TEMPLATES</h1>
-                        <p>Powered by Angular CLI, create awesome applications in no time using the premium templates of PrimeNG and impress your users.</p>
-                        <div class="p-grid">
-                            <div class="p-col-6">
+
+                        <h4>Premium Vue-CLI Templates</h4>
+                        <p>Beautifully crafted premium <a href="https://cli.vuejs.org">Vue CLI</a> application templates by the PrimeTek design team.</p>
+                        <div class="p-grid premium-themes">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/mirage-ng">
-                                    <img alt="Mirage" src="./assets/showcase/images/layouts/mirage-ng.jpg">
+                                    <img alt="Mirage" src="assets/showcase/images/layouts/mirage-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/prestige-ng">
-                                    <img alt="Prestige" src="./assets/showcase/images/layouts/prestige-ng.jpg">
+                                    <img alt="Prestige" src="assets/showcase/images/layouts/prestige-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/sapphire-ng">
-                                    <img alt="Sapphire" src="./assets/showcase/images/layouts/sapphire-ng.jpg">
+                                    <img alt="Sapphire" src="assets/showcase/images/layouts/sapphire-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
-                                <a href="https://www.primefaces.org/layouts/serenity-ng">
-                                    <img alt="Serenity" src="./assets/showcase/images/layouts/serenity-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-6">
-                                <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                    <img alt="Ultima" src="./assets/showcase/images/layouts/ultima-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-6">
-                                <a href="https://www.primefaces.org/layouts/barcelona-ng">
-                                    <img alt="Barcelona" src="./assets/showcase/images/layouts/barcelona-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-6">
-                                <a href="https://www.primefaces.org/layouts/babylon-ng">
-                                    <img alt="Babylon" src="./assets/showcase/images/layouts/babylon-ng.jpg">
-                                </a>
-                            </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/roma-ng">
-                                    <img alt="Roma" src="./assets/showcase/images/layouts/roma-ng.jpg">
+                                    <img alt="Roma" src="assets/showcase/images/layouts/roma-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/babylon-ng">
+                                    <img alt="Babylon" src="assets/showcase/images/layouts/babylon-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/olympia-ng">
-                                    <img alt="Olympia" src="./assets/showcase/images/layouts/olympia-ng.jpg">
+                                    <img alt="Olympia" src="assets/showcase/images/layouts/olympia-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/california-ng">
-                                    <img alt="California" src="./assets/showcase/images/layouts/california-ng.jpg">
+                                    <img alt="California" src="assets/showcase/images/layouts/california-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/ecuador-ng">
-                                    <img alt="Ecuador" src="./assets/showcase/images/layouts/ecuador-ng.jpg">
+                                    <img alt="Ecuador" src="assets/showcase/images/layouts/ecuador-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/harmony-ng">
+                                    <img alt="Harmony" src="assets/showcase/images/layouts/harmony-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/apollo-ng">
-                                    <img alt="Apollo" src="./assets/showcase/images/layouts/apollo-ng.jpg">
+                                    <img alt="Apollo" src="assets/showcase/images/layouts/apollo-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
-                                <a href="https://www.primefaces.org/layouts/manhattan-ng">
-                                    <img alt="Manhattan" src="./assets/showcase/images/layouts/manhattan-ng.jpg">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/serenity-ng">
+                                    <img alt="Serenity" src="assets/showcase/images/layouts/serenity-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
-                                <a href="https://www.primefaces.org/layouts/manhattan-ng">
-                                    <img alt="Harmony" src="./assets/showcase/images/layouts/harmony-ng.jpg">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/avalon-ng">
+                                    <img alt="Avalon" src="assets/showcase/images/layouts/avalon-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/verona-ng">
-                                    <img alt="Verona" src="./assets/showcase/images/layouts/verona-ng.jpg">
+                                    <img alt="Verona" src="assets/showcase/images/layouts/verona-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/manhattan-ng">
+                                    <img alt="Manhattan" src="assets/showcase/images/layouts/manhattan-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/paradise-ng">
-                                    <img alt="Paradise" src="./assets/showcase/images/layouts/paradise-ng.jpg">
+                                    <img alt="Paradise" src="assets/showcase/images/layouts/paradise-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                    <img alt="Ultima" src="assets/showcase/images/layouts/ultima-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
+                                <a href="https://www.primefaces.org/layouts/barcelona-ng">
+                                    <img alt="Barcelona" src="assets/showcase/images/layouts/barcelona-ng.jpg">
+                                </a>
+                            </div>
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/morpheus-ng">
-                                    <img alt="Morpheus" src="./assets/showcase/images/layouts/morpheus-ng.jpg">
+                                    <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                    <img alt="Atlantis" src="./assets/showcase/images/layouts/atlantis-ng.jpg">
+                                    <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/poseidon-ng">
-                                    <img alt="Poseidon" src="./assets/showcase/images/layouts/poseidon-ng.jpg">
+                                    <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-ng.jpg">
                                 </a>
                             </div>
-                            <div class="p-col-6">
+                            <div class="p-col-12 p-md-4">
                                 <a href="https://www.primefaces.org/layouts/omega-ng">
-                                    <img alt="Omega" src="./assets/showcase/images/layouts/omega-ng.jpg">
+                                    <img alt="Omega" src="assets/showcase/images/layouts/omega-ng.jpg">
                                 </a>
                             </div>
                         </div>
@@ -188,61 +364,44 @@ import {DomHandler} from '../components/dom/domhandler';
 })
 export class AppConfigComponent {
 
-    theme = 'nova-light';
+    active: boolean;
+
+    scale: number = 14;;
+    
+    scales: number[] = [12,13,14,15,16];
 
     outsideClickListener: any;
 
-    configClick: boolean;
+    constructor(private el: ElementRef) {}
 
-    configActive: boolean;
+    toggleConfigurator(event: Event) {
+        this.active = !this.active;
+        event.preventDefault();
 
-    changeTheme(event, theme: string, dark:boolean) {
-        let themeElement = document.getElementById('theme-css');
-            themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.theme, theme));
-            this.theme = theme;
-            const hasBodyDarkTheme = DomHandler.hasClass(document.body, 'dark-theme');
-
-            if (dark) {
-                if (!hasBodyDarkTheme) {
-                    DomHandler.addClass(document.body, 'dark-theme');
-                }
-            }
-            else if (hasBodyDarkTheme) {
-                DomHandler.removeClass(document.body, 'dark-theme');
-            }
-
-            event.preventDefault();
-    }
-
-    onConfigButtonClick(event) {
-        this.configActive = !this.configActive;
-        
-        if (this.configActive) {
+        if (this.active)
             this.bindOutsideClickListener();
-        }
+        else
+            this.unbindOutsideClickListener();
+    }
+
+    hideConfigurator(event) {
+        this.active = false;
+        this.unbindOutsideClickListener();
         event.preventDefault();
     }
 
-    onConfigCloseClick(event) {
-        this.configActive = false;
+    changeTheme(event: Event, theme: string, dark: boolean) {
+        //this.onThemeChange({theme: theme, dark: dark});
         event.preventDefault();
-    }
-
-    onConfigClick() {
-        this.configClick = true;
     }
 
     bindOutsideClickListener() {
         if (!this.outsideClickListener) {
             this.outsideClickListener = (event) => {
-                if (!this.configClick) {
-                    this.configActive = false;
-                    this.unbindOutsideClickListener();
+                if (this.active && this.isOutsideClicked(event)) {
+                    this.active = false;
                 }
-
-                this.configClick = false;
             };
-
             document.addEventListener('click', this.outsideClickListener);
         }
     }
@@ -253,4 +412,19 @@ export class AppConfigComponent {
             this.outsideClickListener = null;
         }
     }
+
+    isOutsideClicked(event) {
+        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target));
+    }
+
+    decrementScale() {
+        this.scale--;
+        document.documentElement.style.fontSize = this.scale + 'px';
+    }
+
+    incrementScale() {
+        this.scale++;
+        document.documentElement.style.fontSize = this.scale + 'px';
+    }
+    
 }

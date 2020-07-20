@@ -1,7 +1,6 @@
-import {Component, NgModule} from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { RadioButton, RadioButtonModule } from 'primeng/radiobutton';
-import { CommonModule } from '@angular/common';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -23,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     `
 })
 export class AppInputStyleSwitchComponent {
+
     value: string;
 
     constructor(private app: AppComponent) {
@@ -30,8 +30,9 @@ export class AppInputStyleSwitchComponent {
     }
 
     onChange() {
-        if (this.app.appState.inputStyle != this.value)
+        if (this.app.appState.inputStyle != this.value) {
             this.app.appState.inputStyle = this.value;
+        }
     }
 }
 

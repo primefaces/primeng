@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, ViewChild, ElementRef, Input } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -71,28 +72,144 @@ import { trigger, state, style, transition, animate, AnimationEvent } from '@ang
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 1)">Templates</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter">
-                        <li class="topbar-submenu-header">FREE ADMIN TEMPLATE</li>
-                        <li><a href="https://www.primefaces.org/sigma-vue"><img src="./assets/images/layouts/themeswitcher-sigma.png" alt="Sigma" /><span>Sigma</span></a></li>
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
-                        <li><a href="https://www.primefaces.org/layouts/sapphire-vue"><img src="./assets/images/layouts/themeswitcher-sapphire.png" alt="Sapphire" /><span>Sapphire</span><span class="theme-badge material">material</span></a></li>
-                        <li><a href="https://www.primefaces.org/layouts/serenity-vue"><img src="./assets/images/layouts/themeswitcher-serenity.png" alt="Serenity" /><span>Serenity</span><span class="theme-badge material">material</span></a></li>
-                        <li><a href="https://www.primefaces.org/layouts/ultima-vue"><img src="./assets/images/layouts/themeswitcher-ultima.png" alt="Ultima" /><span>Ultima</span><span class="theme-badge material">material</span></a></li>
-                        <li><a href="https://www.primefaces.org/layouts/avalon-vue"><img src="./assets/images/layouts/themeswitcher-avalon.png" alt="Avalon" /><span>Avalon</span><span class="theme-badge bootstrap">bootstrap</span></a></li>
-                        <li><a href="https://www.primefaces.org/layouts/babylon-vue"><img src="./assets/images/layouts/themeswitcher-babylon.png" alt="Babylon" /><span>Babylon</span></a></li>
-                        <li><a href="https://www.primefaces.org/layouts/apollo-vue"><img src="./assets/images/layouts/themeswitcher-apollo.png" alt="Apollo" /><span>Apollo</span><span class="theme-badge darkmode">dark mode</span></a></li>
-                        <li><a href="https://www.primefaces.org/layouts/roma-vue"><img src="./assets/images/layouts/themeswitcher-roma.jpg" alt="Roma" /><span>Roma</span></a></li>
-                        <li><a href="https://www.primefaces.org/layouts/prestige-vue"><img src="./assets/images/layouts/themeswitcher-prestige.png" alt="Prestige" /><span>Prestige</span></a></li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/mirage-ng">
+                                <img alt="Mirage" src="assets/showcase/images/layouts/mirage-logo.png">
+                                <span>Mirage</span><span class="theme-badge bootstrap">bootstrap</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/prestige-ng">
+                                <img alt="Prestige" src="assets/showcase/images/layouts/prestige-logo.png">
+                                <span>Prestige</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/sapphire-ng">
+                                <img alt="Sapphire" src="assets/showcase/images/layouts/sapphire-logo.png">
+                                <span>Sapphire</span><span class="theme-badge material">material</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/roma-ng">
+                                <img alt="Roma" src="assets/showcase/images/layouts/roma-logo.png">
+                                <span>Roma</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/babylon-ng">
+                                <img alt="Babylon" src="assets/showcase/images/layouts/babylon-logo.png">
+                                <span>Babylon</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/olympia-ng">
+                                <img alt="Olympia" src="assets/showcase/images/layouts/olympia-logo.png">
+                                <span>Olympia</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/california-ng">
+                                <img alt="California" src="assets/showcase/images/layouts/california-logo.png">
+                                <span>California</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/ecuador-ng">
+                                <img alt="Ecuador" src="assets/showcase/images/layouts/ecuador-logo.png">
+                                <span>Ecuador</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/harmony-ng">
+                                <img alt="Harmony" src="assets/showcase/images/layouts/harmony-logo.png">
+                                <span>Harmony</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/apollo-ng">
+                                <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.png">
+                                <span>Apollo</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/serenity-ng">
+                                <img alt="Serenity" src="assets/showcase/images/layouts/serenity-logo.png">
+                                <span>Serenity</span><span class="theme-badge material">material</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/avalon-ng">
+                                <img alt="Avalon" src="assets/showcase/images/layouts/avalon-logo.png">
+                                <span>Avalon</span><span class="theme-badge bootstrap">bootstrap</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/verona-ng">
+                                <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png">
+                                <span>Verona</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/manhattan-ng">
+                                <img alt="Manhattan" src="assets/showcase/images/layouts/manhattan-logo.png">
+                                <span>Manhattan</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/paradise-ng">
+                                <img alt="Paradise" src="assets/showcase/images/layouts/paradise-logo.png">
+                                <span>Paradise</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/ultima-ng">
+                                <img alt="Ultima" src="assets/showcase/images/layouts/ultima-logo.png">
+                                <span>Ultima</span><span class="theme-badge material">material</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/barcelona-ng">
+                                <img alt="Barcelona" src="assets/showcase/images/layouts/barcelona-logo.png">
+                                <span>Barcelona</span><span class="theme-badge material">material</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/morpheus-ng">
+                                <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-logo.png">
+                                <span>Morpheus</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/atlantis-ng">
+                                <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-logo.png">
+                                <span>Atlantis</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/poseidon-ng">
+                                <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-logo.png">
+                                <span>Poseidon</span>
+                            </a>
+                            </li>
+                        <li>
+                            <a href="https://www.primefaces.org/layouts/omega-ng">
+                                <img alt="Omega" src="assets/showcase/images/layouts/omega-logo.png">
+                                <span>Omega</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 2)">Resources</a>
                     <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter">
                         <li><a [routerLink]="['/support']"><span>Support</span></a></li>
-                        <li><a href="https://forum.primefaces.org/viewforum.php?f=110"><span>Forum</span></a></li>
-                        <li><a href="https://github.com/primefaces/primevue" target="_blank"><span>Source Code</span></a></li>
+                        <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Forum</span></a></li>
+                        <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
                         <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
-                        <li><a href="https://www.primefaces.org/category/primevue/" target="_blank"><span>Blog</span></a></li>
-                        <li><a href="https://twitter.com/primevue?lang=en" target="_blank"><span>Twitter</span></a></li>
+                        <li><a href="https://www.primefaces.org/category/primeng/" target="_blank"><span>Blog</span></a></li>
+                        <li><a href="https://twitter.com/prime_ng?lang=en" target="_blank"><span>Twitter</span></a></li>
                         <li><a href="https://www.primefaces.org/whouses" target="_blank"><span>Who Uses</span></a></li>
                         <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
                         <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
@@ -120,8 +237,6 @@ export class AppTopBarComponent {
     @Input() theme: string;
 
     @Output() menuButtonClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() themeChange: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
 
@@ -165,13 +280,20 @@ export class AppTopBarComponent {
         'rhea': 'rhea.png'
     };
 
+    constructor(private router: Router) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.activeMenuIndex = null;
+             }
+        });
+    }
+
     onMenuButtonClick(event: Event) {
         this.menuButtonClick.emit();
         event.preventDefault();
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        this.themeChange.emit(theme);
         this.activeMenuIndex = null;
         event.preventDefault();
     }

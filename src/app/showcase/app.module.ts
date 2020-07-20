@@ -7,8 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { AutoCompleteModule } from '../components/autocomplete/autocomplete';
+import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 import { CarService } from './service/carservice';
 import { CountryService } from './service/countryservice';
@@ -24,6 +25,8 @@ import { AppTopBarComponent } from './app.topbar.component';
 import { AppMenuComponent } from './app.menu.component';
 import { AppConfigComponent } from './app.config.component';
 import { AppFooterComponent } from './app.footer.component';
+import { AppInputStyleSwitchComponent } from './app.inputstyleswitch.component';
+
 
 @NgModule({
     declarations: [
@@ -33,7 +36,8 @@ import { AppFooterComponent } from './app.footer.component';
         AppTopBarComponent,
         AppMenuComponent,
         AppConfigComponent,
-        AppFooterComponent
+        AppFooterComponent,
+        AppInputStyleSwitchComponent
     ],
     imports: [
         FormsModule,
@@ -41,7 +45,8 @@ import { AppFooterComponent } from './app.footer.component';
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        AutoCompleteModule,
+        ButtonModule,
+        RadioButtonModule,
         TooltipModule
     ],
     providers: [
