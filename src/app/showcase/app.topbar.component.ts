@@ -15,14 +15,14 @@ import { Subscription } from 'rxjs';
             <a [routerLink]="['/']" class="logo">
                 <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" />
             </a>
-            <div class="app-theme" [pTooltip]="theme" tooltipPosition="bottom">
+            <div class="app-theme" [pTooltip]="config.theme" tooltipPosition="bottom">
                 <img [src]="'assets/showcase/images/themes/' + logoMap[config.theme]" />
             </div>
             <ul #topbarMenu class="topbar-menu">
                 <li><a [routerLink]="['/setup']">Get Started</a></li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 0)">Themes</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 0" (@overlayMenuAnimation.start)="onOverlayMenuEnter">
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 0" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">THEMING</li>
                         <li><a [routerLink]="['/theming']"><i class="pi pi-fw pi-file"></i><span>Guide</span></a></li>
                         <li><a href="https://www.primefaces.org/designer/primeng"><i class="pi pi-fw pi-palette"></i><span>Designer</span></a></li>
@@ -73,7 +73,7 @@ import { Subscription } from 'rxjs';
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 1)">Templates</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter">
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 1" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/mirage-ng">
@@ -205,7 +205,7 @@ import { Subscription } from 'rxjs';
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 2)">Resources</a>
-                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter">
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 2" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)">
                         <li><a [routerLink]="['/support']"><span>Support</span></a></li>
                         <li><a href="https://forum.primefaces.org/viewforum.php?f=35"><span>Forum</span></a></li>
                         <li><a href="https://github.com/primefaces/primeng" target="_blank"><span>Source Code</span></a></li>
