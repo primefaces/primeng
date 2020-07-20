@@ -1,67 +1,73 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">MultiSelect</span>
-        <span>MultiSelect is used to select multiple items from a collection.</span>
+    <div class="feature-intro">
+        <h1>MultiSelect</h1>
+        <p>MultiSelect is used to multiple values from a list of options.</p>
     </div>
+    <app-inputStyleSwitch></app-inputStyleSwitch>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"></p-multiSelect>
-    <p>Selected Cars: {{selectedCars1}}</p>
-
-    <h3>Templating</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2">
-        <ng-template let-value pTemplate="selectedItems">
-            <div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all">
-                <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" />
-                <span>{{val}}</span>
-            </div>
-            <span *ngIf="!value || value.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose</span>
-        </ng-template>
-        <ng-template let-car pTemplate="item">
-            <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;vertical-align:middle" />
-            <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
-        </ng-template>
-    </p-multiSelect>
-    <p>Selected Cars: {{selectedCars2}}</p>
-
-    <h3>Virtual Scroll (10000 Items)</h3>
-    <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [virtualScroll]="true" [filter]="true" [itemSize]="34"></p-multiSelect>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"></p-multiSelect>
+    
+        <h5>Templating</h5>
+        <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
+            <ng-template let-value pTemplate="selectedItems">
+                <div class="country-item country-item-value" *ngFor="let option of selectedCountries1">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />
+                    <div>{{option.name}}</div>
+                </div>
+                <div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder">
+                    Select Countries
+                </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+                <div class="country-item">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" />
+                    <div>{{country.value.name}}</div>
+                </div>
+            </ng-template>
+        </p-multiSelect>
+    
+        <h5>Virtual Scroll (10000 Items)</h5>
+        <p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
+            <ng-template let-country pTemplate="item">
+                <div class="country-item">
+                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" />
+                    <div>{{country.value.name}}</div>
+                </div>
+            </ng-template>
+        </p-multiSelect>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>CDK</h3>
+            <h5>CDK</h5>
             <p>Virtual Scrolling enabled MultiSelect depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup">
 npm install @angular/cdk --save
-</code>
-</pre>
+</app-code>
 
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript">
 import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>MultiSelect requires a value to bind and a collection of options. There are two alternatives of how to define the <i>options</i> property; one way is providing a collection of SelectItem
             instances whereas other way is providing an array of arbitrary objects along with the <i>optionLabel</i> property to specify the field name of the option. SelectItem API is designed to have more control on how
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup">
 &lt;p-multiSelect [options]="cities1" [(ngModel)]="selectedCities1"&gt;&lt;/p-multiSelect&gt;
 
 &lt;p-multiSelect [options]="cities2" [(ngModel)]="selectedCities2" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript">
 import &#123;SelectItem&#125; from 'primeng/api';
 
 interface City &#123;
@@ -100,21 +106,18 @@ export class MyModel &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>MultiSelect can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup">
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Disabled Options</h3>
+            <h5>Disabled Options</h5>
             <p>Particular options can be prevented from selection using the <i>disabled</i> property of SelectItem API.</p>
 
-            <h3>Templating</h3>
+            <h5>Templating</h5>
             <p>Label of a selectitem is displayed by default next to the checkbox in the overlay panel and it is possible to customize
             the content using templating. The ngTemplate receives the selectitem as the implicit variable.</p>
 
@@ -135,24 +138,21 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Filtering</h3>
+            <h5>Filtering</h5>
             <p>Options can be filtered using an input field in the overlay by enabling the <i>filter</i> property. By default filtering is done against
                 label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup">
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true"&gt;&lt;/p-multiSelect&gt;
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" filterBy="label,value.name"&gt;&lt;/p-multiSelect&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Change Detection</h3>
+            <h5>Change Detection</h5>
             <p>MultiSelect detects changes to options and selected values using setters so when changing your model,
                 prefer creating a new array reference instead of manipulating an existing array.</p>
 
-            <h3>Header and Footer</h3>
+            <h5>Header and Footer</h5>
             <p><i>p-header</i> and <i>p-footer</i> elements can be used display custom content inside the header and footer sections.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup">
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;
     &lt;p-header&gt;
         //Header content
@@ -161,28 +161,23 @@ export class MyModel &#123;
         //Footer content
     &lt;/p-footer&gt;
 &lt;/p-multiSelect&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Virtual Scrolling</h3>
+            <h5>Virtual Scrolling</h5>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
                 to avoid performance issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining itemSize to specify the height of an item.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup">
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-multiSelect&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Animation Configuration</h3>
+            <h5>Animation Configuration</h5>
             <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties,
                 example below disables the animations altogether.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup">
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-multiSelect&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -450,7 +445,7 @@ export class MyModel &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -498,7 +493,7 @@ export class MyModel &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -510,46 +505,46 @@ export class MyModel &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-multiselect</td>
+                            <td>p-multiselect</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-label-container</td>
+                            <td>p-multiselect-label-container</td>
                             <td>Container of the label to display selected items.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-label</td>
+                            <td>p-multiselect-label</td>
                             <td>Label to display selected items.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-trigger</td>
+                            <td>p-multiselect-trigger</td>
                             <td>Dropdown button.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-filter-container</td>
+                            <td>p-multiselect-filter-container</td>
                             <td>Container of filter input.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-panel</td>
+                            <td>p-multiselect-panel</td>
                             <td>Overlay panel for items.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-items</td>
+                            <td>p-multiselect-items</td>
                             <td>List container of items.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-item</td>
+                            <td>p-multiselect-item</td>
                             <td>An item in the list.</td>
                         </tr>
                         <tr>
-                            <td>ui-multiselect-open</td>
+                            <td>p-multiselect-open</td>
                             <td>Container element when overlay is visible.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>Angular CDK.</p>
         </p-tabPanel>
 
@@ -562,90 +557,136 @@ export class MyModel &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"&gt;&lt;/p-multiSelect&gt;
-&lt;p&gt;Selected Cars: &#123;&#123;selectedCars1&#125;&#125;&lt;/p&gt;
+&lt;h5 class="first"&gt;Basic&lt;/h5&gt;
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name"&gt;&lt;/p-multiSelect&gt;
 
-&lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2"&gt;
+&lt;h5&gt;Templating&lt;/h5&gt;
+&lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
     &lt;ng-template let-value pTemplate="selectedItems"&gt;
-        &lt;div *ngFor="let val of value" class="ui-multiselected-item-token ui-corner-all"&gt;
-            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;val&#125;&#125;.png" style="width:20px;vertical-align:middle;margin-right:.5em" /&gt;
-            &lt;span&gt;&#123;&#123;val&#125;&#125;&lt;/span&gt;
+        &lt;div class="country-item country-item-value" *ngFor="let option of selectedCountries1"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;option.name&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;span *ngIf="!value || value.length === 0" class="ui-multiselected-empty-token ui-corner-all"&gt;Choose&lt;/span&gt;
+        &lt;div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder"&gt;
+            Select Countries
+        &lt;/div&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;display:inline-block;vertical-align:middle"/&gt;
-        &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
+    &lt;ng-template let-country pTemplate="item"&gt;
+        &lt;div class="country-item"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;country.value.name&#125;&#125;&lt;/div&gt;
+        &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
-&lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 
-&lt;h3&gt;Virtual Scroll (10000 Items)&lt;/h3&gt;
-&lt;p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="item" [virtualScroll]="true" [itemSize]="34" [filter]="false"&gt;&lt;/p-multiSelect&gt;
+&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+&lt;p-multiSelect [options]="items" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"&gt;
+    &lt;ng-template let-country pTemplate="item"&gt;
+        &lt;div class="country-item"&gt;
+            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /&gt;
+            &lt;div&gt;&#123;&#123;country.value.name&#125;&#125;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './multiselectdemo.html',
-    styles: [`
-        :host ::ng-deep .ui-multiselected-item-token,
-        :host ::ng-deep .ui-multiselected-empty-token &#123;
-            padding: 2px 4px;
-            margin: 0 0.286em 0 0;
-            display: inline-block;
-            vertical-align:middle;
-            height: 1.857em;
-        &#125;
-
-        :host ::ng-deep .ui-multiselected-item-token &#123;
-            background: #007ad9;
-            color: #ffffff;
-        &#125;
-
-        :host ::ng-deep .ui-multiselected-empty-token &#123;
-            background: #d95f00;
-            color: #ffffff;
-        &#125;
-    `]
-&#125;)
+<app-code lang="typescript">
 export class MultiSelectDemo &#123;
 
-    cars: SelectItem[];
+    selectedCities: string[] = [];
+    
+    selectedCountries1: string[] = [];
 
-    selectedCars1: string[] = [];
-
-    selectedCars2: string[] = [];
+    selectedCountries2: string[] = [];
 
     items: SelectItem[];
 
     item: string;
 
-    constructor() &#123;
-        this.cars = [
-            &#123;label: 'Audi', value: 'Audi'&#125;,
-            &#123;label: 'BMW', value: 'BMW'&#125;,
-            &#123;label: 'Fiat', value: 'Fiat'&#125;,
-            &#123;label: 'Ford', value: 'Ford'&#125;,
-            &#123;label: 'Honda', value: 'Honda'&#125;,
-            &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
-            &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
-            &#123;label: 'Renault', value: 'Renault'&#125;,
-            &#123;label: 'VW', value: 'VW'&#125;,
-            &#123;label: 'Volvo', value: 'Volvo'&#125;,
+    cities: any[];
+
+    countries: any[];
+
+    constructor(private countryService: CountryService) &#123;
+        
+        this.items = [];
+
+        this.countryService.getCountries().then(countries => &#123;
+            this.items = countries;
+        &#125;);
+
+        this.countries = [
+            &#123;name: 'Australia', code: 'AU'&#125;,
+            &#123;name: 'Brazil', code: 'BR'&#125;,
+            &#123;name: 'China', code: 'CN'&#125;,
+            &#123;name: 'Egypt', code: 'EG'&#125;,
+            &#123;name: 'France', code: 'FR'&#125;,
+            &#123;name: 'Germany', code: 'DE'&#125;,
+            &#123;name: 'India', code: 'IN'&#125;,
+            &#123;name: 'Japan', code: 'JP'&#125;,
+            &#123;name: 'Spain', code: 'ES'&#125;,
+            &#123;name: 'United States', code: 'US'&#125;
         ];
 
-        this.items = [];
-        for (let i = 0; i &lt; 10000; i++) &#123;
-            this.items.push(&#123;label: 'Item ' + i, value: 'Item ' + i&#125;);
-        &#125;
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+<app-code lang="css">
+    :host ::ng-deep .p-multiselect &#123;
+        min-width: 15rem;
+    &#125;
+    
+    :host ::ng-deep .multiselect-custom-virtual-scroll .p-multiselect &#123;
+        min-width: 20rem;
+    &#125;
+    
+    :host ::ng-deep .multiselect-custom &#123;
+        .p-multiselect-label &#123;
+            padding-top: .25rem;
+            padding-bottom: .25rem;
+        &#125;
+    
+        .country-item-value &#123;
+            padding: .25rem .5rem;
+            border-radius: 3px;
+            display: inline-flex;
+            margin-right: .5rem;
+            background-color: var(--primary-color);
+            color: var(--primary-color-text);
+    
+            img.flag &#123;
+                width: 17px;
+            &#125;
+        &#125;
+    
+        .country-placeholder &#123;
+            padding: 0.25rem;
+        &#125;
+    &#125;
+</app-code>
+<app-code lang="typescript">
+@Injectable()
+export class CountryService &#123;
+
+    constructor(private http: Http) &#123;&#125;
+
+    getCountries() &#123;
+        return this.http.get('showcase/resources/data/countries.json')
+                    .toPromise()
+                    .then(res => &lt;any[]&gt; res.json().data)
+                    .then(data => &#123; return data; &#125;);
+    &#125;
+&#125;
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

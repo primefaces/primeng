@@ -1,62 +1,54 @@
 import {Component} from '@angular/core';
 import {SelectItem} from 'primeng/api';
+import { CountryService } from '../../service/countryservice';
 
 @Component({
     templateUrl: './multiselectdemo.html',
-    styles: [`
-        :host ::ng-deep .ui-multiselect {
-            min-width: 15em;
-        }
-
-        :host ::ng-deep .ui-multiselected-item-token,
-        :host ::ng-deep .ui-multiselected-empty-token {
-            padding: 2px 4px;
-            margin: 0 0.286em 0 0;
-            display: inline-block;
-            vertical-align:middle;
-            height: 1.857em;
-        }
-
-        :host ::ng-deep .ui-multiselected-item-token {
-            background: #007ad9;
-            color: #ffffff;
-        }
-
-        :host ::ng-deep .ui-multiselected-empty-token {
-            background: #d95f00;
-            color: #ffffff;
-        }
-    `]
+    styleUrls: ['./multiselectdemo.scss']
 })
 export class MultiSelectDemo {
 
-    cars: SelectItem[];
-
-    selectedCars1: string[] = [];
+    selectedCities: string[] = [];
     
-    selectedCars2: string[] = [];
+    selectedCountries1: string[] = [];
+
+    selectedCountries2: string[] = [];
 
     items: SelectItem[];
 
     item: string;
 
-    constructor() {
-        this.cars = [
-            {label: 'Audi', value: 'Audi'},
-            {label: 'BMW', value: 'BMW'},
-            {label: 'Fiat', value: 'Fiat'},
-            {label: 'Ford', value: 'Ford'},
-            {label: 'Honda', value: 'Honda'},
-            {label: 'Jaguar', value: 'Jaguar'},
-            {label: 'Mercedes', value: 'Mercedes'},
-            {label: 'Renault', value: 'Renault'},
-            {label: 'VW', value: 'VW'},
-            {label: 'Volvo', value: 'Volvo'},
-        ];
+    cities: any[];
+
+    countries: any[];
+
+    constructor(private countryService: CountryService) {
         
         this.items = [];
-        for (let i = 0; i < 10000; i++) {
-            this.items.push({label: 'Item ' + i, value: 'Item ' + i});
-        }
+
+        this.countryService.getCountries().then(countries => {
+            this.items = countries;
+        });
+
+        this.countries = [
+            {name: 'Australia', code: 'AU'},
+            {name: 'Brazil', code: 'BR'},
+            {name: 'China', code: 'CN'},
+            {name: 'Egypt', code: 'EG'},
+            {name: 'France', code: 'FR'},
+            {name: 'Germany', code: 'DE'},
+            {name: 'India', code: 'IN'},
+            {name: 'Japan', code: 'JP'},
+            {name: 'Spain', code: 'ES'},
+            {name: 'United States', code: 'US'}
+        ];
+
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
     }
 }
