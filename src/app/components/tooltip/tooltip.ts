@@ -55,6 +55,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     mouseLeaveListener: Function;
 
+    deactivateTimeout: any;
+    mouseInsideContainer: boolean = false;
+    focused: boolean = false;
+
     clickListener: Function;
 
     focusListener: Function;
@@ -91,15 +95,42 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
     
     onMouseLeave(e: Event) {
-        this.deactivate();
+        this.clearDeactivateTimeout();
+        this.deactivateTimeout = setTimeout(() => {
+            this.deactivate();
+        }, 10);
+    }
+
+    onContainerMouseEnter(e: Event) {
+        this.mouseInsideContainer = true;
+        this.clearDeactivateTimeout();
+    }
+
+    onContainerMouseLeave(e: Event) {
+        this.mouseInsideContainer = false;
+        if (this.tooltipEvent === 'hover') {
+            this.deactivate();
+        } else if (this.tooltipEvent === 'focus') {
+            if (!this.focused) {
+                this.deactivate();
+            }
+        }
     }
     
     onFocus(e: Event) {
+        this.focused = true;
         this.activate();
     }
     
     onBlur(e: Event) {
-        this.deactivate();
+        this.focused = false;
+        if (this.mouseInsideContainer) {
+            return;
+        }
+        this.clearDeactivateTimeout();
+        this.deactivateTimeout = setTimeout(() => {
+            this.deactivate();
+        }, 10);
     }
   
     onClick(e: Event) {
@@ -187,6 +218,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             DomHandler.appendChild(this.container, this.appendTo);
 
         this.container.style.display = 'inline-block';
+        this.container.addEventListener('mouseenter', this.onContainerMouseEnter.bind(this));
+        this.container.addEventListener('mouseleave', this.onContainerMouseLeave.bind(this));
     }
 
     show() {
@@ -410,6 +443,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
+        }
+    }
+
+    clearDeactivateTimeout() {
+        if (this.deactivateTimeout) {
+            clearTimeout(this.deactivateTimeout);
+            this.deactivateTimeout = null;
         }
     }
 
