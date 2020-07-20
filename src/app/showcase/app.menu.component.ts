@@ -12,10 +12,32 @@ declare let gtag: Function;
                 <div class="menu-category">General</div>
                 <div class="menu-items">
                     <a [routerLink]="['/setup']" routerLinkActive="router-link-active">Get Started</a>
-                    <a [routerLink]="['/theming']" routerLinkActive="router-link-active">Theming</a>
-                    <a href="https://www.primefaces.org/designer/primeng">Designer</a>
-                    <a [routerLink]="['/flexgrid']" routerLinkActive="router-link-active">PrimeFlex</a>
-                    <a [routerLink]="['/icons']" routerLinkActive="router-link-active">Icons</a>
+                    <a href="https://forum.primefaces.org/viewforum.php?f=35" target="_blank">Community Forum</a>
+                    <a href="https://github.com/primefaces/primevue" target="_blank">Source Code</a>
+                    <a [routerLink]="['/support']" routerLinkActive="router-link-active">Support</a>
+                </div>
+
+                <div class="menu-category">Theming</div>
+                <div class="menu-items">
+                    <a href="https://www.primefaces.org/designer/primeng">Theme Designer</a>
+                    <a href="https://www.primefaces.org/designer-ng">Visual Editor</a>
+                    <a href="https://www.primefaces.org/designer/api/primeng/10.0.0">SASS API</a>
+                </div>
+
+                <div class="menu-category">PrimeFlex</div>
+                <div class="menu-items">
+                    <a [routerLink]="['/display']" routerLinkActive="router-link-active">Display</a>
+                    <a [routerLink]="['/elevation']" routerLinkActive="router-link-active">Elevation</a>
+                    <a [routerLink]="['/flexbox']" routerLinkActive="router-link-active">FlexBox</a>
+                    <a [routerLink]="['/formlayout']" routerLinkActive="router-link-active">FormLayout</a>
+                    <a [routerLink]="['/grid']" routerLinkActive="router-link-active">Grid System</a>
+                    <a [routerLink]="['/spacing']" routerLinkActive="router-link-active">Spacing</a>
+                    <a [routerLink]="['/text']" routerLinkActive="router-link-active">Text</a>
+                </div>
+
+                <div class="menu-category">PrimeIcons</div>
+                <div class="menu-items">
+                    <a [routerLink]="['/icons']" routerLinkActive="router-link-active">Icons v4.0</a>
                 </div>
 
                 <div class="menu-category">Form</div>
@@ -27,7 +49,6 @@ declare let gtag: Function;
                     <a [routerLink]="['/colorpicker']" routerLinkActive="router-link-active">ColorPicker</a>
                     <a [routerLink]="['/dropdown']" routerLinkActive="router-link-active">Dropdown</a>
                     <a [routerLink]="['/editor']" routerLinkActive="router-link-active">Editor</a>
-                    <a [routerLink]="['/formlayout']" routerLinkActive="router-link-active">FormLayout</a>
                     <a [routerLink]="['/inputgroup']" routerLinkActive="router-link-active">InputGroup</a>
                     <a [routerLink]="['/inputmask']" routerLinkActive="router-link-active">InputMask</a>
                     <a [routerLink]="['/inputswitch']" routerLinkActive="router-link-active">InputSwitch</a>
