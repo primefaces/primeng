@@ -9,18 +9,19 @@ interface City {
 
 @Component({
     templateUrl: './dropdowndemo.html',
+    styleUrls: ['./dropdowndemo.scss']
 })
 export class DropdownDemo {
 
     cities: City[];
 
-    selectedCity: City;
+    selectedCity1: City;
 
-    cars: SelectItem[];
+    selectedCity2: City;
 
-    selectedCar1: string;
+    selectedCountry: string;
 
-    selectedCar2: string = 'BMW';
+    countries: any[];
     
     selectedCar3: string;
 
@@ -42,19 +43,6 @@ export class DropdownDemo {
             {name: 'London', code: 'LDN'},
             {name: 'Istanbul', code: 'IST'},
             {name: 'Paris', code: 'PRS'}
-        ];
-
-        this.cars = [
-            {label: 'Audi', value: 'Audi'},
-            {label: 'BMW', value: 'BMW'},
-            {label: 'Fiat', value: 'Fiat'},
-            {label: 'Ford', value: 'Ford'},
-            {label: 'Honda', value: 'Honda'},
-            {label: 'Jaguar', value: 'Jaguar'},
-            {label: 'Mercedes', value: 'Mercedes'},
-            {label: 'Renault', value: 'Renault'},
-            {label: 'VW', value: 'VW'},
-            {label: 'Volvo', value: 'Volvo'}
         ];
 
         this.groupedCars = [
@@ -83,6 +71,19 @@ export class DropdownDemo {
                     {label: 'Toyota', value: 'Toyota'}
                 ]
             }
+        ];
+
+        this.countries = [
+            {name: 'Australia', code: 'AU'},
+            {name: 'Brazil', code: 'BR'},
+            {name: 'China', code: 'CN'},
+            {name: 'Egypt', code: 'EG'},
+            {name: 'France', code: 'FR'},
+            {name: 'Germany', code: 'DE'},
+            {name: 'India', code: 'IN'},
+            {name: 'Japan', code: 'JP'},
+            {name: 'Spain', code: 'ES'},
+            {name: 'United States', code: 'US'}
         ];
     }
 }
