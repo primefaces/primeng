@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
                 <i class="pi pi-bars"></i>
             </a>
             <a [routerLink]="['/']" class="logo">
-                <img alt="logo" src="assets/showcase/images/primeng-logo.svg" />
+                <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" />
             </a>
             <div class="app-theme" [pTooltip]="theme" tooltipPosition="bottom">
                 <img [src]="'assets/showcase/images/themes/' + logoMap[config.theme]" />
