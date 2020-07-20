@@ -73,7 +73,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./autocomplete.css']
 })
-export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy,ControlValueAccessor {
+export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
 
     @Input() minLength: number = 1;
 
@@ -84,7 +84,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     @Input() panelStyle: any;
 
     @Input() styleClass: string;
-    
+
     @Input() panelStyleClass: string;
 
     @Input() inputStyle: any;
@@ -116,7 +116,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     @Input() type: string = 'text';
 
     @Input() autoZIndex: boolean = true;
-    
+
     @Input() baseZIndex: number = 0;
 
     @Input() ariaLabel: string;
@@ -230,8 +230,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     forceSelectionUpdateModelTimeout: any;
 
     listId: string;
-    
-    itemClicked: boolean;
+
+    itemClicked: boolean
+
+    isAnEmptySearch: boolean;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -242,7 +244,10 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         return this._suggestions;
     }
 
-    set suggestions(val:any[]) {
+    set suggestions(val: any[]) {
+        if (this.isAnEmptySearch) {
+            this.addSuggestionsOnCache(val);
+        }
         this._suggestions = val;
         this.handleSuggestionsChange();
     }
@@ -294,7 +299,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
                     this.hide();
                 }
             }
-    
+
             this.loading = false;
         }
     }
@@ -377,16 +382,44 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
 
     search(event: any, query: string) {
         //allow empty string but not undefined or null
-       if (query === undefined || query === null) {
-           return;
-       }
+        if (query === undefined || query === null) {
+            return;
+        }
 
-       this.loading = true;
+        this.loading = true;
 
-       this.completeMethod.emit({
-           originalEvent: event,
-           query: query
-       });
+        const existsSuggestionsOnLocalStorage = localStorage.getItem('test') != null;
+        this.isAnEmptySearch = query == '';
+        if (this.isAnEmptySearch && existsSuggestionsOnLocalStorage) {
+            this._suggestions = this.getSuggestionFromLocalStorage();
+
+            if (this._suggestions == null)
+                this.emitEventCompleteMethod(event, query);
+
+            this.loading = false;
+            this.show();
+        } else {
+            this.emitEventCompleteMethod(event, query);
+        }
+    }
+
+    addSuggestionsOnCache(suggestions: any[]) {
+        localStorage.setItem('test', JSON.stringify(suggestions));
+    }
+
+    getSuggestionFromLocalStorage() {
+        return JSON.parse(localStorage.getItem('test'));
+    }
+
+    destroySuggestionsOnLocalStorage() {
+        const existsSuggestionsOnLocalStorage = JSON.parse(localStorage.getItem('test')) != null;
+        if (existsSuggestionsOnLocalStorage) {
+            localStorage.removeItem('test');
+        }
+    }
+
+    emitEventCompleteMethod(event: any, query: string) {
+        this.completeMethod.emit({originalEvent: event, query: query});
     }
 
     selectItem(option: any, focus: boolean = true) {
@@ -421,7 +454,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
     show() {
         if (this.multiInputEL || this.inputEL) {
             let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
-            
+
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
             }
@@ -494,17 +527,17 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
             this.focusInput();
             let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
 
-            if (this.dropdownMode === 'blank')
+            if (this.dropdownMode === 'blank') {
                 this.search(event, '');
-            else if (this.dropdownMode === 'current')
+            } else if (this.dropdownMode === 'current') {
                 this.search(event, queryValue);
+            }
 
             this.onDropdownClick.emit({
                 originalEvent: event,
                 query: queryValue
             });
-        }
-        else {
+        } else {
             this.hide();
         }
     }
@@ -746,7 +779,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         this.documentResizeListener = this.onWindowResize.bind(this);
         window.addEventListener('resize', this.documentResizeListener);
     }
-    
+
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
             window.removeEventListener('resize', this.documentResizeListener);
@@ -772,6 +805,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         }
         this.restoreOverlayAppend();
         this.onOverlayHide();
+        this.destroySuggestionsOnLocalStorage();
     }
 }
 
