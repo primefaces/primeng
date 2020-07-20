@@ -21,7 +21,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     selector: 'p-multiSelectItem',
     template: `
         <li class="p-multiselect-item" (click)="onOptionClick($event)" (keydown)="onOptionKeydown($event)" [attr.aria-label]="option.label"
-            [style.display]="visible ? 'block' : 'none'" [attr.tabindex]="option.disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
+            [attr.tabindex]="option.disabled ? null : '0'" [ngStyle]="{'height': itemSize + 'px'}"
             [ngClass]="{'p-highlight': selected, 'p-disabled': (option.disabled || (maxSelectionLimitReached && !selected))}">
             <div class="p-checkbox p-component">
                 <div class="p-checkbox-box" [ngClass]="{'p-highlight': selected}">
