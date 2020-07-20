@@ -1,4 +1,8 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, OnInit, OnDestroy} from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { AppConfigService } from './service/appconfigservice';
+import { AppConfig } from './domain/appconfig';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-config',
@@ -32,13 +36,13 @@ import {Component, ElementRef} from '@angular/core';
                         <h5>Bootstrap</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-blue')">
+                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-blue', false)">
                                     <img src="assets/showcase/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap Light Blue" />
                                 </a>
                                 <span>Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-purple')">
+                                <a tabindex="0" (click)="changeTheme($event, 'bootstrap4-light-purple', false)">
                                     <img src="assets/showcase/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Blue" />
                                 </a>
                                 <span>Purple</span>
@@ -60,13 +64,13 @@ import {Component, ElementRef} from '@angular/core';
                         <h5>Material Design</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'md-light-indigo')">
+                                <a tabindex="0" (click)="changeTheme($event, 'md-light-indigo', false)">
                                     <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Light Indigo" />
                                 </a>
                                 <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'md-light-deeppurple')">
+                                <a tabindex="0" (click)="changeTheme($event, 'md-light-deeppurple', false)">
                                     <img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Material Light Deep Purple" />
                                 </a>
                                 <span>Deep Purple</span>
@@ -88,13 +92,13 @@ import {Component, ElementRef} from '@angular/core';
                         <h5>Material Design Compact</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-indigo')">
+                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-indigo', false)">
                                     <img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo"/>
                                 </a>
                                 <span>Indigo</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-deeppurple')">
+                                <a tabindex="0" (click)="changeTheme($event, 'mdc-light-deeppurple', false)">
                                     <img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Material Compact Deep Purple" />
                                 </a>
                                 <span>Deep Purple</span>
@@ -116,25 +120,25 @@ import {Component, ElementRef} from '@angular/core';
                         <h5>PrimeOne Design</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-blue')">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-blue', false)">
                                     <img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" />
                                 </a>
                                 <span>Saga Blue</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-green')">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-green', false)">
                                     <img src="assets/showcase/images/themes/saga-green.png" alt="Saga Green" />
                                 </a>
                                 <span>Saga Green</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-orange')">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-orange', false)">
                                     <img src="assets/showcase/images/themes/saga-orange.png" alt="Saga Orange" />
                                 </a>
                                 <span>Saga Orange</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'saga-purple')">
+                                <a tabindex="0" (click)="changeTheme($event, 'saga-purple', false)">
                                     <img src="assets/showcase/images/themes/saga-purple.png" alt="Saga Purple" />
                                 </a>
                                 <span>Saga Purple</span>
@@ -192,29 +196,24 @@ import {Component, ElementRef} from '@angular/core';
                         <h5>Legacy</h5>
                         <div class="p-grid free-themes">
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'nova')">
+                                <a tabindex="0" (click)="changeTheme($event, 'nova', false)">
                                     <img src="assets/showcase/images/themes/nova.png" alt="Nova" />
                                 </a>
                                 <span>Nova</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'nova-alt')">
+                                <a tabindex="0" (click)="changeTheme($event, 'nova-alt', false)">
                                     <img src="assets/showcase/images/themes/nova-alt.png" alt="Nova Alt" />
                                 </a>
                                 <span>Nova Alt</span>
                             </div>
                             <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'nova-accent')">
+                                <a tabindex="0" (click)="changeTheme($event, 'nova-accent', false)">
                                     <img src="assets/showcase/images/themes/nova-accent.png" alt="Nova Accent" />
                                 </a>
                                 <span>Nova Accent</span>
                             </div>
-                            <div class="p-col-3">
-                                <a tabindex="0" (click)="changeTheme($event, 'nova-vue')">
-                                    <img src="assets/showcase/images/themes/nova-vue.png" alt="Nova Colored" />
-                                </a>
-                                <span>Nova Vue</span>
-                            </div>
+                            <div class="p-col-3"></div>
                             <div class="p-col-3">
                                 <a tabindex="0" (click)="changeTheme($event, 'luna-blue', true)">
                                     <img src="assets/showcase/images/themes/luna-blue.png" alt="Luna Blue" />
@@ -362,7 +361,7 @@ import {Component, ElementRef} from '@angular/core';
         </div>
     `
 })
-export class AppConfigComponent {
+export class AppConfigComponent implements OnInit, OnDestroy {
 
     active: boolean;
 
@@ -372,7 +371,22 @@ export class AppConfigComponent {
 
     outsideClickListener: any;
 
-    constructor(private el: ElementRef) {}
+    config: AppConfig;
+
+    subscription: Subscription;
+
+    constructor(private el: ElementRef, private router: Router, private configService: AppConfigService) {}
+
+    ngOnInit() {
+        this.config = this.configService.config;
+        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.active = false
+             }
+        });
+    }
 
     toggleConfigurator(event: Event) {
         this.active = !this.active;
@@ -391,7 +405,7 @@ export class AppConfigComponent {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        //this.onThemeChange({theme: theme, dark: dark});
+        this.configService.updateConfig({...this.config, ...{theme, dark}});
         event.preventDefault();
     }
 
@@ -425,6 +439,12 @@ export class AppConfigComponent {
     incrementScale() {
         this.scale++;
         document.documentElement.style.fontSize = this.scale + 'px';
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
     
 }

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { VersionService } from './service/versionservice';
+import { AppConfigService } from './service/appconfigservice';
+import { AppConfig } from './domain/appconfig';
+import { Subscription } from 'rxjs';
 
 declare let gtag: Function;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy {
 
     menuActive: boolean;
 
@@ -17,11 +20,16 @@ export class AppComponent implements OnInit{
 
     versions: any[];
 
-    appState: any = {inputStyle: 'outlined', darkTheme: false};
+    config: AppConfig;
 
-    theme = 'saga-blue';
+    public subscription: Subscription;
 
-    constructor(private router: Router, private versionService: VersionService) {
+    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
+
+    ngOnInit() {
+        this.config = this.configService.config;
+        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 gtag('config', 'UA-93461466-1',
@@ -34,11 +42,8 @@ export class AppComponent implements OnInit{
              }
         });
 
-        this.versionService.getVersions().then(data => this.versions = data);
-    }
-
-    ngOnInit() {
         this.newsActive = this.newsActive && sessionStorage.getItem('primenews-hidden') == null;
+        this.versionService.getVersions().then(data => this.versions = data);
     }
 
     onMenuButtonClick() {
@@ -73,5 +78,11 @@ export class AppComponent implements OnInit{
         this.newsActive = false;
         sessionStorage.setItem('primenews-hidden', 'true');
         event.preventDefault();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

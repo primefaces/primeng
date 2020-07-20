@@ -1,6 +1,6 @@
-<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive, 'p-input-filled': appState.inputStyle === 'filled'}">
+<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive, 'p-input-filled': config.inputStyle === 'filled'}">
     <app-news></app-news>
-    <app-topbar [theme]="theme" (menuButtonClick)="onMenuButtonClick()"></app-topbar>
+    <app-topbar (menuButtonClick)="onMenuButtonClick()"></app-topbar>
     <app-menu [active]="menuActive"></app-menu>
     <app-config></app-config>
     <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
