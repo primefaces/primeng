@@ -8,9 +8,7 @@ import {CommonModule} from '@angular/common';
 export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
-    
-    @Input() cornerStyleClass: string = 'ui-corner-all';
-        
+            
     public _label: string;
     
     public _icon: string;
