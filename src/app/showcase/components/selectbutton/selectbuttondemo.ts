@@ -6,36 +6,32 @@ import {SelectItem} from 'primeng/api';
 })
 export class SelectButtonDemo {
 
-    types: SelectItem[];
+    options: SelectItem[];
 
-    selectedType: string;
+    paymentOptions: any[];
 
-    selectedTypes: string[] = ['Apartment','Studio'];
+    justifyOptions: any[];
 
-    selectedModes: string[];
+    value1: string = "off";
 
-    countries: any[];
+    value2: string;
 
-    selectedCountry: any;
+    value3: any;
 
     constructor() {
-        this.types = [
-            {label: 'Apartment', value: 'Apartment'},
-            {label: 'House', value: 'House'},
-            {label: 'Studio', value: 'Studio'}
+        this.options = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
+
+        this.paymentOptions = [
+            {name: 'Option 1', value: 1},
+            {name: 'Option 2', value: 2},
+            {name: 'Option 3', value: 3}
         ];
 
-        this.countries = [
-            {name: 'USA', flag: 'usa.png'},
-            {name: 'Germany', flag: 'germany.png'},
-            {name: 'Japan', flag: 'japan.png'}
+        this.justifyOptions = [
+            {icon: 'pi pi-align-left', value: 'left'},
+            {icon: 'pi pi-align-right', value: 'Right'},
+            {icon: 'pi pi-align-center', value: 'Center'},
+            {icon: 'pi pi-align-justify', value: 'Justify'}
         ];
-    }
-
-    clear() {
-        this.selectedType = null;
-        this.selectedTypes = [];
-        this.selectedModes = [];
-        this.selectedCountry = null;
     }
 }

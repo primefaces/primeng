@@ -1,59 +1,46 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">SelectButton</span>
-        <span>SelectButton is used to choose single or multiple items from a list using buttons.</span>
+    <div class="feature-intro">
+        <h1>SelectButton</h1>
+        <p>SelectButton is a form component to choose a value from a list of options using button elements.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Single</h3>
-    <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
+    <div class="card">
+        <h5 class="first">Single Selection</h5>
+        <p-selectButton [options]="options" [(ngModel)]="value1"></p-selectButton>
 
-    <p>Selected Type: <span style="font-weight: bold">{{selectedType}}</span></p>
+        <h5>Multiple Selection</h5>
+        <p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name"></p-selectButton>
 
-    <h3>Multiple</h3>
-    <p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"></p-selectButton>
-    <p>Selected Types: <span style="font-weight: bold" *ngFor="let type of selectedTypes">{{type}} </span></p>
-
-    <h3>Custom Template</h3>
-    <p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name">
-        <ng-template let-item>
-            <div style="padding: .5em 1em">
-                <img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/{{item.value.flag}}" height="20px"/>
-                <span>{{item.name}}</span>
-            </div>
-        </ng-template>
-    </p-selectButton>
-    <p>Selected Country: <span style="font-weight: bold">{{selectedCountry?.name}}</span></p>
-
-    <hr>
-    <button type="button" (click)="clear()" pButton icon="pi pi-times" label="Clear"></button>
+        <h5>Custom Template</h5>
+        <p-selectButton [options]="justifyOptions" [(ngModel)]="value3">
+            <ng-template let-item>
+                <i [class]="item.icon"></i>
+            </ng-template>
+        </p-selectButton>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;SelectButtonModule&#125; from 'primeng/selectbutton';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>SelectButton requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
             instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how 
             the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-selectButton [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-selectButton&gt;
 
 &lt;p-selectButton [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-selectButton&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
@@ -88,20 +75,16 @@ export class MyModel &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Multiple</h3>
+            <h5>Multiple</h5>
             <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. 
                 In multiple case, model property should be an array instance that is not null or undefined.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" &gt;&lt;/p-selectButton&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/api';
 
 export class MyModel &#123;
@@ -120,27 +103,21 @@ export class MyModel &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Model Driven Forms</h3>
+            <h5>Model Driven Forms</h5>
             <p>SelectButton can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-selectButton [options]="cities" formControlName="selectedCity"&gt;&lt;/p-selectButton&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Icons</h3>
+            <h5>Icons</h5>
             <p>Button options can display icons using the icon property of the SelectItem API.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class SelectButtonDemo &#123;
 
     types: SelectItem[];
@@ -155,30 +132,26 @@ export class SelectButtonDemo &#123;
         ];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Disabled Options</h3>
+            <h5>Disabled Options</h5>
             <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
 
-            <h3>Templating</h3>
+            <h5>Templating</h5>
             <p>Items support templating to display custom content inside the buttons using an ng-template that receives the option as the implicit variable. Note that
                 if an arbitrary object is used as the option instead of the SelectItem API, internally they are converted to SelectItems which means in the template
                 the arbitrary object can be access using the value property.
             </p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
     &lt;ng-template let-item&gt;
         &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" /&gt;
         &lt;span&gt;&#123;&#123;item.name&#125;&#125;&lt;/span&gt;
     &lt;/ng-template&gt;
 &lt;/p-selectButton&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class SelectButtonDemo &#123;
         
     countries: any[];
@@ -194,11 +167,10 @@ export class SelectButtonDemo &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -268,7 +240,7 @@ export class SelectButtonDemo &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -298,7 +270,7 @@ export class SelectButtonDemo &#123;
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -309,78 +281,56 @@ export class SelectButtonDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-selectbutton-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
+<app-code lang="markup" ngNonBindable>
+&lt;h5 class="first"&gt;Single&lt;/h5&gt;
+&lt;h5 class="first"&gt;Single Selection&lt;/h5&gt;
+&lt;p-selectButton [options]="options" [(ngModel)]="value1"&gt;&lt;/p-selectButton&gt;
 
-&lt;p&gt;Selected Type: &lt;span style="font-weight: bold"&gt;&#123;&#123;selectedType&#125;&#125;&lt;/span&gt;&lt;/p&gt;
+&lt;h5&gt;Multiple Selection&lt;/h5&gt;
+&lt;p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name"&gt;&lt;/p-selectButton&gt;
 
-&lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Types: &lt;span style="font-weight: bold" *ngFor="let type of selectedTypes"&gt;&#123;&#123;type&#125;&#125; &lt;/span&gt;&lt;/p&gt;
-
-&lt;h3&gt;Icon Only&lt;/h3&gt;
-&lt;p-selectButton [options]="modes" [(ngModel)]="selectedModes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Modes: &lt;span style="font-weight: bold" *ngFor="let mode of selectedModes"&gt;&#123;&#123;mode&#125;&#125; &lt;/span&gt;&lt;/p&gt;
-
-&lt;h3&gt;Custom Template&lt;/h3&gt;
-&lt;p-selectButton [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"&gt;
+&lt;h5&gt;Custom Template&lt;/h5&gt;
+&lt;p-selectButton [options]="justifyOptions" [(ngModel)]="value3"&gt;
     &lt;ng-template let-item&gt;
-        &lt;div style="padding: .5em 1em"&gt;
-            &lt;img style="vertical-align: middle; margin-right: .5em" src="assets/showcase/images/demo/flag/&#123;&#123;item.value.flag&#125;&#125;" height="20px"/&gt;
-            &lt;span&gt;&#123;&#123;item.name&#125;&#125;&lt;/span&gt;
-        &lt;/div&gt;
+        &lt;i [class]="item.icon"&gt;&lt;/i&gt;
     &lt;/ng-template&gt;
 &lt;/p-selectButton&gt;
-&lt;p&gt;Selected Country: &lt;span style="font-weight: bold"&gt;&#123;&#123;selectedCountry?.name&#125;&#125;&lt;/span&gt;&lt;/p&gt;
+</app-code>
 
-&lt;hr&gt;
-&lt;button type="button" (click)="clear()" pButton icon="pi pi-times" label="Clear"&gt;&lt;/button&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class SelectButtonDemo &#123;
 
-    types: SelectItem[];
+    options: SelectItem[];
 
-    selectedType: string;
+    paymentOptions: any[];
 
-    selectedTypes: string[] = ['PayPal','MasterCard'];
+    justifyOptions: any[];
 
-    selectedModes: string[];
+    value1: string = "off";
 
-    modes: SelectItem[];
+    value2: string;
 
-    countries: any[];
-
-    selectedCountry: any;
+    value3: any;
 
     constructor() &#123;
-        this.types = [
-            &#123;label: 'Apartment', value: 'Apartment'&#125;,
-            &#123;label: 'House', value: 'House'&#125;,
-            &#123;label: 'Studio', value: 'Studio'&#125;
+        this.options = [&#123;label: 'Off', value: 'off'&#125;, &#123;label: 'On', value: 'on'&#125;];
+
+        this.paymentOptions = [
+            &#123;name: 'Option 1', value: 1&#125;,
+            &#123;name: 'Option 2', value: 2&#125;,
+            &#123;name: 'Option 3', value: 3&#125;
         ];
 
-        this.countries = [
-            &#123;name: 'USA', flag: 'usa.png'&#125;,
-            &#123;name: 'Germany', flag: 'germany.png'&#125;,
-            &#123;name: 'Japan', flag: 'japan.png'&#125;
+        this.justifyOptions = [
+            &#123;icon: 'pi pi-align-left', value: 'left'&#125;,
+            &#123;icon: 'pi pi-align-right', value: 'Right'&#125;,
+            &#123;icon: 'pi pi-align-center', value: 'Center'&#125;,
+            &#123;icon: 'pi pi-align-justify', value: 'Justify'&#125;
         ];
     &#125;
 
-    clear() &#123;
-        this.selectedType = null;
-        this.selectedTypes = [];
-        this.selectedModes = [];
-        this.selectedCountry = null;
-    &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
