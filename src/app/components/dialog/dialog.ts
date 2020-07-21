@@ -39,10 +39,10 @@ const hideAnimation = animation([
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()">
+                        <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()">
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                         </button>
-                        <button *ngIf="closable" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
+                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
                             <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                         </button>
                     </div>

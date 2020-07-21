@@ -126,7 +126,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 })
 export class Button {
 
-    @Input() type: string;
+    @Input() type: string = "button";
 
     @Input() iconPos: string = 'left';
 

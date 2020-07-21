@@ -26,7 +26,7 @@ const hideAnimation = animation([
                 <div class="p-dialog-header">
                     <span class="p-dialog-title" *ngIf="option('header')">{{option('header')}}</span>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="closable" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
+                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
                             <span class="pi pi-times"></span>
                         </button>
                     </div>

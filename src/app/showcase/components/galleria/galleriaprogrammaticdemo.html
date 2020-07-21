@@ -7,8 +7,8 @@
 
 <div class="content-section implementation">
     <div style="padding: .5em 0">
-        <button pButton icon="pi pi-plus" (click)="next()" class="ui-button-secondary"></button>
-        <button pButton icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"></button>
+        <button pButton type="button" icon="pi pi-plus" (click)="next()" class="ui-button-secondary"></button>
+        <button pButton type="button" icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"></button>
     </div>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5" [(activeIndex)]="activeIndex"> 
         <ng-template pTemplate="item" let-item>
@@ -86,8 +86,8 @@ export class GalleriaProgrammaticDemo implements OnInit &#123;
 &lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;div style="padding: .5em 0"&gt;
-    &lt;button pButton icon="pi pi-plus" (click)="next()" class="ui-button-secondary"&gt;&lt;/button&gt;
-    &lt;button pButton icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" icon="pi pi-plus" (click)="next()" class="ui-button-secondary"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" icon="pi pi-minus" (click)="prev()" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/div&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'&#125;" [numVisible]="5" 
     [(activeIndex)]="activeIndex"&gt; 

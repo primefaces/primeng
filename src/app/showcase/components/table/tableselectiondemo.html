@@ -97,7 +97,7 @@
                     {{rowData[col.field]}}
                 </td>
                 <td>
-                    <button pButton icon="pi pi-search" (click)="selectCarWithButton(rowData)"></button>
+                    <button type="button" pButton icon="pi pi-search" (click)="selectCarWithButton(rowData)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -342,7 +342,7 @@ export class TableSelectionDemo implements OnInit &#123;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
             &lt;td&gt;
-                &lt;button pButton icon="pi pi-search" (click)="selectCarWithButton(rowData)"&gt;&lt;/button&gt;
+                &lt;button type="button" pButton icon="pi pi-search" (click)="selectCarWithButton(rowData)"&gt;&lt;/button&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;

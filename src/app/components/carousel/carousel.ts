@@ -12,7 +12,7 @@ import { UniqueComponentId } from 'primeng/utils';
 			</div>
 			<div [class]="contentClass" [ngClass]="'p-carousel-content'">
 				<div class="p-carousel-container">
-					<button [ngClass]="{'p-carousel-prev p-link':true, 'p-disabled': isBackwardNavDisabled()}" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)">
+					<button type="button" [ngClass]="{'p-carousel-prev p-link':true, 'p-disabled': isBackwardNavDisabled()}" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)">
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
 					</button>
 					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
@@ -37,13 +37,13 @@ import { UniqueComponentId } from 'primeng/utils';
 							</div>
 						</div>
 					</div>
-					<button [ngClass]="{'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled()}" [disabled]="isForwardNavDisabled()" (click)="navForward($event)">
+					<button type="button" [ngClass]="{'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled()}" [disabled]="isForwardNavDisabled()" (click)="navForward($event)">
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
 					</button>
 				</div>
 				<ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass">
 					<li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{'p-carousel-indicator':true,'p-highlight': _page === i}">
-						<button class="p-link" (click)="onDotClick($event, i)"></button>
+						<button type="button" class="p-link" (click)="onDotClick($event, i)"></button>
 					</li>
 				</ul>
 			</div>

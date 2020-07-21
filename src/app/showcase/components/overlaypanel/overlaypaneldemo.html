@@ -8,7 +8,7 @@
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
     <p>Click the button to show the panel.</p>
-    <button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>
+    <button type="button" pButton label="Basic" (click)="op1.toggle($event)"></button>
 
     <p-overlayPanel #op1>
         <ng-template pTemplate>
@@ -325,7 +325,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/overlaypanel';
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p&gt;Click the button to show the panel.&lt;/p&gt;
-&lt;button type="text" pButton label="Basic" (click)="op1.toggle($event)"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Basic" (click)="op1.toggle($event)"&gt;&lt;/button&gt;
 
 &lt;p-overlayPanel #op1&gt;
     &lt;ng-template pTemplate&gt;
