@@ -119,6 +119,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         this.bindDragListeners();
         event.target.focus();
         event.preventDefault();
+
+        if (this.animate) {
+            DomHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
+        }
     }
 
     onTouchStart(event, index?:number) {
@@ -138,6 +142,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
         else {
             this.starty = parseInt(touchobj.clientY, 10);
             this.barHeight = this.el.nativeElement.children[0].offsetHeight;
+        }
+
+        if (this.animate) {
+            DomHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
 
         event.preventDefault();
@@ -174,6 +182,10 @@ export class Slider implements OnDestroy,ControlValueAccessor {
             this.onSlideEnd.emit({originalEvent: event, values: this.values});
         else
             this.onSlideEnd.emit({originalEvent: event, value: this.value});
+
+        if (this.animate) {
+            DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+        }
         
         event.preventDefault();
     }
@@ -238,10 +250,13 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                     if (this.dragging) {
                         this.dragging = false;
                         this.ngZone.run(() => {
-                            if (this.range) {
+                            if (this.range)
                                 this.onSlideEnd.emit({originalEvent: event, values: this.values});
-                            } else {
+                            else
                                 this.onSlideEnd.emit({originalEvent: event, value: this.value});
+
+                            if (this.animate) {
+                                DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
                             }
                         });
                     }
