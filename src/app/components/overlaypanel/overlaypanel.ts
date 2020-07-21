@@ -59,6 +59,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     @Input() ariaCloseLabel: string;
     
     @Input() baseZIndex: number = 0;
+
+    @Input() focusOnShow: boolean = true;
     
     @Input() showTransitionOptions: string = '225ms ease-out';
 
@@ -200,6 +202,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             this.align();
             this.bindDocumentClickListener();
             this.bindDocumentResizeListener();
+
+            if (this.focusOnShow) {
+                this.focus();
+            }
         }
     }
 
@@ -217,6 +223,15 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 this.onHide.emit({});
                 this.render = false;
             break;     
+        }
+    }
+
+    focus() {
+        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+        if (focusable) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => focusable.focus(), 5);
+            });
         }
     }
 
