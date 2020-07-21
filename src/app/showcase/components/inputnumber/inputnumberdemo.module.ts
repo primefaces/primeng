@@ -5,8 +5,9 @@ import {InputNumberDemo} from './inputnumberdemo';
 import {InputNumberDemoRoutingModule} from './inputnumberdemo-routing.module';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
-import { InputNumberModule } from 'src/app/components/public_api';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -16,6 +17,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
         InputNumberModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
+		AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [

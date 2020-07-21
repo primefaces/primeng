@@ -5,7 +5,8 @@ import {PasswordDemoRoutingModule} from './passworddemo-routing.module';
 import {PasswordModule} from 'primeng/password';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -14,6 +15,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
         PasswordModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
+		AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [

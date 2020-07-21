@@ -25,49 +25,39 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;RatingModule&#125; from 'primeng/rating';
-</code>
-</pre>
+</app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
                     
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-rating [(ngModel)]="val"&gt;&lt;/p-rating&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     val: number;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>Defining a default value would be enough to display the initial number of selected stars.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     val: number = 3;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h5>Model Driven Forms</h5>
             <p>Rating can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-rating formControlName="score"&gt;&lt;/p-rating&gt;
-</code>
-</pre>
+</app-code>
 
                     <h5>Properties</h5>
                     <div class="doc-tablewrapper">
@@ -214,8 +204,7 @@ export class ModelComponent &#123;
                     <a href="https://stackblitz.com/edit/primeng-rating-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                         <span>Edit in StackBlitz</span>
                     </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5 class="first"&gt;Basic&lt;/h5&gt; 
 &lt;p-rating [(ngModel)]="val1"&gt;&lt;/p-rating&gt;
 
@@ -227,11 +216,9 @@ export class ModelComponent &#123;
 
 &lt;h5&gt;Disabled&lt;/h5&gt; 
 &lt;p-rating [ngModel]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class RatingDemo &#123;
 
     val1: number;
@@ -246,8 +233,7 @@ export class RatingDemo &#123;
 
     msg: string;
 &#125;
-</code>
-</pre>
+</app-code>
                 </p-tabPanel>
                 <p-tabPanel header="StackBlitz">
                     <ng-template pTemplate="content">

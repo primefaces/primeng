@@ -26,37 +26,29 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;InputTextareaModule&#125; from 'primeng/inputtextarea';
-</code>
-</pre>
+</app-code>
 
             <h5>Getting Started</h5>
             <p>InputTextarea is applied to an input field with pInputTextarea directive.</p>
                     
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;textarea pInputTextarea&gt;&lt;/textarea&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Model Binding</h5>
             <p>A model can be bound using the standard ngModel directive.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;textarea pInputTextarea [(ngModel)]="property"&gt;&lt;/textarea&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>AutoResize</h5>
             <p>In auto resize mode, textarea grows instead of displaying a scrollbar. When this feature is enabled, rows and cols properties
             are required to be defined.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -136,15 +128,13 @@ import &#123;InputTextareaModule&#125; from 'primeng/inputtextarea';
             <a href="https://stackblitz.com/edit/primeng-inputtextarea-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5 class="first"&gt;Default&lt;/h5&gt;
 &lt;textarea rows="5" cols="30" pInputTextarea&gt;&lt;/textarea&gt;
 
 &lt;h5&gt;AutoResize&lt;/h5&gt;
 &lt;textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

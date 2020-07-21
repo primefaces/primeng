@@ -6,7 +6,8 @@ import {RadioButtonDemoRoutingModule} from './radiobuttondemo-routing.module';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -15,6 +16,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
 		RadioButtonDemoRoutingModule,
         RadioButtonModule,
 		TabViewModule,
+		AppCodeModule,
 		AppInputStyleSwitchModule,
         CodeHighlighterModule
 	],

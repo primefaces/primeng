@@ -27,43 +27,34 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;EditorModule&#125; from 'primeng/editor';
-</code>
-</pre>
+</app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way value binding is defined with ngModel.</p>
             
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-editor [(ngModel)]="text" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class EditorDemo &#123;
     
     text: string;
         
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h5>Model Driven Forms</h5>
             <p>Editor can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-editor formControlName="description" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Toolbar</h5>
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
     &lt;p-header&gt;
         &lt;span class="ql-format-group"&gt;
@@ -77,8 +68,7 @@ export class EditorDemo &#123;
         &lt;/span&gt;
     &lt;/p-header&gt;
 &lt;/p-editor&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -241,23 +231,17 @@ export class EditorDemo &#123;
             <h5>Dependencies</h5>
             <p><a href="http://quilljs.com">Quill</a> Editor 1.0.</p>
             <p>Resources of quill needs to be added to your application. Example setup with CLI is as follows;</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 npm install quill --save
-</code>
-</pre>
+</app-code>
             <p>Add Quill to scripts in angular-cli.json</p>  
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 "scripts": [... "../node_modules/quill/dist/quill.js"],
-</code>
-</pre>
+</app-code>
             <p>Add Quill css to styles in angular-cli.json</p>  
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 "styles": [ ... "../node_modules/quill/dist/quill.core.css", "../node_modules/quill/dist/quill.snow.css"],
-</code> 
-</pre>        
+</app-code>
 
         </p-tabPanel>
         <p-tabPanel header="Source">
@@ -267,8 +251,7 @@ npm install quill --save
             <a href="https://stackblitz.com/edit/primeng-editor-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5 class="first"&gt;Default&lt;/h5&gt;
 &lt;p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 &lt;p&gt;Value: &#123;&#123;text1||'empty'&#125;&#125;&lt;/p&gt;
@@ -285,11 +268,9 @@ npm install quill --save
 &lt;/p-editor&gt;
 &lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
 
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
 
 @Component(&#123;
@@ -301,8 +282,7 @@ export class EditorDemo &#123;
     
     text2: string;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

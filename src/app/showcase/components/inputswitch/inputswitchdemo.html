@@ -19,49 +19,39 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;InputSwitchModule&#125; from 'primeng/inputswitch';
-</code>
-</pre>
+</app-code>
 
             <h5>Getting Started</h5>
             <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputSwitch [(ngModel)]="checked"&gt;&lt;/p-inputSwitch&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     checked: boolean;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked by default.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
    checked: boolean = true;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h5>Model Driven Forms</h5>
             <p>InputSwitch can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputSwitch formControlName="enabled"&gt;&lt;/p-inputSwitch&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -148,21 +138,17 @@ export class ModelComponent &#123;
                 </table>
             </div>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputSwitch (onChange)="handleChange($event)" [(ngModel)]="val"&gt;&lt;/p-inputSwitch&gt;
-</code>
-</pre>
- <pre>
-<code class="language-typescript" pCode ngNonBindable>
+</app-code>
+ <app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     handleChange(e) &#123;
         let isChecked = e.checked;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
@@ -202,26 +188,22 @@ export class ModelComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-inputswitch-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5 class="first"&gt;Basic&lt;/h5&gt;
 &lt;p-inputSwitch [(ngModel)]="checked1"&gt;&lt;/p-inputSwitch&gt;
 
 &lt;h5&gt;Preselection&lt;/h5&gt;
 &lt;p-inputSwitch [(ngModel)]="checked2"&gt;&lt;/p-inputSwitch&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class InputSwitchDemo &#123;
 
     checked1: boolean = false;
 
     checked2: boolean = true;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

@@ -49,21 +49,17 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
                     <h5>Import</h5>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;KeyFilterModule&#125; from 'primeng/keyfilter';
-</code>
-</pre>
+</app-code>
 
             <h5>Getting Started</h5>
             <p>KeyFilter directive is applied to an input text element using pKeyFilter attribute whose value is either a built-in regular expression name or a custom one.
                 Following input only accepts integers.</p>
             
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;input type="text" pKeyFilter="int"&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Built-in Filters</h5>
             <p>Commonly used cases have their own built-in shortcuts.</p>
@@ -80,34 +76,28 @@ import &#123;KeyFilterModule&#125; from 'primeng/keyfilter';
 
             <h5>Custom Filter</h5>
             <p>A custom filter is provided by binding a regular expression, here is an example that blocks special characters including "< > * !"</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;input type="text" [pKeyFilter]="noSpecial"&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class KeyFilterDemo &#123;
 
      noSpecial: RegExp = /^[^&lt;&gt;*!]+$/
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h5>Validate Mode</h5>
             <p>Instead of blocking a single keypress, the alternative validation mode which is enabled with pValidateOnly property validates the whole input
                 with a built-in Angular validator.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;form #form="ngForm"&gt; 
     &lt;label for="cc"&gt;Credit Card&lt;/label&gt; 
     &lt;input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234"&gt;
     &lt;p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"&gt;&lt;/p-message&gt;
 &lt;/form&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -145,8 +135,7 @@ export class KeyFilterDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-keyfilter-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5&gt;Filtering&lt;/h5&gt;
 &lt;div class="p-grid p-fluid"&gt;
     &lt;div class="p-col-12 p-md-4"&gt;
@@ -181,11 +170,9 @@ export class KeyFilterDemo &#123;
     &lt;input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234" style="margin-right: .5em"&gt;
     &lt;p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"&gt;&lt;/p-message&gt;
 &lt;/form&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class KeyFilterDemo &#123;
 
     blockSpecial: RegExp = /^[^&lt;&gt;*!]+$/ 
@@ -197,8 +184,7 @@ export class KeyFilterDemo &#123;
     cc: string; 
     
 &#125;
-</code>
-</pre>
+</app-code>
 
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
