@@ -18,13 +18,13 @@
         </ng-template>
         <ng-template pTemplate="footer" let-item>
             <div class="custom-galleria-footer">
-                <button pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+                <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
                 <span *ngIf="images"  class="title-container">
                     <span>{{activeIndex + 1}}/{{images.length}}</span>
                     <span class="title">{{images[activeIndex].title}}</span>
                     <span>{{images[activeIndex].alt}}</span>
                 </span>
-                <button pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+                <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
             </div>
         </ng-template>
     </p-galleria>
@@ -170,13 +170,13 @@ export class GalleriaAdvancedDemo implements OnInit &#123;
 &lt;/ng-template&gt;
 &lt;ng-template pTemplate="footer" let-item&gt;
     &lt;div class="custom-galleria-footer"&gt;
-        &lt;button pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"&gt;&lt;/button&gt;
         &lt;span *ngIf="images"  class="title-container"&gt;
             &lt;span&gt;&#123;&#123;activeIndex + 1&#125;&#125;/&#123;&#123;images.length&#125;&#125;&lt;/span&gt;
             &lt;span class="title"&gt;&#123;&#123;images[activeIndex].title&#125;&#125;&lt;/span&gt;
             &lt;span&gt;&#123;&#123;images[activeIndex].alt&#125;&#125;&lt;/span&gt;
         &lt;/span&gt;
-        &lt;button pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/ng-template&gt;
 &lt;/p-galleria&gt;

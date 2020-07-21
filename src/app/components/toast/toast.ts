@@ -21,7 +21,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                         <div class="p-toast-detail">{{message.detail}}</div>
                     </div>
                 </ng-container>
-                <button class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false">
+                <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false">
                     <span class="p-toast-icon-close-icon pi pi-times"></span>
                 </button>
                 <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>

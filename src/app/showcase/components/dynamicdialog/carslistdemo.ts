@@ -23,7 +23,7 @@ import {DynamicDialogConfig} from '../../../components/dynamicdialog/dynamicdial
                     <td><span class="ui-column-title">Brand</span>{{car.brand}}</td>
                     <td><span class="ui-column-title">Color</span>{{car.color}}</td>
                     <td>
-                        <button pButton icon="pi pi-search" (click)="selectCar(car)"></button>
+                        <button type="button" pButton icon="pi pi-search" (click)="selectCar(car)"></button>
                     </td>
                 </tr>
             </ng-template>

@@ -15,7 +15,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <button *ngIf="showCloseIcon" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel">
+            <button *ngIf="showCloseIcon" type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel">
                 <span class="p-overlaypanel-close-icon pi pi-times"></span>
             </button>
         </div>

@@ -14,7 +14,7 @@ let idx: number = 0;
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
                 <div class="p-panel-icons">
-                    <button *ngIf="toggleable" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link"
+                    <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link"
                         (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
                         <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                     </button>
