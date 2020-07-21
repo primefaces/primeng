@@ -288,7 +288,7 @@ export class Dialog implements OnDestroy {
     }
 
     focus() {
-        let focusable = DomHandler.findSingle(this.container, 'button');
+        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);

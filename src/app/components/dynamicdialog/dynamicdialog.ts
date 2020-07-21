@@ -206,7 +206,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     focus() {
-        let focusable = DomHandler.findSingle(this.container, 'a');
+        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
