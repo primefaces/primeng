@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div class="feature-intro">
-        <h1>InputGroup</h1>
-        <p>Text, icon, buttons and other content can be grouped next to an input.</p>
+        <h1>InputMask</h1>
+        <p>InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.</p>
     </div>
     <app-inputStyleSwitch></app-inputStyleSwitch>
 </div>
@@ -46,19 +46,15 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;InputMaskModule&#125; from 'primeng/inputmask';
-</code>
-</pre>
+</app-code>
 
             <h5>Getting Started</h5>
             <p>Component is defined using p-inputMask element with a mask and two-way value binding is enabled with standard ngModel directive.</p>   
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputMask [(ngModel)]="val" mask="99-9999"&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Mask</h5>
             <p>Mask format can be a combination of the the following built-in definitions.</p>
@@ -67,25 +63,19 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                 <li>9 - Numeric character (0-9)</li>
                 <li>* - Alpha numberic character (A-Z,a-z,0-9)</li>
             </ul>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputMask [(ngModel)]="val" mask="a*-999-a999"&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>
+</app-code>
             <p>You can also define your own regex pattern for alpha character</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputMask [(ngModel)]="val" mask="99-aa" characterPattern="[А-Яа-я]"&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>
+</app-code>
             
             <h5>SlotChar</h5>
             <p>Underscore is the default placeholder for a mask and this can be customized using <i>slotChart</i> option.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputMask [(ngModel)]="val" mask="99-9999" slotChar=" "&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>
+</app-code>
             
             <h5>Optional Values</h5>
             <p>If the input does not complete the mask definition, it is cleared by default. Use <i>autoClear</i> property to control this behavior. In addition,
@@ -93,11 +83,9 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
                         
             <h5>Model Driven Forms</h5>
             <p>InputMask can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-inputMask formControlName="username" mask="(999) 999-9999? x99999"&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -316,8 +304,7 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
             <a href="https://stackblitz.com/edit/primeng-inputmask-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;div class="p-grid p-fluid"&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-4"&gt;
         &lt;span&gt;Basic&lt;/span&gt;
@@ -349,11 +336,9 @@ import &#123;InputMaskModule&#125; from 'primeng/inputmask';
         &lt;p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class InputMaskDemo &#123;
 
     val1: string;
@@ -369,8 +354,7 @@ export class InputMaskDemo &#123;
     val6: string;
     
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

@@ -181,8 +181,7 @@ export class GroupDemo &#123;
                 "selectedItem" template to customize the selected label display and the "item" template to change the content of the options in the dropdown panel. In addition when grouping is enabled, "group" template is available
                 to customize the option groups. All templates get the option instance as the default local template variable. If the options are custom objects not SelectItem instances, use value property to access the custom object.
             </p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;"&gt;
      &lt;ng-template let-item pTemplate="selectedItem"&gt;
         &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
@@ -194,8 +193,7 @@ export class GroupDemo &#123;
         &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt; &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
-</code>
-</pre>
+</app-code>
 
 
 <app-code lang="typescript">
@@ -658,8 +656,7 @@ clearFilter(dropdown: Dropdown) &#123;
             <a href="https://stackblitz.com/edit/primeng-dropdown-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5&gt;Single&lt;/h5&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
 
@@ -692,8 +689,7 @@ clearFilter(dropdown: Dropdown) &#123;
 
 &lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
 &lt;p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"&gt;&lt;/p-dropdown&gt;
-</code>
-</pre>
+</app-code>
 
 <app-code lang="typescript">
 export class DropdownDemo &#123;

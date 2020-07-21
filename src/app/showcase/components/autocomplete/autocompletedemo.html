@@ -587,8 +587,7 @@ export class AutoCompleteDemo &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5 class="first"&gt;Basic&lt;/h5&gt;
 &lt;p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
 
@@ -607,11 +606,9 @@ export class AutoCompleteDemo &#123;
     &lt;p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"&gt;
     &lt;/p-autoComplete&gt;
 &lt;/span&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class AutoCompleteDemo &#123;
 
     selectedCountry: any;
@@ -648,8 +645,7 @@ export class AutoCompleteDemo &#123;
         this.filteredCountries = filtered;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
 <app-code lang="typescript">
 @Injectable()

@@ -122,8 +122,7 @@ export class MyModel &#123;
             the content using templating. The ngTemplate receives the selectitem as the implicit variable.</p>
 
             <p>In addition selectedItems template can be used to customize the selected values display instead of the default comma separated list.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars2"&gt;
     &lt;ng-template let-selectedCars pTemplate="selectedItems"&gt;
         &lt;span *ngFor="let selectedCar of selectedCars"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/span&gt;
@@ -135,8 +134,7 @@ export class MyModel &#123;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Filtering</h5>
             <p>Options can be filtered using an input field in the overlay by enabling the <i>filter</i> property. By default filtering is done against

@@ -43,85 +43,69 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;CheckboxModule&#125; from 'primeng/checkbox';
-</code>
-</pre>
+</app-code>
 
             <h5>Getting Started</h5>
             <p>Checkbox can either be used in multiple selection with other checkboxes or as a single checkbox to provide a boolean value.</p>
             
             <h4>Multiple Values</h4>
             <p>Multiple mode is enabled by default, ngModel property refers to an array to bind the selected values.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 &lt;p-checkbox name="groupname" value="val2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     selectedValues: string[] = [];
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>As ngModel is two-way binding enabled, prepopulating the model array with values is enough to display the related
             checkboxes as checked by default.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     selectedValues: string[] = ['val1','val2'];
 
 &#125;
-</code>
-</pre>
+</app-code>
 
         <h4>Label</h4>
         <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 &lt;p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-</code>
-</pre>
+</app-code>
 
         <h4>Boolean Value</h4>
         <p>A single boolean value can be bound using the ngModel property as well by enabling the binary option.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     value: boolean;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-checkbox [(ngModel)]="value" [binary]="true"&gt;&lt;/p-checkbox&gt;
-</code>
-</pre>
+</app-code>
 
         <h5>Model Driven Forms</h5>
         <p>Checkbox can be used in a model driven form as well. In this case, due to an <a href="https://github.com/angular/angular/issues/17685">issue</a> in Angular bind the formControl instance 
             instead of using formControlName.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;!-- Wrong --&gt;
 &lt;p-checkbox formControlName="cities"&gt;&lt;/p-checkbox&gt;
 
 &lt;!-- Correct --&gt;
 &lt;p-checkbox [formControl]="myFormGroup.controls['cities']"&gt;&lt;/p-checkbox&gt;
-</code>
-</pre>
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
@@ -319,8 +303,7 @@ export class ModelComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-checkbox-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5 class="first"&gt;Basic&lt;/h5&gt;
 &lt;h5&gt;Basic&lt;/h5&gt;
 &lt;div class="p-field-checkbox"&gt;
@@ -350,11 +333,9 @@ export class ModelComponent &#123;
     &lt;p-checkbox name="group2" value="category" [value]="category"  [(ngModel)]="selectedCategories" [inputId]="category.key" [disabled]="category.key === 'R'"&gt;&lt;/p-checkbox&gt;
     &lt;label [for]="category.key"&gt;&#123;&#123;category.name&#125;&#125;&lt;/label&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class CheckboxDemo &#123;
 
     selectedCities: string[] = [];
@@ -369,8 +350,7 @@ export class CheckboxDemo &#123;
         this.selectedCategories = this.categories.slice(1,3);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

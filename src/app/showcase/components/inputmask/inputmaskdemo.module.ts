@@ -6,7 +6,8 @@ import {InputMaskDemoRoutingModule} from './inputmaskdemo-routing.module';
 import {InputMaskModule} from 'primeng/inputmask';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
-import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component';
+import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -16,6 +17,7 @@ import { AppInputStyleSwitchModule } from '../../app.inputstyleswitch.component'
         InputMaskModule,
         TabViewModule,
 		AppInputStyleSwitchModule,
+		AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [
