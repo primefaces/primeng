@@ -13,14 +13,14 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton',
     template: `
-        <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + (options ? options.length : 0)" [ngStyle]="style" [class]="styleClass"  role="group">
-            <div *ngFor="let option of options; let i = index" #btn class="ui-button ui-widget ui-state-default ui-button-text-only {{option.styleClass}}"  role="button" [attr.aria-pressed]="isSelected(option)"
-                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled': disabled || option.disabled, 'ui-state-focus': btn == focusedItem, 
-                'ui-button-text-icon-left': (option.icon != null), 'ui-button-icon-only': (option.icon && !option.label)}" (click)="onItemClick($event,option,i)" (keydown.enter)="onItemClick($event,option,i)"
+        <div [ngClass]="'p-selectbutton p-buttonset p-component'" [ngStyle]="style" [class]="styleClass"  role="group">
+            <div *ngFor="let option of options; let i = index" #btn class="p-button p-component {{option.styleClass}}"  role="button" [attr.aria-pressed]="isSelected(option)"
+                [ngClass]="{'p-highlight':isSelected(option), 'p-disabled': disabled || option.disabled, 'p-focus': btn == focusedItem, 
+                'p-button-icon-left': (option.icon != null), 'p-button-icon-only': (option.icon && !option.label)}" (click)="onItemClick($event,option,i)" (keydown.enter)="onItemClick($event,option,i)"
                 [attr.title]="option.title" [attr.aria-label]="option.label" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy">
                 <ng-container *ngIf="!itemTemplate else customcontent">
-                    <span [ngClass]="['ui-clickable', 'ui-button-icon-left']" [class]="option.icon" *ngIf="option.icon"></span>
-                    <span class="ui-button-text ui-clickable">{{option.label||'ui-btn'}}</span>
+                    <span [ngClass]="['p-button-icon-left']" [class]="option.icon" *ngIf="option.icon"></span>
+                    <span class="p-button-text">{{option.label||'p-btn'}}</span>
                 </ng-container>
                 <ng-template #customcontent>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
@@ -31,7 +31,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     providers: [SELECTBUTTON_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./selectbutton.css']
+    styleUrls: ['./selectbutton.css', '../button/button.css']
 })
 export class SelectButton implements ControlValueAccessor, OnChanges {
 
