@@ -23,3 +23,13 @@
     transform: translateZ(0) scale(1.0, 1.0);
     visibility: visible;
 }
+
+p-radiobutton {
+    display: inline-flex;
+    vertical-align: bottom;
+    align-items: center;
+}
+
+.p-radiobutton-label {
+    line-height: 1;
+}

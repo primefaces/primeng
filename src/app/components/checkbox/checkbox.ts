@@ -22,7 +22,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             </div>
         </div>
         <label (click)="onClick($event,cb,true)" [class]="labelStyleClass"
-                [ngClass]="{'p-chkbox-label': true, 'p-label-active':checked, 'p-label-disabled':disabled, 'p-label-focus':focused}"
+                [ngClass]="{'p-checkbox-label': true, 'p-checkbox-label-active':checked, 'p-disabled':disabled, 'p-checkbox-label-focus':focused}"
                 *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR],

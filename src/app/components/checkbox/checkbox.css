@@ -10,3 +10,13 @@
     justify-content: center;
     align-items: center;
 }
+
+p-checkbox {
+    display: inline-flex;
+    vertical-align: bottom;
+    align-items: center;
+}
+
+.p-checkbox-label {
+    line-height: 1;
+}

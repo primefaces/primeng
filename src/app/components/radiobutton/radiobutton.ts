@@ -23,7 +23,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
             </div>
         </div>
         <label (click)="select($event)" [class]="labelStyleClass"
-            [ngClass]="{'p-radiobutton-label':true, 'p-label-active':rb.checked, 'p-label-disabled':disabled, 'p-label-focus':focused}"
+            [ngClass]="{'p-radiobutton-label':true, 'p-radiobutton-label-active':rb.checked, 'p-disabled':disabled, 'p-radiobutton-label-focus':focused}"
             *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR],

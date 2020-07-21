@@ -373,6 +373,10 @@
   background: #9954bb;
 }
 
+.p-checkbox-label {
+  margin-left: 0.5rem;
+}
+
 .p-highlight .p-checkbox .p-checkbox-box {
   border-color: #151515;
 }
@@ -1055,6 +1059,10 @@
   background: #9954bb;
 }
 
+.p-radiobutton-label {
+  margin-left: 0.5rem;
+}
+
 .p-highlight .p-radiobutton .p-radiobutton-box {
   border-color: #151515;
 }
@@ -1169,6 +1177,18 @@
 .p-slider:not(.p-disabled) .p-slider-handle:hover {
   background: #aa70c7;
   border-color: #aa70c7;
+}
+.p-slider.p-slider-animate.p-slider-horizontal .p-slider-handle {
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s, left 0.15s;
+}
+.p-slider.p-slider-animate.p-slider-horizontal .p-slider-range {
+  transition: width 0.15s;
+}
+.p-slider.p-slider-animate.p-slider-vertical .p-slider-handle {
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s, bottom 0.15s;
+}
+.p-slider.p-slider-animate.p-slider-vertical .p-slider-range {
+  transition: height 0.15s;
 }
 
 .p-togglebutton.p-button {

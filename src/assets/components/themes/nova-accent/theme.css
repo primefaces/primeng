@@ -373,6 +373,10 @@
   background: #005b9f;
 }
 
+.p-checkbox-label {
+  margin-left: 0.5rem;
+}
+
 .p-chips .p-chips-multiple-container {
   padding: 0.2145rem 0.429rem;
 }
@@ -1051,6 +1055,10 @@
   background: #005b9f;
 }
 
+.p-radiobutton-label {
+  margin-left: 0.5rem;
+}
+
 .p-rating .p-rating-icon {
   color: #333333;
   margin-left: 0.5rem;
@@ -1157,6 +1165,18 @@
 .p-slider:not(.p-disabled) .p-slider-handle:hover {
   background: 2px solid #666666;
   border-color: #007ad9;
+}
+.p-slider.p-slider-animate.p-slider-horizontal .p-slider-handle {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, left 0.2s;
+}
+.p-slider.p-slider-animate.p-slider-horizontal .p-slider-range {
+  transition: width 0.2s;
+}
+.p-slider.p-slider-animate.p-slider-vertical .p-slider-handle {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, bottom 0.2s;
+}
+.p-slider.p-slider-animate.p-slider-vertical .p-slider-range {
+  transition: height 0.2s;
 }
 
 .p-togglebutton.p-button {
