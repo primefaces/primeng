@@ -18,13 +18,13 @@ export class ListboxDemo {
 
     cities: City[];
 
+    countries: any[];
+
     selectedCity: City;
 
     selectedCities: City[];
 
-    cars: SelectItem[];
-
-    selectedCar: string = 'BMW';
+    selectedCountries: any[];
 
     constructor() {
         this.cities = [
@@ -35,17 +35,17 @@ export class ListboxDemo {
             {name: 'Paris', code: 'PRS'}
         ];
 
-        this.cars = [
-            {label: 'Audi', value: 'Audi'},
-            {label: 'BMW', value: 'BMW'},
-            {label: 'Fiat', value: 'Fiat'},
-            {label: 'Ford', value: 'Ford'},
-            {label: 'Honda', value: 'Honda'},
-            {label: 'Jaguar', value: 'Jaguar'},
-            {label: 'Mercedes', value: 'Mercedes'},
-            {label: 'Renault', value: 'Renault'},
-            {label: 'VW', value: 'VW'},
-            {label: 'Volvo', value: 'Volvo'}
+        this.countries = [
+            {name: 'Australia', code: 'AU'},
+            {name: 'Brazil', code: 'BR'},
+            {name: 'China', code: 'CN'},
+            {name: 'Egypt', code: 'EG'},
+            {name: 'France', code: 'FR'},
+            {name: 'Germany', code: 'DE'},
+            {name: 'India', code: 'IN'},
+            {name: 'Japan', code: 'JP'},
+            {name: 'Spain', code: 'ES'},
+            {name: 'United States', code: 'US'}
         ];
     }
     
