@@ -67,10 +67,8 @@ export class TableService {
                 'p-datatable-resizable-fit': (resizableColumns && columnResizeMode === 'fit'),
                 'p-datatable-scrollable': scrollable,
                 'p-datatable-flex-scrollable': (scrollable && scrollHeight === 'flex')}">
-            <div class="p-datatable-loading" *ngIf="loading && showLoader">
-                <div class="p-datatable-loading-overlay p-component-overlay">
-                    <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
-                </div>
+            <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
+                <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="captionTemplate" class="p-datatable-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
