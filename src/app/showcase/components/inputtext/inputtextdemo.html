@@ -85,24 +85,6 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 &lt;/span&gt;
 </app-code>
 
-            <h5>Addons</h5>
-            <p>Text, icon, buttons and other content can be grouped next to an input by wrapping the addons and input inside
-                <i>.p-inputgroup element</i>. Multiple addons can be used within the same group as well.</p>
-<app-code lang="markup">
-&lt;div class="p-inputgroup"&gt;
-    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-user"&gt;&lt;/i&gt;&lt;/span&gt;
-    &lt;input type="text" pInputText placeholder="Username"&gt;         
-&lt;/div&gt;
-
-&lt;div class="p-inputgroup"&gt;
-    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-tags"&gt;&lt;/i&gt;&lt;/span&gt;  
-    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-shopping-cart"&gt;&lt;/i&gt;&lt;/span&gt;   
-    &lt;input type="text" pInputText placeholder="Price"&gt; 
-    &lt;span class="p-inputgroup-addon"&gt;$&lt;/span&gt;  
-    &lt;span class="p-inputgroup-addon"&gt;.00&lt;/span&gt;      
-&lt;/div&gt;
-</app-code>
-
             <h5>Icons</h5>
             <p>An icon can be integrated within an input field by wrapping the input and the icon with an element having either <i>p-input-icon-right</i>
             or <i>p-input-icon-left</i> class depending on the icon location.</p>
@@ -127,6 +109,16 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 &lt;input type="text" pInputText class="p-inputtext-lg"  placeholder="Large"&gt;   
 </app-code>
 
+            <p>Instead of repeating the scale classes for each input, sizing can also be applied to a group by adding the
+                class to a container element so that descendant inputs share the same style easier</p>
+<app-code lang="markup">
+&lt;div class="p-inputtext-sm"&gt;
+    &lt;input type="text" pInputText&gt;
+    &lt;p-inputnumber&gt;&lt;/p-inputnumber&gt;
+    &lt;p-inputmask&gt;&lt;/p-inputmask&gt;
+&lt;/div&gt;
+</app-code>
+
             <h5>Outlined vs Filled</h5>
             <p>Input fields come in two styles, default is <i>outlined</i> with borders around the field whereas <i>filled</i> alternative adds a background color
             to the field. Appling <i>p-input-filled</i> to an ancestor of an input <i>p-input-filled</i> enables the filled style. If you prefer
@@ -135,6 +127,24 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
 &lt;div class="p-input-filled"&gt;
     &lt;input type="text" pInputText&gt;
 &lt;/div&gt;   
+</app-code>
+
+            <h5>Addons</h5>
+            <p>Text, icon, buttons and other content can be grouped next to an input by wrapping the addons and input inside
+                <i>.p-inputgroup element</i>. Multiple addons can be used within the same group as well.</p>
+<app-code lang="markup">
+&lt;div class="p-inputgroup"&gt;
+    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-user"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;input type="text" pInputText placeholder="Username"&gt;         
+&lt;/div&gt;
+
+&lt;div class="p-inputgroup"&gt;
+    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-tags"&gt;&lt;/i&gt;&lt;/span&gt;  
+    &lt;span class="p-inputgroup-addon"&gt;&lt;i class="pi pi-shopping-cart"&gt;&lt;/i&gt;&lt;/span&gt;   
+    &lt;input type="text" pInputText placeholder="Price"&gt; 
+    &lt;span class="p-inputgroup-addon"&gt;$&lt;/span&gt;  
+    &lt;span class="p-inputgroup-addon"&gt;.00&lt;/span&gt;      
+&lt;/div&gt;
 </app-code>
 
             <h5>Properties</h5>
@@ -188,8 +198,7 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
             <a href="https://stackblitz.com/edit/primeng-inputtext-demo" class="btn-viewsource p-ml-2" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;h5 class="first"&gt;Basic&lt;/h5&gt;
 &lt;h5 class="first"&gt;Basic&lt;/h5&gt;
 &lt;input type="text" pInputText [(ngModel)]="value1"&gt; 
@@ -236,11 +245,9 @@ import &#123;InputTextModule&#125; from 'primeng/inputtext';
     &lt;input type="text" placeholder="Normal" pInputText /&gt;
     &lt;input type="text" class="p-inputtext-lg" placeholder="Large"  pInputText /&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class InputTextDemo &#123;
 
     disabled: boolean = true;
@@ -255,8 +262,7 @@ export class InputTextDemo &#123;
 
     value5: string = 'PrimeVue';
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
