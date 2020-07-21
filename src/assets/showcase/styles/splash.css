@@ -24,6 +24,10 @@
   z-index: 1;
 }
 
+.splash-loader {
+    background: transparent;
+}
+
 .splash-loader:before {
   content: "";
   animation: bounce 1.5s infinite;
@@ -34,29 +38,29 @@
 }
 
 @keyframes bounce {
-  0% {
-    transform: scale(0.8);
-    -webkit-transform: scale(0.8);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(2);
-    -webkit-transform: scale(2);
-    opacity: 0;
-  }
+        0% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.3);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        opacity: 0;
+    }
 }
 
 @-webkit-keyframes bounce {
-  0% {
-    transform: scale(0.8);
-    -webkit-transform: scale(0.8);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(2);
-    -webkit-transform: scale(2);
-    opacity: 0;
-  }
+    0% {
+        transform: scale(0.3);
+        -webkit-transform: scale(0.3);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        opacity: 0;
+    }
 }
 
 .splash-screen {
