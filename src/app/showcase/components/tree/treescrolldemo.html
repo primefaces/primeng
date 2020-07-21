@@ -16,7 +16,10 @@
     <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
     <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
         [resizable]="true" [contentStyle]="{height: '300px'}" styleClass="ui-fluid">
-        <p-tree [value]="files2" scrollHeight="flex"></p-tree>   
+        <p-tree [value]="files2" scrollHeight="flex"></p-tree>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Ok" class="p-button-text"></button>
+        </p-footer> 
     </p-dialog>
 
     <h3>Virtual Scroll</h3>
@@ -106,6 +109,9 @@ export class TreeScrollDemo implements OnInit &#123;
 &lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" 
     [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;" styleClass="ui-fluid"&gt;
     &lt;p-tree [value]="files2" scrollHeight="flex"&gt;&lt;/p-tree&gt;   
+    &lt;p-footer&gt;
+        &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Ok" class="p-button-text"&gt;&lt;/button&gt;
+    &lt;/p-footer&gt; 
 &lt;/p-dialog&gt;
 
 &lt;h3&gt;Virtual Scroll&lt;/h3&gt;

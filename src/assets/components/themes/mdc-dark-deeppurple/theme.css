@@ -2437,6 +2437,10 @@
   background: rgba(255, 255, 255, 0.04);
   color: rgba(255, 255, 255, 0.87);
 }
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-treenode-dragover {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.87);
+}
 .p-tree .p-tree-filter-container {
   margin-bottom: 0.5rem;
 }
@@ -2453,6 +2457,50 @@
 }
 .p-tree .p-tree-loading-icon {
   font-size: 2rem;
+}
+.p-tree .p-treenode-droppoint.p-treenode-droppoint-active {
+  background-color: rgba(82, 46, 146, 0.16);
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content {
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #1e1e1e;
+  color: rgba(255, 255, 255, 0.87);
+  padding: 0.571rem;
+  transition: none;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-highlight {
+  background-color: rgba(103, 58, 183, 0.16);
+  color: #673AB7;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
+  color: #673AB7;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-tree-toggler {
+  margin-right: 0.5rem;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-treenode-icon {
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: 0.5rem;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-checkbox {
+  margin-right: 0.5rem;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-checkbox .p-checkbox-icon {
+  color: #673AB7;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-treenode-label:not(.p-highlight):hover {
+  background-color: inherit;
+  color: inherit;
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-tree.p-tree-horizontal .p-treenode .p-treenode-content:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
 }
 
 .p-treetable .p-paginator-top {

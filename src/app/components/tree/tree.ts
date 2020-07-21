@@ -19,17 +19,17 @@ import {DomHandler} from 'primeng/dom';
             <li *ngIf="tree.droppableNodes" class="p-treenode-droppoint" [ngClass]="{'p-treenode-droppoint-active':draghoverPrev}"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
             <li *ngIf="!tree.horizontal" role="treeitem" [ngClass]="['p-treenode',node.styleClass||'', isLeaf() ? 'p-treenode-leaf': '']">
-                <div class="p-treenode-content" [style.paddingLeft]="(level * 1.5)  + 'em'" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
+                <div class="p-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" [attr.tabindex]="0"
                     [ngClass]="{'p-treenode-selectable':tree.selectionMode && node.selectable !== false,'p-treenode-dragover':draghoverNode, 'p-highlight':isSelected()}"
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()" [attr.aria-label]="node.label">
-                    <button type="button" *ngIf="!isLeaf()" class="p-tree-toggler p-link" (click)="toggle($event)">
+                    <button type="button" class="p-tree-toggler p-link" (click)="toggle($event)">
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!node.expanded,'pi-chevron-down':node.expanded}"></span>
                     </button>
                     <div class="p-checkbox p-component" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
                         <div class="p-checkbox-box" [ngClass]="{'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected}">
-                            <span class="p-checkbox-icon pi" ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span>
+                            <span class="p-checkbox-icon pi" [ngClass]="{'pi-check':isSelected(),'pi-minus':node.partialSelected}"></span>
                         </div>
                     </div>
                     <span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span>
@@ -68,10 +68,10 @@ import {DomHandler} from 'primeng/dom';
                                 <span class="p-tree-toggler pi pi-fw" [ngClass]="{'pi-plus':!node.expanded,'pi-minus':node.expanded}" *ngIf="!isLeaf()" (click)="toggle($event)"></span>
                                 <span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span>
                                 <span class="p-treenode-label">
-                                        <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
-                                        <span *ngIf="tree.getTemplateForNode(node)">
+                                    <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                                    <span *ngIf="tree.getTemplateForNode(node)">
                                         <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
-                                        </span>
+                                    </span>
                                 </span>
                             </div>
                         </td>
@@ -513,7 +513,7 @@ export class UITreeNode implements OnInit {
                 'p-treenode-dragover':dragHover,'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex'}" 
             [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
-            <div class="p-tree-loading-mask p-component-overlay" *ngIf="loading">
+            <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
             <div *ngIf="filter" class="p-tree-filter-container">
@@ -731,7 +731,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     onNodeClick(event, node: TreeNode) {
         let eventTarget = (<Element> event.target);
 
-        if (DomHandler.hasClass(eventTarget, 'p-tree-toggler')) {
+        if (DomHandler.hasClass(eventTarget, 'p-tree-toggler') || DomHandler.hasClass(eventTarget, 'p-tree-toggler-icon')) {
             return;
         }
         else if (this.selectionMode) {
