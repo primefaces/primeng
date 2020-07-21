@@ -127,7 +127,7 @@ export class MultiSelectItem {
                         <li *ngIf="filter && visibleOptions && visibleOptions.length === 0" class="p-multiselect-empty-message">{{emptyFilterMessage}}</li>
                     </ul>
                 </div>
-                <div class="p-multiselect-footer ui-widget-content" *ngIf="footerFacet">
+                <div class="p-multiselect-footer" *ngIf="footerFacet">
                     <ng-content select="p-footer"></ng-content>
                 </div>
             </div>
@@ -699,7 +699,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let nextItem = item.nextElementSibling;
 
         if (nextItem)
-            return DomHandler.hasClass(nextItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem) : nextItem.children[0];
+            return DomHandler.hasClass(nextItem.children[0], 'p-disabled') || DomHandler.isHidden(nextItem.children[0]) ? this.findNextItem(nextItem) : nextItem.children[0];
         else
             return null;
     }
@@ -708,7 +708,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         let prevItem = item.previousElementSibling;
 
         if (prevItem)
-            return DomHandler.hasClass(prevItem.children[0], 'ui-state-disabled') || DomHandler.isHidden(prevItem.children[0]) ? this.findPrevItem(prevItem) : prevItem.children[0];
+            return DomHandler.hasClass(prevItem.children[0], 'p-disabled') || DomHandler.isHidden(prevItem.children[0]) ? this.findPrevItem(prevItem) : prevItem.children[0];
         else
             return null;
     }
