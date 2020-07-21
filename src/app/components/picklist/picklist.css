@@ -31,3 +31,21 @@
 .p-picklist-item.p-picklist-flip-leave-active.p-picklist-flip-leave-to {
     transition: none !important;
 }
+
+.p-picklist-filter-container {
+    position: relative;
+}
+
+.p-picklist-filter-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+}
+
+.p-picklist-filter {
+    width: 100%;
+}
+
+.p-picklist-droppoint {
+    height: 6px;
+}

@@ -10,9 +10,10 @@ import {FilterUtils} from 'primeng/utils';
     selector: 'p-dataView',
     template: `
         <div [ngClass]="{'p-dataview p-component': true, 'p-dataview-list': (layout === 'list'), 'p-dataview-grid': (layout === 'grid')}" [ngStyle]="style" [class]="styleClass">
-            <div class="p-dataview-loading p-component-overlay" *ngIf="loading"></div>
-            <div class="p-dataview-loading-content" *ngIf="loading">
-                <i [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
+            <div class="p-dataview-loading" *ngIf="loading">
+                <div class="p-dataview-loading-overlay p-component-overlay">
+                    <i [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
+                </div>
             </div>
             <div class="p-dataview-header">
                 <ng-content select="p-header"></ng-content>
@@ -26,7 +27,9 @@ import {FilterUtils} from 'primeng/utils';
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                     </ng-template>
-                    <div *ngIf="isEmpty()" class="p-col-12 p-dataview-emptymessage">{{emptyMessage}}</div>
+                    <div *ngIf="isEmpty()" class="p-col">
+                        <div class="p-dataview-emptymessage">{{emptyMessage}}</div>
+                    </div>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"

@@ -1967,6 +1967,12 @@
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
+.p-dataview .p-dataview-loading-icon {
+  font-size: 2rem;
+}
+.p-dataview .p-dataview-emptymessage {
+  padding: 0.571rem 1rem;
+}
 
 .fc .fc-view-container th {
   background: #191919;
@@ -2074,15 +2080,27 @@
 .p-orderlist .p-orderlist-controls .p-button {
   margin-bottom: 0.5rem;
 }
-.p-orderlist .p-orderlist-caption {
+.p-orderlist .p-orderlist-header {
   background: #191919;
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.857rem 1rem;
-  font-weight: 700;
   border-bottom: 0 none;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-caption {
+  font-weight: 700;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-caption ~ .p-orderlist-filter-container {
+  margin-top: 0.5rem;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-filter-container .p-orderlist-filter {
+  padding-right: 1.429rem;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-filter-container .p-orderlist-filter-icon {
+  right: 0.429rem;
+  color: #888888;
 }
 .p-orderlist .p-orderlist-list {
   border: 1px solid #191919;
@@ -2112,6 +2130,9 @@
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
   color: #212529;
   background: #C5E1A5;
+}
+.p-orderlist .p-orderlist-list .p-orderlist-droppoint.p-orderlist-droppoint-highlight {
+  background-color: #9fce6b;
 }
 
 @media screen and (max-width: 960px) {
@@ -2249,15 +2270,27 @@
 .p-picklist .p-picklist-buttons .p-button {
   margin-bottom: 0.5rem;
 }
-.p-picklist .p-picklist-caption {
+.p-picklist .p-picklist-header {
   background: #191919;
   color: #dedede;
   border: 1px solid #191919;
   padding: 0.857rem 1rem;
-  font-weight: 700;
   border-bottom: 0 none;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
+}
+.p-picklist .p-picklist-header .p-picklist-caption {
+  font-weight: 700;
+}
+.p-picklist .p-picklist-header .p-picklist-caption ~ .p-picklist-filter-container {
+  margin-top: 0.5rem;
+}
+.p-picklist .p-picklist-header .p-picklist-filter-container .p-picklist-filter {
+  padding-right: 1.429rem;
+}
+.p-picklist .p-picklist-header .p-picklist-filter-container .p-picklist-filter-icon {
+  right: 0.429rem;
+  color: #888888;
 }
 .p-picklist .p-picklist-list {
   border: 1px solid #191919;
@@ -2287,6 +2320,13 @@
 .p-picklist .p-picklist-list .p-picklist-item.p-highlight {
   color: #212529;
   background: #C5E1A5;
+}
+.p-picklist .p-picklist-list .p-picklist-droppoint.p-picklist-droppoint-highlight {
+  background-color: #9fce6b;
+}
+.p-picklist .p-picklist-list .p-picklist-empty-message {
+  padding: 0.429rem 0.857rem;
+  color: #dedede;
 }
 
 @media screen and (max-width: 960px) {

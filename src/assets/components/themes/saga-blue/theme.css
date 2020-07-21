@@ -1967,6 +1967,12 @@
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
+.p-dataview .p-dataview-loading-icon {
+  font-size: 2rem;
+}
+.p-dataview .p-dataview-emptymessage {
+  padding: 1rem;
+}
 
 .fc .fc-view-container th {
   background: #f8f9fa;
@@ -2074,15 +2080,27 @@
 .p-orderlist .p-orderlist-controls .p-button {
   margin-bottom: 0.5rem;
 }
-.p-orderlist .p-orderlist-caption {
+.p-orderlist .p-orderlist-header {
   background: #f8f9fa;
   color: #495057;
   border: 1px solid #dee2e6;
   padding: 1rem;
-  font-weight: 600;
   border-bottom: 0 none;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-caption {
+  font-weight: 600;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-caption ~ .p-orderlist-filter-container {
+  margin-top: 0.5rem;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-filter-container .p-orderlist-filter {
+  padding-right: 1.5rem;
+}
+.p-orderlist .p-orderlist-header .p-orderlist-filter-container .p-orderlist-filter-icon {
+  right: 0.5rem;
+  color: #6c757d;
 }
 .p-orderlist .p-orderlist-list {
   border: 1px solid #dee2e6;
@@ -2112,6 +2130,9 @@
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
   color: #ffffff;
   background: #2196F3;
+}
+.p-orderlist .p-orderlist-list .p-orderlist-droppoint.p-orderlist-droppoint-highlight {
+  background-color: #0b7ad1;
 }
 
 @media screen and (max-width: 769px) {
@@ -2249,15 +2270,27 @@
 .p-picklist .p-picklist-buttons .p-button {
   margin-bottom: 0.5rem;
 }
-.p-picklist .p-picklist-caption {
+.p-picklist .p-picklist-header {
   background: #f8f9fa;
   color: #495057;
   border: 1px solid #dee2e6;
   padding: 1rem;
-  font-weight: 600;
   border-bottom: 0 none;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
+}
+.p-picklist .p-picklist-header .p-picklist-caption {
+  font-weight: 600;
+}
+.p-picklist .p-picklist-header .p-picklist-caption ~ .p-picklist-filter-container {
+  margin-top: 0.5rem;
+}
+.p-picklist .p-picklist-header .p-picklist-filter-container .p-picklist-filter {
+  padding-right: 1.5rem;
+}
+.p-picklist .p-picklist-header .p-picklist-filter-container .p-picklist-filter-icon {
+  right: 0.5rem;
+  color: #6c757d;
 }
 .p-picklist .p-picklist-list {
   border: 1px solid #dee2e6;
@@ -2287,6 +2320,13 @@
 .p-picklist .p-picklist-list .p-picklist-item.p-highlight {
   color: #ffffff;
   background: #2196F3;
+}
+.p-picklist .p-picklist-list .p-picklist-droppoint.p-picklist-droppoint-highlight {
+  background-color: #0b7ad1;
+}
+.p-picklist .p-picklist-list .p-picklist-empty-message {
+  padding: 0.5rem 1rem;
+  color: #495057;
 }
 
 @media screen and (max-width: 769px) {

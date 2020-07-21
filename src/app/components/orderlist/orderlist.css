@@ -35,3 +35,29 @@
 .p-orderlist.p-state-disabled .p-orderlist-list {
     overflow: hidden;
 }
+
+.p-orderlist-filter-container {
+    position: relative;
+}
+
+.p-orderlist-filter-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5rem;
+}
+
+.p-orderlist-filter {
+    width: 100%;
+}
+
+.p-orderlist-controls-right .p-orderlist-controls {
+    order: 2;
+}
+
+.p-orderlist-controls-right .p-orderlist-list-container {
+    order: 1;
+}
+
+.p-orderlist-droppoint {
+    height: 6px;
+}
