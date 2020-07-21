@@ -32,7 +32,6 @@ export class InputTextarea implements DoCheck {
         }
     }
     
-    //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
     @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();

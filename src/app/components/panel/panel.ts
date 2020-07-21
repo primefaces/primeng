@@ -85,7 +85,7 @@ export class Panel implements BlockableUI {
     
     animating: boolean;
     
-    id: string = `ui-panel-${idx++}`;
+    id: string = `p-panel-${idx++}`;
     
     constructor(private el: ElementRef) {}
 

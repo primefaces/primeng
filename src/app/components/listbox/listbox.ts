@@ -20,7 +20,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       <div class="p-listbox-header" *ngIf="headerFacet">
         <ng-content select="p-header"></ng-content>
       </div>
-      <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
+      <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter">
         <div class="p-checkbox p-component" *ngIf="checkbox && multiple && showToggleAll">
           <div class="p-hidden-accessible">
             <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
@@ -491,7 +491,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let nextItem = item.nextElementSibling;
 
         if (nextItem)
-            return DomHandler.hasClass(nextItem, 'ui-state-disabled') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+            return DomHandler.hasClass(nextItem, 'p-disabled') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else
             return null;
     }
@@ -500,7 +500,7 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         let prevItem = item.previousElementSibling;
 
         if (prevItem)
-            return DomHandler.hasClass(prevItem, 'ui-state-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+            return DomHandler.hasClass(prevItem, 'p-disabled') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else
             return null;
     }

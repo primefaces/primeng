@@ -815,7 +815,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     onMonthSelect(event, index) {
-        if (!DomHandler.hasClass(event.target, 'ui-state-disabled')) {
+        if (!DomHandler.hasClass(event.target, 'p-disabled')) {
             this.onDateSelect(event, {year: this.currentYear, month: index, day: 1, selectable: true});
         }
     }
@@ -1255,7 +1255,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 let nextRow = cell.parentElement.nextElementSibling;
                 if (nextRow) {
                     let focusCell = nextRow.children[cellIndex].children[0];
-                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
+                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = {backward: false};
                         this.navForward(event);
                     }
@@ -1279,7 +1279,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 let prevRow = cell.parentElement.previousElementSibling;
                 if (prevRow) {
                     let focusCell = prevRow.children[cellIndex].children[0];
-                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
+                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = {backward: true};
                         this.navBackward(event);
                     }
@@ -1302,7 +1302,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 let prevCell = cell.previousElementSibling;
                 if (prevCell) {
                     let focusCell = prevCell.children[0];
-                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled') || DomHandler.hasClass(focusCell.parentElement, 'ui-datepicker-weeknumber')) {
+                    if (DomHandler.hasClass(focusCell, 'p-disabled') || DomHandler.hasClass(focusCell.parentElement, 'p-datepicker-weeknumber')) {
                         this.navigateToMonth(true, groupIndex);
                     }
                     else {
@@ -1323,7 +1323,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 let nextCell = cell.nextElementSibling;
                 if (nextCell) {
                     let focusCell = nextCell.children[0];
-                    if (DomHandler.hasClass(focusCell, 'ui-state-disabled')) {
+                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
                         this.navigateToMonth(false, groupIndex);
                     }
                     else {
@@ -1444,7 +1444,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
             else {
                 let prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
-                let cells = DomHandler.find(prevMonthContainer, '.ui-datepicker-calendar td a');
+                let cells = DomHandler.find(prevMonthContainer, '.p-datepicker-calendar td a');
                 let focusCell = cells[cells.length - 1];
                 focusCell.tabIndex = '0';
                 focusCell.focus();
@@ -1457,7 +1457,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             }
             else {
                 let nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
-                let focusCell = DomHandler.findSingle(nextMonthContainer, '.ui-datepicker-calendar td a');
+                let focusCell = DomHandler.findSingle(nextMonthContainer, '.p-datepicker-calendar td a');
                 focusCell.tabIndex = '0';
                 focusCell.focus();
             }
@@ -1471,17 +1471,17 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
                 this.initFocusableCell();
 
                 if (this.navigationState.backward)
-                    DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-prev').focus();
+                    DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev').focus();
                 else
-                    DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-next').focus();
+                    DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next').focus();
             }
             else {
                 if (this.navigationState.backward) {
-                    let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+                    let cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-datepicker-calendar td a');
                     cell = cells[cells.length - 1];
                 }
                 else {
-                    cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+                    cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-calendar td a');
                 }
 
                 if (cell) {
@@ -1500,24 +1500,24 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     initFocusableCell() {
         let cell;
         if (this.view === 'month') {
-            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month:not(.ui-state-disabled)');
-            let selectedCell= DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-highlight');
+            let cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+            let selectedCell= DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-highlight');
             cells.forEach(cell => cell.tabIndex = -1);
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.ui-monthpicker .ui-monthpicker-month.ui-state-disabled[tabindex = "0"]');
+                let disabledCells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
                 disabledCells.forEach(cell => cell.tabIndex = -1);
             }
         }
         else {
-            cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'a.ui-state-active');
+            cell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'span.p-highlight');
             if (!cell) {
-                let todayCell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'td.ui-datepicker-today a:not(.ui-state-disabled)');
+                let todayCell = DomHandler.findSingle(this.contentViewChild.nativeElement, 'td.p-datepicker-today a:not(.p-disabled)');
                 if (todayCell)
                     cell = todayCell;
                 else
-                    cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.ui-datepicker-calendar td a');
+                    cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-calendar td a');
             }
         }
 
@@ -2045,14 +2045,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
-            let maskStyleClass = 'ui-widget-overlay ui-datepicker-mask ui-datepicker-mask-scrollblocker';
+            let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
             
 			this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
             document.body.appendChild(this.mask);
-            DomHandler.addClass(document.body, 'ui-overflow-hidden');
+            DomHandler.addClass(document.body, 'p-overflow-hidden');
         }
     }
     
@@ -2063,14 +2063,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             let hasBlockerMasks: boolean;
             for (let i = 0; i < bodyChildren.length; i++) {
                 let bodyChild = bodyChildren[i];
-                if (DomHandler.hasClass(bodyChild, 'ui-datepicker-mask-scrollblocker')) {
+                if (DomHandler.hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
                     hasBlockerMasks = true;
                     break;
                 }
             }
             
             if (!hasBlockerMasks) {
-                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+                DomHandler.removeClass(document.body, 'p-overflow-hidden');
             }
 
             this.unbindMaskClickListener();
@@ -2497,8 +2497,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
     
     isNavIconClicked(event: Event) {
-        return (DomHandler.hasClass(event.target, 'ui-datepicker-prev') || DomHandler.hasClass(event.target, 'ui-datepicker-prev-icon')
-                || DomHandler.hasClass(event.target, 'ui-datepicker-next') || DomHandler.hasClass(event.target, 'ui-datepicker-next-icon'));
+        return (DomHandler.hasClass(event.target, 'p-datepicker-prev') || DomHandler.hasClass(event.target, 'p-datepicker-prev-icon')
+                || DomHandler.hasClass(event.target, 'p-datepicker-next') || DomHandler.hasClass(event.target, 'p-datepicker-next-icon'));
     }
 
     onWindowResize() {

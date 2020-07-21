@@ -261,7 +261,7 @@ export class AutoComplete implements AfterViewChecked,AfterContentInit,OnDestroy
         if (this.highlightOptionChanged) {
             setTimeout(() => {
                 if (this.overlay) {
-                    let listItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+                    let listItem = DomHandler.findSingle(this.overlay, 'li.p-highlight');
                     if (listItem) {
                         DomHandler.scrollInView(this.overlay, listItem);
                     }

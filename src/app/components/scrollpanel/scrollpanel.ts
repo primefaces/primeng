@@ -113,20 +113,20 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
 
         this.requestAnimationFrame(() => {
             if (this.scrollXRatio >= 1) {
-                DomHandler.addClass(xBar, 'ui-scrollpanel-hidden');
+                DomHandler.addClass(xBar, 'p-scrollpanel-hidden');
             } 
             else {
-                DomHandler.removeClass(xBar, 'ui-scrollpanel-hidden');
+                DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max(this.scrollXRatio * 100, 10);
                 const xBarLeft = content.scrollLeft * (100 - xBarWidth) / (totalWidth - ownWidth);
                 xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
             }
 
             if (this.scrollYRatio >= 1) {
-                DomHandler.addClass(yBar, 'ui-scrollpanel-hidden');
+                DomHandler.addClass(yBar, 'p-scrollpanel-hidden');
             } 
             else {
-                DomHandler.removeClass(yBar, 'ui-scrollpanel-hidden');
+                DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max(this.scrollYRatio * 100, 10);
                 const yBarTop = content.scrollTop * (100 - yBarHeight) / (totalHeight - ownHeight);
                 yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
@@ -137,9 +137,9 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     onYBarMouseDown(e: MouseEvent) {
         this.isYBarClicked = true;
         this.lastPageY = e.pageY;
-        DomHandler.addClass(this.yBarViewChild.nativeElement, 'ui-scrollpanel-grabbed');
+        DomHandler.addClass(this.yBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
         
-        DomHandler.addClass(document.body, 'ui-scrollpanel-grabbed');
+        DomHandler.addClass(document.body, 'p-scrollpanel-grabbed');
 
         document.addEventListener('mousemove', this.onDocumentMouseMove);
         document.addEventListener('mouseup', this.onDocumentMouseUp);
@@ -149,9 +149,9 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     onXBarMouseDown(e: MouseEvent) {
         this.isXBarClicked = true;
         this.lastPageX = e.pageX;
-        DomHandler.addClass(this.xBarViewChild.nativeElement, 'ui-scrollpanel-grabbed');
+        DomHandler.addClass(this.xBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
 
-        DomHandler.addClass(document.body, 'ui-scrollpanel-grabbed');
+        DomHandler.addClass(document.body, 'p-scrollpanel-grabbed');
 
         document.addEventListener('mousemove', this.onDocumentMouseMove);
         document.addEventListener('mouseup', this.onDocumentMouseUp);
@@ -197,9 +197,9 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     }
 
     onDocumentMouseUp(e: Event) {
-        DomHandler.removeClass(this.yBarViewChild.nativeElement, 'ui-scrollpanel-grabbed');
-        DomHandler.removeClass(this.xBarViewChild.nativeElement, 'ui-scrollpanel-grabbed');
-        DomHandler.removeClass(document.body, 'ui-scrollpanel-grabbed');
+        DomHandler.removeClass(this.yBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
+        DomHandler.removeClass(this.xBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
+        DomHandler.removeClass(document.body, 'p-scrollpanel-grabbed');
 
         document.removeEventListener('mousemove', this.onDocumentMouseMove);
         document.removeEventListener('mouseup', this.onDocumentMouseUp);

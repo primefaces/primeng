@@ -55,7 +55,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngAfterViewInit() {
-        this.container = DomHandler.find(this.el.nativeElement, '.ui-terminal')[0];
+        this.container = DomHandler.find(this.el.nativeElement, '.p-terminal')[0];
     }
     
     ngAfterViewChecked() {

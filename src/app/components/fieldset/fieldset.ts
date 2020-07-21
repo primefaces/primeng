@@ -76,7 +76,7 @@ export class Fieldset implements BlockableUI {
     
     constructor(private el: ElementRef) {}
     
-    id: string = `ui-fieldset-${idx++}`;
+    id: string = `p-fieldset-${idx++}`;
         
     toggle(event) {
         if (this.animating) {

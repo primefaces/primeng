@@ -99,7 +99,7 @@ export class AccordionTab implements OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    id: string = `ui-accordiontab-${idx++}`;
+    id: string = `p-accordiontab-${idx++}`;
 
     loaded: boolean;
 

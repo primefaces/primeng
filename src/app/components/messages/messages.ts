@@ -147,23 +147,6 @@ export class Messages implements AfterContentInit, OnDestroy {
         return false;
     }
 
-    getSeverityClass() {
-        if (this.severity) {
-            return 'ui-messages-' + this.severity;
-        }
-        else {
-            const msg = this.value[0];
-            if (msg) {
-                const severities = ['info', 'warn', 'error', 'success'];
-                const severity = severities.find(item => item === msg.severity);
-
-                return severity && `ui-messages-${severity}`;
-            }
-        }
-
-        return null;
-    }
-
     clear(event) {
         this.value = [];
         this.valueChange.emit(this.value);
