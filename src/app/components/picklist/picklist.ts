@@ -17,10 +17,12 @@ import { FilterUtils } from 'primeng/utils';
                 <button type="button" pButton icon="pi pi-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
-                <div class="p-picklist-header" *ngIf="sourceHeader || (filterBy && showSourceFilter !== false)">
-                    <div class="p-picklist-caption" *ngIf="sourceHeader">{{sourceHeader}}</div>
-                    <div class="p-picklist-filter-container" *ngIf="filterBy && showSourceFilter !== false">
-                        <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="p-picklist-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
+                <div class="p-picklist-header" *ngIf="sourceHeader">
+                    <div class="p-picklist-title">{{sourceHeader}}</div>
+                </div>
+                <div class="p-picklist-filter-container" *ngIf="filterBy && showSourceFilter !== false">
+                    <div class="p-picklist-filter">
+                        <input #sourceFilter type="text" role="textbox" (keyup)="onFilter($event,source,SOURCE_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder" [attr.aria-label]="ariaSourceFilterLabel">
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>
@@ -53,10 +55,12 @@ import { FilterUtils } from 'primeng/utils';
                 <button type="button" pButton icon="pi pi-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper">
-                <div class="p-picklist-header" *ngIf="targetHeader || (filterBy && showTargetFilter !== false)">
-                    <div class="p-picklist-caption" *ngIf="targetHeader">{{targetHeader}}</div>
-                    <div class="p-picklist-filter-container" *ngIf="filterBy && showTargetFilter !== false">
-                        <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="p-picklist-filter p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
+                <div class="p-picklist-header" *ngIf="targetHeader">
+                    <div class="p-picklist-title" *ngIf="targetHeader">{{targetHeader}}</div>
+                </div>
+                <div class="p-picklist-filter-container" *ngIf="filterBy && showTargetFilter !== false">
+                    <div class="p-picklist-filter">
+                        <input #targetFilter type="text" role="textbox" (keyup)="onFilter($event,target,TARGET_LIST)" class="p-picklist-filter-input p-inputtext p-component" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder" [attr.aria-label]="ariaTargetFilterLabel">
                         <span class="p-picklist-filter-icon pi pi-search"></span>
                     </div>
                 </div>

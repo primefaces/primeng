@@ -18,10 +18,12 @@ import { FilterUtils } from 'primeng/utils';
                 <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
             </div>
             <div class="p-orderlist-list-container">
-                <div class="p-orderlist-header" *ngIf="header || filterBy ">
-                    <div class="p-orderlist-caption" *ngIf="header">{{header}}</div>
-                    <div class="p-orderlist-filter-container" *ngIf="filterBy">
-                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="p-orderlist-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
+                <div class="p-orderlist-header" *ngIf="header">
+                    <div class="p-orderlist-title">{{header}}</div>
+                </div>
+                <div class="p-orderlist-filter-container" *ngIf="filterBy">
+                    <div class="p-orderlist-filter">
+                        <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="p-orderlist-filter-input p-inputtext p-component" [attr.placeholder]="filterPlaceholder" [attr.aria-label]="ariaFilterLabel">
                         <span class="p-orderlist-filter-icon pi pi-search"></span>
                     </div>
                 </div>

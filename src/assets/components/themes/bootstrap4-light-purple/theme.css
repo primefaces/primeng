@@ -2089,16 +2089,19 @@
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
-.p-orderlist .p-orderlist-header .p-orderlist-caption {
+.p-orderlist .p-orderlist-header .p-orderlist-title {
   font-weight: 600;
 }
-.p-orderlist .p-orderlist-header .p-orderlist-caption ~ .p-orderlist-filter-container {
-  margin-top: 0.5rem;
+.p-orderlist .p-orderlist-filter-container {
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-bottom: 0 none;
 }
-.p-orderlist .p-orderlist-header .p-orderlist-filter-container .p-orderlist-filter {
+.p-orderlist .p-orderlist-filter-container .p-orderlist-filter-input {
   padding-right: 1.75rem;
 }
-.p-orderlist .p-orderlist-header .p-orderlist-filter-container .p-orderlist-filter-icon {
+.p-orderlist .p-orderlist-filter-container .p-orderlist-filter-icon {
   right: 0.75rem;
   color: #495057;
 }
@@ -2279,16 +2282,19 @@
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
-.p-picklist .p-picklist-header .p-picklist-caption {
+.p-picklist .p-picklist-header .p-picklist-title {
   font-weight: 600;
 }
-.p-picklist .p-picklist-header .p-picklist-caption ~ .p-picklist-filter-container {
-  margin-top: 0.5rem;
+.p-picklist .p-picklist-filter-container {
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-bottom: 0 none;
 }
-.p-picklist .p-picklist-header .p-picklist-filter-container .p-picklist-filter {
+.p-picklist .p-picklist-filter-container .p-picklist-filter-input {
   padding-right: 1.75rem;
 }
-.p-picklist .p-picklist-header .p-picklist-filter-container .p-picklist-filter-icon {
+.p-picklist .p-picklist-filter-container .p-picklist-filter-icon {
   right: 0.75rem;
   color: #495057;
 }

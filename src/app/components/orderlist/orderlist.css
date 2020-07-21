@@ -36,7 +36,7 @@
     overflow: hidden;
 }
 
-.p-orderlist-filter-container {
+.p-orderlist-filter {
     position: relative;
 }
 
@@ -46,7 +46,7 @@
     margin-top: -.5rem;
 }
 
-.p-orderlist-filter {
+.p-orderlist-filter-input {
     width: 100%;
 }
 

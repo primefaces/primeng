@@ -32,7 +32,7 @@
     transition: none !important;
 }
 
-.p-picklist-filter-container {
+.p-picklist-filter {
     position: relative;
 }
 
@@ -42,7 +42,7 @@
     margin-top: -.5rem;
 }
 
-.p-picklist-filter {
+.p-picklist-filter-input {
     width: 100%;
 }
 
