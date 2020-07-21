@@ -184,3 +184,8 @@
     right: 1px;
     bottom: 1px;
 }
+
+.p-confirm-dialog .p-dialog-content {
+    display: flex;
+    align-items: center;
+}

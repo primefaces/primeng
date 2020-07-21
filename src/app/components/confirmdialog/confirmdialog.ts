@@ -32,8 +32,8 @@ const hideAnimation = animation([
                     </div>
                 </div>
                 <div #content class="p-dialog-content">
-                    <i [ngClass]="'p-confirmdialog-icon'" [class]="option('icon')" *ngIf="option('icon')"></i>
-                    <span class="p-confirmdialog-message" [innerHTML]="option('message')"></span>
+                    <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="option('icon')"></i>
+                    <span class="p-confirm-dialog-message" [innerHTML]="option('message')"></span>
                 </div>
                 <div class="p-dialog-footer" *ngIf="footer">
                     <ng-content select="p-footer"></ng-content>
