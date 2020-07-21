@@ -59,7 +59,7 @@ export class DropdownItem {
     selector: 'p-dropdown',
     template: `
          <div #container [ngClass]="{'p-dropdown p-component':true,
-            'p-disabled':disabled, 'p-dropdown-open':overlayVisible, 'ui-state-focus':focused, 'p-dropdown-clearable': showClear && !disabled}"
+            'p-disabled':disabled, 'p-dropdown-open':overlayVisible, 'p-focus':focused, 'p-dropdown-clearable': showClear && !disabled}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="p-hidden-accessible">
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox"
@@ -70,7 +70,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate">{{label||'empty'}}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: selectedOption}"></ng-container>
             </span>
-            <span [ngClass]="{'p-dropdown-label p-inputtext p-placeholder':true,'ui-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</span>
+            <span [ngClass]="{'p-dropdown-label p-inputtext p-placeholder':true,'ğ-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</span>
             <input #editableInput type="text" [attr.maxlength]="maxlength" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="p-dropdown-label p-inputtext" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                 aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" (click)="onEditableInputClick()" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <i class="p-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="value != null && showClear && !disabled"></i>
@@ -457,9 +457,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 }
             }
 
-            let selectedItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
+            let selectedItem = DomHandler.findSingle(this.overlay, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.ui-state-highlight'));
+                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.p-highlight'));
             }
             this.selectedOptionUpdated = false;
         }
@@ -524,7 +524,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     isInputClick(event): boolean {
-        return DomHandler.hasClass(event.target, 'ui-dropdown-clear-icon') || 
+        return DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') || 
             event.target.isSameNode(this.accessibleViewChild.nativeElement) || 
             (this.editableInputViewChild && event.target.isSameNode(this.editableInputViewChild.nativeElement));
     }
@@ -561,7 +561,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                let itemsWrapperSelector = this.virtualScroll ? '.cdk-virtual-scroll-viewport' : '.ui-dropdown-items-wrapper';
+                let itemsWrapperSelector = this.virtualScroll ? '.cdk-virtual-scroll-viewport' : '.p-dropdown-items-wrapper';
                 this.itemsWrapper = DomHandler.findSingle(this.overlay, itemsWrapperSelector);
                 this.appendOverlay();
                 if (this.autoZIndex) {
@@ -573,7 +573,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
                 if (this.options && this.options.length) {
                     if (!this.virtualScroll) {
-                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
+                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
                         if (selectedListItem) {
                             DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
                         }
@@ -1035,7 +1035,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     applyFocus(): void {
         if (this.editable)
-            DomHandler.findSingle(this.el.nativeElement, '.ui-dropdown-label.ui-inputtext').focus();
+            DomHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
         else
             DomHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
     }
