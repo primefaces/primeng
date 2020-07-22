@@ -2960,6 +2960,15 @@
   border-color: transparent;
   color: #9FA8DA;
 }
+.p-tabview .p-tabview-left-icon {
+  margin-right: 0.5rem;
+}
+.p-tabview .p-tabview-right-icon {
+  margin-left: 0.5rem;
+}
+.p-tabview .p-tabview-close {
+  margin-left: 0.5rem;
+}
 .p-tabview .p-tabview-panels {
   background: transparent;
   padding: 1rem;

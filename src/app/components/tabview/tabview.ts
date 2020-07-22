@@ -1,9 +1,10 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
-        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+        ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
+import {DomHandler} from 'primeng/dom';
 
 let idx: number = 0;
 
@@ -104,7 +105,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     selector: 'p-tabView',
     template: `
         <div [ngClass]="'p-tabview p-component'" [ngStyle]="style" [class]="styleClass">
-            <ul class="p-tabview-nav" role="tablist">
+            <ul #navbar class="p-tabview-nav" role="tablist">
                 <ng-template ngFor let-tab [ngForOf]="tabs">
                     <li role="presentation" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
                         <a role="tab" class="p-tabview-nav-link" [attr.id]="tab.id + '-label'" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
@@ -118,11 +119,11 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                             <ng-container *ngIf="tab.headerTemplate">
                                 <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                             </ng-container>
+                            <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event,tab)"></span>
                         </a>
-                        <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event,tab)"></span>
                     </li>
                 </ng-template>
-                <li ref="inkbar" class="p-tabview-ink-bar"></li>
+                <li #inkbar class="p-tabview-ink-bar"></li>
             </ul>
             <div class="p-tabview-panels">
                 <ng-content></ng-content>
@@ -133,7 +134,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
    encapsulation: ViewEncapsulation.None,
    styleUrls: ['./tabview.css']
 })
-export class TabView implements AfterContentInit,BlockableUI {
+export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
     @Input() orientation: string = 'top';
     
@@ -142,6 +143,10 @@ export class TabView implements AfterContentInit,BlockableUI {
     @Input() styleClass: string;
     
     @Input() controlClose: boolean;
+
+    @ViewChild('navbar') navbar: ElementRef;
+
+    @ViewChild('inkbar') inkbar: ElementRef;
     
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
@@ -159,6 +164,8 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     preventActiveIndexPropagation: boolean;
 
+    tabChanged: boolean;
+
     constructor(public el: ElementRef) {}
       
     ngAfterContentInit() {
@@ -167,6 +174,13 @@ export class TabView implements AfterContentInit,BlockableUI {
         this.tabPanels.changes.subscribe(_ => {
             this.initTabs();
         });
+    }
+
+    ngAfterViewChecked() {
+        if (this.tabChanged) {
+            this.updateInkBar();
+            this.tabChanged = false;
+        }
     }
     
     initTabs(): void {
@@ -177,6 +191,8 @@ export class TabView implements AfterContentInit,BlockableUI {
                 this.tabs[this.activeIndex].selected = true;
             else
                 this.tabs[0].selected = true;
+
+            this.tabChanged = true;
         }
     }
     
@@ -194,6 +210,7 @@ export class TabView implements AfterContentInit,BlockableUI {
                 selectedTab.selected = false
             }
             
+            this.tabChanged = true;
             tab.selected = true;
             let selectedTabIndex = this.findTabIndex(tab);
             this.preventActiveIndexPropagation = true;
@@ -232,6 +249,7 @@ export class TabView implements AfterContentInit,BlockableUI {
             return;
         }
         if (tab.selected) {
+            this.tabChanged = true;
             tab.selected = false;
             for(let i = 0; i < this.tabs.length; i++) {
                 let tabPanel = this.tabs[i];
@@ -284,6 +302,12 @@ export class TabView implements AfterContentInit,BlockableUI {
             this.findSelectedTab().selected = false;
             this.tabs[this._activeIndex].selected = true;
         }
+    }
+
+    updateInkBar() {
+        let tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+        this.inkbar.nativeElement.style.left =  DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
     }
 }
 

@@ -2948,6 +2948,15 @@
   border-color: #4CAF50;
   color: #4CAF50;
 }
+.p-tabview .p-tabview-left-icon {
+  margin-right: 0.5rem;
+}
+.p-tabview .p-tabview-right-icon {
+  margin-left: 0.5rem;
+}
+.p-tabview .p-tabview-close {
+  margin-left: 0.5rem;
+}
 .p-tabview .p-tabview-panels {
   background: #ffffff;
   padding: 1rem;
