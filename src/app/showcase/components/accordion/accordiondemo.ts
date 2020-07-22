@@ -3,7 +3,8 @@ import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './accordiondemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styleUrls: ['./accordiondemo.scss']
 })
 export class AccordionDemo {
     
