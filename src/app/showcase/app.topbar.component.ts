@@ -222,15 +222,13 @@ import { Subscription } from 'rxjs';
     `,
     animations: [
         trigger('overlayMenuAnimation', [
-            state('void', style({
-                transform: 'translateY(5%)',
-                opacity: 0
-            })),
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('* <=> *', animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')),
+            transition(':enter', [
+                style({ opacity: 0, transform: 'scaleY(0.8)'}),
+                animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 1, transform: '*' })),
+              ]),
+              transition(':leave', [
+                animate('.1s linear', style({ opacity: 0 }))
+              ])
         ]) 
     ]
 })

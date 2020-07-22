@@ -135,16 +135,13 @@ export class MultiSelectItem {
     `,
     animations: [
         trigger('overlayAnimation', [
-            state('void', style({
-                transform: 'translateY(5%)',
-                opacity: 0
-            })),
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => visible', animate('{{showTransitionParams}}')),
-            transition('visible => void', animate('{{hideTransitionParams}}'))
+            transition(':enter', [
+                style({ opacity: 0, transform: 'scaleY(0.8)'}),
+                animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' })),
+              ]),
+              transition(':leave', [
+                animate('{{hideTransitionParams}}', style({ opacity: 0 }))
+              ])
         ])
     ],
     host: {
@@ -244,9 +241,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() itemSize: number;
 
-    @Input() showTransitionOptions: string = '225ms ease-out';
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() hideTransitionOptions: string = '.1s linear';
 
     @Input() ariaFilterLabel: string;
 
