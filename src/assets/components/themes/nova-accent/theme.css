@@ -2753,7 +2753,7 @@
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.p-accordion .p-accordion-tab {
+.p-accordion p-accordiontab .p-accordion-tab {
   margin-bottom: 2px;
 }
 

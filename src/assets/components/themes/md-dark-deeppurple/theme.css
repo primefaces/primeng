@@ -2777,23 +2777,30 @@
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }
-.p-accordion .p-accordion-tab {
+.p-accordion p-accordiontab .p-accordion-tab {
   margin-bottom: 0;
 }
-.p-accordion .p-accordion-tab .p-accordion-header .p-accordion-header-link {
+.p-accordion p-accordiontab .p-accordion-header .p-accordion-header-link {
   border-radius: 0;
 }
-.p-accordion .p-accordion-tab:not(:first-child) .p-accordion-header .p-accordion-header-link {
+.p-accordion p-accordiontab .p-accordion-content {
+  border-radius: 0;
+}
+.p-accordion p-accordiontab:not(:first-child) .p-accordion-header .p-accordion-header-link {
   border-top: 0 none;
 }
-.p-accordion .p-accordion-tab:not(:first-child) .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link, .p-accordion .p-accordion-tab:not(:first-child) .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
+.p-accordion p-accordiontab:not(:first-child) .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link, .p-accordion p-accordiontab:not(:first-child) .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
   border-top: 0 none;
 }
-.p-accordion .p-accordion-tab:first-child .p-accordion-header .p-accordion-header-link {
+.p-accordion p-accordiontab:first-child .p-accordion-header .p-accordion-header-link {
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
-.p-accordion .p-accordion-tab:last-child .p-accordion-header:not(.p-highlight) .p-accordion-header-link {
+.p-accordion p-accordiontab:last-child .p-accordion-header:not(.p-highlight) .p-accordion-header-link {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.p-accordion p-accordiontab:last-child .p-accordion-content {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }

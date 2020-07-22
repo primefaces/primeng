@@ -22,7 +22,7 @@ let idx: number = 0;
                     <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
                 </a>
             </div>
-            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}} : {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}}" (@tabContent.done)="onToggleDone($event)"
+            <div [attr.id]="id + '-content'" class="p-toggleable-content" [@tabContent]="selected ? {value: 'visible', params: {transitionParams: transitionOptions}} : {value: 'hidden', params: {transitionParams: transitionOptions}}"
                 role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
                 <div class="p-accordion-content">
                     <ng-content></ng-content>
@@ -39,15 +39,11 @@ let idx: number = 0;
                 height: '0',
                 overflow: 'hidden'
             })),
-            state('void', style({
-                height: '{{height}}'
-            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', [style({ overflow: 'hidden'}), animate('{{transitionParams}}')]),
-            transition('void => hidden', animate('{{transitionParams}}')),
-            transition('void => visible', animate('{{transitionParams}}'))
+            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('void => *', animate(0))
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -72,8 +68,6 @@ export class AccordionTab implements OnDestroy {
 
     private _selected: boolean;
 
-    private _animating: boolean;
-
     @Input() get selected(): any {
         return this._selected;
     }
@@ -82,17 +76,6 @@ export class AccordionTab implements OnDestroy {
         this._selected = val;
         
         if (!this.loaded) {
-            this.changeDetector.markForCheck();
-        }
-    }
-
-    get animating(): boolean {
-        return this._animating;
-    }
-    set animating(val: boolean) {
-        this._animating = val;
-
-        if (!(this.changeDetector as ViewRef).destroyed) {
             this.changeDetector.markForCheck();
         }
     }
@@ -124,11 +107,10 @@ export class AccordionTab implements OnDestroy {
     }
 
     toggle(event) {
-        if (this.disabled || this.animating) {
+        if (this.disabled) {
             return false;
         }
 
-        this.animating = true;
         let index = this.findTabIndex();
 
         if (this.selected) {
@@ -171,10 +153,6 @@ export class AccordionTab implements OnDestroy {
 
     get hasHeaderFacet(): boolean {
         return this.headerFacet && this.headerFacet.length > 0;
-    }
-
-    onToggleDone(event: Event) {
-        this.animating = false;
     }
 
     onKeydown(event: KeyboardEvent) {
@@ -267,7 +245,6 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                 let changed = selected !== this.tabs[i].selected;
 
                 if (changed) {
-                    this.tabs[i].animating = true;
                     this.tabs[i].selected = selected;
                     this.tabs[i].selectedChange.emit(selected);
                 }
