@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5 class="first">Basic</h5>
+        <h5>Basic</h5>
         <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
     
         <h5>Dropdown and Templating</h5>
@@ -588,7 +588,7 @@ export class AutoCompleteDemo &#123;
             </a>
 
 <app-code lang="markup" ngNonBindable>
-&lt;h5 class="first"&gt;Basic&lt;/h5&gt;
+&lt;h5&gt;Basic&lt;/h5&gt;
 &lt;p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
 
 &lt;h5&gt;Dropdown and Templating&lt;/h5&gt;
