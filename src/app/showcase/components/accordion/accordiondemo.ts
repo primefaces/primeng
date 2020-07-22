@@ -18,12 +18,8 @@ export class AccordionDemo {
     onTabOpen(event) {
         this.messageService.add({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
     }
-    
-    openNext() {
-        this.index = (this.index === 3) ? 0 : this.index + 1;
-    }
-    
-    openPrev() {
-        this.index = (this.index <= 0) ? 3 : this.index - 1;
+
+    toggle(index: number) {
+        this.index = index === this.index ? -1 : index;
     }
 }
