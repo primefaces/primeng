@@ -49,8 +49,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     },
     providers: [INPUTMASK_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputmask.css']
+    encapsulation: ViewEncapsulation.None
 })
 export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
