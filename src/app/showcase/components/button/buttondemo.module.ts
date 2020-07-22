@@ -6,6 +6,7 @@ import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -14,6 +15,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         ButtonModule,
         TabViewModule,
 		CodeHighlighterModule,
+		AppCodeModule,
 		ProgressSpinnerModule
 	],
 	declarations: [
