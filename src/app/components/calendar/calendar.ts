@@ -46,9 +46,9 @@ export interface LocaleSettings {
                 <ng-container *ngIf="!timeOnly">
                     <div class="p-datepicker-group" *ngFor="let month of months; let i = index;">
                         <div class="p-datepicker-header">
-                            <a class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" (keydown.enter)="onPrevButtonClick($event)" *ngIf="i === 0" tabindex="0" (keydown)="onInputKeydown($event)">
+                            <button class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" (keydown.enter)="onPrevButtonClick($event)" *ngIf="i === 0" type="button">
                                 <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
-                            </a>
+                            </button>
                             <div class="p-datepicker-title">
                                 <span class="p-datepicker-month" *ngIf="!monthNavigator && (view !== 'month')">{{locale.monthNames[month.month]}}</span>
                                 <select tabindex="0" class="p-datepicker-month" *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1" (change)="onMonthDropdownChange($event.target.value)">
@@ -59,9 +59,9 @@ export interface LocaleSettings {
                                 </select>
                                 <span class="p-datepicker-year" *ngIf="!yearNavigator">{{view === 'month' ? currentYear : month.year}}</span>
                             </div>
-                            <a class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" (keydown.enter)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" tabindex="0" (keydown)="onInputKeydown($event)">
+                            <button  class="p-datepicker-next p-link" (click)="onNextButtonClick($event)" (keydown.enter)="onNextButtonClick($event)" *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)" type="button">
                                 <span class="p-datepicker-next-icon pi pi-chevron-right"></span>
-                            </a>
+                            </button>
                         </div>
                         <div class="p-datepicker-calendar-container" *ngIf="view ==='date'">
                             <table class="p-datepicker-calendar">
