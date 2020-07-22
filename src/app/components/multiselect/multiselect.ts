@@ -9,7 +9,7 @@ import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FilterUtils } from 'primeng/utils';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -80,7 +80,7 @@ export class MultiSelectItem {
                        [attr.aria-labelledby]="ariaLabelledBy" role="listbox">
             </div>
             <div class="p-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
-                <div class="p-multiselect-label">
+                <div class="p-multiselect-label" [ngClass]="{'p-placeholder': valuesAsString === (defaultLabel || placeholder)}">
                     <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString}}</ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
                 </div>
@@ -169,6 +169,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     get defaultLabel(): string {
         return this._defaultLabel;
+    }
+
+    _placeholder: string;
+
+    @Input() set placeholder(val: string) {
+        this._placeholder = val;
+        this.updateLabel();
+    }
+
+    get placeholder(): string {
+        return this._placeholder;
     }
 
     @Input() style: any;
@@ -764,7 +775,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             }
         }
         else {
-            this.valuesAsString = this.defaultLabel;
+            this.valuesAsString = this.placeholder || this.defaultLabel;
         }
     }
 
