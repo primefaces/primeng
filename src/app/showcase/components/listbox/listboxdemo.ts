@@ -7,12 +7,7 @@ interface City {
 }
 
 @Component({
-    templateUrl: './listboxdemo.html',
-    styles: [`
-        :host ::ng-deep .ui-listbox {
-            width: 20em;
-        }
-    `]
+    templateUrl: './listboxdemo.html'
 })
 export class ListboxDemo {
 
@@ -21,8 +16,6 @@ export class ListboxDemo {
     countries: any[];
 
     selectedCity: City;
-
-    selectedCities: City[];
 
     selectedCountries: any[];
 

@@ -8,24 +8,17 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5 class="first">Single</h5>
+        <h5>Single</h5>
         <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}"></p-listbox>
         
         <h5>Advanced with Templating, Filtering and Multiple Selection</h5>
-        <p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}" [style]="{'width':'15rem'}">
+        <p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}" [style]="{'width':'15rem'}">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
                     <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" />
                     <div>{{country.value.name}}</div>
                 </div>
             </ng-template>
-        </p-listbox>
-
-        <h5>Advanced (Multiple, Checkbox and Filter)</h5>
-        <p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name">
-            <p-header>
-            Cities
-            </p-header>
         </p-listbox>
     </div>
 </div>
@@ -417,24 +410,17 @@ export class MyModel &#123;
         <span>Edit in StackBlitz</span>
       </a>
 <app-code lang="markup" ngNonBindable>
-&lt;h5 class="first"&gt;Single&lt;/h5&gt;
+&lt;h5&gt;Single&lt;/h5&gt;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="&#123;'width':'15rem'&#125;"&gt;&lt;/p-listbox&gt;
 
 &lt;h5&gt;Advanced with Templating, Filtering and Multiple Selection&lt;/h5&gt;
-&lt;p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="&#123;'max-height':'250px'&#125;" [style]="&#123;'width':'15rem'&#125;"&gt;
+&lt;p-listbox [options]="countries" [(ngModel)]="selectedCountries" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="&#123;'max-height':'250px'&#125;" [style]="&#123;'width':'15rem'&#125;"&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
             &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /&gt;
             &lt;div&gt;&#123;&#123;country.value.name&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
-&lt;/p-listbox&gt;
-
-&lt;h5&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h5&gt;
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name"&gt;
-    &lt;p-header&gt;
-    Cities
-    &lt;/p-header&gt;
 &lt;/p-listbox&gt;
 </app-code>
 
@@ -446,8 +432,6 @@ export class ListboxDemo &#123;
     countries: any[];
 
     selectedCity: City;
-
-    selectedCities: City[];
 
     selectedCountries: any[];
 

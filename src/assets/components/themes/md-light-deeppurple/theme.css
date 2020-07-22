@@ -875,6 +875,9 @@
   right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
+.p-listbox .p-listbox-header .p-checkbox {
+  margin-right: 0.5rem;
+}
 .p-listbox .p-listbox-list {
   padding: 0;
 }
@@ -894,6 +897,9 @@
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
+}
+.p-listbox .p-listbox-list .p-listbox-item .p-checkbox {
+  margin-right: 0.5rem;
 }
 .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
   color: #000001;

@@ -12,10 +12,18 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.p-listbox-header {
+    display: flex;
+    align-items: center;
 }
 
 .p-listbox-filter-container {
     position: relative;
+    flex: 1 1 auto;
 }
 
 .p-listbox-filter-icon {
