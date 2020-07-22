@@ -5,69 +5,31 @@ import { CarService } from '../../service/carservice';
 @Component({
     templateUrl: './tableresponsivedemo.html',
     styles: [`
-        /* Column Priorities */
-        @media only all {
-            th.ui-p-6,
-            td.ui-p-6,
-            th.ui-p-5,
-            td.ui-p-5,
-            th.ui-p-4,
-            td.ui-p-4,
-            th.ui-p-3,
-            td.ui-p-3,
-            th.ui-p-2,
-            td.ui-p-2,
-            th.ui-p-1,
-            td.ui-p-1 {
-                display: none;
-            }
+        :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+            display: none;
         }
-        
-        /* Show priority 1 at 320px (20em x 16px) */
-        @media screen and (min-width: 20em) {
-            th.ui-p-1,
-            td.ui-p-1 {
-                display: table-cell;
+
+        @media screen and (max-width: 40em) {
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead > tr > th,
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot > tr > td {
+                display: none !important;
             }
-        }
-        
-        /* Show priority 2 at 480px (30em x 16px) */
-        @media screen and (min-width: 30em) {
-            th.ui-p-2,
-            td.ui-p-2 {
-                display: table-cell;
+
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td {
+                text-align: left;
+                display: block;
+                width: 100%;
+                float: left;
+                clear: left;
+                border: 0 none;
             }
-        }
-        
-        /* Show priority 3 at 640px (40em x 16px) */
-        @media screen and (min-width: 40em) {
-            th.ui-p-3,
-            td.ui-p-3 {
-                display: table-cell;
-            }
-        }
-        
-        /* Show priority 4 at 800px (50em x 16px) */
-        @media screen and (min-width: 50em) {
-            th.ui-p-4,
-            td.ui-p-4 {
-                display: table-cell;
-            }
-        }
-        
-        /* Show priority 5 at 960px (60em x 16px) */
-        @media screen and (min-width: 60em) {
-            th.ui-p-5,
-            td.ui-p-5 {
-                display: table-cell;
-            }
-        }
-        
-        /* Show priority 6 at 1,120px (70em x 16px) */
-        @media screen and (min-width: 70em) {
-            th.ui-p-6,
-            td.ui-p-6 {
-                display: table-cell;
+
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+                padding: .4rem;
+                min-width: 30%;
+                display: inline-block;
+                margin: -.4em 1em -.4em -.4rem;
+                font-weight: bold;
             }
         }
     `]

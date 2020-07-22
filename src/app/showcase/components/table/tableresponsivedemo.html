@@ -1,15 +1,12 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Table <span class="subitem">Responsive</span></span>
-        <span>Table columns are displayed as stacked in responsive mode if the screen size becomes smaller. In addition certain columns can be hidden
-            based on a priority, note that priority based implementation is not built-in and provided as a demo instead.
-        </span>
+        <span>DataTable display can be optimized according for different screen sizes, this example demonstrates a demo where columns are stacked on a small screens.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Reflow</h3>
-    <p-table [columns]="cols" [value]="cars" [responsive]="true">
+    <p-table [columns]="cols" [value]="cars" styleClass="p-datatable-responsive-demo">
         <ng-template pTemplate="caption">
             List of Cars
         </ng-template>
@@ -23,37 +20,11 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
-                    <span class="ui-column-title">&#123;&#123;col.header&#125;&#125;</span>
+                    <span class="p-column-title">&#123;&#123;col.header&#125;&#125;</span>
                     &#123;&#123;rowData[col.field]&#125;&#125;
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="summary">
-            There are &#123;&#123;cars?.length&#125;&#125; cars
-        </ng-template>
-    </p-table>
-
-    <h3>Priority</h3>
-    <p-table [columns]="cols" [value]="cars">
-        <ng-template pTemplate="caption">
-            List of Cars
-        </ng-template>
-        <ng-template pTemplate="header">
-                <tr>
-                    <th>Vin</th>
-                    <th class="ui-p-4">Year - p4</th>
-                    <th class="ui-p-5">Brand - p5</th>
-                    <th class="ui-p-6">Color - p6</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-car>
-                <tr>
-                    <td>&#123;&#123;car.vin&#125;&#125;</td>
-                    <td class="ui-p-4">&#123;&#123;car.year&#125;&#125;</td>
-                    <td class="ui-p-5">&#123;&#123;car.brand&#125;&#125;</td>
-                    <td class="ui-p-6">&#123;&#123;car.color&#125;&#125;</td>
-                </tr>
-            </ng-template>
         <ng-template pTemplate="summary">
             There are &#123;&#123;cars?.length&#125;&#125; cars
         </ng-template>
@@ -74,69 +45,31 @@
 @Component(&#123;
     templateUrl: './tableresponsivedemo.html',
     styles: [`
-        /* Column Priorities */
-        @media only all &#123;
-            th.ui-p-6,
-            td.ui-p-6,
-            th.ui-p-5,
-            td.ui-p-5,
-            th.ui-p-4,
-            td.ui-p-4,
-            th.ui-p-3,
-            td.ui-p-3,
-            th.ui-p-2,
-            td.ui-p-2,
-            th.ui-p-1,
-            td.ui-p-1 &#123;
-                display: none;
-            &#125;
+        :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title &#123;
+            display: none;
         &#125;
-        
-        /* Show priority 1 at 320px (20em x 16px) */
-        @media screen and (min-width: 20em) &#123;
-            th.ui-p-1,
-            td.ui-p-1 &#123;
-                display: table-cell;
+
+        @media screen and (max-width: 40em) &#123;
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead > tr > th,
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot > tr > td &#123;
+                display: none !important;
             &#125;
-        &#125;
-        
-        /* Show priority 2 at 480px (30em x 16px) */
-        @media screen and (min-width: 30em) &#123;
-            th.ui-p-2,
-            td.ui-p-2 &#123;
-                display: table-cell;
+
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td &#123;
+                text-align: left;
+                display: block;
+                width: 100%;
+                float: left;
+                clear: left;
+                border: 0 none;
             &#125;
-        &#125;
-        
-        /* Show priority 3 at 640px (40em x 16px) */
-        @media screen and (min-width: 40em) &#123;
-            th.ui-p-3,
-            td.ui-p-3 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 4 at 800px (50em x 16px) */
-        @media screen and (min-width: 50em) &#123;
-            th.ui-p-4,
-            td.ui-p-4 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 5 at 960px (60em x 16px) */
-        @media screen and (min-width: 60em) &#123;
-            th.ui-p-5,
-            td.ui-p-5 &#123;
-                display: table-cell;
-            &#125;
-        &#125;
-        
-        /* Show priority 6 at 1,120px (70em x 16px) */
-        @media screen and (min-width: 70em) &#123;
-            th.ui-p-6,
-            td.ui-p-6 &#123;
-                display: table-cell;
+
+            :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title &#123;
+                padding: .4rem;
+                min-width: 30%;
+                display: inline-block;
+                margin: -.4em 1em -.4em -.4rem;
+                font-weight: bold;
             &#125;
         &#125;
     `]
@@ -172,8 +105,8 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <pre>
-<code class="language-markup" pCode ngNonBindable>&lt;h3 class="first"&gt;Reflow&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars" [responsive]="true"&gt;
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [columns]="cols" [value]="cars" class="p-datatable-responsive-demo"&gt;
     &lt;ng-template pTemplate="caption"&gt;
         List of Cars
     &lt;/ng-template&gt;
@@ -192,32 +125,6 @@
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="summary"&gt;
-        There are &#123;&#123;cars?.length&#125;&#125; cars
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Priority&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars"&gt;
-    &lt;ng-template pTemplate="caption"&gt;
-        List of Cars
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header"&gt;
-            &lt;tr&gt;
-                &lt;th&gt;Vin&lt;/th&gt;
-                &lt;th class="ui-p-4"&gt;Year&lt;/th&gt;
-                &lt;th class="ui-p-5"&gt;Brand&lt;/th&gt;
-                &lt;th class="ui-p-6"&gt;Color&lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-car&gt;
-            &lt;tr&gt;
-                &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
-                &lt;td class="ui-p-4"&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
-                &lt;td class="ui-p-5"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
-                &lt;td class="ui-p-6"&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
         There are &#123;&#123;cars?.length&#125;&#125; cars
     &lt;/ng-template&gt;
