@@ -3,6 +3,10 @@
     width: 25rem;
 }
 
+.p-toast-message {
+    overflow: hidden;
+}
+
 .p-toast-message-content {
     display: flex;
     align-items: flex-start;

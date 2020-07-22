@@ -16,17 +16,19 @@
 
     <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
-            <div style="text-align: center">
-                <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
-                <h3>{{message.summary}}</h3>
-                <p>{{message.detail}}</p>
-            </div>
-            <div class="p-grid ui-fluid">
-                <div class="p-col-6">
-                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            <div class="p-flex p-flex-column" style="flex: 1">
+                <div class="p-text-center">
+                    <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                    <h4>{{message.summary}}</h4>
+                    <p>{{message.detail}}</p>
                 </div>
-                <div class="p-col-6">
-                    <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+                <div class="p-grid p-fluid">
+                    <div class="p-col-6">
+                        <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
+                    </div>
+                    <div class="p-col-6">
+                        <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                    </div>
                 </div>
             </div>
         </ng-template>
@@ -229,17 +231,19 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
-        &lt;div style="text-align: center"&gt;
-            &lt;i class="pi pi-exclamation-triangle" style="font-size: 3em"&gt;&lt;/i&gt;
-            &lt;h3&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h3&gt;
-            &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;div class="p-grid ui-fluid"&gt;
-            &lt;div class="p-col-6"&gt;
-                &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"&gt;&lt;/button&gt;
+        &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
+            &lt;div class="p-text-center"&gt;
+                &lt;i class="pi pi-exclamation-triangle" style="font-size: 3rem"&gt;&lt;/i&gt;
+                &lt;h4&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h4&gt;
+                &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
             &lt;/div&gt;
-            &lt;div class="p-col-6"&gt;
-                &lt;button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+            &lt;div class="p-grid p-fluid"&gt;
+                &lt;div class="p-col-6"&gt;
+                    &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"&gt;&lt;/button&gt;
+                &lt;/div&gt;
+                &lt;div class="p-col-6"&gt;
+                    &lt;button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"&gt;&lt;/button&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -479,17 +483,19 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
-        &lt;div style="text-align: center"&gt;
-            &lt;i class="pi pi-exclamation-triangle" style="font-size: 3em"&gt;&lt;/i&gt;
-            &lt;h3&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h3&gt;
-            &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;div class="p-grid ui-fluid"&gt;
-            &lt;div class="p-col-6"&gt;
-                &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"&gt;&lt;/button&gt;
+        &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
+            &lt;div class="p-text-center"&gt;
+                &lt;i class="pi pi-exclamation-triangle" style="font-size: 3rem"&gt;&lt;/i&gt;
+                &lt;h4&gt;&#123;&#123;message.summary&#125;&#125;&lt;/h4&gt;
+                &lt;p&gt;&#123;&#123;message.detail&#125;&#125;&lt;/p&gt;
             &lt;/div&gt;
-            &lt;div class="p-col-6"&gt;
-                &lt;button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+            &lt;div class="p-grid p-fluid"&gt;
+                &lt;div class="p-col-6"&gt;
+                    &lt;button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"&gt;&lt;/button&gt;
+                &lt;/div&gt;
+                &lt;div class="p-col-6"&gt;
+                    &lt;button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"&gt;&lt;/button&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -501,7 +507,6 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
 &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
 &lt;button type="button" pButton (click)="showCustom()" label="Custom"&gt;&lt;/button&gt;
-
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
