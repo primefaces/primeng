@@ -14,22 +14,22 @@ import { UniqueComponentId } from 'primeng/utils';
         <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
             <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
-            <div [attr.id]="ariaId + '_overlay'" #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" *ngIf="overlayVisible"
+            <div [attr.id]="ariaId + '_overlay'" #overlay [ngClass]="'p-menu p-component p-menu-overlay'" *ngIf="overlayVisible"
                     [ngStyle]="menuStyle" [class]="menuStyleClass"
                     [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
-                <ul class="ui-menu-list ui-helper-reset" role="menu">
+                <ul class="p-menu-list p-reset" role="menu">
                     <ng-template ngFor let-item [ngForOf]="model">
-                        <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content" [ngClass]="{'ui-helper-hidden': item.visible === false}" role="separator">
-                        <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngIf="item.visible !== false && !item.separator" role="none">
-                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" role="menuitem"
-                                [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
-                                <span class="ui-menuitem-text">{{item.label}}</span>
+                        <li *ngIf="item.separator" class="p-menu-separator" [ngClass]="{'p-hidden-accessible': item.visible === false}" role="separator">
+                        <li class="p-menuitem" role="menuitem" *ngIf="item.visible !== false && !item.separator" role="none">
+                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" [attr.target]="item.target" role="menuitem"
+                                [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                <span [ngClass]="'p-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
+                                <span class="p-menuitem-text">{{item.label}}</span>
                             </a>
                             <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
-                                class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
-                                <span [ngClass]="'ui-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
-                                <span class="ui-menuitem-text">{{item.label}}</span>
+                                class="p-menuitem-link p" [attr.target]="item.target" [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                <span [ngClass]="'p-menuitem-icon'" [class]="item.icon" *ngIf="item.icon"></span>
+                                <span class="p-menuitem-text">{{item.label}}</span>
                             </a>
                         </li>
                     </ng-template>
