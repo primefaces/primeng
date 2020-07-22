@@ -19,6 +19,7 @@ gulp.task('build-css', function() {
 gulp.task('build-css-prod', function() {
     gulp.src([
         'src/app/components/common/common.css',
+        'src/app/components/badge/badge.css',
         'src/app/components/button/button.css',
         'src/app/components/checkbox/checkbox.css',
         'src/app/components/colorpicker/colorpicker-images.css',
