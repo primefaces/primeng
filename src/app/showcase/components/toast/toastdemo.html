@@ -12,9 +12,7 @@
 
     <p-toast position="top-center" key="tc"></p-toast>
 
-    <p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"></p-toast>
-
-    <p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
             <div class="p-flex p-flex-column" style="flex: 1">
                 <div class="p-text-center">
@@ -39,8 +37,6 @@
     <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
     <button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
     <button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
-    <button type="button" pButton (click)="showCustom()" label="Custom"></button>
-
 
     <h3>Multiple</h3>
     <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
@@ -473,8 +469,6 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 
 &lt;p-toast position="top-center" key="tc"&gt;&lt;/p-toast&gt;
 
-&lt;p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"&gt;&lt;/p-toast&gt;
-
 &lt;p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
         &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
@@ -500,7 +494,6 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 &lt;button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
 &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
 &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
-&lt;button type="button" pButton (click)="showCustom()" label="Custom"&gt;&lt;/button&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
@@ -521,25 +514,6 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 <code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
     templateUrl: './toastdemo.html',
-    styles: [`
-        :host ::ng-deep button &#123;
-            margin-right: .25em;
-        &#125;
-
-        :host ::ng-deep .custom-toast .ui-toast-message &#123;
-            background: #FC466B;
-            background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
-            background: linear-gradient(to right, #3F5EFB, #FC466B);
-        &#125;
-
-        :host ::ng-deep .custom-toast .ui-toast-message div &#123;
-            color: #ffffff;
-        &#125;
-
-        :host ::ng-deep .custom-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon &#123;
-            color: #ffffff;
-        &#125;
-    `],
     providers: [MessageService]
 &#125;)
 export class ToastDemo &#123;
@@ -560,10 +534,6 @@ export class ToastDemo &#123;
 
     showError() &#123;
         this.messageService.add(&#123;severity:'error', summary: 'Error Message', detail:'Validation failed'&#125;);
-    &#125;
-
-    showCustom() &#123;
-        this.messageService.add(&#123;key: 'custom', severity:'info', summary: 'Custom Toast', detail:'With a Gradient'&#125;);
     &#125;
 
     showTopLeft() &#123;

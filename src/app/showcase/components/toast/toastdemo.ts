@@ -4,6 +4,7 @@ import {MessageService} from 'primeng/api';
 @Component({
     templateUrl: './toastdemo.html',
     providers: [MessageService]
+    
 })
 export class ToastDemo {
 
@@ -23,10 +24,6 @@ export class ToastDemo {
 
     showError() {
         this.messageService.add({severity:'error', summary: 'Error Message', detail:'Validation failed'});
-    }
-
-    showCustom() {
-        this.messageService.add({key: 'custom', severity:'info', summary: 'Custom Toast', detail:'With a Gradient'});
     }
 
     showTopLeft() {
