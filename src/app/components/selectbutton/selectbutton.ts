@@ -14,13 +14,13 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-selectButton',
     template: `
         <div [ngClass]="'p-selectbutton p-buttonset p-component'" [ngStyle]="style" [class]="styleClass"  role="group">
-            <div *ngFor="let option of options; let i = index" #btn class="p-button p-component {{option.styleClass}}"  role="button" [attr.aria-pressed]="isSelected(option)"
-                [ngClass]="{'p-highlight':isSelected(option), 'p-disabled': disabled || option.disabled, 'p-focus': btn == focusedItem, 
-                'p-button-icon-left': (option.icon != null), 'p-button-icon-only': (option.icon && !option.label)}" (click)="onItemClick($event,option,i)" (keydown.enter)="onItemClick($event,option,i)"
-                [attr.title]="option.title" [attr.aria-label]="option.label" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy">
+            <div *ngFor="let option of options; let i = index" #btn class="p-button p-component" [class]="option.styleClass" role="button" [attr.aria-pressed]="isSelected(option)"
+                [ngClass]="{'p-highlight':isSelected(option), 'p-disabled': disabled || option.disabled, 
+                'p-button-icon-only': (option.icon && !option.label)}" (click)="onItemClick($event,option,i)" (keydown.enter)="onItemClick($event,option,i)"
+                [attr.title]="option.title" [attr.aria-label]="option.label" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy">
                 <ng-container *ngIf="!itemTemplate else customcontent">
-                    <span [ngClass]="['p-button-icon-left']" [class]="option.icon" *ngIf="option.icon"></span>
-                    <span class="p-button-text">{{option.label||'p-btn'}}</span>
+                    <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon"></span>
+                    <span class="p-button-label">{{option.label}}</span>
                 </ng-container>
                 <ng-template #customcontent>
                     <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
@@ -58,9 +58,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
     @ContentChild(TemplateRef) itemTemplate;
     
     value: any;
-    
-    focusedItem: HTMLDivElement;
-    
+        
     _options: any[];
     
     onModelChange: Function = () => {};
@@ -130,12 +128,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
         });
     }
     
-    onFocus(event: Event) {
-        this.focusedItem = <HTMLDivElement> event.target;
-    }
-    
     onBlur(event) {
-        this.focusedItem = null;
         this.onModelTouched();
     }
     
