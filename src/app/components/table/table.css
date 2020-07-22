@@ -90,7 +90,8 @@
     height: 100%;
 }
 
-.p-datatable-flex-scrollable .p-datatable-scrollable-body {
+.p-datatable-flex-scrollable .p-datatable-scrollable-body,
+.p-datatable-flex-scrollable .p-datatable-virtual-scrollable-body {
     flex: 1;
 }
 
