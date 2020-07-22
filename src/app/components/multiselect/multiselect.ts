@@ -104,9 +104,9 @@ export class MultiSelectItem {
                         <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter()" class="p-multiselect-filter p-inputtext p-component" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
                         <span class="p-multiselect-filter-icon pi pi-search"></span>
                     </div>
-                    <a class="p-multiselect-close p-link" tabindex="0" (click)="close($event)" (keydown.enter)="close($event)">
+                    <button class="p-multiselect-close p-link" type="button" (click)="close($event)">
                         <span class="p-multiselect-close-icon pi pi-times"></span>
-                    </a>
+                    </button>
                 </div>
                 <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <ul class="p-multiselect-items p-component" role="listbox" aria-multiselectable="true">

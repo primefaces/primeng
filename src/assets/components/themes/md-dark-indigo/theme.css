@@ -966,6 +966,7 @@
   margin-right: 0.5rem;
 }
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close {
+  margin-left: 0.5rem;
   width: 2.5rem;
   height: 2.5rem;
   color: rgba(255, 255, 255, 0.6);
