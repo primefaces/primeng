@@ -55,6 +55,7 @@ declare let gtag: Function;
                     <a [routerLink]="['/inputtext']" routerLinkActive="router-link-active">InputText</a>
                     <a [routerLink]="['/inputtextarea']" routerLinkActive="router-link-active">InputTextArea</a>
                     <a [routerLink]="['/inputnumber']" routerLinkActive="router-link-active">InputNumber</a>
+                    <a [routerLink]="['/floatlabel']" routerLinkActive="router-link-active">FloatLabel</a>
                     <a [routerLink]="['/keyfilter']" routerLinkActive="router-link-active">KeyFilter</a>
                     <a [routerLink]="['/listbox']" routerLinkActive="router-link-active">Listbox</a>
                     <a [routerLink]="['/multiselect']" routerLinkActive="router-link-active">MultiSelect</a>
