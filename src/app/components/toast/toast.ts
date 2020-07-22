@@ -14,7 +14,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
                 (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true">
                 <ng-container *ngIf="!template">
-                    <span class="p-toast-icon pi" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
+                    <span class="p-toast-message-icon pi" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
                     <div class="p-toast-message-text">
                         <div class="p-toast-summary">{{message.summary}}</div>
@@ -157,8 +157,6 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() position: string = 'top-right';
 
-    @Input() modal: boolean;
-
     @Input() preventOpenDuplicates: boolean = false;
 
     @Input() preventDuplicates: boolean = false;
@@ -186,8 +184,6 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     messagesArchieve: Message[];
 
     template: TemplateRef<any>;
-
-    mask: HTMLDivElement;
     
     constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
 
@@ -201,10 +197,6 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
                 else if (this.canAdd(messages)) {
                     this.add([messages]);
                 }
-
-                if (this.modal && this.messages && this.messages.length) {
-                    this.enableModality();
-                }
             }
         });
 
@@ -216,10 +208,6 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
             }
             else {
                 this.messages = null;
-            }
-
-            if (this.modal) {
-                this.disableModality();
             }
 
             this.cd.markForCheck();
@@ -277,33 +265,11 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     onMessageClose(event) {
         this.messages.splice(event.index, 1);
 
-        if (this.messages.length === 0) {
-            this.disableModality();
-        }
-
         this.onClose.emit({
             message: event.message
         });
 
         this.cd.detectChanges();
-    }
-
-    enableModality() {
-        if (!this.mask) {
-            this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
-            this.mask.style.display = 'block';
-            let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
-            DomHandler.addMultipleClasses(this.mask, maskStyleClass);
-            document.body.appendChild(this.mask);
-        }
-    }
-    
-    disableModality() {
-        if (this.mask) {
-            document.body.removeChild(this.mask);
-            this.mask = null;
-        }
     }
 
     onAnimationStart(event: AnimationEvent) {
@@ -320,8 +286,6 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }
-
-        this.disableModality();
     }
 }
 

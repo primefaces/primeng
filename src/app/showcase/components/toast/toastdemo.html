@@ -14,7 +14,7 @@
 
     <p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"></p-toast>
 
-    <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
             <div class="p-flex p-flex-column" style="flex: 1">
                 <div class="p-text-center">
@@ -229,7 +229,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
+&lt;p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
         &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
             &lt;div class="p-text-center"&gt;
@@ -302,12 +302,6 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
                             <td>string</td>
                             <td>top-right</td>
                             <td>Position of the component, valid values are "top-right", "top-left", "bottom-left", "bottom-right", "top-center, "bottom-center" and "center".</td>
-                        </tr>
-                        <tr>
-                            <td>modal</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines whether background should be blocked when a message is displayed.</td>
                         </tr>
                         <tr>
                             <td>baseZIndex</td>
@@ -481,7 +475,7 @@ this.messageService.clear('myKey1');    //clears messages of the first toast onl
 
 &lt;p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"&gt;&lt;/p-toast&gt;
 
-&lt;p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"&gt;
+&lt;p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000"&gt;
     &lt;ng-template let-message pTemplate="message"&gt;
         &lt;div class="p-flex p-flex-column" style="flex: 1"&gt;
             &lt;div class="p-text-center"&gt;
