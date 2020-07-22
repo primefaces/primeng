@@ -515,6 +515,13 @@
   color: #666666;
   background: #f4f4f4;
 }
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
+  margin: 0;
+  padding: 0.857rem;
+  color: #666666;
+  background: #f4f4f4;
+  font-weight: 700;
+}
 .p-dropdown-panel.p-error, .p-dropdown-panel.p-invalid {
   border-color: #e7a3a3;
 }

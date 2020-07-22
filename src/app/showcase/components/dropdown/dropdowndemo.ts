@@ -19,13 +19,13 @@ export class DropdownDemo {
 
     selectedCity2: City;
 
+    selectedCity3: string;
+
     selectedCountry: string;
 
     countries: any[];
-    
-    selectedCar3: string;
 
-    groupedCars: SelectItemGroup[];
+    groupedCities: SelectItemGroup[];
 
     items: SelectItem[];
 
@@ -45,30 +45,32 @@ export class DropdownDemo {
             {name: 'Paris', code: 'PRS'}
         ];
 
-        this.groupedCars = [
+        this.groupedCities = [
             {
-                label: 'Germany', value: 'germany.png', 
+                label: 'Germany', value: 'de', 
                 items: [
-                    {label: 'Audi', value: 'Audi'},
-                    {label: 'BMW', value: 'BMW'},
-                    {label: 'Mercedes', value: 'Mercedes'},
-                    {label: 'Murcia', value: 'Murcia'}
+                    {label: 'Berlin', value: 'Berlin'},
+                    {label: 'Frankfurt', value: 'Frankfurt'},
+                    {label: 'Hamburg', value: 'Hamburg'},
+                    {label: 'Munich', value: 'Munich'}
                 ]
             },
             {
-                label: 'USA', value: 'usa.png', 
+                label: 'USA', value: 'us', 
                 items: [
-                    {label: 'Cadillac', value: 'Cadillac'},
-                    {label: 'Ford', value: 'Ford'},
-                    {label: 'GMC', value: 'GMC'}
+                    {label: 'Chicago', value: 'Chicago'},
+                    {label: 'Los Angeles', value: 'Los Angeles'},
+                    {label: 'New York', value: 'New York'},
+                    {label: 'San Francisco', value: 'San Francisco'}
                 ]
             },
             {
-                label: 'Japan', value: 'japan.png', 
+                label: 'Japan', value: 'jp', 
                 items: [
-                    {label: 'Honda', value: 'Honda'},
-                    {label: 'Mazda', value: 'Mazda'},
-                    {label: 'Toyota', value: 'Toyota'}
+                    {label: 'Kyoto', value: 'Kyoto'},
+                    {label: 'Osaka', value: 'Osaka'},
+                    {label: 'Tokyo', value: 'Tokyo'},
+                    {label: 'Yokohama', value: 'Yokohama'}
                 ]
             }
         ];

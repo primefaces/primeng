@@ -519,6 +519,13 @@
   color: rgba(255, 255, 255, 0.87);
   background: rgba(255, 255, 255, 0.04);
 }
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.87);
+  background: #2a323d;
+  font-weight: 600;
+}
 .p-dropdown-panel.p-error, .p-dropdown-panel.p-invalid {
   border-color: #f19ea6;
 }

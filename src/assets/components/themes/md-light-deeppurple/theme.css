@@ -539,6 +539,13 @@
   color: #000001;
   background: rgba(0, 0, 0, 0.04);
 }
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
+  margin: 0;
+  padding: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+  font-weight: 400;
+}
 .p-dropdown-panel.p-error, .p-dropdown-panel.p-invalid {
   border-color: #B00020;
 }
