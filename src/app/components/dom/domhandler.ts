@@ -100,12 +100,14 @@ export class DomHandler {
 
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
             top = -1 * (elementDimensions.height);
+            element.style.transformOrigin = 'bottom';
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
         }
         else {
             top = targetHeight;
+            element.style.transformOrigin = 'top';
         }
 
         if (elementDimensions.width > viewport.width) {
@@ -139,12 +141,15 @@ export class DomHandler {
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
+            element.style.transformOrigin = 'bottom';
+
             if (top < 0) {
                 top = windowScrollTop;
             }
         } 
         else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
+            element.style.transformOrigin = 'top';
         }
 
         if (targetOffset.left + elementOuterWidth > viewport.width)
