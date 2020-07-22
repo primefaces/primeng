@@ -6,7 +6,13 @@ import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './tableeditdemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styles: [`
+        :host ::ng-deep .p-cell-editing {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    `]
 })
 export class TableEditDemo implements OnInit {
 

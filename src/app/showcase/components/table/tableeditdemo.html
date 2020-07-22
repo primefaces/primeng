@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<div class="content-section implementation">
+<div class="content-section implementation p-fluid">
     <p-toast></p-toast>
 
     <h3 class="first">Cell Editing</h3>
@@ -112,8 +112,8 @@
                 </td>
                 <td style="text-align:center">
                     <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(rowData)" class="p-button-rounded p-button-text"></button>
-                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" style="margin-right: .5em" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text"></button>
-                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" style="margin-right: .5em" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text p-button-success"></button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
                 </td>
             </tr>
         </ng-template>
@@ -129,6 +129,13 @@
             <a href="https://stackblitz.com/edit/primeng-tableedit-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
+<app-code lang="css">
+:host ::ng-deep .p-cell-editing &#123;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+&#125;
+</app-code>
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TableEditDemo implements OnInit &#123;
@@ -297,8 +304,8 @@ export class TableEditDemo implements OnInit &#123;
             &lt;/td&gt;
             &lt;td style="text-align:center"&gt;
                 &lt;button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(rowData)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
-                &lt;button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" style="margin-right: .5em" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
-                &lt;button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text"&gt;&lt;/button&gt;
+                &lt;button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" style="margin-right: .5em" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text p-button-success"&gt;&lt;/button&gt;
+                &lt;button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text p-button-danger"&gt;&lt;/button&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
