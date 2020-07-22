@@ -8,7 +8,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5 class="first">Basic: {{val1}}</h5>
+        <h5>Basic: {{val1}}</h5>
         <p-slider [(ngModel)]="val1"></p-slider>
     
         <h5>Input: {{val2}}</h5>
@@ -243,22 +243,22 @@ handleChange(e) &#123;
             <a href="https://stackblitz.com/edit/primeng-slider-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<app-code lang="markup" ngNonBindable>
-&lt;h5 class="first">Basic: &#123;&#123;val1&#125;&#125;&lt;/h5>
-&lt;p-slider [(ngModel)]="val1">&lt;/p-slider>
+<app-code lang="markup" ngNonBindable&gt;
+&lt;h5&gt;Basic: &#123;&#123;val1&#125;&#125;&lt;/h5&gt;
+&lt;p-slider [(ngModel)]="val1"&gt;&lt;/p-slider&gt;
 
-&lt;h5>Input: &#123;&#123;val2&#125;&#125;&lt;/h5>
-&lt;input type="text" pInputText [(ngModel)]="val2" readonly/>
-&lt;p-slider [(ngModel)]="val2">&lt;/p-slider>
+&lt;h5&gt;Input: &#123;&#123;val2&#125;&#125;&lt;/h5&gt;
+&lt;input type="text" pInputText [(ngModel)]="val2" readonly/&gt;
+&lt;p-slider [(ngModel)]="val2"&gt;&lt;/p-slider&gt;
 
-&lt;h5>Step: &#123;&#123;val4&#125;&#125;&lt;/h5>
-&lt;p-slider [(ngModel)]="val3" [step]="20">&lt;/p-slider>
+&lt;h5&gt;Step: &#123;&#123;val4&#125;&#125;&lt;/h5&gt;
+&lt;p-slider [(ngModel)]="val3" [step]="20"&gt;&lt;/p-slider&gt;
 
-&lt;h5>Range: &#123;&#123;rangeValues[0] + ' - ' + rangeValues[1]&#125;&#125;&lt;/h5>
-&lt;p-slider [(ngModel)]="rangeValues" [range]="true">&lt;/p-slider>
+&lt;h5&gt;Range: &#123;&#123;rangeValues[0] + ' - ' + rangeValues[1]&#125;&#125;&lt;/h5&gt;
+&lt;p-slider [(ngModel)]="rangeValues" [range]="true"&gt;&lt;/p-slider&gt;
 
-&lt;h5>Vertical: &#123;&#123;val5&#125;&#125;&lt;/h5>
-&lt;p-slider [(ngModel)]="val4" orientation="vertical">&lt;/p-slider>
+&lt;h5&gt;Vertical: &#123;&#123;val5&#125;&#125;&lt;/h5&gt;
+&lt;p-slider [(ngModel)]="val4" orientation="vertical"&gt;&lt;/p-slider&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
