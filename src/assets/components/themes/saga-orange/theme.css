@@ -2971,13 +2971,13 @@
 .p-dialog .p-dialog-content {
   background: #ffffff;
   color: #495057;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 2rem 1.5rem;
 }
 .p-dialog .p-dialog-footer {
   border-top: 0 none;
   background: #ffffff;
   color: #495057;
-  padding: 1.5rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
   text-align: right;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
