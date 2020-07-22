@@ -2695,6 +2695,31 @@
   padding: 1.25rem 1.25rem;
 }
 
+.p-virtualscroller .p-virtualscroller-header {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #e9ecef;
+  border-width: 1px 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 600;
+}
+.p-virtualscroller .p-virtualscroller-content {
+  background: #ffffff;
+  color: #495057;
+  border: 0 none;
+  padding: 0;
+}
+.p-virtualscroller .p-virtualscroller-footer {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #e9ecef;
+  border-width: 0 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 600;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
 .p-accordion .p-accordion-header .p-accordion-header-link {
   padding: 1rem;
   border: 1px solid #dee2e6;

@@ -7,29 +7,28 @@ import {BlockableUI} from 'primeng/api';
 @Component({
     selector: 'p-virtualScroller',
     template:`
-        <div [ngClass]="'ui-virtualscroller ui-widget'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-virtualscroller-header ui-widget-header ui-corner-top" *ngIf="header">
+        <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass">
+            <div class="p-virtualscroller-header" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
-            <div #content class="ui-virtualscroller-content ui-widget-content">
-                <div class="ui-virtualscroller-list">
+            <div #content class="p-virtualscroller-content">
+                <div class="p-virtualscroller-list">
                     <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" [minBufferPx]="minBufferPx" [maxBufferPx]="maxBufferPx" (scrolledIndexChange)="onScrollIndexChange($event)">
                         <ng-container *cdkVirtualFor="let item of value; trackBy: trackBy; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd; ">
-                            <div [ngStyle]="{'height': itemSize + 'px'}" class="ui-virtualscroller-item">
+                            <div [ngStyle]="{'height': itemSize + 'px'}" class="p-virtualscroller-item">
                                 <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: {$implicit: item, index: i, count: c, first: f, last: l, even: e, odd: o}"></ng-container>
                             </div>
                         </ng-container>
                     </cdk-virtual-scroll-viewport>
                 </div>
             </div>
-            <div class="ui-virtualscroller-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
+            <div class="p-virtualscroller-footer" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./virtualscroller.css']
+    encapsulation: ViewEncapsulation.None
 })
 export class VirtualScroller implements AfterContentInit,BlockableUI,OnChanges {
 

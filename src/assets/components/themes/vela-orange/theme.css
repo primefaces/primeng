@@ -2695,6 +2695,31 @@
   padding: 1.25rem 1.25rem;
 }
 
+.p-virtualscroller .p-virtualscroller-header {
+  background: #1f2d40;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid #304562;
+  border-width: 0 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 600;
+}
+.p-virtualscroller .p-virtualscroller-content {
+  background: #1f2d40;
+  color: rgba(255, 255, 255, 0.87);
+  border: 0 none;
+  padding: 0;
+}
+.p-virtualscroller .p-virtualscroller-footer {
+  background: #1f2d40;
+  color: rgba(255, 255, 255, 0.87);
+  border: 1px solid #304562;
+  border-width: 0 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 600;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
 .p-accordion .p-accordion-header .p-accordion-header-link {
   padding: 1rem;
   border: 1px solid #304562;
