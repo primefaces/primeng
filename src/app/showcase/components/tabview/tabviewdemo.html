@@ -1,84 +1,172 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">TabView</span>
-        <span>TabView is a container component to group content with tabs.</span>
+    <div class="feature-intro">
+        <h1>TabView</h1>
+        <p>TabView is a container component to group content with tabs.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast></p-toast>
 
-    <h3 class="first">Default</h3>
-    <p-tabView>
-        <p-tabPanel header="Godfather I" leftIcon="pi pi-calendar">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather II" rightIcon="pi pi-inbox">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-tabPanel>
-    </p-tabView>
+    <div class="card">
+        <h5>Default</h5>
+        <p-tabView>
+            <p-tabPanel header="Header I">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>    
+            </p-tabPanel>
+            <p-tabPanel header="Header II">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-tabPanel>
+            <p-tabPanel header="Header III">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>    
+            </p-tabPanel>
+        </p-tabView>
+    </div>
 
-    <h3>Closable</h3>
-    <p-tabView id="closableTabView">
-        <p-tabPanel header="Godfather I" [selected]="true">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather II" [closable]="true">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather III" [closable]="true">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-tabPanel>
-    </p-tabView>
+    <div class="card">
+        <h5>Programmatic</h5>
+        <div style="padding: .5em 0 1em 0">
+            <button type="button" pButton (click)="activeIndex = 0" class="p-button-text" label="Activate 1rd"></button>
+            <button type="button" pButton (click)="activeIndex = 1" class="p-button-text" label="Activate 2rd" style="margin-left: .5em"></button>
+            <button type="button" pButton (click)="activeIndex = 2" class="p-button-text" label="Activate 3rd" style="margin-left: .5em"></button>
+        </div>
+        <p-tabView [(activeIndex)]="activeIndex">
+            <p-tabPanel header="Header I">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>  
+            </p-tabPanel>
+            <p-tabPanel header="Header II">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-tabPanel>
+            <p-tabPanel header="Header III">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>   
+            </p-tabPanel>
+        </p-tabView>
+    </div>
 
-    <h3>Event</h3>
-    <p-tabView (onChange)="onTabChange($event)">
-        <p-tabPanel header="Godfather I">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather II" [selected]="true">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather III">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather IV" [disabled]="true">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-tabPanel>
-    </p-tabView>
+    <div class="card">
+        <h5>Disabled</h5>
+        <p-tabView>
+            <p-tabPanel header="Header I">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>  
+            </p-tabPanel>
+            <p-tabPanel header="Header II">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-tabPanel>
+            <p-tabPanel header="Header III">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>   
+            </p-tabPanel>
+            <p-tabPanel [disabled]="true" header="Header IV"> 
+            </p-tabPanel>
+        </p-tabView>
+    </div>
 
-    <h3>Tooltips</h3>
-    <p-tabView>
-        <p-tabPanel header="Godfather I" leftIcon="pi pi-calendar" tooltip="1972">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather II" rightIcon="pi pi-inbox" tooltip="1974">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-        </p-tabPanel>
-        <p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990">
-            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-        </p-tabPanel>
-    </p-tabView>
+    <div class="card">
+        <h5>Custom Headers</h5>
+        <p-tabView styleClass="tabview-custom">
+            <p-tabPanel>
+                <ng-template pTemplate = "header">
+                    <i class="pi pi-calendar"></i>
+                    <span>Header I</span>
+                </ng-template>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>  
+            </p-tabPanel>
+            <p-tabPanel header="Header II">
+                <ng-template pTemplate = "header">
+                    <i class="pi pi-user"></i>
+                    <span>Header II</span>
+                </ng-template>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-tabPanel>
+            <p-tabPanel header="Header III">
+                <ng-template pTemplate = "header">
+                    <i class="pi pi-search"></i>
+                    <span>Header III</span>
+                    <i class="pi pi-cog"></i>
+                </ng-template>
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                    cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>   
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+
+    <div class="card">
+        <h5>Closable</h5>
+        <p-tabView id="closableTabView">
+            <p-tabPanel header="Header I" [selected]="true">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+            </p-tabPanel>
+            <p-tabPanel header="Header II" [closable]="true">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-tabPanel>
+            <p-tabPanel header="Header III" [closable]="true">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+            </p-tabPanel>
+        </p-tabView>
+
+    </div>
+
+    <div class="card">
+        <h5>Tooltips</h5>
+        <p-tabView>
+            <p-tabPanel header="Header I" leftIcon="pi pi-calendar" tooltip="1972">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+            </p-tabPanel>
+            <p-tabPanel header="Header II" rightIcon="pi pi-inbox" tooltip="1974">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+            </p-tabPanel>
+            <p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990">
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header ="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript">
 import &#123;TabViewModule&#125; from 'primeng/tabview';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using <i>header</i> attribute.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -90,25 +178,21 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
         Content 3
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Dynamic Tabs</h3>
+            <h5>Dynamic Tabs</h5>
             <p>p-tabPanel components can be generated dynamically using ngFor, note that in this case due to an Angular issue <i>selected</i> property must be enabled manually.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabView&gt;
     &lt;p-tabPanel [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 0"&gt;
         {{item.content}}
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Selection</h3>
+            <h5>Selection</h5>
             <p>First tab is selected by default, to customize this enable <i>selected</i> property on another panel.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -120,84 +204,68 @@ import &#123;TabViewModule&#125; from 'primeng/tabview';
         Content 3
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Closable</h3>
+            <h5>Closable</h5>
             <p>When <i>closable</i> attribute is enabled, an icon is displayed to close the tab. <i>onClose</i> event is fired when a tab is closed.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
-</code>
-</pre>
+</app-code>
 
             <p>If you'd like to control whether a tab can be closed, enable controlClose property which gives you the control
             to decide at <i>onClose</i> event. In this case, the event gets a 3rd parameter called close callback and invoking this function
             actually closes the tab.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabView [controlClose]="true" (onClose)="handleClose($event)"&gt;
     &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
         Content 1
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript">
 handleClose(e) &#123;
    if (condition)
        e.close();
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Disabled</h3>
+            <h5>Disabled</h5>
             <p>A tab can be disabled to prevent the content to be displayed by setting the <i>disabled</i> property on a panel.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabPanel header="Header Text" [disabled]="true"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Icons</h3>
+            <h5>Icons</h5>
             <p>Icons can be placed at left and right of a header using <i>leftIcon</i> and <i>rightIcon</i> properties of tabPanel.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabPanel header="Header Text" leftIcon="pi-bell-" rightIcon="pi-bookmark"&gt;;
     Content
 &lt;/p-tabPanel&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Header Template</h3>
+            <h5>Header Template</h5>
             <p>Header of a tab supports templating to place custom html content instead of strings as well.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabPanel&gt;
     &lt;ng-template pTemplate="header"&gt;Custom Content&lt;/ng-template&gt;
 &lt;/p-tabPanel&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Orientation</h3>
+            <h5>Orientation</h5>
             <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
             and this can be changed using <i>orientation</i> attribute.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabView orientation="left"&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Programmatic Control</h3>
+            <h5>Programmatic Control</h5>
             <p>Tabs can be controlled programmatically using <i>activeIndex</i> property that defines the index of the active tab.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
 &lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
 
@@ -212,11 +280,9 @@ handleClose(e) &#123;
         Content 3
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript">
 export class TabViewDemo &#123;
 
     index: number = 0;
@@ -230,15 +296,13 @@ export class TabViewDemo &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Lazy Loading</h3>
+            <h5>Lazy Loading</h5>
             <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy
             loaded tabpanel contents are cached by default so that upon reselection, they are not created again. You may use cache property on TabPanel to
             configure this behavior. A TabPanel is specified as lazy when there is a ngTemplate with <i>pTemplate</i>="content" in it.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
         Content 1
@@ -254,10 +318,9 @@ export class TabViewDemo &#123;
         &lt;/ng-template&gt;
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties of TabView</h3>
+            <h5>Properties of TabView</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -297,7 +360,7 @@ export class TabViewDemo &#123;
                 </table>
             </div>
 
-            <h3>Properties of TabPanel</h3>
+            <h5>Properties of TabPanel</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -385,7 +448,7 @@ export class TabViewDemo &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -416,21 +479,17 @@ export class TabViewDemo &#123;
                     </tbody>
                 </table>
             </div>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-tabView (onChange)="handleChange($event)"&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript">
 handleChange(e) &#123;
     var index = e.index;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
 
             <div class="doc-tablewrapper">
@@ -443,30 +502,30 @@ handleChange(e) &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-tabview</td>
+                            <td>p-tabview</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-tabview-nav</td>
+                            <td>p-tabview-nav</td>
                             <td>Container of headers.</td>
                         </tr>
                         <tr>
-                            <td>ui-tabview-selected</td>
+                            <td>p-tabview-selected</td>
                             <td>Selected tab header.</td>
                         </tr>
                         <tr>
-                            <td>ui-tabview-panels</td>
+                            <td>p-tabview-panels</td>
                             <td>Container panels.</td>
                         </tr>
                         <tr>
-                            <td>ui-tabview-panel</td>
+                            <td>p-tabview-panel</td>
                             <td>Content of a tab.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
 
         </p-tabPanel>
@@ -478,79 +537,183 @@ handleChange(e) &#123;
             <a href="https://stackblitz.com/edit/primeng-tabview-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Default&lt;/h5&gt;
+    &lt;p-tabView&gt;
+        &lt;p-tabPanel header="Header I"&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;    
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header="Header II"&gt;
+            &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header="Header III"&gt;
+            &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;    
+        &lt;/p-tabPanel&gt;
+    &lt;/p-tabView&gt;
+&lt;/div&gt;
 
-&lt;h3 class="first"&gt;Default&lt;/h3&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Programmatic&lt;/h5&gt;
+    &lt;div style="padding: .5em 0 1em 0"&gt;
+        &lt;button type="button" pButton (click)="activeIndex = 0" class="p-button-text" label="Activate 1rd"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton (click)="activeIndex = 1" class="p-button-text" label="Activate 2rd" style="margin-left: .5em"&gt;&lt;/button&gt;
+        &lt;button type="button" pButton (click)="activeIndex = 2" class="p-button-text" label="Activate 3rd" style="margin-left: .5em"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p-tabView [(activeIndex)]="activeIndex"&gt;
+        &lt;p-tabPanel header="Header I"&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;  
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header="Header II"&gt;
+            &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header="Header III"&gt;
+            &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;   
+        &lt;/p-tabPanel&gt;
+    &lt;/p-tabView&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+&lt;h5&gt;Disabled&lt;/h5&gt;
 &lt;p-tabView&gt;
-    &lt;p-tabPanel header="Godfather I" leftIcon="pi pi-calendar"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;p-tabPanel header="Header I"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;  
     &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather II" leftIcon="pi pi-inbox"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;p-tabPanel header="Header II"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;p-tabPanel header="Header III"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;   
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel [disabled]="true" header="Header IV"&gt; 
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+&lt;h5&gt;Custom Headers&lt;/h5&gt;
+&lt;p-tabView styleClass="tabview-custom"&gt;
+    &lt;p-tabPanel&gt;
+        &lt;ng-template pTemplate = "header"&gt;
+            &lt;i class="pi pi-calendar"&gt;&lt;/i&gt;
+            &lt;span&gt;Header I&lt;/span&gt;
+        &lt;/ng-template&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;  
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header II"&gt;
+        &lt;ng-template pTemplate = "header"&gt;
+            &lt;i class="pi pi-user"&gt;&lt;/i&gt;
+            &lt;span&gt;Header II&lt;/span&gt;
+        &lt;/ng-template&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header III"&gt;
+        &lt;ng-template pTemplate = "header"&gt;
+            &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+            &lt;span&gt;Header III&lt;/span&gt;
+            &lt;i class="pi pi-cog"&gt;&lt;/i&gt;
+        &lt;/ng-template&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;   
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+&lt;h5&gt;Closable&lt;/h5&gt;
+&lt;p-tabView id="closableTabView"&gt;
+    &lt;p-tabPanel header="Header I" [selected]="true"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt; 
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header II" [closable]="true"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header III" [closable]="true"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
 
-&lt;h3&gt;Closable&lt;/h3&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+&lt;h5&gt;Tooltips&lt;/h5&gt;
 &lt;p-tabView&gt;
-    &lt;p-tabPanel header="Godfather I" [selected]="true"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;p-tabPanel header="Header I" leftIcon="pi pi-calendar" tooltip="1972"&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt; 
     &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather II" [closable]="true"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;p-tabPanel header="Header II" rightIcon="pi pi-inbox" tooltip="1974"&gt;
+        &lt;p&gt;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather III" [closable]="true"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-    &lt;/p-tabPanel&gt;
-&lt;/p-tabView&gt;
-
-&lt;h3&gt;Event&lt;/h3&gt;
-&lt;p-tabView (onChange)="onTabChange($event)"&gt;
-    &lt;p-tabPanel header="Godfather I"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-    &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather II" [selected]="true"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-    &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather III"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-    &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather IV" [disabled]="true"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990"&gt;
+        &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.&lt;/p&gt;
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
+&lt;/div&gt;
+</app-code>
 
-&lt;h3&gt;Tooltips&lt;/h3&gt;
-&lt;p-tabView&gt;
-    &lt;p-tabPanel header="Godfather I" leftIcon="pi pi-calendar" tooltip="1972"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-    &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather II" rightIcon="pi pi-inbox" tooltip="1974"&gt;
-        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
-    &lt;/p-tabPanel&gt;
-    &lt;p-tabPanel header="Godfather III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990"&gt;
-        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
-    &lt;/p-tabPanel&gt;
-&lt;/p-tabView&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript">
 export class TabViewDemo &#123;
 
-    constructor(private messageService: MessageService) &#123;&#125;
+    activeIndex: number = 0;
 
-    onTabChange(event) &#123;
-        this.messageService.add(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
+&#125;
+</app-code>
+<app-code lang="css">
+:host ::ng-deep .tabview-custom &#123;
+    i, span &#123;
+        vertical-align: middle;
+    &#125;
+
+    span &#123;
+        margin: 0 .5rem;
     &#125;
 &#125;
-</code>
-</pre>
+
+:host ::ng-deep .p-button &#123;
+    margin-right: .25rem;
+&#125;
+
+:host ::ng-deep .p-tabview p &#123;
+    line-height: 1.5;
+    margin: 0;
+&#125;
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

@@ -5,13 +5,15 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ScrollPanelDemoRoutingModule} from './scrollpaneldemo-routing.module';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		ScrollPanelModule,
 		ScrollPanelDemoRoutingModule,
-        TabViewModule,
+		TabViewModule,
+		AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [
