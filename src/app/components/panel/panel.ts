@@ -1,6 +1,6 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Footer} from 'primeng/api';
+import {SharedModule,Footer, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 
@@ -14,6 +14,7 @@ let idx: number = 0;
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
                 <div class="p-panel-icons">
+                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                     <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link"
                         (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
                         <span [class]="collapsed ? expandIcon : collapseIcon"></span>
@@ -82,12 +83,26 @@ export class Panel implements BlockableUI {
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
     @ContentChild(Footer) footerFacet;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    public iconTemplate: TemplateRef<any>;
     
     animating: boolean;
     
     id: string = `p-panel-${idx++}`;
     
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef) { }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'icons':
+                    this.iconTemplate = item.template;
+                break;
+            }
+        });
+    }
 
     onHeaderClick(event: Event) {
         if (this.toggler === 'header') {
@@ -141,7 +156,7 @@ export class Panel implements BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     exports: [Panel,SharedModule],
     declarations: [Panel]
 })
