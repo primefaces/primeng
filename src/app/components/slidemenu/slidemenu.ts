@@ -116,19 +116,16 @@ export class SlideMenuSub implements OnDestroy {
     `,
     animations: [
         trigger('overlayAnimation', [
-            state('void', style({
-                transform: 'translateY(5%)',
-                opacity: 0
-            })),
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => visible', animate('{{showTransitionParams}}')),
-            transition('visible => void', animate('{{hideTransitionParams}}'))
+            transition(':enter', [
+                style({ opacity: 0, transform: 'scaleY(0.8)'}),
+                animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' })),
+              ]),
+              transition(':leave', [
+                animate('{{hideTransitionParams}}', style({ opacity: 0 }))
+              ])
         ])
     ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./slidemenu.css']
 })
@@ -157,10 +154,10 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
-    
-    @Input() showTransitionOptions: string = '225ms ease-out';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
+
+    @Input() hideTransitionOptions: string = '.1s linear';
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
