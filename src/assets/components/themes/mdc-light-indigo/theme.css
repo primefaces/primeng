@@ -3841,6 +3841,80 @@
   border-bottom-left-radius: 4px;
 }
 
+.p-slidemenu {
+  padding: 0.5rem 0;
+  background: #ffffff;
+  color: #000001;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  width: 12.5rem;
+}
+.p-slidemenu .p-menuitem-link {
+  padding: 0.75rem 0.75rem;
+  color: #000001;
+  border-radius: 0;
+  transition: none;
+  user-select: none;
+}
+.p-slidemenu .p-menuitem-link .p-menuitem-text {
+  color: #000001;
+}
+.p-slidemenu .p-menuitem-link .p-menuitem-icon {
+  color: rgba(0, 0, 0, 0.6);
+  margin-right: 0.5rem;
+}
+.p-slidemenu .p-menuitem-link .p-submenu-icon {
+  color: rgba(0, 0, 0, 0.6);
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+  color: #000001;
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon {
+  color: rgba(0, 0, 0, 0.6);
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-submenu-icon {
+  color: rgba(0, 0, 0, 0.6);
+}
+.p-slidemenu .p-menuitem-link:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+.p-slidemenu.p-slidemenu-overlay {
+  background: #ffffff;
+  border: 0 none;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.p-slidemenu .p-slidemenu-list {
+  padding: 0.5rem 0;
+  background: #ffffff;
+  border: 0 none;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link {
+  background: rgba(0, 0, 0, 0.04);
+}
+.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-text {
+  color: #000001;
+}
+.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon, .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon {
+  color: rgba(0, 0, 0, 0.6);
+}
+.p-slidemenu .p-slidemenu-separator {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 0.5rem 0;
+}
+.p-slidemenu .p-slidemenu-icon {
+  font-size: 0.875rem;
+}
+.p-slidemenu .p-slidemenu-backward {
+  padding: 0.75rem 0.75rem;
+  color: #000001;
+}
+
 .p-steps .p-steps-item .p-menuitem-link {
   background: transparent;
   transition: none;

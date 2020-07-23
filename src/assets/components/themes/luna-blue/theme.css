@@ -3781,6 +3781,80 @@
   margin-bottom: 2px;
 }
 
+.p-slidemenu {
+  padding: 0;
+  background: #252525;
+  color: #dedede;
+  border: 1px solid #191919;
+  border-radius: 3px;
+  width: 12.5rem;
+}
+.p-slidemenu .p-menuitem-link {
+  padding: 0.857rem;
+  color: #dedede;
+  border-radius: 0;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
+}
+.p-slidemenu .p-menuitem-link .p-menuitem-text {
+  color: #dedede;
+}
+.p-slidemenu .p-menuitem-link .p-menuitem-icon {
+  color: #dedede;
+  margin-right: 0.5rem;
+}
+.p-slidemenu .p-menuitem-link .p-submenu-icon {
+  color: #dedede;
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover {
+  background: #4c4c4c;
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+  color: #dedede;
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon {
+  color: #dedede;
+}
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-submenu-icon {
+  color: #dedede;
+}
+.p-slidemenu .p-menuitem-link:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 0.2rem white;
+}
+.p-slidemenu.p-slidemenu-overlay {
+  background: #252525;
+  border: 1px solid #191919;
+  box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.16);
+}
+.p-slidemenu .p-slidemenu-list {
+  padding: 0;
+  background: #252525;
+  border: 1px solid #191919;
+  box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.16);
+}
+.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link {
+  background: #81D4FA;
+}
+.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-text {
+  color: #212529;
+}
+.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon, .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon {
+  color: #212529;
+}
+.p-slidemenu .p-slidemenu-separator {
+  border-top: 1px solid #4b4b4b;
+  margin: 0;
+}
+.p-slidemenu .p-slidemenu-icon {
+  font-size: 0.875rem;
+}
+.p-slidemenu .p-slidemenu-backward {
+  padding: 0.857rem;
+  color: #dedede;
+}
+
 .p-steps .p-steps-item .p-menuitem-link {
   background: transparent;
   transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
