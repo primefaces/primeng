@@ -1,7 +1,7 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy,ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -187,17 +187,25 @@ export class MenubarSub implements OnDestroy {
     selector: 'p-menubar',
     template: `
         <div [ngClass]="{'p-menubar p-component':true}" [class]="styleClass" [ngStyle]="style">
-            <p-menubarSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-menubarSub>
-            <div class="p-menubar-end">
-                <ng-content></ng-content>
+            <div class="p-menubar-start" *ngIf="startTemplate">
+                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
+            <p-menubarSub [item]="model" root="root" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex"></p-menubarSub>
+            <div class="p-menubar-end" *ngIf="endTemplate; else legacy">
+                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            </div>
+            <ng-template #legacy>
+                <div class="p-menubar-end">
+                    <ng-content></ng-content>
+                </div>
+            </ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./menubar.css']
 })
-export class Menubar {
+export class Menubar implements AfterContentInit {
 
     @Input() model: MenuItem[];
 
@@ -209,6 +217,8 @@ export class Menubar {
 
     @Input() baseZIndex: number = 0;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     private _autoDisplay: boolean;
 
     @Input() get autoDisplay(): boolean {
@@ -218,7 +228,25 @@ export class Menubar {
         console.log("AutoDisplay property is deprecated and functionality is not available.");
     }
 
+    startTemplate: TemplateRef<any>;
+
+    endTemplate: TemplateRef<any>;
+
     constructor(public el: ElementRef, public renderer: Renderer2) { }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'start':
+                    this.startTemplate = item.template;
+                break;
+
+                case 'end':
+                    this.endTemplate = item.template;
+                break;
+            }
+        });
+    }
 }
 
 @NgModule({
