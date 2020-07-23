@@ -15,7 +15,7 @@ import { DomHandler } from 'primeng/dom';
             <div #yBar class="p-scrollpanel-bar p-scrollpanel-bar-y"></div>   
         </div>
     `,
-//    changeDetection: ChangeDetectionStrategy.OnPush,
+   changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./scrollpanel.css']
 })
