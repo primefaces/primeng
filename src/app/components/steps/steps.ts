@@ -9,7 +9,7 @@ import {RouterModule} from '@angular/router';
         <div [ngClass]="{'p-steps p-component':true,'p-readonly':readonly}" [ngStyle]="style" [class]="styleClass">
             <ul role="tablist">
                 <li *ngFor="let item of model; let i = index" class="p-steps-item" #menuitem [ngStyle]="item.style" [class]="item.styleClass" role="tab" [attr.aria-selected]="i === activeIndex" [attr.aria-expanded]="i === activeIndex"
-                    [ngClass]="{'p-highlight p-steps-current':(i === activeIndex), 'p-disabled':item.disabled}">
+                    [ngClass]="{'p-highlight p-steps-current':(i === activeIndex), 'p-disabled':(item.disabled || (readonly && (i !== activeIndex)))}">
                     <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event, item, i)" (keydown.enter)="itemClick($event, item, i)" [attr.target]="item.target" [attr.id]="item.id" 
                         [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
                         <span class="p-steps-number">{{i + 1}}</span>
