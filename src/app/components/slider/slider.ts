@@ -204,6 +204,9 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
 
     onHandleKeydown(event, handleIndex?:number) {
+        if (this.disabled) {
+            return;
+        }
         if (event.which == 38 || event.which == 39) {
             this.spin(event, 1, handleIndex);
         }
