@@ -36,7 +36,7 @@
     z-index: 1;
 }
 
-.p-menubar-root-list > .p-menuitem-active > .p-submenu-list {
+.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
     display: block;
 }
 
@@ -46,7 +46,7 @@
     z-index: 1;
 }
 
-.p-menubar .p-submenu-list > .p-menuitem-active > .p-submenu-list  {
+.p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list  {
     display: block;
     left: 100%;
     top: 0;

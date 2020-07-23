@@ -150,6 +150,7 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
                 if (!this.rootItemClick) {
                     this.parentActive = false;
                     this.activeItem = null;
+                    this.cf.markForCheck();
                 }
 
                 this.rootItemClick = false;

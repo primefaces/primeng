@@ -36,7 +36,7 @@
     margin-left: auto;
 }
 
-.p-tieredmenu .p-menuitem-active > .p-submenu-list {
+.p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list {
     display: block;
     left: 100%;
     top: 0;
