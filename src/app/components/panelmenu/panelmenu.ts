@@ -60,18 +60,14 @@ export class BasePanelMenuItem {
     animations: [
         trigger('submenu', [
             state('hidden', style({
-                height: '0px'
+                height: '0',
+                overflow: 'hidden'
             })),
-            state('void', style({
-                height: '{{height}}'
-            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible => hidden', animate('{{transitionParams}}')),
-            transition('hidden => visible', animate('{{transitionParams}}')),
-            transition('void => hidden', animate('{{transitionParams}}')),
-            transition('void => visible', animate('{{transitionParams}}'))
+            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('void => *', animate(0))
         ])
     ],
     encapsulation: ViewEncapsulation.None
@@ -124,17 +120,14 @@ export class PanelMenuSub extends BasePanelMenuItem {
     animations: [
         trigger('rootItem', [
             state('hidden', style({
-                height: '0px'
+                height: '0',
+                overflow: 'hidden'
             })),
-            state('void', style({
-                height: '{{height}}'
-            }), {params: {height: '0'}}),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', [style({ overflow: 'hidden'}), animate('{{transitionParams}}')]),
-            transition('void => hidden', animate('{{transitionParams}}')),
-            transition('void => visible', animate('{{transitionParams}}'))
+            transition('visible <=> hidden', [style({overflow: 'hidden'}), animate('{{transitionParams}}')]),
+            transition('void => *', animate(0))
         ])
     ],
    changeDetection: ChangeDetectionStrategy.OnPush,
