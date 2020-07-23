@@ -12,10 +12,10 @@ import {RouterModule} from '@angular/router';
             <ul class="p-megamenu-root-list" role="menubar">
                 <ng-template ngFor let-category [ngForOf]="model">
                     <li *ngIf="category.separator" class="p-menu-separator" [ngClass]="{'p-hidden': category.visible === false}">
-                    <li *ngIf="!category.separator" #item [ngClass]="{'p-menuitem':true,'p-menuitem-active':item==activeItem, 'p-hidden': category.visible === false}"
-                        (mouseenter)="onItemMouseEnter($event, item, category)" (mouseleave)="onItemMouseLeave($event, item)">
+                    <li *ngIf="!category.separator" [ngClass]="{'p-menuitem':true,'p-menuitem-active':category==activeItem, 'p-hidden': category.visible === false}"
+                        (mouseenter)="onCategoryMouseEnter($event, category)">
    
-                        <a *ngIf="!category.routerLink" [href]="category.url||'#'" [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id" (click)="itemClick($event, category)" [attr.tabindex]="category.tabindex ? category.tabindex : '0'"
+                        <a *ngIf="!category.routerLink" [href]="category.url||'#'" [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id" (click)="onCategoryClick($event, category)" [attr.tabindex]="category.tabindex ? category.tabindex : '0'"
                             [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
                             <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="p-menuitem-text">{{category.label}}</span>
@@ -23,7 +23,7 @@ import {RouterModule} from '@angular/router';
                         </a>
                         <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" [attr.tabindex]="category.tabindex ? category.tabindex : '0'" 
                             [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
-                            (click)="itemClick($event, category)" [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass"
+                            (click)="onCategoryClick($event, category)" [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass"
                             [fragment]="category.fragment" [queryParamsHandling]="category.queryParamsHandling" [preserveFragment]="category.preserveFragment" [skipLocationChange]="category.skipLocationChange" [replaceUrl]="category.replaceUrl" [state]="category.state">
                             <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="p-menuitem-text">{{category.label}}</span>
@@ -88,46 +88,48 @@ export class MegaMenu {
     
     activeItem: any;
 
-    hideTimeout: any;
+    documentClickListener: any;
                 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
-    onItemMouseEnter(event, item, menuitem: MegaMenuItem) {
+    onCategoryMouseEnter(event, menuitem: MegaMenuItem) {
         if (menuitem.disabled) {
+            event.preventDefault();
             return;
         }
 
-        if (this.hideTimeout) {
-            clearTimeout(this.hideTimeout);
-            this.hideTimeout = null;
-        }
-        
-        this.activeItem = item;
-
-        if (menuitem.items) {
-            let submenu = item.children[0].nextElementSibling;
-            if (submenu) {
-                if (this.autoZIndex) {
-                    submenu.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
-                }
-
-                if (this.orientation === 'horizontal') {
-                    submenu.style.top = DomHandler.getOuterHeight(item.children[0]) + 'px';
-                    submenu.style.left = '0px';
-                }
-                else if (this.orientation === 'vertical') {
-                    submenu.style.top = '0px';
-                    submenu.style.left = DomHandler.getOuterWidth(item.children[0]) + 'px';
-                }
-            }
+        if (this.activeItem) {
+            this.activeItem = menuitem;
         }
     }
-    
-    onItemMouseLeave(event, link) {
-        this.hideTimeout = setTimeout(() => {
-            this.activeItem = null;
-            this.cd.markForCheck();
-        }, 1000);
+
+    onCategoryClick(event, item: MenuItem | MegaMenuItem) {
+        if (item.disabled) {
+            event.preventDefault();
+            return;
+        }
+
+        if (!item.url) {
+            event.preventDefault();
+        }
+
+        if (item.command) {
+            item.command({
+                originalEvent: event,
+                item: item
+            });
+        }
+
+        if (item.items) {
+            if (this.activeItem && this.activeItem === item) {
+                this.activeItem = null;
+                this.unbindDocumentClickListener();
+            }
+            else {
+                this.activeItem = item;
+                this.bindDocumentClickListener();
+            }
+        }
     }
     
     itemClick(event, item: MenuItem | MegaMenuItem) {
@@ -176,6 +178,27 @@ export class MegaMenu {
         }
         
         return columnClass;
+    }
+
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = (event) => {
+                if (this.el && !this.el.nativeElement.contains(event.target)) {
+                    this.activeItem = null;
+                    this.unbindDocumentClickListener();
+                    this.cd.markForCheck();
+                }
+            };
+
+            document.addEventListener('click', this.documentClickListener);
+        }
+    }
+
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener = null;
+        }
     }
 }
 
