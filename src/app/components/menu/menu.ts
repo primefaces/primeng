@@ -109,6 +109,8 @@ export class Menu implements OnDestroy {
     target: any;
 
     visible: boolean;
+
+    relativeAlign: boolean;
     
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
@@ -123,6 +125,7 @@ export class Menu implements OnDestroy {
 
     show(event) {
         this.target = event.currentTarget;
+        this.relativeAlign = event.relativeAlign;
         this.visible = true;
         this.preventDocumentDefault = true;
         this.cd.markForCheck();
@@ -136,7 +139,7 @@ export class Menu implements OnDestroy {
                     this.moveOnTop();
                     this.onShow.emit({});
                     this.appendOverlay();
-                    DomHandler.absolutePosition(this.container, this.target);
+                    this.alignOverlay();
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                 }
@@ -147,6 +150,13 @@ export class Menu implements OnDestroy {
                 this.onHide.emit({});
             break;
         }
+    }
+
+    alignOverlay() {
+        if (this.relativeAlign)
+            DomHandler.relativePosition(this.container, this.target);
+        else
+            DomHandler.absolutePosition(this.container, this.target);
     }
 
     appendOverlay() {
@@ -172,6 +182,7 @@ export class Menu implements OnDestroy {
     
     hide() {
         this.visible = false;
+        this.relativeAlign = false;
         this.cd.markForCheck();
     }
 
