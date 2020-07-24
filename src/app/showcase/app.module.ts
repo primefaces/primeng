@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 import { CarService } from './service/carservice';
 import { CountryService } from './service/countryservice';
@@ -47,6 +48,7 @@ import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
         BrowserAnimationsModule,
         ButtonModule,
         RadioButtonModule,
+        InputSwitchModule,
         TooltipModule,
         AppInputStyleSwitchModule
     ],

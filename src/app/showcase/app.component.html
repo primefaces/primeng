@@ -1,4 +1,5 @@
-<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive, 'p-input-filled': config.inputStyle === 'filled'}">
+<div class="layout-wrapper" [ngClass]="{'layout-news-active': newsActive, 
+            'p-input-filled': config.inputStyle === 'filled', 'p-ripple-disabled': !config.ripple}">
     <app-news></app-news>
     <app-topbar (menuButtonClick)="onMenuButtonClick()"></app-topbar>
     <app-menu [active]="menuActive"></app-menu>

@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
                         <app-inputStyleSwitch></app-inputStyleSwitch>
 
                         <h4>Ripple Effect</h4>
-                        <b>TODO</b>
+                        <p-inputSwitch [(ngModel)]="config.ripple" (onChange)="onRippleChange()"></p-inputSwitch>
 
                         <h4>Free Themes</h4>
                         <p>Built-in component themes created by the <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a>.</p>
@@ -409,6 +409,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
         this.configService.updateConfig({...this.config, ...{theme, dark}});
         event.preventDefault();
+    }
+
+    onRippleChange() {
+        this.configService.updateConfig(this.config);
     }
 
     bindOutsideClickListener() {
