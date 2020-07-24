@@ -3,19 +3,7 @@ import {MenuItem} from 'primeng/api';
 
 @Component({
     templateUrl: './toolbardemo.html',
-    styles: [`
-        :host ::ng-deep button {
-            margin-right: .25em;
-        }
-
-        :host ::ng-deep .ui-splitbutton {
-            margin-left: .25em;
-        }
-
-        :host ::ng-deep .ui-splitbutton button {
-            margin-right: 0;
-        }
-    `]
+    styleUrls: ['./toolbardemo.scss']
 })
 export class ToolbarDemo implements OnInit {
 
@@ -23,8 +11,24 @@ export class ToolbarDemo implements OnInit {
     
     ngOnInit() {
         this.items = [
-            {label: 'Angular.io', icon: 'pi pi-external-link', url: 'http://angular.io'},
-            {label: 'Theming', icon: 'pi pi-palette', routerLink: ['/theming']}
+            {
+                label: 'Update',
+                icon: 'pi pi-refresh'
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-times'
+            },
+            {
+                label: 'Angular Website',
+                icon: 'pi pi-external-link',
+                url: 'http://angular.io'
+            },
+            {
+                label: 'Router',
+                icon: 'pi pi-upload',
+                routerLink: '/fileupload'
+            }
         ];
     }
 }
