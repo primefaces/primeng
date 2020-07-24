@@ -2,8 +2,7 @@ import {Component,OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 
 @Component({
-    templateUrl: './toolbardemo.html',
-    styleUrls: ['./toolbardemo.scss']
+    templateUrl: './toolbardemo.html'
 })
 export class ToolbarDemo implements OnInit {
 
