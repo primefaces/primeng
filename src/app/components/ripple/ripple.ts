@@ -16,17 +16,12 @@ export class Ripple implements AfterViewInit, OnDestroy {
 
     mouseDownListener: any;
 
-    mouseLeaveListener: any;
-
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
             this.create();
 
             this.mouseDownListener = this.onMouseDown.bind(this);
-            this.mouseLeaveListener = this.onMouseLeave.bind(this);
-
             this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-            this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
         });
     }
 
@@ -52,10 +47,6 @@ export class Ripple implements AfterViewInit, OnDestroy {
         DomHandler.addClass(ink, 'p-ink-active');
     }
     
-    onMouseLeave() {
-        this.resetInk();
-    }
-
     getInk() {
         for (let i = 0; i < this.el.nativeElement.children.length; i++) {
             if (this.el.nativeElement.children[i].className.indexOf('p-ink') !== -1) {
@@ -89,7 +80,6 @@ export class Ripple implements AfterViewInit, OnDestroy {
         let ink = this.getInk();
         if (ink) {
             this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
-            this.el.nativeElement.removeEventListener('mouseleave', this.mouseLeaveListener);
             ink.removeEventListener('animationend', this.animationListener);
             ink.remove();
         }
