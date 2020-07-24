@@ -9,6 +9,7 @@ import {DomHandler} from 'primeng/dom';
 import {Message} from 'primeng/api';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
+import {RippleModule} from 'primeng/ripple';  
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 
 @Component({
@@ -16,7 +17,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
     template: `
         <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="p-fileupload-buttonbar">
-                <span class="p-button p-component p-fileupload-choose" [ngClass]="{'p-focus': focus, 'p-disabled':disabled || isChooseDisabled()}" (focus)="onFocus()" (blur)="onBlur()"
+                <span class="p-button p-component p-fileupload-choose" [ngClass]="{'p-focus': focus, 'p-disabled':disabled || isChooseDisabled()}" (focus)="onFocus()" (blur)="onBlur()" pRipple
                     (click)="choose()" (keydown.enter)="choose()" tabindex="0"> 
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
@@ -54,7 +55,7 @@ import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common
         <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'">
             <p-messages [value]="msgs" [enableService]="false"></p-messages>
             <span [ngClass]="{'p-button p-component p-fileupload-choose': true, 'p-fil(eupload-choose-selected': hasFiles(),'p-focus': focus, 'p-disabled':disabled}"
-                [ngStyle]="style" [class]="styleClass" (mouseup)="onBasicUploaderClick()" (keydown)="onBasicUploaderClick()" tabindex="0">
+                [ngStyle]="style" [class]="styleClass" (mouseup)="onBasicUploaderClick()" (keydown)="onBasicUploaderClick()" tabindex="0" pRipple>
                 <span class="p-button-icon p-button-icon-left pi" [ngClass]="{'pi-plus': !hasFiles()||auto, 'pi-upload': hasFiles()&&!auto}"></span>
                 <span class="p-button-label">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
                 <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
@@ -548,7 +549,7 @@ export class FileUpload implements AfterViewInit,AfterContentInit,OnDestroy,Bloc
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ButtonModule,ProgressBarModule,MessagesModule],
+    imports: [CommonModule,SharedModule,ButtonModule,ProgressBarModule,MessagesModule,RippleModule],
     exports: [FileUpload,SharedModule,ButtonModule,ProgressBarModule,MessagesModule],
     declarations: [FileUpload]
 })

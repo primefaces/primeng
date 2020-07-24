@@ -3,6 +3,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
+import {RippleModule} from 'primeng/ripple';  
 
 let idx: number = 0;
 
@@ -12,7 +13,7 @@ let idx: number = 0;
         <fieldset [attr.id]="id" [ngClass]="{'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
             <legend class="p-fieldset-legend">
                 <ng-container *ngIf="toggleable; else legendContent">
-                    <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed">
+                    <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" pRipple>
                         <span class="p-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{'pi-minus': !collapsed,'pi-plus':collapsed}"></span>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </a>
@@ -116,7 +117,7 @@ export class Fieldset implements BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [Fieldset,SharedModule],
     declarations: [Fieldset]
 })

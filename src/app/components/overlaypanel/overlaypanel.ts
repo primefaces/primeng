@@ -3,6 +3,7 @@ import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,Element
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {PrimeTemplate} from 'primeng/api';
+import {RippleModule} from 'primeng/ripple';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 
 @Component({
@@ -15,7 +16,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <button *ngIf="showCloseIcon" type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel">
+            <button *ngIf="showCloseIcon" type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
                 <span class="p-overlaypanel-close-icon pi pi-times"></span>
             </button>
         </div>
@@ -278,7 +279,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [OverlayPanel],
     declarations: [OverlayPanel]
 })

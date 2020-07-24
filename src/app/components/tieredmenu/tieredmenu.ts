@@ -1,8 +1,9 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Renderer2,Inject,forwardRef,ChangeDetectorRef,AfterViewInit,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {MenuItem} from 'primeng/api';
+import {RippleModule} from 'primeng/ripple';
 import {RouterModule} from '@angular/router';
 
 @Component({
@@ -15,7 +16,7 @@ import {RouterModule} from '@angular/router';
                     [class]="child.styleClass" [ngStyle]="child.style" role="none"
                     (mouseenter)="onItemMouseEnter($event, listItem, child)">
                     <a *ngIf="!child.routerLink" [attr.href]="child.url" class="p-menuitem-link" [attr.target]="child.target" [attr.tabindex]="child.disabled ? null : '0'" [attr.title]="child.title" [attr.id]="child.id" 
-                        [ngClass]="{'p-disabled':child.disabled}" (click)="itemClick($event, listItem, child)" role="menuitem" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem">
+                        [ngClass]="{'p-disabled':child.disabled}" (click)="itemClick($event, listItem, child)" role="menuitem" [attr.aria-haspopup]="item.items != null" [attr.aria-expanded]="item === activeItem" pRipple>
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="p-menuitem-text">{{child.label}}</span>
                         <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
@@ -23,7 +24,7 @@ import {RouterModule} from '@angular/router';
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" role="menuitem" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" role="menuitem" [attr.tabindex]="child.disabled ? null : '0'"
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}"
                         class="p-menuitem-link" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id"
-                        [ngClass]="{'p-disabled':child.disabled}" (click)="itemClick($event, listItem, child)"
+                        [ngClass]="{'p-disabled':child.disabled}" (click)="itemClick($event, listItem, child)" pRipple
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
                         <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="p-menuitem-text">{{child.label}}</span>
@@ -346,7 +347,7 @@ export class TieredMenu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule],
     exports: [TieredMenu,RouterModule],
     declarations: [TieredMenu,TieredMenuSub]
 })

@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
+import {RippleModule} from 'primeng/ripple';  
 
 let idx: number = 0;
 
@@ -39,10 +40,10 @@ const hideAnimation = animation([
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()">
+                        <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                         </button>
-                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)">
+                        <button *ngIf="closable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-close p-link':true}" (click)="close($event)" (keydown.enter)="close($event)" tabindex="-1" pRipple>
                             <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                         </button>
                     </div>
@@ -685,7 +686,7 @@ export class Dialog implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,FocusTrapModule],
+    imports: [CommonModule,FocusTrapModule,RippleModule],
     exports: [Dialog,SharedModule],
     declarations: [Dialog]
 })

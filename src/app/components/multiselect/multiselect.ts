@@ -10,6 +10,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FilterUtils } from 'primeng/utils';
 import { TooltipModule } from 'primeng/tooltip';
+import { RippleModule } from 'primeng/ripple';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -104,7 +105,7 @@ export class MultiSelectItem {
                         <input #filterInput type="text" role="textbox" [value]="filterValue||''" (input)="onFilter()" class="p-multiselect-filter p-inputtext p-component" [attr.placeholder]="filterPlaceHolder" [attr.aria-label]="ariaFilterLabel">
                         <span class="p-multiselect-filter-icon pi pi-search"></span>
                     </div>
-                    <button class="p-multiselect-close p-link" type="button" (click)="close($event)">
+                    <button class="p-multiselect-close p-link" type="button" (click)="close($event)" pRipple>
                         <span class="p-multiselect-close-icon pi pi-times"></span>
                     </button>
                 </div>
@@ -884,7 +885,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ScrollingModule, TooltipModule],
+    imports: [CommonModule,SharedModule,ScrollingModule,TooltipModule,RippleModule],
     exports: [MultiSelect,SharedModule,ScrollingModule],
     declarations: [MultiSelect,MultiSelectItem]
 })

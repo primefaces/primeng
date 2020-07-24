@@ -18,7 +18,7 @@
         <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
             <tr>
                 <td>
-                    <button type="button" pButton [pRowToggler]="rowData" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    <button type="button" pButton pRipple [pRowToggler]="rowData" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                 </td>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -126,7 +126,7 @@ export class TableRowExpansionDemo implements OnInit &#123;
     &lt;ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns"&gt;
         &lt;tr&gt;
             &lt;td&gt;
-                &lt;button type="button" pButton [pRowToggler]="rowData" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
+                &lt;button type="button" pButton pRipple [pRowToggler]="rowData" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"&gt;&lt;/button&gt;
             &lt;/td&gt;
             &lt;td *ngFor="let col of columns"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;

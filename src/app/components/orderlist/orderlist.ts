@@ -4,7 +4,8 @@ import {ButtonModule} from 'primeng/button';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
-import { FilterUtils } from 'primeng/utils';
+import {FilterUtils} from 'primeng/utils';
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: 'p-orderList',
@@ -31,7 +32,7 @@ import { FilterUtils } from 'primeng/utils';
                     <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="p-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)"
                             [ngClass]="{'p-orderlist-droppoint-highlight': (i === dragOverItemIndex)}"></li>
-                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}"
+                        <li class="p-orderlist-item" tabindex="0" [ngClass]="{'p-highlight':isSelected(item)}" pRipple
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)" (keydown)="onItemKeydown($event,item,i)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'" role="option" [attr.aria-selected]="isSelected(item)"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
@@ -413,7 +414,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,SharedModule],
+    imports: [CommonModule,ButtonModule,SharedModule,RippleModule],
     exports: [OrderList,SharedModule],
     declarations: [OrderList]
 })

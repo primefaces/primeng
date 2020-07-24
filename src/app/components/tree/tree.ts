@@ -11,6 +11,7 @@ import {Subscription} from 'rxjs';
 import {BlockableUI} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
 import {DomHandler} from 'primeng/dom';
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: 'p-treeNode',
@@ -24,7 +25,7 @@ import {DomHandler} from 'primeng/dom';
                     [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)" [attr.tabindex]="0"
                     [ngClass]="{'p-treenode-selectable':tree.selectionMode && node.selectable !== false,'p-treenode-dragover':draghoverNode, 'p-highlight':isSelected()}"
                     (keydown)="onKeyDown($event)" [attr.aria-posinset]="this.index + 1" [attr.aria-expanded]="this.node.expanded" [attr.aria-selected]="isSelected()" [attr.aria-label]="node.label">
-                    <button type="button" class="p-tree-toggler p-link" (click)="toggle($event)">
+                    <button type="button" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple>
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{'pi-chevron-right':!node.expanded,'pi-chevron-down':node.expanded}"></span>
                     </button>
                     <div class="p-checkbox p-component" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
@@ -1188,7 +1189,7 @@ export class Tree implements OnInit,AfterContentInit,OnChanges,OnDestroy,Blockab
     }
 }
 @NgModule({
-    imports: [CommonModule,ScrollingModule],
+    imports: [CommonModule,ScrollingModule,RippleModule],
     exports: [Tree,SharedModule,ScrollingModule],
     declarations: [Tree,UITreeNode]
 })

@@ -2,6 +2,7 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterC
         ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TooltipModule} from 'primeng/tooltip';
+import {RippleModule} from 'primeng/ripple';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
@@ -110,7 +111,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                     <li role="presentation" [ngClass]="{'p-highlight': tab.selected, 'p-disabled': tab.disabled}" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
                         <a role="tab" class="p-tabview-nav-link" [attr.id]="tab.id + '-label'" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id" [pTooltip]="tab.tooltip" [tooltipPosition]="tab.tooltipPosition"
                             [attr.aria-selected]="tab.selected" [positionStyle]="tab.tooltipPositionStyle" [tooltipStyleClass]="tab.tooltipStyleClass"
-                            (click)="open($event,tab)" (keydown.enter)="open($event,tab)">
+                            (click)="open($event,tab)" (keydown.enter)="open($event,tab)" pRipple>
                             <ng-container *ngIf="!tab.headerTemplate">
                                 <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                                 <span class="p-tabview-title">{{tab.header}}</span>
@@ -313,7 +314,7 @@ export class TabView implements AfterContentInit,AfterViewChecked,BlockableUI {
 
 
 @NgModule({
-    imports: [CommonModule,SharedModule,TooltipModule],
+    imports: [CommonModule,SharedModule,TooltipModule,RippleModule],
     exports: [TabView,TabPanel,SharedModule],
     declarations: [TabView,TabPanel]
 })

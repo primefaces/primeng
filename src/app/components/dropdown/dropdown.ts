@@ -8,8 +8,9 @@ import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {DomHandler} from 'primeng/dom';
 import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { FilterUtils } from 'primeng/utils';
+import {FilterUtils} from 'primeng/utils';
 import {TooltipModule} from 'primeng/tooltip';
+import {RippleModule} from 'primeng/ripple';  
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,12 +21,10 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-dropdownItem',
     template: `
-        <li (click)="onOptionClick($event)" role="option"
+        <li (click)="onOptionClick($event)" role="option" pRipple
             [attr.aria-label]="option.label" [attr.aria-selected]="selected"
             [ngStyle]="{'height': itemSize + 'px'}"
-            [ngClass]="{'p-dropdown-item':true,
-                                                'p-highlight': selected,
-                                                'p-disabled':(option.disabled)}">
+            [ngClass]="{'p-dropdown-item':true, 'p-highlight': selected, 'p-disabled':(option.disabled)}">
             <span *ngIf="!template">{{option.label||'empty'}}</span>
             <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
         </li>
@@ -1110,7 +1109,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ScrollingModule,TooltipModule],
+    imports: [CommonModule,SharedModule,ScrollingModule,TooltipModule,RippleModule],
     exports: [Dropdown,SharedModule,ScrollingModule],
     declarations: [Dropdown,DropdownItem]
 })

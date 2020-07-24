@@ -1,8 +1,8 @@
 import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
 import {MegaMenuItem,MenuItem} from 'primeng/api';
 import {RouterModule} from '@angular/router';
+import {RippleModule} from 'primeng/ripple';  
 
 @Component({
     selector: 'p-megaMenu',
@@ -16,7 +16,7 @@ import {RouterModule} from '@angular/router';
                         (mouseenter)="onCategoryMouseEnter($event, category)">
    
                         <a *ngIf="!category.routerLink" [href]="category.url||'#'" [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id" (click)="onCategoryClick($event, category)" [attr.tabindex]="category.tabindex ? category.tabindex : '0'"
-                            [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
+                            [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass" pRipple>
                             <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="p-menuitem-text">{{category.label}}</span>
                             <span *ngIf="category.items" class="p-submenu-icon pi" [ngClass]="{'pi-angle-down':orientation=='horizontal','pi-angle-right':orientation=='vertical'}"></span>
@@ -24,7 +24,7 @@ import {RouterModule} from '@angular/router';
                         <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" [attr.tabindex]="category.tabindex ? category.tabindex : '0'" 
                             [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
                             (click)="onCategoryClick($event, category)" [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass"
-                            [fragment]="category.fragment" [queryParamsHandling]="category.queryParamsHandling" [preserveFragment]="category.preserveFragment" [skipLocationChange]="category.skipLocationChange" [replaceUrl]="category.replaceUrl" [state]="category.state">
+                            [fragment]="category.fragment" [queryParamsHandling]="category.queryParamsHandling" [preserveFragment]="category.preserveFragment" [skipLocationChange]="category.skipLocationChange" [replaceUrl]="category.replaceUrl" [state]="category.state" pRipple>
                             <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="p-menuitem-text">{{category.label}}</span>
                         </a>
@@ -40,7 +40,7 @@ import {RouterModule} from '@angular/router';
                                                     <li *ngIf="item.separator" class="p-menu-separator" [ngClass]="{'p-hidden': item.visible === false}" role="separator">
                                                     <li *ngIf="!item.separator" class="p-menuitem" [ngClass]="{'p-hidden': item.visible === false}" role="none">
                                                         <a *ngIf="!item.routerLink" role="menuitem" [href]="item.url||'#'" class="p-menuitem-link" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
-                                                            [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)">
+                                                            [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)" pRipple>
                                                             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="p-menuitem-text">{{item.label}}</span>
                                                         </a>
@@ -48,7 +48,7 @@ import {RouterModule} from '@angular/router';
                                                             [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link" 
                                                              [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                                             [ngClass]="{'p-disabled':item.disabled}" (click)="itemClick($event, item)"
-                                                            [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
+                                                            [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
                                                             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="p-menuitem-text">{{item.label}}</span>
                                                         </a>
@@ -203,7 +203,7 @@ export class MegaMenu {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
+    imports: [CommonModule,RouterModule,RippleModule],
     exports: [MegaMenu,RouterModule],
     declarations: [MegaMenu]
 })

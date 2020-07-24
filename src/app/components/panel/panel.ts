@@ -2,6 +2,7 @@ import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,Cha
 import {CommonModule} from '@angular/common';
 import {SharedModule,Footer, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
+import {RippleModule} from 'primeng/ripple';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 
 let idx: number = 0;
@@ -15,7 +16,7 @@ let idx: number = 0;
                 <ng-content select="p-header"></ng-content>
                 <div class="p-panel-icons">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link"
+                    <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
                         (click)="onIconClick($event)" (keydown.enter)="onIconClick($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
                         <span [class]="collapsed ? expandIcon : collapseIcon"></span>
                     </button>
@@ -156,7 +157,7 @@ export class Panel implements BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule,SharedModule,RippleModule],
     exports: [Panel,SharedModule],
     declarations: [Panel]
 })

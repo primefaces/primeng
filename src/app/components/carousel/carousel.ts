@@ -1,5 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, AfterContentInit, TemplateRef, ContentChildren, QueryList, NgModule, NgZone, EventEmitter, Output, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';  
 import { CommonModule } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
 
@@ -12,7 +13,7 @@ import { UniqueComponentId } from 'primeng/utils';
 			</div>
 			<div [class]="contentClass" [ngClass]="'p-carousel-content'">
 				<div class="p-carousel-container">
-					<button type="button" [ngClass]="{'p-carousel-prev p-link':true, 'p-disabled': isBackwardNavDisabled()}" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)">
+					<button type="button" [ngClass]="{'p-carousel-prev p-link':true, 'p-disabled': isBackwardNavDisabled()}" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical()}"></span>
 					</button>
 					<div class="p-carousel-items-content" [ngStyle]="{'height': isVertical() ? verticalViewPortHeight : 'auto'}">
@@ -37,7 +38,7 @@ import { UniqueComponentId } from 'primeng/utils';
 							</div>
 						</div>
 					</div>
-					<button type="button" [ngClass]="{'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled()}" [disabled]="isForwardNavDisabled()" (click)="navForward($event)">
+					<button type="button" [ngClass]="{'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled()}" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple>
 						<span [ngClass]="{'p-carousel-prev-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical()}"></span>
 					</button>
 				</div>
@@ -626,7 +627,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-	imports: [CommonModule, SharedModule],
+	imports: [CommonModule, SharedModule, RippleModule],
 	exports: [CommonModule, Carousel, SharedModule],
 	declarations: [Carousel]
 })

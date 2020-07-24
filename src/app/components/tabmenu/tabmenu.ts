@@ -1,6 +1,7 @@
 import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from 'primeng/api';
+import {RippleModule} from 'primeng/ripple';
 import {PrimeTemplate, SharedModule} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 import {DomHandler} from 'primeng/dom';
@@ -13,7 +14,7 @@ import {DomHandler} from 'primeng/dom';
                 <li *ngFor="let item of model; let i = index" role="tab" [attr.aria-selected]="activeItem==item" [attr.aria-expanded]="activeItem==item"
                     [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight':activeItem==item,'p-hidden': item.visible === false}">
                     <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
-                        [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id">
+                        [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                         <ng-container *ngIf="!itemTemplate">
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
                             <span class="p-menuitem-text">{{item.label}}</span>
@@ -23,7 +24,7 @@ import {DomHandler} from 'primeng/dom';
                     <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
                         role="presentation" class="p-menuitem-link" (click)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
                         [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
-                        [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
+                        [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
                         <ng-container *ngIf="!itemTemplate">
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
                             <span class="p-menuitem-text">{{item.label}}</span>
@@ -113,7 +114,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,SharedModule],
+    imports: [CommonModule,RouterModule,SharedModule,RippleModule],
     exports: [TabMenu,RouterModule,SharedModule],
     declarations: [TabMenu]
 })

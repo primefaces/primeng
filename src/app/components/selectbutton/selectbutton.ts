@@ -2,6 +2,7 @@ import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRe
 import {CommonModule} from '@angular/common';
 import {SelectItem} from 'primeng/api';
 import {ObjectUtils} from 'primeng/utils';
+import {RippleModule} from 'primeng/ripple';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -17,7 +18,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             <div *ngFor="let option of options; let i = index" #btn class="p-button p-component" [class]="option.styleClass" role="button" [attr.aria-pressed]="isSelected(option)"
                 [ngClass]="{'p-highlight':isSelected(option), 'p-disabled': disabled || option.disabled, 
                 'p-button-icon-only': (option.icon && !option.label)}" (click)="onItemClick($event,option,i)" (keydown.enter)="onItemClick($event,option,i)"
-                [attr.title]="option.title" [attr.aria-label]="option.label" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy">
+                [attr.title]="option.title" [attr.aria-label]="option.label" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.aria-labelledby]="ariaLabelledBy" pRipple>
                 <ng-container *ngIf="!itemTemplate else customcontent">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon"></span>
                     <span class="p-button-label">{{option.label}}</span>
@@ -154,7 +155,7 @@ export class SelectButton implements ControlValueAccessor, OnChanges {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [SelectButton],
     declarations: [SelectButton]
 })

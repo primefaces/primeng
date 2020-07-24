@@ -1,7 +1,7 @@
 import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
-import {RippleModule, Ripple} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple';  
 
 @Directive({
     selector: '[pButton]'

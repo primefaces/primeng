@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message,PrimeTemplate,MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
+import {RippleModule} from 'primeng/ripple';
 
 @Component({
     selector: 'p-messages',
@@ -24,7 +25,7 @@ import {Subscription} from 'rxjs';
                             <span *ngIf="msg.summary" class="p-message-summary">{{msg.summary}}</span>
                             <span *ngIf="msg.detail" class="p-message-detail">{{msg.detail}}</span>
                         </ng-template>
-                        <button class="p-message-close p-link" (click)="clear($event)" *ngIf="closable" type="button">
+                        <button class="p-message-close p-link" (click)="clear($event)" *ngIf="closable" type="button" pRipple>
                             <i class="p-message-close-icon pi pi-times"></i>
                         </button>
                     </div>
@@ -196,7 +197,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [Messages],
     declarations: [Messages]
 })

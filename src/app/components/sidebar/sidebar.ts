@@ -1,6 +1,7 @@
 import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
+import {RippleModule} from 'primeng/ripple';
 import {DomHandler} from 'primeng/dom';
 
 @Component({
@@ -12,7 +13,7 @@ import {DomHandler} from 'primeng/dom';
             'p-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
             <div class="p-sidebar-content">
-                <button type="button" class="p-sidebar-close p-link" *ngIf="showCloseIcon" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel">
+                <button type="button" class="p-sidebar-close p-link" *ngIf="showCloseIcon" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel" pRipple>
                     <span class="p-sidebar-close-icon pi pi-times"></span>
                 </button>
                 <ng-content></ng-content>
@@ -245,7 +246,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [Sidebar],
     declarations: [Sidebar]
 })
