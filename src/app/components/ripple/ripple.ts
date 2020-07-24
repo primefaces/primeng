@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
-    selector: '[pRipple]'
+    selector: '[pRipple]',
+    host: {
+        '[class.p-ripple]': 'true'
+    }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
 
