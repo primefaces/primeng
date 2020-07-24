@@ -49,9 +49,9 @@
             
         <h5>Programmatic</h5>
         <div style="padding: .5em 0 1em 0">
-            <button type="button" pButton [icon]="index === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" class="p-button-text" label="Toggle 1st"></button>
-            <button type="button" pButton [icon]="index === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" class="p-button-text" label="Toggle 2st" style="margin-left: .5em"></button>
-            <button type="button" pButton [icon]="index === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" class="p-button-text" label="Toggle 3st" style="margin-left: .5em"></button>
+            <p-button [icon]="index === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"></p-button>
+            <p-button [icon]="index === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text" label="Toggle 2st" [style]="{'margin-left': '.5em'}"></p-button>
+            <p-button [icon]="index === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text" label="Toggle 3st" [style]="{'margin-left': '.5em'}"></p-button>
         </div>
             
         <p-accordion [(activeIndex)]="index">
@@ -184,8 +184,8 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';
             <p>Tabs can be controlled programmatically using activeIndex property, in single mode it should be a number and in multiple mode an array of numbers
             that define the indexes of active tabs.</p>
 <app-code lang="markup" ngNonBindable>
-&lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
-&lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+&lt;p-button icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/p-button&gt;
         
 &lt;p-accordion [activeIndex]="index"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
@@ -468,9 +468,9 @@ onTabOpen(e) &#123;
     
 &lt;h5&gt;Programmatic&lt;/h5&gt;
 &lt;div style="padding: .5em 0 1em 0"&gt;
-    &lt;button type="button" pButton [icon]="index === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" class="p-button-text" label="Toggle 1st"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton [icon]="index === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" class="p-button-text" label="Toggle 2st" style="margin-left: .5em"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton [icon]="index === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" class="p-button-text" label="Toggle 3st" style="margin-left: .5em"&gt;&lt;/button&gt;
+    &lt;p-button [icon]="index === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="index === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text" label="Toggle 2st" [style]="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
+    &lt;p-button [icon]="index === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text" label="Toggle 3st" [style]="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
 &lt;/div&gt;
     
 &lt;p-accordion [(activeIndex)]="index"&gt;

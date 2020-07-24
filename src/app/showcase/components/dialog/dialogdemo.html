@@ -1,130 +1,126 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Dialog</span>
-        <span>Dialog is a container to display content in an overlay window.</span>
+    <div class="feature-intro">
+        <h1>Dialog</h1>
+        <p>Dialog is a container to display content in an overlay window.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3>Basic</h3>
-    <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-external-link" label="Show"></button>
-    <p-dialog header="Godfather I" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-            kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        <p-footer>
-            <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"></button>
-            <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>
-        </p-footer>
-    </p-dialog>
-
-    <button type="button" (click)="showBasicDialog2()" pButton icon="pi pi-external-link" label="Long Content"></button>
-    <p-dialog header="Godfather Casting" [(visible)]="displayBasic2" [style]="{width: '50vw'}" [baseZIndex]="10000">
-        Puzo was first to show interest in having Marlon Brando portray Don Vito Corleone by sending a letter to Brando in which he stated Brando was the "only actor who can play the Godfather." Despite Puzo's wishes, the executives at Paramount were against having Brando, partly due to the poor performance of his recent films and also his short temper. Coppola favored Brando or Laurence Olivier for the role, but Olivier's agent refused the role claiming Olivier was sick; however, Olivier went on to star in Sleuth later that year. The studio mainly pushed for Ernest Borgnine to receive the part. Other considerations were George C. Scott, Richard Conte, Anthony Quinn, and Orson Welles.
-        <br><br>
-        After months of debate between Coppola and Paramount over Brando, the two finalists for the role were Borgnine and Brando, the latter of whom Paramount president Stanley Jaffe required to perform a screen test. Coppola did not want to offend Brando and stated that he needed to test equipment in order to set up the screen test at Brando's California residence. For make-up, Brando stuck cotton balls in his cheeks, put shoe polish in his hair to darken it, and rolled his collar. Coppola placed Brando's audition tape in the middle of the videos of the audition tapes as the Paramount executives watched them. The executives were impressed with Brando's efforts and allowed Coppola to cast Brando for the role if Brando accepted a lower salary and put up a bond to ensure he would not cause any delays in production. Brando earned $1.6 million from a net participation deal.
-        <br><br>
-        From the start of production, Coppola wanted Robert Duvall to play the part of Tom Hagen. After screen testing several other actors, Coppola eventually got his wish and Duvall was awarded the part of Tom Hagen. Al Martino, a then famed singer in nightclubs, was notified of the character Johnny Fontane by a friend who read the eponymous novel and felt Martino represented the character of Johnny Fontane. Martino then contacted producer Albert S. Ruddy, who gave him the part. However, Martino was stripped of the part after Coppola became director and then awarded the role to singer Vic Damone. According to Martino, after being stripped of the role, he went to Russell Bufalino, his godfather and a crime boss, who then orchestrated the publication of various news articles that claimed Coppola was unaware of Ruddy giving Martino the part. Damone eventually dropped the role because he did not want to provoke the mob, in addition to being paid too little. Ultimately, the part of Johnny Fontane was given to Martino.
-        <br><br>
-        Robert De Niro originally was given the part of Paulie Gatto. A spot in The Gang That Couldn't Shoot Straight opened up after Al Pacino quit the project in favor of The Godfather, which led De Niro to audition for the role and leave The Godfather after receiving the part. After De Niro quit, Johnny Martino was given the role of Gatto. Coppola cast Diane Keaton for the role of Kay Adams due to her reputation for being eccentric. John Cazale was given the part of Fredo Corleone after Coppola saw him perform in an Off Broadway production. Gianni Russo was given the role of Carlo Rizzi after he was asked to perform a screen test in which he acted out the fight between Rizzi and Connie.
-        <br><br>
-        Nearing the start of filming on March 29, Michael Corleone had yet to be cast. Paramount executives wanted a popular actor, either Warren Beatty or Robert Redford. Producer Robert Evans wanted Ryan O'Neal to receive the role in part due to his recent success in Love Story. Pacino was Coppola's favorite for the role as he could picture him roaming the Sicilian countryside, and wanted an unknown actor who looked like an Italian-American. However, Paramount executives found Pacino to be too short to play Michael. Dustin Hoffman, Martin Sheen, and James Caan also auditioned. Caan was well received by the Paramount executives and was given the part of Michael initially, while the role of Sonny Corleone was awarded to Carmine Caridi. Coppola still pushed for Pacino to play Michael after the fact and Evans eventually conceded, allowing Pacino to have the role of Michael as long as Caan played Sonny. Evans preferred Caan over Caridi because Caan was seven inches shorter than Caridi, which was much closer to Pacino's height. Despite agreeing to play Michael Corleone, Pacino was contracted to star in MGM's The Gang That Couldn't Shoot Straight, but the two studios agreed on a settlement and Pacino was signed by Paramount three weeks before shooting began.
-        <br><br>
-        Coppola gave several roles in the film to family members. He gave his sister, Talia Shire, the role of Connie Corleone. His daughter Sofia played Michael Francis Rizzi, Connie's and Carlo's newborn son. Carmine Coppola, his father, appeared in the film as an extra playing a piano during a scene. Coppola's wife, mother, and two sons all appeared as extras in the picture. Several smaller roles, like Luca Brasi, were cast after the filming had started.
-        <br><br>
-        <p-footer>
-            <button type="button" pButton icon="pi pi-check" (click)="displayBasic2=false" label="Yes"></button>
-            <button type="button" pButton icon="pi pi-times" (click)="displayBasic2=false" label="No" class="ui-button-secondary"></button>
-        </p-footer>
-    </p-dialog>
-
-    <h3>Modal</h3>
-    <button type="button" (click)="showModalDialog()" pButton icon="pi pi-external-link" label="Show"></button>
-    <p-dialog header="Godfather I" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
-        [draggable]="false" [resizable]="false">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-           kind and benevolent to those who give respect,
-           but given to ruthless violence whenever anything stands against the good of the family.</p>
-           <p-footer>
-               <button type="button" pButton icon="pi pi-check" (click)="displayModal=false" label="Yes"></button>
-               <button type="button" pButton icon="pi pi-times" (click)="displayModal=false" label="No" class="ui-button-secondary"></button>
-           </p-footer>
-    </p-dialog>
-
-    <h3>Maximizable</h3>
-    <button type="button" (click)="showMaximizableDialog()" pButton icon="pi pi-external-link" label="Show"></button>
-    <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
-        [draggable]="false" [resizable]="false">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-           kind and benevolent to those who give respect,
-           but given to ruthless violence whenever anything stands against the good of the family.</p>
-           <p-footer>
-               <button type="button" pButton icon="pi pi-check" (click)="displayMaximizable=false" label="Yes"></button>
-               <button type="button" pButton icon="pi pi-times" (click)="displayMaximizable=false" label="No" class="ui-button-secondary"></button>
-           </p-footer>
-    </p-dialog>
-
-    <h3>Position</h3>
-    <div class="p-grid p-dir-col">
-        <div class="p-col">
-            <button type="button" (click)="showPositionDialog('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"></button>
-            <button type="button" (click)="showPositionDialog('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"></button>
+    <div class="card">
+        <h5>Basic</h5>
+        <p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        <p-dialog header="Header" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p-footer>
+                <p-button icon="pi pi-check" (click)="displayBasic=false" label="Yes" styleClass="p-button-text"></p-button>
+                <p-button icon="pi pi-times" (click)="displayBasic=false" label="No"></p-button>
+            </p-footer>
+        </p-dialog>
+    
+        <p-button (click)="showBasicDialog2()" icon="pi pi-external-link" label="Long Content"></p-button>
+        <p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="{width: '50vw'}" [baseZIndex]="10000">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                culpa qui officia deserunt mollit anim id est laborum.</p>
+    
+            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+                qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+                quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+                vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+    
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+                similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+                cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+            <p-footer>
+                <p-button icon="pi pi-check" (click)="displayBasic2=false" label="Yes" class="p-button-text"></p-button>
+                <p-button icon="pi pi-times" (click)="displayBasic2=false" label="No"></p-button>
+            </p-footer>
+        </p-dialog>
+    
+        <h5>Modal</h5>
+        <p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false">
+            <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+               <p-footer>
+                   <p-button icon="pi pi-check" (click)="displayModal=false" label="Yes" class="p-button-text"></p-button>
+                   <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
+               </p-footer>
+        </p-dialog>
+    
+        <h5>Maximizable</h5>
+        <p-button (click)="showMaximizableDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        <p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+               <p-footer>
+                   <p-button icon="pi pi-check" (click)="displayMaximizable=false" label="Yes" class="p-button-text"></p-button>
+                   <p-button icon="pi pi-times" (click)="displayMaximizable=false" label="No"></p-button>
+               </p-footer>
+        </p-dialog>
+    
+        <h5>Position</h5>
+        <div class="p-grid p-dir-col">
+            <div class="p-col">
+                <p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"></p-button>
+            </div>
+            <div class="p-col">
+                <p-button (click)="showPositionDialog('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('topright')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
+            </div>
+            <div class="p-col">
+                <p-button (click)="showPositionDialog('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showPositionDialog('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"></p-button>
+            </div>
         </div>
-        <div class="p-col">
-            <button type="button" (click)="showPositionDialog('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"></button>
-            <button type="button" (click)="showPositionDialog('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"></button>
-            <button type="button" (click)="showPositionDialog('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"></button>
-        </div>
-        <div class="p-col">
-            <button type="button" (click)="showPositionDialog('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"></button>
-            <button type="button" (click)="showPositionDialog('bottom')" pButton icon="pi pi-arrow-up" label="Bottom" class="ui-button-warning"></button>
-            <button type="button" (click)="showPositionDialog('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"></button>
-        </div>
+        <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false">
+            <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+               His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+               Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+               kind and benevolent to those who give respect,
+               but given to ruthless violence whenever anything stands against the good of the family.</p>
+               <p-footer>
+                   <p-button icon="pi pi-check" (click)="displayPosition=false" label="Yes" class="p-button-text"></p-button>
+                   <p-button icon="pi pi-times" (click)="displayPosition=false" label="No"></p-button>
+               </p-footer>
+        </p-dialog>
     </div>
-    <p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
-        [draggable]="false" [resizable]="false">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-           kind and benevolent to those who give respect,
-           but given to ruthless violence whenever anything stands against the good of the family.</p>
-           <p-footer>
-               <button type="button" pButton icon="pi pi-check" (click)="displayPosition=false" label="Yes"></button>
-               <button type="button" pButton icon="pi pi-times" (click)="displayPosition=false" label="No" class="ui-button-secondary"></button>
-           </p-footer>
-    </p-dialog>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;DialogModule&#125; from 'primeng/dialog';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Dialog is used as a container and visibility is controlled with visible property.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
     Content
 &lt;/p-dialog&gt;
 
-&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
-</code>
-</pre>
+&lt;button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class ModelComponent &#123;
 
     display: boolean = false;
@@ -134,34 +130,28 @@ export class ModelComponent &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>By default dialog is hidden and enabling the <i>visible</i> property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
 
-            <h3>Dimensions</h3>
+            <h5>Dimensions</h5>
             <p>Use style property to define the dimensions of the Dialog.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dialog header="Title" [(visible)]="display" [style]="&#123;width: '50vw'&#125;"&gt;
     Content
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Responsive</h3>
+            <h5>Responsive</h5>
             <p>Responsiveness can easily be implemented using media queries.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dialog header="Title" [(visible)]="display" styleClass="mydialog"&gt;
 Content
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-css" pCode ngNonBindable>
+<app-code lang="css" ngNonBindable>
 .mydialog &#123;
     width: 50vw;
 &#125;
@@ -171,14 +161,12 @@ Content
         width: 75vw;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Header and Footer</h3>
+            <h5>Header and Footer</h5>
             <p>Header and Footer sections are useful to include custom content. Note that <i>Header</i> and <i>Footer</i> components should be imported and defined
             at directives section of your component for this to work.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dialog [(visible)]="display"&gt;
     &lt;p-header&gt;
         Header content here
@@ -188,36 +176,30 @@ Content
         //buttons
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Positioning</h3>
+            <h5>Positioning</h5>
             <p>Dialog location is controlled with the <i>position</i> property whose default value is center. Other valid values are top", "bottom", "left", "right", "topleft", "topright", "bottomleft" and "bottomright". You may also call the resetPosition() method of Dialog to re-position it after the content or position changes.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dialog position="top" [(visible)]="display"&gt;
 Content
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Overlays Inside</h3>
+            <h5>Overlays Inside</h5>
             <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can
             either append the overlay to the body or allow overflow in dialog.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dialog&gt;
     &lt;p-dropdown appendTo="body"&gt;&lt;/p-dropdown&gt;
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
 
-            <h3>RTL Support</h3>
-            <p>RTL orientation is enabled by adding "ui-rtl" to an ancestor element of dialog in combination with standard dir="rtl" option.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;div class="ui-rtl" dir="rtl"&gt;
+            <h5>RTL Support</h5>
+            <p>RTL orientation is enabled by adding "p-rtl" to an ancestor element of dialog in combination with standard dir="rtl" option.</p>
+<app-code lang="markup" ngNonBindable>
+&lt;div class="p-rtl" dir="rtl"&gt;
     &lt;p-dialog [(visible)]="display"&gt;
         &lt;p-header&gt;
             Header content here
@@ -228,19 +210,16 @@ Content
         &lt;/p-footer&gt;
     &lt;/p-dialog&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Animation Configuration</h3>
+            <h5>Animation Configuration</h5>
             <p>Transition of the Dialog open and hide animations can be customized using the transitionOptions property with a default value as <b>150ms cubic-bezier(0, 0, 0.2, 1)</b>,
                 example below disables the animation altogether.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dialog [(visible)]="display" [transitionOptions]="'0ms'"&gt;&lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -442,7 +421,7 @@ Content
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -482,7 +461,7 @@ Content
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -494,38 +473,38 @@ Content
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-dialog</td>
+                            <td>p-dialog</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar</td>
+                            <td>p-dialog-titlebar</td>
                             <td>Container of header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-title</td>
+                            <td>p-dialog-title</td>
                             <td>Header element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-icon</td>
+                            <td>p-dialog-titlebar-icon</td>
                             <td>Icon container inside header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-close</td>
+                            <td>p-dialog-titlebar-close</td>
                             <td>Close icon element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-content</td>
+                            <td>p-dialog-content</td>
                             <td>Content element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-footer</td>
+                            <td>p-dialog-footer</td>
                             <td>Footer element.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -536,89 +515,87 @@ Content
             <a href="https://stackblitz.com/edit/primeng-dialog-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3&gt;Basic&lt;/h3&gt;
-&lt;button type="button" (click)="showBasicDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
-&lt;p-dialog header="Godfather I" [(visible)]="displayBasic" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+<app-code lang="markup" ngNonBindable>
+&lt;h5&gt;Basic&lt;/h5&gt;
+&lt;p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Header" [(visible)]="displayBasic" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
     &lt;p-footer&gt;
-        &lt;button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"&gt;&lt;/button&gt;
-        &lt;button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+        &lt;p-button icon="pi pi-check" (click)="displayBasic=false" label="Yes" styleClass="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-times" (click)="displayBasic=false" label="No"&gt;&lt;/p-button&gt;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
-&lt;button type="button" (click)="showBasicDialog2()" pButton icon="pi pi-external-link" label="Long Content"&gt;&lt;/button&gt;
-&lt;p-dialog header="Godfather Casting" [(visible)]="displayBasic2" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
-    Puzo was first to show interest in having Marlon Brando portray Don Vito Corleone by sending a letter to Brando in which he stated Brando was the "only actor who can play the Godfather." Despite Puzo's wishes, the executives at Paramount were against having Brando, partly due to the poor performance of his recent films and also his short temper. Coppola favored Brando or Laurence Olivier for the role, but Olivier's agent refused the role claiming Olivier was sick; however, Olivier went on to star in Sleuth later that year. The studio mainly pushed for Ernest Borgnine to receive the part. Other considerations were George C. Scott, Richard Conte, Anthony Quinn, and Orson Welles.
-    &lt;br&gt;&lt;br&gt;
-    After months of debate between Coppola and Paramount over Brando, the two finalists for the role were Borgnine and Brando, the latter of whom Paramount president Stanley Jaffe required to perform a screen test. Coppola did not want to offend Brando and stated that he needed to test equipment in order to set up the screen test at Brando's California residence. For make-up, Brando stuck cotton balls in his cheeks, put shoe polish in his hair to darken it, and rolled his collar. Coppola placed Brando's audition tape in the middle of the videos of the audition tapes as the Paramount executives watched them. The executives were impressed with Brando's efforts and allowed Coppola to cast Brando for the role if Brando accepted a lower salary and put up a bond to ensure he would not cause any delays in production. Brando earned $1.6 million from a net participation deal.
-    &lt;br&gt;&lt;br&gt;
-    From the start of production, Coppola wanted Robert Duvall to play the part of Tom Hagen. After screen testing several other actors, Coppola eventually got his wish and Duvall was awarded the part of Tom Hagen. Al Martino, a then famed singer in nightclubs, was notified of the character Johnny Fontane by a friend who read the eponymous novel and felt Martino represented the character of Johnny Fontane. Martino then contacted producer Albert S. Ruddy, who gave him the part. However, Martino was stripped of the part after Coppola became director and then awarded the role to singer Vic Damone. According to Martino, after being stripped of the role, he went to Russell Bufalino, his godfather and a crime boss, who then orchestrated the publication of various news articles that claimed Coppola was unaware of Ruddy giving Martino the part. Damone eventually dropped the role because he did not want to provoke the mob, in addition to being paid too little. Ultimately, the part of Johnny Fontane was given to Martino.
-    &lt;br&gt;&lt;br&gt;
-    Robert De Niro originally was given the part of Paulie Gatto. A spot in The Gang That Couldn't Shoot Straight opened up after Al Pacino quit the project in favor of The Godfather, which led De Niro to audition for the role and leave The Godfather after receiving the part. After De Niro quit, Johnny Martino was given the role of Gatto. Coppola cast Diane Keaton for the role of Kay Adams due to her reputation for being eccentric. John Cazale was given the part of Fredo Corleone after Coppola saw him perform in an Off Broadway production. Gianni Russo was given the role of Carlo Rizzi after he was asked to perform a screen test in which he acted out the fight between Rizzi and Connie.
-    &lt;br&gt;&lt;br&gt;
-    Nearing the start of filming on March 29, Michael Corleone had yet to be cast. Paramount executives wanted a popular actor, either Warren Beatty or Robert Redford. Producer Robert Evans wanted Ryan O'Neal to receive the role in part due to his recent success in Love Story. Pacino was Coppola's favorite for the role as he could picture him roaming the Sicilian countryside, and wanted an unknown actor who looked like an Italian-American. However, Paramount executives found Pacino to be too short to play Michael. Dustin Hoffman, Martin Sheen, and James Caan also auditioned. Caan was well received by the Paramount executives and was given the part of Michael initially, while the role of Sonny Corleone was awarded to Carmine Caridi. Coppola still pushed for Pacino to play Michael after the fact and Evans eventually conceded, allowing Pacino to have the role of Michael as long as Caan played Sonny. Evans preferred Caan over Caridi because Caan was seven inches shorter than Caridi, which was much closer to Pacino's height. Despite agreeing to play Michael Corleone, Pacino was contracted to star in MGM's The Gang That Couldn't Shoot Straight, but the two studios agreed on a settlement and Pacino was signed by Paramount three weeks before shooting began.
-    &lt;br&gt;&lt;br&gt;
-    Coppola gave several roles in the film to family members. He gave his sister, Talia Shire, the role of Connie Corleone. His daughter Sofia played Michael Francis Rizzi, Connie's and Carlo's newborn son. Carmine Coppola, his father, appeared in the film as an extra playing a piano during a scene. Coppola's wife, mother, and two sons all appeared as extras in the picture. Several smaller roles, like Luca Brasi, were cast after the filming had started.
-    &lt;br&gt;&lt;br&gt;
+&lt;p-button (click)="showBasicDialog2()" icon="pi pi-external-link" label="Long Content"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Long Content" [(visible)]="displayBasic2" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+
+    &lt;p&gt;"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+        qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+        quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&lt;/p&gt;
+
+    &lt;p&gt;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+        similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+        cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+        eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.&lt;/p&gt;
     &lt;p-footer&gt;
-        &lt;button type="button" pButton icon="pi pi-check" (click)="displayBasic2=false" label="Yes"&gt;&lt;/button&gt;
-        &lt;button type="button" pButton icon="pi pi-times" (click)="displayBasic2=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+        &lt;p-button icon="pi pi-check" (click)="displayBasic2=false" label="Yes" class="p-button-text"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-times" (click)="displayBasic2=false" label="No"&gt;&lt;/p-button&gt;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
-&lt;h3&gt;Modal&lt;/h3&gt;
-&lt;button type="button" (click)="showModalDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
-&lt;p-dialog header="Godfather I" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
+&lt;h5&gt;Modal&lt;/h5&gt;
+&lt;p-button (click)="showModalDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
+&lt;p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"&gt;
-    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect,
-        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+    &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;p-footer&gt;
-            &lt;button type="button" pButton icon="pi pi-check" (click)="displayModal=false" label="Yes"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-times" (click)="displayModal=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+            &lt;p-button icon="pi pi-check" (click)="displayModal=false" label="Yes" class="p-button-text"&gt;&lt;/p-button&gt;
+            &lt;p-button icon="pi pi-times" (click)="displayModal=false" label="No"&gt;&lt;/p-button&gt;
         &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
-&lt;h3&gt;Maximizable&lt;/h3&gt;
-&lt;button type="button" (click)="showMaximizableDialog()" pButton icon="pi pi-external-link" label="Show"&gt;&lt;/button&gt;
+&lt;h5&gt;Maximizable&lt;/h5&gt;
+&lt;p-button (click)="showMaximizableDialog()" icon="pi pi-external-link" label="Show"&gt;&lt;/p-button&gt;
 &lt;p-dialog header="Godfather I" [(visible)]="displayMaximizable" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"&gt;
-    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect,
-        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;p-footer&gt;
-            &lt;button type="button" pButton icon="pi pi-check" (click)="displayMaximizable=false" label="Yes"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-times" (click)="displayMaximizable=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+            &lt;p-button icon="pi pi-check" (click)="displayMaximizable=false" label="Yes" class="p-button-text"&gt;&lt;/p-button&gt;
+            &lt;p-button icon="pi pi-times" (click)="displayMaximizable=false" label="No"&gt;&lt;/p-button&gt;
         &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
-&lt;h3&gt;Position&lt;/h3&gt;
+&lt;h5&gt;Position&lt;/h5&gt;
 &lt;div class="p-grid p-dir-col"&gt;
     &lt;div class="p-col"&gt;
-        &lt;button type="button" (click)="showPositionDialog('left')" pButton icon="pi pi-arrow-right" label="Left" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="showPositionDialog('right')" pButton icon="pi pi-arrow-left" label="Right" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;p-button (click)="showPositionDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-    &lt;button type="button" (click)="showPositionDialog('topleft')" pButton icon="pi pi-arrow-down" label="TopLeft" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="showPositionDialog('top')" pButton icon="pi pi-arrow-down" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="showPositionDialog('topright')" pButton icon="pi pi-arrow-down" label="TopRight" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;p-button (click)="showPositionDialog('topleft')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('topright')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-    &lt;button type="button" (click)="showPositionDialog('bottomleft')" pButton icon="pi pi-arrow-up" label="BottomLeft" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="showPositionDialog('bottom')" pButton icon="pi pi-arrow-up" label="Top" class="ui-button-warning"&gt;&lt;/button&gt;
-        &lt;button type="button" (click)="showPositionDialog('bottomright')" pButton icon="pi pi-arrow-up" label="BottomRight" class="ui-button-warning"&gt;&lt;/button&gt;
+        &lt;p-button (click)="showPositionDialog('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="showPositionDialog('bottomright')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-warning"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;" [maximizable]="true" [baseZIndex]="10000"
+&lt;p-dialog header="Godfather I" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
@@ -626,29 +603,13 @@ Content
         kind and benevolent to those who give respect,
         but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;p-footer&gt;
-            &lt;button type="button" pButton icon="pi pi-check" (click)="displayPosition=false" label="Yes"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="pi pi-times" (click)="displayPosition=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
+            &lt;p-button icon="pi pi-check" (click)="displayPosition=false" label="Yes" class="p-button-text"&gt;&lt;/p-button&gt;
+            &lt;p-button icon="pi pi-times" (click)="displayPosition=false" label="No"&gt;&lt;/p-button&gt;
         &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './dialogdemo.html',
-    styles: [`
-        :host ::ng-deep .ui-button &#123;
-            margin: .5em .5em .5em 0;
-            width: 140px;
-        &#125;
-        @media screen and (max-width: 40em) &#123;
-            :host ::ng-deep .ui-dialog &#123;
-                width: 75vw !important;
-            &#125;
-        &#125;
-    `]
-&#125;)
+<app-code lang="typescript" ngNonBindable>
 export class DialogDemo &#123;
 
     displayModal: boolean;
@@ -683,9 +644,30 @@ export class DialogDemo &#123;
         this.position = position;
         this.displayPosition = true;
     &#125;
+
 &#125;
-</code>
-</pre>
+</app-code>
+
+<app-code lang="css" ngNonBindable>
+:host ::ng-deep .p-button &#123;
+    margin: 0 .5rem 0 0;
+    min-width: 10rem;
+&#125;
+
+p &#123;
+    margin: 0;
+&#125;
+
+.confirmation-content &#123;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+&#125;
+
+:host ::ng-deep .p-dialog .p-button &#123;
+    min-width: 6rem;
+&#125;
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

@@ -6,13 +6,15 @@ import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		DialogDemoRoutingModule,
         DialogModule,
-        ButtonModule,
+		ButtonModule,
+		AppCodeModule,
         TabViewModule,
         CodeHighlighterModule
 	],

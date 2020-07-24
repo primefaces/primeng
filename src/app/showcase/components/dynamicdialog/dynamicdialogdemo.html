@@ -1,34 +1,31 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Dynamic Dialog</span>
-        <span>Dialogs can be created dynamically with any component as the content using a DialogService.</span>
+    <div class="feature-intro">
+        <h1>Dynamic Dialog</h1>
+        <p>Dialogs can be created dynamically with any component as the content using a DialogService.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
     <p-toast></p-toast>
 
-    <button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show"></button>
+    <p-button (click)="show()" icon="pi pi-info-circle" label="Show"></p-button>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;DynamicDialogModule&#125; from 'primeng/dynamicdialog';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Dynamic dialogs require an instance of a DialogService that is responsible for displaying a dialog with a component as its content. Since the dynamically
                 loaded content is not defined at build time, a configuration is necessary using the entryComponents of your parent module. Example below, displays a list of cars
                 using the CarsListDemo component so it needs to be configured at entryComponents along with the import of DynamicDialogModule. The configuration of the demo page is as follows;
             </p>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 @NgModule(&#123;
     imports: [
         CommonModule,
@@ -46,13 +43,11 @@ import &#123;DynamicDialogModule&#125; from 'primeng/dynamicdialog';
     ]
 &#125;)
 export class DynamicDialogDemoModule &#123;
-</code>
-</pre>
+</app-code>
 
             <p>Next step, is injecting an instance of a DialogService to the component that will open the dialog.</p>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
 import &#123;DialogService&#125; from 'primeng/dynamicdialog';
 import &#123;CarsListDemo&#125; from './carslistdemo';
@@ -67,33 +62,27 @@ export class DynamicDialogDemo &#123;
     constructor(public dialogService: DialogService) &#123;&#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>Displaying a dialog is done with the open method where the first parameter is the type of component to load and the second parameter is the configuration of the Dialog such as header, width and more.</p>
                 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 show() &#123;
     const ref = this.dialogService.open(CarsListDemo, &#123;
         header: 'Choose a Car',
         width: '70%'
     &#125;);
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>In case you need to pass data to the component that is dynamically loaded, use the data property that can be access using the DynamicDialogConfig class. In additon, the loaded component can also control the Dialog using the DynamicDialogRef API.
                 Both the DynamicDialogConfig and DynamicDialogRef are injectable using the constructor.
             </p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 show() &#123;
     const ref = this.dialogService.open(CarsListDemo, &#123;
         data: &#123;
@@ -103,11 +92,9 @@ show() &#123;
         width: '70%'
     &#125;);
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
 import &#123;Car&#125; from '../../components/domain/car';
 import &#123;CarService&#125; from '../../service/carservice';
@@ -128,14 +115,12 @@ export class CarsListDemo &#123;
         this.carService.getCarsSmall(id).then(cars => this.cars = cars);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
 <p>Most of the time, requirement is returning a value from the dialog. DialogRef's close method is used for this purpose where the parameter passed will be available at the onClose
 event at the caller. Here is an example on how to close the dialog from the CarsListDemo by passing a selected car.
 </p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
 import &#123;Car&#125; from '../../components/domain/car';
 import &#123;CarService&#125; from '../../service/carservice';
@@ -160,12 +145,10 @@ export class CarsListDemo &#123;
         this.ref.close(car);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
             <p>Now at the class that opens the dialog, the selected car gets passed to the Observable.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 show() &#123;
     const ref = this.dialogService.open(CarsListDemo, &#123;
         header: 'Choose a Car',
@@ -178,9 +161,8 @@ show() &#123;
         &#125;
     &#125;);
 &#125;
-</code>
-</pre>
-            <h3>Properties for DynamicDialog</h3>
+</app-code>
+            <h5>Properties for DynamicDialog</h5>
             <p>Dynamic Dialogs provide the following customization options.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -293,7 +275,7 @@ show() &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -318,7 +300,7 @@ show() &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -330,42 +312,42 @@ show() &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-dialog</td>
+                            <td>p-dialog</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-dynamicdialog</td>
+                            <td>p-dynamicdialog</td>
                             <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar</td>
+                            <td>p-dialog-titlebar</td>
                             <td>Container of header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-title</td>
+                            <td>p-dialog-title</td>
                             <td>Header element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-icon</td>
+                            <td>p-dialog-titlebar-icon</td>
                             <td>Icon container inside header.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-titlebar-close</td>
+                            <td>p-dialog-titlebar-close</td>
                             <td>Close icon element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-content</td>
+                            <td>p-dialog-content</td>
                             <td>Content element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dialog-footer</td>
+                            <td>p-dialog-footer</td>
                             <td>Footer element.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -377,17 +359,14 @@ show() &#123;
                 <span>Edit in StackBlitz</span>
             </a>
 
-            <h3>DynamicDialogDemo</h3>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <h5>DynamicDialogDemo</h5>
+<app-code lang="markup" ngNonBindable>
 &lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
 
 &lt;button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show">&lt;/button&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class DynamicDialogDemo implements OnDestroy &#123;
 
     constructor(public dialogService: DialogService, public messageService: MessageService) &#123;&#125;
@@ -413,12 +392,10 @@ export class DynamicDialogDemo implements OnDestroy &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>CarsListDemo</h3>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            <h5>CarsListDemo</h5>
+<app-code lang="markup" ngNonBindable>
 &lt;p-table [value]="cars" [paginator]="true" [rows]="5" [responsive]="true"&gt;
     &lt;ng-template pTemplate="header"&gt;
         &lt;tr&gt;
@@ -431,21 +408,19 @@ export class DynamicDialogDemo implements OnDestroy &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-car&gt;
         &lt;tr&gt;
-            &lt;td&gt;&lt;span class="ui-column-title"&gt;Vin&lt;/span&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&lt;span class="ui-column-title"&gt;Year&lt;/span&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&lt;span class="ui-column-title"&gt;Brand&lt;/span&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&lt;span class="ui-column-title"&gt;Color&lt;/span&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&lt;span class="p-column-title"&gt;Vin&lt;/span&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&lt;span class="p-column-title"&gt;Year&lt;/span&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&lt;span class="p-column-title"&gt;Brand&lt;/span&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&lt;span class="p-column-title"&gt;Color&lt;/span&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
             &lt;td&gt;
                 &lt;button pButton icon="pi pi-search" (click)="selectCar(car)"&gt;&lt;/button&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 export class CarsListDemo &#123;
 
     cars: Car[];
@@ -461,8 +436,7 @@ export class CarsListDemo &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

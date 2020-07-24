@@ -6,6 +6,8 @@ import {TooltipModule} from 'primeng/tooltip';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import {AppCodeModule} from '../../app.code.component';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
 	imports: [
@@ -13,7 +15,9 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		TooltipDemoRoutingModule,
         TooltipModule,
         InputTextModule,
-        TabViewModule,
+		TabViewModule,
+		AppCodeModule,
+		ButtonModule,
         CodeHighlighterModule
 	],
 	declarations: [

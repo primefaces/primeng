@@ -31,9 +31,9 @@
     <div class="card">
         <h5>Programmatic</h5>
         <div style="padding: .5em 0 1em 0">
-            <button type="button" pButton (click)="activeIndex = 0" class="p-button-text" label="Activate 1rd"></button>
-            <button type="button" pButton (click)="activeIndex = 1" class="p-button-text" label="Activate 2rd" style="margin-left: .5em"></button>
-            <button type="button" pButton (click)="activeIndex = 2" class="p-button-text" label="Activate 3rd" style="margin-left: .5em"></button>
+            <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1rd"></p-button>
+            <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2rd" [style]="{'margin-left': '.5em'}"></p-button>
+            <p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd" [style]="{'margin-left': '.5em'}"></p-button>
         </div>
         <p-tabView [(activeIndex)]="activeIndex">
             <p-tabPanel header="Header I">
@@ -266,8 +266,8 @@ handleClose(e) &#123;
             <h5>Programmatic Control</h5>
             <p>Tabs can be controlled programmatically using <i>activeIndex</i> property that defines the index of the active tab.</p>
 <app-code lang="markup" ngNonBindable>
-&lt;button type="button" pButton icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
-&lt;button type="button" pButton icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+&lt;p-button icon="pi pi-chevron-up" (click)="openPrev()"&gt;&lt;/p-button&gt;
+&lt;p-button icon="pi pi-chevron-down" (click)="openNext()"&gt;&lt;/p-button&gt;
 
 &lt;p-tabView [activeIndex]="index"&gt;
     &lt;p-tabPanel header="Header 1"&gt;
@@ -563,9 +563,9 @@ handleChange(e) &#123;
 &lt;div class="card"&gt;
     &lt;h5&gt;Programmatic&lt;/h5&gt;
     &lt;div style="padding: .5em 0 1em 0"&gt;
-        &lt;button type="button" pButton (click)="activeIndex = 0" class="p-button-text" label="Activate 1rd"&gt;&lt;/button&gt;
-        &lt;button type="button" pButton (click)="activeIndex = 1" class="p-button-text" label="Activate 2rd" style="margin-left: .5em"&gt;&lt;/button&gt;
-        &lt;button type="button" pButton (click)="activeIndex = 2" class="p-button-text" label="Activate 3rd" style="margin-left: .5em"&gt;&lt;/button&gt;
+        &lt;p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1rd"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2rd" style="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
+        &lt;p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd" style="&#123;'margin-left': '.5em'&#125;"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
     &lt;p-tabView [(activeIndex)]="activeIndex"&gt;
         &lt;p-tabPanel header="Header I"&gt;

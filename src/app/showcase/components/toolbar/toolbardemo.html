@@ -8,8 +8,8 @@
 <div class="content-section implementation">
     <p-toolbar>
         <div class="p-toolbar-group-left">
-            <button pButton type="button" label="New" icon="pi pi-plus" class="p-mr-2"></button>
-            <button pButton type="button" label="Upload" icon="pi pi-upload" class="p-button-success"></button>
+            <p-button label="New" icon="pi pi-plus" class="p-mr-2"></p-button>
+            <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
                 
             <i class="p-toolbar-separator pi pi-bars p-mr-2" style="vertical-align: middle"></i>
             
@@ -17,9 +17,9 @@
         </div>
         
         <div class="p-toolbar-group-right">
-            <button pButton type="button" icon="pi pi-search" class="p-mr-2"></button>
-            <button pButton type="button" icon="pi pi-calendar" class="p-button-success p-mr-2"></button>
-            <button pButton type="button" icon="pi pi-times" class="p-button-danger"></button>
+            <p-button icon="pi pi-search" class="p-mr-2"></p-button>
+            <p-button icon="pi pi-calendar" styleClass="p-button-success p-mr-2"></p-button>
+            <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
         </div>
     </p-toolbar>
 </div>
@@ -38,8 +38,8 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
 <app-code lang="markup" ngNonBindable>
 &lt;p-toolbar&gt;
     &lt;div class="p-toolbar-group-left"&gt;
-        &lt;button pButton type="button" label="New" icon="pi pi-plus"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Upload" icon="pi pi-upload" class="p-button-success"&gt;&lt;/button&gt;
+        &lt;p-button label="New" icon="pi pi-plus"&gt;&lt;/p-button&gt;
+        &lt;p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"&gt;&lt;/p-button&gt;
             
         &lt;i class="pi pi-bars"&gt;&lt;/i&gt;
         
@@ -47,9 +47,9 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
     &lt;/div&gt;
     
     &lt;div class="p-toolbar-group-right"&gt;
-        &lt;button pButton type="button" icon="pi pi-search"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-calendar" class="p-button-success"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-times" class="p-button-danger"&gt;&lt;/button&gt;
+        &lt;p-button icon="pi pi-search"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-calendar" styleClass="p-button-success"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-times" styleClass="p-button-danger"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
 </app-code>
@@ -123,8 +123,8 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
 <app-code lang="markup" ngNonBindable>
 &lt;p-toolbar&gt;
     &lt;div class="p-toolbar-group-left"&gt;
-        &lt;button pButton type="button" label="New" icon="pi pi-plus" class="p-mr-2"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" label="Upload" icon="pi pi-upload" class="p-button-success"&gt;&lt;/button&gt;
+        &lt;p-button label="New" icon="pi pi-plus" class="p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"&gt;&lt;/p-button&gt;
             
         &lt;i class="p-toolbar-separator pi pi-bars p-mr-2" style="vertical-align: middle"&gt;&lt;/i&gt;
         
@@ -132,15 +132,14 @@ import &#123;ToolbarModule&#125; from 'primeng/toolbar';
     &lt;/div&gt;
     
     &lt;div class="p-toolbar-group-right"&gt;
-        &lt;button pButton type="button" icon="pi pi-search" class="p-mr-2"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-calendar" class="p-button-success p-mr-2"&gt;&lt;/button&gt;
-        &lt;button pButton type="button" icon="pi pi-times" class="p-button-danger"&gt;&lt;/button&gt;
+        &lt;p-button icon="pi pi-search" class="p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-calendar" styleClass="p-button-success p-mr-2"&gt;&lt;/p-button&gt;
+        &lt;p-button icon="pi pi-times" styleClass="p-button-danger"&gt;&lt;/p-button&gt;
     &lt;/div&gt;
 &lt;/p-toolbar&gt;
 </app-code>>
 <app-code lang="typescript" ngNonBindable>
 items: MenuItem[];
-
 ngOnInit() &#123;
     this.items = [
         &#123;
