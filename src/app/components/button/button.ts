@@ -1,6 +1,7 @@
 import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
+import {RippleModule, Ripple} from 'primeng/ripple';  
 
 @Directive({
     selector: '[pButton]'
@@ -110,7 +111,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-button-icon-only': (icon && !label),
                         'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
                         'p-disabled': disabled}"
-                        (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)">
+                        (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)" pRipple>
             <ng-content></ng-content>
             <span [ngClass]="{'p-button-icon': true,
                         'p-button-icon-left': iconPos === 'left' && label,
@@ -153,7 +154,7 @@ export class Button {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,RippleModule],
     exports: [ButtonDirective,Button],
     declarations: [ButtonDirective,Button]
 })
