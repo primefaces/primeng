@@ -1,8 +1,9 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler} from 'primeng/dom';
+import { PrimeTemplate } from '../api/shared';
 
 @Component({
     selector: 'p-sidebar',
@@ -17,6 +18,7 @@ import {DomHandler} from 'primeng/dom';
                     <span class="p-sidebar-close-icon pi pi-times"></span>
                 </button>
                 <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -36,7 +38,7 @@ import {DomHandler} from 'primeng/dom';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./sidebar.css']
 })
-export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
+export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
 
     @Input() position: string = 'left';
 
@@ -66,6 +68,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
@@ -86,6 +90,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     executePostDisplayActions: boolean;
 
+    contentTemplate: TemplateRef<any>;
+
     constructor(public el: ElementRef, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
@@ -101,6 +107,20 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
         if (this.visible) {
             this.show();
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
     }
 
     @Input() get visible(): boolean {

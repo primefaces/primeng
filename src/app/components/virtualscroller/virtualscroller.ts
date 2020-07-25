@@ -8,8 +8,9 @@ import {BlockableUI} from 'primeng/api';
     selector: 'p-virtualScroller',
     template:`
         <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass">
-            <div class="p-virtualscroller-header" *ngIf="header">
+            <div class="p-virtualscroller-header" *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
             </div>
             <div #content class="p-virtualscroller-content">
                 <div class="p-virtualscroller-list">
@@ -22,8 +23,9 @@ import {BlockableUI} from 'primeng/api';
                     </cdk-virtual-scroll-viewport>
                 </div>
             </div>
-            <div class="p-virtualscroller-footer" *ngIf="footer">
+            <div class="p-virtualscroller-footer" *ngIf="footer || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -63,6 +65,10 @@ export class VirtualScroller implements AfterContentInit,BlockableUI,OnChanges {
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     itemTemplate: TemplateRef<any>;
+
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
 
     loadingItemTemplate: TemplateRef<any>;
 
@@ -111,6 +117,14 @@ export class VirtualScroller implements AfterContentInit,BlockableUI,OnChanges {
 
                 case 'loadingItem':
                     this.loadingItemTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
                 break;
                 
                 default:

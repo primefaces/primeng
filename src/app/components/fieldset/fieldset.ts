@@ -1,7 +1,7 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, QueryList, ContentChildren, TemplateRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from 'primeng/api';
+import {SharedModule, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';  
 
@@ -21,6 +21,7 @@ let idx: number = 0;
                 <ng-template #legendContent>
                     <span class="p-fieldset-legend-text">{{legend}}</span>
                     <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
                 </ng-template>
             </legend>
             <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}" 
@@ -28,6 +29,7 @@ let idx: number = 0;
                          (@fieldsetContent.done)="onToggleDone($event)" role="region">
                 <div class="p-fieldset-content">
                     <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
                 </div>
             </div>
         </fieldset>
@@ -49,11 +51,11 @@ let idx: number = 0;
             transition('void => visible', animate('{{transitionParams}}'))
         ])
     ],
-   changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./fieldset.css']
 })
-export class Fieldset implements BlockableUI {
+export class Fieldset implements AfterContentInit,BlockableUI {
 
     @Input() legend: string;
 
@@ -72,12 +74,32 @@ export class Fieldset implements BlockableUI {
     @Input() styleClass: string;
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public animating: boolean;
+
+    headerTemplate: TemplateRef<any>;
+
+    contentTemplate: TemplateRef<any>;
     
     constructor(private el: ElementRef) {}
     
     id: string = `p-fieldset-${idx++}`;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+    }
         
     toggle(event) {
         if (this.animating) {

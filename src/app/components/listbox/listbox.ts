@@ -18,8 +18,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     selector: 'p-listbox',
     template: `
     <div [ngClass]="'p-listbox p-component'" [ngStyle]="style" [class]="styleClass">
-      <div class="p-listbox-header" *ngIf="headerFacet">
+      <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate">
         <ng-content select="p-header"></ng-content>
+        <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
       </div>
       <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter">
         <div class="p-checkbox p-component" *ngIf="checkbox && multiple && showToggleAll">
@@ -50,8 +51,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
           </li>
         </ul>
       </div>
-      <div class="p-listbox-footer" *ngIf="footerFacet">
+      <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
         <ng-content select="p-footer"></ng-content>
+        <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
       </div>
     </div>
   `,
@@ -112,6 +114,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     public itemTemplate: TemplateRef<any>;
 
+    public headerTemplate: TemplateRef<any>;
+
+    public footerTemplate: TemplateRef<any>;
+
     public _filterValue: string;
 
     public filtered: boolean;
@@ -156,11 +162,19 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-                    break;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
 
                 default:
                     this.itemTemplate = item.template;
-                    break;
+                break;
             }
         });
     }

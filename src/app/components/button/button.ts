@@ -1,7 +1,8 @@
-import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, AfterContentInit, TemplateRef, QueryList} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
-import {RippleModule} from 'primeng/ripple';  
+import {RippleModule} from 'primeng/ripple'; 
+import {PrimeTemplate} from 'primeng/api'; 
 
 @Directive({
     selector: '[pButton]'
@@ -113,6 +114,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-disabled': disabled}"
                         (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)" pRipple>
             <ng-content></ng-content>
+            <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
             <span [ngClass]="{'p-button-icon': true,
                         'p-button-icon-left': iconPos === 'left' && label,
                         'p-button-icon-right': iconPos === 'right' && label,
@@ -126,7 +128,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Button {
+export class Button implements AfterContentInit {
 
     @Input() type: string = "button";
 
@@ -146,11 +148,29 @@ export class Button {
 
     @Input() badgeClass: string;
 
+    contentTemplate: TemplateRef<any>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+                
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+    }
 }
 
 @NgModule({

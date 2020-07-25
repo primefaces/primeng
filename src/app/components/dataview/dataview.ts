@@ -15,8 +15,9 @@ import {FilterUtils} from 'primeng/utils';
                     <i [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
                 </div>
             </div>
-            <div class="p-dataview-header">
+            <div class="p-dataview-header *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="p-paginator-top" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
@@ -38,6 +39,7 @@ import {FilterUtils} from 'primeng/utils';
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             <div class="p-dataview-footer" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -119,6 +121,10 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     itemTemplate: TemplateRef<any>;
 
+    headerTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
+
     paginatorLeftTemplate: TemplateRef<any>;
 
     paginatorRightTemplate: TemplateRef<any>;
@@ -173,6 +179,14 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
                 break;
             }
         });

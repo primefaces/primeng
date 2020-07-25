@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MegaMenuItem,MenuItem} from 'primeng/api';
+import {MegaMenuItem,MenuItem, PrimeTemplate} from 'primeng/api';
 import {RouterModule} from '@angular/router';
 import {RippleModule} from 'primeng/ripple';  
 
@@ -9,12 +9,14 @@ import {RippleModule} from 'primeng/ripple';
     template: `
         <div [class]="styleClass" [ngStyle]="style"
             [ngClass]="{'p-megamenu p-component':true,'p-megamenu-horizontal': orientation == 'horizontal','p-megamenu-vertical': orientation == 'vertical'}">
+            <div class="p-megamenu-start" *ngIf="startTemplate">
+                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            </div>
             <ul class="p-megamenu-root-list" role="menubar">
                 <ng-template ngFor let-category [ngForOf]="model">
                     <li *ngIf="category.separator" class="p-menu-separator" [ngClass]="{'p-hidden': category.visible === false}">
                     <li *ngIf="!category.separator" [ngClass]="{'p-menuitem':true,'p-menuitem-active':category==activeItem, 'p-hidden': category.visible === false}"
                         (mouseenter)="onCategoryMouseEnter($event, category)">
-   
                         <a *ngIf="!category.routerLink" [href]="category.url||'#'" [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id" (click)="onCategoryClick($event, category)" [attr.tabindex]="category.tabindex ? category.tabindex : '0'"
                             [ngClass]="{'p-menuitem-link':true,'p-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass" pRipple>
                             <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
@@ -28,7 +30,6 @@ import {RippleModule} from 'primeng/ripple';
                             <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="p-menuitem-text">{{category.label}}</span>
                         </a>
-
                         <div class="p-megamenu-panel" *ngIf="category.items">
                             <div class="p-megamenu-grid">
                                 <ng-template ngFor let-column [ngForOf]="category.items">
@@ -62,9 +63,14 @@ import {RippleModule} from 'primeng/ripple';
                         </div>
                     </li>
                 </ng-template>
-                <li class="p-megamenu-end">
-                    <ng-content></ng-content>
-                </li>
+                <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
+                    <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+                </div>
+                <ng-template #legacy>
+                    <div class="p-megamenu-end">
+                        <ng-content></ng-content>
+                    </div>
+                </ng-template>
             </ul>
         </div>
     `,
@@ -72,7 +78,7 @@ import {RippleModule} from 'primeng/ripple';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./megamenu.css']
 })
-export class MegaMenu {
+export class MegaMenu implements AfterContentInit {
 
     @Input() model: MegaMenuItem[];
 
@@ -85,13 +91,33 @@ export class MegaMenu {
     @Input() autoZIndex: boolean = true;
 
     @Input() baseZIndex: number = 0;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     activeItem: any;
 
     documentClickListener: any;
+
+    startTemplate: TemplateRef<any>;
+
+    endTemplate: TemplateRef<any>;
                 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'start':
+                    this.startTemplate = item.template;
+                break;
+
+                case 'end':
+                    this.endTemplate = item.template;
+                break;
+            }
+        });
+    }
+
     onCategoryMouseEnter(event, menuitem: MegaMenuItem) {
         if (menuitem.disabled) {
             event.preventDefault();

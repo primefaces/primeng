@@ -1,12 +1,12 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule} from 'primeng/api';
+import {Footer,SharedModule, PrimeTemplate} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
-import {Subscription}   from 'rxjs';
+import {Subscription} from 'rxjs';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -35,8 +35,9 @@ const hideAnimation = animation([
                     <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="option('icon')"></i>
                     <span class="p-confirm-dialog-message" [innerHTML]="option('message')"></span>
                 </div>
-                <div class="p-dialog-footer" *ngIf="footer">
+                <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="!footer">
                     <button type="button" pButton [icon]="option('acceptIcon')" [label]="option('acceptLabel')" (click)="accept()" [ngClass]="'p-confirm-dialog-accept'" [class]="option('acceptButtonStyleClass')" *ngIf="option('acceptVisible')"></button>
@@ -59,7 +60,7 @@ const hideAnimation = animation([
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css']
 })
-export class ConfirmDialog implements OnDestroy {
+export class ConfirmDialog implements AfterContentInit,OnDestroy {
 
     @Input() header: string;
 
@@ -124,7 +125,6 @@ export class ConfirmDialog implements OnDestroy {
         this.cd.markForCheck();
     }
 
-
     @Input() get position(): string {
         return this._position;
     };
@@ -158,6 +158,20 @@ export class ConfirmDialog implements OnDestroy {
     @ContentChild(Footer) footer;
 
     @ViewChild('content') contentViewChild: ElementRef;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'footerTemplate':
+                    this.footerTemplate = item.template;
+                break;
+            }
+        });
+    }
+
+    footerTemplate: TemplateRef<any>;
 
     confirmation: Confirmation;
 

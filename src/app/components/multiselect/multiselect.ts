@@ -93,6 +93,7 @@ export class MultiSelectItem {
                 [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)">
                 <div class="p-multiselect-header" *ngIf="showHeader">
                     <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
                     <div class="p-checkbox p-component" *ngIf="showToggleAll && !selectionLimit">
                         <div class="p-hidden-accessible">
                             <input type="checkbox" readonly="readonly" [checked]="isAllChecked()" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
@@ -128,8 +129,9 @@ export class MultiSelectItem {
                         <li *ngIf="filter && visibleOptions && visibleOptions.length === 0" class="p-multiselect-empty-message">{{emptyFilterMessage}}</li>
                     </ul>
                 </div>
-                <div class="p-multiselect-footer" *ngIf="footerFacet">
+                <div class="p-multiselect-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
                 </div>
             </div>
         </div>
@@ -310,6 +312,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     public itemTemplate: TemplateRef<any>;
 
+    public headerTemplate: TemplateRef<any>;
+
+    public footerTemplate: TemplateRef<any>;
+
     public selectedItemsTemplate: TemplateRef<any>;
 
     public headerCheckboxFocus: boolean;
@@ -352,6 +358,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
                 case 'selectedItems':
                     this.selectedItemsTemplate = item.template;
+                break;
+                
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
                 break;
 
                 default:

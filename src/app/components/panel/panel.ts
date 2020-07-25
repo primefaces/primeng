@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Footer, PrimeTemplate} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
@@ -14,6 +14,7 @@ let idx: number = 0;
             <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
                 <div class="p-panel-icons">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                     <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
@@ -26,10 +27,12 @@ let idx: number = 0;
                 role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id  + '-titlebar'">
                 <div class="p-panel-content">
                     <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
                 </div>
                 
-                <div class="p-panel-footer" *ngIf="footerFacet">
+                <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
                 </div>
             </div>
         </div>
@@ -55,7 +58,7 @@ let idx: number = 0;
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./panel.css']
 })
-export class Panel implements BlockableUI {
+export class Panel implements AfterContentInit,BlockableUI {
 
     @Input() toggleable: boolean;
 
@@ -90,6 +93,12 @@ export class Panel implements BlockableUI {
     public iconTemplate: TemplateRef<any>;
     
     animating: boolean;
+
+    headerTemplate: TemplateRef<any>;
+
+    contentTemplate: TemplateRef<any>;
+
+    footerTemplate: TemplateRef<any>;
     
     id: string = `p-panel-${idx++}`;
     
@@ -98,8 +107,24 @@ export class Panel implements BlockableUI {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
+
                 case 'icons':
                     this.iconTemplate = item.template;
+                break;
+
+                default:
+                    this.contentTemplate = item.template;
                 break;
             }
         });

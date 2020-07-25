@@ -19,6 +19,7 @@ let idx: number = 0;
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{header}}
                     </span>
+                    <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
                     <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
                 </a>
             </div>
@@ -50,7 +51,7 @@ let idx: number = 0;
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./accordion.css']
 })
-export class AccordionTab implements OnDestroy {
+export class AccordionTab implements AfterContentInit,OnDestroy {
 
     @Input() header: string;
 
@@ -82,6 +83,8 @@ export class AccordionTab implements OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
+    headerTemplate: TemplateRef<any>;
+
     id: string = `p-accordiontab-${idx++}`;
 
     loaded: boolean;
@@ -97,6 +100,10 @@ export class AccordionTab implements OnDestroy {
             switch(item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
+                break;
+
+                case 'header':
+                    this.header = item.template;
                 break;
                 
                 default:
