@@ -18,7 +18,7 @@ import { PrimeTemplate } from '../api/shared';
                     <span class="p-sidebar-close-icon pi pi-times"></span>
                 </button>
                 <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
         </div>
     `,

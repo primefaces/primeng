@@ -10,7 +10,7 @@ import {BlockableUI} from 'primeng/api';
         <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass">
             <div class="p-virtualscroller-header" *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div #content class="p-virtualscroller-content">
                 <div class="p-virtualscroller-list">
@@ -25,7 +25,7 @@ import {BlockableUI} from 'primeng/api';
             </div>
             <div class="p-virtualscroller-footer" *ngIf="footer || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </div>
     `,

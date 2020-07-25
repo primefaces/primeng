@@ -19,7 +19,7 @@ let idx: number = 0;
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{header}}
                     </span>
-                    <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
                 </a>
             </div>

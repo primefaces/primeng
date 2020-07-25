@@ -117,9 +117,7 @@ export class TabPanel implements AfterContentInit,OnDestroy {
                                 <span class="p-tabview-title">{{tab.header}}</span>
                                 <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
                             </ng-container>
-                            <ng-container *ngIf="tab.headerTemplate">
-                                <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
-                            </ng-container>
+                            <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                             <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event,tab)"></span>
                         </a>
                     </li>

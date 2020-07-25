@@ -14,7 +14,7 @@ let idx: number = 0;
             <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <div class="p-panel-icons">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                     <button *ngIf="toggleable" type="button" [attr.id]="id + '-label'" class="p-panel-header-icon p-panel-toggler p-link" pRipple
@@ -27,12 +27,12 @@ let idx: number = 0;
                 role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id  + '-titlebar'">
                 <div class="p-panel-content">
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
                 
                 <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
             </div>
         </div>

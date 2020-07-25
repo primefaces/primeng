@@ -114,7 +114,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                         'p-disabled': disabled}"
                         (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)" pRipple>
             <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <span [ngClass]="{'p-button-icon': true,
                         'p-button-icon-left': iconPos === 'left' && label,
                         'p-button-icon-right': iconPos === 'right' && label,

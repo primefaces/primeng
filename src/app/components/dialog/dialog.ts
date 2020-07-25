@@ -39,7 +39,7 @@ const hideAnimation = animation([
                     <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
-                    <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="maximizable" type="button" [ngClass]="{'p-dialog-header-icon p-dialog-header-maximize p-link':true}" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
@@ -51,11 +51,11 @@ const hideAnimation = animation([
                 </div>
                 <div #content [ngClass]="'p-dialog-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
                 <div #footer class="p-dialog-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
             </div>

@@ -17,7 +17,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         <div [ngClass]="'p-editor-container'" [class]="styleClass">
             <div class="p-editor-toolbar" *ngIf="toolbar || toolbarTemplate">
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div class="p-editor-toolbar" *ngIf="!toolbar && !toolbarTemplate)">
                 <span class="ql-formats">

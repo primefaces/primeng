@@ -9,24 +9,24 @@ import { BlockableUI } from 'primeng/api';
         <div [ngClass]="'p-card p-component'" [ngStyle]="style" [class]="styleClass">
             <div class="p-card-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div class="p-card-body">
                 <div class="p-card-title" *ngIf="header || titleTemplate">
                     {{header}}
-                    <ng-container *ngTemplateOutlet="titleTemplate" *ngIf="titleTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
                 </div>
                 <div class="p-card-subtitle" *ngIf="subheader || subtitleTemplate">
                     {{subheader}}
-                    <ng-container *ngTemplateOutlet="subtitleTemplate" *ngIf="subtitleTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="subtitleTemplate"></ng-container>
                 </div>
                 <div class="p-card-content">
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
                 <div class="p-card-footer" *ngIf="footerFacet">
                     <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
             </div>
         </div>

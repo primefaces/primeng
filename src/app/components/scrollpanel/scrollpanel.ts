@@ -10,7 +10,7 @@ import { PrimeTemplate } from '../api/shared';
             <div class="p-scrollpanel-wrapper">
                 <div #content class="p-scrollpanel-content">
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
             </div>
             <div #xBar class="p-scrollpanel-bar p-scrollpanel-bar-x"></div>

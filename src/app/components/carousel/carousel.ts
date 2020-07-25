@@ -10,7 +10,7 @@ import { UniqueComponentId } from 'primeng/utils';
 		<div [attr.id]="id" [ngClass]="{'p-carousel p-component':true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical()}" [ngStyle]="style" [class]="styleClass">
 			<div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
 			</div>
 			<div [class]="contentClass" [ngClass]="'p-carousel-content'">
 				<div class="p-carousel-container">
@@ -51,7 +51,7 @@ import { UniqueComponentId } from 'primeng/utils';
 			</div>
 			<div class="p-carousel-footer" *ngIf="footerFacet || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
 			</div>
 		</div>
     `,

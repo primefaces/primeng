@@ -21,7 +21,7 @@ let idx: number = 0;
                 <ng-template #legendContent>
                     <span class="p-fieldset-legend-text">{{legend}}</span>
                     <ng-content select="p-header"></ng-content>
-                    <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </ng-template>
             </legend>
             <div [attr.id]="id + '-content'" class="p-toggleable-content" [@fieldsetContent]="collapsed ? {value: 'hidden', params: {transitionParams: transitionOptions, height: '0'}} : {value: 'visible', params: {transitionParams: animating ? transitionOptions : '0ms', height: '*'}}" 
@@ -29,7 +29,7 @@ let idx: number = 0;
                          (@fieldsetContent.done)="onToggleDone($event)" role="region">
                 <div class="p-fieldset-content">
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate" *ngIf="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
             </div>
         </fieldset>

@@ -93,7 +93,7 @@ export class MultiSelectItem {
                 [ngStyle]="panelStyle" [class]="panelStyleClass" (keydown)="onKeydown($event)">
                 <div class="p-multiselect-header" *ngIf="showHeader">
                     <ng-content select="p-header"></ng-content>
-                    <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-checkbox p-component" *ngIf="showToggleAll && !selectionLimit">
                         <div class="p-hidden-accessible">
                             <input type="checkbox" readonly="readonly" [checked]="isAllChecked()" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
@@ -131,7 +131,7 @@ export class MultiSelectItem {
                 </div>
                 <div class="p-multiselect-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
             </div>
         </div>

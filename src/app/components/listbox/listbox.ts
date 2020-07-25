@@ -20,7 +20,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     <div [ngClass]="'p-listbox p-component'" [ngStyle]="style" [class]="styleClass">
       <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate">
         <ng-content select="p-header"></ng-content>
-        <ng-container *ngTemplateOutlet="headerTemplate" *ngIf="headerTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
       </div>
       <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter">
         <div class="p-checkbox p-component" *ngIf="checkbox && multiple && showToggleAll">
@@ -53,7 +53,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
       </div>
       <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
         <ng-content select="p-footer"></ng-content>
-        <ng-container *ngTemplateOutlet="footerTemplate" *ngIf="footerTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
       </div>
     </div>
   `,
