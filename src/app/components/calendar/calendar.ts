@@ -162,7 +162,7 @@ export interface LocaleSettings {
                 opacity: 1
             })),
             transition('void => visible', [
-                style({ opacity: 0, transform: 'scaleY(0.8)'}),
+                style({opacity: 0, transform: 'scaleY(0.8)'}),
                 animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' }))
             ]),
             transition('visible => void', [

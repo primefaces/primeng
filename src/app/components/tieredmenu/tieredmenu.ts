@@ -185,8 +185,8 @@ export class TieredMenuSub implements AfterViewInit, OnDestroy {
     animations: [
         trigger('overlayAnimation', [
             transition(':enter', [
-                style({ opacity: 0, transform: 'scaleY(0.8)'}),
-                animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' })),
+                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                animate('{{showTransitionParams}}')
               ]),
               transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
