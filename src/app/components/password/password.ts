@@ -63,29 +63,30 @@ export class Password implements OnDestroy,DoCheck {
         document.body.appendChild(this.panel);
     }
         
-    @HostListener('focus', ['$event']) 
-    onFocus(e) {
+    @HostListener('focus') 
+    onFocus() {
         if (this.feedback) {
             if (!this.panel) {
                 this.createPanel();
             }
     
             this.panel.style.zIndex = String(++DomHandler.zindex);
+            this.panel.style.display = 'block';
             this.zone.runOutsideAngular(() => {
+                
                 setTimeout(() => {
                     DomHandler.addClass(this.panel, 'p-connected-overlay-visible');
-                    DomHandler.removeClass(this.panel, 'p-connected-overlay-hidden');
                 }, 1);
-                DomHandler.absolutePosition(this.panel, this.el.nativeElement);
             });
+            DomHandler.absolutePosition(this.panel, this.el.nativeElement);
         }
     }
     
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {   
+    @HostListener('blur') 
+    onBlur() {   
         if (this.feedback) {
             DomHandler.addClass(this.panel, 'p-connected-overlay-hidden');
-            DomHandler.removeClass(this.panel, 'p-connected-overlay-hidden');
+            DomHandler.removeClass(this.panel, 'p-connected-overlay-visible');
 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
@@ -130,7 +131,7 @@ export class Password implements OnDestroy,DoCheck {
     
     testStrength(str: string) {
         let grade: number = 0;
-        let val;
+        let val: RegExpMatchArray;
 
         val = str.match('[0-9]');
         grade += this.normalize(val ? val.length : 1/4, 1) * 25;
