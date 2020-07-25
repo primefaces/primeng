@@ -126,11 +126,11 @@ export class DropdownItem {
         trigger('overlayAnimation', [
             transition(':enter', [
                 style({ opacity: 0, transform: 'scaleY(0.8)'}),
-                animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' })),
-              ]),
-              transition(':leave', [
+                animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' }))
+            ]),
+            transition(':leave', [
                 animate('{{hideTransitionParams}}', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ],
     host: {
