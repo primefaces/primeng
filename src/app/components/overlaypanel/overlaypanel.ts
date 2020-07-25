@@ -24,11 +24,10 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translateY(5%)',
+                transform: 'scaleY(0.8)',
                 opacity: 0
             })),
             state('close', style({
-                transform: 'translateY(5%)',
                 opacity: 0
             })),
             state('open', style({
@@ -36,7 +35,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
                 opacity: 1
             })),
             transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => close', animate('{{hideTransitionParams}}'))
+            transition('open => close', animate('{{hideTransitionParams}}')),
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,9 +62,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     @Input() focusOnShow: boolean = true;
     
-    @Input() showTransitionOptions: string = '225ms ease-out';
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
-    @Input() hideTransitionOptions: string = '195ms ease-in';
+    @Input() hideTransitionOptions: string = '.1s linear';
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
