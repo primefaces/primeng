@@ -11,7 +11,7 @@ let idx: number = 0;
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
-    animate('{{transition}}', style({ transform: 'none', opacity: 1 }))
+    animate('{{transition}}')
 ]);
 
 const hideAnimation = animation([
