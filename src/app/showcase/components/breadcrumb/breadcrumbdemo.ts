@@ -12,16 +12,13 @@ export class BreadcrumbDemo implements OnInit {
     
     ngOnInit() {
         this.items = [
-            {label:'Categories'},
-            {label:'Sports'},
-            {label:'Football'},
-            {label:'Countries'},
-            {label:'Spain'},
-            {label:'F.C. Barcelona'},
-            {label:'Squad'},
-            {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'}
+            {label: 'Computer'},
+            {label: 'Notebook'},
+            {label: 'Accessories'},
+            {label: 'Backpacks'},
+            {label: 'Item'}
         ];
         
-        this.home = {icon: 'pi pi-home'};
+        this.home = {icon: 'pi pi-home', routerLink: '/'};
     }
 }

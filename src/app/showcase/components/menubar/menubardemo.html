@@ -1,45 +1,42 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Menubar</span>
-        <span>Menubar is an horizontal menu components with support for nested submenus.</span>
+    <div class="feature-intro">
+        <h1>Menubar</h1>
+        <p>Menubar is a horizontal menu component.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-menubar [model]="items">
-        <ng-template pTemplate="start">
-            <img src="assets/showcase/images/primeng.svg" height="40" class="p-mr-2">
-        </ng-template>
-        <ng-template pTemplate="end">
-            <input type="text" pInputText placeholder="Search">
-        </ng-template>
-    </p-menubar>
+    <div class="card">
+        <p-menubar [model]="items">
+            <ng-template pTemplate="start">
+                <img src="assets/showcase/images/primeng.svg" height="40" class="p-mr-2">
+            </ng-template>
+            <ng-template pTemplate="end">
+                <input type="text" pInputText placeholder="Search">
+            </ng-template>
+        </p-menubar>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;MenubarModule&#125; from 'primeng/menubar';
 import &#123;MenuItem&#125; from 'primeng/api';
-</code>
-</pre>
+</app-code>
 
-            <h3>MenuModel API</h3>
+            <h5>MenuModel API</h5>
             <p>Menubar uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Menubar requires nested menuitems as its model.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-menubar [model]="items"&gt;&lt;/p-menubar&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class MenubarDemo &#123;
 
     items: MenuItem[];
@@ -71,22 +68,19 @@ export class MenubarDemo &#123;
         ];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-<h3>Custom Content</h3>
+<h5>Custom Content</h5>
 <p>Custom content can be placed between p-menubar tags.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-menubar [model]="items"&gt;
     &lt;input type="text" pInputText placeholder="Search"&gt;
     &lt;button pButton label="Logout" icon="pi pi-power-off"&gt;&lt;/button&gt;
 &lt;/p-menubar&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -132,7 +126,7 @@ export class MenubarDemo &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -144,34 +138,34 @@ export class MenubarDemo &#123;
                     </thead>
                     <tbody>
                     <tr>
-                        <td>ui-menubar</td>
+                        <td>p-menubar</td>
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>ui-menu-list</td>
+                        <td>p-menu-list</td>
                         <td>List element.</td>
                     </tr>
                     <tr>
-                        <td>ui-menuitem</td>
+                        <td>p-menuitem</td>
                         <td>Menuitem element.</td>
                     </tr>
                     <tr>
-                        <td>ui-menuitem-text</td>
+                        <td>p-menuitem-text</td>
                         <td>Label of a menuitem.</td>
                     </tr>
                     <tr>
-                        <td>ui-menuitem-icon</td>
+                        <td>p-menuitem-icon</td>
                         <td>Icon of a menuitem.</td>
                     </tr>
                     <tr>
-                        <td>ui-submenu-icon</td>
+                        <td>p-submenu-icon</td>
                         <td>Arrow icon of a submenu.</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -182,19 +176,16 @@ export class MenubarDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-menubar-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-menubar [model]="items"&gt;
     &lt;div&gt;
         &lt;input type="text" pInputText placeholder="Search"&gt;
         &lt;button type="button" pButton label="Logout" icon="pi pi-power-off" style="margin-left:.25em"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/p-menubar&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class MenubarDemo &#123;
 
     items: MenuItem[];
@@ -202,84 +193,135 @@ export class MenubarDemo &#123;
     ngOnInit() &#123;
         this.items = [
             &#123;
-                label: 'File',
-                icon: 'pi pi-fw pi-file',
-                items: [&#123;
-                        label: 'New', 
-                        icon: 'pi pi-fw pi-plus',
-                        items: [
-                            &#123;label: 'Project'&#125;,
-                            &#123;label: 'Other'&#125;,
-                        ]
-                    &#125;,
-                    &#123;label: 'Open'&#125;,
-                    &#123;separator:true&#125;,
-                    &#123;label: 'Quit'&#125;
-                ]
-            &#125;,
+            label:'File',
+            icon:'pi pi-fw pi-file',
+            items:[
+                &#123;
+                    label:'New',
+                    icon:'pi pi-fw pi-plus',
+                    items:[
+                        &#123;
+                        label:'Bookmark',
+                        icon:'pi pi-fw pi-bookmark'
+                        &#123;,
+                        &#123;
+                        label:'Video',
+                        icon:'pi pi-fw pi-video'
+                        &#123;,
+
+                    ]
+                &#123;,
+                &#123;
+                    label:'Delete',
+                    icon:'pi pi-fw pi-trash'
+                &#123;,
+                &#123;
+                    separator:true
+                &#123;,
+                &#123;
+                    label:'Export',
+                    icon:'pi pi-fw pi-external-link'
+                &#123;
+            ]
+            &#123;,
             &#123;
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    &#123;label: 'Delete', icon: 'pi pi-fw pi-trash'&#125;,
-                    &#123;label: 'Refresh', icon: 'pi pi-fw pi-refresh'&#125;
-                ]
-            &#125;,
+            label:'Edit',
+            icon:'pi pi-fw pi-pencil',
+            items:[
+                &#123;
+                    label:'Left',
+                    icon:'pi pi-fw pi-align-left'
+                &#123;,
+                &#123;
+                    label:'Right',
+                    icon:'pi pi-fw pi-align-right'
+                &#123;,
+                &#123;
+                    label:'Center',
+                    icon:'pi pi-fw pi-align-center'
+                &#123;,
+                &#123;
+                    label:'Justify',
+                    icon:'pi pi-fw pi-align-justify'
+                &#123;,
+
+            ]
+            &#123;,
             &#123;
-                label: 'Help',
-                icon: 'pi pi-fw pi-question',
-                items: [
-                    &#123;
-                        label: 'Contents'
-                    &#125;,
-                    &#123;
-                        label: 'Search', 
-                        icon: 'pi pi-fw pi-search', 
-                        items: [
+            label:'Users',
+            icon:'pi pi-fw pi-user',
+            items:[
+                &#123;
+                    label:'New',
+                    icon:'pi pi-fw pi-user-plus',
+
+                &#123;,
+                &#123;
+                    label:'Delete',
+                    icon:'pi pi-fw pi-user-minus',
+
+                &#123;,
+                &#123;
+                    label:'Search',
+                    icon:'pi pi-fw pi-users',
+                    items:[
+                        &#123;
+                        label:'Filter',
+                        icon:'pi pi-fw pi-filter',
+                        items:[
                             &#123;
-                                label: 'Text', 
-                                items: [
-                                    &#123;
-                                        label: 'Workspace'
-                                    &#125;
-                                ]
-                            &#125;,
+                                label:'Print',
+                                icon:'pi pi-fw pi-print'
                             &#123;
-                                label: 'File'
-                            &#125;
-                    ]&#125;
-                ]
-            &#125;,
-            &#123;
-                label: 'Actions',
-                icon: 'pi pi-fw pi-cog',
-                items: [
-                    &#123;
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            &#123;label: 'Save', icon: 'pi pi-fw pi-save'&#125;,
-                            &#123;label: 'Update', icon: 'pi pi-fw pi-save'&#125;,
                         ]
-                    &#125;,
-                    &#123;
-                        label: 'Other',
-                        icon: 'pi pi-fw pi-tags',
-                        items: [
-                            &#123;label: 'Delete', icon: 'pi pi-fw pi-minus'&#125;
-                        ]
-                    &#125;
-                ]
-            &#125;,
-            &#123;separator:true&#125;,
+                        &#123;,
+                        &#123;
+                        icon:'pi pi-fw pi-bars',
+                        label:'List'
+                        &#123;
+                    ]
+                &#123;
+            ]
+            &#123;,
             &#123;
-                label: 'Quit', icon: 'pi pi-fw pi-times'
-            &#125;
-        ];
+            label:'Events',
+            icon:'pi pi-fw pi-calendar',
+            items:[
+                &#123;
+                    label:'Edit',
+                    icon:'pi pi-fw pi-pencil',
+                    items:[
+                        &#123;
+                        label:'Save',
+                        icon:'pi pi-fw pi-calendar-plus'
+                        &#123;,
+                        &#123;
+                        label:'Delete',
+                        icon:'pi pi-fw pi-calendar-minus'
+                        &#123;,
+
+                    ]
+                &#123;,
+                &#123;
+                    label:'Archieve',
+                    icon:'pi pi-fw pi-calendar-times',
+                    items:[
+                        &#123;
+                        label:'Remove',
+                        icon:'pi pi-fw pi-calendar-minus'
+                        &#123;
+                    ]
+                &#123;
+            ]
+            &#123;,
+            &#123;
+            label:'Quit',
+            icon:'pi pi-fw pi-power-off'
+            &#123;
+        ]
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

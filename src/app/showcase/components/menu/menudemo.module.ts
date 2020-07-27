@@ -5,7 +5,9 @@ import {MenuDemoRoutingModule} from './menudemo-routing.module';
 import {MenuModule} from 'primeng/menu'
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
+import {ToastModule} from 'primeng/toast';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -13,7 +15,9 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		MenuDemoRoutingModule,
         MenuModule,
         ButtonModule,
-        TabViewModule,
+		TabViewModule,
+		ToastModule,
+		AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [
