@@ -9,6 +9,7 @@ import { FilterUtilsDemoRoutingModule } from './filterutils-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -16,6 +17,7 @@ import { InputTextModule } from 'primeng/inputtext';
 		FilterUtilsDemoRoutingModule,
         ButtonModule,
         TabViewModule,
+        AppCodeModule,
 		CodeHighlighterModule,
 		AutoCompleteModule,
 		FormsModule,

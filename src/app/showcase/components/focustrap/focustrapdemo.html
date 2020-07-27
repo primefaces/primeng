@@ -1,40 +1,40 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Focus Trap</span>
-        <span>Focus Trap keeps focus within a certain DOM element while tabbing.</span>
+    <div class="feature-intro">
+        <h1>Focus Trap</h1>
+        <p>Focus Trap keeps focus within a certain DOM element while tabbing.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <div pFocusTrap>
-        <h3 class="first">Input</h3>
+    <div pFocusTrap class="card">
+        <h5>Input</h5>
         <input id="input" type="text" size="30" pInputText> 
         
-        <h3>Float Label</h3>
-        <span class="ui-float-label">
+        <h5>Float Label</h5>
+        <span class="p-float-label">
             <input id="float-input" type="text" size="30" pInputText> 
             <label for="float-input">Username</label>
         </span>
 
-        <h3>Disabled Input</h3>
+        <h5>Disabled Input</h5>
         <input id="disabled-input" type="text" size="30" pInputText [disabled]="true" />
 
-        <h3>Input with tabindex -1</h3>
+        <h5>Input with tabindex -1</h5>
         <input type="text" size="30" pInputText tabindex="-1" />
 
-        <h3>Button</h3>
+        <h5>Button</h5>
         <button pButton type="button" icon="pi pi-check" label="Check"></button>
 
-        <h3>Disabled Button</h3>
+        <h5>Disabled Button</h5>
         <button pButton type="button" icon="pi pi-check" [disabled]="true" label="Disabled"></button>
 
-        <h3>Button with tabindex -1</h3>
+        <h5>Button with tabindex -1</h5>
         <button pButton type="button" icon="pi pi-check" tabindex="-1"  label="Check"></button>
         
-        <h3>Dropdown</h3>
+        <h5>Dropdown</h5>
         <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
 
-        <h3>Editor</h3>   
+        <h5>Editor</h5>   
         <p-editor [style]="{'height':'320px'}">
             <p-header>
                 <span class="ql-formats">
@@ -50,24 +50,20 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>FocusTrap is applied to a container element with the <b>pFocusTrap</b> directive.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;div pFocusTrap&gt;
     //content
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -89,16 +85,16 @@ import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
                 </table>
             </div>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <p>Directive has no properties.</p>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <p>Directive has no events.</p>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Directive does not apply any styling to host.</p>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -109,9 +105,9 @@ import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
             <a href="https://stackblitz.com/edit/primeng-focustrap-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;div pFocusTrap&gt;
+
+<app-code lang="markup" ngNonBindable>
+&lt;div pFocusTrap class="first"&gt;
     &lt;h3 class="first"&gt;Input&lt;/h3&gt;
     &lt;input id="input" type="text" size="30" pInputText&gt; 
     
@@ -150,11 +146,9 @@ import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
         &lt;/p-header&gt;
     &lt;/p-editor&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class FocusTrapDemo &#123;
 
     selectedCity: string;
@@ -168,8 +162,8 @@ export class FocusTrapDemo &#123;
     ];
     
 &#125;
-</code>
-</pre>
+</app-code>
+
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

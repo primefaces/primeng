@@ -6,6 +6,9 @@
     height: 100%;
     background-color: transparent;
     transition-property: background-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .p-blockui.p-component-overlay {

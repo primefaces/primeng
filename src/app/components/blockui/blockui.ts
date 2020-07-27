@@ -6,7 +6,7 @@ import {PrimeTemplate} from 'primeng/api';
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask [class]="styleClass" [ngClass]="{'p-blockui-document':!target, 'p-blockui p-component-overlay': true}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
+        <div #mask [class]="styleClass" [ngClass]="{'p-blockui-document':!target, 'p-blockui p-component-overlay': true}" [ngStyle]="{display: blocked ? 'flex' : 'none'}">
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </div>
