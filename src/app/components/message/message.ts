@@ -49,7 +49,7 @@ export class UIMessage {
                 break;
 
                 case 'warn':
-                    icon = 'pi-exclamation-triangle';
+                    icon = 'pi pi-exclamation-triangle';
                 break;
 
                 default:

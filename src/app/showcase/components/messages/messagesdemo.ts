@@ -1,65 +1,41 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Message,MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './messagesdemo.html',
-    styles: [`
-        :host ::ng-deep button {
-            margin-right: .25em;
-        }
-
-        :host ::ng-deep .ui-message,
-        :host ::ng-deep .ui-inputtext {
-            margin-right: .25em;
-        }
-
-        :host ::ng-deep .custom-message,
-        :host ::ng-deep img {
-            align-self: center;
-            font-size: 16px;
-            margin-left: .5em;
-        }
-    `],
     providers: [MessageService]
 })
-export class MessagesDemo {
+export class MessagesDemo implements OnInit {
 
-    msgs: Message[] = [];
+    msgs1: Message[];
+
+    msgs2: Message[];
     
     constructor(private messageService: MessageService) {}
-    
-    showSuccess() {
-        this.msgs = [];
-        this.msgs.push({severity:'success', summary:'Success Message', detail:'Order submitted'});
-    }
 
-    showInfo() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
-    }
-
-    showWarn() {
-        this.msgs = [];
-        this.msgs.push({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
-    }
-
-    showError() {
-        this.msgs = [];
-        this.msgs.push({severity:'error', summary:'Error Message', detail:'Validation failed'});
-    }
-
-    showMultiple() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks'});
-        this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
-        this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
+    ngOnInit() {
+        this.msgs1 = [
+            {severity:'success', summary:'Success', detail:'Message Content'},
+            {severity:'info', summary:'Info', detail:'Message Content'},
+            {severity:'warn', summary:'Warning', detail:'Message Content'},
+            {severity:'error', summary:'Error', detail:'Message Content'}
+        ];
     }
     
+    addMessages() {
+        this.msgs2 = [
+            {severity:'success', summary:'Success', detail:'Message Content'},
+            {severity:'info', summary:'Info', detail:'Message Content'},
+            {severity:'warn', summary:'Warning', detail:'Message Content'},
+            {severity:'error', summary:'Error', detail:'Message Content'}
+        ];
+    }
+
+    clearMessages() {
+        this.msgs2 = [];
+    }
+
     showViaService() {
         this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-    }
-
-    clear() {
-        this.msgs = [];
     }
 }
