@@ -15,6 +15,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { FocusTrapModule } from 'primeng/focustrap';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -27,6 +28,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
         AccordionModule,
         TabViewModule,
         CodeHighlighterModule,
+        AppCodeModule,
         FocusTrapModule,
 		AutoCompleteModule,
 		CalendarModule,

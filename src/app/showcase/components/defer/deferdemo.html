@@ -1,14 +1,12 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Defer</span>
-        <span>Defer directive postpones the loading the content that is initially not in viewport until it becomes visible on scroll. Think of
-        pDefer as a smart ngIf that lazily loads content when it becomes visible after page scroll. Scroll down to load the Table
-        which initiates a query that is not executed on initial page load to speed up load performance.</span>
+    <div class="feature-intro">
+        <h1>DeferredContent</h1>
+        <p>DeferredContent postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <div style="height:800px">
+    <div style="height:1200px">
         Table is not loaded yet, scroll down to initialize it.
     </div>
 
@@ -36,36 +34,31 @@
             </p-table>
         </ng-template>
     </div>
-
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-                    <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;DeferModule&#125; from 'primeng/defer';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;div pDefer&gt;
     &lt;ng-template&gt;
        deferred content
    &lt;/ng-template&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Callback</h3>
+            <h5>Callback</h5>
             <p>onLoad callback is useful to initialize the content when it becomes visible on scroll such as loading data.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;div pDefer (onLoad)="initData()"&gt;
     &lt;ng-template&gt;
         &lt;p-table [value]="cars"&gt;
@@ -88,19 +81,16 @@ import &#123;DeferModule&#125; from 'primeng/defer';
     &lt;/p-table&gt;
     &lt;/ng-template&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 this.cars = //initialize
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <p>Directive has no attributes.</p>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -120,10 +110,10 @@ this.cars = //initialize
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Directive does not apply any styling to host.</p>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -134,8 +124,14 @@ this.cars = //initialize
             <a href="https://stackblitz.com/edit/primeng-defer-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
+&lt;div style="height:1200px"&gt;
+    Table is not loaded yet, scroll down to initialize it.
+&lt;/div&gt;
+
+&lt;p-toast&gt;&lt;/p-toast&gt;
+
 &lt;div pDefer (onLoad)="initData()"&gt;
     &lt;ng-template&gt;
         &lt;p-table [value]="cars"&gt;
@@ -158,12 +154,9 @@ this.cars = //initialize
         &lt;/p-table&gt;
     &lt;/ng-template&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class DeferDemo &#123;
 
     cars: Car[];
@@ -174,9 +167,9 @@ export class DeferDemo &#123;
         this.messageService.add(&#123;severity:'success', summary:'Data Initialized', detail:'Render Completed'&#125;);
         this.carService.getCarsSmall().then(cars => this.cars = cars);
      &#125;
+     
  &#125;
-</code>
-</pre>
+</app-code>
 
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">

@@ -257,7 +257,6 @@ declare let gtag: Function;
                     <a [routerLink]="['/progressbar']" routerLinkActive="router-link-active">ProgressBar</a>
                     <a [routerLink]="['/progressspinner']" routerLinkActive="router-link-active">ProgressSpinner</a>
                     <a [routerLink]="['/ripple']" routerLinkActive="router-link-active">Ripple</a>
-                    <a [routerLink]="['/rtl']" routerLinkActive="router-link-active">RTL</a>
                     <a [routerLink]="['/terminal']" routerLinkActive="router-link-active">Terminal</a>
                 </div>
             </div>
