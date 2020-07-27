@@ -1,14 +1,12 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Flex Grid</span>
-        <span>Flex Grid CSS is a lightweight flex based responsive layout utility optimized for mobile phones, tablets and desktops. Flex Grid CSS is not included
-            in PrimeNG as it is provided by <a href="https://github.com/primefaces/primeflex">PrimeFlex</a>, a shared grid library between PrimeFaces, PrimeNG and PrimeReact projects.
-        </span>
+    <div class="feature-intro">
+        <h1>Grid System</h1>
+        <p>Grid is a lightweight flex based responsive layout utility optimized for mobile phones, tablets and desktops.</p>
     </div>
 </div>
 
-<div class="content-section implementation GridDemo">
-    <h3 class="first">Basic</h3>
+<div class="content-section documentation">
+    <h5>Basic</h5>
     <div class="p-grid">
         <div class="p-col">
             <div class="box">1</div>
@@ -21,17 +19,17 @@
         </div>
     </div>
 
-    <h3>Dynamic</h3>
-    <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" style="margin-right: .5em"></button>
-    <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"[disabled]="columns.length === 1"></button>
+    <h5>Dynamic</h5>
+    <button pButton pRipple type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" class="p-mr-2"></button>
+    <button pButton pRipple type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"[disabled]="columns.length === 1"></button>
 
-    <div class="p-grid" style="margin-top: .5em">
+    <div class="p-grid p-mt-2">
         <div class="p-col" *ngFor="let col of columns; let i=index" [@animation]="'visible'">
             <div class="box">{{i + 1}}</div>
         </div>
     </div>
 
-    <h3>Reverse Direction</h3>
+    <h5>Reverse Direction</h5>
     <div class="p-grid p-dir-rev">
         <div class="p-col">
             <div class="box">1</div>
@@ -44,7 +42,7 @@
         </div>
     </div>
 
-    <h3>Column Direction</h3>
+    <h5>Column Direction</h5>
     <div class="p-grid p-dir-col">
         <div class="p-col">
             <div class="box">1</div>
@@ -57,7 +55,7 @@
         </div>
     </div>
 
-    <h3>Reverse Column Direction</h3>
+    <h5>Reverse Column Direction</h5>
     <div class="p-grid p-dir-col-rev">
         <div class="p-col">
             <div class="box">1</div>
@@ -70,7 +68,7 @@
         </div>
     </div>
 
-    <h3>12 Column Grid</h3>
+    <h5>12 Column Grid</h5>
     <div class="p-grid">
         <div class="p-col-4">
             <div class="box">4</div>
@@ -125,7 +123,7 @@
         </div>
     </div>
 
-    <h3>MultiLine</h3>
+    <h5>MultiLine</h5>
     <div class="p-grid">
         <div class="p-col-6">
             <div class="box">6</div>
@@ -141,7 +139,7 @@
         </div>
     </div>
 
-    <h3>Fixed Width Column</h3>
+    <h5>Fixed Width Column</h5>
     <div class="p-grid">
         <div class="p-col-fixed" style="width:100px">
             <div class="box">100px</div>
@@ -151,7 +149,7 @@
         </div>
     </div>
 
-    <h3>Responsive</h3>
+    <h5>Responsive</h5>
     <div class="p-grid">
         <div class="p-col-12 p-md-6 p-lg-3">
             <div class="box">p-col-12 p-md-6 p-lg-3</div>
@@ -167,7 +165,7 @@
         </div>
     </div>
 
-    <h3>Horizontal Alignment - Start</h3>
+    <h5>Horizontal Alignment - Start</h5>
     <div class="p-grid p-justify-start">
         <div class="p-col-2">
             <div class="box">2</div>
@@ -180,7 +178,7 @@
         </div>
     </div>
 
-    <h3>Horizontal Alignment - End</h3>
+    <h5>Horizontal Alignment - End</h5>
     <div class="p-grid p-justify-end">
         <div class="p-col-2">
             <div class="box">2</div>
@@ -193,7 +191,7 @@
         </div>
     </div>
 
-    <h3>Horizontal Alignment - Center</h3>
+    <h5>Horizontal Alignment - Center</h5>
     <div class="p-grid p-justify-center">
         <div class="p-col-2">
             <div class="box">2</div>
@@ -206,7 +204,7 @@
         </div>
     </div>
 
-    <h3>Horizontal Alignment - Between</h3>
+    <h5>Horizontal Alignment - Between</h5>
     <div class="p-grid p-justify-between">
         <div class="p-col-2">
             <div class="box">2</div>
@@ -219,7 +217,7 @@
         </div>
     </div>
 
-    <h3>Horizontal Alignment - Around</h3>
+    <h5>Horizontal Alignment - Around</h5>
     <div class="p-grid p-justify-around">
         <div class="p-col-2">
             <div class="box">2</div>
@@ -232,7 +230,7 @@
         </div>
     </div>
 
-    <h3>Horizontal Alignment - Even</h3>
+    <h5>Horizontal Alignment - Even</h5>
     <div class="p-grid p-justify-even">
         <div class="p-col-2">
             <div class="box">2</div>
@@ -245,7 +243,7 @@
         </div>
     </div>
 
-    <h3>Vertical Alignment - Start</h3>
+    <h5>Vertical Alignment - Start</h5>
     <div class="p-grid p-align-start vertical-container">
         <div class="p-col">
             <div class="box">4</div>
@@ -258,7 +256,7 @@
         </div>
     </div>
 
-    <h3>Vertical Alignment - End</h3>
+    <h5>Vertical Alignment - End</h5>
     <div class="p-grid p-align-end vertical-container">
         <div class="p-col">
             <div class="box">4</div>
@@ -271,7 +269,7 @@
         </div>
     </div>
 
-    <h3>Vertical Alignment - Center</h3>
+    <h5>Vertical Alignment - Center</h5>
     <div class="p-grid p-align-center vertical-container">
         <div class="p-col">
             <div class="box">4</div>
@@ -284,7 +282,7 @@
         </div>
     </div>
 
-    <h3>Vertical Alignment - Stretch</h3>
+    <h5>Vertical Alignment - Stretch</h5>
     <div class="p-grid p-align-stretch vertical-container">
         <div class="p-col">
             <div class="box box-stretched">4</div>
@@ -297,7 +295,7 @@
         </div>
     </div>
 
-    <h3>Vertical Alignment - Per Column</h3>
+    <h5>Vertical Alignment - Per Column</h5>
     <div class="p-grid vertical-container">
         <div class="p-col p-col-align-start">
             <div class="box">4</div>
@@ -310,7 +308,7 @@
         </div>
     </div>
 
-    <h3>Offset</h3>
+    <h5>Offset</h5>
     <div class="p-grid">
         <div class="p-col-6 p-offset-3">
             <div class="box">6</div>
@@ -326,7 +324,7 @@
         </div>
     </div>
 
-    <h3>Nested</h3>
+    <h5>Nested</h5>
     <div class="p-grid nested-grid">
         <div class="p-col-8">
             <div class="p-grid">
@@ -346,73 +344,31 @@
         </div>
     </div>
 
-    <h3>Panel Integration</h3>
+    <h5>Panels</h5>
     <div class="p-grid">
         <div class="p-col">
-            <p-panel header="Godfather">
-                The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-                kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+            <p-panel header="Header">
+                <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-panel>
         </div>
         <div class="p-col">
-            <p-panel header="Godfather">
-                The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-                kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+            <p-panel header="Header">
+                <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-panel>
         </div>
         <div class="p-col">
-            <p-panel header="Godfather">
-                The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-                kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+            <p-panel header="Header">
+                <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </p-panel>
-        </div>
-    </div>
-
-    <h3>Sample Layout</h3>
-    <div class="p-grid sample-layout">
-        <div class="p-col-12 p-md-2">
-            Menu
-        </div>
-        <div class="p-col-12 p-md-10 p-col-nogutter">
-            <div class="p-col-12 p-col-nogutter">
-                Top Bar
-            </div>
-            <div class="p-col-12">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, orci nec
-                        dictum convallis, ligula mauris vestibulum turpis, nec varius tortor quam at diam. Nullam a viverra nibh.
-                        In tincidunt tempor lectus quis vulputate. Pellentesque nec dui aliquam, lobortis est in, lobortis ante</div>
-                    <div class="p-col-12 p-md-4">Maecenas vel nisi aliquet, vulputate tortor id, laoreet massa. Maecenas mattis
-                        tristique bibendum. Suspendisse vel mi dictum, vestibulum lacus quis, pulvinar quam. Proin vulputate, nibh
-                        at finibus varius, leo eros lacinia elit, nec blandit odio tellus a justo. Donec nec ex auctor, tristique
-                        nulla nec, rutrum sapien.</div>
-                    <div class="p-col-12 p-md-4">Proin efficitur in leo eget ornare. Nam vestibulum neque sed velit sagittis
-                        sodales. Sed scelerisque hendrerit magna a hendrerit. Cras tempor sem at justo pharetra convallis.
-                        Curabitur vel sodales purus. Vestibulum interdum facilisis nulla imperdiet suscipit. Quisque lectus felis,
-                        condimentum eget hendrerit sit amet.</div>
-
-                    <div class="p-col-6 p-md-3"><img src="assets/showcase/images/demo/galleria/galleria1.jpg" style="width:100%"></div>
-                    <div class="p-col-6 p-md-3"><img src="assets/showcase/images/demo/galleria/galleria2.jpg" style="width:100%"></div>
-                    <div class="p-col-6 p-md-3"><img src="assets/showcase/images/demo/galleria/galleria3.jpg" style="width:100%"></div>
-                    <div class="p-col-6 p-md-3"><img src="assets/showcase/images/demo/galleria/galleria4.jpg" style="width:100%"></div>
- 
-                    <div class="p-col-12 p-md-6">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
-                        facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque
-                        neque orci, ullamcorper vitae ligula quis, dignissim euismod augue.</div>
-                    <div class="p-col-12 p-md-6">Fusce ullamcorper congue massa, eget ullamcorper nunc lobortis egestas. Lorem
-                        ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultrices dui eget dolor feugiat dapibus. Aliquam
-                        pretium leo et egestas luctus. Nunc facilisis gravida tellus.</div>
-                </div>     
-            </div>
-        </div>
-        <div class="p-col-12">
-            Footer
         </div>
     </div>
 </div>
@@ -420,37 +376,32 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Getting Started</h3>
+            <h5>Istall</h5>
             <p>PrimeFlex is available at npm, if you have an existing application run the following command to download it to your project.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 npm install primeflex --save
-</code>
-</pre>
+</app-code>
 
             <p>Then add the primeflex.css to your application, example below uses styles configuration of an Angular CLI project.</p>
 
-<pre>
-<code class="language-js" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 "styles": [
   "node_modules/primeflex/primeflex.css"
 ],
-</code>
-</pre>
+</app-code>
 
-<p>A basic grid is defined by giving
-    a container <i>p-grid</i> class and children the <i>.p-col</i> class. Children of the grid will have the same width and scale according to the width of the parent.</p>
+            <h5>Getting Started</h5>
+            <p>FlexGrid is a CSS utility based on flexbox. For more information about Flex, visit <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">A Complete Guide to Flexbox</a>. A basic grid is defined by giving
+            a container <i>p-grid</i> class and children the <i>p-col</i> class. Children of the grid will have the same width and scale according to the width of the parent.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col"&gt;1&lt;/div&gt;
     &lt;div class="p-col"&gt;2&lt;/div&gt;
     &lt;div class="p-col"&gt;3&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid">
     <div class="p-col">
@@ -464,10 +415,9 @@ npm install primeflex --save
     </div>
 </div>
 
-            <h3>Direction</h3>
+            <h5>Direction</h5>
             <p>Default direction is <b>row</b> and <i>p-dir-* </i> class at the container defines the other possible directions which can be row reverse, column and column reverse.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 &lt;!-- Row Reverse --&gt;
 &lt;div class="p-grid p-dir-rev"&gt;
     &lt;div class="p-col"&gt;1&lt;/div&gt;
@@ -488,8 +438,7 @@ npm install primeflex --save
     &lt;div class="p-col"&gt;2&lt;/div&gt;
     &lt;div class="p-col"&gt;3&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid p-dir-rev">
     <div class="p-col">
@@ -527,7 +476,7 @@ npm install primeflex --save
     </div>
 </div>
 
-            <h3>12 Column Grid</h3>
+            <h5>12 Column Grid</h5>
             <p>FlexGrid includes a 12 column based layout utility where width of a column is defined with the <i>p-col-&#123;number&#125;</i> style class. Columns with 
                 prefined widths can be used with columns with auto width (p-col) as well.
             </p>
@@ -536,8 +485,7 @@ npm install primeflex --save
                 in the second example, all three columns have explicit units.
             </p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-4"&gt;4&lt;/div&gt;
     &lt;div class="p-col"&gt;1 &lt;/div&gt;
@@ -555,8 +503,7 @@ npm install primeflex --save
     &lt;div class="p-col-6"&gt;6&lt;/div&gt;
     &lt;div class="p-col-4"&gt;4&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid">
     <div class="p-col-4">
@@ -600,18 +547,17 @@ npm install primeflex --save
     </div>
 </div>
 
-            <h3>Multi Line</h3>
+            <h5>MultiLine</h5>
             <p>When the number of columns exceed 12, columns wrap to a new line.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-6"&gt;6&lt;/div&gt;
     &lt;div class="p-col-6"&gt;6&lt;/div&gt;
     &lt;div class="p-col-6"&gt;6&lt;/div&gt;
     &lt;div class="p-col-6"&gt;6&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid">
     <div class="p-col-6">
@@ -628,16 +574,16 @@ npm install primeflex --save
     </div>
 </div>
 
-            <h3>Fixed Width Column</h3>
+            <h5>Fixed Width Column</h5>
             <p>A column can have a fixed width while siblings having auto width. Apply <i>p-col-fixed</i> class to fix a column width.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-fixed" style="width:100px"&gt;Fixed&lt;/div&gt;
     &lt;div class="p-col"&gt;Auto&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
+
 <div class="p-grid">
     <div class="p-col-fixed" style="width:100px">
         <div class="box">100px</div>
@@ -648,7 +594,7 @@ npm install primeflex --save
 </div>
 
 
-        <h3>Responsive</h3>
+        <h5>Responsive</h5>
         <p>Responsive layout is achieved by applying breakpoint specific classes to the columns whereas <i>p-col-*</i> define the default behavior for mobile devices with small screens. 
             Four screen sizes are supported with different breakpoints.</p>
         
@@ -693,16 +639,14 @@ npm install primeflex --save
 
         <p>In example below, large screens display 4 columns, medium screens display 2 columns in 2 rows and finally on small devices, columns are stacked.</p>
         
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;A&lt;/div&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;B&lt;/div&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;C&lt;/div&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;D&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid">
     <div class="p-col-12 p-md-6 p-lg-3">
@@ -719,7 +663,7 @@ npm install primeflex --save
     </div>
 </div>
 
-        <h3>Horizontal Alignment</h3>
+        <h5>Horizontal Alignment</h5>
         <p><i>p-justify-*</i> classes are used on the container element to define the alignment along the main axis.</p>
 
         <div class="doc-tablewrapper">
@@ -759,15 +703,14 @@ npm install primeflex --save
             </table>
         </div>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid p-justify-between"&gt;
     &lt;div class="p-col-2"&gt;2&lt;/div&gt;
     &lt;div class="p-col-1"&gt;1&lt;/div&gt;
     &lt;div class="p-col-4"&gt;4&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
+
 <div class="p-grid p-justify-between">
     <div class="p-col-2">
         <div class="box">2</div>
@@ -780,7 +723,7 @@ npm install primeflex --save
     </div>
 </div>
 
-        <h3>Vertical Alignment</h3>
+        <h5>Vertical Alignment</h5>
         <p><i>p-align-*</i> classes are used on the container element to define the alignment along the cross axis.</p>
 
         <div class="doc-tablewrapper">
@@ -816,15 +759,13 @@ npm install primeflex --save
             </table>
         </div>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid p-align-center"&gt;
     &lt;div class="p-col"&gt;4&lt;/div&gt;
     &lt;div class="p-col"&gt;4&lt;/div&gt;
     &lt;div class="p-col"&gt;4&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid p-align-center vertical-container">
     <div class="p-col">
@@ -870,15 +811,14 @@ npm install primeflex --save
                     </tbody>
                 </table>
             </div>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col p-col-align-start"&gt;4&lt;/div&gt;
     &lt;div class="p-col p-col-align-center"&gt;4&lt;/div&gt;
     &lt;div class="p-col p-col-align-end"&gt;4&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid vertical-container">
     <div class="p-col p-col-align-start">
@@ -892,10 +832,10 @@ npm install primeflex --save
     </div>
 </div>
 
-            <h3>Offset</h3>
+            <h5>Offset</h5>
             <p>Offset classes allow defining a left margin on a column to avoid adding empty columns for spacing.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-6 p-offset-3"&gt;6&lt;/div&gt;
 &lt;/div&gt;
@@ -904,8 +844,7 @@ npm install primeflex --save
     &lt;div class="p-col-4"&gt;4 &lt;/div&gt;
     &lt;div class="p-col-4 p-offset-4"&gt;4&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid">
     <div class="p-col-6 p-offset-3">
@@ -968,10 +907,10 @@ npm install primeflex --save
                 </table>
             </div>
 
-            <h3>Nested</h3>
+            <h5>Nested</h5>
             <p>Columns can be nested to create more complex layouts.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-8"&gt;
         &lt;div class="p-grid"&gt;
@@ -990,8 +929,7 @@ npm install primeflex --save
         4
     &lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
 <div class="p-grid nested-grid">
     <div class="p-col-8">
@@ -1012,23 +950,70 @@ npm install primeflex --save
     </div>
 </div>
 
-        <h3>Gutter</h3>
-        <p>A .5 em padding is applied to each column along with negative margins on the container element, in case you'd like to remove these gutters, apply
+        <h5>Gutter</h5>
+        <p>A .5rem padding is applied to each column along with negative margins on the container element, in case you'd like to remove these gutters, apply
             <i>.p-nogutter</i> class to the container. Gutters can also be removed on an ndividual columns with the same class name.
         </p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="javascript" ngNonBindable>
 &lt;div class="p-grid p-nogutter"&gt;
     &lt;div class="p-col"&gt;1&lt;/div&gt;
     &lt;div class="p-col p-nogutter"&gt;2&lt;/div&gt;
     &lt;div class="p-col"&gt;3&lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-        <h3>Customization</h3>
+        <h5>Customization</h5>
         <p>PrimeFlex allows customization of breakpoints and gutters via SASS variables, visit the <a href="https://github.com/primefaces/primeflex">PrimeFlex</a> repository to get access to the primeflex.scss file to build your own customized Grid.</p>
+
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$sm</td>
+                        <td>576px</td>
+                    </tr>
+                    <tr>
+                        <td>$md</td>
+                        <td>768</td>
+                    </tr>
+                    <tr>
+                        <td>$lg</td>
+                        <td>992</td>
+                    </tr>
+                    <tr>
+                        <td>$xl</td>
+                        <td>1200px</td>
+                    </tr>
+                    <tr>
+                        <td>$gutter</td>
+                        <td>.5rem</td>
+                    </tr>
+                    <tr>
+                        <td>$fieldMargin</td>
+                        <td>1rem</td>
+                    </tr>
+                    <tr>
+                        <td>$fieldLabelMargin</td>
+                        <td>.5rem</td>
+                    </tr>
+                    <tr>
+                        <td>$helperTextMargin</td>
+                        <td>.25rem</td>
+                    </tr>
+                    <tr>
+                        <td>$spacer</td>
+                        <td>1rem</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
 </p-tabPanel>
 
@@ -1038,7 +1023,7 @@ npm install primeflex --save
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;h5&gt;Basic&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col"&gt;
         &lt;div class="box"&gt;1&lt;/div&gt;
@@ -1051,17 +1036,17 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Dynamic&lt;/h3&gt;
-&lt;button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" style="margin-right: .5em"&gt;&lt;/button&gt;
-&lt;button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"[disabled]="columns.length === 1"&gt;&lt;/button&gt;
+&lt;h5&gt;Dynamic&lt;/h5&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" class="p-mr-2"&gt;&lt;/button&gt;
+&lt;button pButton pRipple type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"[disabled]="columns.length === 1"&gt;&lt;/button&gt;
 
-&lt;div class="p-grid" style="margin-top: .5em"&gt;
+&lt;div class="p-grid p-mt-2"&gt;
     &lt;div class="p-col" *ngFor="let col of columns; let i=index" [@animation]="'visible'"&gt;
         &lt;div class="box"&gt;&#123;&#123;i + 1&#125;&#125;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Reverse Direction&lt;/h3&gt;
+&lt;h5&gt;Reverse Direction&lt;/h5&gt;
 &lt;div class="p-grid p-dir-rev"&gt;
     &lt;div class="p-col"&gt;
         &lt;div class="box"&gt;1&lt;/div&gt;
@@ -1074,7 +1059,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Column Direction&lt;/h3&gt;
+&lt;h5&gt;Column Direction&lt;/h5&gt;
 &lt;div class="p-grid p-dir-col"&gt;
     &lt;div class="p-col"&gt;
         &lt;div class="box"&gt;1&lt;/div&gt;
@@ -1087,7 +1072,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Reverse Column Direction&lt;/h3&gt;
+&lt;h5&gt;Reverse Column Direction&lt;/h5&gt;
 &lt;div class="p-grid p-dir-col-rev"&gt;
     &lt;div class="p-col"&gt;
         &lt;div class="box"&gt;1&lt;/div&gt;
@@ -1100,7 +1085,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;12 Column Grid&lt;/h3&gt;
+&lt;h5&gt;12 Column Grid&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-4"&gt;
         &lt;div class="box"&gt;4&lt;/div&gt;
@@ -1155,7 +1140,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;MultiLine&lt;/h3&gt;
+&lt;h5&gt;MultiLine&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-6"&gt;
         &lt;div class="box"&gt;6&lt;/div&gt;
@@ -1171,7 +1156,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Fixed Width Column&lt;/h3&gt;
+&lt;h5&gt;Fixed Width Column&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-fixed" style="width:100px"&gt;
         &lt;div class="box"&gt;100px&lt;/div&gt;
@@ -1181,7 +1166,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Responsive&lt;/h3&gt;
+&lt;h5&gt;Responsive&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-12 p-md-6 p-lg-3"&gt;
         &lt;div class="box"&gt;p-col-12 p-md-6 p-lg-3&lt;/div&gt;
@@ -1197,7 +1182,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Horizontal Alignment - Start&lt;/h3&gt;
+&lt;h5&gt;Horizontal Alignment - Start&lt;/h5&gt;
 &lt;div class="p-grid p-justify-start"&gt;
     &lt;div class="p-col-2"&gt;
         &lt;div class="box"&gt;2&lt;/div&gt;
@@ -1210,7 +1195,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Horizontal Alignment - End&lt;/h3&gt;
+&lt;h5&gt;Horizontal Alignment - End&lt;/h5&gt;
 &lt;div class="p-grid p-justify-end"&gt;
     &lt;div class="p-col-2"&gt;
         &lt;div class="box"&gt;2&lt;/div&gt;
@@ -1223,7 +1208,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Horizontal Alignment - Center&lt;/h3&gt;
+&lt;h5&gt;Horizontal Alignment - Center&lt;/h5&gt;
 &lt;div class="p-grid p-justify-center"&gt;
     &lt;div class="p-col-2"&gt;
         &lt;div class="box"&gt;2&lt;/div&gt;
@@ -1236,7 +1221,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Horizontal Alignment - Between&lt;/h3&gt;
+&lt;h5&gt;Horizontal Alignment - Between&lt;/h5&gt;
 &lt;div class="p-grid p-justify-between"&gt;
     &lt;div class="p-col-2"&gt;
         &lt;div class="box"&gt;2&lt;/div&gt;
@@ -1249,7 +1234,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Horizontal Alignment - Around&lt;/h3&gt;
+&lt;h5&gt;Horizontal Alignment - Around&lt;/h5&gt;
 &lt;div class="p-grid p-justify-around"&gt;
     &lt;div class="p-col-2"&gt;
         &lt;div class="box"&gt;2&lt;/div&gt;
@@ -1262,7 +1247,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Horizontal Alignment - Even&lt;/h3&gt;
+&lt;h5&gt;Horizontal Alignment - Even&lt;/h5&gt;
 &lt;div class="p-grid p-justify-even"&gt;
     &lt;div class="p-col-2"&gt;
         &lt;div class="box"&gt;2&lt;/div&gt;
@@ -1275,7 +1260,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Vertical Alignment - Start&lt;/h3&gt;
+&lt;h5&gt;Vertical Alignment - Start&lt;/h5&gt;
 &lt;div class="p-grid p-align-start vertical-container"&gt;
     &lt;div class="p-col"&gt;
         &lt;div class="box"&gt;4&lt;/div&gt;
@@ -1288,7 +1273,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Vertical Alignment - End&lt;/h3&gt;
+&lt;h5&gt;Vertical Alignment - End&lt;/h5&gt;
 &lt;div class="p-grid p-align-end vertical-container"&gt;
     &lt;div class="p-col"&gt;
         &lt;div class="box"&gt;4&lt;/div&gt;
@@ -1301,7 +1286,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Vertical Alignment - Center&lt;/h3&gt;
+&lt;h5&gt;Vertical Alignment - Center&lt;/h5&gt;
 &lt;div class="p-grid p-align-center vertical-container"&gt;
     &lt;div class="p-col"&gt;
         &lt;div class="box"&gt;4&lt;/div&gt;
@@ -1314,20 +1299,20 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Vertical Alignment - Stretch&lt;/h3&gt;
+&lt;h5&gt;Vertical Alignment - Stretch&lt;/h5&gt;
 &lt;div class="p-grid p-align-stretch vertical-container"&gt;
     &lt;div class="p-col"&gt;
-        &lt;div class="box box box-stretched"&gt;4&lt;/div&gt;
+        &lt;div class="box box-stretched"&gt;4&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;div class="box box box-stretched"&gt;4&lt;/div&gt;
+        &lt;div class="box box-stretched"&gt;4&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;div class="box box box-stretched"&gt;4&lt;/div&gt;
+        &lt;div class="box box-stretched"&gt;4&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Vertical Alignment - Per Column&lt;/h3&gt;
+&lt;h5&gt;Vertical Alignment - Per Column&lt;/h5&gt;
 &lt;div class="p-grid vertical-container"&gt;
     &lt;div class="p-col p-col-align-start"&gt;
         &lt;div class="box"&gt;4&lt;/div&gt;
@@ -1340,7 +1325,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Offset&lt;/h3&gt;
+&lt;h5&gt;Offset&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-6 p-offset-3"&gt;
         &lt;div class="box"&gt;6&lt;/div&gt;
@@ -1356,7 +1341,7 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Nested&lt;/h3&gt;
+&lt;h5&gt;Nested&lt;/h5&gt;
 &lt;div class="p-grid nested-grid"&gt;
     &lt;div class="p-col-8"&gt;
         &lt;div class="p-grid"&gt;
@@ -1376,73 +1361,31 @@ npm install primeflex --save
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Panel Integration&lt;/h3&gt;
+&lt;h5&gt;Panels&lt;/h5&gt;
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-panel header="Godfather"&gt;
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-            kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        &lt;p-panel header="Header"&gt;
+            &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;/p-panel&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-panel header="Godfather"&gt;
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-            kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        &lt;p-panel header="Header"&gt;
+            &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;/p-panel&gt;
     &lt;/div&gt;
     &lt;div class="p-col"&gt;
-        &lt;p-panel header="Godfather"&gt;
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-            kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        &lt;p-panel header="Header"&gt;
+            &lt;p class="p-m-0"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
         &lt;/p-panel&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h3&gt;Sample Layout&lt;/h3&gt;
-&lt;div class="p-grid sample-layout"&gt;
-    &lt;div class="p-col-12 p-md-2"&gt;
-        Menu
-    &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-10  p-col-nogutter"&gt;
-        &lt;div class="p-col-12 p-col-nogutter"&gt;
-            Top Bar
-        &lt;/div&gt;
-        &lt;div class="p-col-12"&gt;
-            &lt;div class="p-grid"&gt;
-                &lt;div class="p-col-12 p-md-4"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, orci nec
-                    dictum convallis, ligula mauris vestibulum turpis, nec varius tortor quam at diam. Nullam a viverra nibh.
-                    In tincidunt tempor lectus quis vulputate. Pellentesque nec dui aliquam, lobortis est in, lobortis ante&lt;/div&gt;
-                &lt;div class="p-col-12 p-md-4"&gt;Maecenas vel nisi aliquet, vulputate tortor id, laoreet massa. Maecenas mattis
-                    tristique bibendum. Suspendisse vel mi dictum, vestibulum lacus quis, pulvinar quam. Proin vulputate, nibh
-                    at finibus varius, leo eros lacinia elit, nec blandit odio tellus a justo. Donec nec ex auctor, tristique
-                    nulla nec, rutrum sapien.&lt;/div&gt;
-                &lt;div class="p-col-12 p-md-4"&gt;Proin efficitur in leo eget ornare. Nam vestibulum neque sed velit sagittis
-                    sodales. Sed scelerisque hendrerit magna a hendrerit. Cras tempor sem at justo pharetra convallis.
-                    Curabitur vel sodales purus. Vestibulum interdum facilisis nulla imperdiet suscipit. Quisque lectus felis,
-                    condimentum eget hendrerit sit amet.&lt;/div&gt;
-
-                &lt;div class="p-col-6 p-md-3"&gt;&lt;img src="assets/showcase/images/demo/galleria/galleria1.jpg" style="width:100%"&gt;&lt;/div&gt;
-                &lt;div class="p-col-6 p-md-3"&gt;&lt;img src="assets/showcase/images/demo/galleria/galleria2.jpg" style="width:100%"&gt;&lt;/div&gt;
-                &lt;div class="p-col-6 p-md-3"&gt;&lt;img src="assets/showcase/images/demo/galleria/galleria3.jpg" style="width:100%"&gt;&lt;/div&gt;
-                &lt;div class="p-col-6 p-md-3"&gt;&lt;img src="assets/showcase/images/demo/galleria/galleria4.jpg" style="width:100%"&gt;&lt;/div&gt;
-
-                &lt;div class="p-col-12 p-md-6"&gt;Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
-                    facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque
-                    neque orci, ullamcorper vitae ligula quis, dignissim euismod augue.&lt;/div&gt;
-                &lt;div class="p-col-12 p-md-6"&gt;Fusce ullamcorper congue massa, eget ullamcorper nunc lobortis egestas. Lorem
-                    ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultrices dui eget dolor feugiat dapibus. Aliquam
-                    pretium leo et egestas luctus. Nunc facilisis gravida tellus.&lt;/div&gt;
-            &lt;/div&gt;     
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="p-col-12"&gt;
-        Footer
     &lt;/div&gt;
 &lt;/div&gt;
 </code>
@@ -1450,44 +1393,36 @@ npm install primeflex --save
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;Component,ViewEncapsulation&#125; from '@angular/core';
-import &#123;trigger,state,style,transition,animate,AnimationEvent&#125; from '@angular/animations';
+import &#123;Component&#125; from '@angular/core';
+import &#123;trigger,state,style,transition,animate&#125; from '@angular/animations';
 
 @Component (&#123;
     styles:[`
-        .box,
-        .sample-layout > div &#123;
-            background-color: #cce4f7;
+        .box &#123;
+            background-color: var(--surface-e);
             text-align: center;
-            padding-top: 1em;
-            padding-bottom: 1em;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
             border-radius: 4px;
+            box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
         &#125;
 
         .box-stretched &#123;
             height: 100%;
         &#125;
 
-        .sample-layout &#123;
-            margin: 0;
-        &#125;
-
-        .sample-layout > div &#123;
-            border: 1px solid #ffffff;
-        &#125;
-
         .vertical-container &#123;
             margin: 0;
             height: 200px;
-            background: #efefef;
+            background: var(--surface-d);
             border-radius: 4px;
         &#125;
 
         .nested-grid .p-col-4 &#123;
-            padding-bottom: 1em;
+            padding-bottom: 1rem;
         &#125;
     `],
-    templateUrl: './flexgriddemo.html',
+    templateUrl: './griddemo.html',
     animations: [
         trigger('animation', [
             state('visible', style(&#123;
@@ -1506,10 +1441,9 @@ import &#123;trigger,state,style,transition,animate,AnimationEvent&#125; from '@
                 &#125;))
             ])
         ])
-    ],
-    encapsulation: ViewEncapsulation.None
+    ]
 &#125;)
-export class FlexGridDemo &#123;
+export class GridDemo &#123;
 
     columns: number[];
 

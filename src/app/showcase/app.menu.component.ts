@@ -26,13 +26,13 @@ declare let gtag: Function;
 
                 <div class="menu-category">PrimeFlex</div>
                 <div class="menu-items">
-                    <a [routerLink]="['/display']" routerLinkActive="router-link-active">Display</a>
-                    <a [routerLink]="['/elevation']" routerLinkActive="router-link-active">Elevation</a>
-                    <a [routerLink]="['/flexbox']" routerLinkActive="router-link-active">FlexBox</a>
-                    <a [routerLink]="['/formlayout']" routerLinkActive="router-link-active">FormLayout</a>
-                    <a [routerLink]="['/grid']" routerLinkActive="router-link-active">Grid System</a>
-                    <a [routerLink]="['/spacing']" routerLinkActive="router-link-active">Spacing</a>
-                    <a [routerLink]="['/text']" routerLinkActive="router-link-active">Text</a>
+                    <a [routerLink]="['/primeflex/display']" routerLinkActive="router-link-active">Display</a>
+                    <a [routerLink]="['/primeflex/elevation']" routerLinkActive="router-link-active">Elevation</a>
+                    <a [routerLink]="['/primeflex/flexbox']" routerLinkActive="router-link-active">FlexBox</a>
+                    <a [routerLink]="['/primeflex/formlayout']" routerLinkActive="router-link-active">Form Layout</a>
+                    <a [routerLink]="['/primeflex/grid']" routerLinkActive="router-link-active">Grid System</a>
+                    <a [routerLink]="['/primeflex/spacing']" routerLinkActive="router-link-active">Spacing</a>
+                    <a [routerLink]="['/primeflex/text']" routerLinkActive="router-link-active">Text</a>
                 </div>
 
                 <div class="menu-category">PrimeIcons</div>
