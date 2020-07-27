@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router'
-import {TabMenuDemo, InfoComponent, MessageComponent} from './tabmenudemo';
+import {TabMenuDemo} from './tabmenudemo';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild([
-			{path:'',component: TabMenuDemo},
+			{path:'', component: TabMenuDemo}
 		])
 	],
 	exports: [

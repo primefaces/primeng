@@ -4,9 +4,8 @@ import {TabMenuDemo} from './tabmenudemo';
 import {TabMenuDemoRoutingModule} from './tabmenudemo-routing.module';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {TabViewModule} from 'primeng/tabview';
-import { MessageModule } from 'primeng/message';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
-import { AppCodeModule } from '../../app.code.component';
+import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
 	imports: [

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {MenuItem} from 'primeng/api';
+
 @Component({
     templateUrl: './tabmenudemo.html'
 })

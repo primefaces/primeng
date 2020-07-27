@@ -1,87 +1,79 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">FileUpload</span>
-        <span>FileUpload is an advanced uploader with drag and drop support, multi file uploads, auto uploading, progress tracking and
-            validations.</span>
+    <div class="feature-intro">
+        <h1>FileUpload</h1>
+        <p>FileUpload is an advanced uploader with drag and drop support, multi file uploads, auto uploading, progress tracking and
+            validations.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
     <p-toast></p-toast>
 
-    <h3 class="first">Advanced</h3>
-    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-            multiple="multiple" accept="image/*" maxFileSize="1000000">
-            <ng-template pTemplate="content">
-                <ul *ngIf="uploadedFiles.length">
-                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                </ul>
-            </ng-template>
-    </p-fileUpload>
+    <div class="card">
+        <h5>Advanced</h5>
+        <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+                multiple="multiple" accept="image/*" maxFileSize="1000000">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+        </p-fileUpload>
 
-    <h3>Basic</h3>
-    <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
+        <h5>Basic</h5>
+        <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
 
-    <h3>Basic with Auto</h3>
-    <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
+        <h5>Basic with Auto</h5>
+        <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;FileUploadModule&#125; from 'primeng/fileupload';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>FileUpload requires a <i>url</i> property as the upload target and a <i>name</i> to identify the files at backend.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php"&gt;&lt;/p-fileUpload&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Multiple Uploads</h3>
+            <h5>Multiple Uploads</h5>
             <p>Only one file can be selected at a time, to allow selecting multiples enable <i>multiple</i> option.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"&gt;&lt;/p-fileUpload&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>DragDrop</h3>
+            <h5>DragDrop</h5>
             <p>File selection can also be done by dragging and dropping one or more files to the content section of the component.</p>
 
-            <h3>Auto Uploads</h3>
+            <h5>Auto Uploads</h5>
             <p>When auto property is enabled, upload begins as soon as file selection is completed or a file is dropped on the drop area.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*" [auto]="true"&gt;&lt;/p-fileUpload&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>File Types</h3>
+            <h5>File Types</h5>
             <p>Selectable file types can be restricted with <i>accept</i> property, example below only allows images to be uploaded.
             Read more about other possible values <a href="http://www.w3schools.com/tags/att_input_accept.asp">here</a>.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*"&gt;&lt;/p-fileUpload&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>File Size</h3>
+            <h5>File Size</h5>
             <p>Maximum file size can be restricted using <i>maxFileSize</i> property defined in bytes.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;&lt;/p-fileUpload&gt;
-</code>
-</pre>
+</app-code>
 
             <p>In order to customize the default messages use <i>invalidFileSizeMessageSummary</i> and <i>invalidFileSizeMessageDetail</i> options.
             In summary &#123;0&#125; placeholder refers to the filename and in detail, file size.</p>
@@ -90,12 +82,12 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
                 <li>invalidFileSizeMessageDetail: string = 'maximum upload size is &#123;0&#125;.'</li>
             </ul>
 
-            <h3>Templating</h3>
+            <h5>Templating</h5>
             <p>File list UI is customizable using a ng-template called "file" that gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable.
                 Second ng-template named "content" can be used to place custom content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them.
                 Third and final ng-template option is "toolbar" to display custom content at toolbar.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;
         &lt;ng-template pTemplate="toolbar"&gt;
@@ -108,36 +100,31 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
             &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
         &lt;/ng-template&gt;
 &lt;/p-fileUpload&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Request Customization</h3>
+            <h5>Request Customization</h5>
             <p>Internally, FileUpload uses Angular's HttpClient module so you may take advantage of the built-in features such interceptors and header customization.</p>
 
-            <h3>Basic UI</h3>
+            <h5>Basic UI</h5>
             <p>FileUpload basic mode provides a simpler UI as an alternative to advanced mode.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" [auto]="true"&gt;&lt;/p-fileUpload&gt;
-</code>
-</pre>
-            <h3>Custom Upload</h3>
-            <p>Uploading implementation can be overridden by enabling customUpload property and defining a custom upload handler event.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="myUploader($event)"&gt;&lt;/p-fileUpload&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Custom Upload</h5>
+            <p>Uploading implementation can be overridden by enabling customUpload property and defining a custom upload handler event.</p>
+
+<app-code lang="markup" ngNonBindable>
+&lt;p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="myUploader($event)"&gt;&lt;/p-fileUpload&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable>
 myUploader(event) &#123;
     //event.files == files to upload
 &#125;
-</code>
-</pre>
+</app-code>
 
-            <h3>Properties</h3>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -339,7 +326,7 @@ myUploader(event) &#123;
                 </table>
             </div>
 
-            <h3>Events</h3>
+            <h5>Events</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -406,7 +393,7 @@ myUploader(event) &#123;
                 </table>
             </div>
 
-            <h3>Methods</h3>
+            <h5>Methods</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -431,7 +418,7 @@ myUploader(event) &#123;
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -458,7 +445,7 @@ myUploader(event) &#123;
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -468,23 +455,25 @@ myUploader(event) &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-toast [style]="&#123;marginTop: '80px'&#125;"&gt;&lt;/p-toast&gt;
+&lt;p-toast&gt;&lt;/p-toast&gt;
 
-&lt;h3 class="first"&gt;Advanced&lt;/h3&gt;
-&lt;p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-        multiple="multiple" accept="image/*" maxFileSize="1000000"&gt;
-    &lt;ng-template pTemplate="content"&gt;
-        &lt;ul *ngIf="uploadedFiles.length"&gt;
-            &lt;li *ngFor="let file of uploadedFiles"&gt;&#123;&#123;file.name&#125;&#125; - &#123;&#123;file.size&#125;&#125; bytes&lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;/ng-template&gt;
-&lt;/p-fileUpload&gt;
+&lt;div class="card"&gt;
+    &lt;h5&gt;Advanced&lt;/h5&gt;
+    &lt;p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+            multiple="multiple" accept="image/*" maxFileSize="1000000"&gt;
+            &lt;ng-template pTemplate="content"&gt;
+                &lt;ul *ngIf="uploadedFiles.length"&gt;
+                    &lt;li *ngFor="let file of uploadedFiles"&gt;{{file.name}} - {{file.size}} bytes&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/ng-template&gt;
+    &lt;/p-fileUpload&gt;
 
-&lt;h3&gt;Basic&lt;/h3&gt;
-&lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"&gt;&lt;/p-fileUpload&gt;
+    &lt;h5&gt;Basic&lt;/h5&gt;
+    &lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"&gt;&lt;/p-fileUpload&gt;
 
-&lt;h3&gt;Basic with Auto&lt;/h3&gt;
-&lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
+    &lt;h5&gt;Basic with Auto&lt;/h5&gt;
+    &lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
+&lt;/div&gt;
 </code>
 </pre>
 
