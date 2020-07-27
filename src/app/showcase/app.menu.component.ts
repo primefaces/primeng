@@ -250,17 +250,14 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]="['/blockui']" routerLinkActive="router-link-active">BlockUI</a>
                     <a [routerLink]="['/captcha']" routerLinkActive="router-link-active">Captcha</a>
-                    <a [routerLink]="['/codehighlighter']" routerLinkActive="router-link-active">CodeHighlighter</a>
                     <a [routerLink]="['/defer']" routerLinkActive="router-link-active">Defer</a>
                     <a [routerLink]="['/filterutils']" routerLinkActive="router-link-active">FilterUtils</a>
                     <a [routerLink]="['/focustrap']" routerLinkActive="router-link-active">FocusTrap</a>
                     <a [routerLink]="['/inplace']" routerLinkActive="router-link-active">Inplace</a>
                     <a [routerLink]="['/progressbar']" routerLinkActive="router-link-active">ProgressBar</a>
                     <a [routerLink]="['/progressspinner']" routerLinkActive="router-link-active">ProgressSpinner</a>
-                    <a [routerLink]="['/responsive']" routerLinkActive="router-link-active">Responsive</a>
                     <a [routerLink]="['/ripple']" routerLinkActive="router-link-active">Ripple</a>
                     <a [routerLink]="['/rtl']" routerLinkActive="router-link-active">RTL</a>
-                    <a [routerLink]="['/validation']" routerLinkActive="router-link-active">Validation</a>
                     <a [routerLink]="['/terminal']" routerLinkActive="router-link-active">Terminal</a>
                 </div>
             </div>
