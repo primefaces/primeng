@@ -1,42 +1,33 @@
-import {Component,ViewEncapsulation} from '@angular/core';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import {Component} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 
 @Component ({
+    templateUrl: './griddemo.html',
     styles:[`
-        .box,
-        .sample-layout > div {
-            background-color: #cce4f7;
+        .box {
+            background-color: var(--surface-e);
             text-align: center;
-            padding-top: 1em;
-            padding-bottom: 1em;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
             border-radius: 4px;
-            color: #333333;
+            box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
         }
 
         .box-stretched {
             height: 100%;
         }
 
-        .sample-layout {
-            margin: 0;
-        }
-
-        .sample-layout > div {
-            border: 1px solid #ffffff;
-        }
-
         .vertical-container {
             margin: 0;
             height: 200px;
-            background: #efefef;
+            background: var(--surface-d);
             border-radius: 4px;
         }
 
         .nested-grid .p-col-4 {
-            padding-bottom: 1em;
+            padding-bottom: 1rem;
         }
     `],
-    templateUrl: './flexgriddemo.html',
     animations: [
         trigger('animation', [
             state('visible', style({
@@ -55,10 +46,9 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
                 }))
             ])
         ])
-    ],
-    encapsulation: ViewEncapsulation.None
+    ]
 })
-export class FlexGridDemo {
+export class GridDemo {
 
     columns: number[];
 
