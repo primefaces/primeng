@@ -1,48 +1,45 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Galleria</span>
-        <span>Galleria is an advanced content gallery component.</span>
+    <div class="feature-intro">
+        <h1>Galleria</h1>
+        <p>Galleria is an advanced content gallery component.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"> 
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="p-grid p-nogutter p-justify-center">
-                <img [src]="item.thumbnailImageSrc" />
-            </div>
-        </ng-template>
-    </p-galleria>
+    <div class="card">
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                    <img [src]="item.thumbnailImageSrc" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;GalleriaModule&#125; from 'primeng/galleria';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>Galleria requires item template and a value as an array of objects</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-galleria [value]="images"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
     &lt;/template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
+</app-code>
             <p>For the rest of the documentation, sample data below would be return from an example service e.g. PhotoService.</p>
 <div style="overflow: auto; height: 400px; margin-bottom: 1em;">
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 &#123;
     "data":[
         &#123;
@@ -137,11 +134,9 @@ import &#123;GalleriaModule&#125; from 'primeng/galleria';
         &#125;
     ]
 &#125;
-</code>
-</pre>
+</app-code>
 </div>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 @Injectable()
 export class PhotoService &#123;
 
@@ -154,10 +149,8 @@ export class PhotoService &#123;
       .then(data =&gt; &#123; return data; &#125;);
     &#125;
 &#125;
-</code>
-</pre>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+</app-code>
+<app-code lang="typescript" ngNonBindable>
 export class GalleriaDemo implements OnInit &#123;
 
     images: any[];
@@ -182,12 +175,10 @@ export class GalleriaDemo implements OnInit &#123;
         this.photoService.getImages().then(images =&gt; this.images = images);
     &#125;
 &#125;
-</code>
-</pre>
-            <h3>Items per page</h3>
+</app-code>
+            <h5>Items per page</h5>
             <p>Number of items per page is defined using the <i>numVisible</i> property.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-galleria [value]="images" [numVisible]="5"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
@@ -198,14 +189,12 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Responsive</h3>
+            <h5>Responsive</h5>
             <p>For responsive design, <i>numVisible</i> can be defined using the <i>responsiveOptions</i> property that should be an array of
                 objects whose breakpoint defines the max-width to apply the settings.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;"/&gt;
@@ -216,10 +205,8 @@ export class GalleriaDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+</app-code>
+<app-code lang="typescript" ngNonBindable>
 responsiveOptions:any[] = [
     &#123;
         breakpoint: '1024px',
@@ -234,13 +221,11 @@ responsiveOptions:any[] = [
         numVisible: 1
     &#125;
 ];
-</code>
-</pre>
+</app-code>
 
-            <h3>Header and Footer</h3>
+            <h5>Header and Footer</h5>
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> properties.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '520px'" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="header"&gt;
         &lt;h1&gt;
@@ -261,21 +246,18 @@ responsiveOptions:any[] = [
         &lt;/h1&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
-                <h3>Indicators</h3>
+</app-code>
+                <h5>Indicators</h5>
                 <p>Indicators allow quick navigation between the items. Set <i>showIndicators</i> to display indicators which can be customized further
                 with the <i>changeItemOnIndicatorHover</i>, <i>showIndicatorsOnItem</i> and <i>indicatorsPosition</i> properties.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-galleria [value]="images" [indicators]="true"&gt;
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" [alt]="item.alt" /&gt;
     &lt;/template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
-            <h3>Properties</h3>
+</app-code>
+            <h5>Properties</h5>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -435,7 +417,7 @@ responsiveOptions:any[] = [
                 </table>
             </div>
 
-            <h3>Styling</h3>
+            <h5>Styling</h5>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -447,46 +429,46 @@ responsiveOptions:any[] = [
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-galleria</td>
+                            <td>p-galleria</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-header</td>
+                            <td>p-galleria-header</td>
                             <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-footer</td>
+                            <td>p-galleria-footer</td>
                             <td>Footer section.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-item-wrapper</td>
+                            <td>p-galleria-item-wrapper</td>
                             <td>Preview content element. It contains preview and indicator containers.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-item-container</td>
+                            <td>p-galleria-item-container</td>
                             <td>Container of the preview content. It contains navigation buttons, preview item and caption content.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-indicators</td>
+                            <td>p-galleria-indicators</td>
                             <td>Container of the indicators. It contains indicator items.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-thumbnail-wrapper</td>
+                            <td>p-galleria-thumbnail-wrapper</td>
                             <td>Thumbnail content element.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-thumbnail-container</td>
+                            <td>p-galleria-thumbnail-container</td>
                             <td>Container of the thumbnail content. It contains navigation buttons and thumbnail items.</td>
                         </tr>
                         <tr>
-                            <td>ui-galleria-caption</td>
+                            <td>p-galleria-caption</td>
                             <td>Content of the preview caption.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>None.</p>
         </p-tabPanel>
 
@@ -494,8 +476,7 @@ responsiveOptions:any[] = [
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/galleria" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '640px'&#125;" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%;" /&gt;
@@ -506,11 +487,9 @@ responsiveOptions:any[] = [
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-galleria&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class GalleriaDemo &#123;
         
     images: any[];
@@ -535,8 +514,7 @@ export class GalleriaDemo &#123;
         this.photoService.getImages().then(images => this.images = images);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>
