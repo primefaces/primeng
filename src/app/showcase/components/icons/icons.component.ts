@@ -17,7 +17,17 @@ export class IconsComponent implements OnInit {
 
 	ngOnInit() {
 		this.iconService.getIcons().subscribe(data => {
-			this.icons = data;
+            let icons = data;
+            icons.sort((icon1, icon2) => {
+                if(icon1.properties.name < icon2.properties.name)
+                    return -1;
+                else if(icon1.properties.name < icon2.properties.name)
+                    return 1;
+                else
+                    return 0;
+            });
+
+            this.icons = icons;
 			this.filteredIcons = data;
 		});
 	}
