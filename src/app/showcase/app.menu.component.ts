@@ -94,28 +94,28 @@ declare let gtag: Function;
                                 <li><a [routerLink]="['/table/size']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Size</a></li>
                                 <li><a [routerLink]="['/table/gridlines']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Gridlines</a></li>
                                 <li><a [routerLink]="['/table/striped']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Striped</a></li>
+                                <li><a [routerLink]="['/table/colgroup']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">ColGroup</a></li>
                                 <li><a [routerLink]="['/table/page']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Page</a></li>
                                 <li><a [routerLink]="['/table/sort']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Sort</a></li>
-                                <li><a [routerLink]="['/table/selection']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Selection</a></li>
                                 <li><a [routerLink]="['/table/filter']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Filter</a></li>
-                                <li><a [routerLink]="['/table/colgroup']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">ColGroup</a></li>
+                                <li><a [routerLink]="['/table/selection']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Selection</a></li>
                                 <li><a [routerLink]="['/table/lazy']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Lazy</a></li>
-                                <li><a [routerLink]="['/table/edit']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Edit</a></li>
                                 <li><a [routerLink]="['/table/scroll']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Scroll</a></li>
                                 <li><a [routerLink]="['/table/virtualscroll']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">VirtualScroll</a></li>
                                 <li><a [routerLink]="['/table/flexscroll']" target="_blank" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">FlexScroll</a></li>
                                 <li><a [routerLink]="['/table/rowexpansion']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">RowExpand</a></li>
-                                <li><a [routerLink]="['/table/rowgroup']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">RowGroup</a></li>
+                                <li><a [routerLink]="['/table/edit']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Edit</a></li>
+                                <li><a [routerLink]="['/table/coltoggle']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Toggle</a></li>
                                 <li><a [routerLink]="['/table/colresize']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Resize</a></li>
                                 <li><a [routerLink]="['/table/reorder']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Reorder</a></li>
-                                <li><a [routerLink]="['/table/coltoggle']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Toggle</a></li>
-                                <li><a [routerLink]="['/table/style']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Style</a></li>
-                                <li><a [routerLink]="['/table/export']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Export</a></li>
+                                <li><a [routerLink]="['/table/rowgroup']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">RowGroup</a></li>
                                 <li><a [routerLink]="['/table/contextmenu']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">ContextMenu</a></li>
                                 <li><a [routerLink]="['/table/responsive']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Responsive</a></li>
-                                <li><a [routerLink]="['/table/crud']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Crud</a></li>
+                                <li><a [routerLink]="['/table/export']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Export</a></li>
                                 <li><a [routerLink]="['/table/state']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">State</a></li>
+                                <li><a [routerLink]="['/table/style']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Style</a></li>
                                 <li><a [routerLink]="['/table/sticky']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Sticky</a></li>
+                                <li><a [routerLink]="['/table/crud']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Crud</a></li>
                             </ul>
                         </div>
                     </div>
