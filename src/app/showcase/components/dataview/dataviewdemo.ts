@@ -1,92 +1,33 @@
 import {Component,OnInit} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import {ProductService} from '../../service/productservice';
 import {SelectItem} from 'primeng/api';
+import {Product} from '../../domain/product';
 
 @Component({
     templateUrl: './dataviewdemo.html',
-    styles: [`      
-        .filter-container {
-            text-align: center;
-        }
-
-        .car-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2em;
-            border-bottom: 1px solid #d9dad9;
-        }
-
-        .car-details > div {
-            display: flex;
-            align-items: center;
-        }
-
-        .car-details > div img {
-            margin-right: 14px;
-        }
-
-        .car-detail {
-            padding: 0 1em 1em 1em;
-            border-bottom: 1px solid #d9dad9;
-            margin: 1em;
-        }
-
-        .ui-panel-content {
-            padding: 1em;
-        }
-
-        .dark-theme :host ::ng-deep .car-details,
-        .dark-theme :host ::ng-deep .car-detail {
-            border-bottom: 1px solid #191919;
-        }
-        
-        @media (max-width: 1024px) {
-            .car-details img {
-                 width: 75px;
-            }
-
-            .filter-container {
-                text-align: left;
-            }
-        }
-    `]
+    styleUrls: ['./dataviewdemo.scss']
 })
 export class DataViewDemo implements OnInit {
 
-    cars: Car[];
-    
-    selectedCar: Car;
-    
-    displayDialog: boolean;
+    products: Product[];
 
     sortOptions: SelectItem[];
 
-    sortKey: string;
+    sortOrder: number;
 
     sortField: string;
 
-    sortOrder: number;
-
-    constructor(private carService: CarService) { }
+    constructor(private productService: ProductService) { }
 
     ngOnInit() {
-        this.carService.getCarsLarge().then(cars => this.cars = cars);
+        this.productService.getProducts().then(data => this.products = data);
 
         this.sortOptions = [
-            {label: 'Newest First', value: '!year'},
-            {label: 'Oldest First', value: 'year'},
-            {label: 'Brand', value: 'brand'}
+            {label: 'Price High to Low', value: '!price'},
+            {label: 'Price Low to High', value: 'price'}
         ];
     }
     
-    selectCar(event: Event, car: Car) {
-        this.selectedCar = car;
-        this.displayDialog = true;
-        event.preventDefault();
-    }
-
     onSortChange(event) {
         let value = event.value;
 
@@ -98,9 +39,5 @@ export class DataViewDemo implements OnInit {
             this.sortOrder = 1;
             this.sortField = value;
         }
-    }
-    
-    onDialogHide() {
-        this.selectedCar = null;
     }
 }
