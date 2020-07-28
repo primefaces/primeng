@@ -57,7 +57,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     openPreviewFullScreen() {
-        let elem = this.galleria.element.nativeElement.querySelector(".ui-galleria");
+        let elem = this.galleria.element.nativeElement.querySelector(".p-galleria");
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         }

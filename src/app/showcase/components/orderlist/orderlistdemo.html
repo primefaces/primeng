@@ -1,39 +1,45 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">OrderList</span>
-        <span>OrderList is used to sort a collection. When the position of an item changes, the backend array is updated as well.</span>
+    <div class="feature-intro">
+        <h1>OrderList</h1>
+        <p>OrderList is used to managed the order of a collection.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-
-    <p-orderList [value]="cars" [listStyle]="{'height':'350px'}" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand"
-        dragdrop="true">
-        <ng-template let-car pTemplate="item">
-            <div class="ui-helper-clearfix">
-                <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
-                <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
-            </div>
-        </ng-template>
-    </p-orderList>
-
+    <div class="card">
+        <p-orderList [value]="products" [listStyle]="{'height':'auto'}" header="List of Products" filterBy="name" filterPlaceholder="Filter by name" dragdrop="true">
+            <ng-template let-product pTemplate="item">
+                <div class="product-item">
+                    <div class="image-container">
+                            <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                    </div>
+                    <div class="product-list-detail">
+                        <h5 class="p-mb-2">{{product.name}}</h5>
+                        <i class="pi pi-tag product-category-icon"></i>
+                        <span class="product-category">{{product.category}}</span>
+                    </div>
+                    <div class="product-list-action">
+                        <h6 class="p-mb-2">${{product.price}}</h6>
+                        <span class="'product-badge status-'{{product.inventoryStatus.toLowerCase()}}">{{product.inventoryStatus}}</span>
+                    </div>
+                </div>
+            </ng-template>
+        </p-orderList>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;OrderListModule&#125; from 'primeng/orderlist';
-</code>
-</pre>
+</app-code>
 
             <h3>Getting Started</h3>
             <p>OrderList requires an array as its value and a ng-template for its content where each item in the array
                  can be accessed inside the ng-template using a local <i>ng-template</i> variable.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
@@ -42,11 +48,9 @@ import &#123;OrderListModule&#125; from 'primeng/orderlist';
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-orderList&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class MyComponent &#123;
 
     cars: Car[];
@@ -55,8 +59,7 @@ export class MyComponent &#123;
         this.cars = //initialize cars
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h3>Multiple Selection</h3>
             <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of <i>metaKeySelection</i> property value which is true by default. On touch enabled
@@ -64,8 +67,7 @@ export class MyComponent &#123;
 
             <h3>Selection Binding</h3>
             <p>The optional <i>selection</i> property is provided in case you'd like to a two-way binding to the selections.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
@@ -74,11 +76,9 @@ export class MyComponent &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-orderList&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class MyComponent &#123;
 
     cars: Car[];
@@ -89,41 +89,32 @@ export class MyComponent &#123;
         this.cars = //initialize cars
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h3>Filtering</h3>
             <p>Items can be filtered using an input field by enabling the <i>filterBy</i> property that specifies the fields to use in filtering.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars" filterBy="brand"&gt;&lt;/p-orderList&gt;
-</code>
-</pre>
+</app-code>
 
             <p>Multiple fields can be defines using a comma separates list.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars" filterBy="brand,color,address.city"&gt;&lt;/p-orderList&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>DragDrop</h3>
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars" dragdrop="true"&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Buttons Location</h3>
             <p>Buttons that control the ordering are displayed at the left side of the list by default, <i>controlsPosition</i> property enables customizing the location. Currently
                 right is the available alternative.
             </p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-orderList [value]="cars" controlsPosition="right"&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -302,34 +293,90 @@ export class MyComponent &#123;
             <a href="https://stackblitz.com/edit/primeng-orderlist-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" header="Cars"
-    filter="filter" filterBy="brand" filterPlaceholder="Filter by brand" dragdrop="true"&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-helper-clearfix"&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
-            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+<app-code lang="markup" ngNonBindable>
+&lt;p-orderList [value]="products" [listStyle]="&#123;'height':'auto'&#125;" header="List of Products" filterBy="name" filterPlaceholder="Filter by name" dragdrop="true"&gt;
+    &lt;ng-template let-product pTemplate="item"&gt;
+        &lt;div class="product-item"&gt;
+            &lt;div class="image-container"&gt;
+                    &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+            &lt;/div&gt;
+            &lt;div class="product-list-detail"&gt;
+                &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
+                &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class="product-list-action"&gt;
+                &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                &lt;span class="'product-badge status-'&#123;&#123;product.inventoryStatus.toLowerCase()&#125;&#125;"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
+            &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-orderList&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class OrderListDemo &#123;
 
-    cars: Car[];
-
-    constructor(private carService: CarService) &#123; &#125;
+    products: Product[];
+    
+    constructor(private productService: ProductService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.productService.getProductsSmall().then(cars =&gt; this.products = cars);
+    &#125;
+
+&#125;
+</app-code>
+<app-code lang="css">
+.product-item &#123;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    width: 100%;
+
+    img &#123;
+        width: 75px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin-right: 1rem;
+    &#125;
+
+    .product-list-detail &#123;
+        flex: 1 1 0;
+    &#125;
+
+    .product-list-action &#123;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    &#125;
+
+    .product-category-icon &#123;
+        vertical-align: middle;
+        margin-right: .5rem;
+    &#125;
+
+    .product-category &#123;
+        vertical-align: middle;
+        line-height: 1;
     &#125;
 &#125;
-</code>
-</pre>
+
+@media screen and (max-width: 576px) &#123;
+    .product-item &#123;
+        flex-wrap: wrap;
+
+        .image-container &#123;
+            width: 100%;
+            text-align: center;
+        &#125;
+
+        img &#123;
+            margin: 0 0 1rem 0;
+            width: 100px;
+        &#125;
+    &#125;
+&#125;
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
