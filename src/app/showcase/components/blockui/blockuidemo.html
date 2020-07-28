@@ -156,26 +156,8 @@ export class BlockUIDemo &#123;
             <a href="https://stackblitz.com/edit/primeng-blockui-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class BlockUIDemo &#123;
-
-    blockedPanel: boolean = false;
-    
-    blockedDocument: boolean = false;
-        
-    blockDocument() &#123;
-        this.blockedDocument = true;
-        setTimeout(() => &#123;
-            this.blockedDocument = false;
-        &#125;, 3000);
-    &#125;
-&#125;
-</code>
-</pre>
-
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+            
+<app-code lang="markup" ngNonBindable>
 &lt;h5&gt;Document&lt;/h5&gt;
 &lt;p-blockUI [blocked]="blockedDocument"&gt;&lt;/p-blockUI&gt;
 
@@ -194,8 +176,23 @@ export class BlockUIDemo &#123;
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
 &lt;/p-panel&gt;
-</code>
-</pre>
+</app-code>
+
+<app-code lang="typescript" ngNonBindable>
+export class BlockUIDemo &#123;
+
+    blockedPanel: boolean = false;
+    
+    blockedDocument: boolean = false;
+        
+    blockDocument() &#123;
+        this.blockedDocument = true;
+        setTimeout(() => &#123;
+            this.blockedDocument = false;
+        &#125;, 3000);
+    &#125;
+&#125;
+</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">

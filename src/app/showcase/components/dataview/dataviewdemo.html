@@ -1,75 +1,72 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">DataView</span>
-        <span>DataView displays data in grid or list layout with pagination, sorting and filtering features.</span>
+    <div class="feature-intro">
+        <h1>DataView</h1>
+        <p>DataView displays data in grid or list layout with pagination and sorting features.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
-        [sortField]="sortField" [sortOrder]="sortOrder">
-        <p-header>
-            <div class="ui-helper-clearfix">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-4">
-                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
-                    </div>
-                    <div class="p-col-6 p-md-4 filter-container">
-                        <div style="position:relative">
-                            <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
+    <div class="card">
+        <p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
+            [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+            <ng-template pTemplate="header">
+                <div class="p-d-flex p-jc-between">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)"></p-dropdown>
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </ng-template>
+            <ng-template let-product pTemplate="listItem">
+                <div class="p-col-12">
+                    <div class="product-list-item">
+                        <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/>
+                        <div class="product-list-detail">
+                            <div class="product-name">{{product.name}}</div>
+                            <div class="product-description">{{product.description}}</div>
+                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                            <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{product.category}}</span>
+                        </div>
+                        <div class="product-list-action">
+                            <span class="product-price">${{product.price}}</span>
+                            <p-button icon="pi pi-shopping-cart" label="Add to Cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
+                            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                         </div>
                     </div>
-                    <div class="p-col-6 p-md-4" style="text-align:right">
-                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-                    </div>
                 </div>
-            </div>
-        </p-header>
-        <ng-template let-car pTemplate="listItem">
-            <div class="p-col-12">
-                <div class="car-details">
-                    <div>
-                        <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
-                        <div class="p-grid">
-                            <div class="p-col-12">Vin: <b>{{car.vin}}</b></div>
-                            <div class="p-col-12">Year: <b>{{car.year}}</b></div>
-                            <div class="p-col-12">Brand: <b>{{car.brand}}</b></div>
-                            <div class="p-col-12">Color: <b>{{car.color}}</b></div>
+            </ng-template>
+            <ng-template let-product pTemplate="gridItem">
+                <div class="p-col-12 p-md-4">
+                    <div class="product-grid-item card">
+                        <div class="product-grid-item-top">
+                            <div>
+                                <i class="pi pi-tag product-category-icon"></i>
+                                <span class="product-category">{{product.category}}</span>
+                            </div>
+                            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                        </div>
+                        <div class="product-grid-item-content">
+                            <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/>
+                            <div class="product-name">{{product.name}}</div>
+                            <div class="product-description">{{product.description}}</div>
+                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                        </div>
+                        <div class="product-grid-item-bottom">
+                            <span class="product-price">${{product.price}}</span>
+                            <p-button icon="pi pi-shopping-cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
                         </div>
                     </div>
-                    <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"></button>
                 </div>
-            </div>
-        </ng-template>
-        <ng-template let-car pTemplate="gridItem">
-            <div style="padding:.5em" class="p-col-12 p-md-3">
-                <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
-                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
-                    <div class="car-detail">{{car.year}} - {{car.color}}</div>
-                    <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button>
-                </p-panel>
-            </div>
-        </ng-template>
-    </p-dataView>
-
-    <p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" 
-        [style]="{width: '225px'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em', textAlign: 'center'}">
-        <div *ngIf="selectedCar">
-            <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
-            <strong>{{selectedCar.vin}} - {{selectedCar.year}}</strong>
-        </div>
-    </p-dialog>
+            </ng-template>
+        </p-dataView>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;DataViewModule&#125; from 'primeng/dataview';
-</code>
-</pre>
+</app-code>
 
             <h3>PrimeFlex</h3>
             <p>DataView utilizes PrimeFlex so it is required to be installed in your application. Refer to the <a [routerLink]="['/flexgrid']">documentation</a> for details.</p>
@@ -78,19 +75,17 @@ import &#123;DataViewModule&#125; from 'primeng/dataview';
             <p>DataView requires a collection of items as its value and one or more templates depending on the layout mode e.g. <i>list</i> and <i>grid</i>.</p>
 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the dataview. Cars are loaded by a CarService that connects to a server to fetch the cars.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+
+<app-code lang="typescript" ngNonBindable>
 export interface Car &#123;
     vin;
     year;
     brand;
     color;
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;Injectable&#125; from 'angular2/core';
 import &#123;Http, Response&#125; from 'angular2/http';
 import &#123;Car&#125; from '../domain/car';
@@ -107,11 +102,9 @@ export class CarService &#123;
                     .then(data => &#123; return data; &#125;);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class DataViewDemo implements OnInit &#123;
 
     cars: Car[];
@@ -122,11 +115,9 @@ export class DataViewDemo implements OnInit &#123;
         this.carService.getCarsLarge().then(cars => this.cars = cars);
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -134,15 +125,14 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Layouts</h3>
             <p>DataView has two layout modes; "list" and "grid" where a separate template is used to render an item in each mode. In list mode name of the template is "listItem" whereas
                 in grid mode it is "gridItem". In grid mode, the ng-template element should contain a div element as a wrapper with <a [routerLink]="['/flexgrid']">PrimeFlex</a> style class of your choice.</p>
             <p>Note that there is no restriction to use both layouts at the same time, you may configure only one layout using the layout property with the corresponding ng-template.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -155,14 +145,12 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Sections</h3>
             <p>Header and Footer are the two sections that are capable of displaying custom content.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
@@ -177,8 +165,7 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>DataViewLayoutOptions</h3>
             <p>When both layout modes are enabled in DataView, a UI element would be necessary to let the user toggle between the view. <i>p-dataViewLayoutOptions</i> is a helper component
@@ -186,8 +173,7 @@ export class DataViewDemo implements OnInit &#123;
                 you can create your own that updates the layout property of the DataView.
             </p>
 
-            <pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView [value]="cars"&gt;
     &lt;p-header&gt;
         &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
@@ -207,14 +193,13 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Paginator</h3>
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
                 of page links to display. To customize the left and right side of the paginators, use <i>paginatorLeftTemplate</i> and <i>paginatorRightTemplate</i> templates.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
         &lt;div&gt;
@@ -234,16 +219,16 @@ export class DataViewDemo implements OnInit &#123;
         &lt;button type="button" pButton icon="pi-cloud-upload"&gt;&lt;/button&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
              onLazyLoad callback everytime paging happens. To implement lazy loading, enable lazy attribute and provide a method callback using <i>onLazyLoad</i> that actually loads the data from a remote datasource. <i>onLazyLoad</i> gets an event object
             that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView [value]="cars" [paginator]="true" [rows]="10"
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template let-car pTemplate="listItem"&gt;
@@ -257,23 +242,20 @@ export class DataViewDemo implements OnInit &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 loadData(event) &#123;
     //event.first = First row offset
     //event.rows = Number of rows per page
 &#125;
-</code>
-</pre>
+</app-code>
 
             <h3>Sorting</h3>
             <p><i>sortField</i> and <i>sortOrder</i> properties are available for sorting functionality, for flexibility there is no built-in UI available so that a custom UI can be used for the sorting element.
                 Here is an example that uses a dropdown where simply updating the <i>sortField</i> - <i>sortOrder</i> bindings of the DataView initiates sorting.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView [value]="cars" [sortField]="sortField" [sortOrder]="sortOrder"&gt;
     &lt;p-header&gt;
         &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
@@ -290,11 +272,9 @@ loadData(event) &#123;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class DataViewSortDemo implements OnInit &#123;
 
     cars: Car[];
@@ -332,15 +312,15 @@ export class DataViewSortDemo implements OnInit &#123;
         &#125;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
+
             <h3>Filtering</h3>
             <p>Filtering is implemented by defining the filterBy property, match mode parameters and calling the filter function of the component,
                 for flexibility there is no built-in UI available so that a custom UI can be used for the filter element.
                 Available match modes are "contains"(Default), "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
                 Here is an example that uses an input field. filterBy is a string and multiple fields can be defined with a comma separated list.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataView #dv [value]="cars" filterBy="brand"&gt;
     &lt;p-header&gt;
         &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value, "contains")"&gt;
@@ -352,8 +332,8 @@ export class DataViewSortDemo implements OnInit &#123;
         &#123;&#123;car.year&#125;&#125;
     &lt;/ng-template&gt;
 &lt;/p-dataView&gt;
-</code>
-</pre>
+</app-code>
+
             <h3>Custom UI Elements</h3>
             <p>As mentioned above, layout options selector, sorting and filtering are baked-in and no strict UI is enforces to make it possible to come up with your own UI elements
                 to enable these features.
@@ -362,13 +342,12 @@ export class DataViewSortDemo implements OnInit &#123;
             <h3>Loading Status</h3>
             <p>DataView has a loading property, when enabled a spinner icon is displayed to indicate data load.
                 An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+
+<app-code lang="markup" ngNonBindable>
 &lt;p-dataview [value]="cars" [loading]="loading"&gt;
     //content
 &lt;/p-dataview&gt;
-</code>
-</pre>
+</app-code>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -576,35 +555,31 @@ export class DataViewSortDemo implements OnInit &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-dataview</td>
+                            <td>p-dataview</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-dataview-header</td>
+                            <td>p-dataview-list</td>
+                            <td>Container element in list layout.</td>
+                        </tr>
+                        <tr>
+                            <td>p-dataview-grid</td>
+                            <td>Container element in grid layout.</td>
+                        </tr>
+                        <tr>
+                            <td>p-dataview-header</td>
                             <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-dataview-footer</td>
+                            <td>p-dataview-footer</td>
                             <td>Footer section.</td>
                         </tr>
                         <tr>
-                            <td>ui-dataview-content</td>
+                            <td>p-dataview-content</td>
                             <td>Container of items.</td>
                         </tr>
-                        <tr>
-                            <td>ui-table-loading</td>
-                            <td>Loader mask.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-dataview-loading</td>
-                            <td>Loader background.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-dataview-loading-content</td>
-                            <td>Loader content.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-dataview-emptymessage</td>
+                            <tr>
+                            <td>p-dataview-emptymessage</td>
                             <td>Empty message element.</td>
                         </tr>
                     </tbody>
@@ -622,100 +597,84 @@ export class DataViewSortDemo implements OnInit &#123;
             <a href="https://stackblitz.com/edit/primeng-dataview-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
-    [sortField]="sortField" [sortOrder]="sortOrder"&gt;
-    &lt;p-header&gt;
-        &lt;div class="ui-helper-clearfix"&gt;
-            &lt;div class="p-grid"&gt;
-                &lt;div class="p-col-12 p-md-4"&gt;
-                    &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="&#123;'min-width':'140px'&#125;"&gt;&lt;/p-dropdown&gt;
-                &lt;/div&gt;
-                &lt;div class="p-col-6 p-md-4 filter-container"&gt;
-                    &lt;div style="position:relative"&gt;
-                        &lt;input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)"&gt;
+
+<app-code lang="markup" ngNonBindable>
+&lt;div class="card"&gt;
+    &lt;p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
+        [sortField]="sortField" [sortOrder]="sortOrder" layout="grid"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;div class="p-d-flex p-jc-between"&gt;
+                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)"&gt;&lt;/p-dropdown&gt;
+                &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="listItem"&gt;
+            &lt;div class="p-col-12"&gt;
+                &lt;div class="product-list-item"&gt;
+                    &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/&gt;
+                    &lt;div class="product-list-detail"&gt;
+                        &lt;div class="product-name"&gt;&#123;&#123;product.name&#125;&#125;&lt;/div&gt;
+                        &lt;div class="product-description"&gt;&#123;&#123;product.description&#125;&#125;&lt;/div&gt;
+                        &lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;
+                        &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;&lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="product-list-action"&gt;
+                        &lt;span class="product-price"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/span&gt;
+                        &lt;p-button icon="pi pi-shopping-cart" label="Add to Cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"&gt;&lt;/p-button&gt;
+                        &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
-                &lt;div class="p-col-6 p-md-4" style="text-align:right"&gt;
-                    &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
-                &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/p-header&gt;
-    &lt;ng-template let-car pTemplate="listItem"&gt;
-        &lt;div class="p-col-12"&gt;
-            &lt;div class="car-details"&gt;
-                &lt;div&gt;
-                    &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
-                    &lt;div class="p-grid"&gt;
-                        &lt;div class="p-col-12"&gt;Vin: &lt;b&gt;&#123;&#123;car.vin&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="p-col-12"&gt;Year: &lt;b&gt;&#123;&#123;car.year&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="p-col-12"&gt;Brand: &lt;b&gt;&#123;&#123;car.brand&#125;&#125;&lt;/b&gt;&lt;/div&gt;
-                        &lt;div class="p-col-12"&gt;Color: &lt;b&gt;&#123;&#123;car.color&#125;&#125;&lt;/b&gt;&lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-product pTemplate="gridItem"&gt;
+            &lt;div class="p-col-12 p-md-4"&gt;
+                &lt;div class="product-grid-item card"&gt;
+                    &lt;div class="product-grid-item-top"&gt;
+                        &lt;div&gt;
+                            &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
+                            &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="product-grid-item-content"&gt;
+                        &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/&gt;
+                        &lt;div class="product-name"&gt;&#123;&#123;product.name&#125;&#125;&lt;/div&gt;
+                        &lt;div class="product-description"&gt;&#123;&#123;product.description&#125;&#125;&lt;/div&gt;
+                        &lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;
+                    &lt;/div&gt;
+                    &lt;div class="product-grid-item-bottom"&gt;
+                        &lt;span class="product-price"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/span&gt;
+                        &lt;p-button icon="pi pi-shopping-cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"&gt;&lt;/p-button&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
-                &lt;button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"&gt;&lt;/button&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template let-car pTemplate="gridItem"&gt;
-        &lt;div style="padding:.5em" class="p-col-12 p-md-3"&gt;
-            &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" width="60"&gt;
-                &lt;div class="car-detail"&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
-                &lt;button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"&gt;&lt;/button&gt;
-            &lt;/p-panel&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-&lt;/p-dataView&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-dataView&gt;
+&lt;/div&gt;
+</app-code>
 
-&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" 
-    [style]="&#123;width: '225px'&#125;" (onAfterHide)="onDialogHide()" [contentStyle]="&#123;padding: '2em', textAlign: 'center'&#125;"&gt;
-    &lt;div *ngIf="selectedCar"&gt;
-        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;selectedCar.brand&#125;&#125;.png"&gt;
-        &lt;strong&gt;&#123;&#123;selectedCar.vin&#125;&#125; - &#123;&#123;selectedCar.year&#125;&#125;&lt;/strong&gt;
-    &lt;/div&gt;
-&lt;/p-dialog&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class DataViewDemo implements OnInit &#123;
 
-    cars: Car[];
-
-    selectedCar: Car;
-
-    displayDialog: boolean;
+    products: Product[];
 
     sortOptions: SelectItem[];
 
-    sortKey: string;
+    sortOrder: number;
 
     sortField: string;
 
-    sortOrder: number;
-
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private productService: ProductService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsLarge().then(cars => this.cars = cars);
+        this.productService.getProducts().then(data => this.products = data);
 
         this.sortOptions = [
-            &#123;label: 'Newest First', value: '!year'&#125;,
-            &#123;label: 'Oldest First', value: 'year'&#125;,
-            &#123;label: 'Brand', value: 'brand'&#125;
+            &#123;label: 'Price High to Low', value: '!price'&#125;,
+            &#123;label: 'Price Low to High', value: 'price'&#125;
         ];
     &#125;
-
-    selectCar(event: Event, car: Car) &#123;
-        this.selectedCar = car;
-        this.displayDialog = true;
-        event.preventDefault();
-    &#125;
-
+    
     onSortChange(event) &#123;
         let value = event.value;
 
@@ -728,13 +687,8 @@ export class DataViewDemo implements OnInit &#123;
             this.sortField = value;
         &#125;
     &#125;
-
-    onDialogHide() &#123;
-        this.selectedCar = null;
-    &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
 
         </p-tabPanel>

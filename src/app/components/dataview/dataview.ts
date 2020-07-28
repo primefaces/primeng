@@ -15,7 +15,7 @@ import {FilterUtils} from 'primeng/utils';
                     <i [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
                 </div>
             </div>
-            <div class="p-dataview-header *ngIf="header || headerTemplate">
+            <div class="p-dataview-header" *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
@@ -37,7 +37,7 @@ import {FilterUtils} from 'primeng/utils';
                 (onPageChange)="paginate($event)" styleClass="p-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
-            <div class="p-dataview-footer" *ngIf="footer">
+            <div class="p-dataview-footer" *ngIf="footer || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
