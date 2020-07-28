@@ -10,8 +10,12 @@
         <p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
             [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
             <ng-template pTemplate="header">
-                <div class="p-d-flex p-jc-between">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)"></p-dropdown>
+                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                    <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                    </span>
                     <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                 </div>
             </ng-template>
@@ -603,8 +607,12 @@ export class DataViewSortDemo implements OnInit &#123;
     &lt;p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
         [sortField]="sortField" [sortOrder]="sortOrder" layout="grid"&gt;
         &lt;ng-template pTemplate="header"&gt;
-            &lt;div class="p-d-flex p-jc-between"&gt;
-                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)"&gt;&lt;/p-dropdown&gt;
+            &lt;div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between"&gt;
+                &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"&gt;&lt;/p-dropdown&gt;
+                &lt;span class="p-input-icon-left p-mb-2 p-mb-md-0"&gt;
+                    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+                    &lt;input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)"&gt;
+                &lt;/span&gt;
                 &lt;p-dataViewLayoutOptions&gt;&lt;/p-dataViewLayoutOptions&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;
