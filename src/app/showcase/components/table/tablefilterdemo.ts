@@ -1,84 +1,86 @@
-import { Component, OnInit } from '@angular/core';
-import { Car } from '../../components/domain/car';
-import { CarService } from '../../service/carservice';
-import { SelectItem } from 'primeng/api';
-import { FilterUtils } from '../../../components/utils/filterutils';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Customer, Representative } from '../../domain/customer';
+import { CustomerService } from '../../service/customerservice';
+import { Table } from 'primeng/table';
 
 @Component({
-    templateUrl: './tablefilterdemo.html'
+    templateUrl: './tablefilterdemo.html',
+    styleUrls: ['./tabledemo.scss']
 })
 export class TableFilterDemo implements OnInit {
 
-    cars: Car[];
+    customers: Customer[];
 
-    cols: any[];
+    representatives: Representative[];
 
-    brands: SelectItem[];
+    statuses: any[];
 
-    colors: SelectItem[];
+    loading: boolean = true;
 
-    yearFilter: number;
+    @ViewChild('dt') table: Table;
 
-    yearTimeout: any;
-
-    constructor(private carService: CarService) { }
+    constructor(private customerService: CustomerService) { }
 
     ngOnInit() {
-        this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.customerService.getCustomersLarge().then(customers => {
+            this.customers = customers;
+            this.loading = false;
+        });
 
-        this.brands = [
-            { label: 'All Brands', value: null },
-            { label: 'Audi', value: 'Audi' },
-            { label: 'BMW', value: 'BMW' },
-            { label: 'Fiat', value: 'Fiat' },
-            { label: 'Honda', value: 'Honda' },
-            { label: 'Jaguar', value: 'Jaguar' },
-            { label: 'Mercedes', value: 'Mercedes' },
-            { label: 'Renault', value: 'Renault' },
-            { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+        this.representatives = [
+            {name: "Amy Elsner", image: 'amyelsner.png'},
+            {name: "Anna Fali", image: 'annafali.png'},
+            {name: "Asiya Javayant", image: 'asiyajavayant.png'},
+            {name: "Bernardo Dominic", image: 'bernardodominic.png'},
+            {name: "Elwin Sharvill", image: 'elwinsharvill.png'},
+            {name: "Ioni Bowcher", image: 'ionibowcher.png'},
+            {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
+            {name: "Onyama Limba", image: 'onyamalimba.png'},
+            {name: "Stephen Shaw", image: 'stephenshaw.png'},
+            {name: "XuXue Feng", image: 'xuxuefeng.png'}
         ];
 
-        this.colors = [
-            { label: 'White', value: 'White' },
-            { label: 'Green', value: 'Green' },
-            { label: 'Silver', value: 'Silver' },
-            { label: 'Black', value: 'Black' },
-            { label: 'Red', value: 'Red' },
-            { label: 'Maroon', value: 'Maroon' },
-            { label: 'Brown', value: 'Brown' },
-            { label: 'Orange', value: 'Orange' },
-            { label: 'Blue', value: 'Blue' }
-        ];
+        this.statuses = [
+            {label: 'Unqualified', value: 'unqualified'},
+            {label: 'Qualified', value: 'qualified'},
+            {label: 'New', value: 'new'},
+            {label: 'Negotiation', value: 'negotiation'},
+            {label: 'Renewal', value: 'renewal'},
+            {label: 'Proposal', value: 'proposal'}
+        ]
+    }
 
-        this.cols = [
-            { field: 'vin', header: 'Vin'},
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' },
-            { field: 'price', header: 'Price' }
-        ];
+    onActivityChange(event) {
+        const value = event.target.value;
+        if (value && value.trim().length) {
+            const activity = parseInt(value);
 
-        FilterUtils['custom'] = (value, filter): boolean => {
-            if (filter === undefined || filter === null || filter.trim() === '') {
-                return true;
+            if (!isNaN(activity)) {
+                this.table.filter(activity, 'activity', 'gte');
             }
-    
-            if (value === undefined || value === null) {
-                return false;
-            }
-            
-            return parseInt(filter) > value;
         }
     }
 
-    onYearChange(event, dt) {
-        if (this.yearTimeout) {
-            clearTimeout(this.yearTimeout);
+    onDateSelect(value) {
+        this.table.filter(this.formatDate(value), 'date', 'equals')
+    }
+
+    formatDate(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month < 10) {
+            month = '0' + month;
         }
 
-        this.yearTimeout = setTimeout(() => {
-            dt.filter(event.value, 'year', 'gt');
-        }, 250);
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    }
+
+    onRepresentativeChange(event) {
+        this.table.filter(event.value, 'representative', 'in')
     }
 }

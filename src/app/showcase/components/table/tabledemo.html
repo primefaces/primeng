@@ -13,7 +13,7 @@
             [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
             <ng-template pTemplate="caption">
                 <div class="table-header">
-                    List of Cars
+                    List of Customers
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
@@ -68,7 +68,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>
-                <tr class="ui-selectable-row">
+                <tr class="p-selectable-row">
                     <td>
                         <p-tableCheckbox [value]="customer"></p-tableCheckbox>
                     </td>
@@ -2897,7 +2897,7 @@ export class TableDemo implements OnInit &#123;
                             <td>rowHover</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "ui-selectable-row" class for rowHover to work.</td>
+                            <td>Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "p-selectable-row" class for rowHover to work.</td>
                         </tr>
                         <tr>
                             <td>paginatorDropdownAppendTo</td>
@@ -3307,7 +3307,7 @@ export class TableDemo implements OnInit &#123;
             &lt;/tr&gt;
         &lt;/ng-template&gt;
         &lt;ng-template pTemplate="body" let-customer&gt;
-            &lt;tr class="ui-selectable-row"&gt;
+            &lt;tr class="p-selectable-row"&gt;
                 &lt;td&gt;
                     &lt;p-tableCheckbox [value]="customer"&gt;&lt;/p-tableCheckbox&gt;
                 &lt;/td&gt;

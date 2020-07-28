@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
-import { Table } from '../../../components/table/table';
+import { Table } from 'primeng/table';
 
 @Component({
     templateUrl: './tabledemo.html',
