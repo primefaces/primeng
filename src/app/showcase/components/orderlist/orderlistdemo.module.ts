@@ -5,13 +5,15 @@ import {OrderListDemoRoutingModule} from './orderlistdemo-routing.module';
 import {OrderListModule} from 'primeng/orderlist';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		OrderListDemoRoutingModule,
         OrderListModule,
-        TabViewModule,
+		TabViewModule,
+		AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [
