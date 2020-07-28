@@ -90,7 +90,7 @@ declare let gtag: Function;
                                 <li><a [routerLink]="['/table']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
                                 <li><a [routerLink]="['/table/basic']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Basic</a></li>
                                 <li><a [routerLink]="['/table/dynamic']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Dynamic</a></li>
-                                <li><a [routerLink]="['/table/sections']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Sections</a></li>
+                                <li><a [routerLink]="['/table/templating']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Templating</a></li>
                                 <li><a [routerLink]="['/table/page']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Page</a></li>
                                 <li><a [routerLink]="['/table/sort']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Sort</a></li>
                                 <li><a [routerLink]="['/table/selection']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Selection</a></li>

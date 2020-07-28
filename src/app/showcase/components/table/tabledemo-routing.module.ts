@@ -5,7 +5,7 @@ import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableFilterDemo } from './tablefilterdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
-import { TableSectionsDemo } from './tablesectionsdemo';
+import { TableTemplatingDemo } from './tabletemplatingdemo';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
@@ -37,7 +37,7 @@ import { TableDynamicDemo } from './tabledynamicdemo';
 			{ path: 'sort', component: TableSortDemo },
 			{ path: 'selection', component: TableSelectionDemo },
 			{ path: 'filter', component: TableFilterDemo },
-			{ path: 'sections', component: TableSectionsDemo },
+			{ path: 'templating', component: TableTemplatingDemo },
 			{ path: 'style', component: TableStyleDemo },
 			{ path: 'lazy', component: TableLazyDemo },
 			{ path: 'export', component: TableExportDemo },

@@ -1,95 +1,51 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table <span class="subitem">Basic</span></span>
-        <span>Table requires a header and a body template to display data.</span>
+    <div class="feature-intro">
+        <h1>DataTable <span>Basic</span></h1>
+        <p>DataTable requires a collection to display along with column components for the representation of the data.</p>
     </div>
 </div>
 
-<div [ngClass]="{'content-section implementation': true}">
-    <h3 class="first">Basic</h3>
-    <p-table [value]="cars">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Vin</th>
-                <th>Year</th>
-                <th>Brand</th>
-                <th>Color</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-car>
-            <tr>
-                <td>{{car.vin}}</td>
-                <td>{{car.year}}</td>
-                <td>{{car.brand}}</td>
-                <td>{{car.color}}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="footer" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{col.header}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+<div class="content-section implementation">
+    <div class="card">
+        <p-table [value]="products">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
-        <p-tabPanel header="tablebasicdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablebasicdemo.ts" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
             <a href="https://stackblitz.com/edit/primeng-tablebasic-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class TableBasicDemo implements OnInit &#123;
+            
+<app-code lang="markup" ngNonBindable>
+</app-code>
 
-    cars: Car[];
-
-    constructor(private carService: CarService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-    &#125;
-&#125;
-</code>
-</pre>   
+<app-code lang="typescript" ngNonBindable>
+</app-code>
+  
         </p-tabPanel>
 
-        <p-tabPanel header="tablebasicdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablebasicdemo.html" class="btn-viewsource" target="_blank">
-                <span>View on GitHub</span>
-            </a>
-            <a href="https://stackblitz.com/edit/primeng-tablebasic-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
-                <span>Edit in StackBlitz</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-table [value]="cars"&gt;
-    &lt;ng-template pTemplate="header"&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Vin&lt;/th&gt;
-            &lt;th&gt;Year&lt;/th&gt;
-            &lt;th&gt;Brand&lt;/th&gt;
-            &lt;th&gt;Color&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-car&gt;
-        &lt;tr&gt;
-            &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
-        </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
                 <iframe src="https://stackblitz.com/edit/primeng-tablebasic-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>

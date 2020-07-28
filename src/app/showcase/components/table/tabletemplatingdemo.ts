@@ -3,9 +3,9 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    templateUrl: './tablebasicdemo.html'
+    templateUrl: './tabletemplatingdemo.html'
 })
-export class TableBasicDemo implements OnInit {
+export class TableTemplatingDemo implements OnInit {
 
     products: Product[];
 

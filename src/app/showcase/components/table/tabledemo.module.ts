@@ -8,7 +8,7 @@ import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
 import { TableFilterDemo } from './tablefilterdemo';
-import { TableSectionsDemo } from './tablesectionsdemo';
+import { TableTemplatingDemo } from './tabletemplatingdemo';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
@@ -36,6 +36,7 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -59,7 +60,8 @@ import { AppCodeModule } from '../../app.code.component';
 		ToastModule,
         InputTextModule,
         ProgressBarModule,
-		TabViewModule,
+        TabViewModule,
+        RatingModule,
         CodeHighlighterModule,
         AppCodeModule
 	],
@@ -70,7 +72,7 @@ import { AppCodeModule } from '../../app.code.component';
 		TablePageDemo,
 		TableSortDemo,
 		TableSelectionDemo,
-		TableSectionsDemo,
+		TableTemplatingDemo,
 		TableFilterDemo,
 		TableStyleDemo,
 		TableLazyDemo,
