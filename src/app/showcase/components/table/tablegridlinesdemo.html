@@ -1,0 +1,52 @@
+<div class="content-section introduction">
+    <div class="feature-intro">
+        <h1>DataTable <span>GridLines</span></h1>
+        <p>Adding <b>p-datatable-gridlines</b> displays borders between cells. Note: Some themes may always display gridlines by design.</p>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="card">
+        <p-table [value]="products" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="caption">
+                Header
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                Footer
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView>
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
+                <span>View on GitHub</span>
+            </a>
+                        
+<app-code lang="markup" ngNonBindable>
+</app-code>
+
+<app-code lang="typescript" ngNonBindable>
+</app-code>
+  
+        </p-tabPanel>
+    </p-tabView>
+</div>

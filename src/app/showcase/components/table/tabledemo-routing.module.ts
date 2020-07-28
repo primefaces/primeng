@@ -1,11 +1,14 @@
 import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router'
 import { TableDemo } from './tabledemo';
+import { TableTemplatingDemo } from './tabletemplatingdemo';
+import { TableSizeDemo } from './tablesizedemo';
+import { TableGridLinesDemo } from './tablegridlinesdemo';
+import { TableStripedDemo } from './tablestripeddemo';
 import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableFilterDemo } from './tablefilterdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
-import { TableTemplatingDemo } from './tabletemplatingdemo';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
@@ -34,10 +37,13 @@ import { TableDynamicDemo } from './tabledynamicdemo';
 			{ path: 'page', component: TablePageDemo },
 			{ path: 'basic', component: TableBasicDemo },
 			{ path: 'dynamic', component: TableDynamicDemo },
+            { path: 'templating', component: TableTemplatingDemo },
+            { path: 'size', component: TableSizeDemo },
+            { path: 'gridlines', component: TableGridLinesDemo },
+            { path: 'striped', component: TableStripedDemo },
 			{ path: 'sort', component: TableSortDemo },
 			{ path: 'selection', component: TableSelectionDemo },
 			{ path: 'filter', component: TableFilterDemo },
-			{ path: 'templating', component: TableTemplatingDemo },
 			{ path: 'style', component: TableStyleDemo },
 			{ path: 'lazy', component: TableLazyDemo },
 			{ path: 'export', component: TableExportDemo },

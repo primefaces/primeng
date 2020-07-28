@@ -4,11 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { TableDemo } from './tabledemo';
 import { TableBasicDemo } from './tablebasicdemo';
 import { TableDynamicDemo } from './tabledynamicdemo';
+import { TableTemplatingDemo } from './tabletemplatingdemo';
+import { TableSizeDemo } from './tablesizedemo';
+import { TableGridLinesDemo } from './tablegridlinesdemo';
+import { TableStripedDemo } from './tablestripeddemo';
 import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
 import { TableFilterDemo } from './tablefilterdemo';
-import { TableTemplatingDemo } from './tabletemplatingdemo';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
@@ -69,10 +72,13 @@ import { AppCodeModule } from '../../app.code.component';
 		TableDemo,
 		TableBasicDemo,
 		TableDynamicDemo,
+        TableTemplatingDemo,
+        TableSizeDemo,
+        TableGridLinesDemo,
+        TableStripedDemo,
 		TablePageDemo,
 		TableSortDemo,
 		TableSelectionDemo,
-		TableTemplatingDemo,
 		TableFilterDemo,
 		TableStyleDemo,
 		TableLazyDemo,

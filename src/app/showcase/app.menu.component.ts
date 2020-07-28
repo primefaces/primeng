@@ -91,6 +91,9 @@ declare let gtag: Function;
                                 <li><a [routerLink]="['/table/basic']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Basic</a></li>
                                 <li><a [routerLink]="['/table/dynamic']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Dynamic</a></li>
                                 <li><a [routerLink]="['/table/templating']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Templating</a></li>
+                                <li><a [routerLink]="['/table/size']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Size</a></li>
+                                <li><a [routerLink]="['/table/gridlines']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Gridlines</a></li>
+                                <li><a [routerLink]="['/table/striped']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Striped</a></li>
                                 <li><a [routerLink]="['/table/page']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Page</a></li>
                                 <li><a [routerLink]="['/table/sort']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Sort</a></li>
                                 <li><a [routerLink]="['/table/selection']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Selection</a></li>
