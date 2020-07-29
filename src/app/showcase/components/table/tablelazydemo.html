@@ -39,6 +39,85 @@
             <a href="https://stackblitz.com/edit/primeng-tablelazy-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
+
+<app-code lang="markup" ngNonBindable>
+&lt;p-table [value]="customers" [lazy]="true" (onLazyLoad)="loadCustomers($event)" 
+    [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Country&lt;/th&gt;
+            &lt;th&gt;Company&lt;/th&gt;
+            &lt;th&gt;Representative&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-customer&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</app-code>
+
+<app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+import &#123; LazyLoadEvent &#125; from 'primeng/api';
+import &#123; FilterMetadata &#125; from 'primeng/api';
+
+@Component(&#123;
+    templateUrl: './tablelazydemo.html'
+&#125;)
+export class TableLazyDemo implements OnInit &#123;
+
+    datasource: Customer[];
+
+    customers: Customer[];
+
+    totalRecords: number;
+
+    cols: any[];
+
+    loading: boolean;
+
+    constructor(private customerService: CustomerService) &#123; &#125;
+
+    ngOnInit() &#123;
+        //datasource imitation
+        this.customerService.getCustomersLarge().then(data =&gt; &#123;
+            this.datasource = data;
+            this.totalRecords = data.length;
+        &#125;);
+
+        this.loading = true;
+    &#125;
+
+    loadCustomers(event: LazyLoadEvent) &#123;  
+        this.loading = true;
+
+        //in a real application, make a remote request to load data using state metadata from event
+        //event.first = First row offset
+        //event.rows = Number of rows per page
+        //event.sortField = Field name to sort with
+        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+
+        //imitate db connection over a network
+        setTimeout(() =&gt; &#123;
+            if (this.datasource) &#123;
+                this.customers = this.datasource.slice(event.first, (event.first + event.rows));
+                this.loading = false;
+            &#125;
+        &#125;, 1000);
+    &#125;
+
+&#125;
+</app-code>
+
          </p-tabPanel>
 
         <p-tabPanel header="StackBlitz">

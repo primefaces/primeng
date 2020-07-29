@@ -36,4 +36,5 @@ export class TableStyleDemo implements OnInit {
     ngOnInit() {
         this.productService.getProductsSmall().then(data => this.products = data);
     }
+    
 }

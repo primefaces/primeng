@@ -49,4 +49,5 @@ export class TableLazyDemo implements OnInit {
             }
         }, 1000);
     }
+    
 }

@@ -104,9 +104,180 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable>
+&lt;p-table #dt [value]="customers" dataKey="id"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
+        [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
+        &lt;ng-template pTemplate="caption"&gt;
+            &lt;div class="table-header"&gt;
+                List of Customers
+                &lt;span class="p-input-icon-left"&gt;
+                    &lt;i class="pi pi-search"&gt;&lt;/i&gt;
+                    &lt;input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" /&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+                &lt;th&gt;Date&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Activity&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'startsWith')" placeholder="Search by Name" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="dt.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="p-column-filter"&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;p-multiSelect [options]="representatives" placeholder="All" (onChange)="onRepresentativeChange($event)" styleClass="p-column-filter" optionLabel="name"&gt;
+                        &lt;ng-template let-option pTemplate="item"&gt;
+                            &lt;div class="p-multiselect-representative-option"&gt;
+                                &lt;img [alt]="option.label" src="assets/showcase/images/demo/avatar/&#123;&#123;option.value.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                                &lt;span class="p-ml-1"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/ng-template&gt;
+                    &lt;/p-multiSelect&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'date', 'equals')" [showButtonBar]="true" styleClass="p-column-filter" placeholder="Registration Date" [readonlyInput]="true" dateFormat="yy-mm-dd"&gt;&lt;/p-calendar&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;p-dropdown [options]="statuses" (onChange)="dt.filter($event.value, 'status', 'equals')" styleClass="p-column-filter" placeholder="Select a Status" [showClear]="true"&gt;
+                        &lt;ng-template let-option pTemplate="item"&gt;
+                            &lt;span [class]="'customer-badge status-' + option.value"&gt;&#123;&#123;option.label&#125;&#125;&lt;/span&gt;
+                        &lt;/ng-template&gt;
+                    &lt;/p-dropdown&gt;
+                &lt;/th&gt;
+                &lt;th&gt;
+                    &lt;input pInputText type="text" (input)="onActivityChange($event)" placeholder="Minimum" class="p-column-filter" &gt;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.name&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30"&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/&#123;&#123;customer.representative.image&#125;&#125;" width="32" style="vertical-align: middle" /&gt;
+                    &lt;span class="image-text"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &#123;&#123;customer.date&#125;&#125;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;span [class]="'customer-badge status-' + customer.status"&gt;&#123;&#123;customer.status&#125;&#125;&lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;p-progressBar [value]="customer.activity" [showValue]="false"&gt;&lt;/p-progressBar&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="emptymessage"&gt;
+            &lt;tr&gt;
+                &lt;td colspan="6"&gt;No customers found.&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit, ViewChild &#125; from '@angular/core';
+import &#123; Customer, Representative &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+import &#123; Table &#125; from 'primeng/table';
+
+@Component(&#123;
+    templateUrl: './tablefilterdemo.html',
+    styleUrls: ['./tabledemo.scss']
+&#125;)
+export class TableFilterDemo implements OnInit &#123;
+
+    customers: Customer[];
+
+    representatives: Representative[];
+
+    statuses: any[];
+
+    loading: boolean = true;
+
+    @ViewChild('dt') table: Table;
+
+    constructor(private customerService: CustomerService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.customerService.getCustomersLarge().then(customers =&gt; &#123;
+            this.customers = customers;
+            this.loading = false;
+        &#125;);
+
+        this.representatives = [
+            &#123;name: "Amy Elsner", image: 'amyelsner.png'&#125;,
+            &#123;name: "Anna Fali", image: 'annafali.png'&#125;,
+            &#123;name: "Asiya Javayant", image: 'asiyajavayant.png'&#125;,
+            &#123;name: "Bernardo Dominic", image: 'bernardodominic.png'&#125;,
+            &#123;name: "Elwin Sharvill", image: 'elwinsharvill.png'&#125;,
+            &#123;name: "Ioni Bowcher", image: 'ionibowcher.png'&#125;,
+            &#123;name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'&#125;,
+            &#123;name: "Onyama Limba", image: 'onyamalimba.png'&#125;,
+            &#123;name: "Stephen Shaw", image: 'stephenshaw.png'&#125;,
+            &#123;name: "XuXue Feng", image: 'xuxuefeng.png'&#125;
+        ];
+
+        this.statuses = [
+            &#123;label: 'Unqualified', value: 'unqualified'&#125;,
+            &#123;label: 'Qualified', value: 'qualified'&#125;,
+            &#123;label: 'New', value: 'new'&#125;,
+            &#123;label: 'Negotiation', value: 'negotiation'&#125;,
+            &#123;label: 'Renewal', value: 'renewal'&#125;,
+            &#123;label: 'Proposal', value: 'proposal'&#125;
+        ]
+    &#125;
+
+    onActivityChange(event) &#123;
+        const value = event.target.value;
+        if (value && value.trim().length) &#123;
+            const activity = parseInt(value);
+
+            if (!isNaN(activity)) &#123;
+                this.table.filter(activity, 'activity', 'gte');
+            &#125;
+        &#125;
+    &#125;
+
+    onDateSelect(value) &#123;
+        this.table.filter(this.formatDate(value), 'date', 'equals')
+    &#125;
+
+    formatDate(date) &#123;
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month &lt; 10) &#123;
+            month = '0' + month;
+        &#125;
+
+        if (day &lt; 10) &#123;
+            day = '0' + day;
+        &#125;
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    &#125;
+
+    onRepresentativeChange(event) &#123;
+        this.table.filter(event.value, 'representative', 'in')
+    &#125;
+    
+&#125;
 </app-code> 
         </p-tabPanel>
 
