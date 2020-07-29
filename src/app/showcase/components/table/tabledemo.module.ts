@@ -43,6 +43,7 @@ import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { TooltipModule } from 'primeng/tooltip';
 import { TabViewModule } from 'primeng/tabview';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
@@ -63,6 +64,7 @@ import { AppCodeModule } from '../../app.code.component';
 		ToastModule,
         InputTextModule,
         ProgressBarModule,
+        TooltipModule,
         TabViewModule,
         RatingModule,
         CodeHighlighterModule,
