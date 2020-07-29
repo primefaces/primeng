@@ -1,9 +1,9 @@
 import {Component,OnDestroy} from '@angular/core';
 import {DialogService} from '../../../components/dynamicdialog/dialogservice';
 import {MessageService} from 'primeng/api';
-import {CarsListDemo} from './carslistdemo';
-import {Car} from '../../components/domain/car';
+import {ProductListDemo} from './productlistdemo';
 import { DynamicDialogRef } from '../../../components/dynamicdialog/dynamicdialog-ref';
+import { Product } from '../../domain/product';
 
 @Component({
     templateUrl: './dynamicdialogdemo.html',
@@ -16,16 +16,16 @@ export class DynamicDialogDemo implements OnDestroy {
     ref: DynamicDialogRef;
 
     show() {
-        this.ref = this.dialogService.open(CarsListDemo, {
-            header: 'Choose a Car',
+        this.ref = this.dialogService.open(ProductListDemo, {
+            header: 'Choose a Product',
             width: '70%',
-            contentStyle: {"max-height": "350px", "overflow": "auto"},
+            contentStyle: {"max-height": "500px", "overflow": "auto"},
             baseZIndex: 10000
         });
 
-        this.ref.onClose.subscribe((car: Car) =>{
-            if (car) {
-                this.messageService.add({severity:'info', summary: 'Car Selected', detail:'Vin:' + car.vin});
+        this.ref.onClose.subscribe((product: Product) =>{
+            if (product) {
+                this.messageService.add({severity:'info', summary: 'Product Selected', detail: product.name});
             }
         });
     }
