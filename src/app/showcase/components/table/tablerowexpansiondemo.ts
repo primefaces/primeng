@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../components/domain/car';
-import { CarService } from '../../service/carservice';
+import { Product } from '../../domain/product';
+import { ProductService } from '../../service/productservice';
 import { trigger,state,style,transition,animate } from '@angular/animations';
 
 @Component({
@@ -21,20 +21,11 @@ import { trigger,state,style,transition,animate } from '@angular/animations';
 })
 export class TableRowExpansionDemo implements OnInit {
 
-    cars: Car[];
+    products: Product[];
 
-    cols: any[];
-
-    constructor(private carService: CarService) { }
+    constructor(private productService: ProductService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
-            { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' }
-        ];
+        this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
     }
 }
