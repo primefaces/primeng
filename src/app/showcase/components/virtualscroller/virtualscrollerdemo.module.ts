@@ -9,6 +9,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {DropdownModule} from 'primeng/dropdown';
 import {TabViewModule} from 'primeng/tabview';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -20,6 +21,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         InputTextModule,
         DropdownModule,
         TabViewModule,
+        AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [

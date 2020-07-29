@@ -6,6 +6,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import {TabViewModule} from 'primeng/tabview';
+import {ToastModule} from 'primeng/toast';
 import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
@@ -18,6 +19,7 @@ import {AppCodeModule} from '../../app.code.component';
         TableModule,
 		TabViewModule,
 		AppCodeModule,
+		ToastModule,
         CodeHighlighterModule
 	],
 	declarations: [
