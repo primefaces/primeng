@@ -52,10 +52,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         if (this.icon && !this.label) {
             styleClass = styleClass + ' p-button-icon-only';
         }
-
-        if (this.el.nativeElement.disabled) {
-            styleClass = styleClass + ' p-disabled';
-        }
         
         return styleClass;
     }
@@ -110,8 +106,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         <button [attr.type]="type" [class]="styleClass" [ngStyle]="style" [disabled]="disabled"
             [ngClass]="{'p-button p-component':true,
                         'p-button-icon-only': (icon && !label),
-                        'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
-                        'p-disabled': disabled}"
+                        'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label}"
                         (click)="onClick.emit($event)" (focus)="onFocus.emit($event)" (blur)="onBlur.emit($event)" pRipple>
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>

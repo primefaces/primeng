@@ -39,6 +39,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     styleUrls: ['./inputnumber.css']
 })
 export class InputNumber implements OnInit,ControlValueAccessor {
+    
     @Input() showButtons: boolean = false;
 
     @Input() format: boolean = true;
