@@ -133,7 +133,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
 	onContainerDestroy() {
 		this.unbindGlobalListeners();
-        
+
         if (this.config.modal !== false) {
             this.disableModality();
         }
@@ -143,6 +143,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 	close() {
         this.visible = false;
         this.cd.markForCheck();
+
+        if (this.componentRef) {
+            this.componentRef.close();
+        }
 	}
 
     enableModality() {

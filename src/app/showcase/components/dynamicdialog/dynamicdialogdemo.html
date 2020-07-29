@@ -67,7 +67,7 @@ export class DynamicDialogDemo &#123;
 </app-code>
 
             <p>Displaying a dialog is done with the open method where the first parameter is the type of component to load and the second parameter is the configuration of the Dialog such as header, width and more.</p>
-                
+
 <app-code lang="markup" ngNonBindable>
 &lt;button type="button" (click)="show()" pButton icon="pi pi-info-circle" label="Show"&gt;&lt;/button&gt;
 </app-code>
@@ -109,7 +109,7 @@ import &#123;DynamicDialogConfig&#125; from 'primeng/dynamicdialog';
 export class CarsListDemo &#123;
 
     cars: Car[];
-            
+
     constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;
@@ -135,7 +135,7 @@ import &#123;DynamicDialogConfig&#125; from 'primeng/dynamicdialog';
 export class CarsListDemo &#123;
 
     cars: Car[];
-            
+
     constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;
@@ -289,14 +289,14 @@ show() &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onShow</td>
+                            <td>onClose</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke when dialog is shown.</td>
+                            <td>Callback to invoke when dialog closed.</td>
                         </tr>
                         <tr>
-                            <td>onHide</td>
+                            <td>onDestroy</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke when dialog is hidden.</td>
+                            <td>Callback to invoke when dialog component reference destroyed.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -374,7 +374,7 @@ export class DynamicDialogDemo implements OnDestroy &#123;
     constructor(public dialogService: DialogService, public messageService: MessageService) &#123;&#125;
 
     ref: DynamicDialogRef;
-    
+
     show() &#123;
         this.ref = this.dialogService.open(CarsListDemo, &#123;
             header: 'Choose a Car',
@@ -426,7 +426,7 @@ export class DynamicDialogDemo implements OnDestroy &#123;
 export class CarsListDemo &#123;
 
     cars: Car[];
-            
+
     constructor(private carService: CarService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) &#123; &#125;
 
     ngOnInit() &#123;
