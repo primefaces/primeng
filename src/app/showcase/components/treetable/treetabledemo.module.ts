@@ -28,6 +28,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
+import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
 	imports: [
@@ -42,6 +43,7 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
         MultiSelectModule,
         InputTextModule,
         ContextMenuModule,
+        AppCodeModule,
         CodeHighlighterModule
 	],
 	declarations: [
