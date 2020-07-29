@@ -39,11 +39,17 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TooltipModule } from 'primeng/tooltip';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FileUploadModule } from 'primeng/fileupload';
 import { TabViewModule } from 'primeng/tabview';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
@@ -56,15 +62,21 @@ import { AppCodeModule } from '../../app.code.component';
         TableModule,
         CalendarModule,
 		SliderModule,
-		DialogModule,
+        DialogModule,
+        ConfirmDialogModule,
 		MultiSelectModule,
 		ContextMenuModule,
 		DropdownModule,
 		ButtonModule,
 		ToastModule,
         InputTextModule,
+        InputNumberModule,
+        InputTextareaModule,
         ProgressBarModule,
         TooltipModule,
+        RadioButtonModule,
+        ToolbarModule,
+        FileUploadModule,
         TabViewModule,
         RatingModule,
         CodeHighlighterModule,
