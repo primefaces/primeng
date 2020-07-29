@@ -1,36 +1,147 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Table <span class="subitem">Scroll</span></span>
+    <div class="feature-intro">
+        <h1>DataTable <span>Scroll</span></h1>
         <span>Scrollable view is available horizontally, vertically or both.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Vertical with Fixed Viewport</h3>
-    <p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="200px">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="card">
+        <h5>Vertical with Fixed Viewport</h5>
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="200px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
     
-    <h3>Flexible Viewport</h3>
-    <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
-        to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
+    <div class="card">
+        <h5>Flexible Viewport</h5>
+        <p>Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+            to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.</p>
+    
+        <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+        <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '300px'}">
+            <p-table [value]="customers" [scrollable]="true" scrollHeight="flex">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Company</th>
+                        <th>Representative</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr>
+                        <td>{{customer.name}}</td>
+                        <td>{{customer.country.name}}</td>
+                        <td>{{customer.company}}</td>
+                        <td>{{customer.representative.name}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-footer>
+                <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"></button>
+            </p-footer>        
+        </p-dialog>
 
-    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
-    <p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="{width: '50vw'}" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '300px'}">
-        <p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="flex">
+        <h5>Full Page Scroll</h5>
+        <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/table/flexscroll']">Full Page</a> demo for an example.</p>
+    </div>
+
+    <div class="card">
+        <h5>Horizontal and Vertical</h5>
+        <p-table [value]="customers" [scrollable]="true" [style]="{width:'600px'}" scrollHeight="200px">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                    <col style="width:250px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Date</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Activity</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.id}}</td>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.date}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.status}}</td>
+                    <td>{{customer.activity}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <h5>Frozen Rows</h5>
+        <p-table [value]="customers" [frozenValue]="frozenValue" [scrollable]="true" scrollHeight="200px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenrows" let-customer>
+                <tr>
+                    <td class="p-text-bold">{{customer.name}}</td>
+                    <td class="p-text-bold">{{customer.country.name}}</td>
+                    <td class="p-text-bold">{{customer.company}}</td>
+                    <td class="p-text-bold">{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="card">
+        <h5>Frozen Columns</h5>
+        <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="customers" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" style="width:300px">
+                </colgroup>
+            </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -38,413 +149,33 @@
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <ng-template pTemplate="body" let-customer let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns">
-                        {{rowData[col.field]}}
+                        {{customer[col.field]}}
                     </td>
                 </tr>
             </ng-template>
         </p-table>
-        <p-footer>
-            <button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"></button>
-            <button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"></button>
-        </p-footer>        
-    </p-dialog>
-
-    <h3>Full Page Scroll</h3>
-    <p>FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the <a [routerLink]="['/table/flexscroll']">Full Page</a> demo for an example.</p>
-
-    <h3>Horizontal</h3>
-    <p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="{width:'500px'}">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:250px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Horizontal and Vertical</h3>
-    <p-table [columns]="cols" [value]="cars1" [scrollable]="true" [style]="{width:'500px'}" scrollHeight="200px">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:250px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Frozen Rows</h3>
-    <p-table [columns]="cols" [value]="cars1" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="frozenrows" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    <b>{{rowData[col.field]}}</b>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Frozen Columns</h3>
-    <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars1" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:300px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-
-    <h3>Frozen Columns and Frozen Rows</h3>
-    <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [frozenValue]="frozenCars" [value]="cars1" [scrollable]="true" scrollHeight="200px" frozenWidth="300px">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col *ngFor="let col of columns" style="width:300px">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="frozenrows" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    <b>{{rowData[col.field]}}</b>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
-        <p-tabPanel header="tablescrolldemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablescrolldemo.ts" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
             <a href="https://stackblitz.com/edit/primeng-tablescroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-@Component(&#123;
-    templateUrl: './tablescrolldemo.html',
-    styles: [`
-        .loading-text &#123;
-            display: block;
-            background-color: #f1f1f1;
-            min-height: 19px;
-            animation: pulse 1s infinite ease-in-out;
-            text-indent: -99999px;
-            overflow: hidden;
-        &#125;
-    `]
-&#125;)
-export class TableScrollDemo implements OnInit &#123;
+<app-code lang="markup" ngNonBindable>
+</app-code>
 
-    cars1: Car[];
-
-    cars2: Car[];
-
-    cols: any[];
-
-    frozenCars: Car[];
-
-    frozenCols: any[];
-
-    scrollableCols: any[];
-
-    dialogVisible: boolean;
-
-    constructor(private carService: CarService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.carService.getCarsMedium().then(cars => this.cars1 = cars);
-        this.carService.getCarsSmall().then(cars => this.cars2 = cars);
-
-        this.cols = [
-            &#123; field: 'vin', header: 'Vin' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
-
-        this.scrollableCols = [
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;,
-            &#123; field: 'year', header: 'Year' &#125;,
-            &#123; field: 'brand', header: 'Brand' &#125;,
-            &#123; field: 'color', header: 'Color' &#125;
-        ];
-
-        this.frozenCols = [
-            &#123; field: 'vin', header: 'Vin' &#125;
-        ];
-
-        this.frozenCars = [
-            &#123; "brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23" &#125;,
-            &#123; "brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23" &#125;
-        ];
-    &#125;
-
-    showDialog() &#123;
-        this.dialogVisible = true;
-    &#125;
-
-&#125;
-</code>
-</pre>
+<app-code lang="typescript" ngNonBindable>
+</app-code>
         </p-tabPanel>
 
-        <p-tabPanel header="tablescrolldemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tablescrolldemo.html" class="btn-viewsource" target="_blank">
-                <span>View on GitHub</span>
-            </a>
-            <a href="https://stackblitz.com/edit/primeng-tablescroll-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
-                <span>Edit in StackBlitz</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Vertical&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Flexible Viewport&lt;/h3&gt;
-&lt;p&gt;Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
-    to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
-
-&lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
-&lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
-    &lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="flex"&gt;
-        &lt;ng-template pTemplate="header" let-columns&gt;
-            &lt;tr&gt;
-                &lt;th *ngFor="let col of columns"&gt;
-                    &#123;&#123;col.header&#125;&#125;
-                &lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-        &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-            &lt;tr&gt;
-                &lt;td *ngFor="let col of columns"&gt;
-                    &#123;&#123;rowData[col.field]&#125;&#125;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/ng-template&gt;
-    &lt;/p-table&gt;
-    &lt;p-footer&gt;
-        &lt;button type="button" pButton icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/button&gt;
-        &lt;button type="button" pButton icon="pi pi-times" (click)="dialogVisible=false" label="No" class="ui-button-secondary"&gt;&lt;/button&gt;
-    &lt;/p-footer&gt;        
-&lt;/p-dialog&gt;
-
-&lt;h3&gt;Full Page Scroll&lt;/h3&gt;
-&lt;p&gt;FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the &lt;a [routerLink]="['/table/flexscroll']"&gt;Full Page&lt;/a&gt; demo for an example.&lt;/p&gt;
-
-&lt;h3&gt;Horizontal&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="&#123;width:'500px'&#125;"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Horizontal and Vertical&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars1" [scrollable]="true" [style]="&#123;width:'500px'&#125;" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:250px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Frozen Rows&lt;/h3&gt;
-&lt;p-table [columns]="cols" [value]="cars1" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px"&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenrows" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;b&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/b&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Frozen Columns&lt;/h3&gt;
-&lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars1" [scrollable]="true" scrollHeight="200px" frozenWidth="300px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:300px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-
-&lt;h3&gt;Frozen Columns and Frozen Rows&lt;/h3&gt;
-&lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [frozenValue]="frozenCars" [value]="cars1" [scrollable]="true" scrollHeight="200px" frozenWidth="300px"&gt;
-    &lt;ng-template pTemplate="colgroup" let-columns&gt;
-        &lt;colgroup&gt;
-            &lt;col *ngFor="let col of columns" style="width:300px"&gt;
-        &lt;/colgroup&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="frozenrows" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &lt;b&gt;&#123;&#123;rowData[col.field]&#125;&#125;&lt;/b&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="header" let-columns&gt;
-        &lt;tr&gt;
-            &lt;th *ngFor="let col of columns"&gt;
-                &#123;&#123;col.header&#125;&#125;
-            &lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
-        &lt;tr&gt;
-            &lt;td *ngFor="let col of columns"&gt;
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/ng-template&gt;
-&lt;/p-table&gt;
-</code>
-</pre>
-        </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
                 <iframe src="https://stackblitz.com/edit/primeng-tablescroll-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
