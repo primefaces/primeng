@@ -7,10 +7,10 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TreeTablePageDemo } from './treetablepagedemo';
 import { TreeTableSortDemo } from './treetablesortdemo';
 import { TreeTableSelectionDemo } from './treetableselectiondemo';
-import { TreeTableSectionsDemo } from './treetablesectionsdemo';
 import { TreeTableStyleDemo } from './treetablestyledemo';
 import { TreeTableLazyDemo } from './treetablelazydemo';
 import { TreeTableColGroupDemo } from './treetablecolgroupdemo';
+import { TreeTableTemplatingDemo } from './treetabletemplatingdemo';
 import { TreeTableScrollDemo } from './treetablescrolldemo';
 import { TreeTableFlexScrollDemo } from './treetableflexscrolldemo';
 import { TreeTableColToggleDemo } from './treetablecoltoggledemo';
@@ -51,7 +51,7 @@ import { AppCodeModule } from '../../app.code.component';
         TreeTablePageDemo,
         TreeTableSortDemo,
         TreeTableSelectionDemo,
-        TreeTableSectionsDemo,
+        TreeTableTemplatingDemo,
         TreeTableStyleDemo,
         TreeTableLazyDemo,
         TreeTableColGroupDemo,

@@ -3,9 +3,9 @@ import {NodeService} from '../../service/nodeservice';
 import {TreeNode} from 'primeng/api';
 
 @Component({
-    templateUrl: './treetablesectionsdemo.html'
+    templateUrl: './treetabletemplatingdemo.html'
 })
-export class TreeTableSectionsDemo implements OnInit {
+export class TreeTableTemplatingDemo implements OnInit {
 
     files: TreeNode[];
 

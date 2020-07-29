@@ -142,7 +142,7 @@ declare let gtag: Function;
                         <div [@submenu]="isSubmenuActive('/treetable') ? 'visible': 'hidden'">
                             <ul>
                                 <li><a [routerLink]="['/treetable']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Documentation</a></li>
-                                <li><a [routerLink]="['/treetable/sections']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Sections</a></li>
+                                <li><a [routerLink]="['/treetable/templating']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Templating</a></li>
                                 <li><a [routerLink]="['/treetable/page']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Page</a></li>
                                 <li><a [routerLink]="['/treetable/sort']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Sort</a></li>
                                 <li><a [routerLink]="['/treetable/selection']" routerLinkActive="router-link-active"[routerLinkActiveOptions]="{exact:true}">Selection</a></li>
