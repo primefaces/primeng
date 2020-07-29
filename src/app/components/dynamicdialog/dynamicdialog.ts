@@ -140,14 +140,14 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.container = null;
 	}
 
-	close() {
+    close() {
         this.visible = false;
         this.cd.markForCheck();
 
-        if (this.componentRef) {
-            this.componentRef.close();
+        if (this.dialogRef) {
+            this.dialogRef.close();
         }
-	}
+    }
 
     enableModality() {
         if (this.config.closable !== false && this.config.dismissableMask) {
