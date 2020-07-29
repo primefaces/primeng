@@ -3,14 +3,14 @@ import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler} from 'primeng/dom';
-import { PrimeTemplate } from '../api/shared';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-sidebar',
     template: `
-        <div #container [ngClass]="{'p-sidebar':true, 'p-sidebar-active': visible, 
+        <div #container [ngClass]="{'p-sidebar':true, 'p-sidebar-active': visible,
             'p-sidebar-left': (position === 'left'), 'p-sidebar-right': (position === 'right'),
-            'p-sidebar-top': (position === 'top'), 'p-sidebar-bottom': (position === 'bottom'), 
+            'p-sidebar-top': (position === 'top'), 'p-sidebar-bottom': (position === 'bottom'),
             'p-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
             <div class="p-sidebar-content">
@@ -180,7 +180,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask');
-            
+
             if (this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                     if (this.dismissible) {
@@ -214,7 +214,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, AfterViewChecke
                     this.bindDocumentEscapeListener();
                 }
             break;
-            
+
             case 'hidden':
                 this.unbindGlobalListeners();
             break;

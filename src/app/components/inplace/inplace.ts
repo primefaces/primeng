@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, TemplateRef, QueryList, ContentChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
-import { PrimeTemplate } from '../api/shared';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-inplaceDisplay',
@@ -19,7 +19,7 @@ export class InplaceContent {}
     selector: 'p-inplace',
     template: `
         <div [ngClass]="{'p-inplace p-component': true, 'p-inplace-closable': closable}" [ngStyle]="style" [class]="styleClass">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"   
+            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)"
                 [ngClass]="{'p-disabled':disabled}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
                 <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
