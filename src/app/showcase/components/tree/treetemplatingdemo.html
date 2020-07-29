@@ -1,78 +1,94 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Tree <span class="subitem">Templating</span></span>
-        <span>Custom content support inside node content is provided via templating.</span>
+    <div class="feature-intro">
+        <h1>Tree <span>Templating</span></h1>
+        <p>Tree is used to display hierarchical data.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-tree [value]="files">
-        <ng-template let-node pTemplate="default">
-            <input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext">
-        </ng-template>
-    </p-tree>
+    <div class="card">
+        <p-tree [value]="nodes">
+            <ng-template let-node pTemplate="url">
+                <a [href]="node.data">{{node.label}}</a>
+            </ng-template>
+            <ng-template let-node pTemplate="default">
+                <b>{{node.label}}</b>
+            </ng-template>
+        </p-tree>
+    </div>
 </div>
 
 <div class="content-section documentation">
     <p-tabView>
-        <p-tabPanel header="treetemplatingdemo.ts">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treetemplatingdemo.ts" class="btn-viewsource" target="_blank">
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
             <a href="https://stackblitz.com/edit/primeng-treetemplating-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-import &#123;Component,OnInit&#125; from '@angular/core';
-import &#123;NodeService&#125; from '../../service/nodeservice';
-import &#123;TreeNode&#125; from 'primeng/api';
-
-@Component(&#123;
-    templateUrl: './treetemplatingdemo.html',
-    styles:[`
-        .ui-inputtext &#123;
-            padding-top: 0;
-            padding-bottom: 0;
-            font-size: 12px;
-        &#125;
-    `]
-&#125;)
-export class TreeTemplatingDemo implements OnInit &#123;
-
-    files: TreeNode[];
-    
-    constructor(private nodeService: NodeService) &#123; &#125;
-
-    ngOnInit() &#123;
-        this.nodeService.getFiles().then(files => this.files = files);
-    &#125;
-&#125;
-</code>
-</pre>   
-        </p-tabPanel>
-
-        <p-tabPanel header="treetemplatingdemo.html">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree/treetemplatingdemo.html" class="btn-viewsource" target="_blank">
-                <span>View on GitHub</span>
-            </a>
-            <a href="https://stackblitz.com/edit/primeng-treetemplating-demo" class="btn-viewsource" style="margin-left: .5em;" target="_blank">
-                <span>Edit in StackBlitz</span>
-            </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-tree [value]="files"&gt;
+<app-code lang="markup" ngNonBindable>
+&lt;p-tree [value]="nodes"&gt;
+    &lt;ng-template let-node pTemplate="url"&gt;
+        &lt;a [href]="node.data"&gt;&#123;&#123;node.label&#125;&#125;&lt;/a&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-node pTemplate="default"&gt;
-        &lt;input [(ngModel)]="node.label" type="text" style="width:100%" class="ui-inputtext"&gt;
+        &lt;b&gt;&#123;&#123;node.label&#125;&#125;&lt;/b&gt;
     &lt;/ng-template&gt;
 &lt;/p-tree&gt;
-</code>
-</pre>
-        </p-tabPanel>
-        <p-tabPanel header="StackBlitz">
-            <ng-template pTemplate="content">
-                <iframe src="https://stackblitz.com/edit/primeng-treetemplating-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
-            </ng-template>
-        </p-tabPanel>
-    </p-tabView>
+</app-code>
+<app-code lang="typescript" ngNonBindable>
+export class TreeTemplatingDemo implements OnInit &#123;
+
+    nodes: TreeNode[];
+    
+    constructor() &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodes = [
+            &#123;
+                key: '0',
+                label: 'Introduction',
+                children: [
+                    &#123;key: '0-0', label: 'What is Angular', data:'https://angular.io', type: 'url'&#125;,
+                    &#123;key: '0-1', label: 'Getting Started', data: 'https://angular.io/guide/setup-local', type: 'url'&#125;,
+                    &#123;key: '0-2', label: 'Learn and Explore', data:'https://angular.io/guide/architecture', type: 'url'&#125;,
+                    &#123;key: '0-3', label: 'Take a Look', data: 'https://angular.io/start', type: 'url'&#125;
+                ]
+            &#125;,
+            &#123;
+                key: '1',
+                label: 'Components In-Depth',
+                children: [
+                    &#123;key: '1-0', label: 'Component Registration', data: 'https://angular.io/guide/component-interaction', type: 'url'&#125;,
+                    &#123;key: '1-1', label: 'User Input', data: 'https://angular.io/guide/user-input', type: 'url'&#125;,
+                    &#123;key: '1-2', label: 'Hooks', data: 'https://angular.io/guide/lifecycle-hooks', type: 'url'&#125;,
+                    &#123;key: '1-3', label: 'Attribute Directives', data: 'https://angular.io/guide/attribute-directives', type: 'url'&#125;
+                ]
+            &#125;
+        ];
+    &#125;
+
+&#125;
+</app-code>   
+<app-code lang="css" ngOnBindable>
+button &#123;
+    margin-right: .5rem;
+&#125;
+
+:host ::ng-deep .p-tree &#123;
+    a &#123;
+        color: #2196f3;
+    &#125;
+
+&#125;
+</app-code>
+
+</p-tabPanel>
+<p-tabPanel header="StackBlitz">
+    <ng-template pTemplate="content">
+        <iframe src="https://stackblitz.com/edit/primeng-treetemplating-demo?embed=1" style="width: 100%; height: 768px; border: none;"></iframe>
+    </ng-template>
+</p-tabPanel>
+</p-tabView>
 </div>
