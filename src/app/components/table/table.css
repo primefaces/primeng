@@ -33,7 +33,7 @@
     table-layout: auto;
 }
 
-.p-datatable-hoverable-rows .p-datatable-row {
+.p-datatable-hoverable-rows .p-selectable-row {
     cursor: pointer;
 }
 
