@@ -1,31 +1,26 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">MenuModel API</span>
-        <span>PrimeNG menus components share a common api to specify the menuitems and submenus.</span>
+    <div class="feature-intro">
+        <h1>MenuModel API</h1>
+        <p>PrimeNG menus components share a common api to specify the menuitems and submenus.</p>
     </div>
 </div>
 
 <div class="content-section documentation implementation">
-    <h3 class="first">MenuItem</h3>
+    <h5>MenuItem</h5>
     <p>Core of the api is MenuItem class that defines various options such as the label, icon and children of an item in a menu. Example below
     is a sample configuration with Menu component.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 import &#123;MenuModule&#125; from 'primeng/menu';
 import &#123;MenuItem&#125; from 'primeng/api';
 import &#123;MegaMenuItem&#125; from 'primeng/api';  //required when using MegaMenu
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class MenuDemo &#123;
 
     private items: MenuItem[];
@@ -47,10 +42,9 @@ export class MenuDemo &#123;
         &#125;];
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
-    <h3>MegaMenu</h3>
+    <h5>MegaMenu</h5>
     <p>All menu components except MegaMenu uses MenuItem[] as the model, in the case of MegaMenu root level items should be MegaMenuItem[] whereas
         nested submenus can be MenuItem[]. See the <a [routerLink]="['/menumodel']">MegaMenu</a> documentation for samples.</p>
 
@@ -237,8 +231,7 @@ export class MenuDemo &#123;
 
     <h4>Command</h4>
     <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class MenuDemo &#123;
 
     private items: MenuItem[];
@@ -255,14 +248,12 @@ export class MenuDemo &#123;
         &#125;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
     <h4>Navigation</h4>
     <p>Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem has an active route, <i>ui-state-active</i> style class is added as an indicator. Active route link can be
     configured with <i>routerLinkActiveOptions</i> property of MenuItem API.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class MenuDemo &#123;
 
     private items: MenuItem[];
@@ -278,7 +269,6 @@ export class MenuDemo &#123;
         &#125;
     &#125;
 &#125;
-</code>
-</pre>
+</app-code>
 
 </div>
