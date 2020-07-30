@@ -51,7 +51,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TabViewModule } from 'primeng/tabview';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -79,7 +78,6 @@ import { AppCodeModule } from '../../app.code.component';
         FileUploadModule,
         TabViewModule,
         RatingModule,
-        CodeHighlighterModule,
         AppCodeModule
 	],
 	declarations: [

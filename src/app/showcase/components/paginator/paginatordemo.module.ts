@@ -5,7 +5,6 @@ import {PaginatorDemoRoutingModule} from './paginatordemo-routing.module';
 import {PaginatorModule} from 'primeng/paginator';
 import {TabViewModule} from 'primeng/tabview';
 import {ButtonModule} from 'primeng/button';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -15,8 +14,7 @@ import {AppCodeModule} from '../../app.code.component';
         PaginatorModule,
 		TabViewModule,
 		AppCodeModule,
-		ButtonModule,
-        CodeHighlighterModule
+		ButtonModule
 	],
 	declarations: [
 		PaginatorDemo

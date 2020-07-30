@@ -6,7 +6,6 @@ import {DragDropModule} from 'primeng/dragdrop';
 import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 
@@ -18,8 +17,7 @@ import {AppCodeModule} from '../../app.code.component';
         PanelModule,
         TableModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		DragDropDemo

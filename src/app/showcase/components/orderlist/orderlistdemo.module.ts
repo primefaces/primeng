@@ -4,7 +4,6 @@ import {OrderListDemo} from './orderlistdemo';
 import {OrderListDemoRoutingModule} from './orderlistdemo-routing.module';
 import {OrderListModule} from 'primeng/orderlist';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -13,8 +12,7 @@ import { AppCodeModule } from '../../app.code.component';
 		OrderListDemoRoutingModule,
         OrderListModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		OrderListDemo

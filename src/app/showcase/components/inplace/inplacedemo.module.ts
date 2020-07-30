@@ -7,7 +7,6 @@ import {InputTextModule} from 'primeng/inputtext';
 import {TableModule} from 'primeng/table';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [
@@ -17,8 +16,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         InputTextModule,
         TableModule,
         TabViewModule,
-        AppCodeModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		InplaceDemo

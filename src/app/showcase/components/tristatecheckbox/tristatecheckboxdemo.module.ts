@@ -5,7 +5,6 @@ import {TriStateCheckboxDemo} from './tristatecheckboxdemo';
 import {TriStateCheckboxDemoRoutingModule} from './tristatecheckboxdemo-routing.module';
 import {TriStateCheckboxModule} from 'primeng/tristatecheckbox';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppInputStyleSwitchModule} from '../../app.inputstyleswitch.component';
 import {AppCodeModule} from '../../app.code.component';
 
@@ -17,8 +16,7 @@ import {AppCodeModule} from '../../app.code.component';
         TriStateCheckboxModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		TriStateCheckboxDemo

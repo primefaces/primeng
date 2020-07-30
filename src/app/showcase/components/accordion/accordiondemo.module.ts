@@ -6,7 +6,6 @@ import {AccordionModule} from 'primeng/accordion';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {ToastModule} from 'primeng/toast';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -17,8 +16,7 @@ import { AppCodeModule } from '../../app.code.component';
         ButtonModule,
         TabViewModule,
 		ToastModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		AccordionDemo

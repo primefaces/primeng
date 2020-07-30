@@ -8,7 +8,6 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {DropdownModule} from 'primeng/dropdown';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -21,8 +20,7 @@ import { AppCodeModule } from '../../app.code.component';
         InputTextModule,
         DropdownModule,
         TabViewModule,
-        AppCodeModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		VirtualScrollerDemo

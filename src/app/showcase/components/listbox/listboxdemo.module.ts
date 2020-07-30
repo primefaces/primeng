@@ -8,7 +8,6 @@ import {AppCodeModule} from '../../app.code.component';
 import {ListboxModule} from 'primeng/listbox';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [
@@ -19,8 +18,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         ButtonModule,
 		TabViewModule,
 		AppInputStyleSwitchModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		ListboxDemo

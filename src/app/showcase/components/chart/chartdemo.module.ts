@@ -11,7 +11,6 @@ import {RadarChartDemo} from './radarchart/radarchartdemo';
 import {ChartModule} from 'primeng/chart';
 import {ToastModule} from 'primeng/toast';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -21,8 +20,7 @@ import {AppCodeModule} from '../../app.code.component';
         ChartModule,
         ToastModule,
         TabViewModule,
-        AppCodeModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		ChartDemo,

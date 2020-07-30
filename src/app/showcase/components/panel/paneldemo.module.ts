@@ -6,7 +6,6 @@ import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -17,8 +16,7 @@ import {AppCodeModule} from '../../app.code.component';
         ToastModule,
 		TabViewModule,
 		AppCodeModule,
-		MenuModule,
-        CodeHighlighterModule
+		MenuModule
 	],
 	declarations: [
 		PanelDemo

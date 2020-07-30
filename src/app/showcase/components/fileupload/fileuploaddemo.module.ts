@@ -7,7 +7,6 @@ import {ToastModule} from 'primeng/toast';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [
@@ -17,8 +16,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
         ToastModule,
         ButtonModule,
         TabViewModule,
-        AppCodeModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		FileUploadDemo

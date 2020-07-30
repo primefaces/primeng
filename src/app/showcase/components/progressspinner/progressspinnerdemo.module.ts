@@ -5,7 +5,6 @@ import {ProgressSpinnerDemoRoutingModule} from './progressspinnerdemo-routing.mo
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {TabViewModule} from 'primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 
 @NgModule({
 	imports: [
@@ -13,8 +12,7 @@ import {CodeHighlighterModule} from 'primeng/codehighlighter';
 		ProgressSpinnerDemoRoutingModule,
         ProgressSpinnerModule,
         TabViewModule,
-        AppCodeModule,
-        CodeHighlighterModule
+        AppCodeModule
 	],
 	declarations: [
 		ProgressSpinnerDemo

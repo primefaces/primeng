@@ -6,7 +6,6 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {ButtonModule} from 'primeng/button';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import {AppCodeModule} from '../../app.code.component';
 
 @NgModule({
@@ -17,8 +16,7 @@ import {AppCodeModule} from '../../app.code.component';
         ButtonModule,
         SplitButtonModule,
 		TabViewModule,
-		AppCodeModule,
-        CodeHighlighterModule
+		AppCodeModule
 	],
 	declarations: [
 		ToolbarDemo

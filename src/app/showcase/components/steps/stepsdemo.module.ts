@@ -5,7 +5,6 @@ import {StepsDemoRoutingModule} from './stepsdemo-routing.module';
 import {StepsModule} from 'primeng/steps';
 import {ToastModule} from 'primeng/toast';
 import {TabViewModule} from 'primeng/tabview';
-import {CodeHighlighterModule} from 'primeng/codehighlighter';
 import { AppCodeModule } from '../../app.code.component';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { AppCodeModule } from '../../app.code.component';
         ToastModule,
 		TabViewModule,
 		AppCodeModule,
-        CodeHighlighterModule
 	],
 	declarations: [
 		StepsDemo
