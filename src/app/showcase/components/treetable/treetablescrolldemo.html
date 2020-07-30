@@ -151,14 +151,14 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
-                <tr>
+                <tr style="height: 57px">
                     <td *ngFor="let col of columns; let i = index">
                         {{rowData[col.field]}}
                     </td>
                 </tr>            
             </ng-template>
             <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
-                <tr>
+                <tr style="height: 57px">
                     <td>
                         <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                         {{rowData.name}}
@@ -314,14 +314,14 @@
         &lt;/tr&gt;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="body" let-rowData="rowData" let-columns="columns"&gt;
-        &lt;tr&gt;
+        &lt;tr style="height: 57px"&gt;
             &lt;td *ngFor="let col of columns; let i = index"&gt;
                 &#123;&#123;rowData[col.field]&#125;&#125;
             &lt;/td&gt;
         &lt;/tr&gt;            
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData"&gt;
-        &lt;tr&gt;
+        &lt;tr style="height: 57px"&gt;
             &lt;td&gt;
                 &lt;p-treeTableToggler [rowNode]="rowNode"&gt;&lt;/p-treeTableToggler&gt;
                 &#123;&#123;rowData.name&#125;&#125;
