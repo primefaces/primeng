@@ -2622,10 +2622,10 @@
   outline-offset: 0;
   box-shadow: none;
 }
-.p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler + .p-checkbox {
+.p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox {
   margin-right: 0.5rem;
 }
-.p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler + .p-checkbox .p-indeterminate .p-checkbox-icon {
+.p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
   color: #000001;
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight {

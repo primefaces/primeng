@@ -2610,10 +2610,10 @@
   outline-offset: 0;
   box-shadow: 0 0 0 1px #ffe284;
 }
-.p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler + .p-checkbox {
+.p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox {
   margin-right: 0.5rem;
 }
-.p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler + .p-checkbox .p-indeterminate .p-checkbox-icon {
+.p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
   color: rgba(255, 255, 255, 0.87);
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight {
