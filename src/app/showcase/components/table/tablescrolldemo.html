@@ -170,9 +170,237 @@
                 <span>Edit in StackBlitz</span>
             </a>
 <app-code lang="markup" ngNonBindable>
+&lt;div class="card"&gt;
+    &lt;h5&gt;Vertical with Fixed Viewport&lt;/h5&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="200px"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Flexible Viewport&lt;/h5&gt;
+    &lt;p&gt;Flex scroll feature makes the scrollable viewport section dynamic so that it can grow or shrink relative to the parent size of the table. Click the button below
+        to display a resizable and maximizable Dialog where data viewport adjusts itself according to the size changes.&lt;/p&gt;
+
+    &lt;button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"&gt;&lt;/button&gt;
+    &lt;p-dialog header="Flexible ScrollHeight" [(visible)]="dialogVisible" [style]="&#123;width: '50vw'&#125;" [baseZIndex]="10000" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="&#123;height: '300px'&#125;"&gt;
+        &lt;p-table [value]="customers" [scrollable]="true" scrollHeight="flex"&gt;
+            &lt;ng-template pTemplate="header"&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Name&lt;/th&gt;
+                    &lt;th&gt;Country&lt;/th&gt;
+                    &lt;th&gt;Company&lt;/th&gt;
+                    &lt;th&gt;Representative&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate="body" let-customer&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+        &lt;p-footer&gt;
+            &lt;button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"&gt;&lt;/button&gt;
+        &lt;/p-footer&gt;        
+    &lt;/p-dialog&gt;
+
+    &lt;h5&gt;Full Page Scroll&lt;/h5&gt;
+    &lt;p&gt;FlexScroll can also be used for cases where scrollable viewport should be responsive with respect to the window size. See the &lt;a [routerLink]="['/table/flexscroll']"&gt;Full Page&lt;/a&gt; demo for an example.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Horizontal and Vertical&lt;/h5&gt;
+    &lt;p-table [value]="customers" [scrollable]="true" [style]="&#123;width:'600px'&#125;" scrollHeight="200px"&gt;
+        &lt;ng-template pTemplate="colgroup" let-columns&gt;
+            &lt;colgroup&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+                &lt;col style="width:250px"&gt;
+            &lt;/colgroup&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Id&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Date&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+                &lt;th&gt;Activity&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.id&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.date&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.status&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.activity&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Frozen Rows&lt;/h5&gt;
+    &lt;p-table [value]="customers" [frozenValue]="frozenValue" [scrollable]="true" scrollHeight="200px"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Country&lt;/th&gt;
+                &lt;th&gt;Company&lt;/th&gt;
+                &lt;th&gt;Representative&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="frozenrows" let-customer&gt;
+            &lt;tr&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.name&#125;&#125;&lt;/td&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.country.name&#125;&#125;&lt;/td&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.company&#125;&#125;&lt;/td&gt;
+                &lt;td class="p-text-bold"&gt;&#123;&#123;customer.representative.name&#125;&#125;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+
+&lt;div class="card"&gt;
+    &lt;h5&gt;Frozen Columns&lt;/h5&gt;
+    &lt;p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="customers" [scrollable]="true" scrollHeight="200px" frozenWidth="300px"&gt;
+        &lt;ng-template pTemplate="colgroup" let-columns&gt;
+            &lt;colgroup&gt;
+                &lt;col *ngFor="let col of columns" style="width:300px"&gt;
+            &lt;/colgroup&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="header" let-columns&gt;
+            &lt;tr&gt;
+                &lt;th *ngFor="let col of columns"&gt;
+                    &#123;&#123;col.header&#125;&#125;
+                &lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-customer let-columns="columns"&gt;
+            &lt;tr&gt;
+                &lt;td *ngFor="let col of columns"&gt;
+                    &#123;&#123;customer[col.field]&#125;&#125;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Customer &#125; from '../../domain/customer';
+import &#123; CustomerService &#125; from '../../service/customerservice';
+
+@Component(&#123;
+    templateUrl: './tablescrolldemo.html'
+&#125;)
+export class TableScrollDemo implements OnInit &#123;
+
+    customers: Customer[];
+
+    frozenValue: Customer[];
+    
+    dialogVisible: boolean;
+
+    scrollableCols: any[];
+
+    frozenCols: any[];
+
+    constructor(private customerService: CustomerService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.customerService.getCustomersLarge().then(data =&gt; this.customers = data);
+
+        this.frozenValue = [
+            &#123;
+                id: 1255,
+                name: "James McAdams",
+                country: &#123;
+                    name: "United States",
+                    code: "us"
+                &#125;,
+                company: "McAdams Consulting Ltd",
+                date: "2014-02-13",
+                status: "qualified",
+                activity: 23,
+                representative: &#123;
+                    name: "Ioni Bowcher",
+                    image: "ionibowcher.png"
+                &#125;
+            &#125;,
+            &#123;
+                id: 5135,
+                name: "Geraldine Bisset",
+                country: &#123;
+                    name: "France",
+                    code: "fr"
+                &#125;,
+                company: "Bisset Group",
+                status: "proposal",
+                date: "2019-05-05",
+                activity: 0,
+                representative: &#123;
+                    name: "Amy Elsner",
+                    image: "amyelsner.png"
+                &#125;
+            &#125;
+        ];
+
+        this.frozenCols = [
+            &#123; field: 'name', header: 'Name' &#125;
+        ];
+
+        this.scrollableCols = [
+            &#123; field: 'id', header: 'Id' &#125;,
+            &#123; field: 'date', header: 'Date' &#125;,
+            &#123; field: 'company', header: 'Company' &#125;,
+            &#123; field: 'status', header: 'Status' &#125;,
+            &#123; field: 'activity', header: 'Activity' &#125;
+        ];
+    &#125;
+
+    showDialog() &#123;
+        this.dialogVisible = true;
+    &#125;
+&#125;
 </app-code>
         </p-tabPanel>
 

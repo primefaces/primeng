@@ -36,9 +36,45 @@
             </a>
 
 <app-code lang="markup" ngNonBindable>
+&lt;p-table [value]="products" styleClass="p-datatable-striped"&gt;
+    &lt;ng-template pTemplate="header"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Code&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Category&lt;/th&gt;
+            &lt;th&gt;Quantity&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-product&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&#123;&#123;product.code&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+            &lt;td&gt;&#123;&#123;product.quantity&#125;&#125;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable>
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; Product &#125; from '../../domain/product';
+import &#123; ProductService &#125; from '../../service/productservice';
+
+@Component(&#123;
+    templateUrl: './tablestripeddemo.html'
+&#125;)
+export class TableStripedDemo implements OnInit &#123;
+
+    products: Product[];
+
+    constructor(private productService: ProductService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.productService.getProductsSmall().then(data => this.products = data);
+    &#125;
+    
+&#125;
 </app-code>
   
         </p-tabPanel>
