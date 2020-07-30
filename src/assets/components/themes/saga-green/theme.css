@@ -93,6 +93,13 @@
 .p-autocomplete.p-autocomplete-multiple .p-autocomplete-multiple-container .p-autocomplete-token .p-autocomplete-token-icon {
   margin-left: 0.5rem;
 }
+.p-autocomplete.p-error > .p-inputtext, .p-autocomplete.p-invalid > .p-inputtext {
+  border-color: #f44336;
+}
+
+p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
+  border-color: #f44336;
+}
 
 .p-autocomplete-panel {
   background: #ffffff;
@@ -121,11 +128,12 @@
   color: #ffffff;
   background: #4CAF50;
 }
-.p-autocomplete-panel.p-error > .p-inputtext, .p-autocomplete-panel.p-invalid > .p-inputtext {
+
+.p-calendar.p-error > .p-inputtext, .p-calendar.p-invalid > .p-inputtext {
   border-color: #f44336;
 }
 
-.p-calendar.p-error > .p-inputtext, .p-calendar.p-invalid > .p-inputtext {
+p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #f44336;
 }
 
@@ -360,6 +368,10 @@
   border-color: #f44336;
 }
 
+p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+  border-color: #f44336;
+}
+
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #f8f9fa;
 }
@@ -414,6 +426,10 @@
   margin: 0;
 }
 .p-chips.p-error > .p-inputtext, .p-chips.p-invalid > .p-inputtext {
+  border-color: #f44336;
+}
+
+p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   border-color: #f44336;
 }
 
@@ -527,6 +543,10 @@
   font-weight: 600;
 }
 .p-dropdown-panel.p-error, .p-dropdown-panel.p-invalid {
+  border-color: #f44336;
+}
+
+p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
   border-color: #f44336;
 }
 
@@ -699,6 +719,14 @@
   width: 2.357rem;
 }
 
+p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
+  border-color: #f44336;
+}
+
+p-inputnumber.ng-dirty.ng-invalid > .p-inputtext {
+  border-color: #f44336;
+}
+
 .p-inputswitch {
   width: 3rem;
   height: 1.75rem;
@@ -741,6 +769,10 @@
   border-color: #f44336;
 }
 
+p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+  border-color: #f44336;
+}
+
 .p-inputtext {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
@@ -761,7 +793,7 @@
   box-shadow: 0 0 0 0.2rem #b7e0b8;
   border-color: #4CAF50;
 }
-.p-inputtext.p-error, .p-inputtext.p-invalid {
+.p-inputtext.p-error, .p-inputtext.p-invalid, .p-inputtext.ng-dirty.ng-invalid {
   border-color: #f44336;
 }
 .p-inputtext.p-inputtext-sm {
@@ -889,6 +921,10 @@
   border-color: #f44336;
 }
 
+p-listbox.ng-dirty.ng-invalid > .p-listbox {
+  border-color: #f44336;
+}
+
 .p-multiselect {
   background: #ffffff;
   border: 1px solid #ced4da;
@@ -917,6 +953,9 @@
   width: 2.357rem;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+.p-multiselect.p-error, .p-multiselect.p-invalid {
+  border-color: #f44336;
 }
 
 .p-multiselect-panel {
@@ -993,7 +1032,8 @@
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
   margin-right: 0.5rem;
 }
-.p-multiselect-panel.p-error, .p-multiselect-panel.p-invalid {
+
+p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   border-color: #f44336;
 }
 
@@ -1056,7 +1096,11 @@
   background: #3d8c40;
   color: #ffffff;
 }
-.p-radiobutton.p-error > .p-checkbox-box, .p-radiobutton.p-invalid > .p-checkbox-box {
+.p-radiobutton.p-error > .p-radiobutton-box, .p-radiobutton.p-invalid > .p-radiobutton-box {
+  border-color: #f44336;
+}
+
+p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   border-color: #f44336;
 }
 
@@ -1153,6 +1197,10 @@
   border-color: #f44336;
 }
 
+p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
+  border-color: #f44336;
+}
+
 .p-slider {
   background: #dee2e6;
   border: 0 none;
@@ -1242,7 +1290,11 @@
 .p-togglebutton.p-button.p-highlight:hover .p-button-icon-right {
   color: #ffffff;
 }
-.p-togglebutton.p-button.p-error > .p-button, .p-togglebutton.p-button.p-invalid > .p-button {
+.p-togglebutton.p-button.p-error, .p-togglebutton.p-button.p-invalid {
+  border-color: #f44336;
+}
+
+p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: #f44336;
 }
 

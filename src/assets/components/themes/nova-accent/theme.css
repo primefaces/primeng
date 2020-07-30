@@ -93,6 +93,13 @@
 .p-autocomplete.p-autocomplete-multiple .p-autocomplete-multiple-container .p-autocomplete-token .p-autocomplete-token-icon {
   margin-left: 0.5rem;
 }
+.p-autocomplete.p-error > .p-inputtext, .p-autocomplete.p-invalid > .p-inputtext {
+  border-color: #a80000;
+}
+
+p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
+  border-color: #a80000;
+}
 
 .p-autocomplete-panel {
   background: #ffffff;
@@ -121,11 +128,12 @@
   color: #ffffff;
   background: #e02365;
 }
-.p-autocomplete-panel.p-error > .p-inputtext, .p-autocomplete-panel.p-invalid > .p-inputtext {
+
+.p-calendar.p-error > .p-inputtext, .p-calendar.p-invalid > .p-inputtext {
   border-color: #a80000;
 }
 
-.p-calendar.p-error > .p-inputtext, .p-calendar.p-invalid > .p-inputtext {
+p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #a80000;
 }
 
@@ -360,6 +368,10 @@
   border-color: #a80000;
 }
 
+p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+  border-color: #a80000;
+}
+
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #f4f4f4;
 }
@@ -410,6 +422,10 @@
   margin: 0;
 }
 .p-chips.p-error > .p-inputtext, .p-chips.p-invalid > .p-inputtext {
+  border-color: #a80000;
+}
+
+p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   border-color: #a80000;
 }
 
@@ -523,6 +539,10 @@
   font-weight: 700;
 }
 .p-dropdown-panel.p-error, .p-dropdown-panel.p-invalid {
+  border-color: #a80000;
+}
+
+p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
   border-color: #a80000;
 }
 
@@ -695,6 +715,14 @@
   width: 2.357rem;
 }
 
+p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
+  border-color: #a80000;
+}
+
+p-inputnumber.ng-dirty.ng-invalid > .p-inputtext {
+  border-color: #a80000;
+}
+
 .p-inputswitch {
   width: 3rem;
   height: 1.75rem;
@@ -737,6 +765,10 @@
   border-color: #a80000;
 }
 
+p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+  border-color: #a80000;
+}
+
 .p-inputtext {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
@@ -757,7 +789,7 @@
   box-shadow: 0 0 0 0.2rem #8dcdff;
   border-color: #007ad9;
 }
-.p-inputtext.p-error, .p-inputtext.p-invalid {
+.p-inputtext.p-error, .p-inputtext.p-invalid, .p-inputtext.ng-dirty.ng-invalid {
   border-color: #a80000;
 }
 .p-inputtext.p-inputtext-sm {
@@ -885,6 +917,10 @@
   border-color: #a80000;
 }
 
+p-listbox.ng-dirty.ng-invalid > .p-listbox {
+  border-color: #a80000;
+}
+
 .p-multiselect {
   background: #ffffff;
   border: 1px solid #a6a6a6;
@@ -913,6 +949,9 @@
   width: 2.357rem;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+.p-multiselect.p-error, .p-multiselect.p-invalid {
+  border-color: #a80000;
 }
 
 .p-multiselect-panel {
@@ -989,7 +1028,8 @@
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
   margin-right: 0.5rem;
 }
-.p-multiselect-panel.p-error, .p-multiselect-panel.p-invalid {
+
+p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   border-color: #a80000;
 }
 
@@ -1052,7 +1092,11 @@
   background: #005b9f;
   color: #ffffff;
 }
-.p-radiobutton.p-error > .p-checkbox-box, .p-radiobutton.p-invalid > .p-checkbox-box {
+.p-radiobutton.p-error > .p-radiobutton-box, .p-radiobutton.p-invalid > .p-radiobutton-box {
+  border-color: #a80000;
+}
+
+p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   border-color: #a80000;
 }
 
@@ -1138,6 +1182,10 @@
   color: #ffffff;
 }
 .p-selectbutton.p-error > .p-button, .p-selectbutton.p-invalid > .p-button {
+  border-color: #a80000;
+}
+
+p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
   border-color: #a80000;
 }
 
@@ -1230,7 +1278,11 @@
 .p-togglebutton.p-button.p-highlight:hover .p-button-icon-right {
   color: #ffffff;
 }
-.p-togglebutton.p-button.p-error > .p-button, .p-togglebutton.p-button.p-invalid > .p-button {
+.p-togglebutton.p-button.p-error, .p-togglebutton.p-button.p-invalid {
+  border-color: #a80000;
+}
+
+p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: #a80000;
 }
 

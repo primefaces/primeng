@@ -117,6 +117,13 @@
 .p-autocomplete.p-autocomplete-multiple .p-autocomplete-multiple-container .p-autocomplete-token .p-autocomplete-token-icon {
   margin-left: 0.5rem;
 }
+.p-autocomplete.p-error > .p-inputtext, .p-autocomplete.p-invalid > .p-inputtext {
+  border-color: #B00020;
+}
+
+p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
+  border-color: #B00020;
+}
 
 .p-autocomplete-panel {
   background: #ffffff;
@@ -145,11 +152,12 @@
   color: #3F51B5;
   background: rgba(63, 81, 181, 0.12);
 }
-.p-autocomplete-panel.p-error > .p-inputtext, .p-autocomplete-panel.p-invalid > .p-inputtext {
+
+.p-calendar.p-error > .p-inputtext, .p-calendar.p-invalid > .p-inputtext {
   border-color: #B00020;
 }
 
-.p-calendar.p-error > .p-inputtext, .p-calendar.p-invalid > .p-inputtext {
+p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: #B00020;
 }
 
@@ -384,6 +392,10 @@
   border-color: #B00020;
 }
 
+p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+  border-color: #B00020;
+}
+
 .p-input-filled .p-checkbox .p-checkbox-box {
   background-color: #f5f5f5;
 }
@@ -434,6 +446,10 @@
   margin: 0;
 }
 .p-chips.p-error > .p-inputtext, .p-chips.p-invalid > .p-inputtext {
+  border-color: #B00020;
+}
+
+p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   border-color: #B00020;
 }
 
@@ -547,6 +563,10 @@
   font-weight: 400;
 }
 .p-dropdown-panel.p-error, .p-dropdown-panel.p-invalid {
+  border-color: #B00020;
+}
+
+p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
   border-color: #B00020;
 }
 
@@ -719,6 +739,14 @@
   width: 3rem;
 }
 
+p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
+  border-color: #B00020;
+}
+
+p-inputnumber.ng-dirty.ng-invalid > .p-inputtext {
+  border-color: #B00020;
+}
+
 .p-inputswitch {
   width: 2.75rem;
   height: 1rem;
@@ -761,6 +789,10 @@
   border-color: #B00020;
 }
 
+p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+  border-color: #B00020;
+}
+
 .p-inputtext {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   font-size: 1rem;
@@ -781,7 +813,7 @@
   box-shadow: none;
   border-color: #3F51B5;
 }
-.p-inputtext.p-error, .p-inputtext.p-invalid {
+.p-inputtext.p-error, .p-inputtext.p-invalid, .p-inputtext.ng-dirty.ng-invalid {
   border-color: #B00020;
 }
 .p-inputtext.p-inputtext-sm {
@@ -909,6 +941,10 @@
   border-color: #B00020;
 }
 
+p-listbox.ng-dirty.ng-invalid > .p-listbox {
+  border-color: #B00020;
+}
+
 .p-multiselect {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.38);
@@ -937,6 +973,9 @@
   width: 2.357rem;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+}
+.p-multiselect.p-error, .p-multiselect.p-invalid {
+  border-color: #B00020;
 }
 
 .p-multiselect-panel {
@@ -1013,7 +1052,8 @@
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
   margin-right: 0.5rem;
 }
-.p-multiselect-panel.p-error, .p-multiselect-panel.p-invalid {
+
+p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   border-color: #B00020;
 }
 
@@ -1076,7 +1116,11 @@
   background: #ffffff;
   color: #3F51B5;
 }
-.p-radiobutton.p-error > .p-checkbox-box, .p-radiobutton.p-invalid > .p-checkbox-box {
+.p-radiobutton.p-error > .p-radiobutton-box, .p-radiobutton.p-invalid > .p-radiobutton-box {
+  border-color: #B00020;
+}
+
+p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   border-color: #B00020;
 }
 
@@ -1162,6 +1206,10 @@
   color: rgba(0, 0, 0, 0.6);
 }
 .p-selectbutton.p-error > .p-button, .p-selectbutton.p-invalid > .p-button {
+  border-color: #B00020;
+}
+
+p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
   border-color: #B00020;
 }
 
@@ -1254,7 +1302,11 @@
 .p-togglebutton.p-button.p-highlight:hover .p-button-icon-right {
   color: rgba(0, 0, 0, 0.6);
 }
-.p-togglebutton.p-button.p-error > .p-button, .p-togglebutton.p-button.p-invalid > .p-button {
+.p-togglebutton.p-button.p-error, .p-togglebutton.p-button.p-invalid {
+  border-color: #B00020;
+}
+
+p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: #B00020;
 }
 
