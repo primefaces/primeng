@@ -13,13 +13,16 @@
     
 
     <p-tabView>
-        <p-tabPanel header="doughnutchartdemo.ts">
+        <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chart/doughnutchart" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
             <a href="https://stackblitz.com/edit/primeng-doughnutchart-demo" class="btn-viewsource p-ml-2" target="_blank">
                 <span>Edit in StackBlitz</span>
             </a>
+<app-code lang="markup" ngNonBindable>
+&lt;p-chart type="doughnut" [data]="data"&gt;&lt;/p-chart&gt;
+</app-code>
 <app-code lang="typescript" ngNonBindable>
 export class DoughnutChartDemo &#123;
 
@@ -46,12 +49,6 @@ export class DoughnutChartDemo &#123;
     &#125;
 &#125;
 </app-code>            
-        </p-tabPanel>
-
-        <p-tabPanel header="doughnutchartdemo.html">
-<app-code lang="markup" ngNonBindable>
-&lt;p-chart type="doughnut" [data]="data"&gt;&lt;/p-chart&gt;
-</app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
             <ng-template pTemplate="content">
