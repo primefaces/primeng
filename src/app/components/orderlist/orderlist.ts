@@ -13,10 +13,10 @@ import {RippleModule} from 'primeng/ripple';
         <div [ngClass]="{'p-orderlist p-component': true, 'p-orderlist-controls-left': controlsPosition === 'left',
                     'p-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="p-orderlist-controls">
-                <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-up" (click)="moveUp($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-down" (click)="moveDown($event)"></button>
+                <button type="button" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header">
