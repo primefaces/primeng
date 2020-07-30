@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output, ViewChild, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
+import { VersionService } from './service/versionservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 
@@ -217,6 +218,14 @@ import { Subscription } from 'rxjs';
                         <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
                     </ul>
                 </li>
+                <li class="topbar-submenu">
+                    <a tabindex="0" (click)="toggleMenu($event, 3)">{{versions ? versions[0].version : 'Latest'}}</a>
+                    <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width:100%">
+                        <li *ngFor="let v of versions">
+                            <a [href]="v.url">{{v.version}}</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     `,
@@ -282,11 +291,14 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'rhea': 'rhea.png'
     };
 
-    constructor(private router: Router, private configService: AppConfigService) {}
+    versions: any[];
+
+    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+        this.versionService.getVersions().then(data => this.versions = data);
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {

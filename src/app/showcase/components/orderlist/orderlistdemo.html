@@ -20,7 +20,7 @@
                     </div>
                     <div class="product-list-action">
                         <h6 class="p-mb-2">${{product.price}}</h6>
-                        <span class="'product-badge status-'{{product.inventoryStatus.toLowerCase()}}">{{product.inventoryStatus}}</span>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                     </div>
                 </div>
             </ng-template>
@@ -307,7 +307,7 @@ export class MyComponent &#123;
             &lt;/div&gt;
             &lt;div class="product-list-action"&gt;
                 &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
-                &lt;span class="'product-badge status-'&#123;&#123;product.inventoryStatus.toLowerCase()&#125;&#125;"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
+                &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;

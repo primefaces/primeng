@@ -7,23 +7,11 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5>Drag Only</h5>
-        <div pDraggable="pnl"  dragHandle=".p-panel-titlebar">
-            <p-panel header="Drag Header">
-                The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-                kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-            </p-panel>
-        </div>
-    </div>
-
-    <div class="card">
         <h5>Drag and Drop to Table</h5>
         <div class="p-grid">
             <div class="p-col-12 p-md-6 drag-column">
                 <div *ngFor="let product of availableProducts">
-                    <div class="product-item" pDraggable="products" (onDragStart)="dragStart($event,product)" (onDragEnd)="dragEnd($event)">
+                    <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         <div class="image-container">
                                 <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                         </div>
@@ -34,7 +22,7 @@
                         </div>
                         <div class="product-list-action">
                             <h6 class="p-mb-2">${{product.price}}</h6>
-                            <span class="'product-badge status-'{{product.inventoryStatus.toLowerCase()}}">{{product.inventoryStatus}}</span>
+                            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                         </div>
                     </div>
                 </div>
@@ -88,10 +76,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
             <app-code lang="markup" ngNonBindable>
 &lt;div pDraggable="pnl"  dragHandle=".p-panel-titlebar"&gt;
     &lt;p-panel header="Drag Header"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        Content
     &lt;/p-panel&gt;
 &lt;/div&gt;
 </app-code>
@@ -241,21 +226,11 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
                 <span>View on GitHub</span>
             </a>
 <app-code lang="markup" ngNonBindable>
-&lt;h5&gt;Drag Only&lt;/h5&gt;
-&lt;div pDraggable="pnl"  dragHandle=".p-panel-titlebar"&gt;
-    &lt;p-panel header="Drag Header"&gt;
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-    &lt;/p-panel&gt;
-&lt;/div&gt;
-
 <h5>Drag and Drop to Table</h5>
 &lt;div class="p-grid"&gt;
     &lt;div class="p-col-12 p-md-6 drag-column"&gt;
         &lt;div *ngFor="let product of availableProducts"&gt;
-            &lt;div class="product-item" pDraggable="products" (onDragStart)="dragStart($event,product)" (onDragEnd)="dragEnd($event)"&gt;
+            &lt;div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()"&gt;
                 &lt;div class="image-container"&gt;
                         &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
                 &lt;/div&gt;

@@ -1,6 +1,4 @@
-import {Component} from '@angular/core';
-import {Car} from '../../components/domain/car';
-import {CarService} from '../../service/carservice';
+import { Component } from '@angular/core';
 import { ProductService } from '../../service/productservice';
 import { Product } from '../../domain/product';
 
@@ -23,11 +21,11 @@ export class DragDropDemo {
         this.productService.getProductsSmall().then(products => this.availableProducts = products);
     }
     
-    dragStart(event,product: Product) {
+    dragStart(product: Product) {
         this.draggedProduct = product;
     }
     
-    drop(event) {
+    drop() {
         if (this.draggedProduct) {
             let draggedProductIndex = this.findIndex(this.draggedProduct);
             this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
@@ -36,7 +34,7 @@ export class DragDropDemo {
         }
     }
     
-    dragEnd(event) {
+    dragEnd() {
         this.draggedProduct = null;
     }
     

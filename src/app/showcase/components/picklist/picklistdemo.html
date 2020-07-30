@@ -22,7 +22,7 @@
                     </div>
                     <div class="product-list-action">
                         <h6 class="p-mb-2">${{product.price}}</h6>
-                        <span class="'product-badge status-'{{product.inventoryStatus.toLowerCase()}}">{{product.inventoryStatus}}</span>
+                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                     </div>
                 </div>
             </ng-template>

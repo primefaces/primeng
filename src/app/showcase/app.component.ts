@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { VersionService } from './service/versionservice';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
@@ -18,13 +17,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
     newsActive: boolean = false;
 
-    versions: any[];
-
     config: AppConfig;
 
     public subscription: Subscription;
 
-    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
+    constructor(private router: Router, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
@@ -43,7 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         this.newsActive = this.newsActive && sessionStorage.getItem('primenews-hidden') == null;
-        this.versionService.getVersions().then(data => this.versions = data);
     }
 
     onMenuButtonClick() {
