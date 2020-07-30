@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <div class="card">
-        <h5 class="first">Positioned at Bottom</h5>
+        <h5>Positioned at Bottom</h5>
         <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '660px'}" [numVisible]="5"> 
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
@@ -121,7 +121,7 @@ export class GalleriaDemo implements OnInit &#123;
                 <span>View on GitHub</span>
             </a>
 <app-code lang="markup" ngNonBindable>
-&lt;h5 class="first"&gt;Positioned at Bottom&lt;/h5&gt;
+&lt;h5&gt;Positioned at Bottom&lt;/h5&gt;
 &lt;p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="&#123;'max-width': '660px'&#125;" [numVisible]="5"&gt; 
     &lt;ng-template pTemplate="item" let-item&gt;
         &lt;img [src]="item.previewImageSrc" style="width: 100%; display: block;" /&gt;
