@@ -87,6 +87,19 @@ button {
     user-select: none;
 }
 
+.p-sr-only {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
 /* Non ng overlay animations */
 .p-connected-overlay {
     opacity: 0;
@@ -105,54 +118,3 @@ button {
     transition: opacity .1s linear;
 }
 
-/* Ng based overlay animations */
-.p-connected-overlay-enter {
-    opacity: 0;
-    transform: scaleY(0.8);
-}
-
-.p-connected-overlay-leave-to {
-    opacity: 0;
-}
-
-.p-connected-overlay-enter-active {
-    transition: transform .12s cubic-bezier(0, 0, 0.2, 1), opacity .12s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.p-connected-overlay-leave-active {
-    transition: opacity .1s linear;
-}
-
-/* Toggleable Content */
-.p-toggleable-content-enter,
-.p-toggleable-content-leave-to {
-    max-height: 0;
-}
-
-.p-toggleable-content-enter-to,
-.p-toggleable-content-leave {
-    max-height: 1000px;
-}
-
-.p-toggleable-content-leave-active {
-    overflow: hidden;
-    transition: max-height 0.45s cubic-bezier(0, 1, 0, 1);
-}
-
-.p-toggleable-content-enter-active {
-    overflow: hidden;
-    transition: max-height 1s ease-in-out;
-}
-
-.p-sr-only {
-    border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-    word-wrap: normal !important;
-}
