@@ -44,7 +44,7 @@ import &#123;PickListModule&#125; from 'primeng/picklist';
 <app-code lang="markup" ngNonBindable>
 &lt;p-pickList [source]="list1" [target]="list2"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="p-helper-clearfix"&gt;
+        &lt;div&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
@@ -454,7 +454,7 @@ This dragdrop property also supports cross list actions.</p>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" filterBy="brand"
         dragdrop="true" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="p-helper-clearfix"&gt;
+        &lt;div&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
