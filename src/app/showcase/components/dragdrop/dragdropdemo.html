@@ -1,53 +1,65 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Drag and Drop</span>
-        <span>pDraggable and pDroppable directives apply drag-drop behaviors to any element.</span>
+    <div class="feature-intro">
+        <h1>Drag and Drop</h1>
+        <p>pDraggable and pDroppable directives apply drag-drop behaviors to any element.</p>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Drag Only</h3>
-    <div pDraggable="pnl"  dragHandle=".ui-panel-titlebar">
-        <p-panel header="Drag Header">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-            kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-panel>
+    <div class="card">
+        <h5>Drag Only</h5>
+        <div pDraggable="pnl"  dragHandle=".p-panel-titlebar">
+            <p-panel header="Drag Header">
+                The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+                kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+            </p-panel>
+        </div>
     </div>
 
-    <h3>Drag and Drop to Table</h3>
-    <div class="p-grid">
-        <div class="p-col-12 p-md-6 p-col-nogutter drag-column">
-            <ul style="margin:0;padding:0">
-                <li *ngFor="let car of availableCars" class="ui-helper-clearfix" pDraggable="cars"
-                    (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)">
-                    <i class="pi pi-plus" style="float:right;font-size: 32px;"></i>
-                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="float:left" draggable="false">
-                    <div style="margin:8px 0 0 8px;float:left">{{car.vin}} - {{car.year}}</div>
-                </li>
-            </ul>
-        </div>
-        <div class="p-col-12 p-md-6 drop-column" pDroppable="cars" 
-            (onDrop)="drop($event)" [ngClass]="{'ui-highlight-car':draggedCar}">
-            <p-table [value]="selectedCars">
+    <div class="card">
+        <h5>Drag and Drop to Table</h5>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-6 drag-column">
+                <div *ngFor="let product of availableProducts">
+                    <div class="product-item" pDraggable="products" (onDragStart)="dragStart($event,product)" (onDragEnd)="dragEnd($event)">
+                        <div class="image-container">
+                                <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                        </div>
+                        <div class="product-list-detail">
+                            <h5 class="p-mb-2">{{product.name}}</h5>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{product.category}}</span>
+                        </div>
+                        <div class="product-list-action">
+                            <h6 class="p-mb-2">${{product.price}}</h6>
+                            <span class="'product-badge status-'{{product.inventoryStatus.toLowerCase()}}">{{product.inventoryStatus}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-6 drop-column" pDroppable="products" 
+            (onDrop)="drop($event)" [ngClass]="{'p-highlight-car':draggedCar}">
+            <p-table [value]="selectedProducts">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Vin</th>
-                        <th>Year</th>
-                        <th>Brand</th>
-                        <th>Color</th>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>Price</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-car>
+                <ng-template pTemplate="body" let-product>
                     <tr>
-                        <td>{{car.vin}}</td>
-                        <td>{{car.year}}</td>
-                        <td>{{car.brand}}</td>
-                        <td>{{car.color}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
+                            <td>{{product.id}}</td>
+                            <td>{{product.category}}</td>
+                            <td>{{product.name}}</td>
+                            <td>{{product.price}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </div>
     </div>
 </div>
@@ -55,31 +67,26 @@
 <div class="content-section documentation">
     <p-tabView>
         <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+            <h5>Import</h5>
+<app-code lang="typescript" ngNonBindable>
 import &#123;DragDropModule&#125; from 'primeng/dragdrop';
-</code>
-</pre>
+</app-code>
 
-            <h3>Getting Started</h3>
+            <h5>Getting Started</h5>
             <p>pDraggable and pDroppable are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required
             and it defines the scope to match draggables with droppables. Droppable scope can also be an array to accept multiple droppables.</p>
 
-<pre>
-<code class="language-markup" pCode ngNonBindable>
+<app-code lang="markup" ngNonBindable>
 &lt;div pDraggable="dd"&gt;Draggable Div&lt;/div&gt;
 
 &lt;div pDroppable="dd"&gt;Droppable Div&lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Drag Handle</h3>
+            <h5>Drag Handle</h5>
             <p>Drag handle is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>
 
-            <pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;div pDraggable="pnl"  dragHandle=".ui-panel-titlebar"&gt;
+            <app-code lang="markup" ngNonBindable>
+&lt;div pDraggable="pnl"  dragHandle=".p-panel-titlebar"&gt;
     &lt;p-panel header="Drag Header"&gt;
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
@@ -87,10 +94,9 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
         kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
     &lt;/p-panel&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-            <h3>Draggable</h3>
+            <h5>Draggable</h5>
             <h4>Attributes</h4>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -161,7 +167,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
                 </table>
             </div>
 
-            <h3>Droppable</h3>
+            <h5>Droppable</h5>
             <h4>Attributes</h4>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -227,17 +233,16 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
             </div>
 
 
-            <h3>Dependencies</h3>
+            <h5>Dependencies</h5>
             <p>Native HTML5 DragDrop.</p>
         </p-tabPanel>
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dragdrop" class="btn-viewsource" target="_blank">
                 <span>View on GitHub</span>
             </a>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Drag Only&lt;/h3&gt;
-&lt;div pDraggable="pnl"  dragHandle=".ui-panel-titlebar"&gt;
+<app-code lang="markup" ngNonBindable>
+&lt;h5 class="first"&gt;Drag Only&lt;/h5&gt;
+&lt;div pDraggable="pnl"  dragHandle=".p-panel-titlebar"&gt;
     &lt;p-panel header="Drag Header"&gt;
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
@@ -246,81 +251,87 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
     &lt;/p-panel&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Drag and Drop to Table&lt;/h3&gt;
+<h5>Drag and Drop to Table</h5>
 &lt;div class="p-grid"&gt;
-    &lt;div class="p-col-12 p-md-6 p-col-nogutter drag-column"&gt;
-        &lt;ul style="margin:0;padding:0"&gt;
-            &lt;li *ngFor="let car of availableCars" class="ui-helper-clearfix" pDraggable="cars"
-                (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)"&gt;
-                &lt;i class="pi pi-plus" style="float:right;font-size: 32px;"&gt;&lt;/i&gt;
-                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png" style="float:left" draggable="false"&gt;
-                &lt;div style="margin:8px 0 0 8px;float:left"&gt;&#123;&#123;car.vin&#125;&#125; - &#123;&#123;car.year&#125;&#125;&lt;/div&gt;
-            &lt;/li&gt;
-        &lt;/ul&gt;
+    &lt;div class="p-col-12 p-md-6 drag-column"&gt;
+        &lt;div *ngFor="let product of availableProducts"&gt;
+            &lt;div class="product-item" pDraggable="products" (onDragStart)="dragStart($event,product)" (onDragEnd)="dragEnd($event)"&gt;
+                &lt;div class="image-container"&gt;
+                        &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-detail"&gt;
+                    &lt;h5 class="p-mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;
+                    &lt;i class="pi pi-tag product-category-icon"&gt;&lt;/i&gt;
+                    &lt;span class="product-category"&gt;&#123;&#123;product.category&#125;&#125;&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="product-list-action"&gt;
+                    &lt;h6 class="p-mb-2"&gt;$&#123;&#123;product.price&#125;&#125;&lt;/h6&gt;
+                    &lt;span class="'product-badge status-'&#123;&#123;product.inventoryStatus.toLowerCase()&#125;&#125;"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-6 drop-column" pDroppable="cars" 
-        (onDrop)="drop($event)" [ngClass]="&#123;'ui-highlight-car':draggedCar&#125;"&gt;
-        &lt;p-table [value]="selectedCars"&gt;
-            &lt;ng-template pTemplate="header"&gt;
-                &lt;tr&gt;
-                    &lt;th&gt;Vin&lt;/th&gt;
-                    &lt;th&gt;Year&lt;/th&gt;
-                    &lt;th&gt;Brand&lt;/th&gt;
-                    &lt;th&gt;Color&lt;/th&gt;
-                &lt;/tr&gt;
-            &lt;/ng-template&gt;
-            &lt;ng-template pTemplate="body" let-car&gt;
-                &lt;tr&gt;
-                    &lt;td&gt;&#123;&#123;car.vin&#125;&#125;&lt;/td&gt;
-                    &lt;td&gt;&#123;&#123;car.year&#125;&#125;&lt;/td&gt;
-                    &lt;td&gt;&#123;&#123;car.brand&#125;&#125;&lt;/td&gt;
-                    &lt;td&gt;&#123;&#123;car.color&#125;&#125;&lt;/td&gt;
+    &lt;div class="p-col-12 p-md-6 drop-column" pDroppable="products" 
+    (onDrop)="drop($event)" [ngClass]="&#123;'p-highlight-car':draggedCar&#125;"&gt;
+    &lt;p-table [value]="selectedProducts"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;Category&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate="body" let-product&gt;
+            &lt;tr&gt;
+                    &lt;td&gt;&#123;&#123;product.id&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
+                    &lt;td&gt;&#123;&#123;product.price&#125;&#125;&lt;/td&gt;
                 &lt;/tr&gt;
             &lt;/ng-template&gt;
         &lt;/p-table&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-</code>
-</pre>
+</app-code>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
+<app-code lang="typescript" ngNonBindable>
 export class DragDropDemo &#123;
 
-    availableCars: Car[];
-
-    selectedCars: Car[];
-
-    draggedCar: Car;
-
-    constructor(private carService: CarService) &#123; &#125;
-
+    availableProducts: Product[];
+    
+    selectedProducts: Product[];
+    
+    draggedProduct: Product;
+    
+    constructor(private productService: ProductService) &#123; &#125;
+    
     ngOnInit() &#123;
-        this.selectedCars = [];
-        this.carService.getCarsSmall().then(cars => this.availableCars = cars);
+        this.selectedProducts = [];
+        this.productService.getProductsSmall().then(products => this.availableProducts = products);
     &#125;
-
-    dragStart(event,car: Car) &#123;
-        this.draggedCar = car;
+    
+    dragStart(event,product: Product) &#123;
+        this.draggedProduct = product;
     &#125;
-
+    
     drop(event) &#123;
-        if (this.draggedCar) &#123;
-            let draggedCarIndex = this.findIndex(this.draggedCar);
-            this.selectedCars = [...this.selectedCars, this.draggedCar];
-            this.availableCars = this.availableCars.filter((val,i) => i!=draggedCarIndex);
-            this.draggedCar = null;
+        if (this.draggedProduct) &#123;
+            let draggedProductIndex = this.findIndex(this.draggedProduct);
+            this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
+            this.availableProducts = this.availableProducts.filter((val,i) => i!=draggedProductIndex);
+            this.draggedProduct = null;
         &#125;
     &#125;
-
+    
     dragEnd(event) &#123;
-        this.draggedCar = null;
+        this.draggedProduct = null;
     &#125;
-
-    findIndex(car: Car) &#123;
+    
+    findIndex(product: Product) &#123;
         let index = -1;
-        for(let i = 0; i < this.availableCars.length; i++) &#123;
-            if (car.vin === this.availableCars[i].vin) &#123;
+        for(let i = 0; i < this.availableProducts.length; i++) &#123;
+            if (product.id === this.availableProducts[i].id) &#123;
                 index = i;
                 break;
             &#125;
@@ -329,8 +340,62 @@ export class DragDropDemo &#123;
     &#125;
 
 &#125;
-</code>
-</pre>
+</app-code>
+<app-code lang="css" ngNonBindable>
+:host ::ng-deep .drag-column &#123;
+    padding-right: .5em;
+&#125;
+
+.product-item &#123;
+	display: flex;
+	align-items: center;
+	padding: .5rem;
+    width: 100%;
+    border-bottom: 1px solid var(--surface-d);
+
+	img &#123;
+		width: 75px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin-right: 1rem;
+	&#125;
+
+	.product-list-detail &#123;
+		flex: 1 1 0;
+	&#125;
+
+	.product-list-action &#123;
+		display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    &#125;
+
+    .product-category-icon &#123;
+        vertical-align: middle;
+        margin-right: .5rem;
+    &#125;
+
+    .product-category &#123;
+        vertical-align: middle;
+        line-height: 1;
+    &#125;
+&#125;
+
+@media screen and (max-width: 576px) &#123;
+    .product-item &#123;
+        flex-wrap: wrap;
+
+        .image-container &#123;
+            width: 100%;
+            text-align: center;
+        &#125;
+
+        img &#123;
+            margin: 0 0 1rem 0;
+            width: 100px;
+        &#125;
+    &#125;
+&#125;
+</app-code>
         </p-tabPanel>
     </p-tabView>
 </div>
