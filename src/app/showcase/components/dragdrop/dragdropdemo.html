@@ -81,6 +81,9 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
 &lt;/div&gt;
 </app-code>
 
+            <h5>Drop Indicator</h5>
+            <p>When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style the droppable section.</p>
+
             <h5>Draggable</h5>
             <h4>Attributes</h4>
             <div class="doc-tablewrapper">
@@ -319,6 +322,15 @@ export class DragDropDemo &#123;
 <app-code lang="css" ngNonBindable>
 :host ::ng-deep .drag-column &#123;
     padding-right: .5em;
+&#125;
+
+.drop-column &#123;
+    border: 1px solid transparent;
+    transition: border-color .2s;
+
+    &.p-draggable-enter &#123;
+        border-color: var(--primary-color); 
+    &#125;
 &#125;
 
 .product-item &#123;
