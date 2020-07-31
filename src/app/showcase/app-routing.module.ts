@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'accordion', loadChildren: () => import('./components/accordion/accordiondemo.module').then(m => m.AccordionDemoModule)},
             {path: 'autocomplete', loadChildren: () => import('./components/autocomplete/autocompletedemo.module').then(m => m.AutoCompleteDemoModule)},
             {path: 'blockui', loadChildren: () => import('./components/blockui/blockuidemo.module').then(m => m.BlockUIDemoModule)},
+            {path: 'badge', loadChildren: () => import('./components/badge/badgedemo.module').then(m => m.BadgeDemoModule)},
             {path: 'breadcrumb', loadChildren: () => import('./components/breadcrumb/breadcrumbdemo.module').then(m => m.BreadcrumbDemoModule)},
             {path: 'button', loadChildren: () => import('./components/button/buttondemo.module').then(m => m.ButtonDemoModule)},
             {path: 'calendar', loadChildren: () => import('./components/calendar/calendardemo.module').then(m => m.CalendarDemoModule)},
