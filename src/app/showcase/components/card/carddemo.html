@@ -28,20 +28,20 @@
     <p-tabView>
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
-<app-code lang="typescript">
+<app-code lang="typescript" ngNonBindable>
 import &#123;CardModule&#125; from 'primeng/card';
 </app-code>
 
             <h5>Getting Started</h5>
             <p>Card is defined with p-card element.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-card&gt;
     Content
 &lt;/p-card&gt;
 </app-code>
             <h5>Header</h5>
             <p>Header text of the card is provided using the <i>header</i> property, optionally <i>subheader</i> property is available for additional information about the card.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-card header="header"&gt;
     Content
 &lt;/p-card&gt;
@@ -49,7 +49,7 @@ import &#123;CardModule&#125; from 'primeng/card';
 
             <h5>Header and Footer Content</h5>
             <p>Header and Footers sections can be customized using <i>p-header</i> and <i>p-footer</i> components.</p>
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-card&gt;
     &lt;p-header&gt;
         Header content here
@@ -148,7 +148,7 @@ import &#123;CardModule&#125; from 'primeng/card';
             <span>Edit in StackBlitz</span>
         </a>
 
-<app-code lang="markup">
+<app-code lang="markup" ngNonBindable>
 &lt;p-card header="Simple Card" [style]="&#123;'width': '25rem', 'margin-bottom': '2em'&#125;"&gt;
     &lt;p-header&gt;
         Simple Card
