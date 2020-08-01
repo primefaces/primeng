@@ -557,7 +557,7 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
   background-color: #f8f9fa;
 }
 .p-input-filled .p-dropdown:not(.p-disabled).p-focus {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
 }
 
 .p-editor-container .p-editor-toolbar {
@@ -852,7 +852,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   background-color: #f8f9fa;
 }
 .p-input-filled .p-inputtext:enabled:focus {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
 }
 
 .p-inputtext-sm .p-inputtext {
@@ -1044,7 +1044,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   background-color: #f8f9fa;
 }
 .p-input-filled .p-multiselect:not(.p-disabled).p-focus {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
 }
 
 .p-password-panel {

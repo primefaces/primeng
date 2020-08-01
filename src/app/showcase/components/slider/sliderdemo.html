@@ -15,13 +15,13 @@
         <input type="text" pInputText [(ngModel)]="val2" readonly/>
         <p-slider [(ngModel)]="val2"></p-slider>
     
-        <h5>Step: {{val4}}</h5>
+        <h5>Step: {{val3}}</h5>
         <p-slider [(ngModel)]="val3" [step]="20"></p-slider>
     
         <h5>Range: {{rangeValues[0] + ' - ' + rangeValues[1]}}</h5>
         <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>
     
-        <h5>Vertical: {{val5}}</h5>
+        <h5>Vertical: {{val4}}</h5>
         <p-slider [(ngModel)]="val4" orientation="vertical"></p-slider>
     </div>
 </div>
@@ -251,13 +251,13 @@ handleChange(e) &#123;
 &lt;input type="text" pInputText [(ngModel)]="val2" readonly/&gt;
 &lt;p-slider [(ngModel)]="val2"&gt;&lt;/p-slider&gt;
 
-&lt;h5&gt;Step: &#123;&#123;val4&#125;&#125;&lt;/h5&gt;
+&lt;h5&gt;Step: &#123;&#123;val3&#125;&#125;&lt;/h5&gt;
 &lt;p-slider [(ngModel)]="val3" [step]="20"&gt;&lt;/p-slider&gt;
 
 &lt;h5&gt;Range: &#123;&#123;rangeValues[0] + ' - ' + rangeValues[1]&#125;&#125;&lt;/h5&gt;
 &lt;p-slider [(ngModel)]="rangeValues" [range]="true"&gt;&lt;/p-slider&gt;
 
-&lt;h5&gt;Vertical: &#123;&#123;val5&#125;&#125;&lt;/h5&gt;
+&lt;h5&gt;Vertical: &#123;&#123;val4&#125;&#125;&lt;/h5&gt;
 &lt;p-slider [(ngModel)]="val4" orientation="vertical"&gt;&lt;/p-slider&gt;
 </app-code>
 
