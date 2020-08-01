@@ -10,9 +10,9 @@
         <h5>Lazy Loading</h5>
         <p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
             [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
-            <p-header>
+            <ng-template pTemplate="header">
                 List of Products
-            </p-header>
+            </ng-template>
             <ng-template let-product pTemplate="item" let-i="index">
                 <div class="product-details">
                     <div>
@@ -43,14 +43,14 @@
     <div class="card">
         <h5>Prepopulated List</h5>
         <p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100">
-            <p-header>
+            <ng-template pTemplate="header">
                 <div class="list-header">
                     <div class="title-container">
                         List of Products
                     </div>
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width':'10em'}"></p-dropdown>
                 </div>
-            </p-header>
+            </ng-template>
             <ng-template let-product pTemplate="item" let-i="index">
                 <div class="product-details">
                     <div>
@@ -402,9 +402,9 @@ reset() &#123;
 &lt;h5&gt;Lazy Loading&lt;/h5&gt;
 &lt;p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [rows]="100" 
         [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         List of Products
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
         &lt;div class="car-details"&gt;
             &lt;div&gt;
@@ -434,14 +434,14 @@ reset() &#123;
 
 &lt;h5&gt;Prepopulated List&lt;/h5&gt;
 &lt;p-virtualScroller [value]="products" scrollHeight="500px" [itemSize]="100"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;div class="list-header"&gt;
             &lt;div class="title-container"&gt;
                 List of Products
             &lt;/div&gt;
             &lt;p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="&#123;'min-width':'10em'&#123;"&gt;&lt;/p-dropdown&gt;
         &lt;/div&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-product pTemplate="item" let-i="index"&gt;
         &lt;div class="car-details"&gt;
             &lt;div&gt;

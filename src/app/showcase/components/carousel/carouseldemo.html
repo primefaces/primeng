@@ -8,9 +8,9 @@
 <div class="content-section implementation carousel-demo">
     <div class="card">
         <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-            <p-header>
+            <ng-template pTemplate="header">
                 <h5>Basic</h5>
-            </p-header>
+            </ng-template>
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="product-item-content">
@@ -34,9 +34,9 @@
     </div>
     <div class="card">
         <p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
-            <p-header>
+            <ng-template pTemplate="header">
                 <h5>Circular, AutoPlay, 3 Items per Page and Scroll by 1</h5>
-            </p-header>
+            </ng-template>
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="product-item-content">
@@ -60,9 +60,9 @@
     </div>
     <div class="card">
         <p-carousel [value]="products" orientation="vertical" [style]="{'max-width':'400px', 'margin-top':'2em'}" verticalViewPortHeight="352px" [numVisible]="1" [numScroll]="1">
-            <p-header>
+            <ng-template pTemplate="header">
                 <h5>Vertical</h5>
-            </p-header>
+            </ng-template>
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="product-item-content">
@@ -364,9 +364,9 @@ export class CarouselDemo &#123;
             </a>
 <app-code lang="markup" ngNonBindable>
 &lt;p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;h5&gt;Basic&lt;/h5&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="product-item-content"&gt;
@@ -388,9 +388,9 @@ export class CarouselDemo &#123;
     &lt;/ng-template&gt;
 &lt;/p-carousel&gt;
 &lt;p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;h5&gt;Circular, AutoPlay, 3 Items per Page and Scroll by 1&lt;/h5&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="product-item-content"&gt;
@@ -412,9 +412,9 @@ export class CarouselDemo &#123;
     &lt;/ng-template&gt;
 &lt;/p-carousel&gt;
 &lt;p-carousel [value]="products" orientation="vertical" [style]="&#123;'max-width':'400px', 'margin-top':'2em'&#125;" verticalViewPortHeight="352px" [numVisible]="1" [numScroll]="1"&gt;
-    &lt;p-header&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;h5&gt;Vertical&lt;/h5&gt;
-    &lt;/p-header&gt;
+    &lt;/ng-template&gt;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="product-item-content"&gt;

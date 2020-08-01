@@ -36,13 +36,13 @@
 
         <h5>Editor</h5>   
         <p-editor [style]="{'height':'320px'}">
-            <p-header>
+            <ng-template pTemplate="header">
                 <span class="ql-formats">
                     <button type="button" class="ql-bold" aria-label="Bold"></button>
                     <button type="button" class="ql-italic" aria-label="Italic"></button>
                     <button type="button" class="ql-underline" aria-label="Underline"></button>
                 </span>
-            </p-header>
+            </ng-template>
         </p-editor>
     </div>
 </div>
@@ -137,13 +137,13 @@ import &#123;FocusTrapModule&#125; from 'primeng/focustrap';
 
     &lt;h3&gt;Editor&lt;/h3&gt;   
     &lt;p-editor [style]="&#123;'height':'320px'&#125;"&gt;
-        &lt;p-header&gt;
+        &lt;ng-template pTemplate="header"&gt;
             &lt;span class="ql-formats"&gt;
                 &lt;button type="button" class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
                 &lt;button type="button" class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
                 &lt;button type="button" class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
             &lt;/span&gt;
-        &lt;/p-header&gt;
+        &lt;/ng-template&gt;
     &lt;/p-editor&gt;
 &lt;/div&gt;
 </app-code>
