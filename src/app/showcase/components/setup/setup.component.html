@@ -20,8 +20,7 @@ import &#123;AccordionModule&#125; from 'primeng/accordion';     //accordion and
 import &#123;MenuItem&#125; from 'primeng/api';                  //api
 </app-code>
 
-    <h5>Dependencies</h5>
-    <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require <a href="https://www.npmjs.com/package/primeicons">PrimeIcons</a> for icons.</p>
+    <h5>Styles</h5>
 
     <p>The css dependencies are as follows, Prime Icons, theme of your choice and structural css of components.</p>
 
@@ -70,7 +69,8 @@ primeng/resources/themes/luna-pink/theme.css
 primeng/resources/themes/rhea/theme.css
 </app-code>
     
-    <p>Here is the list of components with 3rd party dependencies.</p>
+    <h5>Dependencies</h5>
+    <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require <a href="https://www.npmjs.com/package/primeicons">PrimeIcons</a> for icons.</p>
 
     <div class="doc-tablewrapper">
         <table class="doc-table">
@@ -104,6 +104,28 @@ primeng/resources/themes/rhea/theme.css
             </tbody>
         </table>
     </div>
+
+    <h5>Ripple</h5>
+    <p>Ripple is an optional animation for the supported components such as buttons. It is disabled by default and needs to be enabled globally at your main component e.g. app.component.ts by injecting
+        <i>PrimeNGConfig</i>.</p>
+
+<app-code lang="typescript" ngNonBindable>
+import &#123; PrimeNGConfig &#125; from 'primeng/api';
+
+@Component(&#123;
+    selector: 'app-root',
+    templateUrl: './app.component.html'
+&#125;)
+export class AppComponent implements OnInit &#123;
+
+    constructor(private primengConfig: PrimeNGConfig) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.primengConfig.ripple = true;
+    &#125;
+
+&#125;
+</app-code>
 
     <h5>Animations</h5>
     <p>Various components utilize angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need
