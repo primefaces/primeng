@@ -16,6 +16,7 @@ declare let gtag: Function;
                     <a [routerLink]="['/lts']" routerLinkActive="router-link-active">LTS</a>
                     <a href="https://github.com/primefaces/primeng" target="_blank">Source Code</a>
                     <a [routerLink]="['/support']" routerLinkActive="router-link-active">Support</a>
+                    <a href="https://www.primefaces.org/store">Store</a>
                 </div>
 
                 <div class="menu-category">Theming</div>
