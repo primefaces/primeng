@@ -252,6 +252,7 @@ declare let gtag: Function;
                 <div class="menu-category">Misc</div>
                 <div class="menu-items">
                     <a [routerLink]="['/blockui']" routerLinkActive="router-link-active">BlockUI</a>
+                    <a [routerLink]="['/badge']" routerLinkActive="router-link-active">Badge</a>
                     <a [routerLink]="['/captcha']" routerLinkActive="router-link-active">Captcha</a>
                     <a [routerLink]="['/defer']" routerLinkActive="router-link-active">Defer</a>
                     <a [routerLink]="['/filterutils']" routerLinkActive="router-link-active">FilterUtils</a>
