@@ -24,7 +24,7 @@ import { BlockableUI } from 'primeng/api';
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
-                <div class="p-card-footer" *ngIf="footerFacet">
+                <div class="p-card-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
