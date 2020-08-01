@@ -51,10 +51,10 @@
                     </tr>            
                 </ng-template>
             </p-treeTable>
-            <p-footer>
+            <ng-template pTemplate="footer">
                 <p-button icon="pi pi-check" (click)="dialogVisible=false" label="Yes"></p-button>
                 <p-button icon="pi pi-times" (click)="dialogVisible=false" label="No" styleClass="p-button-secondary"></p-button>
-            </p-footer>        
+            </ng-template>        
         </p-dialog>
     </div>
 
@@ -222,10 +222,10 @@
             &lt;/tr&gt;            
         &lt;/ng-template&gt;
     &lt;/p-treeTable&gt;
-    &lt;p-footer&gt;
+    &lt;ng-template pTemplate="footer"&gt;
         &lt;p-button icon="pi pi-check" (click)="dialogVisible=false" label="Yes"&gt;&lt;/p-button&gt;
         &lt;p-button icon="pi pi-times" (click)="dialogVisible=false" label="No" styleClass="p-button-secondary"&gt;&lt;/p-button&gt;
-    &lt;/p-footer&gt;        
+    &lt;/ng-template&gt;        
 &lt;/p-dialog&gt;
 
 &lt;h5&gt;Full Page Scroll&lt;/h5&gt;

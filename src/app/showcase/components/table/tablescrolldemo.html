@@ -53,9 +53,9 @@
                     </tr>
                 </ng-template>
             </p-table>
-            <p-footer>
+            <ng-template pTemplate="footer">
                 <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"></button>
-            </p-footer>        
+            </ng-template>    
         </p-dialog>
 
         <h5>Full Page Scroll</h5>
@@ -217,9 +217,9 @@
                 &lt;/tr&gt;
             &lt;/ng-template&gt;
         &lt;/p-table&gt;
-        &lt;p-footer&gt;
+        &lt;ng-template pTemplate="footer"&gt;
             &lt;button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss" class="p-button-text"&gt;&lt;/button&gt;
-        &lt;/p-footer&gt;        
+        &lt;/ng-template&gt;        
     &lt;/p-dialog&gt;
 
     &lt;h5&gt;Full Page Scroll&lt;/h5&gt;
