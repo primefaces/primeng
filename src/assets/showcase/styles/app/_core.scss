@@ -1,6 +1,12 @@
 $linkColor: #2196f3;
 $focusBorderColor:#BBDEFB;
 
+@mixin focused() {
+    outline: 0 none;
+    transition: box-shadow .2s;
+    box-shadow: 0 0 0 0.2rem $focusBorderColor;
+}
+
 html {
     font-size: 14px;
 }
