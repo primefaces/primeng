@@ -157,6 +157,10 @@
     flex-direction: column;
     height: 100%;
 }
+.p-galleria-thumbnails-left .p-galleria-thumbnail-wrapper,
+.p-galleria-thumbnails-right .p-galleria-thumbnail-wrapper {
+    height: 100%;
+}
 
 /* Indicators */
 .p-galleria-indicators {
