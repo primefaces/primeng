@@ -35,6 +35,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'editor', loadChildren: () => import('./components/editor/editordemo.module').then(m => m.EditorDemoModule)},
             {path: 'fieldset', loadChildren: () => import('./components/fieldset/fieldsetdemo.module').then(m => m.FieldsetDemoModule)},
             {path: 'fileupload', loadChildren: () => import('./components/fileupload/fileuploaddemo.module').then(m => m.FileUploadDemoModule)},
+            {path: 'floatlabel', loadChildren: () => import('./components/floatlabel/floatlabeldemo.module').then(m => m.FloatLabelDemoModule)},
             {path: 'filterutils', loadChildren: () => import('./components/filterutils/filterutilsdemo.module').then(m => m.FilterUtilsDemoModule)},
             {path: 'focustrap', loadChildren: () => import('./components/focustrap/focustrapdemo.module').then(m => m.FocusTrapDemoModule)},
             {path: 'fullcalendar', loadChildren: () => import('./components/fullcalendar/fullcalendardemo.module').then(m => m.FullCalendarDemoModule)},
