@@ -13,6 +13,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]="['/setup']" routerLinkActive="router-link-active">Get Started</a>
                     <a href="https://forum.primefaces.org/viewforum.php?f=35" target="_blank">Community Forum</a>
+                    <a [routerLink]="['/lts']" routerLinkActive="router-link-active">LTS</a>
                     <a href="https://github.com/primefaces/primeng" target="_blank">Source Code</a>
                     <a [routerLink]="['/support']" routerLinkActive="router-link-active">Support</a>
                 </div>
