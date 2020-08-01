@@ -23,6 +23,28 @@ import &#123;RippleModule&#125; from 'primeng/ripple';
 </app-code>
 
             <h5>Getting Started</h5>
+            <p>Ripple is an optional animation for the supported components such as buttons. It is disabled by default and needs to be enabled globally at your main component e.g. app.component.ts by injecting
+                <i>PrimeNGConfig</i>.</p>
+
+<app-code lang="typescript" ngNonBindable>
+import &#123; PrimeNGConfig &#125; from 'primeng/api';
+
+@Component(&#123;
+    selector: 'app-root',
+    templateUrl: './app.component.html'
+&#125;)
+export class AppComponent implements OnInit &#123;
+
+    constructor(private primengConfig: PrimeNGConfig) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.primengConfig.ripple = true;
+    &#125;
+
+&#125;
+</app-code>
+
+            <h5>Directive</h5>
             <p>Ripple is applied by adding the <i>pRipple</i> directive to the host.</p>
                     
 <app-code lang="markup" ngNonBindable>

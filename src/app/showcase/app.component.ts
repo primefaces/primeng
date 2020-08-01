@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
+import { PrimeNGConfig } from 'primeng/api';
 
 declare let gtag: Function;
 
@@ -21,9 +22,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public subscription: Subscription;
 
-    constructor(private router: Router, private configService: AppConfigService) {}
+    constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig) {}
 
     ngOnInit() {
+        this.primengConfig.ripple = true;
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
 
