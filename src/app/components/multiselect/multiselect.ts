@@ -81,8 +81,8 @@ export class MultiSelectItem {
                        [attr.aria-labelledby]="ariaLabelledBy" role="listbox">
             </div>
             <div class="p-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
-                <div class="p-multiselect-label" [ngClass]="{'p-placeholder': valuesAsString === (defaultLabel || placeholder)}">
-                    <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString}}</ng-container>
+                <div class="p-multiselect-label" [ngClass]="{'p-placeholder': valuesAsString === (defaultLabel || placeholder), 'p-multiselect-label-empty': ((valuesAsString == null || valuesAsString.length === 0) && (placeholder == null || placeholder.length === 0))}">
+                    <ng-container *ngIf="!selectedItemsTemplate">{{valuesAsString || 'empty'}}</ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
                 </div>
             </div>
@@ -160,7 +160,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() scrollHeight: string = '200px';
 
-    _defaultLabel: string = 'Choose';
+    _defaultLabel: string;
 
     @Input() set defaultLabel(val: string) {
         this._defaultLabel = val;
