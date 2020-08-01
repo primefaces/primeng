@@ -110,9 +110,7 @@
                             transition: border-bottom-color .2s;
 
                             &:focus {
-                                outline: 0 none;
-                                transition: background-color .2s, box-shadow .2s;
-                                box-shadow: 0 0 0 0.2em $focusBorderColor;
+                                @include focused();
                             }
 
                             &:hover {

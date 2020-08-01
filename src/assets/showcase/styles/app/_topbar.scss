@@ -39,9 +39,7 @@
         }
 
         &:focus {
-            outline: 0 none;
-            transition: box-shadow .2s;
-            box-shadow: 0 0 0 0.2rem $focusBorderColor;
+            @include focused();
         }
     }
 
