@@ -4192,6 +4192,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 1.5rem;
   margin-right: 0.5rem;
 }
+.p-message .p-message-summary {
+  font-weight: 700;
+}
+.p-message .p-message-detail {
+  margin-left: 0.5rem;
+}
 
 .p-toast {
   opacity: 0.9;
@@ -4211,7 +4217,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
   font-size: 2rem;
 }
-.p-toast .p-toast-message .p-toast-message-content .p-toast-title {
+.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
   font-weight: 700;
 }
 .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
