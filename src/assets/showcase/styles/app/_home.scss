@@ -141,6 +141,15 @@
     .why-templates {
         text-align: left;
         padding-top: 2rem;
+
+        img{
+            width: auto;
+            box-shadow: none;
+        }
+
+        .p-md-6:last-child {
+            text-align: center;
+        }
     }
 
     .primeng-designer {
@@ -148,8 +157,8 @@
         color: var(--text-color);
         padding: 2rem;
       
-        img {
-            width: 100%;
+        .p-md-6:last-child {
+            text-align: center;
         }
     }
 
@@ -157,12 +166,12 @@
         background-color: var(--surface-b);
         color: var(--text-color);
         padding: 2rem;
-      
-        img {
-            width: 100%;
-        }
 
         h4 {
+            text-align: center;
+        }
+
+        .p-md-6:last-child {
             text-align: center;
         }
     }
@@ -174,7 +183,7 @@
         color: var(--text-color);
 
         img {
-            margin-top: 10px;
+        
         }
 
         .p-md-6:last-child {
