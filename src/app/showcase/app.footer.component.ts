@@ -10,10 +10,10 @@ import {Component} from '@angular/core';
             </div>
 
             <div class="layout-footer-right">
-                <a href="https://github.com/primefaces/primevue" class="p-mr-3">
+                <a href="https://github.com/primefaces/primeng" class="p-mr-3">
                     <i class="pi pi-github"></i>
                 </a>
-                <a href="https://twitter.com/primevue">
+                <a href="https://twitter.com/prime_ng">
                     <i class="pi pi-twitter"></i>
                 </a>
             </div>
