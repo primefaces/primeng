@@ -1,7 +1,7 @@
 import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
-import { PrimeTemplate } from '../api/shared';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     selector: 'p-scrollPanel',

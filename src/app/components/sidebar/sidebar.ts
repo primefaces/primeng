@@ -3,7 +3,7 @@ import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {RippleModule} from 'primeng/ripple';
 import {DomHandler} from 'primeng/dom';
-import { PrimeTemplate } from '../api/shared';
+import {PrimeTemplate} from 'primeng/api';
 
 @Component({
     selector: 'p-sidebar',
