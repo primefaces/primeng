@@ -38,7 +38,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inputnumber.css'],
     host: {
-        '[class.p-filled]': 'filled()',
+        '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused'
     }
 })
@@ -657,7 +657,7 @@ export class InputNumber implements OnInit,ControlValueAccessor {
         return new RegExp(`[]`,'g');
     }
 
-    filled() {
+    get filled() {
         return (this.value != null && this.value.toString().length > 0)
     }
 
