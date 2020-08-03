@@ -1,5 +1,3 @@
-# Change Log
-
 # Changelog
 
 ## [10.0.0-rc.1](https://github.com/primefaces/primeng/tree/10.0.0-rc.1)
