@@ -2,6 +2,54 @@
 
 # Changelog
 
+## [10.0.0-rc.1](https://github.com/primefaces/primeng/tree/10.0.0-rc.1)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.1.3...10.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+
+- Sizes for input text and button [\#9100](https://github.com/primefaces/primeng/issues/9100)
+- Outlined and Filled Input texts [\#9099](https://github.com/primefaces/primeng/issues/9099)
+- Improved Overlay Animations [\#9098](https://github.com/primefaces/primeng/issues/9098)
+- Migrate to PrimeIcons 4.0 [\#9097](https://github.com/primefaces/primeng/issues/9097)
+- Label Nova, Luna and Rhea as Legacy Themes [\#9095](https://github.com/primefaces/primeng/issues/9095)
+- Migrate to PrimeOne Design Architecture [\#9094](https://github.com/primefaces/primeng/issues/9094)
+- PrimeOne Themes [\#9093](https://github.com/primefaces/primeng/issues/9093)
+- Material Theme [\#9092](https://github.com/primefaces/primeng/issues/9092)
+- Bootstrap Theme [\#9091](https://github.com/primefaces/primeng/issues/9091)
+- Add Icon template to Panel like PrimeVue [\#9068](https://github.com/primefaces/primeng/issues/9068)
+- Add badge and badgeClass to Button  [\#9062](https://github.com/primefaces/primeng/issues/9062)
+- Add style and styleClass to InputNumber [\#9048](https://github.com/primefaces/primeng/issues/9048)
+- p-inputNumber is missing inputStyleClass property [\#9028](https://github.com/primefaces/primeng/issues/9028)
+- Reimplement TieredMenu, MegaMenu and MenuBar [\#8780](https://github.com/primefaces/primeng/issues/8780)
+- Deprecate ng-content in favor of ng-template [\#8775](https://github.com/primefaces/primeng/issues/8775)
+- Multiple Messages display should support multiple severities [\#8767](https://github.com/primefaces/primeng/issues/8767)
+- Remove ui-g [\#8761](https://github.com/primefaces/primeng/issues/8761)
+- Migrate all components to use ChangeDetectionStrategy.OnPush [\#8688](https://github.com/primefaces/primeng/issues/8688)
+- Remove deprecated style classes [\#8630](https://github.com/primefaces/primeng/issues/8630)
+- Deprecate Responsive Table [\#8611](https://github.com/primefaces/primeng/issues/8611)
+- Listbox filter width problem when showToggleAll=false [\#8541](https://github.com/primefaces/primeng/issues/8541)
+
+**Fixed bugs:**
+
+- ToggleButton bug: incorrect background color when not checked \(value=false\) PrimeNG 9.0.6-9.1.2 [\#8915](https://github.com/primefaces/primeng/issues/8915)
+
+**Deprecated:**
+
+- Deprecated Features [\#9096](https://github.com/primefaces/primeng/issues/9096)
+
+## [9.1.3](https://github.com/primefaces/primeng/tree/9.1.3) (2020-07-06)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/9.1.2...9.1.3)
+
+**Implemented New Features and Enhancements:**
+
+- Use angular style API for components and reduce primeng.css [\#8651](https://github.com/primefaces/primeng/issues/8651)
+
+**Fixed bugs:**
+
+- TreeTable, Table and InputNumber throwing error [\#9007](https://github.com/primefaces/primeng/issues/9007)
+
 ## [9.1.2](https://github.com/primefaces/primeng/tree/9.1.2) (2020-06-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/9.1.1...9.1.2)
