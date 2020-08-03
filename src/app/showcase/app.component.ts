@@ -72,10 +72,9 @@ export class AppComponent implements OnInit, OnDestroy {
             element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
 
-    hideNews(event) {
+    hideNews() {
         this.newsActive = false;
         sessionStorage.setItem('primenews-hidden', 'true');
-        event.preventDefault();
     }
 
     ngOnDestroy() {

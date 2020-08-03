@@ -14,7 +14,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="{'p-button p-togglebutton p-component': true, 'p-button-icon-only': (onIcon && offIcon && !hasOnLabel && !hasOffLabel),'p-highlight': checked,'p-disabled':disabled}" 
                         [ngStyle]="style" [class]="styleClass" (click)="toggle($event)" (keydown.enter)="toggle($event)"
-                        [attr.tabindex]="disabled ? null : '0'" role="checkbox" [attr.aria-checked]="value" pRipple>
+                        [attr.tabindex]="disabled ? null : '0'" role="checkbox" [attr.aria-checked]="checked" pRipple>
             <span *ngIf="onIcon||offIcon" [class]="checked ? this.onIcon : this.offIcon" 
                 [ngClass]="{'p-button-icon': true, 'p-button-icon-left': (iconPos === 'left'), 'p-button-icon-right': (iconPos === 'right')}"></span>
             <span class="p-button-label">{{checked ? hasOnLabel ? onLabel : '' : hasOffLabel ? offLabel : ''}}</span>

@@ -27,8 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="p-col-12 p-md-6 drop-column" pDroppable="products" 
-            (onDrop)="drop($event)" [ngClass]="{'p-highlight-car':draggedCar}">
+            <div class="p-col-12 p-md-6 drop-column" pDroppable="products" (onDrop)="drop()">
             <p-table [value]="selectedProducts">
                 <ng-template pTemplate="header">
                     <tr>
@@ -249,8 +248,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="p-col-12 p-md-6 drop-column" pDroppable="products" 
-    (onDrop)="drop($event)" [ngClass]="&#123;'p-highlight-car':draggedCar&#125;"&gt;
+    &lt;div class="p-col-12 p-md-6 drop-column" pDroppable="products" (onDrop)="drop()"&gt;
     &lt;p-table [value]="selectedProducts"&gt;
         &lt;ng-template pTemplate="header"&gt;
             &lt;tr&gt;
