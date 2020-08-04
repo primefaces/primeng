@@ -349,15 +349,15 @@ describe('FileUpload', () => {
             preventDefault(){}
         };
         const uploadSpy = spyOn(fileupload,"upload").and.callThrough();
-        const onSimpleUploaderClickSpy = spyOn(fileupload,"onSimpleUploaderClick").and.callThrough();
+        const onBasicUploaderClickkSpy = spyOn(fileupload,"onBasicUploaderClick").and.callThrough();
         fileupload.onFileSelect(event);
         fixture.detectChanges();
 
-        fileupload.onSimpleUploaderClick(event);
+        fileupload.onBasicUploaderClick(event);
         fixture.detectChanges();
 
         expect(uploadSpy).toHaveBeenCalled();
-        expect(onSimpleUploaderClickSpy).toHaveBeenCalled();
+        expect(onBasicUploaderClickkSpy).toHaveBeenCalled();
     });
 
     it('should accept all of multiple given MIME types', () => {

@@ -120,61 +120,6 @@ describe('MegaMenu', () => {
         expect(menuItemCustomEl).toBeFalsy();
     });
 
-    it('should call onItemMouseEnter', fakeAsync(() => {
-        megamenu.model  = [
-        {
-            label: 'TV', icon: 'pi pi-fw pi-check',
-            items: [
-                [
-                    {
-                        label: 'TV 1',
-                        items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
-                    },
-                    {
-                        label: 'TV 2',
-                        items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
-                    }
-                ]
-            ]
-        },
-        {
-            label: 'Sports', icon: 'pi pi-fw pi-soccer-ball-o',
-            items: [
-                [
-                    {
-                        label: 'Sports 1',
-                        items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
-                    },
-                    {
-                        label: 'Sports 2',
-                        items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
-                    },
-
-                ]
-            ]
-        },
-        ];
-        fixture.detectChanges();
-        
-        const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const sportsEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const submenuEl = fixture.debugElement.query(By.css('.ui-megamenu-grid')).queryAll(By.css('ul'));
-        const event = new Event('mouseenter');
-        const mouseLeaveEvent = new Event('mouseleave');
-        tvEl.dispatchEvent(event);
-        fixture.detectChanges();
-
-        expect(megamenu.hideTimeout).toBeUndefined();
-        tvEl.dispatchEvent(mouseLeaveEvent);
-        fixture.detectChanges();
-        tick(200);
-
-        sportsEl.dispatchEvent(event);
-        fixture.detectChanges();
-
-        expect(megamenu.hideTimeout).toBeNull();
-    }));
-
     it('should call onItemMouseEnter twice and call', () => {
         megamenu.model  = [
         {
@@ -209,7 +154,6 @@ describe('MegaMenu', () => {
             ]
         },
         ];
-        const mouseenterSpy = spyOn(megamenu, 'onItemMouseEnter').and.callThrough();
         fixture.detectChanges();
         
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
@@ -220,7 +164,6 @@ describe('MegaMenu', () => {
 
         const tv1HeaderEl = submenuEl[0].query(By.css('.ui-widget-header')).nativeElement;
         const tv1FirstItemLabelEl = submenuEl[0].query(By.css('.ui-menuitem-text')).nativeElement;
-        expect(mouseenterSpy).toHaveBeenCalled();
         expect(submenuEl.length).toEqual(2);
         expect(tv1HeaderEl.textContent).toContain("TV 1");
         expect(tv1FirstItemLabelEl.textContent).toContain("TV 1.1");
@@ -261,7 +204,6 @@ describe('MegaMenu', () => {
             ]
         },
         ];
-        const mouseLeaveSpy = spyOn(megamenu, 'onItemMouseLeave').and.callThrough();
         fixture.detectChanges();
         
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
@@ -274,7 +216,6 @@ describe('MegaMenu', () => {
         tick(1000)
         fixture.detectChanges();
 
-        expect(mouseLeaveSpy).toHaveBeenCalled();
         expect(megamenu.activeItem).toEqual(null);
     }));
 
@@ -367,7 +308,6 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
         
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
-        const mouseenterSpy = spyOn(megamenu, 'onItemMouseEnter').and.callThrough();
         const event = new Event('mouseenter');
         tvEl.dispatchEvent(event);
         fixture.detectChanges();
@@ -375,7 +315,6 @@ describe('MegaMenu', () => {
         const disabledItems = fixture.debugElement.queryAll(By.css('.ui-state-disabled'));
         expect(megamenu.activeItem).toEqual(undefined);
         expect(disabledItems.length).toEqual(2);
-        expect(mouseenterSpy).toHaveBeenCalled();
         expect(megamenu.activeItem).toBeUndefined();
     });
 
