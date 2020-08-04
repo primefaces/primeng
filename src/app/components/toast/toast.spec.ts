@@ -69,7 +69,6 @@ describe('Toast', () => {
     });
 
     it('should create success toast', () => {
-        toast.modal = true;
         fixture.detectChanges();
   
         component.showDefaultToast('success');
@@ -81,7 +80,6 @@ describe('Toast', () => {
     });
 
     it('should close toast', () => {
-        toast.modal = true;
         fixture.detectChanges();
   
         component.showDefaultToast('success');
@@ -116,7 +114,6 @@ describe('Toast', () => {
     });
 
     it('should clear toast', () => {
-        toast.modal = true;
         fixture.detectChanges();
   
         component.showDefaultToast('success');
@@ -136,7 +133,6 @@ describe('Toast', () => {
 
     it('should clear toast with key', () => {
         toast.key = "vv";
-        toast.modal = true;
         fixture.detectChanges();
   
         component.showWithKey('vv');
@@ -155,7 +151,6 @@ describe('Toast', () => {
     });
 
     it('should create multiple toast', () => {
-        toast.modal = true;
         fixture.detectChanges();
   
         component.showMultipleToast();
