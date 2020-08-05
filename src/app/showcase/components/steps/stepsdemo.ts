@@ -6,20 +6,20 @@ import {MessageService} from 'primeng/api';
     templateUrl: './stepsdemo.html',
     providers: [MessageService],
     styles: [`
-        .ui-steps .ui-steps-item {
+        .p-steps .p-steps-item {
             width: 25%;
         }
         
-        .ui-steps.steps-custom {
+        .p-steps.steps-custom {
             margin-bottom: 30px;
         }
         
-        .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
+        .p-steps.steps-custom .p-steps-item .p-menuitem-link {
             padding: 0 1em;
             overflow: visible;
         }
         
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-number {
+        .p-steps.steps-custom .p-steps-item .p-steps-number {
             background-color: #0081c2;
             color: #FFFFFF;
             display: inline-block;
@@ -29,7 +29,7 @@ import {MessageService} from 'primeng/api';
             margin-bottom: 10px;
         }
         
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
+        .p-steps.steps-custom .p-steps-item .p-steps-title {
             color: #555555;
         }
     `],
